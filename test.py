@@ -7,6 +7,7 @@ QUESTION = 1480
 SOLUTION = SourceFileLoader("module.name", f"./{QUESTION}/solution.py").load_module().Solution()
 TESTCASE = SourceFileLoader("module.name", f"./{QUESTION}/testcase.py").load_module().Testcase()
 
+
 class Test(unittest.TestCase):
     def test(self):
         for testcase in TESTCASE.get_testcases():
