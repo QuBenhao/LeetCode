@@ -10,7 +10,9 @@ class Solution(solution.Solution):
         :type address: str
         :rtype: str
         """
+
         # 20ms solution
         # return address.replace(".","[.]")
+
         # 4ms solution
         return '[.]'.join(address.split('.'))

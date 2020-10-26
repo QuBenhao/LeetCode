@@ -1,5 +1,5 @@
 # LeetCode
-Algorithms I wrote in LeetCode
+Algorithms in LeetCode by Benhao
 
 # Table of Content
 1. [Easy](#easy)
@@ -19,6 +19,8 @@ Algorithms I wrote in LeetCode
 [1512.Number of Good Pairs](1512/problem.md)
 
 [1108.Defanging an IP Address](1108/problem.md)
+
+[771. Jewels and Stones](771/problem.md)
 
 ### Hard
 
