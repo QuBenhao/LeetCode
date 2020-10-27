@@ -15,10 +15,10 @@ class Solution(solution.Solution):
         for i in range(len(nums)-1):
             if nums[i] > nums[i+1]:
                 count += 1
+                if count > 1:
+                    return False
                 mark = i
-        if count > 1:
-            return False
-        elif count == 1:
+        if count == 1:
             if 0 < mark < len(nums)-2:
                 if nums[mark-1] > nums[mark+1] and nums[mark] > nums[mark+2]:
                     return False
