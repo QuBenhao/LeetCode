@@ -12,4 +12,7 @@ class Solution(solution.Solution):
         :type indices: List[int]
         :rtype: str
         """
-        pass
+        res_str = [""] * len(s)
+        for i in range(len(s)):
+            res_str[indices[i]] = s[i]
+        return "".join(res_str)
