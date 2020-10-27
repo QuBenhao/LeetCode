@@ -32,6 +32,8 @@ Algorithms in LeetCode by Benhao
 
 [1281. Subtract the Product and Sum of Digits of an Integer](1281/problem.md)
 
+[1603. Design Parking System](1603/problem.md)
+
 ### Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
