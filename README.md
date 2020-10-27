@@ -30,6 +30,8 @@ Algorithms in LeetCode by Benhao
 
 [1365. How Many Numbers Are Smaller Than the Current Number](1365/problem.md)
 
+[1281. Subtract the Product and Sum of Digits of an Integer](1281/problem.md)
+
 ### Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
