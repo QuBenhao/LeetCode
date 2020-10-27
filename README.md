@@ -26,6 +26,8 @@ Algorithms in LeetCode by Benhao
 
 [1342. Number of Steps to Reduce a Number to Zero](1342/problem.md)
 
+[1528. Shuffle String](1528/problem.md)
+
 ### Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
