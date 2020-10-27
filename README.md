@@ -28,6 +28,8 @@ Algorithms in LeetCode by Benhao
 
 [1528. Shuffle String](1528/problem.md)
 
+[1365. How Many Numbers Are Smaller Than the Current Number](1365/problem.md)
+
 ### Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
