@@ -34,6 +34,8 @@ Algorithms in LeetCode by Benhao
 
 [1603. Design Parking System](1603/problem.md)
 
+[1313. Decompress Run-Length Encoded List](1313/problem.md)
+
 ### Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
