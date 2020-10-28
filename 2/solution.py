@@ -6,12 +6,11 @@ class Solution(solution.Solution):
         l1_nums, l2_nums = test_input
 
         def construct_list(nums):
-            nodes = []
+            p = head = ListNode(0)
             for i in nums:
-                nodes.append(ListNode(val=i, next=None))
-            for i in range(len(nodes) - 1):
-                nodes[i].next = nodes[i + 1]
-            return nodes[0]
+                p.next = ListNode(i)
+                p = p.next
+            return head.next
 
         l1 = construct_list(l1_nums)
         l2 = construct_list(l2_nums)
@@ -28,25 +27,22 @@ class Solution(solution.Solution):
         :type l2: ListNode
         :rtype: ListNode
         """
-        pointer1 = l1
-        pointer2 = l2
         carry = 0
-        root = ListNode(val=0, next=None)
-        pointer = root
-        while pointer1 or pointer2 or carry:
-            if pointer1:
-                carry += pointer1.val
-                pointer1 = pointer1.next
-            if pointer2:
-                carry += pointer2.val
-                pointer2 = pointer2.next
+        pointer = root = ListNode(0)
+        while l1 or l2 or carry:
+            if l1:
+                carry += l1.val
+                l1 = l1.next
+            if l2:
+                carry += l2.val
+                l2 = l2.next
             if carry >= 10:
-                s = carry % 10
+                s = carry - 10
                 carry = 1
             else:
                 s = carry
                 carry = 0
-            pointer.next = ListNode(s, next=None)
+            pointer.next = ListNode(s)
             pointer = pointer.next
         return root.next
 
