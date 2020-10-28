@@ -3,7 +3,8 @@ Algorithms in LeetCode by Benhao
 
 # Table of Content
 1. [Easy](#easy)
-2. [Hard](#hard)
+2. [Medium](#medium) 
+3. [Hard](#hard)
 
 
 ## Problems
@@ -35,6 +36,10 @@ Algorithms in LeetCode by Benhao
 [1603. Design Parking System](1603/problem.md)
 
 [1313. Decompress Run-Length Encoded List](1313/problem.md)
+
+### Medium
+
+[2. Add Two Numbers](2/problem.md)
 
 ### Hard
 
