@@ -10,17 +10,12 @@ class Solution(solution.Solution):
         :type digits: List[int]
         :rtype: List[int]
         """
-        carry = 1
         for i in range(len(digits)-1,-1,-1):
-            digits[i] += carry
+            digits[i] += 1
             if digits[i] > 9:
-                carry = 1
                 digits[i] = 0
                 if i == 0:
-                    list.insert(digits,0,carry)
+                    list.insert(digits,0,1)
                     return digits
             else:
-                carry = 0
                 return digits
-        return digits
-
