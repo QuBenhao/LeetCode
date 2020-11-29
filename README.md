@@ -58,6 +58,8 @@ Algorithms in LeetCode by Benhao
 
 [2.Add Two Numbers](2/problem.md)
 
+[1476.Subrectangle Queries](1476/problem.md)
+
 ### Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
