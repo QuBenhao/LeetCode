@@ -5,6 +5,7 @@ Algorithms in LeetCode by Benhao
 1. [Easy](#easy)
 2. [Medium](#medium) 
 3. [Hard](#hard)
+4. [Mysql](#mysql)
 
 
 ## Problems
@@ -51,7 +52,7 @@ Algorithms in LeetCode by Benhao
 
 [1672.Richest Customer Wealth](1672/problem.md)
 
-[1179.Reformat Department Table](1179/problem.md)
+[1290.Convert Binary Number in a Linked List to Integer](1290/problem.md)
 
 ### Medium
 
@@ -60,3 +61,7 @@ Algorithms in LeetCode by Benhao
 ### Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
+
+### Mysql
+
+[1179.Reformat Department Table](1179/problem.md)
