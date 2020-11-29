@@ -51,6 +51,8 @@ Algorithms in LeetCode by Benhao
 
 [1672.Richest Customer Wealth](1672/problem.md)
 
+[1179.Reformat Department Table](1179/problem.md)
+
 ### Medium
 
 [2.Add Two Numbers](2/problem.md)
