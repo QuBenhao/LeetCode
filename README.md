@@ -21,25 +21,39 @@ Algorithms in LeetCode by Benhao
 
 [1108.Defanging an IP Address](1108/problem.md)
 
-[771. Jewels and Stones](771/problem.md)
+[771.Jewels and Stones](771/problem.md)
 
 [665.Non-decreasing Array](665/problem.md)
 
-[1342. Number of Steps to Reduce a Number to Zero](1342/problem.md)
+[1342.Number of Steps to Reduce a Number to Zero](1342/problem.md)
 
-[1528. Shuffle String](1528/problem.md)
+[1528.Shuffle String](1528/problem.md)
 
-[1365. How Many Numbers Are Smaller Than the Current Number](1365/problem.md)
+[1365.How Many Numbers Are Smaller Than the Current Number](1365/problem.md)
 
-[1281. Subtract the Product and Sum of Digits of an Integer](1281/problem.md)
+[1281.Subtract the Product and Sum of Digits of an Integer](1281/problem.md)
 
-[1603. Design Parking System](1603/problem.md)
+[1603.Design Parking System](1603/problem.md)
 
-[1313. Decompress Run-Length Encoded List](1313/problem.md)
+[1313.Decompress Run-Length Encoded List](1313/problem.md)
+
+[1614.Maximum Nesting Depth of the Parentheses](1614/problem.md)
+
+[1389.Create Target Array in the Given Order](1389/problem.md)
+
+[1486.XOR Operation in an Array](1486/problem.md)
+
+[1221.Split a String in Balanced Strings](1221/problem.md)
+
+[1662.Check If Two String Arrays are Equivalent](1662/problem.md)
+
+[66.Plus One](66/problem.md)
+
+[1672.Richest Customer Wealth](1672/problem.md)
 
 ### Medium
 
-[2. Add Two Numbers](2/problem.md)
+[2.Add Two Numbers](2/problem.md)
 
 ### Hard
 
