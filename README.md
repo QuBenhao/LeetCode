@@ -56,6 +56,8 @@ Algorithms in LeetCode by Benhao
 
 [1588.Sum of All Odd Length Subarrays](1588/problem.md)
 
+[1656.Design an Ordered Stream](1656/problem.md)
+
 ### Medium
 
 [2.Add Two Numbers](2/problem.md)
