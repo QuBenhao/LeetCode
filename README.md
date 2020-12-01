@@ -6,8 +6,8 @@ Algorithms in LeetCode by Benhao
 2. [Medium](#medium) 
 3. [Hard](#hard)
 4. [Mysql](#mysql)
-5. [Daily Challenge](#daily challenge)<br>
-    5.1 [2020 Dec](#2020 dec)
+5. [Daily Challenge](#daily_challenge)<br>
+    5.1 [2020 Dec](#2020_dec)
 
 
 # Problems
