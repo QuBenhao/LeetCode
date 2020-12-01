@@ -6,11 +6,13 @@ Algorithms in LeetCode by Benhao
 2. [Medium](#medium) 
 3. [Hard](#hard)
 4. [Mysql](#mysql)
+5. [Daily Challenge](#daily challenge)<br>
+    5.1 [2020 Dec](#2020 dec)
 
 
-## Problems
+# Problems
 
-### Easy
+## Easy
 
 [1480.Running Sum of 1d Array](1480/problem.md)
 
@@ -52,13 +54,15 @@ Algorithms in LeetCode by Benhao
 
 [1672.Richest Customer Wealth](1672/problem.md)
 
+[938.Range Sum of BST](938/problem.md)
+
 [1290.Convert Binary Number in a Linked List to Integer](1290/problem.md)
 
 [1588.Sum of All Odd Length Subarrays](1588/problem.md)
 
 [1656.Design an Ordered Stream](1656/problem.md)
 
-### Medium
+## Medium
 
 [2.Add Two Numbers](2/problem.md)
 
@@ -66,10 +70,15 @@ Algorithms in LeetCode by Benhao
 
 [646.Maximum Length of Pair Chain](646/problem.md)
 
-### Hard
+## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
 
-### Mysql
+## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
+
+## Daily Challenge
+### 2020 Dec
+
+[01.Maximum Depth of Binary Tree Solution](daily_challenge/2020_DEC/01/problem.md)
