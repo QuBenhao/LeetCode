@@ -7,7 +7,7 @@ Algorithms in LeetCode by Benhao
 3. [Hard](#hard)
 4. [Mysql](#mysql)
 5. [Daily Challenge](#daily-challenge)<br>
-    5.1 [2020 Dec](#2020-dec)
+    5.1. [2020 Dec](#2020-dec)
 
 
 # Problems
@@ -61,6 +61,8 @@ Algorithms in LeetCode by Benhao
 [1588.Sum of All Odd Length Subarrays](1588/problem.md)
 
 [1656.Design an Ordered Stream](1656/problem.md)
+
+[83.Remove Duplicates from Sorted List](83/problem.md)
 
 ## Medium
 
