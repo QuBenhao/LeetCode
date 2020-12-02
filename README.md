@@ -6,8 +6,7 @@ Algorithms in LeetCode by Benhao
 2. [Medium](#medium) 
 3. [Hard](#hard)
 4. [Mysql](#mysql)
-5. [Daily Challenge](#daily-challenge)<br>
-    5.1. [2020 Dec](#2020-dec)
+5. [Contest](#contest)
 
 
 # Problems
@@ -62,6 +61,8 @@ Algorithms in LeetCode by Benhao
 
 [1656.Design an Ordered Stream](1656/problem.md)
 
+[104.Maximum Depth of Binary Tree Solution](104/problem.md)
+
 [83.Remove Duplicates from Sorted List](83/problem.md)
 
 ## Medium
@@ -76,6 +77,8 @@ Algorithms in LeetCode by Benhao
 
 [165.Compare Version Numbers](165/problem.md)
 
+[382.Linked List Random Node](382/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
@@ -84,9 +87,5 @@ Algorithms in LeetCode by Benhao
 
 [1179.Reformat Department Table](1179/problem.md)
 
-## Daily Challenge
-### 2020 Dec
-
-[01.Maximum Depth of Binary Tree Solution](daily_challenge/2020_DEC/01/problem.md)
-
-[02.Linked List Random Node](daily_challenge/2020_DEC/02/problem.md)
+## Contest
+### Weekly Contest 218
