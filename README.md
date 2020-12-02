@@ -88,3 +88,5 @@ Algorithms in LeetCode by Benhao
 ### 2020 Dec
 
 [01.Maximum Depth of Binary Tree Solution](daily_challenge/2020_DEC/01/problem.md)
+
+[02.Linked List Random Node](daily_challenge/2020_DEC/02/problem.md)
