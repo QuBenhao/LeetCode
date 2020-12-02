@@ -72,6 +72,8 @@ Algorithms in LeetCode by Benhao
 
 [646.Maximum Length of Pair Chain](646/problem.md)
 
+[822.Card Flipping Game](822/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
