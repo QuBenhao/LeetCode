@@ -83,6 +83,8 @@ Algorithms in LeetCode by Benhao
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
 
+[1095.Find in Mountain Array](1095/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
