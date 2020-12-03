@@ -65,6 +65,8 @@ Algorithms in LeetCode by Benhao
 
 [83.Remove Duplicates from Sorted List](83/problem.md)
 
+[897.Increasing Order Search Tree](897/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
