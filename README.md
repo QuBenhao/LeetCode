@@ -81,11 +81,15 @@ Algorithms in LeetCode by Benhao
 
 [382.Linked List Random Node](382/problem.md)
 
+[1492.The kth Factor of n](1492/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
 
 [1095.Find in Mountain Array](1095/problem.md)
+
+[188.Best Time to Buy and Sell Stock IV](188/problem.md)
 
 ## Mysql
 
