@@ -67,6 +67,8 @@ Algorithms in LeetCode by Benhao
 
 [897.Increasing Order Search Tree](897/problem.md)
 
+[605.Can Place Flowers](605/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
