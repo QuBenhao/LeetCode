@@ -6,8 +6,6 @@ Algorithms in LeetCode by Benhao
 2. [Medium](#medium) 
 3. [Hard](#hard)
 4. [Mysql](#mysql)
-5. [Contest](#contest)
-
 
 # Problems
 
@@ -91,6 +89,10 @@ Algorithms in LeetCode by Benhao
 
 [1679.Max Number of K-Sum Pairs](1679/problem.md)
 
+[1681.Minimum Incompatibility](1681/problem.md)
+
+[117.Populating Next Right Pointers in Each Node II](117/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
@@ -102,6 +104,3 @@ Algorithms in LeetCode by Benhao
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
-
-## Contest
-### Weekly Contest 218
