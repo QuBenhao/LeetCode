@@ -69,6 +69,8 @@ Algorithms in LeetCode by Benhao
 
 [605.Can Place Flowers](605/problem.md)
 
+[1678.Goal Parser Interpretation](1678/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
@@ -84,6 +86,8 @@ Algorithms in LeetCode by Benhao
 [382.Linked List Random Node](382/problem.md)
 
 [1492.The kth Factor of n](1492/problem.md)
+
+[1680.Concatenation of Consecutive Binary Numbers](1680/problem.md)
 
 ## Hard
 
