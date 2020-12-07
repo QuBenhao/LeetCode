@@ -12,8 +12,4 @@ class Solution(solution.Solution):
         :type m: int
         :rtype: int
         """
-        if m == n:
-            return 1
-        if n > m:
-            m,n = n,m
-        return 1 + self.tilingRectangle(m-n,n)
+

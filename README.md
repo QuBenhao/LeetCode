@@ -89,9 +89,9 @@ Algorithms in LeetCode by Benhao
 
 [1679.Max Number of K-Sum Pairs](1679/problem.md)
 
-[1681.Minimum Incompatibility](1681/problem.md)
-
 [117.Populating Next Right Pointers in Each Node II](117/problem.md)
+
+[59.Spiral Matrix II](59/problem.md)
 
 ## Hard
 
@@ -100,6 +100,8 @@ Algorithms in LeetCode by Benhao
 [1095.Find in Mountain Array](1095/problem.md)
 
 [188.Best Time to Buy and Sell Stock IV](188/problem.md)
+
+[1681.Minimum Incompatibility](1681/problem.md)
 
 ## Mysql
 
