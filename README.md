@@ -93,6 +93,8 @@ Algorithms in LeetCode by Benhao
 
 [59.Spiral Matrix II](59/problem.md)
 
+[1010.Pairs of Songs With Total Durations Divisible by 60](1010/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
