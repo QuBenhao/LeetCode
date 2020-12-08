@@ -95,6 +95,8 @@ Algorithms in LeetCode by Benhao
 
 [1010.Pairs of Songs With Total Durations Divisible by 60](1010/problem.md)
 
+[592.Fraction Addition and Subtraction](592/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
