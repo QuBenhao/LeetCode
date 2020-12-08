@@ -17,7 +17,5 @@ class Solution(solution.Solution):
         count += counter[0] * (counter[0] - 1) / 2
         count += counter[30] * (counter[30] - 1) / 2
         for i in range(1, 30):
-            if counter[i] == 0:
-                continue
             count += counter[i] * counter[60 - i]
         return int(count)
