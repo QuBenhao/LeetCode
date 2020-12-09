@@ -99,6 +99,8 @@ Algorithms in LeetCode by Benhao
 
 [801.Minimum Swaps To Make Sequences Increasing](801/problem.md)
 
+[173.Binary Search Tree Iterator](173/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
