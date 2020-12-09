@@ -97,6 +97,8 @@ Algorithms in LeetCode by Benhao
 
 [592.Fraction Addition and Subtraction](592/problem.md)
 
+[801.Minimum Swaps To Make Sequences Increasing](801/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
