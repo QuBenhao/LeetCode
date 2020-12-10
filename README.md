@@ -69,6 +69,8 @@ Algorithms in LeetCode by Benhao
 
 [1678.Goal Parser Interpretation](1678/problem.md)
 
+[941.Valid Mountain Array](941/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
