@@ -111,6 +111,8 @@ Algorithms in LeetCode by Benhao
 
 [1681.Minimum Incompatibility](1681/problem.md)
 
+[282.Expression Add Operators](282/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
