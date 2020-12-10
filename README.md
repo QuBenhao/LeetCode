@@ -101,6 +101,8 @@ Algorithms in LeetCode by Benhao
 
 [173.Binary Search Tree Iterator](173/problem.md)
 
+[406.Queue Reconstruction by Height](406/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
