@@ -105,6 +105,8 @@ Algorithms in LeetCode by Benhao
 
 [406.Queue Reconstruction by Height](406/problem.md)
 
+[764.Largest Plus Sign](764/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
