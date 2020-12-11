@@ -73,6 +73,8 @@ Algorithms in LeetCode by Benhao
 
 [944.Delete Columns to Make Sorted](944/problem.md)
 
+[812.Largest Triangle Area](812/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
