@@ -75,6 +75,8 @@ Algorithms in LeetCode by Benhao
 
 [812.Largest Triangle Area](812/problem.md)
 
+[26.Remove Duplicates from Sorted Array](26/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
