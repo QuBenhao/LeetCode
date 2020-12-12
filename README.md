@@ -129,6 +129,8 @@ Algorithms in LeetCode by Benhao
 
 [1685.Sum of Absolute Differences in a Sorted Array](1685/problem.md)
 
+[1686.Stone Game VI](1686/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
