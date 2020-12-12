@@ -121,6 +121,10 @@ Algorithms in LeetCode by Benhao
 
 [1382.Balance a Binary Search Tree](1382/problem.md)
 
+[865.Smallest Subtree with all the Deepest Nodes](865/problem.md)
+
+[19.Remove Nth Node From End of List](19/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
