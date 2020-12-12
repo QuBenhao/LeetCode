@@ -133,6 +133,8 @@ Algorithms in LeetCode by Benhao
 
 [282.Expression Add Operators](282/problem.md)
 
+[37.Sudoku Solver](37/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
