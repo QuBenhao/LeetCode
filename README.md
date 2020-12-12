@@ -81,6 +81,8 @@ Algorithms in LeetCode by Benhao
 
 [1.Two Sum](1/problem.md)
 
+[1684.Count the Number of Consistent Strings](1684/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
@@ -124,6 +126,8 @@ Algorithms in LeetCode by Benhao
 [865.Smallest Subtree with all the Deepest Nodes](865/problem.md)
 
 [19.Remove Nth Node From End of List](19/problem.md)
+
+[1685.Sum of Absolute Differences in a Sorted Array](1685/problem.md)
 
 ## Hard
 

@@ -9,7 +9,7 @@ class Solution {
     	}
 	}
     solve(board, empty);
-} 
+}
 
     private boolean solve(char[][] board, Stack<Integer> empty) {
         if(empty.size()==0) return true;
