@@ -117,6 +117,8 @@ Algorithms in LeetCode by Benhao
 
 [80.Remove Duplicates from Sorted Array II](80/problem.md)
 
+[1382.Balance a Binary Search Tree](1382/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
