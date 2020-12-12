@@ -79,6 +79,8 @@ Algorithms in LeetCode by Benhao
 
 [190.Reverse Bits](190/problem.md)
 
+[1.Two Sum](1/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
