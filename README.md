@@ -83,6 +83,8 @@ Algorithms in LeetCode by Benhao
 
 [1684.Count the Number of Consistent Strings](1684/problem.md)
 
+[1688.Count of Matches in Tournament](1688/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
@@ -144,6 +146,8 @@ Algorithms in LeetCode by Benhao
 [282.Expression Add Operators](282/problem.md)
 
 [37.Sudoku Solver](37/problem.md)
+
+[1687.Delivering Boxes from Storage to Ports](1687/problem.md)
 
 ## Mysql
 
