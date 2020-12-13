@@ -151,6 +151,8 @@ Algorithms in LeetCode by Benhao
 
 [1687.Delivering Boxes from Storage to Ports](1687/problem.md)
 
+[312.Burst Balloons](312/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
