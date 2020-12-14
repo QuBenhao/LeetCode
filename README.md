@@ -155,6 +155,8 @@ Algorithms in LeetCode by Benhao
 
 [312.Burst Balloons](312/problem.md)
 
+[1691.Maximum Height by Stacking Cuboids](1691/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
