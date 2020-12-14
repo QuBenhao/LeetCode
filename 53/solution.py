@@ -16,9 +16,8 @@ class Solution(solution.Solution):
 
         dp = [nums[i] for i in range(n)]
 
-        for i in range(1,n):
-            dp[i] = max(dp[i-1]+nums[i],nums[i])
-
+        for i in range(1, n):
+            dp[i] = max(dp[i - 1] + nums[i], dp[i])
         return max(dp)
 
         # # divide and conquer
