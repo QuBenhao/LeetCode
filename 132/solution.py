@@ -39,5 +39,7 @@ class Solution(solution.Solution):
                         dp[j] = min(dp[j], dp[i - 1] + 2)
             if is_palindrome(s[i:]):
                 dp[-1] = min(dp[-1], dp[i - 1] + 1)
+                if dp[-1] == 1:
+                    return 1
 
         return dp[-1]
