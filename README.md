@@ -145,6 +145,8 @@ Algorithms in LeetCode by Benhao
 
 [29.Divide Two Integers](29/problem.md)
 
+[954.Array of Doubled Pairs](954/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
