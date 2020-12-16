@@ -139,9 +139,11 @@ Algorithms in LeetCode by Benhao
 
 [1689.Partitioning Into Minimum Number Of Deci-Binary Numbers](1689/problem.md)
 
-[1690. Stone Game VII](1690/problem.md)
+[1690.Stone Game VII](1690/problem.md)
 
 [131.Palindrome Partitioning](131/problem.md)
+
+[29.Divide Two Integers](29/problem.md)
 
 ## Hard
 
