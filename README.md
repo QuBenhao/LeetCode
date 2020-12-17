@@ -151,6 +151,8 @@ Algorithms in LeetCode by Benhao
 
 [454.4Sum II](454/problem.md)
 
+[18.4Sum](18/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
