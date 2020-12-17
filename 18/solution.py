@@ -15,7 +15,7 @@ class Solution(solution.Solution):
         N = 4
         n = len(nums)
         nums.sort()
-        if n < 4:
+        if n < N:
             return []
         ans = []
 

@@ -14,7 +14,7 @@ class Solution(solution.Solution):
         target = 0
         n = len(nums)
         nums.sort()
-        if n < 3:
+        if n < N:
             return []
         ans = []
 
