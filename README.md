@@ -157,6 +157,8 @@ Algorithms in LeetCode by Benhao
 
 [16.3Sum Closest](16/problem.md)
 
+[36.Valid Sudoku](36/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
