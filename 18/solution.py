@@ -51,4 +51,3 @@ class Solution(solution.Solution):
         dfs(N, 0, [], 0)
 
         return ans
-
