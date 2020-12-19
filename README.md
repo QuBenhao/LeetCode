@@ -163,6 +163,8 @@ Algorithms in LeetCode by Benhao
 
 [334.Increasing Triplet Subsequence](334/problem.md)
 
+[1124.Longest Well-Performing Interval](1124/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
