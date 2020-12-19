@@ -10,20 +10,17 @@ class Solution(solution.Solution):
         :type grid: List[List[int]]
         :rtype: int
         """
-        rows, cols = len(grid), len(grid[0])
-        dp = [[0] * cols for _ in range(cols)]
-        for row in range(rows - 1, -1, -1):
-            temp = [[0] * cols for _ in range(cols)]
-            for i in range(cols - 1):
-                for j in range(i, cols):
-                    # For each (i, j) position in a row
-                    for idx_i in (i - 1, i, i + 1):
-                        for idx_j in (j - 1, j, j + 1):
-                            if idx_i >= 0 and idx_j <= cols - 1:
-                                temp[i][j] = max(temp[i][j], dp[idx_i][idx_j])
-                    temp[i][j] += grid[row][i] + (0 if i == j else grid[row][j])
-            dp = temp
-        return dp[0][-1]
+        rows = len(grid)
+        cols = len(grid[0])
+        dp = [[[grid[i][j] + grid[i][k] for k in range(cols)] for j in range(cols)] for i in range(rows)]
+        for i in range(rows-2, -1, -1):
+            for j in range(cols - 1):
+                for k in range(j + 1, cols):
+                    dp[i][j][k] += max([dp[i+1][l][r]
+                                       for l in range(j-1,j+2)
+                                       for r in range(k-1,k+2)
+                                       if 0 <= l < r < cols])
+        return dp[0][0][cols - 1]
 
         # m = len(grid)
         # n = len(grid[0])
