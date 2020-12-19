@@ -89,6 +89,8 @@ Algorithms in LeetCode by Benhao
 
 [977.Squares of a Sorted Array](977/problem.md)
 
+[136.Single Number](136/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
