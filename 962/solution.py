@@ -25,7 +25,6 @@ class Solution(solution.Solution):
                 stack.append(i)
         for j in range(n)[::-1]:
             while stack and A[j] >= A[stack[-1]]:
-                print(j,stack)
                 res = max(res, j - stack.pop())
         return res
         # the idea is to keep a decreasing stack. When you encounter something bigger than stack[-1], binary search
