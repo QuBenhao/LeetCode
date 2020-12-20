@@ -175,6 +175,8 @@ Algorithms in LeetCode by Benhao
 
 [1695.Maximum Erasure Value](1695/problem.md)
 
+[1696.Jump Game VI](1696/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
