@@ -173,6 +173,8 @@ Algorithms in LeetCode by Benhao
 
 [137.Single Number II](137/problem.md)
 
+[1695.Maximum Erasure Value](1695/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
