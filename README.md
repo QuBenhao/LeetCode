@@ -177,6 +177,8 @@ Algorithms in LeetCode by Benhao
 
 [1696.Jump Game VI](1696/problem.md)
 
+[880.Decoded String at Index](880/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
@@ -200,6 +202,8 @@ Algorithms in LeetCode by Benhao
 [132.Palindrome Partitioning II](132/problem.md)
 
 [1463.Cherry Pickup II](1463/problem.md)
+
+[1697.Checking Existence of Edge Length Limited Paths](1697/problem.md)
 
 ## Mysql
 
