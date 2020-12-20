@@ -91,6 +91,8 @@ Algorithms in LeetCode by Benhao
 
 [136.Single Number](136/problem.md)
 
+[1694.Reformat Phone Number](1694/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
