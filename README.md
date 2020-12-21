@@ -93,6 +93,8 @@ Algorithms in LeetCode by Benhao
 
 [1694.Reformat Phone Number](1694/problem.md)
 
+[908.Smallest Range I](908/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
