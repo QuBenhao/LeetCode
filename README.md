@@ -179,6 +179,8 @@ Algorithms in LeetCode by Benhao
 
 [880.Decoded String at Index](880/problem.md)
 
+[910.Smallest Range II](910/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
