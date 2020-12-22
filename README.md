@@ -99,6 +99,8 @@ Algorithms in LeetCode by Benhao
 
 [110.Balanced Binary Tree](110/problem.md)
 
+[1030.Matrix Cells in Distance Order](1030/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
