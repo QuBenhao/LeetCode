@@ -33,16 +33,24 @@ class Solution(solution.Solution):
         :type root: TreeNode
         :rtype: bool
         """
-        def depth(node,d):
+
+        def depth(node, d):
             if not node:
-                return d
+                return d, True
             d += 1
-            return max(depth(node.left,d),depth(node.right,d))
+            l, l_t = depth(node.left, d)
+            if not l_t:
+                return None, False
+            r, r_t = depth(node.right, d)
+            if not r_t:
+                return None, False
+            return max(l, r), abs(l - r) <= 1
 
         if not root:
             return True
 
-        return abs(depth(root.left,0) - depth(root.right,0)) <= 1 and self.isBalanced(root.left) and self.isBalanced(root.right)
+        _, res = depth(root, 0)
+        return res
 
 
 # Definition for a binary tree node.
