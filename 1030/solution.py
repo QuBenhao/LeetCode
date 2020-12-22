@@ -15,7 +15,7 @@ class Solution(solution.Solution):
         :rtype: List[List[int]]
         """
 
-        return sorted([[r,c] for r in range(R) for c in range(C)],key=lambda x: abs(x[0] - r0) + abs(x[1] - c0))
+        return sorted([[r, c] for r in range(R) for c in range(C)], key=lambda x: abs(x[0] - r0) + abs(x[1] - c0))
 
         # cells = []
         # for r in range(R):
