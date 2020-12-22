@@ -95,6 +95,8 @@ Algorithms in LeetCode by Benhao
 
 [908.Smallest Range I](908/problem.md)
 
+[141.Linked List Cycle](141/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
