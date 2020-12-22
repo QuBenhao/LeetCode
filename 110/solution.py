@@ -46,9 +46,6 @@ class Solution(solution.Solution):
                 return None, False
             return max(l, r), abs(l - r) <= 1
 
-        if not root:
-            return True
-
         _, res = depth(root, 0)
         return res
 
