@@ -97,6 +97,8 @@ Algorithms in LeetCode by Benhao
 
 [141.Linked List Cycle](141/problem.md)
 
+[110.Balanced Binary Tree](110/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
