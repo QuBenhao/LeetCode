@@ -189,6 +189,8 @@ Algorithms in LeetCode by Benhao
 
 [910.Smallest Range II](910/problem.md)
 
+[556.Next Greater Element III](556/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
