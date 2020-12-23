@@ -13,9 +13,13 @@ class Solution(solution.Solution):
         n = len(nums)
         stack, res = [], [-1] * n
         for i in range(n*2):
+            temp = i
             if i >= n:
                 i -= n
             while stack and (nums[stack[-1]] < nums[i]):
                 res[stack.pop()] = nums[i]
-            stack.append(i)
+            if temp < n:
+                stack.append(i)
+            elif not stack:
+                break
         return res
