@@ -101,6 +101,8 @@ Algorithms in LeetCode by Benhao
 
 [1030.Matrix Cells in Distance Order](1030/problem.md)
 
+[496.Next Greater Element I](496/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
