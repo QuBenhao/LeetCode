@@ -197,6 +197,8 @@ Algorithms in LeetCode by Benhao
 
 [24.Swap Nodes in Pairs](24/problem.md)
 
+[498.Diagonal Traverse](498/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
