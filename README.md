@@ -209,6 +209,8 @@ Algorithms in LeetCode by Benhao
 
 [1701.Average Waiting Time](1701/problem.md)
 
+[1702.Maximum Binary String After Change](1702/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
