@@ -207,6 +207,8 @@ Algorithms in LeetCode by Benhao
 
 [91.Decode Ways](91/problem.md)
 
+[1701.Average Waiting Time](1701/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
