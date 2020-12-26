@@ -201,6 +201,8 @@ Algorithms in LeetCode by Benhao
 
 [1424.Diagonal Traverse II](1424/problem.md)
 
+[144.Binary Tree Preorder Traversal](144/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
