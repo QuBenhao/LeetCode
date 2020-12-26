@@ -11,7 +11,7 @@ class Test(unittest.TestCase):
     def test(self):
         for testcase in TESTCASE.get_testcases():
             i, o = testcase
-            self.assertEqual(o, SOLUTION.solve(test_input=i),msg=f"input = {i}")
+            self.assertEqual(o, SOLUTION.solve(test_input=i), msg=f"input = {i}")
 
 
 if __name__ == '__main__':
