@@ -103,6 +103,8 @@ Algorithms in LeetCode by Benhao
 
 [496.Next Greater Element I](496/problem.md)
 
+[1700.Number of Students Unable to Eat Lunch](1700/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
@@ -230,6 +232,8 @@ Algorithms in LeetCode by Benhao
 [1463.Cherry Pickup II](1463/problem.md)
 
 [1697.Checking Existence of Edge Length Limited Paths](1697/problem.md)
+
+[639.Decode Ways II](639/problem.md)
 
 ## Mysql
 
