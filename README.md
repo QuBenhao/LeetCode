@@ -203,6 +203,8 @@ Algorithms in LeetCode by Benhao
 
 [144.Binary Tree Preorder Traversal](144/problem.md)
 
+[91.Decode Ways](91/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
