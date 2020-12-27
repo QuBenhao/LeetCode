@@ -105,6 +105,8 @@ Algorithms in LeetCode by Benhao
 
 [1700.Number of Students Unable to Eat Lunch](1700/problem.md)
 
+[1704.Determine if String Halves Are Alike](1704/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
