@@ -239,6 +239,8 @@ Algorithms in LeetCode by Benhao
 
 [639.Decode Ways II](639/problem.md)
 
+[1703.Minimum Adjacent Swaps for K Consecutive Ones](1703/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)

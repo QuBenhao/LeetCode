@@ -3,8 +3,8 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n,m = test_input
-        return self.tilingRectangle(n,m)
+        n, m = test_input
+        return self.tilingRectangle(n, m)
 
     def tilingRectangle(self, n, m):
         """
@@ -12,4 +12,3 @@ class Solution(solution.Solution):
         :type m: int
         :rtype: int
         """
-
