@@ -247,6 +247,8 @@ Algorithms in LeetCode by Benhao
 
 [1703.Minimum Adjacent Swaps for K Consecutive Ones](1703/problem.md)
 
+[1707.Maximum XOR With an Element From Array](1707/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
