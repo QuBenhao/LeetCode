@@ -213,6 +213,10 @@ Algorithms in LeetCode by Benhao
 
 [1702.Maximum Binary String After Change](1702/problem.md)
 
+[1705.Maximum Number of Eaten Apples](1705/problem.md)
+
+[1706.Where Will the Ball Fall](1706/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
