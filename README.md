@@ -249,6 +249,8 @@ Algorithms in LeetCode by Benhao
 
 [1707.Maximum XOR With an Element From Array](1707/problem.md)
 
+[1345.Jump Game IV](1345/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
