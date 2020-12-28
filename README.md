@@ -217,6 +217,8 @@ Algorithms in LeetCode by Benhao
 
 [1706.Where Will the Ball Fall](1706/problem.md)
 
+[754.Reach a Number](754/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
