@@ -225,6 +225,8 @@ Algorithms in LeetCode by Benhao
 
 [309.Best Time to Buy and Sell Stock with Cooldown](309/problem.md)
 
+[714.Best Time to Buy and Sell Stock with Transaction Fee](714/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
@@ -258,6 +260,8 @@ Algorithms in LeetCode by Benhao
 [1707.Maximum XOR With an Element From Array](1707/problem.md)
 
 [1345.Jump Game IV](1345/problem.md)
+
+[123.Best Time to Buy and Sell Stock III](123/problem.md)
 
 ## Mysql
 
