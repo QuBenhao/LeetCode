@@ -107,6 +107,8 @@ Algorithms in LeetCode by Benhao
 
 [1704.Determine if String Halves Are Alike](1704/problem.md)
 
+[121.Best Time to Buy and Sell Stock](121/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
