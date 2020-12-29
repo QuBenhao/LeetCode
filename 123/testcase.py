@@ -15,7 +15,8 @@ class Testcase(testcase.Testcase):
         self.testcases.append(case(Input=[6, 1, 3, 2, 4, 7], Output=7))
         self.testcases.append(case(Input=[8, 3, 6, 2, 8, 8, 8, 4, 2, 0, 7, 2, 9, 4, 9], Output=15))
         self.testcases.append(case(Input=[8, 6, 4, 3, 3, 2, 3, 5, 8, 3, 8, 2, 6], Output=11))
-        self.testcases.append(case(Input=[2,4,1],Output=2))
+        self.testcases.append(case(Input=[2, 4, 1], Output=2))
+        self.testcases.append(case(Input=[2, 9, 2, 3, 8, 1, 5, 8, 4, 3, 6, 4, 4], Output=14))
 
     def get_testcases(self):
         return self.testcases
