@@ -227,6 +227,8 @@ Algorithms in LeetCode by Benhao
 
 [714.Best Time to Buy and Sell Stock with Transaction Fee](714/problem.md)
 
+[1457.Pseudo-Palindromic Paths in a Binary Tree](1457/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
