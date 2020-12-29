@@ -19,3 +19,21 @@ class Solution(solution.Solution):
                 profit += prices[i] - prices[i-1]
 
         return profit
+
+        # n = len(prices)
+        # dp = [0] * n
+        #
+        # buy = prices[0]
+        #
+        # for i in range(1,n):
+        #     if prices[i] < buy:
+        #         buy = prices[i]
+        #         dp[i] = dp[i-1]
+        #     else:
+        #         dp[i] = dp[i-1] + prices[i] - buy
+        #         buy = prices[i]
+        #
+        # print(dp)
+        #
+        # return dp[-1]
+
