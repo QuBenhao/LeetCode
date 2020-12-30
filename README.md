@@ -231,6 +231,8 @@ Algorithms in LeetCode by Benhao
 
 [1457.Pseudo-Palindromic Paths in a Binary Tree](1457/problem.md)
 
+[289.Game of Life](289/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
