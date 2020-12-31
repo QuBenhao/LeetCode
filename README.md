@@ -269,6 +269,8 @@ Algorithms in LeetCode by Benhao
 
 [123.Best Time to Buy and Sell Stock III](123/problem.md)
 
+[84.Largest Rectangle in Histogram](84/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
