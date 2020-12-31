@@ -19,7 +19,7 @@ class Solution(solution.Solution):
         for i, h in enumerate(heights):
             while stack and heights[stack[-1]] > h:
                 j = stack.pop()
-                # heights[j] > heights[stack[-1]) and heights[j] > heights[i]
+                # heights[j] > heights(stack[-1]) and heights[j] > heights[i] and stack[-1] < j < i
                 ans = max(ans, heights[j] * (i - stack[-1] - 1))
             stack.append(i)
 
