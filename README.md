@@ -233,6 +233,8 @@ Algorithms in LeetCode by Benhao
 
 [289.Game of Life](289/problem.md)
 
+[1328.Break a Palindrome](1328/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
