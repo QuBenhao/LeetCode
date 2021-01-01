@@ -113,6 +113,8 @@ Algorithms in LeetCode by Benhao
 
 [733.Flood Fill](733/problem.md)
 
+[1640.Check Array Formation Through Concatenation](1640/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
