@@ -237,6 +237,8 @@ Algorithms in LeetCode by Benhao
 
 [808.Soup Servings](808/problem.md)
 
+[92.Reverse Linked List II](92/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
