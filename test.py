@@ -13,6 +13,11 @@ class Test(unittest.TestCase):
             i, o = testcase
             self.assertEqual(o, SOLUTION.solve(test_input=i), msg=f"input = {i}")
 
+    # def test_close(self):
+    #     for testcase in TESTCASE.get_testcases():
+    #         i, o = testcase
+    #         self.assertAlmostEqual(o, SOLUTION.solve(test_input=i), msg=f"input = {i}", delta=0.00001)
+
 
 if __name__ == '__main__':
     unittest.main()
