@@ -235,6 +235,8 @@ Algorithms in LeetCode by Benhao
 
 [1328.Break a Palindrome](1328/problem.md)
 
+[808.Soup Servings](808/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
