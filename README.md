@@ -283,6 +283,8 @@ Algorithms in LeetCode by Benhao
 
 [84.Largest Rectangle in Histogram](84/problem.md)
 
+[920.Number of Music Playlists](920/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
