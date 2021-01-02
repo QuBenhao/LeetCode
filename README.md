@@ -243,6 +243,8 @@ Algorithms in LeetCode by Benhao
 
 [1391.Check if There is a Valid Path in a Grid](1391/problem.md)
 
+[1379.Find a Corresponding Node of a Binary Tree in a Clone of That Tree](1379/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
