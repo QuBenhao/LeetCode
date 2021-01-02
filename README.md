@@ -241,6 +241,8 @@ Algorithms in LeetCode by Benhao
 
 [92.Reverse Linked List II](92/problem.md)
 
+[1391.Check if There is a Valid Path in a Grid](1391/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
