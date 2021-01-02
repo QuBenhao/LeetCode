@@ -31,6 +31,9 @@ class Solution(solution.Solution):
         dp = [[0 for i in range(L + 1)] for j in range(N + 1)]
         for i in range(K + 1, N + 1):
             for j in range(i, L + 1):
+                # i==k+1 means, say k=2, then at least we need to have 3 songs in order to populate the list,
+                # and in that case, no matter how long the list is say 100000,
+                # we only play those 3 songs repetitively with the same pattern therefore it is still 3!
                 if i == j or i == K + 1:
                     dp[i][j] = math.factorial(i)
                 else:
