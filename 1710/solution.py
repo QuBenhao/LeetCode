@@ -12,7 +12,7 @@ class Solution(solution.Solution):
         :type truckSize: int
         :rtype: int
         """
-        boxTypes.sort(key=lambda x:-x[1])
+        boxTypes.sort(key=lambda x: -x[1])
         count = 0
         weight = 0
         while boxTypes and count < truckSize:
