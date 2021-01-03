@@ -291,6 +291,8 @@ Algorithms in LeetCode by Benhao
 
 [920.Number of Music Playlists](920/problem.md)
 
+[1713.Minimum Operations to Make a Subsequence](1713/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
