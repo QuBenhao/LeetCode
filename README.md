@@ -251,6 +251,8 @@ Algorithms in LeetCode by Benhao
 
 [1712.Ways to Split Array Into Three Subarrays](1712/problem.md)
 
+[526.Beautiful Arrangement](526/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
