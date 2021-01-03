@@ -115,6 +115,8 @@ Algorithms in LeetCode by Benhao
 
 [1640.Check Array Formation Through Concatenation](1640/problem.md)
 
+[1710.Maximum Units on a Truck](1710/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
