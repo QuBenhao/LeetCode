@@ -11,9 +11,10 @@ class Solution(solution.Solution):
         :rtype: int
         """
         import collections
+        mod = 10 ** 9 + 7
         ans = 0
         freq = collections.defaultdict(int)
         for x in deliciousness:
             for k in range(22): ans += freq[2**k - x]
             freq[x] += 1
-        return ans % (10**9 + 7)
+        return ans % mod
