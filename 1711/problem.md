@@ -4,7 +4,7 @@ A **good meal** is a meal that contains **exactly two different food items** wit
 
 You can pick **any** two different foods to make a good meal.
 
-Given an array of integers `deliciousness` where `deliciousness[i]` is the deliciousness of the `ith` item of food, return *the number of different **good meals** you can make from this list modulo* `10^9 + 7`.
+Given an array of integers `deliciousness` where `deliciousness[i]` is the deliciousness of the `ith` item of food, return *the number of different **good meals** you can make from this list modulo* 10<sup>9</sup> + 7.
 
 Note that items with different indices are considered different even if they have the same deliciousness value.
 
@@ -31,5 +31,6 @@ Explanation: The good meals are (1,1) with 3 ways, (1,3) with 9 ways, and (1,7) 
 
 **Constraints:**
 
-- `1 <= deliciousness.length <= 10^5`
-- `0 <= deliciousness[i] <= 2^20`
+- 1 <= deliciousness.length <= 10<sup>5</sup>
+- 0 <= deliciousness[i] <= 2<sup>20</sup>
+
