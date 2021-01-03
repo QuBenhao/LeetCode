@@ -249,6 +249,8 @@ Algorithms in LeetCode by Benhao
 
 [1711.Count Good Meals](1711/problem.md)
 
+[1712.Ways to Split Array Into Three Subarrays](1712/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
