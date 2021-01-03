@@ -15,11 +15,11 @@ class Solution(solution.Solution):
         boxTypes.sort(key=lambda x: -x[1])
         count = 0
         weight = 0
-        while boxTypes and count < truckSize:
-            if boxTypes[0][0] > 0:
-                boxTypes[0][0] -= 1
-                count += 1
-                weight += boxTypes[0][1]
+        for i in range(len(boxTypes)):
+            if boxTypes[i][0] + count >= truckSize:
+                weight += (truckSize - count) * boxTypes[i][1]
+                return weight
             else:
-                boxTypes.pop(0)
+                weight += boxTypes[i][0] * boxTypes[i][1]
+                count += boxTypes[i][0]
         return weight
