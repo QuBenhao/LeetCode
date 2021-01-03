@@ -245,6 +245,8 @@ Algorithms in LeetCode by Benhao
 
 [1379.Find a Corresponding Node of a Binary Tree in a Clone of That Tree](1379/problem.md)
 
+[1711.Count Good Meals](1711/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
