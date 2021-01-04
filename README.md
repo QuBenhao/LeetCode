@@ -117,6 +117,8 @@ Algorithms in LeetCode by Benhao
 
 [1710.Maximum Units on a Truck](1710/problem.md)
 
+[21.Merge Two Sorted Lists](21/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
