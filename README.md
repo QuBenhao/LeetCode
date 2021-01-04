@@ -295,6 +295,8 @@ Algorithms in LeetCode by Benhao
 
 [1713.Minimum Operations to Make a Subsequence](1713/problem.md)
 
+[878.Nth Magical Number](878/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
