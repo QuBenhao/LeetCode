@@ -299,6 +299,8 @@ Algorithms in LeetCode by Benhao
 
 [878.Nth Magical Number](878/problem.md)
 
+[410.Split Array Largest Sum](410/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
