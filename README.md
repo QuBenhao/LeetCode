@@ -257,6 +257,8 @@ Algorithms in LeetCode by Benhao
 
 [526.Beautiful Arrangement](526/problem.md)
 
+[82.Remove Duplicates from Sorted List II](82/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
