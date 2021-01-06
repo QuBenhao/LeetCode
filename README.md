@@ -121,6 +121,8 @@ Algorithms in LeetCode by Benhao
 
 [830.Positions of Large Groups](830/problem.md)
 
+[1539.Kth Missing Positive Number](1539/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
