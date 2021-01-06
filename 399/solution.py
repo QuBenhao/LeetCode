@@ -13,18 +13,12 @@ class Solution(solution.Solution):
         :type queries: List[List[str]]
         :rtype: List[float]
         """
-        actions = dict()
+        import collections
+        actions = collections.defaultdict(list)
         for i in range(len(equations)):
-            equation, value = equations[i], values[i]
-            a, b = equation
-            if a in actions.keys():
-                actions[a].append([b, value])
-            else:
-                actions[a] = [[b, value]]
-            if b in actions.keys():
-                actions[b].append([a, 1.0 / value])
-            else:
-                actions[b] = [[a, 1.0 / value]]
+            a, b = equations[i]
+            actions[a].append([b, values[i]])
+            actions[b].append([a, 1.0 / values[i]])
 
         def dfs(init_state, goal_state):
             if init_state not in actions.keys() or goal_state not in actions.keys():
