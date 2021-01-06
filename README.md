@@ -263,6 +263,8 @@ Algorithms in LeetCode by Benhao
 
 [399.Evaluate Division](399/problem.md)
 
+[547.Number of Provinces](547/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
