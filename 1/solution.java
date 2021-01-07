@@ -4,8 +4,7 @@ class Solution {
         for(int i = 0; i < nums.length;i++){
             if(temp.containsKey(target-nums[i]))
                 return new int[]{temp.get(target-nums[i]),i};
-            else
-                temp.put(nums[i],i);
+            temp.put(nums[i],i);
         }
         return null;
     }
