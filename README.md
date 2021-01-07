@@ -265,6 +265,8 @@ Algorithms in LeetCode by Benhao
 
 [547.Number of Provinces](547/problem.md)
 
+[3.Longest Substring Without Repeating Characters](3/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
