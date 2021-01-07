@@ -267,6 +267,8 @@ Algorithms in LeetCode by Benhao
 
 [3.Longest Substring Without Repeating Characters](3/problem.md)
 
+[189.Rotate Array](189/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
