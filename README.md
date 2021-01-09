@@ -315,6 +315,8 @@ Algorithms in LeetCode by Benhao
 
 [410.Split Array Largest Sum](410/problem.md)
 
+[127.Word Ladder](127/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
