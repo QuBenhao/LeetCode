@@ -123,6 +123,8 @@ Algorithms in LeetCode by Benhao
 
 [1539.Kth Missing Positive Number](1539/problem.md)
 
+[1716.Calculate Money in Leetcode Bank](1716/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
