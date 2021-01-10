@@ -331,6 +331,8 @@ Algorithms in LeetCode by Benhao
 
 [1719.Number Of Ways To Reconstruct A Tree](1719/problem.md)
 
+[1723.Find Minimum Time to Finish All Jobs](1723/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
