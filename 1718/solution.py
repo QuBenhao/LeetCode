@@ -40,7 +40,7 @@ class Solution(solution.Solution):
                     return ans
             return ans
 
-        curr_list = [0] * (2 * n - 1)
-        left_index = [i for i in range(2 * n - 1)]
-        left_nums = [i for i in range(n, 0, -1)]
-        return fill(curr_list, left_index, left_nums)
+        curr = [0] * (2 * n - 1)
+        left_i = [i for i in range(2 * n - 1)]
+        left_n = [i for i in range(n, 0, -1)]
+        return fill(curr, left_i, left_n)
