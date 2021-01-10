@@ -14,6 +14,8 @@ class Solution(solution.Solution):
         :rtype: int
         """
         def cal(a_, b_, m):
+            if not a_ or not b_:
+                return 0
             total = 0
             i = len(a_)
             for j in range(len(b_) - 1, -1, -1):
