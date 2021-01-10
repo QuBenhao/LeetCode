@@ -125,6 +125,8 @@ Algorithms in LeetCode by Benhao
 
 [1716.Calculate Money in Leetcode Bank](1716/problem.md)
 
+[1720.Decode XORed Array](1720/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
@@ -322,6 +324,8 @@ Algorithms in LeetCode by Benhao
 [410.Split Array Largest Sum](410/problem.md)
 
 [127.Word Ladder](127/problem.md)
+
+[1719.Number Of Ways To Reconstruct A Tree](1719/problem.md)
 
 ## Mysql
 
