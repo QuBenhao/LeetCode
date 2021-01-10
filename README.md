@@ -333,6 +333,8 @@ Algorithms in LeetCode by Benhao
 
 [1723.Find Minimum Time to Finish All Jobs](1723/problem.md)
 
+[1649.Create Sorted Array through Instructions](1649/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
