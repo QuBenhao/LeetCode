@@ -279,6 +279,8 @@ Algorithms in LeetCode by Benhao
 
 [1721.Swapping Nodes in a Linked List](1721/problem.md)
 
+[1722.Minimize Hamming Distance After Swap Operations](1722/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
