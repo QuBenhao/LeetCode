@@ -273,6 +273,8 @@ Algorithms in LeetCode by Benhao
 
 [1717.Maximum Score From Removing Substrings](1717/problem.md)
 
+[1718.Construct the Lexicographically Largest Valid Sequence](1718/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
