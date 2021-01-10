@@ -271,6 +271,8 @@ Algorithms in LeetCode by Benhao
 
 [189.Rotate Array](189/problem.md)
 
+[1717.Maximum Score From Removing Substrings](1717/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
