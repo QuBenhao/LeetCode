@@ -127,6 +127,8 @@ Algorithms in LeetCode by Benhao
 
 [1720.Decode XORed Array](1720/problem.md)
 
+[88.Merge Sorted Array](88/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
