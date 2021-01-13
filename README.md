@@ -285,6 +285,8 @@ Algorithms in LeetCode by Benhao
 
 [445.Add Two Numbers II](445/problem.md)
 
+[881.Boats to Save People](881/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
