@@ -287,6 +287,8 @@ Algorithms in LeetCode by Benhao
 
 [881.Boats to Save People](881/problem.md)
 
+[1658.Minimum Operations to Reduce X to Zero](1658/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
