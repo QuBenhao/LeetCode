@@ -129,6 +129,8 @@ Algorithms in LeetCode by Benhao
 
 [88.Merge Sorted Array](88/problem.md)
 
+[1646.Get Maximum in Generated Array](1646/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
