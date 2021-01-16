@@ -293,6 +293,8 @@ Algorithms in LeetCode by Benhao
 
 [215.Kth Largest Element in an Array](215/problem.md)
 
+[470.Implement Rand10() Using Rand7()](470/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
