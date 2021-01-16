@@ -10,35 +10,59 @@ class Solution(solution.Solution):
         :type pairs: List[List[int]]
         :rtype: int
         """
-        import collections, copy
-        state = []
-        self.ans = 0
-        actions = collections.defaultdict(list)
-        for i in range(len(pairs)):
-            if pairs[i][0] not in state:
-                state.append(pairs[i][0])
-            if pairs[i][1] not in state:
-                state.append(pairs[i][1])
-            actions[pairs[i][0]].append(pairs[i][1])
-            actions[pairs[i][1]].append(pairs[i][0])
+        import collections
 
-        def construct(state, actions):
-            print(state, actions)
-            if not state:
-                self.ans += 1
-                return
-            for root in state:
-                if len(actions[root]) == len(state) - 1:
-                    temp = list(state)
-                    temp_ = copy.deepcopy(actions)
-                    for n in temp_[root]:
-                        temp_[n].remove(root)
-                        if len(temp_[n]) == 0:
-                            temp.remove(n)
-                    temp.remove(root)
-                    temp_.pop(root)
-                    construct(temp, temp_)
-            return
+        """
+        we can iterate each node and check their validity by their degree. 
+        As node with larger degree more tends to be an ancestor.
 
-        construct(state, actions)
-        return self.ans
+        For each node x, we find out its parent p. p is the node that has been visited (in the set ancestor) 
+        and has the lowest degree in g[x] (connected with x in pairs). 
+        Then g[x] must be a subset of g[p] | {p} since x's ancestors are p + p's ancestors 
+        and x +x's descendants are all p's descendants.
+        If x has no parent, it's the root whose degree should be n-1.
+        
+        We only need to check p for x as if all p-x relations are solid, the entire tree is well founded.
+        
+        Another reason we check p is that p could be exchanged with x. If it is (len(g[p]) == len(g[x]) and remember, 
+        we have checked g[x].issubset(g[p]|{p})), we have more than one way to contruct the tree.
+        """
+
+        g = collections.defaultdict(set)
+        for x, y in pairs:
+            g[x].add(y)
+            g[y].add(x)
+        n, mul = len(g), False
+        ancestor = set()
+        for x in sorted(g.keys(), key=lambda i: -len(g[i])):
+            p = min((g[x] & ancestor), key=lambda i: len(g[i]), default=0)  # find x's parent p
+            ancestor.add(x)
+            if p:
+                if not g[x].issubset(g[p] | {p}):
+                    return 0
+                mul |= len(g[p]) == len(g[x])
+            elif len(g[x]) != n - 1:
+                return 0
+        return 1 + mul
+
+        # adj = collections.defaultdict(set)
+        # for x, y in pairs:
+        #     adj[x].add(y)
+        #     adj[y].add(x)
+        # n, mul = len(adj), False
+        # lookup = set()
+        # for node in sorted(adj.keys(), key=lambda i: len(adj[i]), reverse=True):
+        #     lookup.add(node)
+        #     parent = 0
+        #     for x in adj[node]:
+        #         if x not in lookup:
+        #             continue
+        #         if parent == 0 or len(adj[x]) < len(adj[parent]):
+        #             parent = x
+        #     if parent:
+        #         if any(True for x in adj[node] if x != parent and x not in adj[parent]):
+        #             return 0
+        #         mul |= len(adj[parent]) == len(adj[node])
+        #     elif len(adj[node]) != n-1:
+        #         return 0
+        # return 1 + mul
