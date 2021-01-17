@@ -12,8 +12,8 @@ class Solution(solution.Solution):
         """
         ans = 0
         for j in range(1,n+2):
-            sum = 0
+            curr_sum = 0
             for i in range(1,j+1):
-                sum += i
-                ans += sum
+                curr_sum += i
+                ans += curr_sum
         return ans
