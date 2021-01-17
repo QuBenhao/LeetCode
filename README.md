@@ -297,6 +297,8 @@ Algorithms in LeetCode by Benhao
 
 [470.Implement Rand10() Using Rand7()](470/problem.md)
 
+[1726.Tuple with Same Product](1726/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
