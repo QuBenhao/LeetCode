@@ -299,6 +299,8 @@ Algorithms in LeetCode by Benhao
 
 [1726.Tuple with Same Product](1726/problem.md)
 
+[1727.Largest Submatrix With Rearrangements](1727/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
