@@ -131,6 +131,8 @@ Algorithms in LeetCode by Benhao
 
 [1646.Get Maximum in Generated Array](1646/problem.md)
 
+[1725.Number Of Rectangles That Can Form The Largest Square](1725/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
