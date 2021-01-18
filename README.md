@@ -357,6 +357,8 @@ Algorithms in LeetCode by Benhao
 
 [1649.Create Sorted Array through Instructions](1649/problem.md)
 
+[1728.Cat and Mouse II](1728/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
