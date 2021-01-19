@@ -62,9 +62,10 @@ class Solution(solution.Solution):
         # index_dict = collections.defaultdict(list)
         # for i in range(n):
         #     for index in index_dict[s[i]]:
-        #         if is_palindrome(s[index:i+1]):
-        #             if len(ans) < i - index + 1:
-        #                 ans = s[index:i+1]
+        #         if i - index + 1 <= len(ans):
+        #             break
+        #         elif is_palindrome(s[index:i+1]):
+        #             ans = s[index:i+1]
         #             break
         #     index_dict[s[i]].append(i)
         # return ans
