@@ -303,6 +303,8 @@ Algorithms in LeetCode by Benhao
 
 [1641.Count Sorted Vowel Strings](1641/problem.md)
 
+[5.Longest Palindromic Substring](5/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
