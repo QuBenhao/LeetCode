@@ -133,6 +133,8 @@ Algorithms in LeetCode by Benhao
 
 [1725.Number Of Rectangles That Can Form The Largest Square](1725/problem.md)
 
+[20.Valid Parentheses](20/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
