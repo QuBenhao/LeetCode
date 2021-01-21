@@ -307,6 +307,8 @@ Algorithms in LeetCode by Benhao
 
 [5.Longest Palindromic Substring](5/problem.md)
 
+[1673.Find the Most Competitive Subsequence](1673/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
