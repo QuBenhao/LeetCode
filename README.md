@@ -317,6 +317,8 @@ Algorithms in LeetCode by Benhao
 
 [1733.Minimum Number of People to Teach](1733/problem.md)
 
+[1734.Decode XORed Permutation](1734/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
