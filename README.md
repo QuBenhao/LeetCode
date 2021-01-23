@@ -135,6 +135,8 @@ Algorithms in LeetCode by Benhao
 
 [20.Valid Parentheses](20/problem.md)
 
+[1732.Find the Highest Altitude](1732/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
