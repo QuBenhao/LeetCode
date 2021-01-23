@@ -315,6 +315,8 @@ Algorithms in LeetCode by Benhao
 
 [1329.Sort the Matrix Diagonally](1329/problem.md)
 
+[1733.Minimum Number of People to Teach](1733/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
