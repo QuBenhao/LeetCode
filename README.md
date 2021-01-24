@@ -137,6 +137,8 @@ Algorithms in LeetCode by Benhao
 
 [1732.Find the Highest Altitude](1732/problem.md)
 
+[1736.Latest Time by Replacing Hidden Digits](1736/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
@@ -374,6 +376,8 @@ Algorithms in LeetCode by Benhao
 [1649.Create Sorted Array through Instructions](1649/problem.md)
 
 [1728.Cat and Mouse II](1728/problem.md)
+
+[1735.Count Ways to Make Array With Product](1735/problem.md)
 
 ## Mysql
 
