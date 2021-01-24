@@ -321,6 +321,8 @@ Algorithms in LeetCode by Benhao
 
 [1734.Decode XORed Permutation](1734/problem.md)
 
+[1738.Find Kth Largest XOR Coordinate Value](1738/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
