@@ -139,6 +139,8 @@ Algorithms in LeetCode by Benhao
 
 [1736.Latest Time by Replacing Hidden Digits](1736/problem.md)
 
+[23.Merge k Sorted Lists](23/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
@@ -322,6 +324,8 @@ Algorithms in LeetCode by Benhao
 [1734.Decode XORed Permutation](1734/problem.md)
 
 [1738.Find Kth Largest XOR Coordinate Value](1738/problem.md)
+
+[1737.Change Minimum Characters to Satisfy One of Three Conditions](1737/problem.md)
 
 ## Hard
 
