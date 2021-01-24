@@ -381,6 +381,8 @@ Algorithms in LeetCode by Benhao
 
 [1735.Count Ways to Make Array With Product](1735/problem.md)
 
+[1739.Building Boxes](1739/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
