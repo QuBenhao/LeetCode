@@ -10,15 +10,17 @@ class Solution(solution.Solution):
         :type n: int
         :rtype: int
         """
-        ans = 0
-        z = 0
-        q = 0
-        while z < n:
-            q += 1
-            ans += q
-            z += ans
-        while z >= n + q:
-            z -= q
-            q -= 1
-            ans -= 1
-        return ans
+        cur = i = j = 0
+        while cur < n:
+            j += 1
+            i += j
+            cur += i
+        if cur == n:
+            return i
+        cur -= i
+        i -= j
+        j = 0
+        while cur < n:
+            j += 1
+            cur += j
+        return i + j
