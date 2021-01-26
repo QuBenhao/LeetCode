@@ -329,6 +329,8 @@ Algorithms in LeetCode by Benhao
 
 [1737.Change Minimum Characters to Satisfy One of Three Conditions](1737/problem.md)
 
+[1631.Path With Minimum Effort](1631/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
