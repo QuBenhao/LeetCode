@@ -331,6 +331,8 @@ Algorithms in LeetCode by Benhao
 
 [1631.Path With Minimum Effort](1631/problem.md)
 
+[1663.Smallest String With A Given Numeric Value](1663/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
