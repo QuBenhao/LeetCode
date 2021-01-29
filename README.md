@@ -393,6 +393,8 @@ Algorithms in LeetCode by Benhao
 
 [1739.Building Boxes](1739/problem.md)
 
+[987.Vertical Order Traversal of a Binary Tree](987/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
