@@ -395,6 +395,8 @@ Algorithms in LeetCode by Benhao
 
 [987.Vertical Order Traversal of a Binary Tree](987/problem.md)
 
+[1675.Minimize Deviation in Array](1675/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
