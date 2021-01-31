@@ -337,6 +337,8 @@ Algorithms in LeetCode by Benhao
 
 [1743.Restore the Array From Adjacent Pairs](1743/problem.md)
 
+[1744.Can You Eat Your Favorite Candy on Your Favorite Day?](1744/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
