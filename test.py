@@ -16,9 +16,9 @@ class Test(unittest.TestCase):
                 self.assertEqual(result, o, msg=f"input = {i}")
             except AssertionError:
                 try:
-                    self.assertIn(result, o, msg=f"input = {i}")
-                except AssertionError:
                     self.assertAlmostEqual(result, o, msg=f"input = {i}", delta=0.00001)
+                except:
+                    self.assertIn(result, o, msg=f"input = {i}")
 
 
 if __name__ == '__main__':
