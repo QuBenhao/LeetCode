@@ -17,8 +17,8 @@ class Solution(solution.Solution):
         for i in range(n):
             presum[i+1] = presum[i] + candiesCount[i]
         ans = []
-        for type, day, daily in queries:
-            if presum[type]//daily<= day < presum[type+1]:
+        for ctype, day, daily in queries:
+            if presum[ctype]//daily<= day < presum[ctype+1]:
                 ans.append(True)
             else:
                 ans.append(False)
