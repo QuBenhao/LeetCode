@@ -335,6 +335,8 @@ Algorithms in LeetCode by Benhao
 
 [1663.Smallest String With A Given Numeric Value](1663/problem.md)
 
+[1743.Restore the Array From Adjacent Pairs](1743/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
