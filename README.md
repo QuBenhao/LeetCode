@@ -143,6 +143,8 @@ Algorithms in LeetCode by Benhao
 
 [1437.Check If All 1's Are at Least Length K Places Away](1437/problem.md)
 
+[1742.Maximum Number of Balls in a Box](1742/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
