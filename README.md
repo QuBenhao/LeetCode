@@ -403,6 +403,8 @@ Algorithms in LeetCode by Benhao
 
 [1675.Minimize Deviation in Array](1675/problem.md)
 
+[1745.Palindrome Partitioning IV](1745/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
