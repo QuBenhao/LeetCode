@@ -11,24 +11,28 @@ class Solution(solution.Solution):
         :rtype: List[int]
         """
         import collections
+
         d = collections.defaultdict(list)
-        start = None
-        n = len(adjacentPairs) + 1
-        appear = set()
+        start, n, appear = None, len(adjacentPairs) + 1, set()
+
         for a,b in adjacentPairs:
             d[a].append(b)
             d[b].append(a)
+
             if a in appear:
                 appear.remove(a)
             else:
                 appear.add(a)
+
             if b in appear:
                 appear.remove(b)
             else:
                 appear.add(b)
+
         ans = []
         start = list(appear)[0]
         appear = set()
+
         while len(ans) < n:
             ans.append(start)
             appear.add(start)
@@ -36,4 +40,5 @@ class Solution(solution.Solution):
                 if next not in appear:
                     start = next
                     break
+
         return ans

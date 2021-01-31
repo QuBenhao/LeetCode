@@ -14,19 +14,16 @@ class Solution(solution.Solution):
         """
 
         import collections
-        ans = 0
+        ans, s = 0, 0
         d = collections.defaultdict(int)
-        last = None
         for i in range(lowLimit, highLimit + 1):
-            if i % 10 > 0 and last:
-                last += 1
-                s = last
+            if i % 10 > 0 and s:
+                s += 1
             else:
                 s = 0
                 while i > 0:
                     s += i % 10
                     i //= 10
-                last = s
             d[s] += 1
             ans = max(ans, d[s])
         return ans
