@@ -16,7 +16,7 @@ class Solution(solution.Solution):
         import collections
         ans = 0
         d = collections.defaultdict(int)
-        for i in range(lowLimit, highLimit+1):
+        for i in range(lowLimit, highLimit + 1):
             s = 0
             while i > 0:
                 s += i % 10
