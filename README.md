@@ -145,6 +145,8 @@ Algorithms in LeetCode by Benhao
 
 [1742.Maximum Number of Balls in a Box](1742/problem.md)
 
+[191.Number of 1 Bits](191/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
