@@ -13,7 +13,6 @@ class Solution(solution.Solution):
 
         count = 0
         while n:
-            print(bin(n))
             n &= n - 1
             count += 1
         return count
