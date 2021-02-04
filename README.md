@@ -147,6 +147,8 @@ Algorithms in LeetCode by Benhao
 
 [191.Number of 1 Bits](191/problem.md)
 
+[594.Longest Harmonious Subsequence](594/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
