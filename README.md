@@ -349,6 +349,8 @@ Algorithms in LeetCode by Benhao
 
 [142.Linked List Cycle II](142/problem.md)
 
+[71.Simplify Path](71/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
