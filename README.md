@@ -351,6 +351,8 @@ Algorithms in LeetCode by Benhao
 
 [71.Simplify Path](71/problem.md)
 
+[199.Binary Tree Right Side View](199/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
