@@ -149,6 +149,8 @@ Algorithms in LeetCode by Benhao
 
 [594.Longest Harmonious Subsequence](594/problem.md)
 
+[1748.Sum of Unique Elements](1748/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
