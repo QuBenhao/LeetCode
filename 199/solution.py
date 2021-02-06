@@ -36,6 +36,19 @@ class Solution(solution.Solution):
         :type root: TreeNode
         :rtype: List[int]
         """
+
+        # def dfs(root, level):
+        #     if not root:
+        #         return
+        #     if level == len(ans):
+        #         ans.append(root.val)
+        #     dfs(root.right, level + 1)
+        #     dfs(root.left, level + 1)
+        #
+        # ans = []
+        # dfs(root, 0)
+        # return ans
+
         ans = []
         if not root:
             return ans
