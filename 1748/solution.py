@@ -22,4 +22,3 @@ class Solution(solution.Solution):
                 explored.add(num)
                 ans += num
         return ans
-
