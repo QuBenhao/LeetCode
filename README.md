@@ -433,6 +433,8 @@ Algorithms in LeetCode by Benhao
 
 [1751.Maximum Number of Events That Can Be Attended II](1751/problem.md)
 
+[1755.Closest Subsequence Sum](1755/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
