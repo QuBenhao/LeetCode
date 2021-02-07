@@ -363,6 +363,8 @@ Algorithms in LeetCode by Benhao
 
 [1753.Maximum Score From Removing Stones](1753/problem.md)
 
+[1754.Largest Merge Of Two Strings](1754/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
