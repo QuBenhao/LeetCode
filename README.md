@@ -425,6 +425,8 @@ Algorithms in LeetCode by Benhao
 
 [1745.Palindrome Partitioning IV](1745/problem.md)
 
+[1751.Maximum Number of Events That Can Be Attended II](1751/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
