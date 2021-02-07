@@ -151,6 +151,8 @@ Algorithms in LeetCode by Benhao
 
 [1748.Sum of Unique Elements](1748/problem.md)
 
+[1752.Check if Array Is Sorted and Rotated](1752/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
