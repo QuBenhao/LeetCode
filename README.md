@@ -367,6 +367,8 @@ Algorithms in LeetCode by Benhao
 
 [1754.Largest Merge Of Two Strings](1754/problem.md)
 
+[284.Peeking Iterator](284/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
