@@ -371,6 +371,8 @@ Algorithms in LeetCode by Benhao
 
 [538.Convert BST to Greater Tree](538/problem.md)
 
+[1038.Binary Search Tree to Greater Sum Tree](1038/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
