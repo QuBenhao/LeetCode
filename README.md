@@ -369,6 +369,8 @@ Algorithms in LeetCode by Benhao
 
 [284.Peeking Iterator](284/problem.md)
 
+[538.Convert BST to Greater Tree](538/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
