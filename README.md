@@ -373,6 +373,8 @@ Algorithms in LeetCode by Benhao
 
 [1038.Binary Search Tree to Greater Sum Tree](1038/problem.md)
 
+[138.Copy List with Random Pointer](138/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
