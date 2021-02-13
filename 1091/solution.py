@@ -24,10 +24,10 @@ class Solution(solution.Solution):
             frontier.append((0, (0, 0), 1))
         while frontier:
             h, pos, cost = heapq.heappop(frontier)
-            if pos == (m - 1, n - 1):
-                return cost
             if pos in explored:
                 continue
+            if pos == (m - 1, n - 1):
+                return cost
             explored.add(pos)
             cost += 1
             for succ in [(x, y) for x in range(pos[0] - 1, pos[0] + 2) for y in range(pos[1] - 1, pos[1] + 2)
