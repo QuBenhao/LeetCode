@@ -155,6 +155,8 @@ Algorithms in LeetCode by Benhao
 
 [821.Shortest Distance to a Character](821/problem.md)
 
+[242.Valid Anagram](242/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
@@ -374,6 +376,8 @@ Algorithms in LeetCode by Benhao
 [1038.Binary Search Tree to Greater Sum Tree](1038/problem.md)
 
 [138.Copy List with Random Pointer](138/problem.md)
+
+[1091.Shortest Path in Binary Matrix](1091/problem.md)
 
 ## Hard
 
