@@ -455,6 +455,8 @@ Algorithms in LeetCode by Benhao
 
 [1755.Closest Subsequence Sum](1755/problem.md)
 
+[1761.Minimum Degree of a Connected Trio in a Graph](1761/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
