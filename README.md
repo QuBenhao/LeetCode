@@ -381,6 +381,8 @@ Algorithms in LeetCode by Benhao
 
 [1091.Shortest Path in Binary Matrix](1091/problem.md)
 
+[1759.Count Number of Homogenous Substrings](1759/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
