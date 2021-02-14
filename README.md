@@ -383,6 +383,8 @@ Algorithms in LeetCode by Benhao
 
 [1759.Count Number of Homogenous Substrings](1759/problem.md)
 
+[1760.Minimum Limit of Balls in a Bag](1760/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
