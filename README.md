@@ -157,6 +157,8 @@ Algorithms in LeetCode by Benhao
 
 [242.Valid Anagram](242/problem.md)
 
+[1758.Minimum Changes To Make Alternating Binary String](1758/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
