@@ -385,6 +385,8 @@ Algorithms in LeetCode by Benhao
 
 [1760.Minimum Limit of Balls in a Bag](1760/problem.md)
 
+[785.Is Graph Bipartite?](785/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
