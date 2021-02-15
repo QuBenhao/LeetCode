@@ -159,6 +159,8 @@ Algorithms in LeetCode by Benhao
 
 [1758.Minimum Changes To Make Alternating Binary String](1758/problem.md)
 
+[1337.The K Weakest Rows in a Matrix](1337/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
