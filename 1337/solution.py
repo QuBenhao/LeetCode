@@ -12,4 +12,4 @@ class Solution(solution.Solution):
         :type k: int
         :rtype: List[int]
         """
-        return [x[0] for x in sorted(enumerate(mat), key=lambda x:sum(x[1]))][:k]
+        return [x[0] for x in sorted(enumerate(mat), key=lambda x:sum(x[1]))[:k]]
