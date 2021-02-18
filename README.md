@@ -393,6 +393,8 @@ Algorithms in LeetCode by Benhao
 
 [11.Container With Most Water](11/problem.md)
 
+[413.Arithmetic Slices](413/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
