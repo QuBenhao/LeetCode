@@ -15,14 +15,14 @@ class Solution(solution.Solution):
         curr_len = 1
         for i in range(1, len(A)):
             if curr_d is None:
-                curr_d = A[i] - A[i-1]
-            elif A[i] - A[i-1] == curr_d:
+                curr_d = A[i] - A[i - 1]
+            elif A[i] - A[i - 1] == curr_d:
                 curr_len += 1
             else:
                 if curr_len >= 2:
-                    ans += (curr_len-1)*curr_len//2
+                    ans += (curr_len - 1) * curr_len // 2
                 curr_len = 1
-                curr_d = A[i] - A[i-1]
-        if curr_len >=2:
+                curr_d = A[i] - A[i - 1]
+        if curr_len >= 2:
             ans += (curr_len - 1) * curr_len // 2
         return ans
