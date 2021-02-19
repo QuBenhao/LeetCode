@@ -395,6 +395,8 @@ Algorithms in LeetCode by Benhao
 
 [413.Arithmetic Slices](413/problem.md)
 
+[1249.Minimum Remove to Make Valid Parentheses](1249/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
