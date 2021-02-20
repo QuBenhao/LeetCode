@@ -469,6 +469,8 @@ Algorithms in LeetCode by Benhao
 
 [1761.Minimum Degree of a Connected Trio in a Graph](1761/problem.md)
 
+[51.N-Queens](51/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
