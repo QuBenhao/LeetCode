@@ -471,6 +471,8 @@ Algorithms in LeetCode by Benhao
 
 [51.N-Queens](51/problem.md)
 
+[52.N-Queens II](52/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)

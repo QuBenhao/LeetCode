@@ -6,7 +6,6 @@ case = namedtuple("Testcase", ["Input", "Output"])
 
 class Testcase(testcase.Testcase):
     def __init__(self):
-        from itertools import permutations
         self.testcases = []
         self.testcases.append(case(Input=4, Output=[[".Q..", "...Q", "Q...", "..Q."], ["..Q.", "Q...", "...Q", ".Q.."]]))
         self.testcases.append(case(Input=1, Output=[["Q"]]))
