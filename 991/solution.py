@@ -18,14 +18,17 @@ class Solution(solution.Solution):
             return X - Y
 
         count = 0
-        N = 1
-        while X * 2 ** N < Y:
-            N += 1
-        remain = (X * 2 ** N) - Y
-        count += N
-        while N >= 0:
-            count += remain // (2 ** N)
-            remain %= (2 ** N)
-            N -= 1
-
+        # multiply 2 until X is greater than Y
+        while X < Y:
+            X *= 2
+            count += 1
+        # Currently, the result is count+left, which might not be optimal
+        # Calculate when should we decrement 1 to save cost using toss and divide
+        left = X - Y
+        power = count
+        while left > 0:
+            # if left // 2 ** power > 0, this means we should minus 1 before multiply 2 at that level
+            count += left // 2 ** power
+            left %= 2 ** power
+            power -= 1
         return count
