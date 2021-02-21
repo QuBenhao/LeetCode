@@ -163,6 +163,8 @@ Algorithms in LeetCode by Benhao
 
 [13.Roman to Integer](13/problem.md)
 
+[1763.Longest Nice Substring](1763/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
