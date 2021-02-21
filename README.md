@@ -407,6 +407,8 @@ Algorithms in LeetCode by Benhao
 
 [1765.Map of Highest Peak](1765/problem.md)
 
+[991.Broken Calculator](991/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
