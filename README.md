@@ -165,6 +165,8 @@ Algorithms in LeetCode by Benhao
 
 [1763.Longest Nice Substring](1763/problem.md)
 
+[1768.Merge Strings Alternately](1768/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
