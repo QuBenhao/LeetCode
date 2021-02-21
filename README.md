@@ -403,6 +403,8 @@ Algorithms in LeetCode by Benhao
 
 [1764.Form Array by Concatenating Subarrays of Another Array](1764/problem.md)
 
+[1765.Map of Highest Peak](1765/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
