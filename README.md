@@ -401,6 +401,8 @@ Algorithms in LeetCode by Benhao
 
 [1249.Minimum Remove to Make Valid Parentheses](1249/problem.md)
 
+[1764.Form Array by Concatenating Subarrays of Another Array](1764/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
