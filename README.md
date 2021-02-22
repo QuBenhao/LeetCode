@@ -413,6 +413,8 @@ Algorithms in LeetCode by Benhao
 
 [1770.Maximum Score from Performing Multiplication Operations](1770/problem.md)
 
+[524.Longest Word in Dictionary through Deleting](524/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
