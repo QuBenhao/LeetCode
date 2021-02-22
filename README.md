@@ -491,6 +491,8 @@ Algorithms in LeetCode by Benhao
 
 [1766.Tree of Coprimes](1766/problem.md)
 
+[1771.Maximize Palindrome Length From Subsequences](1771/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
