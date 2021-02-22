@@ -409,6 +409,8 @@ Algorithms in LeetCode by Benhao
 
 [991.Broken Calculator](991/problem.md)
 
+[1769.Minimum Number of Operations to Move All Balls to Each Box](1769/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
