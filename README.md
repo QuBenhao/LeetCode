@@ -489,6 +489,8 @@ Algorithms in LeetCode by Benhao
 
 [52.N-Queens II](52/problem.md)
 
+[1766.Tree of Coprimes](1766/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
