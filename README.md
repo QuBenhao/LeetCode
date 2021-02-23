@@ -415,6 +415,8 @@ Algorithms in LeetCode by Benhao
 
 [524.Longest Word in Dictionary through Deleting](524/problem.md)
 
+[240.Search a 2D Matrix II](240/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
