@@ -417,6 +417,8 @@ Algorithms in LeetCode by Benhao
 
 [240.Search a 2D Matrix II](240/problem.md)
 
+[856.Score of Parentheses](856/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
@@ -435,7 +437,7 @@ Algorithms in LeetCode by Benhao
 
 [312.Burst Balloons](312/problem.md)
 
-[1691.Maximum Height by Stacking Cuboids](1691/problem.md)
+[1691.Maximum Height by Stacking Cuboids](S1691/problem.md)
 
 [132.Palindrome Partitioning II](132/problem.md)
 
