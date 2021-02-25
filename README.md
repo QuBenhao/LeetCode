@@ -419,6 +419,8 @@ Algorithms in LeetCode by Benhao
 
 [856.Score of Parentheses](856/problem.md)
 
+[581.Shortest Unsorted Continuous Subarray](581/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
