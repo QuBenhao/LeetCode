@@ -421,6 +421,8 @@ Algorithms in LeetCode by Benhao
 
 [581.Shortest Unsorted Continuous Subarray](581/problem.md)
 
+[946.Validate Stack Sequences](946/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
