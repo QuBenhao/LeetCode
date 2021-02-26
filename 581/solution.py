@@ -16,12 +16,14 @@ class Solution(solution.Solution):
                 m = n
             elif n < m:
                 end = i
-        m,start = float("inf"), len(nums)
+        if end == -1:
+            return 0
+
+        m, start = float("inf"), len(nums)
         for i in range(len(nums)-1,-1,-1):
             if nums[i] < m:
                 m = nums[i]
             elif nums[i] > m:
                 start = i
-        if start == len(nums) or end == -1:
-            return 0
+
         return end - start + 1
