@@ -511,6 +511,8 @@ Algorithms in LeetCode by Benhao
 
 [1776.Car Fleet II](1776/problem.md)
 
+[895.Maximum Frequency Stack](895/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
