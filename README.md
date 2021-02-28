@@ -427,6 +427,8 @@ Algorithms in LeetCode by Benhao
 
 [1774.Closest Dessert Cost](1774/problem.md)
 
+[1775.Equal Sum Arrays With Minimum Number of Operations](1775/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
