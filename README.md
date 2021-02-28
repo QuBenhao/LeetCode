@@ -167,6 +167,8 @@ Algorithms in LeetCode by Benhao
 
 [1768.Merge Strings Alternately](1768/problem.md)
 
+[1773.Count Items Matching a Rule](1773/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
