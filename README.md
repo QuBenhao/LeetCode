@@ -169,6 +169,8 @@ Algorithms in LeetCode by Benhao
 
 [1773.Count Items Matching a Rule](1773/problem.md)
 
+[303.Range Sum Query - Immutable](303/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
