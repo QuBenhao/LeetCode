@@ -431,6 +431,8 @@ Algorithms in LeetCode by Benhao
 
 [1775.Equal Sum Arrays With Minimum Number of Operations](1775/problem.md)
 
+[304.Range Sum Query 2D - Immutable](304/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
