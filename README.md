@@ -433,6 +433,8 @@ Algorithms in LeetCode by Benhao
 
 [304.Range Sum Query 2D - Immutable](304/problem.md)
 
+[338.Counting Bits](338/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
