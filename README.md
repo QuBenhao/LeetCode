@@ -171,6 +171,8 @@ Algorithms in LeetCode by Benhao
 
 [303.Range Sum Query - Immutable](303/problem.md)
 
+[232.Implement Queue using Stacks](232/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
