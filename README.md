@@ -447,6 +447,8 @@ Algorithms in LeetCode by Benhao
 
 [1785.Minimum Elements to Add to Form a Given Sum](1785/problem.md)
 
+[1786.Number of Restricted Paths From First to Last Node](1786/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
