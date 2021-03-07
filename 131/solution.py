@@ -10,31 +10,29 @@ class Solution(solution.Solution):
         :type s: str
         :rtype: List[List[str]]
         """
-        palindrome = set()
+        n = len(s)
+        dp = [[False for _ in range(n)] for _ in range(n)]
 
-        def is_palindrome(string):
-            if string in palindrome:
-                return True
-            n = len(string)
-            for i in range(n):
-                if i >= n - 1 - i:
-                    palindrome.add(string)
-                    return True
-                if string[i] != string[n - 1 - i]:
-                    return False
-
-        def dfs(curr_list, s_left):
-            if not s_left:
-                ans.append(curr_list)
-                return
-
-            for i in range(len(s_left)):
-                if is_palindrome(s_left[:i + 1]):
-                    cp = curr_list.copy()
-                    cp.append(s_left[:i + 1])
-                    dfs(cp, s_left[i + 1:])
+        for i in range(n):
+            dp[i][i] = True
+            for j in range(i - 1, -1, -1):
+                if s[j] == s[i]:
+                    if j == i - 1:
+                        dp[j][i] = True
+                    else:
+                        dp[j][i] = dp[j + 1][i - 1]
 
         ans = []
 
-        dfs([], s)
+        def dfs(index, curr):
+            if index == n:
+                ans.append(curr)
+                return
+            for i in range(index, n):
+                if dp[index][i]:
+                    temp = list(curr)
+                    temp.append(s[index:i + 1])
+                    dfs(i + 1, temp)
+
+        dfs(0, [])
         return ans
