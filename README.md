@@ -441,6 +441,8 @@ Algorithms in LeetCode by Benhao
 
 [1780.Check if Number is a Sum of Powers of Three](1780/problem.md)
 
+[1781.Sum of Beauty of All Substrings](1781/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
