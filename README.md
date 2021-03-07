@@ -439,6 +439,8 @@ Algorithms in LeetCode by Benhao
 
 [338.Counting Bits](338/problem.md)
 
+[1780.Check if Number is a Sum of Powers of Three](1780/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
