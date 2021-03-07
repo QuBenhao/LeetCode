@@ -529,6 +529,8 @@ Algorithms in LeetCode by Benhao
 
 [354.Russian Doll Envelopes](354/problem.md)
 
+[1782.Count Pairs Of Nodes](1782/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
