@@ -445,6 +445,8 @@ Algorithms in LeetCode by Benhao
 
 [1781.Sum of Beauty of All Substrings](1781/problem.md)
 
+[1785.Minimum Elements to Add to Form a Given Sum](1785/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
