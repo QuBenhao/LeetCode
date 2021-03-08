@@ -13,7 +13,7 @@ class Solution(solution.Solution):
 
         def central_extend(string, left, right, dp):
             while left >= 0 and right < len(string) and string[left] == string[right]:
-                dp[right] = min(dp[right], dp[left-1] + 1 if left > 0 else 0)
+                dp[right] = min(dp[right], dp[left - 1] + 1 if left > 0 else 0)
                 left -= 1
                 right += 1
 
@@ -24,7 +24,7 @@ class Solution(solution.Solution):
         n = len(s)
 
         for i in range(1, n):
-            if s[:i] == s[:i][::-1] and s[i+1:] == s[i+1:][::-1]:
+            if s[:i] == s[:i][::-1] and s[i + 1:] == s[i + 1:][::-1]:
                 return 1
 
         dp = [i for i in range(n)]
@@ -32,7 +32,7 @@ class Solution(solution.Solution):
             # 寻找以i为中心的最长奇数回文串
             central_extend(s, i, i, dp)
             # 寻找以i,i+1为中心的最长偶数回文串
-            central_extend(s, i, i+1, dp)
+            central_extend(s, i, i + 1, dp)
         return dp[-1]
 
         # n = len(s)
