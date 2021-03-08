@@ -177,6 +177,8 @@ Algorithms in LeetCode by Benhao
 
 [1784.Check if Binary String Has at Most One Segment of Ones](1784/problem.md)
 
+[706.Design HashMap](706/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
