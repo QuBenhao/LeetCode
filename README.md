@@ -179,6 +179,8 @@ Algorithms in LeetCode by Benhao
 
 [706.Design HashMap](706/problem.md)
 
+[1047.Remove All Adjacent Duplicates In String](1047/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
