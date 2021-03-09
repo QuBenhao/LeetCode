@@ -533,3 +533,72 @@ class BinarySearchTree(object):
 #         else:
 #             self.last = last
 #         self.next = next
+
+
+# class MyHashMap(object):
+#
+#     def __init__(self):
+#         """
+#         Initialize your data structure here.
+#         """
+#         self.hash_key = 2069
+#         self.arr = [0] * self.hash_key
+#
+#     def put(self, key, value):
+#         """
+#         value will always be non-negative.
+#         :type key: int
+#         :type value: int
+#         :rtype: None
+#         """
+#         k = key % self.hash_key
+#         if not self.arr[k]:
+#             self.arr[k] = [[key, value]]
+#         else:
+#             index = self.binary_search(k, key)
+#             if index < len(self.arr[k]):
+#                 if self.arr[k][index][0] == key:
+#                     self.arr[k][index][1] = value
+#                 elif self.arr[k][index][0] < key:
+#                     self.arr[k].insert(index + 1, [key, value])
+#                 elif self.arr[k][index][0] > key:
+#                     self.arr[k].insert(index, [key, value])
+#             else:
+#                 self.arr[k].append([key, value])
+#
+#     def get(self, key):
+#         """
+#         Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
+#         :type key: int
+#         :rtype: int
+#         """
+#         k = key % self.hash_key
+#         if self.arr[k]:
+#             index = self.binary_search(k, key)
+#             if index < len(self.arr[k]) and self.arr[k][index][0] == key:
+#                 return self.arr[k][index][1]
+#         return -1
+#
+#     def remove(self, key):
+#         """
+#         Removes the mapping of the specified value key if this map contains a mapping for the key
+#         :type key: int
+#         :rtype: None
+#         """
+#         k = key % self.hash_key
+#         if self.arr[k]:
+#             index = self.binary_search(k, key)
+#             if index < len(self.arr[k]) and self.arr[k][index][0] == key:
+#                 self.arr[k] = self.arr[k][:index] + self.arr[k][index + 1:]
+#
+#     def binary_search(self, k, key):
+#         left, right = 0, len(self.arr[k])
+#         while left < right:
+#             mid = (left + right) // 2
+#             if self.arr[k][mid][0] == key:
+#                 return mid
+#             elif self.arr[k][mid][0] > key:
+#                 right = mid
+#             else:
+#                 left = mid + 1
+#         return left
