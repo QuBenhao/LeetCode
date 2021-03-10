@@ -181,6 +181,8 @@ Algorithms in LeetCode by Benhao
 
 [1047.Remove All Adjacent Duplicates In String](1047/problem.md)
 
+[224.Basic Calculator](224/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
