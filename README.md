@@ -555,3 +555,5 @@ Algorithms in LeetCode by Benhao
 ## LCP
 
 [01.猜数字](LCP/01/problem.md)
+
+[02.分式化简](LCP/02/problem.md)
