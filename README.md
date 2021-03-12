@@ -6,6 +6,7 @@ Algorithms in LeetCode by Benhao
 2. [Medium](#medium) 
 3. [Hard](#hard)
 4. [Mysql](#mysql)
+5. [LCP](#lcp)
 
 # Problems
 
@@ -550,3 +551,7 @@ Algorithms in LeetCode by Benhao
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
+
+## LCP
+
+[01.猜数字](LCP/01/problem.md)
