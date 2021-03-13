@@ -184,6 +184,8 @@ Algorithms in LeetCode by Benhao
 
 [224.Basic Calculator](224/problem.md)
 
+[705.Design HashSet](705/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
@@ -559,3 +561,5 @@ Algorithms in LeetCode by Benhao
 [02.分式化简](LCP/02/problem.md)
 
 [03.机器人大冒险](LCP/03/problem.md)
+
+[04.覆盖](LCP/04/problem.md)
