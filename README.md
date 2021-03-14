@@ -556,6 +556,8 @@ Algorithms in LeetCode by Benhao
 
 [1782.Count Pairs Of Nodes](1782/problem.md)
 
+[1793.Maximum Score of a Good Subarray](1793/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
