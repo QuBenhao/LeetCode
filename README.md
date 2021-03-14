@@ -186,6 +186,8 @@ Algorithms in LeetCode by Benhao
 
 [705.Design HashSet](705/problem.md)
 
+[1790.Check if One String Swap Can Make Strings Equal](1790/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
