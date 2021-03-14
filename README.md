@@ -464,6 +464,8 @@ Algorithms in LeetCode by Benhao
 
 [331.Verify Preorder Serialization of a Binary Tree](331/problem.md)
 
+[1791.Find Center of Star Graph](1791/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
