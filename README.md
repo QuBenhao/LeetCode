@@ -468,6 +468,8 @@ Algorithms in LeetCode by Benhao
 
 [1792.Maximum Average Pass Ratio](1792/problem.md)
 
+[54.Spiral Matrix](54/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
