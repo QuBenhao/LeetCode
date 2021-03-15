@@ -14,8 +14,8 @@ class Solution(solution.Solution):
         i, j, di, dj = 0, 0, 0, 1
         for k in range(n * n):
             ans[i][j] = k + 1
-            if ans[(i + di)%n][(j+dj)%n]:
-                # 0, 1 -> 1, 0 -> 0, -1 -> -1, 0
+            if ans[(i + di) % n][(j + dj) % n]:
+                # 0, 1 -> 1, 0 -> 0, -1 -> -1, 0 -> 0, 1
                 di, dj = dj, -di
             i += di
             j += dj
