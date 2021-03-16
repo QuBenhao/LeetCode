@@ -560,6 +560,8 @@ Algorithms in LeetCode by Benhao
 
 [1793.Maximum Score of a Good Subarray](1793/problem.md)
 
+[1787.Make the XOR of All Segments Equal to Zero](1787/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
