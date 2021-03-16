@@ -21,14 +21,12 @@ class Solution(solution.Solution):
             j += dj
         return ans
 
-        # def fill_ring(start, k, curr):
-        #     x, y = start
-        #     if k == 1:
-        #         self.matrix[x][y] = curr
-        #         return None,None
+        # ans = [[0] * n for _ in range(n)]
+        # x, y, curr = 0, 0, 1
+        # while n > 1:
         #     for j in range(4):
-        #         for i in range(k-1):
-        #             self.matrix[x][y] = curr
+        #         for i in range(n-1):
+        #             ans[x][y] = curr
         #             if j == 0:
         #                 y += 1
         #             elif j == 1:
@@ -38,11 +36,33 @@ class Solution(solution.Solution):
         #             else:
         #                 x -= 1
         #             curr += 1
-        #     return (x + 1, y + 1),curr
-        #
-        # self.matrix = [[0 for i in range(n)] for i in range(n)]
-        # curr = 1
-        # start = 0, 0
-        # for i in range(n, 0, -2):
-        #     start,curr = fill_ring(start, i, curr)
-        # return self.matrix
+        #     x += 1
+        #     y += 1
+        #     n -= 2
+        # if n == 1:
+        #     ans[x][y] = curr
+        # return ans
+
+        # ans = [[0] * n for _ in range(n)]
+        # i, j, curr = 0, 0, 1
+        # while n > 1:
+        #     for j in range(j, j + n-1):
+        #         ans[i][j] = curr
+        #         curr += 1
+        #     j += 1
+        #     for i in range(i, i +n-1):
+        #         ans[i][j] = curr
+        #         curr += 1
+        #     i += 1
+        #     for j in range(j, j-n+1, -1):
+        #         ans[i][j] = curr
+        #         curr += 1
+        #     j -= 1
+        #     for i in range(i, i-n+1, -1):
+        #         ans[i][j] = curr
+        #         curr += 1
+        #     j += 1
+        #     n -= 2
+        # if n == 1:
+        #     ans[i][j] = curr
+        # return ans
