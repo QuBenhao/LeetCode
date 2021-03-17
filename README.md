@@ -562,6 +562,8 @@ Algorithms in LeetCode by Benhao
 
 [1787.Make the XOR of All Segments Equal to Zero](1787/problem.md)
 
+[115.Distinct Subsequences](115/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
