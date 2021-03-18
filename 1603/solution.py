@@ -17,6 +17,35 @@ class Solution(solution.Solution):
         return output
 
 
+# class ParkingSystem(object):
+#
+#     def __init__(self, big, medium, small):
+#         """
+#         :type big: int
+#         :type medium: int
+#         :type small: int
+#         """
+#         self.big = big
+#         self.medium = medium
+#         self.small = small
+#
+#     def addCar(self, carType):
+#         """
+#         :type carType: int
+#         :rtype: bool
+#         """
+#         if carType == 1 and self.big > 0:
+#             self.big -= 1
+#             return True
+#         elif carType == 2 and self.medium > 0:
+#             self.medium -= 1
+#             return True
+#         elif carType == 3 and self.small > 0:
+#             self.small -= 1
+#             return True
+#         return False
+
+
 class ParkingSystem(object):
 
     def __init__(self, big, medium, small):
@@ -25,23 +54,16 @@ class ParkingSystem(object):
         :type medium: int
         :type small: int
         """
-        self.big = big
-        self.medium = medium
-        self.small = small
+        self.spot = [0, big, medium, small]
+
 
     def addCar(self, carType):
         """
         :type carType: int
         :rtype: bool
         """
-        if carType == 1 and self.big > 0:
-            self.big -= 1
-            return True
-        elif carType == 2 and self.medium > 0:
-            self.medium -= 1
-            return True
-        elif carType == 3 and self.small > 0:
-            self.small -= 1
+        if self.spot[carType]:
+            self.spot[carType] -= 1
             return True
         return False
 
