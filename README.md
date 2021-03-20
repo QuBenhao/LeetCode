@@ -470,6 +470,8 @@ Algorithms in LeetCode by Benhao
 
 [54.Spiral Matrix](54/problem.md)
 
+[150.Evaluate Reverse Polish Notation](150/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
