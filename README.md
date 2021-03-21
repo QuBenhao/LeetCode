@@ -574,6 +574,8 @@ Algorithms in LeetCode by Benhao
 
 [115.Distinct Subsequences](115/problem.md)
 
+[1799.Maximize Score After N Operations](1799/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
