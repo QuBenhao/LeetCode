@@ -482,6 +482,8 @@ Algorithms in LeetCode by Benhao
 
 [1798.Maximum Number of Consecutive Values You Can Make](1798/problem.md)
 
+[1801.Number of Orders in the Backlog](1801/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
