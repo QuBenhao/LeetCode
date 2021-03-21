@@ -188,6 +188,8 @@ Algorithms in LeetCode by Benhao
 
 [1790.Check if One String Swap Can Make Strings Equal](1790/problem.md)
 
+[1796.Second Largest Digit in a String](1796/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
