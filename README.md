@@ -472,6 +472,8 @@ Algorithms in LeetCode by Benhao
 
 [150.Evaluate Reverse Polish Notation](150/problem.md)
 
+[73.Set Matrix Zeroes](73/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
