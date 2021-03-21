@@ -190,6 +190,8 @@ Algorithms in LeetCode by Benhao
 
 [1796.Second Largest Digit in a String](1796/problem.md)
 
+[1800.Maximum Ascending Subarray Sum](1800/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
