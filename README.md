@@ -582,6 +582,8 @@ Algorithms in LeetCode by Benhao
 
 [1799.Maximize Score After N Operations](1799/problem.md)
 
+[1803.Count Pairs With XOR in a Range](1803/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
