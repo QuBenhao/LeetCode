@@ -486,6 +486,8 @@ Algorithms in LeetCode by Benhao
 
 [1802.Maximum Value at a Given Index in a Bounded Array](1802/problem.md)
 
+[341.Flatten Nested List Iterator](341/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
