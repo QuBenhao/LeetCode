@@ -506,7 +506,7 @@ Algorithms in LeetCode by Benhao
 
 [312.Burst Balloons](312/problem.md)
 
-[1691.Maximum Height by Stacking Cuboids](S1691/problem.md)
+[1691.Maximum Height by Stacking Cuboids](1691/problem.md)
 
 [132.Palindrome Partitioning II](132/problem.md)
 
