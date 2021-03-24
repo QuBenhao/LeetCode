@@ -488,6 +488,8 @@ Algorithms in LeetCode by Benhao
 
 [341.Flatten Nested List Iterator](341/problem.md)
 
+[456.132 Pattern](456/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
