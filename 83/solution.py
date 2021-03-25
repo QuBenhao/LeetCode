@@ -18,14 +18,23 @@ class Solution(solution.Solution):
         :type head: ListNode
         :rtype: ListNode
         """
-        curr = head
-        while curr:
-            node = curr.next
-            while node and node.val == curr.val:
-                curr.next = node.next
-                node = node.next
-            curr = curr.next
+
+        if not head:
+            return None
+        front = head.next
+        while front and front.val == head.val:
+            front = front.next
+        head.next = self.deleteDuplicates(front)
         return head
+
+        # curr = head
+        # while curr:
+        #     node = curr.next
+        #     while node and node.val == curr.val:
+        #         curr.next = node.next
+        #         node = node.next
+        #     curr = curr.next
+        # return head
 
 
 class ListNode(object):
