@@ -496,6 +496,8 @@ Algorithms in LeetCode by Benhao
 
 [1806.Minimum Number of Operations to Reinitialize a Permutation](1806/problem.md)
 
+[1807.Evaluate the Bracket Pairs of a String](1807/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
