@@ -192,6 +192,8 @@ Algorithms in LeetCode by Benhao
 
 [1800.Maximum Ascending Subarray Sum](1800/problem.md)
 
+[1805.Number of Different Integers in a String](1805/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
