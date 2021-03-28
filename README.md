@@ -494,6 +494,8 @@ Algorithms in LeetCode by Benhao
 
 [61.Rotate List](61/problem.md)
 
+[1806.Minimum Number of Operations to Reinitialize a Permutation](1806/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
