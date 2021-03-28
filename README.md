@@ -596,6 +596,8 @@ Algorithms in LeetCode by Benhao
 
 [1803.Count Pairs With XOR in a Range](1803/problem.md)
 
+[1808.Maximize Number of Nice Divisors](1808/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
