@@ -27,3 +27,14 @@ class Solution(solution.Solution):
             else:
                 ans += [x+[(nums[i],i)] for x in ans]
         return [[]] + [list(list(zip(*x))[0]) for x in ans if x]
+
+        # nums.sort()
+        # n = len(nums)
+        # ans = [[]]
+        # for i in range(n):
+        #     if i > 0 and nums[i] == nums[i-1]:
+        #         ans += [x+[nums[i]] for x in ans[len(ans) - last:]]
+        #     else:
+        #         last = len(ans)
+        #         ans += [x+[nums[i]] for x in ans]
+        # return ans
