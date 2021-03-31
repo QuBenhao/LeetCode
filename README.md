@@ -1,6 +1,8 @@
 # LeetCode
 Algorithms in LeetCode by Benhao
 
+**To start: change QUESTION id in [test.py](./test.py)**
+
 # Table of Content
 1. [Easy](#easy)
 2. [Medium](#medium) 
