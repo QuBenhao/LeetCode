@@ -504,6 +504,8 @@ Algorithms in LeetCode by Benhao
 
 [90.Subsets II](90/problem.md)
 
+[1006.Clumsy Factorial](1006/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
