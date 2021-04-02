@@ -9,6 +9,7 @@ Algorithms in LeetCode by Benhao
 3. [Hard](#hard)
 4. [Mysql](#mysql)
 5. [LCP](#lcp)
+6. [面试题](#interview)
 
 # Problems
 
@@ -606,6 +607,8 @@ Algorithms in LeetCode by Benhao
 
 [1808.Maximize Number of Nice Divisors](1808/problem.md)
 
+[42.Trapping Rain Water42. Trapping Rain Water](42/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
@@ -619,3 +622,7 @@ Algorithms in LeetCode by Benhao
 [03.机器人大冒险](LCP/03/problem.md)
 
 [04.覆盖](LCP/04/problem.md)
+
+## Interview
+
+[17.21.直方图的水量](Interview/17_21/problem.md)
