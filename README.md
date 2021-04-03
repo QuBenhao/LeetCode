@@ -511,6 +511,8 @@ Algorithms in LeetCode by Benhao
 
 [1143.Longest Common Subsequence](1143/problem.md)
 
+[1813.Sentence Similarity III](1813/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
