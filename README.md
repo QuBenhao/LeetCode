@@ -197,6 +197,8 @@ Algorithms in LeetCode by Benhao
 
 [1805.Number of Different Integers in a String](1805/problem.md)
 
+[1812.Determine Color of a Chessboard Square](1812/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
