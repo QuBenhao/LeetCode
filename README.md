@@ -513,6 +513,8 @@ Algorithms in LeetCode by Benhao
 
 [1813.Sentence Similarity III](1813/problem.md)
 
+[1814.Count Nice Pairs in an Array](1814/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
