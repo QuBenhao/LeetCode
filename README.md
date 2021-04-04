@@ -515,6 +515,8 @@ Algorithms in LeetCode by Benhao
 
 [1814.Count Nice Pairs in an Array](1814/problem.md)
 
+[781.Rabbits in Forest](781/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
