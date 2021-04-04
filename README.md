@@ -199,6 +199,8 @@ Algorithms in LeetCode by Benhao
 
 [1812.Determine Color of a Chessboard Square](1812/problem.md)
 
+[1816.Truncate Sentence](1816/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
