@@ -519,6 +519,8 @@ Algorithms in LeetCode by Benhao
 
 [781.Rabbits in Forest](781/problem.md)
 
+[1817.Finding the Users Active Minutes](1817/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
