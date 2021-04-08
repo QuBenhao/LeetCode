@@ -523,6 +523,8 @@ Algorithms in LeetCode by Benhao
 
 [1818.Minimum Absolute Sum Difference](1818/problem.md)
 
+[81.Search in Rotated Sorted Array II](81/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
