@@ -629,6 +629,8 @@ Algorithms in LeetCode by Benhao
 
 [42.Trapping Rain Water42. Trapping Rain Water](42/problem.md)
 
+[154.Find Minimum in Rotated Sorted Array II](154/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
