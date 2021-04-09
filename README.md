@@ -201,6 +201,8 @@ Algorithms in LeetCode by Benhao
 
 [1816.Truncate Sentence](1816/problem.md)
 
+[263.Ugly Number](263/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
