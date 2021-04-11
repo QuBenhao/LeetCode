@@ -529,6 +529,8 @@ Algorithms in LeetCode by Benhao
 
 [153.Find Minimum in Rotated Sorted Array](153/problem.md)
 
+[264.Ugly Number II](264/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
