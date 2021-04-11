@@ -641,6 +641,8 @@ Algorithms in LeetCode by Benhao
 
 [154.Find Minimum in Rotated Sorted Array II](154/problem.md)
 
+[1825.Finding MK Average](1825/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
