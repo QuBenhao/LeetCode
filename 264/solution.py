@@ -13,7 +13,7 @@ class Solution(solution.Solution):
         nums = [1]
         p2 = p3 = p5 = 0
         while len(nums) < n:
-            nums.append(min(nums[p2] * 2, nums[p3]*3, nums[p5] * 5))
+            nums.append(min(nums[p2] * 2, nums[p3] * 3, nums[p5] * 5))
             if nums[-1] == nums[p2] * 2:
                 p2 += 1
             if nums[-1] == nums[p3] * 3:
