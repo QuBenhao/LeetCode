@@ -32,7 +32,6 @@ class Solution(solution.Solution):
                                 max_index = index
                                 curr = j
                         except:
-                            curr = j
                             return ans + 1
                 ans += 1
         return ans
