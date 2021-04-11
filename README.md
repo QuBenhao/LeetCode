@@ -535,6 +535,8 @@ Algorithms in LeetCode by Benhao
 
 [1823.Find the Winner of the Circular Game](1823/problem.md)
 
+[1824.Minimum Sideway Jumps](1824/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
