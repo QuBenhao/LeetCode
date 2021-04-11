@@ -533,6 +533,8 @@ Algorithms in LeetCode by Benhao
 
 [264.Ugly Number II](264/problem.md)
 
+[1823.Find the Winner of the Circular Game](1823/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
