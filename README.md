@@ -203,6 +203,8 @@ Algorithms in LeetCode by Benhao
 
 [263.Ugly Number](263/problem.md)
 
+[1822.Sign of the Product of an Array](1822/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
