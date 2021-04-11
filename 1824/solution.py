@@ -15,9 +15,9 @@ class Solution(solution.Solution):
         curr = 2
         lines = {1, 2, 3}
         ans = 0
-        for i in range(n-1):
+        for i in range(n - 1):
             # an obstacle in front of
-            if obstacles[i+1] == curr:
+            if obstacles[i + 1] == curr:
                 # places can jump to
                 new_lines = lines - {curr, obstacles[i]}
                 if len(new_lines) == 1:
@@ -27,7 +27,7 @@ class Solution(solution.Solution):
                     max_index = -1
                     for j in new_lines:
                         try:
-                            index = list.index(obstacles, j,i+1,n)
+                            index = list.index(obstacles, j, i + 1, n)
                             if index > max_index:
                                 max_index = index
                                 curr = j
