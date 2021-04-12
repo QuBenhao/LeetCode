@@ -537,6 +537,8 @@ Algorithms in LeetCode by Benhao
 
 [1824.Minimum Sideway Jumps](1824/problem.md)
 
+[179.Largest Number](179/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
