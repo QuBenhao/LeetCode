@@ -2,14 +2,14 @@ import solution
 
 
 class Solution(solution.Solution):
+
     def solve(self, test_input=None):
-        root_nums,low,high = test_input
-        root_nums = list(root_nums)
+        root_nums = list(test_input)
         root = TreeNode(root_nums.pop(0))
         while root_nums:
             last = curr = root
             num = root_nums.pop(0)
-            if num:
+            if num is not None:
                 L = False
                 while curr:
                     if num < curr.val:
@@ -24,25 +24,30 @@ class Solution(solution.Solution):
                     last.setL(TreeNode(val=num))
                 else:
                     last.setR(TreeNode(val=num))
-        return self.rangeSumBST(root,low,high)
+        self.res = float("inf")
+        self.pre = -float("inf")
+        return self.minDiffInBST(root)
 
-    def rangeSumBST(self, root, low, high):
+    pre = -float('inf')
+    res = float('inf')
+
+    def minDiffInBST(self, root):
         """
         :type root: TreeNode
-        :type low: int
-        :type high: int
         :rtype: int
         """
-        if not root:
-            return 0
-        if low <= root.val <= high:
-            return self.rangeSumBST(root.left,low,root.val) + self.rangeSumBST(root.right,root.val,high) + root.val
-        elif root.val > high:
-            return self.rangeSumBST(root.left,low,high)
-        else:
-            return self.rangeSumBST(root.right,low,high)
+        if root is None:
+            return
 
+        self.minDiffInBST(root.left)
+        # evaluate and set the current node as the node previously evaluated
+        self.res = min(self.res, root.val - self.pre)
+        self.pre = root.val
 
+        self.minDiffInBST(root.right)
+        return self.res
+
+# Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
         self.val = val

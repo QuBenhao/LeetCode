@@ -2,14 +2,14 @@ import solution
 
 
 class Solution(solution.Solution):
+
     def solve(self, test_input=None):
-        root_nums,low,high = test_input
-        root_nums = list(root_nums)
+        root_nums = list(test_input)
         root = TreeNode(root_nums.pop(0))
         while root_nums:
             last = curr = root
             num = root_nums.pop(0)
-            if num:
+            if num is not None:
                 L = False
                 while curr:
                     if num < curr.val:
@@ -24,25 +24,24 @@ class Solution(solution.Solution):
                     last.setL(TreeNode(val=num))
                 else:
                     last.setR(TreeNode(val=num))
-        return self.rangeSumBST(root,low,high)
+        return self.getMinimumDifference(root)
 
-    def rangeSumBST(self, root, low, high):
+    def getMinimumDifference(self, root):
         """
         :type root: TreeNode
-        :type low: int
-        :type high: int
         :rtype: int
         """
-        if not root:
-            return 0
-        if low <= root.val <= high:
-            return self.rangeSumBST(root.left,low,root.val) + self.rangeSumBST(root.right,root.val,high) + root.val
-        elif root.val > high:
-            return self.rangeSumBST(root.left,low,high)
-        else:
-            return self.rangeSumBST(root.right,low,high)
+        def in_order(prev, curr, m):
+            if not curr:
+                return prev, m
+            prev, m = in_order(prev, curr.left, m)
+            m, prev = min(m, curr.val - prev), curr.val
+            return in_order(prev, curr.right, m)
+
+        return in_order(-float("inf"),root,float("inf"))[1]
 
 
+# Definition for a binary tree node.
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
         self.val = val

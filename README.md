@@ -205,6 +205,10 @@ Algorithms in LeetCode by Benhao
 
 [1822.Sign of the Product of an Array](1822/problem.md)
 
+[783.Minimum Distance Between BST Nodes](783/problem.md)
+
+[530.Minimum Absolute Difference in BST](530/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
