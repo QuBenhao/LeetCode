@@ -25,13 +25,10 @@ class NestedInteger(object):
             if type(item) == int:
                 self._integer = item
             else:
-                if len(item) > 0 and type(item[0]) == NestedInteger:
-                    self._list = item
-                else:
-                    l = []
-                    for i in item:
-                        l.append(NestedInteger(i))
-                    self._list = l
+                l = []
+                for i in item:
+                    l.append(NestedInteger(i))
+                self._list = l
 
     def __len__(self):
         if self._list:
@@ -92,7 +89,7 @@ class NestedIterator(object):
             return True
         self.inner = None
         # find the next integer or a list contain integer
-        while self.iter < len(self.nestedList)-1:
+        while self.iter < len(self.nestedList) - 1:
             self.iter += 1
             if self.nestedList[self.iter].isInteger():
                 return True
