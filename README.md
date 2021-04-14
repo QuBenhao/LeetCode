@@ -543,6 +543,8 @@ Algorithms in LeetCode by Benhao
 
 [179.Largest Number](179/problem.md)
 
+[208.Implement Trie (Prefix Tree)](208/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
