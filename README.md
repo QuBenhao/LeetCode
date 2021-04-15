@@ -545,6 +545,8 @@ Algorithms in LeetCode by Benhao
 
 [208.Implement Trie (Prefix Tree)](208/problem.md)
 
+[213.House Robber II](213/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
