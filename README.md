@@ -653,6 +653,8 @@ Algorithms in LeetCode by Benhao
 
 [1825.Finding MK Average](1825/problem.md)
 
+[87.Scramble String](87/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
