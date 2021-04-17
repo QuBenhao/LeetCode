@@ -547,6 +547,8 @@ Algorithms in LeetCode by Benhao
 
 [213.House Robber II](213/problem.md)
 
+[220.Contains Duplicate III](220/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
