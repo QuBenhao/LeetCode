@@ -559,6 +559,8 @@ Algorithms in LeetCode by Benhao
 
 [1833.Maximum Ice Cream Bars](1833/problem.md)
 
+[1834.Single-Threaded CPU](1834/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
