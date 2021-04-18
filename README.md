@@ -553,6 +553,8 @@ Algorithms in LeetCode by Benhao
 
 [1828.Queries on Number of Points Inside a Circle](1828/problem.md)
 
+[1829.Maximum XOR for Each Query](1829/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
