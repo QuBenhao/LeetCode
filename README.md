@@ -209,6 +209,8 @@ Algorithms in LeetCode by Benhao
 
 [530.Minimum Absolute Difference in BST](530/problem.md)
 
+[1827.Minimum Operations to Make the Array Increasing](1827/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
