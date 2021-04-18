@@ -551,6 +551,8 @@ Algorithms in LeetCode by Benhao
 
 [220.Contains Duplicate III](220/problem.md)
 
+[1828.Queries on Number of Points Inside a Circle](1828/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
