@@ -669,6 +669,8 @@ Algorithms in LeetCode by Benhao
 
 [87.Scramble String](87/problem.md)
 
+[1835.Find XOR Sum of All Pairs Bitwise AND](1835/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
