@@ -213,6 +213,8 @@ Algorithms in LeetCode by Benhao
 
 [1832.Check if the Sentence Is Pangram](1832/problem.md)
 
+[27.Remove Element](27/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
