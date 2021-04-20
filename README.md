@@ -215,6 +215,8 @@ Algorithms in LeetCode by Benhao
 
 [27.Remove Element](27/problem.md)
 
+[28.Implement strStr()](28/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
