@@ -565,6 +565,8 @@ Algorithms in LeetCode by Benhao
 
 [1834.Single-Threaded CPU](1834/problem.md)
 
+[368.Largest Divisible Subset](368/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
