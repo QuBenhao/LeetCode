@@ -56,7 +56,7 @@ class Solution(solution.Solution):
         #     # 每一轮遍历结束后检查是否为最大值（当前节点i的最大步数只由i之前的元素决定）
         #     # 记录下最大值所在的位置
         #     if matrix[i][0]>maxDis:
-        #         maxDis = matrix[i][0];
+        #         maxDis = matrix[i][0]
         #         maxPos = i
         #
         # # 根据最大步数所在的位置，逆向推出所选子集
