@@ -217,6 +217,8 @@ Algorithms in LeetCode by Benhao
 
 [28.Implement strStr()](28/problem.md)
 
+[204.Count Primes](204/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
