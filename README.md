@@ -689,6 +689,8 @@ Algorithms in LeetCode by Benhao
 
 [363.Max Sum of Rectangle No Larger Than K](363/problem.md)
 
+[1840.Maximum Building Height](1840/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
