@@ -219,6 +219,8 @@ Algorithms in LeetCode by Benhao
 
 [204.Count Primes](204/problem.md)
 
+[1837.Sum of Digits in Base K](1837/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
