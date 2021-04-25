@@ -575,6 +575,8 @@ Algorithms in LeetCode by Benhao
 
 [1838.Frequency of the Most Frequent Element](1838/problem.md)
 
+[1839.Longest Substring Of All Vowels in Order](1839/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
