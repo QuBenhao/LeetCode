@@ -577,6 +577,8 @@ Algorithms in LeetCode by Benhao
 
 [1839.Longest Substring Of All Vowels in Order](1839/problem.md)
 
+[1011.Capacity To Ship Packages Within D Days](1011/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
