@@ -14,12 +14,12 @@ class Test(unittest.TestCase):
             i, o = testcase
             result = SOLUTION.solve(test_input=i)
             try:
-                self.assertEqual(result, o, msg=f"input = {i}")
+                self.assertEqual(o, result, msg=f"input = {i}")
             except AssertionError:
                 try:
-                    self.assertAlmostEqual(result, o, msg=f"input = {i}", delta=0.00001)
+                    self.assertAlmostEqual(o, result, msg=f"input = {i}", delta=0.00001)
                 except:
-                    self.assertIn(result, o, msg=f"input = {i}")
+                    self.assertIn(o, result, msg=f"input = {i}")
 
 
 if __name__ == '__main__':
