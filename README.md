@@ -579,6 +579,8 @@ Algorithms in LeetCode by Benhao
 
 [1011.Capacity To Ship Packages Within D Days](1011/problem.md)
 
+[633.Sum of Square Numbers](633/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
