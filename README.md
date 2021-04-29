@@ -695,6 +695,8 @@ Algorithms in LeetCode by Benhao
 
 [1840.Maximum Building Height](1840/problem.md)
 
+[403.Frog Jump](403/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
