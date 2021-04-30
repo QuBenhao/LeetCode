@@ -39,11 +39,16 @@ class Solution(solution.Solution):
         1 0 0 -> 1 0
         1 0 1 -> 0 0
         也就是说:
-        a = a ^ x & b
+        同时更新a,b的话:
+        a, b = (a & ~x) | (b & x), b ^ x & ~a
+        
+        先更新b，用新的b更新a的话:
         b = b ^ x & ~a
+        a = a ^ x & ~b
         """
         a = b = 0
         for num in nums:
-            a = a ^ num & b
+            # a, b = (a & ~num) | (b & num), b ^ num & ~a
             b = b ^ num & ~a
+            a = a ^ num & ~b
         return b
