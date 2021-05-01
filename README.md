@@ -585,6 +585,8 @@ Algorithms in LeetCode by Benhao
 
 [633.Sum of Square Numbers](633/problem.md)
 
+[1845.Seat Reservation Manager](1845/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
