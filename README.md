@@ -587,6 +587,8 @@ Algorithms in LeetCode by Benhao
 
 [1845.Seat Reservation Manager](1845/problem.md)
 
+[1846.Maximum Element After Decreasing and Rearranging](1846/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
