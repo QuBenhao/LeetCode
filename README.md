@@ -221,6 +221,8 @@ Algorithms in LeetCode by Benhao
 
 [1837.Sum of Digits in Base K](1837/problem.md)
 
+[690.Employee Importance](690/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
