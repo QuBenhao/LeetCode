@@ -223,6 +223,8 @@ Algorithms in LeetCode by Benhao
 
 [690.Employee Importance](690/problem.md)
 
+[1844.Replace All Digits with Characters](1844/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
