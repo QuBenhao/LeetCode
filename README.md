@@ -225,6 +225,8 @@ Algorithms in LeetCode by Benhao
 
 [1844.Replace All Digits with Characters](1844/problem.md)
 
+[1848.Minimum Distance to the Target Element](1848/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
