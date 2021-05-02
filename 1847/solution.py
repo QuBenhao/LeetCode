@@ -1,5 +1,6 @@
 import solution
-import bisect, math
+from sortedcontainers import SortedList
+from collections import defaultdict
 
 
 class Solution(solution.Solution):
@@ -13,58 +14,24 @@ class Solution(solution.Solution):
         :type queries: List[List[int]]
         :rtype: List[int]
         """
-        rooms.sort(key=lambda x: x[1], reverse=True)  # Sort by decreasing order of room size
-        qArr = []  # zip query with its index
-        for i, q in enumerate(queries):
-            qArr.append((i, q))
-        qArr.sort(key=lambda x: x[1][1], reverse=True)  # Sort by decreasing order of query minSize
-
-        def searchGreaterOrEqual(arr, x):
-            left = 0
-            right = len(arr) - 1
-            ans = -1
-            while left <= right:
-                mid = left + (right - left) // 2
-                if arr[mid] >= x:
-                    ans = mid
-                    right = mid - 1
-                else:
-                    left = mid + 1
-            return ans
-
-        def searchLessOrEqual(arr, x):
-            left = 0
-            right = len(arr) - 1
-            ans = -1
-            while left <= right:
-                mid = left + (right - left) // 2
-                if arr[mid] <= x:
-                    ans = mid
-                    left = mid + 1
-                else:
-                    right = mid - 1
-            return ans
-
-        def binarySearch(arr, x):
-            ansAbs = math.inf
-            ans = -1
-            i1 = searchGreaterOrEqual(arr, x)
-            if i1 != -1:
-                ansAbs = abs(x - arr[i1])
-                ans = arr[i1]
-            i2 = searchLessOrEqual(arr, x)
-            if i2 != -1:
-                if ansAbs >= abs(x - arr[i2]):
-                    ans = arr[i2]
-            return ans
-
-        sortedRoomIdsSoFar = []  # Room id is sorted in
-        n, k = len(rooms), len(queries)
-        i = 0
-        ans = [-1] * k
-        for index, q in qArr:
-            while i < n and rooms[i][1] >= q[1]:
-                bisect.insort(sortedRoomIdsSoFar, rooms[i][0])  # Add id of the room which its size >= query minSize
-                i += 1
-            ans[index] = binarySearch(sortedRoomIdsSoFar, q[0])
+        rooms.sort(key=lambda x:(x[1],x[0]))
+        ans = [-1] * len(queries)
+        index_dict = defaultdict(list)
+        for i,v in enumerate(queries):
+            index_dict[tuple(v)].append(i)
+        sl = SortedList()
+        for idx,size in sorted(queries, key=lambda x:(-x[1],x[0])):
+            while rooms and rooms[-1][1] >= size:
+                i,s = rooms.pop()
+                sl.add(i)
+            if sl:
+                p = sl.bisect_left(idx)
+                cand = []
+                if p > 0:
+                    cand.append(sl[p-1])
+                if p < len(sl):
+                    cand.append(sl[p])
+                res = min(cand, key=lambda x:abs(x-idx))
+                for i in index_dict[idx,size]:
+                    ans[i] = res
         return ans
