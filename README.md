@@ -595,6 +595,8 @@ Algorithms in LeetCode by Benhao
 
 [1850.Minimum Adjacent Swaps to Reach the Kth Smallest Number](1850/problem.md)
 
+[554.Brick Wall](554/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
