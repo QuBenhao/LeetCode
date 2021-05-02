@@ -713,6 +713,8 @@ Algorithms in LeetCode by Benhao
 
 [1847.Closest Room](1847/problem.md)
 
+[1851.Minimum Interval to Include Each Query](1851/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
