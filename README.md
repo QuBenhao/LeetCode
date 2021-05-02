@@ -593,6 +593,8 @@ Algorithms in LeetCode by Benhao
 
 [1849.Splitting a String Into Descending Consecutive Values](1849/problem.md)
 
+[1850.Minimum Adjacent Swaps to Reach the Kth Smallest Number](1850/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
