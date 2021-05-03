@@ -599,6 +599,8 @@ Algorithms in LeetCode by Benhao
 
 [554.Brick Wall](554/problem.md)
 
+[17.Letter Combinations of a Phone Number](17/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
