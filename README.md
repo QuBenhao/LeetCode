@@ -227,6 +227,8 @@ Algorithms in LeetCode by Benhao
 
 [1848.Minimum Distance to the Target Element](1848/problem.md)
 
+[7.Reverse Integer](7/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
