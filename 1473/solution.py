@@ -16,7 +16,6 @@ class Solution(solution.Solution):
         :type target: int
         :rtype: int
         """
-
         @lru_cache(None)
         def dfs(idx, color, t):
             if t < 0 or t > m - idx:
@@ -44,6 +43,7 @@ class Solution(solution.Solution):
             return -1
         return res
 
+        # 自底向上dp
         # # house, color, target
         # # dp[i][j][t] = min(dp[i-1][j][t], min(dp[i][j'][t-1]))  (j' != j)
         # dp = [[[float("inf")] * target for _ in range(n)] for _ in range(m)]
@@ -79,4 +79,37 @@ class Solution(solution.Solution):
         # else:
         #     for j in range(n):
         #         ans = min(ans, dp[-1][j][target-1])
+        # return ans if ans != float("inf") else -1
+
+        # # 自顶向下dp
+        # dp = [[[float("inf")] * target for _ in range(n)] for _ in range(m)]
+        # if houses[-1]:
+        #     dp[-1][houses[-1]-1][0] = 0
+        # else:
+        #     for j in range(n):
+        #         dp[-1][j][0] = cost[-1][j]
+        # for i in range(m-2,-1,-1):
+        #     if houses[i]:
+        #         color = houses[i] - 1
+        #         for t in range(min(target,m-i)):
+        #             dp[i][color][t] = dp[i+1][color][t]
+        #             if t:
+        #                 for j in range(n):
+        #                     if j != color:
+        #                         dp[i][color][t] = min(dp[i][color][t], dp[i+1][j][t-1])
+        #     else:
+        #         for j in range(n):
+        #             for t in range(min(target,m-i)):
+        #                 dp[i][j][t] = dp[i+1][j][t]
+        #                 if t:
+        #                     for j_ in range(n):
+        #                         if j_ != j:
+        #                             dp[i][j][t] = min(dp[i][j][t], dp[i+1][j_][t-1])
+        #                 dp[i][j][t] += cost[i][j]
+        # ans = float("inf")
+        # if houses[0]:
+        #     ans = dp[0][houses[0]-1][target-1]
+        # else:
+        #     for j in range(n):
+        #         ans = min(ans, dp[0][j][target-1])
         # return ans if ans != float("inf") else -1
