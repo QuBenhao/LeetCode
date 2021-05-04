@@ -16,32 +16,47 @@ class Solution(solution.Solution):
         :type target: int
         :rtype: int
         """
+        # @lru_cache(None)
+        # def dfs(idx, color, t):
+        #     if t < 0 or t > m - idx:
+        #         return float("inf")
+        #     if idx == m:
+        #         return 0
+        #     curr = float("inf")
+        #     if houses[idx]:
+        #         if houses[idx] != color:
+        #             curr = min(curr, dfs(idx + 1, houses[idx], t - 1))
+        #         else:
+        #             curr = min(curr, dfs(idx + 1, houses[idx], t))
+        #     else:
+        #         for i in range(1, n + 1):
+        #             houses[idx] = i
+        #             if i != color:
+        #                 curr = min(curr, dfs(idx + 1, houses[idx], t - 1) + cost[idx][i - 1])
+        #             else:
+        #                 curr = min(curr, dfs(idx + 1, houses[idx], t) + cost[idx][i - 1])
+        #         houses[idx] = 0
+        #     return curr
+        #
+        # res = dfs(0, 0, target)
+        # if res == float("inf"):
+        #     return -1
+        # return res
+
         @lru_cache(None)
         def dfs(idx, color, t):
             if t < 0 or t > m - idx:
                 return float("inf")
             if idx == m:
                 return 0
-            curr = float("inf")
             if houses[idx]:
-                if houses[idx] != color:
-                    curr = min(curr, dfs(idx + 1, houses[idx], t - 1))
-                else:
-                    curr = min(curr, dfs(idx + 1, houses[idx], t))
+                return dfs(idx + 1, color, t) if houses[idx] == color else dfs(idx + 1, houses[idx], t - 1)
             else:
-                for i in range(1, n + 1):
-                    houses[idx] = i
-                    if i != color:
-                        curr = min(curr, dfs(idx + 1, houses[idx], t - 1) + cost[idx][i - 1])
-                    else:
-                        curr = min(curr, dfs(idx + 1, houses[idx], t) + cost[idx][i - 1])
-                houses[idx] = 0
-            return curr
+                return min(dfs(idx + 1, j, t - 1) + cost[idx][j - 1] if j != color
+                           else dfs(idx + 1, j, t) + cost[idx][j - 1] for j in range(1, n + 1))
 
         res = dfs(0, 0, target)
-        if res == float("inf"):
-            return -1
-        return res
+        return res if res != float("inf") else -1
 
         # 自底向上dp
         # # house, color, target
