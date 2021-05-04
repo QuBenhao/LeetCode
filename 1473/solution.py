@@ -56,7 +56,8 @@ class Solution(solution.Solution):
         # for i in range(1,m):
         #     if houses[i]:
         #         color = houses[i] - 1
-        #         for t in range(target):
+        #         # 使用i对target进行剪枝
+        #         for t in range(min(target,i+1)):
         #             dp[i][color][t] = dp[i-1][color][t]
         #             if t:
         #                 for j in range(n):
@@ -64,7 +65,8 @@ class Solution(solution.Solution):
         #                         dp[i][color][t] = min(dp[i][color][t], dp[i-1][j][t-1])
         #     else:
         #         for j in range(n):
-        #             for t in range(target):
+        #             # 使用i对target进行剪枝
+        #             for t in range(min(target,i+1)):
         #                 dp[i][j][t] = dp[i-1][j][t]
         #                 if t:
         #                     for j_ in range(n):
