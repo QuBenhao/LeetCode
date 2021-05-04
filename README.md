@@ -721,6 +721,8 @@ Algorithms in LeetCode by Benhao
 
 [1851.Minimum Interval to Include Each Query](1851/problem.md)
 
+[1473.Paint House III](1473/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
