@@ -601,6 +601,8 @@ Algorithms in LeetCode by Benhao
 
 [17.Letter Combinations of a Phone Number](17/problem.md)
 
+[740.Delete and Earn](740/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
