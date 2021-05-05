@@ -4,7 +4,7 @@ import solution
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         encoded, first = test_input
-        return self.decode(encoded, first)
+        return self.decode(list(encoded), first)
 
     def decode(self, encoded, first):
         """
@@ -12,7 +12,8 @@ class Solution(solution.Solution):
         :type first: int
         :rtype: List[int]
         """
-        ans = [first] * (len(encoded)+1)
-        for i in range(1,len(encoded)+1):
-            ans[i] = encoded[i-1] ^ ans[i-1]
-        return ans
+        last = first
+        for i in range(len(encoded)):
+            encoded[i] ^= last
+            last = encoded[i]
+        return [first] + encoded
