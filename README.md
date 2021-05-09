@@ -733,6 +733,8 @@ Algorithms in LeetCode by Benhao
 
 [1473.Paint House III](1473/problem.md)
 
+[1857.Largest Color Value in a Directed Graph](1857/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
