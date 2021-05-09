@@ -607,6 +607,8 @@ Algorithms in LeetCode by Benhao
 
 [1482.Minimum Number of Days to Make m Bouquets](1482/problem.md)
 
+[1855.Maximum Distance Between a Pair of Values](1855/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
