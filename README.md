@@ -609,6 +609,8 @@ Algorithms in LeetCode by Benhao
 
 [1855.Maximum Distance Between a Pair of Values](1855/problem.md)
 
+[1856.Maximum Subarray Min-Product](1856/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
