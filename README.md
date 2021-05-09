@@ -603,6 +603,8 @@ Algorithms in LeetCode by Benhao
 
 [740.Delete and Earn](740/problem.md)
 
+[1482.Minimum Number of Days to Make m Bouquets](1482/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
