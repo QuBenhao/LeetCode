@@ -229,6 +229,8 @@ Algorithms in LeetCode by Benhao
 
 [7.Reverse Integer](7/problem.md)
 
+[1854.Maximum Population Year](1854/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
