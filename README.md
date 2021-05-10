@@ -755,6 +755,8 @@ Algorithms in LeetCode by Benhao
 
 [04.覆盖](LCP/04/problem.md)
 
+[31.变换的迷宫](LCP/31/problem.md)
+
 ## Interview
 
 [17.21.直方图的水量](Interview/17_21/problem.md)
