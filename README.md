@@ -739,6 +739,8 @@ Algorithms in LeetCode by Benhao
 
 [1815.Maximum Number of Groups Getting Fresh Donuts](1815/problem.md)
 
+[1819.Number of Different Subsequences GCDs](1819/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
