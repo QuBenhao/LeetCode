@@ -231,6 +231,8 @@ Algorithms in LeetCode by Benhao
 
 [1854.Maximum Population Year](1854/problem.md)
 
+[872.Leaf-Similar Trees](872/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
