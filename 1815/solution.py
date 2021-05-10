@@ -13,10 +13,22 @@ class Solution(solution.Solution):
         :type groups: List[int]
         :rtype: int
         """
-        groups = [g % batchSize for g in groups]
         remains = [0] * batchSize
         for g in groups:
-            remains[g] += 1
+            remains[g % batchSize] += 1
+        ans = remains[0]
+        remains[0] = 0
+        # 贪心: 余数和为batchSize的可以两两一组
+        for i in range(1, batchSize // 2 + 1):
+            if i != batchSize - i:
+                tp = min(remains[i], remains[batchSize - i])
+                ans += tp
+                remains[i] -= tp
+                remains[batchSize - i] -= tp
+            # 中间数
+            else:
+                ans += remains[i] // 2
+                remains[i] %= 2
 
         # 之前人们的和的余数和剩余的人们
         @lru_cache(None)
@@ -32,4 +44,4 @@ class Solution(solution.Solution):
             # 不在这里加上(s==0)是因为可能remain已经空了
             return res
 
-        return remains[0] + dfs(0, tuple(remains[1:]))
+        return ans + dfs(0, tuple(remains[1:]))
