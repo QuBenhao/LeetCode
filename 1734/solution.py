@@ -16,12 +16,12 @@ class Solution(solution.Solution):
         # perm[0] ^ perm[3] = encoded[0] ^ encoded[1] ^ encoded[2]
         # perm[0] ^ perm[n-1] = encoded[0] ^ encoded[1] ^ .. ^ encoded[n-2]
         # 优化: 观察到encoded奇数位和偶数位出现的次数，encoded[0]出现n-1次为偶数，encoded[1]出现n-2次为奇数...
-        start = res = 0
-        for i in range(1, n+1):
-            if i % 2 == 1 and i < n:
-                start ^= encoded[i]
-            res ^= i
-        perm = [start ^ res]
+        start = 0
+        for i in range(1, n, 2):
+            start ^= encoded[i]
+        if n % 4 == 1:
+            start ^= 1
+        perm = [start]
         for e in encoded:
             perm.append(perm[-1] ^ e)
         return perm
