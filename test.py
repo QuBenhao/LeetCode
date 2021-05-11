@@ -3,7 +3,7 @@ from importlib.machinery import SourceFileLoader
 
 # Question ID that wants to test, modify here as passing arguments
 # QUESTION = 1734
-QUESTION = "LCP/36"
+QUESTION = "LCP/32"
 SOLUTION = SourceFileLoader("module.name", f"./{QUESTION}/solution.py").load_module().Solution()
 TESTCASE = SourceFileLoader("module.name", f"./{QUESTION}/testcase.py").load_module().Testcase()
 

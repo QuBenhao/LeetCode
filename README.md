@@ -757,6 +757,8 @@ Algorithms in LeetCode by Benhao
 
 [31.变换的迷宫](LCP/31/problem.md)
 
+[32.批量处理任务](LCP/32/problem.md)
+
 [36.最多牌组数](LCP/36/problem.md)
 
 ## Interview
