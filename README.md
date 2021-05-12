@@ -759,6 +759,8 @@ Algorithms in LeetCode by Benhao
 
 [04.覆盖](LCP/04/problem.md)
 
+[28.采购方案](LCP/28/problem.md)
+
 [31.变换的迷宫](LCP/31/problem.md)
 
 [32.批量处理任务](LCP/32/problem.md)
