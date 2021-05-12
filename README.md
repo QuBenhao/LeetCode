@@ -763,6 +763,8 @@ Algorithms in LeetCode by Benhao
 
 [29.乐团站位](LCP/29/problem.md)
 
+[30.魔塔游戏](LCP/30/problem.md)
+
 [31.变换的迷宫](LCP/31/problem.md)
 
 [32.批量处理任务](LCP/32/problem.md)
