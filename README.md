@@ -615,6 +615,8 @@ Algorithms in LeetCode by Benhao
 
 [1310.XOR Queries of a Subarray](1310/problem.md)
 
+[337.House Robber III](337/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)

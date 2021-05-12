@@ -2,8 +2,8 @@ import unittest
 from importlib.machinery import SourceFileLoader
 
 # Question ID that wants to test, modify here as passing arguments
-# QUESTION = 1310
-QUESTION = "LCP/34"
+QUESTION = 337
+# QUESTION = "LCP/34"
 SOLUTION = SourceFileLoader("module.name", f"./{QUESTION}/solution.py").load_module().Solution()
 TESTCASE = SourceFileLoader("module.name", f"./{QUESTION}/testcase.py").load_module().Testcase()
 
