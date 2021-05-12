@@ -767,6 +767,8 @@ Algorithms in LeetCode by Benhao
 
 [34.二叉树染色](LCP/34/problem.md)
 
+[35.电动车游城市](LCP/35/problem.md)
+
 [36.最多牌组数](LCP/36/problem.md)
 
 ## Interview
