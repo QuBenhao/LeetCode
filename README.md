@@ -761,6 +761,8 @@ Algorithms in LeetCode by Benhao
 
 [32.批量处理任务](LCP/32/problem.md)
 
+[33.蓄水](LCP/33/problem.md)
+
 [36.最多牌组数](LCP/36/problem.md)
 
 ## Interview
