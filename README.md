@@ -763,6 +763,8 @@ Algorithms in LeetCode by Benhao
 
 [33.蓄水](LCP/33/problem.md)
 
+[34.二叉树染色](LCP/34/problem.md)
+
 [36.最多牌组数](LCP/36/problem.md)
 
 ## Interview
