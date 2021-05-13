@@ -745,6 +745,8 @@ Algorithms in LeetCode by Benhao
 
 [1819.Number of Different Subsequences GCDs](1819/problem.md)
 
+[1269.Number of Ways to Stay in the Same Place After Some Steps](1269/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
