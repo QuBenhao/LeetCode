@@ -625,6 +625,8 @@ Algorithms in LeetCode by Benhao
 
 [421.Maximum XOR of Two Numbers in an Array](421/problem.md)
 
+[1860.Incremental Memory Leak](1860/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
