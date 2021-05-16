@@ -621,6 +621,8 @@ Algorithms in LeetCode by Benhao
 
 [1674.Minimum Moves to Make Array Complementary](1674/problem.md)
 
+[421.Maximum XOR of Two Numbers in an Array](421/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
