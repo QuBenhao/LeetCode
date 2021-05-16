@@ -619,6 +619,8 @@ Algorithms in LeetCode by Benhao
 
 [12.Integer to Roman](12/problem.md)
 
+[1674.Minimum Moves to Make Array Complementary](1674/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
