@@ -633,6 +633,8 @@ Algorithms in LeetCode by Benhao
 
 [1864.Minimum Number of Swaps to Make the Binary String Alternating](1864/problem.md)
 
+[1865.Finding Pairs With a Certain Sum](1865/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
