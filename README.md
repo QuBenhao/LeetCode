@@ -631,6 +631,8 @@ Algorithms in LeetCode by Benhao
 
 [1861.Rotating the Box](1861/problem.md)
 
+[1864.Minimum Number of Swaps to Make the Binary String Alternating](1864/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
