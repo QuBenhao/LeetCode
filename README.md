@@ -233,6 +233,8 @@ Algorithms in LeetCode by Benhao
 
 [872.Leaf-Similar Trees](872/problem.md)
 
+[1859.Sorting the Sentence](1859/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
