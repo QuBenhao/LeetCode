@@ -759,6 +759,8 @@ Algorithms in LeetCode by Benhao
 
 [1269.Number of Ways to Stay in the Same Place After Some Steps](1269/problem.md)
 
+[1862.Sum of Floored Pairs](1862/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
