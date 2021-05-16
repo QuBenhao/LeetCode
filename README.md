@@ -767,6 +767,8 @@ Algorithms in LeetCode by Benhao
 
 [1862.Sum of Floored Pairs](1862/problem.md)
 
+[1866.Number of Ways to Rearrange Sticks With K Sticks Visible](1866/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](1179/problem.md)
