@@ -627,6 +627,8 @@ Algorithms in LeetCode by Benhao
 
 [1860.Incremental Memory Leak](1860/problem.md)
 
+[1861.Rotating the Box](1861/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](1240/problem.md)
