@@ -235,6 +235,8 @@ Algorithms in LeetCode by Benhao
 
 [1859.Sorting the Sentence](1859/problem.md)
 
+[1863.Sum of All Subset XOR Totals](1863/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](2/problem.md)
