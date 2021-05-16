@@ -1,5 +1,4 @@
 import solution
-from collections import Counter
 
 
 class Solution(solution.Solution):
