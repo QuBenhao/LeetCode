@@ -14,24 +14,25 @@ class Solution(solution.Solution):
         :rtype: int
         """
         n = len(nums)
-        # 差分数组 d，范围是 [1, 2*limit+1]
-        d = [0] * (limit * 2 + 2)
-        # 记录 nums[i] + nums[n-i-1] 的频数
-        freq = Counter()
+        # 最终的两数之和只能在[2, 2 * limit]之间
+        diff = [0] * (2 * limit + 2)
+        # 对于每个nums[i],nums[n-1-i]来说：
+        # 不需要修改的只有 diff[a + b]
+        # 只需要修改一次的为 [1 + min(a, b), limit + max(a, b) + 1)
+        # 剩下的部分需要修改两次
         for i in range(n // 2):
-            freq[nums[i] + nums[n - i - 1]] += 1
-            # 对差分数组进行操作
-            d[1 + min(nums[i], nums[n - i - 1])] += 1
-            d[limit + max(nums[i], nums[n - i - 1]) + 1] -= 1
-
-        ans = n * 2
-        # 0/1 贡献的数量
-        contrib01 = 0
-        for K in range(2, limit * 2 + 1):
-            contrib01 += d[K]
-            # 通过哈希表查找 0 贡献的数量
-            contrib1 = contrib01 - freq[K]
-            contrib2 = n // 2 - contrib01
-            ans = min(ans, contrib1 + contrib2 * 2)
-
-        return ans
+            a, b = nums[i], nums[n - 1 - i]
+            # 需要修改两次
+            diff[2] += 2
+            diff[2 * limit + 1] -= 2
+            # 需要修改一次
+            diff[1 + min(a, b)] -= 1
+            diff[limit + max(a, b) + 1] += 1
+            # 需要修改零次
+            diff[a + b] -= 1
+            diff[a + b + 1] += 1
+        res, s = n, 0
+        for i in range(2, 2 * limit + 1):
+            s += diff[i]
+            res = min(res, s)
+        return res
