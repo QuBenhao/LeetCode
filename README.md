@@ -237,6 +237,8 @@ Algorithms in LeetCode by Benhao
 
 [1863.Sum of All Subset XOR Totals](problems/1863/problem.md)
 
+[993.Cousins in Binary Tree](problems/993/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
