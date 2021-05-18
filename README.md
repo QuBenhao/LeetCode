@@ -637,6 +637,8 @@ Algorithms in LeetCode by Benhao
 
 [1865.Finding Pairs With a Certain Sum](problems/1865/problem.md)
 
+[1442.Count Triplets That Can Form Two Arrays of Equal XOR](problems/1442/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
