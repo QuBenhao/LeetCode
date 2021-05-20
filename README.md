@@ -639,6 +639,8 @@ Algorithms in LeetCode by Benhao
 
 [1442.Count Triplets That Can Form Two Arrays of Equal XOR](problems/1442/problem.md)
 
+[692.Top K Frequent Words](problems/692/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
