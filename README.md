@@ -641,6 +641,8 @@ Algorithms in LeetCode by Benhao
 
 [692.Top K Frequent Words](problems/692/problem.md)
 
+[1035.Uncrossed Lines](problems/1035/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
