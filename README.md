@@ -777,6 +777,8 @@ Algorithms in LeetCode by Benhao
 
 [1866.Number of Ways to Rearrange Sticks With K Sticks Visible](problems/1866/problem.md)
 
+[810.Chalkboard XOR Game](problems/810/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
