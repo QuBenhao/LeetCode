@@ -785,6 +785,8 @@ Algorithms in LeetCode by Benhao
 
 [810.Chalkboard XOR Game](problems/810/problem.md)
 
+[1872.Stone Game VIII](problems/1872/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
