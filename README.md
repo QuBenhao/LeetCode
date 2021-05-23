@@ -645,6 +645,8 @@ Algorithms in LeetCode by Benhao
 
 [1035.Uncrossed Lines](problems/1035/problem.md)
 
+[1870.Minimum Speed to Arrive on Time](problems/1870/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
