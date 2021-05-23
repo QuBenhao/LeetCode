@@ -647,6 +647,8 @@ Algorithms in LeetCode by Benhao
 
 [1870.Minimum Speed to Arrive on Time](problems/1870/problem.md)
 
+[1871.Jump Game VII](problems/1871/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
