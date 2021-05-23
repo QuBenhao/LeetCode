@@ -21,7 +21,7 @@ class Solution(solution.Solution):
             h += float(dist[-1]) / v
             return h <= hour
 
-        if hour < len(dist) - 1:
+        if hour <= len(dist) - 1:
             return -1
         l, r = 1, 10 ** 7
         while l < r:
