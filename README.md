@@ -239,6 +239,8 @@ Algorithms in LeetCode by Benhao
 
 [993.Cousins in Binary Tree](problems/993/problem.md)
 
+[1869.Longer Contiguous Segments of Ones than Zeros](problems/1869/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
