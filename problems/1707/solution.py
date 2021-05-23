@@ -24,15 +24,15 @@ class Solution(solution.Solution):
         Putting these thoughts together, we arrive at the solution below. Please refer to the code for more details.
         """
         nums.sort()
-        queries = sorted(enumerate(queries), key=lambda x: x[1][1])
+        qrs = sorted(enumerate(queries),key=lambda x:x[1][1])
         trie = Trie()
-        ans = [-1] * len(queries)
-        j = 0
-        for i, (n, m) in queries:
-            while j < len(nums) and nums[j] <= m:
-                trie.insert(nums[j])
-                j += 1
-            ans[i] = trie.query(n)
+        idx, n = 0, len(nums)
+        ans = [0] * len(qrs)
+        for i,(x, m) in qrs:
+            while idx < n and nums[idx] <= m:
+                trie.add(nums[idx])
+                idx += 1
+            ans[i] = trie.query(x)
         return ans
 
 
@@ -40,23 +40,26 @@ class Trie:
     def __init__(self):
         self.root = {}
 
-    def insert(self, num):
-        p = self.root
+    def add(self, x):
+        node = self.root
         for i in range(31, -1, -1):
-            cur = (num >> i) & 1
-            if cur not in p:
-                p[cur] = {}
-            p = p[cur]
+            bit = x >> i & 1
+            if bit not in node:
+                node[bit] = {}
+            node = node[bit]
 
-    def query(self, num):
-        if not self.root:
-            return -1
-        p, ans = self.root, 0
+    def query(self, x):
+        res = 0
+        node = self.root
         for i in range(31, -1, -1):
-            cur = (num >> i) & 1
-            if 1 - cur in p:
-                p = p[1 - cur]
-                ans |= (1 << i)
+            res <<= 1
+            bit = x >> i & 1
+            xor = bit ^ 1
+            if xor in node:
+                res += 1
+                node = node[xor]
+            elif bit in node:
+                node = node[bit]
             else:
-                p = p[cur]
-        return ans
+                return -1
+        return res
