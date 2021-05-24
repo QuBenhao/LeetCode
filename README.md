@@ -787,6 +787,8 @@ Algorithms in LeetCode by Benhao
 
 [1872.Stone Game VIII](problems/1872/problem.md)
 
+[664.Strange Printer](problems/664/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
