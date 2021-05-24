@@ -28,6 +28,6 @@ class Solution(solution.Solution):
                 return dfs(i, j - 1)
             # i和j是不同的,找到一个最优的拆分方式
             return min(dfs(i, k) + dfs(k + 1, j) for k in range(i, j)
-                           if building[k] == building[i] or building[k] == building[j])
+                       if building[k] == building[i] or building[k] == building[j])
 
         return dfs(0, len(building) - 1)
