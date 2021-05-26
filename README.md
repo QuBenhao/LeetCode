@@ -655,6 +655,8 @@ Algorithms in LeetCode by Benhao
 
 [1669.Merge In Between Linked Lists](problems/1669/problem.md)
 
+[1670.Design Front Middle Back Queue](problems/1670/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
