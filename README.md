@@ -797,6 +797,8 @@ Algorithms in LeetCode by Benhao
 
 [664.Strange Printer](problems/664/problem.md)
 
+[1671.Minimum Number of Removals to Make Mountain Array](problems/1671/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
