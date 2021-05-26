@@ -649,6 +649,8 @@ Algorithms in LeetCode by Benhao
 
 [1871.Jump Game VII](problems/1871/problem.md)
 
+[1190.Reverse Substrings Between Each Pair of Parentheses](problems/1190/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
