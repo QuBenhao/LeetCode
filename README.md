@@ -243,6 +243,8 @@ Algorithms in LeetCode by Benhao
 
 [1668.Maximum Repeating Substring](problems/1668/problem.md)
 
+[461.Hamming Distance](problems/461/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
