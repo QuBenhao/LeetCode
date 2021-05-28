@@ -659,6 +659,8 @@ Algorithms in LeetCode by Benhao
 
 [1670.Design Front Middle Back Queue](problems/1670/problem.md)
 
+[477.Total Hamming Distance](problems/477/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
