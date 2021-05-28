@@ -803,6 +803,8 @@ Algorithms in LeetCode by Benhao
 
 [1671.Minimum Number of Removals to Make Mountain Array](problems/1671/problem.md)
 
+[1665.Minimum Initial Energy to Finish Tasks](problems/1665/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
