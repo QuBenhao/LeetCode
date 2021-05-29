@@ -805,6 +805,8 @@ Algorithms in LeetCode by Benhao
 
 [1665.Minimum Initial Energy to Finish Tasks](problems/1665/problem.md)
 
+[1074.Number of Submatrices That Sum to Target](problems/1074/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
