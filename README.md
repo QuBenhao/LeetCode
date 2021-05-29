@@ -661,6 +661,8 @@ Algorithms in LeetCode by Benhao
 
 [477.Total Hamming Distance](problems/477/problem.md)
 
+[1664.Ways to Make a Fair Array](problems/1664/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
