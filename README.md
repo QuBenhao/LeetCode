@@ -665,6 +665,8 @@ Algorithms in LeetCode by Benhao
 
 [1664.Ways to Make a Fair Array](problems/1664/problem.md)
 
+[1877.Minimize Maximum Pair Sum in Array](problems/1877/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
