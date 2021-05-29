@@ -815,6 +815,8 @@ Algorithms in LeetCode by Benhao
 
 [1074.Number of Submatrices That Sum to Target](problems/1074/problem.md)
 
+[1879.Minimum XOR Sum of Two Arrays](problems/1879/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
