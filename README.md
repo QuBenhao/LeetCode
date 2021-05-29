@@ -667,6 +667,8 @@ Algorithms in LeetCode by Benhao
 
 [1877.Minimize Maximum Pair Sum in Array](problems/1877/problem.md)
 
+[1878.Get Biggest Three Rhombus Sums in a Grid](problems/1878/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
