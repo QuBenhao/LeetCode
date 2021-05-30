@@ -247,6 +247,8 @@ Algorithms in LeetCode by Benhao
 
 [1876.Substrings of Size Three with Distinct Characters](problems/1876/problem.md)
 
+[231.Power of Two](problems/231/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
