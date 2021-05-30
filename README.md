@@ -827,6 +827,8 @@ Algorithms in LeetCode by Benhao
 
 [1883.Minimum Skips to Arrive at Meeting On Time](problems/1883/problem.md)
 
+[1659.Maximize Grid Happiness](problems/1659/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
