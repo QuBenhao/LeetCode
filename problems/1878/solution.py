@@ -1,5 +1,4 @@
 import solution
-import heapq
 
 
 class Solution(solution.Solution):
@@ -12,41 +11,34 @@ class Solution(solution.Solution):
         :rtype: List[int]
         """
         m, n = len(grid), len(grid[0])
-        pq = []
-        maxlen = min(m, n)
-        if maxlen % 2 == 0:
-            maxlen -= 1
-        direct = [(1,1),(-1,1),(-1,-1),(1,-1)]
-        for i in range(maxlen, 0, -2):
-            if i == 1:
-                for k in range(m):
-                    for j in range(n):
-                        heapq.heappush(pq, -grid[k][j])
-            else:
-                l = i//2
-                # 横的长，纵的长
-                for h in range(l, n-l):
-                    for s in range(m-i+1):
-                        sum_ = 0
-                        x,y = h,s
-                        count = d = 0
-                        # 顶点为h,s
-                        while d < 4:
-                            if count == l:
-                                count = 0
-                                d += 1
-                                continue
-                            sum_ += grid[y][x]
-                            x += direct[d][0]
-                            y += direct[d][1]
-                            count += 1
-                        heapq.heappush(pq, -sum_)
-        ans = []
-        explored = set()
-        while len(ans) < 3 and pq:
-            val = - heapq.heappop(pq)
-            if val in explored:
-                continue
-            explored.add(val)
-            ans.append(val)
-        return ans
+        val = set()
+
+        psum1 = [[0] * (m + 1) for _ in range(m + n)]  # '/'
+        psum2 = [[0] * (m + 1) for _ in range(m + n)]  # '\'
+
+        for k in range(m + n):
+            for i in range(m):
+                j = k - i
+                if 0 <= j < n:
+                    psum1[k][i + 1] = psum1[k][i] + grid[i][j]
+                j = k + i - (m - 1)
+                if 0 <= j < n:
+                    psum2[k][i + 1] = psum2[k][i] + grid[i][j]
+
+        for i in range(m):
+            for j in range(n):
+                val.add(grid[i][j])
+                for k in range(1, m):
+                    if 0 <= i + 2 * k < m and 0 <= j - k < n and 0 <= j + k < n:
+                        tmp = 0
+                        idx1 = i + j
+                        idx2 = i + j + 2 * k
+                        idx3 = j - i + (m - 1)
+                        idx4 = j - i + (m - 1) - 2 * k
+                        tmp += psum1[idx1][i + k + 1] - psum1[idx1][i + 1] + psum1[idx2][i + 2 * k] - psum1[idx2][i + k]
+                        tmp += psum2[idx3][i + k] - psum2[idx3][i] + psum2[idx4][i + 2 * k + 1] - psum2[idx4][i + k + 1]
+                        val.add(tmp)
+                    else:
+                        break
+        val = sorted(val)[::-1]
+        return val[:3]
