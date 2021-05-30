@@ -249,6 +249,8 @@ Algorithms in LeetCode by Benhao
 
 [231.Power of Two](problems/231/problem.md)
 
+[1880.Check if Word Equals Summation of Two Words](problems/1880/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
