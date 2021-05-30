@@ -825,6 +825,8 @@ Algorithms in LeetCode by Benhao
 
 [1879.Minimum XOR Sum of Two Arrays](problems/1879/problem.md)
 
+[1883.Minimum Skips to Arrive at Meeting On Time](problems/1883/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
