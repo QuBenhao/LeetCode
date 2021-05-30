@@ -675,6 +675,8 @@ Algorithms in LeetCode by Benhao
 
 [1881.Maximum Value after Insertion](problems/1881/problem.md)
 
+[1882.Process Tasks Using Servers](problems/1882/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
