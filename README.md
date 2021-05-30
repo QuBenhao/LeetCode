@@ -673,6 +673,8 @@ Algorithms in LeetCode by Benhao
 
 [1878.Get Biggest Three Rhombus Sums in a Grid](problems/1878/problem.md)
 
+[1881.Maximum Value after Insertion](problems/1881/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
