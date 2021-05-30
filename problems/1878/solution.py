@@ -13,8 +13,8 @@ class Solution(solution.Solution):
         m, n = len(grid), len(grid[0])
         val = set()
 
-        psum1 = [[0] * (m + 1) for _ in range(m + n)]  # '/'
-        psum2 = [[0] * (m + 1) for _ in range(m + n)]  # '\'
+        psum1 = [[0] * (m + 1) for _ in range(m + n)]
+        psum2 = [[0] * (m + 1) for _ in range(m + n)]
 
         for k in range(m + n):
             for i in range(m):
