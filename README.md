@@ -679,6 +679,8 @@ Algorithms in LeetCode by Benhao
 
 [1882.Process Tasks Using Servers](problems/1882/problem.md)
 
+[1642.Furthest Building You Can Reach](problems/1642/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
@@ -831,7 +833,7 @@ Algorithms in LeetCode by Benhao
 
 [1659.Maximize Grid Happiness](problems/1659/problem.md)
 
-[1642.Furthest Building You Can Reach](problems/1642/problem.md)
+[1643.Kth Smallest Instructions](problems/1643/problem.md)
 
 ## Mysql
 
