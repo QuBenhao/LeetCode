@@ -831,6 +831,8 @@ Algorithms in LeetCode by Benhao
 
 [1659.Maximize Grid Happiness](problems/1659/problem.md)
 
+[1642.Furthest Building You Can Reach](problems/1642/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
