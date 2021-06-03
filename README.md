@@ -683,6 +683,8 @@ Algorithms in LeetCode by Benhao
 
 [523.Continuous Subarray Sum](problems/523/problem.md)
 
+[525.Contiguous Array](problems/525/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
