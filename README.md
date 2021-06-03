@@ -255,6 +255,8 @@ Algorithms in LeetCode by Benhao
 
 [1652.Defuse the Bomb](problems/1652/problem.md)
 
+[160.Intersection of Two Linked Lists](problems/160/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
