@@ -253,6 +253,8 @@ Algorithms in LeetCode by Benhao
 
 [342.Power of Four](problems/342/problem.md)
 
+[1652.Defuse the Bomb](problems/1652/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
