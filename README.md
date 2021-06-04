@@ -689,6 +689,8 @@ Algorithms in LeetCode by Benhao
 
 [525.Contiguous Array](problems/525/problem.md)
 
+[1653.Minimum Deletions to Make String Balanced](problems/1653/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
