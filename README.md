@@ -257,6 +257,8 @@ Algorithms in LeetCode by Benhao
 
 [160.Intersection of Two Linked Lists](problems/160/problem.md)
 
+[203.Remove Linked List Elements](problems/203/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
