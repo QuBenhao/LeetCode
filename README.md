@@ -697,6 +697,8 @@ Algorithms in LeetCode by Benhao
 
 [474.Ones and Zeroes](problems/474/problem.md)
 
+[1887.Reduction Operations to Make the Array Elements Equal](problems/1887/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
