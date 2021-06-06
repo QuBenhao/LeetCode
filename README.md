@@ -701,6 +701,8 @@ Algorithms in LeetCode by Benhao
 
 [1888.Minimum Number of Flips to Make the Binary String Alternating](problems/1888/problem.md)
 
+[494.Target Sum](problems/494/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
