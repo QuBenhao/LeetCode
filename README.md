@@ -855,6 +855,8 @@ Algorithms in LeetCode by Benhao
 
 [1643.Kth Smallest Instructions](problems/1643/problem.md)
 
+[1889.Minimum Space Wasted From Packaging](problems/1889/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
