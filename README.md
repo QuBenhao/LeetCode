@@ -259,6 +259,8 @@ Algorithms in LeetCode by Benhao
 
 [203.Remove Linked List Elements](problems/203/problem.md)
 
+[1886.Determine Whether Matrix Can Be Obtained By Rotation](problems/1886/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
