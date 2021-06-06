@@ -693,6 +693,8 @@ Algorithms in LeetCode by Benhao
 
 [1653.Minimum Deletions to Make String Balanced](problems/1653/problem.md)
 
+[474.Ones and Zeroes](problems/474/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
