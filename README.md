@@ -703,6 +703,8 @@ Algorithms in LeetCode by Benhao
 
 [494.Target Sum](problems/494/problem.md)
 
+[1049.Last Stone Weight II](problems/1049/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
