@@ -26,15 +26,14 @@ class Solution(solution.Solution):
         # return dfs(0, 0)
 
         # 贪心: 最接近 sum//2 的组合和
-        n = len(stones)
         s = sum(stones)
         t = s // 2
-        dp = defaultdict(bool)
-        dp[0] = True
-        for num in stones:
-            for key in sorted(dp.keys(), reverse=True):
-                if num + key < t:
-                    dp[num + key] = True
-                elif num + key == t:
+        sums = {0}
+
+        for stone in stones:
+            for cs in list(sums):
+                if cs + stone < t:
+                    sums.add(cs + stone)
+                elif cs + stone == t:
                     return s - 2 * t
-        return s - 2 * max(dp.keys())
+        return s - 2 * max(sums)
