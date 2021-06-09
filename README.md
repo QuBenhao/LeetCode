@@ -705,6 +705,8 @@ Algorithms in LeetCode by Benhao
 
 [1049.Last Stone Weight II](problems/1049/problem.md)
 
+[518.Coin Change 2](problems/518/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
