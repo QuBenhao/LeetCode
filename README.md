@@ -861,6 +861,8 @@ Algorithms in LeetCode by Benhao
 
 [1889.Minimum Space Wasted From Packaging](problems/1889/problem.md)
 
+[879.Profitable Schemes](problems/879/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
