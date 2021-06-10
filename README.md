@@ -865,6 +865,8 @@ Algorithms in LeetCode by Benhao
 
 [879.Profitable Schemes](problems/879/problem.md)
 
+[1655.Distribute Repeating Integers](problems/1655/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
