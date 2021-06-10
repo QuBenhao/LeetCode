@@ -707,6 +707,8 @@ Algorithms in LeetCode by Benhao
 
 [518.Coin Change 2](problems/518/problem.md)
 
+[279.Perfect Squares](problems/279/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
