@@ -4,23 +4,40 @@ from math import inf,sqrt
 
 
 class Solution(solution.Solution):
-    ans = inf
-
     def solve(self, test_input=None):
         return self.numSquares(test_input)
 
     def numSquares(self, n: int) -> int:
-        return self.answer(n, 0)
+        # dp = [0] + [inf] * n
+        # rg = int(sqrt(n))
+        # for i in range(1, rg + 1):
+        #     curr = i * i
+        #     for j in range(curr,n+1):
+        #         dp[j] = min(dp[j],dp[j-curr]+1)
+        # return dp[n]
 
-    @lru_cache(None)
-    def answer(self, n, ans):
-        if ans >= self.ans:
-            return inf
-        if n == 0:
-            self.ans = ans
-            return ans
-        rg = int(sqrt(n))
-        res = inf
-        for i in range(rg, rg // 2, -1):
-            res = min(res, self.answer(n - i * i, ans + 1))
-        return res
+        # 次数筛的贪心
+        ps = set([i * i for i in range(1, int(n ** 0.5) + 1)])
+
+        def divisible(n, count):
+            if count == 1: return n in ps
+            for p in ps:
+                if divisible(n - p, count - 1):
+                    return True
+            return False
+
+        for count in range(1, n + 1):
+            if divisible(n, count):
+                return count
+
+    # @lru_cache(None)
+    # def numSquares(self, n: int) -> int:
+    #     if n == int(sqrt(n)) ** 2:
+    #         return 1
+    #     # 次数筛
+    #     for i in range(2,n+1):
+    #         # 次数i对应的平方数至少有一个大于等于平均数n//i
+    #         for j in range(int(sqrt(n//i)), int(sqrt(n))+1):
+    #             if self.numSquares(n-j*j) + 1 == i:
+    #                 return i
+    #     return n
