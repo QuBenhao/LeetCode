@@ -877,6 +877,8 @@ Algorithms in LeetCode by Benhao
 
 [1449.Form Largest Integer With Digits That Add up to Target](problems/1449/problem.md)
 
+[1896.Minimum Cost to Change the Final Value of Expression](problems/1896/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
