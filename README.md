@@ -265,6 +265,8 @@ Algorithms in LeetCode by Benhao
 
 [1897.Redistribute Characters to Make All Strings Equal](problems/1897/problem.md)
 
+[278.First Bad Version](problems/278/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
