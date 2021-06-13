@@ -717,6 +717,8 @@ Algorithms in LeetCode by Benhao
 
 [1895.Largest Magic Square](problems/1895/problem.md)
 
+[1898.Maximum Number of Removable Characters](problems/1898/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
