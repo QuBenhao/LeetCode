@@ -885,6 +885,8 @@ Algorithms in LeetCode by Benhao
 
 [1896.Minimum Cost to Change the Final Value of Expression](problems/1896/problem.md)
 
+[1900.The Earliest and Latest Rounds Where Players Compete](problems/1900/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
