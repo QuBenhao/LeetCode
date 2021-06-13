@@ -713,6 +713,8 @@ Algorithms in LeetCode by Benhao
 
 [1894.Find the Student that Will Replace the Chalk](problems/1894/problem.md)
 
+[1895.Largest Magic Square](problems/1895/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
