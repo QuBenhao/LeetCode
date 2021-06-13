@@ -263,6 +263,8 @@ Algorithms in LeetCode by Benhao
 
 [1893.Check if All the Integers in a Range Are Covered](problems/1893/problem.md)
 
+[1897.Redistribute Characters to Make All Strings Equal](problems/1897/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
