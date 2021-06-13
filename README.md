@@ -719,6 +719,8 @@ Algorithms in LeetCode by Benhao
 
 [1898.Maximum Number of Removable Characters](problems/1898/problem.md)
 
+[1899.Merge Triplets to Form Target Triplet](problems/1899/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
