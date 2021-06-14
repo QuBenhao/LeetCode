@@ -9,6 +9,7 @@ class Testcase(testcase.Testcase):
         self.testcases = []
         self.testcases.append(case(Input=(11, 2, 4), Output=[3, 4]))
         self.testcases.append(case(Input=(5, 1, 5), Output=[1, 1]))
+        self.testcases.append(case(Input=(9, 4, 5), Output=[4, 4]))
 
     def get_testcases(self):
         return self.testcases
