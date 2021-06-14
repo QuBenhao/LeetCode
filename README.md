@@ -269,6 +269,8 @@ Algorithms in LeetCode by Benhao
 
 [374.Guess Number Higher or Lower](problems/374/problem.md)
 
+[852.Peak Index in a Mountain Array](problems/852/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
