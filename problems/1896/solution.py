@@ -1,5 +1,4 @@
 import solution
-from functools import lru_cache
 
 
 class Solution(solution.Solution):
