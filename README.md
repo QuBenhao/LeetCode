@@ -267,6 +267,8 @@ Algorithms in LeetCode by Benhao
 
 [278.First Bad Version](problems/278/problem.md)
 
+[374.Guess Number Higher or Lower](problems/374/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
