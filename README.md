@@ -729,6 +729,8 @@ Algorithms in LeetCode by Benhao
 
 [877.Stone Game](problems/877/problem.md)
 
+[1140.Stone Game II](problems/1140/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
