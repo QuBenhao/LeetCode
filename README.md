@@ -727,6 +727,8 @@ Algorithms in LeetCode by Benhao
 
 [1899.Merge Triplets to Form Target Triplet](problems/1899/problem.md)
 
+[877.Stone Game](problems/877/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
