@@ -899,6 +899,8 @@ Algorithms in LeetCode by Benhao
 
 [1406.Stone Game III](problems/1406/problem.md)
 
+[1510.Stone Game IV](problems/1510/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
