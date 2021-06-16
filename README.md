@@ -897,6 +897,8 @@ Algorithms in LeetCode by Benhao
 
 [1900.The Earliest and Latest Rounds Where Players Compete](problems/1900/problem.md)
 
+[1406.Stone Game III](problems/1406/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)

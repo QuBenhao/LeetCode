@@ -1,7 +1,6 @@
 import solution
 from functools import lru_cache
 from itertools import accumulate
-import math
 
 
 class Solution(solution.Solution):
