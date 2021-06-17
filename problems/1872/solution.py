@@ -1,4 +1,6 @@
 import solution
+from functools import lru_cache
+from itertools import accumulate
 
 
 class Solution(solution.Solution):
@@ -21,3 +23,18 @@ class Solution(solution.Solution):
             # 或者我们跨过j，获得dp[j]的分数
             res = max(num - res, res)
         return res
+
+        # # 移除并放回，前缀和不变
+        # # 每次拿的石子必然包括前面的前缀和
+        # @lru_cache(None)
+        # def dfs(idx):
+        #     if idx >= n - 1:
+        #         return presum[n]
+        #     # 不选当前坐标，选后面的会是dfs(idx+1),选当前坐标会得到presum[idx+1] - dfs(idx+1)。取两者最大值
+        #     return max(dfs(idx + 1), presum[idx + 1] - dfs(idx+1))
+        #
+        # n = len(stones)
+        # presum = [0] + list(accumulate(stones))
+        # dfs.cache_clear()
+        # # 0必须拿
+        # return dfs(1)
