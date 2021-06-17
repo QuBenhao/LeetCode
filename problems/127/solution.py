@@ -1,4 +1,6 @@
 import solution
+import string
+from collections import deque
 
 
 class Solution(solution.Solution):
@@ -13,34 +15,50 @@ class Solution(solution.Solution):
         :type wordList: List[str]
         :rtype: int
         """
-        import collections,string
-        if beginWord not in wordList:
-            wordList.append(beginWord)
+
+        class Queue:
+            def __init__(self):
+                self.queue = deque([])
+                self.explored = dict()
+
+            def __contains__(self, item):
+                return item in self.explored
+
+            def __add__(self, other):
+                self.queue.append(other)
+                self.explored[other[1]] = other[0]
+
+            def __len__(self):
+                return len(self.queue)
+
+            def pop(self):
+                return self.queue.popleft()
+
+            def extend(self, other):
+                length, s = self.pop()
+                for i in range(len(s)):
+                    for c in string.ascii_lowercase:
+                        t = s[:i] + c + s[i + 1:]
+                        if t in wordList and t not in self:
+                            if t in other:
+                                return length + other.explored[t]
+                            self.__add__((length + 1, t))
+                return 0
+
+            def __str__(self):
+                return str(self.queue)
 
         wordList = set(wordList)
-        actions = collections.defaultdict(list)
-
-        for s in wordList:
-            for j in range(len(s)):
-                for c in string.ascii_lowercase:
-                    n = s[:j] + c + s[j+1:]
-                    if n in wordList:
-                        actions[s].append(n)
-
-        frontier = [beginWord]
-        explored = set()
-        cost = 1
-
-        while frontier:
-            next_states = []
-            for s in frontier:
-                if s == endWord:
-                    return cost
-                explored.add(s)
-                for n in actions[s]:
-                    if n not in explored:
-                        next_states.append(n)
-            cost += 1
-            frontier = next_states
-
+        if endWord not in wordList:
+            return 0
+        front, back = Queue(), Queue()
+        front.__add__((1, beginWord))
+        back.__add__((1, endWord))
+        while front and back:
+            if len(front) > len(back):
+                ans = back.extend(front)
+            else:
+                ans = front.extend(back)
+            if ans:
+                return ans
         return 0
