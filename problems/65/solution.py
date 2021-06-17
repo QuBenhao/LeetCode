@@ -10,6 +10,17 @@ class Solution(solution.Solution):
         :type s: str
         :rtype: bool
         """
+        """
+        1:初始状态 (空字符串或者纯空格)
+        2:符号位
+        3:数字位 (形如-164,可以作为结束)
+        4:小数点
+        5:小数点后的数字(形如.721或者-123.6,可以作为结束)
+        6:指数e
+        7:指数后面的符号位
+        8:指数后面的数字(形如+1e-6,可以作为结束)
+        9:状态3,5,6后面多了空格(主要为了判断"1 1"是不合理的)
+        """
         # DFA transitions: dict[action] -> successor
         states = [{},
                   # state 1
