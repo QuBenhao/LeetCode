@@ -12,22 +12,12 @@ class Solution(solution.Solution):
         :type bobValues: List[int]
         :rtype: int
         """
-        total = [(i,aliceValues[i]+bobValues[i]) for i in range(len(aliceValues))]
-        total.sort(key=lambda x:-x[1])
-        turn = True
-        score = 0
-        while total:
-            i,_ = total.pop(0)
-            if turn:
-                score += aliceValues[i]
-                turn = False
-            else:
-                score -= bobValues[i]
-                turn = True
-
-        if score > 0:
+        totalValues = [(a+b) for a,b in zip(aliceValues, bobValues)]
+        totalValues.sort(reverse=True)
+        # 所有Alice能拿到的石头的总价值，其中每个都多拿了Bob的对应石子,再减去本来就是Bob拿的石子，正好是Bob的所有石子
+        ans = sum(totalValues[::2]) - sum(bobValues)
+        if ans > 0:
             return 1
-        elif score < 0:
+        elif ans < 0:
             return -1
-        else:
-            return 0
+        return 0
