@@ -56,14 +56,14 @@ class Solution(solution.Solution):
                         ts.__add__((ts.explored[s] + 1, t))
         return 0
 
-        # class ProirtyQueue:
+        # class PriorityQueue:
         #     def __init__(self):
         #         self.queue = []
         #         self.explored = dict()
         #
         #     def __contains__(self, item):
         #         return item in self.explored
-        #
+        # 
         #     def __add__(self, other):
         #         heapq.heappush(self.queue, other)
         #         self.explored[other[2]] = other[0]
@@ -80,7 +80,7 @@ class Solution(solution.Solution):
         # wordList = set(wordList)
         # if endWord not in wordList:
         #     return 0
-        # front = ProirtyQueue()
+        # front = PriorityQueue()
         # front.__add__((1, 0, beginWord))
         # while front:
         #     l, _, s = front.pop()
