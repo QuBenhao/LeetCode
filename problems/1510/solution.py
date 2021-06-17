@@ -23,7 +23,8 @@ class Solution(solution.Solution):
 
         return dfs(n)
 
-        # dp = {0:False}
+        # dp = {0}
         # for i in range(1, n+1):
-        #     dp[i] = True if any(not dp[i-j*j] for j in range(int(math.sqrt(i)), 0, -1)) else False
-        # return dp[n]
+        #     if all(i-j*j not in dp for j in range(int(math.sqrt(i)), 0, -1)):
+        #         dp.add(i)
+        # return n not in dp
