@@ -34,20 +34,6 @@ class Solution(solution.Solution):
             def pop(self):
                 return self.queue.popleft()
 
-            def extend(self, other):
-                length, s = self.pop()
-                for i in range(len(s)):
-                    for c in string.ascii_lowercase:
-                        t = s[:i] + c + s[i + 1:]
-                        if t in wordList and t not in self:
-                            if t in other:
-                                return length + other.explored[t]
-                            self.__add__((length + 1, t))
-                return 0
-
-            def __str__(self):
-                return str(self.queue)
-
         wordList = set(wordList)
         if endWord not in wordList:
             return 0
@@ -56,9 +42,15 @@ class Solution(solution.Solution):
         back.__add__((1, endWord))
         while front and back:
             if len(front) > len(back):
-                ans = back.extend(front)
+                ts, ot = back, front
             else:
-                ans = front.extend(back)
-            if ans:
-                return ans
+                ts, ot = front, back
+            length, s = ts.pop()
+            for i in range(len(s)):
+                for c in string.ascii_lowercase:
+                    t = s[:i] + c + s[i + 1:]
+                    if t in wordList and t not in ts:
+                        if t in ot:
+                            return length + ot.explored[t]
+                        ts.__add__((length + 1, t))
         return 0
