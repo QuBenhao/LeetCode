@@ -905,6 +905,8 @@ Algorithms in LeetCode by Benhao
 
 [1563.Stone Game V](problems/1563/problem.md)
 
+[483.Smallest Good Base](problems/483/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
