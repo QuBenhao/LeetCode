@@ -737,6 +737,8 @@ Algorithms in LeetCode by Benhao
 
 [1904.The Number of Full Rounds You Have Played](problems/1904/problem.md)
 
+[1905.Count Sub Islands](problems/1905/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
