@@ -735,6 +735,8 @@ Algorithms in LeetCode by Benhao
 
 [1239.Maximum Length of a Concatenated String with Unique Characters](problems/1239/problem.md)
 
+[1904.The Number of Full Rounds You Have Played](problems/1904/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
