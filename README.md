@@ -741,6 +741,8 @@ Algorithms in LeetCode by Benhao
 
 [1906.Minimum Absolute Difference Queries](problems/1906/problem.md)
 
+[1600.Throne Inheritance](problems/1600/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
