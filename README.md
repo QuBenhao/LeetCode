@@ -271,6 +271,8 @@ Algorithms in LeetCode by Benhao
 
 [852.Peak Index in a Mountain Array](problems/852/problem.md)
 
+[1903.Largest Odd Number in String](problems/1903/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
