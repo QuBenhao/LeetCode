@@ -956,3 +956,7 @@ Algorithms in LeetCode by Benhao
 ## Interview
 
 [17.21.直方图的水量](problems/Interview/17_21/problem.md)
+
+## 剑指 Offer
+
+[38.字符串的排列](problems/剑指Offer/38/problem.md)
