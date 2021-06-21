@@ -21,17 +21,10 @@ class Solution(solution.Solution):
     def hours(self, n):
         if not n:
             return ["0:"]
-        return [str(s) + ':' for i in combinations([1, 2, 4, 8], n) if 0 <= (s := sum(i)) <= 11]
+        return [str(s) + ':' for i in combinations([1, 2, 4, 8], n) if (s := sum(i)) < 12]
 
     @lru_cache(None)
     def minutes(self, n):
         if not n:
             return ["00"]
-        ans = []
-        for i in combinations([1, 2, 4, 8, 16, 32], n):
-            s = sum(i)
-            if 0 <= s < 10:
-                ans.append('0' + str(s))
-            elif s < 60:
-                ans.append(str(s))
-        return ans
+        return [str(s).rjust(2, '0') for i in combinations([1, 2, 4, 8, 16, 32], n) if (s := sum(i)) < 60]
