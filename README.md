@@ -273,6 +273,8 @@ Algorithms in LeetCode by Benhao
 
 [1903.Largest Odd Number in String](problems/1903/problem.md)
 
+[401.Binary Watch](problems/401/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
