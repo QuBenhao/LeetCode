@@ -40,14 +40,10 @@ class Solution(solution.Solution):
             ans.append(''.join(curr))
             i = n - 2
             # 29631 -> 31269
-            while i > 0:
-                if curr[i] < curr[i + 1]:
-                    break
+            while i > 0 and curr[i] >= curr[i + 1]:
                 i -= 1
             j = n - 1
-            while j > i - 1:
-                if curr[j] > curr[i]:
-                    break
+            while j > i - 1 and curr[j] <= curr[i]:
                 j -= 1
             curr[i], curr[j] = curr[j], curr[i]
             curr = curr[:i + 1] + sorted(curr[i + 1:])
