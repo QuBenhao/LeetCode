@@ -1,24 +1,36 @@
 import solution
 from itertools import permutations
+from functools import lru_cache
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         return self.permutation(str(test_input))
 
+    # def permutation(self, s):
+    #     """
+    #     :type s: str
+    #     :rtype: List[str]
+    #     """
+    #     return list(set(''.join(st) for st in permutations(s)))
+
+    # @lru_cache(None)
+    # def permutation(self, s):
+    #     """
+    #     :type s: str
+    #     :rtype: List[str]
+    #     """
+    #     # 递归解法
+    #     if len(s) <= 1:
+    #         return [s]
+    #     return list(set(s[i] + perm for i in range(len(s)) for perm in self.permutation(s[:i] + s[i + 1:])))
+
     def permutation(self, s):
         """
         :type s: str
         :rtype: List[str]
         """
-        # return list(set(''.join(st) for st in permutations(s)))
-
-        # # 递归解法
-        # if len(s) <= 1:
-        #     return [s]
-        # return list(set(s[i] + perm for i in range(len(s)) for perm in self.permutation(s[:i] + s[i + 1:])))
-
-        # # 非递归解法
+        # 非递归解法
         n = len(s)
         curr = list(sorted(s))
         end = list(reversed(curr))
