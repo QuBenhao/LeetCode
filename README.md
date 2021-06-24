@@ -925,6 +925,8 @@ Algorithms in LeetCode by Benhao
 
 [483.Smallest Good Base](problems/483/problem.md)
 
+[149.Max Points on a Line](problems/149/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
