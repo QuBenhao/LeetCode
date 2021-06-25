@@ -749,6 +749,8 @@ Algorithms in LeetCode by Benhao
 
 [1648.Sell Diminishing-Valued Colored Balls](problems/1648/problem.md)
 
+[752.Open the Lock](problems/752/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
