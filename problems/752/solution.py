@@ -1,5 +1,6 @@
 import solution
 from collections import deque
+import heapq
 
 
 class Solution(solution.Solution):
@@ -13,6 +14,32 @@ class Solution(solution.Solution):
         :type target: str
         :rtype: int
         """
+        # # A Star Algorithm
+        # def heuristic(state):
+        #     return sum(min(m := abs(int(a) - int(b)), 10 - m) for a, b in zip(state, target))
+        #
+        # def action(string):
+        #     return [string[:i] + str((int(c) + d) % 10) + string[i + 1:] for d in (-1, 1) for i, c in
+        #             enumerate(string)]
+        #
+        # if target == "0000":
+        #     return 0
+        # deadends = set(deadends)
+        # if "0000" in deadends:
+        #     return -1
+        #
+        # # f:=h+g, g, state
+        # pq = [(0, 0, "0000")]
+        # explored = {"0000"}
+        # while pq:
+        #     _, g, state = heapq.heappop(pq)
+        #     if state == target:
+        #         return g
+        #     for succ in action(state):
+        #         if succ not in explored and succ not in deadends:
+        #             explored.add(succ)
+        #             heapq.heappush(pq, (g + 1 + heuristic(succ), g + 1, succ))
+        # return -1
 
         class Queue:
             def __init__(self):
