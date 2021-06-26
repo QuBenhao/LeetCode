@@ -929,6 +929,8 @@ Algorithms in LeetCode by Benhao
 
 [149.Max Points on a Line](problems/149/problem.md)
 
+[773.Sliding Puzzle](problems/773/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
