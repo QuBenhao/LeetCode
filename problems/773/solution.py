@@ -1,5 +1,6 @@
 import solution
 import heapq
+from collections import deque
 
 
 class Solution(solution.Solution):
@@ -11,6 +12,28 @@ class Solution(solution.Solution):
         :type board: List[List[int]]
         :rtype: int
         """
+        # neighbors = {0: (1, 3), 1: (0, 2, 4), 2: (1, 5), 3: (0, 4), 4: (1, 3, 5), 5: (2, 4)}
+        #
+        # start = tuple(board[0] + board[1])
+        # target = tuple([1, 2, 3, 4, 5, 0])
+        # queue = deque([(start, 0)])
+        # seen = {start}
+        #
+        # while queue:
+        #     node, depth = queue.popleft()
+        #     if node == target:
+        #         return depth
+        #     pos = node.index(0)
+        #     for i in neighbors[pos]:
+        #         newboard = list(node)
+        #         newboard[pos] = newboard[i]
+        #         newboard[i] = 0
+        #         nb = tuple(newboard)
+        #         if nb not in seen:
+        #             seen.add(nb)
+        #             queue.append((nb, depth + 1))
+        # return -1
+
         # 邻近点
         neighbors = {0: (1, 3), 1: (0, 2, 4), 2: (1, 5), 3: (0, 4), 4: (1, 3, 5), 5: (2, 4)}
 
