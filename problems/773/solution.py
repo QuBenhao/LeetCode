@@ -86,14 +86,14 @@ class Solution(solution.Solution):
             return -1
         initState = State(board)
         pq = [initState]
-        explored = {initState}
+        explored = {initState:0}
         # 优先队列以f=h+g进行了排序
         while pq:
             state = heapq.heappop(pq)
             if state.board == [1, 2, 3, 4, 5, 0]:
                 return state.g
             for successor in state.successor():
-                if successor not in explored:
-                    explored.add(successor)
+                if successor not in explored or explored[successor] > state.g + 1:
+                    explored[successor] = state.g + 1
                     heapq.heappush(pq, successor)
         return -1
