@@ -757,6 +757,8 @@ Algorithms in LeetCode by Benhao
 
 [1910.Remove All Occurrences of a Substring](problems/1910/problem.md)
 
+[1911.Maximum Alternating Subsequence Sum](problems/1911/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
