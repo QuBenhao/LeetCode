@@ -25,16 +25,19 @@ class Solution(solution.Solution):
             x, step = queue.popleft()
             if x == n * n:
                 return step
-            for dx in range(1, 7):
+            # 加入贪心：跳跃到没有蛇或者梯子的地方要跳尽可能远
+            picked = False
+            for dx in range(6, 0, -1):
                 nxt = x + dx
                 if nxt > n * n:
-                    break
+                    continue
                 if nxt not in explored:
                     i, j = transform(nxt)
                     explored.add(nxt)
                     # 该位置有跳跃
                     if board[i][j] != -1:
                         queue.append((board[i][j], step + 1))
-                    else:
+                    elif not picked:
+                        picked = True
                         queue.append((nxt, step + 1))
         return -1
