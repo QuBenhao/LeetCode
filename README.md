@@ -275,6 +275,8 @@ Algorithms in LeetCode by Benhao
 
 [401.Binary Watch](problems/401/problem.md)
 
+[1909.Remove One Element to Make the Array Strictly Increasing](problems/1909/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
