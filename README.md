@@ -939,6 +939,8 @@ Algorithms in LeetCode by Benhao
 
 [773.Sliding Puzzle](problems/773/problem.md)
 
+[1912.Design Movie Rental System](problems/1912/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
