@@ -947,6 +947,8 @@ Algorithms in LeetCode by Benhao
 
 [1912.Design Movie Rental System](problems/1912/problem.md)
 
+[1916.Count Ways to Build Rooms in an Ant Colony](problems/1916/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
