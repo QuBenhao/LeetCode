@@ -755,6 +755,8 @@ Algorithms in LeetCode by Benhao
 
 [909.Snakes and Ladders](problems/909/problem.md)
 
+[1910.Remove All Occurrences of a Substring](problems/1910/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
