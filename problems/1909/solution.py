@@ -1,5 +1,4 @@
 import solution
-from math import inf
 
 
 class Solution(solution.Solution):
