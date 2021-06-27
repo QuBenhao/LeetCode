@@ -751,6 +751,8 @@ Algorithms in LeetCode by Benhao
 
 [752.Open the Lock](problems/752/problem.md)
 
+[909.Snakes and Ladders](problems/909/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
