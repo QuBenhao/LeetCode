@@ -761,6 +761,8 @@ Algorithms in LeetCode by Benhao
 
 [1911.Maximum Alternating Subsequence Sum](problems/1911/problem.md)
 
+[1914.Cyclically Rotating a Grid](problems/1914/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
