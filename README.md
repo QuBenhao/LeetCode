@@ -949,6 +949,8 @@ Algorithms in LeetCode by Benhao
 
 [1916.Count Ways to Build Rooms in an Ant Colony](problems/1916/problem.md)
 
+[815.Bus Routes](problems/815/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
