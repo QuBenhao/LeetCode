@@ -969,6 +969,8 @@ Algorithms in LeetCode by Benhao
 
 [04.覆盖](problems/LCP/04/problem.md)
 
+[07.传递信息](problems/LCP/07/problem.md)
+
 [28.采购方案](problems/LCP/28/problem.md)
 
 [29.乐团站位](problems/LCP/29/problem.md)
