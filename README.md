@@ -767,6 +767,8 @@ Algorithms in LeetCode by Benhao
 
 [1915.Number of Wonderful Substrings](problems/1915/problem.md)
 
+[451.Sort Characters By Frequency](problems/451/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
