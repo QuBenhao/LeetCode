@@ -283,6 +283,8 @@ Algorithms in LeetCode by Benhao
 
 [645.Set Mismatch](problems/645/problem.md)
 
+[1920.Build Array from Permutation](problems/1920/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)

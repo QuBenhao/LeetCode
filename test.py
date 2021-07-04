@@ -2,7 +2,7 @@ import unittest
 from importlib.machinery import SourceFileLoader
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTION = 645
+QUESTION = 1920
 # QUESTION = "LCP/07"
 # QUESTION = "剑指Offer/38"
 SOLUTION = SourceFileLoader("module.name", f"./problems/{QUESTION}/solution.py").load_module().Solution()
