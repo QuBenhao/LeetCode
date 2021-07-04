@@ -965,6 +965,8 @@ Algorithms in LeetCode by Benhao
 
 [297.Serialize and Deserialize Binary Tree](problems/297/problem.md)
 
+[1923.Longest Common Subpath](problems/1923/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
