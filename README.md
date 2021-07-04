@@ -773,6 +773,8 @@ Algorithms in LeetCode by Benhao
 
 [451.Sort Characters By Frequency](problems/451/problem.md)
 
+[1921.Eliminate Maximum Number of Monsters](problems/1921/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
