@@ -775,6 +775,8 @@ Algorithms in LeetCode by Benhao
 
 [1921.Eliminate Maximum Number of Monsters](problems/1921/problem.md)
 
+[1922.Count Good Numbers](problems/1922/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
