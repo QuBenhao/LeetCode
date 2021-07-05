@@ -967,6 +967,8 @@ Algorithms in LeetCode by Benhao
 
 [1923.Longest Common Subpath](problems/1923/problem.md)
 
+[726.Number of Atoms](problems/726/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
