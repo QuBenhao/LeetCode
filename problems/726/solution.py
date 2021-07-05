@@ -81,7 +81,7 @@ class Solution(solution.Solution):
                     muls.append(num)
                     num = num_count = 0
                 else:
-                    muls.append(multiply)
+                    muls.append(1)
             elif c == '(':
                 # 去除掉上一个乘数
                 multiply //= muls.pop()
