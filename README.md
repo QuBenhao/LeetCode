@@ -971,6 +971,8 @@ Algorithms in LeetCode by Benhao
 
 [726.Number of Atoms](problems/726/problem.md)
 
+[887.Super Egg Drop](problems/887/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
