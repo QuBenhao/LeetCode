@@ -779,6 +779,8 @@ Algorithms in LeetCode by Benhao
 
 [1418.Display Table of Food Orders in a Restaurant](problems/1418/problem.md)
 
+[930.Binary Subarrays With Sum](problems/930/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
