@@ -1011,6 +1011,8 @@ Algorithms in LeetCode by Benhao
 
 ## Interview
 
+[17.10.主要元素](problems/Interview/17_10/problem.md)
+
 [17.21.直方图的水量](problems/Interview/17_21/problem.md)
 
 ## 剑指 Offer
