@@ -26,4 +26,3 @@ class Solution(solution.Solution):
                 count -= 1
         # 第二轮确定这个人的票数确实过半
         return ans if count and nums.count(ans) > n // 2 else -1
-
