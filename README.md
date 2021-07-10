@@ -285,6 +285,8 @@ Algorithms in LeetCode by Benhao
 
 [1920.Build Array from Permutation](problems/1920/problem.md)
 
+[225.Implement Stack using Queues](problems/225/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
