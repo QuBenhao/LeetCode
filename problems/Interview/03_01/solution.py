@@ -1,5 +1,4 @@
 import solution
-from collections import deque
 
 
 class Solution(solution.Solution):
