@@ -52,9 +52,10 @@ class MyQueue(object):
         Get the front element.
         :rtype: int
         """
-        if self.pop_stack:
-            return self.pop_stack[-1]
-        return self.push_stack[0]
+        if not self.pop_stack:
+            while self.push_stack:
+                self.pop_stack.append(self.push_stack.pop())
+        return self.pop_stack[-1]
 
     def empty(self):
         """
