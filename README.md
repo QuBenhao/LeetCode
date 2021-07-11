@@ -795,6 +795,8 @@ Algorithms in LeetCode by Benhao
 
 [1927.Sum Game](problems/1927/problem.md)
 
+[1930.Unique Length-3 Palindromic Subsequences](problems/1930/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
