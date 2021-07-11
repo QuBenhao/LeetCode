@@ -1,5 +1,4 @@
 import solution
-import bisect
 
 
 class Solution(solution.Solution):
