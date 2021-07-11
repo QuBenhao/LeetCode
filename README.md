@@ -287,6 +287,8 @@ Algorithms in LeetCode by Benhao
 
 [225.Implement Stack using Queues](problems/225/problem.md)
 
+[1925.Count Square Sum Triples](problems/1925/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
