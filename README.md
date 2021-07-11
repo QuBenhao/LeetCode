@@ -987,6 +987,8 @@ Algorithms in LeetCode by Benhao
 
 [887.Super Egg Drop](problems/887/problem.md)
 
+[1928.Minimum Cost to Reach Destination in Time](problems/1928/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)

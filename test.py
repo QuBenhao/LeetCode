@@ -2,7 +2,7 @@ import unittest
 from importlib.machinery import SourceFileLoader
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTION = 1927
+QUESTION = 1928
 # QUESTION = "Interview/03_01"
 # QUESTION = "LCP/07"
 # QUESTION = "剑指Offer/38"
