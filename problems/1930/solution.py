@@ -21,10 +21,4 @@ class Solution(solution.Solution):
         #     cnts[c] += 1
         # return sum(len(v) for v in ans.values()) + sum(i > 2 for i in cnts.values())
 
-        ans = 0
-        for c in set(s):
-            l = s.index(c)
-            r = s.rindex(c)
-            if l < r - 1:
-                ans += len(set(s[l+1:r]))
-        return ans
+        return sum(len(set(s[s.index(c) + 1: s.rindex(c)])) for c in set(s))
