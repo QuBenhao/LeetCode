@@ -289,6 +289,8 @@ Algorithms in LeetCode by Benhao
 
 [1925.Count Square Sum Triples](problems/1925/problem.md)
 
+[1929.Concatenation of Array](problems/1929/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)

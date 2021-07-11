@@ -1,0 +1,13 @@
+import solution
+
+
+class Solution(solution.Solution):
+    def solve(self, test_input=None):
+        return self.getConcatenation(list(test_input))
+
+    def getConcatenation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        return nums + nums
