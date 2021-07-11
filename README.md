@@ -785,6 +785,8 @@ Algorithms in LeetCode by Benhao
 
 [981.Time Based Key-Value Store](problems/981/problem.md)
 
+[274.H-Index](problems/274/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
