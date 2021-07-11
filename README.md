@@ -791,6 +791,8 @@ Algorithms in LeetCode by Benhao
 
 [1926.Nearest Exit from Entrance in Maze](problems/1926/problem.md)
 
+[1927.Sum Game](problems/1927/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
