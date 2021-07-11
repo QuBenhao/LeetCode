@@ -789,6 +789,8 @@ Algorithms in LeetCode by Benhao
 
 [274.H-Index](problems/274/problem.md)
 
+[1926.Nearest Exit from Entrance in Maze](problems/1926/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
