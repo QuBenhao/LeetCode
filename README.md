@@ -995,6 +995,8 @@ Algorithms in LeetCode by Benhao
 
 [1931.Painting a Grid With Three Different Colors](problems/1931/problem.md)
 
+[1932.Merge BSTs to Create Single BST](problems/1932/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
