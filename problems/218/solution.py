@@ -39,7 +39,7 @@ class Solution(solution.Solution):
         #             if -new_max < h:
         #                 ans.append([x, -new_max])
         # return ans
-        
+
         ans = []
         changes = []
         for left, right, height in buildings:
@@ -64,4 +64,3 @@ class Solution(solution.Solution):
                 ans.append([x, curr_max])
             prev = curr_max
         return ans
-
