@@ -1,4 +1,6 @@
 import solution
+import bisect
+from math import inf
 
 
 class Solution(solution.Solution):
@@ -12,20 +14,18 @@ class Solution(solution.Solution):
         :type nums2: List[int]
         :rtype: int
         """
-        import bisect
-        mod = 10 ** 9 + 7
-        absdiffsum, absdiff = 0, []
-        mi = float('inf')
         n = len(nums1)
-        for i in range(n):
-            diff = abs(nums1[i] - nums2[i])
-            absdiffsum += diff
-            absdiff.append(diff)
-        nums1.sort()
-        for num, diff in zip(nums2, absdiff):
-            idx = bisect.bisect_left(nums1, num)
-            if idx > 0:
-                mi = min(mi, absdiffsum - diff + abs(num - nums1[idx - 1]))
+        diff = sum(abs(nums1[i] - nums2[i]) for i in range(n))
+        if not diff:
+            return 0
+        ans = inf
+        sl = sorted(nums1)
+        for i, num in enumerate(nums2):
+            idx = bisect.bisect_left(sl, num)
+            # idx > 0 尝试用idx-1替换当前值
+            if idx:
+                ans = min(ans, diff - abs(nums1[i] - nums2[i]) + abs(sl[idx - 1] - nums2[i]))
+            # idx < n 尝试用idx替换当前值
             if idx < n:
-                mi = min(mi, absdiffsum - diff + abs(num - nums1[idx]))
-        return mi % mod
+                ans = min(ans, diff - abs(nums1[i] - nums2[i]) + abs(sl[idx] - nums2[i]))
+        return ans % (10 ** 9 + 7)
