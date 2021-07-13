@@ -34,8 +34,8 @@ class Solution(solution.Solution):
                 lives[-h] -= 1
                 if not lives[-h]:
                     lives.pop(-h)
-                new_max = lives.keys()[0]
-                # 最高建筑发生变化了
-                if new_max > -h:
-                    ans.append([x, -new_max])
+                    # 判断最高建筑是否发生变化了
+                    new_max = lives.keys()[0]
+                    if -new_max < h:
+                        ans.append([x, -new_max])
         return ans
