@@ -999,6 +999,8 @@ Algorithms in LeetCode by Benhao
 
 [1932.Merge BSTs to Create Single BST](problems/1932/problem.md)
 
+[218.The Skyline Problem](problems/218/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
