@@ -10,8 +10,11 @@ class Solution(solution.Solution):
         :type arr: List[int]
         :rtype: int
         """
-        arr.sort()
-        limit = 1
-        for num in arr[1:]:
-            limit = min(limit + 1, num)
-        return limit
+        n = len(arr)
+        cnts = [0] * (n + 1)
+        for num in arr:
+            cnts[min(num, n)] += 1
+        ans = 0
+        for i in range(1, n + 1):
+            ans = min(i, ans + cnts[i])
+        return ans
