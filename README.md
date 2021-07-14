@@ -291,6 +291,8 @@ Algorithms in LeetCode by Benhao
 
 [1929.Concatenation of Array](problems/1929/problem.md)
 
+[155.Min Stack](problems/155/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
