@@ -5,7 +5,7 @@ from importlib.machinery import SourceFileLoader
 # QUESTION = 155
 # QUESTION = "Interview/03_01"
 # QUESTION = "LCP/07"
-QUESTION = "剑指Offer/53-I"
+QUESTION = "剑指Offer/42"
 SOLUTION = SourceFileLoader("module.name", f"./problems/{QUESTION}/solution.py").load_module().Solution()
 TESTCASE = SourceFileLoader("module.name", f"./problems/{QUESTION}/testcase.py").load_module().Testcase()
 
