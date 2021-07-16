@@ -1048,3 +1048,5 @@ Algorithms in LeetCode by Benhao
 ## 剑指 Offer
 
 [38.字符串的排列](problems/剑指Offer/38/problem.md)
+
+[53-I.在排序数组中查找数字 I](problems/剑指Offer/53-I/problem.md)
