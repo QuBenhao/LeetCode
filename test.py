@@ -3,9 +3,9 @@ from importlib.machinery import SourceFileLoader
 
 # Question ID that wants to test, modify here as passing arguments
 # QUESTION = 155
-# QUESTION = "Interview/03_01"
+QUESTION = "Interview/10_02"
 # QUESTION = "LCP/07"
-QUESTION = "剑指Offer/42"
+# QUESTION = "剑指Offer/42"
 SOLUTION = SourceFileLoader("module.name", f"./problems/{QUESTION}/solution.py").load_module().Solution()
 TESTCASE = SourceFileLoader("module.name", f"./problems/{QUESTION}/testcase.py").load_module().Testcase()
 

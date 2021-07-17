@@ -1041,6 +1041,8 @@ Algorithms in LeetCode by Benhao
 
 [03.01.三合一](problems/Interview/03_01/problem.md)
 
+[10.02.变位词组](problems/Interview/10_02/problem.md)
+
 [17.10.主要元素](problems/Interview/17_10/problem.md)
 
 [17.21.直方图的水量](problems/Interview/17_21/problem.md)
