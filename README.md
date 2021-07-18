@@ -805,6 +805,8 @@ Algorithms in LeetCode by Benhao
 
 [1936.Add Minimum Number of Rungs](problems/1936/problem.md)
 
+[1937.Maximum Number of Points with Cost](problems/1937/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
