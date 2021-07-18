@@ -803,6 +803,8 @@ Algorithms in LeetCode by Benhao
 
 [275.H-Index II](problems/275/problem.md)
 
+[1936.Add Minimum Number of Rungs](problems/1936/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
