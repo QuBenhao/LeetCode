@@ -1009,6 +1009,8 @@ Algorithms in LeetCode by Benhao
 
 [218.The Skyline Problem](problems/218/problem.md)
 
+[1938.Maximum Genetic Difference Query](problems/1938/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
