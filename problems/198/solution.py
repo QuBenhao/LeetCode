@@ -12,5 +12,5 @@ class Solution(solution.Solution):
         """
         ans1 = ans2 = 0
         for num in nums:
-            ans1, ans2 = ans2+num, max(ans1, ans2)
+            ans1, ans2 = ans2 + num, max(ans1, ans2)
         return max(ans1, ans2)
