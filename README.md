@@ -809,6 +809,8 @@ Algorithms in LeetCode by Benhao
 
 [695.Max Area of Island](problems/695/problem.md)
 
+[198.House Robber](problems/198/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
