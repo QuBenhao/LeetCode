@@ -807,6 +807,8 @@ Algorithms in LeetCode by Benhao
 
 [1937.Maximum Number of Points with Cost](problems/1937/problem.md)
 
+[695.Max Area of Island](problems/695/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
