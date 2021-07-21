@@ -1065,4 +1065,6 @@ Algorithms in LeetCode by Benhao
 
 [42.连续子数组的最大和](problems/剑指Offer/42/problem.md)
 
+[52.两个链表的第一个公共节点](problems/剑指Offer/52/problem.md)
+
 [53-I.在排序数组中查找数字 I](problems/剑指Offer/53-I/problem.md)
