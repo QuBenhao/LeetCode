@@ -38,21 +38,31 @@ class Solution(solution.Solution):
         """
         if not head:
             return head
-        copy_head = Node(0)
-        last = copy_head
-        pointer = head
-        random_dict = dict()
-        while pointer:
-            last.next = Node(pointer.val, random=pointer.random)
-            random_dict[pointer] = last.next
-            last = last.next
-            pointer = pointer.next
-        pointer = copy_head.next
-        while pointer:
-            if pointer.random is not None:
-                pointer.random = random_dict[pointer.random]
-            pointer = pointer.next
-        return copy_head.next
+
+        # 复制所有节点，插入原节点的后面
+        cur = head
+        while cur:
+            cur.next = Node(cur.val, cur.next, None)
+            cur = cur.next.next
+
+        # 连接所有复制的节点的random指针
+        cur = head
+        copyHead = head.next
+        while cur:
+            if cur.random:
+                cur.next.random = cur.random.next
+            cur = cur.next.next
+
+        # 断开原链表与复制链表之间的连接
+        cur = head
+        cur_ = copyHead
+        while cur and cur_:
+            cur.next = cur_.next
+            cur = cur.next
+            if cur:
+                cur_.next = cur.next
+            cur_ = cur_.next
+        return copyHead
 
 
 # Definition for a Node.
