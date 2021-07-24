@@ -10,29 +10,10 @@ class Solution(solution.Solution):
         :type time: str
         :rtype: str
         """
-        ans = ""
-
-        if time[0] == '?':
-            if time[1] == '?':
-                ans += '23'
-            elif time[1] >= '4':
-                ans += '1' + time[1]
-            else:
-                ans += '2' + time[1]
-        elif time[1] == '?':
-            if time[0] < '2':
-                ans += time[0] + '9'
-            else:
-                ans += '23'
-        else:
-            ans += time[0:2]
-        ans += ':'
-        if time[3] == '?':
-            ans += '5'
-        else:
-            ans += time[3]
-        if time[4] == '?':
-            ans += '9'
-        else:
-            ans += time[4]
-        return ans
+        sb = []
+        sb.append(time[0] if time[0] != '?' else '2' if time[1] == '?' or time[1] < '4' else '1')
+        sb.append(time[1] if time[1] != '?' else '3' if sb[0] == '2' else '9')
+        sb.append(':')
+        sb.append('5' if time[3] == '?' else time[3])
+        sb.append('9' if time[4] == '?' else time[4])
+        return ''.join(sb)
