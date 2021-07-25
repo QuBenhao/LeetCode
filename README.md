@@ -815,6 +815,8 @@ Algorithms in LeetCode by Benhao
 
 [1942.The Number of the Smallest Unoccupied Chair](problems/1942/problem.md)
 
+[1943.Describe the Painting](problems/1943/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
