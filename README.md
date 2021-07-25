@@ -295,6 +295,8 @@ Algorithms in LeetCode by Benhao
 
 [1935.Maximum Number of Words You Can Type](problems/1935/problem.md)
 
+[1941.Check if All Characters Have Equal Number of Occurrences](problems/1941/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
