@@ -1021,6 +1021,8 @@ Algorithms in LeetCode by Benhao
 
 [1938.Maximum Genetic Difference Query](problems/1938/problem.md)
 
+[1944.Number of Visible People in a Queue](problems/1944/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
