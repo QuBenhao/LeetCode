@@ -813,6 +813,8 @@ Algorithms in LeetCode by Benhao
 
 [198.House Robber](problems/198/problem.md)
 
+[1942.The Number of the Smallest Unoccupied Chair](problems/1942/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
