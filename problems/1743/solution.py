@@ -1,4 +1,5 @@
 import solution
+from collections import defaultdict
 
 
 class Solution(solution.Solution):
@@ -10,35 +11,15 @@ class Solution(solution.Solution):
         :type adjacentPairs: List[List[int]]
         :rtype: List[int]
         """
-        import collections
-
-        d = collections.defaultdict(list)
-        start, n, appear = None, len(adjacentPairs) + 1, set()
-
+        connect = defaultdict(set)
         for a,b in adjacentPairs:
-            d[a].append(b)
-            d[b].append(a)
-
-            if a in appear:
-                appear.remove(a)
-            else:
-                appear.add(a)
-
-            if b in appear:
-                appear.remove(b)
-            else:
-                appear.add(b)
-
-        ans = []
-        start = list(appear)[0]
-        appear = set()
-
-        while len(ans) < n:
-            ans.append(start)
-            appear.add(start)
-            for next in d[start]:
-                if next not in appear:
-                    start = next
-                    break
-
+            connect[a].add(b)
+            connect[b].add(a)
+        point = min(connect.keys(), key=lambda x:(len(connect[x]), x))
+        explored = {point}
+        ans = [point]
+        while len(ans) < len(connect.keys()):
+            point = (connect[point] - explored).pop()
+            explored.add(point)
+            ans.append(point)
         return ans

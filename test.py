@@ -2,7 +2,7 @@ import unittest
 from importlib.machinery import SourceFileLoader
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTION = 1736
+QUESTION = 1743
 # QUESTION = "Interview/10_02"
 # QUESTION = "LCP/07"
 # QUESTION = "剑指Offer/52"
@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
                 try:
                     self.assertAlmostEqual(o, result, msg=f"input = {i}", delta=0.00001)
                 except:
-                    self.assertIn(o, result, msg=f"input = {i}")
+                    self.assertIn(result, o, msg=f"input = {i}")
 
 
 if __name__ == '__main__':
