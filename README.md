@@ -297,6 +297,8 @@ Algorithms in LeetCode by Benhao
 
 [1941.Check if All Characters Have Equal Number of Occurrences](problems/1941/problem.md)
 
+[1945.Sum of Digits of String After Convert](problems/1945/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
