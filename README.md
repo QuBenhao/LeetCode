@@ -819,6 +819,8 @@ Algorithms in LeetCode by Benhao
 
 [1943.Describe the Painting](problems/1943/problem.md)
 
+[1946.Largest Number After Mutating Substring](problems/1946/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
