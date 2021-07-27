@@ -1029,6 +1029,8 @@ Algorithms in LeetCode by Benhao
 
 [1944.Number of Visible People in a Queue](problems/1944/problem.md)
 
+[1948.Delete Duplicate Folders in System](problems/1948/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
