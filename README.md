@@ -299,6 +299,8 @@ Algorithms in LeetCode by Benhao
 
 [1945.Sum of Digits of String After Convert](problems/1945/problem.md)
 
+[671.Second Minimum Node In a Binary Tree](problems/671/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
