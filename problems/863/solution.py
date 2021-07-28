@@ -45,21 +45,24 @@ class Solution(solution.Solution):
         elif k > 501:
             return []
 
-        def dfs1(node, path):
-            if node == target:
-                return path + [node]
+        def dfs1(node):
             if not node:
                 return []
-            left = dfs1(node.left, path + [node])
+            if node == target:
+                return [node]
+            left = dfs1(node.left)
             if left:
+                left.append(node)
                 return left
-            return dfs1(node.right, path + [node])
+            right = dfs1(node.right)
+            if right:
+                right.append(node)
+            return right
 
-        dists = dfs1(root, [])
+        dists = dfs1(root)
         parents_distance = dict()
-        n = len(dists) - 1
         for i, node in enumerate(dists):
-            parents_distance[node] = n - i
+            parents_distance[node] = i
 
         ans = []
 
