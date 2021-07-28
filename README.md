@@ -825,6 +825,8 @@ Algorithms in LeetCode by Benhao
 
 [1947.Maximum Compatibility Score Sum](problems/1947/problem.md)
 
+[863.All Nodes Distance K in Binary Tree](problems/863/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
