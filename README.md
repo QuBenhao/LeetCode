@@ -827,6 +827,8 @@ Algorithms in LeetCode by Benhao
 
 [863.All Nodes Distance K in Binary Tree](problems/863/problem.md)
 
+[1104.Path In Zigzag Labelled Binary Tree](problems/1104/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
