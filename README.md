@@ -301,6 +301,8 @@ Algorithms in LeetCode by Benhao
 
 [671.Second Minimum Node In a Binary Tree](problems/671/problem.md)
 
+[171.Excel Sheet Column Number](problems/171/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
