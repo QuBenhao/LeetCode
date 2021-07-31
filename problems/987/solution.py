@@ -1,4 +1,5 @@
 import solution
+from collections import defaultdict
 
 
 class Solution(solution.Solution):
@@ -32,38 +33,33 @@ class Solution(solution.Solution):
         :type root: TreeNode
         :rtype: List[List[int]]
         """
+        hashmap = defaultdict(list)
 
-        import collections
-        vertical_dict = collections.defaultdict(list)
-        curr_nodes = [(0, root)]
-        while curr_nodes:
-            next_nodes = []
-            for v, node in curr_nodes:
-                vertical_dict[v].append(node.val)
-                if node.left:
-                    next_nodes.append((v-1, node.left))
-                if node.right:
-                    next_nodes.append((v+1, node.right))
-            next_nodes.sort(key=lambda x:(x[0],x[1].val))
-            curr_nodes = next_nodes
-        ans = []
-        for k in sorted(vertical_dict.keys()):
-            ans.append(vertical_dict[k])
-        return ans
+        def dfs(node, x, y):
+            if not node:
+                return
+            hashmap[y].append((x, node.val))
+            dfs(node.left, x + 1, y - 1)
+            dfs(node.right, x + 1, y + 1)
 
-        # import collections
-        # vertical_dict = collections.defaultdict(list)
-        # curr_nodes = collections.deque([(0,0,root)])
+        dfs(root, 0, 0)
+        return [list(list(zip(*sorted(hashmap[i])))[1]) for i in sorted(hashmap.keys())]
+
+        # vertical_dict = defaultdict(list)
+        # curr_nodes = [(0, root)]
         # while curr_nodes:
-        #     v,l,node = curr_nodes.popleft()
-        #     vertical_dict[v].append((l,node.val))
-        #     if node.left:
-        #         curr_nodes.append((v-1,l-1,node.left))
-        #     if node.right:
-        #         curr_nodes.append((v+1,l-1,node.right))
+        #     next_nodes = []
+        #     for v, node in curr_nodes:
+        #         vertical_dict[v].append(node.val)
+        #         if node.left:
+        #             next_nodes.append((v-1, node.left))
+        #         if node.right:
+        #             next_nodes.append((v+1, node.right))
+        #     next_nodes.sort(key=lambda x:(x[0],x[1].val))
+        #     curr_nodes = next_nodes
         # ans = []
         # for k in sorted(vertical_dict.keys()):
-        #     ans.append([x[1] for x in sorted(vertical_dict[k],key=lambda x:(-x[0],x[1]))])
+        #     ans.append(vertical_dict[k])
         # return ans
 
 
