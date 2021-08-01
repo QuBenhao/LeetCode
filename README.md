@@ -1045,6 +1045,8 @@ Algorithms in LeetCode by Benhao
 
 [1948.Delete Duplicate Folders in System](problems/1948/problem.md)
 
+[1955.Count Number of Special Subsequences](problems/1955/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
