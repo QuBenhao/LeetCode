@@ -835,6 +835,8 @@ Algorithms in LeetCode by Benhao
 
 [1953.Maximum Number of Weeks for Which You Can Work](problems/1953/problem.md)
 
+[1954.Minimum Garden Perimeter to Collect Enough Apples](problems/1954/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
