@@ -303,6 +303,8 @@ Algorithms in LeetCode by Benhao
 
 [171.Excel Sheet Column Number](problems/171/problem.md)
 
+[1952.Three Divisors](problems/1952/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
