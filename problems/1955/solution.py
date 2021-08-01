@@ -10,7 +10,7 @@ class Solution(solution.Solution):
         :type nums: List[int]
         :rtype: int
         """
-        dp = [0, 0, 0, 1]
+        dp, mod = [0, 0, 0, 1], 10 ** 9 + 7
         for num in nums:
-            dp[num] += dp[num - 1] + dp[num]
-        return dp[2] % (10 ** 9 + 7)
+            dp[num] = (2 * dp[num] + dp[num - 1]) % mod
+        return dp[2]
