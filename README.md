@@ -837,6 +837,8 @@ Algorithms in LeetCode by Benhao
 
 [1954.Minimum Garden Perimeter to Collect Enough Apples](problems/1954/problem.md)
 
+[743.Network Delay Time](problems/743/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
