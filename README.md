@@ -839,6 +839,8 @@ Algorithms in LeetCode by Benhao
 
 [743.Network Delay Time](problems/743/problem.md)
 
+[611.Valid Triangle Number](problems/611/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
