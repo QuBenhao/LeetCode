@@ -841,6 +841,8 @@ Algorithms in LeetCode by Benhao
 
 [611.Valid Triangle Number](problems/611/problem.md)
 
+[802.Find Eventual Safe States](problems/802/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
