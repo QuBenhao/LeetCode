@@ -5,28 +5,29 @@ from collections import defaultdict, deque
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         numCourses, prerequisites = test_input
-        return self.canFinish(numCourses, [x[:] for x in prerequisites])
+        return self.findOrder(numCourses, [x[:] for x in prerequisites])
 
-    def canFinish(self, numCourses, prerequisites):
+    def findOrder(self, numCourses, prerequisites):
         """
         :type numCourses: int
         :type prerequisites: List[List[int]]
-        :rtype: bool
+        :rtype: List[int]
         """
-        # 我们只能从没有prerequire的课程开始
         In = [0] * numCourses
-        connect = defaultdict(list)
+        connect = defaultdict(set)
         for a, b in prerequisites:
-            connect[b].append(a)
+            connect[b].add(a)
             In[a] += 1
         q = deque([])
         for i in range(numCourses):
             if not In[i]:
                 q.append(i)
+        ans = []
         while q:
             i = q.popleft()
+            ans.append(i)
             for j in connect[i]:
                 In[j] -= 1
                 if not In[j]:
                     q.append(j)
-        return all(not In[i] for i in range(numCourses))
+        return ans if len(ans) == numCourses else []
