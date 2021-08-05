@@ -843,6 +843,8 @@ Algorithms in LeetCode by Benhao
 
 [802.Find Eventual Safe States](problems/802/problem.md)
 
+[207.Course Schedule](problems/207/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
