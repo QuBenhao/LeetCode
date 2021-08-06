@@ -11,8 +11,10 @@ class Solution(solution.Solution):
         :rtype: int
         """
         n = len(graph)
-        explored = set()
+        # 初始以每个点为起点
         frontier = [(i, 1 << i) for i in range(n)]
+        explored = set(frontier)
+        # 目标为2^n - 1
         goal = (1 << n) - 1
         step = 0
         while frontier:
@@ -20,9 +22,10 @@ class Solution(solution.Solution):
             for cur, state in frontier:
                 if state == goal:
                     return step
-                explored.add((cur, state))
                 for other in graph[cur]:
+                    # 下一个状态
                     successor = (other, 1 << other | state)
+                    # 新的状态没有被走过
                     if successor not in explored:
                         explored.add(successor)
                         nxt.append(successor)
