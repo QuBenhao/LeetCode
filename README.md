@@ -1057,6 +1057,8 @@ Algorithms in LeetCode by Benhao
 
 [1955.Count Number of Special Subsequences](problems/1955/problem.md)
 
+[847.Shortest Path Visiting All Nodes](problems/847/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
