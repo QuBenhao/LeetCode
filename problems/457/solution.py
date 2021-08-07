@@ -6,39 +6,48 @@ class Solution(solution.Solution):
     def solve(self, test_input=None):
         return self.circularArrayLoop(list(test_input))
 
+    mark = 1001
     def circularArrayLoop(self, nums):
         """
         :type nums: List[int]
         :rtype: bool
         """
-        # n = len(nums)
-        # change = True
-        # while change:
-        #     change = False
-        #     for i, num in enumerate(nums):
-        #         if not num:
-        #             continue
-        #         # Python里负数取模为正
-        #         nxt = (i + num) % n
-        #         # 指向自己、指向正负相反的地方、指向0,均构不成循环
-        #         if nxt == i or nums[nxt] * num <= 0:
-        #             change = True
-        #             nums[i] = 0
-        # return any(num for num in nums)
-
         n = len(nums)
-        connect = defaultdict(list)
-        marks = deque([])
-        for i, num in enumerate(nums):
-            nxt = (i + num) % n
-            connect[nxt].append(i)
-            if nxt == i or nums[nxt] * num < 0:
-                marks.append(i)
-                nums[i] = 0
-        while marks:
-            i = marks.popleft()
-            for nxt in connect[i]:
-                if nums[nxt]:
-                    nums[nxt] = 0
-                    marks.append(nxt)
-        return any(num for num in nums)
+        for i in range(n):
+            if nums[i] >= self.mark:
+                continue
+            cur, tag, last = i, self.mark + i, -1
+            flag = nums[cur] > 0
+            while True:
+                nxt = (cur + nums[cur]) % n
+                last = nums[cur]
+                nums[cur] = tag
+                cur = nxt
+                if cur == i:
+                    break
+                if nums[cur] >= self.mark:
+                    break
+                if flag and nums[cur] < 0:
+                    break
+                if not flag and nums[cur] > 0:
+                    break
+            if last % n != 0 and nums[cur] == tag:
+                return True
+        return False
+
+        # n = len(nums)
+        # connect = defaultdict(list)
+        # marks = deque([])
+        # for i, num in enumerate(nums):
+        #     nxt = (i + num) % n
+        #     connect[nxt].append(i)
+        #     if nxt == i or nums[nxt] * num < 0:
+        #         marks.append(i)
+        #         nums[i] = 0
+        # while marks:
+        #     i = marks.popleft()
+        #     for nxt in connect[i]:
+        #         if nums[nxt]:
+        #             nums[nxt] = 0
+        #             marks.append(nxt)
+        # return any(num for num in nums)
