@@ -307,6 +307,8 @@ Algorithms in LeetCode by Benhao
 
 [1957.Delete Characters to Make Fancy String](problems/1957/problem.md)
 
+[1137.N-th Tribonacci Number](problems/1137/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
