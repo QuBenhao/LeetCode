@@ -13,9 +13,9 @@ class Solution(solution.Solution):
         :type k: int
         :rtype: int
         """
-        piles = [-x for x in piles]
-        heapq.heapify(piles)
+        pq = []
+        for p in piles:
+            heapq.heappush(pq, -p)
         for i in range(k):
-            x = heapq.heappop(piles)
-            heapq.heappush(piles, x // 2)
-        return -sum(piles)
+            heapq.heappush(pq, heapq.heappop(pq) // 2)
+        return -sum(pq)
