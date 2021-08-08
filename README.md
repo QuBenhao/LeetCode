@@ -309,6 +309,8 @@ Algorithms in LeetCode by Benhao
 
 [1137.N-th Tribonacci Number](problems/1137/problem.md)
 
+[1961.Check If String Is a Prefix of Array](problems/1961/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
