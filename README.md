@@ -853,6 +853,8 @@ Algorithms in LeetCode by Benhao
 
 [1958.Check if Move is Legal](problems/1958/problem.md)
 
+[1959.Minimum Total Space Wasted With K Resizing Operations](problems/1959/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
