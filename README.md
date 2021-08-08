@@ -859,6 +859,8 @@ Algorithms in LeetCode by Benhao
 
 [1959.Minimum Total Space Wasted With K Resizing Operations](problems/1959/problem.md)
 
+[1962.Remove Stones to Minimize the Total](problems/1962/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
