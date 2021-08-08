@@ -1075,6 +1075,8 @@ Algorithms in LeetCode by Benhao
 
 [847.Shortest Path Visiting All Nodes](problems/847/problem.md)
 
+[1964.Find the Longest Valid Obstacle Course at Each Position](problems/1964/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
