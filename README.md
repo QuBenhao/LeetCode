@@ -851,6 +851,8 @@ Algorithms in LeetCode by Benhao
 
 [457.Circular Array Loop](problems/457/problem.md)
 
+[1958.Check if Move is Legal](problems/1958/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
