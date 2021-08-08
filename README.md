@@ -305,6 +305,8 @@ Algorithms in LeetCode by Benhao
 
 [1952.Three Divisors](problems/1952/problem.md)
 
+[1957.Delete Characters to Make Fancy String](problems/1957/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
