@@ -861,6 +861,8 @@ Algorithms in LeetCode by Benhao
 
 [1962.Remove Stones to Minimize the Total](problems/1962/problem.md)
 
+[1963.Minimum Number of Swaps to Make the String Balanced](problems/1963/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
