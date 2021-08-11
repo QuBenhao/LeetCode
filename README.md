@@ -1079,6 +1079,8 @@ Algorithms in LeetCode by Benhao
 
 [1964.Find the Longest Valid Obstacle Course at Each Position](problems/1964/problem.md)
 
+[446.Arithmetic Slices II - Subsequence](problems/446/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
