@@ -865,6 +865,8 @@ Algorithms in LeetCode by Benhao
 
 [313.Super Ugly Number](problems/313/problem.md)
 
+[516.Longest Palindromic Subsequence](problems/516/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
