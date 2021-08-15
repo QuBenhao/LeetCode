@@ -311,6 +311,8 @@ Algorithms in LeetCode by Benhao
 
 [1961.Check If String Is a Prefix of Array](problems/1961/problem.md)
 
+[1967.Number of Strings That Appear as Substrings in Word](problems/1967/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
