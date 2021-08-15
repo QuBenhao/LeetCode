@@ -875,6 +875,8 @@ Algorithms in LeetCode by Benhao
 
 [1968.Array With Elements Not Equal to Average of Neighbors](problems/1968/problem.md)
 
+[1969.Minimum Non-Zero Product of the Array Elements](problems/1969/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
