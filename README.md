@@ -1093,6 +1093,8 @@ Algorithms in LeetCode by Benhao
 
 [446.Arithmetic Slices II - Subsequence](problems/446/problem.md)
 
+[1970.Last Day Where You Can Still Cross](problems/1970/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
