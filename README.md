@@ -873,6 +873,8 @@ Algorithms in LeetCode by Benhao
 
 [576.Out of Boundary Paths](problems/576/problem.md)
 
+[1968.Array With Elements Not Equal to Average of Neighbors](problems/1968/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
