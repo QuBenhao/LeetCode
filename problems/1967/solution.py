@@ -12,4 +12,4 @@ class Solution(solution.Solution):
         :type word: str
         :rtype: int
         """
-        return sum(1 for p in patterns if p in word)
+        return sum(p in word for p in patterns)
