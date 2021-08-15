@@ -869,6 +869,8 @@ Algorithms in LeetCode by Benhao
 
 [1583.Count Unhappy Friends](problems/1583/problem.md)
 
+[576.Out of Boundary Paths](problems/576/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
