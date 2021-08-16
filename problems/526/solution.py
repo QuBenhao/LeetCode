@@ -1,4 +1,6 @@
 import solution
+from collections import defaultdict
+from functools import lru_cache
 
 
 class Solution(solution.Solution):
@@ -10,59 +12,31 @@ class Solution(solution.Solution):
         :type n: int
         :rtype: int
         """
-        nums = [i for i in range(1,n+1)]
-        available = [[] for i in range(n)]
-        self.count = 0
+        canFill = defaultdict(list)
+        for i in range(1, n + 1):
+            for j in range(1, n + 1):
+                # 每个位置可以填入哪些数
+                if j % i == 0 or i % j == 0:
+                    canFill[i].append(j - 1)
+        # 根据可填入数字的个数排序，优先填入个数少的
+        order = sorted(canFill.keys(), key=lambda x: len(canFill[x]))
+        end = (1 << n) - 1
 
-        for i in range(n):
-            for n in nums:
-                if n >= (i+1) and n % (i+1) == 0:
-                    available[i].append(n)
-                elif (i+1) % n == 0:
-                    available[i].append(n)
-        available.sort(key=lambda x:len(x))
+        @lru_cache(None)
+        def dfs(state):
+            # 全部填入
+            if state == end:
+                return 1
+            cnts = ans = 0
+            # 当前该填第几个位置
+            for i in range(n):
+                if (1 << i) & state:
+                    cnts += 1
+            # 当前位置可以填哪些数
+            for i in canFill[order[cnts]]:
+                # 哪些数还没被填
+                if not ((1 << i) & state):
+                    ans += dfs(state ^ (1 << i))
+            return ans
 
-        def dfs(available,left_nums):
-            if not available or not left_nums:
-                self.count += 1
-                return
-            for num in available[0]:
-                if num in left_nums:
-                    t = [x[:] for x in available]
-                    t.pop(0)
-                    for arr in t:
-                        if num in arr:
-                            arr.remove(num)
-                    t.sort(key=lambda x:len(x))
-                    temp = list(left_nums)
-                    temp.remove(num)
-
-                    dfs(t,temp)
-
-        dfs([x[:] for x in available],nums)
-        return self.count
-
-        # import collections
-        # nums = [i for i in range(1,n+1)]
-        # # arr = [0] * n
-        # available = collections.defaultdict(list)
-        # self.count = 0
-        #
-        # for i in range(n):
-        #     for n in nums:
-        #         if n >= (i+1) and n % (i+1) == 0:
-        #             available[i].append(n)
-        #         elif (i+1) % n == 0:
-        #             available[i].append(n)
-        #
-        # def dfs(index,left_nums):
-        #     if index == n and not left_nums:
-        #         self.count += 1
-        #         return
-        #     for num in available[index]:
-        #         if num in left_nums:
-        #             temp = list(left_nums)
-        #             temp.remove(num)
-        #             dfs(index+1,temp)
-        # dfs(0,nums)
-        # return self.count
+        return dfs(0)
