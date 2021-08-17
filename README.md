@@ -313,6 +313,8 @@ Algorithms in LeetCode by Benhao
 
 [1967.Number of Strings That Appear as Substrings in Word](problems/1967/problem.md)
 
+[551.Student Attendance Record I](problems/551/problems.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
