@@ -1097,6 +1097,8 @@ Algorithms in LeetCode by Benhao
 
 [1970.Last Day Where You Can Still Cross](problems/1970/problem.md)
 
+[552.Student Attendance Record II](problems/552/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
