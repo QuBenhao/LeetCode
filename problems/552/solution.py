@@ -19,12 +19,14 @@ class Solution(solution.Solution):
 
         mod = 10 ** 9 + 7
         cell = np.diag([1] * 6)
-        mul = np.array([[1,1,1,0,0,0],[1,0,0,0,0,0],[0,1,0,0,0,0],[1,0,0,1,1,1],[1,0,0,1,0,0],[0,0,0,0,1,0]])
+        mul = np.array(
+            [[1, 1, 1, 0, 0, 0], [1, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0], [1, 0, 0, 1, 1, 1], [1, 0, 0, 1, 0, 0],
+             [0, 0, 0, 0, 1, 0]])
         n -= 1
         while n:
             if n & 1:
                 cell = np.mod(np.dot(cell, mul), mod)
             mul = np.mod(np.dot(mul, mul), mod)
             n >>= 1
-        ans = np.mod(np.dot(cell, np.array([1,1,0,0,0,0])), mod)
+        ans = np.mod(np.dot(cell, np.array([1, 1, 0, 0, 0, 0])), mod)
         return int((sum(ans) + ans[0]) % mod)
