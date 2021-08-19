@@ -315,6 +315,8 @@ Algorithms in LeetCode by Benhao
 
 [551.Student Attendance Record I](problems/551/problems.md)
 
+[345.Reverse Vowels of a String](problems/345/problem.md)
+
 ## Medium
 
 [2.Add Two Numbers](problems/2/problem.md)
