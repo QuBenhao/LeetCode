@@ -883,6 +883,8 @@ Algorithms in LeetCode by Benhao
 
 [1969.Minimum Non-Zero Product of the Array Elements](problems/1969/problem.md)
 
+[443.String Compression](problems/443/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
