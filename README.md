@@ -885,6 +885,8 @@ Algorithms in LeetCode by Benhao
 
 [443.String Compression](problems/443/problem.md)
 
+[789.Escape The Ghosts](problems/789/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
