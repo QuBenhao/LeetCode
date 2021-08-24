@@ -887,6 +887,8 @@ Algorithms in LeetCode by Benhao
 
 [789.Escape The Ghosts](problems/789/problem.md)
 
+[787.Cheapest Flights Within K Stops](problems/787/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
