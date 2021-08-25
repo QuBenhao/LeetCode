@@ -889,6 +889,8 @@ Algorithms in LeetCode by Benhao
 
 [787.Cheapest Flights Within K Stops](problems/787/problem.md)
 
+[797.All Paths From Source to Target](problems/797/problem.md)
+
 ## Hard
 
 [1240.Tiling a Rectangle with the Fewest Squares](problems/1240/problem.md)
