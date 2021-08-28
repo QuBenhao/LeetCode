@@ -1111,6 +1111,8 @@ Algorithms in LeetCode by Benhao
 
 [552.Student Attendance Record II](problems/552/problem.md)
 
+[295.Find Median from Data Stream](problems/295/problem.md)
+
 ## Mysql
 
 [1179.Reformat Department Table](problems/1179/problem.md)
