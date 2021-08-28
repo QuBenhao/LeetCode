@@ -15,11 +15,9 @@ class Solution(solution.Solution):
         people.sort()
         ans = left = 0
         right = len(people) - 1
-        while left < right:
+        while left <= right:
             if people[left] + people[right] <= limit:
                 left += 1
             ans += 1
             right -= 1
-        if left == right:
-            ans += 1
         return ans
