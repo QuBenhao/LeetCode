@@ -52,6 +52,7 @@ def main(user_slug: str, cookie: str | None):
                         question_ids.remove(question_id)
         if question_ids:
             print("Remain unsolved questions: {}".format(question_ids))
+            return 1
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()

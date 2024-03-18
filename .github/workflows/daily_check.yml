@@ -27,7 +27,9 @@ jobs:
     - name: Run script
       run:  |
         python scripts/daily_submission.py --user ${{ secrets.USER }} --cookie ${{ secrets.COOKIE }} > /tmp/msg
+        status=$?
         cat /tmp/msg
+        exit $status
 
     - name: Commit files
       run: |
