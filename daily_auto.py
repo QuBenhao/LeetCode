@@ -55,6 +55,14 @@ def get_question_desc(slug: str) -> str | None:
         return None
 
 
+def extract_outputs_from_md(markdown_text: str) -> list:
+    res = []
+    splits = markdown_text.split("Output")
+    for i in range(1, len(splits), 2):
+        res.append(eval(splits[i].split("\n")[1].split(">")[-1].replace("null", "None")))
+    return res
+
+
 def get_question_code(slug: str) -> str | None:
     try:
         result = requests.post("https://leetcode.cn/graphql",
@@ -78,7 +86,7 @@ def get_question_code(slug: str) -> str | None:
         return None
 
 
-def get_question_testcases(slug: str) -> list[tuple] | None:
+def get_question_testcases(slug: str) -> list | None:
     try:
         result = requests.post("https://leetcode.cn/graphql",
                                json={"query": "\n    query consolePanelConfig($titleSlug: String!) {\n"
@@ -92,11 +100,11 @@ def get_question_testcases(slug: str) -> list[tuple] | None:
         ans = []
         json_testcase = json.loads(res_dict["data"]["question"]["jsonExampleTestcases"])
         for item in json_testcase:
-            input_case, output_case = item.split("\n")
-            # Skip the quotation marks enclosing the case
-            test_input = eval(input_case)
-            test_output = eval(output_case)
-            ans.append((test_input, test_output))
+            input_strs = item.replace("null", "None").split("\n")
+            if len(input_strs) == 1:
+                ans.append(eval(input_strs[0]))
+            else:
+                ans.append([eval(i) for i in input_strs])
         return ans
     except Exception as e:
         print("Exception caught: ", str(e))
@@ -125,19 +133,21 @@ if __name__ == '__main__':
                 f.write('    def solve(self, test_input=None):\n')
                 f.write('        pass\n\n\n')
                 f.write(code)
-        testcases = get_question_testcases(sg)
-        if testcases is not None:
-            with open(f"{dir_path}/testcase.py", "w") as f:
-                f.write('from collections import namedtuple\n')
-                f.write('import testcase\n\n')
-                f.write('case = namedtuple("Testcase", ["Input", "Output"])\n\n\n')
-                f.write('class Testcase(testcase.Testcase):\n')
-                f.write('\tdef __init__(self):\n')
-                f.write('\t\tself.testcases = []\n')
-                for ip, op in testcases:
-                    f.write(f'\t\tself.testcases.append(case(Input={ip}, Output={op}))\n')
-                f.write('\n\tdef get_testcases(self):\n')
-                f.write('\t\treturn self.testcases\n')
+        if desc is not None:
+            testcases = get_question_testcases(sg)
+            outputs = extract_outputs_from_md(desc)
+            if testcases is not None:
+                with open(f"{dir_path}/testcase.py", "w") as f:
+                    f.write('from collections import namedtuple\n')
+                    f.write('import testcase\n\n')
+                    f.write('case = namedtuple("Testcase", ["Input", "Output"])\n\n\n')
+                    f.write('class Testcase(testcase.Testcase):\n')
+                    f.write('\tdef __init__(self):\n')
+                    f.write('\t\tself.testcases = []\n')
+                    for inputs, outputs in zip(testcases, outputs):
+                        f.write(f'\t\tself.testcases.append(case(Input={inputs}, Output={outputs}))\n')
+                    f.write('\n\tdef get_testcases(self):\n')
+                    f.write('\t\treturn self.testcases\n')
     else:
         print("solved before")
     with open(f"test.py", "r") as f:
