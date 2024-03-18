@@ -133,6 +133,7 @@ if __name__ == '__main__':
                 f.write('    def solve(self, test_input=None):\n')
                 f.write('        pass\n\n\n')
                 f.write(code)
+                f.write("\n")
         if desc is not None:
             testcases = get_question_testcases(sg)
             outputs = extract_outputs_from_md(desc)
