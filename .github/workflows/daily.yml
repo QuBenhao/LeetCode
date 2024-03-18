@@ -25,15 +25,27 @@ jobs:
         pip install requests
 
     - name: Run script
-      run: python daily_auto.py
+      run:  |
+        python daily_auto.py > /tmp/msg
+        echo /tmp/msg
 
     - name: Commit files
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git commit -m "[$(TZ=Asia/Shanghai date +%Y%m%d)] Add daily LeetCode problem" -a
+        git add .
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
+        git commit -m "[$(TZ=Asia/Shanghai date +%Y%m%d)] Add daily LeetCode problem"
 
     - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        if git log origin/master..HEAD --oneline | read; then
+          git push
+        else
+          echo "No changes to push"
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
