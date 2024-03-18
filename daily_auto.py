@@ -119,11 +119,11 @@ if __name__ == '__main__':
         code = get_question_code(sg)
         if code is not None:
             with open(f"{dir_path}/solution.py", "w") as f:
-                f.write('import solution\n\n')
+                f.write('import solution\n')
+                f.write("from typing import *\n\n\n")
                 f.write(f'class Solution(solution.Solution):\n')
-                f.write('\tdef solve(self, test_input=None):\n')
-                f.write('\t\tpass\n\n\n')
-                f.write("from typing import *\n")
+                f.write('    def solve(self, test_input=None):\n')
+                f.write('        pass\n\n\n')
                 f.write(code)
         testcases = get_question_testcases(sg)
         if testcases is not None:
@@ -140,4 +140,11 @@ if __name__ == '__main__':
                 f.write('\t\treturn self.testcases\n')
     else:
         print("solved before")
+    with open(f"test.py", "r") as f:
+        lines = f.readlines()
+    with open("test.py", "w") as f:
+        for line in lines:
+            if line.startswith("QUESTION ="):
+                line = "QUESTION = \"{}\"\n".format(daily_info["questionId"])
+            f.write(line)
     sys.exit(0)

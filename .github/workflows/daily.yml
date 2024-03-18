@@ -27,7 +27,7 @@ jobs:
     - name: Run script
       run:  |
         python daily_auto.py > /tmp/msg
-        echo /tmp/msg
+        cat /tmp/msg
 
     - name: Commit files
       run: |

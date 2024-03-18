@@ -1,3 +1,5 @@
+import os.path
+import sys
 import unittest
 from importlib.machinery import SourceFileLoader
 
@@ -6,15 +8,17 @@ QUESTION = 528
 # QUESTION = "Interview/10_02"
 # QUESTION = "LCP/07"
 # QUESTION = "剑指Offer/52"
-SOLUTION = SourceFileLoader("module.name", f"./problems/{QUESTION}/solution.py").load_module().Solution()
-TESTCASE = SourceFileLoader("module.name", f"./problems/{QUESTION}/testcase.py").load_module().Testcase()
 
 
 class Test(unittest.TestCase):
     def test(self):
-        for testcase in TESTCASE.get_testcases():
+        self.assertTrue(os.path.exists(f"problems/{QUESTION}"), msg="Please set up the problem env first!")
+
+        solution_obj = SourceFileLoader("module.name", f"./problems/{QUESTION}/solution.py").load_module().Solution()
+        testcase_obj = SourceFileLoader("module.name", f"./problems/{QUESTION}/testcase.py").load_module().Testcase()
+        for testcase in testcase_obj.get_testcases():
             i, o = testcase
-            result = SOLUTION.solve(test_input=i)
+            result = solution_obj.solve(test_input=i)
             try:
                 if o and type(o) == list and (None not in o and (type(o[0]) == list and not any(None in x for x in o))):
                     self.assertListEqual(sorted(o), sorted(result), msg=f"input = {i}")
@@ -29,3 +33,4 @@ class Test(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    sys.exit(0)
