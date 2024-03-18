@@ -2,7 +2,8 @@ import os.path
 import sys
 import traceback
 
-from ..lc_libs import *
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from lc_libs import *
 
 
 def main():
@@ -10,7 +11,8 @@ def main():
         daily_info = get_daily_question()
         if not daily_info:
             return 1
-        dir_path = "../problems/{}".format(daily_info['questionId'])
+        root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        dir_path = os.path.join(root_path, "problems", daily_info['questionId'])
         if not os.path.exists(dir_path):
             os.mkdir(dir_path)
             sg = daily_info['questionSlug']
@@ -28,10 +30,10 @@ def main():
                 with open(f"{dir_path}/solution.py", "w") as f:
                     f.write(write_solution(code))
         else:
-            print("solved before")
-        with open(f"../test.py", "r") as f:
+            print("solved {} before".format(daily_info['questionId']))
+        with open(f"{root_path}/test.py", "r") as f:
             lines = f.readlines()
-        with open("../test.py", "w") as f:
+        with open(f"{root_path}/test.py", "w") as f:
             for line in lines:
                 if line.startswith("QUESTION ="):
                     line = "QUESTION = \"{}\"\n".format(daily_info["questionId"])

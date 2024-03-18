@@ -1,9 +1,9 @@
 name: LeetCode Problem Scraper
 
 on:
+  workflow_dispatch: # manually trigger
   schedule:
     - cron: '0 16 * * *'  # run every day at midnight
-  workflow_dispatch: # manually trigger
 
 jobs:
   scrape:

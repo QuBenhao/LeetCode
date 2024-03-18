@@ -4,7 +4,8 @@ import traceback
 import argparse
 from importlib.util import spec_from_file_location, module_from_spec
 
-from ..lc_libs import check_user_exist, get_daily_question, check_accepted_submission, get_submission_detail, \
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from lc_libs import check_user_exist, get_daily_question, check_accepted_submission, get_submission_detail, \
     write_solution
 
 
@@ -17,14 +18,16 @@ def main(user_slug: str, cookie: str | None):
             return 1
         question_ids = {daily_info['questionId']}
         submit_dict = check_accepted_submission(user_slug, question_ids)
+        root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        dir_path = os.path.join(root_path, "problems", daily_info['questionId'])
         for question_id, submit_id in submit_dict.items():
-            if os.path.exists(f"../problems/{question_id}"):
+            if os.path.exists(dir_path):
                 try:
-                    testcase_spec = spec_from_file_location("module.name", f"../problems/{question_id}/testcase.py")
+                    testcase_spec = spec_from_file_location("module.name", f"{dir_path}/testcase.py")
                     testcase = module_from_spec(testcase_spec)
                     testcase_spec.loader.exec_module(testcase)
                     testcase_obj = testcase.Testcase()
-                    solution_spec = spec_from_file_location("module.name", f"../problems/{question_id}/solution.py")
+                    solution_spec = spec_from_file_location("module.name", f"{dir_path}/solution.py")
                     solution = module_from_spec(solution_spec)
                     solution_spec.loader.exec_module(solution)
                     solution_obj = solution.Solution()
@@ -43,7 +46,6 @@ def main(user_slug: str, cookie: str | None):
                 detail = get_submission_detail(submit_id, cookie)
                 if detail["lang"] == "python3":
                     code = detail["code"]
-                    dir_path = "../problems/{}".format(daily_info['questionId'])
                     if not os.path.exists(dir_path):
                         os.mkdir(dir_path)
                     with open(f"{dir_path}/solution.py", "w") as f:

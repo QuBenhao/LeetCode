@@ -1,9 +1,9 @@
 name: LeetCode Daily Checker
 
 on:
+  workflow_dispatch: # manually trigger
   schedule:
     - cron: '0 14 * * *'  # run every day at midnight
-  workflow_dispatch: # manually trigger
 
 jobs:
   scrape:
