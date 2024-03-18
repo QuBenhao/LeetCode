@@ -2,7 +2,7 @@ import os.path
 import sys
 import traceback
 
-from lc_libs import *
+from ..lc_libs import *
 
 
 def main():

@@ -4,7 +4,7 @@ import traceback
 import argparse
 from importlib.util import spec_from_file_location, module_from_spec
 
-from lc_libs import check_user_exist, get_daily_question, check_accepted_submission, get_submission_detail, \
+from ..lc_libs import check_user_exist, get_daily_question, check_accepted_submission, get_submission_detail, \
     write_solution
 
 
