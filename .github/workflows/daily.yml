@@ -29,7 +29,7 @@ jobs:
         COOKIE: ${{ secrets.COOKIE }}
         PUSH_KEY: ${{ secrets.PUSH_KEY }}
       run: | 
-        python scripts/daily_auto.py ${COOKIE:+--cookie $COOKIE} ${PUSH_KEY:+--notify_key $PUSH_KEY} > /tmp/msg
+        python scripts/daily_auto.py ${PUSH_KEY:+--notify_key $PUSH_KEY} > /tmp/msg
         status=$?
         cat /tmp/msg
         exit $status
