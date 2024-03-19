@@ -37,7 +37,6 @@ def check_submission(user_slug: str, question_frontend_ids: set[str],
 def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=None):
     if min_timestamp is None:
         min_timestamp = (cur_time := time.time() - time.timezone) - cur_time % 86400 + time.timezone
-    print(min_timestamp)
     ans = dict()
     try:
         result = requests.post('https://leetcode.cn/graphql/noj-go/',
