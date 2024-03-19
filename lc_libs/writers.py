@@ -1,5 +1,5 @@
-def write_problem_md(daily_info: dict, desc: str) -> str:
-    return "# {}. {}\n\n{}".format(daily_info['questionId'], daily_info['questionNameEn'], desc)
+def write_problem_md(question_id: str, question_name: str, desc: str) -> str:
+    return "# {}. {}\n\n{}".format(question_id, question_name, desc)
 
 
 def write_testcase(testcases, outputs) -> str:
@@ -18,6 +18,36 @@ def write_testcase(testcases, outputs) -> str:
 
 
 def write_solution(code: str) -> str:
+    if "class Solution" or "# class" in code:
+        start = False
+        strip_start = False
+        strip_code = []
+        define_class = []
+        for line in code.split("\n"):
+            if line.startswith("# class"):
+                start = True
+            if line.startswith("#"):
+                if start:
+                    define_class.append(line[2:])
+                else:
+                    if not strip_start:
+                        define_class.append(line)
+                    else:
+                        strip_code.append(line)
+                strip_start = False
+            else:
+                if strip_start:
+                    strip_code.append(line)
+                if line.startswith("class Solution"):
+                    strip_start = True
+                start = False
+        return ("import solution\n"
+                "from typing import *\n\n\n"
+                "{}"
+                "class Solution(solution.Solution):\n"
+                "    def solve(self, test_input=None):\n"
+                "        pass\n\n"
+                "{}").format("\n".join(define_class) + "\n\n\n" if define_class else "", "\n".join(strip_code))
     return ("import solution\n"
             "from typing import *\n\n\n"
             "class Solution(solution.Solution):\n"

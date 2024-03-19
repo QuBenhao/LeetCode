@@ -4,6 +4,27 @@ import traceback
 import requests
 
 
+def get_question_info(slug: str) -> dict | None:
+    try:
+        result = requests.post("https://leetcode.cn/graphql/",
+                               json={"query": "\n    query questionTitle($titleSlug: String!) {\n  question(titleSlug:"
+                                              " $titleSlug) {\n    questionId\n    questionFrontendId\n    title\n"
+                                              "    titleSlug\n    isPaidOnly\n    difficulty\n    likes\n    dislikes\n"
+                                              "    categoryTitle\n  }\n}\n    ",
+                                     "variables": {"titleSlug": slug},
+                                     "operationName": "questionTitle"})
+        res_dict = json.loads(result.text)['data']['question']
+        return {
+            "title": res_dict['title'],
+            "difficulty": res_dict['difficulty'],
+            "questionFrontendId": res_dict['questionFrontendId'],
+        }
+    except Exception as e:
+        print("Exception caught: ", str(e))
+        traceback.print_exc()
+        return None
+
+
 def get_question_desc(slug: str) -> str | None:
     try:
         result = requests.post("https://leetcode.cn/graphql/",
@@ -24,8 +45,13 @@ def get_question_desc(slug: str) -> str | None:
 def extract_outputs_from_md(markdown_text: str) -> list:
     res = []
     splits = markdown_text.split("Output")
-    for i in range(1, len(splits), 2):
-        res.append(eval(splits[i].split("\n")[1].split(">")[-1].replace("null", "None")))
+    for i in range(1, len(splits)):
+        tmp = splits[i].split("\n")[0].split(">")[-1].replace("null", "None")
+        tmp = tmp.strip()
+        if len(tmp) > 0:
+            res.append(eval(tmp))
+        else:
+            res.append(eval(splits[i].split("\n")[1].split(">")[-1].replace("null", "None")))
     return res
 
 
