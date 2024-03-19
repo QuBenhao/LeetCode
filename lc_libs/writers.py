@@ -54,8 +54,3 @@ def write_solution(code: str) -> str:
             "    def solve(self, test_input=None):\n"
             "        pass\n\n\n"
             "{}\n").format(code)
-
-
-if __name__ == '__main__':
-    print(write_solution(
-        "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isSymmetric(self, root: Optional[TreeNode]) -> bool:"))
