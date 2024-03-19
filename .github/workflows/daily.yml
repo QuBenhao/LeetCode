@@ -22,11 +22,14 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests
+        pip install -r requirements
 
     - name: Run script
-      run:  |
-        python scripts/daily_auto.py > /tmp/msg
+      env:
+        COOKIE: ${{ secrets.COOKIE }}
+        PUSH_KEY: ${{ secrets.PUSH_KEY }}
+      run: | 
+        python scripts/daily_auto.py ${COOKIE:+--cookie $COOKIE} ${PUSH_KEY:+--notify_key $PUSH_KEY} > /tmp/msg
         status=$?
         cat /tmp/msg
         exit $status

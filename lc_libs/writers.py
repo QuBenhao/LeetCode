@@ -1,5 +1,5 @@
-def write_problem_md(daily_info: dict, desc: str) -> str:
-    return "# {}. {}\n\n{}".format(daily_info['questionId'], daily_info['questionNameEn'], desc)
+def write_problem_md(question_id: str, question_name: str, desc: str) -> str:
+    return "# {}. {}\n\n{}".format(question_id, question_name, desc)
 
 
 def write_testcase(testcases, outputs) -> str:

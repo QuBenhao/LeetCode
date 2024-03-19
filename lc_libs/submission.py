@@ -62,7 +62,7 @@ def check_accepted_submission(user_slug: str, question_frontend_ids: set[str],
     return ans
 
 
-def check_accepted_submission_all(user_slug, question_frontend_ids):
+def check_accepted_submission_all(user_slug: str, question_frontend_ids):
     ans = dict()
     try:
         result = requests.post('https://leetcode.cn/graphql/',
