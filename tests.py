@@ -4,7 +4,7 @@ import unittest
 from importlib.util import spec_from_file_location, module_from_spec
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTIONS = ["1793", "1"]
+QUESTIONS = ['69', '114']
 
 
 class Test(unittest.TestCase):

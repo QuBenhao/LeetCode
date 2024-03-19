@@ -1,5 +1,5 @@
 import argparse
-import os.path
+import os
 import sys
 import traceback
 from pypushdeer import PushDeer
@@ -95,10 +95,9 @@ def main(cookie: str | None = None, notify_key: str | None = None):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument("--cookie", required=False, type=str,
-                        help="The user cookie to check submit codes.", default=None)
     parser.add_argument("--notify_key", required=False, type=str,
                         help="The notify key to send notification if any problem occurs.", default=None)
     args = parser.parse_args()
-    exec_res = main(args.cookie, args.notify_key)
+    cookie = os.getenv('COOKIE')
+    exec_res = main(cookie, args.notify_key)
     sys.exit(exec_res)
