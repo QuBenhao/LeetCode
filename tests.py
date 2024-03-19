@@ -27,14 +27,14 @@ class Test(unittest.TestCase):
                 result = solution_obj.solve(test_input=i)
                 try:
                     if o and isinstance(o, list) and (None not in o and (isinstance(o[0], list) and not any(None in x for x in o))):
-                        self.assertListEqual(sorted(o), sorted(result), msg=f"input = {i}")
+                        self.assertListEqual(sorted(o), sorted(result), msg=f"problem: {q}, input = {i}")
                     else:
-                        self.assertEqual(o, result, msg=f"input = {i}")
+                        self.assertEqual(o, result, msg=f"problem: {q}, input = {i}")
                 except AssertionError:
                     try:
-                        self.assertAlmostEqual(o, result, msg=f"input = {i}", delta=0.00001)
+                        self.assertAlmostEqual(o, result, msg=f"problem: {q}, input = {i}", delta=0.00001)
                     except:
-                        self.assertIn(result, o, msg=f"input = {i}")
+                        self.assertIn(result, o, msg=f"problem: {q}, input = {i}")
 
 
 if __name__ == '__main__':
