@@ -65,6 +65,7 @@ def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = 2)
                 finish_num = res_dict["finishedQuestionNum"]
                 pq = []
                 all_problems = set()
+                all_solved = set()
                 group_total = defaultdict(int)
                 remain_problems = defaultdict(deque)
                 for idx, plan_sub_group in enumerate(plan_detail["planSubGroups"]):
@@ -77,7 +78,7 @@ def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = 2)
                         all_problems.add(title_slug)
                         status = question["status"]
                         if status == "SOLVED":
-                            continue
+                            all_solved.add(title_slug)
                         elif status == "PAST_SOLVED":
                             do_last.append(title_slug)
                             expectation += 0.2
@@ -89,17 +90,17 @@ def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = 2)
                         heapq.heappush(pq, (-expectation, idx))
                     remain_problems[idx].extend(do_last)
                 recommends = []
-                while pq:
+                while pq and len(recommends) < todo_num:
                     ep, idx = heapq.heappop(pq)
                     recommends.append(remain_problems[idx].popleft())
-                    if len(recommends) == todo_num:
-                        break
                     if len(remain_problems[idx]):
                         heapq.heappush(pq, (ep + (1.2 / group_total[idx]), idx))
+                print(all_solved)
                 return {
                     "total": total_num,
                     "finished": finish_num,
                     "all_problems": all_problems,
+                    "all_solved": all_solved,
                     "recommend": recommends
                 }
     except Exception as e:

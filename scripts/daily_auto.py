@@ -50,9 +50,9 @@ def process_plans(cookie: str, notify_key: str | None):
     if plans is None:
         if notify_key:
             push_deer = PushDeer()
-            push_deer.send_text("The leetcode in GitHub secrets might be expired, please check!",
+            push_deer.send_text("The LeetCode in GitHub secrets might be expired, please check!",
                                 desp="Currently not be able to load user study plan, skip.", pushkey=notify_key)
-        print("The leetcode cookie might be expired, unable to check study plans!")
+        print("The LeetCode cookie might be expired, unable to check study plans!")
         return
     problem_ids = []
     for slug in plans:
@@ -98,6 +98,6 @@ if __name__ == '__main__':
     parser.add_argument("--notify_key", required=False, type=str,
                         help="The notify key to send notification if any problem occurs.", default=None)
     args = parser.parse_args()
-    cookie = os.getenv('COOKIE')
-    exec_res = main(cookie, args.notify_key)
+    cke = os.getenv('COOKIE')
+    exec_res = main(cke, args.notify_key)
     sys.exit(exec_res)

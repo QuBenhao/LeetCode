@@ -34,9 +34,10 @@ def check_submission(user_slug: str, question_frontend_ids: set[str],
     return ans
 
 
-def check_accepted_submission(user_slug: str, question_frontend_ids: set[str],
-                              min_timestamp=(now := time.time() - time.timezone) - now % 86400 + time.timezone,
-                              max_timestamp=None):
+def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=None):
+    if min_timestamp is None:
+        min_timestamp = (cur_time := time.time() - time.timezone) - cur_time % 86400 + time.timezone
+    print(min_timestamp)
     ans = dict()
     try:
         result = requests.post('https://leetcode.cn/graphql/noj-go/',
@@ -49,13 +50,13 @@ def check_accepted_submission(user_slug: str, question_frontend_ids: set[str],
         result_dict = json.loads(result.text)['data']['recentACSubmissions']
         if result_dict:
             for submit in result_dict:
-                if submit['question']['questionFrontendId'] in question_frontend_ids:
-                    t = submit['submitTime']
-                    print(submit)
-                    if t >= min_timestamp and (not max_timestamp or t < max_timestamp):
-                        ans[submit['question']['questionFrontendId']] = submit["submissionId"]
-                if submit['submitTime'] < min_timestamp:
+                t = submit['submitTime']
+                if t < min_timestamp:
                     break
+                print(submit)
+                if not max_timestamp or t < max_timestamp:
+                    ans[submit['question']['questionFrontendId']] = (submit["submissionId"],
+                                                                     submit['question']["titleSlug"])
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()
