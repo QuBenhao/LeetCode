@@ -1,25 +1,15 @@
 import solution
+from object_libs import list_to_linked_list, linked_list_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         l1_nums, l2_nums = test_input
 
-        def construct_list(nums):
-            p = head = ListNode(0)
-            for i in nums:
-                p.next = ListNode(i)
-                p = p.next
-            return head.next
-
-        l1 = construct_list(l1_nums)
-        l2 = construct_list(l2_nums)
+        l1 = list_to_linked_list(l1_nums)
+        l2 = list_to_linked_list(l2_nums)
         root = self.addTwoNumbers(l1, l2)
-        l = []
-        while root:
-            l.append(root.val)
-            root = root.next
-        return l
+        return linked_list_to_list(root)
 
     def addTwoNumbers(self, l1, l2):
         """

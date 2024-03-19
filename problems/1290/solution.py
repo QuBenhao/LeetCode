@@ -1,12 +1,10 @@
 import solution
+from object_libs import list_to_linked_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        curr = head = ListNode(test_input.pop(0))
-        while test_input:
-            curr.next = ListNode(test_input.pop(0))
-            curr = curr.next
+        head = list_to_linked_list(test_input)
         return self.getDecimalValue(head)
 
     def getDecimalValue(self, head):
