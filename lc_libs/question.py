@@ -46,12 +46,20 @@ def extract_outputs_from_md(markdown_text: str) -> list:
     res = []
     splits = markdown_text.split("Output")
     for i in range(1, len(splits)):
-        tmp = splits[i].split("\n")[0].split(">")[-1].replace("null", "None")
+        tmp = (splits[i].split("\n")[0].split(">")[-1]
+               .replace("null", "None")
+               .replace("true", "True")
+               .replace("false", "False")
+               )
         tmp = tmp.strip()
         if len(tmp) > 0:
             res.append(eval(tmp))
         else:
-            res.append(eval(splits[i].split("\n")[1].split(">")[-1].replace("null", "None")))
+            res.append(eval(splits[i].split("\n")[1].split(">")[-1]
+                            .replace("null", "None")
+                            .replace("true", "True")
+                            .replace("false", "False")
+                            ))
     return res
 
 

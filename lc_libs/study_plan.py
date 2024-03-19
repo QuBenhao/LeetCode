@@ -95,7 +95,6 @@ def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = 2)
                     recommends.append(remain_problems[idx].popleft())
                     if len(remain_problems[idx]):
                         heapq.heappush(pq, (ep + (1.2 / group_total[idx]), idx))
-                print(all_solved)
                 return {
                     "total": total_num,
                     "finished": finish_num,

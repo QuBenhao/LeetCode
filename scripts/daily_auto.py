@@ -23,6 +23,7 @@ def __write_question__(dir_path, question_id: str, question_name: str, slug: str
     if code is not None:
         with open(f"{dir_path}/solution.py", "w") as f:
             f.write(write_solution(code))
+    print(f"Add question: [{question_id}]{slug}")
 
 
 def process_daily():
