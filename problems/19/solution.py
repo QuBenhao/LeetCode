@@ -1,22 +1,13 @@
 import solution
+from object_libs import list_to_linked_list, linked_list_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums,n = test_input
-        nums = nums.copy()
-        head = ListNode(nums.pop(0))
-        last = head
-        for num in nums:
-            last.next = ListNode(num)
-            last = last.next
-        head = self.removeNthFromEnd(head,n)
-        curr = head
-        ans = []
-        while curr:
-            ans.append(curr.val)
-            curr = curr.next
-        return ans
+        nums, n = test_input
+        head = list_to_linked_list(nums)
+        root = self.removeNthFromEnd(head, n)
+        return linked_list_to_list(root)
 
     def removeNthFromEnd(self, head, n):
         """
@@ -36,6 +27,7 @@ class Solution(solution.Solution):
         else:
             head = head.next
         return head
+
 
 class ListNode(object):
     def __init__(self, val=0, next=None):

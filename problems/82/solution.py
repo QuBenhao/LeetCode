@@ -1,17 +1,12 @@
 import solution
+from object_libs import list_to_linked_list, linked_list_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        last = None
-        for i in range(len(test_input) - 1, -1, -1):
-            last = ListNode(test_input[i], next=last)
-        head = self.deleteDuplicates(head=last)
-        nums = []
-        while head:
-            nums.append(head.val)
-            head = head.next
-        return nums
+        head = list_to_linked_list(test_input)
+        root = self.deleteDuplicates(head)
+        return linked_list_to_list(root)
 
     def deleteDuplicates(self, head):
         """

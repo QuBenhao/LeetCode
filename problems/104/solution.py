@@ -1,26 +1,10 @@
 import solution
+from object_libs import list_to_tree
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        root_nums = test_input
-
-        def insertLevelOrder(arr, root, i, n):
-            # Base case for recursion
-            if i < n:
-                temp = TreeNode(arr[i])
-                root = temp
-
-                # insert left child
-                root.left = insertLevelOrder(arr, root.left,
-                                             2 * i + 1, n)
-
-                # insert right child
-                root.right = insertLevelOrder(arr, root.right,
-                                              2 * i + 2, n)
-            return root
-        root = insertLevelOrder(root_nums, None, 0, len(root_nums))
-
+        root = list_to_tree(test_input)
         return self.maxDepth(root)
 
     def maxDepth(self, root):

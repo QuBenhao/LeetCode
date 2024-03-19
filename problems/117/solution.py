@@ -1,66 +1,5 @@
 import solution
-
-
-class Solution(solution.Solution):
-    def solve(self, test_input=None):
-        nums = test_input.copy()
-        root = Node(nums.pop(0))
-        is_left = True
-        curr_nodes = []
-        curr_node = root
-        while nums:
-            num = nums.pop(0)
-            if is_left:
-                is_left = False
-                if num:
-                    curr_node.left = Node(val=num)
-                    curr_nodes.append(curr_node.left)
-                else:
-                    curr_node.left = None
-            else:
-                is_left = True
-                if num:
-                    curr_node.right = Node(val=num)
-                    curr_nodes.append(curr_node.right)
-                else:
-                    curr_node.right = None
-                curr_node = curr_nodes.pop(0)
-        node = self.connect(root)
-        ans = []
-        while node:
-            curr = node
-            while curr:
-                ans.append(curr.val)
-                curr = curr.next
-            ans.append(None)
-            node = node.left
-        return ans
-
-    def connect(self, root):
-        """
-        :type root: Node
-        :rtype: Node
-        """
-        if not root:
-            return root
-        root.next = None
-        nodes = []
-        if root.left:
-            nodes.append(root.left)
-        if root.right:
-            nodes.append(root.right)
-        while nodes:
-            new_nodes = []
-            for i in range(len(nodes)):
-                if nodes[i].left:
-                    new_nodes.append(nodes[i].left)
-                if nodes[i].right:
-                    new_nodes.append(nodes[i].right)
-                if i < len(nodes) - 1:
-                    nodes[i].next = nodes[i + 1]
-            nodes[-1].next = None
-            nodes = new_nodes
-        return root
+from object_libs import tree_next_node_to_list, list_to_tree_next_node
 
 
 # Definition for a Node.
@@ -70,3 +9,38 @@ class Node(object):
         self.left = left
         self.right = right
         self.next = next
+
+
+class Solution(solution.Solution):
+    def solve(self, test_input=None):
+        root = list_to_tree_next_node(test_input)
+        node = self.connect(root)
+        return tree_next_node_to_list(node)
+
+    def connect(self, root: Node) -> Node:
+        if not root:
+            return root
+        head = root
+        while head:
+            cur = head
+            child_head = child_last = None
+            while cur:
+                if cur.left:
+                    if not child_head:
+                        child_head = cur.left
+                    if not child_last:
+                        child_last = cur.left
+                    else:
+                        child_last.next = cur.left
+                        child_last = child_last.next
+                if cur.right:
+                    if not child_head:
+                        child_head = cur.right
+                    if not child_last:
+                        child_last = cur.right
+                    else:
+                        child_last.next = cur.right
+                        child_last = child_last.next
+                cur = cur.next
+            head = child_head
+        return root

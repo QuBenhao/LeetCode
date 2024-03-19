@@ -12,19 +12,18 @@ class TreeNode:
 def list_to_tree(nums: list[Optional[int]]) -> Optional[TreeNode]:
     if not nums:
         return
-    dq = deque(nums)
-    root = TreeNode(dq.popleft())
+    root = TreeNode(nums[0])
     is_left = 1
     curr_nodes = deque([])
     curr_node = root
-    while dq:
-        num = dq.popleft()
+    for i in range(1, len(nums)):
+        num = nums[i]
         if is_left:
-            if num:
+            if num is not None:
                 curr_node.left = TreeNode(val=num)
                 curr_nodes.append(curr_node.left)
         else:
-            if num:
+            if num is not None:
                 curr_node.right = TreeNode(val=num)
                 curr_nodes.append(curr_node.right)
             curr_node = curr_nodes.popleft()

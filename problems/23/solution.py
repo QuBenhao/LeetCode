@@ -1,25 +1,13 @@
 import solution
-
+from object_libs import linked_list_to_list, list_to_linked_list
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         head_list = []
-        for l in test_input:
-            l = list(l)
-            if l:
-                head = ListNode(l.pop(0))
-            else:
-                head = None
-            head_list.append(head)
-            for num in l:
-                head.next = ListNode(num)
-                head = head.next
+        for nums in test_input:
+            head_list.append(list_to_linked_list(nums))
         head = self.mergeKLists(head_list)
-        ans = []
-        while head:
-            ans.append(head.val)
-            head = head.next
-        return ans
+        return linked_list_to_list(head)
 
     def mergeKLists(self, lists):
         """

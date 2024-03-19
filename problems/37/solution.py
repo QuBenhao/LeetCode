@@ -103,7 +103,7 @@ class Solution(solution.Solution):
                 for r in range(int(box / boxsize) * boxsize, (int(box / boxsize) + 1) * boxsize):
                     for c in range(box % boxsize * boxsize, (box % boxsize + 1) * boxsize):
                         rows[(r - int(box / boxsize) * boxsize) * boxsize + (
-                                    c - box % boxsize * boxsize)] = r * size ** 2 + c * size + valueIndex
+                                c - box % boxsize * boxsize)] = r * size ** 2 + c * size + valueIndex
             return rows
 
         def columnRange(rIndex):
@@ -114,7 +114,8 @@ class Solution(solution.Solution):
             columns[0] = row * size + column
             columns[1] = size ** 2 + row * size + valueIndex
             columns[2] = size ** 2 * 2 + column * size + valueIndex
-            columns[3] = size ** 2 * 3 + (int(int(row / size ** 0.5) * size ** 0.5) + int(column / size ** 0.5)) * size + valueIndex
+            columns[3] = size ** 2 * 3 + (
+                        int(int(row / size ** 0.5) * size ** 0.5) + int(column / size ** 0.5)) * size + valueIndex
             return columns
 
         def findMinColumn():
@@ -230,6 +231,7 @@ class Solution(solution.Solution):
 
         solving()
         return board
+
 
 class DancingNode:
     def __init__(self, c=None):

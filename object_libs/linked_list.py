@@ -1,4 +1,3 @@
-from collections import deque
 from typing import Optional
 
 
@@ -11,11 +10,10 @@ class ListNode:
 def list_to_linked_list(nums: list[int]) -> Optional[ListNode]:
     if not nums:
         return
-    dq = deque(nums)
-    head = ListNode(dq.popleft())
+    head = ListNode(nums[0])
     curr = head
-    while dq:
-        curr.next = ListNode(dq.popleft())
+    for i in range(1, len(nums)):
+        curr.next = ListNode(nums[i])
         curr = curr.next
     return head
 

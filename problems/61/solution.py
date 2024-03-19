@@ -1,19 +1,13 @@
 import solution
+from object_libs import list_to_linked_list, linked_list_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         nums, k = test_input
-        head = None
-        for num in reversed(nums):
-            node = ListNode(num,head)
-            head = node
-        head = self.rotateRight(head, k)
-        ans = []
-        while head:
-            ans.append(head.val)
-            head = head.next
-        return ans
+        head = list_to_linked_list(nums)
+        root = self.rotateRight(head, k)
+        return linked_list_to_list(root)
 
     def rotateRight(self, head, k):
         """

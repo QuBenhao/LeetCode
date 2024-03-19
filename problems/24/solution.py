@@ -1,24 +1,12 @@
 import solution
+from object_libs import list_to_linked_list, linked_list_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums = test_input.copy()
-        if nums:
-            head = ListNode(nums.pop(0))
-            last = head
-            for num in nums:
-                last.next = ListNode(num)
-                last = last.next
-        else:
-            head = None
-        head = self.swapPairs(head)
-        curr = head
-        ans = []
-        while curr:
-            ans.append(curr.val)
-            curr = curr.next
-        return ans
+        head = list_to_linked_list(test_input)
+        root = self.swapPairs(head)
+        return linked_list_to_list(root)
 
     def swapPairs(self, head):
         """
