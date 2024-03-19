@@ -77,7 +77,7 @@ def process_plans(cookie: str, notify_key: str | None):
         with open(f"{root_path}/tests.py", "w") as f:
             for line in lines:
                 if line.startswith("QUESTIONS ="):
-                    line = "QUESTION = \"{}\"\n".format(problem_ids)
+                    line = "QUESTIONS = {}\n".format(problem_ids)
                 f.write(line)
 
 

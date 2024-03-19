@@ -46,7 +46,7 @@ def write_solution(code: str) -> str:
                 "{}"
                 "class Solution(solution.Solution):\n"
                 "    def solve(self, test_input=None):\n"
-                "        pass\n\n\n"
+                "        pass\n\n"
                 "{}").format("\n".join(define_class) + "\n\n\n" if define_class else "", "\n".join(strip_code))
     return ("import solution\n"
             "from typing import *\n\n\n"
