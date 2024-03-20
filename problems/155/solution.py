@@ -1,23 +1,12 @@
 import solution
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, nums = test_input
+        ops, inputs = test_input
         obj = MinStack()
-        ans = [None]
-        for i in range(1, len(ops)):
-            if ops[i] == "push":
-                obj.push(nums[i][0])
-                ans.append(None)
-            elif ops[i] == "pop":
-                obj.pop()
-                ans.append(None)
-            elif ops[i] == "top":
-                ans.append(obj.top())
-            else:
-                ans.append(obj.getMin())
-        return ans
+        return [None] + [call_method(obj, op, *its) for op, its in zip(ops[1:], inputs[1:])]
 
 
 class MinStack(object):
