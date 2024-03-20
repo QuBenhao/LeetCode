@@ -1,23 +1,13 @@
 import solution
+from object_libs import list_to_linked_list, linked_list_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         nums, val = test_input
-        if not nums:
-            head = None
-        else:
-            head = ListNode(nums[0])
-        node = head
-        for i in range(1, len(nums)):
-            node.next = ListNode(nums[i])
-            node = node.next
+        head = list_to_linked_list(nums)
         root = self.removeElements(head, val)
-        ans = []
-        while root:
-            ans.append(root.val)
-            root = root.next
-        return ans
+        return linked_list_to_list(root)
 
     def removeElements(self, head, val):
         """

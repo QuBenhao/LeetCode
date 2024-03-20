@@ -1,23 +1,13 @@
 import solution
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, nums = test_input
+        ops, inputs = test_input
         # Your MyQueue object will be instantiated and called as such:
         obj = MyQueue()
-        ans = [None]
-        for i in range(1, len(ops)):
-            if ops[i] == "push":
-                obj.push(nums[i][0])
-                ans.append(None)
-            elif ops[i] == "pop":
-                ans.append(obj.pop())
-            elif ops[i] == "peek":
-                ans.append(obj.peek())
-            else:
-                ans.append(obj.empty())
-        return ans
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class MyQueue(object):

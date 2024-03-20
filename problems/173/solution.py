@@ -1,6 +1,6 @@
 import solution
 from typing import Optional
-from object_libs import list_to_tree
+from object_libs import list_to_tree, call_method
 
 
 class TreeNode(object):
@@ -12,19 +12,10 @@ class TreeNode(object):
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        operations, nums = test_input
-        nums = nums.pop(0)[0]
-        operations.pop(0)
-        root = list_to_tree(nums)
-        result = [None]
+        operations, inputs = test_input
+        root = list_to_tree(*inputs[0])
         obj = BSTIterator(root)
-        for op in operations:
-            if op == "next":
-                param = obj.next()
-            else:
-                param = obj.hasNext()
-            result.append(param)
-        return result
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(operations[1:], inputs[1:])]
 
 
 class BSTIterator:

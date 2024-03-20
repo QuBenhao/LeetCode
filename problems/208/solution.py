@@ -1,20 +1,12 @@
 import solution
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, strings = test_input
+        ops, inputs = test_input
         obj = Trie()
-        ans = [None]
-        for i in range(1, len(ops)):
-            if ops[i] == "insert":
-                obj.insert(strings[i][0])
-                ans.append(None)
-            elif ops[i] == "search":
-                ans.append(obj.search(strings[i][0]))
-            else:
-                ans.append(obj.startsWith(strings[i][0]))
-        return ans
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 # class Trie(object):
