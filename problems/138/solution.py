@@ -1,35 +1,12 @@
 import solution
+from object_libs import list_to_linked_random_list, linked_random_list_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        NodeList = []
-        head = Node(0)
-        last = head
-        for val, random_index in test_input:
-            last.next = Node(val, random=random_index)
-            last = last.next
-            NodeList.append(last)
-        for node in NodeList:
-            if node.random is not None:
-                node.random = NodeList[node.random]
-        head = self.copyRandomList(head.next)
-        index_dict = dict()
-        pointer = head
-        i = 0
-        while pointer:
-            index_dict[pointer] = i
-            pointer = pointer.next
-            i += 1
-        pointer = head
-        ans = []
-        while pointer:
-            if pointer.random is not None:
-                ans.append([pointer.val, index_dict[pointer.random]])
-            else:
-                ans.append([pointer.val, None])
-            pointer = pointer.next
-        return ans
+        head = list_to_linked_random_list(test_input)
+        root = self.copyRandomList(head)
+        return linked_random_list_to_list(root)
 
     def copyRandomList(self, head):
         """

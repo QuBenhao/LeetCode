@@ -1,21 +1,11 @@
 import solution
+from object_libs import list_to_linked_list_cycle
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         nums, pos = test_input
-        nums = nums.copy()
-        index = 0
-        curr = head = ListNode(nums.pop(0))
-        node = None
-        while nums:
-            if index == pos:
-                node = curr
-            curr.next = ListNode(nums.pop(0))
-            curr = curr.next
-            index += 1
-        if node:
-            curr.next = node
+        head = list_to_linked_list_cycle(nums, pos)
         return self.hasCycle(head)
 
     def hasCycle(self, head):

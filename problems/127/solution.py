@@ -6,8 +6,8 @@ import heapq
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        beginWord, endWord, wordList = test_input
-        return self.ladderLength(beginWord, endWord, list(wordList))
+        begin_word, end_word, word_list = test_input
+        return self.ladderLength(begin_word, end_word, list(word_list))
 
     def ladderLength(self, beginWord, endWord, wordList):
         """
