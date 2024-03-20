@@ -1,19 +1,13 @@
 import solution
 import heapq
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, nums = test_input
+        ops, inputs = test_input
         obj = MedianFinder()
-        ans = [None]
-        for i in range(1, len(ops)):
-            if ops[i] == "addNum":
-                obj.addNum(nums[i][0])
-                ans.append(None)
-            else:
-                ans.append(obj.findMedian())
-        return ans
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class MedianFinder(object):

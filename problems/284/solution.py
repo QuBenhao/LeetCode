@@ -1,20 +1,12 @@
 import solution
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        operations, sources = test_input
-        iter_ = PeekingIterator(Iterator(list(sources[0]).pop()))
-        ans = [None]
-        for i in range(1, len(operations)):
-            if operations[i] == "next":
-                res = iter_.next()
-            elif operations[i] == "peek":
-                res = iter_.peek()
-            else:
-                res = iter_.hasNext()
-            ans.append(res)
-        return ans
+        operations, inputs = test_input
+        obj = PeekingIterator(Iterator(*inputs[0]))
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(operations[1:], inputs[1:])]
 
 
 class PeekingIterator(object):
