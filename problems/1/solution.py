@@ -1,4 +1,5 @@
 import solution
+from typing import *
 
 
 class Solution(solution.Solution):
@@ -6,7 +7,7 @@ class Solution(solution.Solution):
         nums, target = test_input
         return self.twoSum(nums, target)
 
-    def twoSum(self, nums, target):
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
         """
         :type nums: List[int]
         :type target: int

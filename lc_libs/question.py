@@ -110,3 +110,32 @@ def get_question_testcases(slug: str) -> list | None:
         print("Exception caught: ", str(e))
         traceback.print_exc()
         return None
+
+
+def get_questions_by_key_word(keyword: str) -> list | None:
+    try:
+        result = requests.post("https://leetcode.cn/graphql",
+                               json={"query": "\n    query problemsetQuestionList($categorySlug: String, $limit: Int,"
+                                              " $skip: Int, $filters: QuestionListFilterInput) {\n  "
+                                              "problemsetQuestionList(\n    categorySlug: $categorySlug\n    "
+                                              "limit: $limit\n    skip: $skip\n    filters: $filters\n  ) {\n    "
+                                              "hasMore\n    total\n    questions {\n      acRate\n      difficulty\n"
+                                              "      freqBar\n      frontendQuestionId\n      isFavor\n      paidOnly\n"
+                                              "      solutionNum\n      status\n      title\n      titleCn\n      "
+                                              "titleSlug\n      topicTags {\n        name\n        nameTranslated\n"
+                                              "        id\n        slug\n      }\n      extra {\n        "
+                                              "hasVideoSolution\n        topCompanyTags {\n          imgUrl\n"
+                                              "          slug\n          numSubscribed\n        }\n      }\n    }\n  "
+                                              "}\n}\n    ",
+                                     "variables": {"categorySlug": "all-code-essentials",
+                                                   "skip": 0, "limit": 50, "filters": {"searchKeywords": keyword}},
+                                     "operationName": "problemsetQuestionList"})
+        res_dict = json.loads(result.text)["data"]["problemsetQuestionList"]
+        if res_dict["hasMore"]:
+            # TODO: handle if it's necessary to query more
+            pass
+        return res_dict["questions"]
+    except Exception as e:
+        print("Exception caught: ", str(e))
+        traceback.print_exc()
+        return None
