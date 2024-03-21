@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        weights, D = test_input
-        return self.shipWithinDays(list(weights), D)
+        return self.shipWithinDays(*test_input)
 
     def shipWithinDays(self, weights, D):
         """

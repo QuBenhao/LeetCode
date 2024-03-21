@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums1, nums2 = test_input
-        return self.maxUncrossedLines(list(nums1), list(nums2))
+        return self.maxUncrossedLines(*test_input)
 
     def maxUncrossedLines(self, nums1, nums2):
         """

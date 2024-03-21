@@ -3,7 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.numSubmatrixSumTarget([x[:] for x in test_input[0]], test_input[1])
+        return self.numSubmatrixSumTarget(*test_input)
 
     def numSubmatrixSumTarget(self, matrix, target):
         """

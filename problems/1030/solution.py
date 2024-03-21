@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        R, C, r0, c0 = test_input
-        return self.allCellsDistOrder(R, C, r0, c0)
+        return self.allCellsDistOrder(*test_input)
 
     def allCellsDistOrder(self, R, C, r0, c0):
         """
