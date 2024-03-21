@@ -4,8 +4,7 @@ from typing import *
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, target = test_input
-        return self.twoSum(nums, target)
+        return self.twoSum(*test_input)
 
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         """

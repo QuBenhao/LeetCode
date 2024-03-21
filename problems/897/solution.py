@@ -1,37 +1,12 @@
 import solution
+from object_libs import list_to_tree, tree_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        root_nums = test_input
-        root = TreeNode(root_nums.pop(0))
-        while root_nums:
-            last = curr = root
-            num = root_nums.pop(0)
-            if num:
-                L = False
-                while curr:
-                    if num < curr.val:
-                        last = curr
-                        curr = curr.left
-                        L = True
-                    else:
-                        last = curr
-                        curr = curr.right
-                        L = False
-                if L:
-                    last.setL(TreeNode(val=num))
-                else:
-                    last.setR(TreeNode(val=num))
-
-        arr = []
+        root = list_to_tree(test_input)
         node = self.increasingBST(root)
-        while node:
-            arr.append(node.val)
-            node = node.right
-            if node:
-                arr.append(None)
-        return arr
+        return tree_to_list(node)
 
     def increasingBST(self, root):
         """

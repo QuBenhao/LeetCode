@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, target = test_input
-        return self.threeSumClosest(nums.copy(), target)
+        return self.threeSumClosest(*test_input)
 
     def threeSumClosest(self, nums, target):
         """

@@ -5,8 +5,7 @@ import bisect
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, k, t = test_input
-        return self.containsNearbyAlmostDuplicate(list(nums), k, t)
+        return self.containsNearbyAlmostDuplicate(*test_input)
 
     def containsNearbyAlmostDuplicate(self, nums, k, t):
         """

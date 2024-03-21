@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s, t = test_input
-        return self.isAnagram(str(s), str(t))
+        return self.isAnagram(*test_input)
 
     def isAnagram(self, s, t):
         """

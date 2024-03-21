@@ -1,19 +1,12 @@
 import solution
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, values = test_input
-        ops.pop(0)
-        values.pop(0)
+        ops, inputs = test_input
         obj = FreqStack()
-        ans = [None]
-        for i in range(len(ops)):
-            if ops[i] == "push":
-                ans.append(obj.push(values[i][0]))
-            else:
-                ans.append(obj.pop())
-        return ans
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class FreqStack(object):

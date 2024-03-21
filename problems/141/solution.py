@@ -4,8 +4,7 @@ from object_libs import list_to_linked_list_cycle
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, pos = test_input
-        head = list_to_linked_list_cycle(nums, pos)
+        head = list_to_linked_list_cycle(*test_input)
         return self.hasCycle(head)
 
     def hasCycle(self, head):

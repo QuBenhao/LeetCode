@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, k = test_input
-        return self.findKthLargest(list(nums), k)
+        return self.findKthLargest(*test_input)
 
     def findKthLargest(self, nums, k):
         """

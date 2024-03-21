@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        X, Y = test_input
-        return self.brokenCalc(X, Y)
+        return self.brokenCalc(*test_input)
 
     def brokenCalc(self, X, Y):
         """

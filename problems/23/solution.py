@@ -1,6 +1,7 @@
 import solution
 from object_libs import linked_list_to_list, list_to_linked_list
 
+
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         head_list = []

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s, t = test_input
-        return self.numDistinct(str(s), str(t))
+        return self.numDistinct(*test_input)
 
     def numDistinct(self, s, t):
         """

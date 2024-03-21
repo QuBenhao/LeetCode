@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, val = test_input
-        return self.removeElement(list(nums), val)
+        return self.removeElement(*test_input)
 
     def removeElement(self, nums, val):
         """

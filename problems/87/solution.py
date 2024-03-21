@@ -4,8 +4,7 @@ import functools
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s1, s2 = test_input
-        return self.isScramble(str(s1), str(s2))
+        return self.isScramble(*test_input)
 
     @functools.lru_cache(None)
     def isScramble(self, s1, s2):

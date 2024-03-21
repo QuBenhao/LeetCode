@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        matrix, target = test_input
-        return self.searchMatrix([x[:] for x in matrix], target)
+        return self.searchMatrix(*test_input)
 
     def searchMatrix(self, matrix, target):
         """

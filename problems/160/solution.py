@@ -4,8 +4,7 @@ from object_libs import list_to_linked_list_intersection
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        intersect_val, list_a, list_b, skip_a, skip_b = test_input
-        res = self.getIntersectionNode(*list_to_linked_list_intersection(intersect_val, list_a, skip_a, list_b, skip_b))
+        res = self.getIntersectionNode(*list_to_linked_list_intersection(*test_input))
         return res.val if res else None
 
     def getIntersectionNode(self, headA, headB):

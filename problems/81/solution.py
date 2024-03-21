@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, target = test_input
-        return self.search(list(nums), target)
+        return self.search(*test_input)
 
     def search(self, nums, target):
         """

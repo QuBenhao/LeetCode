@@ -4,8 +4,7 @@ from collections import defaultdict, deque
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        numCourses, prerequisites = test_input
-        return self.canFinish(numCourses, [x[:] for x in prerequisites])
+        return self.canFinish(*test_input)
 
     def canFinish(self, numCourses, prerequisites):
         """

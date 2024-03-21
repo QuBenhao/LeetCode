@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        num, target = test_input
-        return self.addOperators(num, target)
+        return self.addOperators(*test_input)
 
     # def addOperators(self, num, target):
     #     """

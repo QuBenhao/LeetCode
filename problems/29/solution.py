@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        dividend, divisor = test_input
-        return self.divide(dividend, divisor)
+        return self.divide(*test_input)
 
     def divide(self, dividend, divisor):
         """

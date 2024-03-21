@@ -4,8 +4,7 @@ from collections import Counter
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, goal = test_input
-        return self.numSubarraysWithSum(list(nums), goal)
+        return self.numSubarraysWithSum(*test_input)
 
     def numSubarraysWithSum(self, nums, goal):
         """

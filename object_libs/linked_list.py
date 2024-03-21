@@ -32,7 +32,7 @@ def list_to_linked_list_cycle(nums: list[int], pos) -> Optional[ListNode]:
     return node
 
 
-def list_to_linked_list_intersection(iv: int, nums1: list[int], idx1, nums2: list[int], idx2) -> list[Optional[ListNode]]:
+def list_to_linked_list_intersection(iv: int, nums1: list[int], nums2: list[int], idx1: int, idx2: int) -> list[Optional[ListNode]]:
     if iv == 0:
         return [list_to_linked_list(nums1), list_to_linked_list(nums2)]
     head1, head2 = ListNode(nums1[0]), ListNode(nums2[0]) if idx2 > 0 else None

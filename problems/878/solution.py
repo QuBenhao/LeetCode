@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, a, b = test_input
-        return self.nthMagicalNumber(n, a, b)
+        return self.nthMagicalNumber(*test_input)
 
     def nthMagicalNumber(self, n, a, b):
         """

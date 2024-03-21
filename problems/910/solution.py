@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        A, K = test_input
-        return self.smallestRangeII(A.copy(), K)
+        return self.smallestRangeII(*test_input)
 
     def smallestRangeII(self, A, K):
         """

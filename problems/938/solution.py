@@ -1,29 +1,11 @@
 import solution
+from object_libs import list_to_tree
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         root_nums,low,high = test_input
-        root_nums = list(root_nums)
-        root = TreeNode(root_nums.pop(0))
-        while root_nums:
-            last = curr = root
-            num = root_nums.pop(0)
-            if num:
-                L = False
-                while curr:
-                    if num < curr.val:
-                        last = curr
-                        curr = curr.left
-                        L = True
-                    else:
-                        last = curr
-                        curr = curr.right
-                        L = False
-                if L:
-                    last.setL(TreeNode(val=num))
-                else:
-                    last.setR(TreeNode(val=num))
+        root = list_to_tree(root_nums)
         return self.rangeSumBST(root,low,high)
 
     def rangeSumBST(self, root, low, high):

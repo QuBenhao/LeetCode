@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        N, L, K = test_input
-        return self.numMusicPlaylists(N, L, K)
+        return self.numMusicPlaylists(*test_input)
 
     def numMusicPlaylists(self, N, L, K):
         """

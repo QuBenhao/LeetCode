@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        people, limit = test_input
-        return self.numRescueBoats(list(people), limit)
+        return self.numRescueBoats(*test_input)
 
     def numRescueBoats(self, people, limit):
         """

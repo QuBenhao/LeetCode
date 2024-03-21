@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        S, K = test_input
-        return self.decodeAtIndex(S, K)
+        return self.decodeAtIndex(*test_input)
 
     def decodeAtIndex(self, S, K):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        k, prices = test_input
-        return self.maxProfit(k,prices)
+        return self.maxProfit(*test_input)
 
     def maxProfit(self, k, prices):
         """

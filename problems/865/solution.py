@@ -1,42 +1,12 @@
 import solution
+from object_libs import list_to_tree, tree_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums = test_input
-        root = TreeNode(nums.pop(0))
-        is_left = True
-        curr_nodes = []
-        curr_node = root
-        while nums:
-            num = nums.pop(0)
-            if is_left:
-                is_left = False
-                if num:
-                    curr_node.left = TreeNode(val=num)
-                    curr_nodes.append(curr_node.left)
-                else:
-                    curr_node.left = None
-            else:
-                is_left = True
-                if num:
-                    curr_node.right = TreeNode(val=num)
-                    curr_nodes.append(curr_node.right)
-                else:
-                    curr_node.right = None
-                curr_node = curr_nodes.pop(0)
-
+        root = list_to_tree(test_input)
         node = self.subtreeWithAllDeepest(root)
-        arr = []
-        last = [node]
-        while last:
-            node = last.pop(0)
-            arr.append(node.val)
-            if node.left:
-                last.append(node.left)
-            if node.right:
-                last.append(node.right)
-        return arr
+        return tree_to_list(node)
 
     def subtreeWithAllDeepest(self, root):
         """

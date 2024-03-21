@@ -7,8 +7,7 @@ from collections import Counter
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, minProfit, group, profit = test_input
-        return self.profitableSchemes(n, minProfit, list(group), list(profit))
+        return self.profitableSchemes(*test_input)
 
     def profitableSchemes(self, n, minProfit, group, profit):
         """

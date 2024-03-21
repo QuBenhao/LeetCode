@@ -5,8 +5,7 @@ from math import log
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        k, n = test_input
-        return self.superEggDrop(k, n)
+        return self.superEggDrop(*test_input)
 
     # @lru_cache(None)
     # def superEggDrop(self, k, n):

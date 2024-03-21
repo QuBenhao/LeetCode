@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        haystack, needle = test_input
-        return self.strStr(str(haystack), str(needle))
+        return self.strStr(*test_input)
 
     def strStr(self, haystack, needle):
         """

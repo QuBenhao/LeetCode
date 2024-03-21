@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        v1, v2 = test_input
-        return self.compareVersion(v1, v2)
+        return self.compareVersion(*test_input)
 
     def compareVersion(self, version1, version2):
         """

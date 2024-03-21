@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, target = test_input
-        return self.fourSum(nums.copy(), target)
+        return self.fourSum(*test_input)
 
     def fourSum(self, nums, target):
         """

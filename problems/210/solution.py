@@ -4,8 +4,7 @@ from collections import defaultdict, deque
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        numCourses, prerequisites = test_input
-        return self.findOrder(numCourses, [x[:] for x in prerequisites])
+        return self.findOrder(*test_input)
 
     def findOrder(self, numCourses, prerequisites):
         """

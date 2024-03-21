@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        pushed, popped = test_input
-        return self.validateStackSequences(list(pushed), list(popped))
+        return self.validateStackSequences(*test_input)
 
     def validateStackSequences(self, pushed, popped):
         """
