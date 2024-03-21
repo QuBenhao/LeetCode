@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        N, mines = test_input
-        return self.orderOfLargestPlusSign(N, mines)
+        return self.orderOfLargestPlusSign(*test_input)
 
     def orderOfLargestPlusSign(self, N, mines):
         """

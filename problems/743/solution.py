@@ -6,8 +6,7 @@ from math import inf
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        times, n, k = test_input
-        return self.networkDelayTime([x[:] for x in times], n, k)
+        return self.networkDelayTime(*test_input)
 
     def networkDelayTime(self, times, n, k):
         """

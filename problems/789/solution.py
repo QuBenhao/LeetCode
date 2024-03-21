@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ghosts, target = test_input
-        return self.escapeGhosts([x[:] for x in ghosts], list(target))
+        return self.escapeGhosts(*test_input)
 
     def escapeGhosts(self, ghosts, target):
         """

@@ -5,8 +5,7 @@ from collections import Counter
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        words, k = test_input
-        return self.topKFrequent(list(words), k)
+        return self.topKFrequent(*test_input)
 
     def topKFrequent(self, words, k):
         """

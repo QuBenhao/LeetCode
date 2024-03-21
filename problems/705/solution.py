@@ -1,22 +1,13 @@
 import solution
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, values = test_input
+        ops, inputs = test_input
         # Your MyHashMap object will be instantiated and called as such:
         obj = MyHashSet()
-        ans = [None]
-        for i in range(1, len(ops)):
-            if ops[i] == "add":
-                obj.add(values[i][0])
-                ans.append(None)
-            elif ops[i] == "contains":
-                ans.append(obj.contains(values[i][0]))
-            else:
-                obj.remove(values[i][0])
-                ans.append(None)
-        return ans
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class MyHashSet(object):
@@ -89,6 +80,22 @@ class MyHashSet(object):
         return left
 
 
+# class ListNode(object):
+#     def __init__(self, key, last, next):
+#         """
+#         :type key: int
+#         :type last: HashNode
+#         :type next: HashNode
+#         :rtype: None
+#         """
+#         self.key = key
+#         if not last:
+#             self.last = self
+#         else:
+#             self.last = last
+#         self.next = next
+#
+#
 # class MyHashSet(object):
 #
 #     def __init__(self):
@@ -200,20 +207,3 @@ class MyHashSet(object):
 #             else:
 #                 back = back.last
 #         return
-#
-#
-# class ListNode(object):
-#     def __init__(self, key, last, next):
-#         """
-#         :type key: int
-#         :type last: HashNode
-#         :type next: HashNode
-#         :rtype: None
-#         """
-#         self.key = key
-#         if not last:
-#             self.last = self
-#         else:
-#             self.last = last
-#         self.next = next
-#

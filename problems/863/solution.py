@@ -1,36 +1,11 @@
 import solution
+from object_libs import list_to_tree_with_target
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, targetVal, k = test_input
-        target = None
-        nums = list(nums)
-        root = TreeNode(nums.pop(0))
-        is_left = True
-        curr_nodes = []
-        curr_node = root
-        while nums:
-            num = nums.pop(0)
-            if is_left:
-                is_left = False
-                if num:
-                    curr_node.left = TreeNode(val=num)
-                    if num == targetVal:
-                        target = curr_node.left
-                    curr_nodes.append(curr_node.left)
-                else:
-                    curr_node.left = None
-            else:
-                is_left = True
-                if num:
-                    curr_node.right = TreeNode(val=num)
-                    if num == targetVal:
-                        target = curr_node.right
-                    curr_nodes.append(curr_node.right)
-                else:
-                    curr_node.right = None
-                curr_node = curr_nodes.pop(0)
+        nums, target_val, k = test_input
+        root, target = list_to_tree_with_target(nums, target_val)
         return self.distanceK(root, target, k)
 
     def distanceK(self, root, target, k):

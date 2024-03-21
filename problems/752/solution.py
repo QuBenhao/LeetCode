@@ -5,8 +5,7 @@ import heapq
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        deadends, target = test_input
-        return self.openLock(list(deadends), target)
+        return self.openLock(*test_input)
 
     def openLock(self, deadends, target):
         """

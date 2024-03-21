@@ -4,8 +4,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        m, n, maxMove, startRow, startColumn = test_input
-        return self.findPaths(m, n, maxMove, startRow, startColumn)
+        return self.findPaths(*test_input)
 
     def findPaths(self, m, n, maxMove, startRow, startColumn):
         """

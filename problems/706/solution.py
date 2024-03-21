@@ -1,22 +1,13 @@
 import solution
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, values = test_input
+        ops, inputs = test_input
         # Your MyHashMap object will be instantiated and called as such:
         obj = MyHashMap()
-        ans = [None]
-        for i in range(1, len(ops)):
-            if ops[i] == "put":
-                obj.put(values[i][0], values[i][1])
-                ans.append(None)
-            elif ops[i] == "get":
-                ans.append(obj.get(values[i][0]))
-            else:
-                obj.remove(values[i][0])
-                ans.append(None)
-        return ans
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class MyHashMap(object):

@@ -1,32 +1,11 @@
 import solution
+from object_libs import list_to_tree
 
 
 class Solution(solution.Solution):
 
     def solve(self, test_input=None):
-        root_nums = list(test_input)
-        root = TreeNode(root_nums.pop(0))
-        while root_nums:
-            last = curr = root
-            num = root_nums.pop(0)
-            if num is not None:
-                L = False
-                while curr:
-                    if num < curr.val:
-                        last = curr
-                        curr = curr.left
-                        L = True
-                    else:
-                        last = curr
-                        curr = curr.right
-                        L = False
-                if L:
-                    last.setL(TreeNode(val=num))
-                else:
-                    last.setR(TreeNode(val=num))
-        self.res = float("inf")
-        self.pre = -float("inf")
-        return self.minDiffInBST(root)
+        return self.minDiffInBST(list_to_tree(test_input))
 
     pre = -float('inf')
     res = float('inf')

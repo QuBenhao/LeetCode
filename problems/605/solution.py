@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        flowerbed, n = test_input
-        return self.canPlaceFlowers(flowerbed,n)
+        return self.canPlaceFlowers(*test_input)
 
     def canPlaceFlowers(self, flowerbed, n):
         """

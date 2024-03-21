@@ -1,4 +1,4 @@
-from .tree import tree_to_list, list_to_tree
+from .tree import tree_to_list, list_to_tree, list_to_tree_with_target
 from .linked_list import (linked_list_to_list, list_to_linked_list,
                           list_to_linked_list_cycle, list_to_linked_list_intersection)
 from .tree_with_next import tree_next_node_to_list, list_to_tree_next_node

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        J,S = test_input
-        return self.numJewelsInStones(J,S)
+        return self.numJewelsInStones(*test_input)
 
     def numJewelsInStones(self, J, S):
         """

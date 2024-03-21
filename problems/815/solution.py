@@ -4,8 +4,7 @@ from collections import deque, defaultdict
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        routes, source, target = test_input
-        return self.numBusesToDestination([x[:] for x in routes], source, target)
+        return self.numBusesToDestination(*test_input)
 
     def numBusesToDestination(self, routes, source, target):
         """

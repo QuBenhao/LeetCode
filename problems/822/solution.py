@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        fronts, backs = test_input
-        return self.flipgame(fronts,backs)
+        return self.flipgame(*test_input)
 
     def flipgame(self, fronts, backs):
         """

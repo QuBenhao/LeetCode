@@ -6,8 +6,7 @@ from math import inf
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, flights, src, dst, k = test_input
-        return self.findCheapestPrice(n, [x[:] for x in flights], src, dst, k)
+        return self.findCheapestPrice(*test_input)
 
     def findCheapestPrice(self, n, flights, src, dst, k):
         """

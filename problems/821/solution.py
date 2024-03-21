@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input):
-        s, c = test_input
-        return self.shortestToChar(str(s), str(c))
+        return self.shortestToChar(*test_input)
 
     def shortestToChar(self, s, c):
         """
