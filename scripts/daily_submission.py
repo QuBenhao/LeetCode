@@ -3,6 +3,8 @@ import sys
 import traceback
 import argparse
 from importlib.util import spec_from_file_location, module_from_spec
+from typing import Optional
+
 from pypushdeer import PushDeer
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -10,7 +12,7 @@ from lc_libs import check_user_exist, get_daily_question, check_accepted_submiss
     write_solution, get_user_study_plans, get_user_study_plan_progress
 
 
-def main(user_slug: str, cookie: str | None, notify_key: str | None = None):
+def main(user_slug: str, cookie: Optional[str], notify_key: Optional[str] = None):
     try:
         if not check_user_exist(user_slug):
             return 1

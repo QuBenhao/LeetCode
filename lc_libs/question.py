@@ -1,10 +1,10 @@
 import json
 import traceback
-
 import requests
+from typing import Optional
 
 
-def get_question_info(slug: str) -> dict | None:
+def get_question_info(slug: str) -> Optional[dict]:
     try:
         result = requests.post("https://leetcode.cn/graphql/",
                                json={"query": "\n    query questionTitle($titleSlug: String!) {\n  question(titleSlug:"
@@ -25,7 +25,7 @@ def get_question_info(slug: str) -> dict | None:
         return None
 
 
-def get_question_desc(slug: str) -> str | None:
+def get_question_desc(slug: str) -> Optional[str]:
     try:
         result = requests.post("https://leetcode.cn/graphql/",
                                json={
@@ -63,7 +63,7 @@ def extract_outputs_from_md(markdown_text: str) -> list:
     return res
 
 
-def get_question_code(slug: str) -> str | None:
+def get_question_code(slug: str) -> Optional[str]:
     try:
         result = requests.post("https://leetcode.cn/graphql",
                                json={
@@ -86,7 +86,7 @@ def get_question_code(slug: str) -> str | None:
         return None
 
 
-def get_question_testcases(slug: str) -> list | None:
+def get_question_testcases(slug: str) -> Optional[list]:
     try:
         result = requests.post("https://leetcode.cn/graphql",
                                json={"query": "\n    query consolePanelConfig($titleSlug: String!) {\n"
@@ -112,7 +112,7 @@ def get_question_testcases(slug: str) -> list | None:
         return None
 
 
-def get_questions_by_key_word(keyword: str) -> list | None:
+def get_questions_by_key_word(keyword: str) -> Optional[list]:
     try:
         result = requests.post("https://leetcode.cn/graphql",
                                json={"query": "\n    query problemsetQuestionList($categorySlug: String, $limit: Int,"

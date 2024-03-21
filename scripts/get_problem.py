@@ -2,11 +2,13 @@ import argparse
 import os
 import shutil
 import sys
+from typing import Optional
+
 from lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
     get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution
 
 
-def main(problem_id: str | None, problem_slug: str | None, force: bool = False):
+def main(problem_id: Optional[str], problem_slug: Optional[str], force: bool = False):
     if not problem_id and not problem_slug:
         print("Requires at least one of problem_id or problem_slug to fetch")
         return

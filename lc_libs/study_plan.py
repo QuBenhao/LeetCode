@@ -1,12 +1,12 @@
 import heapq
 import json
 import traceback
-from collections import defaultdict, deque
-
 import requests
+from collections import defaultdict, deque
+from typing import Optional
 
 
-def get_user_study_plans(cookie: str) -> list | None:
+def get_user_study_plans(cookie: str) -> Optional[list]:
     try:
         result = requests.post('https://leetcode.cn/graphql/',
                                json={"query": "\n    query GetMyStudyPlan($progressType: PlanUserProgressTypeEnum!, "

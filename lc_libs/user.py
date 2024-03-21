@@ -1,10 +1,10 @@
 import json
 import traceback
-
 import requests
+from typing import Optional
 
 
-def get_user_profile(user_slug: str) -> dict | None:
+def get_user_profile(user_slug: str) -> Optional[dict]:
     ans = None
     try:
         result = requests.post('https://leetcode.cn/graphql/',

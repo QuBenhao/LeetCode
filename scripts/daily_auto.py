@@ -2,6 +2,8 @@ import argparse
 import os
 import sys
 import traceback
+from typing import Optional
+
 from pypushdeer import PushDeer
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -82,7 +84,7 @@ def process_plans(cookie: str, notify_key: str | None):
                 f.write(line)
 
 
-def main(cookie: str | None = None, notify_key: str | None = None):
+def main(cookie: Optional[str] = None, notify_key: Optional[str] = None):
     try:
         process_daily()
         if cookie is not None:

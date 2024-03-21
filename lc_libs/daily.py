@@ -1,10 +1,10 @@
 import json
 import traceback
-
 import requests
+from typing import Optional, Dict
 
 
-def get_daily_question() -> dict | None:
+def get_daily_question() -> Optional[Dict]:
     try:
         result = requests.post('https://leetcode.cn/graphql/',
                                json={"query": "\n    query questionOfToday {\n  todayRecord {\n    "
