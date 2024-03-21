@@ -4,8 +4,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        amount, coins = test_input
-        return self.change(amount, list(coins))
+        return self.change(*test_input)
 
     def change(self, amount, coins):
         """

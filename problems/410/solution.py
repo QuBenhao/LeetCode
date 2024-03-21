@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, m = test_input
-        return self.splitArray(list(nums), m)
+        return self.splitArray(*test_input)
 
     def splitArray(self, nums, m):
         """

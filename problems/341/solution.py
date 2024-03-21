@@ -4,10 +4,10 @@ import solution
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         # Your NestedIterator object will be instantiated and called as such:
-        nestedList = []
+        nested_list = []
         for item in test_input:
-            nestedList.append(NestedInteger(item))
-        i, v = NestedIterator(nestedList), []
+            nested_list.append(NestedInteger(item))
+        i, v = NestedIterator(nested_list), []
         while i.hasNext():
             v.append(i.next())
         return v
@@ -22,7 +22,7 @@ class NestedInteger(object):
         self._integer = None
         self._list = None
         if item is not None:
-            if type(item) == int:
+            if isinstance(item, int):
                 self._integer = item
             else:
                 l = []

@@ -1,22 +1,19 @@
 import solution
+from typing import *
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        matrix = test_input[0]
+        ops, inputs = test_input
         # Your NumMatrix object will be instantiated and called as such:
-        obj = NumMatrix(matrix)
-        ans = [None]
-        for i in range(1, len(test_input)):
-            row1, col1, row2, col2 = test_input[i]
-            param_1 = obj.sumRegion(row1, col1, row2, col2)
-            ans.append(param_1)
-        return ans
+        obj = NumMatrix(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class NumMatrix(object):
 
-    def __init__(self, matrix):
+    def __init__(self, matrix: List[List[int]]):
         """
         :type matrix: List[List[int]]
         """

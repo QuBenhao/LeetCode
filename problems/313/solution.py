@@ -4,8 +4,7 @@ import heapq
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, primes = test_input
-        return self.nthSuperUglyNumber(n, list(primes))
+        return self.nthSuperUglyNumber(*test_input)
 
     def nthSuperUglyNumber(self, n, primes):
         """

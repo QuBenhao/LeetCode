@@ -1,16 +1,14 @@
 import solution
 from typing import *
 import itertools
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        _, inputs = test_input
-        obj = NumArray(inputs[0][0])
-        ans = [None]
-        for i in inputs[1:]:
-            ans.append(obj.sumRange(i[0], i[1]))
-        return ans
+        operations, inputs = test_input
+        obj = NumArray(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(operations[1:], inputs[1:])]
 
 
 class NumArray:

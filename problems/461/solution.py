@@ -3,7 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.hammingDistance(test_input[0], test_input[1])
+        return self.hammingDistance(*test_input)
 
     def hammingDistance(self, x, y):
         """

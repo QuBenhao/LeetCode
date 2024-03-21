@@ -5,8 +5,7 @@ from collections import Counter
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, target = test_input
-        return self.findTargetSumWays(list(nums), target)
+        return self.findTargetSumWays(*test_input)
 
     def findTargetSumWays(self, nums, target):
         """

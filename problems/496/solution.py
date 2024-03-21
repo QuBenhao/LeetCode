@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums1, nums2 = test_input
-        return self.nextGreaterElement(nums1.copy(),nums2.copy())
+        return self.nextGreaterElement(*test_input)
 
     def nextGreaterElement(self, nums1, nums2):
         """

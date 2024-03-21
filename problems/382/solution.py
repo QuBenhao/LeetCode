@@ -1,15 +1,11 @@
 import random
-
 import solution
+from object_libs import list_to_linked_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        last = None
-        for i in range(len(test_input)):
-            node = ListNode(test_input[i],last)
-            last = node
-        return S(head=last).getRandom()
+        return S(head=list_to_linked_list(test_input)).getRandom()
 
 
 class S:

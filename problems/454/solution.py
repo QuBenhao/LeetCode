@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        A, B, C, D = test_input
-        return self.fourSumCount(A.copy(),B.copy(),C.copy(),D.copy())
+        return self.fourSumCount(*test_input)
 
     def fourSumCount(self, A, B, C, D):
         """

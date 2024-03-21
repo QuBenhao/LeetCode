@@ -4,8 +4,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        strs, m, n = test_input
-        return self.findMaxForm(list(strs), m, n)
+        return self.findMaxForm(*test_input)
 
     def findMaxForm(self, strs, m, n):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s, d = test_input
-        return self.findLongestWord(str(s), list(d))
+        return self.findLongestWord(*test_input)
 
     def findLongestWord(self, s, d):
         """

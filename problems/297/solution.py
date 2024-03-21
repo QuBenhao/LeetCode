@@ -1,51 +1,16 @@
 import solution
 from collections import deque
+from object_libs import list_to_tree, tree_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        if not test_input:
-            root = None
-        else:
-            nums = deque(test_input)
-            root = TreeNode(nums.popleft())
-            is_left = True
-            curr_nodes = deque([])
-            curr_node = root
-            while nums:
-                num = nums.popleft()
-                if is_left:
-                    is_left = False
-                    if num:
-                        curr_node.left = TreeNode(num)
-                        curr_nodes.append(curr_node.left)
-                    else:
-                        curr_node.left = None
-                else:
-                    is_left = True
-                    if num:
-                        curr_node.right = TreeNode(num)
-                        curr_nodes.append(curr_node.right)
-                    else:
-                        curr_node.right = None
-                    curr_node = curr_nodes.popleft()
+        root = list_to_tree(test_input)
         # Your Codec object will be instantiated and called as such:
         ser = Codec()
         deser = Codec()
-        ans = []
-        res = deser.deserialize(ser.serialize(root))
-        q = deque([res])
-        while q:
-            node = q.popleft()
-            if not node:
-                ans.append(None)
-            else:
-                ans.append(node.val)
-                q.append(node.left)
-                q.append(node.right)
-        while ans and ans[-1] is None:
-            ans.pop()
-        return ans
+        ans = deser.deserialize(ser.serialize(root))
+        return tree_to_list(ans)
 
 
 class Codec:

@@ -2,15 +2,14 @@ import solution
 from itertools import accumulate
 from random import randint
 from bisect import bisect_left
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        obj = RandomPick(test_input[1][0][0])
-        ans = []
-        for i in range(1, len(test_input[1])):
-            ans.append(obj.pickIndex())
-        return [None] + sorted(ans, reverse=True)
+        ops, inputs = test_input
+        obj = RandomPick(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class RandomPick:

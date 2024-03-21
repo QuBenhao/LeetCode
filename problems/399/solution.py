@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        equations, values, queries = test_input
-        return self.calcEquation([x[:] for x in equations], list(values), [x[:] for x in queries])
+        return self.calcEquation(*test_input)
 
     def calcEquation(self, equations, values, queries):
         """

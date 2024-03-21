@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, k = test_input
-        return self.checkSubarraySum(list(nums), k)
+        return self.checkSubarraySum(*test_input)
 
     def checkSubarraySum(self, nums, k):
         """
