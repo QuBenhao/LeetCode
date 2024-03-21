@@ -18,12 +18,37 @@ def write_testcase(testcases, outputs) -> str:
 
 
 def write_solution(code: str) -> str:
-    if "class Solution" or "# class" in code:
+    if '"""' in code:
+        sp = code.split('"""')
+        define_class = []
+        code_source = ""
+        for i in range(1, len(sp), 2):
+            define_class.append(sp[i])
+        for i in range(0, len(sp), 2):
+            code_source += sp[i]
+        strip_code = []
+        for line in code_source.split("\n"):
+            if line.startswith("from typing import"):
+                continue
+            if line.startswith("class Solution"):
+                continue
+            if len(line) > 0:
+                strip_code.append(line)
+        return ("import solution\n"
+                "from typing import *\n\n"
+                "{}"
+                "class Solution(solution.Solution):\n"
+                "    def solve(self, test_input=None):\n"
+                "        pass\n\n"
+                "{}").format("".join(define_class) + "\n\n" if define_class else "\n", "\n".join(strip_code))
+    if "class Solution" in code or "# class" in code:
         start = False
         strip_start = False
         strip_code = []
         define_class = []
         for line in code.split("\n"):
+            if line.startswith("from typing import"):
+                continue
             if line.startswith("# class"):
                 start = True
             if line.startswith("#"):
