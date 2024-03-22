@@ -12,7 +12,8 @@ def write_testcase(testcases, outputs) -> str:
     res += '\t\tself.testcases = []\n'
     for inputs, output in zip(testcases, outputs):
         res += ('\t\tself.testcases.append(case(Input={}, Output={}))\n'
-                .format(inputs, f"\"{output}\"" if isinstance(output, str) else output))
+                .format(f"\"{output}\"" if isinstance(inputs, str) else inputs,
+                        f"\"{output}\"" if isinstance(output, str) else output))
     res += '\n\tdef get_testcases(self):\n'
     res += '\t\treturn self.testcases\n'
     return res
