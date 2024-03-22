@@ -87,7 +87,7 @@ def process_plans(cookie: str, notify_key: str | None):
 def main(cookie: Optional[str] = None, notify_key: Optional[str] = None):
     try:
         process_daily()
-        if cookie is not None:
+        if cookie is not None and len(cookie) > 0:
             process_plans(cookie, notify_key)
     except Exception as e:
         print("Exception caught: ", str(e))
