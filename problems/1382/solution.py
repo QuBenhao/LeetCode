@@ -1,33 +1,21 @@
 import solution
+from typing import *
+from object_libs import list_to_tree, tree_to_list
+
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums = test_input
-        nums = nums.pop(0)[0]
-        root = TreeNode(nums.pop(0))
-        is_left = True
-        curr_nodes = []
-        curr_node = root
-        while nums:
-            num = nums.pop(0)
-            if is_left:
-                is_left = False
-                if num:
-                    curr_node.left = TreeNode(val=num)
-                    curr_nodes.append(curr_node.left)
-                else:
-                    curr_node.left = None
-            else:
-                is_left = True
-                if num:
-                    curr_node.right = TreeNode(val=num)
-                    curr_nodes.append(curr_node.right)
-                else:
-                    curr_node.right = None
-                curr_node = curr_nodes.pop(0)
-
-        return self.balanceBST(root)
+        root = list_to_tree(test_input)
+        bst = self.balanceBST(root)
+        return tree_to_list(bst)
 
     def balanceBST(self, root):
         """
@@ -55,11 +43,3 @@ class Solution(solution.Solution):
             return node
 
         return construct_AVL(nodes)
-
-
-# Definition for a binary tree node.
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
