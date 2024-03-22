@@ -4,7 +4,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.numWays(test_input[0], test_input[1])
+        return self.numWays(*test_input)
 
     def numWays(self, steps, arrLen):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        text1, text2 = test_input
-        return self.longestCommonSubsequence(str(text1), str(text2))
+        return self.longestCommonSubsequence(*test_input)
 
     def longestCommonSubsequence(self, text1, text2):
         """

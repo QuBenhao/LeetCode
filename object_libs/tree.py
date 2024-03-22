@@ -37,7 +37,7 @@ def list_to_tree_with_target(nums: list[Optional[int]], target: int) -> tuple[Op
     root = TreeNode(nums[0])
     target_node = None
     if nums[0] == target:
-        target_node = target
+        target_node = root
     is_left = 1
     curr_nodes = deque([])
     curr_node = root

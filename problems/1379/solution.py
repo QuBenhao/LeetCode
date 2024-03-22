@@ -1,49 +1,13 @@
 import solution
+from object_libs import list_to_tree, list_to_tree_with_target
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         nums, target = test_input
-        nums = nums.copy()
-        num = nums.pop(0)
-        root = TreeNode(num)
-        if num == target:
-            target = root
-        copy_root = TreeNode(num)
-        is_left = True
-        curr_nodes = []
-        curr_node = root
-        copy_nodes = []
-        copy_node = copy_root
-        while nums:
-            num = nums.pop(0)
-            if is_left:
-                is_left = False
-                if num:
-                    curr_node.left = TreeNode(val=num)
-                    if num == target:
-                        target = curr_node.left
-                    curr_nodes.append(curr_node.left)
-                    copy_node.left = TreeNode(val=num)
-                    copy_nodes.append(copy_node.left)
-                else:
-                    curr_node.left = None
-                    copy_node.left = None
-            else:
-                is_left = True
-                if num:
-                    curr_node.right = TreeNode(val=num)
-                    if num == target:
-                        target = curr_node.right
-                    curr_nodes.append(curr_node.right)
-                    copy_node.right = TreeNode(val=num)
-                    copy_nodes.append(copy_node.right)
-                else:
-                    curr_node.right = None
-                    copy_node.right = None
-                curr_node = curr_nodes.pop(0)
-                copy_node = copy_nodes.pop(0)
-        return self.getTargetCopy(root, copy_root, target).val
+        root, target_node = list_to_tree_with_target(nums, target)
+        copy_root = list_to_tree(nums)
+        return self.getTargetCopy(root, copy_root, target_node).val
 
     def getTargetCopy(self, original, cloned, target):
         """

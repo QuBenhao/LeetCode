@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, m = test_input
-        return self.tilingRectangle(n, m)
+        return self.tilingRectangle(*test_input)
 
     def tilingRectangle(self, n, m):
         """

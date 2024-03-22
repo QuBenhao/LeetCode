@@ -5,8 +5,7 @@ from operator import xor
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        arr, queries = test_input
-        return self.xorQueries(list(arr), [x[:] for x in queries])
+        return self.xorQueries(*test_input)
 
     def xorQueries(self, arr, queries):
         """
