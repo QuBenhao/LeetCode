@@ -5,8 +5,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        cost, target = test_input
-        return self.largestNumber(list(cost), target)
+        return self.largestNumber(*test_input)
 
     def largestNumber(self, cost: List[int], target: int) -> str:
         """

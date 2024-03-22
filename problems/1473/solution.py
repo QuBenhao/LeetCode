@@ -4,8 +4,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        houses, cost, m, n, target = test_input
-        return self.minCost(houses, cost, m, n, target)
+        return self.minCost(*test_input)
 
     def minCost(self, houses, cost, m, n, target):
         """

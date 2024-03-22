@@ -1,33 +1,26 @@
 import solution
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        querys, values = test_input
-        querys.pop(0)
-        obj = SubrectangleQueries(values.pop(0))
-        result = [None]
-        for i in range(len(querys)):
-            if querys[i] == "getValue":
-                row, col = values[i]
-                result.append(obj.getValue(row, col))
-            else:
-                row1,col1,row2,col2,newValue = values[i]
-                result.append(obj.updateSubrectangle(row1,col1,row2,col2,newValue))
-        return result
+        ops, inputs = test_input
+        obj = SubrectangleQueries(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class SubrectangleQueries:
 
     def __init__(self, rectangle):
-        self.sub_rectangle = rectangle.pop()
-        # self.sub_rectangle = rectangle
+        self.sub_rectangle = rectangle
+        self.history = []
 
     def updateSubrectangle(self, row1: int, col1: int, row2: int, col2: int, newValue: int) -> None:
-        diff_col = col2 - col1
-        new_val_row = [newValue] * (diff_col + 1)
-        for r in range(row1, row2 + 1):
-            self.sub_rectangle[r][col1:col2 + 1] = new_val_row
+        self.history.append((row1, col1, row2, col2, newValue))
 
     def getValue(self, row: int, col: int) -> int:
+        for i in range(len(self.history) - 1, -1, -1):
+            r1, c1, r2, c2, new_value = self.history[i]
+            if r1 <= row <= r2 and c1 <= col <= c2:
+                return new_value
         return self.sub_rectangle[row][col]

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums,n = test_input
-        return self.shuffle(nums,n)
+        return self.shuffle(*test_input)
 
     def shuffle(self, nums, n):
         """

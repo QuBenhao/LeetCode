@@ -4,8 +4,7 @@ from collections import deque
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        bloomDay, m, k = test_input
-        return self.minDays(list(bloomDay), m, k)
+        return self.minDays(*test_input)
 
     def minDays(self, bloomDay, m, k):
         """
