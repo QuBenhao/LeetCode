@@ -1,6 +1,8 @@
 import json
 import traceback
 import requests
+import markdown
+import html2text
 from typing import Optional
 
 
@@ -52,14 +54,24 @@ def extract_outputs_from_md(markdown_text: str) -> list:
                .replace("false", "False")
                )
         tmp = tmp.strip()
-        if len(tmp) > 0:
-            res.append(eval(tmp))
-        else:
-            res.append(eval(splits[i].split("\n")[1].split(">")[-1]
-                            .replace("null", "None")
-                            .replace("true", "True")
-                            .replace("false", "False")
-                            ))
+        try:
+            if len(tmp) > 0:
+                res.append(eval(tmp))
+            else:
+                tmp = (splits[i].split("\n")[1].split(">")[-1]
+                       .replace("null", "None")
+                       .replace("true", "True")
+                       .replace("false", "False"))
+                res.append(eval(tmp))
+        except SyntaxError as sxe:
+            print(f"Syntax error: {sxe}")
+            traceback.print_exc()
+            # 将Markdown转换为HTML
+            html_content = markdown.markdown(tmp)
+
+            # 将HTML转换为字符
+            text_content = html2text.html2text(html_content)
+            res.append(eval(text_content))
     return res
 
 
