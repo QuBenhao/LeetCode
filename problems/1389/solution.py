@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums,index = test_input
-        return self.createTargetArray(nums,index)
+        return self.createTargetArray(*test_input)
 
     def createTargetArray(self, nums, index):
         # result_list = []

@@ -1,62 +1,54 @@
 # 1449. Form Largest Integer With Digits That Add up to Target
 
-Given an array of integers `cost` and an integer `target`. Return the **maximum** integer you can paint under the following rules:
+<p>Given an array of integers <code>cost</code> and an integer <code>target</code>, return <em>the <strong>maximum</strong> integer you can paint under the following rules</em>:</p>
 
-- The cost of painting a digit (i+1) is given by `cost[i]` (0 indexed).
-- The total cost used must be equal to `target`.
-- Integer does not have digits 0.
+<ul>
+	<li>The cost of painting a digit <code>(i + 1)</code> is given by <code>cost[i]</code> (<strong>0-indexed</strong>).</li>
+	<li>The total cost used must be equal to <code>target</code>.</li>
+	<li>The integer does not have <code>0</code> digits.</li>
+</ul>
 
-Since the answer may be too large, return it as string.
+<p>Since the answer may be very large, return it as a string. If there is no way to paint any integer given the condition, return <code>&quot;0&quot;</code>.</p>
 
-If there is no way to paint any integer given the condition, return "0".
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
- 
+<pre>
+<strong>Input:</strong> cost = [4,3,2,5,6,7,2,5,5], target = 9
+<strong>Output:</strong> &quot;7772&quot;
+<strong>Explanation:</strong> The cost to paint the digit &#39;7&#39; is 2, and the digit &#39;2&#39; is 3. Then cost(&quot;7772&quot;) = 2*3+ 3*1 = 9. You could also paint &quot;977&quot;, but &quot;7772&quot; is the largest number.
+<strong>Digit    cost</strong>
+  1  -&gt;   4
+  2  -&gt;   3
+  3  -&gt;   2
+  4  -&gt;   5
+  5  -&gt;   6
+  6  -&gt;   7
+  7  -&gt;   2
+  8  -&gt;   5
+  9  -&gt;   5
+</pre>
 
-**Example 1:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: cost = [4,3,2,5,6,7,2,5,5], target = 9
-Output: "7772"
-Explanation:  The cost to paint the digit '7' is 2, and the digit '2' is 3. Then cost("7772") = 2*3+ 3*1 = 9. You could also paint "977", but "7772" is the largest number.
-Digit    cost
-  1  ->   4
-  2  ->   3
-  3  ->   2
-  4  ->   5
-  5  ->   6
-  6  ->   7
-  7  ->   2
-  8  ->   5
-  9  ->   5
-```
+<pre>
+<strong>Input:</strong> cost = [7,6,5,5,5,6,8,7,8], target = 12
+<strong>Output:</strong> &quot;85&quot;
+<strong>Explanation:</strong> The cost to paint the digit &#39;8&#39; is 7, and the digit &#39;5&#39; is 5. Then cost(&quot;85&quot;) = 7 + 5 = 12.
+</pre>
 
-**Example 2:**
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: cost = [7,6,5,5,5,6,8,7,8], target = 12
-Output: "85"
-Explanation: The cost to paint the digit '8' is 7, and the digit '5' is 5. Then cost("85") = 7 + 5 = 12.
-```
+<pre>
+<strong>Input:</strong> cost = [2,4,6,2,4,6,4,4,4], target = 5
+<strong>Output:</strong> &quot;0&quot;
+<strong>Explanation:</strong> It is impossible to paint any integer with total cost equal to target.
+</pre>
 
-**Example 3:**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-```
-Input: cost = [2,4,6,2,4,6,4,4,4], target = 5
-Output: "0"
-Explanation: It's not possible to paint any integer with total cost equal to target.
-```
-
-**Example 4:**
-
-```
-Input: cost = [6,10,15,40,40,40,40,40,40], target = 47
-Output: "32211"
-```
-
- 
-
-**Constraints:**
-
-- `cost.length == 9`
-- `1 <= cost[i] <= 5000`
-- `1 <= target <= 5000`
+<ul>
+	<li><code>cost.length == 9</code></li>
+	<li><code>1 &lt;= cost[i], target &lt;= 5000</code></li>
+</ul>

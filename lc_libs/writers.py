@@ -10,8 +10,9 @@ def write_testcase(testcases, outputs) -> str:
     res += 'class Testcase(testcase.Testcase):\n'
     res += '\tdef __init__(self):\n'
     res += '\t\tself.testcases = []\n'
-    for inputs, outputs in zip(testcases, outputs):
-        res += f'\t\tself.testcases.append(case(Input={inputs}, Output={outputs}))\n'
+    for inputs, output in zip(testcases, outputs):
+        res += ('\t\tself.testcases.append(case(Input={}, Output={}))\n'
+                .format(inputs, f"\"{output}\"" if isinstance(output, str) else output))
     res += '\n\tdef get_testcases(self):\n'
     res += '\t\treturn self.testcases\n'
     return res

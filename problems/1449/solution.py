@@ -1,4 +1,5 @@
 import solution
+from typing import *
 from functools import lru_cache
 
 
@@ -7,7 +8,7 @@ class Solution(solution.Solution):
         cost, target = test_input
         return self.largestNumber(list(cost), target)
 
-    def largestNumber(self, cost, target):
+    def largestNumber(self, cost: List[int], target: int) -> str:
         """
         :type cost: List[int]
         :type target: int
@@ -40,4 +41,3 @@ class Solution(solution.Solution):
         #         if i >= k and dp[i - k] != '0':
         #             dp[i] = max(dp[i], v + dp[i - k], key=int)
         # return dp[target]
-

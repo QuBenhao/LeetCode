@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        candies,extraCandies = test_input
-        return self.kidsWithCandies(candies,extraCandies)
+        return self.kidsWithCandies(*test_input)
 
     def kidsWithCandies(self, candies, extraCandies):
         """
