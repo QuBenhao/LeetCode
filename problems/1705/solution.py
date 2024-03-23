@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        apples, days = test_input
-        return self.eatenApples(list(apples), list(days))
+        return self.eatenApples(*test_input)
 
     def eatenApples(self, apples, days):
         """

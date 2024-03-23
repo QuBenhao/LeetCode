@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        x, y, points = test_input
-        return self.nearestValidPoint(x, y, [k[:] for k in points])
+        return self.nearestValidPoint(*test_input)
 
     def nearestValidPoint(self, x, y, points):
         """

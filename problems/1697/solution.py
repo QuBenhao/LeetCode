@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, edgeList, queries = test_input
-        return self.distanceLimitedPathsExist(n, [l[:] for l in edgeList], [l[:] for l in queries])
+        return self.distanceLimitedPathsExist(*test_input)
 
     def distanceLimitedPathsExist(self, n, edgeList, queries):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        chalk, k = test_input
-        return self.chalkReplacer(list(chalk), k)
+        return self.chalkReplacer(*test_input)
 
     def chalkReplacer(self, chalk, k):
         """

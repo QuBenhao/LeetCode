@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s, knowledge = test_input
-        return self.evaluate(str(s), [x[:] for x in knowledge])
+        return self.evaluate(*test_input)
 
     def evaluate(self, s, knowledge):
         """

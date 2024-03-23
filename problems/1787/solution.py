@@ -5,8 +5,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, k = test_input
-        return self.minChanges(list(nums), k)
+        return self.minChanges(*test_input)
 
     def minChanges(self, nums, k):
         """

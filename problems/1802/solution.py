@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, index, maxSum = test_input
-        return self.maxValue(n, index, maxSum)
+        return self.maxValue(*test_input)
 
     def maxValue(self, n, index, maxSum):
         """

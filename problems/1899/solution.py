@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        triplets, target = test_input
-        return self.mergeTriplets([x[:] for x in triplets], list(target))
+        return self.mergeTriplets(*test_input)
 
     def mergeTriplets(self, triplets, target):
         """

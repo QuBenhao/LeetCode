@@ -4,8 +4,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        batchSize, groups = test_input
-        return self.maxHappyGroups(batchSize, list(groups))
+        return self.maxHappyGroups(*test_input)
 
     def maxHappyGroups(self, batchSize, groups):
         """

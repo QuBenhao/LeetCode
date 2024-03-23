@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        source, target, allowedSwaps = test_input
-        return self.minimumHammingDistance(list(source), list(target), [x[:] for x in allowedSwaps])
+        return self.minimumHammingDistance(*test_input)
 
     def minimumHammingDistance(self, source, target, allowedSwaps):
         """

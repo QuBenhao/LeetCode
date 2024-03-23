@@ -1,24 +1,13 @@
 import solution
+from object_libs import list_to_linked_list, linked_list_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         nums, k = test_input
-        nums = nums.copy()
-        head = curr = None
-        while nums:
-            val = nums.pop(0)
-            if head:
-                curr.next = ListNode(val)
-                curr = curr.next
-            else:
-                head = curr = ListNode(val)
-        ans = []
-        curr = self.swapNodes(head, k)
-        while curr:
-            ans.append(curr.val)
-            curr = curr.next
-        return ans
+        head = list_to_linked_list(nums)
+        root = self.swapNodes(head, k)
+        return linked_list_to_list(root)
 
     def swapNodes(self, head, k):
         """

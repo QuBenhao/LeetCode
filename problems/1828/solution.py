@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        points, queries = test_input
-        return self.countPoints([x[:] for x in points], [x[:] for x in queries])
+        return self.countPoints(*test_input)
 
     def countPoints(self, points, queries):
         """

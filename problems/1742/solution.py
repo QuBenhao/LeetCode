@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        lowLimit, highLimit = test_input
-        return self.countBalls(lowLimit, highLimit)
+        return self.countBalls(*test_input)
 
     def countBalls(self, lowLimit, highLimit):
         """

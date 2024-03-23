@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        boxes, portsCount, maxBoxes, maxWeight = test_input
-        return self.boxDelivering(boxes, portsCount, maxBoxes, maxWeight)
+        return self.boxDelivering(*test_input)
 
     def boxDelivering(self, boxes, portsCount, maxBoxes, maxWeight):
         """

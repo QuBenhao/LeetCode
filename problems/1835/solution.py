@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        arr1, arr2 = test_input
-        return self.getXORSum(list(arr1), list(arr2))
+        return self.getXORSum(*test_input)
 
     def getXORSum(self, arr1, arr2):
         """

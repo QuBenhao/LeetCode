@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, multipliers = test_input
-        return self.maximumScore(list(nums), list(multipliers))
+        return self.maximumScore(*test_input)
 
     def maximumScore(self, nums, multipliers):
         """

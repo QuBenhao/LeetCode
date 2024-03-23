@@ -4,8 +4,7 @@ from itertools import accumulate
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        candiesCount, queries = test_input
-        return self.canEat(list(candiesCount), [x[:] for x in queries])
+        return self.canEat(*test_input)
 
     def canEat(self, candiesCount, queries):
         """

@@ -3,7 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.numberOfRounds(str(test_input[0]), str(test_input[1]))
+        return self.numberOfRounds(*test_input)
 
     def numberOfRounds(self, startTime, finishTime):
         """

@@ -4,8 +4,7 @@ from collections import Counter
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, queries = test_input
-        return self.minDifference(list(nums), [x[:] for x in queries])
+        return self.minDifference(*test_input)
 
     def minDifference(self, nums, queries):
         """

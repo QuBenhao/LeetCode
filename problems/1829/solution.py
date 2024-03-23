@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, maximumBit = test_input
-        return self.getMaximumXor(list(nums), maximumBit)
+        return self.getMaximumXor(*test_input)
 
     def getMaximumXor(self, nums, maximumBit):
         """

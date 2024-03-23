@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        encoded, first = test_input
-        return self.decode(list(encoded), first)
+        return self.decode(*test_input)
 
     def decode(self, encoded, first):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        word1, word2 = test_input
-        return self.mergeAlternately(str(word1), str(word2))
+        return self.mergeAlternately(*test_input)
 
     def mergeAlternately(self, word1, word2):
         """

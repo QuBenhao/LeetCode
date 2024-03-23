@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        grid, catJump, mouseJump = test_input
-        return self.canMouseWin(list(grid), catJump, mouseJump)
+        return self.canMouseWin(*test_input)
 
     def canMouseWin(self, grid, catJump, mouseJump):
         """

@@ -4,8 +4,7 @@ import bisect
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        packages, boxes = test_input
-        return self.minWastedSpace(list(packages), [x[:] for x in boxes])
+        return self.minWastedSpace(*test_input)
 
     def minWastedSpace(self, packages, boxes):
         """

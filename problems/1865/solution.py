@@ -1,19 +1,13 @@
 import solution
 from collections import Counter
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        op1,vals = test_input
-        ans = [None]
-        obj = FindSumPairs(vals[0][0], vals[0][1])
-        for i in range(1, len(op1)):
-            if op1[i] == "count":
-                ans.append(obj.count(vals[i][0]))
-            else:
-                obj.add(vals[i][0],vals[i][1])
-                ans.append(None)
-        return ans
+        ops, inputs = test_input
+        obj = FindSumPairs(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class FindSumPairs(object):

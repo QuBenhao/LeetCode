@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s, p, removable = test_input
-        return self.maximumRemovals(str(s), str(p), list(removable))
+        return self.maximumRemovals(*test_input)
 
     def maximumRemovals(self, s, p, removable):
         """

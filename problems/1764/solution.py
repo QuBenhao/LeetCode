@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        groups, nums = test_input
-        return self.canChoose([x[:] for x in groups], list(nums))
+        return self.canChoose(*test_input)
 
     def canChoose(self, groups, nums):
         """

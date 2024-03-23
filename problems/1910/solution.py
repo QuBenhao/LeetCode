@@ -3,7 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.removeOccurrences(str(test_input[0]), str(test_input[1]))
+        return self.removeOccurrences(*test_input)
 
     def removeOccurrences(self, s, part):
         """

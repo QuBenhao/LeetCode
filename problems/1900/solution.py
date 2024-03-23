@@ -4,8 +4,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, firstPlayer, secondPlayer = test_input
-        return self.earliestAndLatest(n, firstPlayer, secondPlayer)
+        return self.earliestAndLatest(*test_input)
 
     def earliestAndLatest(self, n, firstPlayer, secondPlayer):
         """

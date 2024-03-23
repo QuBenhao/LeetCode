@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        matrix, k = test_input
-        return self.kthLargestValue([x[:] for x in matrix], k)
+        return self.kthLargestValue(*test_input)
 
     def kthLargestValue(self, matrix, k):
         """

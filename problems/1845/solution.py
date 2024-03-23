@@ -1,20 +1,14 @@
 import solution
 from heapq import heappop, heappush
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, nums = test_input
+        ops, inputs = test_input
         # Your SeatManager object will be instantiated and called as such:
-        obj = SeatManager(nums[0][0])
-        ans = [None]
-        for i in range(1, len(ops)):
-            if ops[i] == "reserve":
-                ans.append(obj.reserve())
-            else:
-                obj.unreserve(nums[i][0])
-                ans.append(None)
-        return ans
+        obj = SeatManager(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class SeatManager(object):

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        students, sandwiches = test_input
-        return self.countStudents(students.copy(),sandwiches.copy())
+        return self.countStudents(*test_input)
 
     def countStudents(self, students, sandwiches):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        allowed, words = test_input
-        return self.countConsistentStrings(allowed,words)
+        return self.countConsistentStrings(*test_input)
 
     def countConsistentStrings(self, allowed, words):
         """

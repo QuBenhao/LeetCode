@@ -1,20 +1,14 @@
 import solution
 from sortedcontainers import SortedList
 import collections
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, nums = test_input
-        obj = MKAverage(nums[0][0], nums[0][1])
-        ans = [None]
-        for i in range(1, len(ops)):
-            if ops[i] == "addElement":
-                obj.addElement(nums[i][0])
-                ans.append(None)
-            else:
-                ans.append(obj.calculateMKAverage())
-        return ans
+        ops, inputs = test_input
+        obj = MKAverage(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 # class MKAverage:

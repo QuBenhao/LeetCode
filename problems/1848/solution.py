@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, target, start = test_input
-        return self.getMinDistance(list(nums), target, start)
+        return self.getMinDistance(*test_input)
 
     def getMinDistance(self, nums, target, start):
         """

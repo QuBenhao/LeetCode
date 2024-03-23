@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s, k = test_input
-        return self.truncateSentence(str(s), k)
+        return self.truncateSentence(*test_input)
 
     def truncateSentence(self, s, k):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, edges = test_input
-        return self.getCoprimes(list(nums), [x[:] for x in edges])
+        return self.getCoprimes(*test_input)
 
     def getCoprimes(self, nums, edges):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, edges = test_input
-        return self.minTrioDegree(n, [x[:] for x in edges])
+        return self.minTrioDegree(*test_input)
 
     def minTrioDegree(self, n, edges):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, k = test_input
-        return self.sumBase(n, k)
+        return self.sumBase(*test_input)
 
     def sumBase(self, n, k):
         """

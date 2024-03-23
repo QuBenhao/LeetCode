@@ -4,8 +4,7 @@ from collections import defaultdict
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        colors, edges = test_input
-        return self.largestPathValue(str(colors), [x[:] for x in edges])
+        return self.largestPathValue(*test_input)
 
     def largestPathValue(self, colors, edges):
         """

@@ -1,5 +1,6 @@
 import solution
 from collections import Counter
+from typing import *
 
 
 class Solution(solution.Solution):
@@ -9,7 +10,7 @@ class Solution(solution.Solution):
     def solve(self, test_input=None):
         return self.countPairs(list(test_input))
 
-    def countPairs(self, deliciousness):
+    def countPairs(self, deliciousness: List[int]) -> int:
         """
         :type deliciousness: List[int]
         :rtype: int

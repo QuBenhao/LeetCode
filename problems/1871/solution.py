@@ -5,8 +5,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s, minJump, maxJump = test_input
-        return self.canReach(str(s), minJump, maxJump)
+        return self.canReach(*test_input)
 
     def canReach(self, s, minJump, maxJump):
         """

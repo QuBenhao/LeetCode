@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, maxOperations = test_input
-        return self.minimumSize(list(nums), maxOperations)
+        return self.minimumSize(*test_input)
 
     def minimumSize(self, nums, maxOperations):
         """

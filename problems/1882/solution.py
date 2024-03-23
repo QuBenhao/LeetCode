@@ -4,8 +4,7 @@ import heapq
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        servers, tasks = test_input
-        return self.assignTasks(list(servers), list(tasks))
+        return self.assignTasks(*test_input)
 
     def assignTasks(self, servers, tasks):
         """

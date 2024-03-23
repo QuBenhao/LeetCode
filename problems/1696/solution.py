@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, k = test_input
-        return self.maxResult(nums.copy(), k)
+        return self.maxResult(*test_input)
 
     def maxResult(self, nums, k):
         """

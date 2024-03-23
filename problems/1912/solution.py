@@ -1,27 +1,15 @@
 import solution
 from collections import defaultdict
 from sortedcontainers import SortedList
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, vals = test_input
-        n, entries = vals[0]
+        ops, inputs = test_input
         # Your MovieRentingSystem object will be instantiated and called as such:
-        obj = MovieRentingSystem(n, entries)
-        ans = [None]
-        for i in range(1, len(ops)):
-            if ops[i] == "search":
-                ans.append(obj.search(vals[i][0]))
-            elif ops[i] == "rent":
-                obj.rent(vals[i][0], vals[i][1])
-                ans.append(None)
-            elif ops[i] == "drop":
-                obj.drop(vals[i][0], vals[i][1])
-                ans.append(None)
-            else:
-                ans.append(obj.report())
-        return ans
+        obj = MovieRentingSystem(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class MovieRentingSystem(object):

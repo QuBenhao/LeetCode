@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        items, ruleKey, ruleValue = test_input
-        return self.countMatches(items, ruleKey, ruleValue)
+        return self.countMatches(*test_input)
 
     def countMatches(self, items, ruleKey, ruleValue):
         """

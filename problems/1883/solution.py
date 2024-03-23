@@ -4,8 +4,7 @@ from math import ceil
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        dist, speed, hoursBefore = test_input
-        return self.minSkips(list(dist), speed, hoursBefore)
+        return self.minSkips(*test_input)
 
     def minSkips(self, dist, speed, hoursBefore):
         """

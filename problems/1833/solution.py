@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        costs, coins = test_input
-        return self.maxIceCream(list(costs), coins)
+        return self.maxIceCream(*test_input)
 
     def maxIceCream(self, costs, coins):
         """

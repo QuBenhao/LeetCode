@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s, x, y = test_input
-        return self.maximumGain(str(s), x, y)
+        return self.maximumGain(*test_input)
 
     def maximumGain(self, s, x, y):
         """

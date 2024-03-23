@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, edges, queries = test_input
-        return self.countPairs(n, [x[:] for x in edges], list(queries))
+        return self.countPairs(*test_input)
 
     def countPairs(self, n, edges, queries):
         """

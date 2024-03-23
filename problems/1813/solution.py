@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        sentence1, sentence2 = test_input
-        return self.areSentencesSimilar(str(sentence1), str(sentence2))
+        return self.areSentencesSimilar(*test_input)
 
     def areSentencesSimilar(self, sentence1, sentence2):
         """

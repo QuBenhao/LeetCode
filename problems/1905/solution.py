@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        grid1, grid2 = test_input
-        return self.countSubIslands([x[:] for x in grid1], [x[:] for x in grid2])
+        return self.countSubIslands(*test_input)
 
     def countSubIslands(self, grid1, grid2):
         """

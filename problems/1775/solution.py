@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums1, nums2 = test_input
-        return self.minOperations(list(nums1), list(nums2))
+        return self.minOperations(*test_input)
 
     def minOperations(self, nums1, nums2):
         """

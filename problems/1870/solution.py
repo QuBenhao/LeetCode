@@ -4,8 +4,7 @@ import math
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        dist, hour = test_input
-        return self.minSpeedOnTime(dist, hour)
+        return self.minSpeedOnTime(*test_input)
 
     def minSpeedOnTime(self, dist, hour):
         """

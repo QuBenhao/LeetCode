@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, limit, goal = test_input
-        return self.minElements(list(nums), limit, goal)
+        return self.minElements(*test_input)
 
     def minElements(self, nums, limit, goal):
         """

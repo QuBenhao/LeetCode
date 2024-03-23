@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        grid, k = test_input
-        return self.rotateGrid([x[:] for x in grid], k)
+        return self.rotateGrid(*test_input)
 
     def rotateGrid(self, grid, k):
         """

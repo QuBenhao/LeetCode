@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        aliceValues, bobValues = test_input
-        return self.stoneGameVI(aliceValues,bobValues)
+        return self.stoneGameVI(*test_input)
 
     def stoneGameVI(self, aliceValues, bobValues):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        num, k = test_input
-        return self.getMinSwaps(str(num), k)
+        return self.getMinSwaps(*test_input)
 
     def getMinSwaps(self, num, k):
         """

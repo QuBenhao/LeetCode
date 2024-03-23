@@ -4,8 +4,7 @@ import bisect, heapq
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        intervals, queries = test_input
-        return self.minInterval([x[:] for x in intervals], list(queries))
+        return self.minInterval(*test_input)
 
     def minInterval(self, intervals, queries):
         """

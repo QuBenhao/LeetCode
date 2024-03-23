@@ -4,8 +4,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums1, nums2 = test_input
-        return self.minimumXORSum(list(nums1), list(nums2))
+        return self.minimumXORSum(*test_input)
 
     def minimumXORSum(self, nums1, nums2):
         """

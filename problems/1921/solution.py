@@ -5,8 +5,7 @@ from math import ceil
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        dist, speed = test_input
-        return self.eliminateMaximum(list(dist), list(speed))
+        return self.eliminateMaximum(*test_input)
 
     def eliminateMaximum(self, dist, speed):
         """

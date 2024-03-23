@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        classes, extraStudents = test_input
-        return self.maxAverageRatio([x[:] for x in classes], extraStudents)
+        return self.maxAverageRatio(*test_input)
 
     def maxAverageRatio(self, classes, extraStudents):
         """

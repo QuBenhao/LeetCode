@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        word1, word2 = test_input
-        return self.largestMerge(str(word1), str(word2))
+        return self.largestMerge(*test_input)
 
     def largestMerge(self, word1, word2):
         """

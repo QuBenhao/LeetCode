@@ -4,8 +4,7 @@ from collections import Counter
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, low, high = test_input
-        return self.countPairs(list(nums), low, high)
+        return self.countPairs(*test_input)
 
     def countPairs(self, nums, low, high):
         """

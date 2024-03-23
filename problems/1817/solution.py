@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        logs, k = test_input
-        return self.findingUsersActiveMinutes([x[:] for x in logs], k)
+        return self.findingUsersActiveMinutes(*test_input)
 
     def findingUsersActiveMinutes(self, logs, k):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        events, k = test_input
-        return self.maxValue([x[:] for x in events], k)
+        return self.maxValue(*test_input)
 
     def maxValue(self, events, k):
         """

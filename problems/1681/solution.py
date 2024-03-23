@@ -4,8 +4,7 @@ from itertools import permutations, combinations
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, k = test_input
-        return self.minimumIncompatibility(nums, k)
+        return self.minimumIncompatibility(*test_input)
 
     def minimumIncompatibility(self, nums, k):
         """

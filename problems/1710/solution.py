@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        boxTypes, truckSize = test_input
-        return self.maximumUnits([x[:] for x in boxTypes], truckSize)
+        return self.maximumUnits(*test_input)
 
     def maximumUnits(self, boxTypes, truckSize):
         """

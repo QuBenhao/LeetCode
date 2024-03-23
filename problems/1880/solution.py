@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        firstWord, secondWord, targetWord = test_input
-        return self.isSumEqual(str(firstWord), str(secondWord), str(targetWord))
+        return self.isSumEqual(*test_input)
 
     def isSumEqual(self, firstWord, secondWord, targetWord):
         """

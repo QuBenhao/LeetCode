@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, goal = test_input
-        return self.minAbsDifference(list(nums), goal)
+        return self.minAbsDifference(*test_input)
 
     def minAbsDifference(self, nums, goal):
         """

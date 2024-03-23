@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, languages, friendships = test_input
-        return self.minimumTeachings(n, [x[:] for x in languages], [x[:] for x in friendships])
+        return self.minimumTeachings(*test_input)
 
     def minimumTeachings(self, n, languages, friendships):
         """

@@ -5,8 +5,7 @@ from math import inf
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums1, nums2 = test_input
-        return self.minAbsoluteSumDiff(list(nums1), list(nums2))
+        return self.minAbsoluteSumDiff(*test_input)
 
     def minAbsoluteSumDiff(self, nums1, nums2):
         """

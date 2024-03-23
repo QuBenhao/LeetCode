@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s1, s2 = test_input
-        return self.areAlmostEqual(str(s1), str(s2))
+        return self.areAlmostEqual(*test_input)
 
     def areAlmostEqual(self, s1, s2):
         """

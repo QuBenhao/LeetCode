@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, paths = test_input
-        return self.longestCommonSubpath(n, [x[:] for x in paths])
+        return self.longestCommonSubpath(*test_input)
 
     def longestCommonSubpath(self, n, paths):
         """

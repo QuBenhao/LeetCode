@@ -1,26 +1,12 @@
 import solution
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         ops, inputs = test_input
-        ops = list(ops)
-        inputs = list(inputs)
-        # Your AuthenticationManager object will be instantiated and called as such:
-        obj = AuthenticationManager(inputs[0][0])
-        ans = [None]
-
-        for i in range(1, len(ops)):
-            if ops[i] == "renew":
-                obj.renew(inputs[i][0], inputs[i][1])
-                ans.append(None)
-            elif ops[i] == "generate":
-                obj.generate(inputs[i][0], inputs[i][1])
-                ans.append(None)
-            else:
-                ans.append(obj.countUnexpiredTokens(inputs[i][0]))
-
-        return ans
+        obj = AuthenticationManager(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class AuthenticationManager(object):

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        baseCosts, toppingCosts, target = test_input
-        return self.closestCost(baseCosts, toppingCosts, target)
+        return self.closestCost(*test_input)
 
     def closestCost(self, baseCosts, toppingCosts, target):
         """

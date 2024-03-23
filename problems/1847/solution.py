@@ -5,8 +5,7 @@ from collections import defaultdict
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        rooms, queries = test_input
-        return self.closestRoom([x[:] for x in rooms], [x[:] for x in queries])
+        return self.closestRoom(*test_input)
 
     def closestRoom(self, rooms, queries):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, limit = test_input
-        return self.minMoves(list(nums), limit)
+        return self.minMoves(*test_input)
 
     def minMoves(self, nums, limit):
         """

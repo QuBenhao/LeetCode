@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        a, b = test_input
-        return self.minCharacters(a, b)
+        return self.minCharacters(*test_input)
 
     def minCharacters(self, a, b):
         """
