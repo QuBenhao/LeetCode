@@ -4,7 +4,7 @@ import unittest
 from importlib.util import spec_from_file_location, module_from_spec
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTION = "2549"
+QUESTION = "322"
 # QUESTION = "Interview/10_02"
 # QUESTION = "LCP/07"
 # QUESTION = "剑指Offer/52"
