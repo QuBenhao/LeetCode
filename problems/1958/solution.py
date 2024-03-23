@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        board, rMove, cMove, color = test_input
-        return self.checkMove([x[:] for x in board], rMove, cMove, str(color))
+        return self.checkMove(*test_input)
 
     def checkMove(self, board, rMove, cMove, color):
         """

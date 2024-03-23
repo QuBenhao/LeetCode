@@ -4,7 +4,7 @@ import heapq
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.smallestChair([x[:] for x in test_input[0]], test_input[1])
+        return self.smallestChair(*test_input)
 
     def smallestChair(self, times, targetFriend):
         """

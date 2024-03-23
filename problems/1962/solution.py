@@ -4,8 +4,7 @@ import heapq
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        piles, k = test_input
-        return self.minStoneSum(list(piles), k)
+        return self.minStoneSum(*test_input)
 
     def minStoneSum(self, piles, k):
         """

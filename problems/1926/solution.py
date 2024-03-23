@@ -4,8 +4,7 @@ from collections import deque
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        maze, entrance = test_input
-        return self.nearestExit([list(x) for x in maze], list(entrance))
+        return self.nearestExit(*test_input)
 
     def nearestExit(self, maze, entrance):
         """

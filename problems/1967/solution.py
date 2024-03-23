@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        patterns, word = test_input
-        return self.numOfStrings(list(patterns), str(word))
+        return self.numOfStrings(*test_input)
 
     def numOfStrings(self, patterns, word):
         """

@@ -5,8 +5,7 @@ import heapq
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        maxTime, edges, passingFees = test_input
-        return self.minCost(maxTime, [x[:] for x in edges], list(passingFees))
+        return self.minCost(*test_input)
 
     def minCost(self, maxTime, edges, passingFees):
         """

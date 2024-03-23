@@ -4,8 +4,7 @@ from collections import deque
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        row, col, cells = test_input
-        return self.latestDayToCross(row, col, [x[:] for x in cells])
+        return self.latestDayToCross(*test_input)
 
     def latestDayToCross(self, row, col, cells):
         """

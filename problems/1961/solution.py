@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s, words = test_input
-        return self.isPrefixString(str(s), list(words))
+        return self.isPrefixString(*test_input)
 
     def isPrefixString(self, s, words):
         """

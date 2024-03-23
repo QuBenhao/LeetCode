@@ -3,7 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.maxGeneticDifference(list(test_input[0]), [x[:] for x in test_input[1]])
+        return self.maxGeneticDifference(*test_input)
 
     def maxGeneticDifference(self, parents, queries):
         """

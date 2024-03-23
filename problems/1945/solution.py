@@ -3,7 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.getLucky(str(test_input[0]), test_input[1])
+        return self.getLucky(*test_input)
 
     def getLucky(self, s, k):
         """

@@ -5,8 +5,7 @@ from math import inf
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, k = test_input
-        return self.minSpaceWastedKResizing(list(nums), k)
+        return self.minSpaceWastedKResizing(*test_input)
 
     def minSpaceWastedKResizing(self, nums, k):
         """

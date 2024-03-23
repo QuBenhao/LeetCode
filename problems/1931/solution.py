@@ -4,7 +4,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.colorTheGrid(test_input[0], test_input[1])
+        return self.colorTheGrid(*test_input)
 
     def colorTheGrid(self, m, n):
         """

@@ -3,7 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.maximumNumber(str(test_input[0]), list(test_input[1]))
+        return self.maximumNumber(*test_input)
 
     def maximumNumber(self, num, change):
         """

@@ -4,8 +4,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        students, mentors = test_input
-        return self.maxCompatibilitySum([x[:] for x in students], [x[:] for x in mentors])
+        return self.maxCompatibilitySum(*test_input)
 
     def maxCompatibilitySum(self, students, mentors):
         """

@@ -1,32 +1,13 @@
 import solution
 from collections import deque, defaultdict
+from object_libs import list_to_tree, tree_to_list
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        trees = []
-        for lt in test_input:
-            root = TreeNode(lt[0])
-            for i in range(1, len(lt)):
-                if lt[i] < lt[0]:
-                    root.left = TreeNode(lt[i])
-                else:
-                    root.right = TreeNode(lt[i])
-            trees.append(root)
+        trees = [list_to_tree(nums) for nums in test_input]
         root = self.canMerge(trees)
-        ans = []
-        q = deque([root])
-        while q:
-            node = q.popleft()
-            if not node:
-                ans.append(None)
-                continue
-            ans.append(node.val)
-            q.append(node.left)
-            q.append(node.right)
-        while ans and ans[-1] is None:
-            ans.pop()
-        return ans
+        return tree_to_list(root)
 
     def canMerge(self, trees):
         """
