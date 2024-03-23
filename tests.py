@@ -10,6 +10,8 @@ QUESTIONS = ['202', '129']
 class Test(unittest.TestCase):
     def test(self):
         for q in QUESTIONS:
+            print(f"Testing problem: {q}")
+
             self.assertTrue(os.path.exists(f"problems/{q}"), msg="Please set up the problem env first!")
 
             solution_spec = spec_from_file_location("module.name", f"./problems/{q}/solution.py")
@@ -21,8 +23,6 @@ class Test(unittest.TestCase):
             testcase = module_from_spec(testcase_spec)
             testcase_spec.loader.exec_module(testcase)
             testcase_obj = testcase.Testcase()
-
-            print(f"Testing problem: {q}")
 
             for test in testcase_obj.get_testcases():
                 i, o = test

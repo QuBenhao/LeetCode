@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        code, k = test_input
-        return self.decrypt(list(code), k)
+        return self.decrypt(*test_input)
 
     def decrypt(self, code, k):
         """

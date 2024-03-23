@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, k = test_input
-        return self.getSmallestString(n, k)
+        return self.getSmallestString(*test_input)
 
     def getSmallestString(self, n, k):
         """

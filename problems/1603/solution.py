@@ -1,20 +1,12 @@
 import solution
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        operation,type_num = test_input
-        obj = None
-        output = []
-        for i in range(len(operation)):
-            if operation[i] == "ParkingSystem":
-                big,medium,small = type_num[i]
-                obj = ParkingSystem(big,medium,small)
-                output.append(None)
-            else:
-                param_1 = obj.addCar(carType=type_num[i].pop())
-                output.append(param_1)
-        return output
+        ops, inputs = test_input
+        obj = ParkingSystem(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 # class ParkingSystem(object):

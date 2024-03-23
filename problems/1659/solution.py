@@ -4,8 +4,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        m, n, introvertsCount, extrovertsCount = test_input
-        return self.getMaxGridHappiness(m, n, introvertsCount, extrovertsCount)
+        return self.getMaxGridHappiness(*test_input)
 
     def getMaxGridHappiness(self, m, n, introvertsCount, extrovertsCount):
         """

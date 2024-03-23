@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        sequence, word = test_input
-        return self.maxRepeating(str(sequence), str(word))
+        return self.maxRepeating(*test_input)
 
     def maxRepeating(self, sequence, word):
         """

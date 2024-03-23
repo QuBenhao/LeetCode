@@ -4,8 +4,7 @@ import math
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        destination, k = test_input
-        return self.kthSmallestPath(list(destination), k)
+        return self.kthSmallestPath(*test_input)
 
     def kthSmallestPath(self, destination, k):
         """

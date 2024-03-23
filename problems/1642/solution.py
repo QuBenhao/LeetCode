@@ -4,8 +4,7 @@ import heapq
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        heights, bricks, ladders = test_input
-        return self.furthestBuilding(list(heights), bricks, ladders)
+        return self.furthestBuilding(*test_input)
 
     def furthestBuilding(self, heights, bricks, ladders):
         """

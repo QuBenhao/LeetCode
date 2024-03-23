@@ -5,8 +5,7 @@ from functools import lru_cache
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, quantity = test_input
-        return self.canDistribute(list(nums), list(quantity))
+        return self.canDistribute(*test_input)
 
     def canDistribute(self, nums, quantity):
         """

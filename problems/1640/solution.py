@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        arr, pieces = test_input
-        return self.canFormArray(list(arr), [x[:] for x in pieces])
+        return self.canFormArray(*test_input)
 
     def canFormArray(self, arr, pieces):
         """

@@ -1,15 +1,13 @@
 import solution
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        operations, data = test_input
-        operations.pop(0)
-        os = OrderedStream(data.pop(0).pop())
-        result = [None]
-        for d in data:
-            result.append(os.insert(d[0],d[1]))
-        return result
+        ops, inputs = test_input
+        obj = OrderedStream(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
+
 
 class OrderedStream(object):
 

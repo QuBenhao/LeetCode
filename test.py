@@ -12,6 +12,8 @@ QUESTION = "2549"
 
 class Test(unittest.TestCase):
     def test(self):
+        print(f"Testing problem: {QUESTION}")
+
         self.assertTrue(os.path.exists(f"problems/{QUESTION}"), msg="Please set up the problem env first!")
 
         solution_spec = spec_from_file_location("module.name", f"./problems/{QUESTION}/solution.py")
@@ -23,8 +25,6 @@ class Test(unittest.TestCase):
         testcase = module_from_spec(testcase_spec)
         testcase_spec.loader.exec_module(testcase)
         testcase_obj = testcase.Testcase()
-
-        print(f"Testing problem: {QUESTION}")
 
         for test in testcase_obj.get_testcases():
             i, o = test

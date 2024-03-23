@@ -1,11 +1,11 @@
 import solution
 from collections import deque
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, vals = test_input
-        ans = [None]
+        ops, inputs = test_input
 
         # Your FrontMiddleBackQueue object will be instantiated and called as such:
         obj = FrontMiddleBackQueue()
@@ -16,23 +16,7 @@ class Solution(solution.Solution):
         # param_5 = obj.popMiddle()
         # param_6 = obj.popBack()
 
-        for i in range(1, len(ops)):
-            if ops[i] == "pushFront":
-                obj.pushFront(vals[i][0])
-                ans.append(None)
-            elif ops[i] == "pushMiddle":
-                obj.pushMiddle(vals[i][0])
-                ans.append(None)
-            elif ops[i] == "pushBack":
-                obj.pushBack(vals[i][0])
-                ans.append(None)
-            elif ops[i] == "popFront":
-                ans.append(obj.popFront())
-            elif ops[i] == "popMiddle":
-                ans.append(obj.popMiddle())
-            else:
-                ans.append(obj.popBack())
-        return ans
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class FrontMiddleBackQueue(object):
