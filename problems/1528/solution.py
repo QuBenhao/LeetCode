@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        s,indices = test_input
-        return self.restoreString(s,indices)
+        return self.restoreString(*test_input)
 
     def restoreString(self, s, indices):
         """

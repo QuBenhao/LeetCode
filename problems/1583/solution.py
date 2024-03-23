@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, preferences, pairs = test_input
-        return self.unhappyFriends(n, [x[:] for x in preferences], [x[:] for x in pairs])
+        return self.unhappyFriends(*test_input)
 
     def unhappyFriends(self, n, preferences, pairs):
         """

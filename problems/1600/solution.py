@@ -1,5 +1,6 @@
 import solution
 from collections import defaultdict
+from object_libs import call_method
 
 
 class Solution(solution.Solution):
@@ -9,20 +10,9 @@ class Solution(solution.Solution):
         # obj.birth(parentName,childName)
         # obj.death(name)
         # param_3 = obj.getInheritanceOrder()
-        ops, vals = test_input
-        ans = [None]
-        obj = ThroneInheritance(vals[0][0])
-        for i in range(1, len(ops)):
-            if ops[i] == "birth":
-                parent, child = vals[i]
-                obj.birth(parent, child)
-                ans.append(None)
-            elif ops[i] == "death":
-                obj.death(vals[i][0])
-                ans.append(None)
-            else:
-                ans.append(obj.getInheritanceOrder())
-        return ans
+        ops, inputs = test_input
+        obj = ThroneInheritance(*inputs[0])
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class ThroneInheritance(object):

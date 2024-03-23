@@ -22,6 +22,8 @@ class Test(unittest.TestCase):
             testcase_spec.loader.exec_module(testcase)
             testcase_obj = testcase.Testcase()
 
+            print(f"Testing problem: {q}")
+
             for test in testcase_obj.get_testcases():
                 i, o = test
                 result = solution_obj.solve(test_input=i)

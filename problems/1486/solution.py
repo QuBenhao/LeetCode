@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n, start = test_input
-        return self.xorOperation(n, start)
+        return self.xorOperation(*test_input)
 
     def xorOperation(self, n, start):
         """

@@ -3,8 +3,7 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        n,k = test_input
-        return self.kthFactor(n,k)
+        return self.kthFactor(*test_input)
 
     def kthFactor(self, n, k):
         """

@@ -1,66 +1,70 @@
 # 1600. Throne Inheritance
 
-A kingdom consists of a king, his children, his grandchildren, and so on. Every once in a while, someone in the family dies or a child is born.
+<p>A kingdom consists of a king, his children, his grandchildren, and so on. Every once in a while, someone in the family dies or a child is born.</p>
 
-The kingdom has a well-defined order of inheritance that consists of the king as the first member. Let's define the recursive function `Successor(x, curOrder)`, which given a person `x` and the inheritance order so far, returns who should be the next person after `x` in the order of inheritance.
+<p>The kingdom has a well-defined order of inheritance that consists of the king as the first member. Let&#39;s define the recursive function <code>Successor(x, curOrder)</code>, which given a person <code>x</code> and the inheritance order so far, returns who should be the next person after <code>x</code> in the order of inheritance.</p>
 
-```
+<pre>
 Successor(x, curOrder):
-    if x has no children or all of x's children are in curOrder:
+    if x has no children or all of x&#39;s children are in curOrder:
         if x is the king return null
-        else return Successor(x's parent, curOrder)
-    else return x's oldest child who's not in curOrder
-```
+        else return Successor(x&#39;s parent, curOrder)
+    else return x&#39;s oldest child who&#39;s not in curOrder
+</pre>
 
-For example, assume we have a kingdom that consists of the king, his children Alice and Bob (Alice is older than Bob), and finally Alice's son Jack.
+<p>For example, assume we have a kingdom that consists of the king, his children Alice and Bob (Alice is older than Bob), and finally Alice&#39;s son Jack.</p>
 
-1. In the beginning, `curOrder` will be `["king"]`.
-2. Calling `Successor(king, curOrder)` will return Alice, so we append to `curOrder` to get `["king", "Alice"]`.
-3. Calling `Successor(Alice, curOrder)` will return Jack, so we append to `curOrder` to get `["king", "Alice", "Jack"]`.
-4. Calling `Successor(Jack, curOrder)` will return Bob, so we append to `curOrder` to get `["king", "Alice", "Jack", "Bob"]`.
-5. Calling `Successor(Bob, curOrder)` will return `null`. Thus the order of inheritance will be `["king", "Alice", "Jack", "Bob"]`.
+<ol>
+	<li>In the beginning, <code>curOrder</code> will be <code>[&quot;king&quot;]</code>.</li>
+	<li>Calling <code>Successor(king, curOrder)</code> will return Alice, so we append to <code>curOrder</code> to get <code>[&quot;king&quot;, &quot;Alice&quot;]</code>.</li>
+	<li>Calling <code>Successor(Alice, curOrder)</code> will return Jack, so we append to <code>curOrder</code> to get <code>[&quot;king&quot;, &quot;Alice&quot;, &quot;Jack&quot;]</code>.</li>
+	<li>Calling <code>Successor(Jack, curOrder)</code> will return Bob, so we append to <code>curOrder</code> to get <code>[&quot;king&quot;, &quot;Alice&quot;, &quot;Jack&quot;, &quot;Bob&quot;]</code>.</li>
+	<li>Calling <code>Successor(Bob, curOrder)</code> will return <code>null</code>. Thus the order of inheritance will be <code>[&quot;king&quot;, &quot;Alice&quot;, &quot;Jack&quot;, &quot;Bob&quot;]</code>.</li>
+</ol>
 
-Using the above function, we can always obtain a unique order of inheritance.
+<p>Using the above function, we can always obtain a unique order of inheritance.</p>
 
-Implement the `ThroneInheritance` class:
+<p>Implement the <code>ThroneInheritance</code> class:</p>
 
-- `ThroneInheritance(string kingName)` Initializes an object of the `ThroneInheritance` class. The name of the king is given as part of the constructor.
-- `void birth(string parentName, string childName)` Indicates that `parentName` gave birth to `childName`.
-- `void death(string name)` Indicates the death of `name`. The death of the person doesn't affect the `Successor` function nor the current inheritance order. You can treat it as just marking the person as dead.
-- `string[] getInheritanceOrder()` Returns a list representing the current order of inheritance **excluding** dead people.
+<ul>
+	<li><code>ThroneInheritance(string kingName)</code> Initializes an object of the <code>ThroneInheritance</code> class. The name of the king is given as part of the constructor.</li>
+	<li><code>void birth(string parentName, string childName)</code> Indicates that <code>parentName</code> gave birth to <code>childName</code>.</li>
+	<li><code>void death(string name)</code> Indicates the death of <code>name</code>. The death of the person doesn&#39;t affect the <code>Successor</code> function nor the current inheritance order. You can treat it as just marking the person as dead.</li>
+	<li><code>string[] getInheritanceOrder()</code> Returns a list representing the current order of inheritance <strong>excluding</strong> dead people.</li>
+</ul>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input</strong>
+[&quot;ThroneInheritance&quot;, &quot;birth&quot;, &quot;birth&quot;, &quot;birth&quot;, &quot;birth&quot;, &quot;birth&quot;, &quot;birth&quot;, &quot;getInheritanceOrder&quot;, &quot;death&quot;, &quot;getInheritanceOrder&quot;]
+[[&quot;king&quot;], [&quot;king&quot;, &quot;andy&quot;], [&quot;king&quot;, &quot;bob&quot;], [&quot;king&quot;, &quot;catherine&quot;], [&quot;andy&quot;, &quot;matthew&quot;], [&quot;bob&quot;, &quot;alex&quot;], [&quot;bob&quot;, &quot;asha&quot;], [null], [&quot;bob&quot;], [null]]
+<strong>Output</strong>
+[null, null, null, null, null, null, null, [&quot;king&quot;, &quot;andy&quot;, &quot;matthew&quot;, &quot;bob&quot;, &quot;alex&quot;, &quot;asha&quot;, &quot;catherine&quot;], null, [&quot;king&quot;, &quot;andy&quot;, &quot;matthew&quot;, &quot;alex&quot;, &quot;asha&quot;, &quot;catherine&quot;]]
 
-```
-Input
-["ThroneInheritance", "birth", "birth", "birth", "birth", "birth", "birth", "getInheritanceOrder", "death", "getInheritanceOrder"]
-[["king"], ["king", "andy"], ["king", "bob"], ["king", "catherine"], ["andy", "matthew"], ["bob", "alex"], ["bob", "asha"], [null], ["bob"], [null]]
-Output
-[null, null, null, null, null, null, null, ["king", "andy", "matthew", "bob", "alex", "asha", "catherine"], null, ["king", "andy", "matthew", "alex", "asha", "catherine"]]
+<strong>Explanation</strong>
+ThroneInheritance t= new ThroneInheritance(&quot;king&quot;); // order: <strong>king</strong>
+t.birth(&quot;king&quot;, &quot;andy&quot;); // order: king &gt; <strong>andy</strong>
+t.birth(&quot;king&quot;, &quot;bob&quot;); // order: king &gt; andy &gt; <strong>bob</strong>
+t.birth(&quot;king&quot;, &quot;catherine&quot;); // order: king &gt; andy &gt; bob &gt; <strong>catherine</strong>
+t.birth(&quot;andy&quot;, &quot;matthew&quot;); // order: king &gt; andy &gt; <strong>matthew</strong> &gt; bob &gt; catherine
+t.birth(&quot;bob&quot;, &quot;alex&quot;); // order: king &gt; andy &gt; matthew &gt; bob &gt; <strong>alex</strong> &gt; catherine
+t.birth(&quot;bob&quot;, &quot;asha&quot;); // order: king &gt; andy &gt; matthew &gt; bob &gt; alex &gt; <strong>asha</strong> &gt; catherine
+t.getInheritanceOrder(); // return [&quot;king&quot;, &quot;andy&quot;, &quot;matthew&quot;, &quot;bob&quot;, &quot;alex&quot;, &quot;asha&quot;, &quot;catherine&quot;]
+t.death(&quot;bob&quot;); // order: king &gt; andy &gt; matthew &gt; <strong><s>bob</s></strong> &gt; alex &gt; asha &gt; catherine
+t.getInheritanceOrder(); // return [&quot;king&quot;, &quot;andy&quot;, &quot;matthew&quot;, &quot;alex&quot;, &quot;asha&quot;, &quot;catherine&quot;]
+</pre>
 
-Explanation
-ThroneInheritance t= new ThroneInheritance("king"); // order: king
-t.birth("king", "andy"); // order: king > andy
-t.birth("king", "bob"); // order: king > andy > bob
-t.birth("king", "catherine"); // order: king > andy > bob > catherine
-t.birth("andy", "matthew"); // order: king > andy > matthew > bob > catherine
-t.birth("bob", "alex"); // order: king > andy > matthew > bob > alex > catherine
-t.birth("bob", "asha"); // order: king > andy > matthew > bob > alex > asha > catherine
-t.getInheritanceOrder(); // return ["king", "andy", "matthew", "bob", "alex", "asha", "catherine"]
-t.death("bob"); // order: king > andy > matthew > bob > alex > asha > catherine
-t.getInheritanceOrder(); // return ["king", "andy", "matthew", "alex", "asha", "catherine"]
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `1 <= kingName.length, parentName.length, childName.length, name.length <= 15`
-- `kingName`, `parentName`, `childName`, and `name` consist of lowercase English letters only.
-- All arguments `childName` and `kingName` are **distinct**.
-- All `name` arguments of `death` will be passed to either the constructor or as `childName` to `birth` first.
-- For each call to `birth(parentName, childName)`, it is guaranteed that `parentName` is alive.
-- At most 10<sup>5</sup> calls will be made to `birth` and `death`.
-- At most `10` calls will be made to `getInheritanceOrder`.
+<ul>
+	<li><code>1 &lt;= kingName.length, parentName.length, childName.length, name.length &lt;= 15</code></li>
+	<li><code>kingName</code>, <code>parentName</code>, <code>childName</code>, and <code>name</code> consist of lowercase English letters only.</li>
+	<li>All arguments <code>childName</code> and <code>kingName</code> are <strong>distinct</strong>.</li>
+	<li>All <code>name</code> arguments of <code>death</code> will be passed to either the constructor or as <code>childName</code> to <code>birth</code> first.</li>
+	<li>For each call to&nbsp;<code>birth(parentName, childName)</code>, it is guaranteed that&nbsp;<code>parentName</code> is alive.</li>
+	<li>At most <code>10<sup>5</sup></code> calls will be made to <code>birth</code> and <code>death</code>.</li>
+	<li>At most <code>10</code> calls will be made to <code>getInheritanceOrder</code>.</li>
+</ul>
