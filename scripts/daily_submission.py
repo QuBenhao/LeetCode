@@ -75,7 +75,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                     if not os.path.exists(dir_path):
                         os.mkdir(dir_path)
                     with open(f"{dir_path}/solution.py", "w") as f:
-                        f.write(write_solution(code))
+                        f.write(write_solution(code, False))
         print("Daily Question {}: {}, Study plan problem solved today: {}"
               .format(daily_question, "DONE" if finish_daily else "TODO", finished_plan_questions))
         if not finish_daily:
