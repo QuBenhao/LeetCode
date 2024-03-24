@@ -89,7 +89,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--user', required=True, type=str, help='The user slug in LeetCode.')
     args = parser.parse_args()
-    load_dotenv()
+    try:
+        load_dotenv()
+    except Exception as e:
+        print(f"Load Env exception, {e}")
+        traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     push_key = os.getenv(constant.PUSH_KEY)
     pf = os.getenv(constant.PROBLEM_FOLDER, "problems")

@@ -98,7 +98,11 @@ def main(problem_folder: str, cookie: Optional[str] = None, notify_key: Optional
 
 
 if __name__ == '__main__':
-    load_dotenv()
+    try:
+        load_dotenv()
+    except Exception as e:
+        print(f"Load Env exception, {e}")
+        traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     push_key = os.getenv(constant.PUSH_KEY)
     pf = os.getenv(constant.PROBLEM_FOLDER, "problems")

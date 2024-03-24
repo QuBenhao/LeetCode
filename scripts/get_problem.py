@@ -114,7 +114,11 @@ if __name__ == '__main__':
                         help="Only fetch premium questions, need a premium account cookie to execute correctly.")
     parser.add_argument("-debug", "--debug_file", required=False, type=str,
                         help="Debug output file, better debugging when the messages are too long", default=None)
-    load_dotenv()
+    try:
+        load_dotenv()
+    except Exception as e:
+        print(f"Load Env exception, {e}")
+        traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, "problems")
 
