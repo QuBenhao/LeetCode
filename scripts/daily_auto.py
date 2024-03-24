@@ -1,11 +1,10 @@
-import argparse
 import os
 import sys
 import traceback
 from typing import Optional
 
-from pypushdeer import PushDeer
 from dotenv import load_dotenv
+from pypushdeer import PushDeer
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lc_libs import *
