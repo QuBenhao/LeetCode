@@ -27,15 +27,19 @@ def get_question_info(slug: str) -> Optional[dict]:
         return None
 
 
-def get_question_desc(slug: str) -> Optional[str]:
+def get_question_desc(slug: str, cookie: Optional[str] = None) -> Optional[str]:
     try:
+        cookies = dict()
+        if cookie:
+            cookies['cookie'] = cookie
         result = requests.post("https://leetcode.cn/graphql/",
                                json={
                                    "query": "\n    query questionContent($titleSlug: String!) {\n  "
                                             "question(titleSlug: $titleSlug) {\n    content\n    editorType\n    "
                                             "mysqlSchemas\n    dataSchemas\n  }\n}\n    ",
                                    "variables": {"titleSlug": slug},
-                                   "operationName": "questionContent"})
+                                   "operationName": "questionContent"},
+                               cookies=cookies)
         res_dict = json.loads(result.text)
         return res_dict['data']['question']['content']
     except Exception as e:
@@ -75,8 +79,11 @@ def extract_outputs_from_md(markdown_text: str) -> list:
     return res
 
 
-def get_question_code(slug: str) -> Optional[str]:
+def get_question_code(slug: str, cookie: Optional[str] = None) -> Optional[str]:
     try:
+        cookies = dict()
+        if cookie:
+            cookies['cookie'] = cookie
         result = requests.post("https://leetcode.cn/graphql",
                                json={
                                    "query": "\n    query questionEditorData($titleSlug: String!) {\n  "
@@ -85,7 +92,8 @@ def get_question_code(slug: str) -> Optional[str]:
                                             "code\n    }\n    envInfo\n    enableRunCode\n    hasFrontendPreview\n    "
                                             "frontendPreviews\n  }\n}\n    ",
                                    "variables": {"titleSlug": slug},
-                                   "operationName": "questionEditorData"})
+                                   "operationName": "questionEditorData"},
+                               cookies=cookies)
         res_dict = json.loads(result.text)
         code_snippets = res_dict['data']['question']['codeSnippets']
         for cs in code_snippets:
@@ -124,29 +132,42 @@ def get_question_testcases(slug: str) -> Optional[list]:
         return None
 
 
-def get_questions_by_key_word(keyword: str) -> Optional[list]:
+def get_questions_by_key_word(keyword: Optional[str],
+                              fetch_all: bool = False,
+                              premium_only: bool = False) -> Optional[list]:
     try:
-        result = requests.post("https://leetcode.cn/graphql",
-                               json={"query": "\n    query problemsetQuestionList($categorySlug: String, $limit: Int,"
-                                              " $skip: Int, $filters: QuestionListFilterInput) {\n  "
-                                              "problemsetQuestionList(\n    categorySlug: $categorySlug\n    "
-                                              "limit: $limit\n    skip: $skip\n    filters: $filters\n  ) {\n    "
-                                              "hasMore\n    total\n    questions {\n      acRate\n      difficulty\n"
-                                              "      freqBar\n      frontendQuestionId\n      isFavor\n      paidOnly\n"
-                                              "      solutionNum\n      status\n      title\n      titleCn\n      "
-                                              "titleSlug\n      topicTags {\n        name\n        nameTranslated\n"
-                                              "        id\n        slug\n      }\n      extra {\n        "
-                                              "hasVideoSolution\n        topCompanyTags {\n          imgUrl\n"
-                                              "          slug\n          numSubscribed\n        }\n      }\n    }\n  "
-                                              "}\n}\n    ",
-                                     "variables": {"categorySlug": "all-code-essentials",
-                                                   "skip": 0, "limit": 50, "filters": {"searchKeywords": keyword}},
-                                     "operationName": "problemsetQuestionList"})
-        res_dict = json.loads(result.text)["data"]["problemsetQuestionList"]
-        if res_dict["hasMore"]:
-            # TODO: handle if it's necessary to query more
-            pass
-        return res_dict["questions"]
+        ans = []
+        page_size, page_no = 50, 0
+        while True:
+            filters = dict()
+            if keyword:
+                filters["searchKeywords"] = keyword
+            if premium_only:
+                filters["premiumOnly"] = premium_only
+            result = requests.post("https://leetcode.cn/graphql",
+                                   json={"query": "\n    query problemsetQuestionList("
+                                                  "$categorySlug: String, $limit: Int, $skip: Int, $filters: "
+                                                  "QuestionListFilterInput) {\n  problemsetQuestionList(\n    "
+                                                  "categorySlug: $categorySlug\n    limit: $limit\n    skip: $skip\n"
+                                                  "    filters: $filters\n  ) {\n    hasMore\n    total\n    "
+                                                  "questions {\n      acRate\n      difficulty\n      freqBar\n      "
+                                                  "frontendQuestionId\n      isFavor\n      paidOnly\n      "
+                                                  "solutionNum\n      status\n      title\n      titleCn\n      "
+                                                  "titleSlug\n      topicTags {\n        name\n        nameTranslated\n"
+                                                  "        id\n        slug\n      }\n      extra {\n        "
+                                                  "hasVideoSolution\n        topCompanyTags {\n          imgUrl\n     "
+                                                  "     slug\n          numSubscribed\n        }\n      }\n    }\n  "
+                                                  "}\n}\n    ",
+                                         "variables": {"categorySlug": "all-code-essentials",
+                                                       "skip": page_no * page_size, "limit": page_size,
+                                                       "filters": filters},
+                                         "operationName": "problemsetQuestionList"})
+            res_dict = json.loads(result.text)["data"]["problemsetQuestionList"]
+            ans.extend(res_dict["questions"])
+            if not res_dict["hasMore"] or not fetch_all:
+                break
+            page_no += 1
+        return ans
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()
