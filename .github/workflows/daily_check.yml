@@ -24,11 +24,15 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements
 
+    - name: 'Create env file'
+      run: |
+        touch .env
+        echo COOKIE=${{ secrets.COOKIE }} >> .env
+        echo PUSH_KEY=${{ secrets.PUSH_KEY }} >> .env
+        echo PROBLEM_FOLDER=${{ secrets.PROBLEM_FOLDER }} >> .env
+        cat .env
+
     - name: Run script
-      env:
-        COOKIE: ${{ secrets.COOKIE }}
-        PUSH_KEY: ${{ secrets.PUSH_KEY }}
-        PROBLEM_FOLDER: ${{ secrets.PROBLEM_FOLDER }}
       run:  |
         python scripts/daily_submission.py --user ${{ secrets.USER }} > /tmp/msg
         status=$?
