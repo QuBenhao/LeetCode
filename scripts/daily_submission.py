@@ -17,9 +17,11 @@ from constants import constant
 def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key: Optional[str] = None):
     try:
         if not check_user_exist(user_slug):
+            print(f"User not exist: {user_slug}")
             return 1
         daily_info = get_daily_question()
         if not daily_info:
+            print(f"Unable to get daily question")
             return 1
         daily_question = daily_info['questionId']
         finish_daily = False
