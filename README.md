@@ -1,7 +1,26 @@
 # LeetCode
 Algorithms in LeetCode by Benhao
 
-**To start: change QUESTION id in [test.py](./test.py)**
+# How to start
+After clone this repo, add a .env file to tell where to locate your problems and solutions (locally).
+For remote GitHub Action, add `COOKIE` (LeetCode cookie), `PUSH_KEY` (PushDeer notification), `PROBLEM_FOLDER` (where to add problems), `USER` (LeetCode personal page uri).
+
+Example .env file:
+```text
+PROBLEM_FOLDER="problems"
+PUSH_KEY="***[key from PushDeer]"
+COOKIE="***[cookie from LeetCode graphql]"
+```
+
+install requirements:
+```shell
+pip install -r requirements
+```
+
+And then, **change QUESTION id in [test.py](./test.py)**, and try:
+```shell
+python3 ./test.py
+```
 
 # Table of Content
 1. [Easy](#easy)

@@ -5,3 +5,4 @@ submit_study_plan.py
 ac_oier*
 .idea/
 __pycache__/
+.env

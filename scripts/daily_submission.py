@@ -5,14 +5,16 @@ import argparse
 from importlib.util import spec_from_file_location, module_from_spec
 from typing import Optional
 
+from dotenv import load_dotenv
 from pypushdeer import PushDeer
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lc_libs import check_user_exist, get_daily_question, check_accepted_submission, get_submission_detail, \
     write_solution, get_user_study_plans, get_user_study_plan_progress
+from constants import constant
 
 
-def main(user_slug: str, cookie: Optional[str], notify_key: Optional[str] = None):
+def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key: Optional[str] = None):
     try:
         if not check_user_exist(user_slug):
             return 1
@@ -39,7 +41,7 @@ def main(user_slug: str, cookie: Optional[str], notify_key: Optional[str] = None
         submit_dict = check_accepted_submission(user_slug)
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         for question_id, (submit_id, question_slug) in submit_dict.items():
-            dir_path = os.path.join(root_path, "problems", question_id)
+            dir_path = os.path.join(root_path, problem_folder, question_id)
             if os.path.exists(dir_path):
                 try:
                     testcase_spec = spec_from_file_location("module.name", f"{dir_path}/testcase.py")
@@ -86,10 +88,11 @@ def main(user_slug: str, cookie: Optional[str], notify_key: Optional[str] = None
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--user', required=True, type=str, help='The user slug in LeetCode.')
-    parser.add_argument("--notify_key", required=False, type=str,
-                        help="The notify key to send notification if any problem occurs.", default=None)
     args = parser.parse_args()
-    cke = os.getenv('COOKIE')
+    load_dotenv()
+    cke = os.getenv(constant.COOKIE)
+    push_key = os.getenv(constant.PUSH_KEY)
+    pf = os.getenv(constant.PROBLEM_FOLDER, "problems")
 
-    exec_res = main(args.user, cke, args.notify_key)
+    exec_res = main(pf, args.user, cke, push_key)
     sys.exit(exec_res)

@@ -2,6 +2,8 @@ import os.path
 import sys
 import unittest
 from importlib.util import spec_from_file_location, module_from_spec
+from dotenv import load_dotenv
+import constants
 
 # Question ID that wants to test, modify here as passing arguments
 QUESTION = "322"
@@ -14,14 +16,17 @@ class Test(unittest.TestCase):
     def test(self):
         print(f"Testing problem: {QUESTION}")
 
-        self.assertTrue(os.path.exists(f"problems/{QUESTION}"), msg="Please set up the problem env first!")
+        load_dotenv()
+        problem_folder = os.getenv(constants.PROBLEM_FOLDER, "problems")
 
-        solution_spec = spec_from_file_location("module.name", f"./problems/{QUESTION}/solution.py")
+        self.assertTrue(os.path.exists(f"{problem_folder}/{QUESTION}"), msg="Please set up the problem env first!")
+
+        solution_spec = spec_from_file_location("module.name", f"./{problem_folder}/{QUESTION}/solution.py")
         solution = module_from_spec(solution_spec)
         solution_spec.loader.exec_module(solution)
         solution_obj = solution.Solution()
 
-        testcase_spec = spec_from_file_location("module.name", f"./problems/{QUESTION}/testcase.py")
+        testcase_spec = spec_from_file_location("module.name", f"./{problem_folder}/{QUESTION}/testcase.py")
         testcase = module_from_spec(testcase_spec)
         testcase_spec.loader.exec_module(testcase)
         testcase_obj = testcase.Testcase()

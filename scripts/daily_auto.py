@@ -5,9 +5,11 @@ import traceback
 from typing import Optional
 
 from pypushdeer import PushDeer
+from dotenv import load_dotenv
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lc_libs import *
+from constants import constant
 
 
 def __write_question__(dir_path, question_id: str, question_name: str, slug: str):
@@ -28,12 +30,12 @@ def __write_question__(dir_path, question_id: str, question_name: str, slug: str
     print(f"Add question: [{question_id}]{slug}")
 
 
-def process_daily():
+def process_daily(problem_folder: str):
     daily_info = get_daily_question()
     if not daily_info:
         return 1
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    dir_path = os.path.join(root_path, "problems", daily_info['questionId'])
+    dir_path = os.path.join(root_path, problem_folder, daily_info['questionId'])
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
         __write_question__(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'])
@@ -48,7 +50,7 @@ def process_daily():
             f.write(line)
 
 
-def process_plans(cookie: str, notify_key: str | None):
+def process_plans(problem_folder: str, cookie: str, notify_key: str | None):
     plans = get_user_study_plans(cookie)
     if plans is None:
         if notify_key:
@@ -68,7 +70,7 @@ def process_plans(cookie: str, notify_key: str | None):
                 continue
             question_id = info["questionFrontendId"]
             root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            dir_path = os.path.join(root_path, "problems", question_id)
+            dir_path = os.path.join(root_path, problem_folder, question_id)
             if not os.path.exists(dir_path):
                 os.mkdir(dir_path)
                 __write_question__(dir_path, question_id, info["title"], question_slug)
@@ -84,11 +86,11 @@ def process_plans(cookie: str, notify_key: str | None):
                 f.write(line)
 
 
-def main(cookie: Optional[str] = None, notify_key: Optional[str] = None):
+def main(problem_folder: str, cookie: Optional[str] = None, notify_key: Optional[str] = None):
     try:
-        process_daily()
+        process_daily(problem_folder)
         if cookie is not None and len(cookie) > 0:
-            process_plans(cookie, notify_key)
+            process_plans(problem_folder, cookie, notify_key)
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()
@@ -97,10 +99,9 @@ def main(cookie: Optional[str] = None, notify_key: Optional[str] = None):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--notify_key", required=False, type=str,
-                        help="The notify key to send notification if any problem occurs.", default=None)
-    args = parser.parse_args()
-    cke = os.getenv('COOKIE')
-    exec_res = main(cke, args.notify_key)
+    load_dotenv()
+    cke = os.getenv(constant.COOKIE)
+    push_key = os.getenv(constant.PUSH_KEY)
+    pf = os.getenv(constant.PROBLEM_FOLDER, "problems")
+    exec_res = main(pf, cke, push_key)
     sys.exit(exec_res)

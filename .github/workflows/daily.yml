@@ -28,8 +28,9 @@ jobs:
       env:
         COOKIE: ${{ secrets.COOKIE }}
         PUSH_KEY: ${{ secrets.PUSH_KEY }}
+        PROBLEM_FOLDER: ${{ secrets.PROBLEM_FOLDER }}
       run: | 
-        python scripts/daily_auto.py ${PUSH_KEY:+--notify_key $PUSH_KEY} > /tmp/msg
+        python scripts/daily_auto.py > /tmp/msg
         status=$?
         cat /tmp/msg
         exit $status
