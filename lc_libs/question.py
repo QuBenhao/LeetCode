@@ -20,6 +20,7 @@ def get_question_info(slug: str) -> Optional[dict]:
             "title": res_dict['title'],
             "difficulty": res_dict['difficulty'],
             "questionFrontendId": res_dict['questionFrontendId'],
+            "categoryTitle": res_dict["categoryTitle"]
         }
     except Exception as e:
         print("Exception caught: ", str(e))
@@ -40,8 +41,8 @@ def get_question_desc(slug: str, cookie: Optional[str] = None) -> Optional[str]:
                                    "variables": {"titleSlug": slug},
                                    "operationName": "questionContent"},
                                cookies=cookies)
-        res_dict = json.loads(result.text)
-        return res_dict['data']['question']['content']
+        res_dict = json.loads(result.text)['data']['question']
+        return res_dict['content']
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()
@@ -50,6 +51,7 @@ def get_question_desc(slug: str, cookie: Optional[str] = None) -> Optional[str]:
 
 def extract_outputs_from_md(markdown_text: str) -> list:
     res = []
+    markdown_text = "".join(markdown_text.split("Example")[1:])
     splits = markdown_text.split("Output")
     for i in range(1, len(splits)):
         tmp = (splits[i].split("\n")[0].split(">")[-1]
@@ -58,6 +60,7 @@ def extract_outputs_from_md(markdown_text: str) -> list:
                .replace("false", "False")
                )
         tmp = tmp.strip()
+        print(f"message: [{tmp}], [{splits[i]}]")
         try:
             if len(tmp) > 0:
                 res.append(eval(tmp))
@@ -68,14 +71,37 @@ def extract_outputs_from_md(markdown_text: str) -> list:
                        .replace("false", "False"))
                 res.append(eval(tmp))
         except SyntaxError as sxe:
-            print(f"Syntax error: {sxe}")
-            traceback.print_exc()
-            # 将Markdown转换为HTML
-            html_content = markdown.markdown(tmp)
+            try:
+                print(f"1. Syntax error: {sxe}")
+                traceback.print_exc()
+                # 将Markdown转换为HTML
+                html_content = markdown.markdown(tmp)
 
-            # 将HTML转换为字符
-            text_content = html2text.html2text(html_content)
-            res.append(eval(text_content))
+                # 将HTML转换为字符
+                text_content = html2text.html2text(html_content)
+                text_content = text_content.replace("\n", "")
+                res.append(eval(text_content))
+            except Exception as e:
+                print(f"2. Exception error: {e}")
+                traceback.print_exc()
+                try:
+                    tmp = (splits[i].split(">")[1].split("<")[0]
+                           .replace("null", "None")
+                           .replace("true", "True")
+                           .replace("false", "False"))
+
+                    # 将Markdown转换为HTML
+                    html_content = markdown.markdown(tmp)
+
+                    # 将HTML转换为字符
+                    text_content = html2text.html2text(html_content)
+                    print(text_content)
+                    text_content = text_content.replace("\n", "").strip()
+                    res.append(eval(text_content))
+                except Exception as ex:
+                    print(f"3. Exception error: {ex}")
+                    traceback.print_exc()
+                    res.append(None)
     return res
 
 
@@ -121,10 +147,15 @@ def get_question_testcases(slug: str) -> Optional[list]:
         json_testcase = json.loads(res_dict["data"]["question"]["jsonExampleTestcases"])
         for item in json_testcase:
             input_strs = item.replace("null", "None").split("\n")
-            if len(input_strs) == 1:
-                ans.append(eval(input_strs[0]))
-            else:
-                ans.append([eval(i) for i in input_strs])
+            try:
+                if len(input_strs) == 1:
+                    ans.append(eval(input_strs[0]))
+                else:
+                    ans.append([eval(i) for i in input_strs])
+            except Exception as ex:
+                print("Exception caught: ", ex)
+                traceback.print_exc()
+                ans.append(None)
         return ans
     except Exception as e:
         print("Exception caught: ", str(e))

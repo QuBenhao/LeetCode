@@ -28,21 +28,22 @@ def process_single_problem(problem_folder: str, problem_id: str, problem_slug: s
     if desc is None:
         print(f"Unable to fetch question content, [{problem_id}]{problem_slug}", file=file)
         return
+    code = get_question_code(problem_slug, cookie)
+    if code is None:
+        print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}", file=file)
+        shutil.rmtree(dir_path)
+        return
     outputs = extract_outputs_from_md(desc)
     print(f"question_id: {problem_id}, outputs: {outputs}", file=file)
     testcases = get_question_testcases(problem_slug)
     if testcases is None:
         print(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}", file=file)
         return
-    code = get_question_code(problem_slug, cookie)
-    if code is None:
-        print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}", file=file)
-        return
-    with open(f"{dir_path}/problem.md", "w") as f:
+    with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
         f.write(write_problem_md(problem_id, problem_title, desc))
-    with open(f"{dir_path}/testcase.py", "w") as f:
+    with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
         f.write(write_testcase(testcases, outputs))
-    with open(f"{dir_path}/solution.py", "w") as f:
+    with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
         f.write(write_solution(code))
     print(f"Add question: [{problem_id}]{problem_slug}", file=file)
 
@@ -93,9 +94,15 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
             return
         for question in questions:
             try:
-                process_single_problem(problem_folder,
-                                       question["frontendQuestionId"], question["titleSlug"], question["title"],
-                                       cookie, force, file=file)
+                if file is not None:
+                    with open(file, "w", encoding="utf-8") as f:
+                        process_single_problem(problem_folder,
+                                               question["frontendQuestionId"], question["titleSlug"], question["title"],
+                                               cookie, force, file=f)
+                else:
+                    process_single_problem(problem_folder,
+                                           question["frontendQuestionId"], question["titleSlug"], question["title"],
+                                           cookie, force)
                 time.sleep(random.randint(3,6))
             except Exception as e:
                 print("Exception caught in problem: [{}]{}, {}".format(

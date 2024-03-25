@@ -1,5 +1,6 @@
 import inspect
 import os
+import traceback
 from collections import defaultdict
 from importlib.util import spec_from_file_location, module_from_spec
 from typing import Union
@@ -77,7 +78,7 @@ def __process_code__(code: str):
                 sp = (sp + 3) // 4 * 4 + 4
             res.append(sp * " " + "pass")
         idx += 1
-    with open("tmp.py", "w") as f:
+    with open("tmp.py", "w", encoding="utf-8") as f:
         f.writelines("\n".join(top) + "\n\n")
         f.writelines("\n".join(res))
     solution_spec = spec_from_file_location("module.name", f"tmp.py")
@@ -102,8 +103,6 @@ def __process_code__(code: str):
             cs_map[cs[0]].append((method[0], dict(sig.parameters), sig.return_annotation))
 
     os.remove("tmp.py")
-    # TODO:
-    print(cs_map)
     return cs_map, top, res
 
 
@@ -123,8 +122,6 @@ def __finalize_solution_code__(cs_map, top, res):
             for k, v in cs_map.items():
                 class_name, methods = k, v
             top[0] = top[0] + "from object_libs import call_method\n"
-            # {'Codec': [('__init__', {'self': <Parameter "self">,
-            # 'args': <Parameter "*args">, 'kwargs': <Parameter "**kwargs">}
             init_params = ""
             for method in methods:
                 if method[0] == "__init__":
@@ -201,7 +198,6 @@ def __finalize_solution_code__(cs_map, top, res):
                 if len(parameters) > 0:
                     process_input += " = test_input\n"
 
-                print(str(return_anno))
                 if "TreeNode" in str(return_anno):
                     add_lib += ", tree_to_list" if exists else "from object_libs import tree_to_list"
                     remain += "        res = self.{}({})\n        return tree_to_list(res)".format(methods[0][0],
@@ -307,70 +303,75 @@ def write_solution(code: str, default: bool = True) -> str:
     if not default:
         # TODO
         return ""
+    try:
+        cs_map, top, res = __process_code__(code)
+        top, res = __finalize_solution_code__(cs_map, top, res)
 
-    cs_map, top, res = __process_code__(code)
-    top, res = __finalize_solution_code__(cs_map, top, res)
+        return "\n".join(top) + "\n\n" + "\n".join(res)
+    except Exception as e:
+        print("Exception raised:", e)
+        traceback.print_exc()
+        if os.path.exists("tmp.py"):
+            os.remove("tmp.py")
 
-    return "\n".join(top) + "\n\n" + "\n".join(res)
-
-    # if '"""' in code:
-    #     sp = code.split('"""')
-    #     define_class = []
-    #     code_source = ""
-    #     for i in range(1, len(sp), 2):
-    #         define_class.append(sp[i])
-    #     for i in range(0, len(sp), 2):
-    #         code_source += sp[i]
-    #     strip_code = []
-    #     for line in code_source.split("\n"):
-    #         if line.startswith("from typing import"):
-    #             continue
-    #         if line.startswith("class Solution"):
-    #             continue
-    #         if len(line) > 0:
-    #             strip_code.append(line)
-    #     return ("import solution\n"
-    #             "from typing import *\n\n"
-    #             "{}"
-    #             "class Solution(solution.Solution):\n"
-    #             "    def solve(self, test_input=None):\n"
-    #             "        pass\n\n"
-    #             "{}").format("".join(define_class) + "\n\n" if define_class else "\n", "\n".join(strip_code))
-    # if "class Solution" in code or "# class" in code:
-    #     start = False
-    #     strip_start = False
-    #     strip_code = []
-    #     define_class = []
-    #     for line in code.split("\n"):
-    #         if line.startswith("from typing import"):
-    #             continue
-    #         if line.startswith("# class"):
-    #             start = True
-    #         if line.startswith("#"):
-    #             if start:
-    #                 define_class.append(line[2:])
-    #             else:
-    #                 if not strip_start:
-    #                     define_class.append(line)
-    #                 else:
-    #                     strip_code.append(line)
-    #             strip_start = False
-    #         else:
-    #             if strip_start:
-    #                 strip_code.append(line)
-    #             if line.startswith("class Solution"):
-    #                 strip_start = True
-    #             start = False
-    #     return ("import solution\n"
-    #             "from typing import *\n\n\n"
-    #             "{}"
-    #             "class Solution(solution.Solution):\n"
-    #             "    def solve(self, test_input=None):\n"
-    #             "        pass\n\n"
-    #             "{}").format("\n".join(define_class) + "\n\n\n" if define_class else "", "\n".join(strip_code))
-    # return ("import solution\n"
-    #         "from typing import *\n\n\n"
-    #         "class Solution(solution.Solution):\n"
-    #         "    def solve(self, test_input=None):\n"
-    #         "        pass\n\n\n"
-    #         "{}\n").format(code)
+    if '"""' in code:
+        sp = code.split('"""')
+        define_class = []
+        code_source = ""
+        for i in range(1, len(sp), 2):
+            define_class.append(sp[i])
+        for i in range(0, len(sp), 2):
+            code_source += sp[i]
+        strip_code = []
+        for line in code_source.split("\n"):
+            if line.startswith("from typing import"):
+                continue
+            if line.startswith("class Solution"):
+                continue
+            if len(line) > 0:
+                strip_code.append(line)
+        return ("import solution\n"
+                "from typing import *\n\n"
+                "{}"
+                "class Solution(solution.Solution):\n"
+                "    def solve(self, test_input=None):\n"
+                "        pass\n\n"
+                "{}").format("".join(define_class) + "\n\n" if define_class else "\n", "\n".join(strip_code))
+    if "class Solution" in code or "# class" in code:
+        start = False
+        strip_start = False
+        strip_code = []
+        define_class = []
+        for line in code.split("\n"):
+            if line.startswith("from typing import"):
+                continue
+            if line.startswith("# class"):
+                start = True
+            if line.startswith("#"):
+                if start:
+                    define_class.append(line[2:])
+                else:
+                    if not strip_start:
+                        define_class.append(line)
+                    else:
+                        strip_code.append(line)
+                strip_start = False
+            else:
+                if strip_start:
+                    strip_code.append(line)
+                if line.startswith("class Solution"):
+                    strip_start = True
+                start = False
+        return ("import solution\n"
+                "from typing import *\n\n\n"
+                "{}"
+                "class Solution(solution.Solution):\n"
+                "    def solve(self, test_input=None):\n"
+                "        pass\n\n"
+                "{}").format("\n".join(define_class) + "\n\n\n" if define_class else "", "\n".join(strip_code))
+    return ("import solution\n"
+            "from typing import *\n\n\n"
+            "class Solution(solution.Solution):\n"
+            "    def solve(self, test_input=None):\n"
+            "        pass\n\n\n"
+            "{}\n").format(code)
