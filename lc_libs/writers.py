@@ -141,7 +141,7 @@ def __finalize_solution_code__(cs_map, top, res):
                     break
 
             process_input = (("ops, inputs = test_input\n        obj = {}({})\n        return [None] + "
-                             "[call_object(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]")
+                              "[call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]")
                              .format(class_name, init_params))
     else:
         if "Solution" in cs_map:
@@ -151,33 +151,141 @@ def __finalize_solution_code__(cs_map, top, res):
                 par_map = dict()
                 add_lib = ""
                 exists = False
+                process_input = ""
+                remain = ""
+                inputs = ""
+                is_first = True
+                idx = 0
                 for v in parameters.values():
                     if v.name == "self":
                         continue
+                    if v.name == "args":
+                        continue
+                    if v.name == "kwargs":
+                        continue
                     par_map[v.name] = v.annotation
-                    print(type(v.annotation))
+                    if is_first:
+                        is_first = False
+                    else:
+                        process_input += ", "
+                        inputs += ", "
                     if "TreeNode" in str(v.annotation):
                         exists = True
                         add_lib = "from object_libs import list_to_tree"
-                    if "ListNode" in str(v.annotation):
+                        if "List" in str(v.annotation):
+                            process_input += "nums_arr"
+                            remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
+                            inputs += "roots"
+                        else:
+                            process_input += f"nums{idx}"
+                            remain += f"        root{idx} = list_to_tree(nums{idx})\n"
+                            inputs += f"root{idx}"
+                            idx += 1
+                    elif "ListNode" in str(v.annotation):
                         exists = True
                         add_lib = "from object_libs import list_to_linked_list"
+                        if "List" in str(v.annotation):
+                            process_input += "nums_arr"
+                            remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
+                            inputs += "heads"
+                        else:
+                            process_input += f"nums{idx}"
+                            remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
+                            inputs += f"head{idx}"
+                            idx += 1
+                    else:
+                        process_input += v.name
+                        inputs += v.name
+                        idx += 1
+
+                if len(parameters) > 0:
+                    process_input += " = test_input\n"
+
+                print(str(return_anno))
                 if "TreeNode" in str(return_anno):
                     add_lib += ", tree_to_list" if exists else "from object_libs import tree_to_list"
-                if "ListNode" in str(return_anno):
+                    remain += "        res = self.{}({})\n        return tree_to_list(res)".format(methods[0][0],
+                                                                                                   inputs)
+                elif "ListNode" in str(return_anno):
                     add_lib += ", linked_list_to_list" if exists else "from object_libs import linked_list_to_list"
+                    remain += "        res = self.{}({})\n        return linked_list_to_list(res)".format(methods[0][0],
+                                                                                                          inputs)
+                else:
+                    remain += "        return self.{}({})".format(methods[0][0], inputs)
                 top[0] = top[0] + add_lib + "\n"
 
-                # TODO:
-                print(par_map)
-                print(type(return_anno))
-                process_input = "return self.{}({})".format(
-                    methods[0][0],
-                    "" if len(parameters) == 0 else ("test_input" if len(parameters) == 1 else "*test_input")
-                )
+                process_input += remain
         else:
-            # TODO:
-            pass
+            top[0] = top[0] + "from object_libs import call_method"
+            if "TreeNode" in cs_map:
+                top[0] += ", list_to_tree"
+                cs_map.pop("TreeNode")
+            elif "ListNode" in cs_map:
+                top[0] += ", linked_list_to_list"
+                cs_map.pop("ListNode")
+            else:
+                # Too complex to fix here
+                pass
+            top[0] += "\n"
+            if len(cs_map) == 1:
+                class_name, methods = "", []
+                for k, v in cs_map.items():
+                    class_name, methods = k, v
+                for method in methods:
+                    if method[0] == "__init__":
+                        parameters = methods[0][1]
+                        par_map = dict()
+                        process_input = ""
+                        remain = ""
+                        inputs = ""
+                        is_first = True
+                        idx = 0
+                        for v in parameters.values():
+                            if v.name == "self":
+                                continue
+                            if v.name == "args":
+                                continue
+                            if v.name == "kwargs":
+                                continue
+                            par_map[v.name] = v.annotation
+                            if is_first:
+                                is_first = False
+                            else:
+                                process_input += ", "
+                                inputs += ", "
+                            if "TreeNode" in str(v.annotation):
+                                if "List" in str(v.annotation):
+                                    process_input += "nums_arr"
+                                    remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
+                                    inputs += "roots"
+                                else:
+                                    process_input += f"nums{idx}"
+                                    remain += f"        root{idx} = list_to_tree(nums{idx})\n"
+                                    inputs += f"root{idx}"
+                                    idx += 1
+                            elif "ListNode" in str(v.annotation):
+                                if "List" in str(v.annotation):
+                                    process_input += "nums_arr"
+                                    remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
+                                    inputs += "heads"
+                                else:
+                                    process_input += f"nums{idx}"
+                                    remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
+                                    inputs += f"head{idx}"
+                                    idx += 1
+                            else:
+                                process_input += v.name
+                                inputs += v.name
+                                idx += 1
+
+                        if len(par_map) > 0:
+                            process_input += " = test_input\n"
+
+                        process_input += remain + f"        obj = {class_name}({inputs})\n"
+                        break
+
+                process_input += ("                return [None] + [call_method(obj, op, *ipt)"
+                                  " for op, ipt in zip(ops[1:], inputs[1:])]")
 
     top[0] = "import solution\n" + top[0]
     found = False
@@ -266,36 +374,3 @@ def write_solution(code: str, default: bool = True) -> str:
     #         "    def solve(self, test_input=None):\n"
     #         "        pass\n\n\n"
     #         "{}\n").format(code)
-
-
-if __name__ == '__main__':
-
-    # st = write_solution("class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:")
-    # print(st)
-
-    st = write_solution(
-        "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:")
-    print(st)
-    #
-    # st = write_solution(
-    #     "class OrderedStream:\n\n    def __init__(self, n: int):\n\n\n    def insert(self, idKey: int, value: str) -> List[str]:\n\n\n\n# Your OrderedStream object will be instantiated and called as such:\n# obj = OrderedStream(n)\n# param_1 = obj.insert(idKey,value)")
-    # print(st)
-    #
-    # st = write_solution(
-    #     "class Bitset:\n\n    def __init__(self, size: int):\n\n\n    def fix(self, idx: int) -> None:\n\n\n    def unfix(self, idx: int) -> None:\n\n\n    def flip(self) -> None:\n\n\n    def all(self) -> bool:\n\n\n    def one(self) -> bool:\n\n\n    def count(self) -> int:\n\n\n    def toString(self) -> str:\n\n\n\n# Your Bitset object will be instantiated and called as such:\n# obj = Bitset(size)\n# obj.fix(idx)\n# obj.unfix(idx)\n# obj.flip()\n# param_4 = obj.all()\n# param_5 = obj.one()\n# param_6 = obj.count()\n# param_7 = obj.toString()")
-    # print(st)
-    #
-    # st = write_solution(
-    #     "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass CBTInserter:\n\n    def __init__(self, root: Optional[TreeNode]):\n\n\n    def insert(self, val: int) -> int:\n\n\n    def get_root(self) -> Optional[TreeNode]:\n\n\n\n# Your CBTInserter object will be instantiated and called as such:\n# obj = CBTInserter(root)\n# param_1 = obj.insert(val)\n# param_2 = obj.get_root()")
-    # print(st)
-    #
-    # st = write_solution(
-    #     "# Definition for a binary tree node.\n# class TreeNode(object):\n#     def __init__(self, x):\n#         self.val = x\n#         self.left = None\n#         self.right = None\n\nclass Codec:\n\n    def serialize(self, root):\n        \"\"\"Encodes a tree to a single string.\n        \n        :type root: TreeNode\n        :rtype: str\n        \"\"\"\n        \n\n    def deserialize(self, data):\n        \"\"\"Decodes your encoded data to tree.\n        \n        :type data: str\n        :rtype: TreeNode\n        \"\"\"\n        \n\n# Your Codec object will be instantiated and called as such:\n# ser = Codec()\n# deser = Codec()\n# ans = deser.deserialize(ser.serialize(root))")
-    # print(st)
-    #
-    # st = write_solution(
-    #     "\"\"\"\n# Definition for a Node.\nclass Node:\n    def __init__(self, val = 0, neighbors = None):\n        self.val = val\n        self.neighbors = neighbors if neighbors is not None else []\n\"\"\"\n\nfrom typing import Optional\nclass Solution:\n    def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:\n        ")
-    # print(st)
-    #
-    # st = write_solution("class FrequencyTracker:\n\n    def __init__(self):\n\n\n    def add(self, number: int) -> None:\n\n\n    def deleteOne(self, number: int) -> None:\n\n\n    def hasFrequency(self, frequency: int) -> bool:\n\n\n\n# Your FrequencyTracker object will be instantiated and called as such:\n# obj = FrequencyTracker()\n# obj.add(number)\n# obj.deleteOne(number)\n# param_3 = obj.hasFrequency(frequency)")
-    # print(st)
