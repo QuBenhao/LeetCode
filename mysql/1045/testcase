@@ -1,0 +1,1 @@
+{"headers":{"Customer":["customer_id","product_key"],"Product":["product_key"]},"rows":{"Customer":[[1,5],[2,6],[3,5],[3,6],[1,6]],"Product":[[5],[6]]}}

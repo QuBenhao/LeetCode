@@ -8,9 +8,11 @@ from typing import Optional
 from dotenv import load_dotenv
 from pypushdeer import PushDeer
 
+from daily_auto import write_question
+
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lc_libs import check_user_exist, get_daily_question, check_accepted_submission, get_submission_detail, \
-    write_solution, get_user_study_plans, get_user_study_plan_progress
+    write_solution, get_user_study_plans, get_user_study_plan_progress, get_question_code
 from constants import constant
 
 
@@ -42,9 +44,13 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                     plan_questions_slug = plan_questions_slug.union(plan_prog["all_solved"])
         submit_dict = check_accepted_submission(user_slug)
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        for question_id, (submit_id, question_slug) in submit_dict.items():
+        for question_id, submits in submit_dict.items():
             dir_path = os.path.join(root_path, problem_folder, question_id)
-            if os.path.exists(dir_path):
+            if not os.path.exists(dir_path):
+                os.mkdir(dir_path)
+                write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'],
+                               daily_info['questionSlug'])
+            for submit_id, question_slug in submits:
                 try:
                     testcase_spec = spec_from_file_location("module.name", f"{dir_path}/testcase.py")
                     testcase = module_from_spec(testcase_spec)
@@ -60,6 +66,8 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                         result = solution_obj.solve(test_input=i)
                         print("Question: [{}]{}, Input: {}, Output: {}, Expected: {}"
                               .format(question_id, question_slug, i, result, o))
+                        if result != o:
+                            raise ValueError
                     if question_id == daily_question:
                         finish_daily = True
                     if question_slug in plan_questions_slug:
@@ -68,14 +76,36 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                 except Exception as ex:
                     print("Exception caught: ", str(ex))
                     traceback.print_exc()
-
                 detail = get_submission_detail(submit_id, cookie)
                 if detail is not None and detail["lang"] == "python3":
                     code = detail["code"]
-                    if not os.path.exists(dir_path):
-                        os.mkdir(dir_path)
-                    with open(f"{dir_path}/solution.py", "w") as f:
-                        f.write(write_solution(code))
+                    sol_path = os.path.join(str(dir_path), "solution.py")
+                    if not os.path.exists(sol_path):
+                        template = get_question_code(question_slug)
+                        if template is not None:
+                            with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
+                                f.write(write_solution(template))
+                        else:
+                            with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
+                                f.write(write_solution(code, False))
+                            continue
+                    with open(f"{dir_path}/solution.py", "r", encoding="utf-8") as f:
+                        lines = f.readlines()
+                        idx = len(lines) - 1
+                        start = False
+                        for i, line in enumerate(lines):
+                            if "def solve(self, test_input=None):" in line:
+                                start = True
+                            if start and "return " in line:
+                                idx = i
+                                break
+                        full = "".join(lines[:idx + 1] + ["\n"])
+                    with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
+                        f.write(full + write_solution(code, False))
+                    break
+                elif detail:
+                    # TODO: implement other language
+                    print("Language {} is not implemented to save".format(detail["lang"]))
         print("Daily Question {}: {}, Study plan problem solved today: {}"
               .format(daily_question, "DONE" if finish_daily else "TODO", finished_plan_questions))
         if not finish_daily:

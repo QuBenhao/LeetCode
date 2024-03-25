@@ -11,20 +11,20 @@ from lc_libs import *
 from constants import constant
 
 
-def __write_question__(dir_path, question_id: str, question_name: str, slug: str):
+def write_question(dir_path, question_id: str, question_name: str, slug: str):
     desc = get_question_desc(slug)
     if desc is not None:
-        with open(f"{dir_path}/problem.md", "w") as f:
+        with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
             f.write(write_problem_md(question_id, question_name, desc))
         testcases = get_question_testcases(slug)
         if testcases is not None:
             outputs = extract_outputs_from_md(desc)
             print(f"question_id: {question_id}, outputs: {outputs}")
-            with open(f"{dir_path}/testcase.py", "w") as f:
+            with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
                 f.write(write_testcase(testcases, outputs))
     code = get_question_code(slug)
     if code is not None:
-        with open(f"{dir_path}/solution.py", "w") as f:
+        with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
             f.write(write_solution(code))
     print(f"Add question: [{question_id}]{slug}")
 
@@ -37,12 +37,12 @@ def process_daily(problem_folder: str):
     dir_path = os.path.join(root_path, problem_folder, daily_info['questionId'])
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
-        __write_question__(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'])
+        write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'])
     else:
         print("solved {} before".format(daily_info['questionId']))
-    with open(f"{root_path}/test.py", "r") as f:
+    with open(f"{root_path}/test.py", "r", encoding="utf-8") as f:
         lines = f.readlines()
-    with open(f"{root_path}/test.py", "w") as f:
+    with open(f"{root_path}/test.py", "w", encoding="utf-8") as f:
         for line in lines:
             if line.startswith("QUESTION ="):
                 line = "QUESTION = \"{}\"\n".format(daily_info["questionId"])
@@ -72,13 +72,13 @@ def process_plans(problem_folder: str, cookie: str, notify_key: str | None):
             dir_path = os.path.join(root_path, problem_folder, question_id)
             if not os.path.exists(dir_path):
                 os.mkdir(dir_path)
-                __write_question__(dir_path, question_id, info["title"], question_slug)
+                write_question(dir_path, question_id, info["title"], question_slug)
             problem_ids.append(question_id)
     if problem_ids:
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        with open(f"{root_path}/tests.py", "r") as f:
+        with open(f"{root_path}/tests.py", "r", encoding="utf-8") as f:
             lines = f.readlines()
-        with open(f"{root_path}/tests.py", "w") as f:
+        with open(f"{root_path}/tests.py", "w", encoding="utf-8") as f:
             for line in lines:
                 if line.startswith("QUESTIONS ="):
                     line = "QUESTIONS = {}\n".format(problem_ids)
