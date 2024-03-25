@@ -1,0 +1,1 @@
+{"headers":{"Employee":["empId","name","supervisor","salary"],"Bonus":["empId","bonus"]},"rows":{"Employee":[[3,"Brad",null,4000],[1,"John",3,1000],[2,"Dan",3,2000],[4,"Thomas",3,4000]],"Bonus":[[2,500],[4,2000]]}}

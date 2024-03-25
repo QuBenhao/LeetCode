@@ -19,4 +19,4 @@ class TrafficLight:
         turnGreen: 'Callable[[], None]', # Use turnGreen() to turn light to green on current road
         crossCar: 'Callable[[], None]'   # Use crossCar() to make car cross the intersection
     ) -> None:
-        
+        pass

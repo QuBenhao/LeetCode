@@ -1,0 +1,1 @@
+{"headers":{"Visits":["visit_id","customer_id"],"Transactions":["transaction_id","visit_id","amount"]},"rows":{"Visits":[[1,23],[2,9],[4,30],[5,54],[6,96],[7,54],[8,54]],"Transactions":[[2,5,310],[3,5,300],[9,5,200],[12,1,910],[13,2,970]]}}
