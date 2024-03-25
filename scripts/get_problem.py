@@ -1,7 +1,9 @@
 import argparse
 import os
+import random
 import shutil
 import sys
+import time
 import traceback
 from typing import Optional
 
@@ -12,7 +14,7 @@ from lc_libs import get_question_info, get_questions_by_key_word, get_question_d
     get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution
 
 
-def process_single_problem(problem_folder: str, problem_id: str, problem_slug: str, problem_title: str,
+def process_single_problem(problem_folder: str, problem_id: str, problem_slug: str, problem_title: str, cookie: str,
                            force: bool = False, file=None):
     root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     dir_path = os.path.join(root_path, problem_folder, problem_id)
@@ -22,7 +24,7 @@ def process_single_problem(problem_folder: str, problem_id: str, problem_slug: s
             return
         shutil.rmtree(dir_path)
     os.mkdir(dir_path)
-    desc = get_question_desc(problem_slug)
+    desc = get_question_desc(problem_slug, cookie)
     if desc is None:
         print(f"Unable to fetch question content, [{problem_id}]{problem_slug}", file=file)
         return
@@ -32,7 +34,7 @@ def process_single_problem(problem_folder: str, problem_id: str, problem_slug: s
     if testcases is None:
         print(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}", file=file)
         return
-    code = get_question_code(problem_slug)
+    code = get_question_code(problem_slug, cookie)
     if code is None:
         print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}", file=file)
         return
@@ -74,7 +76,7 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
                 return
             problem_id = question_info["questionFrontendId"]
             problem_title = question_info["title"]
-        process_single_problem(problem_folder, problem_id, problem_slug, problem_title, force)
+        process_single_problem(problem_folder, problem_id, problem_slug, problem_title, cookie, force)
     else:
         if premium_only and not cookie:
             print("Requires premium cookie to keep going.")
@@ -93,7 +95,8 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
             try:
                 process_single_problem(problem_folder,
                                        question["frontendQuestionId"], question["titleSlug"], question["title"],
-                                       force, file=file)
+                                       cookie, force, file=file)
+                time.sleep(random.randint(3,6))
             except Exception as e:
                 print("Exception caught in problem: [{}]{}, {}".format(
                     question["frontendQuestionId"], question["titleSlug"], e))
