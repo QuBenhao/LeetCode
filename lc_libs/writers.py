@@ -313,7 +313,7 @@ def write_solution(code: str, default: bool = True) -> str:
     if not default:
         if "class Solution" in code:
             return "\n".join(code.split("class Solution")[-1].split("\n")[1:])
-        return ""
+        return code
     try:
         cs_map, top, res = __process_code__(code)
         top, res = __finalize_solution_code__(cs_map, top, res)

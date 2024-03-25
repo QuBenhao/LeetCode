@@ -61,7 +61,6 @@ def extract_outputs_from_md(markdown_text: str) -> list:
                .replace("false", "False")
                )
         tmp = tmp.strip()
-        print(f"message: [{tmp}], [{splits[i]}]")
         try:
             if len(tmp) > 0:
                 res.append(eval(tmp))
