@@ -1,6 +1,7 @@
 import json
 import time
 import traceback
+from collections import defaultdict
 
 import requests
 
@@ -37,7 +38,7 @@ def check_submission(user_slug: str, question_frontend_ids: set[str],
 def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=None):
     if min_timestamp is None:
         min_timestamp = (cur_time := time.time() - time.timezone) - cur_time % 86400 + time.timezone
-    ans = dict()
+    ans = defaultdict(list)
     try:
         result = requests.post('https://leetcode.cn/graphql/noj-go/',
                                json={"query": "\n    query recentAcSubmissions($userSlug: String!) {\n  "
@@ -54,8 +55,8 @@ def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=
                     break
                 print(submit)
                 if not max_timestamp or t < max_timestamp:
-                    ans[submit['question']['questionFrontendId']] = (submit["submissionId"],
-                                                                     submit['question']["titleSlug"])
+                    ans[submit['question']['questionFrontendId']].append((submit["submissionId"],
+                                                                          submit['question']["titleSlug"]))
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()

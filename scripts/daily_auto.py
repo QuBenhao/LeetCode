@@ -11,7 +11,7 @@ from lc_libs import *
 from constants import constant
 
 
-def __write_question__(dir_path, question_id: str, question_name: str, slug: str):
+def write_question(dir_path, question_id: str, question_name: str, slug: str):
     desc = get_question_desc(slug)
     if desc is not None:
         with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
@@ -37,7 +37,7 @@ def process_daily(problem_folder: str):
     dir_path = os.path.join(root_path, problem_folder, daily_info['questionId'])
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
-        __write_question__(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'])
+        write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'])
     else:
         print("solved {} before".format(daily_info['questionId']))
     with open(f"{root_path}/test.py", "r", encoding="utf-8") as f:
@@ -72,7 +72,7 @@ def process_plans(problem_folder: str, cookie: str, notify_key: str | None):
             dir_path = os.path.join(root_path, problem_folder, question_id)
             if not os.path.exists(dir_path):
                 os.mkdir(dir_path)
-                __write_question__(dir_path, question_id, info["title"], question_slug)
+                write_question(dir_path, question_id, info["title"], question_slug)
             problem_ids.append(question_id)
     if problem_ids:
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

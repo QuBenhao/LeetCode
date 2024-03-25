@@ -113,10 +113,20 @@ def __finalize_solution_code__(cs_map, top, res):
             methods = cs_map["Solution"]
             if len(methods) == 1:
                 parameters, return_anno = methods[0][1], methods[0][2]
-                process_input = "return self.{}({})".format(
-                    methods[0][0],
-                    "" if len(parameters) == 0 else ("test_input" if len(parameters) == 1 else "*test_input")
-                )
+                count = len(parameters)
+                if "self" in parameters:
+                    count -= 1
+                if "args" in parameters:
+                    count -= 1
+                if "kwargs" in parameters:
+                    count -= 1
+                if count > 1:
+                    init_params = "*test_input"
+                elif count == 1:
+                    init_params = "test_input"
+                else:
+                    init_params = ""
+                process_input = "return self.{}({})".format(methods[0][0], init_params)
         else:
             class_name, methods = "", []
             for k, v in cs_map.items():
@@ -231,7 +241,7 @@ def __finalize_solution_code__(cs_map, top, res):
                     if method[0] == "__init__":
                         parameters = methods[0][1]
                         par_map = dict()
-                        process_input = ""
+                        process_input = "ops, inputs = test_input\n"
                         remain = ""
                         inputs = ""
                         is_first = True
@@ -251,21 +261,21 @@ def __finalize_solution_code__(cs_map, top, res):
                                 inputs += ", "
                             if "TreeNode" in str(v.annotation):
                                 if "List" in str(v.annotation):
-                                    process_input += "nums_arr"
+                                    process_input += "        nums_arr"
                                     remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
                                     inputs += "roots"
                                 else:
-                                    process_input += f"nums{idx}"
+                                    process_input += f"        nums{idx}"
                                     remain += f"        root{idx} = list_to_tree(nums{idx})\n"
                                     inputs += f"root{idx}"
                                     idx += 1
                             elif "ListNode" in str(v.annotation):
                                 if "List" in str(v.annotation):
-                                    process_input += "nums_arr"
+                                    process_input += "        nums_arr"
                                     remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
                                     inputs += "heads"
                                 else:
-                                    process_input += f"nums{idx}"
+                                    process_input += f"        nums{idx}"
                                     remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
                                     inputs += f"head{idx}"
                                     idx += 1
@@ -275,12 +285,12 @@ def __finalize_solution_code__(cs_map, top, res):
                                 idx += 1
 
                         if len(par_map) > 0:
-                            process_input += " = test_input\n"
+                            process_input += " = ops[0]\n"
 
                         process_input += remain + f"        obj = {class_name}({inputs})\n"
                         break
 
-                process_input += ("                return [None] + [call_method(obj, op, *ipt)"
+                process_input += ("        return [None] + [call_method(obj, op, *ipt)"
                                   " for op, ipt in zip(ops[1:], inputs[1:])]")
 
     top[0] = "import solution\n" + top[0]
@@ -301,7 +311,8 @@ def __finalize_solution_code__(cs_map, top, res):
 
 def write_solution(code: str, default: bool = True) -> str:
     if not default:
-        # TODO
+        if "class Solution" in code:
+            return "\n".join(code.split("class Solution")[-1].split("\n")[1:])
         return ""
     try:
         cs_map, top, res = __process_code__(code)

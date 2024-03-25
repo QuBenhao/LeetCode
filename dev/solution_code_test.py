@@ -2,7 +2,7 @@ import sys
 
 from lc_libs import write_solution
 
-test_list = [
+default_test_list = [
     "class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:",
 
     "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         "
@@ -60,9 +60,34 @@ test_list = [
 ]
 
 
+submit_test_list = [
+    "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):"
+    "\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    "
+    "def countNodes(self, root: Optional[TreeNode]) -> int:\n        def depth(node):\n            h = 0\n            "
+    "while node:\n                node = node.left\n                h += 1\n            return h\n\n        "
+    "if not root:\n            return 0\n        left, right = depth(root.left), depth(root.right)\n        "
+    "if left == right:\n            return self.countNodes(root.right) + (1 << right)\n        else:\n            "
+    "return self.countNodes(root.left) + (1 << right)\n",
+
+    "class Solution:\n    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:\n        "
+    "m, n = len(obstacleGrid), len(obstacleGrid[0])\n        dp = [0] * n\n        dp[0] = 1\n        "
+    "for i in range(m):\n            for j in range(n):\n                if obstacleGrid[i][j] == 1:\n              "
+    "      dp[j] = -1\n                elif j > 0:\n                    dp[j] = dp[j - 1] if dp[j] == -1 else (dp[j]"
+    " if dp[j - 1] == -1 else dp[j] + dp[j - 1])\n        return dp[-1] if dp[-1] > 0 else 0\n",
+
+    "class Solution:\n    def change(self, amount: int, coins: List[int]) -> int:\n        dp = [0] * (amount + 1)\n"
+    "        dp[0] = 1\n        for c in coins:\n            for i in range(c, amount + 1):\n                "
+    "dp[i] += dp[i - c]\n        return dp[-1]\n",
+]
+
+
 if __name__ == '__main__':
-    for idx, test in enumerate(test_list):
+    for idx, test in enumerate(default_test_list):
         res = write_solution(test)
-        with open(f"tmp{idx}.py", "w") as f:
+        with open(f"tmp_default{idx}.py", "w") as f:
+            f.writelines(res)
+    for idx, test in enumerate(submit_test_list):
+        res = write_solution(test, False)
+        with open(f"tmp_submit{idx}.py", "w") as f:
             f.writelines(res)
     sys.exit()
