@@ -10,14 +10,19 @@ class Solution(solution.Solution):
     def search(self, nums: List[int], target: int) -> int:
         n = len(nums)
         idx = bisect_left(nums, True, key=lambda x: x < nums[0])
-        left, right = idx, n + idx - 1
-        while left < right:
-            mid = (left + right) // 2
-            if nums[mid % n] < target:
-                left = mid + 1
-            else:
-                right = mid
-        return left % n if nums[left % n] == target else -1
+        ans = bisect_left(range(idx, n + idx - 1), True, key=lambda x: nums[x % n] >= target)
+        return (idx + ans) % n if nums[(idx + ans) % n] == target else -1
+
+        # n = len(nums)
+        # idx = bisect_left(nums, True, key=lambda x: x < nums[0])
+        # left, right = idx, n + idx - 1
+        # while left < right:
+        #     mid = (left + right) // 2
+        #     if nums[mid % n] < target:
+        #         left = mid + 1
+        #     else:
+        #         right = mid
+        # return left % n if nums[left % n] == target else -1
 
         # if target == nums[0]:
         #     return 0
