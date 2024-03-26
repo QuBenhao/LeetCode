@@ -26,7 +26,6 @@ class Graph:
         dist = defaultdict(lambda: defaultdict(lambda: inf))
         pq = [(0, node1)]
         while pq:
-            print(pq)
             cur, node = heapq.heappop(pq)
             if node == node2:
                 return cur
