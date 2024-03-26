@@ -1,0 +1,1 @@
+{"headers":{"Playback":["session_id","customer_id","start_time","end_time"],"Ads":["ad_id","customer_id","timestamp"]},"rows":{"Playback":[[1,1,1,5],[2,1,15,23],[3,2,10,12],[4,2,17,28],[5,2,2,8]],"Ads":[[1,1,5],[2,2,17],[3,2,20]]}}

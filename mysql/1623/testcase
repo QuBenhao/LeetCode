@@ -1,0 +1,1 @@
+{"headers":{"SchoolA":["student_id","student_name"],"SchoolB":["student_id","student_name"],"SchoolC":["student_id","student_name"]},"rows":{"SchoolA":[[1,"Alice"],[2,"Bob"]],"SchoolB":[[3,"Tom"]],"SchoolC":[[3,"Tom"],[2,"Jerry"],[10,"Alice"]]}}

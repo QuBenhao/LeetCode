@@ -1,0 +1,1 @@
+{"headers":{"Candidate":["id","name"],"Vote":["id","candidateId"]},"rows":{"Candidate":[[1,"A"],[2,"B"],[3,"C"],[4,"D"],[5,"E"]],"Vote":[[1,2],[2,4],[3,3],[4,2],[5,5]]}}

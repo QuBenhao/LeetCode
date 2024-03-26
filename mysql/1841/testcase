@@ -1,0 +1,1 @@
+{"headers":{"Teams":["team_id","team_name"],"Matches":["home_team_id","away_team_id","home_team_goals","away_team_goals"]},"rows":{"Teams":[[1,"Ajax"],[4,"Dortmund"],[6,"Arsenal"]],"Matches":[[1,4,0,1],[1,6,3,3],[4,1,5,2],[6,1,0,0]]}}

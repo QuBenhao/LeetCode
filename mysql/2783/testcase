@@ -1,0 +1,1 @@
+{"headers":{"Flights":["flight_id","capacity"],"Passengers":["passenger_id","flight_id"]},"rows":{"Flights":[[1,2],[2,2],[3,1]],"Passengers":[[101,1],[102,1],[103,1],[104,2],[105,2],[106,3],[107,3]]}}

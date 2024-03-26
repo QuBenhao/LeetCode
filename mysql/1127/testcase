@@ -1,0 +1,1 @@
+{"headers":{"Spending":["user_id","spend_date","platform","amount"]},"rows":{"Spending":[[1,"2019-07-01","mobile",100],[1,"2019-07-01","desktop",100],[2,"2019-07-01","mobile",100],[2,"2019-07-02","mobile",100],[3,"2019-07-01","desktop",100],[3,"2019-07-02","desktop",100]]}}

@@ -1,0 +1,1 @@
+{"headers":{"Student":["student_id","student_name","gender","dept_id"],"Department":["dept_id","dept_name"]},"rows":{"Student":[[1,"Jack","M",1],[2,"Jane","F",1],[3,"Mark","M",2]],"Department":[[1,"Engineering"],[2,"Science"],[3,"Law"]]}}

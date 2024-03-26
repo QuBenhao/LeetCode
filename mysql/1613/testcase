@@ -1,0 +1,1 @@
+{"headers": {"Customers": ["customer_id", "customer_name"]}, "rows": {"Customers": [[1, "Alice"], [4, "Bob"], [5, "Charlie"]]}}

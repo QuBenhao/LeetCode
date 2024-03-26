@@ -1,0 +1,1 @@
+{"headers":{"Products":["product_id","price"],"Purchases":["invoice_id","product_id","quantity"]},"rows":{"Products":[[1,100],[2,200]],"Purchases":[[1,1,2],[3,2,1],[2,2,3],[2,1,4],[4,1,10]]}}

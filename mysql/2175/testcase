@@ -1,0 +1,1 @@
+{"headers": {"TeamPoints": ["team_id", "name", "points"], "PointsChange": ["team_id", "points_change"]}, "rows": {"TeamPoints": [[3, "Algeria", 1431], [1, "Senegal", 2132], [2, "New Zealand", 1402], [4, "Croatia", 1817]], "PointsChange": [[3, 399], [2, 0], [4, 13], [1, -22]]}}

@@ -1,0 +1,1 @@
+{"headers": {"Friends": ["id", "name", "activity"], "Activities": ["id", "name"]}, "rows": {"Friends": [[1, "Jonathan D.", "Eating"], [2, "Jade W.", "Singing"], [3, "Victor J.", "Singing"], [4, "Elvis Q.", "Eating"], [5, "Daniel A.", "Eating"], [6, "Bob B.", "Horse Riding"]], "Activities": [[1, "Eating"], [2, "Singing"], [3, "Horse Riding"]]}}

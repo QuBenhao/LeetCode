@@ -1,0 +1,1 @@
+{"headers":{"UserActivity":["username","activity","startDate","endDate"]},"rows":{"UserActivity":[["Alice","Travel","2020-02-12","2020-02-20"],["Alice","Dancing","2020-02-21","2020-02-23"],["Alice","Travel","2020-02-24","2020-02-28"],["Bob","Travel","2020-02-11","2020-02-18"]]}}

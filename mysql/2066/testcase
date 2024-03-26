@@ -1,0 +1,1 @@
+{"headers":{"Transactions":["account_id","day","type","amount"]},"rows":{"Transactions":[[1,"2021-11-07","Deposit",2000],[1,"2021-11-09","Withdraw",1000],[1,"2021-11-11","Deposit",3000],[2,"2021-12-07","Deposit",7000],[2,"2021-12-12","Withdraw",7000]]}}

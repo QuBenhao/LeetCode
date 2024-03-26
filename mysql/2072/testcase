@@ -1,0 +1,3 @@
+{"headers":{"NewYork":["student_id","score"],"California":["student_id","score"]},"rows":{"NewYork":[[1,90],[2,87]],"California":[[2,89],[3,88]]}}
+{"headers":{"NewYork":["student_id","score"],"California":["student_id","score"]},"rows":{"NewYork":[[1,89],[2,88]],"California":[[2,90],[3,87]]}}
+{"headers":{"NewYork":["student_id","score"],"California":["student_id","score"]},"rows":{"NewYork":[[1,89],[2,90]],"California":[[2,87],[3,99]]}}

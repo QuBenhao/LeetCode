@@ -1,0 +1,2 @@
+{"headers":{"Flights":["departure_airport","arrival_airport","flights_count"]},"rows":{"Flights":[[1,2,4],[2,1,5],[2,4,5]]}}
+{"headers":{"Flights":["departure_airport","arrival_airport","flights_count"]},"rows":{"Flights":[[1,2,4],[2,1,5],[3,4,5],[4,3,4],[5,6,7]]}}

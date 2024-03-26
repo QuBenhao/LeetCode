@@ -1,0 +1,1 @@
+{"headers":{"Schools":["school_id","capacity"],"Exam":["score","student_count"]},"rows":{"Schools":[[11,151],[5,48],[9,9],[10,99]],"Exam":[[975,10],[966,60],[844,76],[749,76],[744,100]]}}

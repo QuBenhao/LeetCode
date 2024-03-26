@@ -1,0 +1,1 @@
+{"headers":{"Boxes":["box_id","chest_id","apple_count","orange_count"],"Chests":["chest_id","apple_count","orange_count"]},"rows":{"Boxes":[[2,null,6,15],[18,14,4,15],[19,3,8,4],[12,2,19,20],[20,6,12,9],[8,6,9,9],[3,14,16,7]],"Chests":[[6,5,6],[14,20,10],[2,8,8],[3,19,4],[16,19,19]]}}

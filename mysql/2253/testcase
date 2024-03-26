@@ -1,0 +1,1 @@
+{"headers": {"Products": ["product_id", "LC_Store", "Nozama", "Shop", "Souq"]}, "rows": {"Products": [[1, 100, null, 110, null], [2, null, 200, null, 190], [3, null, null, 1000, 1900]]}}

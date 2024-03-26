@@ -1,0 +1,1 @@
+{"headers":{"Users":["user_id","name"],"Rides":["ride_id","user_id","distance"]},"rows":{"Users":[[17,"Addison"],[14,"Ethan"],[4,"Michael"],[2,"Avery"],[10,"Eleanor"]],"Rides":[[72,17,160],[42,14,161],[45,4,59],[32,2,197],[15,4,357],[56,2,196],[10,14,25]]}}

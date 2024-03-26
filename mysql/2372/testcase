@@ -1,0 +1,1 @@
+{"headers":{"Salesperson":["salesperson_id","name"],"Customer":["customer_id","salesperson_id"],"Sales":["sale_id","customer_id","price"]},"rows":{"Salesperson":[[1,"Alice"],[2,"Bob"],[3,"Jerry"]],"Customer":[[1,1],[2,1],[3,2]],"Sales":[[1,2,892],[2,1,354],[3,3,988],[4,3,856]]}}
