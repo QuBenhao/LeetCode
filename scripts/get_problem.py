@@ -11,7 +11,8 @@ from dotenv import load_dotenv
 
 from constants import constant
 from lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
-    get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution, CATEGORY_SLUG
+    get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution
+from utils import get_default_folder
 
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False, file=None):
@@ -163,12 +164,6 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
                 print("Exception caught in problem: [{}]{}, {}".format(
                     question["frontendQuestionId"], question["titleSlug"], e))
                 traceback.print_exc()
-
-
-def get_default_folder(problem_category):
-    if problem_category == "database":
-        return "mysql"
-    return "problems"
 
 
 if __name__ == '__main__':

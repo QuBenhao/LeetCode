@@ -9,6 +9,7 @@ from pypushdeer import PushDeer
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lc_libs import *
 from constants import constant
+from utils import get_default_folder
 
 
 def write_question(dir_path, question_id: str, question_name: str, slug: str):
@@ -105,6 +106,6 @@ if __name__ == '__main__':
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     push_key = os.getenv(constant.PUSH_KEY)
-    pf = os.getenv(constant.PROBLEM_FOLDER, "problems")
+    pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     exec_res = main(pf, cke, push_key)
     sys.exit(exec_res)

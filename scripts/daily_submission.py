@@ -14,6 +14,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lc_libs import check_user_exist, get_daily_question, check_accepted_submission, get_submission_detail, \
     write_solution, get_user_study_plans, get_user_study_plan_progress, get_question_code
 from constants import constant
+from utils import get_default_folder
 
 
 def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key: Optional[str] = None):
@@ -128,7 +129,7 @@ if __name__ == '__main__':
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     push_key = os.getenv(constant.PUSH_KEY)
-    pf = os.getenv(constant.PROBLEM_FOLDER, "problems")
+    pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
 
     exec_res = main(pf, args.user, cke, push_key)
     sys.exit(exec_res)

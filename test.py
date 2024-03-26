@@ -4,6 +4,7 @@ import unittest
 from importlib.util import spec_from_file_location, module_from_spec
 from dotenv import load_dotenv
 import constants
+from utils import get_default_folder
 
 # Question ID that wants to test, modify here as passing arguments
 QUESTION = "2642"
@@ -17,7 +18,7 @@ class Test(unittest.TestCase):
         print(f"Testing problem: {QUESTION}")
 
         load_dotenv()
-        problem_folder = os.getenv(constants.PROBLEM_FOLDER, "problems")
+        problem_folder = os.getenv(constants.PROBLEM_FOLDER, get_default_folder())
 
         self.assertTrue(os.path.exists(f"{problem_folder}/{QUESTION}"), msg="Please set up the problem env first!")
 
