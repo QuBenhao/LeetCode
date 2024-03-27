@@ -1,24 +1,24 @@
 # 242. Valid Anagram
 
-Given two strings *s* and *t* , write a function to determine if *t* is an anagram of *s*.
+<p>Given two strings <code>s</code> and <code>t</code>, return <code>true</code> <em>if</em> <code>t</code> <em>is an anagram of</em> <code>s</code><em>, and</em> <code>false</code> <em>otherwise</em>.</p>
 
-**Example 1:**
+<p>An <strong>Anagram</strong> is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.</p>
 
-```
-Input: s = "anagram", t = "nagaram"
-Output: true
-```
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre><strong>Input:</strong> s = "anagram", t = "nagaram"
+<strong>Output:</strong> true
+</pre><p><strong class="example">Example 2:</strong></p>
+<pre><strong>Input:</strong> s = "rat", t = "car"
+<strong>Output:</strong> false
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 2:**
+<ul>
+	<li><code>1 &lt;= s.length, t.length &lt;= 5 * 10<sup>4</sup></code></li>
+	<li><code>s</code> and <code>t</code> consist of lowercase English letters.</li>
+</ul>
 
-```
-Input: s = "rat", t = "car"
-Output: false
-```
-
-**Note:**
-You may assume the string contains only lowercase alphabets.
-
-**Follow up:**
-What if the inputs contain unicode characters? How would you adapt your solution to such case?
-
+<p>&nbsp;</p>
+<p><strong>Follow up:</strong> What if the inputs contain Unicode characters? How would you adapt your solution to such a case?</p>
