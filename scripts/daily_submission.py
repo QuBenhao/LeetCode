@@ -73,7 +73,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                         finish_daily = True
                     if question_slug in plan_questions_slug:
                         finished_plan_questions.append(question_slug)
-                    continue
+                    break
                 except Exception as ex:
                     print("Exception caught: ", str(ex))
                     traceback.print_exc()
@@ -89,7 +89,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                         else:
                             with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
                                 f.write(write_solution(code, False))
-                            continue
+                            break
                     with open(f"{dir_path}/solution.py", "r", encoding="utf-8") as f:
                         lines = f.readlines()
                         idx = len(lines) - 1
