@@ -1,11 +1,12 @@
 import solution
+from typing import *
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.longestPalindrome(str(test_input))
+        return self.longestPalindrome(test_input)
 
-    def longestPalindrome(self, s):
+    def longestPalindrome(self, s: str) -> str:
         """
         :type s: str
         :rtype: str
