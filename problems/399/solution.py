@@ -1,4 +1,5 @@
 import solution
+from collections import deque, defaultdict
 
 
 class Solution(solution.Solution):
@@ -12,32 +13,24 @@ class Solution(solution.Solution):
         :type queries: List[List[str]]
         :rtype: List[float]
         """
-        import collections
-        actions = collections.defaultdict(list)
-        for i in range(len(equations)):
-            a, b = equations[i]
-            actions[a].append([b, values[i]])
-            actions[b].append([a, 1.0 / values[i]])
+        graph = defaultdict(list)
+        for (a, b), val in zip(equations, values):
+            graph[a].append((b, val))
+            graph[b].append((a, 1.0 / val))
 
-        def dfs(init_state, goal_state):
-            if init_state not in actions.keys() or goal_state not in actions.keys():
+        def bfs(init, goal):
+            if init not in graph or goal not in graph:
                 return -1.0
-            frontier = [[init_state,1.0]]
-            explored = []
-            while frontier:
-                state,val = frontier.pop()
-                if state == goal_state:
-                    return val
-                explored.append(state)
-                for successor in actions[state]:
-                    if successor[0] in explored:
-                        continue
-                    else:
-                        frontier.append([successor[0],successor[1] * val])
+            explored = {init}
+            q = deque([(init, 1.0)])
+            while q:
+                node, v = q.popleft()
+                if node == goal:
+                    return v
+                for nxt, cost in graph[node]:
+                    if nxt not in explored:
+                        explored.add(nxt)
+                        q.append((nxt, v * cost))
             return -1.0
 
-        ans = []
-        for query in queries:
-            init_state, goal_state = query
-            ans.append(dfs(init_state, goal_state))
-        return ans
+        return [bfs(i, g) for i, g in queries]

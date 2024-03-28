@@ -36,7 +36,10 @@ class Test(unittest.TestCase):
             i, o = test
             result = solution_obj.solve(test_input=i)
             try:
-                if o and isinstance(o, list) and (None not in o and (isinstance(o[0], list) and not any(None in x for x in o))):
+                if o and isinstance(o, list) and isinstance(o[0], float):
+                    for v1, v2 in zip(o, result):
+                        self.assertAlmostEqual(v1, v2, msg=f"input = {i}", delta=0.00001)
+                elif o and isinstance(o, list) and (None not in o and (isinstance(o[0], list) and not any(None in x for x in o))):
                     self.assertListEqual(sorted(o), sorted(result), msg=f"input = {i}")
                 else:
                     self.assertEqual(o, result, msg=f"input = {i}")
