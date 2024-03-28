@@ -6,13 +6,7 @@ class Solution(solution.Solution):
     def solve(self, test_input=None):
         return self.calcEquation(*test_input)
 
-    def calcEquation(self, equations, values, queries):
-        """
-        :type equations: List[List[str]]
-        :type values: List[float]
-        :type queries: List[List[str]]
-        :rtype: List[float]
-        """
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
         graph = defaultdict(list)
         for (a, b), val in zip(equations, values):
             graph[a].append((b, val))
