@@ -7,4 +7,8 @@ class Solution(solution.Solution):
         return self.firstDayBeenInAllRooms(test_input)
 
     def firstDayBeenInAllRooms(self, nextVisit: List[int]) -> int:
-            pass
+        # f(x + 1) = f(x) + f(x) - f(nextVisit[x]) + 2
+        dp, mod = [0] * len(nextVisit), int(1e9 + 7)
+        for i in range(1, len(nextVisit)):
+            dp[i] = (dp[i - 1] * 2 - dp[nextVisit[i - 1]] + 2) % mod
+        return dp[-1]
