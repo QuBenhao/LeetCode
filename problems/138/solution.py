@@ -1,18 +1,22 @@
 import solution
+from typing import *
 from object_libs import list_to_linked_random_list, linked_random_list_to_list
+
+
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         head = list_to_linked_random_list(test_input)
-        root = self.copyRandomList(head)
-        return linked_random_list_to_list(root)
+        return linked_random_list_to_list(self.copyRandomList(head))
 
-    def copyRandomList(self, head):
-        """
-        :type head: Node
-        :rtype: Node
-        """
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
             return head
 
@@ -24,7 +28,7 @@ class Solution(solution.Solution):
 
         # 连接所有复制的节点的random指针
         cur = head
-        copyHead = head.next
+        copy_head = head.next
         while cur:
             if cur.random:
                 cur.next.random = cur.random.next
@@ -32,19 +36,11 @@ class Solution(solution.Solution):
 
         # 断开原链表与复制链表之间的连接
         cur = head
-        cur_ = copyHead
+        cur_ = copy_head
         while cur and cur_:
             cur.next = cur_.next
             cur = cur.next
             if cur:
                 cur_.next = cur.next
             cur_ = cur_.next
-        return copyHead
-
-
-# Definition for a Node.
-class Node:
-    def __init__(self, x, next=None, random=None):
-        self.val = int(x)
-        self.next = next
-        self.random = random
+        return copy_head
