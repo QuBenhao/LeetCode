@@ -1,16 +1,12 @@
 import solution
+from typing import *
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         return self.hammingWeight(test_input)
 
-    def hammingWeight(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-
+    def hammingWeight(self, n: int) -> int:
         count = 0
         while n:
             n &= n - 1

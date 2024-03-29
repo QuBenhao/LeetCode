@@ -72,7 +72,7 @@ def extract_outputs_from_md(markdown_text: str) -> list:
                 res.append(eval(tmp))
         except SyntaxError as sxe:
             try:
-                print(f"1. Syntax error: {sxe}")
+                print(f"1. Syntax error: {sxe}, [{tmp}]")
                 traceback.print_exc()
                 # 将Markdown转换为HTML
                 html_content = markdown.markdown(tmp)
@@ -82,7 +82,7 @@ def extract_outputs_from_md(markdown_text: str) -> list:
                 text_content = text_content.replace("\n", "")
                 res.append(eval(text_content))
             except Exception as e:
-                print(f"2. Exception error: {e}")
+                print(f"2. Exception error: {e}, [{tmp}]")
                 traceback.print_exc()
                 try:
                     tmp = (splits[i].split(">")[1].split("<")[0]
@@ -99,9 +99,18 @@ def extract_outputs_from_md(markdown_text: str) -> list:
                     text_content = text_content.replace("\n", "").strip()
                     res.append(eval(text_content))
                 except Exception as ex:
-                    print(f"3. Exception error: {ex}")
+                    print(f"3. Exception error: {ex}, [{tmp}]")
                     traceback.print_exc()
-                    res.append(None)
+                    try:
+                        tmp = (splits[i].split('example-io">')[1].split("<")[0]
+                               .replace("null", "None")
+                               .replace("true", "True")
+                               .replace("false", "False"))
+                        res.append(eval(tmp))
+                    except Exception as exe:
+                        print(f"4. Exception error: {exe}, [{tmp}]")
+                        traceback.print_exc()
+                        res.append(None)
     return res
 
 
