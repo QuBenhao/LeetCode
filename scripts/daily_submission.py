@@ -67,7 +67,13 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                         result = solution_obj.solve(test_input=i)
                         print("Question: [{}]{}, Input: {}, Output: {}, Expected: {}"
                               .format(question_id, question_slug, i, result, o))
-                        if result != o:
+                        if o and isinstance(o, list) and isinstance(o[0], float):
+                            if any(abs(a - b) > 0.00001 for a, b in zip(o, result)):
+                                raise ValueError
+                        elif o and isinstance(o, float):
+                            if abs(o - result) > 0.00001:
+                                raise ValueError
+                        elif result != o:
                             raise ValueError
                     if question_id == daily_question:
                         finish_daily = True
