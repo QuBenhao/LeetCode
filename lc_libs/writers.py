@@ -179,7 +179,7 @@ def __finalize_solution_code__(cs_map, top, res):
                     if "TreeNode" in str(v.annotation):
                         exists = True
                         add_lib = "from object_libs import list_to_tree"
-                        if "List" in str(v.annotation):
+                        if "List[" in str(v.annotation):
                             process_input += "nums_arr"
                             remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
                             inputs += "roots"
@@ -191,7 +191,7 @@ def __finalize_solution_code__(cs_map, top, res):
                     elif "ListNode" in str(v.annotation):
                         exists = True
                         add_lib = "from object_libs import list_to_linked_list"
-                        if "List" in str(v.annotation):
+                        if "List[" in str(v.annotation):
                             process_input += "nums_arr"
                             remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
                             inputs += "heads"
@@ -260,7 +260,7 @@ def __finalize_solution_code__(cs_map, top, res):
                                 process_input += ", "
                                 inputs += ", "
                             if "TreeNode" in str(v.annotation):
-                                if "List" in str(v.annotation):
+                                if "List[" in str(v.annotation):
                                     process_input += "        nums_arr"
                                     remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
                                     inputs += "roots"
@@ -270,7 +270,7 @@ def __finalize_solution_code__(cs_map, top, res):
                                     inputs += f"root{idx}"
                                     idx += 1
                             elif "ListNode" in str(v.annotation):
-                                if "List" in str(v.annotation):
+                                if "List[" in str(v.annotation):
                                     process_input += "        nums_arr"
                                     remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
                                     inputs += "heads"
