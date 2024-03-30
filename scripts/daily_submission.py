@@ -111,8 +111,25 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                         f.write(full + write_solution(code, False))
                     break
                 elif detail:
-                    # TODO: implement other language
-                    print("Language {} is not implemented to save".format(detail["lang"]))
+                    code = detail["code"]
+                    match detail["lang"]:
+                        case "java":
+                            file_name = "solution.java"
+                        case "cpp":
+                            file_name = "solution.cpp"
+                        case "golang":
+                            file_name = "solution.go"
+                        case "c":
+                            file_name = "solution.c"
+                        case "javascript":
+                            file_name = "solution.js"
+                        case "typescript":
+                            file_name = "solution.ts"
+                        case _:
+                            file_name = "unknown"
+                            print("Language {} is not implemented to save".format(detail["lang"]))
+                    with open(f"{dir_path}/{file_name}", "w", encoding="utf-8") as f:
+                        f.writelines(code)
         print("Daily Question {}: {}, Study plan problem solved today: {}"
               .format(daily_question, "DONE" if finish_daily else "TODO", finished_plan_questions))
         if not finish_daily:
