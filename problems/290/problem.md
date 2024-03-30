@@ -1,51 +1,39 @@
-# 2908. Minimum Sum of Mountain Triplets I
+# 290. Word Pattern
 
-<p>You are given a <strong>0-indexed</strong> array <code>nums</code> of integers.</p>
+<p>Given a <code>pattern</code> and a string <code>s</code>, find if <code>s</code>&nbsp;follows the same pattern.</p>
 
-<p>A triplet of indices <code>(i, j, k)</code> is a <strong>mountain</strong> if:</p>
-
-<ul>
-	<li><code>i &lt; j &lt; k</code></li>
-	<li><code>nums[i] &lt; nums[j]</code> and <code>nums[k] &lt; nums[j]</code></li>
-</ul>
-
-<p>Return <em>the <strong>minimum possible sum</strong> of a mountain triplet of</em> <code>nums</code>. <em>If no such triplet exists, return</em> <code>-1</code>.</p>
+<p>Here <b>follow</b> means a full match, such that there is a bijection between a letter in <code>pattern</code> and a <b>non-empty</b> word in <code>s</code>.</p>
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
 
 <pre>
-<strong>Input:</strong> nums = [8,6,1,5,3]
-<strong>Output:</strong> 9
-<strong>Explanation:</strong> Triplet (2, 3, 4) is a mountain triplet of sum 9 since: 
-- 2 &lt; 3 &lt; 4
-- nums[2] &lt; nums[3] and nums[4] &lt; nums[3]
-And the sum of this triplet is nums[2] + nums[3] + nums[4] = 9. It can be shown that there are no mountain triplets with a sum of less than 9.
+<strong>Input:</strong> pattern = &quot;abba&quot;, s = &quot;dog cat cat dog&quot;
+<strong>Output:</strong> true
 </pre>
 
 <p><strong class="example">Example 2:</strong></p>
 
 <pre>
-<strong>Input:</strong> nums = [5,4,8,7,10,2]
-<strong>Output:</strong> 13
-<strong>Explanation:</strong> Triplet (1, 3, 5) is a mountain triplet of sum 13 since: 
-- 1 &lt; 3 &lt; 5
-- nums[1] &lt; nums[3] and nums[5] &lt; nums[3]
-And the sum of this triplet is nums[1] + nums[3] + nums[5] = 13. It can be shown that there are no mountain triplets with a sum of less than 13.
+<strong>Input:</strong> pattern = &quot;abba&quot;, s = &quot;dog cat cat fish&quot;
+<strong>Output:</strong> false
 </pre>
 
 <p><strong class="example">Example 3:</strong></p>
 
 <pre>
-<strong>Input:</strong> nums = [6,5,4,3,4,5]
-<strong>Output:</strong> -1
-<strong>Explanation:</strong> It can be shown that there are no mountain triplets in nums.
+<strong>Input:</strong> pattern = &quot;aaaa&quot;, s = &quot;dog cat cat dog&quot;
+<strong>Output:</strong> false
 </pre>
 
 <p>&nbsp;</p>
 <p><strong>Constraints:</strong></p>
 
 <ul>
-	<li><code>3 &lt;= nums.length &lt;= 50</code></li>
-	<li><code>1 &lt;= nums[i] &lt;= 50</code></li>
+	<li><code>1 &lt;= pattern.length &lt;= 300</code></li>
+	<li><code>pattern</code> contains only lower-case English letters.</li>
+	<li><code>1 &lt;= s.length &lt;= 3000</code></li>
+	<li><code>s</code> contains only lowercase English letters and spaces <code>&#39; &#39;</code>.</li>
+	<li><code>s</code> <strong>does not contain</strong> any leading or trailing spaces.</li>
+	<li>All the words in <code>s</code> are separated by a <strong>single space</strong>.</li>
 </ul>
