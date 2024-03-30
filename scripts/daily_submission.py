@@ -47,12 +47,12 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         for question_id, submits in submit_dict.items():
             dir_path = os.path.join(root_path, problem_folder, question_id)
-            if question_id == daily_info["questionId"] and not os.path.exists(dir_path):
+            if question_id == daily_question and not os.path.exists(dir_path):
                 os.mkdir(dir_path)
-                write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'],
+                write_question(dir_path, daily_question, daily_info['questionNameEn'],
                                daily_info['questionSlug'])
             for submit_id, question_slug in submits:
-                if question_id != daily_info["questionId"] and not os.path.exists(dir_path):
+                if question_id != daily_question and not os.path.exists(dir_path):
                     info = get_question_info(question_slug)
                     os.mkdir(dir_path)
                     write_question(dir_path, question_id, info["title"], question_slug)
@@ -113,6 +113,8 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                         full = "".join(lines[:idx + 1] + ["\n"])
                     with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
                         f.write(full + write_solution(code, False))
+                    if question_id == daily_question:
+                        finish_daily = True
                     break
                 elif detail:
                     code = detail["code"]
@@ -137,6 +139,8 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                             f.writelines(code)
                     else:
                         print("Already write [{}] code before".format(detail["lang"]))
+                    if question_id == daily_question:
+                        finish_daily = True
         print("Daily Question {}: {}, Study plan problem solved today: {}"
               .format(daily_question, "DONE" if finish_daily else "TODO", finished_plan_questions))
         if not finish_daily:
