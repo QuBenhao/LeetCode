@@ -1,22 +1,24 @@
 import solution
+from typing import *
 from object_libs import list_to_linked_list, linked_list_to_list
+
+
+# Definition for singly-linked list.
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums1, a, b, nums2 = test_input
-        head1, head2 = list_to_linked_list(nums1), list_to_linked_list(nums2)
-        root = self.mergeInBetween(head1, a, b, head2)
-        return linked_list_to_list(root)
+        nums0, a, b, nums3 = test_input
+        head0 = list_to_linked_list(nums0)
+        head3 = list_to_linked_list(nums3)
+        res = self.mergeInBetween(head0, a, b, head3)
+        return linked_list_to_list(res)
 
-    def mergeInBetween(self, list1, a, b, list2):
-        """
-        :type list1: ListNode
-        :type a: int
-        :type b: int
-        :type list2: ListNode
-        :rtype: ListNode
-        """
+    def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
         if a == list1.val:
             root = list2
         else:
@@ -37,10 +39,3 @@ class Solution(solution.Solution):
         l1.next = list2
         node.next = r1
         return root
-
-
-# Definition for singly-linked list.
-class ListNode(object):
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
