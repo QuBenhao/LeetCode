@@ -132,8 +132,11 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                         case _:
                             file_name = "unknown"
                             print("Language {} is not implemented to save".format(detail["lang"]))
-                    with open(f"{dir_path}/{file_name}", "w", encoding="utf-8") as f:
-                        f.writelines(code)
+                    if not os.path.exists(f"{dir_path}/{file_name}"):
+                        with open(f"{dir_path}/{file_name}", "w", encoding="utf-8") as f:
+                            f.writelines(code)
+                    else:
+                        print("Already write [{}] code before".format(detail["lang"]))
         print("Daily Question {}: {}, Study plan problem solved today: {}"
               .format(daily_question, "DONE" if finish_daily else "TODO", finished_plan_questions))
         if not finish_daily:
