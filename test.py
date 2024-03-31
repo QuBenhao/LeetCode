@@ -63,8 +63,23 @@ class Test(unittest.TestCase):
                     last = result
                     result = solution_obj.solve(test_input=i)
                     if last != result:
-                        # TODO
-                        print(f"Test for random case!!! first call: {last}, second call: {result}")
+                        loop_times = 10000
+                        for idx in range(loop_times):
+                            try:
+                                if isinstance(o, list):
+                                    self.assertListEqual(o, result)
+                                else:
+                                    self.assertEqual(o, result)
+                                print(f"Meet expect output in {idx + 2} loop: {result}")
+                                break
+                            except AssertionError as _:
+                                result = solution_obj.solve(test_input=i)
+                        if isinstance(o, list):
+                            self.assertListEqual(o, result, msg=f"input={i}, "
+                                                                f"Random case not happened in {loop_times + 2} times!")
+                        else:
+                            self.assertEqual(o, result, msg=f"input={i}, "
+                                                            f"Random case not happened in {loop_times + 2} times!")
                     else:
                         raise ae
 

@@ -7,7 +7,8 @@ case = namedtuple("Testcase", ["Input", "Output"])
 class Testcase(testcase.Testcase):
     def __init__(self):
         self.testcases = []
-        self.testcases.append(case(Input=[1, 2, 3], Output=None))  # 1,2,3 has the same probability as output
+        self.testcases.append(case(Input=[['Solution', 'getRandom', 'getRandom', 'getRandom', 'getRandom', 'getRandom'],
+                                          [[[1, 2, 3]], [], [], [], [], []]], Output=[None, 1, 3, 2, 2, 3]))
 
     def get_testcases(self):
         return self.testcases
