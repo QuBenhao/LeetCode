@@ -1,6 +1,5 @@
 import os.path
 import sys
-import traceback
 import unittest
 from importlib.util import spec_from_file_location, module_from_spec
 
@@ -60,13 +59,14 @@ class Test(unittest.TestCase):
                             self.assertIn(result, o, msg=f"input = {i}")
                         else:
                             self.assertEqual(o, result, msg=f"input = {i}")
-                except AssertionError as _:
-                    traceback.print_exc()
+                except AssertionError as ae:
                     last = result
                     result = solution_obj.solve(test_input=i)
                     if last != result:
                         # TODO
                         print(f"Test for random case!!! first call: {last}, second call: {result}")
+                    else:
+                        raise ae
 
 
 if __name__ == '__main__':
