@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
                             result = solution_obj.solve(test_input=i)
                             if last != result:
                                 # TODO
-                                print("Test for random case!!!")
+                                print(f"Question: {q} Test for random case!!!")
 
 
 if __name__ == '__main__':
