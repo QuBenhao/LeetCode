@@ -1,5 +1,6 @@
 import solution
 from typing import *
+from collections import defaultdict
 
 
 class Solution(solution.Solution):
@@ -7,4 +8,7 @@ class Solution(solution.Solution):
         return self.groupAnagrams(test_input)
 
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-            pass
+        group = defaultdict(list)
+        for word in strs:
+            group["".join(sorted(word))].append(word)
+        return [v for v in group.values()]
