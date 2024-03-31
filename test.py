@@ -8,7 +8,7 @@ import constants
 from utils import get_default_folder
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTION = "863"
+QUESTION = "331"
 # QUESTION = "Interview/10_02"
 # QUESTION = "LCP/07"
 # QUESTION = "剑指Offer/52"
@@ -37,6 +37,8 @@ class Test(unittest.TestCase):
             with self.subTest(f"testcase: {test}", testcase=test):
                 i, o = test
                 result = solution_obj.solve(test_input=i)
+                if o is not None:
+                    self.assertIsNotNone(result, f"input = {i}, No solution")
                 if o and isinstance(o, list):
                     if isinstance(o[0], float):
                         for v1, v2 in zip(o, result):
