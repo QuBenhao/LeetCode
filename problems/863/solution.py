@@ -1,5 +1,14 @@
 import solution
+from typing import *
 from object_libs import list_to_tree_with_target
+
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 
 class Solution(solution.Solution):
@@ -8,13 +17,7 @@ class Solution(solution.Solution):
         root, target = list_to_tree_with_target(nums, target_val)
         return self.distanceK(root, target, k)
 
-    def distanceK(self, root, target, k):
-        """
-        :type root: TreeNode
-        :type target: TreeNode
-        :type k: int
-        :rtype: List[int]
-        """
+    def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
         if not k:
             return [target.val]
         elif k > 501:
@@ -56,11 +59,3 @@ class Solution(solution.Solution):
 
         dfs2(root, k)
         return ans
-
-
-# Definition for a binary tree node.
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right

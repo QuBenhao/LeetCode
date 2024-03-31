@@ -1,35 +1,31 @@
 import solution
-
+from typing import *
+import itertools
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.letterCasePermutation(str(test_input))
+        return self.letterCasePermutation(test_input)
 
-    def letterCasePermutation(self, S):
-        """
-        :type S: str
-        :rtype: List[str]
-        """
+    def letterCasePermutation(self, s: str) -> List[str]:
+        return list(map(''.join, itertools.product(*[{i.lower(), i.upper()} for i in s])))
 
-        import itertools
-        # # These code are doing the same thing as [set([i.lower, i.upper()]) for i in S]
+        # # These code are doing the same thing as [set([i.lower, i.upper()]) for i in s]
         # iters = []
-        # for c in S:
+        # for c in s:
         #     if c.isalpha():
         #         iters.append([c.lower(), c.upper()])
         #     else:
         #         iters.append([c])
         # return list(map(''.join, itertools.product(*iters)))
-        return list(map(''.join, itertools.product(*[{i.lower(), i.upper()} for i in S])))
 
-        # ans, n = [], len(S)
+        # ans, n = [], len(s)
         #
         # def dfs(string, index):
         #     if index == n:
         #         ans.append(string)
         #         return
         #     dfs(string[:index]+S[index], index + 1)
-        #     if S[index].isalpha():
+        #     if s[index].isalpha():
         #         if S[index].islower():
         #             dfs(string[:index]+S[index].upper(), index + 1)
         #         else:

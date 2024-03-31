@@ -2,12 +2,13 @@ import os.path
 import sys
 import unittest
 from importlib.util import spec_from_file_location, module_from_spec
+
 from dotenv import load_dotenv
 import constants
 from utils import get_default_folder
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTION = "331"
+QUESTION = "863"
 # QUESTION = "Interview/10_02"
 # QUESTION = "LCP/07"
 # QUESTION = "剑指Offer/52"
@@ -33,21 +34,28 @@ class Test(unittest.TestCase):
         testcase_obj = testcase.Testcase()
 
         for test in testcase_obj.get_testcases():
-            i, o = test
-            result = solution_obj.solve(test_input=i)
-            try:
-                if o and isinstance(o, list) and isinstance(o[0], float):
-                    for v1, v2 in zip(o, result):
-                        self.assertAlmostEqual(v1, v2, msg=f"input = {i}", delta=0.00001)
-                elif o and isinstance(o, list) and (None not in o and (isinstance(o[0], list) and not any(None in x for x in o))):
-                    self.assertListEqual(sorted(o), sorted(result), msg=f"input = {i}")
+            with self.subTest(f"testcase: {test}", testcase=test):
+                i, o = test
+                result = solution_obj.solve(test_input=i)
+                if o and isinstance(o, list):
+                    if isinstance(o[0], float):
+                        for v1, v2 in zip(o, result):
+                            self.assertAlmostEqual(v1, v2, msg=f"input = {i}", delta=0.00001)
+                    elif isinstance(o[0], list) and not any(None in x for x in o):
+                        self.assertListEqual(sorted(sorted(item) for item in o),
+                                             sorted(sorted(item) for item in result), msg=f"input = {i}")
+                    else:
+                        if None not in o and not (isinstance(o[0], list) and any(None in x for x in o)):
+                            self.assertListEqual(sorted(o), sorted(result), msg=f"input = {i}")
+                        else:
+                            self.assertListEqual(o, result, msg=f"input = {i}")
                 else:
-                    self.assertEqual(o, result, msg=f"input = {i}")
-            except AssertionError:
-                try:
-                    self.assertAlmostEqual(o, result, msg=f"input = {i}", delta=0.00001)
-                except:
-                    self.assertIn(result, o, msg=f"input = {i}")
+                    if isinstance(o, float):
+                        self.assertAlmostEqual(o, result, msg=f"input = {i}", delta=0.00001)
+                    elif isinstance(o, set) and result and not isinstance(result, set):
+                        self.assertIn(result, o, msg=f"input = {i}")
+                    else:
+                        self.assertEqual(o, result, msg=f"input = {i}")
 
 
 if __name__ == '__main__':

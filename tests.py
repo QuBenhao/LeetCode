@@ -2,12 +2,14 @@ import os.path
 import sys
 import unittest
 from importlib.util import spec_from_file_location, module_from_spec
+
 import constants
 from dotenv import load_dotenv
 from utils import get_default_folder
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTIONS = ['49', '72']
+QUESTIONS = ['1855', '797', '909', '551', '1600', '61', '1290', '338', '556', '764', '132', '59', '1899', '92', '66', '938', '104', '752', '594', '1864', '309', '1631', '50', '1863', '1897', '331', '1808', '1662', '1696', '168', '954', '1239', '1837', '2642', '1691', '1457', '1665', '150', '706', '1839', '991', '1653', '354', '1806', '962', '1492', '1801', '754', '1896', '592', '69', '1862', '1095', '1865', '337', '51', '2617', '133', '930', '1898', '908', '1854', '399', '1655', '160', '1800', '1838', '33', '1652', '1807', '503', '1664', '1690', '剑指Offer', '363', '1697', '1035', '1663', '1944', '1711', '1943', '1140', '1716', '227', '2952', '218', '1720', '1512', '1718', '220', '1727', '1773', '1787', '1328', '1926', '274', '1780', '1774', '1310', '1921', '1928', '880', '1742', '413', '887', '1745', '289', '2908', '1583', '1910', '242', '1389', '477', '645', '1719', '483', '810', '1342', '1726', '470', '1721', '1345', '1728', '1942', '446', '210', '1717', '821', '1179', '1945', '1710', '872', '1744', '1911', '1929', '881', '1743', '1916', '1775', '1781', '1920', '1786', '1124', '611', '275', '1927', '1329', '401', '633', '1905', '1750', '1768', '406', '895', '1108', '1761', '2580', '1137', '605', '295', '1759', '1792', '1766', '1190', '1958', '1732', '1967', '1735', '669', '232', '1969', '1703', '204', '1704', '203', '1758', '1932', '1793', '1935', '856', '1760', '1769', '1903', '1904', '1563', '1751', '1705', '692', '202', '454', '498', '1968', '1702', '695', '1957', '802', '1734', '1961', '1539', '1959', '1733', '496', '1814', '977', '1641', '1473', '20', '1679', '1813', '18', '173', '341', '27', '1010', '1646', '1480', '528', '1825', '377', '1442', '1670', '11', '946', '1684', '526', '714', '142', '7', '1648', '29', '1822', '941', '16', '189', '129', '42', '1849', '1882', '740', '116', '1876', '1240', '581', '1871', '1878', '73', '87', '1249', '785', '1847', '771', '127', '80', '74', '312', '1840', '1418', '1649', '1823', '28', '17', '188', '518', '144', '1824', '382', '1', '1685', '1671', '516', '1678', '19', '1812', '1011', '26', '1647', '1815', '1640', '21', '1486', '1614', '81', '783', '313', '121', '86', '72', '1879', '784', '1846', '110', '322', '1870', '1074', '1848', '1877', '88', '1883', '117', '198', '1030', '153', '705', '1833', '1659', '1695', '1834', '530', '154', '1657', '36', '1802', '1668', '368', '1006', '31', '733', '165', '191', '1805', '131', '303', '1851', '91', '65', '1856', '304', '136', '552', '1603', '1431', '1869', '1860', '1894', '100', '54', '1893', '98', '1269', '138', '53', '1463', '993', '190', '1038', '2671', '538', '1656', '37', '1803', '1669', '1694', '155', '1835', '199', '1832', '1658', '1866', '334', '1859', '52', '1091', '139', '1895', '1861', '1406', '137', '1857', '97', '63', '1850', 'Interview', '554', '1437', '90', '1313', '1922', '284', '1748', '1770', '1784', '1925', '421', '879', '1913', '1779', '877', '279', '410', '1914', '1143', '1947', '215', '443', '671', '1712', '1382', '812', '224', '815', '1723', '278', '1915', '240', '1912', '1785', '847', '1771', '1588', '878', '282', '1776', '1782', '1923', 'LCP', '1749', '427', '1379', '225', '1722', '1510', '1948', '646', '474', '222', '1528', '1970', '1725', '1946', '1713', '1941', '445', '213', '822', '1736', '1963', '231', '1997', '494', '1964', '1707', '456', '664', '690', '1952', '1738', '1700', '1955', '451', '207', '1754', '1798', '1906', '865', '1753', '1337', '1930', '1791', '639', '1765', '1937', '1796', '1391', '1365', '1701', '808', '1954', '1706', '830', '1953', '1739', '201', '665', '457', '208', '461', '801', '1737', '1962', '264', '2549', '1936', '290', '1797', '1763', '1909', '297', '1931', '263', '1764', '852', '1790', '1799', '403', '1752', '1104', '1938', '1900', '863', '1755', '897', '1872', '79', '112', '1886', '576', '1881', '743', '115', '1049', '1888', '83', '920', '1424', '123', '547', '781', '1047', '84', '1281', '1844', '726', '342', '1221', '24', '987', '1689', '345', '1817', '1470', '1642', '23', '1828', '525', '141', '373', '1680', '15', '1674', '3', '374', '1673', '1819', '12', '179', '1687', '71', '541', '773', '787', '1845', '82', '1889', '49', '122', '789', '1880', '114', '910', '1887', '523', '1827', '2', '944', '1686', '1672', '13', '1818', '5', '524', '1675', '1681', '1816', '1688', '1643', '981', '1829', '149', '171', '1449', '1482', '25', '1476', '42', '53-I', '38', '52', '17_21', '17_10', '10_02', '03_01', '03', '04', '32', '35', '34', '33', '02', '29', '28', '07', '36', '31', '30', '01']
+
 
 
 class Test(unittest.TestCase):
@@ -16,36 +18,42 @@ class Test(unittest.TestCase):
         problem_folder = os.getenv(constants.PROBLEM_FOLDER, get_default_folder())
 
         for q in QUESTIONS:
-            print(f"Testing problem: {q}")
+            with self.subTest(f"Testing problem: {q}", question=q):
 
-            self.assertTrue(os.path.exists(f"{problem_folder}/{q}"), msg="Please set up the problem env first!")
+                self.assertTrue(os.path.exists(f"{problem_folder}/{q}"), msg="Please set up the problem env first!")
 
-            solution_spec = spec_from_file_location("module.name", f"./{problem_folder}/{q}/solution.py")
-            solution = module_from_spec(solution_spec)
-            solution_spec.loader.exec_module(solution)
-            solution_obj = solution.Solution()
+                solution_spec = spec_from_file_location("module.name", f"./{problem_folder}/{q}/solution.py")
+                solution = module_from_spec(solution_spec)
+                solution_spec.loader.exec_module(solution)
+                solution_obj = solution.Solution()
 
-            testcase_spec = spec_from_file_location("module.name", f"./{problem_folder}/{q}/testcase.py")
-            testcase = module_from_spec(testcase_spec)
-            testcase_spec.loader.exec_module(testcase)
-            testcase_obj = testcase.Testcase()
+                testcase_spec = spec_from_file_location("module.name", f"./{problem_folder}/{q}/testcase.py")
+                testcase = module_from_spec(testcase_spec)
+                testcase_spec.loader.exec_module(testcase)
+                testcase_obj = testcase.Testcase()
 
-            for test in testcase_obj.get_testcases():
-                i, o = test
-                result = solution_obj.solve(test_input=i)
-                try:
-                    if o and isinstance(o, list) and isinstance(o[0], float):
-                        for v1, v2 in zip(o, result):
-                            self.assertAlmostEqual(v1, v2, msg=f"problem: {q}, input = {i}", delta=0.00001)
-                    elif o and isinstance(o, list) and (None not in o and (isinstance(o[0], list) and not any(None in x for x in o))):
-                        self.assertListEqual(sorted(o), sorted(result), msg=f"problem: {q}, input = {i}")
-                    else:
-                        self.assertEqual(o, result, msg=f"problem: {q}, input = {i}")
-                except AssertionError:
-                    try:
-                        self.assertAlmostEqual(o, result, msg=f"problem: {q}, input = {i}", delta=0.00001)
-                    except:
-                        self.assertIn(result, o, msg=f"problem: {q}, input = {i}")
+                for test in testcase_obj.get_testcases():
+                    with self.subTest(f"testcase: {test}", testcase=test):
+                        i, o = test
+                        result = solution_obj.solve(test_input=i)
+                        if o and isinstance(o, list):
+                            if isinstance(o[0], float):
+                                for v1, v2 in zip(o, result):
+                                    self.assertAlmostEqual(v1, v2, msg=f"problem: {q}, input = {i}", delta=0.00001)
+                            elif o[0] is not None and isinstance(o[0], list) and not any(None in x for x in o):
+                                self.assertListEqual(sorted(sorted(item) for item in o), sorted(sorted(item) for item in result), msg=f"problem: {q}, input = {i}")
+                            else:
+                                if None not in o and not (isinstance(o[0], list) and any(None in x for x in o)):
+                                    self.assertListEqual(sorted(o), sorted(result), msg=f"problem: {q}, input = {i}")
+                                else:
+                                    self.assertListEqual(o, result, msg=f"problem: {q}, input = {i}")
+                        else:
+                            if isinstance(o, float):
+                                self.assertAlmostEqual(o, result, msg=f"problem: {q}, input = {i}", delta=0.00001)
+                            elif isinstance(o, set) and result and not isinstance(result, set):
+                                self.assertIn(result, o, msg=f"problem: {q}, input = {i}")
+                            else:
+                                self.assertEqual(o, result, msg=f"problem: {q}, input = {i}")
 
 
 if __name__ == '__main__':

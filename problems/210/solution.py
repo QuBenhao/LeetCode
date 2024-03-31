@@ -1,4 +1,5 @@
 import solution
+from typing import *
 from collections import defaultdict, deque
 
 
@@ -6,12 +7,7 @@ class Solution(solution.Solution):
     def solve(self, test_input=None):
         return self.findOrder(*test_input)
 
-    def findOrder(self, numCourses, prerequisites):
-        """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: List[int]
-        """
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         In = [0] * numCourses
         connect = defaultdict(set)
         for a, b in prerequisites:
