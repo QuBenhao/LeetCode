@@ -1,15 +1,12 @@
 import solution
+from typing import *
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.minRemoveToMakeValid(str(test_input))
+        return self.minRemoveToMakeValid(test_input)
 
-    def minRemoveToMakeValid(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
+    def minRemoveToMakeValid(self, s: str) -> str:
         stack, cur = [], ''
         for c in s:
             if c == '(':

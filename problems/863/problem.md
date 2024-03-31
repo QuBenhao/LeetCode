@@ -1,34 +1,32 @@
 # 863. All Nodes Distance K in Binary Tree
 
-Given the `root` of a binary tree, the value of a target node `target`, and an integer `k`, return *an array of the values of all nodes that have a distance* `k` *from the target node.*
+<p>Given the <code>root</code> of a binary tree, the value of a target node <code>target</code>, and an integer <code>k</code>, return <em>an array of the values of all nodes that have a distance </em><code>k</code><em> from the target node.</em></p>
 
-You can return the answer in **any order**.
+<p>You can return the answer in <strong>any order</strong>.</p>
 
- 
-
-**Example 1:**
-
-![img](https://s3-lc-upload.s3.amazonaws.com/uploads/2018/06/28/sketch0.png)
-
-```
-Input: root = [3,5,1,6,2,0,8,null,null,7,4], target = 5, k = 2
-Output: [7,4,1]
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://s3-lc-upload.s3.amazonaws.com/uploads/2018/06/28/sketch0.png" style="width: 500px; height: 429px;" />
+<pre>
+<strong>Input:</strong> root = [3,5,1,6,2,0,8,null,null,7,4], target = 5, k = 2
+<strong>Output:</strong> [7,4,1]
 Explanation: The nodes that are a distance 2 from the target node (with value 5) have values 7, 4, and 1.
-```
+</pre>
 
-**Example 2:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: root = [1], target = 1, k = 3
-Output: []
-```
+<pre>
+<strong>Input:</strong> root = [1], target = 1, k = 3
+<strong>Output:</strong> []
+</pre>
 
- 
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Constraints:**
-
-- The number of nodes in the tree is in the range `[1, 500]`.
-- `0 <= Node.val <= 500`
-- All the values `Node.val` are **unique**.
-- `target` is the value of one of the nodes in the tree.
-- `0 <= k <= 1000`
+<ul>
+	<li>The number of nodes in the tree is in the range <code>[1, 500]</code>.</li>
+	<li><code>0 &lt;= Node.val &lt;= 500</code></li>
+	<li>All the values <code>Node.val</code> are <strong>unique</strong>.</li>
+	<li><code>target</code> is the value of one of the nodes in the tree.</li>
+	<li><code>0 &lt;= k &lt;= 1000</code></li>
+</ul>

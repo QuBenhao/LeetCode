@@ -1,43 +1,28 @@
 # 784. Letter Case Permutation
 
-Given a string S, we can transform every letter individually to be lowercase or uppercase to create another string.
+<p>Given a string <code>s</code>, you&nbsp;can transform every letter individually to be lowercase or uppercase to create another string.</p>
 
-Return *a list of all possible strings we could create*. You can return the output in **any order**.
+<p>Return <em>a list of all possible strings we could create</em>. Return the output in <strong>any order</strong>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> s = &quot;a1b2&quot;
+<strong>Output:</strong> [&quot;a1b2&quot;,&quot;a1B2&quot;,&quot;A1b2&quot;,&quot;A1B2&quot;]
+</pre>
 
-```
-Input: S = "a1b2"
-Output: ["a1b2","a1B2","A1b2","A1B2"]
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> s = &quot;3z4&quot;
+<strong>Output:</strong> [&quot;3z4&quot;,&quot;3Z4&quot;]
+</pre>
 
-```
-Input: S = "3z4"
-Output: ["3z4","3Z4"]
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 3:**
-
-```
-Input: S = "12345"
-Output: ["12345"]
-```
-
-**Example 4:**
-
-```
-Input: S = "0"
-Output: ["0"]
-```
-
- 
-
-**Constraints:**
-
-- `S` will be a string with length between `1` and `12`.
-- `S` will consist only of letters or digits.
-
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 12</code></li>
+	<li><code>s</code> consists of lowercase English letters, uppercase English letters, and digits.</li>
+</ul>

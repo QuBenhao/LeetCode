@@ -1,11 +1,21 @@
-import random
 import solution
-from object_libs import list_to_linked_list
+from typing import *
+from object_libs import list_to_linked_list, call_method
+import random
 
 
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
+# Definition for singly-linked list.
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return S(head=list_to_linked_list(test_input)).getRandom()
+        ops, inputs = test_input
+        obj = S(list_to_linked_list(*inputs[0]))
+        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
 
 class S:
@@ -42,9 +52,3 @@ class S:
             curr = curr.next
             scope += 1
         return chosen_value
-
-
-class ListNode(object):
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
