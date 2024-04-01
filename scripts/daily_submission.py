@@ -71,14 +71,29 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
                         result = solution_obj.solve(test_input=i)
                         print("Question: [{}]{}, Input: {}, Output: {}, Expected: {}"
                               .format(question_id, question_slug, i, result, o))
-                        if o and isinstance(o, list) and isinstance(o[0], float):
-                            if any(abs(a - b) > 0.00001 for a, b in zip(o, result)):
-                                raise ValueError
-                        elif o and isinstance(o, float):
-                            if abs(o - result) > 0.00001:
-                                raise ValueError
-                        elif result != o:
-                            raise ValueError
+                        if o is not None and result is None:
+                            raise ValueError("No solution")
+                        if o and isinstance(o, list):
+                            if o and isinstance(o, list) and isinstance(o[0], float):
+                                if any(abs(a - b) > 0.00001 for a, b in zip(o, result)):
+                                    raise ValueError("Mismatch float in list")
+                            elif all(x is not None for x in o) and isinstance(o[0], list) and not any(
+                                    None in x for x in o):
+                                if sorted(sorted(item) for item in o) != sorted(sorted(item) for item in result):
+                                    raise ValueError("List[List] not equal")
+                            else:
+                                if None not in o and not (isinstance(o[0], list) and any(None in x for x in o)):
+                                    if sorted(o) != sorted(result):
+                                        raise ValueError("List not equal")
+                                else:
+                                    if o != result:
+                                        raise ValueError("List Not equal")
+                        else:
+                            if isinstance(o, float):
+                                if abs(o - result) > 0.00001:
+                                    raise ValueError("Mismatch float")
+                            elif result != o:
+                                raise ValueError(f"Result {result} not as expected: {o}")
                     if question_id == daily_question:
                         finish_daily = True
                     if question_slug in plan_questions_slug:
