@@ -92,6 +92,7 @@ def __process_code__(code: str):
         # Get the method of your class
         methods = inspect.getmembers(cs[1], inspect.isroutine)
 
+        # TODO: Fix issues like 382, the external class is called Solution
         # Filter out in-built dunder methods
         non_dunder_methods = [
             m for m in methods
