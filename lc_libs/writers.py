@@ -3,7 +3,6 @@ import os
 import traceback
 from collections import defaultdict
 from importlib.util import spec_from_file_location, module_from_spec
-from typing import Union
 
 
 def write_problem_md(question_id: str, question_name: str, desc: str) -> str:
@@ -106,7 +105,7 @@ def __process_code__(code: str):
     return cs_map, top, res
 
 
-def __finalize_solution_code__(cs_map, top, res):
+def __finalize_solution_code__(cs_map, top, res, modify_in_place):
     process_input = "pass"
     if len(cs_map) == 1:
         if "Solution" in cs_map:
@@ -126,7 +125,10 @@ def __finalize_solution_code__(cs_map, top, res):
                     init_params = "test_input"
                 else:
                     init_params = ""
-                process_input = "return self.{}({})".format(methods[0][0], init_params)
+                if not modify_in_place:
+                    process_input = "return self.{}({})".format(methods[0][0], init_params)
+                else:
+                    process_input = "self.{}({})\n        return {}".format(methods[0][0], init_params, init_params)
         else:
             class_name, methods = "", []
             for k, v in cs_map.items():
@@ -208,6 +210,7 @@ def __finalize_solution_code__(cs_map, top, res):
                 if len(parameters) > 0:
                     process_input += " = test_input\n"
 
+                # TODO: Check if questions like 1382 is modifying in-place?
                 if "TreeNode" in str(return_anno):
                     add_lib += ", tree_to_list" if exists else "from object_libs import tree_to_list"
                     remain += "        res = self.{}({})\n        return tree_to_list(res)".format(methods[0][0],
@@ -316,7 +319,7 @@ def write_solution(code: str, default: bool = True) -> str:
         return code
     try:
         cs_map, top, res = __process_code__(code)
-        top, res = __finalize_solution_code__(cs_map, top, res)
+        top, res = __finalize_solution_code__(cs_map, top, res, "Do not return anything" in code)
 
         return "\n".join(top) + "\n\n" + "\n".join(res)
     except Exception as e:
