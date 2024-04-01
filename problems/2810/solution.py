@@ -1,5 +1,6 @@
 import solution
 from typing import *
+from collections import deque
 
 
 class Solution(solution.Solution):
@@ -7,4 +8,12 @@ class Solution(solution.Solution):
         return self.finalString(test_input)
 
     def finalString(self, s: str) -> str:
-            pass
+        ans, tail = deque([]), True
+        for c in s:
+            if c == 'i':
+                tail = not tail
+            elif tail:
+                ans.append(c)
+            else:
+                ans.appendleft(c)
+        return "".join(ans if tail else reversed(ans))
