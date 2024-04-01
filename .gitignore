@@ -6,3 +6,4 @@ ac_oier*
 .idea/
 __pycache__/
 .env
+dev/tmp*
