@@ -58,11 +58,18 @@ default_test_list = [
     "# iter = PeekingIterator(Iterator(nums))\n# while iter.hasNext():\n#     val = iter.peek()   # Get the next "
     "element but not advance the iterator.\n#     iter.next()         # Should return the same value as [val].",
 
+    "class Solution(object):\n    def setZeroes(self, matrix):\n        \"\"\"\n        :type matrix: List[List["
+    "int]]\n        :rtype: None Do not return anything, modify matrix in-place instead.\n        \"\"\"",
+
+    "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, "
+    "right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass "
+    "Solution:\n    def balanceBST(self, root: TreeNode) -> TreeNode:\n",
+
     "# Definition for singly-linked list.\n# class ListNode(object):\n#     def __init__(self, val=0, next=None):\n#  "
     "       self.val = val\n#         self.next = next\nclass Solution(object):\n\n    def __init__(self, head):\n    "
     "    \"\"\"\n        :type head: Optional[ListNode]\n        \"\"\"\n\n\n    def getRandom(self):\n        "
     "\"\"\"\n        :rtype: int\n        \"\"\"\n\n\n\n# Your Solution object will be instantiated and called as "
-    "such:\n# obj = Solution(head)\n# param_1 = obj.getRandom()"
+    "such:\n# obj = Solution(head)\n# param_1 = obj.getRandom()",
 ]
 
 
