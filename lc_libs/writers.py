@@ -232,12 +232,20 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
 
                 if "TreeNode" in str(return_anno):
                     add_lib += ", tree_to_list" if exists else "from object_libs import tree_to_list"
-                    remain += "        res = self.{}({})\n        return tree_to_list(res)".format(methods[0][0],
-                                                                                                   inputs)
+                    if "List[" in str(return_anno):
+                        remain += ("        res = self.{}({})\n        return [tree_to_list(root) for root in res]"
+                                   .format(methods[0][0],inputs))
+                    else:
+                        remain += ("        res = self.{}({})\n        return tree_to_list(res)"
+                                   .format(methods[0][0],inputs))
                 elif "ListNode" in str(return_anno):
                     add_lib += ", linked_list_to_list" if exists else "from object_libs import linked_list_to_list"
-                    remain += "        res = self.{}({})\n        return linked_list_to_list(res)".format(methods[0][0],
-                                                                                                          inputs)
+                    if "List[" in str(return_anno):
+                        remain += ("res = self.{}({})\n        return [linked_list_to_list(head) for head in "
+                                   "res]").format(methods[0][0],inputs)
+                    else:
+                        remain += ("        res = self.{}({})\n        return linked_list_to_list(res)"
+                                   .format(methods[0][0],inputs))
                 else:
                     if not modify_in_place:
                         remain += "        return self.{}({})".format(methods[0][0], inputs)

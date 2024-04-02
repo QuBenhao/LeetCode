@@ -1,8 +1,7 @@
-import itertools
-
 import solution
 from typing import *
 from object_libs import tree_to_list
+import itertools
 
 
 class TreeNode:
