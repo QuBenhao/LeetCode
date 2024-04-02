@@ -56,7 +56,13 @@ default_test_list = [
     ":rtype: int\n        \"\"\"\n        \n\n    def hasNext(self):\n        \"\"\"\n        :rtype: bool\n        "
     "\"\"\"\n        \n\n# Your PeekingIterator object will be instantiated and called as such:\n"
     "# iter = PeekingIterator(Iterator(nums))\n# while iter.hasNext():\n#     val = iter.peek()   # Get the next "
-    "element but not advance the iterator.\n#     iter.next()         # Should return the same value as [val]."
+    "element but not advance the iterator.\n#     iter.next()         # Should return the same value as [val].",
+
+    "# Definition for singly-linked list.\n# class ListNode(object):\n#     def __init__(self, val=0, next=None):\n#  "
+    "       self.val = val\n#         self.next = next\nclass Solution(object):\n\n    def __init__(self, head):\n    "
+    "    \"\"\"\n        :type head: Optional[ListNode]\n        \"\"\"\n\n\n    def getRandom(self):\n        "
+    "\"\"\"\n        :rtype: int\n        \"\"\"\n\n\n\n# Your Solution object will be instantiated and called as "
+    "such:\n# obj = Solution(head)\n# param_1 = obj.getRandom()"
 ]
 
 
