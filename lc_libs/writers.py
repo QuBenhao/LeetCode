@@ -247,7 +247,7 @@ def __finalize_solution_code__(cs_map, top, res):
                 top[0] += ", list_to_tree"
                 cs_map.pop("TreeNode")
             elif "ListNode" in cs_map:
-                top[0] += ", linked_list_to_list"
+                top[0] += ", list_to_linked_list"
                 cs_map.pop("ListNode")
             else:
                 # Too complex to fix here
