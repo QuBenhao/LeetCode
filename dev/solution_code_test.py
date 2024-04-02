@@ -63,7 +63,13 @@ default_test_list = [
 
     "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, "
     "right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass "
-    "Solution:\n    def balanceBST(self, root: TreeNode) -> TreeNode:\n"
+    "Solution:\n    def balanceBST(self, root: TreeNode) -> TreeNode:\n",
+
+    "# Definition for singly-linked list.\n# class ListNode(object):\n#     def __init__(self, val=0, next=None):\n#  "
+    "       self.val = val\n#         self.next = next\nclass Solution(object):\n\n    def __init__(self, head):\n    "
+    "    \"\"\"\n        :type head: Optional[ListNode]\n        \"\"\"\n\n\n    def getRandom(self):\n        "
+    "\"\"\"\n        :rtype: int\n        \"\"\"\n\n\n\n# Your Solution object will be instantiated and called as "
+    "such:\n# obj = Solution(head)\n# param_1 = obj.getRandom()",
 ]
 
 

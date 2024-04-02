@@ -88,18 +88,38 @@ def __process_code__(code: str):
 
     cs_map = defaultdict(list)
     for cs in your_classes:
+        class_name = cs[0]
         # Get the method of your class
         methods = inspect.getmembers(cs[1], inspect.isroutine)
 
+        # TODO: Fix issues like 382, the external class is called Solution
         # Filter out in-built dunder methods
         non_dunder_methods = [
             m for m in methods
-            if (cs[0] != 'Solution' and m[0] == "__init__") or not (m[0].startswith('__') and m[0].endswith('__'))]
+            if m[0] == "__init__" or not (m[0].startswith('__') and m[0].endswith('__'))]
 
         for method in non_dunder_methods:
             md = getattr(cs[1], method[0])
             sig = inspect.signature(md)
-            cs_map[cs[0]].append((method[0], dict(sig.parameters), sig.return_annotation))
+            if cs[0] == "Solution" and method[0] == "__init__":
+                d = dict(sig.parameters)
+                counts = len(d)
+                if "self" in d:
+                    counts -= 1
+                if "args" in d:
+                    counts -= 1
+                if "kwargs" in d:
+                    counts -= 1
+                if counts == 0:
+                    continue
+                if class_name in cs_map:
+                    cs_map["S"] = list(cs_map[class_name])
+                    cs_map.pop(class_name)
+                class_name = "S"
+                for i, line in enumerate(res):
+                    if "class Solution" in line:
+                        res[i] = line.replace("Solution", "S")
+            cs_map[class_name].append((method[0], dict(sig.parameters), sig.return_annotation))
 
     os.remove("tmp.py")
     return cs_map, top, res
@@ -232,7 +252,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                 top[0] += ", list_to_tree"
                 cs_map.pop("TreeNode")
             elif "ListNode" in cs_map:
-                top[0] += ", linked_list_to_list"
+                top[0] += ", list_to_linked_list"
                 cs_map.pop("ListNode")
             else:
                 # Too complex to fix here
@@ -261,26 +281,27 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                             par_map[v.name] = v.annotation
                             if is_first:
                                 is_first = False
+                                process_input += "        "
                             else:
                                 process_input += ", "
                                 inputs += ", "
                             if "TreeNode" in str(v.annotation):
                                 if "List[" in str(v.annotation):
-                                    process_input += "        nums_arr"
+                                    process_input += "nums_arr"
                                     remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
                                     inputs += "roots"
                                 else:
-                                    process_input += f"        nums{idx}"
+                                    process_input += f"nums{idx}"
                                     remain += f"        root{idx} = list_to_tree(nums{idx})\n"
                                     inputs += f"root{idx}"
                                     idx += 1
                             elif "ListNode" in str(v.annotation):
                                 if "List[" in str(v.annotation):
-                                    process_input += "        nums_arr"
+                                    process_input += "nums_arr"
                                     remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
                                     inputs += "heads"
                                 else:
-                                    process_input += f"        nums{idx}"
+                                    process_input += f"nums{idx}"
                                     remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
                                     inputs += f"head{idx}"
                                     idx += 1

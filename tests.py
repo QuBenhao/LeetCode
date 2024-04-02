@@ -8,13 +8,15 @@ from dotenv import load_dotenv
 from utils import get_default_folder
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTIONS = ['34', '73']
+QUESTIONS = ['150', '322']
 
 
 class Test(unittest.TestCase):
     def test(self):
         load_dotenv()
         problem_folder = os.getenv(constants.PROBLEM_FOLDER, get_default_folder())
+
+        print(f"Testing problems: {QUESTIONS}")
 
         for q in QUESTIONS:
             with self.subTest(f"Testing problem: {q}", question=q):
