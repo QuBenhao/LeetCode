@@ -210,7 +210,6 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                 if len(parameters) > 0:
                     process_input += " = test_input\n"
 
-                # TODO: Check if questions like 1382 is modifying in-place?
                 if "TreeNode" in str(return_anno):
                     add_lib += ", tree_to_list" if exists else "from object_libs import tree_to_list"
                     remain += "        res = self.{}({})\n        return tree_to_list(res)".format(methods[0][0],
@@ -220,7 +219,10 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                     remain += "        res = self.{}({})\n        return linked_list_to_list(res)".format(methods[0][0],
                                                                                                           inputs)
                 else:
-                    remain += "        return self.{}({})".format(methods[0][0], inputs)
+                    if not modify_in_place:
+                        remain += "        return self.{}({})".format(methods[0][0], inputs)
+                    else:
+                        remain += "        self.{}({})\n        return {}".format(methods[0][0], inputs, inputs)
                 top[0] = top[0] + add_lib + "\n"
 
                 process_input += remain
