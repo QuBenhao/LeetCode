@@ -16,6 +16,8 @@ class Test(unittest.TestCase):
         load_dotenv()
         problem_folder = os.getenv(constants.PROBLEM_FOLDER, get_default_folder())
 
+        print(f"Testing problems: {QUESTIONS}")
+
         for q in QUESTIONS:
             with self.subTest(f"Testing problem: {q}", question=q):
 
