@@ -1,35 +1,28 @@
 import solution
+from typing import *
 from object_libs import list_to_linked_list, linked_list_to_list
 
-
-class Solution(solution.Solution):
-    def solve(self, test_input=None):
-        nums, n = test_input
-        head = list_to_linked_list(nums)
-        root = self.removeNthFromEnd(head, n)
-        return linked_list_to_list(root)
-
-    def removeNthFromEnd(self, head, n):
-        """
-        :type head: ListNode
-        :type n: int
-        :rtype: ListNode
-        """
-        last = back_pointer = front_pointer = head
-        for i in range(n):
-            front_pointer = front_pointer.next
-        while front_pointer:
-            front_pointer = front_pointer.next
-            last = back_pointer
-            back_pointer = back_pointer.next
-        if last != back_pointer:
-            last.next = back_pointer.next
-        else:
-            head = head.next
-        return head
-
-
-class ListNode(object):
+class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+
+# Definition for singly-linked list.
+class Solution(solution.Solution):
+    def solve(self, test_input=None):
+        nums0, n = test_input
+        head0 = list_to_linked_list(nums0)
+        res = self.removeNthFromEnd(head0, n)
+        return linked_list_to_list(res)
+
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        slow = dummy_head = ListNode(next=head)
+        fast = head
+        while fast and n:
+            fast = fast.next
+            n -= 1
+        while fast:
+            fast = fast.next
+            slow = slow.next
+        slow.next = slow.next.next
+        return dummy_head.next
