@@ -1,42 +1,33 @@
+from collections import deque
+
 import solution
-from object_libs import list_to_tree, list_to_tree_with_target
+from typing import *
+from object_libs import list_to_tree_with_target, list_to_tree, tree_to_list
+
+
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, target = test_input
-        root, target_node = list_to_tree_with_target(nums, target)
-        copy_root = list_to_tree(nums)
-        return self.getTargetCopy(root, copy_root, target_node).val
+        nums0, target_val = test_input
+        root0, target = list_to_tree_with_target(nums0, target_val)
+        cloned = list_to_tree(nums0)
+        res = self.getTargetCopy(root0, cloned, target)
+        return res.val
 
-    def getTargetCopy(self, original, cloned, target):
-        """
-        :type original: TreeNode
-        :type cloned: TreeNode
-        :type target: TreeNode
-        :rtype: TreeNode
-        """
-        nodes = [original]
-        nodes_ = [cloned]
-        while nodes:
-            next_nodes = []
-            next_nodes_ = []
-            for i in range(len(nodes)):
-                if nodes[i] == target:
-                    return nodes_[i]
-                if nodes[i].left:
-                    next_nodes.append(nodes[i].left)
-                    next_nodes_.append(nodes_[i].left)
-                if nodes[i].right:
-                    next_nodes.append(nodes[i].right)
-                    next_nodes_.append(nodes_[i].right)
-            nodes = next_nodes
-            nodes_ = next_nodes_
-        return None
-
-
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+    def getTargetCopy(self, original: TreeNode, cloned: TreeNode, target: TreeNode) -> TreeNode:
+        q = deque([(original, cloned)])
+        while q:
+            o, c = q.popleft()
+            if o == target:
+                return c
+            if o.left:
+                q.append((o.left, c.left))
+            if o.right:
+                q.append((o.right, c.right))
