@@ -12,15 +12,8 @@ class Solution(solution.Solution):
         :type target: int
         :rtype: List[int]
         """
-
-        # for i in range(len(nums)):
-        #     for j in range(i + 1, len(nums)):
-        #         if nums[i] + nums[j] == target:
-        #             return [i,j]
-
-        for i in range(len(nums)):
-            try:
-                j = list.index(nums, target - nums[i], i + 1)
-                return [i, j]
-            except:
-                continue
+        mp = dict()
+        for i, num in enumerate(nums):
+            if (t := target - num) in mp:
+                return [mp[t], i]
+            mp[num] = i
