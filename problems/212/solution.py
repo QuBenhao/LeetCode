@@ -1,8 +1,9 @@
 import solution
 from typing import *
 
-
 DIRS = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         return self.findWords(*test_input)
