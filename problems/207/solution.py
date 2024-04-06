@@ -12,20 +12,20 @@ class Solution(solution.Solution):
         :type prerequisites: List[List[int]]
         :rtype: bool
         """
-        # 我们只能从没有prerequire的课程开始
-        In = [0] * numCourses
-        connect = defaultdict(list)
-        for a, b in prerequisites:
-            connect[b].append(a)
-            In[a] += 1
-        q = deque([])
+        # 拓扑排序，我们只能从没有prerequire的课程开始
+        graph, q, degree = defaultdict(list), deque([]), [0] * numCourses
+        for u, v in prerequisites:
+            graph[u].append(v)
+            degree[v] += 1
         for i in range(numCourses):
-            if not In[i]:
+            if degree[i] == 0:
                 q.append(i)
+        explored = 0
         while q:
-            i = q.popleft()
-            for j in connect[i]:
-                In[j] -= 1
-                if not In[j]:
-                    q.append(j)
-        return all(not In[i] for i in range(numCourses))
+            course = q.popleft()
+            explored += 1
+            for nxt in graph[course]:
+                degree[nxt] -= 1
+                if degree[nxt] == 0:
+                    q.append(nxt)
+        return explored == numCourses
