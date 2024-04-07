@@ -1,6 +1,7 @@
 import solution
 from typing import *
 from object_libs import call_method
+from collections import defaultdict
 
 
 class Solution(solution.Solution):
@@ -8,6 +9,7 @@ class Solution(solution.Solution):
         ops, inputs = test_input
         obj = ThroneInheritance(*inputs[0])
         return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
+
 
 class ThroneInheritance:
 
@@ -28,9 +30,8 @@ class ThroneInheritance:
                 yield node
             for child in self.tree[node]:
                 yield from preorder(child)
-        
-        return list(preorder(self.root))
 
+        return list(preorder(self.root))
 
 # Your ThroneInheritance object will be instantiated and called as such:
 # obj = ThroneInheritance(kingName)
