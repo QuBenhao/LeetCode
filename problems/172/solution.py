@@ -7,4 +7,8 @@ class Solution(solution.Solution):
         return self.trailingZeroes(test_input)
 
     def trailingZeroes(self, n: int) -> int:
-            pass
+        ans = 0
+        while n:
+            n //= 5
+            ans += n
+        return ans
