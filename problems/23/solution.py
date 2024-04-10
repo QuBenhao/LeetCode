@@ -1,61 +1,34 @@
 import solution
-from object_libs import linked_list_to_list, list_to_linked_list
+from typing import *
+from object_libs import list_to_linked_list, linked_list_to_list
+import heapq
 
 
-class Solution(solution.Solution):
-    def solve(self, test_input=None):
-        head_list = []
-        for nums in test_input:
-            head_list.append(list_to_linked_list(nums))
-        head = self.mergeKLists(head_list)
-        return linked_list_to_list(head)
-
-    def mergeKLists(self, lists):
-        """
-        :type lists: List[ListNode]
-        :rtype: ListNode
-        """
-
-        head = ListNode(0)
-        curr = []
-        for node in lists:
-            if node:
-                curr.append(node)
-        if not curr:
-            return None
-        curr.sort(key=lambda x: -x.val)
-        c = head
-        while curr:
-            node = curr.pop()
-            c.next = node
-            c = c.next
-            node = node.next
-            if node:
-                curr.append(node)
-                curr.sort(key=lambda x: -x.val)
-        return head.next
-
-        # # Python 3.9
-        # from heapq import heappush, heappop
-        # head = ListNode(0)
-        # curr = []
-        # for node in lists:
-        #     if node:
-        #         heappush(curr, (node.val, node))
-        # if not curr:
-        #     return None
-        # c = head
-        # while curr:
-        #     _, node = heappop(curr)
-        #     c.next = node
-        #     c = c.next
-        #     node = node.next
-        #     if node:
-        #         heappush(curr, (node.val, node))
-        # return head.next
-
-
-class ListNode(object):
+class ListNode:
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
+
+
+# Definition for singly-linked list.
+class Solution(solution.Solution):
+    def solve(self, test_input=None):
+        nums_arr = test_input
+        heads = [list_to_linked_list(nums) for nums in nums_arr]
+        res = self.mergeKLists(heads)
+        return linked_list_to_list(res)
+
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        dummy, pq = ListNode(0), []
+        node = dummy
+        for i, head in enumerate(lists):
+            if head:
+                heapq.heappush(pq, (head.val, i))
+        while pq:
+            v, idx = heapq.heappop(pq)
+            if lists[idx].next:
+                lists[idx] = lists[idx].next
+                heapq.heappush(pq, (lists[idx].val, idx))
+            node.next = ListNode(v)
+            node = node.next
+        return dummy.next
