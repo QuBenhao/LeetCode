@@ -6,7 +6,17 @@ from importlib.util import spec_from_file_location, module_from_spec
 
 
 def write_problem_md(question_id: str, question_name: str, desc: str) -> str:
-    return "# {}. {}\n\n{}".format(question_id, question_name, desc)
+    check = False
+    formated = []
+    for line in desc.split("\n"):
+        if "<ul>" in line:
+            check = True
+        elif "</ul>" in line:
+            check = False
+        elif check and len(line) == 0:
+            continue
+        formated.append(line)
+    return "# {}. {}\n\n{}".format(question_id, question_name, "\n".join(formated))
 
 
 def write_testcase(testcases, outputs) -> str:
