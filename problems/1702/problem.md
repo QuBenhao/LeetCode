@@ -1,75 +1,48 @@
 # 1702. Maximum Binary String After Change
 
-You are given a binary string `binary` consisting of only `0`'s or `1`'s. You can apply each of the following operations any number of times:
+<p>You are given a binary string <code>binary</code> consisting of only <code>0</code>&#39;s or <code>1</code>&#39;s. You can apply each of the following operations any number of times:</p>
 
-- Operation 1: If the number contains the substring
+<ul>
+	<li>Operation 1: If the number contains the substring <code>&quot;00&quot;</code>, you can replace it with <code>&quot;10&quot;</code>.
+	<ul>
+		<li>For example, <code>&quot;<u>00</u>010&quot; -&gt; &quot;<u>10</u>010</code>&quot;</li>
+	</ul>
+	</li>
+	<li>Operation 2: If the number contains the substring <code>&quot;10&quot;</code>, you can replace it with <code>&quot;01&quot;</code>.
+	<ul>
+		<li>For example, <code>&quot;000<u>10</u>&quot; -&gt; &quot;000<u>01</u>&quot;</code></li>
+	</ul>
+	</li>
+</ul>
 
-   
+<p><em>Return the <strong>maximum binary string</strong> you can obtain after any number of operations. Binary string <code>x</code> is greater than binary string <code>y</code> if <code>x</code>&#39;s decimal representation is greater than <code>y</code>&#39;s decimal representation.</em></p>
 
-  ```
-  "00"
-  ```
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-  , you can replace it with
+<pre>
+<strong>Input:</strong> binary = &quot;000110&quot;
+<strong>Output:</strong> &quot;111011&quot;
+<strong>Explanation:</strong> A valid transformation sequence can be:
+&quot;0001<u>10</u>&quot; -&gt; &quot;0001<u>01</u>&quot; 
+&quot;<u>00</u>0101&quot; -&gt; &quot;<u>10</u>0101&quot; 
+&quot;1<u>00</u>101&quot; -&gt; &quot;1<u>10</u>101&quot; 
+&quot;110<u>10</u>1&quot; -&gt; &quot;110<u>01</u>1&quot; 
+&quot;11<u>00</u>11&quot; -&gt; &quot;11<u>10</u>11&quot;
+</pre>
 
-   
+<p><strong class="example">Example 2:</strong></p>
 
-  ```
-  "10"
-  ```
+<pre>
+<strong>Input:</strong> binary = &quot;01&quot;
+<strong>Output:</strong> &quot;01&quot;
+<strong>Explanation:</strong>&nbsp;&quot;01&quot; cannot be transformed any further.
+</pre>
 
-  .
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-  - For example, `"00010" -> "10010`"
-
-- Operation 2: If the number contains the substring
-
-   
-
-  ```
-  "10"
-  ```
-
-  , you can replace it with
-
-   
-
-  ```
-  "01"
-  ```
-
-  .
-
-  - For example, `"00010" -> "00001"`
-
-*Return the **maximum binary string** you can obtain after any number of operations. Binary string `x` is greater than binary string `y` if `x`'s decimal representation is greater than `y`'s decimal representation.*
-
- 
-
-**Example 1:**
-
-```
-Input: binary = "000110"
-Output: "111011"
-Explanation: A valid transformation sequence can be:
-"000110" -> "000101" 
-"000101" -> "100101" 
-"100101" -> "110101" 
-"110101" -> "110011" 
-"110011" -> "111011"
-```
-
-**Example 2:**
-
-```
-Input: binary = "01"
-Output: "01"
-Explanation: "01" cannot be transformed any further.
-```
-
- 
-
-**Constraints:**
-
-- `1 <= binary.length <= 105`
-- `binary` consist of `'0'` and `'1'`.
+<ul>
+	<li><code>1 &lt;= binary.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>binary</code> consist of <code>&#39;0&#39;</code> and <code>&#39;1&#39;</code>.</li>
+</ul>
