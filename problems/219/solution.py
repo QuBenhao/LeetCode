@@ -7,4 +7,11 @@ class Solution(solution.Solution):
         return self.containsNearbyDuplicate(*test_input)
 
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-            pass
+        window = set()
+        for i, num in enumerate(nums):
+            if num in window:
+                return True
+            window.add(num)
+            if i >= k:
+                window.remove(nums[i - k])
+        return False
