@@ -63,28 +63,67 @@ def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=
     return ans
 
 
-def check_accepted_submission_all(user_slug: str, question_frontend_ids):
-    ans = dict()
+def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp=None):
+    if min_timestamp is None:
+        min_timestamp = (cur_time := time.time() - time.timezone) - cur_time % 86400 + time.timezone
+    page_no, page_size = 0, 20
+    ans = defaultdict(list)
     try:
+        query = {"operationName": "userProfileQuestions",
+                 "variables": {"status": "ACCEPTED", "skip": page_no * page_size, "first": page_size,
+                               "sortField": "LAST_SUBMITTED_AT", "sortOrder": "DESCENDING",
+                               "difficulty": []},
+                 "query": "query userProfileQuestions($status: StatusFilterEnum!, $skip: Int!, "
+                          "$first: Int!, $sortField: SortFieldEnum!, $sortOrder: SortingOrderEnum!,"
+                          " $keyword: String, $difficulty: [DifficultyEnum!]) {\n  "
+                          "userProfileQuestions(status: $status, skip: $skip, first: $first, "
+                          "sortField: $sortField, sortOrder: $sortOrder, keyword: $keyword, "
+                          "difficulty: $difficulty) {\n    totalNum\n    questions {\n      "
+                          "translatedTitle\n      frontendId\n      titleSlug\n      title\n      "
+                          "difficulty\n      lastSubmittedAt\n      numSubmitted\n      "
+                          "lastSubmissionSrc {\n        sourceType\n        "
+                          "... on SubmissionSrcLeetbookNode {\n          slug\n          title\n   "
+                          "       pageId\n          __typename\n        }\n        __typename\n    "
+                          "  }\n      __typename\n    }\n    __typename\n  }\n}\n"}
         result = requests.post('https://leetcode.cn/graphql/',
-                               json={"operationName": "userProfileQuestions",
-                                     "variables": {"status": "ACCEPTED", "skip": 0, "first": 20,
-                                                   "sortField": "LAST_SUBMITTED_AT", "sortOrder": "DESCENDING",
-                                                   "difficulty": []},
-                                     "query": "query userProfileQuestions($status: StatusFilterEnum!, $skip: Int!, "
-                                              "$first: Int!, $sortField: SortFieldEnum!, $sortOrder: SortingOrderEnum!,"
-                                              " $keyword: String, $difficulty: [DifficultyEnum!]) {\n  "
-                                              "userProfileQuestions(status: $status, skip: $skip, first: $first, "
-                                              "sortField: $sortField, sortOrder: $sortOrder, keyword: $keyword, "
-                                              "difficulty: $difficulty) {\n    totalNum\n    questions {\n      "
-                                              "translatedTitle\n      frontendId\n      titleSlug\n      title\n      "
-                                              "difficulty\n      lastSubmittedAt\n      numSubmitted\n      "
-                                              "lastSubmissionSrc {\n        sourceType\n        "
-                                              "... on SubmissionSrcLeetbookNode {\n          slug\n          title\n   "
-                                              "       pageId\n          __typename\n        }\n        __typename\n    "
-                                              "  }\n      __typename\n    }\n    __typename\n  }\n}\n"}
-                               )
-        # TODO:
+                               json=query,
+                               cookies={"cookie": cookie})
+        result_dict = json.loads(result.text)['data']['userProfileQuestions']
+        if result_dict:
+            questions = result_dict['questions']
+            while questions and questions[-1]["lastSubmittedAt"] >= min_timestamp and (
+                    not max_timestamp or questions[-1]["lastSubmittedAt"] < max_timestamp):
+                page_no += 1
+                query["variables"]["skip"] = page_no * page_size
+                result = requests.post('https://leetcode.cn/graphql/',
+                                       json=query,
+                                       cookies={"cookie": cookie})
+                result_dict = json.loads(result.text)['data']['userProfileQuestions']
+                questions.extend(result_dict['questions'])
+            while questions and questions[-1]["lastSubmittedAt"] < min_timestamp or (
+                    max_timestamp is not None and questions[-1]["lastSubmittedAt"] >= max_timestamp):
+                questions.pop()
+            for question_submit_info in questions:
+                result = requests.post("https://leetcode.cn/graphql/",
+                                       json={"operationName": "progressSubmissions",
+                                             "variables": {"offset": 0, "limit": 10,
+                                                           "questionSlug": question_submit_info["titleSlug"], },
+                                             "query": "query progressSubmissions($offset: Int, $limit: Int, $lastKey: "
+                                                      "String, $questionSlug: String) {\n  submissionList(offset: "
+                                                      "$offset, limit: $limit, lastKey: $lastKey, questionSlug: "
+                                                      "$questionSlug) {\n    lastKey\n    hasNext\n    submissions {\n"
+                                                      "      id\n      timestamp\n      url\n      lang\n      "
+                                                      "runtime\n      __typename\n    }\n    __typename\n  }\n}\n"},
+                                       cookies={"cookie": cookie})
+                result_dict = json.loads(result.text)["data"]["submissionList"]
+                for submit in result_dict["submissions"]:
+                    t = int(submit['timestamp'])
+                    if t < min_timestamp:
+                        break
+                    print(submit)
+                    if not max_timestamp or t < max_timestamp:
+                        ans[question_submit_info["frontendId"]].append(
+                            (submit["id"], question_submit_info["titleSlug"]))
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()
