@@ -7,4 +7,7 @@ class Solution(solution.Solution):
         return self.findChampion(test_input)
 
     def findChampion(self, grid: List[List[int]]) -> int:
-            pass
+        for i, row in enumerate(grid):
+            if all(i == j or v == 1 for j, v in enumerate(row)):
+                return i
+        return -1
