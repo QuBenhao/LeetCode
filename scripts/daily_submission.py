@@ -6,18 +6,16 @@ from importlib.util import spec_from_file_location, module_from_spec
 from typing import Optional
 
 from dotenv import load_dotenv
-from pypushdeer import PushDeer
-
 from daily_auto import write_question
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lc_libs import check_user_exist, get_daily_question, check_accepted_submission, check_accepted_submission_all, get_submission_detail, \
     write_solution, get_user_study_plans, get_user_study_plan_progress, get_question_code, get_question_info
 from constants import constant
-from utils import get_default_folder
+from utils import get_default_folder, send_text_message
 
 
-def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key: Optional[str] = None):
+def main(problem_folder: str, user_slug: str, cookie: Optional[str]):
     try:
         if not check_user_exist(user_slug):
             print(f"User not exist: {user_slug}")
@@ -33,11 +31,9 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], notify_key:
         if cookie:
             plans = get_user_study_plans(cookie)
             if plans is None:
-                if notify_key:
-                    push_deer = PushDeer()
-                    push_deer.send_text("The LeetCode in GitHub secrets might be expired, please check!",
-                                        desp="Currently might not be able to fetch submission.",
-                                        pushkey=notify_key)
+                if not send_text_message("The LeetCode in GitHub secrets might be expired, please check!",
+                                            "Currently might not be able to fetch submission."):
+                    print("Unable to send PushDeer notification!")
                 print("The LeetCode cookie might be expired!")
             elif plans:
                 for plan_slug in plans:
@@ -177,8 +173,7 @@ if __name__ == '__main__':
         print(f"Load Env exception, {e}")
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
-    push_key = os.getenv(constant.PUSH_KEY)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
 
-    exec_res = main(pf, args.user, cke, push_key)
+    exec_res = main(pf, args.user, cke)
     sys.exit(exec_res)

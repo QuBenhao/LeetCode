@@ -4,12 +4,11 @@ import traceback
 from typing import Optional
 
 from dotenv import load_dotenv
-from pypushdeer import PushDeer
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from lc_libs import *
 from constants import constant
-from utils import get_default_folder
+from utils import get_default_folder, send_text_message
 
 
 def write_question(dir_path, question_id: str, question_name: str, slug: str):
@@ -50,13 +49,12 @@ def process_daily(problem_folder: str):
             f.write(line)
 
 
-def process_plans(problem_folder: str, cookie: str, notify_key: str | None):
+def process_plans(problem_folder: str, cookie: str):
     plans = get_user_study_plans(cookie)
     if plans is None:
-        if notify_key:
-            push_deer = PushDeer()
-            push_deer.send_text("The LeetCode in GitHub secrets might be expired, please check!",
-                                desp="Currently not be able to load user study plan, skip.", pushkey=notify_key)
+        if not send_text_message("The LeetCode in GitHub secrets might be expired, please check!",
+                                 "Currently not be able to load user study plan, skip."):
+            print("Unable to send PushDeer notification!")
         print("The LeetCode cookie might be expired, unable to check study plans!")
         return
     problem_ids = []
@@ -86,11 +84,11 @@ def process_plans(problem_folder: str, cookie: str, notify_key: str | None):
                 f.write(line)
 
 
-def main(problem_folder: str, cookie: Optional[str] = None, notify_key: Optional[str] = None):
+def main(problem_folder: str, cookie: Optional[str] = None):
     try:
         process_daily(problem_folder)
         if cookie is not None and len(cookie) > 0:
-            process_plans(problem_folder, cookie, notify_key)
+            process_plans(problem_folder, cookie)
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()
@@ -105,7 +103,6 @@ if __name__ == '__main__':
         print(f"Load Env exception, {e}")
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
-    push_key = os.getenv(constant.PUSH_KEY)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
-    exec_res = main(pf, cke, push_key)
+    exec_res = main(pf, cke)
     sys.exit(exec_res)
