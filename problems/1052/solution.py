@@ -7,4 +7,16 @@ class Solution(solution.Solution):
         return self.maxSatisfied(*test_input)
 
     def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
-                pass
+        total = cur = ans = 0
+        for i, (c, g) in enumerate(zip(customers, grumpy)):
+            if g:
+                cur += c
+            else:
+                total += c
+            if i >= minutes:
+                if grumpy[i - minutes]:
+                    cur -= customers[i - minutes]
+                ans = max(ans, cur)
+            else:
+                ans = cur
+        return ans + total
