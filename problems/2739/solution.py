@@ -7,4 +7,4 @@ class Solution(solution.Solution):
         return self.distanceTraveled(*test_input)
 
     def distanceTraveled(self, mainTank: int, additionalTank: int) -> int:
-            pass
+        return (mainTank + min((mainTank - 1) // 4, additionalTank)) * 10

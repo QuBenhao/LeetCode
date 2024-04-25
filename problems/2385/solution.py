@@ -2,11 +2,13 @@ import solution
 from typing import *
 from object_libs import list_to_tree
 
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
+
 
 # Definition for a binary tree node.
 class Solution(solution.Solution):
@@ -17,6 +19,7 @@ class Solution(solution.Solution):
 
     def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:
         ans = 0
+
         def dfs(node: Optional[TreeNode]) -> (int, bool):
             if node is None:
                 return 0, False
@@ -34,5 +37,6 @@ class Solution(solution.Solution):
                 # 保证 start 是直径端点
                 return (l_len if l_found else r_len) + 1, True
             return max(l_len, r_len) + 1, False
+
         dfs(root)
         return ans
