@@ -7,4 +7,4 @@ class Solution(solution.Solution):
         return self.findColumnWidth(test_input)
 
     def findColumnWidth(self, grid: List[List[int]]) -> List[int]:
-            pass
+        return [len(str(max(max(col), -10 * min(col)))) for col in zip(*grid)]
