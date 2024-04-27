@@ -1,3 +1,5 @@
+import bisect
+
 import solution
 from typing import *
 from object_libs import call_method
@@ -12,20 +14,19 @@ class Solution(solution.Solution):
 class SnapshotArray:
 
     def __init__(self, length: int):
-        pass
-
+        self.snap_id = 0
+        self.history = [[] for _ in range(length)]
 
     def set(self, index: int, val: int) -> None:
-            pass
-
+        self.history[index].append((self.snap_id, val))
 
     def snap(self) -> int:
-        pass
-
+        self.snap_id += 1
+        return self.snap_id - 1
 
     def get(self, index: int, snap_id: int) -> int:
-            pass
-
+        idx = bisect.bisect_left(self.history[index], (snap_id + 1, )) - 1
+        return self.history[index][idx][1] if idx >= 0 else 0
 
 
 # Your SnapshotArray object will be instantiated and called as such:
