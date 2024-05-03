@@ -7,4 +7,4 @@ class Solution(solution.Solution):
         return self.average(test_input)
 
     def average(self, salary: List[int]) -> float:
-            pass
+        return (sum(salary) - min(salary) - max(salary)) / (len(salary) - 2)
