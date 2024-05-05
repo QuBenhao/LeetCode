@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 import traceback
@@ -11,7 +12,7 @@ from python.constants import constant
 from python.utils import get_default_folder, send_text_message
 
 
-def write_question(dir_path, question_id: str, question_name: str, slug: str):
+def write_question(dir_path, question_id: str, question_name: str, slug: str, languages: list[str] = None):
     desc = get_question_desc(slug)
     if desc is not None:
         with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
@@ -20,18 +21,23 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str):
         if testcases is not None:
             outputs = extract_outputs_from_md(desc)
             print(f"question_id: {question_id}, outputs: {outputs}")
-            with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
-                f.write(write_testcase(testcases, outputs))
+            if not languages or "python3" in languages:
+                with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
+                    f.write(write_testcase(testcases, outputs))
             with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
                 f.writelines([testcase_str, str(outputs)])
-    code = get_question_code(slug)
-    if code is not None:
-        with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-            f.write(write_solution(code))
+    for language in languages:
+        if language == "python3":
+            code = get_question_code(slug)["python3"]
+            if code is not None:
+                with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
+                    f.write(write_solution(code))
+        else:
+            pass
     print(f"Add question: [{question_id}]{slug}")
 
 
-def process_daily(problem_folder: str):
+def process_daily(problem_folder: str, languages: list[str]):
     daily_info = get_daily_question()
     if not daily_info:
         return 1
@@ -39,9 +45,13 @@ def process_daily(problem_folder: str):
     dir_path = os.path.join(root_path, problem_folder, daily_info['questionId'])
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
-        write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'])
+        write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'], languages)
     else:
         print("solved {} before".format(daily_info['questionId']))
+        if languages is not None and any(lang != "python3" for lang in languages):
+            if "python3" in languages:
+                languages.remove("python3")
+            write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'], languages)
     with open(f"{root_path}/test.py", "r", encoding="utf-8") as f:
         lines = f.readlines()
     with open(f"{root_path}/test.py", "w", encoding="utf-8") as f:
@@ -86,9 +96,9 @@ def process_plans(problem_folder: str, cookie: str):
                 f.write(line)
 
 
-def main(problem_folder: str, cookie: Optional[str] = None):
+def main(problem_folder: str, cookie: Optional[str] = None, languages: list[str] = None):
     try:
-        process_daily(problem_folder)
+        process_daily(problem_folder, languages)
         if cookie is not None and len(cookie) > 0:
             process_plans(problem_folder, cookie)
     except Exception as e:
@@ -106,5 +116,6 @@ if __name__ == '__main__':
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
-    exec_res = main(pf, cke)
+    langs = json.loads(os.getenv(constant.LANGUAGES, ["python3"]))
+    exec_res = main(pf, cke, langs)
     sys.exit(exec_res)

@@ -3,7 +3,7 @@ import traceback
 import requests
 import markdown
 import html2text
-from typing import Optional
+from typing import Optional, Mapping
 
 CATEGORY_SLUG = {"all-code-essentials","algorithms", "database"}
 LANGUAGE_SLUG = {"python3", "mysql"}
@@ -114,8 +114,10 @@ def extract_outputs_from_md(markdown_text: str) -> list:
     return res
 
 
-def get_question_code(slug: str, lang_slug: str = "python3", cookie: Optional[str] = None) -> Optional[str]:
+def get_question_code(slug: str, lang_slugs: list[str] = None, cookie: Optional[str] = None) -> Optional[Mapping[str, str]]:
     try:
+        if lang_slugs is None:
+            lang_slugs = ["python3"]
         result = requests.post("https://leetcode.cn/graphql",
                                json={
                                    "query": "\n    query questionEditorData($titleSlug: String!) {\n  "
@@ -128,10 +130,11 @@ def get_question_code(slug: str, lang_slug: str = "python3", cookie: Optional[st
                                cookies={'cookie': cookie} if cookie else None)
         res_dict = json.loads(result.text)
         code_snippets = res_dict['data']['question']['codeSnippets']
+        ans = dict()
         for cs in code_snippets:
-            if cs["langSlug"] == lang_slug:
-                return cs["code"]
-        return None
+            if cs["langSlug"] in lang_slugs:
+                ans[cs["langSlug"]] = cs["code"]
+        return ans
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()

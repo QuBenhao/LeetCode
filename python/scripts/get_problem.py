@@ -37,7 +37,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
     if desc is None:
         print(f"Unable to fetch question content, [{problem_id}]{problem_slug}", file=file)
         return
-    code = get_question_code(problem_slug, cookie=cookie)
+    code = get_question_code(problem_slug, cookie=cookie)["python3"]
     if code is None:
         print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}", file=file)
         shutil.rmtree(dir_path)
@@ -70,7 +70,7 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
         return
     with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
         f.write(write_problem_md(problem_id, problem_title, desc))
-    code = get_question_code(problem_slug, "mysql", cookie=cookie)
+    code = get_question_code(problem_slug, ["mysql"], cookie=cookie)["mysql"]
     if code is None:
         print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}", file=file)
         shutil.rmtree(dir_path)

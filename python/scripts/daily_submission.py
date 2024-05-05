@@ -103,7 +103,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str]):
                     code = detail["code"]
                     sol_path = os.path.join(str(dir_path), "solution.py")
                     if not os.path.exists(sol_path):
-                        template = get_question_code(question_slug)
+                        template = get_question_code(question_slug)["python3"]
                         if template is not None:
                             with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
                                 f.write(write_solution(template))
