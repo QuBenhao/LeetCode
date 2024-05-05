@@ -138,7 +138,7 @@ def get_question_code(slug: str, lang_slug: str = "python3", cookie: Optional[st
         return None
 
 
-def get_question_testcases(slug: str, lang_slug: str = "python3") -> Optional[list]:
+def get_question_testcases(slug: str, lang_slug: str = "python3") -> tuple[Optional[list], str]:
     try:
         result = requests.post("https://leetcode.cn/graphql",
                                json={"query": "\n    query consolePanelConfig($titleSlug: String!) {\n"
@@ -150,7 +150,8 @@ def get_question_testcases(slug: str, lang_slug: str = "python3") -> Optional[li
                                      "operationName": "consolePanelConfig"})
         res_dict = json.loads(result.text)
         ans = []
-        json_testcase = json.loads(res_dict["data"]["question"]["jsonExampleTestcases"])
+        origin_data = res_dict["data"]["question"]["jsonExampleTestcases"]
+        json_testcase = json.loads(origin_data)
         for item in json_testcase:
             if lang_slug == "python3":
                 input_strs = item.replace("null", "None").split("\n")
@@ -167,11 +168,11 @@ def get_question_testcases(slug: str, lang_slug: str = "python3") -> Optional[li
                 ans.append(item)
             else:
                 print("Unsupported language")
-        return ans
+        return ans, origin_data
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()
-        return None
+        return None, ""
 
 
 def get_questions_by_key_word(keyword: Optional[str],

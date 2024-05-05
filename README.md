@@ -17,7 +17,7 @@ install requirements:
 pip install -r requirements
 ```
 
-And then, **change QUESTION id in [test.py](./test.py)**, and try:
+And then, **change QUESTION id in [test.py](python/test.py)**, and try:
 ```shell
 python3 ./test.py
 ```

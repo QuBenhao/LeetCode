@@ -9,10 +9,10 @@ from dotenv import load_dotenv
 from daily_auto import write_question
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from lc_libs import check_user_exist, get_daily_question, check_accepted_submission, check_accepted_submission_all, get_submission_detail, \
+from python.lc_libs import check_user_exist, get_daily_question, check_accepted_submission, check_accepted_submission_all, get_submission_detail, \
     write_solution, get_user_study_plans, get_user_study_plan_progress, get_question_code, get_question_info
-from constants import constant
-from utils import get_default_folder, send_text_message
+from python.constants import constant
+from python.utils import get_default_folder, send_text_message
 
 
 def main(problem_folder: str, user_slug: str, cookie: Optional[str]):

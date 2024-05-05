@@ -1,4 +1,3 @@
-import os
 import argparse
 import os
 import sys
@@ -10,13 +9,13 @@ from typing import Optional
 from dotenv import load_dotenv
 from pypushdeer import PushDeer
 
-from scripts.daily_auto import write_question
+from python.scripts.daily_auto import write_question
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from lc_libs import check_user_exist, check_accepted_submission, get_submission_detail, \
+from python.lc_libs import check_user_exist, check_accepted_submission, get_submission_detail, \
     write_solution, get_user_study_plans, get_user_study_plan_progress, get_question_code, get_question_info, get_questions_by_key_word
-from constants import constant
-from utils import get_default_folder
+from python.constants import constant
+from python.utils import get_default_folder
 
 
 def get_timestamp_days_ago(days):

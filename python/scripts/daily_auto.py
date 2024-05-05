@@ -6,9 +6,9 @@ from typing import Optional
 from dotenv import load_dotenv
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from lc_libs import *
-from constants import constant
-from utils import get_default_folder, send_text_message
+from python.lc_libs import *
+from python.constants import constant
+from python.utils import get_default_folder, send_text_message
 
 
 def write_question(dir_path, question_id: str, question_name: str, slug: str):
@@ -16,7 +16,7 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str):
     if desc is not None:
         with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
             f.write(write_problem_md(question_id, question_name, desc))
-        testcases = get_question_testcases(slug)
+        testcases = get_question_testcases(slug)[0]
         if testcases is not None:
             outputs = extract_outputs_from_md(desc)
             print(f"question_id: {question_id}, outputs: {outputs}")

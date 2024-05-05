@@ -1,4 +1,5 @@
 import argparse
+import json
 import os
 import random
 import shutil
@@ -9,10 +10,10 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
-from constants import constant
-from lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
+from python.constants import constant
+from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
     get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution
-from utils import get_default_folder
+from python.utils import get_default_folder
 
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False, file=None):
@@ -43,7 +44,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         return
     outputs = extract_outputs_from_md(desc)
     print(f"question_id: {problem_id}, outputs: {outputs}", file=file)
-    testcases = get_question_testcases(problem_slug)
+    testcases = get_question_testcases(problem_slug)[0]
     if testcases is None:
         print(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}", file=file)
         return
@@ -74,7 +75,7 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
         return
     with open(f"{dir_path}/solution.sql", "w", encoding="utf-8") as f:
         f.writelines(code)
-    testcases = get_question_testcases(problem_slug, "mysql")
+    testcases = get_question_testcases(problem_slug, "mysql")[0]
     if testcases is None:
         print(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}", file=file)
         return

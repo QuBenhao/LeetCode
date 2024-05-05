@@ -2,7 +2,7 @@ import solution
 from itertools import accumulate
 from random import randint
 from bisect import bisect_left
-from object_libs import call_method
+from python.object_libs import call_method
 
 
 class Solution(solution.Solution):

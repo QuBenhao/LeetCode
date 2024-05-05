@@ -1,6 +1,6 @@
 import sys
 
-from lc_libs import write_solution
+from python.lc_libs import write_solution
 
 default_test_list = [
     "class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:",

@@ -1,6 +1,5 @@
 import solution
-from typing import *
-from object_libs import list_to_linked_list, call_method
+from python.object_libs import list_to_linked_list, call_method
 import random
 
 

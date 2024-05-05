@@ -1,6 +1,4 @@
 import solution
-from typing import *
-from object_libs import call_method
 
 
 class Solution(solution.Solution):

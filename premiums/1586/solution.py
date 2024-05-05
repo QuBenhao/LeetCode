@@ -1,6 +1,6 @@
 import solution
 from typing import *
-from object_libs import call_method, list_to_tree
+from python.object_libs import call_method, list_to_tree
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):

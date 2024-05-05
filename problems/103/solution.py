@@ -1,6 +1,6 @@
 import solution
 from typing import *
-from object_libs import list_to_tree
+from python.object_libs import list_to_tree
 from collections import deque
 
 

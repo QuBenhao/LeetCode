@@ -1,6 +1,6 @@
 import solution
 from typing import *
-from object_libs import list_to_tree_with_target
+from python.object_libs import list_to_tree_with_target
 
 
 # Definition for a binary tree node.

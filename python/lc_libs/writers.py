@@ -163,7 +163,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
             class_name, methods = "", []
             for k, v in cs_map.items():
                 class_name, methods = k, v
-            top[0] = top[0] + "from object_libs import call_method\n"
+            top[0] = top[0] + "from python.object_libs import call_method\n"
             init_params = ""
             for method in methods:
                 if method[0] == "__init__":
@@ -210,7 +210,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                         inputs += ", "
                     if "TreeNode" in str(v.annotation):
                         exists = True
-                        add_lib = "from object_libs import list_to_tree"
+                        add_lib = "from python.object_libs import list_to_tree"
                         if "List[" in str(v.annotation):
                             process_input += "nums_arr"
                             remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
@@ -222,7 +222,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                             idx += 1
                     elif "ListNode" in str(v.annotation):
                         exists = True
-                        add_lib = "from object_libs import list_to_linked_list"
+                        add_lib = "from python.object_libs import list_to_linked_list"
                         if "List[" in str(v.annotation):
                             process_input += "nums_arr"
                             remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
@@ -241,7 +241,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                     process_input += " = test_input\n"
 
                 if "TreeNode" in str(return_anno):
-                    add_lib += ", tree_to_list" if exists else "from object_libs import tree_to_list"
+                    add_lib += ", tree_to_list" if exists else "from python.object_libs import tree_to_list"
                     if "List[" in str(return_anno):
                         remain += ("        res = self.{}({})\n        return [tree_to_list(root) for root in res]"
                                    .format(methods[0][0],inputs))
@@ -249,7 +249,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                         remain += ("        res = self.{}({})\n        return tree_to_list(res)"
                                    .format(methods[0][0],inputs))
                 elif "ListNode" in str(return_anno):
-                    add_lib += ", linked_list_to_list" if exists else "from object_libs import linked_list_to_list"
+                    add_lib += ", linked_list_to_list" if exists else "from python.object_libs import linked_list_to_list"
                     if "List[" in str(return_anno):
                         remain += ("res = self.{}({})\n        return [linked_list_to_list(head) for head in "
                                    "res]").format(methods[0][0],inputs)
@@ -265,7 +265,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
 
                 process_input += remain
         else:
-            top[0] = top[0] + "from object_libs import call_method"
+            top[0] = top[0] + "from python.object_libs import call_method"
             if "TreeNode" in cs_map:
                 top[0] += ", list_to_tree"
                 cs_map.pop("TreeNode")

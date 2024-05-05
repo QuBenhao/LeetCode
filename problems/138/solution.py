@@ -1,6 +1,5 @@
 import solution
-from typing import *
-from object_libs import list_to_linked_random_list, linked_random_list_to_list
+from python.object_libs import list_to_linked_random_list, linked_random_list_to_list
 
 
 # Definition for a Node.
