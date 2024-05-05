@@ -6,7 +6,7 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from python.lc_libs import *
 from python.constants import constant
 from python.utils import get_default_folder, send_text_message
@@ -72,7 +72,7 @@ def process_daily(problem_folder: str, languages: list[str]):
                 with open(f"{root_path}/golang/solution_test.go", "r", encoding="utf-8") as f:
                     for line in f.readlines():
                         if "problem \"leetCode/problems/" in line:
-                            lines.append("problem \"leetCode/problems/{}\"\n".format(daily_info['questionId']))
+                            lines.append("\tproblem \"leetCode/problems/{}\"\n".format(daily_info['questionId']))
                         elif "var problemId string =" in line:
                             lines.append("var problemId string = \"{}\"\n".format(daily_info['questionId']))
                         else:

@@ -10,6 +10,7 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from python.constants import constant
 from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
     get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution_python
