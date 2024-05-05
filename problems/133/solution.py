@@ -1,6 +1,6 @@
 import solution
 from typing import *
-from object_libs import list_relation_to_node_neigh, node_neigh_to_list_relation
+from python.object_libs import list_relation_to_node_neigh, node_neigh_to_list_relation
 
 
 # Definition for a Node.

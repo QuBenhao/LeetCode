@@ -1,5 +1,5 @@
 import solution
-from object_libs import list_to_linked_list_intersection
+from python.object_libs import list_to_linked_list_intersection
 
 
 class Solution(solution.Solution):

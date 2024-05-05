@@ -22,7 +22,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements
+        pip install -r python/requirements
 
     - name: Run script
       env:
@@ -30,7 +30,7 @@ jobs:
         PUSH_KEY: ${{ secrets.PUSH_KEY }}
         PROBLEM_FOLDER: ${{ secrets.PROBLEM_FOLDER }}
       run:  |
-        python scripts/daily_submission.py --user ${{ secrets.USER }} > /tmp/msg
+        python python/scripts/daily_submission.py --user ${{ secrets.USER }} > /tmp/msg
         status=$?
         cat /tmp/msg
         exit $status

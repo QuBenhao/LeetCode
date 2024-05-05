@@ -1,5 +1,5 @@
 import solution
-from object_libs import list_to_tree
+from python.object_libs import list_to_tree
 
 
 class Solution(solution.Solution):

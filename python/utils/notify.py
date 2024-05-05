@@ -1,10 +1,13 @@
 import os
+import sys
 import traceback
 from typing import Optional
 
 from dotenv import load_dotenv
 from pypushdeer import PushDeer
-from constants import constant
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from python.constants import constant
 
 
 def send_text_message(msg: str, description: Optional[str] = None, server: Optional[str] = None,

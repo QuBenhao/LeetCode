@@ -5,9 +5,9 @@ import sys
 
 from dotenv import load_dotenv
 
-from constants import constant
-from lc_libs.submission import check_accepted_submission_all
-from utils import get_default_folder
+from python.constants import constant
+from python.lc_libs.submission import check_accepted_submission_all
+from python.utils import get_default_folder
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

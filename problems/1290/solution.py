@@ -1,5 +1,5 @@
 import solution
-from object_libs import list_to_linked_list
+from python.object_libs import list_to_linked_list
 
 
 class Solution(solution.Solution):

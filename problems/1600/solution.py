@@ -1,6 +1,6 @@
 import solution
 from typing import *
-from object_libs import call_method
+from python.object_libs import call_method
 from collections import defaultdict
 
 

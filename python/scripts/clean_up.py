@@ -5,7 +5,7 @@ import shutil
 
 
 def main(folder: str, force: bool = False) -> None:
-    root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     dir_path = os.path.join(root_path, folder)
     for root, dirs, files in os.walk(dir_path):
         for name in dirs:

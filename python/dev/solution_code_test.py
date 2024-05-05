@@ -1,6 +1,6 @@
 import sys
 
-from lc_libs import write_solution
+from python.lc_libs import write_solution_python, write_solution_golang
 
 default_test_list = [
     "class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:",
@@ -72,7 +72,6 @@ default_test_list = [
     "such:\n# obj = Solution(head)\n# param_1 = obj.getRandom()",
 ]
 
-
 submit_test_list = [
     "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):"
     "\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    "
@@ -93,14 +92,26 @@ submit_test_list = [
     "dp[i] += dp[i - c]\n        return dp[-1]\n",
 ]
 
+golang_test_list = [
+    "type ParkingSystem struct {\n\n}\n\n\nfunc Constructor(big int, medium int, small int) ParkingSystem {\n\n}\n\n\n"
+    "func (this *ParkingSystem) AddCar(carType int) bool {\n\n}\n\n\n/**"
+    "\n * Your ParkingSystem object will be instantiated and called as such:\n"
+    " * obj := Constructor(big, medium, small);\n * param_1 := obj.AddCar(carType);\n */",
+
+    "func twoSum(nums []int, target int) []int {\n\n}",
+]
 
 if __name__ == '__main__':
     for idx, test in enumerate(default_test_list):
-        res = write_solution(test)
+        res = write_solution_python(test)
         with open(f"tmp_default{idx}.py", "w") as f:
             f.writelines(res)
     for idx, test in enumerate(submit_test_list):
-        res = write_solution(test, False)
+        res = write_solution_python(test, False)
         with open(f"tmp_submit{idx}.py", "w") as f:
+            f.writelines(res)
+    for idx, test in enumerate(golang_test_list):
+        res = write_solution_golang(test, str(idx))
+        with open(f"tmp_solution{idx}.go", "w") as f:
             f.writelines(res)
     sys.exit()

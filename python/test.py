@@ -19,16 +19,17 @@ class Test(unittest.TestCase):
         print(f"Testing problem: {QUESTION}")
 
         load_dotenv()
+        root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         problem_folder = os.getenv(constants.PROBLEM_FOLDER, get_default_folder())
+        problem_path = os.path.join(root_path, problem_folder, QUESTION)
+        self.assertTrue(os.path.exists(problem_path), msg="Please set up the problem env first!")
 
-        self.assertTrue(os.path.exists(f"{problem_folder}/{QUESTION}"), msg="Please set up the problem env first!")
-
-        solution_spec = spec_from_file_location("module.name", f"./{problem_folder}/{QUESTION}/solution.py")
+        solution_spec = spec_from_file_location("module.name", f"{problem_path}/solution.py")
         solution = module_from_spec(solution_spec)
         solution_spec.loader.exec_module(solution)
         solution_obj = solution.Solution()
 
-        testcase_spec = spec_from_file_location("module.name", f"./{problem_folder}/{QUESTION}/testcase.py")
+        testcase_spec = spec_from_file_location("module.name", f"{problem_path}/testcase.py")
         testcase = module_from_spec(testcase_spec)
         testcase_spec.loader.exec_module(testcase)
         testcase_obj = testcase.Testcase()

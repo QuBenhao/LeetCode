@@ -1,5 +1,5 @@
 import solution
-from object_libs import tree_next_node_to_list, list_to_tree_next_node
+from python.object_libs import tree_next_node_to_list, list_to_tree_next_node
 
 
 class Solution(solution.Solution):

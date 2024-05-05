@@ -1,4 +1,5 @@
 import argparse
+import json
 import os
 import random
 import shutil
@@ -9,14 +10,14 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
-from constants import constant
-from lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
-    get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution
-from utils import get_default_folder
+from python.constants import constant
+from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
+    get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution_python
+from python.utils import get_default_folder
 
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False, file=None):
-    root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     dir_path = os.path.join(root_path, problem_folder, problem_id)
     if os.path.exists(dir_path):
         if not force:
@@ -36,14 +37,14 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
     if desc is None:
         print(f"Unable to fetch question content, [{problem_id}]{problem_slug}", file=file)
         return
-    code = get_question_code(problem_slug, cookie=cookie)
+    code = get_question_code(problem_slug, cookie=cookie)["python3"]
     if code is None:
         print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}", file=file)
         shutil.rmtree(dir_path)
         return
     outputs = extract_outputs_from_md(desc)
     print(f"question_id: {problem_id}, outputs: {outputs}", file=file)
-    testcases = get_question_testcases(problem_slug)
+    testcases, testcase_str = get_question_testcases(problem_slug)
     if testcases is None:
         print(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}", file=file)
         return
@@ -51,8 +52,10 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         f.write(write_problem_md(problem_id, problem_title, desc))
     with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
         f.write(write_testcase(testcases, outputs))
+    with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
+        f.writelines([testcase_str, "\n", str(outputs)])
     with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-        f.write(write_solution(code))
+        f.write(write_solution_python(code))
     print(f"Add question: [{problem_id}]{problem_slug}", file=file)
 
 
@@ -67,14 +70,14 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
         return
     with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
         f.write(write_problem_md(problem_id, problem_title, desc))
-    code = get_question_code(problem_slug, "mysql", cookie=cookie)
+    code = get_question_code(problem_slug, ["mysql"], cookie=cookie)["mysql"]
     if code is None:
         print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}", file=file)
         shutil.rmtree(dir_path)
         return
     with open(f"{dir_path}/solution.sql", "w", encoding="utf-8") as f:
         f.writelines(code)
-    testcases = get_question_testcases(problem_slug, "mysql")
+    testcases, _ = get_question_testcases(problem_slug, "mysql")
     if testcases is None:
         print(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}", file=file)
         return

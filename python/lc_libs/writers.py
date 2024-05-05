@@ -163,7 +163,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
             class_name, methods = "", []
             for k, v in cs_map.items():
                 class_name, methods = k, v
-            top[0] = top[0] + "from object_libs import call_method\n"
+            top[0] = top[0] + "from python.object_libs import call_method\n"
             init_params = ""
             for method in methods:
                 if method[0] == "__init__":
@@ -210,7 +210,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                         inputs += ", "
                     if "TreeNode" in str(v.annotation):
                         exists = True
-                        add_lib = "from object_libs import list_to_tree"
+                        add_lib = "from python.object_libs import list_to_tree"
                         if "List[" in str(v.annotation):
                             process_input += "nums_arr"
                             remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
@@ -222,7 +222,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                             idx += 1
                     elif "ListNode" in str(v.annotation):
                         exists = True
-                        add_lib = "from object_libs import list_to_linked_list"
+                        add_lib = "from python.object_libs import list_to_linked_list"
                         if "List[" in str(v.annotation):
                             process_input += "nums_arr"
                             remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
@@ -241,21 +241,21 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                     process_input += " = test_input\n"
 
                 if "TreeNode" in str(return_anno):
-                    add_lib += ", tree_to_list" if exists else "from object_libs import tree_to_list"
+                    add_lib += ", tree_to_list" if exists else "from python.object_libs import tree_to_list"
                     if "List[" in str(return_anno):
                         remain += ("        res = self.{}({})\n        return [tree_to_list(root) for root in res]"
-                                   .format(methods[0][0],inputs))
+                                   .format(methods[0][0], inputs))
                     else:
                         remain += ("        res = self.{}({})\n        return tree_to_list(res)"
-                                   .format(methods[0][0],inputs))
+                                   .format(methods[0][0], inputs))
                 elif "ListNode" in str(return_anno):
-                    add_lib += ", linked_list_to_list" if exists else "from object_libs import linked_list_to_list"
+                    add_lib += ", linked_list_to_list" if exists else "from python.object_libs import linked_list_to_list"
                     if "List[" in str(return_anno):
                         remain += ("res = self.{}({})\n        return [linked_list_to_list(head) for head in "
-                                   "res]").format(methods[0][0],inputs)
+                                   "res]").format(methods[0][0], inputs)
                     else:
                         remain += ("        res = self.{}({})\n        return linked_list_to_list(res)"
-                                   .format(methods[0][0],inputs))
+                                   .format(methods[0][0], inputs))
                 else:
                     if not modify_in_place:
                         remain += "        return self.{}({})".format(methods[0][0], inputs)
@@ -265,7 +265,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
 
                 process_input += remain
         else:
-            top[0] = top[0] + "from object_libs import call_method"
+            top[0] = top[0] + "from python.object_libs import call_method"
             if "TreeNode" in cs_map:
                 top[0] += ", list_to_tree"
                 cs_map.pop("TreeNode")
@@ -353,7 +353,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
     return top, res
 
 
-def write_solution(code: str, default: bool = True) -> str:
+def write_solution_python(code: str, default: bool = True) -> str:
     if not default:
         if "class Solution" in code:
             return "\n".join(code.split("class Solution")[-1].split("\n")[1:])
@@ -430,3 +430,67 @@ def write_solution(code: str, default: bool = True) -> str:
             "    def solve(self, test_input=None):\n"
             "        pass\n\n\n"
             "{}\n").format(code)
+
+
+def write_solution_golang(code_default: str, problem_id: str, default: bool = True, code: str = "") -> str:
+    def process_inputs(input_str: str) -> (str, str, str):
+        res = []
+        json_parse = []
+        variables = []
+        if input_str.strip() == "":
+            return "", ""
+        splits = input_str.split(",")
+        last = False
+        for i, s in enumerate(splits):
+            ss = s.split(" ")
+            tmp_ss = []
+            for tmp_s in ss:
+                if tmp_s.strip() != "":
+                    tmp_ss.append(tmp_s)
+            variables.append(tmp_ss[0])
+            if not last:
+                res.append("\tvar ")
+            if len(tmp_ss) != 2:
+                res.append(tmp_ss[0])
+                res.append(", ")
+                last = True
+            else:
+                res.append(tmp_ss[0])
+                res.append(" ")
+                tp = tmp_ss[1]
+                res.append(tp)
+                res.append("\n")
+            json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + tmp_ss[0] +
+                              "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+        return "".join(res), "".join(json_parse), ", ".join(variables)
+
+    its = []
+    rts = []
+    func_names = []
+    for line in code_default.split("\n"):
+        line = line.strip()
+        if line.startswith("func "):
+            rts.append(line.split("{")[0].split(")")[-1].strip())
+            its.append(process_inputs(line.split("(")[1].split(")")[0]))
+            func_names.append(line.split("(")[0].split("func ")[-1].strip())
+    return ("package problem{}\n\n"
+            "import (\n"
+            "\t\"encoding/json\"\n"
+            "\t\"log\"\n"
+            "\t\"strings\"\n"
+            ")\n\n"
+            "func Solve(input string) {} {}\n"
+            "\tvalues := strings.Split(input, \"\\n\")\n"
+            "{}\n{}\n"
+            "\treturn {}({})\n"
+            "{}\n\n{}").format(
+        problem_id,
+        rts[0] if len(rts) == 1 else "[]interface{}",
+        "{",
+        "\n".join(list(zip(*its))[0]),
+        "\n".join(list(zip(*its))[1]),
+        func_names[0],
+        ", ".join(list(zip(*its))[2]),
+        "}",
+        code_default if default else code,
+    )

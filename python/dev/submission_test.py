@@ -1,4 +1,3 @@
-import os
 import argparse
 import os
 import sys
@@ -10,13 +9,13 @@ from typing import Optional
 from dotenv import load_dotenv
 from pypushdeer import PushDeer
 
-from scripts.daily_auto import write_question
+from python.scripts.daily_auto import write_question
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from lc_libs import check_user_exist, check_accepted_submission, get_submission_detail, \
-    write_solution, get_user_study_plans, get_user_study_plan_progress, get_question_code, get_question_info, get_questions_by_key_word
-from constants import constant
-from utils import get_default_folder
+from python.lc_libs import check_user_exist, check_accepted_submission, get_submission_detail, \
+    write_solution_python, get_user_study_plans, get_user_study_plan_progress, get_question_code, get_question_info, get_questions_by_key_word
+from python.constants import constant
+from python.utils import get_default_folder
 
 
 def get_timestamp_days_ago(days):
@@ -123,13 +122,13 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str],
                     code = detail["code"]
                     sol_path = os.path.join(str(dir_path), "solution.py")
                     if not os.path.exists(sol_path):
-                        template = get_question_code(question_slug)
+                        template = get_question_code(question_slug)["python3"]
                         if template is not None:
                             with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                                f.write(write_solution(template))
+                                f.write(write_solution_python(template))
                         else:
                             with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                                f.write(write_solution(code, False))
+                                f.write(write_solution_python(code, False))
                             break
                     with open(f"{dir_path}/solution.py", "r", encoding="utf-8") as f:
                         lines = f.readlines()
@@ -143,7 +142,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str],
                                 break
                         full = "".join(lines[:idx + 1] + ["\n"])
                     with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                        f.write(full + write_solution(code, False))
+                        f.write(full + write_solution_python(code, False))
                     if question_id == daily_question:
                         finish_daily = True
                     break

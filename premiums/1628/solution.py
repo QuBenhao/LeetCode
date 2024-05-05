@@ -1,14 +1,13 @@
 import solution
 from typing import *
-from object_libs import call_method
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         pass
 
-import abc 
-from abc import ABC, abstractmethod 
+
+from abc import ABC, abstractmethod
 """
 This is the interface for the expression tree Node.
 You should not remove it, and you can define some classes to implement it.

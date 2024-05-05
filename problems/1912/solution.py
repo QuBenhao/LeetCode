@@ -1,7 +1,7 @@
 import solution
 from collections import defaultdict
 from sortedcontainers import SortedList
-from object_libs import call_method
+from python.object_libs import call_method
 
 
 class Solution(solution.Solution):

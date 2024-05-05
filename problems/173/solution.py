@@ -1,6 +1,6 @@
 import solution
 from typing import Optional
-from object_libs import list_to_tree, call_method
+from python.object_libs import list_to_tree, call_method
 
 
 class TreeNode(object):
