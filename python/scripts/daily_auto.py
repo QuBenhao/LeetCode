@@ -16,12 +16,14 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str):
     if desc is not None:
         with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
             f.write(write_problem_md(question_id, question_name, desc))
-        testcases = get_question_testcases(slug)[0]
+        testcases, testcase_str = get_question_testcases(slug)
         if testcases is not None:
             outputs = extract_outputs_from_md(desc)
             print(f"question_id: {question_id}, outputs: {outputs}")
             with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
                 f.write(write_testcase(testcases, outputs))
+            with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
+                f.writelines([testcase_str, str(outputs)])
     code = get_question_code(slug)
     if code is not None:
         with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:

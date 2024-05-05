@@ -44,7 +44,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         return
     outputs = extract_outputs_from_md(desc)
     print(f"question_id: {problem_id}, outputs: {outputs}", file=file)
-    testcases = get_question_testcases(problem_slug)[0]
+    testcases, testcase_str = get_question_testcases(problem_slug)
     if testcases is None:
         print(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}", file=file)
         return
@@ -52,6 +52,8 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         f.write(write_problem_md(problem_id, problem_title, desc))
     with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
         f.write(write_testcase(testcases, outputs))
+    with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
+        f.writelines([testcases, str(outputs)])
     with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
         f.write(write_solution(code))
     print(f"Add question: [{problem_id}]{problem_slug}", file=file)
@@ -75,7 +77,7 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
         return
     with open(f"{dir_path}/solution.sql", "w", encoding="utf-8") as f:
         f.writelines(code)
-    testcases = get_question_testcases(problem_slug, "mysql")[0]
+    testcases, _ = get_question_testcases(problem_slug, "mysql")
     if testcases is None:
         print(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}", file=file)
         return
