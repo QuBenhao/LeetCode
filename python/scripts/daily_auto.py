@@ -35,7 +35,7 @@ def process_daily(problem_folder: str):
     daily_info = get_daily_question()
     if not daily_info:
         return 1
-    root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     dir_path = os.path.join(root_path, problem_folder, daily_info['questionId'])
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
@@ -69,7 +69,7 @@ def process_plans(problem_folder: str, cookie: str):
                 print("Unable to find the question, skip!")
                 continue
             question_id = info["questionFrontendId"]
-            root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             dir_path = os.path.join(root_path, problem_folder, question_id)
             if not os.path.exists(dir_path):
                 os.mkdir(dir_path)

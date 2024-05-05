@@ -40,7 +40,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str]):
                     plan_prog = get_user_study_plan_progress(plan_slug, cookie, 0)
                     plan_questions_slug = plan_questions_slug.union(plan_prog["all_solved"])
         submit_dict = check_accepted_submission_all(cookie) if cookie else check_accepted_submission(user_slug)
-        root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         for question_id, submits in submit_dict.items():
             dir_path = os.path.join(root_path, problem_folder, question_id)
             if question_id == daily_question and not os.path.exists(dir_path):

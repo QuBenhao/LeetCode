@@ -17,7 +17,7 @@ from python.utils import get_default_folder
 
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False, file=None):
-    root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     dir_path = os.path.join(root_path, problem_folder, problem_id)
     if os.path.exists(dir_path):
         if not force:
@@ -53,7 +53,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
     with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
         f.write(write_testcase(testcases, outputs))
     with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
-        f.writelines([testcases, str(outputs)])
+        f.writelines([testcase_str, "\n", str(outputs)])
     with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
         f.write(write_solution(code))
     print(f"Add question: [{problem_id}]{problem_slug}", file=file)
