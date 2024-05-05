@@ -27,8 +27,10 @@ jobs:
     - name: Run script
       env:
         COOKIE: ${{ secrets.COOKIE }}
+        PUSH_SERVER: ${{ secrets.PUSH_SERVER }}
         PUSH_KEY: ${{ secrets.PUSH_KEY }}
         PROBLEM_FOLDER: ${{ secrets.PROBLEM_FOLDER }}
+        LANGUAGES: ${{secrets.LANGUAGES}}
       run: | 
         python python/scripts/daily_auto.py > /tmp/msg
         status=$?
