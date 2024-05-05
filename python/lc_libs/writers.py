@@ -433,13 +433,67 @@ def write_solution_python(code: str, default: bool = True) -> str:
 
 
 def write_solution_golang(code: str, problem_id: str, default: bool = True) -> str:
+    if not default:
+        return ""
+
+    def process_inputs(input_str: str) -> (str, str, str):
+        res = []
+        json_parse = []
+        variables = []
+        if input_str.strip() == "":
+            return "", ""
+        splits = input_str.split(",")
+        last = False
+        for i, s in enumerate(splits):
+            ss = s.split(" ")
+            tmp_ss = []
+            for tmp_s in ss:
+                if tmp_s.strip() != "":
+                    tmp_ss.append(tmp_s)
+            variables.append(tmp_ss[0])
+            if not last:
+                res.append("\tvar ")
+            if len(tmp_ss) != 2:
+                res.append(tmp_ss[0])
+                res.append(", ")
+                last = True
+            else:
+                res.append(tmp_ss[0])
+                res.append(" ")
+                tp = tmp_ss[1]
+                res.append(tp)
+                res.append("\n")
+            json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + tmp_ss[0] +
+                              "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+        return "".join(res), "".join(json_parse), ", ".join(variables)
+
+    its = []
     rts = []
+    func_names = []
     for line in code.split("\n"):
-        if line.strip().startswith("func "):
+        line = line.strip()
+        if line.startswith("func "):
             rts.append(line.split("{")[0].split(")")[-1].strip())
+            its.append(process_inputs(line.split("(")[1].split(")")[0]))
+            func_names.append(line.split("(")[0].split("func ")[-1].strip())
     return ("package problem{}\n\n"
-            "func Solve(input string) {} {\n"
-            "\tvalues = strings.Split(input, \"\\n\")\n"
-            "\t").format(
+            "import (\n"
+            "\t\"encoding/json\"\n"
+            "\t\"log\"\n"
+            "\t\"strings\"\n"
+            ")\n\n"
+            "func Solve(input string) {} {}\n"
+            "\tvalues := strings.Split(input, \"\\n\")\n"
+            "{}\n{}\n"
+            "\treturn {}({})\n"
+            "{}\n\n{}").format(
         problem_id,
-        rts[0] if len(rts) == 1 else "[]interface{}")
+        rts[0] if len(rts) == 1 else "[]interface{}",
+        "{",
+        "\n".join(list(zip(*its))[0]),
+        "\n".join(list(zip(*its))[1]),
+        func_names[0],
+        ", ".join(list(zip(*its))[2]),
+        "}",
+        code,
+    )

@@ -25,8 +25,8 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
                 with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
                     f.write(write_testcase(testcases, outputs))
             with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
-                f.writelines([testcase_str, str(outputs)])
-    code_map = get_question_code(slug)
+                f.writelines([testcase_str, "\n", str(outputs)])
+    code_map = get_question_code(slug, lang_slugs=languages)
     if code_map is None:
         return
     for language in languages:
@@ -40,7 +40,7 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
             match language:
                 case "golang":
                     with open(f"{dir_path}/solution.go", "w", encoding="utf-8") as f:
-                        f.write(write_solution_golang(code))
+                        f.write(write_solution_golang(code, question_id))
                 case "java":
                     pass
                 case _:
@@ -63,9 +63,27 @@ def process_daily(problem_folder: str, languages: list[str]):
             if "python3" in languages:
                 languages.remove("python3")
             write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'], languages)
-    with open(f"{root_path}/test.py", "r", encoding="utf-8") as f:
+    for lang in languages:
+        if lang == "python3":
+            continue
+        match lang:
+            case "golang":
+                lines = []
+                with open(f"{root_path}/golang/solution_test.go", "r", encoding="utf-8") as f:
+                    for line in f.readlines():
+                        if "problem \"leetCode/problems/" in line:
+                            lines.append("problem \"leetCode/problems/{}\"\n".format(daily_info['questionId']))
+                        elif "var problemId string =" in line:
+                            lines.append("var problemId string = \"{}\"\n".format(daily_info['questionId']))
+                        else:
+                            lines.append(line)
+                with open(f"{root_path}/golang/solution_test.go", "w", encoding="utf-8") as f:
+                    f.writelines(lines)
+            case _:
+                pass
+    with open(f"{root_path}/python/test.py", "r", encoding="utf-8") as f:
         lines = f.readlines()
-    with open(f"{root_path}/test.py", "w", encoding="utf-8") as f:
+    with open(f"{root_path}/python/test.py", "w", encoding="utf-8") as f:
         for line in lines:
             if line.startswith("QUESTION ="):
                 line = "QUESTION = \"{}\"\n".format(daily_info["questionId"])
@@ -127,6 +145,6 @@ if __name__ == '__main__':
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
-    langs = json.loads(os.getenv(constant.LANGUAGES, ["python3"]))
+    langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]"))
     exec_res = main(pf, cke, langs)
     sys.exit(exec_res)

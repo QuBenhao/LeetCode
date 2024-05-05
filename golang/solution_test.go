@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	problem "leetCode/problems/1235"
+	problem "leetCode/problems/1652"
 	"log"
 	"os"
 	"path"
+	"reflect"
 	"runtime"
 	"strings"
 	"testing"
@@ -15,7 +16,7 @@ import (
 
 const TestcaseFolderFmt = "problems/%s/testcase"
 
-var problemId string = "1235"
+var problemId string = "1652"
 
 type TestCase struct {
 	input string
@@ -54,9 +55,17 @@ func TestSolution(t *testing.T) {
 	for i, testcase := range tests {
 		t.Run(fmt.Sprintf("%s/Testcase#%d", problemId, i), func(t *testing.T) {
 			gotResp := problem.Solve(testcase.input)
-			// TODO: Not able to compare type currently
-			if !ast.Equal(fmt.Sprintf("%#v", gotResp), fmt.Sprintf("%#v", testcase.want)) {
-				t.Errorf("[%s] Solution gotResp = %v, want %v", problemId, gotResp, testcase.want)
+			v := reflect.ValueOf(testcase.want)
+			if v.Kind() == reflect.Slice {
+				// TODO: Not able to compare type currently
+				if !ast.Equal(fmt.Sprintf("%v", testcase.want), fmt.Sprintf("%v", gotResp)) {
+					t.Errorf("[%s] Solution want %v, got %v", problemId, testcase.want, gotResp)
+				}
+			} else {
+				// TODO: Not able to compare type currently
+				if !ast.Equal(fmt.Sprintf("%#v", testcase.want), fmt.Sprintf("%#v", gotResp)) {
+					t.Errorf("[%s] Solution want %v, got %v", problemId, testcase.want, gotResp)
+				}
 			}
 		})
 	}

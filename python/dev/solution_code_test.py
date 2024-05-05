@@ -96,7 +96,9 @@ golang_test_list = [
     "type ParkingSystem struct {\n\n}\n\n\nfunc Constructor(big int, medium int, small int) ParkingSystem {\n\n}\n\n\n"
     "func (this *ParkingSystem) AddCar(carType int) bool {\n\n}\n\n\n/**"
     "\n * Your ParkingSystem object will be instantiated and called as such:\n"
-    " * obj := Constructor(big, medium, small);\n * param_1 := obj.AddCar(carType);\n */"
+    " * obj := Constructor(big, medium, small);\n * param_1 := obj.AddCar(carType);\n */",
+
+    "func twoSum(nums []int, target int) []int {\n\n}",
 ]
 
 if __name__ == '__main__':
