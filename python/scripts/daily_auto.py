@@ -26,14 +26,25 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
                     f.write(write_testcase(testcases, outputs))
             with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
                 f.writelines([testcase_str, str(outputs)])
+    code_map = get_question_code(slug)
+    if code_map is None:
+        return
     for language in languages:
         if language == "python3":
-            code = get_question_code(slug)["python3"]
+            code = code_map["python3"]
             if code is not None:
                 with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                    f.write(write_solution(code))
+                    f.write(write_solution_python(code))
         else:
-            pass
+            code = code_map[language]
+            match language:
+                case "golang":
+                    with open(f"{dir_path}/solution.go", "w", encoding="utf-8") as f:
+                        f.write(write_solution_golang(code))
+                case "java":
+                    pass
+                case _:
+                    break
     print(f"Add question: [{question_id}]{slug}")
 
 

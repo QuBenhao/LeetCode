@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 
 from python.constants import constant
 from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
-    get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution
+    get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution_python
 from python.utils import get_default_folder
 
 
@@ -55,7 +55,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
     with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
         f.writelines([testcase_str, "\n", str(outputs)])
     with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-        f.write(write_solution(code))
+        f.write(write_solution_python(code))
     print(f"Add question: [{problem_id}]{problem_slug}", file=file)
 
 

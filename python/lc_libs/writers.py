@@ -244,18 +244,18 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
                     add_lib += ", tree_to_list" if exists else "from python.object_libs import tree_to_list"
                     if "List[" in str(return_anno):
                         remain += ("        res = self.{}({})\n        return [tree_to_list(root) for root in res]"
-                                   .format(methods[0][0],inputs))
+                                   .format(methods[0][0], inputs))
                     else:
                         remain += ("        res = self.{}({})\n        return tree_to_list(res)"
-                                   .format(methods[0][0],inputs))
+                                   .format(methods[0][0], inputs))
                 elif "ListNode" in str(return_anno):
                     add_lib += ", linked_list_to_list" if exists else "from python.object_libs import linked_list_to_list"
                     if "List[" in str(return_anno):
                         remain += ("res = self.{}({})\n        return [linked_list_to_list(head) for head in "
-                                   "res]").format(methods[0][0],inputs)
+                                   "res]").format(methods[0][0], inputs)
                     else:
                         remain += ("        res = self.{}({})\n        return linked_list_to_list(res)"
-                                   .format(methods[0][0],inputs))
+                                   .format(methods[0][0], inputs))
                 else:
                     if not modify_in_place:
                         remain += "        return self.{}({})".format(methods[0][0], inputs)
@@ -353,7 +353,7 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
     return top, res
 
 
-def write_solution(code: str, default: bool = True) -> str:
+def write_solution_python(code: str, default: bool = True) -> str:
     if not default:
         if "class Solution" in code:
             return "\n".join(code.split("class Solution")[-1].split("\n")[1:])
@@ -430,3 +430,16 @@ def write_solution(code: str, default: bool = True) -> str:
             "    def solve(self, test_input=None):\n"
             "        pass\n\n\n"
             "{}\n").format(code)
+
+
+def write_solution_golang(code: str, problem_id: str, default: bool = True) -> str:
+    rts = []
+    for line in code.split("\n"):
+        if line.strip().startswith("func "):
+            rts.append(line.split("{")[0].split(")")[-1].strip())
+    return ("package problem{}\n\n"
+            "func Solve(input string) {} {\n"
+            "\tvalues = strings.Split(input, \"\\n\")\n"
+            "\t").format(
+        problem_id,
+        rts[0] if len(rts) == 1 else "[]interface{}")

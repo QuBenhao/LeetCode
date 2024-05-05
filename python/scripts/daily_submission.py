@@ -10,7 +10,7 @@ from daily_auto import write_question
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from python.lc_libs import check_user_exist, get_daily_question, check_accepted_submission, check_accepted_submission_all, get_submission_detail, \
-    write_solution, get_user_study_plans, get_user_study_plan_progress, get_question_code, get_question_info
+    write_solution_python, get_user_study_plans, get_user_study_plan_progress, get_question_code, get_question_info
 from python.constants import constant
 from python.utils import get_default_folder, send_text_message
 
@@ -106,10 +106,10 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str]):
                         template = get_question_code(question_slug)["python3"]
                         if template is not None:
                             with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                                f.write(write_solution(template))
+                                f.write(write_solution_python(template))
                         else:
                             with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                                f.write(write_solution(code, False))
+                                f.write(write_solution_python(code, False))
                             break
                     with open(f"{dir_path}/solution.py", "r", encoding="utf-8") as f:
                         lines = f.readlines()
@@ -123,7 +123,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str]):
                                 break
                         full = "".join(lines[:idx + 1] + ["\n"])
                     with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                        f.write(full + write_solution(code, False))
+                        f.write(full + write_solution_python(code, False))
                     if question_id == daily_question:
                         finish_daily = True
                     break
