@@ -432,10 +432,7 @@ def write_solution_python(code: str, default: bool = True) -> str:
             "{}\n").format(code)
 
 
-def write_solution_golang(code: str, problem_id: str, default: bool = True) -> str:
-    if not default:
-        return ""
-
+def write_solution_golang(code_default: str, problem_id: str, default: bool = True, code: str = "") -> str:
     def process_inputs(input_str: str) -> (str, str, str):
         res = []
         json_parse = []
@@ -470,7 +467,7 @@ def write_solution_golang(code: str, problem_id: str, default: bool = True) -> s
     its = []
     rts = []
     func_names = []
-    for line in code.split("\n"):
+    for line in code_default.split("\n"):
         line = line.strip()
         if line.startswith("func "):
             rts.append(line.split("{")[0].split(")")[-1].strip())
@@ -495,5 +492,5 @@ def write_solution_golang(code: str, problem_id: str, default: bool = True) -> s
         func_names[0],
         ", ".join(list(zip(*its))[2]),
         "}",
-        code,
+        code_default if default else code,
     )
