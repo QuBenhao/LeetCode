@@ -56,7 +56,7 @@ def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=
                 print(submit)
                 if not max_timestamp or t < max_timestamp:
                     ans[submit['question']['questionFrontendId']].append((submit["submissionId"],
-                                                                          submit['question']["titleSlug"]))
+                                                                          submit['question']["titleSlug"], "python3"))
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()
@@ -123,7 +123,7 @@ def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp
                     print(submit)
                     if not max_timestamp or t < max_timestamp:
                         ans[question_submit_info["frontendId"]].append(
-                            (submit["id"], question_submit_info["titleSlug"]))
+                            (submit["id"], question_submit_info["titleSlug"], submit["lang"]))
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()

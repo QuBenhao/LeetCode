@@ -10,8 +10,10 @@ from dotenv import load_dotenv
 from daily_auto import write_question
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from python.lc_libs import check_user_exist, get_daily_question, check_accepted_submission, check_accepted_submission_all, get_submission_detail, \
-    write_solution_python, get_user_study_plans, get_user_study_plan_progress, get_question_code, get_question_info, write_solution_golang
+from python.lc_libs import check_user_exist, get_daily_question, check_accepted_submission, \
+    check_accepted_submission_all, get_submission_detail, \
+    write_solution_python, get_user_study_plans, get_user_study_plan_progress, get_question_code, get_question_info, \
+    write_solution_golang
 from python.constants import constant
 from python.utils import get_default_folder, send_text_message
 
@@ -33,7 +35,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: 
             plans = get_user_study_plans(cookie)
             if plans is None:
                 if not send_text_message("The LeetCode in GitHub secrets might be expired, please check!",
-                                            "Currently might not be able to fetch submission."):
+                                         "Currently might not be able to fetch submission."):
                     print("Unable to send PushDeer notification!")
                 print("The LeetCode cookie might be expired!")
             elif plans:
@@ -48,14 +50,14 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: 
                 os.mkdir(dir_path)
                 write_question(dir_path, daily_question, daily_info['questionNameEn'],
                                daily_info['questionSlug'])
+            elif not os.path.exists(dir_path):
+                info = get_question_info(submits[0][1])
+                os.mkdir(dir_path)
+                write_question(dir_path, question_id, info["title"], submits[0][1])
             default_code = get_question_code(submits[0][1], lang_slugs=languages, cookie=cookie)
             has_check_python = False
-            for submit_id, question_slug in submits:
-                if question_id != daily_question and not os.path.exists(dir_path):
-                    info = get_question_info(question_slug)
-                    os.mkdir(dir_path)
-                    write_question(dir_path, question_id, info["title"], question_slug)
-                if not has_check_python:
+            for submit_id, question_slug, language in submits:
+                if language == "python3" and not has_check_python:
                     try:
                         testcase_spec = spec_from_file_location("module.name", f"{dir_path}/testcase.py")
                         testcase = module_from_spec(testcase_spec)
@@ -110,38 +112,37 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: 
                 if detail is not None and detail["lang"] == "python3":
                     if has_check_python:
                         continue
-                    if not has_check_python:
-                        code = detail["code"]
-                        sol_path = os.path.join(str(dir_path), "solution.py")
-                        if not os.path.exists(sol_path):
-                            template = default_code["python3"]
-                            if template is not None:
-                                with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                                    f.write(write_solution_python(template))
-                            else:
-                                with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                                    f.write(write_solution_python(code, False))
-                                break
-                        with open(f"{dir_path}/solution.py", "r", encoding="utf-8") as f:
-                            lines = f.readlines()
-                            idx = len(lines) - 1
-                            start = False
-                            for i, line in enumerate(lines):
-                                if "def solve(self, test_input=None):" in line:
-                                    start = True
-                                if start and "return " in line:
-                                    idx = i
-                                    break
-                            full = "".join(lines[:idx + 1] + ["\n"])
-                        with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                            f.write(full + write_solution_python(code, False))
-                        if question_id == daily_question:
-                            finish_daily = True
-                        if any(lang != "python3" for lang in languages):
-                            has_check_python = True
-                            continue
+                    code = detail["code"]
+                    sol_path = os.path.join(str(dir_path), "solution.py")
+                    if not os.path.exists(sol_path):
+                        template = default_code["python3"]
+                        if template is not None:
+                            with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
+                                f.write(write_solution_python(template))
                         else:
+                            with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
+                                f.write(write_solution_python(code, False))
                             break
+                    with open(f"{dir_path}/solution.py", "r", encoding="utf-8") as f:
+                        lines = f.readlines()
+                        idx = len(lines) - 1
+                        start = False
+                        for i, line in enumerate(lines):
+                            if "def solve(self, test_input=None):" in line:
+                                start = True
+                            if start and "return " in line:
+                                idx = i
+                                break
+                        full = "".join(lines[:idx + 1] + ["\n"])
+                    with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
+                        f.write(full + write_solution_python(code, False))
+                    if question_id == daily_question:
+                        finish_daily = True
+                    if any(lang != "python3" for lang in languages):
+                        has_check_python = True
+                        continue
+                    else:
+                        break
                 elif detail:
                     code = detail["code"]
                     func = None
@@ -197,6 +198,5 @@ if __name__ == '__main__':
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]"))
-
     exec_res = main(pf, args.user, cke, langs)
     sys.exit(exec_res)
