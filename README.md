@@ -5,22 +5,30 @@ Algorithms in LeetCode by Benhao
 After clone this repo, add a .env file to tell where to locate your problems and solutions (locally).
 For remote GitHub Action, add `COOKIE` (LeetCode cookie), `PUSH_KEY` (PushDeer notification), `PROBLEM_FOLDER` (where to add problems), `USER` (LeetCode personal page uri).
 
+**Notice:** If you want more than just python3, add `LANGUAGES=["python3","golang"]` (and so on in env)
+
 Example .env file:
 ```text
 PROBLEM_FOLDER="problems"
 PUSH_KEY="***[key from PushDeer]"
 COOKIE="***[cookie from LeetCode graphql]"
+LANGUAGES=["python3", "golang"]
 ```
 
 install requirements:
 ```shell
-pip install -r requirements
+pip install -r python/requirements
 ```
 
-And then, **change QUESTION id in [test.py](python/test.py)**, and try:
-```shell
-python3 ./test.py
-```
+# Supported Languages
+
+## Python3
+
+Check [Python3 README](python/README.md)
+
+## Golang
+
+Check [Golang README](golang/README.md)
 
 # Table of Content
 1. [Easy](#easy)
