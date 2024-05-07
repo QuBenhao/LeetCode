@@ -99,6 +99,11 @@ golang_test_list = [
     " * obj := Constructor(big, medium, small);\n * param_1 := obj.AddCar(carType);\n */",
 
     "func twoSum(nums []int, target int) []int {\n\n}",
+
+    "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n"
+    " * }\n */\nfunc swapPairs(head *ListNode) *ListNode {\n\n}",
+
+
 ]
 
 if __name__ == '__main__':
