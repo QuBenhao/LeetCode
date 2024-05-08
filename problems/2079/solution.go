@@ -22,5 +22,14 @@ func Solve(input string) int {
 }
 
 func wateringPlants(plants []int, capacity int) int {
-
+    ans := len(plants)
+    water := capacity
+    for i, need := range plants {
+        if water < need {
+            ans += i * 2
+            water = capacity
+        }
+        water -= need
+    }
+    return ans
 }
