@@ -145,6 +145,9 @@ if __name__ == '__main__':
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
-    langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]"))
+    try:
+        langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]"))
+    except Exception as _:
+        langs = ["python3"]
     exec_res = main(pf, cke, langs)
     sys.exit(exec_res)
