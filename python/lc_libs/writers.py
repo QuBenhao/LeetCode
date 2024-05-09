@@ -433,14 +433,16 @@ def write_solution_python(code: str, default: bool = True) -> str:
 
 
 def write_solution_golang(code_default: str, problem_id: str, default: bool = True, code: str = "") -> str:
-    def process_inputs(input_str: str) -> (str, str, str):
+    def process_inputs(input_str: str) -> (str, str, str, str):
         res = []
+        imports_libs = set()
         json_parse = []
         variables = []
         if input_str.strip() == "":
             return "", ""
         splits = input_str.split(",")
-        last = False
+        first = True
+        list_type_vars = []
         for i, s in enumerate(splits):
             ss = s.split(" ")
             tmp_ss = []
@@ -448,21 +450,46 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                 if tmp_s.strip() != "":
                     tmp_ss.append(tmp_s)
             variables.append(tmp_ss[0])
-            if not last:
+            if first:
+                list_type_vars.append([])
                 res.append("\tvar ")
+            list_type_vars[-1].append(tmp_ss[0])
             if len(tmp_ss) != 2:
                 res.append(tmp_ss[0])
                 res.append(", ")
-                last = True
+                first = False
             else:
+                list_type_vars[-1].append(tmp_ss[1])
                 res.append(tmp_ss[0])
                 res.append(" ")
                 tp = tmp_ss[1]
                 res.append(tp)
                 res.append("\n")
-            json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + tmp_ss[0] +
-                              "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
-        return "".join(res), "".join(json_parse), ", ".join(variables)
+                first = True
+        for i, vars_type in enumerate(list_type_vars):
+            vrs, tp = vars_type[:-1], vars_type[-1]
+            match tp:
+                case "*ListNode":
+                    for var in vrs:
+                        json_parse.append(f"\tvar {var}IntArray []int")
+                        json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
+                                          "IntArray); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                        json_parse.append(f"\t{var} = IntArrayToLinkedList({var}IntArray)\n")
+                    imports_libs.add("\t. \"leetCode/golang/models\"")
+                    imports_libs.add("\t\"encoding/json\"")
+                    imports_libs.add("\t\"log\"")
+                case "*TreeNode":
+                    for var in vrs:
+                        json_parse.append(f"\t{var} = ArrayToTree(values[{i}])\n")
+                    imports_libs.add("\t. \"leetCode/golang/models\"")
+                case _:
+                    for var in vrs:
+                        json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
+                                          "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                    imports_libs.add("\t\"encoding/json\"")
+                    imports_libs.add("\t\"log\"")
+        imports_libs.add("\t\"strings\"")
+        return "\n".join(imports_libs), "".join(res), "".join(json_parse), ", ".join(variables)
 
     its = []
     rts = []
@@ -473,24 +500,51 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
             rts.append(line.split("{")[0].split(")")[-1].strip())
             its.append(process_inputs(line.split("(")[1].split(")")[0]))
             func_names.append(line.split("(")[0].split("func ")[-1].strip())
-    return ("package problem{}\n\n"
-            "import (\n"
-            "\t\"encoding/json\"\n"
-            "\t\"log\"\n"
-            "\t\"strings\"\n"
-            ")\n\n"
-            "func Solve(input string) {} {}\n"
-            "\tvalues := strings.Split(input, \"\\n\")\n"
-            "{}\n{}\n"
-            "\treturn {}({})\n"
-            "{}\n\n{}").format(
+    base_str = ("package problem{}\n\n"
+                "import (\n"
+                "{}"
+                ")\n\n"
+                "func Solve(input string) {} {}\n"
+                "\tvalues := strings.Split(input, \"\\n\")\n"
+                "{}\n{}\n"
+                "\treturn {}({})\n"
+                "{}\n\n{}")
+    if len(rts) != 1 or rts[0] == "*TreeNode" or rts[0] == "*ListNode" or rts[0] == "*Node":
+        return_type = "string"
+        match rts[0]:
+            case "*TreeNode":
+                return_func_name = "TreeToArray"
+            case "*ListNode":
+                return_func_name = "LinkedListToIntArray"
+                return_type = "[]int"
+            case "*Node":
+                return_func_name = "ToBeImplemented"
+            case _:
+                return_func_name = ""
+        return_func_var = "{}({})".format(func_names[0],
+                                          ", ".join(list(zip(*its))[3]))
+
+        return base_str.format(
+            problem_id,
+            "\n".join(list(zip(*its))[0]),
+            return_type,
+            "{",
+            "\n".join(list(zip(*its))[1]),
+            "\n".join(list(zip(*its))[2]),
+            return_func_name,
+            return_func_var,
+            "}",
+            code_default if default else code,
+        )
+    return base_str.format(
         problem_id,
-        rts[0] if len(rts) == 1 else "[]interface{}",
-        "{",
         "\n".join(list(zip(*its))[0]),
+        rts[0] if len(rts) == 1 else "string",
+        "{",
         "\n".join(list(zip(*its))[1]),
+        "\n".join(list(zip(*its))[2]),
         func_names[0],
-        ", ".join(list(zip(*its))[2]),
+        ", ".join(list(zip(*its))[3]),
         "}",
         code_default if default else code,
     )
