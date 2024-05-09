@@ -103,7 +103,13 @@ golang_test_list = [
     "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n"
     " * }\n */\nfunc swapPairs(head *ListNode) *ListNode {\n\n}",
 
-
+    "type OrderedStream struct {\n\n}\n\n\nfunc Constructor(n int) OrderedStream {\n\n}\n\n\n"
+    "func (this *OrderedStream) Insert(idKey int, value string) []string {\n\n}\n\n\n"
+    "/**\n"
+    " * Your OrderedStream object will be instantiated and called as such:\n"
+    " * obj := Constructor(n);\n"
+    " * param_1 := obj.Insert(idKey,value);\n"
+    " */"
 ]
 
 if __name__ == '__main__':
