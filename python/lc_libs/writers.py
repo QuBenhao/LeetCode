@@ -502,7 +502,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
             func_names.append(line.split("(")[0].split("func ")[-1].strip())
     base_str = ("package problem{}\n\n"
                 "import (\n"
-                "{}"
+                "{}\n"
                 ")\n\n"
                 "func Solve(input string) {} {}\n"
                 "\tvalues := strings.Split(input, \"\\n\")\n"
