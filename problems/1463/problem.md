@@ -1,64 +1,53 @@
 # 1463. Cherry Pickup II
 
-Given a `rows x cols` matrix `grid` representing a field of cherries. Each cell in `grid` represents the number of cherries that you can collect.
+<p>You are given a <code>rows x cols</code> matrix <code>grid</code> representing a field of cherries where <code>grid[i][j]</code> represents the number of cherries that you can collect from the <code>(i, j)</code> cell.</p>
 
-You have two robots that can collect cherries for you, Robot #1 is located at the top-left corner (0,0) , and Robot #2 is located at the top-right corner (0, cols-1) of the grid.
+<p>You have two robots that can collect cherries for you:</p>
 
-Return the maximum number of cherries collection using both robots by following the rules below:
+<ul>
+	<li><strong>Robot #1</strong> is located at the <strong>top-left corner</strong> <code>(0, 0)</code>, and</li>
+	<li><strong>Robot #2</strong> is located at the <strong>top-right corner</strong> <code>(0, cols - 1)</code>.</li>
+</ul>
 
-- From a cell (i,j), robots can move to cell (i+1, j-1) , (i+1, j) or (i+1, j+1).
-- When any robot is passing through a cell, It picks it up all cherries, and the cell becomes an empty cell (0).
-- When both robots stay on the same cell, only one of them takes the cherries.
-- Both robots cannot move outside of the grid at any moment.
-- Both robots should reach the bottom row in the `grid`.
+<p>Return <em>the maximum number of cherries collection using both robots by following the rules below</em>:</p>
 
- 
+<ul>
+	<li>From a cell <code>(i, j)</code>, robots can move to cell <code>(i + 1, j - 1)</code>, <code>(i + 1, j)</code>, or <code>(i + 1, j + 1)</code>.</li>
+	<li>When any robot passes through a cell, It picks up all cherries, and the cell becomes an empty cell.</li>
+	<li>When both robots stay in the same cell, only one takes the cherries.</li>
+	<li>Both robots cannot move outside of the grid at any moment.</li>
+	<li>Both robots should reach the bottom row in <code>grid</code>.</li>
+</ul>
 
-**Example 1:**
-
-**![img](https://assets.leetcode.com/uploads/2020/04/29/sample_1_1802.png)**
-
-```
-Input: grid = [[3,1,1],[2,5,1],[1,5,5],[2,1,1]]
-Output: 24
-Explanation: Path of robot #1 and #2 are described in color green and blue respectively.
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/04/29/sample_1_1802.png" style="width: 374px; height: 501px;" />
+<pre>
+<strong>Input:</strong> grid = [[3,1,1],[2,5,1],[1,5,5],[2,1,1]]
+<strong>Output:</strong> 24
+<strong>Explanation:</strong> Path of robot #1 and #2 are described in color green and blue respectively.
 Cherries taken by Robot #1, (3 + 2 + 5 + 2) = 12.
 Cherries taken by Robot #2, (1 + 5 + 5 + 1) = 12.
 Total of cherries: 12 + 12 = 24.
-```
+</pre>
 
-**Example 2:**
-
-**![img](https://assets.leetcode.com/uploads/2020/04/23/sample_2_1802.png)**
-
-```
-Input: grid = [[1,0,0,0,0,0,1],[2,0,0,0,0,3,0],[2,0,9,0,0,0,0],[0,3,0,5,4,0,0],[1,0,2,3,0,0,6]]
-Output: 28
-Explanation: Path of robot #1 and #2 are described in color green and blue respectively.
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/04/23/sample_2_1802.png" style="width: 500px; height: 452px;" />
+<pre>
+<strong>Input:</strong> grid = [[1,0,0,0,0,0,1],[2,0,0,0,0,3,0],[2,0,9,0,0,0,0],[0,3,0,5,4,0,0],[1,0,2,3,0,0,6]]
+<strong>Output:</strong> 28
+<strong>Explanation:</strong> Path of robot #1 and #2 are described in color green and blue respectively.
 Cherries taken by Robot #1, (1 + 9 + 5 + 2) = 17.
 Cherries taken by Robot #2, (1 + 3 + 4 + 3) = 11.
 Total of cherries: 17 + 11 = 28.
-```
+</pre>
 
-**Example 3:**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-```
-Input: grid = [[1,0,0,3],[0,0,0,3],[0,0,3,3],[9,0,3,3]]
-Output: 22
-```
-
-**Example 4:**
-
-```
-Input: grid = [[1,1],[1,1]]
-Output: 4
-```
-
- 
-
-**Constraints:**
-
-- `rows == grid.length`
-- `cols == grid[i].length`
-- `2 <= rows, cols <= 70`
-- `0 <= grid[i][j] <= 100 `
+<ul>
+	<li><code>rows == grid.length</code></li>
+	<li><code>cols == grid[i].length</code></li>
+	<li><code>2 &lt;= rows, cols &lt;= 70</code></li>
+	<li><code>0 &lt;= grid[i][j] &lt;= 100</code></li>
+</ul>
