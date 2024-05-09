@@ -13,6 +13,7 @@ type TreeNode struct {
 }
 
 func ArrayToTree(input string) *TreeNode {
+	input = strings.ReplaceAll(input, " ", "")
 	if input[0] == '[' {
 		input = input[1:]
 	}
@@ -50,6 +51,7 @@ func ArrayToTree(input string) *TreeNode {
 }
 
 func ArrayToTreeAndTarget(input string, target int) (*TreeNode, *TreeNode) {
+	input = strings.ReplaceAll(input, " ", "")
 	if input[0] == '[' {
 		input = input[1:]
 	}
@@ -112,5 +114,5 @@ func TreeToArray(root *TreeNode) string {
 	for len(ans) > 0 && ans[len(ans)-1] == "null" {
 		ans = ans[:len(ans)-1]
 	}
-	return fmt.Sprintf("[%s]", strings.Join(ans, ","))
+	return fmt.Sprintf("[%s]", strings.Join(ans, ", "))
 }

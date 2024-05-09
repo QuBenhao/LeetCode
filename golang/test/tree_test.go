@@ -12,6 +12,8 @@ func TestTree(t *testing.T) {
 	assert.Equal(t, 1, node.Val)
 	assert.Nil(t, node.Left)
 	assert.Equal(t, 2, node.Right.Val)
+	node2 := ArrayToTree("[1, null, 2]")
+	assert.Equal(t, node, node2)
 }
 
 func TestTreeTarget(t *testing.T) {
