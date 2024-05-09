@@ -55,7 +55,9 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
     with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
         f.write(write_testcase(testcases, outputs))
     with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
-        f.writelines([testcase_str, "\n", str(outputs)])
+        f.writelines([testcase_str, "\n",
+                      str(outputs).replace("None", "null")
+                     .replace("True", "true").replace("False", "false")])
     for key, val in code_maps.items():
         match key:
             case "python3":
