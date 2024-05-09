@@ -471,7 +471,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
             match tp:
                 case "*ListNode":
                     for var in vrs:
-                        json_parse.append(f"\tvar {var}IntArray []int")
+                        json_parse.append(f"\tvar {var}IntArray []int\n")
                         json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
                                           "IntArray); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
                         json_parse.append(f"\t{var} = IntArrayToLinkedList({var}IntArray)\n")
@@ -511,18 +511,19 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                 "{}\n\n{}")
     if len(rts) != 1 or rts[0] == "*TreeNode" or rts[0] == "*ListNode" or rts[0] == "*Node":
         return_type = "string"
+        return_func_var = "{}({})".format(func_names[0],
+                                          ", ".join(list(zip(*its))[3]))
         match rts[0]:
             case "*TreeNode":
                 return_func_name = "TreeToArray"
             case "*ListNode":
-                return_func_name = "LinkedListToIntArray"
+                return_func_name = return_func_var + ".LinkedListToIntArray"
+                return_func_var = ""
                 return_type = "[]int"
             case "*Node":
                 return_func_name = "ToBeImplemented"
             case _:
                 return_func_name = ""
-        return_func_var = "{}({})".format(func_names[0],
-                                          ", ".join(list(zip(*its))[3]))
 
         return base_str.format(
             problem_id,
