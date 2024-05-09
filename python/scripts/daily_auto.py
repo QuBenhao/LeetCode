@@ -146,7 +146,7 @@ if __name__ == '__main__':
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     try:
-        langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]"))
+        langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]") or "[\"python3\"]")
     except Exception as _:
         langs = ["python3"]
     exec_res = main(pf, cke, langs)
