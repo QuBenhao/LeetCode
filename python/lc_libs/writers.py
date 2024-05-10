@@ -433,7 +433,7 @@ def write_solution_python(code: str, default: bool = True) -> str:
 
 
 def write_solution_golang(code_default: str, problem_id: str, default: bool = True, code: str = "") -> str:
-    def process_inputs(input_str: str) -> (str, str, str, str):
+    def process_inputs(input_str: str, struct_dict: dict) -> (str, str, str, str):
         res = []
         imports_libs = set()
         json_parse = []
@@ -468,38 +468,61 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                 first = True
         for i, vars_type in enumerate(list_type_vars):
             vrs, tp = vars_type[:-1], vars_type[-1]
-            match tp:
-                case "*ListNode":
-                    for var in vrs:
-                        json_parse.append(f"\tvar {var}IntArray []int\n")
-                        json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
-                                          "IntArray); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
-                        json_parse.append(f"\t{var} = IntArrayToLinkedList({var}IntArray)\n")
-                    imports_libs.add("\t. \"leetCode/golang/models\"")
-                    imports_libs.add("\t\"encoding/json\"")
-                    imports_libs.add("\t\"log\"")
-                case "*TreeNode":
-                    for var in vrs:
-                        json_parse.append(f"\t{var} = ArrayToTree(values[{i}])\n")
-                    imports_libs.add("\t. \"leetCode/golang/models\"")
-                case _:
-                    for var in vrs:
-                        json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
-                                          "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
-                    imports_libs.add("\t\"encoding/json\"")
-                    imports_libs.add("\t\"log\"")
+            if (tp.startswith("*") and tp[1:] in struct_dict) or tp in struct_dict:
+                for var in vrs:
+                    pass
+            else:
+                match tp:
+                    case "*ListNode":
+                        for var in vrs:
+                            json_parse.append(f"\tvar {var}IntArray []int\n")
+                            json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
+                                              "IntArray); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                            json_parse.append(f"\t{var} = IntArrayToLinkedList({var}IntArray)\n")
+                        imports_libs.add("\t. \"leetCode/golang/models\"")
+                        imports_libs.add("\t\"encoding/json\"")
+                        imports_libs.add("\t\"log\"")
+                    case "*TreeNode":
+                        for var in vrs:
+                            json_parse.append(f"\t{var} = ArrayToTree(values[{i}])\n")
+                        imports_libs.add("\t. \"leetCode/golang/models\"")
+                    case _:
+                        for var in vrs:
+                            json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
+                                              "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                        imports_libs.add("\t\"encoding/json\"")
+                        imports_libs.add("\t\"log\"")
         imports_libs.add("\t\"strings\"")
         return "\n".join(imports_libs), "".join(res), "".join(json_parse), ", ".join(variables)
 
     its = []
     rts = []
     func_names = []
-    for line in code_default.split("\n"):
+    structs_map = dict()
+    for i, line in enumerate(code_default.split("\n")):
         line = line.strip()
         if line.startswith("func "):
             rts.append(line.split("{")[0].split(")")[-1].strip())
-            its.append(process_inputs(line.split("(")[1].split(")")[0]))
+            its.append(process_inputs(line.split("(")[1].split(")")[0], structs_map))
             func_names.append(line.split("(")[0].split("func ")[-1].strip())
+        elif line.startswith("type ") and line.endswith(" struct {"):
+            struct_name = line[len("type "):-len(" struct {")]
+            structs_map[struct_name] = dict()
+            for tmp in code_default.split("\n"):
+                tmp = tmp.strip()
+                if tmp.startswith("func ") and (
+                        tmp.endswith(f") {struct_name} " + "{") or
+                        tmp.endswith(f") *{struct_name} " + "{")):
+                    structs_map[struct_name]["construct"] = (tmp.split("(")[0].split("func ")[-1].strip(),
+                                                             process_inputs(tmp.split("(")[1].split(")")[0],
+                                                                            structs_map))
+                elif tmp.startswith("func (") and struct_name in tmp.split(")")[0]:
+                    if "funcs" not in structs_map[struct_name]:
+                        structs_map[struct_name]["funcs"] = []
+                    structs_map[struct_name]["funcs"].append((tmp.split("(")[0].split("func ")[-1].strip(),
+                                                              process_inputs(tmp.split("(")[1].split(")")[0],
+                                                                             structs_map)))
+            return ""
     base_str = ("package problem{}\n\n"
                 "import (\n"
                 "{}\n"
