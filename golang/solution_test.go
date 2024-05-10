@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	problem "leetCode/problems/741"
+	problem "leetCode/problems/1038"
 	"log"
 	"math"
 	"os"
@@ -16,7 +16,7 @@ import (
 
 const TestcaseFolderFmt = "problems/%s/testcase"
 
-var problemId string = "741"
+var problemId string = "1038"
 
 type TestCase struct {
 	input string
@@ -70,28 +70,36 @@ func TestSolution(t *testing.T) {
 			case []interface{}:
 				wantArray := testcase.want.([]interface{})
 				respArray := gotResp.([]interface{})
-				switch wantArray[0].(type) {
-				case float64:
-					{
-						switch respArray[0].(type) {
-						case float64:
-							if ast.Equal(len(wantArray), len(respArray)) {
-								for j := 0; j < len(wantArray); j++ {
-									ast.LessOrEqual(1e-5, math.Abs(wantArray[j].(float64)-respArray[j].(float64)))
+				if len(wantArray) == 0 || len(respArray) == 0 {
+					ast.Equalf(len(wantArray), len(respArray), "Expected: [%v], actual: [%v]", testcase.want, gotResp)
+				} else {
+					switch wantArray[0].(type) {
+					case float64:
+						{
+							switch respArray[0].(type) {
+							case float64:
+								if ast.Equalf(len(wantArray), len(respArray), "Expected: [%v], actual: [%v]", testcase.want, gotResp) {
+									for j := 0; j < len(wantArray); j++ {
+										ast.LessOrEqualf(1e-5, math.Abs(wantArray[j].(float64)-respArray[j].(float64)), "Expected: [%v], actual: [%v]", testcase.want, gotResp)
+									}
 								}
-							}
-						case int:
-							if ast.Equal(len(wantArray), len(respArray)) {
-								for j := 0; j < len(wantArray); j++ {
-									ast.Equal(int(wantArray[j].(float64)), respArray[j].(int))
+							case int:
+								if ast.Equalf(len(wantArray), len(respArray), "Expected: [%v], actual: [%v]", testcase.want, gotResp) {
+									for j := 0; j < len(wantArray); j++ {
+										if wantArray[j] == nil {
+											ast.Nil(respArray[j])
+										} else {
+											ast.Equalf(int(wantArray[j].(float64)), respArray[j].(int), "Expected: [%v], actual: [%v]", testcase.want, gotResp)
+										}
+									}
 								}
+							default:
+								ast.Equal(wantArray, respArray)
 							}
-						default:
-							ast.Equal(wantArray, respArray)
 						}
+					default:
+						ast.Equal(wantArray, respArray)
 					}
-				default:
-					ast.Equal(wantArray, respArray)
 				}
 			default:
 				ast.Equal(testcase.want, gotResp)

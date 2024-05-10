@@ -1,7 +1,8 @@
 package models
 
 import (
-	"fmt"
+	"encoding/json"
+	"log"
 	"strconv"
 	"strings"
 )
@@ -13,37 +14,39 @@ type TreeNode struct {
 }
 
 func ArrayToTree(input string) *TreeNode {
-	input = strings.ReplaceAll(input, " ", "")
-	if input[0] == '[' {
-		input = input[1:]
-	}
-	if input[len(input)-1] == ']' {
-		input = input[:len(input)-1]
-	}
-	if len(input) == 0 {
+	var value interface{}
+	if err := json.Unmarshal([]byte(input), &value); err != nil {
+		log.Fatalf("Unable to process tree input: %s", input)
 		return nil
 	}
-	splits := strings.Split(input, ",")
+	arr := value.([]interface{})
+	if len(arr) == 0 {
+		return nil
+	}
 	var root *TreeNode
-	if v, err := strconv.Atoi(splits[0]); err != nil {
+	if arr[0] == nil {
 		return nil
 	} else {
-		root = &TreeNode{Val: v}
+		root = &TreeNode{Val: int(arr[0].(float64))}
 	}
 	isLeft := 1
 	var nodes []*TreeNode
 	currNode := root
-	for i := 1; i < len(splits); i++ {
-		if v, err := strconv.Atoi(splits[i]); err == nil {
-			if isLeft == 1 {
-				currNode.Left = &TreeNode{Val: v}
-				nodes = append(nodes, currNode.Left)
-			} else {
-				currNode.Right = &TreeNode{Val: v}
-				nodes = append(nodes, currNode.Right)
-				currNode = nodes[0]
-				nodes = nodes[1:]
-			}
+	for i := 1; i < len(arr); i++ {
+		var node *TreeNode
+		if arr[i] == nil {
+			node = nil
+		} else {
+			node = &TreeNode{Val: int(arr[i].(float64))}
+		}
+		if isLeft == 1 {
+			currNode.Left = node
+			nodes = append(nodes, currNode.Left)
+		} else {
+			currNode.Right = node
+			nodes = append(nodes, currNode.Right)
+			currNode = nodes[0]
+			nodes = nodes[1:]
 		}
 		isLeft ^= 1
 	}
@@ -97,22 +100,22 @@ func ArrayToTreeAndTarget(input string, target int) (*TreeNode, *TreeNode) {
 	return root, targetNode
 }
 
-func TreeToArray(root *TreeNode) string {
-	var ans []string
+func TreeToArray(root *TreeNode) []interface{} {
+	var ans []interface{}
 	queue := []*TreeNode{root}
 	for len(queue) > 0 {
 		node := queue[0]
 		queue = queue[1:]
 		if node != nil {
-			ans = append(ans, strconv.Itoa(node.Val))
+			ans = append(ans, node.Val)
 			queue = append(queue, node.Left)
 			queue = append(queue, node.Right)
 		} else {
-			ans = append(ans, "null")
+			ans = append(ans, nil)
 		}
 	}
-	for len(ans) > 0 && ans[len(ans)-1] == "null" {
+	for len(ans) > 0 && ans[len(ans)-1] == nil {
 		ans = ans[:len(ans)-1]
 	}
-	return fmt.Sprintf("[%s]", strings.Join(ans, ", "))
+	return ans
 }
