@@ -17,6 +17,11 @@ func Solve(input string) int {
 	return countTestedDevices(batteryPercentages)
 }
 
-func countTestedDevices(batteryPercentages []int) int {
-
+func countTestedDevices(batteryPercentages []int) (ans int) {
+    for _, b := range batteryPercentages {
+        if b > ans {
+            ans++
+        }
+    }
+    return
 }

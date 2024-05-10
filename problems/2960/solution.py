@@ -7,4 +7,8 @@ class Solution(solution.Solution):
         return self.countTestedDevices(test_input)
 
     def countTestedDevices(self, batteryPercentages: List[int]) -> int:
-            pass
+        ans = 0
+        for b in batteryPercentages:
+            if b > ans:
+                ans += 1
+        return ans
