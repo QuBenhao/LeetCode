@@ -69,6 +69,16 @@ func TestSolution(t *testing.T) {
 				}
 			case []interface{}:
 				wantArray := testcase.want.([]interface{})
+				defer func() {
+					if recover() != nil {
+						respIntArray := gotResp.([]int)
+						if ast.Equalf(len(wantArray), len(respIntArray), "Expected: [%v], actual: [%v]", testcase.want, gotResp) {
+							for j := 0; j < len(respIntArray); j++ {
+								ast.Equal(int(wantArray[j].(float64)), respIntArray[j], "Expected: [%v], actual: [%v]", testcase.want, gotResp)
+							}
+						}
+					}
+				}()
 				respArray := gotResp.([]interface{})
 				if len(wantArray) == 0 || len(respArray) == 0 {
 					ast.Equalf(len(wantArray), len(respArray), "Expected: [%v], actual: [%v]", testcase.want, gotResp)
