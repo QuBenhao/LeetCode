@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	problem "leetCode/problems/2105"
+	problem "leetCode/problems/741"
 	"log"
+	"math"
 	"os"
 	"path"
-	"reflect"
 	"runtime"
 	"strings"
 	"testing"
@@ -16,7 +16,7 @@ import (
 
 const TestcaseFolderFmt = "problems/%s/testcase"
 
-var problemId string = "2105"
+var problemId string = "741"
 
 type TestCase struct {
 	input string
@@ -25,7 +25,7 @@ type TestCase struct {
 
 func processTestcase() (tests []TestCase) {
 	inputs := make([]string, 0)
-	outputs := make([]interface{}, 0)
+	var outputs interface{}
 	_, b, _, _ := runtime.Caller(0)
 	basePath := path.Dir(path.Dir(b))
 	testcasePath := path.Join(basePath, fmt.Sprintf(TestcaseFolderFmt, problemId))
@@ -44,7 +44,7 @@ func processTestcase() (tests []TestCase) {
 		log.Fatal(outputErr)
 	}
 	for i, input := range inputs {
-		tests = append(tests, TestCase{input, outputs[i]})
+		tests = append(tests, TestCase{input, outputs.([]interface{})[i]})
 	}
 	return
 }
@@ -55,17 +55,46 @@ func TestSolution(t *testing.T) {
 	for i, testcase := range tests {
 		t.Run(fmt.Sprintf("%s/Testcase#%d", problemId, i), func(t *testing.T) {
 			gotResp := problem.Solve(testcase.input)
-			v := reflect.ValueOf(testcase.want)
-			if v.Kind() == reflect.Slice {
-				// TODO: Not able to compare type currently
-				if !ast.Equal(fmt.Sprintf("%v", testcase.want), fmt.Sprintf("%v", gotResp)) {
-					t.Errorf("[%s] Solution want %v, got %v", problemId, testcase.want, gotResp)
+			switch testcase.want.(type) {
+			case float64:
+				switch gotResp.(type) {
+				case float64:
+					ast.LessOrEqual(1e-5, math.Abs(testcase.want.(float64)-gotResp.(float64)))
+				case int:
+					ast.Equal(int(testcase.want.(float64)), gotResp.(int))
+				case int64:
+					ast.Equal(int64(testcase.want.(float64)), gotResp.(int64))
+				default:
+					ast.Equal(testcase.want, gotResp)
 				}
-			} else {
-				// TODO: Not able to compare type currently
-				if !ast.Equal(fmt.Sprintf("%#v", testcase.want), fmt.Sprintf("%#v", gotResp)) {
-					t.Errorf("[%s] Solution want %v, got %v", problemId, testcase.want, gotResp)
+			case []interface{}:
+				wantArray := testcase.want.([]interface{})
+				respArray := gotResp.([]interface{})
+				switch wantArray[0].(type) {
+				case float64:
+					{
+						switch respArray[0].(type) {
+						case float64:
+							if ast.Equal(len(wantArray), len(respArray)) {
+								for j := 0; j < len(wantArray); j++ {
+									ast.LessOrEqual(1e-5, math.Abs(wantArray[j].(float64)-respArray[j].(float64)))
+								}
+							}
+						case int:
+							if ast.Equal(len(wantArray), len(respArray)) {
+								for j := 0; j < len(wantArray); j++ {
+									ast.Equal(int(wantArray[j].(float64)), respArray[j].(int))
+								}
+							}
+						default:
+							ast.Equal(wantArray, respArray)
+						}
+					}
+				default:
+					ast.Equal(wantArray, respArray)
 				}
+			default:
+				ast.Equal(testcase.want, gotResp)
 			}
 		})
 	}
