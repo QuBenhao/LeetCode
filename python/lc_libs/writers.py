@@ -433,6 +433,16 @@ def write_solution_python(code: str, default: bool = True) -> str:
 
 
 def write_solution_golang(code_default: str, problem_id: str, default: bool = True, code: str = "") -> str:
+    base_str = ("package problem{}\n\n"
+                "import (\n"
+                "{}\n"
+                ")\n\n"
+                "func Solve(input string) {}\n"
+                "\tvalues := strings.Split(input, \"\\n\")\n"
+                "{}\n{}\n"
+                "\treturn {}({})\n"
+                "{}\n\n{}")
+
     def process_inputs(input_str: str, struct_dict: dict) -> (str, str, str, str):
         res = []
         imports_libs = set()
@@ -522,18 +532,24 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                     structs_map[struct_name]["funcs"].append((tmp.split("(")[0].split("func ")[-1].strip(),
                                                               process_inputs(tmp.split("(")[1].split(")")[0],
                                                                              structs_map)))
-            return ""
-    base_str = ("package problem{}\n\n"
-                "import (\n"
-                "{}\n"
-                ")\n\n"
-                "func Solve(input string) {} {}\n"
-                "\tvalues := strings.Split(input, \"\\n\")\n"
-                "{}\n{}\n"
-                "\treturn {}({})\n"
-                "{}\n\n{}")
+            import_set = set()
+            for d in structs_map.values():
+                if "funcs" in d:
+                    for _, its in d["funcs"]:
+                        import_set.add(its[0])
+            return base_str.format(
+                problem_id,
+                "\n".join(import_set),
+                "interface{} {",
+                "",
+                "",
+                "",
+                "",
+                "}",
+                code_default if default else code,
+            )
+
     if len(rts) != 1 or rts[0] == "*TreeNode" or rts[0] == "*ListNode" or rts[0] == "*Node":
-        return_type = "string"
         return_func_var = "{}({})".format(func_names[0],
                                           ", ".join(list(zip(*its))[3]))
         match rts[0]:
@@ -542,7 +558,6 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
             case "*ListNode":
                 return_func_name = return_func_var + ".LinkedListToIntArray"
                 return_func_var = ""
-                return_type = "[]int"
             case "*Node":
                 return_func_name = "ToBeImplemented"
             case _:
@@ -551,8 +566,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
         return base_str.format(
             problem_id,
             "\n".join(set(list(zip(*its))[0])),
-            return_type,
-            "{",
+            "interface{} {",
             "\n".join(list(zip(*its))[1]),
             "\n".join(list(zip(*its))[2]),
             return_func_name,
@@ -563,8 +577,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
     return base_str.format(
         problem_id,
         "\n".join(set(list(zip(*its))[0])),
-        rts[0] if len(rts) == 1 else "string",
-        "{",
+        "interface{} {",
         "\n".join(list(zip(*its))[1]),
         "\n".join(list(zip(*its))[2]),
         func_names[0],
