@@ -527,7 +527,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
 
         return base_str.format(
             problem_id,
-            "\n".join(list(zip(*its))[0]),
+            "\n".join(set(list(zip(*its))[0])),
             return_type,
             "{",
             "\n".join(list(zip(*its))[1]),
@@ -539,7 +539,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
         )
     return base_str.format(
         problem_id,
-        "\n".join(list(zip(*its))[0]),
+        "\n".join(set(list(zip(*its))[0])),
         rts[0] if len(rts) == 1 else "string",
         "{",
         "\n".join(list(zip(*its))[1]),
