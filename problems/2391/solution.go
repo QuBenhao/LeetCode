@@ -6,7 +6,20 @@ import (
 	"strings"
 )
 
-func Solve(input string) int {
+func garbageCollection(garbage []string, travel []int) int {
+	ans := len(garbage[0])
+	seen := map[rune]struct{}{}
+	for i := len(garbage) - 1; i > 0; i-- {
+		g := garbage[i]
+		for _, c := range g {
+			seen[c] = struct{}{}
+		}
+		ans += len(g) + travel[i-1]*len(seen)
+	}
+	return ans
+}
+
+func Solve(input string) interface{} {
 	values := strings.Split(input, "\n")
 	var garbage []string
 	var travel []int
@@ -19,17 +32,4 @@ func Solve(input string) int {
 	}
 
 	return garbageCollection(garbage, travel)
-}
-
-func garbageCollection(garbage []string, travel []int) int {
-    ans := len(garbage[0])
-    seen := map[rune]struct{}{}
-    for i := len(garbage) - 1; i > 0; i-- {
-        g := garbage[i]
-        for _, c := range g {
-            seen[c] = struct{}{}
-        }
-        ans += len(g) + travel[i-1]*len(seen)
-    }
-    return ans
 }
