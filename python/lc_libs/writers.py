@@ -437,19 +437,20 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                 "import (\n"
                 "{}\n"
                 ")\n\n"
+                "{}\n\n"
                 "func Solve(input string) {}\n"
                 "\tvalues := strings.Split(input, \"\\n\")\n"
                 "{}\n{}\n"
-                "\treturn {}({})\n"
-                "{}\n\n{}")
+                "\treturn {}({})\n{}\n"
+                )
 
-    def process_inputs(input_str: str, struct_dict: dict) -> (str, str, str, str):
+    def process_inputs(input_str: str, struct_dict: dict, struct_func: bool = False) -> (str, str, str, str):
         res = []
         imports_libs = set()
         json_parse = []
         variables = []
         if input_str.strip() == "":
-            return "", ""
+            return "", "", "", ""
         splits = input_str.split(",")
         first = True
         list_type_vars = []
@@ -476,11 +477,21 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                 res.append(tp)
                 res.append("\n")
                 first = True
+        cnts = 0
+        if struct_func:
+            variables = []
         for i, vars_type in enumerate(list_type_vars):
             vrs, tp = vars_type[:-1], vars_type[-1]
             if (tp.startswith("*") and tp[1:] in struct_dict) or tp in struct_dict:
                 for var in vrs:
-                    pass
+                    print(var)
+            elif struct_func:
+                imports_libs.add("\t\"encoding/json\"")
+                imports_libs.add("\t\"log\"")
+                for _ in vrs:
+                    variables.append(f"values[{cnts}].({tp})") if tp != "int" else variables.append(
+                        f"int(values[{cnts}].(float64))")
+                    cnts += 1
             else:
                 match tp:
                     case "*ListNode":
@@ -523,31 +534,100 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                 if tmp.startswith("func ") and (
                         tmp.endswith(f") {struct_name} " + "{") or
                         tmp.endswith(f") *{struct_name} " + "{")):
+                    tp0, tp1, tp2, tp3 = process_inputs(tmp.split("(")[1].split(")")[0],
+                                   structs_map, True)
                     structs_map[struct_name]["construct"] = (tmp.split("(")[0].split("func ")[-1].strip(),
-                                                             process_inputs(tmp.split("(")[1].split(")")[0],
-                                                                            structs_map))
+                                                             (tp0, tp1, tp2, tp3.replace("values", "vals[0]"))
+                                                             )
                 elif tmp.startswith("func (") and struct_name in tmp.split(")")[0]:
                     if "funcs" not in structs_map[struct_name]:
                         structs_map[struct_name]["funcs"] = []
-                    structs_map[struct_name]["funcs"].append((tmp.split("(")[0].split("func ")[-1].strip(),
-                                                              process_inputs(tmp.split("(")[1].split(")")[0],
-                                                                             structs_map)))
+                    tp0, tp1, tp2, tp3 =process_inputs(tmp.split("(")[2].split(")")[0],
+                                   structs_map, True)
+                    structs_map[struct_name]["funcs"].append((tmp.split("(")[1].split(")")[-1].strip(),
+                                                              (tp0, tp1, tp2, tp3.replace("values", "vals[i]"))))
+            """
+            values := strings.Split(input, "\n")
+            var opts []string
+            var vals [][]interface{}
+            if err := json.Unmarshal([]byte(values[0]), &opts); err != nil {
+                log.Fatal(err)
+            }
+            if err := json.Unmarshal([]byte(values[1]), &vals); err != nil {
+                log.Fatal(err)
+            }
+            var ans []interface{}
+            obj := Constructor(int(vals[0][0].(float64)), int(vals[0][1].(float64)), int(vals[0][2].(float64)))
+            ans = append(ans, nil)
+            for i := 1; i < len(opts); i++ {
+                var res interface{}
+                switch strings.ToTitle(opts[i]) {
+                case "AddCar":
+                    {
+                        obj.AddCar(int(vals[i][0].(float64)))
+                    }
+                default:
+                    res = nil
+                }
+                if strings.ToUpper(opts[i]) == "ADDCAR" {
+                    res = obj.AddCar(int(vals[i][0].(float64)))
+                }
+                ans = append(ans, res)
+            }
+            return ans
+            """
             import_set = set()
+            func_loop = ""
+            constructor = None
             for d in structs_map.values():
                 if "funcs" in d:
-                    for _, its in d["funcs"]:
+                    for name, its in d["funcs"]:
                         import_set.add(its[0])
+                        func_loop += ("\t\tcase \"{}\":\n"
+                                      "\t\t\tres = obj.{}({})\n").format(name, name, its[3])
+                if "construct" in d:
+                    constructor = d["construct"]
+            build_body = ("\tvar opts []string\n" +
+                          "\tvar vals [][]interface{}\n" +
+                          "\tvar ans []interface{}\n" +
+                          "\tif err := json.Unmarshal([]byte(values[0]), &opts); err != nil {\n" +
+                          "\t\tlog.Println(err)\n" +
+                          "\t\treturn nil\n" +
+                          "\t}\n" +
+                          "\tif err := json.Unmarshal([]byte(values[1]), &vals); err != nil {\n" +
+                          "\t\tlog.Println(err)\n" +
+                          "\t\treturn nil\n" +
+                          "\t}\n" +
+                          "{}".format(
+                              "\tobj :=" + constructor[
+                                  0] + f"({constructor[1][3]})\n" if constructor is not None else "",
+                              ""
+                          ) +
+                          "\tans = append(ans, nil)\n" +
+                          "\tfor i := 1; i < len(opts); i++ {\n" +
+                          "\t\tvar res interface{}\n" +
+                          "{}".format(
+                              "\t\tswitch opts[i] {\n" +
+                              func_loop +
+                              "\t\tdefault:\n"
+                              "\t\t\tres = nil\n"
+                              "\t\t}\n"
+                          ) +
+                          "\t\tans = append(ans, res)\n"
+                          "\t}\n"
+                          )
+
             return base_str.format(
                 problem_id,
                 "\n".join(import_set),
+                code_default if default else code,
                 "interface{} {",
+                build_body,
                 "",
-                "",
-                "",
+                "ans",
                 "",
                 "}",
-                code_default if default else code,
-            )
+            ).replace("return ans()", "return ans")
 
     if len(rts) != 1 or rts[0] == "*TreeNode" or rts[0] == "*ListNode" or rts[0] == "*Node":
         return_func_var = "{}({})".format(func_names[0],
@@ -566,22 +646,22 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
         return base_str.format(
             problem_id,
             "\n".join(set(list(zip(*its))[0])),
+            code_default if default else code,
             "interface{} {",
             "\n".join(list(zip(*its))[1]),
             "\n".join(list(zip(*its))[2]),
             return_func_name,
             return_func_var,
             "}",
-            code_default if default else code,
         )
     return base_str.format(
         problem_id,
         "\n".join(set(list(zip(*its))[0])),
+        code_default if default else code,
         "interface{} {",
         "\n".join(list(zip(*its))[1]),
         "\n".join(list(zip(*its))[2]),
         func_names[0],
         ", ".join(list(zip(*its))[3]),
         "}",
-        code_default if default else code,
     )
