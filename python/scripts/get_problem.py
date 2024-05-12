@@ -101,7 +101,7 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
 
 def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[str], problem_category: Optional[str],
          force: bool = False, cookie: Optional[str] = None, fetch_all: bool = False, premium_only: bool = False,
-         file: Optional[str] = None, languages: list[str] = None):
+         file: Optional[str] = None, replace_problem_id: bool = False, languages: list[str] = None):
     if not fetch_all:
         if not problem_id and not problem_slug:
             print("Requires at least one of problem_id or problem_slug to fetch in single mode.")
@@ -133,6 +133,32 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
         else:
             process_single_algorithm_problem(problem_folder, problem_id, problem_slug, problem_title, cookie, force,
                                              languages=languages)
+            if replace_problem_id:
+                root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+                for lang in languages:
+                    match lang:
+                        case "python3":
+                            with open(f"{root_path}/python/test.py", "r", encoding="utf-8") as f:
+                                lines = f.readlines()
+                            with open(f"{root_path}/python/test.py", "w", encoding="utf-8") as f:
+                                for line in lines:
+                                    if line.startswith("QUESTION ="):
+                                        line = "QUESTION = \"{}\"\n".format(problem_id)
+                                    f.write(line)
+                        case "golang":
+                            lines = []
+                            with open(f"{root_path}/golang/solution_test.go", "r", encoding="utf-8") as f:
+                                for line in f.readlines():
+                                    if "problem \"leetCode/problems/" in line:
+                                        lines.append("\tproblem \"leetCode/problems/{}\"\n".format(problem_id))
+                                    elif "var problemId string =" in line:
+                                        lines.append("var problemId string = \"{}\"\n".format(problem_id))
+                                    else:
+                                        lines.append(line)
+                            with open(f"{root_path}/golang/solution_test.go", "w", encoding="utf-8") as f:
+                                f.writelines(lines)
+                        case _:
+                            pass
     else:
         if premium_only and not cookie:
             print("Requires premium cookie to keep going.")
@@ -199,6 +225,8 @@ if __name__ == '__main__':
                         help="Only fetch premium questions, need a premium account cookie to execute correctly.")
     parser.add_argument("-debug", "--debug_file", required=False, type=str,
                         help="Debug output file, better debugging when the messages are too long", default=None)
+    parser.add_argument("-change", "--change_problem_id", required=False, action="store_true",
+                        help="Replace the problem id to run in each language.")
     args = parser.parse_args()
 
     try:
@@ -210,5 +238,5 @@ if __name__ == '__main__':
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder(args.problem_category))
     langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]") or "[\"python3\"]")
     main(pf, args.problem_id, args.problem_slug, args.problem_category,
-         args.force, cke, args.fetch_all, args.premium_only, args.debug_file, langs)
+         args.force, cke, args.fetch_all, args.premium_only, args.debug_file, args.change_problem_id, langs)
     sys.exit()
