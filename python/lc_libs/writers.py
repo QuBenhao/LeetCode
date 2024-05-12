@@ -554,8 +554,8 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                 if "funcs" in d:
                     for name, its in d["funcs"]:
                         import_set.update(its[0])
-                        func_loop += ("\t\tcase \"{}\":\n"
-                                      "\t\t\tres = obj.{}({})\n").format(name, name, its[3])
+                        func_loop += ("\t\tcase \"{}\", \"{}\":\n"
+                                      "\t\t\tres = obj.{}({})\n").format(name[0].lower() + name[1:], name, name, its[3])
                 if "construct" in d:
                     constructor = d["construct"]
             build_body = ("\tvar opts []string\n" +
