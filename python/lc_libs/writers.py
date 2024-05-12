@@ -546,36 +546,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                                    structs_map, True)
                     structs_map[struct_name]["funcs"].append((tmp.split("(")[1].split(")")[-1].strip(),
                                                               (tp0, tp1, tp2, tp3.replace("values", "vals[i]"))))
-            """
-            values := strings.Split(input, "\n")
-            var opts []string
-            var vals [][]interface{}
-            if err := json.Unmarshal([]byte(values[0]), &opts); err != nil {
-                log.Fatal(err)
-            }
-            if err := json.Unmarshal([]byte(values[1]), &vals); err != nil {
-                log.Fatal(err)
-            }
-            var ans []interface{}
-            obj := Constructor(int(vals[0][0].(float64)), int(vals[0][1].(float64)), int(vals[0][2].(float64)))
-            ans = append(ans, nil)
-            for i := 1; i < len(opts); i++ {
-                var res interface{}
-                switch strings.ToTitle(opts[i]) {
-                case "AddCar":
-                    {
-                        obj.AddCar(int(vals[i][0].(float64)))
-                    }
-                default:
-                    res = nil
-                }
-                if strings.ToUpper(opts[i]) == "ADDCAR" {
-                    res = obj.AddCar(int(vals[i][0].(float64)))
-                }
-                ans = append(ans, res)
-            }
-            return ans
-            """
+
             import_set = set()
             func_loop = ""
             constructor = None
