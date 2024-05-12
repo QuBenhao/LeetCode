@@ -1,0 +1,2 @@
+["[\"OrderedStream\",\"insert\",\"insert\",\"insert\",\"insert\",\"insert\"]\n[[5],[3,\"ccccc\"],[1,\"aaaaa\"],[2,\"bbbbb\"],[5,\"eeeee\"],[4,\"ddddd\"]]"]
+[[null, [], ["aaaaa"], ["bbbbb", "ccccc"], [], ["ddddd", "eeeee"]]]
