@@ -6,7 +6,16 @@ import (
 	"strings"
 )
 
-func Solve(input string) int {
+func countTestedDevices(batteryPercentages []int) (ans int) {
+	for _, b := range batteryPercentages {
+		if b > ans {
+			ans++
+		}
+	}
+	return
+}
+
+func Solve(input string) interface{} {
 	values := strings.Split(input, "\n")
 	var batteryPercentages []int
 
@@ -15,13 +24,4 @@ func Solve(input string) int {
 	}
 
 	return countTestedDevices(batteryPercentages)
-}
-
-func countTestedDevices(batteryPercentages []int) (ans int) {
-    for _, b := range batteryPercentages {
-        if b > ans {
-            ans++
-        }
-    }
-    return
 }
