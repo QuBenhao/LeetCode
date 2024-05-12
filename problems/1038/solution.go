@@ -5,15 +5,14 @@ import (
 	"strings"
 )
 
-func Solve(input string) interface{} {
-	values := strings.Split(input, "\n")
-	var root *TreeNode
-
-	root = ArrayToTree(values[0])
-
-	return TreeToArray(bstToGst(root))
-}
-
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
 var sum int
 
 func inorder(node *TreeNode) {
@@ -30,4 +29,13 @@ func bstToGst(root *TreeNode) *TreeNode {
 	sum = 0
 	inorder(root)
 	return root
+}
+
+func Solve(input string) interface{} {
+	values := strings.Split(input, "\n")
+	var root *TreeNode
+
+	root = ArrayToTree(values[0])
+
+	return TreeToArray(bstToGst(root))
 }
