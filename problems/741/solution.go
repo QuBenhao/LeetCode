@@ -7,17 +7,6 @@ import (
 	"strings"
 )
 
-func Solve(input string) interface{} {
-	values := strings.Split(input, "\n")
-	var grid [][]int
-
-	if err := json.Unmarshal([]byte(values[0]), &grid); err != nil {
-		log.Fatal(err)
-	}
-
-	return cherryPickup(grid)
-}
-
 func cherryPickup(grid [][]int) int {
 	n := len(grid)
 	memo := make([][][]int, n*2-1)
@@ -51,4 +40,15 @@ func cherryPickup(grid [][]int) int {
 		return res
 	}
 	return max(dfs(n*2-2, n-1, n-1), 0)
+}
+
+func Solve(input string) interface{} {
+	values := strings.Split(input, "\n")
+	var grid [][]int
+
+	if err := json.Unmarshal([]byte(values[0]), &grid); err != nil {
+		log.Fatal(err)
+	}
+
+	return cherryPickup(grid)
 }
