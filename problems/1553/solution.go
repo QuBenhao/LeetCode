@@ -6,7 +6,11 @@ import (
 	"strings"
 )
 
-func Solve(input string) int {
+func minDays(n int) int {
+	return 0
+}
+
+func Solve(input string) interface{} {
 	values := strings.Split(input, "\n")
 	var n int
 
@@ -15,8 +19,4 @@ func Solve(input string) int {
 	}
 
 	return minDays(n)
-}
-
-func minDays(n int) int {
-
 }
