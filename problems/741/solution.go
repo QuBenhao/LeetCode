@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func Solve(input string) int {
+func Solve(input string) interface{} {
 	values := strings.Split(input, "\n")
 	var grid [][]int
 

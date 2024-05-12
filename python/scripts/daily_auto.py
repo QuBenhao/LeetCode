@@ -25,7 +25,9 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
                 with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
                     f.write(write_testcase(testcases, outputs))
             with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
-                f.writelines([testcase_str, "\n", str(outputs)])
+                f.writelines([testcase_str, "\n",
+                              str(outputs).replace("None", "null")
+                             .replace("True", "true").replace("False", "false")])
     code_map = get_question_code(slug, lang_slugs=languages)
     if code_map is None:
         return
@@ -56,13 +58,15 @@ def process_daily(problem_folder: str, languages: list[str]):
     dir_path = os.path.join(root_path, problem_folder, daily_info['questionId'])
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
-        write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'], languages)
+        write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'],
+                       languages)
     else:
         print("solved {} before".format(daily_info['questionId']))
         if languages is not None and any(lang != "python3" for lang in languages):
             if "python3" in languages:
                 languages.remove("python3")
-            write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'], languages)
+            write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'],
+                           languages)
     for lang in languages:
         if lang == "python3":
             continue
@@ -146,7 +150,7 @@ if __name__ == '__main__':
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     try:
-        langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]"))
+        langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]") or "[\"python3\"]")
     except Exception as _:
         langs = ["python3"]
     exec_res = main(pf, cke, langs)

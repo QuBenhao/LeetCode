@@ -13,7 +13,8 @@ from dotenv import load_dotenv
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from python.constants import constant
 from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
-    get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution_python
+    get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution_python, \
+    write_solution_golang
 from python.utils import get_default_folder
 
 
@@ -30,7 +31,7 @@ def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, forc
 
 
 def process_single_algorithm_problem(problem_folder: str, problem_id: str, problem_slug: str,
-                                     problem_title: str, cookie: str, force: bool = False, file=None):
+                                     problem_title: str, cookie: str, force: bool = False, file=None, languages=None):
     dir_path = __check_path__(problem_folder, problem_id, problem_slug, force, file)
     if not dir_path:
         return
@@ -38,8 +39,8 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
     if desc is None:
         print(f"Unable to fetch question content, [{problem_id}]{problem_slug}", file=file)
         return
-    code = get_question_code(problem_slug, cookie=cookie)["python3"]
-    if code is None:
+    code_maps = get_question_code(problem_slug, lang_slugs=languages, cookie=cookie)
+    if code_maps is None:
         print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}", file=file)
         shutil.rmtree(dir_path)
         return
@@ -54,9 +55,20 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
     with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
         f.write(write_testcase(testcases, outputs))
     with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
-        f.writelines([testcase_str, "\n", str(outputs)])
-    with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-        f.write(write_solution_python(code))
+        f.writelines([testcase_str, "\n",
+                      str(outputs).replace("None", "null")
+                     .replace("True", "true").replace("False", "false")])
+    for key, val in code_maps.items():
+        match key:
+            case "python3":
+                with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
+                    f.write(write_solution_python(val))
+            case "golang":
+                with open(f"{dir_path}/solution.go", "w", encoding="utf-8") as f:
+                    f.write(write_solution_golang(val, problem_id))
+            case _:
+                print(f"Unsupported language {key} yet")
+
     print(f"Add question: [{problem_id}]{problem_slug}", file=file)
 
 
@@ -89,7 +101,7 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
 
 def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[str], problem_category: Optional[str],
          force: bool = False, cookie: Optional[str] = None, fetch_all: bool = False, premium_only: bool = False,
-         file: Optional[str] = None):
+         file: Optional[str] = None, languages: list[str] = None):
     if not fetch_all:
         if not problem_id and not problem_slug:
             print("Requires at least one of problem_id or problem_slug to fetch in single mode.")
@@ -119,7 +131,8 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
         if str.lower(pc) == "database":
             process_single_database_problem(problem_folder, problem_id, problem_slug, problem_title, cookie, force)
         else:
-            process_single_algorithm_problem(problem_folder, problem_id, problem_slug, problem_title, cookie, force)
+            process_single_algorithm_problem(problem_folder, problem_id, problem_slug, problem_title, cookie, force,
+                                             languages=languages)
     else:
         if premium_only and not cookie:
             print("Requires premium cookie to keep going.")
@@ -150,7 +163,7 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
                             process_single_algorithm_problem(problem_folder,
                                                              question["frontendQuestionId"], question["titleSlug"],
                                                              question["title"],
-                                                             cookie, force, file=f)
+                                                             cookie, force, file=f, languages=languages)
                 else:
                     if str.lower(pc) == "database":
                         process_single_database_problem(problem_folder,
@@ -161,7 +174,7 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
                         process_single_algorithm_problem(problem_folder,
                                                          question["frontendQuestionId"], question["titleSlug"],
                                                          question["title"],
-                                                         cookie, force)
+                                                         cookie, force, languages=languages)
                 if premium_only:
                     time.sleep(random.randint(3, 6))
             except Exception as e:
@@ -195,7 +208,7 @@ if __name__ == '__main__':
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder(args.problem_category))
-
+    langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]") or "[\"python3\"]")
     main(pf, args.problem_id, args.problem_slug, args.problem_category,
-         args.force, cke, args.fetch_all, args.premium_only, args.debug_file)
+         args.force, cke, args.fetch_all, args.premium_only, args.debug_file, langs)
     sys.exit()

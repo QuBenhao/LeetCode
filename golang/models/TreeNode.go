@@ -1,0 +1,121 @@
+package models
+
+import (
+	"encoding/json"
+	"log"
+	"strconv"
+	"strings"
+)
+
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func ArrayToTree(input string) *TreeNode {
+	var value interface{}
+	if err := json.Unmarshal([]byte(input), &value); err != nil {
+		log.Fatalf("Unable to process tree input: %s", input)
+		return nil
+	}
+	arr := value.([]interface{})
+	if len(arr) == 0 {
+		return nil
+	}
+	var root *TreeNode
+	if arr[0] == nil {
+		return nil
+	} else {
+		root = &TreeNode{Val: int(arr[0].(float64))}
+	}
+	isLeft := 1
+	var nodes []*TreeNode
+	currNode := root
+	for i := 1; i < len(arr); i++ {
+		var node *TreeNode
+		if arr[i] == nil {
+			node = nil
+		} else {
+			node = &TreeNode{Val: int(arr[i].(float64))}
+		}
+		if isLeft == 1 {
+			currNode.Left = node
+			nodes = append(nodes, currNode.Left)
+		} else {
+			currNode.Right = node
+			nodes = append(nodes, currNode.Right)
+			currNode = nodes[0]
+			nodes = nodes[1:]
+		}
+		isLeft ^= 1
+	}
+	return root
+}
+
+func ArrayToTreeAndTarget(input string, target int) (*TreeNode, *TreeNode) {
+	input = strings.ReplaceAll(input, " ", "")
+	if input[0] == '[' {
+		input = input[1:]
+	}
+	if input[len(input)-1] == ']' {
+		input = input[:len(input)-1]
+	}
+	if len(input) == 0 {
+		return nil, nil
+	}
+	splits := strings.Split(input, ",")
+	var root, targetNode *TreeNode
+	if v, err := strconv.Atoi(splits[0]); err != nil {
+		return nil, nil
+	} else {
+		root = &TreeNode{Val: v}
+		if v == target {
+			targetNode = root
+		}
+	}
+	isLeft := 1
+	var nodes []*TreeNode
+	currNode := root
+	for i := 1; i < len(splits); i++ {
+		if v, err := strconv.Atoi(splits[i]); err == nil {
+			if isLeft == 1 {
+				currNode.Left = &TreeNode{Val: v}
+				if v == target {
+					targetNode = currNode.Left
+				}
+				nodes = append(nodes, currNode.Left)
+			} else {
+				currNode.Right = &TreeNode{Val: v}
+				if v == target {
+					targetNode = currNode.Right
+				}
+				nodes = append(nodes, currNode.Right)
+				currNode = nodes[0]
+				nodes = nodes[1:]
+			}
+		}
+		isLeft ^= 1
+	}
+	return root, targetNode
+}
+
+func TreeToArray(root *TreeNode) []interface{} {
+	var ans []interface{}
+	queue := []*TreeNode{root}
+	for len(queue) > 0 {
+		node := queue[0]
+		queue = queue[1:]
+		if node != nil {
+			ans = append(ans, node.Val)
+			queue = append(queue, node.Left)
+			queue = append(queue, node.Right)
+		} else {
+			ans = append(ans, nil)
+		}
+	}
+	for len(ans) > 0 && ans[len(ans)-1] == nil {
+		ans = ans[:len(ans)-1]
+	}
+	return ans
+}
