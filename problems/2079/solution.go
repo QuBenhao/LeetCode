@@ -6,7 +6,20 @@ import (
 	"strings"
 )
 
-func Solve(input string) int {
+func wateringPlants(plants []int, capacity int) int {
+	ans := len(plants)
+	water := capacity
+	for i, need := range plants {
+		if water < need {
+			ans += i * 2
+			water = capacity
+		}
+		water -= need
+	}
+	return ans
+}
+
+func Solve(input string) interface{} {
 	values := strings.Split(input, "\n")
 	var plants []int
 	var capacity int
@@ -19,17 +32,4 @@ func Solve(input string) int {
 	}
 
 	return wateringPlants(plants, capacity)
-}
-
-func wateringPlants(plants []int, capacity int) int {
-    ans := len(plants)
-    water := capacity
-    for i, need := range plants {
-        if water < need {
-            ans += i * 2
-            water = capacity
-        }
-        water -= need
-    }
-    return ans
 }
