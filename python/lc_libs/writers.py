@@ -444,7 +444,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                 "\treturn {}({})\n{}\n"
                 )
 
-    def process_inputs(input_str: str, struct_dict: dict, struct_func: bool = False) -> (str, str, str, str):
+    def process_inputs(input_str: str, struct_dict: dict, struct_func: bool = False) -> (set, str, str, str):
         res = []
         imports_libs = set()
         json_parse = []
@@ -514,7 +514,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                         imports_libs.add("\t\"encoding/json\"")
                         imports_libs.add("\t\"log\"")
         imports_libs.add("\t\"strings\"")
-        return "\n".join(imports_libs), "".join(res), "".join(json_parse), ", ".join(variables)
+        return imports_libs, "".join(res), "".join(json_parse), ", ".join(variables)
 
     its = []
     rts = []
@@ -582,7 +582,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
             for d in structs_map.values():
                 if "funcs" in d:
                     for name, its in d["funcs"]:
-                        import_set.add(its[0])
+                        import_set.update(its[0])
                         func_loop += ("\t\tcase \"{}\":\n"
                                       "\t\t\tres = obj.{}({})\n").format(name, name, its[3])
                 if "construct" in d:
@@ -619,7 +619,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
 
             return base_str.format(
                 problem_id,
-                "\n".join(import_set),
+                "\n".join(sorted(import_set, key=lambda x: "\t" + x.split(" ")[-1] if x.startswith('\t. ') else x)),
                 code_default if default else code,
                 "interface{} {",
                 build_body,
@@ -628,6 +628,9 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                 "",
                 "}",
             ).replace("return ans()", "return ans")
+    import_set = set()
+    for it in its:
+        import_set.update(it[0])
 
     if len(rts) != 1 or rts[0] == "*TreeNode" or rts[0] == "*ListNode" or rts[0] == "*Node":
         return_func_var = "{}({})".format(func_names[0],
@@ -645,7 +648,8 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
 
         return base_str.format(
             problem_id,
-            "\n".join(set(list(zip(*its))[0])),
+            # string with . starts before other, othercase sort normal
+            "\n".join(sorted(import_set, key=lambda x: "\t" + x.split(" ")[-1] if x.startswith('\t. ') else x)),
             code_default if default else code,
             "interface{} {",
             "\n".join(list(zip(*its))[1]),
@@ -656,7 +660,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
         )
     return base_str.format(
         problem_id,
-        "\n".join(set(list(zip(*its))[0])),
+        "\n".join(sorted(import_set, key=lambda x: "\t" + x.split(" ")[-1] if x.startswith('\t. ') else x)),
         code_default if default else code,
         "interface{} {",
         "\n".join(list(zip(*its))[1]),
