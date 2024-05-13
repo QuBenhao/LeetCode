@@ -535,27 +535,32 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                         tmp.endswith(f") {struct_name} " + "{") or
                         tmp.endswith(f") *{struct_name} " + "{")):
                     tp0, tp1, tp2, tp3 = process_inputs(tmp.split("(")[1].split(")")[0],
-                                   structs_map, True)
+                                                        structs_map, True)
+                    rt = tmp.split("{")[0].split(")")[-1].strip()
                     structs_map[struct_name]["construct"] = (tmp.split("(")[0].split("func ")[-1].strip(),
-                                                             (tp0, tp1, tp2, tp3.replace("values", "vals[0]"))
-                                                             )
+                                                             (tp0, tp1, tp2, tp3.replace("values", "vals[0]")),
+                                                             rt)
                 elif tmp.startswith("func (") and struct_name in tmp.split(")")[0]:
                     if "funcs" not in structs_map[struct_name]:
                         structs_map[struct_name]["funcs"] = []
-                    tp0, tp1, tp2, tp3 =process_inputs(tmp.split("(")[2].split(")")[0],
-                                   structs_map, True)
+                    tp0, tp1, tp2, tp3 = process_inputs(tmp.split("(")[2].split(")")[0],
+                                                        structs_map, True)
+                    rt = tmp.split("{")[0].split(")")[-1].strip()
                     structs_map[struct_name]["funcs"].append((tmp.split("(")[1].split(")")[-1].strip(),
-                                                              (tp0, tp1, tp2, tp3.replace("values", "vals[i]"))))
+                                                              (tp0, tp1, tp2, tp3.replace("values", "vals[i]")),
+                                                              rt))
 
             import_set = set()
             func_loop = ""
             constructor = None
             for d in structs_map.values():
                 if "funcs" in d:
-                    for name, its in d["funcs"]:
+                    for name, its, rt in d["funcs"]:
                         import_set.update(its[0])
                         func_loop += ("\t\tcase \"{}\", \"{}\":\n"
-                                      "\t\t\tres = obj.{}({})\n").format(name[0].lower() + name[1:], name, name, its[3])
+                                      "\t\t\t{}obj.{}({})\n").format(name[0].lower() + name[1:], name,
+                                                                     "res = nil\n\t\t\t" if rt == "" else "res = ",
+                                                                     name, its[3])
                 if "construct" in d:
                     constructor = d["construct"]
             build_body = ("\tvar opts []string\n" +
