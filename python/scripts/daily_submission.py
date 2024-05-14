@@ -1,5 +1,6 @@
 import json
 import os
+import subprocess
 import sys
 import traceback
 import argparse
@@ -149,25 +150,66 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: 
                     match detail["lang"]:
                         case "java":
                             file_name = "solution.java"
+                            lang_env = ["java", "--version"]
+                            test_commands = []
                         case "cpp":
                             file_name = "solution.cpp"
+                            lang_env = ["g++", "--version"]
+                            test_commands = []
                         case "golang":
                             file_name = "solution.go"
                             func = write_solution_golang
+                            lang_env = ["go", "version"]
+                            test_commands = [["go", "test", f"{root_path}/golang/solution_test.go"]]
                         case "c":
                             file_name = "solution.c"
+                            lang_env = ["gcc", "--version"]
+                            test_commands = []
                         case "javascript":
                             file_name = "solution.js"
+                            lang_env = ["npm", "test"]
+                            test_commands = []
                         case "typescript":
                             file_name = "solution.ts"
+                            lang_env = ["npm", "test"]
+                            test_commands = []
                         case _:
                             file_name = "unknown"
+                            lang_env = None
+                            test_commands = None
                             print("Language {} is not implemented to save".format(detail["lang"]))
 
                     if detail["lang"] in languages:
-                        with open(f"{dir_path}/{file_name}", "w", encoding="utf-8") as f:
-                            if func is not None:
-                                f.writelines(func(default_code[detail["lang"]], question_id, False, code))
+                        need_write = True
+                        if lang_env and test_commands and os.path.exists(f"{dir_path}/{file_name}"):
+                            env_check = subprocess.run(lang_env, capture_output=True, timeout=3)
+                            if env_check.returncode == 0:
+                                print("[{}] env ok, "
+                                      "output: {}".format(detail["lang"],
+                                                          env_check.stdout.decode("utf-8")))
+                                for cmds in test_commands:
+                                    execute_res = subprocess.run(cmds, capture_output=True, timeout=30)
+                                    if execute_res.returncode != 0:
+                                        print("Execute failed, command: [{}],"
+                                              " error: {}, output: {}".format(" ".join(cmds),
+                                                                              execute_res.stderr.decode("utf-8"),
+                                                                              execute_res.stdout.decode("utf-8")))
+                                        need_write = True
+                                        break
+                                    else:
+                                        need_write = False
+                                        print("Execute [{}] succeeded,"
+                                              " output: {}".format(" ".join(cmds),
+                                                                   execute_res.stdout.decode("utf-8")))
+                            else:
+                                print("Execute language env [{}]\n"
+                                      "output: {}, err: {}".format(" ".join(lang_env),
+                                                                   env_check.stdout.decode("utf-8"),
+                                                                   env_check.stderr.decode("utf-8")))
+                        if need_write:
+                            with open(f"{dir_path}/{file_name}", "w", encoding="utf-8") as f:
+                                if func is not None:
+                                    f.writelines(func(default_code[detail["lang"]], question_id, False, code))
                     elif not os.path.exists(f"{dir_path}/{file_name}"):
                         with open(f"{dir_path}/{file_name}", "w", encoding="utf-8") as f:
                             f.writelines(code)
