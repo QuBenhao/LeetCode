@@ -143,6 +143,8 @@ def main(problem_folder: str, cookie: Optional[str] = None, languages: list[str]
 
 
 if __name__ == '__main__':
+    rp = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    sys.path.insert(0, os.path.join(rp, "python"))
     try:
         load_dotenv()
     except Exception as e:
