@@ -24,7 +24,6 @@ func minimumRounds(tasks []int) (ans int) {
             ans += v / 3
         }
     }
-    ans++
     return
 }
 
