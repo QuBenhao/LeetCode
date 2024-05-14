@@ -6,8 +6,26 @@ import (
 	"strings"
 )
 
-func minimumRounds(tasks []int) int {
-
+func minimumRounds(tasks []int) (ans int) {
+    counter := map[int]int{}
+    for _, v := range tasks {
+        counter[v]++
+    }
+    for _, v := range counter {
+        if v == 1 {
+            return -1
+        }
+        switch v % 3 {
+        case 1:
+            ans += (v - 4) / 3 + 2
+        case 2:
+            ans += (v - 2) / 3 + 1
+        default:
+            ans += v / 3
+        }
+    }
+    ans++
+    return
 }
 
 func Solve(input string) interface{} {
