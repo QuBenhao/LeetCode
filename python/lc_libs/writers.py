@@ -507,6 +507,29 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                         for var in vrs:
                             json_parse.append(f"\t{var} = ArrayToTree(values[{i}])\n")
                         imports_libs.add("\t. \"leetCode/golang/models\"")
+                    case "*Node":
+                        if ("Left *Node" in code_default
+                                and "Right *Node" in code_default
+                                and "Next *Node" in code_default):
+                            pass
+                        elif "Neighbors []*Node" in code_default:
+                            pass
+                        elif "/**\n"\
+                             " * Definition for a Node.\n"\
+                             " * type Node struct {\n"\
+                             " *     Val int\n"\
+                             " *     Next *Node\n"\
+                             " *     Random *Node\n"\
+                             " * }\n"\
+                             " */" in code_default:
+                            for var in vrs:
+                                json_parse.append("\tvar arr" + f"{i}" + " [][]interface{}\n")
+                                json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + f"arr{i}" +
+                                                  "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                                json_parse.append(f"\t{var} = IntRandomArrayToNodeArray(arr{i})\n")
+                            imports_libs.add("\t. \"leetCode/golang/list_random\"")
+                        imports_libs.add("\t\"encoding/json\"")
+                        imports_libs.add("\t\"log\"")
                     case _:
                         for var in vrs:
                             json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
@@ -619,6 +642,21 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                 return_func_var = ""
             case "*Node":
                 return_func_name = "ToBeImplemented"
+                if ("Left *Node" in code_default
+                        and "Right *Node" in code_default
+                        and "Next *Node" in code_default):
+                    pass
+                elif "Neighbors []*Node" in code_default:
+                    pass
+                elif "/**\n" \
+                     " * Definition for a Node.\n" \
+                     " * type Node struct {\n" \
+                     " *     Val int\n" \
+                     " *     Next *Node\n" \
+                     " *     Random *Node\n" \
+                     " * }\n" \
+                     " */" in code_default:
+                    return_func_name = "NodeArrayToIntRandomArray"
             case _:
                 return_func_name = ""
 

@@ -25,7 +25,7 @@ func IntRandomArrayToNodeArray(nums [][]interface{}) *Node {
 	return dummy.Next
 }
 
-func NodeArrayToIntRandomArray(head *Node) (ans [][]interface{}) {
+func NodeArrayToIntRandomArray(head *Node) (ans []interface{}) {
 	idxMap := map[*Node]int{}
 	node := head
 	for i := 0; node != nil; i++ {
