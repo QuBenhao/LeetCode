@@ -51,6 +51,7 @@ def get_question_desc(slug: str, cookie: Optional[str] = None) -> Optional[str]:
 
 
 def extract_outputs_from_md(markdown_text: str) -> list:
+    backup_origin = markdown_text
     res = []
     markdown_text = "".join(markdown_text.split("Example")[1:])
     splits = markdown_text.split("Output")
@@ -108,9 +109,20 @@ def extract_outputs_from_md(markdown_text: str) -> list:
                                .replace("false", "False"))
                         res.append(eval(tmp))
                     except Exception as exe:
-                        print(f"4. Exception error: {exe}, [{tmp}]")
-                        traceback.print_exc()
-                        res.append(None)
+                        """
+                        special cases:
+                        160. the node at which the two lists intersect
+                        """
+                        if "the node at which the two lists intersect" in backup_origin:
+                            tmp = splits[i].split("\n")[0].split(">")[-1].strip()
+                            if tmp == "No intersection":
+                                res.append(None)
+                            else:
+                                res.append(eval(tmp.split("&#39;")[-2]))
+                        else:
+                            print(f"4. Exception error: {exe}, [{tmp}]")
+                            traceback.print_exc()
+                            res.append(None)
     return res
 
 
