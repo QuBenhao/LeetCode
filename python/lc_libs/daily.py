@@ -2,25 +2,14 @@ import json
 import traceback
 import requests
 from typing import Optional, Dict
+from query import DAILY_QUERY
 
 
 def get_daily_question() -> Optional[Dict]:
     try:
         result = requests.post('https://leetcode.cn/graphql/',
-                               json={"query": "\n    query questionOfToday {\n  todayRecord {\n    "
-                                              "date\n    userStatus\n    question {\n      "
-                                              "questionId\n      frontendQuestionId: "
-                                              "questionFrontendId\n      difficulty\n      title\n  "
-                                              "    titleCn: translatedTitle\n      titleSlug\n      "
-                                              "paidOnly: isPaidOnly\n      freqBar\n      isFavor\n "
-                                              "     acRate\n      status\n      solutionNum\n      "
-                                              "hasVideoSolution\n      topicTags {\n        name\n  "
-                                              "      nameTranslated: translatedName\n        id\n   "
-                                              "   }\n      extra {\n        topCompanyTags {\n      "
-                                              "    imgUrl\n          slug\n          "
-                                              "numSubscribed\n        }\n      }\n    }\n    "
-                                              "lastSubmission {\n      id\n    }\n  }\n}\n    ",
-                                     "variables": {}})
+                               json={"query": DAILY_QUERY,
+                                     "variables": {"days": 0}})
         res_dict = json.loads(result.text)
         daily_question = res_dict['data']['todayRecord'][0]
         return {
