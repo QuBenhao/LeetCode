@@ -62,6 +62,9 @@ def extract_outputs_from_md(markdown_text: str) -> list:
                )
         tmp = tmp.strip()
         try:
+            if tmp.startswith("[") and tmp.endswith("]"):
+                if any(v == "#" for v in tmp.split(",")):
+                    tmp = tmp.replace("#", "None")
             if len(tmp) > 0:
                 res.append(eval(tmp))
             else:
