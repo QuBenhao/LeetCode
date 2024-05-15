@@ -52,7 +52,7 @@ func ArrayToTree(input string) *Node {
 	return root
 }
 
-func TreeToArray(root *Node) []interface{} {
+func TreeNextToArray(root *Node) []interface{} {
 	var ans []interface{}
 	if root == nil {
 		return ans

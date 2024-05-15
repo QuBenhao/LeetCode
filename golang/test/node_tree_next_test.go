@@ -23,5 +23,5 @@ func TestTreeNodeNext(t *testing.T) {
 	if err := json.Unmarshal([]byte("[1, null, 2, 3, null, 4, 5, 7, null]"), &input); err != nil {
 		log.Fatal(err)
 	}
-	assert.Equal(t, fmt.Sprintf("%v", input), fmt.Sprintf("%v", TreeToArray(node)))
+	assert.Equal(t, fmt.Sprintf("%v", input), fmt.Sprintf("%v", TreeNextToArray(node)))
 }

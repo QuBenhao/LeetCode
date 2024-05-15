@@ -511,7 +511,9 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                         if ("Left *Node" in code_default
                                 and "Right *Node" in code_default
                                 and "Next *Node" in code_default):
-                            pass
+                            for var in vrs:
+                                json_parse.append(f"\t{var} = ArrayToTree(values[{i}])\n")
+                            imports_libs.add("\t. \"leetCode/golang/tree_next\"")
                         elif "Neighbors []*Node" in code_default:
                             for var in vrs:
                                 json_parse.append("\tvar arr" + f"{i}" + " [][]int\n")
@@ -519,6 +521,8 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                                                   "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
                                 json_parse.append(f"\t{var} = ArrayRelationToNodeNeighbour(arr{i})\n")
                             imports_libs.add("\t. \"leetCode/golang/node_neighbours\"")
+                            imports_libs.add("\t\"encoding/json\"")
+                            imports_libs.add("\t\"log\"")
                         elif "/**\n"\
                              " * Definition for a Node.\n"\
                              " * type Node struct {\n"\
@@ -533,8 +537,8 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                                                   "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
                                 json_parse.append(f"\t{var} = IntRandomArrayToNodeArray(arr{i})\n")
                             imports_libs.add("\t. \"leetCode/golang/node_random\"")
-                        imports_libs.add("\t\"encoding/json\"")
-                        imports_libs.add("\t\"log\"")
+                            imports_libs.add("\t\"encoding/json\"")
+                            imports_libs.add("\t\"log\"")
                     case _:
                         for var in vrs:
                             json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
@@ -650,7 +654,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                 if ("Left *Node" in code_default
                         and "Right *Node" in code_default
                         and "Next *Node" in code_default):
-                    pass
+                    return_func_name = "TreeNextToArray"
                 elif "Neighbors []*Node" in code_default:
                     return_func_name = "NodeNeighbourToArrayRelation"
                 elif "/**\n" \
