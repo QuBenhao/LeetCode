@@ -22,9 +22,9 @@ func ArrayRelationToNodeNeighbour(arr [][]int) *Node {
 	return nodes[0]
 }
 
-func NodeNeighbourToArrayRelation(head *Node) (ans [][]int) {
+func NodeNeighbourToArrayRelation(head *Node) (ans []interface{}) {
 	if head == nil {
-		return
+		return []interface{}{}
 	}
 
 	explored := map[int]interface{}{head.Val: nil}
@@ -32,14 +32,14 @@ func NodeNeighbourToArrayRelation(head *Node) (ans [][]int) {
 	dfs = func(cur *Node) {
 		if len(ans) < cur.Val {
 			for i := len(ans); i < cur.Val; i++ {
-				ans = append(ans, []int{})
+				ans = append(ans, []interface{}{})
 			}
 			for _, nd := range cur.Neighbors {
-				ans[len(ans)-1] = append(ans[len(ans)-1], nd.Val)
+				ans[len(ans)-1] = append(ans[len(ans)-1].([]interface{}), nd.Val)
 			}
 		} else {
 			for _, nd := range cur.Neighbors {
-				ans[cur.Val-1] = append(ans[cur.Val-1], nd.Val)
+				ans[cur.Val-1] = append(ans[cur.Val-1].([]interface{}), nd.Val)
 			}
 		}
 		for _, nd := range cur.Neighbors {

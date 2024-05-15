@@ -450,7 +450,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
         json_parse = []
         variables = []
         if input_str.strip() == "":
-            return "", "", "", ""
+            return set(), "", "", ""
         splits = input_str.split(",")
         first = True
         list_type_vars = []
@@ -513,7 +513,12 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                                 and "Next *Node" in code_default):
                             pass
                         elif "Neighbors []*Node" in code_default:
-                            pass
+                            for var in vrs:
+                                json_parse.append("\tvar arr" + f"{i}" + " [][]int\n")
+                                json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + f"arr{i}" +
+                                                  "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                                json_parse.append(f"\t{var} = ArrayRelationToNodeNeighbour(arr{i})\n")
+                            imports_libs.add("\t. \"leetCode/golang/node_neighbours\"")
                         elif "/**\n"\
                              " * Definition for a Node.\n"\
                              " * type Node struct {\n"\
@@ -647,7 +652,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                         and "Next *Node" in code_default):
                     pass
                 elif "Neighbors []*Node" in code_default:
-                    pass
+                    return_func_name = "NodeNeighbourToArrayRelation"
                 elif "/**\n" \
                      " * Definition for a Node.\n" \
                      " * type Node struct {\n" \
