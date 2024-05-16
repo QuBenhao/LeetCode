@@ -7,8 +7,17 @@ import (
 )
 
 func numberOfWeeks(milestones []int) int64 {
-
+    s := 0
+    for _, x := range milestones {
+        s += x
+    }
+    m := slices.Max(milestones)
+    if m > s-m+1 {
+        return int64((s-m)*2 + 1)
+    }
+    return int64(s)
 }
+
 
 func Solve(input string) interface{} {
 	values := strings.Split(input, "\n")
