@@ -5,6 +5,9 @@ import markdown
 import html2text
 from typing import Optional, Mapping
 
+from query import QUESTION_INFO_QUERY, QUESTION_DESC_QUERY, QUESTION_CODE_QUERY, QUESTION_TESTCASE_QUERY, \
+    QUESTION_KEYWORDS_QUERY
+
 CATEGORY_SLUG = {"all-code-essentials","algorithms", "database"}
 LANGUAGE_SLUG = {"python3", "mysql"}
 
@@ -12,10 +15,7 @@ LANGUAGE_SLUG = {"python3", "mysql"}
 def get_question_info(slug: str, cookie: Optional[str] = None) -> Optional[dict]:
     try:
         result = requests.post("https://leetcode.cn/graphql/",
-                               json={"query": "\n    query questionTitle($titleSlug: String!) {\n  question(titleSlug:"
-                                              " $titleSlug) {\n    questionId\n    questionFrontendId\n    title\n"
-                                              "    titleSlug\n    isPaidOnly\n    difficulty\n    likes\n    dislikes\n"
-                                              "    categoryTitle\n  }\n}\n    ",
+                               json={"query": QUESTION_INFO_QUERY,
                                      "variables": {"titleSlug": slug},
                                      "operationName": "questionTitle"},
                                cookies={'cookie': cookie} if cookie else None)
@@ -36,9 +36,7 @@ def get_question_desc(slug: str, cookie: Optional[str] = None) -> Optional[str]:
     try:
         result = requests.post("https://leetcode.cn/graphql/",
                                json={
-                                   "query": "\n    query questionContent($titleSlug: String!) {\n  "
-                                            "question(titleSlug: $titleSlug) {\n    content\n    editorType\n    "
-                                            "mysqlSchemas\n    dataSchemas\n  }\n}\n    ",
+                                   "query": QUESTION_DESC_QUERY,
                                    "variables": {"titleSlug": slug},
                                    "operationName": "questionContent"},
                                cookies={'cookie': cookie} if cookie else None)
@@ -132,11 +130,7 @@ def get_question_code(slug: str, lang_slugs: list[str] = None, cookie: Optional[
             lang_slugs = ["python3"]
         result = requests.post("https://leetcode.cn/graphql",
                                json={
-                                   "query": "\n    query questionEditorData($titleSlug: String!) {\n  "
-                                            "question(titleSlug: $titleSlug) {\n    questionId\n    "
-                                            "questionFrontendId\n    codeSnippets {\n      lang\n      langSlug\n      "
-                                            "code\n    }\n    envInfo\n    enableRunCode\n    hasFrontendPreview\n    "
-                                            "frontendPreviews\n  }\n}\n    ",
+                                   "query": QUESTION_CODE_QUERY,
                                    "variables": {"titleSlug": slug},
                                    "operationName": "questionEditorData"},
                                cookies={'cookie': cookie} if cookie else None)
@@ -156,11 +150,7 @@ def get_question_code(slug: str, lang_slugs: list[str] = None, cookie: Optional[
 def get_question_testcases(slug: str, lang_slug: str = "python3") -> tuple[Optional[list], str]:
     try:
         result = requests.post("https://leetcode.cn/graphql",
-                               json={"query": "\n    query consolePanelConfig($titleSlug: String!) {\n"
-                                              "  question(titleSlug: $titleSlug) {\n    questionId\n"
-                                              "    questionFrontendId\n    questionTitle\n    enableRunCode\n    "
-                                              "enableSubmit\n    enableTestMode\n    jsonExampleTestcases\n    "
-                                              "exampleTestcases\n    metaData\n    sampleTestCase\n  }\n}\n    ",
+                               json={"query": QUESTION_TESTCASE_QUERY,
                                      "variables": {"titleSlug": slug},
                                      "operationName": "consolePanelConfig"})
         res_dict = json.loads(result.text)
@@ -204,19 +194,7 @@ def get_questions_by_key_word(keyword: Optional[str],
             if premium_only:
                 filters["premiumOnly"] = premium_only
             result = requests.post("https://leetcode.cn/graphql",
-                                   json={"query": "\n    query problemsetQuestionList("
-                                                  "$categorySlug: String, $limit: Int, $skip: Int, $filters: "
-                                                  "QuestionListFilterInput) {\n  problemsetQuestionList(\n    "
-                                                  "categorySlug: $categorySlug\n    limit: $limit\n    skip: $skip\n"
-                                                  "    filters: $filters\n  ) {\n    hasMore\n    total\n    "
-                                                  "questions {\n      acRate\n      difficulty\n      freqBar\n      "
-                                                  "frontendQuestionId\n      isFavor\n      paidOnly\n      "
-                                                  "solutionNum\n      status\n      title\n      titleCn\n      "
-                                                  "titleSlug\n      topicTags {\n        name\n        nameTranslated\n"
-                                                  "        id\n        slug\n      }\n      extra {\n        "
-                                                  "hasVideoSolution\n        topCompanyTags {\n          imgUrl\n     "
-                                                  "     slug\n          numSubscribed\n        }\n      }\n    }\n  "
-                                                  "}\n}\n    ",
+                                   json={"query": QUESTION_KEYWORDS_QUERY,
                                          "variables": {
                                              "categorySlug": category if category in CATEGORY_SLUG
                                              else "all-code-essentials",

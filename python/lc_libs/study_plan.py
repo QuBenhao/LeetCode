@@ -5,25 +5,13 @@ import requests
 from collections import defaultdict, deque
 from typing import Optional
 
+from query import PLAN_QUERY, PLAN_PROGRESS_QUERY
+
 
 def get_user_study_plans(cookie: str) -> Optional[list]:
     try:
         result = requests.post('https://leetcode.cn/graphql/',
-                               json={"query": "\n    query GetMyStudyPlan($progressType: PlanUserProgressTypeEnum!, "
-                                              "$offset: Int!, $limit: Int!) {\n  studyPlanV2UserProgresses(\n    "
-                                              "progressType: $progressType\n    offset: $offset\n    limit: $limit\n  )"
-                                              " {\n    hasMore\n    total\n    planUserProgresses {\n      "
-                                              "nextQuestionInfo {\n        inPremiumSubgroup\n        nextQuestion {\n"
-                                              "          id\n          questionFrontendId\n          title\n          "
-                                              "titleSlug\n          translatedTitle\n        }\n      }\n      "
-                                              "nextQuestionInfo {\n        inPremiumSubgroup\n        nextQuestion {\n"
-                                              "          id\n          questionFrontendId\n          title\n"
-                                              "          titleSlug\n          translatedTitle\n        }\n      }\n"
-                                              "      quittedAt\n      startedAt\n      plan {\n        questionNum\n"
-                                              "        slug\n        premiumOnly\n        name\n        onGoing\n"
-                                              "        highlight\n        cover\n      }\n      latestSubmissionAt\n"
-                                              "      id\n      allCompletedAt\n      finishedQuestionNum\n    }\n  }\n}"
-                                              "\n    ",
+                               json={"query": PLAN_QUERY,
                                      "variables": {"offset": 0, "limit": 100, "progressType": "ON_GOING"},
                                      "operationName": "GetMyStudyPlan"},
                                cookies={"cookie": cookie})
@@ -48,12 +36,7 @@ def get_user_study_plans(cookie: str) -> Optional[list]:
 def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = 2):
     try:
         result = requests.post('https://leetcode.cn/graphql/',
-                               json={"query": "\n    query studyPlanProgress($slug: String!, $historyId: ID) {\n  "
-                                              "studyPlanV2ProgressDetail(planSlug: $slug, id: $historyId) {\n    id\n"
-                                              "    status\n    weeklyTaskScheduleResettable\n    finishedQuestionNum\n"
-                                              "    studyPlanDetail {\n      questionNum\n      planSubGroups {\n   "
-                                              "     slug\n        questions {\n          titleSlug\n"
-                                              "          status\n        }\n      }\n    }\n  }\n}\n    ",
+                               json={"query": PLAN_PROGRESS_QUERY,
                                      "variables": {"slug": plan_slug},
                                      "operationName": "studyPlanProgress"},
                                cookies={"cookie": cookie})

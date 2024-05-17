@@ -5,6 +5,9 @@ from collections import defaultdict
 
 import requests
 
+from query import RECENT_SUBMISSIONS_QUERY, RECENT_AC_SUBMISSIONS_QUERY, USER_PROFILE_QUESTIONS_QUERY, \
+    PROGRESS_SUBMISSIONS_QUERY, MY_SUBMISSION_DETAIL_QUERY
+
 
 def check_submission(user_slug: str, question_frontend_ids: set[str],
                      min_timestamp=(now := time.time() - time.timezone) - now % 86400 + time.timezone,
@@ -13,13 +16,7 @@ def check_submission(user_slug: str, question_frontend_ids: set[str],
     try:
         result = requests.post('https://leetcode.cn/graphql/',
                                json={"operationName": "recentSubmissions", "variables": {"userSlug": user_slug},
-                                     "query": "query recentSubmissions($userSlug: String!) {\n  "
-                                              "recentSubmitted(userSlug: $userSlug) {\n    status\n    lang\n    source"
-                                              " {\n      sourceType\n      ... on SubmissionSrcLeetbookNode {\n        "
-                                              "slug\n        title\n        pageId\n        __typename\n      }\n      "
-                                              "__typename\n    }\n    question {\n      questionFrontendId\n      "
-                                              "title\n      translatedTitle\n      titleSlug\n      __typename\n    }\n"
-                                              "    submitTime\n    __typename\n  }\n}\n"})
+                                     "query": RECENT_SUBMISSIONS_QUERY})
         result_dict = json.loads(result.text)['data']['recentSubmitted']
         if result_dict:
             for submit in result_dict:
@@ -41,10 +38,7 @@ def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=
     ans = defaultdict(list)
     try:
         result = requests.post('https://leetcode.cn/graphql/noj-go/',
-                               json={"query": "\n    query recentAcSubmissions($userSlug: String!) {\n  "
-                                              "recentACSubmissions(userSlug: $userSlug) {\n    submissionId\n    "
-                                              "submitTime\n    question {\n      title\n      translatedTitle\n      "
-                                              "titleSlug\n      questionFrontendId\n    }\n  }\n}\n    ",
+                               json={"query": RECENT_AC_SUBMISSIONS_QUERY,
                                      "variables": {"userSlug": user_slug},
                                      "operationName": "recentAcSubmissions"})
         result_dict = json.loads(result.text)['data']['recentACSubmissions']
@@ -73,18 +67,7 @@ def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp
                  "variables": {"status": "ACCEPTED", "skip": page_no * page_size, "first": page_size,
                                "sortField": "LAST_SUBMITTED_AT", "sortOrder": "DESCENDING",
                                "difficulty": []},
-                 "query": "query userProfileQuestions($status: StatusFilterEnum!, $skip: Int!, "
-                          "$first: Int!, $sortField: SortFieldEnum!, $sortOrder: SortingOrderEnum!,"
-                          " $keyword: String, $difficulty: [DifficultyEnum!]) {\n  "
-                          "userProfileQuestions(status: $status, skip: $skip, first: $first, "
-                          "sortField: $sortField, sortOrder: $sortOrder, keyword: $keyword, "
-                          "difficulty: $difficulty) {\n    totalNum\n    questions {\n      "
-                          "translatedTitle\n      frontendId\n      titleSlug\n      title\n      "
-                          "difficulty\n      lastSubmittedAt\n      numSubmitted\n      "
-                          "lastSubmissionSrc {\n        sourceType\n        "
-                          "... on SubmissionSrcLeetbookNode {\n          slug\n          title\n   "
-                          "       pageId\n          __typename\n        }\n        __typename\n    "
-                          "  }\n      __typename\n    }\n    __typename\n  }\n}\n"}
+                 "query": USER_PROFILE_QUESTIONS_QUERY}
         result = requests.post('https://leetcode.cn/graphql/',
                                json=query,
                                cookies={"cookie": cookie})
@@ -108,12 +91,7 @@ def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp
                                        json={"operationName": "progressSubmissions",
                                              "variables": {"offset": 0, "limit": 10,
                                                            "questionSlug": question_submit_info["titleSlug"], },
-                                             "query": "query progressSubmissions($offset: Int, $limit: Int, $lastKey: "
-                                                      "String, $questionSlug: String) {\n  submissionList(offset: "
-                                                      "$offset, limit: $limit, lastKey: $lastKey, questionSlug: "
-                                                      "$questionSlug) {\n    lastKey\n    hasNext\n    submissions {\n"
-                                                      "      id\n      timestamp\n      url\n      lang\n      "
-                                                      "runtime\n      __typename\n    }\n    __typename\n  }\n}\n"},
+                                             "query": PROGRESS_SUBMISSIONS_QUERY},
                                        cookies={"cookie": cookie})
                 result_dict = json.loads(result.text)["data"]["submissionList"]
                 for submit in result_dict["submissions"]:
@@ -135,17 +113,7 @@ def get_submission_detail(submit_id: str, cookie: str):
         result = requests.post('https://leetcode.cn/graphql/',
                                json={"operationName": "mySubmissionDetail",
                                      "variables": {"id": submit_id},
-                                     "query": "query mySubmissionDetail($id: ID!) {\n  "
-                                              "submissionDetail(submissionId: $id) {\n    id\n    code\n    runtime\n  "
-                                              "  memory\n    rawMemory\n    statusDisplay\n    timestamp\n    lang\n   "
-                                              " isMine\n    passedTestCaseCnt\n    totalTestCaseCnt\n    sourceUrl\n   "
-                                              " question {\n      titleSlug\n      title\n      translatedTitle\n      "
-                                              "questionId\n      __typename\n    }\n    ... on GeneralSubmissionNode {\n"
-                                              "      outputDetail {\n        codeOutput\n        expectedOutput\n      "
-                                              "  input\n        compileError\n        runtimeError\n        "
-                                              "lastTestcase\n        __typename\n      }\n      __typename\n    }\n    "
-                                              "submissionComment {\n      comment\n      flagType\n      __typename\n  "
-                                              "  }\n    __typename\n  }\n}\n"},
+                                     "query": MY_SUBMISSION_DETAIL_QUERY},
                                cookies={"cookie": cookie})
         if result.text:
             result_dict = json.loads(result.text)["data"]["submissionDetail"]
