@@ -388,7 +388,7 @@ def __write_solution_python_backup(code: str):
                 start = False
     return SOLUTION_TEMPLATE_PYTHON.format(
         "\n\n" + "\n".join(define_class) + "\n" if define_class else "",
-        "        pass",
+        "pass",
         "\n".join(strip_code) if strip_code else code
     )
 
