@@ -2,15 +2,15 @@ import json
 import traceback
 import requests
 from typing import Optional, Dict
+
+from constants import LEET_CODE_BACKEND
 from query import DAILY_QUERY
+from utils import general_request
 
 
 def get_daily_question() -> Optional[Dict]:
-    try:
-        result = requests.post('https://leetcode.cn/graphql/',
-                               json={"query": DAILY_QUERY,
-                                     "variables": {}})
-        res_dict = json.loads(result.text)
+    def handle_response(response):
+        res_dict = json.loads(response.text)
         daily_question = res_dict['data']['todayRecord'][0]
         return {
             'date': daily_question['date'],
@@ -19,7 +19,5 @@ def get_daily_question() -> Optional[Dict]:
             'questionName': daily_question['question']['titleCn'],
             'questionSlug': daily_question['question']['titleSlug']
         }
-    except Exception as e:
-        print("Exception caught: ", str(e))
-        traceback.print_exc()
-        return None
+
+    return general_request(LEET_CODE_BACKEND, handle_response, json={"query": DAILY_QUERY, "variables": {}})
