@@ -32,6 +32,8 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
     code_map = get_question_code(slug, lang_slugs=languages)
     if code_map is None:
         return
+    if not languages:
+        return
     for language in languages:
         if language == "python3":
             code = code_map["python3"]
@@ -95,7 +97,7 @@ def process_daily(problem_folder: str, languages: list[str]):
             f.write(line)
 
 
-def process_plans(problem_folder: str, cookie: str):
+def process_plans(problem_folder: str, cookie: str, languages: list[str]):
     plans = get_user_study_plans(cookie)
     if plans is None:
         if not send_text_message("The LeetCode in GitHub secrets might be expired, please check!",
@@ -117,7 +119,7 @@ def process_plans(problem_folder: str, cookie: str):
             dir_path = os.path.join(root_path, problem_folder, question_id)
             if not os.path.exists(dir_path):
                 os.mkdir(dir_path)
-                write_question(dir_path, question_id, info["title"], question_slug)
+                write_question(dir_path, question_id, info["title"], question_slug, languages)
             problem_ids.append(question_id)
     if problem_ids:
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

@@ -3,28 +3,29 @@ import traceback
 import requests
 from typing import Optional
 
+from constants import LEET_CODE_BACKEND
 from query import USER_PROFILE_PUBLIC_QUERY
+from utils import general_request
 
 
 def get_user_profile(user_slug: str) -> Optional[dict]:
-    ans = None
-    try:
-        result = requests.post('https://leetcode.cn/graphql/',
-                               json={"query": USER_PROFILE_PUBLIC_QUERY,
-                                     "variables": {"userSlug": user_slug},
-                                     "operationName": "userProfilePublicProfile"})
-        if result.text:
-            result_dict = json.loads(result.text)['data']['userProfilePublicProfile']
-            if result_dict:
-                ans = dict()
-                ans['name'] = result_dict['profile']['realName']
-                ans['uid'] = result_dict['profile']['userSlug']
-                ans['siteRanking'] = result_dict['siteRanking']
-                ans['avatar'] = result_dict['profile']['userAvatar']
-    except Exception as e:
-        print("Exception caught: ", str(e))
-        traceback.print_exc()
-    return ans
+    def handle_response(response: requests.Response):
+        if not response.text:
+            return
+        result_dict = json.loads(response.text)['data']['userProfilePublicProfile']
+        if not result_dict:
+            return
+        ans = dict()
+        ans['name'] = result_dict['profile']['realName']
+        ans['uid'] = result_dict['profile']['userSlug']
+        ans['siteRanking'] = result_dict['siteRanking']
+        ans['avatar'] = result_dict['profile']['userAvatar']
+        return ans
+
+    return general_request(LEET_CODE_BACKEND, handle_response,
+                           json={"query": USER_PROFILE_PUBLIC_QUERY,
+                                 "variables": {"userSlug": user_slug},
+                                 "operationName": "userProfilePublicProfile"})
 
 
 def check_user_exist(user_slug):

@@ -1,6 +1,4 @@
 import json
-import traceback
-import requests
 from typing import Optional, Dict
 
 from constants import LEET_CODE_BACKEND

@@ -51,7 +51,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: 
             if question_id == daily_question and not os.path.exists(dir_path):
                 os.mkdir(dir_path)
                 write_question(dir_path, daily_question, daily_info['questionNameEn'],
-                               daily_info['questionSlug'])
+                               daily_info['questionSlug'], languages)
             elif not os.path.exists(dir_path):
                 info = get_question_info(submits[0][1])
                 os.mkdir(dir_path)
