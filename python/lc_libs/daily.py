@@ -9,7 +9,7 @@ def get_daily_question() -> Optional[Dict]:
     try:
         result = requests.post('https://leetcode.cn/graphql/',
                                json={"query": DAILY_QUERY,
-                                     "variables": {"days": 0}})
+                                     "variables": {}})
         res_dict = json.loads(result.text)
         daily_question = res_dict['data']['todayRecord'][0]
         return {
