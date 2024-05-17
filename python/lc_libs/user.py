@@ -3,8 +3,7 @@ import traceback
 import requests
 from typing import Optional
 
-from constants import LEET_CODE_BACKEND
-from query import USER_PROFILE_PUBLIC_QUERY
+from constants import LEET_CODE_BACKEND, USER_PROFILE_PUBLIC_QUERY
 from utils import general_request
 
 

@@ -35,4 +35,4 @@ query questionOfToday {\n
     }\n
   }\n
 }\n
-    """
+"""

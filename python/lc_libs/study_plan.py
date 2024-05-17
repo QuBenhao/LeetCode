@@ -5,8 +5,7 @@ from typing import Optional
 
 import requests
 
-from constants import LEET_CODE_BACKEND
-from query import PLAN_QUERY, PLAN_PROGRESS_QUERY
+from constants import LEET_CODE_BACKEND, PLAN_QUERY, PLAN_PROGRESS_QUERY
 from utils import general_request
 
 

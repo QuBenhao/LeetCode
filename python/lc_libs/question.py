@@ -5,10 +5,8 @@ import markdown
 import html2text
 from typing import Optional, Mapping
 
-from constants import LEET_CODE_BACKEND
-
-from query import QUESTION_INFO_QUERY, QUESTION_DESC_QUERY, QUESTION_CODE_QUERY, QUESTION_TESTCASE_QUERY, \
-    QUESTION_KEYWORDS_QUERY
+from constants import (LEET_CODE_BACKEND, QUESTION_INFO_QUERY, QUESTION_DESC_QUERY, QUESTION_CODE_QUERY,
+                       QUESTION_TESTCASE_QUERY, QUESTION_KEYWORDS_QUERY)
 from utils import general_request
 
 CATEGORY_SLUG = {"all-code-essentials", "algorithms", "database"}

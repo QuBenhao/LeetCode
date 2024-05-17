@@ -1,8 +1,7 @@
 import json
 from typing import Optional, Dict
 
-from constants import LEET_CODE_BACKEND
-from query import DAILY_QUERY
+from constants import LEET_CODE_BACKEND, DAILY_QUERY
 from utils import general_request
 
 
