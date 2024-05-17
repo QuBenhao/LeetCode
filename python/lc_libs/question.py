@@ -5,47 +5,44 @@ import markdown
 import html2text
 from typing import Optional, Mapping
 
+from constants import LEET_CODE_BACKEND
+
 from query import QUESTION_INFO_QUERY, QUESTION_DESC_QUERY, QUESTION_CODE_QUERY, QUESTION_TESTCASE_QUERY, \
     QUESTION_KEYWORDS_QUERY
+from utils import general_request
 
-CATEGORY_SLUG = {"all-code-essentials","algorithms", "database"}
+CATEGORY_SLUG = {"all-code-essentials", "algorithms", "database"}
 LANGUAGE_SLUG = {"python3", "mysql"}
 
 
 def get_question_info(slug: str, cookie: Optional[str] = None) -> Optional[dict]:
-    try:
-        result = requests.post("https://leetcode.cn/graphql/",
-                               json={"query": QUESTION_INFO_QUERY,
-                                     "variables": {"titleSlug": slug},
-                                     "operationName": "questionTitle"},
-                               cookies={'cookie': cookie} if cookie else None)
-        res_dict = json.loads(result.text)['data']['question']
+    def handle_response(response):
+        res_dict = json.loads(response.text)['data']['question']
         return {
             "title": res_dict['title'],
             "difficulty": res_dict['difficulty'],
             "questionFrontendId": res_dict['questionFrontendId'],
             "categoryTitle": res_dict["categoryTitle"]
         }
-    except Exception as e:
-        print("Exception caught: ", str(e))
-        traceback.print_exc()
-        return None
+
+    return general_request(LEET_CODE_BACKEND, handle_response,
+                           json={"query": QUESTION_INFO_QUERY,
+                                 "variables": {"titleSlug": slug},
+                                 "operationName": "questionTitle"},
+                           cookies={'cookie': cookie} if cookie else None)
 
 
 def get_question_desc(slug: str, cookie: Optional[str] = None) -> Optional[str]:
-    try:
-        result = requests.post("https://leetcode.cn/graphql/",
-                               json={
-                                   "query": QUESTION_DESC_QUERY,
-                                   "variables": {"titleSlug": slug},
-                                   "operationName": "questionContent"},
-                               cookies={'cookie': cookie} if cookie else None)
-        res_dict = json.loads(result.text)['data']['question']
+    def handle_response(response):
+        res_dict = json.loads(response.text)['data']['question']
         return res_dict['content']
-    except Exception as e:
-        print("Exception caught: ", str(e))
-        traceback.print_exc()
-        return None
+
+    return general_request(LEET_CODE_BACKEND, handle_response,
+                           json={
+                               "query": QUESTION_DESC_QUERY,
+                               "variables": {"titleSlug": slug},
+                               "operationName": "questionContent"},
+                           cookies={'cookie': cookie} if cookie else None)
 
 
 def extract_outputs_from_md(markdown_text: str) -> list:
@@ -124,36 +121,32 @@ def extract_outputs_from_md(markdown_text: str) -> list:
     return res
 
 
-def get_question_code(slug: str, lang_slugs: list[str] = None, cookie: Optional[str] = None) -> Optional[Mapping[str, str]]:
-    try:
-        if lang_slugs is None:
-            lang_slugs = ["python3"]
-        result = requests.post("https://leetcode.cn/graphql",
-                               json={
-                                   "query": QUESTION_CODE_QUERY,
-                                   "variables": {"titleSlug": slug},
-                                   "operationName": "questionEditorData"},
-                               cookies={'cookie': cookie} if cookie else None)
-        res_dict = json.loads(result.text)
+def get_question_code(slug: str,
+                      lang_slugs: list[str] = None,
+                      cookie: Optional[str] = None
+                      ) -> Optional[Mapping[str, str]]:
+    def handle_response(response):
+        res_dict = json.loads(response.text)
         code_snippets = res_dict['data']['question']['codeSnippets']
         ans = dict()
         for cs in code_snippets:
             if cs["langSlug"] in lang_slugs:
                 ans[cs["langSlug"]] = cs["code"]
         return ans
-    except Exception as e:
-        print("Exception caught: ", str(e))
-        traceback.print_exc()
-        return None
+
+    if lang_slugs is None:
+        lang_slugs = ["python3"]
+    return general_request(LEET_CODE_BACKEND, handle_response,
+                           json={
+                               "query": QUESTION_CODE_QUERY,
+                               "variables": {"titleSlug": slug},
+                               "operationName": "questionEditorData"},
+                           cookies={'cookie': cookie} if cookie else None)
 
 
 def get_question_testcases(slug: str, lang_slug: str = "python3") -> tuple[Optional[list], str]:
-    try:
-        result = requests.post("https://leetcode.cn/graphql",
-                               json={"query": QUESTION_TESTCASE_QUERY,
-                                     "variables": {"titleSlug": slug},
-                                     "operationName": "consolePanelConfig"})
-        res_dict = json.loads(result.text)
+    def handle_response(response):
+        res_dict = json.loads(response.text)
         ans = []
         origin_data = res_dict["data"]["question"]["jsonExampleTestcases"]
         json_testcase = json.loads(origin_data)
@@ -174,10 +167,13 @@ def get_question_testcases(slug: str, lang_slug: str = "python3") -> tuple[Optio
             else:
                 print("Unsupported language")
         return ans, origin_data
-    except Exception as e:
-        print("Exception caught: ", str(e))
-        traceback.print_exc()
-        return None, ""
+
+    res = general_request(LEET_CODE_BACKEND, handle_response, json={"query": QUESTION_TESTCASE_QUERY,
+                                                                    "variables": {"titleSlug": slug},
+                                                                    "operationName": "consolePanelConfig"})
+    if res is None:
+        return res, ""
+    return res
 
 
 def get_questions_by_key_word(keyword: Optional[str],
