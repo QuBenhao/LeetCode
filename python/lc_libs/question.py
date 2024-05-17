@@ -45,82 +45,69 @@ def get_question_desc(slug: str, cookie: Optional[str] = None) -> Optional[str]:
                            cookies={'cookie': cookie} if cookie else None)
 
 
+def convert_to_evaluable_str(s: str) -> str:
+    """
+    This function replaces certain words in the input string to make it evaluable.
+    Values like null, true and false are replaced with their python equivalents : None, True, False
+    """
+    evaluable_str = s.replace("null", "None").replace("true", "True").replace("false", "False")
+    if evaluable_str.startswith("[") and evaluable_str.endswith("]"):
+        if any(v == "#" for v in evaluable_str.split(",")):
+            evaluable_str = evaluable_str.replace("#", "None")
+    return evaluable_str
+
+
 def extract_outputs_from_md(markdown_text: str) -> list:
     backup_origin = markdown_text
     res = []
     markdown_text = "".join(markdown_text.split("Example")[1:])
     splits = markdown_text.split("Output")
     for i in range(1, len(splits)):
-        tmp = (splits[i].split("\n")[0].split(">")[-1]
-               .replace("null", "None")
-               .replace("true", "True")
-               .replace("false", "False")
-               )
-        tmp = tmp.strip()
-        try:
-            if tmp.startswith("[") and tmp.endswith("]"):
-                if any(v == "#" for v in tmp.split(",")):
-                    tmp = tmp.replace("#", "None")
-            if len(tmp) > 0:
-                res.append(eval(tmp))
-            else:
-                tmp = (splits[i].split("\n")[1].split(">")[-1]
-                       .replace("null", "None")
-                       .replace("true", "True")
-                       .replace("false", "False"))
-                res.append(eval(tmp))
-        except SyntaxError as sxe:
+        success_process = False
+        for j, str_convertors in enumerate([lambda s: s.split("\n")[0].split(">")[-1].strip(),
+                                            lambda s: s.split("\n")[1].split(">")[-1].strip(),
+                                            lambda s: s.split(">")[1].split("<")[0].strip(),
+                                            lambda s: s.split('example-io">')[1].split("<")[0].strip(),
+                                            ]):
+            tmp = ""
             try:
-                print(f"1. Syntax error: {sxe}, [{tmp}]")
+                tmp = str_convertors(splits[i])
+                evaluable_str = convert_to_evaluable_str(tmp)
+                if not evaluable_str:
+                    continue
+                res.append(eval(evaluable_str))
+                success_process = True
+                break
+            except Exception as sxe:
+                print(f"{j}. Error: {sxe}, [{tmp}]")
                 traceback.print_exc()
-                # 将Markdown转换为HTML
-                html_content = markdown.markdown(tmp)
-
-                # 将HTML转换为字符
-                text_content = html2text.html2text(html_content)
-                text_content = text_content.replace("\n", "")
-                res.append(eval(text_content))
-            except Exception as e:
-                print(f"2. Exception error: {e}, [{tmp}]")
-                traceback.print_exc()
+                if j >= 2:
+                    continue
+                html_content = ""
                 try:
-                    tmp = (splits[i].split(">")[1].split("<")[0]
-                           .replace("null", "None")
-                           .replace("true", "True")
-                           .replace("false", "False"))
-
                     # 将Markdown转换为HTML
                     html_content = markdown.markdown(tmp)
 
                     # 将HTML转换为字符
                     text_content = html2text.html2text(html_content)
-                    print(text_content)
-                    text_content = text_content.replace("\n", "").strip()
+                    text_content = text_content.replace("\n", "")
                     res.append(eval(text_content))
-                except Exception as ex:
-                    print(f"3. Exception error: {ex}, [{tmp}]")
+                    success_process = True
+                    break
+                except Exception as e:
+                    print(f"Exception error: {e}, [{html_content}]")
                     traceback.print_exc()
-                    try:
-                        tmp = (splits[i].split('example-io">')[1].split("<")[0]
-                               .replace("null", "None")
-                               .replace("true", "True")
-                               .replace("false", "False"))
-                        res.append(eval(tmp))
-                    except Exception as exe:
-                        """
-                        special cases:
-                        160. the node at which the two lists intersect
-                        """
-                        if "the node at which the two lists intersect" in backup_origin:
-                            tmp = splits[i].split("\n")[0].split(">")[-1].strip()
-                            if tmp == "No intersection":
-                                res.append(None)
-                            else:
-                                res.append(eval(tmp.split("&#39;")[-2]))
-                        else:
-                            print(f"4. Exception error: {exe}, [{tmp}]")
-                            traceback.print_exc()
-                            res.append(None)
+        if success_process:
+            continue
+        if "the node at which the two lists intersect" in backup_origin:
+            tmp = splits[i].split("\n")[0].split(">")[-1].strip()
+            if tmp == "No intersection":
+                res.append(None)
+            else:
+                res.append(eval(tmp.split("&#39;")[-2]))
+        else:
+            res.append(None)
+
     return res
 
 
