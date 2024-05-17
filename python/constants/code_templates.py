@@ -11,3 +11,5 @@ class Testcase(testcase.Testcase):
 \tdef get_testcases(self):
 \t\treturn self.testcases
 """
+
+TESTCASE_TEMPLATE_PYTHON_TESTCASES = "\t\tself.testcases.append(case(Input={}, Output={}))\n"

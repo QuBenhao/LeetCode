@@ -3,7 +3,7 @@ import os
 import traceback
 from collections import defaultdict
 from importlib.util import spec_from_file_location, module_from_spec
-from constants import TESTCASE_TEMPLATE_PYTHON
+from constants import TESTCASE_TEMPLATE_PYTHON, TESTCASE_TEMPLATE_PYTHON_TESTCASES
 
 
 def write_problem_md(question_id: str, question_name: str, desc: str) -> str:
@@ -23,7 +23,7 @@ def write_problem_md(question_id: str, question_name: str, desc: str) -> str:
 def write_testcase(testcases, outputs) -> str:
     res = ""
     for inputs, output in zip(testcases, outputs):
-        res += ("\t\tself.testcases.append(case(Input={}, Output={}))\n"
+        res += (TESTCASE_TEMPLATE_PYTHON_TESTCASES
                 .format(f"\"{inputs}\"" if isinstance(inputs, str) else inputs,
                         f"\"{output}\"" if isinstance(output, str) else output))
     return TESTCASE_TEMPLATE_PYTHON.format(res)
