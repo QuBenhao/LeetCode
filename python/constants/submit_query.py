@@ -1,133 +1,133 @@
-RECENT_SUBMISSIONS_QUERY = """\n
-query recentSubmissions($userSlug: String!) {\n
-  recentSubmitted(userSlug: $userSlug) {\n
-    status\n
-    lang\n
-    source {\n
-      sourceType\n
-      ... on SubmissionSrcLeetbookNode {\n
-        slug\n
-        title\n
-        pageId\n
-        __typename\n
-      }\n
-      __typename\n
-    }\n
-    question {\n
-      questionFrontendId\n
-      title\n
-      translatedTitle\n
-      titleSlug\n
-      __typename\n
-    }\n
-    submitTime\n
-    __typename\n
-  }\n
-}\n
+RECENT_SUBMISSIONS_QUERY = """
+query recentSubmissions($userSlug: String!) {
+  recentSubmitted(userSlug: $userSlug) {
+    status
+    lang
+    source {
+      sourceType
+      ... on SubmissionSrcLeetbookNode {
+        slug
+        title
+        pageId
+        __typename
+      }
+      __typename
+    }
+    question {
+      questionFrontendId
+      title
+      translatedTitle
+      titleSlug
+      __typename
+    }
+    submitTime
+    __typename
+  }
+}
 """
 
-RECENT_AC_SUBMISSIONS_QUERY = """\n
-query recentAcSubmissions($userSlug: String!) {\n
-  recentACSubmissions(userSlug: $userSlug) {\n
-    submissionId\n
-    submitTime\n
-    question {\n
-      title\n
-      translatedTitle\n
-      titleSlug\n
-      questionFrontendId\n
-    }\n
-  }\n
-}\n
+RECENT_AC_SUBMISSIONS_QUERY = """
+query recentAcSubmissions($userSlug: String!) {
+  recentACSubmissions(userSlug: $userSlug) {
+    submissionId
+    submitTime
+    question {
+      title
+      translatedTitle
+      titleSlug
+      questionFrontendId
+    }
+  }
+}
 """
 
-USER_PROFILE_QUESTIONS_QUERY = """\n
-query userProfileQuestions($status: StatusFilterEnum!, $skip: Int!, $first: Int!, $sortField: SortFieldEnum!, $sortOrder: SortingOrderEnum!, $keyword: String, $difficulty: [DifficultyEnum!]) {\n
-  userProfileQuestions(status: $status, skip: $skip, first: $first, sortField: $sortField, sortOrder: $sortOrder, keyword: $keyword, difficulty: $difficulty) {\n
-    totalNum\n
-    questions {\n
-      translatedTitle\n
-      frontendId\n
-      titleSlug\n
-      title\n
-      difficulty\n
-      lastSubmittedAt\n
-      numSubmitted\n
-      lastSubmissionSrc {\n
-        sourceType\n
-        ... on SubmissionSrcLeetbookNode {\n
-          slug\n
-          title\n
-          pageId\n
-          __typename\n
-        }\n
-        __typename\n
-      }\n
-      __typename\n
-    }\n
-    __typename\n
-  }\n
-}\n
+USER_PROFILE_QUESTIONS_QUERY = """
+query userProfileQuestions($status: StatusFilterEnum!, $skip: Int!, $first: Int!, $sortField: SortFieldEnum!, $sortOrder: SortingOrderEnum!, $keyword: String, $difficulty: [DifficultyEnum!]) {
+  userProfileQuestions(status: $status, skip: $skip, first: $first, sortField: $sortField, sortOrder: $sortOrder, keyword: $keyword, difficulty: $difficulty) {
+    totalNum
+    questions {
+      translatedTitle
+      frontendId
+      titleSlug
+      title
+      difficulty
+      lastSubmittedAt
+      numSubmitted
+      lastSubmissionSrc {
+        sourceType
+        ... on SubmissionSrcLeetbookNode {
+          slug
+          title
+          pageId
+          __typename
+        }
+        __typename
+      }
+      __typename
+    }
+    __typename
+  }
+}
 """
 
-PROGRESS_SUBMISSIONS_QUERY = """\n
-query progressSubmissions($offset: Int, $limit: Int, $lastKey: String, $questionSlug: String) {\n
-  submissionList(offset: $offset, limit: $limit, lastKey: $lastKey, questionSlug: $questionSlug) {\n
-    lastKey\n
-    hasNext\n
-    submissions {\n
-      id\n
-      timestamp\n
-      url\n
-      lang\n
-      runtime\n
-      __typename\n
-    }\n
-    __typename\n
-  }\n
-}\n
+PROGRESS_SUBMISSIONS_QUERY = """
+query progressSubmissions($offset: Int, $limit: Int, $lastKey: String, $questionSlug: String) {
+  submissionList(offset: $offset, limit: $limit, lastKey: $lastKey, questionSlug: $questionSlug) {
+    lastKey
+    hasNext
+    submissions {
+      id
+      timestamp
+      url
+      lang
+      runtime
+      __typename
+    }
+    __typename
+  }
+}
 """
 
-MY_SUBMISSION_DETAIL_QUERY = """\n
-query mySubmissionDetail($id: ID!) {\n
-  submissionDetail(submissionId: $id) {\n
-    id\n
-    code\n
-    runtime\n
-    memory\n
-    rawMemory\n
-    statusDisplay\n
-    timestamp\n
-    lang\n
-    isMine\n
-    passedTestCaseCnt\n
-    totalTestCaseCnt\n
-    sourceUrl\n
-    question {\n
-      titleSlug\n
-      title\n
-      translatedTitle\n
-      questionId\n
-      __typename\n
-    }\n
-    ... on GeneralSubmissionNode {\n
-      outputDetail {\n
-        codeOutput\n
-        expectedOutput\n
-        input\n
-        compileError\n
-        runtimeError\n
-        lastTestcase\n
-        __typename\n
-      }\n
-      __typename\n
-    }\n
-    submissionComment {\n
-      comment\n
-      flagType\n
-      __typename\n
-    }\n
-    __typename\n
-  }\n
-}\n
+MY_SUBMISSION_DETAIL_QUERY = """
+query mySubmissionDetail($id: ID!) {
+  submissionDetail(submissionId: $id) {
+    id
+    code
+    runtime
+    memory
+    rawMemory
+    statusDisplay
+    timestamp
+    lang
+    isMine
+    passedTestCaseCnt
+    totalTestCaseCnt
+    sourceUrl
+    question {
+      titleSlug
+      title
+      translatedTitle
+      questionId
+      __typename
+    }
+    ... on GeneralSubmissionNode {
+      outputDetail {
+        codeOutput
+        expectedOutput
+        input
+        compileError
+        runtimeError
+        lastTestcase
+        __typename
+      }
+      __typename
+    }
+    submissionComment {
+      comment
+      flagType
+      __typename
+    }
+    __typename
+  }
+}
 """

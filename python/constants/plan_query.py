@@ -1,70 +1,70 @@
-PLAN_QUERY = """\n
-query GetMyStudyPlan($progressType: PlanUserProgressTypeEnum!, $offset: Int!, $limit: Int!) {\n
-  studyPlanV2UserProgresses(\n
-    progressType: $progressType\n
-    offset: $offset\n
-    limit: $limit\n
-  ) {\n
-    hasMore\n
-    total\n
-    planUserProgresses {\n
-      nextQuestionInfo {\n
-        inPremiumSubgroup\n
-        nextQuestion {\n
-          id\n
-          questionFrontendId\n
-          title\n
-          titleSlug\n
-          translatedTitle\n
-        }\n
-      }\n
-      nextQuestionInfo {\n
-        inPremiumSubgroup\n
-        nextQuestion {\n
-          id\n
-          questionFrontendId\n
-          title\n
-          titleSlug\n
-          translatedTitle\n
-        }\n
-      }\n
-      quittedAt\n
-      startedAt\n
-      plan {\n
-        questionNum\n
-        slug\n
-        premiumOnly\n
-        name\n
-        onGoing\n
-        highlight\n
-        cover\n
-      }\n
-      latestSubmissionAt\n
-      id\n
-      allCompletedAt\n
-      finishedQuestionNum\n
-    }\n
-  }\n
-}\n
+PLAN_QUERY = """
+query GetMyStudyPlan($progressType: PlanUserProgressTypeEnum!, $offset: Int!, $limit: Int!) {
+  studyPlanV2UserProgresses(
+    progressType: $progressType
+    offset: $offset
+    limit: $limit
+  ) {
+    hasMore
+    total
+    planUserProgresses {
+      nextQuestionInfo {
+        inPremiumSubgroup
+        nextQuestion {
+          id
+          questionFrontendId
+          title
+          titleSlug
+          translatedTitle
+        }
+      }
+      nextQuestionInfo {
+        inPremiumSubgroup
+        nextQuestion {
+          id
+          questionFrontendId
+          title
+          titleSlug
+          translatedTitle
+        }
+      }
+      quittedAt
+      startedAt
+      plan {
+        questionNum
+        slug
+        premiumOnly
+        name
+        onGoing
+        highlight
+        cover
+      }
+      latestSubmissionAt
+      id
+      allCompletedAt
+      finishedQuestionNum
+    }
+  }
+}
 """
 
-PLAN_PROGRESS_QUERY = """\n
-query studyPlanProgress($slug: String!, $historyId: ID) {\n
-  studyPlanV2ProgressDetail(planSlug: $slug, id: $historyId) {\n
-    id\n
-    status\n
-    weeklyTaskScheduleResettable\n
-    finishedQuestionNum\n
-    studyPlanDetail {\n
-      questionNum\n
-      planSubGroups {\n
-        slug\n
-        questions {\n
-          titleSlug\n
-          status\n
-        }\n
-      }\n
-    }\n
-  }\n
-}\n
+PLAN_PROGRESS_QUERY = """
+query studyPlanProgress($slug: String!, $historyId: ID) {
+  studyPlanV2ProgressDetail(planSlug: $slug, id: $historyId) {
+    id
+    status
+    weeklyTaskScheduleResettable
+    finishedQuestionNum
+    studyPlanDetail {
+      questionNum
+      planSubGroups {
+        slug
+        questions {
+          titleSlug
+          status
+        }
+      }
+    }
+  }
+}
 """

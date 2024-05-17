@@ -3,6 +3,7 @@ import os
 import traceback
 from collections import defaultdict
 from importlib.util import spec_from_file_location, module_from_spec
+from constants import TESTCASE_TEMPLATE_PYTHON
 
 
 def write_problem_md(question_id: str, question_name: str, desc: str) -> str:
@@ -21,19 +22,11 @@ def write_problem_md(question_id: str, question_name: str, desc: str) -> str:
 
 def write_testcase(testcases, outputs) -> str:
     res = ""
-    res += 'from collections import namedtuple\n'
-    res += 'import testcase\n\n'
-    res += 'case = namedtuple("Testcase", ["Input", "Output"])\n\n\n'
-    res += 'class Testcase(testcase.Testcase):\n'
-    res += '\tdef __init__(self):\n'
-    res += '\t\tself.testcases = []\n'
     for inputs, output in zip(testcases, outputs):
-        res += ('\t\tself.testcases.append(case(Input={}, Output={}))\n'
+        res += ("\t\tself.testcases.append(case(Input={}, Output={}))\n"
                 .format(f"\"{inputs}\"" if isinstance(inputs, str) else inputs,
                         f"\"{output}\"" if isinstance(output, str) else output))
-    res += '\n\tdef get_testcases(self):\n'
-    res += '\t\treturn self.testcases\n'
-    return res
+    return TESTCASE_TEMPLATE_PYTHON.format(res)
 
 
 def __process_code__(code: str):

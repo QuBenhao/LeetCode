@@ -18,4 +18,4 @@ if __name__ == '__main__':
                                               "educationRecordList {\n      unverifiedOrganizationName\n    }\n    "
                                               "occupationRecordList {\n      unverifiedOrganizationName\n      "
                                               "jobTitle\n    }\n  }\n}\n    "
-          .replace("\n", "\\n\n"))
+          )
