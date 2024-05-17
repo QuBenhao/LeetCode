@@ -13,3 +13,14 @@ class Testcase(testcase.Testcase):
 """
 
 TESTCASE_TEMPLATE_PYTHON_TESTCASES = "\t\tself.testcases.append(case(Input={}, Output={}))\n"
+
+SOLUTION_TEMPLATE_PYTHON = """import solution
+from typing import *
+{}
+
+class Solution(solution.Solution):
+    def solve(self, test_input=None):
+{}
+
+{}
+"""

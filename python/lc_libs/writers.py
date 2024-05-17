@@ -3,7 +3,7 @@ import os
 import traceback
 from collections import defaultdict
 from importlib.util import spec_from_file_location, module_from_spec
-from constants import TESTCASE_TEMPLATE_PYTHON, TESTCASE_TEMPLATE_PYTHON_TESTCASES
+from constants import TESTCASE_TEMPLATE_PYTHON, TESTCASE_TEMPLATE_PYTHON_TESTCASES, SOLUTION_TEMPLATE_PYTHON
 
 
 def write_problem_md(question_id: str, question_name: str, desc: str) -> str:
@@ -29,7 +29,7 @@ def write_testcase(testcases, outputs) -> str:
     return TESTCASE_TEMPLATE_PYTHON.format(res)
 
 
-def __process_code__(code: str):
+def __process_code(code: str):
     top = []
     res = []
     process_class = False
@@ -128,7 +128,7 @@ def __process_code__(code: str):
     return cs_map, top, res
 
 
-def __finalize_solution_code__(cs_map, top, res, modify_in_place):
+def __finalize_solution_code(cs_map, top, res, modify_in_place):
     process_input = "pass"
     if len(cs_map) == 1:
         if "Solution" in cs_map:
@@ -346,31 +346,16 @@ def __finalize_solution_code__(cs_map, top, res, modify_in_place):
     return top, res
 
 
-def write_solution_python(code: str, default: bool = True) -> str:
-    if not default:
-        if "class Solution" in code:
-            return "\n".join(code.split("class Solution")[-1].split("\n")[1:])
-        return code
-    try:
-        cs_map, top, res = __process_code__(code)
-        top, res = __finalize_solution_code__(cs_map, top, res, "Do not return anything" in code)
-
-        return "\n".join(top) + "\n\n" + "\n".join(res)
-    except Exception as e:
-        print("Exception raised:", e)
-        traceback.print_exc()
-        if os.path.exists("tmp.py"):
-            os.remove("tmp.py")
-
+def __write_solution_python_backup(code: str):
+    strip_code = []
+    define_class = []
     if '"""' in code:
         sp = code.split('"""')
-        define_class = []
         code_source = ""
         for i in range(1, len(sp), 2):
             define_class.append(sp[i])
         for i in range(0, len(sp), 2):
             code_source += sp[i]
-        strip_code = []
         for line in code_source.split("\n"):
             if line.startswith("from typing import"):
                 continue
@@ -378,18 +363,9 @@ def write_solution_python(code: str, default: bool = True) -> str:
                 continue
             if len(line) > 0:
                 strip_code.append(line)
-        return ("import solution\n"
-                "from typing import *\n\n"
-                "{}"
-                "class Solution(solution.Solution):\n"
-                "    def solve(self, test_input=None):\n"
-                "        pass\n\n"
-                "{}").format("".join(define_class) + "\n\n" if define_class else "\n", "\n".join(strip_code))
-    if "class Solution" in code or "# class" in code:
+    elif "class Solution" in code or "# class" in code:
         start = False
         strip_start = False
-        strip_code = []
-        define_class = []
         for line in code.split("\n"):
             if line.startswith("from typing import"):
                 continue
@@ -410,19 +386,29 @@ def write_solution_python(code: str, default: bool = True) -> str:
                 if line.startswith("class Solution"):
                     strip_start = True
                 start = False
-        return ("import solution\n"
-                "from typing import *\n\n\n"
-                "{}"
-                "class Solution(solution.Solution):\n"
-                "    def solve(self, test_input=None):\n"
-                "        pass\n\n"
-                "{}").format("\n".join(define_class) + "\n\n\n" if define_class else "", "\n".join(strip_code))
-    return ("import solution\n"
-            "from typing import *\n\n\n"
-            "class Solution(solution.Solution):\n"
-            "    def solve(self, test_input=None):\n"
-            "        pass\n\n\n"
-            "{}\n").format(code)
+    return SOLUTION_TEMPLATE_PYTHON.format(
+        "\n\n" + "\n".join(define_class) + "\n" if define_class else "",
+        "        pass",
+        "\n".join(strip_code) if strip_code else code
+    )
+
+
+def write_solution_python(code: str, default: bool = True) -> str:
+    if not default:
+        if "class Solution" in code:
+            return "\n".join(code.split("class Solution")[-1].split("\n")[1:])
+        return code
+    try:
+        cs_map, top, res = __process_code(code)
+        top, res = __finalize_solution_code(cs_map, top, res, "Do not return anything" in code)
+
+        return "\n".join(top) + "\n\n" + "\n".join(res)
+    except Exception as e:
+        print("Exception raised:", e)
+        traceback.print_exc()
+        if os.path.exists("tmp.py"):
+            os.remove("tmp.py")
+    return __write_solution_python_backup(code)
 
 
 def write_solution_golang(code_default: str, problem_id: str, default: bool = True, code: str = "") -> str:
@@ -516,13 +502,13 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
                             imports_libs.add("\t. \"leetCode/golang/node_neighbours\"")
                             imports_libs.add("\t\"encoding/json\"")
                             imports_libs.add("\t\"log\"")
-                        elif "/**\n"\
-                             " * Definition for a Node.\n"\
-                             " * type Node struct {\n"\
-                             " *     Val int\n"\
-                             " *     Next *Node\n"\
-                             " *     Random *Node\n"\
-                             " * }\n"\
+                        elif "/**\n" \
+                             " * Definition for a Node.\n" \
+                             " * type Node struct {\n" \
+                             " *     Val int\n" \
+                             " *     Next *Node\n" \
+                             " *     Random *Node\n" \
+                             " * }\n" \
                              " */" in code_default:
                             for var in vrs:
                                 json_parse.append("\tvar arr" + f"{i}" + " [][]interface{}\n")
