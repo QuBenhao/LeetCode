@@ -28,7 +28,7 @@ def node_neigh_to_list_relation(node: Optional[Node]) -> list[list[int]]:
     if not node:
         return ans
 
-    explored = set()
+    explored = {1}
 
     def dfs(cur: Node):
         if len(ans) < cur.val:
