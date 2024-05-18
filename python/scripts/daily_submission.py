@@ -1,30 +1,26 @@
+import argparse
 import json
 import os
-import subprocess
 import sys
 import traceback
-import argparse
-from importlib.util import spec_from_file_location, module_from_spec
 from typing import Optional
 
 from dotenv import load_dotenv
+
 from daily_auto import write_question
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from python.lc_libs import check_user_exist, get_daily_question, check_accepted_submission, \
-    check_accepted_submission_all, get_submission_detail, \
-    write_solution_python, get_user_study_plans, get_user_study_plan_progress, get_question_code, get_question_info, \
-    write_solution_golang
+import python.lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, send_text_message
+from python.utils import get_default_folder, send_text_message, check_problem_solved_and_write
 
 
 def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: list[str]):
     try:
-        if not check_user_exist(user_slug):
+        if not lc_libs.check_user_exist(user_slug):
             print(f"User not exist: {user_slug}")
             return 1
-        daily_info = get_daily_question()
+        daily_info = lc_libs.get_daily_question()
         if not daily_info:
             print(f"Unable to get daily question")
             return 1
@@ -33,7 +29,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: 
         plan_questions_slug = set()
         finished_plan_questions = []
         if cookie:
-            plans = get_user_study_plans(cookie)
+            plans = lc_libs.get_user_study_plans(cookie)
             if plans is None:
                 if not send_text_message("The LeetCode in GitHub secrets might be expired, please check!",
                                          "Currently might not be able to fetch submission."):
@@ -41,183 +37,46 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: 
                 print("The LeetCode cookie might be expired!")
             elif plans:
                 for plan_slug in plans:
-                    plan_prog = get_user_study_plan_progress(plan_slug, cookie, 0)
+                    plan_prog = lc_libs.get_user_study_plan_progress(plan_slug, cookie, 0)
                     plan_questions_slug = plan_questions_slug.union(plan_prog["all_solved"])
-        submit_dict = check_accepted_submission_all(cookie) if cookie else check_accepted_submission(user_slug)
+        submit_dict = lc_libs.check_accepted_submission_all(cookie) if cookie \
+            else lc_libs.check_accepted_submission(user_slug)
         root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         sys.path.insert(0, os.path.join(root_path, "python"))
         for question_id, submits in submit_dict.items():
+            cache = set()
             dir_path = os.path.join(root_path, problem_folder, question_id)
             if question_id == daily_question and not os.path.exists(dir_path):
                 os.mkdir(dir_path)
                 write_question(dir_path, daily_question, daily_info['questionNameEn'],
-                               daily_info['questionSlug'], languages)
+                               daily_info['questionSlug'], list(languages))
             elif not os.path.exists(dir_path):
-                info = get_question_info(submits[0][1])
+                info = lc_libs.get_question_info(submits[0][1])
                 os.mkdir(dir_path)
-                write_question(dir_path, question_id, info["title"], submits[0][1])
-            default_code = get_question_code(submits[0][1], lang_slugs=languages, cookie=cookie)
-            has_check_python = False
+                write_question(dir_path, question_id, info["title"], submits[0][1], list(languages))
+            default_code = lc_libs.get_question_code(submits[0][1], lang_slugs=languages, cookie=cookie)
             for submit_id, question_slug, language in submits:
-                if language == "python3" and not has_check_python:
-                    try:
-                        testcase_spec = spec_from_file_location("module.name", f"{dir_path}/testcase.py")
-                        testcase = module_from_spec(testcase_spec)
-                        testcase_spec.loader.exec_module(testcase)
-                        testcase_obj = testcase.Testcase()
-                        solution_spec = spec_from_file_location("module.name", f"{dir_path}/solution.py")
-                        solution = module_from_spec(solution_spec)
-                        solution_spec.loader.exec_module(solution)
-                        solution_obj = solution.Solution()
-
-                        for test in testcase_obj.get_testcases():
-                            i, o = test
-                            result = solution_obj.solve(test_input=i)
-                            print("Question: [{}]{}, Input: {}, Output: {}, Expected: {}"
-                                  .format(question_id, question_slug, i, result, o))
-                            if o is not None and result is None:
-                                raise ValueError("No solution")
-                            if o and isinstance(o, list):
-                                if o and isinstance(o, list) and isinstance(o[0], float):
-                                    if any(abs(a - b) > 0.00001 for a, b in zip(o, result)):
-                                        raise ValueError("Mismatch float in list")
-                                elif all(x is not None for x in o) and isinstance(o[0], list) and not any(
-                                        None in x for x in o):
-                                    if sorted(sorted(item) for item in o) != sorted(sorted(item) for item in result):
-                                        raise ValueError("List[List] not equal")
-                                else:
-                                    if None not in o and not (isinstance(o[0], list) and any(None in x for x in o)):
-                                        if sorted(o) != sorted(result):
-                                            raise ValueError("List not equal")
-                                    else:
-                                        if o != result:
-                                            raise ValueError("List Not equal")
-                            else:
-                                if isinstance(o, float):
-                                    if abs(o - result) > 0.00001:
-                                        raise ValueError("Mismatch float")
-                                elif result != o:
-                                    raise ValueError(f"Result {result} not as expected: {o}")
-                        if question_id == daily_question:
-                            finish_daily = True
-                        if question_slug in plan_questions_slug:
-                            finished_plan_questions.append(question_slug)
-                        if any(lang != "python3" for lang in languages):
-                            has_check_python = True
-                            continue
-                        else:
-                            break
-                    except Exception as ex:
-                        print("Exception caught: ", str(ex))
-                        traceback.print_exc()
-                detail = get_submission_detail(submit_id, cookie)
-                if detail is not None and detail["lang"] == "python3":
-                    if has_check_python:
-                        continue
-                    code = detail["code"]
-                    sol_path = os.path.join(str(dir_path), "solution.py")
-                    if not os.path.exists(sol_path):
-                        template = default_code["python3"]
-                        if template is not None:
-                            with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                                f.write(write_solution_python(template))
-                        else:
-                            with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                                f.write(write_solution_python(code, False))
-                            break
-                    with open(f"{dir_path}/solution.py", "r", encoding="utf-8") as f:
-                        lines = f.readlines()
-                        idx = len(lines) - 1
-                        start = False
-                        for i, line in enumerate(lines):
-                            if "def solve(self, test_input=None):" in line:
-                                start = True
-                            if start and "return " in line:
-                                idx = i
-                                break
-                        full = "".join(lines[:idx + 1] + ["\n"])
-                    with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                        f.write(full + write_solution_python(code, False))
-                    if question_id == daily_question:
-                        finish_daily = True
-                    if any(lang != "python3" for lang in languages):
-                        has_check_python = True
-                        continue
-                    else:
-                        break
-                elif detail:
-                    code = detail["code"]
-                    func = None
-                    match detail["lang"]:
-                        case "java":
-                            file_name = "solution.java"
-                            lang_env = ["java", "--version"]
-                            test_commands = []
-                        case "cpp":
-                            file_name = "solution.cpp"
-                            lang_env = ["g++", "--version"]
-                            test_commands = []
-                        case "golang":
-                            file_name = "solution.go"
-                            func = write_solution_golang
-                            lang_env = ["go", "version"]
-                            test_commands = [["go", "test", f"{root_path}/golang/solution_test.go"]]
-                        case "c":
-                            file_name = "solution.c"
-                            lang_env = ["gcc", "--version"]
-                            test_commands = []
-                        case "javascript":
-                            file_name = "solution.js"
-                            lang_env = ["npm", "test"]
-                            test_commands = []
-                        case "typescript":
-                            file_name = "solution.ts"
-                            lang_env = ["npm", "test"]
-                            test_commands = []
-                        case _:
-                            file_name = "unknown"
-                            lang_env = None
-                            test_commands = None
-                            print("Language {} is not implemented to save".format(detail["lang"]))
-
-                    if detail["lang"] in languages:
-                        need_write = True
-                        if lang_env and test_commands and os.path.exists(f"{dir_path}/{file_name}"):
-                            env_check = subprocess.run(lang_env, capture_output=True, timeout=3)
-                            if env_check.returncode == 0:
-                                print("[{}] env ok, "
-                                      "output: {}".format(detail["lang"],
-                                                          env_check.stdout.decode("utf-8")))
-                                for cmds in test_commands:
-                                    execute_res = subprocess.run(cmds, capture_output=True, timeout=30)
-                                    if execute_res.returncode != 0:
-                                        print("Execute failed, command: [{}],"
-                                              " error: {}, output: {}".format(" ".join(cmds),
-                                                                              execute_res.stderr.decode("utf-8"),
-                                                                              execute_res.stdout.decode("utf-8")))
-                                        need_write = True
-                                        break
-                                    else:
-                                        need_write = False
-                                        print("Execute [{}] succeeded,"
-                                              " output: {}".format(" ".join(cmds),
-                                                                   execute_res.stdout.decode("utf-8")))
-                            else:
-                                print("Execute language env [{}]\n"
-                                      "output: {}, err: {}".format(" ".join(lang_env),
-                                                                   env_check.stdout.decode("utf-8"),
-                                                                   env_check.stderr.decode("utf-8")))
-                        if need_write:
-                            with open(f"{dir_path}/{file_name}", "w", encoding="utf-8") as f:
-                                if func is not None:
-                                    f.writelines(func(default_code[detail["lang"]], question_id, False, code))
-                    elif not os.path.exists(f"{dir_path}/{file_name}"):
-                        with open(f"{dir_path}/{file_name}", "w", encoding="utf-8") as f:
-                            f.writelines(code)
-                    else:
-                        print("Already write [{}] code before".format(detail["lang"]))
-                    if question_id == daily_question:
-                        finish_daily = True
+                if language in cache:
+                    continue
+                detail = lc_libs.get_submission_detail(submit_id, cookie)
+                if not detail:
+                    print(f"Unable to get submission detail for {submit_id}")
+                    continue
+                code = detail["code"]
+                func = getattr(lc_libs, "write_solution_{}".format(language), None)
+                test_func = getattr(lc_libs, "change_test_{}".format(language), None)
+                if check_problem_solved_and_write(question_id,
+                                                  detail["lang"],
+                                                  root_path,
+                                                  dir_path,
+                                                  True,
+                                                  func,
+                                                  (default_code[detail["lang"]], code, question_id),
+                                                  test_func):
+                    print(f"Already solved problem: {question_id}, language: {language}")
+                cache.add(language)
+                if question_id == daily_question:
+                    finish_daily = True
         print("Daily Question {}: {}, Study plan problem solved today: {}"
               .format(daily_question, "DONE" if finish_daily else "TODO", finished_plan_questions))
         if not finish_daily:
@@ -243,6 +102,7 @@ if __name__ == '__main__':
     try:
         langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]") or "[\"python3\"]")
     except Exception as _:
+        traceback.print_exc()
         langs = ["python3"]
     exec_res = main(pf, args.user, cke, langs)
     sys.exit(exec_res)

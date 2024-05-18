@@ -111,7 +111,6 @@ def get_submission_detail(submit_id: str, cookie: str):
         if not response.text:
             return None
         result_dict = json.loads(response.text)["data"]["submissionDetail"]
-        print(response.text, result_dict)
         return {
             "code": result_dict["code"],
             "lang": result_dict["lang"],

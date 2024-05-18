@@ -31,6 +31,20 @@ def write_testcase(testcases, outputs) -> str:
     return TESTCASE_TEMPLATE_PYTHON.format(res)
 
 
+def change_test_python(content: str, question_id: str) -> str:
+    ans = []
+    for line in content.split("\n"):
+        if line.startswith("QUESTION = "):
+            ans.append(f'QUESTION = "{question_id}"')
+            continue
+        ans.append(line)
+    return "\n".join(ans)
+
+
+def change_test_python3(content: str, question_id: str) -> str:
+    return change_test_python(content, question_id)
+
+
 def __get_code_class(tmp_filename):
     include_solution_class = False
     solution_spec = spec_from_file_location("module.name", tmp_filename)
@@ -452,7 +466,7 @@ def __write_solution_python_backup(code: str):
     )
 
 
-def write_solution_python(code_template: str, code: str = None) -> str:
+def write_solution_python(code_template: str, code: str = None, problem_id: str = "") -> str:
     try:
         cs_map, defined_class, rest = __process_code(code_template)
         modify_in_place = "Do not return anything" in code_template
@@ -478,3 +492,7 @@ def write_solution_python(code_template: str, code: str = None) -> str:
         print("Exception raised:", e)
         traceback.print_exc()
     return __write_solution_python_backup(code_template)
+
+
+def write_solution_python3(code_template: str, code: str = None, problem_id: str = "") -> str:
+    return write_solution_python(code_template, code, problem_id)

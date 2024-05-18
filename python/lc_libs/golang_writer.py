@@ -1,6 +1,19 @@
 from python.constants import SOLUTION_TEMPLATE_GOLANG
 
 
+def change_test_golang(content: str, question_id: str) -> str:
+    ans = []
+    for line in content.split("\n"):
+        if "problem \"leetCode/problems/" in line:
+            ans.append(f'\tproblem "leetCode/problems/{question_id}"')
+            continue
+        elif "var problemId string =" in line:
+            ans.append(f'var problemId string = "{question_id}"')
+            continue
+        ans.append(line)
+    return "\n".join(ans)
+
+
 def __process_inputs(code_default: str,
                      input_str: str,
                      struct_dict: dict,
@@ -109,7 +122,7 @@ def __process_inputs(code_default: str,
     return imports_libs, "".join(res), "".join(json_parse), ", ".join(variables)
 
 
-def write_solution_golang(code_default: str, problem_id: str, default: bool = True, code: str = "") -> str:
+def write_solution_golang(code_default: str, code: str = None, problem_id: str = "") -> str:
     its = []
     rts = []
     func_names = []
@@ -235,7 +248,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
             problem_id,
             # string with . starts before other, othercase sort normal
             "\n".join(sorted(import_set, key=lambda x: "\t" + x.split(" ")[-1] if x.startswith('\t. ') else x)),
-            code_default if default else code,
+            code_default if not code else code,
             "interface{} {",
             "\n".join(list(zip(*its))[1]),
             "\n".join(list(zip(*its))[2]),
@@ -246,7 +259,7 @@ def write_solution_golang(code_default: str, problem_id: str, default: bool = Tr
     return SOLUTION_TEMPLATE_GOLANG.format(
         problem_id,
         "\n".join(sorted(import_set, key=lambda x: "\t" + x.split(" ")[-1] if x.startswith('\t. ') else x)),
-        code_default if default else code,
+        code_default if not code else code,
         "interface{} {",
         "\n".join(list(zip(*its))[1]),
         "\n".join(list(zip(*its))[2]),

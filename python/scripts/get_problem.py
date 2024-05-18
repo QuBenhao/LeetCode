@@ -66,7 +66,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
                     f.write(write_solution_python(val))
             case "golang":
                 with open(f"{dir_path}/solution.go", "w", encoding="utf-8") as f:
-                    f.write(write_solution_golang(val, problem_id))
+                    f.write(write_solution_golang(val, None, problem_id))
             case _:
                 print(f"Unsupported language {key} yet")
 

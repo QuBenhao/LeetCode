@@ -117,12 +117,12 @@ if __name__ == '__main__':
         res = write_solution_python(test)
         with open(f"tmp_default{idx}.py", "w") as f:
             f.writelines(res)
-    for idx, test in enumerate(submit_test_list):
-        res = write_solution_python(test, False)
-        with open(f"tmp_submit{idx}.py", "w") as f:
-            f.writelines(res)
+    # for idx, test in enumerate(submit_test_list):
+    #     res = write_solution_python(test, False)
+    #     with open(f"tmp_submit{idx}.py", "w") as f:
+    #         f.writelines(res)
     for idx, test in enumerate(golang_test_list):
-        res = write_solution_golang(test, str(idx))
+        res = write_solution_golang(test, None, str(idx))
         with open(f"tmp_solution{idx}.go", "w") as f:
             f.writelines(res)
     sys.exit()
