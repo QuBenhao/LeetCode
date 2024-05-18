@@ -1,5 +1,6 @@
 import inspect
 import os
+import time
 import traceback
 from collections import defaultdict
 from importlib.util import spec_from_file_location, module_from_spec
@@ -29,61 +30,9 @@ def write_testcase(testcases, outputs) -> str:
     return TESTCASE_TEMPLATE_PYTHON.format(res)
 
 
-def __process_code(code: str):
-    top = []
-    res = []
-    process_class = False
-    top.append("from typing import *\n")
-    splits = code.split("\n")
-    idx = 0
-    while idx < len(splits):
-        line = splits[idx]
-        if "# class " in line:
-            process_class = True
-            top.append(line[2:])
-            idx += 1
-            continue
-        elif process_class:
-            if line.startswith("#"):
-                top.append(line[2:])
-                idx += 1
-                continue
-            else:
-                process_class = False
-        if ('"""' in line and idx < len(splits) - 1 and
-                (splits[idx + 1].strip().startswith("class ") or splits[idx + 1].strip().startswith("# "))):
-            idx += 1
-            while idx < len(splits) and '"""' not in splits[idx]:
-                if "from typing import " not in res:
-                    res.append(splits[idx])
-                idx += 1
-            idx += 1
-            continue
-        if "from typing import " in line:
-            idx += 1
-            continue
-        res.append(line)
-        sl = line.strip()
-        if sl.startswith("def ") and sl.endswith(":"):
-            if idx < len(splits) - 1 and '"""' in splits[idx + 1]:
-                idx += 1
-                while idx < len(splits) - 1 and '"""' not in splits[idx + 1].strip():
-                    res.append(splits[idx])
-                    idx += 1
-                res.append(splits[idx])
-                idx += 1
-                res.append(splits[idx])
-                sp = splits[idx].count(" ", None, splits[idx].index('"""'))
-                sp = (sp + 3) // 4 * 4
-            else:
-                sp = line.count(" ", line.index("def "))
-                sp = (sp + 3) // 4 * 4 + 4
-            res.append(sp * " " + "pass")
-        idx += 1
-    with open("tmp.py", "w", encoding="utf-8") as f:
-        f.writelines("\n".join(top) + "\n\n")
-        f.writelines("\n".join(res))
-    solution_spec = spec_from_file_location("module.name", f"tmp.py")
+def __get_code_class(tmp_filename):
+    include_solution_class = False
+    solution_spec = spec_from_file_location("module.name", tmp_filename)
     solution = module_from_spec(solution_spec)
     solution_spec.loader.exec_module(solution)
     classes = inspect.getmembers(solution, inspect.isclass)
@@ -119,17 +68,102 @@ def __process_code(code: str):
                     cs_map["S"] = list(cs_map[class_name])
                     cs_map.pop(class_name)
                 class_name = "S"
-                for i, line in enumerate(res):
-                    if "class Solution" in line:
-                        res[i] = line.replace("Solution", "S")
+                include_solution_class = True
             cs_map[class_name].append((method[0], dict(sig.parameters), sig.return_annotation))
 
-    os.remove("tmp.py")
-    return cs_map, top, res
+    return cs_map, include_solution_class
 
 
-def __finalize_solution_code(cs_map, top, res, modify_in_place):
+def __process_code(code: str):
+    class_defines = []
+    rest = []
+    process_class = False
+    splits = code.split("\n")
+    idx = 0
+    while idx < len(splits):
+        line = splits[idx]
+        if "# class " in line:
+            process_class = True
+            class_defines.append(line[2:])
+            idx += 1
+            continue
+        elif process_class:
+            if line.startswith("#"):
+                class_defines.append(line[2:])
+                idx += 1
+                continue
+            else:
+                process_class = False
+        if ('"""' in line and idx < len(splits) - 1 and
+                (splits[idx + 1].strip().startswith("class ") or splits[idx + 1].strip().startswith("# "))):
+            idx += 1
+            while idx < len(splits) and '"""' not in splits[idx]:
+                if "from typing import " not in rest:
+                    class_defines.append(splits[idx])
+                idx += 1
+            idx += 1
+            continue
+        if "from typing import " in line:
+            idx += 1
+            continue
+        sl = line.strip()
+        if sl and not sl.startswith("#"):
+            rest.append(line)
+        if sl.startswith("def ") and sl.endswith(":"):
+            if idx < len(splits) - 1 and '"""' in splits[idx + 1]:
+                idx += 1
+                while idx < len(splits) - 1 and '"""' not in splits[idx + 1].strip():
+                    rest.append(splits[idx])
+                    idx += 1
+                rest.append(splits[idx])
+                idx += 1
+                rest.append(splits[idx])
+                sp = splits[idx].count(" ", None, splits[idx].index('"""'))
+                sp = ((sp + 3) // 4) * 4
+            else:
+                sp = line.count(" ", line.index("def "))
+                sp = ((sp + 3) // 4) * 4 + 4
+            rest.append(sp * " " + "pass")
+            rest.append("")
+        idx += 1
+    tmp_filename = "tmp-{}.py".format(time.time())
+    try:
+        with open(tmp_filename, "w", encoding="utf-8") as f:
+            f.writelines("from typing import *\n\n")
+            f.writelines("\n".join(class_defines) + "\n\n")
+            f.writelines("\n".join(rest))
+        cs_map, include_solution = __get_code_class(tmp_filename)
+        if include_solution:
+            for i, line in enumerate(rest):
+                if "class Solution" in line:
+                    rest[i] = line.replace("Solution", "S")
+        simply = []
+        last_space = 0
+        in_comment = 0
+        for line in rest:
+            if "class Solution" in line:
+                continue
+            strip_line = line.strip()
+            if strip_line.startswith('"""'):
+                in_comment ^= 1
+                simply.append(line)
+                continue
+            if line.strip() == "pass":
+                simply.append(" " * (last_space + 4) + "pass")
+            else:
+                simply.append(line)
+                if not in_comment:
+                    last_space = len(line) - len(line.lstrip())
+        rest = simply
+    finally:
+        if os.path.exists(tmp_filename):
+            os.remove(tmp_filename)
+    return cs_map, class_defines, rest
+
+
+def __finalize_solution_code(cs_map, modify_in_place):
     process_input = "pass"
+    import_libs = []
     if len(cs_map) == 1:
         if "Solution" in cs_map:
             methods = cs_map["Solution"]
@@ -156,7 +190,7 @@ def __finalize_solution_code(cs_map, top, res, modify_in_place):
             class_name, methods = "", []
             for k, v in cs_map.items():
                 class_name, methods = k, v
-            top[0] = top[0] + "from python.object_libs import call_method\n"
+            import_libs.append("from python.object_libs import call_method\n")
             init_params = ""
             for method in methods:
                 if method[0] == "__init__":
@@ -225,6 +259,18 @@ def __finalize_solution_code(cs_map, top, res, modify_in_place):
                             remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
                             inputs += f"head{idx}"
                             idx += 1
+                    elif "Node" in str(v.annotation) and "Node" in cs_map and "neighbors" in cs_map["Node"][0][1]:
+                        # speical handle Neighbour Nodes
+                        exists = True
+                        add_lib = "from python.object_libs import list_relation_to_node_neigh"
+                        if "List[" in str(v.annotation):
+                            process_input += "nums_arr"
+                            remain += f"        roots = [list_relation_to_node_neigh(nums) for nums in nums_arr]\n"
+                            inputs += "roots"
+                        else:
+                            process_input += f"nums{idx}"
+                            remain += f"        node{idx} = list_relation_to_node_neigh(nums{idx})\n"
+                            inputs += f"node{idx}"
                     else:
                         process_input += v.name
                         inputs += v.name
@@ -242,33 +288,45 @@ def __finalize_solution_code(cs_map, top, res, modify_in_place):
                         remain += ("        res = self.{}({})\n        return tree_to_list(res)"
                                    .format(methods[0][0], inputs))
                 elif "ListNode" in str(return_anno):
-                    add_lib += ", linked_list_to_list" if exists else "from python.object_libs import linked_list_to_list"
+                    add_lib += ", linked_list_to_list" if exists else \
+                        "from python.object_libs import linked_list_to_list"
                     if "List[" in str(return_anno):
                         remain += ("res = self.{}({})\n        return [linked_list_to_list(head) for head in "
                                    "res]").format(methods[0][0], inputs)
                     else:
                         remain += ("        res = self.{}({})\n        return linked_list_to_list(res)"
                                    .format(methods[0][0], inputs))
+                elif "Node" in str(return_anno) and "Node" in cs_map and "neighbors" in cs_map["Node"][0][1]:
+                    # speical handle Neighbour Nodes
+                    add_lib += ", node_neigh_to_list_relation" if exists else \
+                        "from python.object_libs import node_neigh_to_list_relation"
+                    if "List[" in str(return_anno):
+                        remain += ("        res = self.{}({})\n"
+                                   "        return [node_neigh_to_list_relation(root) for root in res]"
+                                   .format(methods[0][0], inputs))
+                    else:
+                        remain += ("        res = self.{}({})\n        return node_neigh_to_list_relation(res)"
+                                   .format(methods[0][0], inputs))
                 else:
                     if not modify_in_place:
                         remain += "        return self.{}({})".format(methods[0][0], inputs)
                     else:
                         remain += "        self.{}({})\n        return {}".format(methods[0][0], inputs, inputs)
-                top[0] = top[0] + add_lib + "\n"
+                import_libs.append(add_lib + "\n")
 
                 process_input += remain
         else:
-            top[0] = top[0] + "from python.object_libs import call_method"
+            import_libs.append("from python.object_libs import call_method")
             if "TreeNode" in cs_map:
-                top[0] += ", list_to_tree"
+                import_libs.append(", list_to_tree")
                 cs_map.pop("TreeNode")
             elif "ListNode" in cs_map:
-                top[0] += ", list_to_linked_list"
+                import_libs.append(", list_to_linked_list")
                 cs_map.pop("ListNode")
             else:
                 # Too complex to fix here
                 pass
-            top[0] += "\n"
+            import_libs.append("\n")
             if len(cs_map) == 1:
                 class_name, methods = "", []
                 for k, v in cs_map.items():
@@ -330,20 +388,7 @@ def __finalize_solution_code(cs_map, top, res, modify_in_place):
                 process_input += ("        return [None] + [call_method(obj, op, *ipt)"
                                   " for op, ipt in zip(ops[1:], inputs[1:])]")
 
-    top[0] = "import solution\n" + top[0]
-    found = False
-    for i, line in enumerate(res):
-        if "class Solution" in line:
-            res[i] = ("class Solution(solution.Solution):\n"
-                      "    def solve(self, test_input=None):\n"
-                      "        {}\n").format(process_input)
-            found = True
-            break
-    if not found:
-        res = ["class Solution(solution.Solution):\n"
-               "    def solve(self, test_input=None):\n"
-               "        {}\n".format(process_input)] + res
-    return top, res
+    return import_libs, process_input
 
 
 def __write_solution_python_backup(code: str):
@@ -395,19 +440,22 @@ def __write_solution_python_backup(code: str):
 
 def write_solution_python(code: str, default: bool = True) -> str:
     if not default:
+        # submission code, not template code
         if "class Solution" in code:
             return "\n".join(code.split("class Solution")[-1].split("\n")[1:])
         return code
     try:
-        cs_map, top, res = __process_code(code)
-        top, res = __finalize_solution_code(cs_map, top, res, "Do not return anything" in code)
-
-        return "\n".join(top) + "\n\n" + "\n".join(res)
+        cs_map, defined_class, rest = __process_code(code)
+        import_libs, process_input = __finalize_solution_code(cs_map, "Do not return anything" in code)
+        return SOLUTION_TEMPLATE_PYTHON.format(
+            "".join(import_libs) + ("\n" if import_libs and defined_class else "") +
+            (("\n" if defined_class else "") + "\n".join(defined_class) + ("\n" if defined_class else "")),
+            process_input,
+            ("" if not rest or "(self" in rest[0] else "\n") + "\n".join(rest)
+        )
     except Exception as e:
         print("Exception raised:", e)
         traceback.print_exc()
-        if os.path.exists("tmp.py"):
-            os.remove("tmp.py")
     return __write_solution_python_backup(code)
 
 
