@@ -1,8 +1,9 @@
 package problem2644
 
-import(
+import (
 	"encoding/json"
 	"log"
+	"slices"
 	"strings"
 )
 
@@ -36,9 +37,8 @@ func maxDivScore(nums []int, divisors []int) (ans int) {
 	return
 }
 
-
 func Solve(input string) interface{} {
-    values := strings.Split(input, "\n")
+	values := strings.Split(input, "\n")
 	var nums []int
 	var divisors []int
 
@@ -49,5 +49,5 @@ func Solve(input string) interface{} {
 		log.Fatal(err)
 	}
 
-    return maxDivScore(nums, divisors)
+	return maxDivScore(nums, divisors)
 }
