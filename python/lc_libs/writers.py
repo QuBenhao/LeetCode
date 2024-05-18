@@ -161,232 +161,245 @@ def __process_code(code: str):
     return cs_map, class_defines, rest
 
 
-def __finalize_solution_code(cs_map, modify_in_place):
+def __calculate_parameters(parameters):
+    count = len(parameters)
+    if "self" in parameters:
+        count -= 1
+    if "args" in parameters:
+        count -= 1
+    if "kwargs" in parameters:
+        count -= 1
+    return count
+
+
+def __extract_process_input_from_method(cs_map, modify_in_place, import_libs, method):
+    func_name, parameters, return_anno = method
+    par_map = dict()
+    add_lib = ""
+    exists = False
+    process_input = ""
+    remain = ""
+    inputs = ""
+    is_first = True
+    idx = 0
+    for v in parameters.values():
+        if v.name == "self":
+            continue
+        if v.name == "args":
+            continue
+        if v.name == "kwargs":
+            continue
+        par_map[v.name] = v.annotation
+        if is_first:
+            is_first = False
+        else:
+            process_input += ", "
+            inputs += ", "
+        if "TreeNode" in str(v.annotation):
+            exists = True
+            add_lib = "from python.object_libs import list_to_tree"
+            if "List[" in str(v.annotation):
+                process_input += "nums_arr"
+                remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
+                inputs += "roots"
+            else:
+                process_input += f"nums{idx}"
+                remain += f"        root{idx} = list_to_tree(nums{idx})\n"
+                inputs += f"root{idx}"
+                idx += 1
+        elif "ListNode" in str(v.annotation):
+            exists = True
+            add_lib = "from python.object_libs import list_to_linked_list"
+            if "List[" in str(v.annotation):
+                process_input += "nums_arr"
+                remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
+                inputs += "heads"
+            else:
+                process_input += f"nums{idx}"
+                remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
+                inputs += f"head{idx}"
+                idx += 1
+        elif "Node" in str(v.annotation) and "Node" in cs_map and "neighbors" in cs_map["Node"][0][1]:
+            # speical handle Neighbour Nodes
+            exists = True
+            add_lib = "from python.object_libs import list_relation_to_node_neigh"
+            if "List[" in str(v.annotation):
+                process_input += "nums_arr"
+                remain += f"        roots = [list_relation_to_node_neigh(nums) for nums in nums_arr]\n"
+                inputs += "roots"
+            else:
+                process_input += f"nums{idx}"
+                remain += f"        node{idx} = list_relation_to_node_neigh(nums{idx})\n"
+                inputs += f"node{idx}"
+        else:
+            process_input += v.name
+            inputs += v.name
+            idx += 1
+
+    if len(parameters) > 0:
+        process_input += " = test_input\n"
+
+    if "TreeNode" in str(return_anno):
+        add_lib += ", tree_to_list" if exists else "from python.object_libs import tree_to_list"
+        if "List[" in str(return_anno):
+            remain += ("        res = self.{}({})\n        return [tree_to_list(root) for root in res]"
+                       .format(func_name, inputs))
+        else:
+            remain += ("        res = self.{}({})\n        return tree_to_list(res)"
+                       .format(func_name, inputs))
+    elif "ListNode" in str(return_anno):
+        add_lib += ", linked_list_to_list" if exists else \
+            "from python.object_libs import linked_list_to_list"
+        if "List[" in str(return_anno):
+            remain += ("res = self.{}({})\n        return [linked_list_to_list(head) for head in "
+                       "res]").format(func_name, inputs)
+        else:
+            remain += ("        res = self.{}({})\n        return linked_list_to_list(res)"
+                       .format(func_name, inputs))
+    elif "Node" in str(return_anno) and "Node" in cs_map and "neighbors" in cs_map["Node"][0][1]:
+        # speical handle Neighbour Nodes
+        add_lib += ", node_neigh_to_list_relation" if exists else \
+            "from python.object_libs import node_neigh_to_list_relation"
+        if "List[" in str(return_anno):
+            remain += ("        res = self.{}({})\n"
+                       "        return [node_neigh_to_list_relation(root) for root in res]"
+                       .format(func_name, inputs))
+        else:
+            remain += ("        res = self.{}({})\n        return node_neigh_to_list_relation(res)"
+                       .format(func_name, inputs))
+    else:
+        if not modify_in_place:
+            remain += "        return self.{}({})".format(func_name, inputs)
+        else:
+            remain += "        self.{}({})\n        return {}".format(func_name, inputs, inputs)
+    import_libs.append(add_lib + "\n")
+
+    process_input += remain
+    return process_input
+
+
+def __extract_object_process_input_from_method(class_name, method):
+    parameters = method[1]
+    par_map = dict()
+    process_input = "ops, inputs = test_input\n"
+    remain = ""
+    inputs = ""
+    is_first = True
+    idx = 0
+    for v in parameters.values():
+        if v.name == "self":
+            continue
+        if v.name == "args":
+            continue
+        if v.name == "kwargs":
+            continue
+        par_map[v.name] = v.annotation
+        if is_first:
+            is_first = False
+            process_input += "        "
+        else:
+            process_input += ", "
+            inputs += ", "
+        if "TreeNode" in str(v.annotation):
+            if "List[" in str(v.annotation):
+                process_input += "nums_arr"
+                remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
+                inputs += "roots"
+            else:
+                process_input += f"nums{idx}"
+                remain += f"        root{idx} = list_to_tree(nums{idx})\n"
+                inputs += f"root{idx}"
+                idx += 1
+        elif "ListNode" in str(v.annotation):
+            if "List[" in str(v.annotation):
+                process_input += "nums_arr"
+                remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
+                inputs += "heads"
+            else:
+                process_input += f"nums{idx}"
+                remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
+                inputs += f"head{idx}"
+                idx += 1
+        else:
+            process_input += v.name
+            inputs += v.name
+            idx += 1
+
+    if len(par_map) > 0:
+        process_input += " = ops[0]\n"
+
+    process_input += remain + f"        obj = {class_name}({inputs})\n"
+    return process_input
+
+
+def __finalize_solution_code_with_single_class(cs_map, modify_in_place: bool = False):
     process_input = "pass"
     import_libs = []
-    if len(cs_map) == 1:
-        if "Solution" in cs_map:
-            methods = cs_map["Solution"]
-            if len(methods) == 1:
+    if "Solution" in cs_map:
+        methods = cs_map["Solution"]
+        if len(methods) == 1:
+            parameters, return_anno = methods[0][1], methods[0][2]
+            count = __calculate_parameters(parameters)
+            if count > 1:
+                init_params = "*test_input"
+            elif count == 1:
+                init_params = "test_input"
+            else:
+                init_params = ""
+            if not modify_in_place:
+                process_input = "return self.{}({})".format(methods[0][0], init_params)
+            else:
+                process_input = "self.{}({})\n        return {}".format(methods[0][0], init_params, init_params)
+    else:
+        class_name, methods = "", []
+        for k, v in cs_map.items():
+            class_name, methods = k, v
+        import_libs.append("from python.object_libs import call_method\n")
+        init_params = ""
+        for method in methods:
+            if method[0] == "__init__":
                 parameters, return_anno = methods[0][1], methods[0][2]
-                count = len(parameters)
-                if "self" in parameters:
-                    count -= 1
-                if "args" in parameters:
-                    count -= 1
-                if "kwargs" in parameters:
-                    count -= 1
-                if count > 1:
-                    init_params = "*test_input"
-                elif count == 1:
-                    init_params = "test_input"
-                else:
-                    init_params = ""
-                if not modify_in_place:
-                    process_input = "return self.{}({})".format(methods[0][0], init_params)
-                else:
-                    process_input = "self.{}({})\n        return {}".format(methods[0][0], init_params, init_params)
+                count = __calculate_parameters(parameters)
+                if count > 0:
+                    init_params = "*inputs[0]"
+                break
+
+        process_input = (("ops, inputs = test_input\n        obj = {}({})\n        return [None] + "
+                          "[call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]")
+                         .format(class_name, init_params))
+    return import_libs, process_input
+
+
+def __finalize_solution_code_complex(cs_map, modify_in_place: bool = False):
+    process_input = "pass"
+    import_libs = []
+    if "Solution" in cs_map:
+        methods = cs_map["Solution"]
+        if len(methods) == 1:
+            process_input = __extract_process_input_from_method(cs_map, modify_in_place, import_libs, methods[0])
+    else:
+        import_libs.append("from python.object_libs import call_method")
+        if "TreeNode" in cs_map:
+            import_libs.append(", list_to_tree")
+            cs_map.pop("TreeNode")
+        elif "ListNode" in cs_map:
+            import_libs.append(", list_to_linked_list")
+            cs_map.pop("ListNode")
         else:
+            # Too complex to fix here
+            pass
+        import_libs.append("\n")
+        if len(cs_map) == 1:
             class_name, methods = "", []
             for k, v in cs_map.items():
                 class_name, methods = k, v
-            import_libs.append("from python.object_libs import call_method\n")
-            init_params = ""
             for method in methods:
                 if method[0] == "__init__":
-                    parameters, return_anno = methods[0][1], methods[0][2]
-                    count = len(parameters)
-                    if "self" in parameters:
-                        count -= 1
-                    if "args" in parameters:
-                        count -= 1
-                    if "kwargs" in parameters:
-                        count -= 1
-                    if count > 0:
-                        init_params = "*inputs[0]"
+                    process_input = __extract_object_process_input_from_method(class_name, method)
                     break
 
-            process_input = (("ops, inputs = test_input\n        obj = {}({})\n        return [None] + "
-                              "[call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]")
-                             .format(class_name, init_params))
-    else:
-        if "Solution" in cs_map:
-            methods = cs_map["Solution"]
-            if len(methods) == 1:
-                parameters, return_anno = methods[0][1], methods[0][2]
-                par_map = dict()
-                add_lib = ""
-                exists = False
-                process_input = ""
-                remain = ""
-                inputs = ""
-                is_first = True
-                idx = 0
-                for v in parameters.values():
-                    if v.name == "self":
-                        continue
-                    if v.name == "args":
-                        continue
-                    if v.name == "kwargs":
-                        continue
-                    par_map[v.name] = v.annotation
-                    if is_first:
-                        is_first = False
-                    else:
-                        process_input += ", "
-                        inputs += ", "
-                    if "TreeNode" in str(v.annotation):
-                        exists = True
-                        add_lib = "from python.object_libs import list_to_tree"
-                        if "List[" in str(v.annotation):
-                            process_input += "nums_arr"
-                            remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
-                            inputs += "roots"
-                        else:
-                            process_input += f"nums{idx}"
-                            remain += f"        root{idx} = list_to_tree(nums{idx})\n"
-                            inputs += f"root{idx}"
-                            idx += 1
-                    elif "ListNode" in str(v.annotation):
-                        exists = True
-                        add_lib = "from python.object_libs import list_to_linked_list"
-                        if "List[" in str(v.annotation):
-                            process_input += "nums_arr"
-                            remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
-                            inputs += "heads"
-                        else:
-                            process_input += f"nums{idx}"
-                            remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
-                            inputs += f"head{idx}"
-                            idx += 1
-                    elif "Node" in str(v.annotation) and "Node" in cs_map and "neighbors" in cs_map["Node"][0][1]:
-                        # speical handle Neighbour Nodes
-                        exists = True
-                        add_lib = "from python.object_libs import list_relation_to_node_neigh"
-                        if "List[" in str(v.annotation):
-                            process_input += "nums_arr"
-                            remain += f"        roots = [list_relation_to_node_neigh(nums) for nums in nums_arr]\n"
-                            inputs += "roots"
-                        else:
-                            process_input += f"nums{idx}"
-                            remain += f"        node{idx} = list_relation_to_node_neigh(nums{idx})\n"
-                            inputs += f"node{idx}"
-                    else:
-                        process_input += v.name
-                        inputs += v.name
-                        idx += 1
-
-                if len(parameters) > 0:
-                    process_input += " = test_input\n"
-
-                if "TreeNode" in str(return_anno):
-                    add_lib += ", tree_to_list" if exists else "from python.object_libs import tree_to_list"
-                    if "List[" in str(return_anno):
-                        remain += ("        res = self.{}({})\n        return [tree_to_list(root) for root in res]"
-                                   .format(methods[0][0], inputs))
-                    else:
-                        remain += ("        res = self.{}({})\n        return tree_to_list(res)"
-                                   .format(methods[0][0], inputs))
-                elif "ListNode" in str(return_anno):
-                    add_lib += ", linked_list_to_list" if exists else \
-                        "from python.object_libs import linked_list_to_list"
-                    if "List[" in str(return_anno):
-                        remain += ("res = self.{}({})\n        return [linked_list_to_list(head) for head in "
-                                   "res]").format(methods[0][0], inputs)
-                    else:
-                        remain += ("        res = self.{}({})\n        return linked_list_to_list(res)"
-                                   .format(methods[0][0], inputs))
-                elif "Node" in str(return_anno) and "Node" in cs_map and "neighbors" in cs_map["Node"][0][1]:
-                    # speical handle Neighbour Nodes
-                    add_lib += ", node_neigh_to_list_relation" if exists else \
-                        "from python.object_libs import node_neigh_to_list_relation"
-                    if "List[" in str(return_anno):
-                        remain += ("        res = self.{}({})\n"
-                                   "        return [node_neigh_to_list_relation(root) for root in res]"
-                                   .format(methods[0][0], inputs))
-                    else:
-                        remain += ("        res = self.{}({})\n        return node_neigh_to_list_relation(res)"
-                                   .format(methods[0][0], inputs))
-                else:
-                    if not modify_in_place:
-                        remain += "        return self.{}({})".format(methods[0][0], inputs)
-                    else:
-                        remain += "        self.{}({})\n        return {}".format(methods[0][0], inputs, inputs)
-                import_libs.append(add_lib + "\n")
-
-                process_input += remain
-        else:
-            import_libs.append("from python.object_libs import call_method")
-            if "TreeNode" in cs_map:
-                import_libs.append(", list_to_tree")
-                cs_map.pop("TreeNode")
-            elif "ListNode" in cs_map:
-                import_libs.append(", list_to_linked_list")
-                cs_map.pop("ListNode")
-            else:
-                # Too complex to fix here
-                pass
-            import_libs.append("\n")
-            if len(cs_map) == 1:
-                class_name, methods = "", []
-                for k, v in cs_map.items():
-                    class_name, methods = k, v
-                for method in methods:
-                    if method[0] == "__init__":
-                        parameters = methods[0][1]
-                        par_map = dict()
-                        process_input = "ops, inputs = test_input\n"
-                        remain = ""
-                        inputs = ""
-                        is_first = True
-                        idx = 0
-                        for v in parameters.values():
-                            if v.name == "self":
-                                continue
-                            if v.name == "args":
-                                continue
-                            if v.name == "kwargs":
-                                continue
-                            par_map[v.name] = v.annotation
-                            if is_first:
-                                is_first = False
-                                process_input += "        "
-                            else:
-                                process_input += ", "
-                                inputs += ", "
-                            if "TreeNode" in str(v.annotation):
-                                if "List[" in str(v.annotation):
-                                    process_input += "nums_arr"
-                                    remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
-                                    inputs += "roots"
-                                else:
-                                    process_input += f"nums{idx}"
-                                    remain += f"        root{idx} = list_to_tree(nums{idx})\n"
-                                    inputs += f"root{idx}"
-                                    idx += 1
-                            elif "ListNode" in str(v.annotation):
-                                if "List[" in str(v.annotation):
-                                    process_input += "nums_arr"
-                                    remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
-                                    inputs += "heads"
-                                else:
-                                    process_input += f"nums{idx}"
-                                    remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
-                                    inputs += f"head{idx}"
-                                    idx += 1
-                            else:
-                                process_input += v.name
-                                inputs += v.name
-                                idx += 1
-
-                        if len(par_map) > 0:
-                            process_input += " = ops[0]\n"
-
-                        process_input += remain + f"        obj = {class_name}({inputs})\n"
-                        break
-
-                process_input += ("        return [None] + [call_method(obj, op, *ipt)"
-                                  " for op, ipt in zip(ops[1:], inputs[1:])]")
+            process_input += ("        return [None] + [call_method(obj, op, *ipt)"
+                              " for op, ipt in zip(ops[1:], inputs[1:])]")
 
     return import_libs, process_input
 
@@ -446,7 +459,11 @@ def write_solution_python(code: str, default: bool = True) -> str:
         return code
     try:
         cs_map, defined_class, rest = __process_code(code)
-        import_libs, process_input = __finalize_solution_code(cs_map, "Do not return anything" in code)
+        modify_in_place = "Do not return anything" in code
+        if len(cs_map) == 1:
+            import_libs, process_input = __finalize_solution_code_with_single_class(cs_map, modify_in_place)
+        else:
+            import_libs, process_input = __finalize_solution_code_complex(cs_map, modify_in_place)
         return SOLUTION_TEMPLATE_PYTHON.format(
             "".join(import_libs) + ("\n" if import_libs and defined_class else "") +
             (("\n" if defined_class else "") + "\n".join(defined_class) + ("\n" if defined_class else "")),
