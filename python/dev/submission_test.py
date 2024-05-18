@@ -3,13 +3,13 @@ import os
 import sys
 import time
 import traceback
-from importlib.util import spec_from_file_location, module_from_spec
 from typing import Optional
 
 from dotenv import load_dotenv
 from pypushdeer import PushDeer
 
 from python.scripts.daily_auto import write_question
+from utils import check_problem_solved_python
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from python.lc_libs import check_user_exist, check_accepted_submission, get_submission_detail, \
@@ -73,62 +73,26 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str],
                     os.mkdir(dir_path)
                     write_question(dir_path, question_id, info["title"], question_slug)
                 try:
-                    testcase_spec = spec_from_file_location("module.name", f"{dir_path}/testcase.py")
-                    testcase = module_from_spec(testcase_spec)
-                    testcase_spec.loader.exec_module(testcase)
-                    testcase_obj = testcase.Testcase()
-                    solution_spec = spec_from_file_location("module.name", f"{dir_path}/solution.py")
-                    solution = module_from_spec(solution_spec)
-                    solution_spec.loader.exec_module(solution)
-                    solution_obj = solution.Solution()
-
-                    for test in testcase_obj.get_testcases():
-                        i, o = test
-                        result = solution_obj.solve(test_input=i)
-                        print("Question: [{}]{}, Input: {}, Output: {}, Expected: {}"
-                              .format(question_id, question_slug, i, result, o))
-                        if o is not None and result is None:
-                            raise ValueError("No solution")
-                        if o and isinstance(o, list):
-                            if o and isinstance(o, list) and isinstance(o[0], float):
-                                if any(abs(a - b) > 0.00001 for a, b in zip(o, result)):
-                                    raise ValueError("Mismatch float in list")
-                            elif all(x is not None for x in o) and isinstance(o[0], list) and not any(
-                                    None in x for x in o):
-                                if sorted(sorted(item) for item in o) != sorted(sorted(item) for item in result):
-                                    raise ValueError("List[List] not equal")
-                            else:
-                                if None not in o and not (isinstance(o[0], list) and any(None in x for x in o)):
-                                    if sorted(o) != sorted(result):
-                                        raise ValueError("List not equal")
-                                else:
-                                    if o != result:
-                                        raise ValueError("List Not equal")
-                        else:
-                            if isinstance(o, float):
-                                if abs(o - result) > 0.00001:
-                                    raise ValueError("Mismatch float")
-                            elif result != o:
-                                raise ValueError(f"Result {result} not as expected: {o}")
+                    check_problem_solved_python(dir_path, question_id, question_slug)
                     if question_id == daily_question:
                         finish_daily = True
                     if question_slug in plan_questions_slug:
                         finished_plan_questions.append(question_slug)
                     break
-                except Exception as ex:
+                except Exception as _:
                     traceback.print_exc()
                 detail = get_submission_detail(submit_id, cookie)
                 if detail is not None and detail["lang"] == "python3":
+                    template = get_question_code(question_slug)["python3"]
                     code = detail["code"]
                     sol_path = os.path.join(str(dir_path), "solution.py")
                     if not os.path.exists(sol_path):
-                        template = get_question_code(question_slug)["python3"]
                         if template is not None:
                             with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
                                 f.write(write_solution_python(template))
                         else:
                             with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                                f.write(write_solution_python(code, False))
+                                f.write(write_solution_python(code))
                             break
                     with open(f"{dir_path}/solution.py", "r", encoding="utf-8") as f:
                         lines = f.readlines()
@@ -142,7 +106,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str],
                                 break
                         full = "".join(lines[:idx + 1] + ["\n"])
                     with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                        f.write(full + write_solution_python(code, False))
+                        f.write(full + write_solution_python(template, code))
                     if question_id == daily_question:
                         finish_daily = True
                     break

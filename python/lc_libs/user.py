@@ -1,10 +1,10 @@
 import json
-import traceback
-import requests
 from typing import Optional
 
-from constants import LEET_CODE_BACKEND, USER_PROFILE_PUBLIC_QUERY
-from utils import general_request
+import requests
+
+from python.constants import LEET_CODE_BACKEND, USER_PROFILE_PUBLIC_QUERY
+from python.utils import general_request
 
 
 def get_user_profile(user_slug: str) -> Optional[dict]:

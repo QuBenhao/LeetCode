@@ -1,8 +1,8 @@
 import json
 from typing import Optional, Dict
 
-from constants import LEET_CODE_BACKEND, DAILY_QUERY
-from utils import general_request
+from python.constants import LEET_CODE_BACKEND, DAILY_QUERY
+from python.utils import general_request
 
 
 def get_daily_question() -> Optional[Dict]:

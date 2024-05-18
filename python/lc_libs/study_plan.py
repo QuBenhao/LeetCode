@@ -5,8 +5,8 @@ from typing import Optional
 
 import requests
 
-from constants import LEET_CODE_BACKEND, PLAN_QUERY, PLAN_PROGRESS_QUERY
-from utils import general_request
+from python.constants import LEET_CODE_BACKEND, PLAN_QUERY, PLAN_PROGRESS_QUERY
+from python.utils import general_request
 
 
 def get_user_study_plans(cookie: str) -> Optional[list]:

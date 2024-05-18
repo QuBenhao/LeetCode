@@ -24,3 +24,19 @@ class Solution(solution.Solution):
 
 {}
 """
+
+SOLUTION_TEMPLATE_GOLANG = """package problem{}
+
+import(
+{}
+)
+
+{}
+
+func Solve(input string) {}
+    values := strings.Split(input, "\\n")
+{}
+{}
+    return {}({})
+{}
+"""

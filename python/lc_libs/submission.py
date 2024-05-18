@@ -4,9 +4,9 @@ from collections import defaultdict
 
 import requests
 
-from constants import (LEET_CODE_BACKEND, RECENT_SUBMISSIONS_QUERY, RECENT_AC_SUBMISSIONS_QUERY,
+from python.constants import (LEET_CODE_BACKEND, RECENT_SUBMISSIONS_QUERY, RECENT_AC_SUBMISSIONS_QUERY,
                        USER_PROFILE_QUESTIONS_QUERY, PROGRESS_SUBMISSIONS_QUERY, MY_SUBMISSION_DETAIL_QUERY)
-from utils import general_request
+from python.utils import general_request
 
 
 def check_submission(user_slug: str, question_frontend_ids: set[str],
