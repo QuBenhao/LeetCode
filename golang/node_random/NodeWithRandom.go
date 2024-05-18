@@ -1,4 +1,4 @@
-package list_random
+package node_random
 
 import "log"
 

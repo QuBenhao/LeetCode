@@ -1,157 +1,141 @@
 import json
 import traceback
-import requests
-import markdown
-import html2text
 from typing import Optional, Mapping
 
-CATEGORY_SLUG = {"all-code-essentials","algorithms", "database"}
+import html2text
+import markdown
+import requests
+
+from python.constants import (LEET_CODE_BACKEND, QUESTION_INFO_QUERY, QUESTION_DESC_QUERY, QUESTION_CODE_QUERY,
+                              QUESTION_TESTCASE_QUERY, QUESTION_KEYWORDS_QUERY)
+from python.utils import general_request
+
+CATEGORY_SLUG = {"all-code-essentials", "algorithms", "database"}
 LANGUAGE_SLUG = {"python3", "mysql"}
 
 
 def get_question_info(slug: str, cookie: Optional[str] = None) -> Optional[dict]:
-    try:
-        result = requests.post("https://leetcode.cn/graphql/",
-                               json={"query": "\n    query questionTitle($titleSlug: String!) {\n  question(titleSlug:"
-                                              " $titleSlug) {\n    questionId\n    questionFrontendId\n    title\n"
-                                              "    titleSlug\n    isPaidOnly\n    difficulty\n    likes\n    dislikes\n"
-                                              "    categoryTitle\n  }\n}\n    ",
-                                     "variables": {"titleSlug": slug},
-                                     "operationName": "questionTitle"},
-                               cookies={'cookie': cookie} if cookie else None)
-        res_dict = json.loads(result.text)['data']['question']
+    def handle_response(response):
+        res_dict = json.loads(response.text)['data']['question']
         return {
             "title": res_dict['title'],
             "difficulty": res_dict['difficulty'],
             "questionFrontendId": res_dict['questionFrontendId'],
             "categoryTitle": res_dict["categoryTitle"]
         }
-    except Exception as e:
-        print("Exception caught: ", str(e))
-        traceback.print_exc()
-        return None
+
+    return general_request(LEET_CODE_BACKEND, handle_response,
+                           json={"query": QUESTION_INFO_QUERY,
+                                 "variables": {"titleSlug": slug},
+                                 "operationName": "questionTitle"},
+                           cookies={'cookie': cookie} if cookie else None)
 
 
 def get_question_desc(slug: str, cookie: Optional[str] = None) -> Optional[str]:
-    try:
-        result = requests.post("https://leetcode.cn/graphql/",
-                               json={
-                                   "query": "\n    query questionContent($titleSlug: String!) {\n  "
-                                            "question(titleSlug: $titleSlug) {\n    content\n    editorType\n    "
-                                            "mysqlSchemas\n    dataSchemas\n  }\n}\n    ",
-                                   "variables": {"titleSlug": slug},
-                                   "operationName": "questionContent"},
-                               cookies={'cookie': cookie} if cookie else None)
-        res_dict = json.loads(result.text)['data']['question']
+    def handle_response(response):
+        res_dict = json.loads(response.text)['data']['question']
         return res_dict['content']
-    except Exception as e:
-        print("Exception caught: ", str(e))
-        traceback.print_exc()
-        return None
+
+    return general_request(LEET_CODE_BACKEND, handle_response,
+                           json={
+                               "query": QUESTION_DESC_QUERY,
+                               "variables": {"titleSlug": slug},
+                               "operationName": "questionContent"},
+                           cookies={'cookie': cookie} if cookie else None)
+
+
+def convert_to_evaluable_str(s: str) -> str:
+    """
+    This function replaces certain words in the input string to make it evaluable.
+    Values like null, true and false are replaced with their python equivalents : None, True, False
+    """
+    evaluable_str = s.replace("null", "None").replace("true", "True").replace("false", "False")
+    if evaluable_str.startswith("[") and evaluable_str.endswith("]"):
+        if any(v == "#" for v in evaluable_str.split(",")):
+            evaluable_str = evaluable_str.replace("#", "None")
+    return evaluable_str
 
 
 def extract_outputs_from_md(markdown_text: str) -> list:
+    backup_origin = markdown_text
     res = []
     markdown_text = "".join(markdown_text.split("Example")[1:])
     splits = markdown_text.split("Output")
     for i in range(1, len(splits)):
-        tmp = (splits[i].split("\n")[0].split(">")[-1]
-               .replace("null", "None")
-               .replace("true", "True")
-               .replace("false", "False")
-               )
-        tmp = tmp.strip()
-        try:
-            if len(tmp) > 0:
-                res.append(eval(tmp))
-            else:
-                tmp = (splits[i].split("\n")[1].split(">")[-1]
-                       .replace("null", "None")
-                       .replace("true", "True")
-                       .replace("false", "False"))
-                res.append(eval(tmp))
-        except SyntaxError as sxe:
+        success_process = False
+        for j, str_convertors in enumerate([lambda s: s.split("\n")[0].split(">")[-1].strip(),
+                                            lambda s: s.split("\n")[1].split(">")[-1].strip(),
+                                            lambda s: s.split(">")[1].split("<")[0].strip(),
+                                            lambda s: s.split('example-io">')[1].split("<")[0].strip(),
+                                            ]):
+            tmp = ""
             try:
-                print(f"1. Syntax error: {sxe}, [{tmp}]")
+                tmp = str_convertors(splits[i])
+                evaluable_str = convert_to_evaluable_str(tmp)
+                if not evaluable_str:
+                    continue
+                res.append(eval(evaluable_str))
+                success_process = True
+                break
+            except Exception as sxe:
+                print(f"{j}. Error: {sxe}, [{tmp}]")
                 traceback.print_exc()
-                # 将Markdown转换为HTML
-                html_content = markdown.markdown(tmp)
-
-                # 将HTML转换为字符
-                text_content = html2text.html2text(html_content)
-                text_content = text_content.replace("\n", "")
-                res.append(eval(text_content))
-            except Exception as e:
-                print(f"2. Exception error: {e}, [{tmp}]")
-                traceback.print_exc()
+                if j >= 2:
+                    continue
+                html_content = ""
                 try:
-                    tmp = (splits[i].split(">")[1].split("<")[0]
-                           .replace("null", "None")
-                           .replace("true", "True")
-                           .replace("false", "False"))
-
                     # 将Markdown转换为HTML
                     html_content = markdown.markdown(tmp)
 
                     # 将HTML转换为字符
                     text_content = html2text.html2text(html_content)
-                    print(text_content)
-                    text_content = text_content.replace("\n", "").strip()
+                    text_content = text_content.replace("\n", "")
                     res.append(eval(text_content))
-                except Exception as ex:
-                    print(f"3. Exception error: {ex}, [{tmp}]")
+                    success_process = True
+                    break
+                except Exception as e:
+                    print(f"Exception error: {e}, [{html_content}]")
                     traceback.print_exc()
-                    try:
-                        tmp = (splits[i].split('example-io">')[1].split("<")[0]
-                               .replace("null", "None")
-                               .replace("true", "True")
-                               .replace("false", "False"))
-                        res.append(eval(tmp))
-                    except Exception as exe:
-                        print(f"4. Exception error: {exe}, [{tmp}]")
-                        traceback.print_exc()
-                        res.append(None)
+        if success_process:
+            continue
+        if "the node at which the two lists intersect" in backup_origin:
+            tmp = splits[i].split("\n")[0].split(">")[-1].strip()
+            if tmp == "No intersection":
+                res.append(None)
+            else:
+                res.append(eval(tmp.split("&#39;")[-2]))
+        else:
+            res.append(None)
+
     return res
 
 
-def get_question_code(slug: str, lang_slugs: list[str] = None, cookie: Optional[str] = None) -> Optional[Mapping[str, str]]:
-    try:
-        if lang_slugs is None:
-            lang_slugs = ["python3"]
-        result = requests.post("https://leetcode.cn/graphql",
-                               json={
-                                   "query": "\n    query questionEditorData($titleSlug: String!) {\n  "
-                                            "question(titleSlug: $titleSlug) {\n    questionId\n    "
-                                            "questionFrontendId\n    codeSnippets {\n      lang\n      langSlug\n      "
-                                            "code\n    }\n    envInfo\n    enableRunCode\n    hasFrontendPreview\n    "
-                                            "frontendPreviews\n  }\n}\n    ",
-                                   "variables": {"titleSlug": slug},
-                                   "operationName": "questionEditorData"},
-                               cookies={'cookie': cookie} if cookie else None)
-        res_dict = json.loads(result.text)
+def get_question_code(slug: str,
+                      lang_slugs: list[str] = None,
+                      cookie: Optional[str] = None
+                      ) -> Optional[Mapping[str, str]]:
+    def handle_response(response):
+        res_dict = json.loads(response.text)
         code_snippets = res_dict['data']['question']['codeSnippets']
         ans = dict()
         for cs in code_snippets:
             if cs["langSlug"] in lang_slugs:
                 ans[cs["langSlug"]] = cs["code"]
         return ans
-    except Exception as e:
-        print("Exception caught: ", str(e))
-        traceback.print_exc()
-        return None
+
+    if lang_slugs is None:
+        lang_slugs = ["python3"]
+    return general_request(LEET_CODE_BACKEND, handle_response,
+                           json={
+                               "query": QUESTION_CODE_QUERY,
+                               "variables": {"titleSlug": slug},
+                               "operationName": "questionEditorData"},
+                           cookies={'cookie': cookie} if cookie else None)
 
 
 def get_question_testcases(slug: str, lang_slug: str = "python3") -> tuple[Optional[list], str]:
-    try:
-        result = requests.post("https://leetcode.cn/graphql",
-                               json={"query": "\n    query consolePanelConfig($titleSlug: String!) {\n"
-                                              "  question(titleSlug: $titleSlug) {\n    questionId\n"
-                                              "    questionFrontendId\n    questionTitle\n    enableRunCode\n    "
-                                              "enableSubmit\n    enableTestMode\n    jsonExampleTestcases\n    "
-                                              "exampleTestcases\n    metaData\n    sampleTestCase\n  }\n}\n    ",
-                                     "variables": {"titleSlug": slug},
-                                     "operationName": "consolePanelConfig"})
-        res_dict = json.loads(result.text)
+    def handle_response(response):
+        res_dict = json.loads(response.text)
         ans = []
         origin_data = res_dict["data"]["question"]["jsonExampleTestcases"]
         json_testcase = json.loads(origin_data)
@@ -172,10 +156,13 @@ def get_question_testcases(slug: str, lang_slug: str = "python3") -> tuple[Optio
             else:
                 print("Unsupported language")
         return ans, origin_data
-    except Exception as e:
-        print("Exception caught: ", str(e))
-        traceback.print_exc()
-        return None, ""
+
+    res = general_request(LEET_CODE_BACKEND, handle_response, json={"query": QUESTION_TESTCASE_QUERY,
+                                                                    "variables": {"titleSlug": slug},
+                                                                    "operationName": "consolePanelConfig"})
+    if res is None:
+        return res, ""
+    return res
 
 
 def get_questions_by_key_word(keyword: Optional[str],
@@ -192,19 +179,7 @@ def get_questions_by_key_word(keyword: Optional[str],
             if premium_only:
                 filters["premiumOnly"] = premium_only
             result = requests.post("https://leetcode.cn/graphql",
-                                   json={"query": "\n    query problemsetQuestionList("
-                                                  "$categorySlug: String, $limit: Int, $skip: Int, $filters: "
-                                                  "QuestionListFilterInput) {\n  problemsetQuestionList(\n    "
-                                                  "categorySlug: $categorySlug\n    limit: $limit\n    skip: $skip\n"
-                                                  "    filters: $filters\n  ) {\n    hasMore\n    total\n    "
-                                                  "questions {\n      acRate\n      difficulty\n      freqBar\n      "
-                                                  "frontendQuestionId\n      isFavor\n      paidOnly\n      "
-                                                  "solutionNum\n      status\n      title\n      titleCn\n      "
-                                                  "titleSlug\n      topicTags {\n        name\n        nameTranslated\n"
-                                                  "        id\n        slug\n      }\n      extra {\n        "
-                                                  "hasVideoSolution\n        topCompanyTags {\n          imgUrl\n     "
-                                                  "     slug\n          numSubscribed\n        }\n      }\n    }\n  "
-                                                  "}\n}\n    ",
+                                   json={"query": QUESTION_KEYWORDS_QUERY,
                                          "variables": {
                                              "categorySlug": category if category in CATEGORY_SLUG
                                              else "all-code-essentials",

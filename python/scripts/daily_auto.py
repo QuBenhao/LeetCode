@@ -7,7 +7,10 @@ from typing import Optional
 from dotenv import load_dotenv
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from python.lc_libs import *
+from python.lc_libs import get_daily_question, get_question_desc, get_question_testcases, write_problem_md, \
+    write_testcase, extract_outputs_from_md, write_solution_python, write_solution_golang, \
+    get_user_study_plans, get_user_study_plan_progress, get_question_info, get_question_code
+import python.lc_libs as lc_libs
 from python.constants import constant
 from python.utils import get_default_folder, send_text_message
 
@@ -32,22 +35,22 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
     code_map = get_question_code(slug, lang_slugs=languages)
     if code_map is None:
         return
+    if not languages:
+        return
     for language in languages:
-        if language == "python3":
-            code = code_map["python3"]
-            if code is not None:
-                with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                    f.write(write_solution_python(code))
-        else:
-            code = code_map[language]
-            match language:
-                case "golang":
-                    with open(f"{dir_path}/solution.go", "w", encoding="utf-8") as f:
-                        f.write(write_solution_golang(code, question_id))
-                case "java":
-                    pass
-                case _:
-                    break
+        code = code_map[language]
+        match language:
+            case "python3":
+                if code is not None:
+                    with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
+                        f.write(write_solution_python(code, None, question_id))
+            case "golang":
+                with open(f"{dir_path}/solution.go", "w", encoding="utf-8") as f:
+                    f.write(write_solution_golang(code, None, question_id))
+            case "java":
+                pass
+            case _:
+                break
     print(f"Add question: [{question_id}]{slug}")
 
 
@@ -69,33 +72,25 @@ def process_daily(problem_folder: str, languages: list[str]):
             write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'],
                            languages)
     for lang in languages:
-        if lang == "python3":
-            continue
         match lang:
+            case "python3":
+                main_file = f"{root_path}/python/test.py"
             case "golang":
-                lines = []
-                with open(f"{root_path}/golang/solution_test.go", "r", encoding="utf-8") as f:
-                    for line in f.readlines():
-                        if "problem \"leetCode/problems/" in line:
-                            lines.append("\tproblem \"leetCode/problems/{}\"\n".format(daily_info['questionId']))
-                        elif "var problemId string =" in line:
-                            lines.append("var problemId string = \"{}\"\n".format(daily_info['questionId']))
-                        else:
-                            lines.append(line)
-                with open(f"{root_path}/golang/solution_test.go", "w", encoding="utf-8") as f:
-                    f.writelines(lines)
+                main_file = f"{root_path}/golang/solution_test.go"
             case _:
-                pass
-    with open(f"{root_path}/python/test.py", "r", encoding="utf-8") as f:
-        lines = f.readlines()
-    with open(f"{root_path}/python/test.py", "w", encoding="utf-8") as f:
-        for line in lines:
-            if line.startswith("QUESTION ="):
-                line = "QUESTION = \"{}\"\n".format(daily_info["questionId"])
-            f.write(line)
+                print("Language {} is not implemented to save".format(lang))
+                continue
+        test_func = getattr(lc_libs, f"change_test_{lang}", None)
+        if not test_func:
+            print("Test function [change_test_{}] not implemented.".format(lang))
+            continue
+        with open(main_file, "r", encoding="utf-8") as f:
+            content = f.read()
+        with open(main_file, "w", encoding="utf-8") as f:
+            f.write(test_func(content, daily_info['questionId']))
 
 
-def process_plans(problem_folder: str, cookie: str):
+def process_plans(problem_folder: str, cookie: str, languages: list[str] = None):
     plans = get_user_study_plans(cookie)
     if plans is None:
         if not send_text_message("The LeetCode in GitHub secrets might be expired, please check!",
@@ -117,7 +112,7 @@ def process_plans(problem_folder: str, cookie: str):
             dir_path = os.path.join(root_path, problem_folder, question_id)
             if not os.path.exists(dir_path):
                 os.mkdir(dir_path)
-                write_question(dir_path, question_id, info["title"], question_slug)
+                write_question(dir_path, question_id, info["title"], question_slug, languages)
             problem_ids.append(question_id)
     if problem_ids:
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -134,7 +129,7 @@ def main(problem_folder: str, cookie: Optional[str] = None, languages: list[str]
     try:
         process_daily(problem_folder, languages)
         if cookie is not None and len(cookie) > 0:
-            process_plans(problem_folder, cookie)
+            process_plans(problem_folder, cookie, languages)
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()
@@ -155,6 +150,7 @@ if __name__ == '__main__':
     try:
         langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]") or "[\"python3\"]")
     except Exception as _:
+        traceback.print_exc()
         langs = ["python3"]
     exec_res = main(pf, cke, langs)
     sys.exit(exec_res)
