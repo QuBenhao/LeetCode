@@ -21,6 +21,6 @@ public class Solution extends BaseSolution {
     public Object solve(String[] values) {
         int[] arr = jsonArrayToIntArray(values[0]);
 		int k = Integer.parseInt(values[1]);
-        return JSON.toJSON(getWinner(arr,k));
+        return JSON.toJSON(getWinner(arr, k));
     }
 }
