@@ -1,3 +1,7 @@
+package problems.problems_141;
+
+import qubhjava.models.ListNode;
+
 public class Solution {
     public boolean hasCycle(ListNode head) {
         ListNode fast = head;
@@ -11,17 +15,5 @@ public class Solution {
                 return true;
         }
         return false;
-    }
-}
-
-/**
- * Definition for singly-linked list.
- */
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) {
-        val = x;
-        next = null;
     }
 }

@@ -1,12 +1,14 @@
-class Solution {
+package problems.problems_1689;
+
+public class Solution {
     public int minPartitions(String n) {
-        char[] chars = n. toCharArray();
+        char[] chars = n.toCharArray();
         int max = 0;
-        for(int i=0;i<chars.length;i++){
-            if(chars[i] - '0' > max){
-                if(chars[i] == '9')
+        for (char aChar : chars) {
+            if (aChar - '0' > max) {
+                if (aChar == '9')
                     return 9;
-                max = chars[i] - '0';
+                max = aChar - '0';
             }
         }
         return max;

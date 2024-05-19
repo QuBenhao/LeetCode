@@ -1,4 +1,6 @@
-class Solution {
+package problems.problems_1437;
+
+public class Solution {
     public boolean kLengthApart(int[] nums, int k) {
         int count = k;
         for(int num:nums){

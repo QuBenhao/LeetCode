@@ -1,4 +1,6 @@
-class Solution {
+package problems.problems_1646;
+
+public class Solution {
     public int getMaximumGenerated(int n) {
         int[] arr = new int[n+1];
         arr[0] = 0;

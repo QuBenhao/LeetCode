@@ -1,4 +1,6 @@
-class Solution {
+package problems.problems_1640;
+
+public class Solution {
     public boolean canFormArray(int[] arr, int[][] pieces) {
         StringBuilder str = new StringBuilder();
         for(int n:arr){
