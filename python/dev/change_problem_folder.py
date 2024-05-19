@@ -27,12 +27,13 @@ def fix_java_files(dir_path):
     if not os.path.exists(dir_path):
         return
     for root, dirs, files in os.walk(dir_path):
-        if not files:
-            continue
+        # if not files:
+        #     continue
         # package_path = ".".join(root.split("/")[-2:])
         for f in files:
             if not f.endswith(".java"):
                 continue
+            print(f)
             # with open(os.path.join(root, f), 'r', encoding="utf-8") as file:
             #     lines = file.readlines()
             # if "package" not in lines[0]:
