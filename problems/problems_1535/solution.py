@@ -7,5 +7,13 @@ class Solution(solution.Solution):
         return self.getWinner(*test_input)
 
     def getWinner(self, arr: List[int], k: int) -> int:
-        pass
+        mx = arr[0]
+        win = -1
+        for x in arr:
+            if x > mx:
+                mx, win = x, 0
+            win += 1
+            if win == k:
+                break
+        return mx
 
