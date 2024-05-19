@@ -40,3 +40,20 @@ func Solve(input string) {}
     return {}({})
 {}
 """
+
+SOLUTION_TEMPLATE_JAVA = """package problems.problems_{};
+
+import com.alibaba.fastjson.JSON;
+import qubhjava.BaseSolution;
+{}
+
+public class Solution extends BaseSolution {}
+{}
+
+    @Override
+    public Object solve(String[] values) {}
+        {}
+        return JSON.toJSON({});
+    {}
+{}
+"""
