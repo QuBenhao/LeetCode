@@ -3,6 +3,7 @@ package problems.problems_1;
 import java.util.HashMap;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
@@ -17,9 +18,13 @@ public class Solution extends BaseSolution {
     }
 
     @Override
-    public JSON solve(String input) {
-        String[] values = input.split("\n");
-
-        return JSON.toJSON(twoSum());
+    public Object solve(String[] values) {
+        JSONArray array = JSON.parseArray(values[0]);
+        int[] nums = new int[array.size()];
+        for (int i = 0; i < array.size(); i++) {
+            nums[i] = Integer.parseInt(array.getString(i));
+        }
+        int target = Integer.parseInt(values[1]);
+        return JSON.toJSON(twoSum(nums, target));
     }
 }
