@@ -65,7 +65,7 @@ def check_problem_solved_and_write(question_id: str,
         case "java":
             file_name = "Solution.java"
             lang_env = ["mvn", "-v"]
-            test_commands = [["mvn", "exec:java", "-Dexec.mainClass=\"qubhjava.test.TestMain\""]]
+            test_commands = [["mvn", "test", "-Dtest=qubhjava.test.TestMain"]]
             main_file = f"{root_path}/qubhjava/test/TestMain.java"
         case "cpp":
             file_name = "solution.cpp"

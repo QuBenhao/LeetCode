@@ -60,7 +60,7 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
                     rt_type, variable = var_split[0], var_split[1]
                     variables.append(variable)
                     parse_input.append(__process_variable_type(f"values[{i}]", variable, rt_type))
-                return_part = "{}({})".format(return_func, ",".join(variables))
+                return_part = "{}({})".format(return_func, ", ".join(variables))
             body.append(line)
 
     return SOLUTION_TEMPLATE_JAVA.format(
