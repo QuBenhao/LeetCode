@@ -1,4 +1,5 @@
 import os
+import subprocess
 import sys
 
 
@@ -45,7 +46,10 @@ def fix_java_files(dir_path):
             #     file.writelines(lines)
             if f[0].isupper():
                 continue
-            os.rename(src=str(os.path.join(root, f)), dst=str(os.path.join(root, str(f[0].upper()) + "".join(f[1:]))))
+            res = subprocess.run(
+                ["git", "mv", str(os.path.join(root, f)), os.path.join(root, str(f[0].upper()) + "".join(f[1:]))])
+            print(res)
+            # os.rename(src=str(os.path.join(root, f)), dst=str(os.path.join(root, str(f[0].upper()) + "".join(f[1:]))))
 
 
 def main(problem_folders: set[str]):
