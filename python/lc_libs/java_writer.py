@@ -5,7 +5,10 @@ def change_test_java(content: str, question_id: str) -> str:
     ans = []
     for line in content.split("\n"):
         if "private static final String PROBLEM_ID = " in line:
-            ans.append(line.split("\"")[0] + f"\"{question_id}\"")
+            ans.append(line.split("\"")[0] + f"\"{question_id}\";")
+            continue
+        elif "import problems.problems_" in line and ".Solution;" in line:
+            ans.append("import problems.problems_" + question_id + ".Solution;")
             continue
         ans.append(line)
     return "\n".join(ans)

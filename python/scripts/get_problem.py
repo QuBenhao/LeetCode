@@ -237,7 +237,7 @@ if __name__ == '__main__':
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder(args.problem_category))
-    langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]") or "[\"python3\"]")
+    langs = os.getenv(constant.LANGUAGES, "python3").split(",")
     main(pf, args.problem_id, args.problem_slug, args.problem_category,
          args.force, cke, args.fetch_all, args.premium_only, args.debug_file, args.change_problem_id, langs)
     sys.exit()

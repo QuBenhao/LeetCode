@@ -7,6 +7,7 @@ import (
 )
 
 func getWinner(arr []int, k int) int {
+
 }
 
 func Solve(input string) interface{} {

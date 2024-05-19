@@ -27,17 +27,17 @@ class Solution(solution.Solution):
 
 SOLUTION_TEMPLATE_GOLANG = """package problem{}
 
-import(
+import (
 {}
 )
 
 {}
 
 func Solve(input string) {}
-    values := strings.Split(input, "\\n")
+\tvalues := strings.Split(input, "\\n")
 {}
 {}
-    return {}({})
+\treturn {}({})
 {}
 """
 
