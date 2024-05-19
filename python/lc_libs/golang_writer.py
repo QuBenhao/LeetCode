@@ -203,7 +203,7 @@ def write_solution_golang(code_default: str, code: str = None, problem_id: str =
             return SOLUTION_TEMPLATE_GOLANG.format(
                 problem_id,
                 "\n".join(sorted(import_set, key=lambda x: "\t" + x.split(" ")[-1] if x.startswith('\t. ') else x)),
-                code_default if default else code,
+                code_default if not code else code,
                 "interface{} {",
                 build_body,
                 "",
