@@ -17,11 +17,17 @@ def __process_variable_type(input_name: str, variable_name: str, rt_type: str) -
             return f"{rt_type} {variable_name} = Integer.parseInt({input_name});"
         case "int[]":
             return f"{rt_type} {variable_name} = jsonArrayToIntArray({input_name});"
+        case "String":
+            return f"{rt_type} {variable_name} = {input_name};"
+        case "String[]":
+            return f"{rt_type} {variable_name} = jsonArrayToStringArray({input_name});"
+        case "String[][]":
+            return f"{rt_type} {variable_name} = jsonArrayToString2DArray({input_name});"
         case "int[][]":
-            pass
+            return f"{rt_type} {variable_name} = jsonArrayToInt2DArray({input_name});"
         case _:
-            print("Not Implemented for {}".format(rt_type))
-    return f"{rt_type} {variable_name} = notImplemented({input_name})"
+            print("Java type not Implemented yet: {}".format(rt_type))
+    return f"{rt_type} {variable_name} = FIXME({input_name})"
 
 
 def write_solution_java(code_default: str, code: str = None, problem_id: str = "") -> str:
