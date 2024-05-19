@@ -20,7 +20,7 @@ from python.utils import get_default_folder
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False, file=None):
     root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    dir_path = os.path.join(root_path, problem_folder, problem_id)
+    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}")
     if os.path.exists(dir_path):
         if not force:
             print(f"Already exists problem [{problem_id}]{problem_slug}", file=file)

@@ -59,7 +59,7 @@ def process_daily(problem_folder: str, languages: list[str]):
     if not daily_info:
         return 1
     root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    dir_path = os.path.join(root_path, problem_folder, daily_info['questionId'])
+    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{daily_info['questionId']}")
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
         write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'],
@@ -109,7 +109,7 @@ def process_plans(problem_folder: str, cookie: str, languages: list[str] = None)
                 continue
             question_id = info["questionFrontendId"]
             root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            dir_path = os.path.join(root_path, problem_folder, question_id)
+            dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
             if not os.path.exists(dir_path):
                 os.mkdir(dir_path)
                 write_question(dir_path, question_id, info["title"], question_slug, languages)

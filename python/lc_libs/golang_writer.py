@@ -5,7 +5,7 @@ def change_test_golang(content: str, question_id: str) -> str:
     ans = []
     for line in content.split("\n"):
         if "problem \"leetCode/problems/" in line:
-            ans.append(f'\tproblem "leetCode/problems/{question_id}"')
+            ans.append(f'\tproblem "leetCode/problems/problems_{question_id}"')
             continue
         elif "var problemId string =" in line:
             ans.append(f'var problemId string = "{question_id}"')

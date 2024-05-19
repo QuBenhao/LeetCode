@@ -22,6 +22,7 @@ def process_folder(dir_path):
     for src, dst in rename_src_dst:
         os.rename(src, dst)
 
+
 def main(problem_folders: set[str]):
     root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     for folder in problem_folders:

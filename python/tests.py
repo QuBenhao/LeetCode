@@ -21,7 +21,7 @@ class Test(unittest.TestCase):
 
         for q in QUESTIONS:
             with self.subTest(f"Testing problem: {q}", question=q):
-                problem_path = os.path.join(root_path, problem_folder, q)
+                problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{q}")
                 self.assertTrue(os.path.exists(problem_path), msg="Please set up the problem env first!")
 
                 solution_spec = spec_from_file_location("module.name", f"{problem_path}/solution.py")
