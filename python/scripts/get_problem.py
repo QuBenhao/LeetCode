@@ -20,7 +20,7 @@ from python.utils import get_default_folder
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False, file=None):
     root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    dir_path = os.path.join(root_path, problem_folder, problem_id)
+    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}")
     if os.path.exists(dir_path):
         if not force:
             print(f"Already exists problem [{problem_id}]{problem_slug}", file=file)
@@ -237,7 +237,7 @@ if __name__ == '__main__':
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder(args.problem_category))
-    langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]") or "[\"python3\"]")
+    langs = os.getenv(constant.LANGUAGES, "python3").split(",")
     main(pf, args.problem_id, args.problem_slug, args.problem_category,
          args.force, cke, args.fetch_all, args.premium_only, args.debug_file, args.change_problem_id, langs)
     sys.exit()

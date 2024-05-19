@@ -63,10 +63,10 @@ def check_problem_solved_and_write(question_id: str,
             main_file = f"{root_path}/golang/solution_test.go"
             test_commands = [["go", "test", main_file]]
         case "java":
-            file_name = "solution.java"
-            lang_env = ["java", "--version"]
-            test_commands = []
-            main_file = f"{root_path}/java/test.java"
+            file_name = "Solution.java"
+            lang_env = ["mvn", "-v"]
+            test_commands = [["mvn", "exec:java", "-Dexec.mainClass=\"qubhjava.test.TestMain\""]]
+            main_file = f"{root_path}/qubhjava/test/TestMain.java"
         case "cpp":
             file_name = "solution.cpp"
             lang_env = ["g++", "--version"]

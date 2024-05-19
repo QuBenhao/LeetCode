@@ -45,7 +45,7 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: 
         sys.path.insert(0, os.path.join(root_path, "python"))
         for question_id, submits in submit_dict.items():
             cache = set()
-            dir_path = os.path.join(root_path, problem_folder, question_id)
+            dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
             if question_id == daily_question and not os.path.exists(dir_path):
                 os.mkdir(dir_path)
                 write_question(dir_path, daily_question, daily_info['questionNameEn'],
@@ -100,7 +100,7 @@ if __name__ == '__main__':
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     try:
-        langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]") or "[\"python3\"]")
+        langs = os.getenv(constant.LANGUAGES, "python3").split(",")
     except Exception as _:
         traceback.print_exc()
         langs = ["python3"]

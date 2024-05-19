@@ -27,16 +27,33 @@ class Solution(solution.Solution):
 
 SOLUTION_TEMPLATE_GOLANG = """package problem{}
 
-import(
+import (
 {}
 )
 
 {}
 
 func Solve(input string) {}
-    values := strings.Split(input, "\\n")
+\tvalues := strings.Split(input, "\\n")
 {}
 {}
-    return {}({})
+\treturn {}({})
+{}
+"""
+
+SOLUTION_TEMPLATE_JAVA = """package problems.problems_{};
+
+import com.alibaba.fastjson.JSON;
+import qubhjava.BaseSolution;
+{}
+
+public class Solution extends BaseSolution {}
+{}
+
+    @Override
+    public Object solve(String[] values) {}
+        {}
+        return JSON.toJSON({});
+    {}
 {}
 """

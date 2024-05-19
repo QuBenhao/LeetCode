@@ -1,4 +1,3 @@
-import json
 import os
 import sys
 import traceback
@@ -9,7 +8,7 @@ from dotenv import load_dotenv
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from python.lc_libs import get_daily_question, get_question_desc, get_question_testcases, write_problem_md, \
     write_testcase, extract_outputs_from_md, write_solution_python, write_solution_golang, \
-    get_user_study_plans, get_user_study_plan_progress, get_question_info, get_question_code
+    get_user_study_plans, get_user_study_plan_progress, get_question_info, get_question_code, write_solution_java
 import python.lc_libs as lc_libs
 from python.constants import constant
 from python.utils import get_default_folder, send_text_message
@@ -39,18 +38,21 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
         return
     for language in languages:
         code = code_map[language]
+        func = getattr(lc_libs, f"write_solution_{language}", None)
+        if func is None:
+            print("Language not supported yet")
+            continue
         match language:
             case "python3":
-                if code is not None:
-                    with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                        f.write(write_solution_python(code, None, question_id))
+                main_file = f"{dir_path}/solution.py"
             case "golang":
-                with open(f"{dir_path}/solution.go", "w", encoding="utf-8") as f:
-                    f.write(write_solution_golang(code, None, question_id))
+                main_file = f"{dir_path}/solution.go"
             case "java":
-                pass
+                main_file = f"{dir_path}/Solution.java"
             case _:
-                break
+                continue
+        with open(main_file, "w", encoding="utf-8") as f:
+            f.write(func(code, None, question_id))
     print(f"Add question: [{question_id}]{slug}")
 
 
@@ -59,7 +61,7 @@ def process_daily(problem_folder: str, languages: list[str]):
     if not daily_info:
         return 1
     root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    dir_path = os.path.join(root_path, problem_folder, daily_info['questionId'])
+    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{daily_info['questionId']}")
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
         write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'],
@@ -77,6 +79,8 @@ def process_daily(problem_folder: str, languages: list[str]):
                 main_file = f"{root_path}/python/test.py"
             case "golang":
                 main_file = f"{root_path}/golang/solution_test.go"
+            case "java":
+                main_file = f"{root_path}/qubhjava/test/TestMain.java"
             case _:
                 print("Language {} is not implemented to save".format(lang))
                 continue
@@ -109,7 +113,7 @@ def process_plans(problem_folder: str, cookie: str, languages: list[str] = None)
                 continue
             question_id = info["questionFrontendId"]
             root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            dir_path = os.path.join(root_path, problem_folder, question_id)
+            dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
             if not os.path.exists(dir_path):
                 os.mkdir(dir_path)
                 write_question(dir_path, question_id, info["title"], question_slug, languages)
@@ -148,7 +152,7 @@ if __name__ == '__main__':
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     try:
-        langs = json.loads(os.getenv(constant.LANGUAGES, "[\"python3\"]") or "[\"python3\"]")
+        langs = os.getenv(constant.LANGUAGES, "python3").split(",")
     except Exception as _:
         traceback.print_exc()
         langs = ["python3"]
