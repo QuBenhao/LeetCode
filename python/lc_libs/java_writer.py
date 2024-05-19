@@ -39,6 +39,8 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
         if import_part:
             import_packages.append(line)
         else:
+            if line == "}":
+                continue
             strip_line = line.strip()
             if strip_line.startswith("public ") and strip_line.endswith("{"):
                 return_func = strip_line.split("(")[0].split(" ")[-1]
