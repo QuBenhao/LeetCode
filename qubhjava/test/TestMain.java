@@ -68,7 +68,7 @@ public class TestMain {
         int idx = 0;
         for (Testcase testcase : testcases) {
             tests.add(DynamicTest.dynamicTest(
-                    String.format("[Problem%s]Testcase%d", PROBLEM_ID, idx++),
+                    String.format("[Problem%s]Testcase%d: %s", PROBLEM_ID, idx++, Arrays.toString(testcase.getInput())),
                     () -> {
                         Object actual = solution.solve(testcase.getInput());
                         assertEquals(testcase.getOutput(), actual);
