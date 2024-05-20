@@ -38,7 +38,7 @@ jobs:
     - name: Build with Maven
       continue-on-error: true
       run: |
-        mvn clean package -DskipTests
+        mvn clean -DskipTests
 
     - name: Run script
       env:
