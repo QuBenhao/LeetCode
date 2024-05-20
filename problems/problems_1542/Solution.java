@@ -3,6 +3,8 @@ package problems.problems_1542;
 import com.alibaba.fastjson.JSON;
 import qubhjava.BaseSolution;
 
+import java.util.Arrays;
+
 
 public class Solution extends BaseSolution {
     private static final int D = 10; // s 中的字符种类数
