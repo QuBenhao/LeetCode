@@ -114,13 +114,13 @@ def get_submission_detail(submit_id: str, cookie: str):
         return {
             "code": result_dict["code"],
             "lang": result_dict["lang"],
-            "runtime": result_dict["runtime"],
-            "rawMemory": result_dict["rawMemory"],
+            "runtime": result_dict["runtimeDisplay"],
+            "rawMemory": result_dict["memory"],
             "timestamp": result_dict["timestamp"],
         }
 
     return general_request(LEET_CODE_BACKEND, handle_response,
-                           json={"operationName": "mySubmissionDetail",
-                                 "variables": {"id": submit_id},
+                           json={"operationName": "submissionDetails",
+                                 "variables": {"submissionId": submit_id},
                                  "query": MY_SUBMISSION_DETAIL_QUERY},
                            cookies={"cookie": cookie})
