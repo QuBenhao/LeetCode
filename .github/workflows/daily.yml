@@ -13,6 +13,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          .github
+          cpp
+          golang
+          problems
+          python
+          qubhjava
+          go.mod
+          go.sum
+          pom.xml
 
     - name: Set up Python environment
       uses: actions/setup-python@v2

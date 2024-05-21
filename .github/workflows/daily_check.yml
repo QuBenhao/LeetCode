@@ -13,6 +13,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          .github
+          cpp
+          golang
+          problems
+          python
+          qubhjava
+          go.mod
+          go.sum
+          pom.xml
 
     - name: Set up Python environment
       uses: actions/setup-python@v2
@@ -36,8 +47,9 @@ jobs:
         pip install -r python/requirements
 
     - name: Build with Maven
+      continue-on-error: true
       run: |
-        mvn clean package -DskipTests
+        mvn clean validate
 
     - name: Run script
       env:

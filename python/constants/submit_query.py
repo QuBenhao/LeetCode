@@ -89,27 +89,39 @@ query progressSubmissions($offset: Int, $limit: Int, $lastKey: String, $question
 """
 
 MY_SUBMISSION_DETAIL_QUERY = """
-query mySubmissionDetail($id: ID!) {
-  submissionDetail(submissionId: $id) {
-    id
+query submissionDetails($submissionId: ID!) {
+  submissionDetail(submissionId: $submissionId) {
     code
-    runtime
-    memory
-    rawMemory
-    statusDisplay
     timestamp
-    lang
+    statusDisplay
     isMine
+    runtimeDisplay: runtime
+    memoryDisplay: memory
+    memory: rawMemory
+    lang
+    langVerboseName
+    question {
+      questionId
+      titleSlug
+      hasFrontendPreview
+    }
+    user {
+      realName
+      userAvatar
+      userSlug
+    }
+    runtimePercentile
+    memoryPercentile
+    submissionComment {
+      flagType
+    }
     passedTestCaseCnt
     totalTestCaseCnt
-    sourceUrl
-    question {
-      titleSlug
-      title
-      translatedTitle
-      questionId
-      __typename
-    }
+    fullCodeOutput
+    testDescriptions
+    testInfo
+    testBodies
+    stdOutput
     ... on GeneralSubmissionNode {
       outputDetail {
         codeOutput
@@ -118,16 +130,18 @@ query mySubmissionDetail($id: ID!) {
         compileError
         runtimeError
         lastTestcase
-        __typename
       }
-      __typename
     }
-    submissionComment {
-      comment
-      flagType
-      __typename
+    ... on ContestSubmissionNode {
+      outputDetail {
+        codeOutput
+        expectedOutput
+        input
+        compileError
+        runtimeError
+        lastTestcase
+      }
     }
-    __typename
   }
 }
 """
