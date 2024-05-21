@@ -7,7 +7,7 @@ import (
 )
 
 func theMaximumAchievableX(num int, t int) int {
-
+    return num + t << 1
 }
 
 func Solve(input string) interface{} {

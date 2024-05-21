@@ -6,7 +6,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int theMaximumAchievableX(int num, int t) {
-
+        return num + 2 * t;
     }
 
     @Override

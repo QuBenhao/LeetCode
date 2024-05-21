@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.theMaximumAchievableX(*test_input)
 
     def theMaximumAchievableX(self, num: int, t: int) -> int:
-        pass
-
+        return num + 2 * t
