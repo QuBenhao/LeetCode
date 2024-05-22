@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	problem "leetCode/problems/problems_2769"
+	problem "leetCode/problems/problems_2225"
 	"log"
 	"os"
 	"path"
@@ -15,7 +15,7 @@ import (
 
 const TestcaseFolderFmt = "problems/problems_%s/testcase"
 
-var problemId string = "2769"
+var problemId string = "2225"
 
 type TestCase struct {
 	input string
@@ -56,6 +56,16 @@ func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) 
 		ast.Equal(int64(want.(float64)), resp.(int64))
 	case float64:
 		ast.InDelta(want, resp, 1e-5)
+	case [][]int:
+		wantArray := want.([]interface{})
+		respIntArray := resp.([][]int)
+		if ast.Equalf(len(wantArray), len(respIntArray), "Expected: [%v], actual: [%v]", want, resp) {
+			for i := 0; i < len(respIntArray); i++ {
+				for j := 0; j < len(respIntArray[i]); j++ {
+					ast.Equalf(int(wantArray[i].([]interface{})[j].(float64)), respIntArray[i][j], "Expected: [%v], actual: [%v]", want, resp)
+				}
+			}
+		}
 	case []int:
 		wantArray := want.([]interface{})
 		respIntArray := resp.([]int)
