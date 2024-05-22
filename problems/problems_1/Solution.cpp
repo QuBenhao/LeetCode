@@ -31,12 +31,10 @@ json leetcode::qubh::Solve(string input)
     int pos = input.find("\n");
     while (pos != string::npos) {
         res.push_back(input.substr(0, pos));
-        std::cout << res[0] << std::endl;
         input = input.substr(pos + 1);
         pos = input.find("\n");
     }
     res.push_back(input);
-    std::cout << res[1] << std::endl;
 
     int idx = input.find("\n");
     vector<int> nums = json::parse(res.at(0));

@@ -1,13 +1,18 @@
 cc_test(
-    name = "hello_test",
+    name = "solution_test",
     size = "small",
     srcs = [
         "TestMain.cpp",
         "TestMain.h",
     ],
+    args = [
+        "$(rlocationpath @problems//:testcase)",
+    ],
+    data = ["@problems//:testcase"],
     deps = [
-        "@nlohmann_json//:json",
+        "//cpp/common",
+        "@bazel_tools//tools/cpp/runfiles",
         "@com_google_googletest//:gtest_main",
-        "//cpp/common:common",  
+        "@nlohmann_json//:json",
     ],
 )

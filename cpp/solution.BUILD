@@ -1,1 +1,1 @@
-exports_files(["Solution.cpp"])
+exports_files(["Solution.cpp", "testcase"])
