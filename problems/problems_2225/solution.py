@@ -1,6 +1,6 @@
 import solution
 from typing import *
-from collections import defaultdict
+from collections import Counter
 
 
 class Solution(solution.Solution):
@@ -8,16 +8,15 @@ class Solution(solution.Solution):
         return self.findWinners(test_input)
 
     def findWinners(self, matches: List[List[int]]) -> List[List[int]]:
-        graph = defaultdict(list)
-        div = defaultdict(int)
+        cnts = Counter()
         for win, lose in matches:
-            graph[win].append(lose)
-            div[lose] += 1
+            cnts[win], cnts[lose] = cnts[win], cnts[lose] + 1
         ans = [[], []]
-        ans[0].extend(list(graph.keys() - div.keys()))
-        ans[0].sort()
-        for k, v in div.items():
-            if v == 1:
+        for k, v in cnts.items():
+            if v == 0:
+                ans[0].append(k)
+            elif v == 1:
                 ans[1].append(k)
+        ans[0].sort()
         ans[1].sort()
         return ans
