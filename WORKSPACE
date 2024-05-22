@@ -13,14 +13,8 @@ git_repository(
     branch = "master",
 )
 
-local_repository(
-  name = "utils",
-  path = "cpp/utils/",
-)
-
 new_local_repository(
     name = "problems",
     path = "problems/problems_1/",
     build_file = "//cpp:solution.BUILD",
-    repo_mapping = {"@sol": "@cpp"}
 )

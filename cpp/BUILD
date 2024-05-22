@@ -4,12 +4,10 @@ cc_test(
     srcs = [
         "TestMain.cpp",
         "TestMain.h",
-        "@problems//:Solution.h",
     ],
     deps = [
         "@nlohmann_json//:json",
         "@com_google_googletest//:gtest_main",
-        "@utils//:utils",
-        "@problems//:solution",  
+        "//cpp/common:common",  
     ],
 )
