@@ -44,6 +44,7 @@ func Solve(input string) {}
 SOLUTION_TEMPLATE_JAVA = """package problems.problems_{};
 
 import com.alibaba.fastjson.JSON;
+import java.util.*;
 import qubhjava.BaseSolution;
 {}
 
