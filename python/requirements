@@ -3,3 +3,4 @@ pypushdeer
 markdown
 html2text
 python-dotenv
+tqdm

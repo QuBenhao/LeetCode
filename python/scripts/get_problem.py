@@ -7,6 +7,7 @@ import sys
 import time
 import traceback
 from typing import Optional
+from tqdm import tqdm
 
 from dotenv import load_dotenv
 
@@ -175,7 +176,7 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
             print(f"Unable to find any questions with keyword: [{keyword}],"
                   f" fetch_all: [{fetch_all}], premium_only: {premium_only}")
             return
-        for question in questions:
+        for question in tqdm(questions):
             question_info = get_question_info(question["titleSlug"], cookie)
             pc = question_info["categoryTitle"]
             try:
