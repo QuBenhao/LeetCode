@@ -6,3 +6,10 @@ python/dev/tmp*
 .run*/
 *.iml
 target/
+bazel-bin
+bazel-LeetCode
+bazel-out
+bazel-testlogs
+MODULE.bazel
+MODULE.bazel.lock
+bazel-LeetCode/
