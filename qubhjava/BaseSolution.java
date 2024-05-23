@@ -3,6 +3,9 @@ package qubhjava;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public abstract class BaseSolution {
 
@@ -48,6 +51,15 @@ public abstract class BaseSolution {
             for (int j = 0; j < innerArray.size(); j++) {
                 result[i][j] = innerArray.getString(j);
             }
+        }
+        return result;
+    }
+
+    protected List<Integer> jsonArrayToIntList(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        List<Integer> result = new ArrayList<>(jsonArray.size());
+        for (int i = 0; i < jsonArray.size(); i++) {
+            result.add(Integer.parseInt(jsonArray.getString(i)));
         }
         return result;
     }

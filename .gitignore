@@ -13,3 +13,4 @@ bazel-testlogs
 MODULE.bazel
 MODULE.bazel.lock
 bazel-LeetCode/
+/bazel-LeetCode/

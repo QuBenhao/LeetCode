@@ -28,6 +28,8 @@ def __process_variable_type(input_name: str, variable_name: str, rt_type: str) -
             return f"{rt_type} {variable_name} = jsonArrayToString2DArray({input_name});"
         case "int[][]":
             return f"{rt_type} {variable_name} = jsonArrayToInt2DArray({input_name});"
+        case "List<Integer>":
+            return f"{rt_type} {variable_name} = jsonArrayToIntList({input_name});"
         case _:
             print("Java type not Implemented yet: {}".format(rt_type))
     return f"{rt_type} {variable_name} = FIXME({input_name})"
