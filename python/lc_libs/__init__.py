@@ -8,4 +8,5 @@ from .python_writer import (write_problem_md, write_testcase,
                             change_test_python, change_test_python3)
 from .golang_writer import write_solution_golang, change_test_golang
 from .java_writer import write_solution_java, change_test_java
+from .cpp_writer import write_solution_cpp, change_test_cpp
 from .study_plan import get_user_study_plans, get_user_study_plan_progress

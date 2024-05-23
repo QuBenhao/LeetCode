@@ -58,3 +58,18 @@ public class Solution extends BaseSolution {}
     {}
 {}
 """
+
+SOLUTION_TEMPLATE_CPP = """#include "cpp/common/Solution.h"
+{}
+
+using namespace std;
+using json = nlohmann::json;
+
+{}
+
+json leetcode::qubh::Solve(string input)
+{}
+{}
+{}
+{}
+"""
