@@ -7,7 +7,16 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int[] mostCompetitive(int[] nums, int k) {
-
+        int[] ans = new int[k];
+        for (int i = 0, idx = -1, n = nums.length; i < n; i++) {
+            while (idx >= 0 && nums[i] < ans[idx] && idx + 1 + n - i > k) {
+                idx--;
+            }
+            if (idx < k - 1) {
+                ans[++idx] = nums[i];
+            }
+        }
+        return ans;
     }
 
     @Override

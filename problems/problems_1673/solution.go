@@ -7,7 +7,17 @@ import (
 )
 
 func mostCompetitive(nums []int, k int) []int {
-
+    ans := make([]int, k)
+    for i, m, n := 0, 0, len(nums); i < n; i++ {
+        for m > 0 && nums[i] < ans[m - 1] && m + n - i > k {
+            m--
+        }
+        if m < k {
+            ans[m] = nums[i]
+            m++
+        }
+    }
+    return ans
 }
 
 func Solve(input string) interface{} {
