@@ -49,6 +49,8 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
                 main_file = f"{dir_path}/solution.go"
             case "java":
                 main_file = f"{dir_path}/Solution.java"
+            case "cpp":
+                main_file = f"{dir_path}/Solution.cpp"
             case _:
                 continue
         with open(main_file, "w", encoding="utf-8") as f:
@@ -81,6 +83,8 @@ def process_daily(problem_folder: str, languages: list[str]):
                 main_file = f"{root_path}/golang/solution_test.go"
             case "java":
                 main_file = f"{root_path}/qubhjava/test/TestMain.java"
+            case "cpp":
+                main_file = f"{root_path}/WORKSPACE"
             case _:
                 print("Language {} is not implemented to save".format(lang))
                 continue
