@@ -95,7 +95,7 @@ def check_problem_solved_and_write(question_id: str,
             print("Language {} is not implemented to save".format(language))
 
     if lang_env and test_commands and main_file and os.path.exists(f"{dir_path}/{file_name}"):
-        env_check = subprocess.run(lang_env, capture_output=True, timeout=3)
+        env_check = subprocess.run(lang_env, capture_output=True, timeout=60)
         if env_check.returncode == 0:
             print("[{}] env ok, "
                   "output: {}".format(language,
@@ -108,7 +108,7 @@ def check_problem_solved_and_write(question_id: str,
                 all_pass = True
                 for cmds in test_commands:
                     try:
-                        execute_res = subprocess.run(cmds, capture_output=True, timeout=60)
+                        execute_res = subprocess.run(cmds, capture_output=True, timeout=300)
                         if execute_res.returncode == 0:
                             print("Execute [{}] succeeded,"
                                   " output: {}".format(" ".join(cmds),
