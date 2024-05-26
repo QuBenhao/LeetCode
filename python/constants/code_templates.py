@@ -59,7 +59,8 @@ public class Solution extends BaseSolution {}
 {}
 """
 
-SOLUTION_TEMPLATE_CPP = """#include "cpp/common/Solution.h"
+SOLUTION_TEMPLATE_CPP = """//go:build ignore
+#include "cpp/common/Solution.h"
 {}
 
 using namespace std;
