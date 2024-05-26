@@ -33,6 +33,8 @@ json leetcode::qubh::Solve(string input)
 	}
 	inputArray.push_back(input);
 
-
-
+	Solution solution;
+	vector<vector<int>> matrix = json::parse(inputArray.at(0));
+	int k = json::parse(inputArray.at(1));
+	return solution.kthLargestValue(matrix, k);
 }
