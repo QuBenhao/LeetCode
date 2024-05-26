@@ -13,7 +13,17 @@ def change_test_cpp(content: str, question_id: str) -> str:
     #         continue
     #     ans.append(line)
     # return "\n".join(ans)
-    return ""
+    ans = []
+    is_problem = False
+    for line in content.split("\n"):
+        if "name = \"problems\"," in line:
+            is_problem = True
+        elif is_problem and "path = \"" in line:
+            ans.append("    path = \"problems/problems_{}/\"")
+            is_problem = False
+            continue
+        ans.append(line)
+    return "\n".join(ans)
 
 
 def _extract_functions(code):
