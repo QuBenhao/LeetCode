@@ -3,23 +3,13 @@ from python.constants import SOLUTION_TEMPLATE_CPP
 
 
 def change_test_cpp(content: str, question_id: str) -> str:
-    # ans = []
-    # for line in content.split("\n"):
-    #     if "problem \"leetCode/problems/" in line:
-    #         ans.append(f'\tproblem "leetCode/problems/problems_{question_id}"')
-    #         continue
-    #     elif "var problemId string =" in line:
-    #         ans.append(f'var problemId string = "{question_id}"')
-    #         continue
-    #     ans.append(line)
-    # return "\n".join(ans)
     ans = []
     is_problem = False
     for line in content.split("\n"):
         if "name = \"problems\"," in line:
             is_problem = True
         elif is_problem and "path = \"" in line:
-            ans.append("    path = \"problems/problems_{}/\"")
+            ans.append("    path = \"problems/problems_{}/\",".format(question_id))
             is_problem = False
             continue
         ans.append(line)
@@ -80,12 +70,13 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
         include_libs.append(line)
 
     if len(functions) == 1:
-        ret_type = functions[0].get("ret_type", "")
+        # ret_type = functions[0].get("ret_type", "")
         func_name = functions[0].get("name", "")
         variables = [sp.strip().split(" ") for sp in functions[0].get("args", "").split(",")]
         process_variables.append("\tSolution solution;")
         for i, variable in enumerate(variables):
-            process_variables.append(variable[0] + " " + variable[1] + f" = json::parse(inputArray.at({i}));")
+            rt = variable[0] if not variable[0].endswith("&") else variable[0][:-1]
+            process_variables.append(rt + " " + variable[1] + f" = json::parse(inputArray.at({i}));")
 
         return_part.append("\treturn solution.{}({});".format(func_name, ", ".join([v[1] for v in variables])))
     elif len(functions) > 1:
