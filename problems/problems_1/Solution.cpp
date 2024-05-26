@@ -36,9 +36,7 @@ json leetcode::qubh::Solve(string input)
     }
     res.push_back(input);
 
-    int idx = input.find("\n");
     vector<int> nums = json::parse(res.at(0));
     int target = json::parse(res.at(1));
-    json result = solution.twoSum(nums, target);
-    return result;
+    return solution.twoSum(nums, target);
 }
