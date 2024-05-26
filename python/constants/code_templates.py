@@ -58,3 +58,28 @@ public class Solution extends BaseSolution {}
     {}
 {}
 """
+
+SOLUTION_TEMPLATE_CPP = """//go:build ignore
+#include "cpp/common/Solution.h"
+{}
+
+using namespace std;
+using json = nlohmann::json;
+
+{}
+
+json leetcode::qubh::Solve(string input)
+{}
+\tvector<string> inputArray;
+\tint pos = input.find("\\n");
+\twhile (pos != string::npos) {}
+\t\tinputArray.push_back(input.substr(0, pos));
+\t\tinput = input.substr(pos + 1);
+\t\tpos = input.find("\\n");
+\t{}
+\tinputArray.push_back(input);
+
+{}
+{}
+{}
+"""

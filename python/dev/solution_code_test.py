@@ -2,7 +2,7 @@ import sys
 
 from collections import defaultdict, Counter
 
-from python.lc_libs import write_solution_python, write_solution_golang, write_solution_java
+from python.lc_libs import write_solution_python, write_solution_golang, write_solution_java, write_solution_cpp
 
 default_test_list = [
     # problem 1
@@ -1236,10 +1236,15 @@ if __name__ == '__main__':
     for code in problems[test_problem]:
         lang = code["langSlug"]
         match lang:
-            case "java":
-                with open(f"tmp_Solution{code_counter[lang]}.java", "w", encoding="utf-8") as f:
-                    f.writelines(write_solution_java(code["code"], None, test_problem))
+            case "cpp":
+                with open(f"tmp_Solution{code_counter[lang]}.cpp", "w", encoding="utf-8") as f:
+                    f.writelines(write_solution_cpp(code["code"], None, test_problem))
                 code_counter[lang] += 1
+            case "java":
+                pass
+                # with open(f"tmp_Solution{code_counter[lang]}.java", "w", encoding="utf-8") as f:
+                #     f.writelines(write_solution_java(code["code"], None, test_problem))
+                # code_counter[lang] += 1
             case _:
                 pass
     sys.exit()

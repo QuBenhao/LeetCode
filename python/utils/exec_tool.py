@@ -68,10 +68,10 @@ def check_problem_solved_and_write(question_id: str,
             test_commands = [["mvn", "test", "-Dtest=qubhjava.test.TestMain"]]
             main_file = f"{root_path}/qubhjava/test/TestMain.java"
         case "cpp":
-            file_name = "solution.cpp"
-            lang_env = ["g++", "--version"]
-            test_commands = []
-            main_file = f"{root_path}/cpp/test.cpp"
+            file_name = "Solution.cpp"
+            lang_env = ["bazel", "version"]
+            test_commands = [["bazel", "test", "--cxxopt=-std=c++17", "//cpp:solution_test"]]
+            main_file = f"{root_path}/WORKSPACE"
         case "c":
             file_name = "solution.c"
             lang_env = ["gcc", "--version"]
