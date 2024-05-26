@@ -7,5 +7,8 @@ class Solution(solution.Solution):
         return self.missingRolls(*test_input)
 
     def missingRolls(self, rolls: List[int], mean: int, n: int) -> List[int]:
-        pass
-
+        total = mean * (n + len(rolls)) - sum(rolls)
+        if not n <= total <= 6 * n:
+            return []
+        avg, extra = divmod(total, n)
+        return [avg + 1] * extra + [avg] * (n - extra)
