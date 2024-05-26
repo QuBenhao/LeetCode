@@ -8,7 +8,17 @@ using json = nlohmann::json;
 class Solution {
 public:
     int kthLargestValue(vector<vector<int>>& matrix, int k) {
-
+        int m = matrix.size(), n = matrix[0].size();
+        vector<int> a;
+        vector<vector<int>> s(m + 1, vector<int>(n + 1));
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                s[i + 1][j + 1] = s[i + 1][j] ^ s[i][j + 1] ^ s[i][j] ^ matrix[i][j];
+            }
+            a.insert(a.end(), s[i + 1].begin() + 1, s[i + 1].end());
+        }
+        ranges::nth_element(a, a.end() - k);
+        return a[a.size() - k];
     }
 };
 
@@ -23,8 +33,6 @@ json leetcode::qubh::Solve(string input)
 	}
 	inputArray.push_back(input);
 
-	Solution solution;
-	vector<vector<int>> matrix = json::parse(inputArray.at(0));
-	int k = json::parse(inputArray.at(1));
-	return solution.kthLargestValue(matrix, k);
+
+
 }
