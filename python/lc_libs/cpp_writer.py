@@ -44,20 +44,6 @@ def _extract_functions(code):
 
 
 def write_solution_cpp(code_default: str, code: str = None, problem_id: str = "") -> str:
-    """#include "cpp/common/Solution.h"
-    {}
-
-    using namespace std;
-    using json = nlohmann::json;
-
-    {}
-
-    json leetcode::qubh::Solve(string input)
-    {}
-    {}
-    {}
-    {}
-    """
     code = code if code else code_default
     functions = _extract_functions(code)
 

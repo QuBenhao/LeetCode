@@ -14,7 +14,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from python.constants import constant
 from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
     get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution_python, \
-    write_solution_golang
+    write_solution_golang, write_solution_java, write_solution_cpp
 from python.utils import get_default_folder
 
 
@@ -67,6 +67,12 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
             case "golang":
                 with open(f"{dir_path}/solution.go", "w", encoding="utf-8") as f:
                     f.write(write_solution_golang(val, None, problem_id))
+            case "java":
+                with open(f"{dir_path}/Solution.java", "w", encoding="utf-8") as f:
+                    f.write(write_solution_java(val, None, problem_id))
+            case "cpp":
+                with open(f"{dir_path}/Solution.cpp", "w", encoding="utf-8") as f:
+                    f.write(write_solution_cpp(val, None, problem_id))
             case _:
                 print(f"Unsupported language {key} yet")
 
