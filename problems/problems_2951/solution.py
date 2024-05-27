@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.findPeaks(test_input)
 
     def findPeaks(self, mountain: List[int]) -> List[int]:
-        pass
-
+        return [i for i in range(1, len(mountain) - 1) if
+                mountain[i - 1] < mountain[i] and mountain[i] > mountain[i + 1]]
