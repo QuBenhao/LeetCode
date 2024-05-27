@@ -8,7 +8,12 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<int> missingRolls(vector<int>& rolls, int mean, int n) {
-        
+		int remain = mean * (rolls.size() + n) - reduce(rolls.begin(), rolls.end());
+		if (remain < n || remain > 6 * n) return {};
+		int avg = remain / n, extra = remain % n;
+		vector<int> ans(extra, avg + 1);
+		ans.insert(ans.end(), n - extra, avg);
+		return ans;
     }
 };
 
