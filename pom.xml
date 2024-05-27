@@ -78,7 +78,7 @@
                 <version>${javafx.maven.plugin.version}</version>
             </plugin>
         </plugins>
-        <sourceDirectory>.</sourceDirectory>
+        <sourceDirectory>problems</sourceDirectory>
         <testSourceDirectory>qubhjava/test</testSourceDirectory>
     </build>
 </project>
