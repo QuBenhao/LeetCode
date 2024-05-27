@@ -7,7 +7,22 @@ import (
 )
 
 func missingRolls(rolls []int, mean int, n int) []int {
-
+	remain := mean * (len(rolls) + n)
+	for _, roll := range rolls {
+		remain -= roll
+	}
+	if remain < n || remain > 6*n {
+		return nil
+	}
+	avg, extra := remain/n, remain%n
+	ans := make([]int, n)
+	for i := 0; i < extra; i++ {
+		ans[i] = avg + 1
+	}
+	for i := extra; i < n; i++ {
+		ans[i] = avg
+	}
+	return ans
 }
 
 func Solve(input string) interface{} {
