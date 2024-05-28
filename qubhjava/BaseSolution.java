@@ -2,6 +2,7 @@ package qubhjava;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import qubhjava.models.ListNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,4 +64,19 @@ public abstract class BaseSolution {
         }
         return result;
     }
+
+    protected ListNode jsonArrayToListNode(String jsonString) {
+        int[] arr = jsonArrayToIntArray(jsonString);
+        return ListNode.IntArrayToLinkedList(arr);
+    }
+
+    protected ListNode[] jsonArrayToListNodeArray(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        ListNode[] result = new ListNode[jsonArray.size()];
+        for (int i = 0; i < jsonArray.size(); i++) {
+            result[i] = jsonArrayToListNode(jsonArray.getString(i));
+        }
+        return result;
+    }
+
 }

@@ -1231,7 +1231,7 @@ if __name__ == '__main__':
     # for problem, code_templates in problems.values():
     #     pass
 
-    test_problem = "1"
+    test_problem = "23"
     code_counter = Counter()
     for code in problems[test_problem]:
         lang = code["langSlug"]
@@ -1241,10 +1241,9 @@ if __name__ == '__main__':
                     f.writelines(write_solution_cpp(code["code"], None, test_problem))
                 code_counter[lang] += 1
             case "java":
-                pass
-                # with open(f"tmp_Solution{code_counter[lang]}.java", "w", encoding="utf-8") as f:
-                #     f.writelines(write_solution_java(code["code"], None, test_problem))
-                # code_counter[lang] += 1
+                with open(f"tmp_Solution{code_counter[lang]}.java", "w", encoding="utf-8") as f:
+                    f.writelines(write_solution_java(code["code"], None, test_problem))
+                code_counter[lang] += 1
             case _:
                 pass
     sys.exit()
