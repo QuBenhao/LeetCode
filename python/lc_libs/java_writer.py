@@ -77,7 +77,6 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
                     additional_import.add("import qubhjava.models.ListNode;")
                     return_part = "{}({}).LinkedListToIntArray()".format(return_func, ", ".join(variables))
                 elif "TreeNode" in return_type:
-                    # TODO
                     additional_import.add("import qubhjava.models.TreeNode;")
                     return_part = "{}({}).TreeNodeToArray()".format(return_func, ", ".join(variables))
                 else:
