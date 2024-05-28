@@ -1,38 +1,46 @@
 package problems.problems_2;
 
+import com.alibaba.fastjson.JSON;
+import java.util.*;
+import qubhjava.BaseSolution;
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 import qubhjava.models.ListNode;
 
-public class Solution {
+public class Solution extends BaseSolution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode head = new ListNode();
-        ListNode curr = head;
-        int addone = 0, num1 = 0, num2 = 0, sum = 0;
-        while (l1 != null || l2 != null) {
-            if (l1 == null)
-                num1 = 0;
-            else {
-                num1 = l1.val;
+        ListNode dummy = new ListNode();
+        ListNode node = dummy;
+        int addition = 0;
+        while (l1 != null || l2 != null || addition != 0) {
+            int cur = addition;
+            if (l1 != null) {
+                cur += l1.val;
                 l1 = l1.next;
             }
-            if (l2 == null)
-                num2 = 0;
-            else {
-                num2 = l2.val;
+            if (l2 != null) {
+                cur += l2.val;
                 l2 = l2.next;
             }
-            sum = num1 + num2 + addone;
-            if (sum >= 10) {
-                addone = 1;
-                curr.next = new ListNode(sum % 10);
-            } else {
-                addone = 0;
-                curr.next = new ListNode(sum);
-            }
-            curr = curr.next;
+            node.next = new ListNode(cur % 10);
+            node = node.next;
+            addition = cur >= 10 ? 1 : 0;
         }
-        if (addone == 1)
-            curr.next = new ListNode(1);
+        return dummy.next;
+    }
 
-        return head.next;
+    @Override
+    public Object solve(String[] values) {
+        ListNode l1 = jsonArrayToListNode(values[0]);
+		ListNode l2 = jsonArrayToListNode(values[1]);
+        return JSON.toJSON(addTwoNumbers(l1, l2).LinkedListToIntArray());
     }
 }
