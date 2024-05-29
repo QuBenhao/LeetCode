@@ -72,7 +72,7 @@ jobs:
         LANGUAGES: ${{secrets.LANGUAGES}}
       run:  |
         python python/scripts/daily_submission.py --user ${{ secrets.USER }} &> /tmp/msg
-        status=$?
+        status=${PIPESTATUS[0]}
         cat /tmp/msg
         exit $status
 
