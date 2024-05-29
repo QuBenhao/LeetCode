@@ -41,7 +41,11 @@ public class TestMain {
             JSONArray outputArray = JSON.parseArray(splits[1]);
             testcases = new Testcase[inputArray.size()];
             for (int i = 0; i < inputArray.size(); i++) {
-                testcases[i] = new Testcase(inputArray.getString(i).split("\n"), outputArray.get(i));
+                String[] inputSplits = inputArray.getString(i).split("\n");
+                for (int j = 0; j < inputSplits.length; j++) {
+                    inputSplits[j] = inputSplits[j].replaceAll("\"", "");
+                }
+                testcases[i] = new Testcase(inputSplits, outputArray.get(i));
                 log.info("Added {}", testcases[i]);
             }
         } catch (Exception exception) {
