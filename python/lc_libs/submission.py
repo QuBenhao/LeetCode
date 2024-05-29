@@ -57,6 +57,7 @@ def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=
 
 def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp=None):
     def handle_response(response: requests.Response):
+        print(response.text)
         result_dict = json.loads(response.text)['data']['userProfileQuestions']
         return result_dict['questions'] if result_dict else []
 
