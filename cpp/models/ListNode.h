@@ -5,6 +5,8 @@
 #ifndef LEETCODECPP_LISTNODE_H
 #define LEETCODECPP_LISTNODE_H
 
+#include <vector>
+
 struct ListNode {
     int val;
     ListNode *next;
@@ -15,5 +17,8 @@ struct ListNode {
 
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
+
+ListNode *IntArrayToListNode(std::vector<int> &arr);
+std::vector<int> &ListNodeToIntArray(ListNode *head);
 
 #endif //LEETCODECPP_LISTNODE_H

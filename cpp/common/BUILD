@@ -6,6 +6,7 @@ cc_library (
     ],
     deps = [
         "@nlohmann_json//:json",
+        "//cpp/models:models",
     ],
     visibility = ["//visibility:public"],
 )

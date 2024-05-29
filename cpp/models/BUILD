@@ -1,8 +1,12 @@
 cc_library(
     name = "models",
-    src = [
+    srcs = [
         "ListNode.cpp",
-        "ListNode.h",
+        "TreeNode.cpp",
+    ],
+    hdrs = ["ListNode.h", "TreeNode.h"],
+    deps = [
+        "@nlohmann_json//:json",
     ],
     visibility = ["//visibility:public"],
 )
