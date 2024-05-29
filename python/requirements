@@ -4,3 +4,4 @@ markdown
 html2text
 python-dotenv
 tqdm
+pytz

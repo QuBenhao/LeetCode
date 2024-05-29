@@ -6,11 +6,11 @@ import requests
 
 from python.constants import (LEET_CODE_BACKEND, RECENT_SUBMISSIONS_QUERY, RECENT_AC_SUBMISSIONS_QUERY,
                        USER_PROFILE_QUESTIONS_QUERY, PROGRESS_SUBMISSIONS_QUERY, MY_SUBMISSION_DETAIL_QUERY)
-from python.utils import general_request
+from python.utils import general_request, get_china_daily_time
 
 
 def check_submission(user_slug: str, question_frontend_ids: set[str],
-                     min_timestamp=(now := time.time() - time.timezone) - now % 86400 + time.timezone,
+                     min_timestamp=None,
                      max_timestamp=None):
     def handle_response(response: requests.Response):
         result_dict = json.loads(response.text)['data']['recentSubmitted']
@@ -23,6 +23,8 @@ def check_submission(user_slug: str, question_frontend_ids: set[str],
                 if submit['submitTime'] < min_timestamp:
                     break
 
+    if min_timestamp is None:
+        min_timestamp = get_china_daily_time()
     ans = dict()
     general_request(LEET_CODE_BACKEND,
                     handle_response,
@@ -46,7 +48,7 @@ def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=
                                                                           submit['question']["titleSlug"], "python3"))
 
     if min_timestamp is None:
-        min_timestamp = (cur_time := time.time() - time.timezone) - cur_time % 86400 + time.timezone
+        min_timestamp = get_china_daily_time()
     ans = defaultdict(list)
     general_request('https://leetcode.cn/graphql/noj-go/', handle_response,
                     json={"query": RECENT_AC_SUBMISSIONS_QUERY,
@@ -57,7 +59,6 @@ def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=
 
 def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp=None):
     def handle_response(response: requests.Response):
-        print(response.text)
         result_dict = json.loads(response.text)['data']['userProfileQuestions']
         return result_dict['questions'] if result_dict else []
 
@@ -73,7 +74,7 @@ def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp
                     (submit["id"], question_submit_info["titleSlug"], submit["lang"]))
 
     if min_timestamp is None:
-        min_timestamp = (cur_time := time.time() - time.timezone) - cur_time % 86400 + time.timezone
+        min_timestamp = get_china_daily_time()
     page_no, page_size = 0, 20
     ans = defaultdict(list)
     query = {"operationName": "userProfileQuestions",
