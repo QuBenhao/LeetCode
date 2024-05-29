@@ -108,7 +108,7 @@ def check_problem_solved_and_write(question_id: str,
                 all_pass = True
                 for cmds in test_commands:
                     try:
-                        execute_res = subprocess.run(cmds, capture_output=True, timeout=300)
+                        execute_res = subprocess.run(cmds, capture_output=True, timeout=300, cwd=root_path)
                         if execute_res.returncode == 0:
                             print("Execute [{}] succeeded,"
                                   " output: {}".format(" ".join(cmds),
