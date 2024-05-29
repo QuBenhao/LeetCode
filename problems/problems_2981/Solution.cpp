@@ -1,6 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
-
+#include <algorithm>
 
 using namespace std;
 using json = nlohmann::json;

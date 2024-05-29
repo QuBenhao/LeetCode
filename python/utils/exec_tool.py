@@ -70,7 +70,7 @@ def check_problem_solved_and_write(question_id: str,
         case "cpp":
             file_name = "Solution.cpp"
             lang_env = ["bazel", "version"]
-            test_commands = [["bazel", "test", "--cxxopt=-std=c++17", "//cpp:solution_test"]]
+            test_commands = [["bazel", "test", "--cxxopt=-std=c++20", "//cpp:solution_test"]]
             main_file = f"{root_path}/WORKSPACE"
         case "c":
             file_name = "solution.c"
