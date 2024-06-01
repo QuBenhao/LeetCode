@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <vector>
 
 
 using namespace std;
@@ -8,7 +9,12 @@ using json = nlohmann::json;
 class Solution {
 public:
     int distributeCandies(int n, int limit) {
-        
+        return combinationTwo(n + 2) - 3 * combinationTwo(n + 1 - limit) + 3 * combinationTwo(n - 2 * limit) -
+                combinationTwo(n - 1 - 3 * limit);
+    }
+private:
+    int combinationTwo(int n) {
+        return n > 1 ? n * (n - 1) / 2 : 0;
     }
 };
 
