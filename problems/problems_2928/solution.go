@@ -6,8 +6,15 @@ import (
 	"strings"
 )
 
-func distributeCandies(n int, limit int) int {
+func combinationTwo(n int) int {
+	if n <= 1 {
+		return 0
+	}
+	return n * (n - 1) / 2
+}
 
+func distributeCandies(n int, limit int) int {
+	return combinationTwo(n+2) - 3*combinationTwo(n+1-limit) + 3*combinationTwo(n-2*limit) - combinationTwo(n-1-3*limit)
 }
 
 func Solve(input string) interface{} {
