@@ -6,7 +6,6 @@ import qubhjava.BaseSolution;
 
 
 public class Solution extends BaseSolution {
-
     private int combinationTwo(int n) {
         return n > 1 ? n * (n - 1) / 2 : 0;
     }
