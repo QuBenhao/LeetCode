@@ -7,7 +7,20 @@ import (
 )
 
 func judgeCircle(moves string) bool {
-
+	horizontal, vertical := 0, 0
+	for _, c := range moves {
+		switch c {
+		case 'U':
+			vertical++
+		case 'D':
+			vertical--
+		case 'L':
+			horizontal--
+		case 'R':
+			horizontal++
+		}
+	}
+	return horizontal == 0 && vertical == 0
 }
 
 func Solve(input string) interface{} {

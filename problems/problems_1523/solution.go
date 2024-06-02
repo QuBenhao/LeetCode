@@ -6,8 +6,12 @@ import (
 	"strings"
 )
 
-func countOdds(low int, high int) int {
-
+func countOdds(low int, high int) (ans int) {
+	ans = (high - low) / 2
+	if low&1 == 1 || high&1 == 1 {
+		ans++
+	}
+	return
 }
 
 func Solve(input string) interface{} {
