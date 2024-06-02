@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.distributeCandies(test_input)
 
     def distributeCandies(self, candyType: List[int]) -> int:
-        pass
-
+        return min(len(candyType) // 2, len(set(candyType)))
