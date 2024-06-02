@@ -7,7 +7,11 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int distributeCandies(int[] candyType) {
-
+        Set<Integer> set = new HashSet<>();
+        for (int t: candyType) {
+            set.add(t);
+        }
+        return Math.min(set.size(), candyType.length / 2);
     }
 
     @Override
