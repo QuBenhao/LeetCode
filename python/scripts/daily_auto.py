@@ -11,7 +11,29 @@ from python.lc_libs import (get_daily_question, get_question_desc, get_question_
                             get_question_info, get_question_code)
 import python.lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, send_text_message, check_problem_solved_and_write
+from python.utils import get_default_folder, send_text_message
+
+
+def check_remain_languages(dir_path: str, languages: list[str]) -> list[str]:
+    remain_languages = list(languages)
+    for _, _, files in os.walk(dir_path):
+        for f in files:
+            try:
+                match f:
+                    case "Solution.cpp":
+                        remain_languages.remove("cpp")
+                    case "solution.go":
+                        remain_languages.remove("golang")
+                    case "Solution.java":
+                        remain_languages.remove("java")
+                    case "solution.py":
+                        remain_languages.remove("python3")
+                    case _:
+                        continue
+            except ValueError as _:
+                continue
+        break
+    return remain_languages
 
 
 def write_question(dir_path, question_id: str, question_name: str, slug: str, languages: list[str] = None):
@@ -31,10 +53,10 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
                               str(outputs).replace("None", "null")
                              .replace("True", "true").replace("False", "false")
                              .replace("'", "\\\"")])
+    if not languages:
+        return
     code_map = get_question_code(slug, lang_slugs=languages)
     if code_map is None:
-        return
-    if not languages:
         return
     for language in languages:
         code = code_map[language]
@@ -70,25 +92,9 @@ def process_daily(problem_folder: str, languages: list[str]):
                        languages)
     else:
         print("solved {} before".format(daily_info['questionId']))
-        remain_languages = list(languages)
-        for _, _, f in os.walk(dir_path):
-            try:
-                match f:
-                    case "Solution.cpp":
-                        remain_languages.remove("cpp")
-                    case "solution.go":
-                        remain_languages.remove("golang")
-                    case "Solution.java":
-                        remain_languages.remove("java")
-                    case "solution.py":
-                        remain_languages.remove("python3")
-                    case _:
-                        continue
-            except ValueError as _:
-                continue
-        if remain_languages:
-            write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'],
-                           languages)
+        remain_languages = check_remain_languages(dir_path, languages)
+        write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'],
+                       remain_languages)
     for lang in languages:
         match lang:
             case "python3":
@@ -135,6 +141,9 @@ def process_plans(problem_folder: str, cookie: str, languages: list[str] = None)
             if not os.path.exists(dir_path):
                 os.mkdir(dir_path)
                 write_question(dir_path, question_id, info["title"], question_slug, languages)
+            else:
+                remain_languages = check_remain_languages(dir_path, languages)
+                write_question(dir_path, question_id, info["title"], question_slug, remain_languages)
             problem_ids.append(question_id)
     if problem_ids:
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
