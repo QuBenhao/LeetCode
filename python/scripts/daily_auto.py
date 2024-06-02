@@ -6,12 +6,12 @@ from typing import Optional
 from dotenv import load_dotenv
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from python.lc_libs import get_daily_question, get_question_desc, get_question_testcases, write_problem_md, \
-    write_testcase, extract_outputs_from_md, write_solution_python, write_solution_golang, \
-    get_user_study_plans, get_user_study_plan_progress, get_question_info, get_question_code, write_solution_java
+from python.lc_libs import (get_daily_question, get_question_desc, get_question_testcases, write_problem_md, \
+                            write_testcase, extract_outputs_from_md, get_user_study_plans, get_user_study_plan_progress,
+                            get_question_info, get_question_code)
 import python.lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, send_text_message
+from python.utils import get_default_folder, send_text_message, check_problem_solved_and_write
 
 
 def write_question(dir_path, question_id: str, question_name: str, slug: str, languages: list[str] = None):
@@ -70,9 +70,23 @@ def process_daily(problem_folder: str, languages: list[str]):
                        languages)
     else:
         print("solved {} before".format(daily_info['questionId']))
-        if languages is not None and any(lang != "python3" for lang in languages):
-            if "python3" in languages:
-                languages.remove("python3")
+        remain_languages = list(languages)
+        for _, _, f in os.walk(dir_path):
+            try:
+                match f:
+                    case "Solution.cpp":
+                        remain_languages.remove("cpp")
+                    case "solution.go":
+                        remain_languages.remove("golang")
+                    case "Solution.java":
+                        remain_languages.remove("java")
+                    case "solution.py":
+                        remain_languages.remove("python3")
+                    case _:
+                        continue
+            except ValueError as _:
+                continue
+        if remain_languages:
             write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'],
                            languages)
     for lang in languages:

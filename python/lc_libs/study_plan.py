@@ -42,6 +42,8 @@ def generate_question_todo(plan_sub_groups, todo_num: int):
     for idx, plan_sub_group in enumerate(plan_sub_groups):
         expectation = 0
         questions = plan_sub_group["questions"]
+        if not questions:
+            continue
         group_total[idx] = len(questions)
         do_last = []
         for question in questions:
