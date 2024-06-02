@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <utility>
 #include "TestMain.h"
 #include "cpp/common/Solution.h"
 #include "tools/cpp/runfiles/runfiles.h"
@@ -40,12 +41,12 @@ namespace LeetCode
 
             string input = buffer.str();
             vector<string> splits;
-            int pos = input.find("\n");
+            size_t pos = input.find('\n');
             while (pos != string::npos)
             {
                 splits.push_back(input.substr(0, pos));
                 input = input.substr(pos + 1);
-                pos = input.find("\n");
+                pos = input.find('\n');
             }
             splits.push_back(input);
             if (splits.size() != 2)
@@ -75,7 +76,7 @@ namespace LeetCode
         class LeetCodeTest : public LeetCodeSuiteSet
         {
         public:
-            explicit LeetCodeTest(TestCase data) : data_(data) {}
+            explicit LeetCodeTest(TestCase data) : data_(std::move(data)) {}
             void TestBody() override
             {
                 ASSERT_EQ(leetcode::qubh::Solve(data_.GetInput()), data_.GetExpected());
