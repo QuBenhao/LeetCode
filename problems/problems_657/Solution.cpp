@@ -8,7 +8,23 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool judgeCircle(string moves) {
-
+        int horizontal = 0, vertical = 0;
+        for (auto &c: moves) {
+            switch (c) {
+                case 'L':
+                    horizontal--;
+                    break;
+                case 'R':
+                    horizontal++;
+                    break;
+                case 'U':
+                    vertical++;
+                    break;
+                default:
+                    vertical--;
+            }
+        }
+        return horizontal == 0 && vertical == 0;
     }
 };
 
