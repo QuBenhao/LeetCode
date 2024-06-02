@@ -3,9 +3,7 @@ package qubhjava.models;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Queue;
+import java.util.*;
 
 public class TreeNode {
     public int val;
@@ -54,14 +52,14 @@ public class TreeNode {
 
     public static JSONArray TreeNodeToArray(TreeNode root) {
         JSONArray jsonArray = new JSONArray();
-        Deque<TreeNode> queue = new ArrayDeque<>();
-        queue.offer(root);
-        while (!queue.isEmpty()) {
-            TreeNode node = queue.poll();
+        List<TreeNode> list = new ArrayList<>();
+        list.add(root);
+        for (int idx = 0; idx < list.size(); idx++) {
+            TreeNode node = list.get(idx);
             if (node != null) {
                 jsonArray.add(node.val);
-                queue.offer(node.left);
-                queue.offer(node.right);
+                list.add(node.left);
+                list.add(node.right);
             } else {
                 jsonArray.add(null);
             }
