@@ -1,47 +1,34 @@
 # 11. Container With Most Water
 
-Given `n` non-negative integers a<sub>1</sub>, a<sub>2</sub>, ..., a<sub>n</sub> , where each represents a point at coordinate (i, a<sub>i</sub>). `n` vertical lines are drawn such that the two endpoints of the line `i` is at (i, a<sub>i</sub>) and `(i, 0)`. Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.
+<p>You are given an integer array <code>height</code> of length <code>n</code>. There are <code>n</code> vertical lines drawn such that the two endpoints of the <code>i<sup>th</sup></code> line are <code>(i, 0)</code> and <code>(i, height[i])</code>.</p>
 
-**Notice** that you may not slant the container.
+<p>Find two lines that together with the x-axis form a container, such that the container contains the most water.</p>
 
- 
+<p>Return <em>the maximum amount of water a container can store</em>.</p>
 
-**Example 1:**
+<p><strong>Notice</strong> that you may not slant the container.</p>
 
-![img](https://s3-lc-upload.s3.amazonaws.com/uploads/2018/07/17/question_11.jpg)
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://s3-lc-upload.s3.amazonaws.com/uploads/2018/07/17/question_11.jpg" style="width: 600px; height: 287px;" />
+<pre>
+<strong>Input:</strong> height = [1,8,6,2,5,4,8,3,7]
+<strong>Output:</strong> 49
+<strong>Explanation:</strong> The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
+</pre>
 
-```
-Input: height = [1,8,6,2,5,4,8,3,7]
-Output: 49
-Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> height = [1,1]
+<strong>Output:</strong> 1
+</pre>
 
-```
-Input: height = [1,1]
-Output: 1
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 3:**
-
-```
-Input: height = [4,3,2,1,4]
-Output: 16
-```
-
-**Example 4:**
-
-```
-Input: height = [1,2,1]
-Output: 2
-```
-
- 
-
-**Constraints:**
-
-- `n == height.length`
-- 2 <= n <= 3 * 10<sup>4</sup>
-- 0 <= height[i] <= 3 * 10<sup>4</sup>
-
+<ul>
+	<li><code>n == height.length</code></li>
+	<li><code>2 &lt;= n &lt;= 10<sup>5</sup></code></li>
+	<li><code>0 &lt;= height[i] &lt;= 10<sup>4</sup></code></li>
+</ul>
