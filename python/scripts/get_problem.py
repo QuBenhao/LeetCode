@@ -15,7 +15,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from python.constants import constant
 from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
     get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution_python, \
-    write_solution_golang, write_solution_java, write_solution_cpp
+    write_solution_golang, write_solution_java, write_solution_cpp, change_test_python, change_test_java, \
+    change_test_golang, change_test_cpp
 from python.utils import get_default_folder
 
 
@@ -161,24 +162,24 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
                     match lang:
                         case "python3":
                             with open(f"{root_path}/python/test.py", "r", encoding="utf-8") as f:
-                                lines = f.readlines()
+                                content = f.read()
                             with open(f"{root_path}/python/test.py", "w", encoding="utf-8") as f:
-                                for line in lines:
-                                    if line.startswith("QUESTION ="):
-                                        line = "QUESTION = \"{}\"\n".format(problem_id)
-                                    f.write(line)
+                                f.write(change_test_python(content, problem_id))
                         case "golang":
-                            lines = []
                             with open(f"{root_path}/golang/solution_test.go", "r", encoding="utf-8") as f:
-                                for line in f.readlines():
-                                    if "problem \"leetCode/problems/" in line:
-                                        lines.append("\tproblem \"leetCode/problems/{}\"\n".format(problem_id))
-                                    elif "var problemId string =" in line:
-                                        lines.append("var problemId string = \"{}\"\n".format(problem_id))
-                                    else:
-                                        lines.append(line)
+                                content = f.read()
                             with open(f"{root_path}/golang/solution_test.go", "w", encoding="utf-8") as f:
-                                f.writelines(lines)
+                                f.write(change_test_golang(content, problem_id))
+                        case "java":
+                            with open(f"{root_path}/qubhjava/test/TestMain.java", "r", encoding="utf-8") as f:
+                                content = f.read()
+                            with open(f"{root_path}/qubhjava/test/TestMain.java", "w", encoding="utf-8") as f:
+                                f.write(change_test_java(content, problem_id))
+                        case "cpp":
+                            with open(f"{root_path}/WORKSPACE", "r", encoding="utf-8") as f:
+                                content = f.read()
+                            with open(f"{root_path}/WORKSPACE", "w", encoding="utf-8") as f:
+                                f.write(change_test_cpp(content, problem_id))
                         case _:
                             pass
     else:
