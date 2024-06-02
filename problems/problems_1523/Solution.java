@@ -7,7 +7,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int countOdds(int low, int high) {
-
+        return ((high - low) >> 1) + (((low & 1) == 1 || (high & 1) == 1) ? 1 : 0);
     }
 
     @Override
