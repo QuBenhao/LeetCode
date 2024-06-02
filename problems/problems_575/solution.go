@@ -7,7 +7,11 @@ import (
 )
 
 func distributeCandies(candyType []int) int {
-
+	set := map[int]struct{}{}
+	for _, t := range candyType {
+		set[t] = struct{}{}
+	}
+	return min(len(set), len(candyType)/2)
 }
 
 func Solve(input string) interface{} {
