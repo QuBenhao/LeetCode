@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <unordered_set>
 
 
 using namespace std;
@@ -8,7 +9,8 @@ using json = nlohmann::json;
 class Solution {
 public:
     int distributeCandies(vector<int>& candyType) {
-
+        unordered_set<int> set(candyType.begin(), candyType.end());
+        return min(set.size(), candyType.size() / 2);
     }
 };
 
