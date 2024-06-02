@@ -19,9 +19,8 @@ public class ListNode {
         this.next = next;
     }
 
-    public int[] LinkedListToIntArray() {
+    public static int[] LinkedListToIntArray(ListNode node) {
         List<Integer> ans = new ArrayList<>();
-        ListNode node = this;
         while (node != null) {
             ans.add(node.val);
             node = node.next;

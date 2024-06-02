@@ -41,6 +41,6 @@ public class Solution extends BaseSolution {
     public Object solve(String[] values) {
         ListNode l1 = jsonArrayToListNode(values[0]);
 		ListNode l2 = jsonArrayToListNode(values[1]);
-        return JSON.toJSON(addTwoNumbers(l1, l2).LinkedListToIntArray());
+        return JSON.toJSON(ListNode.LinkedListToIntArray(addTwoNumbers(l1, l2)));
     }
 }

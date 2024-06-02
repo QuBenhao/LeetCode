@@ -25,7 +25,7 @@ public class TreeNode {
         if (jsonArray.isEmpty()) {
             return null;
         }
-        if (jsonArray.get(0) == null) {
+        if (jsonArray.getFirst() == null) {
             return null;
         }
         TreeNode root = new TreeNode(jsonArray.getIntValue(0));
@@ -52,10 +52,10 @@ public class TreeNode {
         return root;
     }
 
-    public JSONArray TreeNodeToArray() {
+    public static JSONArray TreeNodeToArray(TreeNode root) {
         JSONArray jsonArray = new JSONArray();
         Deque<TreeNode> queue = new ArrayDeque<>();
-        queue.offer(this);
+        queue.offer(root);
         while (!queue.isEmpty()) {
             TreeNode node = queue.poll();
             if (node != null) {
@@ -66,8 +66,8 @@ public class TreeNode {
                 jsonArray.add(null);
             }
         }
-        while (!jsonArray.isEmpty() && jsonArray.get(jsonArray.size() - 1) == null) {
-            jsonArray.remove(jsonArray.size() - 1);
+        while (!jsonArray.isEmpty() && jsonArray.getLast() == null) {
+            jsonArray.removeLast();
         }
         return jsonArray;
     }

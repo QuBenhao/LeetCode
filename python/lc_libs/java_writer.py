@@ -72,13 +72,13 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
                     if "ListNode" in rt_type:
                         additional_import.add("import qubhjava.models.ListNode;")
                     elif "TreeNode" in rt_type:
-                        additional_import.add("")
+                        additional_import.add("import qubhjava.models.TreeNode;")
                 if "ListNode" in return_type:
                     additional_import.add("import qubhjava.models.ListNode;")
-                    return_part = "{}({}).LinkedListToIntArray()".format(return_func, ", ".join(variables))
+                    return_part = "ListNode.LinkedListToIntArray({}({}))".format(return_func, ", ".join(variables))
                 elif "TreeNode" in return_type:
                     additional_import.add("import qubhjava.models.TreeNode;")
-                    return_part = "{}({}).TreeNodeToArray()".format(return_func, ", ".join(variables))
+                    return_part = "TreeNode.TreeNodeToArray({}({}))".format(return_func, ", ".join(variables))
                 else:
                     return_part = "{}({})".format(return_func, ", ".join(variables))
             import_packages.extend(additional_import)
