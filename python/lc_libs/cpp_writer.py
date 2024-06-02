@@ -64,9 +64,9 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
             break
         include_libs.append(line)
     if " TreeNode " in code_default:
-        include_libs.append("#include \"cpp/models/TreeNode.h\";")
+        include_libs.append("#include \"cpp/models/TreeNode.h\"")
     if " ListNode " in code_default:
-        include_libs.append("#include \"cpp/models/ListNode.h\";")
+        include_libs.append("#include \"cpp/models/ListNode.h\"")
 
     if len(functions) == 1:
         ret_type = functions[0].get("ret_type", "")
