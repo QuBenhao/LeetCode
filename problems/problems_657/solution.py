@@ -7,5 +7,15 @@ class Solution(solution.Solution):
         return self.judgeCircle(test_input)
 
     def judgeCircle(self, moves: str) -> bool:
-        pass
-
+        horizontal, vertical = 0, 0
+        for c in moves:
+            match c:
+                case 'U':
+                    vertical += 1
+                case 'D':
+                    vertical -= 1
+                case 'L':
+                    horizontal -= 1
+                case _:
+                    horizontal += 1
+        return horizontal == 0 and vertical == 0
