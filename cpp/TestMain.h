@@ -20,7 +20,7 @@ namespace LeetCode
         class TestCase
         {
         public:
-            TestCase(string input, json expected) : Input(move(input)), Expected(move(expected)) {}
+            TestCase(string input, json expected) : Input(std::move(input)), Expected(std::move(expected)) {}
 
             string GetInput() const
             {
