@@ -56,6 +56,8 @@ func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) 
 		ast.Equal(int64(want.(float64)), resp.(int64))
 	case float64:
 		ast.InDelta(want, resp, 1e-5)
+	case byte:
+		ast.Equalf(want.(string)[0], resp, "Expected: [%s], actual: [%s]", want, string(resp.(byte)))
 	case [][]int:
 		wantArray := want.([]interface{})
 		respIntArray := resp.([][]int)
