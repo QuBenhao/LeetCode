@@ -7,7 +7,18 @@ import (
 )
 
 func findTheDifference(s string, t string) byte {
-
+	ms, mt := map[byte]int{}, map[byte]int{}
+	for i := 0; i < len(s); i++ {
+		ms[s[i]]++
+		mt[s[i]]++
+	}
+	mt[t[len(t)-1]]++
+	for k, v := range mt {
+		if val, ok := ms[k]; !ok || val < v {
+			return k
+		}
+	}
+	return 'x'
 }
 
 func Solve(input string) interface{} {
