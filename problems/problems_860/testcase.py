@@ -5,10 +5,11 @@ case = namedtuple("Testcase", ["Input", "Output"])
 
 
 class Testcase(testcase.Testcase):
-	def __init__(self):
-		self.testcases = []
-		self.testcases.append(case(Input=[5, 5, 5, 10, 20], Output=True))
-		self.testcases.append(case(Input=[5, 5, 10, 10, 20], Output=False))
+    def __init__(self):
+        self.testcases = []
+        self.testcases.append(case(Input=[5, 5, 5, 10, 20], Output=True))
+        self.testcases.append(case(Input=[5, 5, 10, 10, 20], Output=False))
+        self.testcases.append(case(Input=[5, 5, 5, 10, 5, 5, 10, 20, 20, 20], Output=False))
 
-	def get_testcases(self):
-		return self.testcases
+    def get_testcases(self):
+        return self.testcases
