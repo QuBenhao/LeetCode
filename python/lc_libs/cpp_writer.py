@@ -91,6 +91,9 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
         elif "TreeNode" in ret_type:
             return_part.append("\treturn TreeNodeToJsonArray(solution.{}({}));"
                                .format(func_name, ", ".join([v[1] for v in variables])))
+        elif ret_type == "char":
+            return_part.append("\treturn std::string(1, solution.{}({}));"
+                               .format(func_name, ", ".join([v[1] for v in variables])))
         else:
             return_part.append("\treturn solution.{}({});"
                                .format(func_name, ", ".join([v[1] for v in variables])))
