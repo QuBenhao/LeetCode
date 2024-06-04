@@ -51,7 +51,8 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
             with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
                 f.writelines([testcase_str, "\n",
                               str(outputs).replace("None", "null")
-                             .replace("True", "true").replace("False", "false")])
+                             .replace("True", "true").replace("False", "false")
+                             .replace("'", "\"")])
     if not languages:
         return
     code_map = get_question_code(slug, lang_slugs=languages)
