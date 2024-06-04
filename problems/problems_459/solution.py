@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.repeatedSubstringPattern(test_input)
 
     def repeatedSubstringPattern(self, s: str) -> bool:
-        pass
-
+        return (s + s).find(s, 1) != len(s)
