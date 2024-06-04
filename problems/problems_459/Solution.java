@@ -7,7 +7,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public boolean repeatedSubstringPattern(String s) {
-
+        return (s + s).indexOf(s, 1) != s.length();
     }
 
     @Override
