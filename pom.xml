@@ -79,6 +79,9 @@
                 <configuration>
                     <source>21</source>
                     <target>21</target>
+                    <excludes>
+                        <exclude>bazel-*/**</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
