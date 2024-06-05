@@ -6,8 +6,15 @@ import (
 	"strings"
 )
 
-func diagonalSum(mat [][]int) int {
-
+func diagonalSum(mat [][]int) (ans int) {
+	n := len(mat)
+	for i := 0; i < n; i++ {
+		ans += mat[i][i] + mat[i][n-1-i]
+	}
+	if n%2 == 1 {
+		ans -= mat[n/2][n/2]
+	}
+	return
 }
 
 func Solve(input string) interface{} {
