@@ -8,7 +8,15 @@ using json = nlohmann::json;
 class Solution {
 public:
     long long minimumSteps(string s) {
-        
+        long long ans = 0LL, b = 0LL;
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '1') {
+                b++;
+            } else {
+                ans += b;
+            }
+        }
+        return ans;
     }
 };
 
