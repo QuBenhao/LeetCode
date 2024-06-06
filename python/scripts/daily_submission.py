@@ -77,6 +77,8 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: 
                 cache.add(language)
                 if question_id == daily_question:
                     finish_daily = True
+                elif question_slug in plan_questions_slug and question_slug not in finished_plan_questions:
+                    finished_plan_questions.append(question_slug)
         print("Daily Question {}: {}, Study plan problem solved today: {}"
               .format(daily_question, "DONE" if finish_daily else "TODO", finished_plan_questions))
         if not finish_daily:
