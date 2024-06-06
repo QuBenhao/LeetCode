@@ -94,6 +94,10 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
         elif ret_type == "char":
             return_part.append("\treturn std::string(1, solution.{}({}));"
                                .format(func_name, ", ".join([v[1] for v in variables])))
+        elif ret_type == "void":
+            return_part.append(
+                "\tsolution.{}({});\n\treturn {};".format(func_name, ", ".join([v[1] for v in variables]),
+                                                          variables[0][1]))
         else:
             return_part.append("\treturn solution.{}({});"
                                .format(func_name, ", ".join([v[1] for v in variables])))

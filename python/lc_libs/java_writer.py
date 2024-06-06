@@ -79,6 +79,9 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
                 elif "TreeNode" in return_type:
                     additional_import.add("import qubhjava.models.TreeNode;")
                     return_part = "TreeNode.TreeNodeToArray({}({}))".format(return_func, ", ".join(variables))
+                elif return_type == "void":
+                    parse_input.append("{}({});".format(return_func, ", ".join(variables)))
+                    return_part = variables[0]
                 else:
                     return_part = "{}({})".format(return_func, ", ".join(variables))
             import_packages.extend(additional_import)
