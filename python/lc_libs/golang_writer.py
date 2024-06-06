@@ -1,4 +1,4 @@
-from python.constants import SOLUTION_TEMPLATE_GOLANG
+from python.constants import SOLUTION_TEMPLATE_GOLANG, SOLUTION_TEMPLATE_GOLANG_MODIFY_IN_PLACE
 
 
 def change_test_golang(content: str, question_id: str) -> str:
@@ -142,7 +142,7 @@ def write_solution_golang(code_default: str, code: str = None, problem_id: str =
                         tmp.endswith(f") {struct_name} " + "{") or
                         tmp.endswith(f") *{struct_name} " + "{")):
                     tp0, tp1, tp2, tp3 = __process_inputs(code_default, tmp.split("(")[1].split(")")[0],
-                                                        structs_map, True)
+                                                          structs_map, True)
                     rt = tmp.split("{")[0].split(")")[-1].strip()
                     structs_map[struct_name]["construct"] = (tmp.split("(")[0].split("func ")[-1].strip(),
                                                              (tp0, tp1, tp2, tp3.replace("values", "vals[0]")),
@@ -151,7 +151,7 @@ def write_solution_golang(code_default: str, code: str = None, problem_id: str =
                     if "funcs" not in structs_map[struct_name]:
                         structs_map[struct_name]["funcs"] = []
                     tp0, tp1, tp2, tp3 = __process_inputs(code_default, tmp.split("(")[2].split(")")[0],
-                                                        structs_map, True)
+                                                          structs_map, True)
                     rt = tmp.split("{")[0].split(")")[-1].strip()
                     structs_map[struct_name]["funcs"].append((tmp.split("(")[1].split(")")[-1].strip(),
                                                               (tp0, tp1, tp2, tp3.replace("values", "vals[i]")),
@@ -254,6 +254,19 @@ def write_solution_golang(code_default: str, code: str = None, problem_id: str =
             "\n".join(list(zip(*its))[2]),
             return_func_name,
             return_func_var,
+            "}",
+        )
+    if rts[0] == "":
+        return SOLUTION_TEMPLATE_GOLANG_MODIFY_IN_PLACE.format(
+            problem_id,
+            "\n".join(sorted(import_set, key=lambda x: "\t" + x.split(" ")[-1] if x.startswith('\t. ') else x)),
+            code_default if not code else code,
+            "interface{} {",
+            "\n".join(list(zip(*its))[1]),
+            "\n".join(list(zip(*its))[2]),
+            func_names[0],
+            ", ".join(list(zip(*its))[3]),
+            its[0][3],
             "}",
         )
     return SOLUTION_TEMPLATE_GOLANG.format(

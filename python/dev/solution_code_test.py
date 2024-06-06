@@ -1212,6 +1212,94 @@ problems["382"] = [
     }
 ]
 
+problems["283"] = [
+    {
+        "lang": "C++",
+        "langSlug": "cpp",
+        "code": "class Solution {\npublic:\n    void moveZeroes(vector<int>& nums) {\n\n    }\n};"
+    },
+    {
+        "lang": "Java",
+        "langSlug": "java",
+        "code": "class Solution {\n    public void moveZeroes(int[] nums) {\n\n    }\n}"
+    },
+    {
+        "lang": "Python",
+        "langSlug": "python",
+        "code": "class Solution(object):\n    def moveZeroes(self, nums):\n        \"\"\"\n        :type nums: List[int]\n        :rtype: None Do not return anything, modify nums in-place instead.\n        \"\"\""
+    },
+    {
+        "lang": "Python3",
+        "langSlug": "python3",
+        "code": "class Solution:\n    def moveZeroes(self, nums: List[int]) -> None:\n        \"\"\"\n        Do not return anything, modify nums in-place instead.\n        \"\"\""
+    },
+    {
+        "lang": "C",
+        "langSlug": "c",
+        "code": "void moveZeroes(int* nums, int numsSize) {\n    \n}"
+    },
+    {
+        "lang": "C#",
+        "langSlug": "csharp",
+        "code": "public class Solution {\n    public void MoveZeroes(int[] nums) {\n\n    }\n}"
+    },
+    {
+        "lang": "JavaScript",
+        "langSlug": "javascript",
+        "code": "/**\n * @param {number[]} nums\n * @return {void} Do not return anything, modify nums in-place instead.\n */\nvar moveZeroes = function(nums) {\n\n};"
+    },
+    {
+        "lang": "TypeScript",
+        "langSlug": "typescript",
+        "code": "/**\n Do not return anything, modify nums in-place instead.\n */\nfunction moveZeroes(nums: number[]): void {\n    \n};"
+    },
+    {
+        "lang": "PHP",
+        "langSlug": "php",
+        "code": "class Solution {\n\n    /**\n     * @param Integer[] $nums\n     * @return NULL\n     */\n    function moveZeroes(&$nums) {\n\n    }\n}"
+    },
+    {
+        "lang": "Swift",
+        "langSlug": "swift",
+        "code": "class Solution {\n    func moveZeroes(_ nums: inout [Int]) {\n\n    }\n}"
+    },
+    {
+        "lang": "Kotlin",
+        "langSlug": "kotlin",
+        "code": "class Solution {\n    fun moveZeroes(nums: IntArray): Unit {\n\n    }\n}"
+    },
+    {
+        "lang": "Dart",
+        "langSlug": "dart",
+        "code": "class Solution {\n  void moveZeroes(List<int> nums) {\n    \n  }\n}"
+    },
+    {
+        "lang": "Go",
+        "langSlug": "golang",
+        "code": "func moveZeroes(nums []int)  {\n\n}"
+    },
+    {
+        "lang": "Ruby",
+        "langSlug": "ruby",
+        "code": "# @param {Integer[]} nums\n# @return {Void} Do not return anything, modify nums in-place instead.\ndef move_zeroes(nums)\n\nend"
+    },
+    {
+        "lang": "Scala",
+        "langSlug": "scala",
+        "code": "object Solution {\n    def moveZeroes(nums: Array[Int]): Unit = {\n\n    }\n}"
+    },
+    {
+        "lang": "Rust",
+        "langSlug": "rust",
+        "code": "impl Solution {\n    pub fn move_zeroes(nums: &mut Vec<i32>) {\n\n    }\n}"
+    },
+    {
+        "lang": "Racket",
+        "langSlug": "racket",
+        "code": "(define/contract (move-zeroes nums)\n  (-> (listof exact-integer?) void?)\n\n  )"
+    }
+]
+
 if __name__ == '__main__':
     # for idx, test in enumerate(default_test_list):
     #     res = write_solution_python(test)
@@ -1231,7 +1319,7 @@ if __name__ == '__main__':
     # for problem, code_templates in problems.values():
     #     pass
 
-    test_problem = "23"
+    test_problem = "283"
     code_counter = Counter()
     for code in problems[test_problem]:
         lang = code["langSlug"]
@@ -1243,6 +1331,10 @@ if __name__ == '__main__':
             case "java":
                 with open(f"tmp_Solution{code_counter[lang]}.java", "w", encoding="utf-8") as f:
                     f.writelines(write_solution_java(code["code"], None, test_problem))
+                code_counter[lang] += 1
+            case "golang":
+                with open(f"tmp_solution{code_counter[lang]}.go", "w", encoding="utf-8") as f:
+                    f.writelines(write_solution_golang(code["code"], None, test_problem))
                 code_counter[lang] += 1
             case _:
                 pass
