@@ -45,17 +45,14 @@ class Test(unittest.TestCase):
                                 if isinstance(o[0], float):
                                     for v1, v2 in zip(o, result):
                                         self.assertAlmostEqual(v1, v2, msg=f"problem: {q}, input = {i}", delta=0.00001)
-                                elif all(x is not None for x in o) and isinstance(o[0], list) and not any(
+                                elif all(x is not None for x in o) and (
+                                        isinstance(o[0], list) or isinstance(o[0], set)) and not any(
                                         None in x for x in o):
                                     self.assertListEqual(sorted(sorted(item) for item in o),
                                                          sorted(sorted(item) for item in result),
                                                          msg=f"problem: {q}, input = {i}")
                                 else:
-                                    if None not in o and not (isinstance(o[0], list) and any(None in x for x in o)):
-                                        self.assertListEqual(sorted(o), sorted(result),
-                                                             msg=f"problem: {q}, input = {i}")
-                                    else:
-                                        self.assertListEqual(o, result, msg=f"problem: {q}, input = {i}")
+                                    self.assertListEqual(o, result, msg=f"problem: {q}, input = {i}")
                             else:
                                 if isinstance(o, float):
                                     self.assertAlmostEqual(o, result, msg=f"problem: {q}, input = {i}", delta=0.00001)
