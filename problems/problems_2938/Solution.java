@@ -7,7 +7,15 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public long minimumSteps(String s) {
-
+        long ans = 0L, b = 0L;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '1') {
+                b++;
+            } else {
+                ans += b;
+            }
+        }
+        return ans;
     }
 
     @Override
