@@ -11,16 +11,8 @@ class Solution(solution.Solution):
         """
         Do not return anything, modify nums in-place instead.
         """
-        n = len(nums)
         left = 0
-        while left < n and nums[left] != 0:
-            left += 1
-        right = left + 1
-        while right < n:
-            while right < n and nums[right] == 0:
-                right += 1
-            if right == n:
-                break
-            nums[left], nums[right] = nums[right], nums[left]
-            left += 1
-            right += 1
+        for idx, num in enumerate(nums):
+            if num != 0:
+                nums[left], nums[idx] = num, nums[left]
+                left += 1

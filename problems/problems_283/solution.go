@@ -7,17 +7,11 @@ import (
 )
 
 func moveZeroes(nums []int) {
-	n, left := len(nums), 0
-	for left = 0; left < n && nums[left] != 0; left++ {
-	}
-	for right := left + 1; right < n; right++ {
-		for ; right < n && nums[right] == 0; right++ {
+	for idx, i := 0, 0; i < len(nums); i++ {
+		if nums[i] != 0 {
+			nums[idx], nums[i] = nums[i], nums[idx]
+			idx++
 		}
-		if right == n {
-			break
-		}
-		nums[left], nums[right] = nums[right], nums[left]
-		left++
 	}
 }
 

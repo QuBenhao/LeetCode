@@ -8,16 +8,10 @@ using json = nlohmann::json;
 class Solution {
 public:
     void moveZeroes(vector<int>& nums) {
-        int n = nums.size(), left = 0;
-        for (; left < n && nums[left] != 0; left++) {}
-        for (int right = left + 1; right < n; left++, right++) {
-            for (; right < n && nums[right] == 0; right++) {}
-            if (right == n) {
-                break;
+        for (int left = 0, idx = 0; idx < nums.size(); idx++) {
+            if (nums[idx] != 0) {
+                swap(nums[left++], nums[idx]);
             }
-            int tmp = nums[left];
-            nums[left] = nums[right];
-            nums[right] = tmp;
         }
     }
 };
