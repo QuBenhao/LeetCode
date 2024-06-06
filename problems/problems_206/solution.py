@@ -17,5 +17,17 @@ class Solution(solution.Solution):
         return linked_list_to_list(res)
 
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        pass
+        # if not head or head.next is None:
+        #     return head
+        # new_head = self.reverseList(head.next)
+        # head.next.next = head
+        # head.next = None
+        # return new_head
 
+        dummy = ListNode()
+        while head:
+            tmp = dummy.next
+            dummy.next = head
+            head = head.next
+            dummy.next.next = tmp
+        return dummy.next

@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.minimumSteps(test_input)
 
     def minimumSteps(self, s: str) -> int:
-        pass
-
+        ans, b = 0, 0
+        for c in s:
+            if c == "0":
+                ans += b
+            else:
+                b += 1
+        return ans
