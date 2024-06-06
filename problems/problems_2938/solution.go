@@ -6,8 +6,15 @@ import (
 	"strings"
 )
 
-func minimumSteps(s string) int64 {
-
+func minimumSteps(s string) (ans int64) {
+	for i, b := 0, int64(0); i < len(s); i++ {
+		if s[i] == '0' {
+			ans += b
+		} else {
+			b++
+		}
+	}
+	return
 }
 
 func Solve(input string) interface{} {

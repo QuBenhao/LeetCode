@@ -6,8 +6,19 @@ import (
 	"strings"
 )
 
-func moveZeroes(nums []int)  {
-
+func moveZeroes(nums []int) {
+	n, left := len(nums), 0
+	for left = 0; left < n && nums[left] != 0; left++ {
+	}
+	for right := left + 1; right < n; right++ {
+		for ; right < n && nums[right] == 0; right++ {
+		}
+		if right == n {
+			break
+		}
+		nums[left], nums[right] = nums[right], nums[left]
+		left++
+	}
 }
 
 func Solve(input string) interface{} {
@@ -18,5 +29,6 @@ func Solve(input string) interface{} {
 		log.Fatal(err)
 	}
 
-	return moveZeroes(nums)
+	moveZeroes(nums)
+	return nums
 }
