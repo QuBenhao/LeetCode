@@ -41,6 +41,23 @@ func Solve(input string) {}
 {}
 """
 
+SOLUTION_TEMPLATE_GOLANG_MODIFY_IN_PLACE = """package problem{}
+
+import (
+{}
+)
+
+{}
+
+func Solve(input string) {}
+\tvalues := strings.Split(input, "\\n")
+{}
+{}
+\t{}({})
+\treturn {}
+{}
+"""
+
 SOLUTION_TEMPLATE_JAVA = """package problems.problems_{};
 
 import com.alibaba.fastjson.JSON;
