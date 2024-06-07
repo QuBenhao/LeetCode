@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from utils import get_default_folder
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTIONS = ['1232', '1041']
+QUESTIONS = ['1502', '58']
 
 
 class Test(unittest.TestCase):
