@@ -8,7 +8,12 @@ using json = nlohmann::json;
 class Solution {
 public:
     int maxOperations(vector<int>& nums) {
-        
+        for (int i = 2, s = nums[0] + nums[1]; i < nums.size() - 1; i += 2) {
+            if (nums[i] + nums[i + 1] != s) {
+                return i / 2;
+            }
+        }
+        return int(nums.size()) / 2;
     }
 };
 

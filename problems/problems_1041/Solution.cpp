@@ -8,7 +8,22 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool isRobotBounded(string instructions) {
-
+        int x = 0, y = 0, d = 0;
+        int dirs[4][2] = {{0, 1}, {-1, 0}, {0, -1}, {1, 0}};
+        for (int i = 0; i < instructions.length(); i++) {
+            switch (instructions[i]) {
+                case 'L':
+                    d = (d + 1) % 4;
+                    break;
+                case 'R':
+                    d = (d + 3) % 4;
+                    break;
+                default:
+                    x += dirs[d][0];
+                    y += dirs[d][1];
+            }
+        }
+        return (x == 0 && y == 0) || d != 0;
     }
 };
 
