@@ -113,7 +113,15 @@ def get_submission_detail(submit_id: str, cookie: str):
         if not response.text:
             return None
         result_dict = json.loads(response.text)["data"]["submissionDetail"]
+        if result_dict['statusDisplay'] != 'Accepted':
+            # wrong solution, add testcase
+            return {
+                "statusDisplay": result_dict["statusDisplay"],
+                "input": result_dict["outputDetail"]["input"],
+                "output": result_dict["outputDetail"]["expectedOutput"]
+            }
         return {
+            "statusDisplay": result_dict["statusDisplay"],
             "code": result_dict["code"],
             "lang": result_dict["lang"],
             "runtime": result_dict["runtimeDisplay"],

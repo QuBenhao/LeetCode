@@ -59,6 +59,9 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: 
                 if language in cache:
                     continue
                 detail = lc_libs.get_submission_detail(submit_id, cookie)
+                if detail["statusDisplay"] != "Accepted":
+                    print("Wrong solution for question {}, {}".format(question_slug, detail["statusDisplay"]))
+                    continue
                 if not detail:
                     print(f"Unable to get submission detail for {submit_id}")
                     continue
