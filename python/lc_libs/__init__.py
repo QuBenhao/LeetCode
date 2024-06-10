@@ -1,7 +1,7 @@
 from .daily import get_daily_question
 from .question import get_question_info, get_question_desc, get_question_code, get_question_testcases, \
     extract_outputs_from_md, get_questions_by_key_word, CATEGORY_SLUG, LANGUAGE_SLUG
-from .submission import check_accepted_submission, get_submission_detail, check_accepted_submission_all
+from .submission import check_accepted_submission, get_submission_detail, check_accepted_submission_all, submit_code
 from .user import check_user_exist
 from .python_writer import (write_problem_md, write_testcase,
                             write_solution_python, write_solution_python3,

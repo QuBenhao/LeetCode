@@ -1,11 +1,14 @@
 import json
+import random
 import time
 from collections import defaultdict
 
 import requests
+from tqdm import tqdm
 
 from python.constants import (LEET_CODE_BACKEND, RECENT_SUBMISSIONS_QUERY, RECENT_AC_SUBMISSIONS_QUERY,
-                       USER_PROFILE_QUESTIONS_QUERY, PROGRESS_SUBMISSIONS_QUERY, MY_SUBMISSION_DETAIL_QUERY)
+                              USER_PROFILE_QUESTIONS_QUERY, PROGRESS_SUBMISSIONS_QUERY, MY_SUBMISSION_DETAIL_QUERY,
+                              SUBMIT_SUCCESS_RESULT, SUBMIT_BASIC_RESULT, SUBMIT_FAIL_RESULT)
 from python.utils import general_request, get_china_daily_time
 
 
@@ -108,7 +111,7 @@ def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp
     return ans
 
 
-def get_submission_detail(submit_id: str, cookie: str):
+def get_submission_detail(submit_id: str, cookie: str, handle_fun=None):
     def handle_response(response: requests.Response):
         if not response.text:
             return None
@@ -129,8 +132,100 @@ def get_submission_detail(submit_id: str, cookie: str):
             "timestamp": result_dict["timestamp"],
         }
 
-    return general_request(LEET_CODE_BACKEND, handle_response,
+    if handle_fun is None:
+        handle_fun = handle_response
+
+    return general_request(LEET_CODE_BACKEND, handle_fun,
                            json={"operationName": "submissionDetails",
                                  "variables": {"submissionId": submit_id},
                                  "query": MY_SUBMISSION_DETAIL_QUERY},
                            cookies={"cookie": cookie})
+
+
+async def submit_code(question_slug: str, cookie: str, lang: str, question_id: str, typed_code: str) -> dict | None:
+    def handle_submit_response(response: requests.Response):
+        if not response.text or response.status_code != 200:
+            print(response.text)
+            return None
+        result_dict = json.loads(response.text)
+        return result_dict["submission_id"]
+
+    def handle_submit_check_response(response: requests.Response):
+        if not response.text or response.status_code != 200:
+            print(response.text)
+            return False
+        result_dict = json.loads(response.text)
+        return result_dict["state"] == "SUCCESS"
+
+    def handle_submit_detail_response(response: requests.Response):
+        if not response.text or response.status_code != 200:
+            print(response.text)
+            return None
+        result_dict = json.loads(response.text)["data"]["submissionDetail"]
+        """
+        {
+          "codeOutput": "",
+          "expectedOutput": "",
+          "input": "",
+          "compileError": "",
+          "runtimeError": "",
+          "lastTestcase": ""
+        }
+        """
+        return {
+            "statusDisplay": result_dict["statusDisplay"],
+            "outputDetail": result_dict["outputDetail"],
+            "memory": result_dict["memory"],
+            "memoryDisplay": result_dict["memoryDisplay"],
+            "memoryPercentile": result_dict["memoryPercentile"],
+            "runtimeDisplay": result_dict["runtimeDisplay"],
+            "runtimePercentile": result_dict["runtimePercentile"],
+            "passedTestCaseCnt": result_dict["passedTestCaseCnt"],
+            "totalTestCaseCnt": result_dict["totalTestCaseCnt"],
+            "code": result_dict["code"],
+            "lang": result_dict["lang"],
+            "timestamp": result_dict["timestamp"],
+        }
+
+    submit_id = general_request(f"https://leetcode.cn/problems/{question_slug}/submit/", handle_submit_response,
+                                json={"lang": lang,
+                                      "question_id": question_id,
+                                      "typed_code": typed_code},
+                                cookies={"cookie": cookie})
+    if not submit_id:
+        return None
+    submit_success = False
+    for _ in tqdm(range(50)):
+        if general_request(f"https://leetcode.cn/submissions/detail/{submit_id}/check/",
+                           handle_submit_check_response):
+            submit_success = True
+            break
+        time.sleep(random.randint(200, 300) / 1000)
+    if not submit_success:
+        return None
+    submit_detail = get_submission_detail(submit_id, cookie, handle_submit_detail_response)
+    if submit_detail is None:
+        return None
+    if submit_detail["statusDisplay"] == "Accepted":
+        part = SUBMIT_SUCCESS_RESULT.format(
+            submit_detail["runtimeDisplay"],
+            submit_detail["runtimePercentile"],
+            submit_detail["memoryDisplay"],
+            submit_detail["memoryPercentile"]
+        )
+    else:
+        part = SUBMIT_FAIL_RESULT.format(
+            submit_detail["outputDetail"]["input"],
+            submit_detail["outputDetail"]["codeOutput"],
+            submit_detail["outputDetail"]["expectedOutput"],
+            submit_detail["outputDetail"]["compileError"],
+            submit_detail["outputDetail"]["runtimeError"],
+        )
+    print(SUBMIT_BASIC_RESULT.format(
+        submit_detail["statusDisplay"],
+        submit_detail["passedTestCaseCnt"],
+        submit_detail["totalTestCaseCnt"],
+        part,
+        typed_code
+    ))
+    return submit_detail
