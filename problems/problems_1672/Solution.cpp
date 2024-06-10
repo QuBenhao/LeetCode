@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <numeric>
 
 
 using namespace std;
@@ -8,7 +9,11 @@ using json = nlohmann::json;
 class Solution {
 public:
     int maximumWealth(vector<vector<int>>& accounts) {
-
+        int ans = 0;
+        for (auto account: accounts) {
+            ans = max(ans, std::accumulate(account.begin(), account.end(), 0));
+        }
+        return ans;
     }
 };
 
