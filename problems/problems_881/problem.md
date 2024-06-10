@@ -1,39 +1,38 @@
 # 881. Boats to Save People
 
-The `i`-th person has weight `people[i]`, and each boat can carry a maximum weight of `limit`.
+<p>You are given an array <code>people</code> where <code>people[i]</code> is the weight of the <code>i<sup>th</sup></code> person, and an <strong>infinite number of boats</strong> where each boat can carry a maximum weight of <code>limit</code>. Each boat carries at most two people at the same time, provided the sum of the weight of those people is at most <code>limit</code>.</p>
 
-Each boat carries at most 2 people at the same time, provided the sum of the weight of those people is at most `limit`.
+<p>Return <em>the minimum number of boats to carry every given person</em>.</p>
 
-Return the minimum number of boats to carry every given person. (It is guaranteed each person can be carried by a boat.)
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
- 
+<pre>
+<strong>Input:</strong> people = [1,2], limit = 3
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> 1 boat (1, 2)
+</pre>
 
-**Example 1:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: people = [1,2], limit = 3
-Output: 1
-Explanation: 1 boat (1, 2)
-```
+<pre>
+<strong>Input:</strong> people = [3,2,2,1], limit = 3
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> 3 boats (1, 2), (2) and (3)
+</pre>
 
-**Example 2:**
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: people = [3,2,2,1], limit = 3
-Output: 3
-Explanation: 3 boats (1, 2), (2) and (3)
-```
+<pre>
+<strong>Input:</strong> people = [3,5,3,4], limit = 5
+<strong>Output:</strong> 4
+<strong>Explanation:</strong> 4 boats (3), (3), (4), (5)
+</pre>
 
-**Example 3:**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-```
-Input: people = [3,5,3,4], limit = 5
-Output: 4
-Explanation: 4 boats (3), (3), (4), (5)
-```
-
-**Note**:
-
-- `1 <= people.length <= 50000`
-- `1 <= people[i] <= limit <= 30000`
-
+<ul>
+	<li><code>1 &lt;= people.length &lt;= 5 * 10<sup>4</sup></code></li>
+	<li><code>1 &lt;= people[i] &lt;= limit &lt;= 3 * 10<sup>4</sup></code></li>
+</ul>
