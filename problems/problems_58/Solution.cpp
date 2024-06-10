@@ -8,7 +8,10 @@ using json = nlohmann::json;
 class Solution {
 public:
     int lengthOfLastWord(string s) {
-
+        int idx, i;
+        for (idx = s.length() - 1; idx >= 0 && s[idx] == ' '; idx--) {}
+        for (i = idx - 1; i >= 0 && s[i] != ' '; i--) {}
+        return idx - i;
     }
 };
 

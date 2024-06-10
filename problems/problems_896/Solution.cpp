@@ -8,7 +8,21 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool isMonotonic(vector<int>& nums) {
-
+        bool inc = false, dec = false;
+        for (int i = 0; i < nums.size() - 1; i++) {
+            if (nums[i] < nums[i + 1]) {
+                if (dec) {
+                    return false;
+                }
+                inc = true;
+            } else if (nums[i] > nums[i + 1]) {
+                if (inc) {
+                    return false;
+                }
+                dec = true;
+            }
+        }
+        return true;
     }
 };
 
