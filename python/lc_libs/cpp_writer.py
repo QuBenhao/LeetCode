@@ -114,3 +114,7 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
         "\n\t".join(return_part),
         "}"
     )
+
+
+def get_solution_code_cpp(root_path, problem_folder: str, problem_id: str) -> (str, str):
+    pass
