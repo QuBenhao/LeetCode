@@ -498,7 +498,7 @@ def write_solution_python3(code_template: str, code: str = None, problem_id: str
     return write_solution_python(code_template, code, problem_id)
 
 
-def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -> str:
+def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -> (str, str):
     if not problem_id:
         test_path = os.path.join(root_path, "python", "test.py")
         with open(test_path, "r", encoding="utf-8") as f:
@@ -508,10 +508,10 @@ def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -
                     problem_id = line.split("=")[-1].strip().replace('"', '')
                     break
     if not problem_id:
-        return ""
+        return "", problem_id
     file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "solution.py")
     if not os.path.exists(file_path):
-        return ""
+        return "", problem_id
     final_codes = []
     solve_part = False
     with open(file_path, "r", encoding="utf-8") as f:
@@ -530,4 +530,4 @@ def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -
                     solve_part = False
                 continue
             final_codes.append(line)
-    return "\n".join(final_codes)
+    return "\n".join(final_codes), problem_id

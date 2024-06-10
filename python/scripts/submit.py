@@ -20,9 +20,12 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     if not code_func:
         print(f"{lang} is not supported yet!")
         return
-    code = code_func(root_path, problem_folder, problem_id)
+    code, problem_id = code_func(root_path, problem_folder, problem_id)
     if not code:
         print("No solution yet!")
+        return
+    if not problem_id:
+        print("Unable to get problem_id")
         return
     questions = lc_libs.get_questions_by_key_word(problem_id)
     if not questions:
