@@ -1,3 +1,4 @@
+import asyncio
 import os
 import sys
 import traceback
@@ -12,14 +13,17 @@ from python.constants import constant
 from python.utils import get_default_folder, send_text_message
 
 
-def main(root_path, problem_id: str, lang: str, cookie: str, problem_folder: str = None):
+async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folder: str = None):
     if not problem_folder:
         problem_folder = get_default_folder()
     code_func = getattr(lc_libs, "get_solution_code_{}".format(lang), None)
     if not code_func:
         print(f"{lang} is not supported yet!")
         return
-    code = code_func(root_path, problem_folder, problem_id, lang)
+    code = code_func(root_path, problem_folder, problem_id)
+    if not code:
+        print("No solution yet!")
+        return
     questions = lc_libs.get_questions_by_key_word(problem_id)
     if not questions:
         print(f"Unable to find any questions with problem_id {problem_id}")
@@ -34,7 +38,12 @@ def main(root_path, problem_id: str, lang: str, cookie: str, problem_folder: str
     if not problem_slug:
         print(f"Unable to find any questions with problem_id {problem_id}, possible questions: {questions}")
         return
-    result = lc_libs.submit_code(problem_slug, cookie, lang, problem_id, code)
+    problem_info = lc_libs.get_question_info(problem_slug, cookie)
+    if not problem_info:
+        print(f"Unable to get problem info: {problem_id}")
+        return
+    lc_question_id = problem_info["questionId"]
+    result = await lc_libs.submit_code(problem_slug, cookie, lang, lc_question_id, code)
     return result
 
 
@@ -51,12 +60,12 @@ if __name__ == '__main__':
         print(f"Load Env exception, {e}")
         traceback.print_exc()
     question_id = args.id
-
     cke = os.getenv(constant.COOKIE)
     try:
         langs = os.getenv(constant.LANGUAGES, "python3").split(",")
     except Exception as _:
         traceback.print_exc()
         langs = ["python3"]
-    main(rp, question_id, args.lang, cke)
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(main(rp, question_id, args.lang, cke))
     sys.exit(0)

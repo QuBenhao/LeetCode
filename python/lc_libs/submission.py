@@ -142,7 +142,8 @@ def get_submission_detail(submit_id: str, cookie: str, handle_fun=None):
                            cookies={"cookie": cookie})
 
 
-async def submit_code(question_slug: str, cookie: str, lang: str, question_id: str, typed_code: str) -> dict | None:
+async def submit_code(question_slug: str, cookie: str, lang: str,
+                      leetcode_question_id: str, typed_code: str) -> dict | None:
     def handle_submit_response(response: requests.Response):
         if not response.text or response.status_code != 200:
             print(response.text)
@@ -189,15 +190,18 @@ async def submit_code(question_slug: str, cookie: str, lang: str, question_id: s
 
     submit_id = general_request(f"https://leetcode.cn/problems/{question_slug}/submit/", handle_submit_response,
                                 json={"lang": lang,
-                                      "question_id": question_id,
+                                      "question_id": leetcode_question_id,
                                       "typed_code": typed_code},
-                                cookies={"cookie": cookie})
+                                cookies={"cookie": cookie},
+                                headers={"Origin": "https://leetcode.cn"})
     if not submit_id:
         return None
     submit_success = False
     for _ in tqdm(range(50)):
         if general_request(f"https://leetcode.cn/submissions/detail/{submit_id}/check/",
-                           handle_submit_check_response):
+                           handle_submit_check_response,
+                           cookies={"cookie": cookie},
+                           headers={"Origin": "https://leetcode.cn"}):
             submit_success = True
             break
         time.sleep(random.randint(200, 300) / 1000)

@@ -5,7 +5,7 @@ from .submission import check_accepted_submission, get_submission_detail, check_
 from .user import check_user_exist
 from .python_writer import (write_problem_md, write_testcase,
                             write_solution_python, write_solution_python3,
-                            change_test_python, change_test_python3)
+                            change_test_python, change_test_python3, get_solution_code_python3)
 from .golang_writer import write_solution_golang, change_test_golang
 from .java_writer import write_solution_java, change_test_java
 from .cpp_writer import write_solution_cpp, change_test_cpp

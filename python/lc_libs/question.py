@@ -21,7 +21,8 @@ def get_question_info(slug: str, cookie: Optional[str] = None) -> Optional[dict]
             "title": res_dict['title'],
             "difficulty": res_dict['difficulty'],
             "questionFrontendId": res_dict['questionFrontendId'],
-            "categoryTitle": res_dict["categoryTitle"]
+            "categoryTitle": res_dict["categoryTitle"],
+            "questionId": res_dict["questionId"]
         }
 
     return general_request(LEET_CODE_BACKEND, handle_response,
