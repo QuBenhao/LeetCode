@@ -7,7 +7,13 @@ import (
 )
 
 func lengthOfLastWord(s string) int {
-
+	idx := len(s) - 1
+	for ; idx >= 0 && s[idx] == ' '; idx-- {
+	}
+	i := idx - 1
+	for ; i >= 0 && s[i] != ' '; i-- {
+	}
+	return idx - i
 }
 
 func Solve(input string) interface{} {

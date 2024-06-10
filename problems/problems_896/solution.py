@@ -1,5 +1,6 @@
 import solution
 from typing import *
+from itertools import pairwise
 
 
 class Solution(solution.Solution):

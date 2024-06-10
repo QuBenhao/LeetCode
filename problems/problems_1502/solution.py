@@ -15,4 +15,3 @@ class Solution(solution.Solution):
                 return False
             last = arr[i]
         return True
-

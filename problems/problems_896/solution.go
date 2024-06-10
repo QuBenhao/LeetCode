@@ -7,7 +7,20 @@ import (
 )
 
 func isMonotonic(nums []int) bool {
-
+	for i, inc, dec := 0, false, false; i < len(nums)-1; i++ {
+		if nums[i] < nums[i+1] {
+			if dec {
+				return false
+			}
+			inc = true
+		} else if nums[i] > nums[i+1] {
+			if inc {
+				return false
+			}
+			dec = true
+		}
+	}
+	return true
 }
 
 func Solve(input string) interface{} {

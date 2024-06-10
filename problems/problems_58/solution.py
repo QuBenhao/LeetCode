@@ -15,4 +15,3 @@ class Solution(solution.Solution):
                 continue
             ans += 1
         return ans
-
