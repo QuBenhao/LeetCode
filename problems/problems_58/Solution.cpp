@@ -7,8 +7,11 @@ using json = nlohmann::json;
 
 class Solution {
 public:
-    int catMouseGame(vector<vector<int>>& graph) {
-
+    int lengthOfLastWord(string s) {
+        int idx, i;
+        for (idx = s.length() - 1; idx >= 0 && s[idx] == ' '; idx--) {}
+        for (i = idx - 1; i >= 0 && s[i] != ' '; i--) {}
+        return idx - i;
     }
 };
 
@@ -24,6 +27,6 @@ json leetcode::qubh::Solve(string input)
 	inputArray.push_back(input);
 
 	Solution solution;
-	vector<vector<int>> graph = json::parse(inputArray.at(0));
-	return solution.catMouseGame(graph);
+	string s = json::parse(inputArray.at(0));
+	return solution.lengthOfLastWord(s);
 }

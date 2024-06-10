@@ -3,11 +3,19 @@ package problem881
 import (
 	"encoding/json"
 	"log"
+	"sort"
 	"strings"
 )
 
-func numRescueBoats(people []int, limit int) int {
-
+func numRescueBoats(people []int, limit int) (ans int) {
+	sort.Ints(people)
+	for left, right := 0, len(people)-1; left <= right; right-- {
+		if people[left]+people[right] <= limit {
+			left++
+		}
+		ans++
+	}
+	return
 }
 
 func Solve(input string) interface{} {

@@ -6,8 +6,15 @@ import (
 	"strings"
 )
 
-func maximumWealth(accounts [][]int) int {
-
+func maximumWealth(accounts [][]int) (ans int) {
+	for _, account := range accounts {
+		s := 0
+		for _, a := range account {
+			s += a
+		}
+		ans = max(ans, s)
+	}
+	return
 }
 
 func Solve(input string) interface{} {

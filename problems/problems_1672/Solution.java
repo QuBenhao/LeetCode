@@ -7,7 +7,15 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int maximumWealth(int[][] accounts) {
-
+        int ans = 0;
+        for (int[] account : accounts) {
+            int s = 0;
+            for (int a : account) {
+                s += a;
+            }
+            ans = Math.max(ans, s);
+        }
+        return ans;
     }
 
     @Override
