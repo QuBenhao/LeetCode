@@ -24,4 +24,3 @@ class Solution(solution.Solution):
         index = 1 if ansArr[0] == 0 else 0
         ans = "".join(str(x) for x in ansArr[index:])
         return ans
-\

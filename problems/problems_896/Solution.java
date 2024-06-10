@@ -7,7 +7,21 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public boolean isMonotonic(int[] nums) {
-
+        boolean inc = false, dec = false;
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] < nums[i + 1]) {
+                if (dec) {
+                    return false;
+                }
+                inc = true;
+            } else if (nums[i] > nums[i + 1]) {
+                if (inc) {
+                    return false;
+                }
+                dec = true;
+            }
+        }
+        return true;
     }
 
     @Override
