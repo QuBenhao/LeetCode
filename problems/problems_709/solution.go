@@ -7,7 +7,7 @@ import (
 )
 
 func toLowerCase(s string) string {
-
+	return strings.ToLower(s)
 }
 
 func Solve(input string) interface{} {

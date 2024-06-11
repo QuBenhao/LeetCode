@@ -7,7 +7,13 @@ import (
 )
 
 func mergeAlternately(word1 string, word2 string) string {
-
+	var ans []byte
+	m := min(len(word1), len(word2))
+	for i := 0; i < m; i++ {
+		ans = append(ans, word1[i])
+		ans = append(ans, word2[i])
+	}
+	return string(ans) + word1[m:] + word2[m:]
 }
 
 func Solve(input string) interface{} {
