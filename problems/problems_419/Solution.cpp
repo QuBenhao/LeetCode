@@ -1,6 +1,5 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
-#include <iostream>
 
 
 using namespace std;
@@ -33,12 +32,12 @@ json leetcode::qubh::Solve(string input)
 	inputArray.push_back(input);
 
 	Solution solution;
-	vector<vector<string>> str = json::parse(inputArray.at(0));
-    auto board = vector<vector<char>>(str.size(), vector<char>(str[0].size()));
-    for (int i = 0; i < board.size(); i++) {
-        for (int j = 0; j < board[i].size(); j++) {
-            board[i][j] = str[i][j][0];
-        }
-    }
+	vector<vector<string>> board_str = json::parse(inputArray.at(0));
+	auto board = vector<vector<char>>(board_str.size(), vector<char>(board_str[0].size()));
+	for (int i = 0; i < board.size(); i++) {
+		for (int j = 0; j < board[i].size(); j++) {
+			board[i][j] = board_str[i][j][0];
+		}
+	}
 	return solution.countBattleships(board);
 }
