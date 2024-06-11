@@ -24,7 +24,7 @@ def __process_variable_type(input_name: str, variable_name: str, rt_type: str) -
         case "int[]":
             return f"{rt_type} {variable_name} = jsonArrayToIntArray({input_name});"
         case "String":
-            return f"{rt_type} {variable_name} = {input_name};"
+            return f"{rt_type} {variable_name} = jsonStringToString({input_name});"
         case "String[]":
             return f"{rt_type} {variable_name} = jsonArrayToStringArray({input_name});"
         case "String[][]":
@@ -39,6 +39,10 @@ def __process_variable_type(input_name: str, variable_name: str, rt_type: str) -
             return f"{rt_type} {variable_name} = jsonArrayToListNodeArray({input_name});"
         case "TreeNode":
             return f"{rt_type} {variable_name} = TreeNode.ArrayToTreeNode({input_name});"
+        case "char[]":
+            return f"{rt_type} {variable_name} = jsonArrayToCharArray({input_name});"
+        case "char[][]":
+            return f"{rt_type} {variable_name} = jsonArrayToChar2DArray({input_name});"
         case _:
             print("Java type not Implemented yet: {}".format(rt_type))
     return f"{rt_type} {variable_name} = FIXME({input_name})"

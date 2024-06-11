@@ -10,11 +10,9 @@ public class Solution extends BaseSolution {
         return s.toLowerCase();
     }
 
-
-
     @Override
     public Object solve(String[] values) {
-        String s = values[0];
+        String s = jsonStringToString(values[0]);
         return JSON.toJSON(toLowerCase(s));
     }
 }

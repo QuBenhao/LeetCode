@@ -77,15 +77,33 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
         process_variables.append("\tSolution solution;")
         for i, variable in enumerate(variables):
             rt = variable[0] if not variable[0].endswith("&") and not variable[0].endswith("*") else variable[0][:-1]
-            if rt == "ListNode":
-                process_variables.append(
-                    "std::vector<int> " + variable[1] + "_array" + f" = json::parse(inputArray.at({i}));")
-                process_variables.append(rt + " *" + variable[1] + f" = IntArrayToListNode({variable[1]}_array);")
-            elif rt == "TreeNode":
-                process_variables.append("json " + variable[1] + "_array" + f" = json::parse(inputArray.at({i}));")
-                process_variables.append(rt + " *" + variable[1] + f" = JsonArrayToTreeNode({variable[1]}_array);")
-            else:
-                process_variables.append(rt + " " + variable[1] + f" = json::parse(inputArray.at({i}));")
+            match rt:
+                case "ListNode":
+                    process_variables.append(
+                        "std::vector<int> " + variable[1] + "_array" + f" = json::parse(inputArray.at({i}));")
+                    process_variables.append(rt + " *" + variable[1] + f" = IntArrayToListNode({variable[1]}_array);")
+                case "TreeNode":
+                    process_variables.append("json " + variable[1] + "_array" + f" = json::parse(inputArray.at({i}));")
+                    process_variables.append(rt + " *" + variable[1] + f" = JsonArrayToTreeNode({variable[1]}_array);")
+                case "vector<char>":
+                    process_variables.append(
+                        "vector<string> " + variable[1] + "_str" + f" = json::parse(inputArray.at({i}));")
+                    process_variables.append(f"auto {variable[1]} = {rt}({variable[1]}_str.size());")
+                    process_variables.append("for (int i = 0; i < " + variable[1] + ".size(); i++) {")
+                    process_variables.append(f"\t{variable[1]}[i] = {variable[1]}_str[i][0];")
+                    process_variables.append("}")
+                case "vector<vector<char>>":
+                    process_variables.append(
+                        "vector<vector<string>> " + variable[1] + "_str" + f" = json::parse(inputArray.at({i}));")
+                    process_variables.append(f"auto {variable[1]} = {rt}({variable[1]}_str.size(),"
+                                             f" vector<char>({variable[1]}_str[0].size()));")
+                    process_variables.append("for (int i = 0; i < " + variable[1] + ".size(); i++) {")
+                    process_variables.append("\tfor (int j = 0; j < " + variable[1] + "[i].size(); j++) {")
+                    process_variables.append(f"\t\t{variable[1]}[i][j] = {variable[1]}_str[i][j][0];")
+                    process_variables.append("\t}")
+                    process_variables.append("}")
+                case _:
+                    process_variables.append(rt + " " + variable[1] + f" = json::parse(inputArray.at({i}));")
         if "ListNode" in ret_type:
             return_part.append(
                 "\treturn ListNodeToIntArray(solution.{}({}));"
