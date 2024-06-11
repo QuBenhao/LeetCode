@@ -7,7 +7,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public String toLowerCase(String s) {
-
+        return s.toLowerCase();
     }
 
     @Override

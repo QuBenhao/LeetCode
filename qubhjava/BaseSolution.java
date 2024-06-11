@@ -79,4 +79,30 @@ public abstract class BaseSolution {
         return result;
     }
 
+    protected char[] jsonArrayToCharArray(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        char[] result = new char[jsonArray.size()];
+        for (int i = 0; i < jsonArray.size(); i++) {
+            result[i] = jsonArray.getString(i).charAt(0);
+        }
+        return result;
+    }
+
+    protected char[][] jsonArrayToChar2DArray(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        char[][] result = new char[jsonArray.size()][];
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONArray innerArray = jsonArray.getJSONArray(i);
+            result[i] = new char[innerArray.size()];
+            for (int j = 0; j < innerArray.size(); j++) {
+                result[i][j] = innerArray.getString(j).charAt(0);
+            }
+        }
+        return result;
+    }
+
+    protected String jsonStringToString(String jsonString) {
+        return jsonString.replaceAll("\"", "");
+    }
+
 }
