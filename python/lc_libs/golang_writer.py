@@ -280,3 +280,7 @@ def write_solution_golang(code_default: str, code: str = None, problem_id: str =
         ", ".join(list(zip(*its))[3]),
         "}",
     )
+
+
+def get_solution_code_golang(root_path, problem_folder: str, problem_id: str) -> (str, str):
+    pass

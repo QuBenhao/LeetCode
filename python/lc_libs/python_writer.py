@@ -496,3 +496,38 @@ def write_solution_python(code_template: str, code: str = None, problem_id: str 
 
 def write_solution_python3(code_template: str, code: str = None, problem_id: str = "") -> str:
     return write_solution_python(code_template, code, problem_id)
+
+
+def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -> (str, str):
+    if not problem_id:
+        test_path = os.path.join(root_path, "python", "test.py")
+        with open(test_path, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+            for line in lines:
+                if line.strip().startswith("QUESTION ="):
+                    problem_id = line.split("=")[-1].strip().replace('"', '')
+                    break
+    if not problem_id:
+        return "", problem_id
+    file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "solution.py")
+    if not os.path.exists(file_path):
+        return "", problem_id
+    final_codes = []
+    solve_part = False
+    with open(file_path, "r", encoding="utf-8") as f:
+        lines = f.read().split("\n")
+        for line in lines:
+            if line.startswith("import") or line.startswith("from "):
+                continue
+            if "class Solution(solution.Solution):" in line:
+                final_codes.append("class Solution:")
+                continue
+            if "def solve(self, test_input=None):" in line:
+                solve_part = True
+                continue
+            if solve_part:
+                if "return " in line:
+                    solve_part = False
+                continue
+            final_codes.append(line)
+    return "\n".join(final_codes), problem_id

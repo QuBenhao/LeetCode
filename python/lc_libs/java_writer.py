@@ -98,3 +98,7 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
         "}",
         "}"
     )
+
+
+def get_solution_code_java(root_path, problem_folder: str, problem_id: str) -> (str, str):
+    pass
