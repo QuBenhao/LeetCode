@@ -46,7 +46,13 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
         print(f"Unable to get problem info: {problem_id}")
         return
     lc_question_id = problem_info["questionId"]
-    result = await lc_libs.submit_code(problem_slug, cookie, lang, lc_question_id, code)
+    plans = lc_libs.get_user_study_plans(cookie)
+    for plan in plans:
+        all_problems = lc_libs.get_user_study_plan_progress(plan, cookie, 0).get("all_problems", set())
+        if problem_slug in all_problems:
+            result = await lc_libs.submit_code(problem_slug, cookie, lang, lc_question_id, code)
+    else:
+        result = await lc_libs.submit_code(problem_slug, cookie, lang, lc_question_id, code)
     return result
 
 
