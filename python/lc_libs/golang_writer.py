@@ -287,7 +287,7 @@ def write_solution_golang(code_default: str, code: str = None, problem_id: str =
 
 def get_solution_code_golang(root_path, problem_folder: str, problem_id: str) -> (str, str):
     if not problem_id:
-        with open(f"{root_path}/golang/solution_test.go", 'r', encoding="utf-8") as f:
+        with open(os.path.join(root_path, "golang", "solution_test.go"), 'r', encoding="utf-8") as f:
             lines = f.read().split('\n')
             for line in lines:
                 if "var problemId string = \"" in line:

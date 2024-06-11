@@ -500,8 +500,7 @@ def write_solution_python3(code_template: str, code: str = None, problem_id: str
 
 def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -> (str, str):
     if not problem_id:
-        test_path = os.path.join(root_path, "python", "test.py")
-        with open(test_path, "r", encoding="utf-8") as f:
+        with open(os.path.join(root_path, "python", "test.py"), "r", encoding="utf-8") as f:
             lines = f.readlines()
             for line in lines:
                 if line.strip().startswith("QUESTION ="):
