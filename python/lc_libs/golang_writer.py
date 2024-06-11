@@ -115,6 +115,29 @@ def __process_inputs(code_default: str,
                         imports_libs.add("\t. \"leetCode/golang/node_random\"")
                         imports_libs.add("\t\"encoding/json\"")
                         imports_libs.add("\t\"log\"")
+                case "[]byte":
+                    for var in vrs:
+                        json_parse.append(f"\tvar {var}Str []string\n")
+                        json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
+                                          "Str); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                        json_parse.append(f"\t{var} := make([]byte, len({var}Str))\n")
+                        json_parse.append("\tfor i := 0; i < len(" + var + "); i++ {\n")
+                        json_parse.append(f"\t\t{var}[i] = {var}Str[i][0]\n")
+                        json_parse.append("\t}\n")
+                case "[][]byte":
+                    for var in vrs:
+                        json_parse.append(f"\tvar {var}Str [][]string\n")
+                        json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
+                                          "Str); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                        json_parse.append(f"\t{var} = make([][]byte, len({var}Str))\n")
+                        json_parse.append("\tfor i := 0; i < len(" + var + "); i++ {\n")
+                        json_parse.append(f"\t\t{var}[i] = make([]byte, len({var}Str[i]))\n")
+                        json_parse.append("\t\tfor j := 0; j < len(" + var + "[i]); j++ {\n")
+                        json_parse.append(f"\t\t\t{var}[i][j] = {var}Str[i][j][0]\n")
+                        json_parse.append("\t\t}\n")
+                        json_parse.append("\t}\n")
+                    imports_libs.add("\t\"encoding/json\"")
+                    imports_libs.add("\t\"log\"")
                 case _:
                     for var in vrs:
                         json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
