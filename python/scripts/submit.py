@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import python.lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, send_text_message
+from python.utils import get_default_folder
 
 
 async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folder: str = None):
