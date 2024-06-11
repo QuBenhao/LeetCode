@@ -20,6 +20,11 @@ install requirements:
 pip install -r python/requirements
 ```
 
+To directly submit Solution to LeetCode:
+```shell
+python python/scripts/submit.py python3 -id=1
+```
+
 # Supported Languages
 
 ## Python3
