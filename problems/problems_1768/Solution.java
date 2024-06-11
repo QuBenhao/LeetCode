@@ -18,12 +18,10 @@ public class Solution extends BaseSolution {
         return sb.toString();
     }
 
-
-
     @Override
     public Object solve(String[] values) {
-        String word1 = values[0];
-		String word2 = values[1];
+        String word1 = jsonStringToString(values[0]);
+		String word2 = jsonStringToString(values[1]);
         return JSON.toJSON(mergeAlternately(word1, word2));
     }
 }
