@@ -18,6 +18,8 @@ public class Solution extends BaseSolution {
         return sb.toString();
     }
 
+
+
     @Override
     public Object solve(String[] values) {
         String word1 = values[0];
