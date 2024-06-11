@@ -2,7 +2,7 @@ import inspect
 import os
 import time
 import traceback
-from collections import defaultdict
+from collections import defaultdict, deque
 from importlib.util import spec_from_file_location, module_from_spec
 
 from python.constants import TESTCASE_TEMPLATE_PYTHON, TESTCASE_TEMPLATE_PYTHON_TESTCASES, SOLUTION_TEMPLATE_PYTHON
@@ -500,8 +500,7 @@ def write_solution_python3(code_template: str, code: str = None, problem_id: str
 
 def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -> (str, str):
     if not problem_id:
-        test_path = os.path.join(root_path, "python", "test.py")
-        with open(test_path, "r", encoding="utf-8") as f:
+        with open(os.path.join(root_path, "python", "test.py"), "r", encoding="utf-8") as f:
             lines = f.readlines()
             for line in lines:
                 if line.strip().startswith("QUESTION ="):
@@ -512,7 +511,7 @@ def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -
     file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "solution.py")
     if not os.path.exists(file_path):
         return "", problem_id
-    final_codes = []
+    final_codes = deque([])
     solve_part = False
     with open(file_path, "r", encoding="utf-8") as f:
         lines = f.read().split("\n")
@@ -530,4 +529,6 @@ def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -
                     solve_part = False
                 continue
             final_codes.append(line)
+    while final_codes and final_codes[0].strip() == '':
+        final_codes.popleft()
     return "\n".join(final_codes), problem_id

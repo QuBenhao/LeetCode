@@ -5,8 +5,8 @@ SUBMIT_BASIC_RESULT = """{} {}/{}个通过的测试用例
 代码: {}
 """
 
-SUBMIT_SUCCESS_RESULT = """执行用时: {} 击败{}
-消耗内存: {} 击败{}"""
+SUBMIT_SUCCESS_RESULT = """执行用时: {} 击败{}%
+消耗内存: {} 击败{}%"""
 
 SUBMIT_FAIL_RESULT = """输入
 `{}`

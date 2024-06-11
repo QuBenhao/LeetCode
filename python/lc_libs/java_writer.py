@@ -1,3 +1,6 @@
+import os.path
+from collections import deque
+
 from python.constants import SOLUTION_TEMPLATE_JAVA
 
 
@@ -101,4 +104,42 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
 
 
 def get_solution_code_java(root_path, problem_folder: str, problem_id: str) -> (str, str):
-    pass
+    if not problem_id:
+        with open(os.path.join(root_path, "qubhjava", "test", "TestMain.java"), 'r', encoding="utf-8") as f:
+            lines = f.read().split("\n")
+            for line in lines:
+                if "private static final String PROBLEM_ID = \"" in line:
+                    problem_id = line.split('"')[1]
+                    break
+    if not problem_id:
+        return "", problem_id
+    file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "Solution.java")
+    if not os.path.exists(file_path):
+        return "", problem_id
+    final_codes = deque([])
+    with open(file_path, 'r', encoding="utf-8") as f:
+        lines = f.read().split("\n")
+        solve_part = False
+        for line in lines:
+            if line.startswith("package "):
+                continue
+            if line.startswith("import "):
+                continue
+            if "public Object solve(String[] values) {" in line:
+                last = final_codes.pop()
+                if last.strip() != "@Override":
+                    final_codes.append(last)
+                solve_part = True
+                continue
+            if solve_part and line.strip() != "}":
+                continue
+            elif solve_part:
+                solve_part = False
+                continue
+            if "public class Solution extends BaseSolution {" in line:
+                final_codes.append("class Solution {")
+                continue
+            final_codes.append(line)
+    while final_codes and final_codes[0].strip() == '':
+        final_codes.popleft()
+    return "\n".join(final_codes), problem_id

@@ -6,7 +6,7 @@ from .user import check_user_exist
 from .python_writer import (write_problem_md, write_testcase,
                             write_solution_python, write_solution_python3,
                             change_test_python, change_test_python3, get_solution_code_python3)
-from .golang_writer import write_solution_golang, change_test_golang
-from .java_writer import write_solution_java, change_test_java
-from .cpp_writer import write_solution_cpp, change_test_cpp
+from .golang_writer import write_solution_golang, change_test_golang, get_solution_code_golang
+from .java_writer import write_solution_java, change_test_java, get_solution_code_java
+from .cpp_writer import write_solution_cpp, change_test_cpp, get_solution_code_cpp
 from .study_plan import get_user_study_plans, get_user_study_plan_progress
