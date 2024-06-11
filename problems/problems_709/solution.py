@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.toLowerCase(test_input)
 
     def toLowerCase(self, s: str) -> str:
-        pass
-
+        return s.lower()
