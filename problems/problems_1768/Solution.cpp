@@ -8,7 +8,15 @@ using json = nlohmann::json;
 class Solution {
 public:
     string mergeAlternately(string word1, string word2) {
-
+        string ans;
+        int m = min(word1.length(), word2.length());
+        for (int i = 0; i < m; i++) {
+            ans += word1[i];
+            ans += word2[i];
+        }
+        ans += word1.substr(m, word1.length());
+        ans += word2.substr(m, word2.length());
+        return ans;
     }
 };
 
