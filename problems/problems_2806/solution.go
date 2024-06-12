@@ -7,7 +7,7 @@ import (
 )
 
 func accountBalanceAfterPurchase(purchaseAmount int) int {
-
+	return 100 - (purchaseAmount+5)/10*10
 }
 
 func Solve(input string) interface{} {
