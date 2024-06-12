@@ -1,41 +1,29 @@
-# 28. Implement strStr()
+# 28. Find the Index of the First Occurrence in a String
 
-Implement [strStr()](http://www.cplusplus.com/reference/cstring/strstr/).
+<p>Given two strings <code>needle</code> and <code>haystack</code>, return the index of the first occurrence of <code>needle</code> in <code>haystack</code>, or <code>-1</code> if <code>needle</code> is not part of <code>haystack</code>.</p>
 
-Return the index of the first occurrence of needle in haystack, or `-1` if `needle` is not part of `haystack`.
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Clarification:**
+<pre>
+<strong>Input:</strong> haystack = &quot;sadbutsad&quot;, needle = &quot;sad&quot;
+<strong>Output:</strong> 0
+<strong>Explanation:</strong> &quot;sad&quot; occurs at index 0 and 6.
+The first occurrence is at index 0, so we return 0.
+</pre>
 
-What should we return when `needle` is an empty string? This is a great question to ask during an interview.
+<p><strong class="example">Example 2:</strong></p>
 
-For the purpose of this problem, we will return 0 when `needle` is an empty string. This is consistent to C's [strstr()](http://www.cplusplus.com/reference/cstring/strstr/) and Java's [indexOf()](https://docs.oracle.com/javase/7/docs/api/java/lang/String.html#indexOf(java.lang.String)).
+<pre>
+<strong>Input:</strong> haystack = &quot;leetcode&quot;, needle = &quot;leeto&quot;
+<strong>Output:</strong> -1
+<strong>Explanation:</strong> &quot;leeto&quot; did not occur in &quot;leetcode&quot;, so we return -1.
+</pre>
 
- 
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 1:**
-
-```
-Input: haystack = "hello", needle = "ll"
-Output: 2
-```
-
-**Example 2:**
-
-```
-Input: haystack = "aaaaa", needle = "bba"
-Output: -1
-```
-
-**Example 3:**
-
-```
-Input: haystack = "", needle = ""
-Output: 0
-```
-
- 
-
-**Constraints:**
-
-- 0 <= haystack.length, needle.length <= 5 * 10<sup>4</sup>
-- `haystack` and `needle` consist of only lower-case English characters.
+<ul>
+	<li><code>1 &lt;= haystack.length, needle.length &lt;= 10<sup>4</sup></code></li>
+	<li><code>haystack</code> and <code>needle</code> consist of only lowercase English characters.</li>
+</ul>
