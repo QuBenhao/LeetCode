@@ -1,4 +1,5 @@
 import json
+import os
 import random
 import time
 from collections import defaultdict
@@ -142,7 +143,54 @@ def get_submission_detail(submit_id: str, cookie: str, handle_fun=None):
                            cookies={"cookie": cookie})
 
 
-async def submit_code(question_slug: str, cookie: str, lang: str,
+def _add_test(root_path, question_id: str, code_input: str, expected_output: str):
+    need_add_test = True
+    code_input_py = code_input.replace(" ", "")
+    if "\n" in code_input_py:
+        code_input_py = code_input_py.replace("\n", ",")
+        code_input_py = f"[{code_input_py}]"
+
+    file_path = os.path.join(root_path, "problems", f"problems_{question_id}", "testcase.py")
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read().split("\n")
+        for line in content:
+            if "self.testcases.append(case(Input=" in line:
+                splits = line.split(", Output=")
+                ipt, opt = splits[0].split("=")[-1].strip(), splits[-1].strip()[:-2]
+                if ipt.replace(" ", "") == code_input_py and \
+                        opt.replace(" ", "") == expected_output.replace(" ", ""):
+                    need_add_test = False
+                    break
+    if need_add_test:
+        new_content = []
+        add_line = False
+        for line in content:
+            if line.strip().startswith("self.testcases.append(case(Input="):
+                add_line = True
+            elif add_line:
+                new_content.append(
+                    f"        self.testcases.append(case(Input={code_input_py}, Output={expected_output}))")
+                add_line = False
+            new_content.append(line)
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write("\n".join(new_content))
+
+    need_add_test = True
+    file_path = os.path.join(root_path, "problems", f"problems_{question_id}", "testcase")
+    with open(file_path, 'r', encoding='utf-8') as f:
+        content = f.read().split("\n")
+        code_input = code_input.replace("\n", "\\n")
+        if f"\"{code_input}\"".replace(" ", "") in content[0].replace(" ", "") \
+                and expected_output.replace(" ", "") in content[1].replace(" ", ""):
+            need_add_test = False
+    if need_add_test:
+        new_content = "\n".join([content[0][:-1] + ", \"{}\"]".format(code_input),
+                                 content[1][:-1] + f", {expected_output}]"])
+        with open(file_path, 'w', encoding="utf-8") as f:
+            f.write(new_content)
+
+
+async def submit_code(root_path, question_id: str, question_slug: str, cookie: str, lang: str,
                       leetcode_question_id: str, typed_code: str, study_plan_slug: str = None) -> dict | None:
     def handle_submit_response(response: requests.Response):
         if not response.text or response.status_code != 200:
@@ -228,6 +276,9 @@ async def submit_code(question_slug: str, cookie: str, lang: str,
             submit_detail["outputDetail"]["compileError"],
             submit_detail["outputDetail"]["runtimeError"],
         )
+        _add_test(root_path, question_id,
+                  submit_detail["outputDetail"]["input"], submit_detail["outputDetail"]["expectedOutput"])
+
     print(SUBMIT_BASIC_RESULT.format(
         submit_detail["statusDisplay"],
         submit_detail["passedTestCaseCnt"],
