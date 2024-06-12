@@ -513,14 +513,26 @@ def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -
         return "", problem_id
     final_codes = deque([])
     solve_part = False
+    class_part = False
     with open(file_path, "r", encoding="utf-8") as f:
-        lines = f.read().split("\n")
+        content = f.read()
+        skip_solution = "from python.object_libs import " in content and " call_method" in content
+        lines = content.split("\n")
         for line in lines:
             if line.startswith("import") or line.startswith("from "):
                 continue
             if "class Solution(solution.Solution):" in line:
-                final_codes.append("class Solution:")
+                if not skip_solution:
+                    final_codes.append("class Solution:")
                 continue
+            if "class Node:" in line or "class ListNode:" in line or "class TreeNode" in line:
+                class_part = True
+                continue
+            if class_part:
+                if line.strip() == '' or line.startswith("class"):
+                    class_part = False
+                else:
+                    continue
             if "def solve(self, test_input=None):" in line:
                 solve_part = True
                 continue
