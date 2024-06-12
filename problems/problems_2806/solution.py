@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.accountBalanceAfterPurchase(test_input)
 
     def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:
-        pass
-
+        return 100 - (purchaseAmount + 5) // 10 * 10

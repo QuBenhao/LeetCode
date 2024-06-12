@@ -1,22 +1,23 @@
 import solution
+from typing import *
 from python.object_libs import list_to_linked_list, linked_list_to_list
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        l1_nums, l2_nums = test_input
+        nums0, nums1 = test_input
+        head0 = list_to_linked_list(nums0)
+        head1 = list_to_linked_list(nums1)
+        res = self.addTwoNumbers(head0, head1)
+        return linked_list_to_list(res)
 
-        l1 = list_to_linked_list(l1_nums)
-        l2 = list_to_linked_list(l2_nums)
-        root = self.addTwoNumbers(l1, l2)
-        return linked_list_to_list(root)
-
-    def addTwoNumbers(self, l1, l2):
-        """
-        :type l1: ListNode
-        :type l2: ListNode
-        :rtype: ListNode
-        """
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         carry = 0
         pointer = root = ListNode(0)
         while l1 or l2 or carry:
@@ -35,10 +36,3 @@ class Solution(solution.Solution):
             pointer.next = ListNode(s)
             pointer = pointer.next
         return root.next
-
-
-# Definition for singly-linked list.
-class ListNode(object):
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
