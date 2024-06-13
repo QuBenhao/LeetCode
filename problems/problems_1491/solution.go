@@ -1,13 +1,26 @@
+package problem1491
+
+import (
+	"encoding/json"
+	"log"
+	"strings"
+)
+
 func average(salary []int) float64 {
-    mn, mx, sm := 0x3f3f3f, 0, 0
-    for _, v := range salary {
-        if v > mx {
-            mx = v
-        }
-        if v < mn {
-            mn = v
-        }
-        sm += v
-    }
-    return float64(sm - mx - mn) / float64(len(salary) - 2)
+	s, mx, mn := 0, salary[0], salary[0]
+	for _, v := range salary {
+		s, mx, mn = s+v, max(mx, v), min(mn, v)
+	}
+	return float64(s-mx-mn) / float64(len(salary)-2)
+}
+
+func Solve(input string) interface{} {
+	values := strings.Split(input, "\n")
+	var salary []int
+
+	if err := json.Unmarshal([]byte(values[0]), &salary); err != nil {
+		log.Fatal(err)
+	}
+
+	return average(salary)
 }

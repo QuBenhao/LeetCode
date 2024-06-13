@@ -7,7 +7,7 @@ import (
 )
 
 func strStr(haystack string, needle string) int {
-
+	return strings.Index(haystack, needle)
 }
 
 func Solve(input string) interface{} {
