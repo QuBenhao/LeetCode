@@ -1,5 +1,7 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <algorithm>
+#include <iostream>
 
 
 using namespace std;
@@ -8,7 +10,14 @@ using json = nlohmann::json;
 class Solution {
 public:
     double average(vector<int>& salary) {
-
+        int s = 0, mx = salary[0], mn = salary[0];
+        for (auto v: salary) {
+            s += v;
+            mx = max(mx, v);
+            mn = min(mn, v);
+        }
+        std::cout << s << ", " << mx << ", " << mn;
+        return (double)(s - mx - mn) / (double)(salary.size() - 2);
     }
 };
 
