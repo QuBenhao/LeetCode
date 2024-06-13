@@ -7,7 +7,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int strStr(String haystack, String needle) {
-
+        return haystack.indexOf(needle);
     }
 
     @Override
