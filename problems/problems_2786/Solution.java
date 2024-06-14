@@ -7,7 +7,16 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public long maxScore(int[] nums, int x) {
-
+        long ans = nums[0];
+        long[] dp = new long[]{Integer.MIN_VALUE, Integer.MIN_VALUE};
+        dp[nums[0] % 2] = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            int idx = nums[i] % 2;
+            long cur = Math.max(dp[idx] + nums[i], dp[idx ^ 1] + nums[i] - x);
+            ans = Math.max(ans, cur);
+            dp[idx] = Math.max(dp[idx], cur);
+        }
+        return ans;
     }
 
     @Override

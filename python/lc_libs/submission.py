@@ -169,7 +169,7 @@ def _add_test(root_path, question_id: str, code_input: str, expected_output: str
                 add_line = True
             elif add_line:
                 new_content.append(
-                    f"        self.testcases.append(case(Input={code_input_py}, Output={expected_output}))")
+                    f"		self.testcases.append(case(Input={code_input_py}, Output={expected_output}))")
                 add_line = False
             new_content.append(line)
         with open(file_path, 'w', encoding='utf-8') as f:
