@@ -8,7 +8,25 @@ using json = nlohmann::json;
 class Solution {
 public:
     int calPoints(vector<string>& operations) {
-        
+        int ans = 0;
+        vector<int> arr;
+        for (auto op: operations) {
+            size_t n = arr.size();
+            if (op == "C") {
+                ans -= arr[n - 1];
+                arr.pop_back();
+                continue;
+            }
+            if (op == "+") {
+                arr.push_back(arr[n - 2] + arr[n - 1]);
+            } else if (op == "D") {
+                arr.push_back(arr[n - 1] * 2);
+            } else {
+                arr.push_back(stoi(op, nullptr, 10));
+            }
+            ans += arr[n];
+        }
+        return ans;
     }
 };
 
