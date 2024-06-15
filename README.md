@@ -1,6 +1,22 @@
 # LeetCode
 Algorithms in LeetCode by Benhao
 
+# Table of Content
+- [How to start](#how-to-start)
+- [Supported Languages](#supported-languages)
+   * [Python3](#python3)
+   * [Golang](#golang)
+   * [Java](#java)
+   * [Cpp](#cpp)
+- [Problems](#problems)
+   * [Easy](#easy)
+   * [Medium](#medium)
+   * [Hard](#hard)
+   * [Mysql](#mysql)
+   * [LCP](#lcp)
+   * [Interview](#interview)
+   * [剑指 Offer](#剑指-offer)
+
 # How to start
 After clone this repo, add a .env file to tell where to locate your problems and solutions (locally).
 For remote GitHub Action, add `COOKIE` (LeetCode cookie), `PUSH_KEY` (PushDeer notification), `PROBLEM_FOLDER` (where to add problems), `USER` (LeetCode personal page uri).
@@ -43,19 +59,11 @@ Check [Java README](qubhjava/README.md)
 
 Check [Cpp README](cpp/README.md)
 
-# Table of Content
-1. [Easy](#easy)
-2. [Medium](#medium) 
-3. [Hard](#hard)
-4. [Mysql](#mysql)
-5. [LCP](#lcp)
-6. [面试题](#interview)
-
 # Problems
 
 ## Easy
 
-[1480.Running Sum of 1d Array](problems/problems_1480/problem.md)
+[1480.Running Sum of 1d Array](problems/problems_1480/problem.md) [1480.测试](problems/problems_1480/problem_zh.md)
 
 [1431.Kids With the Greatest Number of Candies](problems/problems_1431/problem.md)
 

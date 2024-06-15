@@ -25,6 +25,15 @@ query questionContent($titleSlug: String!) {
 }
 """
 
+QUESTION_DESC_CN_QUERY = """
+query questionTranslations($titleSlug: String!) {
+  question(titleSlug: $titleSlug) {
+    translatedTitle
+    translatedContent
+  }
+}
+"""
+
 QUESTION_CODE_QUERY = """
 query questionEditorData($titleSlug: String!) {
   question(titleSlug: $titleSlug) {

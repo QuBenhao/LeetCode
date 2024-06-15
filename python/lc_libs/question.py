@@ -1,13 +1,13 @@
 import json
 import traceback
-from typing import Optional, Mapping
+from typing import Optional, Mapping, Tuple
 
 import html2text
 import markdown
 import requests
 
-from python.constants import (LEET_CODE_BACKEND, QUESTION_INFO_QUERY, QUESTION_DESC_QUERY, QUESTION_CODE_QUERY,
-                              QUESTION_TESTCASE_QUERY, QUESTION_KEYWORDS_QUERY)
+from python.constants import (LEET_CODE_BACKEND, QUESTION_INFO_QUERY, QUESTION_DESC_QUERY, QUESTION_DESC_CN_QUERY,
+                              QUESTION_CODE_QUERY, QUESTION_TESTCASE_QUERY, QUESTION_KEYWORDS_QUERY)
 from python.utils import general_request
 
 CATEGORY_SLUG = {"all-code-essentials", "algorithms", "database"}
@@ -42,6 +42,18 @@ def get_question_desc(slug: str, cookie: Optional[str] = None) -> Optional[str]:
                                "query": QUESTION_DESC_QUERY,
                                "variables": {"titleSlug": slug},
                                "operationName": "questionContent"},
+                           cookies={'cookie': cookie} if cookie else None)
+
+
+def get_question_desc_cn(slug: str, cookie: Optional[str] = None) -> Optional[Tuple[str, str]]:
+    def handle_response(response):
+        res_dict = json.loads(response.text)['data']['question']
+        return res_dict['translatedContent'], res_dict['translatedTitle']
+
+    return general_request(LEET_CODE_BACKEND, handle_response,
+                           json={"query": QUESTION_DESC_CN_QUERY,
+                                 "variables": {"titleSlug": slug},
+                                 "operationName": "questionTranslations"},
                            cookies={'cookie': cookie} if cookie else None)
 
 

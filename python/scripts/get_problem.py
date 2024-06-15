@@ -16,7 +16,7 @@ from python.constants import constant
 from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
     get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution_python, \
     write_solution_golang, write_solution_java, write_solution_cpp, change_test_python, change_test_java, \
-    change_test_golang, change_test_cpp
+    change_test_golang, change_test_cpp, get_question_desc_cn
 from python.utils import get_default_folder
 
 
@@ -58,6 +58,11 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         return
     with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
         f.write(write_problem_md(problem_id, problem_title, desc))
+    cn_result = get_question_desc_cn(problem_slug, cookie=cookie)
+    if cn_result is not None:
+        cn_desc, cn_title = cn_result
+        with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
+            f.write(write_problem_md(problem_id, cn_title, cn_desc))
     if not skip_language or not os.path.exists(f"{dir_path}/testcase.py"):
         with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
             f.write(write_testcase(testcases, outputs))
