@@ -17,7 +17,7 @@ LANGUAGES="python3,golang,java"
 
 install requirements:
 ```shell
-pip install -r python/requirements
+pip install -r python/requirements.txt
 ```
 
 To directly submit Solution to LeetCode:

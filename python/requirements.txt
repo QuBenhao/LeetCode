@@ -5,3 +5,4 @@ html2text
 python-dotenv
 tqdm
 pytz
+sortedcontainers
