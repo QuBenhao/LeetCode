@@ -1,7 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
 #include <algorithm>
-#include <iostream>
 
 
 using namespace std;
@@ -16,7 +15,6 @@ public:
             mx = max(mx, v);
             mn = min(mn, v);
         }
-        std::cout << s << ", " << mx << ", " << mn;
         return (double)(s - mx - mn) / (double)(salary.size() - 2);
     }
 };
