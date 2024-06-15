@@ -9,7 +9,8 @@ from tqdm import tqdm
 
 from python.constants import (LEET_CODE_BACKEND, RECENT_SUBMISSIONS_QUERY, RECENT_AC_SUBMISSIONS_QUERY,
                               USER_PROFILE_QUESTIONS_QUERY, PROGRESS_SUBMISSIONS_QUERY, MY_SUBMISSION_DETAIL_QUERY,
-                              SUBMIT_SUCCESS_RESULT, SUBMIT_BASIC_RESULT, SUBMIT_FAIL_RESULT)
+                              SUBMIT_SUCCESS_RESULT, SUBMIT_BASIC_RESULT, SUBMIT_FAIL_RESULT,
+                              TESTCASE_TEMPLATE_PYTHON_TESTCASES)
 from python.utils import general_request, get_china_daily_time
 
 
@@ -169,7 +170,7 @@ def _add_test(root_path, question_id: str, code_input: str, expected_output: str
                 add_line = True
             elif add_line:
                 new_content.append(
-                    f"		self.testcases.append(case(Input={code_input_py}, Output={expected_output}))")
+                    TESTCASE_TEMPLATE_PYTHON_TESTCASES.format(code_input_py, expected_output).replace("\n", ""))
                 add_line = False
             new_content.append(line)
         with open(file_path, 'w', encoding='utf-8') as f:
