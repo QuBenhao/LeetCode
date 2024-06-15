@@ -7,7 +7,17 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int[] plusOne(int[] digits) {
-
+        for (int i = digits.length - 1, cur = 1; i >= 0; i--) {
+            cur += digits[i];
+            digits[i] = cur % 10;
+            cur /= 10;
+            if (cur == 0) {
+                return digits;
+            }
+        }
+        int[] arr = new int[digits.length + 1];
+        arr[0] = 1;
+        return arr;
     }
 
     @Override
