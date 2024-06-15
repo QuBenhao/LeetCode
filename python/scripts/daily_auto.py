@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from python.lc_libs import (get_daily_question, get_question_desc, get_question_testcases, write_problem_md, \
                             write_testcase, extract_outputs_from_md, get_user_study_plans, get_user_study_plan_progress,
-                            get_question_info, get_question_code)
+                            get_question_info, get_question_code, get_question_desc_cn)
 import python.lc_libs as lc_libs
 from python.constants import constant
 from python.utils import get_default_folder, send_text_message
@@ -53,6 +53,11 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
                               str(outputs).replace("None", "null")
                              .replace("True", "true").replace("False", "false")
                              .replace("'", "\"")])
+    cn_result = get_question_desc_cn(slug)
+    if cn_result is not None:
+        cn_desc, cn_title = cn_result
+        with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
+            f.write(write_problem_md(question_id, cn_title, cn_desc))
     if not languages:
         return
     code_map = get_question_code(slug, lang_slugs=languages)
