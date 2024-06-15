@@ -6,14 +6,9 @@ class Solution(solution.Solution):
         return self.plusOne(test_input)
 
     def plusOne(self, digits):
-        """
-        :type digits: List[int]
-        :rtype: List[int]
-        """
-        for i in range(len(digits) - 1, -1, -1):
-            digits[i] += 1
-            if digits[i] <= 9:
-                return digits
-            digits[i] = 0
-        list.insert(digits, 0, 1)
-        return digits
+        n, cur = len(digits), 1
+        for i, d in enumerate(digits[::-1]):
+            cur, digits[n - 1 - i] = divmod(d + cur, 10)
+            if not cur:
+                break
+        return digits if not cur else [cur] + digits
