@@ -157,7 +157,8 @@ def _add_test(root_path, question_id: str, code_input: str, expected_output: str
             if "self.testcases.append(case(Input=" in line:
                 splits = line.split(", Output=")
                 ipt, opt = splits[0].split("=")[-1].strip(), splits[-1].strip()[:-2]
-                if ipt.replace(" ", "") == code_input_py and \
+                if (ipt.replace(" ", "") == code_input_py or
+                    ipt.replace(" ", "").replace("\"", "'")) and \
                         opt.replace(" ", "") == expected_output.replace(" ", ""):
                     need_add_test = False
                     break
@@ -179,7 +180,7 @@ def _add_test(root_path, question_id: str, code_input: str, expected_output: str
     file_path = os.path.join(root_path, "problems", f"problems_{question_id}", "testcase")
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read().split("\n")
-        code_input = code_input.replace("\n", "\\n")
+        code_input = code_input.replace("\n", "\\n").replace("\"", "\\\"")
         if f"\"{code_input}\"".replace(" ", "") in content[0].replace(" ", "") \
                 and expected_output.replace(" ", "") in content[1].replace(" ", ""):
             need_add_test = False
@@ -276,8 +277,9 @@ async def submit_code(root_path, question_id: str, question_slug: str, cookie: s
             submit_detail["outputDetail"]["compileError"],
             submit_detail["outputDetail"]["runtimeError"],
         )
-        _add_test(root_path, question_id,
-                  submit_detail["outputDetail"]["input"], submit_detail["outputDetail"]["expectedOutput"])
+        if submit_detail["outputDetail"]["input"] and submit_detail["outputDetail"]["expectedOutput"]:
+            _add_test(root_path, question_id,
+                      submit_detail["outputDetail"]["input"], submit_detail["outputDetail"]["expectedOutput"])
 
     print(SUBMIT_BASIC_RESULT.format(
         submit_detail["statusDisplay"],
