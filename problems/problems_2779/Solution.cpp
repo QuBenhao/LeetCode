@@ -8,7 +8,21 @@ using json = nlohmann::json;
 class Solution {
 public:
     int maximumBeauty(vector<int>& nums, int k) {
-        
+        int m = 0;
+        for (auto num: nums) {
+            m = max(m, num);
+        }
+        auto diffs = vector<int>(m + 2);
+        for (auto num: nums) {
+            diffs[max(0, num - k)]++;
+            diffs[min(m + 1, num + k + 1)]--;
+        }
+        int ans = 0, cur = 0;
+        for (auto v: diffs) {
+            cur += v;
+            ans = max(ans, cur);
+        }
+        return ans;
     }
 };
 
