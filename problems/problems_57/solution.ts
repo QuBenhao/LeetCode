@@ -1,3 +1,5 @@
+import * as readline from "node:readline";
+
 function insert(intervals: number[][], newInterval: number[]): number[][] {
     let [left, right] = newInterval
     const ans: number[][] = []
@@ -18,3 +20,7 @@ function insert(intervals: number[][], newInterval: number[]): number[][] {
     }
     return ans
 };
+
+export function Solve() {
+
+}
