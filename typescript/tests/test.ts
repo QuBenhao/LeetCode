@@ -1,14 +1,16 @@
-import {add} from "../add";
-import {insert} from "../../problems/problems_57/solution";
+import * as fs from 'fs';
 
-describe("TestAdd", () => {
-  it("should add two numbers correctly", () => {
-    expect(add(1, 2)).toEqual(3);
-  });
-})
+const PROBLEM_ID: string = "57"
+import {Solve} from "../../problems/problems_57/solution";
 
-describe("TestMain", () => {
-  it("Load Problem 57", () => {
-    expect(insert([[1, 3], [6, 9]], [2, 5])).toEqual([[1, 5], [6, 9]]);
-  })
+describe("TestMain===" + PROBLEM_ID, () => {
+    const fileContent = fs.readFileSync(`../problems/problems_${PROBLEM_ID}/testcase`, "utf-8");
+    const splits: string[] = fileContent.split("\n");
+    const inputs: string = splits[0], outputs: string = splits[1];
+    const inputJson = JSON.parse(inputs), outputJson = JSON.parse(outputs);
+    for (let i = 0; i < inputJson.length; i++) {
+        it("TestCase" + i, () => {
+            expect(Solve(inputJson[i])).toEqual(outputJson[i]);
+        })
+    }
 })
