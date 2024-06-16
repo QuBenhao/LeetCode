@@ -2,7 +2,7 @@
   "name": "typescript",
   "version": "1.0.0",
   "description": "",
-  "main": "tests/test.ts",
+  "main": "typescript/test.ts",
   "scripts": {
     "test": "jest"
   },

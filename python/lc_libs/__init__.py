@@ -10,4 +10,5 @@ from .python_writer import (write_problem_md, write_testcase,
 from .golang_writer import write_solution_golang, change_test_golang, get_solution_code_golang
 from .java_writer import write_solution_java, change_test_java, get_solution_code_java
 from .cpp_writer import write_solution_cpp, change_test_cpp, get_solution_code_cpp
+from .typescript_writer import write_solution_typescript, change_test_typescript, get_solution_code_typescript
 from .study_plan import get_user_study_plans, get_user_study_plan_progress
