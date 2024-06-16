@@ -14,3 +14,6 @@ MODULE.bazel
 MODULE.bazel.lock
 bazel-LeetCode/
 /bazel-LeetCode/
+
+**/.vscode
+**/node_modules

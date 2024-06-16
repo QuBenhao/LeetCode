@@ -1,48 +1,42 @@
 import solution
+from typing import *
 from python.object_libs import list_to_linked_list, linked_list_to_list
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums1, nums2 = test_input
-        l1, l2 = list_to_linked_list(nums1), list_to_linked_list(nums2)
-        root = self.addTwoNumbers(l1, l2)
-        return linked_list_to_list(root)
+        nums0, nums1 = test_input
+        head0 = list_to_linked_list(nums0)
+        head1 = list_to_linked_list(nums1)
+        res = self.addTwoNumbers(head0, head1)
+        return linked_list_to_list(res)
 
-    def addTwoNumbers(self, l1, l2):
-        """
-        :type l1: ListNode
-        :type l2: ListNode
-        :rtype: ListNode
-        """
-        n1 = n2 = 0
-        curr = l1
-        while curr.next:
-            n1 += curr.val
-            n1 *= 10
-            curr = curr.next
-        n1 += curr.val
-        if n1 == 0:
-            return l2
-        curr = l2
-        while curr.next:
-            n2 += curr.val
-            n2 *= 10
-            curr = curr.next
-        n2 += curr.val
-        if n2 == 0:
-            return l1
-        n = n1 + n2
-        curr = last = None
-        while n > 0:
-            curr = ListNode(n % 10, last)
-            last = curr
-            n //= 10
-        return curr
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        def reverse_list(node: Optional[ListNode]):
+            if not node or not node.next:
+                return node
+            new_head = reverse_list(node.next)
+            node.next.next = node
+            node.next = None
+            return new_head
 
-
-# Definition for singly-linked list.
-class ListNode(object):
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
+        l1r, l2r = reverse_list(l1), reverse_list(l2)
+        dummy, cur = ListNode(), 0
+        nd = dummy
+        while l1r or l2r or cur:
+            if l1r:
+                cur += l1r.val
+                l1r = l1r.next
+            if l2r:
+                cur += l2r.val
+                l2r = l2r.next
+            nd.next = ListNode(cur % 10)
+            nd = nd.next
+            cur //= 10
+        return reverse_list(dummy.next)
