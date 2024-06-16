@@ -7,7 +7,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int findLUSlength(String a, String b) {
-
+        return a.compareTo(b) == 0 ? -1 : Math.max(a.length(), b.length());
     }
 
     @Override
