@@ -1,44 +1,51 @@
 package problems.problems_445;
 
+import com.alibaba.fastjson.JSON;
+import java.util.*;
+import qubhjava.BaseSolution;
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 import qubhjava.models.ListNode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
-public class Solution {
+public class Solution extends BaseSolution {
+    private ListNode reverseList(ListNode node) {
+        if (node == null || node.next == null) {
+            return node;
+        }
+        ListNode newHead = reverseList(node.next);
+        node.next.next = node;
+        node.next = null;
+        return newHead;
+    }
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        ListNode c1 = l1, c2 = l2;
-        ArrayList<Integer> n1 = new ArrayList<>(), n2 = new ArrayList<>();
-        while (c1 != null) {
-            n1.add(c1.val);
-            c1 = c1.next;
+        ListNode l1r = reverseList(l1), l2r = reverseList(l2);
+        ListNode dummy = new ListNode(), node = dummy;
+        for (int cur = 0; l1r != null || l2r != null || cur > 0; node = node.next, cur /= 10) {
+            if (l1r != null) {
+                cur += l1r.val;
+                l1r = l1r.next;
+            }
+            if (l2r != null) {
+                cur += l2r.val;
+                l2r = l2r.next;
+            }
+            node.next = new ListNode(cur % 10);
         }
-        while (c2 != null) {
-            n2.add(c2.val);
-            c2 = c2.next;
-        }
-        Collections.reverse(n1);
-        Collections.reverse(n2);
-        int carry = 0;
-        ListNode curr = null, last = null;
-        for (int i = 0; i < Math.max(n1.size(), n2.size()); i++) {
-            int temp = 0;
-            if ((i < n1.size() && n1.size() <= n2.size()) || (i < n2.size() && n2.size() < n1.size()))
-                temp = n1.get(i) + n2.get(i) + carry;
-            else if (n1.size() <= i)
-                temp = n2.get(i) + carry;
-            else
-                temp = n1.get(i) + carry;
-            if (temp >= 10) {
-                temp -= 10;
-                carry = 1;
-            } else
-                carry = 0;
-            curr = new ListNode(temp, last);
-            last = curr;
-        }
-        if (carry > 0)
-            curr = new ListNode(carry, last);
-        return curr;
+        return reverseList(dummy.next);
+    }
+
+    @Override
+    public Object solve(String[] values) {
+        ListNode l1 = jsonArrayToListNode(values[0]);
+		ListNode l2 = jsonArrayToListNode(values[1]);
+        return JSON.toJSON(ListNode.LinkedListToIntArray(addTwoNumbers(l1, l2)));
     }
 }

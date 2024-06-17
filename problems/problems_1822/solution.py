@@ -10,10 +10,10 @@ class Solution(solution.Solution):
         :type nums: List[int]
         :rtype: int
         """
-        if 0 in nums:
-            return 0
-        count = 0
-        for n in nums:
-            if n < 0:
-                count += 1
-        return 1 if count % 2 == 0 else -1
+        cnt = 0
+        for num in nums:
+            if not num:
+                return 0
+            if num < 0:
+                cnt += 1
+        return -1 if cnt % 2 else 1
