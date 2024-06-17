@@ -13,6 +13,7 @@ import qubhjava.Testcase;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,7 +73,15 @@ public class TestMain {
                     String.format("[Problem%s]Testcase%d: %s", PROBLEM_ID, idx++, Arrays.toString(testcase.getInput())),
                     () -> {
                         Object actual = solution.solve(testcase.getInput());
-                        assertEquals(actual, testcase.getOutput());
+                        switch (testcase.getOutput()) {
+                            case BigDecimal output -> {
+                                BigDecimal actualNumber = (BigDecimal) actual;
+                                assertEquals(actualNumber.doubleValue(), output.doubleValue(), 1e-4);
+                            }
+                            case Double output -> assertEquals((Double) actual, output, 1e-4d);
+                            case Float output -> assertEquals((Float) actual, output, 1e-4f);
+                            case null, default -> assertEquals(actual, testcase.getOutput());
+                        }
                     }
             ));
         }
