@@ -65,7 +65,7 @@ jobs:
         mvn clean validate
     - name: Setup Bazel
       continue-on-error: true
-      uses: bazel-contrib/setup-bazel@0.8.4
+      uses: bazel-contrib/setup-bazel@0.8.5
       with:
         # Avoid downloading Bazel every time.
         bazelisk-cache: true
@@ -73,6 +73,11 @@ jobs:
         disk-cache: ${{ github.workflow }}
         # Share repository cache between workflows.
         repository-cache: true
+        bazelrc: |
+          build --color=yes
+          build --show_timestamps
+          build --cxxopt=-std=c++20
+          test --cxxopt=-std=c++20
 
     - name: Run script
       env:
