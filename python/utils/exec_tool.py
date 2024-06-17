@@ -79,13 +79,13 @@ def check_problem_solved_and_write(question_id: str,
             main_file = f"{root_path}/c/test.c"
         case "javascript":
             file_name = "solution.js"
-            lang_env = ["npm", "test"]
-            test_commands = []
+            lang_env = ["npm", "--version"]
+            test_commands = [["npm", "test"]]
             main_file = f"{root_path}/javascript/test.js"
         case "typescript":
             file_name = "solution.ts"
-            lang_env = ["npm", "test"]
-            test_commands = []
+            lang_env = ["npm", "--version"]
+            test_commands = [["npm", "test"]]
             main_file = f"{root_path}/typescript/test.ts"
         case _:
             file_name = "unknown"

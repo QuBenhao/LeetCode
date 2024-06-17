@@ -21,6 +21,7 @@ jobs:
           problems
           python
           qubhjava
+          typescript
           go.mod
           go.sum
           pom.xml
@@ -42,6 +43,16 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
+
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+    - name: Set up TypeScript
+      continue-on-error: true
+      run:
+        npm install typescript jest ts-jest @types/jest --save-dev
 
     - name: Install python dependencies
       run: |

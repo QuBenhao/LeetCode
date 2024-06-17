@@ -1,16 +1,10 @@
-func min(a, b int) int {
-    if a < b {
-        return a
-    }
-    return b
-}
+package problem57
 
-func max(a, b int) int {
-    if a > b {
-        return a
-    }
-    return b
-}
+import (
+	"encoding/json"
+	"log"
+	"strings"
+)
 
 func insert(intervals [][]int, newInterval []int) (ans [][]int) {
     left, right := newInterval[0], newInterval[1]
@@ -32,4 +26,19 @@ func insert(intervals [][]int, newInterval []int) (ans [][]int) {
         ans = append(ans, []int{left, right})
     }
     return
+}
+
+func Solve(input string) interface{} {
+	values := strings.Split(input, "\n")
+	var intervals [][]int
+	var newInterval []int
+
+	if err := json.Unmarshal([]byte(values[0]), &intervals); err != nil {
+		log.Fatal(err)
+	}
+	if err := json.Unmarshal([]byte(values[1]), &newInterval); err != nil {
+		log.Fatal(err)
+	}
+
+	return insert(intervals, newInterval)
 }

@@ -21,6 +21,7 @@ jobs:
           problems
           python
           qubhjava
+          typescript
           go.mod
           go.sum
           pom.xml
