@@ -8,7 +8,15 @@ using json = nlohmann::json;
 class Solution {
 public:
     int arraySign(vector<int>& nums) {
-
+        int cnt = 0;
+        for (auto num: nums) {
+            if (num == 0) {
+                return 0;
+            } else if (num < 0) {
+                cnt++;
+            }
+        }
+        return (cnt & 1) == 1 ? -1 : 1;
     }
 };
 
