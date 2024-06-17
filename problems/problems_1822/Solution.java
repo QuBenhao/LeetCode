@@ -7,7 +7,15 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int arraySign(int[] nums) {
-
+        int cnt = 0;
+        for (int num: nums) {
+            if (num == 0) {
+                return 0;
+            } else if (num < 0) {
+                cnt++;
+            }
+        }
+        return (cnt & 1) == 1 ? -1 : 1;
     }
 
     @Override

@@ -21,6 +21,10 @@ def __process_variable_type(input_name: str, variable_name: str, rt_type: str) -
     match rt_type:
         case "int":
             return f"{rt_type} {variable_name} = Integer.parseInt({input_name});"
+        case "float":
+            return f"{rt_type} {variable_name} = Float.parseFloat({input_name});"
+        case "double":
+            return f"{rt_type} {variable_name} = Double.parseDouble({input_name});"
         case "int[]":
             return f"{rt_type} {variable_name} = jsonArrayToIntArray({input_name});"
         case "String":
