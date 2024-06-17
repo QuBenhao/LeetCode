@@ -9,14 +9,14 @@ class Solution {
 public:
     int findLUSlength(vector<string> &strs) {
         auto is_subseq = [](const string &s, const string &t) -> bool {
-            int pt_s = 0, pt_t = 0;
-            while (pt_s < s.size() && pt_t < t.size()) {
+            int pt_s = 0, pt_t = 0, sl = static_cast<int>(s.size()), tl = static_cast<int>(t.size());
+            while (pt_s < sl && pt_t < tl) {
                 if (s[pt_s] == t[pt_t]) {
                     ++pt_s;
                 }
                 ++pt_t;
             }
-            return pt_s == s.size();
+            return pt_s == sl;
         };
 
         int ans = -1;
@@ -28,7 +28,7 @@ public:
                     }
                 }
                 ans = static_cast<int>(strs[i].size());
-                out:
+                out:;
             }
         }
         return ans;
@@ -36,8 +36,7 @@ public:
 };
 
 
-json leetcode::qubh::Solve(string input)
-{
+json leetcode::qubh::Solve(string input) {
 	vector<string> inputArray;
 	size_t pos = input.find('\n');
 	while (pos != string::npos) {

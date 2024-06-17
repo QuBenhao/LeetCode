@@ -85,8 +85,7 @@ using json = nlohmann::json;
 
 {}
 
-json leetcode::qubh::Solve(string input)
-{}
+json leetcode::qubh::Solve(string input) {}
 \tvector<string> inputArray;
 \tsize_t pos = input.find('\\n');
 \twhile (pos != string::npos) {}
