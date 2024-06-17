@@ -2,12 +2,29 @@ package problem2288
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"strings"
 )
 
 func discountPrices(sentence string, discount int) string {
-
+	var ans []string
+	for _, s := range strings.Split(sentence, " ") {
+		if len(s) > 1 && s[0] == '$' {
+			cur := 0
+			for i := 1; i < len(s); i++ {
+				if s[i] < '0' || s[i] > '9' {
+					goto out
+				}
+				cur = 10*cur + int(s[i]-'0')
+			}
+			ans = append(ans, fmt.Sprintf("$%.2f", float64(100-discount)*float64(cur)/100.0))
+			continue
+		}
+	out:
+		ans = append(ans, s)
+	}
+	return strings.Join(ans, " ")
 }
 
 func Solve(input string) interface{} {
