@@ -7,7 +7,18 @@ import (
 )
 
 func arraySign(nums []int) int {
-
+	cnt := 0
+	for _, num := range nums {
+		if num == 0 {
+			return 0
+		} else if num < 0 {
+			cnt++
+		}
+	}
+	if cnt%2 != 0 {
+		return -1
+	}
+	return 1
 }
 
 func Solve(input string) interface{} {
