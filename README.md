@@ -8,6 +8,7 @@ Algorithms in LeetCode by Benhao
    * [Golang](#golang)
    * [Java](#java)
    * [Cpp](#cpp)
+   * [TypeScript](#typescript)
 - [Problems](#problems)
    * [Easy](#easy)
    * [Medium](#medium)
@@ -58,6 +59,10 @@ Check [Java README](qubhjava/README.md)
 ## Cpp
 
 Check [Cpp README](cpp/README.md)
+
+## Typescript
+
+Check [TypeScript README](typescript/README.md)
 
 # Problems
 
