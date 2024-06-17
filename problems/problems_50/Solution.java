@@ -31,11 +31,10 @@ public class Solution extends BaseSolution {
     }
 
 
-
     @Override
     public Object solve(String[] values) {
         double x = Double.parseDouble(values[0]);
-		int n = Integer.parseInt(values[1]);
+        int n = Integer.parseInt(values[1]);
         return JSON.toJSON(myPow(x, n));
     }
 }
