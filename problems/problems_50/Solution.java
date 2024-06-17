@@ -30,6 +30,8 @@ public class Solution extends BaseSolution {
         return ans;
     }
 
+
+
     @Override
     public Object solve(String[] values) {
         double x = Double.parseDouble(values[0]);
