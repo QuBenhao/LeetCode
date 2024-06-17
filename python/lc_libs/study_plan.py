@@ -71,7 +71,7 @@ def generate_question_todo(plan_sub_groups, todo_num: int):
     return all_problems, all_solved, recommends
 
 
-def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = 2):
+def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = 1):
     def handle_response(response: requests.Response):
         if response.text:
             res_dict = json.loads(response.text)["data"]["studyPlanV2ProgressDetail"]
