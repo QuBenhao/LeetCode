@@ -29,7 +29,7 @@ Example .env file:
 PROBLEM_FOLDER="problems"
 PUSH_KEY="***[key from PushDeer]"
 COOKIE="***[cookie from LeetCode graphql]"
-LANGUAGES="python3,golang,java"
+LANGUAGES="python3,golang,java,cpp,typescript"
 ```
 
 install requirements:
