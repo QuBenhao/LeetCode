@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 
-const PROBLEM_ID: string = "100";
-import {Solve} from "../problems/problems_100/solution";
+const PROBLEM_ID: string = "2288";
+import {Solve} from "../problems/problems_2288/solution";
 
 describe("TestMain===" + PROBLEM_ID, () => {
     const fileContent: string = fs.readFileSync(`problems/problems_${PROBLEM_ID}/testcase`, "utf-8");
