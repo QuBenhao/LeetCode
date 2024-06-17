@@ -104,8 +104,8 @@ json leetcode::qubh::Solve(string input)
 SOLUTION_TEMPLATE_TYPESCRIPT = """{}{}
 
 export function Solve(inputJsonElement: string): any {}
-\tconst splits = inputJsonElement.split(\"\\n\");
-{}s
+\tconst splits: string[] = inputJsonElement.split(\"\\n\");
+{}
 \treturn {};
 {}
 """

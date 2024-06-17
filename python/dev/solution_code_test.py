@@ -1338,11 +1338,9 @@ if __name__ == '__main__':
                 #         f.writelines(write_solution_golang(code["code"], None, test_problem))
                 #     code_counter[lang] += 1
                 case "typescript":
-                    print(code["code"])
-                    print()
-                    # with open(f"tmp_solution{code_counter[lang]}.ts", "w", encoding="utf-8") as f:
-                    #     f.writelines(write_solution_typescript(code["code"], None, test_problem))
-                    # code_counter[lang] += 1
+                    with open(f"tmp_solution{code_counter[lang]}.ts", "w", encoding="utf-8") as f:
+                        f.writelines(write_solution_typescript(code["code"], None, test_problem))
+                    code_counter[lang] += 1
                 case _:
                     pass
     sys.exit()
