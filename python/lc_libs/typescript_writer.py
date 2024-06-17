@@ -121,4 +121,6 @@ def get_solution_code_typescript(root_path, problem_folder: str, problem_id: str
             final_codes.append(line)
     while final_codes and final_codes[0].strip() == '':
         final_codes.popleft()
-    return "\n".join(final_codes)
+    while final_codes and final_codes[-1].strip() == '':
+        final_codes.pop()
+    return "\n".join(final_codes), problem_id
