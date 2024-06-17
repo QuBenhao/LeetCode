@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-const PROBLEM_ID: string = "100"
+const PROBLEM_ID: string = "100";
 import {Solve} from "../problems/problems_100/solution";
 
 describe("TestMain===" + PROBLEM_ID, () => {

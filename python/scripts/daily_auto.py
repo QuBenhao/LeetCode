@@ -28,6 +28,8 @@ def check_remain_languages(dir_path: str, languages: list[str]) -> list[str]:
                         remain_languages.remove("java")
                     case "solution.py":
                         remain_languages.remove("python3")
+                    case "solution.ts":
+                        remain_languages.remove("typescript")
                     case _:
                         continue
             except ValueError as _:
@@ -78,6 +80,8 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
                 main_file = f"{dir_path}/Solution.java"
             case "cpp":
                 main_file = f"{dir_path}/Solution.cpp"
+            case "typescript":
+                main_file = f"{dir_path}/solution.ts"
             case _:
                 continue
         with open(main_file, "w", encoding="utf-8") as f:
@@ -110,6 +114,8 @@ def process_daily(problem_folder: str, languages: list[str]):
                 main_file = f"{root_path}/qubhjava/test/TestMain.java"
             case "cpp":
                 main_file = f"{root_path}/WORKSPACE"
+            case "typescript":
+                main_file = f"{root_path}/typescript/test.ts"
             case _:
                 print("Language {} is not implemented to save".format(lang))
                 continue

@@ -1,5 +1,5 @@
 import os.path
-from collections import defaultdict
+from collections import defaultdict, deque
 
 from python.constants import SOLUTION_TEMPLATE_TYPESCRIPT
 
@@ -8,7 +8,16 @@ _TREE_NODE_PATH = "\"../../typescript/models/treenode\";"
 
 
 def change_test_typescript(content: str, question_id: str) -> str:
-    pass
+    ans = []
+    for line in content.split("\n"):
+        if "const PROBLEM_ID: string = \"" in line:
+            ans.append(line.split("\"")[0] + f"\"{question_id}\";")
+            continue
+        elif "import {Solve} from \"../problems/problems_" in line and "/solution\";" in line:
+            ans.append("import {Solve} from \"../problems/problems_" + question_id + "/solution\";")
+            continue
+        ans.append(line)
+    return "\n".join(ans)
 
 
 def write_solution_typescript(code_default: str, code: str = None, problem_id: str = "") -> str:
@@ -88,4 +97,28 @@ def write_solution_typescript(code_default: str, code: str = None, problem_id: s
 
 
 def get_solution_code_typescript(root_path, problem_folder: str, problem_id: str) -> (str, str):
-    pass
+    if not problem_id:
+        with open(os.path.join(root_path, "typescript", "test.ts"), 'r', encoding="utf-8") as f:
+            lines = f.read().split("\n")
+            for line in lines:
+                if "const PROBLEM_ID: string = \"" in line:
+                    problem_id = line.split('"')[1]
+                    break
+    if not problem_id:
+        return "", problem_id
+    file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "solution.ts")
+    if not os.path.exists(file_path):
+        return "", problem_id
+    final_codes = deque([])
+    with open(file_path, 'r', encoding="utf-8") as f:
+        lines = f.read().split("\n")
+        for line in lines:
+            strip_line = line.strip()
+            if strip_line.startswith("import "):
+                continue
+            if strip_line == "export function Solve(inputJsonElement: string): any {":
+                break
+            final_codes.append(line)
+    while final_codes and final_codes[0].strip() == '':
+        final_codes.popleft()
+    return "\n".join(final_codes)

@@ -20,7 +20,7 @@ function insert(intervals: number[][], newInterval: number[]): number[][] {
 };
 
 export function Solve(inputJsonElement: string): any {
-    const splits = inputJsonElement.split("\n");
+    const splits: string[] = inputJsonElement.split("\n");
     const intervals: number[][] = JSON.parse(splits[0]);
     const newInterval: number[] = JSON.parse(splits[1]);
     return insert(intervals, newInterval);
