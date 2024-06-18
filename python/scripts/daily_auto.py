@@ -47,14 +47,15 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
         if testcases is not None:
             outputs = extract_outputs_from_md(desc)
             print(f"question_id: {question_id}, outputs: {outputs}")
-            if not languages or "python3" in languages:
+            if (not languages or "python3" in languages) and not os.path.exists(f"{dir_path}/testcase.py"):
                 with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
                     f.write(write_testcase(testcases, outputs))
-            with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
-                f.writelines([testcase_str, "\n",
-                              str(outputs).replace("None", "null")
-                             .replace("True", "true").replace("False", "false")
-                             .replace("'", "\"")])
+            if not os.path.exists(f"{dir_path}/testcase"):
+                with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
+                    f.writelines([testcase_str, "\n",
+                                  str(outputs).replace("None", "null")
+                                 .replace("True", "true").replace("False", "false")
+                                 .replace("'", "\"")])
     cn_result = get_question_desc_cn(slug)
     if cn_result is not None:
         cn_desc, cn_title = cn_result
