@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import problems.problems_2288.Solution;
+import problems.problems_2713.Solution;
 import qubhjava.Testcase;
 
 import java.io.File;
@@ -25,7 +25,7 @@ import static org.testng.Assert.assertEquals;
 public class TestMain {
 
     private static final Logger log = LoggerFactory.getLogger(TestMain.class);
-    private static final String PROBLEM_ID = "2288";
+    private static final String PROBLEM_ID = "2713";
 
     private Testcase[] loadTestcases() throws IOException {
         Testcase[] testcases = null;
