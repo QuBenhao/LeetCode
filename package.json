@@ -23,8 +23,6 @@
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^7.13.0",
-    "@typescript-eslint/parser": "^7.13.0",
-    "ts-jest": "^29.1.5",
-    "@types/jest": "^29.5.12"
+    "@typescript-eslint/parser": "^7.13.0"
   }
 }
