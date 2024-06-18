@@ -146,7 +146,8 @@ def get_submission_detail(submit_id: str, cookie: str, handle_fun=None):
 
 def _add_test(root_path, question_id: str, code_input: str, expected_output: str):
     need_add_test = True
-    code_input_py = code_input.replace(" ", "")
+    code_input_py = code_input.replace("null", "None").replace("true", "True").replace("false", "False")
+    expected_output_py = expected_output.replace("null", "None").replace("true", "True").replace("false", "False")
     if "\n" in code_input_py:
         code_input_py = code_input_py.replace("\n", ",")
         code_input_py = f"[{code_input_py}]"
@@ -158,9 +159,9 @@ def _add_test(root_path, question_id: str, code_input: str, expected_output: str
             if "self.testcases.append(case(Input=" in line:
                 splits = line.split(", Output=")
                 ipt, opt = splits[0].split("=")[-1].strip(), splits[-1].strip()[:-2]
-                if (ipt.replace(" ", "") == code_input_py or
+                if (ipt.replace(" ", "") == code_input_py.replace(" ", "") or
                     ipt.replace(" ", "").replace("\"", "'")) and \
-                        opt.replace(" ", "") == expected_output.replace(" ", ""):
+                        opt.replace(" ", "") == expected_output_py.replace(" ", ""):
                     need_add_test = False
                     break
     if need_add_test:
@@ -171,7 +172,7 @@ def _add_test(root_path, question_id: str, code_input: str, expected_output: str
                 add_line = True
             elif add_line:
                 new_content.append(
-                    TESTCASE_TEMPLATE_PYTHON_TESTCASES.format(code_input_py, expected_output).replace("\n", ""))
+                    TESTCASE_TEMPLATE_PYTHON_TESTCASES.format(code_input_py, expected_output_py).replace("\n", ""))
                 add_line = False
             new_content.append(line)
         with open(file_path, 'w', encoding='utf-8') as f:
@@ -179,17 +180,18 @@ def _add_test(root_path, question_id: str, code_input: str, expected_output: str
 
     need_add_test = True
     file_path = os.path.join(root_path, "problems", f"problems_{question_id}", "testcase")
-    with open(file_path, 'r', encoding='utf-8') as f:
-        content = f.read().split("\n")
-        code_input = code_input.replace("\n", "\\n").replace("\"", "\\\"")
-        if f"\"{code_input}\"".replace(" ", "") in content[0].replace(" ", "") \
-                and expected_output.replace(" ", "") in content[1].replace(" ", ""):
-            need_add_test = False
-    if need_add_test:
-        new_content = "\n".join([content[0][:-1] + ", \"{}\"]".format(code_input),
-                                 content[1][:-1] + f", {expected_output}]"])
-        with open(file_path, 'w', encoding="utf-8") as f:
-            f.write(new_content)
+    if os.path.exists(file_path):
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read().split("\n")
+            code_input = code_input.replace("\n", "\\n").replace("\"", "\\\"")
+            if f"\"{code_input}\"".replace(" ", "") in content[0].replace(" ", "") \
+                    and expected_output.replace(" ", "") in content[1].replace(" ", ""):
+                need_add_test = False
+        if need_add_test:
+            new_content = "\n".join([content[0][:-1] + ", \"{}\"]".format(code_input),
+                                     content[1][:-1] + f", {expected_output}]"])
+            with open(file_path, 'w', encoding="utf-8") as f:
+                f.write(new_content)
 
 
 async def submit_code(root_path, question_id: str, question_slug: str, cookie: str, lang: str,
