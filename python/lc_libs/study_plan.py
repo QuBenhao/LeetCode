@@ -41,6 +41,8 @@ def generate_question_todo(plan_sub_groups, todo_num: int):
     remain_problems = defaultdict(deque)
     for idx, plan_sub_group in enumerate(plan_sub_groups):
         expectation = 0
+        premium = plan_sub_group["premiumOnly"]
+        # TODO: premium
         questions = plan_sub_group["questions"]
         if not questions:
             continue

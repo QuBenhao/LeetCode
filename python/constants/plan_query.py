@@ -59,8 +59,11 @@ query studyPlanProgress($slug: String!, $historyId: ID) {
       questionNum
       planSubGroups {
         slug
+        premiumOnly
         questions {
           titleSlug
+          translatedTitle
+          paidOnly
           status
         }
       }
