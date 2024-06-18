@@ -1,8 +1,9 @@
 import * as fs from 'fs';
 var _ = require('lodash-contrib');
 
-const PROBLEM_ID: string = "50";
-import {Solve} from "../problems/problems_50/solution";
+
+const PROBLEM_ID: string = "2288";
+import {Solve} from "../problems/problems_2288/solution";
 
 describe("TestMain===" + PROBLEM_ID, () => {
     const fileContent: string = fs.readFileSync(`problems/problems_${PROBLEM_ID}/testcase`, "utf-8");
