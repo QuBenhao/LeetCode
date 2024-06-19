@@ -37,12 +37,18 @@ public class TreeNode {
             } else {
                 node = new TreeNode(jsonArray.getIntValue(i));
             }
-            queue.offer(node);
-            assert currNode != null;
             if (isLeft == 1) {
-                currNode.left = node;
+                if (node != null) {
+                    assert currNode != null;
+                    currNode.left = node;
+                    queue.offer(node);
+                }
             } else {
-                currNode.right = node;
+                if (node != null) {
+                    assert currNode != null;
+                    currNode.right = node;
+                    queue.offer(node);
+                }
                 currNode = queue.poll();
             }
             isLeft ^= 1;
