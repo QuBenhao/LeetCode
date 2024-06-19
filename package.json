@@ -10,6 +10,9 @@
     "type": "git",
     "url": "https://github.com/QuBenhao/LeetCode.git"
   },
+  "overrides": {
+    "lodash": ">=4.17.21"
+  },
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.17.5",
