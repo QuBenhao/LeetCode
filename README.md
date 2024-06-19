@@ -57,9 +57,9 @@ To generate daily problems, try:
 python python/scripts/daily_auto.py
 ```
 
-To fetch daily submits from LeetCode (requires `.env` to be ready), try:
+To fetch daily submits from LeetCode (requires `.env` cookie to be ready), change `user` below and try:
 ```shell
-python python/scripts/daily_submission.py
+python python/scripts/daily_submission.py --user=himymben
 ```
 
 # Supported Languages
