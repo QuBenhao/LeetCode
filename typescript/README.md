@@ -2,7 +2,7 @@
 
 ## Start
 
-First install maven environment at root,
+First install npm environment at root,
 
 ```shell
 npm install typescript jest ts-jest lodash lodash-contrib @types/jest @types/lodash --save-dev
