@@ -1,6 +1,7 @@
 import solution
 from typing import *
 from python.object_libs import list_to_tree
+from math import inf
 
 
 class TreeNode:
@@ -17,5 +18,13 @@ class Solution(solution.Solution):
         return self.minDepth(root0)
 
     def minDepth(self, root: Optional[TreeNode]) -> int:
-        pass
-
+        if not root:
+            return 0
+        if not root.left and not root.right:
+            return 1
+        ans = inf
+        if root.left:
+            ans = self.minDepth(root.left) + 1
+        if root.right:
+            ans = min(ans, self.minDepth(root.right) + 1)
+        return ans

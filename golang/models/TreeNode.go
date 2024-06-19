@@ -40,11 +40,15 @@ func ArrayToTree(input string) *TreeNode {
 			node = &TreeNode{Val: int(arr[i].(float64))}
 		}
 		if isLeft == 1 {
-			currNode.Left = node
-			nodes = append(nodes, currNode.Left)
+			if node != nil {
+				currNode.Left = node
+				nodes = append(nodes, currNode.Left)
+			}
 		} else {
-			currNode.Right = node
-			nodes = append(nodes, currNode.Right)
+			if node != nil {
+				currNode.Right = node
+				nodes = append(nodes, currNode.Right)
+			}
 			currNode = nodes[0]
 			nodes = nodes[1:]
 		}

@@ -32,14 +32,34 @@ COOKIE="***[cookie from LeetCode graphql]"
 LANGUAGES="python3,golang,java,cpp,typescript"
 ```
 
-install requirements:
+install python3.10 requirements:
 ```shell
 pip install -r python/requirements.txt
 ```
 
-To directly submit Solution to LeetCode:
+To directly submit Solution to LeetCode, try any language below:
 ```shell
 python python/scripts/submit.py python3 -id=1
+python python/scripts/submit.py golang -id=2
+python python/scripts/submit.py cpp -id=1
+python python/scripts/submit.py java -id=2
+python python/scripts/submit.py typescript -id=1
+```
+
+To get any problem you want, try:
+```shell
+python python/scripts/get_problem.py -h
+python python/scripts/get_problem.py -id=1
+```
+
+To generate daily problems, try:
+```shell
+python python/scripts/daily_auto.py
+```
+
+To fetch daily submits from LeetCode (requires `.env` cookie to be ready), change `user` below and try:
+```shell
+python python/scripts/daily_submission.py --user=himymben
 ```
 
 # Supported Languages

@@ -19,7 +19,20 @@ using json = nlohmann::json;
 class Solution {
 public:
     int minDepth(TreeNode* root) {
-
+        if (root == nullptr) {
+            return 0;
+        }
+        if (root->left == nullptr && root->right == nullptr) {
+            return 1;
+        }
+        int ans = INT_MAX;
+        if (root->left != nullptr) {
+            ans = min(ans, minDepth(root->left) + 1);
+        }
+        if (root->right != nullptr) {
+            ans = min(ans, minDepth(root->right) + 1);
+        }
+        return ans;
     }
 };
 
