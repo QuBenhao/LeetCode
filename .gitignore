@@ -45,3 +45,4 @@ bazel-LeetCode/
 **/*.sw?
 
 **/*.tsbuildinfo
+package-lock.json
