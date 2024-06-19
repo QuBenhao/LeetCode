@@ -132,10 +132,10 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
     print(f"Add question: [{problem_id}]{problem_slug}", file=file)
 
 
-def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[str], problem_category: Optional[str],
+def main(problem_id: Optional[str], problem_slug: Optional[str], problem_category: Optional[str],
          force: bool = False, cookie: Optional[str] = None, fetch_all: bool = False, premium_only: bool = False,
          file: Optional[str] = None, replace_problem_id: bool = False, skip_language: bool = False,
-         languages: list[str] = None):
+         languages: list[str] = None, problem_folder: str = None):
     if not fetch_all:
         if not problem_id and not problem_slug:
             print("Requires at least one of problem_id or problem_slug to fetch in single mode.")
@@ -162,10 +162,13 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
         problem_id = question_info["questionFrontendId"]
         problem_title = question_info["title"]
         pc = question_info["categoryTitle"]
+        paid_only = premium_only or question_info["isPaidOnly"]
         if str.lower(pc) == "database":
-            process_single_database_problem(problem_folder, problem_id, problem_slug, problem_title, cookie, force)
+            tmp = get_default_folder(pc) if not problem_folder else problem_folder
+            process_single_database_problem(tmp, problem_id, problem_slug, problem_title, cookie, force)
         else:
-            process_single_algorithm_problem(problem_folder, problem_id, problem_slug, problem_title, cookie, force,
+            tmp = get_default_folder(pc, paid_only=paid_only) if not problem_folder else problem_folder
+            process_single_algorithm_problem(tmp, problem_id, problem_slug, problem_title, cookie, force,
                                              skip_language, languages=languages)
             if replace_problem_id:
                 root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -216,30 +219,28 @@ def main(problem_folder: str, problem_id: Optional[str], problem_slug: Optional[
         for question in tqdm(questions):
             question_info = get_question_info(question["titleSlug"], cookie)
             pc = question_info["categoryTitle"]
+            paid_only = premium_only or question_info["isPaidOnly"]
             try:
                 if file is not None:
                     with open(file, "w", encoding="utf-8") as f:
                         if str.lower(pc) == "database":
-                            process_single_database_problem(problem_folder,
-                                                            question["frontendQuestionId"], question["titleSlug"],
-                                                            question["title"],
-                                                            cookie, force, file=f)
+                            tmp = get_default_folder(pc) if not problem_folder else problem_folder
+                            process_single_database_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                                                            question["title"], cookie, force, file=f)
                         else:
-                            process_single_algorithm_problem(problem_folder,
-                                                             question["frontendQuestionId"], question["titleSlug"],
-                                                             question["title"],
-                                                             cookie, force, file=f, languages=languages)
+                            tmp = get_default_folder(pc, paid_only=paid_only) if not problem_folder else problem_folder
+                            process_single_algorithm_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                                                             question["title"], cookie, force, file=f,
+                                                             languages=languages)
                 else:
                     if str.lower(pc) == "database":
-                        process_single_database_problem(problem_folder,
-                                                        question["frontendQuestionId"], question["titleSlug"],
-                                                        question["title"],
-                                                        cookie, force)
+                        tmp = get_default_folder(pc) if not problem_folder else problem_folder
+                        process_single_database_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                                                        question["title"], cookie, force)
                     else:
-                        process_single_algorithm_problem(problem_folder,
-                                                         question["frontendQuestionId"], question["titleSlug"],
-                                                         question["title"],
-                                                         cookie, force, languages=languages)
+                        tmp = get_default_folder(pc, paid_only=paid_only) if not problem_folder else problem_folder
+                        process_single_algorithm_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                                                         question["title"], cookie, force, languages=languages)
                 if premium_only:
                     time.sleep(random.randint(3, 6))
             except Exception as e:
@@ -276,9 +277,9 @@ if __name__ == '__main__':
         print(f"Load Env exception, {e}")
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
-    pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder(args.problem_category))
+    pf = os.getenv(constant.PROBLEM_FOLDER, None)
     langs = os.getenv(constant.LANGUAGES, "python3").split(",")
-    main(pf, args.problem_id, args.problem_slug, args.problem_category,
+    main(args.problem_id, args.problem_slug, args.problem_category,
          args.force, cke, args.fetch_all, args.premium_only, args.debug_file, args.change_problem_id,
-         args.skip_language, langs)
+         args.skip_language, langs, problem_folder=pf)
     sys.exit()

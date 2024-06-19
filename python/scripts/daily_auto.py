@@ -14,7 +14,7 @@ from python.constants import constant
 from python.utils import get_default_folder, send_text_message
 
 
-def check_remain_languages(dir_path: str, languages: list[str]) -> list[str]:
+def check_remain_languages(dir_path, languages: list[str]) -> list[str]:
     remain_languages = list(languages)
     for _, _, files in os.walk(dir_path):
         for f in files:
@@ -38,8 +38,9 @@ def check_remain_languages(dir_path: str, languages: list[str]) -> list[str]:
     return remain_languages
 
 
-def write_question(dir_path, question_id: str, question_name: str, slug: str, languages: list[str] = None):
-    desc = get_question_desc(slug)
+def write_question(dir_path, question_id: str, question_name: str, slug: str, languages: list[str] = None,
+                   cookie: str = None):
+    desc = get_question_desc(slug, cookie)
     if desc is not None:
         with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
             f.write(write_problem_md(question_id, question_name, desc))
@@ -56,14 +57,14 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
                                   str(outputs).replace("None", "null")
                                  .replace("True", "true").replace("False", "false")
                                  .replace("'", "\"")])
-    cn_result = get_question_desc_cn(slug)
-    if cn_result is not None:
+    cn_result = get_question_desc_cn(slug, cookie)
+    if cn_result is not None and cn_result[0] is not None:
         cn_desc, cn_title = cn_result
         with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
             f.write(write_problem_md(question_id, cn_title, cn_desc))
     if not languages:
         return
-    code_map = get_question_code(slug, lang_slugs=languages)
+    code_map = get_question_code(slug, lang_slugs=languages, cookie=cookie)
     if code_map is None:
         return
     for language in languages:
@@ -90,7 +91,9 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
     print(f"Add question: [{question_id}]{slug}")
 
 
-def process_daily(problem_folder: str, languages: list[str]):
+def process_daily(languages: list[str], problem_folder: str = None):
+    if problem_folder is None:
+        problem_folder = get_default_folder()
     daily_info = get_daily_question()
     if not daily_info:
         return 1
@@ -130,7 +133,7 @@ def process_daily(problem_folder: str, languages: list[str]):
             f.write(test_func(content, daily_info['questionId']))
 
 
-def process_plans(problem_folder: str, cookie: str, languages: list[str] = None):
+def process_plans(cookie: str, languages: list[str] = None, problem_folder: str = None):
     plans = get_user_study_plans(cookie)
     if plans is None:
         if not send_text_message("The LeetCode in GitHub secrets might be expired, please check!",
@@ -143,19 +146,21 @@ def process_plans(problem_folder: str, cookie: str, languages: list[str] = None)
         plan_prog = get_user_study_plan_progress(slug, cookie)
         print("Plan: {}, total: {}, cur: {}".format(slug, plan_prog["total"], plan_prog["finished"]))
         for question_slug in plan_prog["recommend"]:
-            info = get_question_info(question_slug)
+            info = get_question_info(question_slug, cookie)
             if not info:
                 print("Unable to find the question, skip!")
                 continue
             question_id = info["questionFrontendId"]
+            paid_only = info.get("isPaidOnly", False)
             root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-            dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
+            tmp_folder = problem_folder if problem_folder else get_default_folder(paid_only=paid_only)
+            dir_path = os.path.join(root_path, tmp_folder, f"{tmp_folder}_{question_id}")
             if not os.path.exists(dir_path):
                 os.mkdir(dir_path)
-                write_question(dir_path, question_id, info["title"], question_slug, languages)
+                write_question(dir_path, question_id, info["title"], question_slug, languages, cookie)
             else:
                 remain_languages = check_remain_languages(dir_path, languages)
-                write_question(dir_path, question_id, info["title"], question_slug, remain_languages)
+                write_question(dir_path, question_id, info["title"], question_slug, remain_languages, cookie)
             problem_ids.append(question_id)
     if problem_ids:
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -168,11 +173,11 @@ def process_plans(problem_folder: str, cookie: str, languages: list[str] = None)
                 f.write(line)
 
 
-def main(problem_folder: str, cookie: Optional[str] = None, languages: list[str] = None):
+def main(problem_folder: str = None, cookie: Optional[str] = None, languages: list[str] = None):
     try:
-        process_daily(problem_folder, languages)
+        process_daily(languages, problem_folder)
         if cookie is not None and len(cookie) > 0:
-            process_plans(problem_folder, cookie, languages)
+            process_plans(cookie, languages, problem_folder)
     except Exception as e:
         print("Exception caught: ", str(e))
         traceback.print_exc()
@@ -189,7 +194,7 @@ if __name__ == '__main__':
         print(f"Load Env exception, {e}")
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
-    pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
+    pf = os.getenv(constant.PROBLEM_FOLDER, None)
     try:
         langs = os.getenv(constant.LANGUAGES, "python3").split(",")
     except Exception as _:
