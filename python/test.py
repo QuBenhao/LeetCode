@@ -22,6 +22,10 @@ class Test(unittest.TestCase):
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         problem_folder = os.getenv(constants.PROBLEM_FOLDER, get_default_folder())
         problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{QUESTION}")
+        if not os.path.exists(problem_path):
+            print("Warning: [QUESTION: {}] not found under problem folder: {}".format(QUESTION, problem_folder))
+            problem_folder = get_default_folder(paid_only=True)
+            problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{QUESTION}")
         self.assertTrue(os.path.exists(problem_path), msg="Please set up the problem env first!")
 
         solution_spec = spec_from_file_location("module.name", f"{problem_path}/solution.py")
