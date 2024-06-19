@@ -24,13 +24,17 @@ function JSONArrayToTreeNode(jsonArray: any): TreeNode | null {
             node = new TreeNode(jsonArray[i]);
         }
         if (isLeft == 1) {
-            // @ts-ignore
-            currNode.left = node;
-            nodes.push(node);
+            if (node != null) {
+                // @ts-ignore
+                currNode.left = node;
+                nodes.push(node);
+            }
         } else {
-            // @ts-ignore
-            currNode.right = node
-            nodes.push(node);
+            if (node != null) {
+                // @ts-ignore
+                currNode.right = node;
+                nodes.push(node);
+            }
             currNode = nodes[0];
             nodes.shift();
         }
