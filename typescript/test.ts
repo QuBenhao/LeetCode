@@ -4,9 +4,14 @@ var _ = require('lodash-contrib');
 
 const PROBLEM_ID: string = "2713";
 import {Solve} from "../problems/problems_2713/solution";
+// import {Solve} from "../premiums/premiums_422/solution";
 
 describe("TestMain===" + PROBLEM_ID, () => {
-    const fileContent: string = fs.readFileSync(`problems/problems_${PROBLEM_ID}/testcase`, "utf-8");
+    let testCasePath: string = `problems/problems_${PROBLEM_ID}/testcase`;
+    if (!fs.existsSync(testCasePath)) {
+        testCasePath = `premiums/premiums_${PROBLEM_ID}/testcase`
+    }
+    const fileContent: string = fs.readFileSync(testCasePath, "utf-8");
     const splits: string[] = fileContent.split("\n");
     const inputs: string = splits[0], outputs: string = splits[1];
     const inputJson: any = JSON.parse(inputs), outputJson: any = JSON.parse(outputs);
