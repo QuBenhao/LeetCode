@@ -8,6 +8,7 @@ import org.junit.jupiter.api.TestFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import problems.problems_2713.Solution;
+// import premiums.premiums_422.Solution;
 import qubhjava.Testcase;
 
 import java.io.File;
@@ -32,6 +33,9 @@ public class TestMain {
         FileInputStream fis = null;
         try {
             File file = new File("problems/problems_" + PROBLEM_ID + "/testcase");
+            if (!file.exists()) {
+                file = new File("premiums/premiums_" + PROBLEM_ID + "/testcase");
+            }
             fis = new FileInputStream(file);
             byte[] bytes = fis.readAllBytes();
             // convert to String and split lines

@@ -41,26 +41,42 @@ def generate_question_todo(plan_sub_groups, todo_num: int):
     remain_problems = defaultdict(deque)
     for idx, plan_sub_group in enumerate(plan_sub_groups):
         expectation = 0
+        premium = plan_sub_group["premiumOnly"]
         questions = plan_sub_group["questions"]
         if not questions:
             continue
         group_total[idx] = len(questions)
+        do_first_new = []
+        do_first_before = []
+        normal = []
         do_last = []
         for question in questions:
             title_slug = question["titleSlug"]
             all_problems.add(title_slug)
             status = question["status"]
+            paid_only = question["paidOnly"]
             if status == "SOLVED":
                 all_solved.add(title_slug)
             elif status == "PAST_SOLVED":
-                do_last.append(title_slug)
+                if paid_only:
+                    do_first_before.append(title_slug)
+                    expectation += 0.1
+                else:
+                    do_last.append(title_slug)
                 expectation += 0.2
             else:
-                remain_problems[idx].append(title_slug)
+                if paid_only:
+                    do_first_new.append(title_slug)
+                    expectation += 0.5
+                else:
+                    normal.append(title_slug)
                 expectation += 1
         expectation = expectation / len(questions)
         if expectation != 0:
-            heapq.heappush(pq, (-expectation, idx))
+            heapq.heappush(pq, (-expectation * (100 if premium else 1), idx))
+        remain_problems[idx].extend(do_first_new)
+        remain_problems[idx].extend(do_first_before)
+        remain_problems[idx].extend(normal)
         remain_problems[idx].extend(do_last)
     recommends = []
     while pq and len(recommends) < todo_num:

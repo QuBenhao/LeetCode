@@ -15,7 +15,7 @@ from python.constants import constant
 from python.utils import get_default_folder, send_text_message, check_problem_solved_and_write
 
 
-def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: list[str]):
+def main(user_slug: str, cookie: Optional[str], languages: list[str], problem_folder: str = None):
     try:
         if not lc_libs.check_user_exist(user_slug):
             print(f"User not exist: {user_slug}")
@@ -45,15 +45,24 @@ def main(problem_folder: str, user_slug: str, cookie: Optional[str], languages: 
         sys.path.insert(0, os.path.join(root_path, "python"))
         for question_id, submits in submit_dict.items():
             cache = set()
-            dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
+            info = None
+            if problem_folder is not None:
+                tmp_problem_folder = problem_folder
+            elif question_id == daily_question:
+                tmp_problem_folder = get_default_folder()
+            else:
+                info = lc_libs.get_question_info(submits[0][1], cookie)
+                tmp_problem_folder = get_default_folder(paid_only=info.get("isPaidOnly", False))
+            dir_path = os.path.join(root_path, tmp_problem_folder, f"{tmp_problem_folder}_{question_id}")
             if question_id == daily_question and not os.path.exists(dir_path):
                 os.mkdir(dir_path)
                 write_question(dir_path, daily_question, daily_info['questionNameEn'],
-                               daily_info['questionSlug'], list(languages))
+                               daily_info['questionSlug'], list(languages), cookie)
             elif not os.path.exists(dir_path):
-                info = lc_libs.get_question_info(submits[0][1])
+                if not info:
+                    info = lc_libs.get_question_info(submits[0][1], cookie)
                 os.mkdir(dir_path)
-                write_question(dir_path, question_id, info["title"], submits[0][1], list(languages))
+                write_question(dir_path, question_id, info["title"], submits[0][1], list(languages), cookie)
             default_code = lc_libs.get_question_code(submits[0][1], lang_slugs=languages, cookie=cookie)
             for submit_id, question_slug, language in submits:
                 if language in cache:
@@ -103,11 +112,11 @@ if __name__ == '__main__':
         print(f"Load Env exception, {e}")
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
-    pf = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
+    pf = os.getenv(constant.PROBLEM_FOLDER, None)
     try:
         langs = os.getenv(constant.LANGUAGES, "python3").split(",")
     except Exception as _:
         traceback.print_exc()
         langs = ["python3"]
-    exec_res = main(pf, args.user, cke, langs)
+    exec_res = main(args.user, cke, langs, pf)
     sys.exit(exec_res)

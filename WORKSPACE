@@ -18,3 +18,9 @@ new_local_repository(
     path = "problems/problems_2713/",
     build_file = "//cpp:solution.BUILD",
 )
+
+new_local_repository(
+    name = "premiums",
+    path = "premiums/premiums_422/",
+    build_file = "//cpp:solution.BUILD",
+)
