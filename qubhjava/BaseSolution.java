@@ -101,6 +101,15 @@ public abstract class BaseSolution {
         return result;
     }
 
+    protected List<String> jsonArrayToStringList(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        List<String> result = new ArrayList<>(jsonArray.size());
+        for (int i = 0; i < jsonArray.size(); i++) {
+            result.add(jsonArray.getString(i));
+        }
+        return result;
+    }
+
     protected String jsonStringToString(String jsonString) {
         return jsonString.replaceAll("\"", "");
     }
