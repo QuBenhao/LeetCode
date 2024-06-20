@@ -2,8 +2,8 @@ import * as fs from 'fs';
 var _ = require('lodash-contrib');
 
 
-const PROBLEM_ID: string = "2748";
-import {Solve} from "../problems/problems_2748/solution";
+const PROBLEM_ID: string = "LCP 61";
+import {Solve} from "../problems/problems_LCP 61/solution";
 // import {Solve} from "../premiums/premiums_422/solution";
 
 describe("TestMain===" + PROBLEM_ID, () => {
