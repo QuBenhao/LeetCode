@@ -22,7 +22,7 @@ Algorithms in LeetCode by Benhao
 After clone this repo, add a .env file to tell where to locate your problems and solutions (locally).
 For remote GitHub Action, add `COOKIE` (LeetCode cookie), `PUSH_KEY` (PushDeer notification), `PROBLEM_FOLDER` (where to add problems), `USER` (LeetCode personal page uri).
 
-**Notice:** If you want more than just python3, add `LANGUAGES="python3,golang"` (and so on in env)
+**Notice:** If you want more than just python3, add `LANGUAGES="python3,golang"` (and so on in .env)
 
 Example .env file:
 ```text
@@ -88,7 +88,7 @@ Check [TypeScript README](typescript/README.md)
 
 ## Easy
 
-[1480.Running Sum of 1d Array](problems/problems_1480/problem.md) [1480.测试](problems/problems_1480/problem_zh.md)
+[1480.Running Sum of 1d Array](problems/problems_1480/problem.md)
 
 [1431.Kids With the Greatest Number of Candies](problems/problems_1431/problem.md)
 
