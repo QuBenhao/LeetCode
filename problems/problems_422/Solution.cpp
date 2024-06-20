@@ -8,7 +8,19 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool validWordSquare(vector<string>& words) {
-
+        for (size_t i = 0; i < words.size(); i++) {
+            if (words[i].length() > words.size()) {
+                return false;
+            }
+            for (size_t j = 0; j < i; j++) {
+                if ((words[i].length() <= j) != (words[j].length() <= i)) {
+                    return false;
+                } else if (words[i].length() > j && words[i][j] != words[j][i]) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 };
 
