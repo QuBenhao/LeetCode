@@ -1,4 +1,4 @@
-package problems.problems_LCP 61;
+package problems.problems_LCP_61;
 
 import com.alibaba.fastjson.JSON;
 import java.util.*;
@@ -7,7 +7,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int temperatureTrend(int[] temperatureA, int[] temperatureB) {
-
+        
     }
 
     @Override

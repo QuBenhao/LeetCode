@@ -1,4 +1,4 @@
-package problemLCP 61
+package problemLCP_61
 
 import (
 	"encoding/json"
@@ -7,7 +7,7 @@ import (
 )
 
 func temperatureTrend(temperatureA []int, temperatureB []int) int {
-
+    
 }
 
 func Solve(input string) interface{} {
