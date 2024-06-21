@@ -63,7 +63,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         cn_desc, cn_title = cn_result
         with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
             f.write(write_problem_md(problem_id, cn_title, cn_desc))
-    if not skip_language and not os.path.exists(f"{dir_path}/testcase.py"):
+    if not os.path.exists(f"{dir_path}/testcase.py"):
         with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
             f.write(write_testcase(testcases, outputs))
     if not os.path.exists(f"{dir_path}/testcase"):
