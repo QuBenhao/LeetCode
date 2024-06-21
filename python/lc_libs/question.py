@@ -103,7 +103,7 @@ def extract_outputs_from_md(markdown_text: str) -> list:
 
                     # 将HTML转换为字符
                     text_content = html2text.html2text(html_content)
-                    text_content = text_content.replace("\n", "")
+                    text_content = convert_to_evaluable_str(text_content.replace("\n", ""))
                     res.append(eval(text_content))
                     success_process = True
                     break

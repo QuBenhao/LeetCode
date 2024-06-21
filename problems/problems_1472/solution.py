@@ -12,14 +12,19 @@ class Solution(solution.Solution):
 
 class BrowserHistory:
     def __init__(self, homepage: str):
-        pass
+        self.b = [homepage]
+        self.f = []
 
     def visit(self, url: str) -> None:
-        pass
+        self.b.append(url)
+        self.f.clear()
 
     def back(self, steps: int) -> str:
-        pass
+        for _ in range(min(steps, len(self.b) - 1)):
+            self.f.append(self.b.pop())
+        return self.b[-1]
 
     def forward(self, steps: int) -> str:
-        pass
-
+        for _ in range(min(steps, len(self.f))):
+            self.b.append(self.f.pop())
+        return self.b[-1]
