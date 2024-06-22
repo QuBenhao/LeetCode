@@ -144,7 +144,7 @@ def get_submission_detail(submit_id: str, cookie: str, handle_fun=None):
                            cookies={"cookie": cookie})
 
 
-def add_test(root_path, problem_folder: str, question_id: str, code_input: str, expected_output: str):
+def _add_test(root_path, problem_folder: str, question_id: str, code_input: str, expected_output: str):
     need_add_test = True
     code_input_py = code_input.replace("null", "None").replace("true", "True").replace("false", "False")
     expected_output_py = expected_output.replace("null", "None").replace("true", "True").replace("false", "False")
@@ -281,7 +281,7 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
             submit_detail["outputDetail"]["runtimeError"],
         )
         if submit_detail["outputDetail"]["input"] and submit_detail["outputDetail"]["expectedOutput"]:
-            add_test(root_path, problem_folder, question_id,
+            _add_test(root_path, problem_folder, question_id,
                      submit_detail["outputDetail"]["input"], submit_detail["outputDetail"]["expectedOutput"])
 
     print(SUBMIT_BASIC_RESULT.format(
