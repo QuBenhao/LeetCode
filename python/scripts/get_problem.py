@@ -42,27 +42,34 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
     if not dir_path:
         return
     desc = get_question_desc(problem_slug, cookie)
+    is_chinese = False
     if desc is None:
         print(f"Unable to fetch question content, [{problem_id}]{problem_slug}", file=file)
         return
+    elif "English description is not available for the problem. Please switch to Chinese." in desc:
+        desc = ""
+        is_chinese = True
+    else:
+        with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
+            f.write(write_problem_md(problem_id, problem_title, desc))
+    cn_result = get_question_desc_cn(problem_slug, cookie=cookie)
+    if cn_result is not None:
+        cn_desc, cn_title = cn_result
+        if is_chinese:
+            desc = cn_desc
+        with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
+            f.write(write_problem_md(problem_id, cn_title, cn_desc))
     code_maps = get_question_code(problem_slug, lang_slugs=languages, cookie=cookie)
     if code_maps is None:
         print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}", file=file)
         shutil.rmtree(dir_path)
         return
-    outputs = extract_outputs_from_md(desc)
+    outputs = extract_outputs_from_md(desc, is_chinese)
     print(f"question_id: {problem_id}, outputs: {outputs}", file=file)
     testcases, testcase_str = get_question_testcases(problem_slug)
     if testcases is None:
         print(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}", file=file)
         return
-    with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
-        f.write(write_problem_md(problem_id, problem_title, desc))
-    cn_result = get_question_desc_cn(problem_slug, cookie=cookie)
-    if cn_result is not None:
-        cn_desc, cn_title = cn_result
-        with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
-            f.write(write_problem_md(problem_id, cn_title, cn_desc))
     if not os.path.exists(f"{dir_path}/testcase.py"):
         with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
             f.write(write_testcase(testcases, outputs))
@@ -159,7 +166,7 @@ def main(problem_id: Optional[str], problem_slug: Optional[str], problem_categor
         if not question_info:
             print(f"Unable to check out problem given by slug: {problem_slug}, please check ")
             return
-        problem_id = question_info["questionFrontendId"]
+        problem_id = question_info["questionFrontendId"].replace(" ", "_")
         problem_title = question_info["title"]
         pc = question_info["categoryTitle"]
         paid_only = premium_only or question_info["isPaidOnly"]
@@ -171,6 +178,7 @@ def main(problem_id: Optional[str], problem_slug: Optional[str], problem_categor
             process_single_algorithm_problem(tmp, problem_id, problem_slug, problem_title, cookie, force,
                                              skip_language, languages=languages)
             if replace_problem_id:
+                problem_id = problem_id.replace(" ", "_")
                 root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
                 for lang in languages:
                     match lang:
@@ -219,27 +227,28 @@ def main(problem_id: Optional[str], problem_slug: Optional[str], problem_categor
         for question in tqdm(questions):
             question_info = get_question_info(question["titleSlug"], cookie)
             pc = question_info["categoryTitle"]
+            question_id = question["frontendQuestionId"].replace(" ", "_")
             paid_only = premium_only or question_info["isPaidOnly"]
             try:
                 if file is not None:
                     with open(file, "w", encoding="utf-8") as f:
                         if str.lower(pc) == "database":
                             tmp = get_default_folder(pc) if not problem_folder else problem_folder
-                            process_single_database_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                            process_single_database_problem(tmp, question_id, question["titleSlug"],
                                                             question["title"], cookie, force, file=f)
                         else:
                             tmp = get_default_folder(pc, paid_only=paid_only) if not problem_folder else problem_folder
-                            process_single_algorithm_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                            process_single_algorithm_problem(tmp, question_id, question["titleSlug"],
                                                              question["title"], cookie, force, file=f,
                                                              languages=languages)
                 else:
                     if str.lower(pc) == "database":
                         tmp = get_default_folder(pc) if not problem_folder else problem_folder
-                        process_single_database_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                        process_single_database_problem(tmp, question_id, question["titleSlug"],
                                                         question["title"], cookie, force)
                     else:
                         tmp = get_default_folder(pc, paid_only=paid_only) if not problem_folder else problem_folder
-                        process_single_algorithm_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                        process_single_algorithm_problem(tmp, question_id, question["titleSlug"],
                                                          question["title"], cookie, force, languages=languages)
                 if premium_only:
                     time.sleep(random.randint(3, 6))

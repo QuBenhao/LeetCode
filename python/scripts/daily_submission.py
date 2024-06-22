@@ -1,5 +1,4 @@
 import argparse
-import json
 import os
 import sys
 import traceback
@@ -24,7 +23,7 @@ def main(user_slug: str, cookie: Optional[str], languages: list[str], problem_fo
         if not daily_info:
             print(f"Unable to get daily question")
             return 1
-        daily_question = daily_info['questionId']
+        daily_question = daily_info['questionId'].replace(" ", "_")
         finish_daily = False
         plan_questions_slug = set()
         finished_plan_questions = []
@@ -44,6 +43,7 @@ def main(user_slug: str, cookie: Optional[str], languages: list[str], problem_fo
         root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         sys.path.insert(0, os.path.join(root_path, "python"))
         for question_id, submits in submit_dict.items():
+            question_id = question_id.replace(" ", "_")
             cache = set()
             info = None
             if problem_folder is not None:

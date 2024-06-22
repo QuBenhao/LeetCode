@@ -20,6 +20,7 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     if not code_func:
         print(f"{lang} is not supported yet!")
         return
+    origin_problem_id, problem_id = problem_id, problem_id.replace(" ", "_")
     code, problem_id = code_func(root_path, problem_folder, problem_id)
     if not code:
         print("No solution yet!")
@@ -27,15 +28,15 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     if not problem_id:
         print("Unable to get problem_id")
         return
-    questions = lc_libs.get_questions_by_key_word(problem_id)
+    questions = lc_libs.get_questions_by_key_word(origin_problem_id)
     if not questions:
-        print(f"Unable to find any questions with problem_id {problem_id}")
+        print(f"Unable to find any questions with problem_id {origin_problem_id}")
         return
     problem_slug = None
     for question in questions:
         if question["paidOnly"] and not cookie:
             continue
-        if question["frontendQuestionId"] == problem_id:
+        if question["frontendQuestionId"] == origin_problem_id:
             problem_slug = question["titleSlug"]
             break
     if not problem_slug:
