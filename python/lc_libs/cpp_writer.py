@@ -4,14 +4,14 @@ from python.constants import SOLUTION_TEMPLATE_CPP
 from collections import deque
 
 
-def change_test_cpp(content: str, question_id: str) -> str:
+def change_test_cpp(content: str, problem_folder: str, question_id: str) -> str:
     ans = []
     is_problem = False
     for line in content.split("\n"):
         if "name = \"problems\"," in line:
             is_problem = True
         elif is_problem and "path = \"" in line:
-            ans.append("    path = \"problems/problems_{}/\",".format(question_id))
+            ans.append("    path = \"{}/{}_{}/\",".format(problem_folder, problem_folder, question_id))
             is_problem = False
             continue
         ans.append(line)

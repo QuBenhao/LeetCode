@@ -4,13 +4,29 @@ from collections import deque
 from python.constants import SOLUTION_TEMPLATE_GOLANG, SOLUTION_TEMPLATE_GOLANG_MODIFY_IN_PLACE
 
 
-def change_test_golang(content: str, question_id: str) -> str:
+def change_test_golang(content: str, problem_folder: str, question_id: str) -> str:
     ans = []
+    appear_problem, appear_test_folder = False, False
     for line in content.split("\n"):
-        if "problem \"leetCode/problems/" in line:
-            ans.append(f'\tproblem "leetCode/problems/problems_{question_id}"')
+        if f"problem \"leetCode/{problem_folder}/{problem_folder}_" in line:
+            ans.append(f'\tproblem "leetCode/{problem_folder}/{problem_folder}_{question_id}"')
+            appear_problem = True
             continue
+        elif f"const TestcaseFolderFmt = \"{problem_folder}/{problem_folder}_%s/testcase\"" in line:
+            ans.append(f"const TestcaseFolderFmt = \"{problem_folder}/{problem_folder}_%s/testcase\"")
+            appear_test_folder = True
+            continue
+        elif (f"problem \"leetCode/" in line or
+              f"const TestcaseFolderFmt = \"" in line) and not line.strip().startswith("//"):
+            ans.append(f"// {line}")
+            continue
+        elif line.strip() == "\"log\"" and not appear_problem:
+            ans.append(f'\tproblem "leetCode/{problem_folder}/{problem_folder}_{question_id}"')
+            appear_problem = True
         elif "var problemId string =" in line:
+            if not appear_test_folder:
+                ans.append(f"const TestcaseFolderFmt = \"{problem_folder}/{problem_folder}_%s/testcase\"")
+                appear_test_folder = True
             ans.append(f'var problemId string = "{question_id}"')
             continue
         ans.append(line)

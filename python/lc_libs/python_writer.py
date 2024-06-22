@@ -31,7 +31,7 @@ def write_testcase(testcases, outputs) -> str:
     return TESTCASE_TEMPLATE_PYTHON.format(res)
 
 
-def change_test_python(content: str, question_id: str) -> str:
+def change_test_python(content: str, problem_folder: str, question_id: str) -> str:
     ans = []
     for line in content.split("\n"):
         if line.startswith("QUESTION = "):

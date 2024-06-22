@@ -4,15 +4,23 @@ from collections import deque
 from python.constants import SOLUTION_TEMPLATE_JAVA
 
 
-def change_test_java(content: str, question_id: str) -> str:
+def change_test_java(content: str, problem_folder: str, question_id: str) -> str:
     ans = []
+    appear_problem_folder = False
     for line in content.split("\n"):
         if "private static final String PROBLEM_ID = " in line:
             ans.append(line.split("\"")[0] + f"\"{question_id}\";")
             continue
-        elif "import problems.problems_" in line and ".Solution;" in line:
-            ans.append("import problems.problems_" + question_id + ".Solution;")
+        elif f"import {problem_folder}.{problem_folder}_" in line and ".Solution;" in line:
+            ans.append(f"import {problem_folder}.{problem_folder}_{question_id}.Solution;")
+            appear_problem_folder = True
             continue
+        elif "import " in line and ".Solution;" in line and not line.startswith("//"):
+            ans.append(f"// {line}")
+            continue
+        elif line.strip() == "import qubhjava.Testcase;" and not appear_problem_folder:
+            ans.append(f"import {problem_folder}.{problem_folder}_{question_id}.Solution;")
+            appear_problem_folder = True
         ans.append(line)
     return "\n".join(ans)
 
