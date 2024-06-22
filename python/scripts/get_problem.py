@@ -22,7 +22,6 @@ from python.utils import get_default_folder
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False,
                    skip_language: bool = False, file=None):
-    problem_id = problem_id.replace(" ", "_")
     root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}")
     if os.path.exists(dir_path):
@@ -167,7 +166,7 @@ def main(problem_id: Optional[str], problem_slug: Optional[str], problem_categor
         if not question_info:
             print(f"Unable to check out problem given by slug: {problem_slug}, please check ")
             return
-        problem_id = question_info["questionFrontendId"]
+        problem_id = question_info["questionFrontendId"].replace(" ", "_")
         problem_title = question_info["title"]
         pc = question_info["categoryTitle"]
         paid_only = premium_only or question_info["isPaidOnly"]
@@ -228,27 +227,28 @@ def main(problem_id: Optional[str], problem_slug: Optional[str], problem_categor
         for question in tqdm(questions):
             question_info = get_question_info(question["titleSlug"], cookie)
             pc = question_info["categoryTitle"]
+            question_id = question["frontendQuestionId"].replace(" ", "_")
             paid_only = premium_only or question_info["isPaidOnly"]
             try:
                 if file is not None:
                     with open(file, "w", encoding="utf-8") as f:
                         if str.lower(pc) == "database":
                             tmp = get_default_folder(pc) if not problem_folder else problem_folder
-                            process_single_database_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                            process_single_database_problem(tmp, question_id, question["titleSlug"],
                                                             question["title"], cookie, force, file=f)
                         else:
                             tmp = get_default_folder(pc, paid_only=paid_only) if not problem_folder else problem_folder
-                            process_single_algorithm_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                            process_single_algorithm_problem(tmp, question_id, question["titleSlug"],
                                                              question["title"], cookie, force, file=f,
                                                              languages=languages)
                 else:
                     if str.lower(pc) == "database":
                         tmp = get_default_folder(pc) if not problem_folder else problem_folder
-                        process_single_database_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                        process_single_database_problem(tmp, question_id, question["titleSlug"],
                                                         question["title"], cookie, force)
                     else:
                         tmp = get_default_folder(pc, paid_only=paid_only) if not problem_folder else problem_folder
-                        process_single_algorithm_problem(tmp, question["frontendQuestionId"], question["titleSlug"],
+                        process_single_algorithm_problem(tmp, question_id, question["titleSlug"],
                                                          question["title"], cookie, force, languages=languages)
                 if premium_only:
                     time.sleep(random.randint(3, 6))

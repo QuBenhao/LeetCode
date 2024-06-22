@@ -20,6 +20,7 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     if not code_func:
         print(f"{lang} is not supported yet!")
         return
+    problem_id = problem_id.replace(" ", "_")
     code, problem_id = code_func(root_path, problem_folder, problem_id)
     if not code:
         print("No solution yet!")
