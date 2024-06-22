@@ -45,6 +45,7 @@ def check_problem_solved_python(dir_path, question_id: str, question_slug: str):
 
 def check_problem_solved_and_write(question_id: str,
                                    language: str,
+                                   problem_folder: str,
                                    root_path,
                                    dir_path,
                                    write: bool = False,
@@ -104,7 +105,7 @@ def check_problem_solved_and_write(question_id: str,
                 with open(main_file, "r", encoding="utf-8") as f:
                     backup_content = f.read()
                 with open(main_file, "w", encoding="utf-8") as f:
-                    f.write(test_func(backup_content, question_id))
+                    f.write(test_func(backup_content, problem_folder, question_id))
                 all_pass = True
                 for cmds in test_commands:
                     try:

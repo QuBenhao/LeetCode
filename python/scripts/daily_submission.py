@@ -79,6 +79,7 @@ def main(user_slug: str, cookie: Optional[str], languages: list[str], problem_fo
                 test_func = getattr(lc_libs, "change_test_{}".format(language), None)
                 if check_problem_solved_and_write(question_id,
                                                   detail["lang"],
+                                                  tmp_problem_folder,
                                                   root_path,
                                                   dir_path,
                                                   True,
