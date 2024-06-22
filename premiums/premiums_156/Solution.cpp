@@ -18,23 +18,32 @@ using json = nlohmann::json;
  */
 class Solution {
 public:
-    TreeNode* upsideDownBinaryTree(TreeNode* root) {
-
+    TreeNode *upsideDownBinaryTree(TreeNode *root) {
+        TreeNode *node = nullptr, *left = root, *right = nullptr;
+        while (left != nullptr) {
+            TreeNode *new_left = left->left, *new_right = left->right;
+            left->left = right;
+            left->right = node;
+            node = left;
+            left = new_left;
+            right = new_right;
+        }
+        return node;
     }
 };
 
 json leetcode::qubh::Solve(string input) {
-	vector<string> inputArray;
-	size_t pos = input.find('\n');
-	while (pos != string::npos) {
-		inputArray.push_back(input.substr(0, pos));
-		input = input.substr(pos + 1);
-		pos = input.find('\n');
-	}
-	inputArray.push_back(input);
+    vector<string> inputArray;
+    size_t pos = input.find('\n');
+    while (pos != string::npos) {
+        inputArray.push_back(input.substr(0, pos));
+        input = input.substr(pos + 1);
+        pos = input.find('\n');
+    }
+    inputArray.push_back(input);
 
-	Solution solution;
-	json root_array = json::parse(inputArray.at(0));
-	TreeNode *root = JsonArrayToTreeNode(root_array);
-	return TreeNodeToJsonArray(solution.upsideDownBinaryTree(root));
+    Solution solution;
+    json root_array = json::parse(inputArray.at(0));
+    TreeNode *root = JsonArrayToTreeNode(root_array);
+    return TreeNodeToJsonArray(solution.upsideDownBinaryTree(root));
 }
