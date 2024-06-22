@@ -8,7 +8,19 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<vector<int>> findMissingRanges(vector<int>& nums, int lower, int upper) {
-        
+        nums.push_back(upper + 1);
+        auto last = lower - 1;
+        auto ans = vector<vector<int>>();
+        for (auto num: nums) {
+            auto d = num - last;
+            if (d > 2) {
+                ans.push_back(vector<int>{last + 1, num - 1});
+            } else if (d > 1) {
+                ans.push_back(vector<int>{last + 1, last + 1});
+            }
+            last = num;
+        }
+        return ans;
     }
 };
 
