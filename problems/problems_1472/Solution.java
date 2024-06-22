@@ -2,8 +2,6 @@ package problems.problems_1472;
 
 import com.alibaba.fastjson.JSON;
 import java.util.*;
-
-import com.alibaba.fastjson.JSONArray;
 import qubhjava.BaseSolution;
 class BrowserHistory {
     Stack<String> b, f;
@@ -35,7 +33,6 @@ class BrowserHistory {
         return b.peek();
     }
 }
-
 /**
  * Your BrowserHistory object will be instantiated and called as such:
  * BrowserHistory obj = new BrowserHistory(homepage);
@@ -46,8 +43,10 @@ class BrowserHistory {
 
 public class Solution extends BaseSolution {
 
+
     @Override
     public Object solve(String[] values) {
-        return JSON.toJSON(0);
+        
+        return JSON.toJSON();
     }
 }

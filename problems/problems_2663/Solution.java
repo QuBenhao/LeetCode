@@ -29,10 +29,12 @@ public class Solution extends BaseSolution {
         return new String(s);
     }
 
+
+
     @Override
     public Object solve(String[] values) {
-        String s = jsonStringToString(values[0]);
+        String S = jsonStringToString(values[0]);
 		int k = Integer.parseInt(values[1]);
-        return JSON.toJSON(smallestBeautifulString(s, k));
+        return JSON.toJSON(smallestBeautifulString(S, k));
     }
 }
