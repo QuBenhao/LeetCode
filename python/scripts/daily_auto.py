@@ -41,12 +41,23 @@ def check_remain_languages(dir_path, languages: list[str]) -> list[str]:
 def write_question(dir_path, question_id: str, question_name: str, slug: str, languages: list[str] = None,
                    cookie: str = None):
     desc = get_question_desc(slug, cookie)
+    cn_result = get_question_desc_cn(slug, cookie)
+    cn_desc = None
+    if cn_result is not None and cn_result[0] is not None:
+        cn_desc, cn_title = cn_result
+        with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
+            f.write(write_problem_md(question_id, cn_title, cn_desc))
     if desc is not None:
-        with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
-            f.write(write_problem_md(question_id, question_name, desc))
+        is_chinese = False
+        if "English description is not available for the problem. Please switch to Chinese." in desc:
+            desc = cn_desc if cn_desc else ""
+            is_chinese = True
+        else:
+            with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
+                f.write(write_problem_md(question_id, question_name, desc))
         testcases, testcase_str = get_question_testcases(slug)
         if testcases is not None:
-            outputs = extract_outputs_from_md(desc)
+            outputs = extract_outputs_from_md(desc, is_chinese)
             print(f"question_id: {question_id}, outputs: {outputs}")
             if (not languages or "python3" in languages) and not os.path.exists(f"{dir_path}/testcase.py"):
                 with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
@@ -57,11 +68,6 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
                                   str(outputs).replace("None", "null")
                                  .replace("True", "true").replace("False", "false")
                                  .replace("'", "\"")])
-    cn_result = get_question_desc_cn(slug, cookie)
-    if cn_result is not None and cn_result[0] is not None:
-        cn_desc, cn_title = cn_result
-        with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
-            f.write(write_problem_md(question_id, cn_title, cn_desc))
     if not languages:
         return
     code_map = get_question_code(slug, lang_slugs=languages, cookie=cookie)
@@ -98,15 +104,16 @@ def process_daily(languages: list[str], problem_folder: str = None):
     if not daily_info:
         return 1
     root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{daily_info['questionId']}")
+    question_id = daily_info['questionId'].replace(" ", "_")
+    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
-        write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'],
+        write_question(dir_path, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
                        languages)
     else:
         print("solved {} before".format(daily_info['questionId']))
         remain_languages = check_remain_languages(dir_path, languages)
-        write_question(dir_path, daily_info['questionId'], daily_info['questionNameEn'], daily_info['questionSlug'],
+        write_question(dir_path, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
                        remain_languages)
     for lang in languages:
         match lang:
@@ -130,7 +137,7 @@ def process_daily(languages: list[str], problem_folder: str = None):
         with open(main_file, "r", encoding="utf-8") as f:
             content = f.read()
         with open(main_file, "w", encoding="utf-8") as f:
-            f.write(test_func(content, daily_info['questionId']))
+            f.write(test_func(content, question_id))
 
 
 def process_plans(cookie: str, languages: list[str] = None, problem_folder: str = None):
@@ -150,7 +157,7 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
             if not info:
                 print("Unable to find the question, skip!")
                 continue
-            question_id = info["questionFrontendId"]
+            question_id = info["questionFrontendId"].replace(" ", "_")
             paid_only = info.get("isPaidOnly", False)
             root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             tmp_folder = problem_folder if problem_folder else get_default_folder(paid_only=paid_only)
