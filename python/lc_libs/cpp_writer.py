@@ -141,12 +141,12 @@ def get_solution_code_cpp(root_path, problem_folder: str, problem_id: str) -> (s
         with open(os.path.join(root_path, "WORKSPACE"), 'r', encoding="utf-8") as f:
             lines = f.read().split('\n')
             for line in lines:
-                if "path = \"problems/problems_" in line:
+                if f"path = \"{problem_folder}/{problem_folder}_" in line:
                     problem_id = line.split('_')[-1].split('/')[0]
                     break
     if not problem_id:
         return "", problem_id
-    file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "Solution.cpp")
+    file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "Solution.cpp")
     if not os.path.exists(file_path):
         return "", problem_id
     final_codes = deque([])

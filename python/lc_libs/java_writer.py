@@ -131,7 +131,7 @@ def get_solution_code_java(root_path, problem_folder: str, problem_id: str) -> (
                     break
     if not problem_id:
         return "", problem_id
-    file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "Solution.java")
+    file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "Solution.java")
     if not os.path.exists(file_path):
         return "", problem_id
     final_codes = deque([])
