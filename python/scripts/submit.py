@@ -53,10 +53,10 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     for plan in plans:
         all_problems = lc_libs.get_user_study_plan_progress(plan, cookie, 0).get("all_problems", set())
         if problem_slug in all_problems:
-            result = await lc_libs.submit_code(root_path, problem_id, problem_slug, cookie, lang, lc_question_id, code, plan)
+            result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang, lc_question_id, code, plan)
             exists = True
     if not exists:
-        result = await lc_libs.submit_code(root_path, problem_id, problem_slug, cookie, lang, lc_question_id, code)
+        result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang, lc_question_id, code)
     return result
 
 

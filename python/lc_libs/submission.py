@@ -144,7 +144,7 @@ def get_submission_detail(submit_id: str, cookie: str, handle_fun=None):
                            cookies={"cookie": cookie})
 
 
-def _add_test(root_path, question_id: str, code_input: str, expected_output: str):
+def add_test(root_path, problem_folder: str, question_id: str, code_input: str, expected_output: str):
     need_add_test = True
     code_input_py = code_input.replace("null", "None").replace("true", "True").replace("false", "False")
     expected_output_py = expected_output.replace("null", "None").replace("true", "True").replace("false", "False")
@@ -152,7 +152,7 @@ def _add_test(root_path, question_id: str, code_input: str, expected_output: str
         code_input_py = code_input_py.replace("\n", ",")
         code_input_py = f"[{code_input_py}]"
 
-    file_path = os.path.join(root_path, "problems", f"problems_{question_id}", "testcase.py")
+    file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}", "testcase.py")
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read().split("\n")
         for line in content:
@@ -160,7 +160,7 @@ def _add_test(root_path, question_id: str, code_input: str, expected_output: str
                 splits = line.split(", Output=")
                 ipt, opt = splits[0].split("=")[-1].strip(), splits[-1].strip()[:-2]
                 if (ipt.replace(" ", "") == code_input_py.replace(" ", "") or
-                    ipt.replace(" ", "").replace("\"", "'")) and \
+                    ipt.replace(" ", "").replace("'", "\"") == code_input_py.replace(" ", "")) and \
                         opt.replace(" ", "") == expected_output_py.replace(" ", ""):
                     need_add_test = False
                     break
@@ -179,7 +179,7 @@ def _add_test(root_path, question_id: str, code_input: str, expected_output: str
             f.write("\n".join(new_content))
 
     need_add_test = True
-    file_path = os.path.join(root_path, "problems", f"problems_{question_id}", "testcase")
+    file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}", "testcase")
     if os.path.exists(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read().split("\n")
@@ -194,7 +194,7 @@ def _add_test(root_path, question_id: str, code_input: str, expected_output: str
                 f.write(new_content)
 
 
-async def submit_code(root_path, question_id: str, question_slug: str, cookie: str, lang: str,
+async def submit_code(root_path, problem_folder: str, question_id: str, question_slug: str, cookie: str, lang: str,
                       leetcode_question_id: str, typed_code: str, study_plan_slug: str = None) -> dict | None:
     def handle_submit_response(response: requests.Response):
         if not response.text or response.status_code != 200:
@@ -281,8 +281,8 @@ async def submit_code(root_path, question_id: str, question_slug: str, cookie: s
             submit_detail["outputDetail"]["runtimeError"],
         )
         if submit_detail["outputDetail"]["input"] and submit_detail["outputDetail"]["expectedOutput"]:
-            _add_test(root_path, question_id,
-                      submit_detail["outputDetail"]["input"], submit_detail["outputDetail"]["expectedOutput"])
+            add_test(root_path, problem_folder, question_id,
+                     submit_detail["outputDetail"]["input"], submit_detail["outputDetail"]["expectedOutput"])
 
     print(SUBMIT_BASIC_RESULT.format(
         submit_detail["statusDisplay"],
