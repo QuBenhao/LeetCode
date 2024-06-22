@@ -6,8 +6,16 @@ import (
 	"strings"
 )
 
-func findMissingRanges(nums []int, lower int, upper int) [][]int {
-
+func findMissingRanges(nums []int, lower int, upper int) (ans [][]int) {
+	nums = append(nums, upper+1)
+	last := lower - 1
+	for _, num := range nums {
+		if d := num - last; d > 1 {
+			ans = append(ans, []int{last + 1, num - 1})
+		}
+		last = num
+	}
+	return
 }
 
 func Solve(input string) interface{} {
