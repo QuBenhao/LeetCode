@@ -6,11 +6,11 @@ def general_request(url: str, func=None, request_method: str = "post", params=No
     try:
         match request_method:
             case "get":
-                resp = requests.get(url, params=params, **kwargs)
+                resp = requests.get(url, params=params, timeout=30, **kwargs)
             case "put":
-                resp = requests.put(url, data=data, **kwargs)
+                resp = requests.put(url, data=data, timeout=30, **kwargs)
             case _:
-                resp = requests.post(url, data=data, json=json, **kwargs)
+                resp = requests.post(url, data=data, json=json, timeout=30, **kwargs)
         if resp.status_code != 200:
             print(f"{resp.status_code}: {resp.text}")
         else:
