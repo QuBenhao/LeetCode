@@ -22,6 +22,7 @@ from python.utils import get_default_folder
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False,
                    skip_language: bool = False, file=None):
+    problem_id = problem_id.replace(" ", "_")
     root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}")
     if os.path.exists(dir_path):
@@ -42,27 +43,34 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
     if not dir_path:
         return
     desc = get_question_desc(problem_slug, cookie)
+    is_chinese = False
     if desc is None:
         print(f"Unable to fetch question content, [{problem_id}]{problem_slug}", file=file)
         return
+    elif "English description is not available for the problem. Please switch to Chinese." in desc:
+        desc = ""
+        is_chinese = True
+    else:
+        with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
+            f.write(write_problem_md(problem_id, problem_title, desc))
+    cn_result = get_question_desc_cn(problem_slug, cookie=cookie)
+    if cn_result is not None:
+        cn_desc, cn_title = cn_result
+        if is_chinese:
+            desc = cn_desc
+        with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
+            f.write(write_problem_md(problem_id, cn_title, cn_desc))
     code_maps = get_question_code(problem_slug, lang_slugs=languages, cookie=cookie)
     if code_maps is None:
         print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}", file=file)
         shutil.rmtree(dir_path)
         return
-    outputs = extract_outputs_from_md(desc)
+    outputs = extract_outputs_from_md(desc, is_chinese)
     print(f"question_id: {problem_id}, outputs: {outputs}", file=file)
     testcases, testcase_str = get_question_testcases(problem_slug)
     if testcases is None:
         print(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}", file=file)
         return
-    with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
-        f.write(write_problem_md(problem_id, problem_title, desc))
-    cn_result = get_question_desc_cn(problem_slug, cookie=cookie)
-    if cn_result is not None:
-        cn_desc, cn_title = cn_result
-        with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
-            f.write(write_problem_md(problem_id, cn_title, cn_desc))
     if not os.path.exists(f"{dir_path}/testcase.py"):
         with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
             f.write(write_testcase(testcases, outputs))
@@ -171,6 +179,7 @@ def main(problem_id: Optional[str], problem_slug: Optional[str], problem_categor
             process_single_algorithm_problem(tmp, problem_id, problem_slug, problem_title, cookie, force,
                                              skip_language, languages=languages)
             if replace_problem_id:
+                problem_id = problem_id.replace(" ", "_")
                 root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
                 for lang in languages:
                     match lang:

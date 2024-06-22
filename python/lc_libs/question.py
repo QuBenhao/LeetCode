@@ -70,17 +70,20 @@ def convert_to_evaluable_str(s: str) -> str:
     return evaluable_str
 
 
-def extract_outputs_from_md(markdown_text: str) -> list:
+def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
     backup_origin = markdown_text
     res = []
-    markdown_text = "".join(markdown_text.split("Example")[1:])
-    splits = markdown_text.split("Output")
+    markdown_text = "".join(markdown_text.split("Example")[1:]) if not chinese else "".join(
+        markdown_text.split("示例")[1:])
+    splits = markdown_text.split("Output") if not chinese else markdown_text.split("输出")
     for i in range(1, len(splits)):
         success_process = False
         for j, str_convertors in enumerate([lambda s: s.split("\n")[0].split(">")[-1].strip(),
                                             lambda s: s.split("\n")[1].split(">")[-1].strip(),
                                             lambda s: s.split(">")[1].split("<")[0].strip(),
                                             lambda s: s.split('example-io">')[1].split("<")[0].strip(),
+                                            ] if not chinese else
+                                           [lambda s: s.split("\n")[0].split("`")[1].strip(),
                                             ]):
             tmp = ""
             try:
