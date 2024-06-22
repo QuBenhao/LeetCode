@@ -7,7 +7,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int temperatureTrend(int[] temperatureA, int[] temperatureB) {
-        
+        return 0;
     }
 
     @Override
