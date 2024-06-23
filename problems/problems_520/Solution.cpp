@@ -8,7 +8,26 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool detectCapitalUse(string word) {
-
+        if (isupper(word[word.length() - 1])) {
+            for (size_t i = 0; i < word.length(); i++) {
+                if (islower(word[i])) {
+                    return false;
+                }
+            }
+        } else if(isupper(word[0])) {
+            for (size_t i = 1; i < word.length(); i++) {
+                if (isupper(word[i])) {
+                    return false;
+                }
+            }
+        } else {
+            for (size_t i = 0; i < word.length(); i++) {
+                if (isupper(word[i])) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 };
 
