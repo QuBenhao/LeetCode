@@ -155,7 +155,7 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
                 list_methods.append("\tif (operators[i] == \"" + func_name + "\") {")
                 tmp_vars = []
                 for j, _ in enumerate(variables):
-                    tmp_vars.append(f"values[{i}][{j}]")
+                    tmp_vars.append(f"values[i][{j}]")
                 if not ret_type or ret_type == "void":
                     list_methods.append("\t\tobj{}->{}({});".format(i, func_name, ", ".join(tmp_vars)))
                     list_methods.append("\t\tans.push_back(nullptr);")
