@@ -2,6 +2,13 @@ import solution
 from python.object_libs import list_to_tree
 
 
+class TreeNode(object):
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         root = list_to_tree(test_input)
@@ -22,10 +29,3 @@ class Solution(solution.Solution):
             return max(depth(node.left, d), depth(node.right, d))
 
         return depth(root, 0)
-
-
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
