@@ -164,7 +164,7 @@ def __process_inputs(code_default: str,
     return imports_libs, "".join(res), "".join(json_parse), ", ".join(variables)
 
 
-def write_solution_golang(code_default: str, code: str = None, problem_id: str = "") -> str:
+def write_solution_golang(code_default: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
     its = []
     rts = []
     func_names = []

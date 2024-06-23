@@ -1,4 +1,4 @@
-package problems.problems_156;
+package premiums.premiums_156;
 
 import com.alibaba.fastjson.JSON;
 import java.util.*;
@@ -22,7 +22,16 @@ import qubhjava.models.TreeNode;
 
 public class Solution extends BaseSolution {
     public TreeNode upsideDownBinaryTree(TreeNode root) {
-
+        TreeNode node = null, left = root, right = null;
+        while (left != null) {
+            TreeNode newLeft = left.left, newRight = left.right;
+            left.left = right;
+            left.right = node;
+            node = left;
+            left = newLeft;
+            right = newRight;
+        }
+        return node;
     }
 
     @Override

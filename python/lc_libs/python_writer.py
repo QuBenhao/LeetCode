@@ -466,7 +466,7 @@ def __write_solution_python_backup(code: str):
     )
 
 
-def write_solution_python(code_template: str, code: str = None, problem_id: str = "") -> str:
+def write_solution_python(code_template: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
     try:
         cs_map, defined_class, rest = __process_code(code_template)
         modify_in_place = "Do not return anything" in code_template

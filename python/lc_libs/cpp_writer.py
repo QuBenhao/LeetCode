@@ -45,7 +45,7 @@ def _extract_functions(code):
     return functions
 
 
-def write_solution_cpp(code_default: str, code: str = None, problem_id: str = "") -> str:
+def write_solution_cpp(code_default: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
     code = code if code else code_default
     functions = _extract_functions(code_default)
 

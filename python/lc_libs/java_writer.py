@@ -62,7 +62,7 @@ def __process_variable_type(input_name: str, variable_name: str, rt_type: str) -
     return f"{rt_type} {variable_name} = FIXME({input_name})"
 
 
-def write_solution_java(code_default: str, code: str = None, problem_id: str = "") -> str:
+def write_solution_java(code_default: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
     import_packages = []
     body = []
     parse_input = []
@@ -109,6 +109,8 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
             body.append(line)
 
     return SOLUTION_TEMPLATE_JAVA.format(
+        problem_folder,
+        problem_folder,
         problem_id,
         "\n".join(import_packages),
         "{",

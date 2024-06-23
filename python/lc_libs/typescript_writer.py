@@ -33,7 +33,7 @@ def change_test_typescript(content: str, problem_folder: str, question_id: str) 
     return "\n".join(ans)
 
 
-def write_solution_typescript(code_default: str, code: str = None, problem_id: str = "") -> str:
+def write_solution_typescript(code_default: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
     import_part = defaultdict(set)
     code = code if code else code_default
     comment = False

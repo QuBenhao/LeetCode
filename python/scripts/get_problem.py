@@ -95,7 +95,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
                 if skip_language and os.path.exists(f"{dir_path}/Solution.java"):
                     continue
                 with open(f"{dir_path}/Solution.java", "w", encoding="utf-8") as f:
-                    f.write(write_solution_java(val, None, problem_id))
+                    f.write(write_solution_java(val, None, problem_id, problem_folder))
             case "cpp":
                 if skip_language and os.path.exists(f"{dir_path}/Solution.cpp"):
                     continue
