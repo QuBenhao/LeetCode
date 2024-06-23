@@ -7,5 +7,8 @@ class Solution(solution.Solution):
         return self.detectCapitalUse(test_input)
 
     def detectCapitalUse(self, word: str) -> bool:
-        pass
-
+        if word[-1].isupper():
+            return word.isupper()
+        if word[0].isupper():
+            return all(word[i].islower() for i in range(1, len(word)))
+        return word.islower()
