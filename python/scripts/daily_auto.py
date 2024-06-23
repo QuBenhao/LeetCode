@@ -38,8 +38,8 @@ def check_remain_languages(dir_path, languages: list[str]) -> list[str]:
     return remain_languages
 
 
-def write_question(dir_path, question_id: str, question_name: str, slug: str, languages: list[str] = None,
-                   cookie: str = None):
+def write_question(dir_path, problem_folder: str, question_id: str, question_name: str,
+                   slug: str, languages: list[str] = None, cookie: str = None):
     desc = get_question_desc(slug, cookie)
     cn_result = get_question_desc_cn(slug, cookie)
     cn_desc = None
@@ -93,27 +93,26 @@ def write_question(dir_path, question_id: str, question_name: str, slug: str, la
             case _:
                 continue
         with open(main_file, "w", encoding="utf-8") as f:
-            f.write(func(code, None, question_id))
+            f.write(func(code, None, question_id, problem_folder))
     print(f"Add question: [{question_id}]{slug}")
 
 
 def process_daily(languages: list[str], problem_folder: str = None):
-    if problem_folder is None:
-        problem_folder = get_default_folder()
     daily_info = get_daily_question()
     if not daily_info:
         return 1
     root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     question_id = daily_info['questionId'].replace(" ", "_")
-    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
+    tmp = get_default_folder(paid_only=daily_info['paidOnly']) if not problem_folder else problem_folder
+    dir_path = os.path.join(root_path, tmp, f"{tmp}_{question_id}")
     if not os.path.exists(dir_path):
         os.mkdir(dir_path)
-        write_question(dir_path, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
+        write_question(dir_path, tmp, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
                        languages)
     else:
         print("solved {} before".format(daily_info['questionId']))
         remain_languages = check_remain_languages(dir_path, languages)
-        write_question(dir_path, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
+        write_question(dir_path, tmp, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
                        remain_languages)
     for lang in languages:
         match lang:
@@ -137,7 +136,7 @@ def process_daily(languages: list[str], problem_folder: str = None):
         with open(main_file, "r", encoding="utf-8") as f:
             content = f.read()
         with open(main_file, "w", encoding="utf-8") as f:
-            f.write(test_func(content, question_id))
+            f.write(test_func(content, tmp, question_id))
 
 
 def process_plans(cookie: str, languages: list[str] = None, problem_folder: str = None):
@@ -164,10 +163,11 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
             dir_path = os.path.join(root_path, tmp_folder, f"{tmp_folder}_{question_id}")
             if not os.path.exists(dir_path):
                 os.mkdir(dir_path)
-                write_question(dir_path, question_id, info["title"], question_slug, languages, cookie)
+                write_question(dir_path, tmp_folder, question_id, info["title"], question_slug, languages, cookie)
             else:
                 remain_languages = check_remain_languages(dir_path, languages)
-                write_question(dir_path, question_id, info["title"], question_slug, remain_languages, cookie)
+                write_question(dir_path, tmp_folder, question_id, info["title"], question_slug, remain_languages,
+                               cookie)
             problem_ids.append(question_id)
     if problem_ids:
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

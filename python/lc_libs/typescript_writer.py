@@ -7,20 +7,33 @@ _LIST_NODE_PATH = "\"../../typescript/models/listnode\";"
 _TREE_NODE_PATH = "\"../../typescript/models/treenode\";"
 
 
-def change_test_typescript(content: str, question_id: str) -> str:
+def change_test_typescript(content: str, problem_folder: str, question_id: str) -> str:
     ans = []
+    appear_problem = False
     for line in content.split("\n"):
         if "const PROBLEM_ID: string = \"" in line:
             ans.append(line.split("\"")[0] + f"\"{question_id}\";")
             continue
-        elif "import {Solve} from \"../problems/problems_" in line and "/solution\";" in line:
-            ans.append("import {Solve} from \"../problems/problems_" + question_id + "/solution\";")
+        elif "import {Solve} from \"../" + f"{problem_folder}/{problem_folder}_" in line and "/solution\";" in line:
+            ans.append("import {Solve} from \"../" +
+                       f"{problem_folder}/{problem_folder}_" + question_id + "/solution\";")
+            appear_problem = True
             continue
+        elif f"const testCasePath: string = `" in line and "${PROBLEM_ID}/testcase`;" in line:
+            ans.append(line.split("`")[0] + f"`{problem_folder}/{problem_folder}_" + "${PROBLEM_ID}/testcase`;")
+            continue
+        elif "import {Solve} from \"../" in line and not line.strip().startswith("//"):
+            ans.append(f"// {line}")
+            continue
+        elif "describe(\"TestMain===\" + PROBLEM_ID, () => {" in line and not appear_problem:
+            ans.append("import {Solve} from \"../" +
+                       f"{problem_folder}/{problem_folder}_" + question_id + "/solution\";")
+            appear_problem = True
         ans.append(line)
     return "\n".join(ans)
 
 
-def write_solution_typescript(code_default: str, code: str = None, problem_id: str = "") -> str:
+def write_solution_typescript(code_default: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
     import_part = defaultdict(set)
     code = code if code else code_default
     comment = False
@@ -106,7 +119,7 @@ def get_solution_code_typescript(root_path, problem_folder: str, problem_id: str
                     break
     if not problem_id:
         return "", problem_id
-    file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "solution.ts")
+    file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "solution.ts")
     if not os.path.exists(file_path):
         return "", problem_id
     final_codes = deque([])

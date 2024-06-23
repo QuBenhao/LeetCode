@@ -95,7 +95,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
                 if skip_language and os.path.exists(f"{dir_path}/Solution.java"):
                     continue
                 with open(f"{dir_path}/Solution.java", "w", encoding="utf-8") as f:
-                    f.write(write_solution_java(val, None, problem_id))
+                    f.write(write_solution_java(val, None, problem_id, problem_folder))
             case "cpp":
                 if skip_language and os.path.exists(f"{dir_path}/Solution.cpp"):
                     continue
@@ -186,27 +186,27 @@ def main(problem_id: Optional[str], problem_slug: Optional[str], problem_categor
                             with open(f"{root_path}/python/test.py", "r", encoding="utf-8") as f:
                                 content = f.read()
                             with open(f"{root_path}/python/test.py", "w", encoding="utf-8") as f:
-                                f.write(change_test_python(content, problem_id))
+                                f.write(change_test_python(content, tmp, problem_id))
                         case "golang":
                             with open(f"{root_path}/golang/solution_test.go", "r", encoding="utf-8") as f:
                                 content = f.read()
                             with open(f"{root_path}/golang/solution_test.go", "w", encoding="utf-8") as f:
-                                f.write(change_test_golang(content, problem_id))
+                                f.write(change_test_golang(content, tmp, problem_id))
                         case "java":
                             with open(f"{root_path}/qubhjava/test/TestMain.java", "r", encoding="utf-8") as f:
                                 content = f.read()
                             with open(f"{root_path}/qubhjava/test/TestMain.java", "w", encoding="utf-8") as f:
-                                f.write(change_test_java(content, problem_id))
+                                f.write(change_test_java(content, tmp, problem_id))
                         case "cpp":
                             with open(f"{root_path}/WORKSPACE", "r", encoding="utf-8") as f:
                                 content = f.read()
                             with open(f"{root_path}/WORKSPACE", "w", encoding="utf-8") as f:
-                                f.write(change_test_cpp(content, problem_id))
+                                f.write(change_test_cpp(content, tmp, problem_id))
                         case "typescript":
                             with open(f"{root_path}/typescript/test.ts", "r", encoding="utf-8") as f:
                                 content = f.read()
                             with open(f"{root_path}/typescript/test.ts", "w", encoding="utf-8") as f:
-                                f.write(change_test_typescript(content, problem_id))
+                                f.write(change_test_typescript(content, tmp, problem_id))
                         case _:
                             pass
     else:

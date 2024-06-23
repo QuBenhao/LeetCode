@@ -31,7 +31,7 @@ def write_testcase(testcases, outputs) -> str:
     return TESTCASE_TEMPLATE_PYTHON.format(res)
 
 
-def change_test_python(content: str, question_id: str) -> str:
+def change_test_python(content: str, problem_folder: str, question_id: str) -> str:
     ans = []
     for line in content.split("\n"):
         if line.startswith("QUESTION = "):
@@ -466,7 +466,7 @@ def __write_solution_python_backup(code: str):
     )
 
 
-def write_solution_python(code_template: str, code: str = None, problem_id: str = "") -> str:
+def write_solution_python(code_template: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
     try:
         cs_map, defined_class, rest = __process_code(code_template)
         modify_in_place = "Do not return anything" in code_template
@@ -508,7 +508,7 @@ def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -
                     break
     if not problem_id:
         return "", problem_id
-    file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "solution.py")
+    file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "solution.py")
     if not os.path.exists(file_path):
         return "", problem_id
     final_codes = deque([])

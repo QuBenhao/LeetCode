@@ -14,7 +14,8 @@ def get_daily_question() -> Optional[Dict]:
             'questionId': daily_question['question']['frontendQuestionId'],
             'questionNameEn': daily_question['question']['title'],
             'questionName': daily_question['question']['titleCn'],
-            'questionSlug': daily_question['question']['titleSlug']
+            'questionSlug': daily_question['question']['titleSlug'],
+            "paidOnly": daily_question['question']['paidOnly'],
         }
 
     return general_request(LEET_CODE_BACKEND, handle_response, json={"query": DAILY_QUERY, "variables": {}})

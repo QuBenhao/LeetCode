@@ -56,13 +56,14 @@ def main(user_slug: str, cookie: Optional[str], languages: list[str], problem_fo
             dir_path = os.path.join(root_path, tmp_problem_folder, f"{tmp_problem_folder}_{question_id}")
             if question_id == daily_question and not os.path.exists(dir_path):
                 os.mkdir(dir_path)
-                write_question(dir_path, daily_question, daily_info['questionNameEn'],
+                write_question(dir_path, tmp_problem_folder, daily_question, daily_info['questionNameEn'],
                                daily_info['questionSlug'], list(languages), cookie)
             elif not os.path.exists(dir_path):
                 if not info:
                     info = lc_libs.get_question_info(submits[0][1], cookie)
                 os.mkdir(dir_path)
-                write_question(dir_path, question_id, info["title"], submits[0][1], list(languages), cookie)
+                write_question(dir_path, tmp_problem_folder, question_id, info["title"],
+                               submits[0][1], list(languages), cookie)
             default_code = lc_libs.get_question_code(submits[0][1], lang_slugs=languages, cookie=cookie)
             for submit_id, question_slug, language in submits:
                 if language in cache:
@@ -79,11 +80,12 @@ def main(user_slug: str, cookie: Optional[str], languages: list[str], problem_fo
                 test_func = getattr(lc_libs, "change_test_{}".format(language), None)
                 if check_problem_solved_and_write(question_id,
                                                   detail["lang"],
+                                                  tmp_problem_folder,
                                                   root_path,
                                                   dir_path,
                                                   True,
                                                   func,
-                                                  (default_code[detail["lang"]], code, question_id),
+                                                  (default_code[detail["lang"]], code, question_id, tmp_problem_folder),
                                                   test_func):
                     print(f"Already solved problem: {question_id}, language: {language}")
                 cache.add(language)

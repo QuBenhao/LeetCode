@@ -4,15 +4,23 @@ from collections import deque
 from python.constants import SOLUTION_TEMPLATE_JAVA
 
 
-def change_test_java(content: str, question_id: str) -> str:
+def change_test_java(content: str, problem_folder: str, question_id: str) -> str:
     ans = []
+    appear_problem_folder = False
     for line in content.split("\n"):
         if "private static final String PROBLEM_ID = " in line:
             ans.append(line.split("\"")[0] + f"\"{question_id}\";")
             continue
-        elif "import problems.problems_" in line and ".Solution;" in line:
-            ans.append("import problems.problems_" + question_id + ".Solution;")
+        elif f"import {problem_folder}.{problem_folder}_" in line and ".Solution;" in line:
+            ans.append(f"import {problem_folder}.{problem_folder}_{question_id}.Solution;")
+            appear_problem_folder = True
             continue
+        elif "import " in line and ".Solution;" in line and not line.startswith("//"):
+            ans.append(f"// {line}")
+            continue
+        elif line.strip() == "import qubhjava.Testcase;" and not appear_problem_folder:
+            ans.append(f"import {problem_folder}.{problem_folder}_{question_id}.Solution;")
+            appear_problem_folder = True
         ans.append(line)
     return "\n".join(ans)
 
@@ -54,7 +62,7 @@ def __process_variable_type(input_name: str, variable_name: str, rt_type: str) -
     return f"{rt_type} {variable_name} = FIXME({input_name})"
 
 
-def write_solution_java(code_default: str, code: str = None, problem_id: str = "") -> str:
+def write_solution_java(code_default: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
     import_packages = []
     body = []
     parse_input = []
@@ -101,6 +109,8 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
             body.append(line)
 
     return SOLUTION_TEMPLATE_JAVA.format(
+        problem_folder,
+        problem_folder,
         problem_id,
         "\n".join(import_packages),
         "{",
@@ -123,7 +133,7 @@ def get_solution_code_java(root_path, problem_folder: str, problem_id: str) -> (
                     break
     if not problem_id:
         return "", problem_id
-    file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "Solution.java")
+    file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "Solution.java")
     if not os.path.exists(file_path):
         return "", problem_id
     final_codes = deque([])

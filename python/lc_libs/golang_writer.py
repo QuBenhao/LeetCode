@@ -4,13 +4,29 @@ from collections import deque
 from python.constants import SOLUTION_TEMPLATE_GOLANG, SOLUTION_TEMPLATE_GOLANG_MODIFY_IN_PLACE
 
 
-def change_test_golang(content: str, question_id: str) -> str:
+def change_test_golang(content: str, problem_folder: str, question_id: str) -> str:
     ans = []
+    appear_problem, appear_test_folder = False, False
     for line in content.split("\n"):
-        if "problem \"leetCode/problems/" in line:
-            ans.append(f'\tproblem "leetCode/problems/problems_{question_id}"')
+        if f"problem \"leetCode/{problem_folder}/{problem_folder}_" in line:
+            ans.append(f'\tproblem "leetCode/{problem_folder}/{problem_folder}_{question_id}"')
+            appear_problem = True
             continue
+        elif f"const TestcaseFolderFmt = \"{problem_folder}/{problem_folder}_%s/testcase\"" in line:
+            ans.append(f"const TestcaseFolderFmt = \"{problem_folder}/{problem_folder}_%s/testcase\"")
+            appear_test_folder = True
+            continue
+        elif (f"problem \"leetCode/" in line or
+              f"const TestcaseFolderFmt = \"" in line) and not line.strip().startswith("//"):
+            ans.append(f"// {line}")
+            continue
+        elif line.strip() == "\"log\"" and not appear_problem:
+            ans.append(f'\tproblem "leetCode/{problem_folder}/{problem_folder}_{question_id}"')
+            appear_problem = True
         elif "var problemId string =" in line:
+            if not appear_test_folder:
+                ans.append(f"const TestcaseFolderFmt = \"{problem_folder}/{problem_folder}_%s/testcase\"")
+                appear_test_folder = True
             ans.append(f'var problemId string = "{question_id}"')
             continue
         ans.append(line)
@@ -148,7 +164,7 @@ def __process_inputs(code_default: str,
     return imports_libs, "".join(res), "".join(json_parse), ", ".join(variables)
 
 
-def write_solution_golang(code_default: str, code: str = None, problem_id: str = "") -> str:
+def write_solution_golang(code_default: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
     its = []
     rts = []
     func_names = []
@@ -318,7 +334,7 @@ def get_solution_code_golang(root_path, problem_folder: str, problem_id: str) ->
                     break
     if not problem_id:
         return "", problem_id
-    file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "solution.go")
+    file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "solution.go")
     if not os.path.exists(file_path):
         return "", problem_id
     final_codes = deque([])

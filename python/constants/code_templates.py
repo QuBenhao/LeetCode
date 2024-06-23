@@ -58,7 +58,7 @@ func Solve(input string) {}
 {}
 """
 
-SOLUTION_TEMPLATE_JAVA = """package problems.problems_{};
+SOLUTION_TEMPLATE_JAVA = """package {}.{}_{};
 
 import com.alibaba.fastjson.JSON;
 import java.util.*;

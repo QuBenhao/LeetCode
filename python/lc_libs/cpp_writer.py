@@ -4,14 +4,14 @@ from python.constants import SOLUTION_TEMPLATE_CPP
 from collections import deque
 
 
-def change_test_cpp(content: str, question_id: str) -> str:
+def change_test_cpp(content: str, problem_folder: str, question_id: str) -> str:
     ans = []
     is_problem = False
     for line in content.split("\n"):
         if "name = \"problems\"," in line:
             is_problem = True
         elif is_problem and "path = \"" in line:
-            ans.append("    path = \"problems/problems_{}/\",".format(question_id))
+            ans.append("    path = \"{}/{}_{}/\",".format(problem_folder, problem_folder, question_id))
             is_problem = False
             continue
         ans.append(line)
@@ -45,7 +45,7 @@ def _extract_functions(code):
     return functions
 
 
-def write_solution_cpp(code_default: str, code: str = None, problem_id: str = "") -> str:
+def write_solution_cpp(code_default: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
     code = code if code else code_default
     functions = _extract_functions(code_default)
 
@@ -141,12 +141,12 @@ def get_solution_code_cpp(root_path, problem_folder: str, problem_id: str) -> (s
         with open(os.path.join(root_path, "WORKSPACE"), 'r', encoding="utf-8") as f:
             lines = f.read().split('\n')
             for line in lines:
-                if "path = \"problems/problems_" in line:
+                if f"path = \"{problem_folder}/{problem_folder}_" in line:
                     problem_id = line.split('_')[-1].split('/')[0]
                     break
     if not problem_id:
         return "", problem_id
-    file_path = os.path.join(root_path, problem_folder, f"problems_{problem_id}", "Solution.cpp")
+    file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "Solution.cpp")
     if not os.path.exists(file_path):
         return "", problem_id
     final_codes = deque([])

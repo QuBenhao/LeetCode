@@ -14,20 +14,26 @@ from python.utils import get_default_folder
 
 
 async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folder: str = None):
-    if not problem_folder:
-        problem_folder = get_default_folder()
+    load_code = False
+    code = ""
     code_func = getattr(lc_libs, "get_solution_code_{}".format(lang), None)
     if not code_func:
         print(f"{lang} is not supported yet!")
         return
-    origin_problem_id, problem_id = problem_id, problem_id.replace(" ", "_")
-    code, problem_id = code_func(root_path, problem_folder, problem_id)
-    if not code:
-        print("No solution yet!")
-        return
     if not problem_id:
-        print("Unable to get problem_id")
-        return
+        if not problem_folder:
+            problem_folder = get_default_folder()
+        origin_problem_id, problem_id = problem_id, problem_id.replace(" ", "_")
+        code, problem_id = code_func(root_path, problem_folder, problem_id)
+        load_code = True
+        if not code:
+            print("No solution yet!")
+            return
+        if not problem_id:
+            print("Unable to get problem_id")
+            return
+    else:
+        origin_problem_id, problem_id = problem_id, problem_id.replace(" ", "_")
     questions = lc_libs.get_questions_by_key_word(origin_problem_id)
     if not questions:
         print(f"Unable to find any questions with problem_id {origin_problem_id}")
@@ -46,6 +52,14 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     if not problem_info:
         print(f"Unable to get problem info: {problem_id}")
         return
+    is_paid_only = problem_info["isPaidOnly"]
+    if not problem_folder:
+        problem_folder = get_default_folder(paid_only=is_paid_only)
+    if not load_code:
+        code, _ = code_func(root_path, problem_folder, problem_id)
+        if not code:
+            print("No solution yet!")
+            return
     lc_question_id = problem_info["questionId"]
     plans = lc_libs.get_user_study_plans(cookie)
     result = None
