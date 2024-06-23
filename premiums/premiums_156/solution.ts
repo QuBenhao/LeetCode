@@ -15,7 +15,16 @@ import {TreeNode,TreeNodeToJSONArray,JSONArrayToTreeNode} from "../../typescript
  */
 
 function upsideDownBinaryTree(root: TreeNode | null): TreeNode | null {
-    
+    let node: TreeNode | null = null, left: TreeNode | null = root, right: TreeNode | null = null;
+	while (left != null) {
+		let newLeft: TreeNode | null = left.left, newRight: TreeNode | null = left.right;
+		left.left = right;
+		left.right = node;
+		node = left;
+		left = newLeft;
+		right = newRight;
+	}
+	return node;
 };
 
 export function Solve(inputJsonElement: string): any {
