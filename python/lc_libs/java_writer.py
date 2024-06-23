@@ -139,7 +139,7 @@ def get_solution_code_java(root_path, problem_folder: str, problem_id: str) -> (
     final_codes = deque([])
     with open(file_path, 'r', encoding="utf-8") as f:
         lines = f.read().split("\n")
-        solve_part = False
+        solve_part = []
         for line in lines:
             if line.startswith("package "):
                 continue
@@ -149,13 +149,15 @@ def get_solution_code_java(root_path, problem_folder: str, problem_id: str) -> (
                 last = final_codes.pop()
                 if last.strip() != "@Override":
                     final_codes.append(last)
-                solve_part = True
+                solve_part.append(0)
                 continue
-            if solve_part and line.strip() != "}":
+            if solve_part:
+                for _ in range(line.count("{")):
+                    solve_part.append(0)
+                for _ in range(line.count("}")):
+                    solve_part.pop()
                 continue
-            elif solve_part:
-                solve_part = False
-                continue
+            # TODO: Object problem case, no any code needed from here
             if "public class Solution extends BaseSolution {" in line:
                 final_codes.append("class Solution {")
                 continue

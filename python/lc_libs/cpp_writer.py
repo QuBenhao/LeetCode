@@ -165,6 +165,7 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
                 list_methods.append("\t\tcontinue;")
                 list_methods.append("\t}")
         process_variables.extend(list_methods)
+        process_variables.append("\tans.push_back(nullptr);")
         process_variables.append("}")
         return_part = ["\treturn ans;"]
     return SOLUTION_TEMPLATE_CPP.format(
