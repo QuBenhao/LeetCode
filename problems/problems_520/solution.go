@@ -7,7 +7,13 @@ import (
 )
 
 func detectCapitalUse(word string) bool {
-
+	if word[len(word)-1] >= 'A' && word[len(word)-1] <= 'Z' {
+		return strings.ToUpper(word) == word
+	}
+	if word[0] >= 'A' && word[0] <= 'Z' {
+		return strings.ToLower(word[1:]) == word[1:]
+	}
+	return strings.ToLower(word) == word
 }
 
 func Solve(input string) interface{} {
