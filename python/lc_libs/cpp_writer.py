@@ -47,24 +47,26 @@ def _extract_functions(code):
 
 def write_solution_cpp(code_default: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
     code = code if code else code_default
+    is_solution_code = "class Solution" in code
     functions = _extract_functions(code_default)
 
     include_libs = []
     process_variables = []
     return_part = []
     comments = False
-    for line in code.split("\n"):
-        if comments and line.strip().endswith("*/"):
-            comments = False
-            continue
-        elif comments or line.strip().startswith("#"):
-            continue
-        if line.strip().startswith("/*"):
-            comments = True
-            continue
-        if "class Solution" in line:
-            break
-        include_libs.append(line)
+    if is_solution_code:
+        for line in code.split("\n"):
+            if comments and line.strip().endswith("*/"):
+                comments = False
+                continue
+            elif comments or line.strip().startswith("#"):
+                continue
+            if line.strip().startswith("/*"):
+                comments = True
+                continue
+            if "class Solution" in line:
+                break
+            include_libs.append(line)
     if " TreeNode " in code_default:
         include_libs.append("#include \"cpp/models/TreeNode.h\"")
     if " ListNode " in code_default:
@@ -122,8 +124,49 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
             return_part.append("\treturn solution.{}({});"
                                .format(func_name, ", ".join([v[1] for v in variables])))
     elif len(functions) > 1:
-        pass
+        process_variables.append("\tvector<string> operators = json::parse(inputArray[0]);")
+        process_variables.append("vector<vector<json>> values = json::parse(inputArray[1]);")
 
+        class_and_functions = []
+        for i, f in enumerate(functions):
+            name = f.get("name", "")
+            if name and name[0].isupper() and f.get("ret_type", "") == "":
+                cur = f"auto obj{i} = make_shared<{name}>("
+                variables = [sp.strip().split(" ") for sp in f.get("args", "").split(",")] if f.get("args", "") else []
+                tmp_vars = []
+                for j, _ in enumerate(variables):
+                    tmp_vars.append(f"values[{i}][{j}]")
+                cur += ", ".join(tmp_vars)
+                cur += ");"
+                process_variables.append(cur)
+                class_and_functions.append([name, i])
+
+            elif class_and_functions:
+                ret_type = f.get("ret_type", "")
+                func_name = f.get("name", "")
+                variables = [sp.strip().split(" ") for sp in f.get("args", "").split(",")] if f.get("args", "") else []
+                class_and_functions[-1].append((func_name, ret_type, variables))
+        process_variables.append("vector<json> ans = {nullptr};")
+        process_variables.append("for (size_t i = 1; i < values.size(); i++) {")
+        list_methods = []
+        for class_methods in class_and_functions:
+            i = class_methods[1]
+            for (func_name, ret_type, variables) in class_methods[2:]:
+                list_methods.append("\tif (operators[i] == \"" + func_name + "\") {")
+                tmp_vars = []
+                for j, _ in enumerate(variables):
+                    tmp_vars.append(f"values[{i}][{j}]")
+                if not ret_type or ret_type == "void":
+                    list_methods.append("\t\tobj{}->{}({});".format(i, func_name, ", ".join(tmp_vars)))
+                    list_methods.append("\t\tans.push_back(nullptr);")
+                else:
+                    list_methods.append("\t\tans.push_back(obj{}->{}({}));"
+                                        .format(i, func_name, ", ".join(tmp_vars)))
+                list_methods.append("\t\tcontinue;")
+                list_methods.append("\t}")
+        process_variables.extend(list_methods)
+        process_variables.append("}")
+        return_part = ["\treturn ans;"]
     return SOLUTION_TEMPLATE_CPP.format(
         "\n".join(include_libs),
         code,
