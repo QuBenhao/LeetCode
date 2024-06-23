@@ -18,5 +18,10 @@ class Solution(solution.Solution):
         return tree_to_list(res)
 
     def upsideDownBinaryTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        pass
-
+        node, left, right = None, root, None
+        while left:
+            new_left, new_right = left.left, left.right
+            left.left = right
+            left.right = node
+            node, left, right = left, new_left, new_right
+        return node
