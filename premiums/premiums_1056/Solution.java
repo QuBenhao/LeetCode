@@ -1,4 +1,4 @@
-package problems.problems_1056;
+package premiums.premiums_1056;
 
 import com.alibaba.fastjson.JSON;
 import java.util.*;
