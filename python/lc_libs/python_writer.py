@@ -41,8 +41,8 @@ def change_test_python(content: str, problem_folder: str, question_id: str) -> s
     return "\n".join(ans)
 
 
-def change_test_python3(content: str, question_id: str) -> str:
-    return change_test_python(content, question_id)
+def change_test_python3(content: str, problem_folder: str, question_id: str) -> str:
+    return change_test_python(content, problem_folder, question_id)
 
 
 def __get_code_class(tmp_filename):
@@ -494,8 +494,8 @@ def write_solution_python(code_template: str, code: str = None, problem_id: str 
     return __write_solution_python_backup(code_template)
 
 
-def write_solution_python3(code_template: str, code: str = None, problem_id: str = "") -> str:
-    return write_solution_python(code_template, code, problem_id)
+def write_solution_python3(code_template: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
+    return write_solution_python(code_template, code, problem_id, problem_folder)
 
 
 def get_solution_code_python3(root_path, problem_folder: str, problem_id: str) -> (str, str):
