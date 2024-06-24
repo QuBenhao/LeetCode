@@ -41,7 +41,10 @@ class BrowserHistory {
  * String param_3 = obj.forward(steps);
  */
 
+
 public class Solution extends BaseSolution {
+
+
 
 
     @Override

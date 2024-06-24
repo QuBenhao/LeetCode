@@ -4,13 +4,18 @@ import com.alibaba.fastjson.JSON;
 import java.util.*;
 import qubhjava.BaseSolution;
 class ParkingSystem {
+    private final int[] parks;
 
     public ParkingSystem(int big, int medium, int small) {
-
+        parks = new int[]{big, medium, small};
     }
     
     public boolean addCar(int carType) {
-
+        if (this.parks[--carType] <= 0) {
+            return false;
+        }
+        this.parks[carType]--;
+        return true;
     }
 }
 

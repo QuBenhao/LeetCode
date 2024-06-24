@@ -18,12 +18,15 @@ import qubhjava.BaseSolution;
  *     }
  * }
  */
+
 import qubhjava.models.TreeNode;
 
 public class Solution extends BaseSolution {
     public int maxDepth(TreeNode root) {
         return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
     }
+
+
 
     @Override
     public Object solve(String[] values) {
