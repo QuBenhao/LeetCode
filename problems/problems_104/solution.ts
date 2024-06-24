@@ -15,7 +15,7 @@ import {TreeNode,JSONArrayToTreeNode} from "../../typescript/models/treenode";
  */
 
 function maxDepth(root: TreeNode | null): number {
-    
+	return root == null ? 0 : Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
 };
 
 export function Solve(inputJsonElement: string): any {
