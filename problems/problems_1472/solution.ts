@@ -1,5 +1,3 @@
-import {isEmpty} from "lodash";
-
 class BrowserHistory {
     b: string[];
     f: string[];
@@ -42,25 +40,25 @@ class BrowserHistory {
 
 export function Solve(inputJsonElement: string): any {
 	const splits: string[] = inputJsonElement.split("\n");
-    const operators: string[] = JSON.parse(splits[0]);
-    const values: any[][] = JSON.parse(splits[1]);
-    const ans: any[] = [null];
-    const obj: BrowserHistory = new BrowserHistory(values[0][0]);
-    for (let i: number = 1; i < operators.length; i++) {
-        if (operators[i] == "visit") {
-            obj.visit(values[i][0]);
-            ans.push(null);
-            continue;
-        }
-        if (operators[i] == "back") {
-            ans.push(obj.back(values[i][0]));
-            continue;
-        }
-        if (operators[i] == "forward") {
-            ans.push(obj.forward(values[i][0]));
-            continue;
-        }
-        ans.push(null);
-    }
+	const operators: string[] = JSON.parse(splits[0]);
+	const values: any[][] = JSON.parse(splits[1]);
+	const ans: any[] = [null];
+	const obj: BrowserHistory = new BrowserHistory(values[0][0]);
+	for (let i: number = 1; i < operators.length; i++) {
+		if (operators[i] == "visit") {
+			obj.visit(values[i][0]);
+			ans.push(null);
+			continue;
+		}
+		if (operators[i] == "back") {
+			ans.push(obj.back(values[i][0]));
+			continue;
+		}
+		if (operators[i] == "forward") {
+			ans.push(obj.forward(values[i][0]));
+			continue;
+		}
+		ans.push(null);
+	}
 	return ans;
 }

@@ -140,12 +140,14 @@ def write_solution_typescript(code_default: str, code: str = None, problem_id: s
         process_inputs.append("for (let i: number = 1; i < operators.length; i++) {")
         for func_name, variables, return_type in methods:
             process_inputs.append(f"\tif (operators[i] == \"{func_name}\")" + " {")
-            if return_type:
+            if return_type != "" and return_type != "void":
                 process_inputs.append("\t\tans.push(obj.{}({}));".format(
                     func_name,
                     ", ".join("values[i][{}]".format(i) for i in range(len(variables)))))
             else:
-                process_inputs.append("\t\tobj.{}({});")
+                process_inputs.append("\t\tobj.{}({});".format(func_name,
+                                                               ", ".join("values[i][{}]".format(i) for i in
+                                                                         range(len(variables)))))
                 process_inputs.append("\t\tans.push(null);")
             process_inputs.append("\t\tcontinue;")
             process_inputs.append("\t}")
