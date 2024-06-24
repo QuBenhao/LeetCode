@@ -33,7 +33,8 @@ def change_test_typescript(content: str, problem_folder: str, question_id: str) 
     return "\n".join(ans)
 
 
-def write_solution_typescript(code_default: str, code: str = None, problem_id: str = "", problem_folder: str = "") -> str:
+def write_solution_typescript(code_default: str, code: str = None, problem_id: str = "",
+                              problem_folder: str = "") -> str:
     import_part = defaultdict(set)
     code = code if code else code_default
     comment = False
@@ -99,13 +100,67 @@ def write_solution_typescript(code_default: str, code: str = None, problem_id: s
             "\t" + "\n\t".join(process_inputs),
             return_part,
             "}")
+    process_inputs = ["const operators: string[] = JSON.parse(splits[0]);",
+                      "const values: any[][] = JSON.parse(splits[1]);",
+                      "const ans: any[] = [null];"]
+    stack = []
+    class_name = ""
+    comment = False
+    class_methods = defaultdict(list)
+    for line in code_default.split("\n"):
+        strip_line = line.strip()
+        if strip_line.startswith("/**"):
+            comment = True
+            continue
+        if comment:
+            if strip_line.endswith("*/"):
+                comment = False
+            continue
+        if strip_line.startswith("class ") and strip_line.endswith("{"):
+            stack.append(0)
+            class_name = strip_line.split("{")[0].split("class ")[-1].strip()
+            continue
+        if "{" in line:
+            stack.append(0)
+        elif "}" in line:
+            stack.pop()
+        if len(stack) == 2 and "(" in strip_line:
+            func_name = strip_line.split("(")[0].strip()
+            return_type = strip_line.split("{")[0].split(")")[-1].split(":")[-1].strip()
+            variables = list(map(str.strip, strip_line.split("(")[1].split(")")[0].split(",")))
+            if func_name == "constructor" and return_type == "":
+                process_inputs.append("const obj: {} = new {}({});".format(
+                    class_name,
+                    class_name,
+                    ", ".join("values[0][{}]".format(i) for i in range(len(variables)))
+                ))
+            else:
+                class_methods[class_name].append((func_name, variables, return_type))
+    for cs, methods in class_methods.items():
+        process_inputs.append("for (let i: number = 1; i < operators.length; i++) {")
+        for func_name, variables, return_type in methods:
+            process_inputs.append(f"\tif (operators[i] == \"{func_name}\")" + " {")
+            if return_type != "" and return_type != "void":
+                process_inputs.append("\t\tans.push(obj.{}({}));".format(
+                    func_name,
+                    ", ".join("values[i][{}]".format(i) for i in range(len(variables)))))
+            else:
+                process_inputs.append("\t\tobj.{}({});".format(func_name,
+                                                               ", ".join("values[i][{}]".format(i) for i in
+                                                                         range(len(variables)))))
+                process_inputs.append("\t\tans.push(null);")
+            process_inputs.append("\t\tcontinue;")
+            process_inputs.append("\t}")
+        process_inputs.append("\tans.push(null);")
+        process_inputs.append("}")
+
     return SOLUTION_TEMPLATE_TYPESCRIPT.format(
         "" if not import_part else "\n".join(
             ["import {" + ",".join(v) + "} from " + k for k, v in import_part.items()]) + "\n\n",
         code,
         "{",
-        "\tprocess input",
-        "return part",
+        "\t" + "\n\t".join(process_inputs),
+        "ans",
         "}")
 
 
