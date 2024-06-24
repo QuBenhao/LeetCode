@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	problem "leetCode/problems/problems_503"
+	problem "leetCode/problems/problems_2732"
 	// problem "leetCode/premiums/premiums_422"
 	"log"
 	"os"
@@ -17,7 +17,7 @@ import (
 const TestcaseFolderFmt = "problems/problems_%s/testcase"
 // const TestcaseFolderFmt = "premiums/premiums_%s/testcase"
 
-var problemId string = "503"
+var problemId string = "2732"
 
 type TestCase struct {
 	input string
