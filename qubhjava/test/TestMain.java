@@ -3,6 +3,7 @@ package qubhjava.test;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.slf4j.Logger;
@@ -32,8 +33,11 @@ public class TestMain {
         Testcase[] testcases = null;
         FileInputStream fis = null;
         try {
-            File file = new File("problems/problems_" + PROBLEM_ID + "/testcase");
+            Dotenv dotenv = Dotenv.load();
+            String problemFolder = dotenv.get("PROBLEM_FOLDER", "problems");
+            File file = new File(problemFolder + "/" + problemFolder + "_" + PROBLEM_ID + "/testcase");
             if (!file.exists()) {
+                log.info("Problem folder [{}] not found, try premiums...", problemFolder);
                 file = new File("premiums/premiums_" + PROBLEM_ID + "/testcase");
             }
             fis = new FileInputStream(file);

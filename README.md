@@ -1,30 +1,36 @@
 # LeetCode
+
 Algorithms in LeetCode by Benhao
 
 # Table of Content
+
 - [How to start](#how-to-start)
 - [Supported Languages](#supported-languages)
-   * [Python3](#python3)
-   * [Golang](#golang)
-   * [Java](#java)
-   * [Cpp](#cpp)
-   * [TypeScript](#typescript)
+    * [Python3](#python3)
+    * [Golang](#golang)
+    * [Java](#java)
+    * [Cpp](#cpp)
+    * [TypeScript](#typescript)
+    * [Demo](#Demo)
 - [Problems](#problems)
-   * [Easy](#easy)
-   * [Medium](#medium)
-   * [Hard](#hard)
-   * [Mysql](#mysql)
-   * [LCP](#lcp)
-   * [Interview](#interview)
-   * [剑指 Offer](#剑指-offer)
+    * [Easy](#easy)
+    * [Medium](#medium)
+    * [Hard](#hard)
+    * [Mysql](#mysql)
+    * [LCP](#lcp)
+    * [Interview](#interview)
+    * [剑指 Offer](#剑指-offer)
 
 # How to start
+
 After clone this repo, add a .env file to tell where to locate your problems and solutions (locally).
-For remote GitHub Action, add `COOKIE` (LeetCode cookie), `PUSH_KEY` (PushDeer notification), `PROBLEM_FOLDER` (where to add problems), `USER` (LeetCode personal page uri).
+For remote GitHub Action, add `COOKIE` (LeetCode cookie), `PUSH_KEY` (PushDeer notification), `PROBLEM_FOLDER` (where to
+add problems), `USER` (LeetCode personal page uri).
 
 **Notice:** If you want more than just python3, add `LANGUAGES="python3,golang"` (and so on in .env)
 
 Example .env file:
+
 ```text
 PROBLEM_FOLDER="problems"
 PUSH_KEY="***[key from PushDeer]"
@@ -33,11 +39,13 @@ LANGUAGES="python3,golang,java,cpp,typescript"
 ```
 
 install python3.10 requirements:
+
 ```shell
 pip install -r python/requirements.txt
 ```
 
 To directly submit Solution to LeetCode, try any language below:
+
 ```shell
 python python/scripts/submit.py python3 -id=1
 python python/scripts/submit.py golang -id=2
@@ -47,17 +55,20 @@ python python/scripts/submit.py typescript -id=1
 ```
 
 To get any problem you want, try:
+
 ```shell
 python python/scripts/get_problem.py -h
 python python/scripts/get_problem.py -id=1
 ```
 
 To generate daily problems, try:
+
 ```shell
 python python/scripts/daily_auto.py
 ```
 
 To fetch daily submits from LeetCode (requires `.env` cookie to be ready), change `user` below and try:
+
 ```shell
 python python/scripts/daily_submission.py --user=himymben
 ```
@@ -83,6 +94,56 @@ Check [Cpp README](cpp/README.md)
 ## Typescript
 
 Check [TypeScript README](typescript/README.md)
+
+## Demo
+
+Fork the repo of your own
+![fork.png](docs/fork.png)
+
+Clone your own forked repo
+
+### Local
+
+Open the code project and installed languages environments as needed.
+
+Test your environment by running languages test, for instance:
+![mvn_test.png](docs/mvn_test.png)
+if you are facing errors here, contact the author.
+
+Find a cookie from LeetCode (monthly update)
+![cookie.png](docs/cookie.png)
+
+Create your own .env file (Notice: better to use a problem folder other than exists as the author is using them, there
+will be a lot of conflicts):
+
+```
+PROBLEM_FOLDER=demo
+COOKIE="***[cookie from LeetCode graphql]"
+LANGUAGES="golang,java"
+```
+
+Create the folder 'demo' based on your own .env
+
+Run scripts to fetch problems, run tests and submit your solution.
+
+If you get problem like this, 
+![get_problem.png](docs/get_problem.png)
+it will add the problem and change the tests of your languages as below:
+![new_problem.png](docs/new_problem.png)
+![changed_golang.png](docs/changed_golang.png)
+Solve your problem and enjoy!
+
+Feel free to ask the author and add issues, discussions on GitHub.
+
+### GitHub
+
+Config GitHub Action Secrets for daily auto scripts.
+![github_settings.png](docs/github_settings.png)
+
+Add values similar to you .env, for example, 
+![cookie_key.png](docs/cookie_key.png)
+
+[**Demo project**](https://github.com/BenhaoQu/LeetCode)
 
 # Problems
 
