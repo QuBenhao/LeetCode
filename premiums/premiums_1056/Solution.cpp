@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <unordered_map>
 
 
 using namespace std;
@@ -8,7 +9,16 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool confusingNumber(int n) {
-
+        auto trans = unordered_map<int, int>({{0, 0}, {1, 1}, {6, 9}, {8, 8}, {9, 6}});
+        int revert = 0;
+        for (int num = n; num > 0; num /= 10) {
+            int cur = num % 10;
+            if (trans.find(cur) == trans.end()) {
+                return false;
+            }
+            revert = 10 * revert + trans[cur];
+        }
+        return revert != n;
     }
 };
 
