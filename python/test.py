@@ -20,7 +20,9 @@ class Test(unittest.TestCase):
 
         load_dotenv()
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        problem_folder = os.getenv(constants.PROBLEM_FOLDER, get_default_folder())
+        problem_folder = os.getenv(constants.PROBLEM_FOLDER, None)
+        if not problem_folder:
+            problem_folder = get_default_folder()
         problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{QUESTION}")
         if not os.path.exists(problem_path):
             print("Warning: [QUESTION: {}] not found under problem folder: {}".format(QUESTION, problem_folder))
