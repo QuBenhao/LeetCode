@@ -6,6 +6,7 @@ class Solution(solution.Solution):
     def solve(self, test_input=None):
         return self.goodSubsetofBinaryMatrix(test_input)
 
+
     def goodSubsetofBinaryMatrix(self, grid: List[List[int]]) -> List[int]:
         mask_to_idx = {}
         for i, row in enumerate(grid):
@@ -21,3 +22,4 @@ class Solution(solution.Solution):
                 if (x & y) == 0:
                     return sorted((i, j))
         return []
+

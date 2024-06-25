@@ -19,6 +19,7 @@ jobs:
           cpp
           golang
           problems
+          premiums
           python
           premiums
           mysql
@@ -27,6 +28,7 @@ jobs:
           go.mod
           go.sum
           pom.xml
+          demo
 
     - name: Set up Python environment
       uses: actions/setup-python@v2
