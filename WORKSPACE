@@ -15,6 +15,6 @@ git_repository(
 
 new_local_repository(
     name = "problems",
-    path = "demo/demo_2/",
+    path = "premiums/premiums_1056/",
     build_file = "//cpp:solution.BUILD",
 )

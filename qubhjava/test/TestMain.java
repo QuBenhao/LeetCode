@@ -9,8 +9,8 @@ import org.junit.jupiter.api.TestFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import problems.problems_2732.Solution;
-//  import premiums.premiums_1056.Solution;
-import demo.demo_2.Solution;
+import premiums.premiums_1056.Solution;
+import org.testng.util.Strings;
 import qubhjava.Testcase;
 
 import java.io.File;
@@ -35,7 +35,10 @@ public class TestMain {
         FileInputStream fis = null;
         try {
             Dotenv dotenv = Dotenv.load();
-            String problemFolder = dotenv.get("PROBLEM_FOLDER", "problems");
+            String problemFolder = dotenv.get("PROBLEM_FOLDER", "");
+            if (Strings.isNullOrEmpty(problemFolder)) {
+                problemFolder = "problems";
+            }
             File file = new File(problemFolder + "/" + problemFolder + "_" + PROBLEM_ID + "/testcase");
             if (!file.exists()) {
                 log.info("Problem folder [{}] not found, try premiums...", problemFolder);
