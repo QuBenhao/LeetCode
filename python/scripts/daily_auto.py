@@ -203,7 +203,10 @@ if __name__ == '__main__':
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, None)
     try:
-        langs = os.getenv(constant.LANGUAGES, "python3").split(",")
+        langs_str = os.getenv(constant.LANGUAGES, "python3")
+        if not langs_str:
+            langs_str = "python3"
+        langs = langs_str.split(",")
     except Exception as _:
         traceback.print_exc()
         langs = ["python3"]
