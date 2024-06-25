@@ -126,9 +126,22 @@ Create the folder 'demo' based on your own .env
 
 Run scripts to fetch problems, run tests and submit your solution.
 
+If you get problem like this, 
+![get_problem.png](docs/get_problem.png)
+it will add the problem and change the tests of your languages as below:
+![new_problem.png](docs/new_problem.png)
+![changed_golang.png](docs/changed_golang.png)
+Solve your problem and enjoy!
+
 Feel free to ask the author and add issues, discussions on GitHub.
 
 ### GitHub
+
+Config GitHub Action Secrets for daily auto scripts.
+![github_settings.png](docs/github_settings.png)
+
+Add values similar to you .env, for example, 
+![cookie_key.png](docs/cookie_key.png)
 
 [**Demo project**](https://github.com/BenhaoQu/LeetCode)
 
