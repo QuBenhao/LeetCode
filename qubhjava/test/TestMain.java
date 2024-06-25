@@ -8,7 +8,8 @@ import org.junit.jupiter.api.TestFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import problems.problems_2732.Solution;
- import premiums.premiums_1056.Solution;
+//  import premiums.premiums_1056.Solution;
+import demo.demo_1.Solution;
 import qubhjava.Testcase;
 
 import java.io.File;
@@ -26,7 +27,7 @@ import static org.testng.Assert.assertEquals;
 public class TestMain {
 
     private static final Logger log = LoggerFactory.getLogger(TestMain.class);
-    private static final String PROBLEM_ID = "1056";
+    private static final String PROBLEM_ID = "1";
 
     private Testcase[] loadTestcases() throws IOException {
         Testcase[] testcases = null;
