@@ -7,7 +7,17 @@ import (
 )
 
 func confusingNumber(n int) bool {
-
+	trans := map[int]int{0: 0, 1: 1, 6: 9, 8: 8, 9: 6}
+	revert := 0
+	for num := n; num > 0; num /= 10 {
+		cur := num % 10
+		if v, ok := trans[cur]; !ok {
+			return false
+		} else {
+			revert = 10*revert + v
+		}
+	}
+	return revert != n
 }
 
 func Solve(input string) interface{} {
