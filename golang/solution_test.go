@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	//problem "leetCode/problems/problems_2732"
 // 	problem "leetCode/premiums/premiums_1056"
-	problem "leetCode/demo/demo_1"
+	problem "leetCode/demo/demo_2"
 	"log"
 	"os"
 	"path"
@@ -19,7 +19,7 @@ import (
 // const TestcaseFolderFmt = "premiums/premiums_%s/testcase"
 
 const TestcaseFolderFmt = "demo/demo_%s/testcase"
-var problemId string = "1"
+var problemId string = "2"
 
 type TestCase struct {
 	input string

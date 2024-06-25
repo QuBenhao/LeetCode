@@ -2,10 +2,11 @@ import * as fs from 'fs';
 var _ = require('lodash-contrib');
 
 
-const PROBLEM_ID: string = "1056";
+const PROBLEM_ID: string = "2";
 // import {Solve} from "../problems/problems_2732/solution";
-import {Solve} from "../premiums/premiums_1056/solution";
+// import {Solve} from "../premiums/premiums_1056/solution";
 
+import {Solve} from "../demo/demo_2/solution";
 describe("TestMain===" + PROBLEM_ID, () => {
     let testCasePath: string = `problems/problems_${PROBLEM_ID}/testcase`;
     if (!fs.existsSync(testCasePath)) {
