@@ -4,6 +4,7 @@ package qubhjava.test;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.DotenvException;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.slf4j.Logger;
@@ -28,14 +29,19 @@ import static org.testng.Assert.assertEquals;
 public class TestMain {
 
     private static final Logger log = LoggerFactory.getLogger(TestMain.class);
-    private static final String PROBLEM_ID = "2";
+    private static final String PROBLEM_ID = "1056";
 
     private Testcase[] loadTestcases() throws IOException {
         Testcase[] testcases = null;
         FileInputStream fis = null;
         try {
-            Dotenv dotenv = Dotenv.load();
-            String problemFolder = dotenv.get("PROBLEM_FOLDER", "");
+            String problemFolder = null;
+            try {
+                Dotenv dotenv = Dotenv.load();
+                problemFolder = dotenv.get("PROBLEM_FOLDER", "");
+            } catch (DotenvException e) {
+                log.error("Error load .env file", e);
+            }
             if (Strings.isNullOrEmpty(problemFolder)) {
                 problemFolder = "problems";
             }
