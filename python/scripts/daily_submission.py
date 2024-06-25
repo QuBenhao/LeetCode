@@ -46,7 +46,7 @@ def main(user_slug: str, cookie: Optional[str], languages: list[str], problem_fo
             question_id = question_id.replace(" ", "_")
             cache = set()
             info = None
-            if problem_folder is not None:
+            if not problem_folder:
                 tmp_problem_folder = problem_folder
             elif question_id == daily_question:
                 tmp_problem_folder = get_default_folder()
