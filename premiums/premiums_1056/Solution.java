@@ -7,7 +7,21 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public boolean confusingNumber(int n) {
-
+        Map<Integer, Integer> trans = new HashMap<>(5);
+        trans.put(0, 0);
+        trans.put(1, 1);
+        trans.put(6, 9);
+        trans.put(8, 8);
+        trans.put(9, 6);
+        int revert = 0;
+        for (int num = n; num > 0; num /= 10) {
+            int cur = num % 10;
+            if (!trans.containsKey(cur)) {
+                return false;
+            }
+            revert = 10 * revert + trans.get(cur);
+        }
+        return revert != n;
     }
 
     @Override
