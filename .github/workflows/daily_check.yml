@@ -19,6 +19,8 @@ jobs:
           cpp
           golang
           problems
+          premiums
+          mysql
           python
           qubhjava
           typescript

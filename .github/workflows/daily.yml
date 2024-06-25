@@ -20,6 +20,8 @@ jobs:
           golang
           problems
           python
+          premiums
+          mysql
           qubhjava
           typescript
           go.mod
