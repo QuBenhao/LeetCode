@@ -3,10 +3,11 @@ import * as dotenv from 'dotenv'
 var _ = require('lodash-contrib');
 
 
-const PROBLEM_ID: string = "1056";
+const PROBLEM_ID: string = "2";
 // import {Solve} from "../problems/problems_2732/solution";
-import {Solve} from "../premiums/premiums_1056/solution";
+// import {Solve} from "../premiums/premiums_1056/solution";
 
+import {Solve} from "../demo/demo_2/solution";
 describe("TestMain===" + PROBLEM_ID, () => {
     dotenv.config();
     let problemFolder: string = process.env.PROBLEM_FOLDER ? process.env.PROBLEM_FOLDER : "problems";
