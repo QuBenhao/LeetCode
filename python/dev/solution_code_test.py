@@ -1320,6 +1320,10 @@ if __name__ == '__main__':
     # for problem, code_templates in problems.values():
     #     pass
 
+    r = write_solution_typescript("class MyHashMap {\n    constructor() {\n\n    }\n\n    put(key: number, value: number): void {\n\n    }\n\n    get(key: number): number {\n\n    }\n\n    remove(key: number): void {\n\n    }\n}\n\n/**\n * Your MyHashMap object will be instantiated and called as such:\n * var obj = new MyHashMap()\n * obj.put(key,value)\n * var param_2 = obj.get(key)\n * obj.remove(key)\n */", None, 706)
+    print(r)
+    exit(0)
+
     code_counter = Counter()
     for test_problem, codes in problems.items():
         for code in codes:

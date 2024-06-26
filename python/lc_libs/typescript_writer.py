@@ -127,7 +127,7 @@ def write_solution_typescript(code_default: str, code: str = None, problem_id: s
         if len(stack) == 2 and "(" in strip_line:
             func_name = strip_line.split("(")[0].strip()
             return_type = strip_line.split("{")[0].split(")")[-1].split(":")[-1].strip()
-            variables = list(map(str.strip, strip_line.split("(")[1].split(")")[0].split(",")))
+            variables = [s for s in map(str.strip, strip_line.split("(")[1].split(")")[0].split(",")) if s != ""]
             if func_name == "constructor" and return_type == "":
                 process_inputs.append("const obj: {} = new {}({});".format(
                     class_name,
