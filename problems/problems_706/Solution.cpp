@@ -1,26 +1,29 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <unordered_map>
 
 
 using namespace std;
 using json = nlohmann::json;
 
 class MyHashMap {
+private:
+    unordered_map<int, int> map;
 public:
     MyHashMap() {
-
+        map = {};
     }
     
     void put(int key, int value) {
-
+        map[key] = value;
     }
     
     int get(int key) {
-
+        return map.find(key) == map.end() ? -1 : map[key];
     }
     
     void remove(int key) {
-
+        map.erase(key);
     }
 };
 
