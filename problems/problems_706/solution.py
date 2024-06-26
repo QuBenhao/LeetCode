@@ -9,7 +9,6 @@ class Solution(solution.Solution):
         obj = MyHashMap()
         return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
 
-
 class MyHashMap:
     def __init__(self):
         self.d = {}
@@ -22,3 +21,4 @@ class MyHashMap:
 
     def remove(self, key: int) -> None:
         return self.d.pop(key, None)
+

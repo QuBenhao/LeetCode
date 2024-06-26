@@ -30,6 +30,8 @@ public class Solution extends BaseSolution {
         return (int) (ans % 1_000_000_007);
     }
 
+
+
     @Override
     public Object solve(String[] values) {
         int[] nums = jsonArrayToIntArray(values[0]);
