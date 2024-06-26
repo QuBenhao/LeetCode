@@ -74,26 +74,30 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
     if code_map is None:
         return
     for language in languages:
-        code = code_map[language]
-        func = getattr(lc_libs, f"write_solution_{language}", None)
-        if func is None:
-            print("Language not supported yet")
-            continue
-        match language:
-            case "python3":
-                main_file = f"{dir_path}/solution.py"
-            case "golang":
-                main_file = f"{dir_path}/solution.go"
-            case "java":
-                main_file = f"{dir_path}/Solution.java"
-            case "cpp":
-                main_file = f"{dir_path}/Solution.cpp"
-            case "typescript":
-                main_file = f"{dir_path}/solution.ts"
-            case _:
+        try:
+            code = code_map[language]
+            func = getattr(lc_libs, f"write_solution_{language}", None)
+            if func is None:
+                print("Language not supported yet")
                 continue
-        with open(main_file, "w", encoding="utf-8") as f:
-            f.write(func(code, None, question_id, problem_folder))
+            match language:
+                case "python3":
+                    main_file = f"{dir_path}/solution.py"
+                case "golang":
+                    main_file = f"{dir_path}/solution.go"
+                case "java":
+                    main_file = f"{dir_path}/Solution.java"
+                case "cpp":
+                    main_file = f"{dir_path}/Solution.cpp"
+                case "typescript":
+                    main_file = f"{dir_path}/solution.ts"
+                case _:
+                    continue
+            with open(main_file, "w", encoding="utf-8") as f:
+                f.write(func(code, None, question_id, problem_folder))
+        except Exception as _:
+            traceback.print_stack()
+            continue
     print(f"Add question: [{question_id}]{slug}")
 
 
