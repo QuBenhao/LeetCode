@@ -12,14 +12,13 @@ class Solution(solution.Solution):
 
 class MyHashMap:
     def __init__(self):
-        pass
+        self.d = {}
 
     def put(self, key: int, value: int) -> None:
-        pass
+        self.d[key] = value
 
     def get(self, key: int) -> int:
-        pass
+        return self.d.get(key, -1)
 
     def remove(self, key: int) -> None:
-        pass
-
+        return self.d.pop(key, None)

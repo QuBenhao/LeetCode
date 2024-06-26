@@ -93,6 +93,10 @@ if __name__ == '__main__':
     except Exception as _:
         traceback.print_exc()
         langs = ["python3"]
-    loop = asyncio.get_event_loop()
+    if sys.version_info.major == 3 and sys.version_info.minor > 10:
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+    else:
+        loop = asyncio.get_event_loop()
     loop.run_until_complete(main(rp, question_id, args.lang, cke))
     sys.exit(0)
