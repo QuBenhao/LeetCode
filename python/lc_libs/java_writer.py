@@ -57,6 +57,8 @@ def __process_variable_type(input_name: str, variable_name: str, rt_type: str) -
             return f"{rt_type} {variable_name} = jsonArrayToChar2DArray({input_name});"
         case "List<String>":
             return f"{rt_type} {variable_name} = jsonArrayToStringList({input_name});"
+        case "":
+            return ""
         case _:
             print("Java type not Implemented yet: {}".format(rt_type))
     return f"{rt_type} {variable_name} = FIXME({input_name})"
@@ -69,9 +71,14 @@ def __parse_java_method(strip_line: str):
     return_func = strip_line.split("(")[0].split(" ")[-1]
     return_type = strip_line.split("(")[0].split(" ")[1]
     input_parts = strip_line.split("(")[1].split(")")[0].strip().split(",")
+    last = ""
     for i, input_part in enumerate(input_parts):
         var_split = input_part.strip().split(" ")
-        rt_type, variable = var_split[0], var_split[1]
+        if len(var_split) < 2:
+            rt_type, variable = last, var_split[0]
+        else:
+            rt_type, variable = var_split[0], var_split[1]
+            last = rt_type
         variables.append(variable)
         parse_input.append(__process_variable_type(f"values[{i}]", variable, rt_type))
         if "ListNode" in rt_type:
@@ -116,6 +123,7 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
                 variables.extend(vs)
                 import_packages.extend(ai)
                 if func_name == class_name:
+
                     parse_input.extend([p.replace("values", "opValues[0]") for p in pi])
                     parse_input.append(f"{class_name} obj = new {rp};")
                 else:

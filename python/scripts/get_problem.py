@@ -80,34 +80,37 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
                          .replace("True", "true").replace("False", "false")
                          .replace("'", "\"")])
     for key, val in code_maps.items():
-        match key:
-            case "python3":
-                if skip_language and os.path.exists(f"{dir_path}/solution.py"):
-                    continue
-                with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                    f.write(write_solution_python(val))
-            case "golang":
-                if skip_language and os.path.exists(f"{dir_path}/solution.go"):
-                    continue
-                with open(f"{dir_path}/solution.go", "w", encoding="utf-8") as f:
-                    f.write(write_solution_golang(val, None, problem_id))
-            case "java":
-                if skip_language and os.path.exists(f"{dir_path}/Solution.java"):
-                    continue
-                with open(f"{dir_path}/Solution.java", "w", encoding="utf-8") as f:
-                    f.write(write_solution_java(val, None, problem_id, problem_folder))
-            case "cpp":
-                if skip_language and os.path.exists(f"{dir_path}/Solution.cpp"):
-                    continue
-                with open(f"{dir_path}/Solution.cpp", "w", encoding="utf-8") as f:
-                    f.write(write_solution_cpp(val, None, problem_id))
-            case "typescript":
-                if skip_language and os.path.exists(f"{dir_path}/solution.ts"):
-                    continue
-                with open(f"{dir_path}/solution.ts", "w", encoding="utf-8") as f:
-                    f.write(write_solution_typescript(val, None, problem_id))
-            case _:
-                print(f"Unsupported language {key} yet")
+        try:
+            match key:
+                case "python3":
+                    if skip_language and os.path.exists(f"{dir_path}/solution.py"):
+                        continue
+                    with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
+                        f.write(write_solution_python(val))
+                case "golang":
+                    if skip_language and os.path.exists(f"{dir_path}/solution.go"):
+                        continue
+                    with open(f"{dir_path}/solution.go", "w", encoding="utf-8") as f:
+                        f.write(write_solution_golang(val, None, problem_id))
+                case "java":
+                    if skip_language and os.path.exists(f"{dir_path}/Solution.java"):
+                        continue
+                    with open(f"{dir_path}/Solution.java", "w", encoding="utf-8") as f:
+                        f.write(write_solution_java(val, None, problem_id, problem_folder))
+                case "cpp":
+                    if skip_language and os.path.exists(f"{dir_path}/Solution.cpp"):
+                        continue
+                    with open(f"{dir_path}/Solution.cpp", "w", encoding="utf-8") as f:
+                        f.write(write_solution_cpp(val, None, problem_id))
+                case "typescript":
+                    if skip_language and os.path.exists(f"{dir_path}/solution.ts"):
+                        continue
+                    with open(f"{dir_path}/solution.ts", "w", encoding="utf-8") as f:
+                        f.write(write_solution_typescript(val, None, problem_id))
+                case _:
+                    print(f"Unsupported language {key} yet")
+        except Exception as _:
+            traceback.print_exc()
 
     print(f"Add question: [{problem_id}]{problem_slug}", file=file)
 
