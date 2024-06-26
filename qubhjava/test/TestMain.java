@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import problems.problems_2741.Solution;
+import problems.problems_2734.Solution;
 // import premiums.premiums_1056.Solution;
 import org.testng.util.Strings;
 import qubhjava.Testcase;
@@ -29,7 +29,7 @@ import static org.testng.Assert.assertEquals;
 public class TestMain {
 
     private static final Logger log = LoggerFactory.getLogger(TestMain.class);
-    private static final String PROBLEM_ID = "2741";
+    private static final String PROBLEM_ID = "2734";
 
     private Testcase[] loadTestcases() throws IOException {
         Testcase[] testcases = null;
