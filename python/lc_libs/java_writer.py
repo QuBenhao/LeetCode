@@ -93,7 +93,7 @@ def __parse_java_method(strip_line: str):
         return_part = "TreeNode.TreeNodeToArray({}({}))".format(return_func, ", ".join(variables))
     elif return_type == "void":
         parse_input.append("{}({});".format(return_func, ", ".join(variables)))
-        return_part = variables[0]
+        return_part = ", ".join(variables)
     else:
         return_part = "{}({})".format(return_func, ", ".join(variables))
     return variables, parse_input, additional_import, return_part, return_func, return_type
@@ -123,7 +123,6 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
                 variables.extend(vs)
                 import_packages.extend(ai)
                 if func_name == class_name:
-
                     parse_input.extend([p.replace("values", "opValues[0]") for p in pi])
                     parse_input.append(f"{class_name} obj = new {rp};")
                 else:

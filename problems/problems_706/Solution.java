@@ -6,21 +6,22 @@ import qubhjava.BaseSolution;
 
 
 class MyHashMap {
+	private final Map<Integer, Integer> map;
 
     public MyHashMap() {
-
+		map = new HashMap<>();
     }
     
     public void put(int key, int value) {
-
+		map.put(key, value);
     }
     
     public int get(int key) {
-
+		return map.getOrDefault(key, -1);
     }
     
     public void remove(int key) {
-
+		map.remove(key);
     }
 }
 
@@ -47,7 +48,7 @@ public class Solution extends BaseSolution {
 			if (operators[i].compareTo("put") == 0) {
 				int key = Integer.parseInt(opValues[i][0]);
 				int value = Integer.parseInt(opValues[i][1]);
-				obj.put(key);
+				obj.put(key, value);
 				ans.add(null);
 				continue;
 			}
