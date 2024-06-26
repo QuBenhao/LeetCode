@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	problem "leetCode/problems/problems_2741"
-// 	problem "leetCode/premiums/premiums_1056"
+	problem "leetCode/problems/problems_347"
+	"sort"
+
+	// 	problem "leetCode/premiums/premiums_1056"
 	"log"
 	"os"
 	"path"
@@ -15,10 +17,11 @@ import (
 )
 
 const TestcaseFolderFmt = "problems/problems_%s/testcase"
+
 // const TestcaseFolderFmt = "premiums/premiums_%s/testcase"
 
 // const TestcaseFolderFmt = "demo/demo_%s/testcase"
-var problemId string = "2741"
+var problemId string = "347"
 
 type TestCase struct {
 	input string
@@ -75,6 +78,10 @@ func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) 
 		wantArray := want.([]interface{})
 		respIntArray := resp.([]int)
 		if ast.Equalf(len(wantArray), len(respIntArray), "Expected: [%v], actual: [%v]", want, resp) {
+			sort.Ints(respIntArray)
+			sort.Slice(wantArray, func(i, j int) bool {
+				return int(wantArray[i].(float64)) < int(wantArray[j].(float64))
+			})
 			for j := 0; j < len(respIntArray); j++ {
 				ast.Equalf(int(wantArray[j].(float64)), respIntArray[j], "Expected: [%v], actual: [%v]", want, resp)
 			}

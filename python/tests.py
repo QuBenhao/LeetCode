@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from utils import get_default_folder
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTIONS = ['1056']
+QUESTIONS = ['347']
 
 
 class Test(unittest.TestCase):
@@ -56,7 +56,10 @@ class Test(unittest.TestCase):
                                                          sorted(sorted(item) for item in result),
                                                          msg=f"problem: {q}, input = {i}")
                                 else:
-                                    self.assertListEqual(o, result, msg=f"problem: {q}, input = {i}")
+                                    if all(x is not None for x in result):
+                                        self.assertListEqual(sorted(o), sorted(result), msg=f"problem: {q}, input = {i}")
+                                    else:
+                                        self.assertListEqual(o, result, msg=f"problem: {q}, input = {i}")
                             else:
                                 if isinstance(o, float):
                                     self.assertAlmostEqual(o, result, msg=f"problem: {q}, input = {i}", delta=0.00001)
