@@ -74,8 +74,6 @@ namespace LeetCode {
             void TestBody() override {
                 if (data_.GetExpected().is_number_float()) {
                     ASSERT_DOUBLE_EQ(leetcode::qubh::Solve(data_.GetInput()), data_.GetExpected());
-                } else if (data_.GetExpected().is_array()) {
-                    ASSERT_THAT(leetcode::qubh::Solve(data_.GetInput()), testing::UnorderedElementsAreArray(data_.GetExpected()));
                 } else {
                     ASSERT_EQ(leetcode::qubh::Solve(data_.GetInput()), data_.GetExpected());
                 }

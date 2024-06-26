@@ -56,10 +56,7 @@ class Test(unittest.TestCase):
                                                          sorted(sorted(item) for item in result),
                                                          msg=f"problem: {q}, input = {i}")
                                 else:
-                                    if all(x is not None for x in result):
-                                        self.assertListEqual(sorted(o), sorted(result), msg=f"problem: {q}, input = {i}")
-                                    else:
-                                        self.assertListEqual(o, result, msg=f"problem: {q}, input = {i}")
+                                    self.assertListEqual(o, result, msg=f"problem: {q}, input = {i}")
                             else:
                                 if isinstance(o, float):
                                     self.assertAlmostEqual(o, result, msg=f"problem: {q}, input = {i}", delta=0.00001)

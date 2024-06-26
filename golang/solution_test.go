@@ -78,10 +78,6 @@ func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) 
 		wantArray := want.([]interface{})
 		respIntArray := resp.([]int)
 		if ast.Equalf(len(wantArray), len(respIntArray), "Expected: [%v], actual: [%v]", want, resp) {
-			sort.Ints(respIntArray)
-			sort.Slice(wantArray, func(i, j int) bool {
-				return int(wantArray[i].(float64)) < int(wantArray[j].(float64))
-			})
 			for j := 0; j < len(respIntArray); j++ {
 				ast.Equalf(int(wantArray[j].(float64)), respIntArray[j], "Expected: [%v], actual: [%v]", want, resp)
 			}
