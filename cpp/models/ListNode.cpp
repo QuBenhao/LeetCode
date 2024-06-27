@@ -7,7 +7,7 @@
 ListNode *IntArrayToListNode(std::vector<int> &arr) {
     ListNode *dummy = new ListNode();
     ListNode *p = dummy;
-    for (int i = 0; i < arr.size(); i++) {
+    for (size_t i = 0; i < arr.size(); i++) {
         p->next = new ListNode(arr[i]);
         p = p->next;
     }

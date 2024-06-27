@@ -10,7 +10,7 @@ TreeNode *JsonArrayToTreeNode(json arr) {
     int isLeft = true;
     std::queue<TreeNode *> q;
     TreeNode *curr_node = root;
-    for (int i = 1; i < arr.size(); i++) {
+    for (size_t i = 1; i < arr.size(); i++) {
         json num = arr[i];
         if (isLeft == 1) {
             if (num != nullptr) {

@@ -49,7 +49,7 @@ namespace LeetCode {
             vector<string> inputs = json::parse(splits[0]);
             vector<json> outputs = json::parse(splits[1]);
             vector<TestCase> testCases;
-            for (int i = 0; i < inputs.size(); i++) {
+            for (size_t i = 0; i < inputs.size(); i++) {
                 testCases.push_back(TestCase(inputs[i], outputs[i]));
             }
             return testCases;
@@ -84,7 +84,7 @@ namespace LeetCode {
         };
 
         void RegisterMyTests(const vector<TestCase> &values) {
-            for (int i = 0; i < values.size(); i++) {
+            for (size_t i = 0; i < values.size(); i++) {
                 testing::RegisterTest(
                         "LeetCode Solution Test", ("Testcase" + to_string(i)).c_str(), nullptr,
                         "LeetCode::qubh::Testcase",
