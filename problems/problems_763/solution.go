@@ -6,8 +6,20 @@ import (
 	"strings"
 )
 
-func partitionLabels(s string) []int {
-
+func partitionLabels(s string) (ans []int) {
+	mp := make(map[byte]int)
+	for i := 0; i < len(s); i++ {
+		mp[s[i]] = i
+	}
+	start, end := 0, 0
+	for i := 0; i < len(s); i++ {
+		end = max(end, mp[s[i]])
+		if i == end {
+			ans = append(ans, end-start+1)
+			start = end + 1
+		}
+	}
+	return
 }
 
 func Solve(input string) interface{} {
