@@ -7,7 +7,23 @@ import (
 )
 
 func smallestString(s string) string {
-
+	var ans []byte
+	left := 0
+	for left < len(s) && s[left] == 'a' {
+		ans = append(ans, s[left])
+		left++
+	}
+	if left == len(s) {
+		ans = ans[:len(ans)-1]
+		ans = append(ans, 'z')
+		return string(ans)
+	}
+	right := left
+	for right < len(s) && s[right] != 'a' {
+		ans = append(ans, s[right] - 1)
+		right++
+	}
+	return string(ans) + s[right:]
 }
 
 func Solve(input string) interface{} {
