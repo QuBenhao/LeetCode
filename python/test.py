@@ -5,7 +5,7 @@ from importlib.util import spec_from_file_location, module_from_spec
 
 from dotenv import load_dotenv
 import constants
-from utils import get_default_folder
+from utils import get_default_folder, timeout
 
 # Question ID that wants to test, modify here as passing arguments
 QUESTION = "2734"
@@ -16,6 +16,10 @@ QUESTION = "2734"
 
 class Test(unittest.TestCase):
     def test(self):
+        @timeout()
+        def exec_solution(sol, ipt):
+            return sol.solve(test_input=ipt)
+
         print(f"Testing problem: {QUESTION}")
 
         load_dotenv()
@@ -43,7 +47,10 @@ class Test(unittest.TestCase):
         for test in testcase_obj.get_testcases():
             with self.subTest(f"testcase: {test}", testcase=test):
                 i, o = test
-                result = solution_obj.solve(test_input=i)
+                try:
+                    result = exec_solution(solution_obj, i)
+                except TimeoutError as _:
+                    self.fail("Solution timeout in 3s, input: {}".format(i))
                 if o is not None:
                     self.assertIsNotNone(result, f"input = {i}, No solution")
                 try:

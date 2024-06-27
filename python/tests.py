@@ -5,7 +5,7 @@ from importlib.util import spec_from_file_location, module_from_spec
 
 import constants
 from dotenv import load_dotenv
-from utils import get_default_folder
+from utils import get_default_folder, timeout
 
 # Question ID that wants to test, modify here as passing arguments
 QUESTIONS = ['763']
@@ -13,6 +13,10 @@ QUESTIONS = ['763']
 
 class Test(unittest.TestCase):
     def test(self):
+        @timeout()
+        def exec_solution(sol, ipt):
+            return sol.solve(test_input=ipt)
+
         load_dotenv()
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         problem_folder = os.getenv(constants.PROBLEM_FOLDER, get_default_folder())
@@ -41,7 +45,10 @@ class Test(unittest.TestCase):
                 for test in testcase_obj.get_testcases():
                     with self.subTest(f"testcase: {test}", testcase=test):
                         i, o = test
-                        result = solution_obj.solve(test_input=i)
+                        try:
+                            result = exec_solution(solution_obj, i)
+                        except TimeoutError as _:
+                            self.fail("Solution timeout in 3s, input: {}".format(i))
                         if o is not None:
                             self.assertIsNotNone(result, f"problem: {q}, input = {i}, No solution")
                         try:
