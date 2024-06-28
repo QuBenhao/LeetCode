@@ -11,7 +11,9 @@ Algorithms in LeetCode by Benhao
     * [Java](#java)
     * [Cpp](#cpp)
     * [TypeScript](#typescript)
-    * [Demo](#Demo)
+- [Demo](#Demo)
+    * [Local](#Local)
+    * [GitHub](#GitHub)
 - [Problems](#problems)
     * [Easy](#easy)
     * [Medium](#medium)
@@ -96,14 +98,14 @@ Check [Cpp README](cpp/README.md)
 
 Check [TypeScript README](typescript/README.md)
 
-## Demo
+# Demo
 
 Fork the repo of your own
 ![fork.png](docs/fork.png)
 
 Clone your own forked repo
 
-### Local
+## Local
 
 Open the code project and installed languages environments as needed.
 
@@ -136,7 +138,7 @@ Solve your problem and enjoy!
 
 Feel free to ask the author and add issues, discussions on GitHub.
 
-### GitHub
+## GitHub
 
 Config GitHub Action Secrets for daily auto scripts.
 ![github_settings.png](docs/github_settings.png)
