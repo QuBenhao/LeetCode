@@ -15,7 +15,7 @@ public:
             auto t = time[i] + 1;
             for (size_t j = n; j > 0; j--) {
                 f[j] =
-                    min(f[j], f[max(j - t, static_cast<size_t>(0))] + cost[i]);
+                    min(f[j], f[j >= t ? j - t : 0] + cost[i]);
             }
         }
         return f[n];
