@@ -1,4 +1,3 @@
-import argparse
 import os
 import sys
 import traceback
@@ -107,9 +106,6 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--user', required=True, type=str, help='The user slug in LeetCode.')
-    args = parser.parse_args()
     try:
         load_dotenv()
     except Exception as e:
