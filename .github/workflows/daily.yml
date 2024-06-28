@@ -21,7 +21,6 @@ jobs:
           problems
           premiums
           python
-          premiums
           mysql
           qubhjava
           typescript
