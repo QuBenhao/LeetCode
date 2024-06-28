@@ -38,7 +38,7 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
         if cookie:
             submit_dict = lc_libs.check_accepted_submission_all(cookie)
         else:
-            if not lc_libs.check_user_exist(user_slug):
+            if not user_slug or not lc_libs.check_user_exist(user_slug):
                 print(f"User not exist: {user_slug}")
                 return 1
             submit_dict = lc_libs.check_accepted_submission(user_slug)
