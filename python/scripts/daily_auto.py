@@ -110,7 +110,7 @@ def process_daily(languages: list[str], problem_folder: str = None):
     tmp = get_default_folder(paid_only=daily_info['paidOnly']) if not problem_folder else problem_folder
     dir_path = os.path.join(root_path, tmp, f"{tmp}_{question_id}")
     if not os.path.exists(dir_path):
-        os.mkdir(dir_path)
+        os.makedirs(dir_path, exist_ok=True)
         write_question(dir_path, tmp, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
                        languages)
     else:
@@ -166,7 +166,7 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
             tmp_folder = problem_folder if problem_folder else get_default_folder(paid_only=paid_only)
             dir_path = os.path.join(root_path, tmp_folder, f"{tmp_folder}_{question_id}")
             if not os.path.exists(dir_path):
-                os.mkdir(dir_path)
+                os.makedirs(dir_path, exist_ok=True)
                 write_question(dir_path, tmp_folder, question_id, info["title"], question_slug, languages, cookie)
             else:
                 remain_languages = check_remain_languages(dir_path, languages)
