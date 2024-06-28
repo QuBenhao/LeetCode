@@ -14,11 +14,8 @@ from python.constants import constant
 from python.utils import get_default_folder, send_text_message, check_problem_solved_and_write
 
 
-def main(user_slug: str, cookie: Optional[str], languages: list[str], problem_folder: str = None):
+def main(cookie: Optional[str], languages: list[str], problem_folder: str = None, user_slug: str = None):
     try:
-        if not lc_libs.check_user_exist(user_slug):
-            print(f"User not exist: {user_slug}")
-            return 1
         daily_info = lc_libs.get_daily_question()
         if not daily_info:
             print(f"Unable to get daily question")
@@ -38,8 +35,13 @@ def main(user_slug: str, cookie: Optional[str], languages: list[str], problem_fo
                 for plan_slug in plans:
                     plan_prog = lc_libs.get_user_study_plan_progress(plan_slug, cookie, 0)
                     plan_questions_slug = plan_questions_slug.union(plan_prog["all_solved"])
-        submit_dict = lc_libs.check_accepted_submission_all(cookie) if cookie \
-            else lc_libs.check_accepted_submission(user_slug)
+        if cookie:
+            submit_dict = lc_libs.check_accepted_submission_all(cookie)
+        else:
+            if not lc_libs.check_user_exist(user_slug):
+                print(f"User not exist: {user_slug}")
+                return 1
+            submit_dict = lc_libs.check_accepted_submission(user_slug)
         root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         sys.path.insert(0, os.path.join(root_path, "python"))
         for question_id, submits in submit_dict.items():
@@ -115,6 +117,7 @@ if __name__ == '__main__':
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, None)
+    ur = os.getenv(constant.USER, None)
     try:
         langs_str = os.getenv(constant.LANGUAGES, "python3")
         if not langs_str:
@@ -123,5 +126,5 @@ if __name__ == '__main__':
     except Exception as _:
         traceback.print_exc()
         langs = ["python3"]
-    exec_res = main(args.user, cke, langs, pf)
+    exec_res = main(cke, langs, pf, ur)
     sys.exit(exec_res)

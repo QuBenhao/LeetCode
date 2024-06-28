@@ -89,9 +89,10 @@ jobs:
         PUSH_KEY: ${{ secrets.PUSH_KEY || '' }}
         PROBLEM_FOLDER: ${{ secrets.PROBLEM_FOLDER || '' }}
         LANGUAGES: ${{secrets.LANGUAGES || ''}}
+        USER: ${{ secrets.USER }}
       run:  |
         set +e
-        python python/scripts/daily_submission.py --user ${{ secrets.USER }} &> /tmp/msg
+        python python/scripts/daily_submission.py  &> /tmp/msg
         status=$?
         cat /tmp/msg
         exit $status

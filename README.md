@@ -36,6 +36,7 @@ PROBLEM_FOLDER="problems"
 PUSH_KEY="***[key from PushDeer]"
 COOKIE="***[cookie from LeetCode graphql]"
 LANGUAGES="python3,golang,java,cpp,typescript"
+USER="himymben"
 ```
 
 install python3.10 requirements:
@@ -67,10 +68,10 @@ To generate daily problems, try:
 python python/scripts/daily_auto.py
 ```
 
-To fetch daily submits from LeetCode (requires `.env` cookie to be ready), change `user` below and try:
+To fetch daily submits from LeetCode (requires `.env` COOKIE or USER to be ready), try:
 
 ```shell
-python python/scripts/daily_submission.py --user=himymben
+python python/scripts/daily_submission.py
 ```
 
 # Supported Languages
