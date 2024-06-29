@@ -1,4 +1,4 @@
-name: LeetCode Daily Checker
+name: LeetCode Submit Checker
 
 on:
   workflow_dispatch: # manually trigger

@@ -1,4 +1,4 @@
-name: LeetCode Problem Scraper
+name: LeetCode Daily Problems
 
 on:
   workflow_dispatch: # manually trigger
