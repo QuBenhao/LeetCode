@@ -8,7 +8,10 @@ using json = nlohmann::json;
 class Solution {
 public:
     string removeTrailingZeros(string num) {
-        
+        size_t idx = num.length() - 1;
+        for (; idx >= 0 && num[idx] == '0'; idx--) {
+        }
+        return num.substr(0, idx + 1);
     }
 };
 

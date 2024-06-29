@@ -7,7 +7,10 @@ import (
 )
 
 func removeTrailingZeros(num string) string {
-
+	idx := len(num) - 1
+	for ; idx >= 0 && num[idx] == '0'; idx-- {
+	}
+	return num[:idx+1]
 }
 
 func Solve(input string) interface{} {
