@@ -1,9 +1,8 @@
+import argparse
 import asyncio
 import os
 import sys
 import traceback
-import argparse
-from typing import Optional
 
 from dotenv import load_dotenv
 
@@ -71,6 +70,8 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
             exists = True
     if not exists:
         result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang, lc_question_id, code)
+    print("\n题解查看: https://leetcode.cn/problems/{}/solutions/".format(problem_slug))
+    print("外网查看: https://leetcode.com/problems/{}/solutions/".format(problem_slug))
     return result
 
 
