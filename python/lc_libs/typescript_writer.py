@@ -90,6 +90,9 @@ def write_solution_typescript(code_default: str, code: str = None, problem_id: s
                 import_part[_TREE_NODE_PATH].add("TreeNode")
                 import_part[_TREE_NODE_PATH].add("TreeNodeToJSONArray")
                 return_part = "TreeNodeToJSONArray({}({}))".format(func[0], ", ".join(var_names))
+            case "void":
+                process_inputs.append("{}({})".format(func[0], ", ".join(var_names)))
+                return_part = ", ".join(var_names)
             case _:
                 return_part = "{}({})".format(func[0], ", ".join(var_names))
         return SOLUTION_TEMPLATE_TYPESCRIPT.format(
