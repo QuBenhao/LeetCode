@@ -31,7 +31,7 @@ def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, forc
         if skip_language:
             return dir_path
         shutil.rmtree(dir_path)
-    os.mkdir(dir_path)
+    os.makedirs(dir_path, exist_ok=True)
     return dir_path
 
 
