@@ -1,5 +1,8 @@
+import functools
+
 import pytz
-from datetime import datetime
+import datetime
+import sys
 import time
 
 
@@ -8,7 +11,7 @@ def get_china_daily_time():
     cur_time = time.time()
 
     # convert current time to datetime in UTC
-    utc_time = datetime.utcfromtimestamp(cur_time)
+    utc_time = datetime.datetime.fromtimestamp(cur_time, datetime.timezone.utc)
 
     # create the timezone object for UTC+8
     timezone = pytz.timezone('Asia/Shanghai')  # Shanghai is in UTC+8
@@ -22,3 +25,47 @@ def get_china_daily_time():
     # convert back to timestamp
     min_timestamp = min_timestamp.timestamp()
     return min_timestamp
+
+
+def timeout(second: int = 3):
+    def timeout_decorator(func):
+        @functools.wraps(func)
+        def wrapper_timer(*args, **kwargs):
+
+            if sys.platform == "darwin" or sys.platform == "linux":
+                import signal
+
+                def handle_timeout(sig, frame):
+                    raise TimeoutError('function [%s] timeout [%s seconds] exceeded! ' % (func.__name__, second))
+
+                signal.signal(signal.SIGALRM, handle_timeout)
+                signal.alarm(second)
+                result = func(*args, **kwargs)
+            else:
+                from threading import Thread
+
+                res = [TimeoutError('function [%s] timeout [%s seconds] exceeded! ' % (func.__name__, second))]
+
+                def new_func():
+                    try:
+                        res[0] = func(*args, **kwargs)
+                    except Exception as e:
+                        res[0] = e
+
+                t = Thread(target=new_func)
+                t.daemon = True
+                try:
+                    t.start()
+                    t.join(second)
+                except Exception as e:
+                    print('error starting thread')
+                    raise e
+                ret = res[0]
+                if isinstance(ret, BaseException):
+                    raise ret
+                return ret
+            return result
+
+        return wrapper_timer
+
+    return timeout_decorator

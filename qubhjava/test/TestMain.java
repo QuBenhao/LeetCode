@@ -7,6 +7,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import io.github.cdimascio.dotenv.DotenvException;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.api.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import problems.problems_2710.Solution;
@@ -19,13 +20,16 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.testng.Assert.assertEquals;
 
+@Timeout(10)
 public class TestMain {
 
     private static final Logger log = LoggerFactory.getLogger(TestMain.class);
@@ -89,7 +93,7 @@ public class TestMain {
         for (Testcase testcase : testcases) {
             tests.add(DynamicTest.dynamicTest(
                     String.format("[Problem%s]Testcase%d: %s", PROBLEM_ID, idx++, Arrays.toString(testcase.getInput())),
-                    () -> {
+                    () -> assertTimeoutPreemptively(Duration.ofSeconds(3), () -> {
                         Object actual = solution.solve(testcase.getInput());
                         switch (testcase.getOutput()) {
                             case BigDecimal output -> {
@@ -100,7 +104,7 @@ public class TestMain {
                             case Float output -> assertEquals((Float) actual, output, 1e-4f);
                             case null, default -> assertEquals(actual, testcase.getOutput());
                         }
-                    }
+                    })
             ));
         }
         return tests;
