@@ -15,10 +15,8 @@ import (
 )
 
 const TestcaseFolderFmt = "problems/problems_%s/testcase"
-
 // const TestcaseFolderFmt = "premiums/premiums_%s/testcase"
 
-// const TestcaseFolderFmt = "demo/demo_%s/testcase"
 var problemId string = "2710"
 
 type TestCase struct {
