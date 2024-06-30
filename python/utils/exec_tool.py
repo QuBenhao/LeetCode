@@ -48,46 +48,36 @@ def check_problem_solved_and_write(question_id: str,
                                    problem_folder: str,
                                    root_path,
                                    dir_path,
+                                   solution_file: str,
+                                   test_file_path: str,
                                    write: bool = False,
                                    func=None,
                                    arguments=(),
                                    test_func=None) -> bool:
+    file_name = solution_file
+    main_file = str(os.path.join(root_path, test_file_path)) if test_file_path else None
     match language:
         case "python3":
-            file_name = "solution.py"
             lang_env = ["python", "--version"]
-            main_file = f"{root_path}/python/test.py"
             test_commands = [["python", main_file]]
         case "golang":
-            file_name = "solution.go"
             lang_env = ["go", "version"]
-            main_file = f"{root_path}/golang/solution_test.go"
             test_commands = [["go", "test", main_file]]
         case "java":
-            file_name = "Solution.java"
             lang_env = ["mvn", "-v"]
             test_commands = [["mvn", "test", "-Dtest=qubhjava.test.TestMain"]]
-            main_file = f"{root_path}/qubhjava/test/TestMain.java"
         case "cpp":
-            file_name = "Solution.cpp"
             lang_env = ["bazel", "version"]
             test_commands = [["bazel", "test", "--cxxopt=-std=c++20", "//cpp:solution_test"]]
-            main_file = f"{root_path}/WORKSPACE"
         case "c":
-            file_name = "solution.c"
             lang_env = ["gcc", "--version"]
             test_commands = []
-            main_file = f"{root_path}/c/test.c"
         case "javascript":
-            file_name = "solution.js"
             lang_env = ["npm", "--version"]
             test_commands = [["npm", "test"]]
-            main_file = f"{root_path}/javascript/test.js"
         case "typescript":
-            file_name = "solution.ts"
             lang_env = ["npm", "--version"]
             test_commands = [["npm", "test"]]
-            main_file = f"{root_path}/typescript/test.ts"
         case _:
             file_name = "unknown"
             lang_env = None
@@ -133,7 +123,7 @@ def check_problem_solved_and_write(question_id: str,
                   "output: {}, err: {}".format(" ".join(lang_env),
                                                env_check.stdout.decode("utf-8"),
                                                env_check.stderr.decode("utf-8")))
-    if not write or not func:
+    if not write or not func or not file_name:
         return False
     with open(f"{dir_path}/{file_name}", "w", encoding="utf-8") as f:
         content = func(*arguments)

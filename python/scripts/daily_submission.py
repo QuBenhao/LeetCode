@@ -84,14 +84,19 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
                 obj = cls()
                 func = getattr(obj, f"write_solution", None)
                 test_func = getattr(obj, "change_test", None)
+                solution_file = getattr(obj, "solution_file", None)
+                test_file_path = getattr(obj, "test_file_path", None)
                 if check_problem_solved_and_write(question_id,
                                                   detail["lang"],
                                                   tmp_problem_folder,
                                                   root_path,
                                                   dir_path,
+                                                  solution_file,
+                                                  test_file_path,
                                                   True,
                                                   func,
-                                                  (default_code[detail["lang"]], code, question_id, tmp_problem_folder),
+                                                  (default_code[detail["lang"]], code,
+                                                   question_id, tmp_problem_folder),
                                                   test_func):
                     print(f"Already solved problem: {question_id}, language: {language}")
                 cache.add(language)

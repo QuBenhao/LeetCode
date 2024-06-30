@@ -86,20 +86,11 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
             if func is None:
                 print("Language not supported yet")
                 continue
-            match language:
-                case "python3":
-                    main_file = f"{dir_path}/solution.py"
-                case "golang":
-                    main_file = f"{dir_path}/solution.go"
-                case "java":
-                    main_file = f"{dir_path}/Solution.java"
-                case "cpp":
-                    main_file = f"{dir_path}/Solution.cpp"
-                case "typescript":
-                    main_file = f"{dir_path}/solution.ts"
-                case _:
-                    continue
-            with open(main_file, "w", encoding="utf-8") as f:
+            solution_file = getattr(obj, "solution_file", None)
+            if not solution_file:
+                print("Language solution_file not supported yet")
+                continue
+            with open(os.path.join(dir_path, solution_file), "w", encoding="utf-8") as f:
                 f.write(func(code, None, question_id, problem_folder))
         except Exception as _:
             traceback.print_stack()
@@ -125,20 +116,6 @@ def process_daily(languages: list[str], problem_folder: str = None):
         write_question(dir_path, tmp, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
                        remain_languages)
     for lang in languages:
-        match lang:
-            case "python3":
-                main_file = f"{root_path}/python/test.py"
-            case "golang":
-                main_file = f"{root_path}/golang/solution_test.go"
-            case "java":
-                main_file = f"{root_path}/qubhjava/test/TestMain.java"
-            case "cpp":
-                main_file = f"{root_path}/WORKSPACE"
-            case "typescript":
-                main_file = f"{root_path}/typescript/test.ts"
-            case _:
-                print("Language {} is not implemented to save".format(lang))
-                continue
         cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
         if not cls:
             print("Language Writer not supported yet")
@@ -148,9 +125,14 @@ def process_daily(languages: list[str], problem_folder: str = None):
         if not test_func:
             print("Test function [change_test_{}] not implemented.".format(lang))
             continue
-        with open(main_file, "r", encoding="utf-8") as f:
+        test_file_path = getattr(obj, "test_file_path", None)
+        if not test_file_path:
+            print("Language {} is not implemented to save".format(lang))
+            continue
+        file_path = os.path.join(root_path, test_file_path)
+        with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
-        with open(main_file, "w", encoding="utf-8") as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write(test_func(content, tmp, question_id))
 
 
