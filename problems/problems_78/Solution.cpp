@@ -27,6 +27,7 @@ public:
     }
 };
 
+
 json leetcode::qubh::Solve(string input) {
 	vector<string> inputArray;
 	size_t pos = input.find('\n');

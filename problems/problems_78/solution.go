@@ -24,6 +24,7 @@ func subsets(nums []int) (ans [][]int) {
 	return
 }
 
+
 func Solve(input string) interface{} {
 	values := strings.Split(input, "\n")
 	var nums []int
