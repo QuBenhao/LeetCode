@@ -21,15 +21,15 @@ def check_remain_languages(dir_path, languages: list[str]) -> list[str]:
         for f in files:
             try:
                 match f:
-                    case "Solution.cpp":
+                    case lc_libs.CppWriter.solution_file:
                         remain_languages.remove("cpp")
-                    case "solution.go":
+                    case lc_libs.GolangWriter.solution_file:
                         remain_languages.remove("golang")
-                    case "Solution.java":
+                    case lc_libs.JavaWriter.solution_file:
                         remain_languages.remove("java")
-                    case "solution.py":
+                    case Python3Writer.solution_file:
                         remain_languages.remove("python3")
-                    case "solution.ts":
+                    case lc_libs.TypescriptWriter.solution_file:
                         remain_languages.remove("typescript")
                     case _:
                         continue
