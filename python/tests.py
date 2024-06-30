@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from utils import get_default_folder, timeout
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTIONS = ['78']
+QUESTIONS = [['78', 'problems']]
 
 
 class Test(unittest.TestCase):
@@ -19,15 +19,18 @@ class Test(unittest.TestCase):
 
         load_dotenv()
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        problem_folder = os.getenv(constants.PROBLEM_FOLDER, get_default_folder())
+        problem_folder = os.getenv(constants.PROBLEM_FOLDER, None)
 
-        print(f"Testing problems: {QUESTIONS}")
+        print(f"Testing problems: {list(zip(*QUESTIONS))[0]}")
 
-        for q in QUESTIONS:
+        for q, folder in QUESTIONS:
             with self.subTest(f"Testing problem: {q}", question=q):
-                problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{q}")
+                if not problem_folder:
+                    problem_path = os.path.join(root_path, folder, f"{folder}_{q}")
+                else:
+                    problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{q}")
                 if not os.path.exists(problem_path):
-                    print("Warning: [QUESTION: {}] not found under problem folder: {}".format(q, problem_folder))
+                    print("Warning: [QUESTION: {}] not found under problem folder: {}".format(q, problem_path))
                     tmp_folder = get_default_folder(paid_only=True)
                     problem_path = os.path.join(root_path, tmp_folder, f"{tmp_folder}_{q}")
                 self.assertTrue(os.path.exists(problem_path), msg="Please set up the problem env first!")

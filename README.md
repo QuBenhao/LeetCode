@@ -41,7 +41,7 @@ LANGUAGES="python3,golang,java,cpp,typescript"
 USER="himymben"
 ```
 
-install python3.10 requirements:
+install python3.12 requirements:
 
 ```shell
 pip install -r python/requirements.txt

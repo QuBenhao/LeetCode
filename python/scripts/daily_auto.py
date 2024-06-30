@@ -1,4 +1,3 @@
-import json
 import os
 import sys
 import traceback
@@ -145,6 +144,7 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
         print("The LeetCode cookie might be expired, unable to check study plans!")
         return
     problem_ids = []
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     for slug in plans:
         plan_prog = get_user_study_plan_progress(slug, cookie)
         print("Plan: {}, total: {}, cur: {}".format(slug, plan_prog["total"], plan_prog["finished"]))
@@ -155,7 +155,6 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
                 continue
             question_id = info["questionFrontendId"].replace(" ", "_")
             paid_only = info.get("isPaidOnly", False)
-            root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             tmp_folder = problem_folder if problem_folder else get_default_folder(paid_only=paid_only)
             dir_path = os.path.join(root_path, tmp_folder, f"{tmp_folder}_{question_id}")
             if not os.path.exists(dir_path):
@@ -165,24 +164,27 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
                 remain_languages = check_remain_languages(dir_path, languages)
                 write_question(dir_path, tmp_folder, question_id, info["title"], question_slug, remain_languages,
                                cookie)
-            problem_ids.append((question_id, tmp_folder))
+            problem_ids.append([question_id, tmp_folder])
     if problem_ids:
-        root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        with open(f"{root_path}/tests.py", "r", encoding="utf-8") as f:
-            lines = f.readlines()
-        with open(f"{root_path}/tests.py", "w", encoding="utf-8") as f:
-            for line in lines:
-                if line.startswith("QUESTIONS ="):
-                    line = "QUESTIONS = {}\n".format([pi[0] for pi in problem_ids])
-                f.write(line)
-        with open(f'{os.path.dirname(root_path)}/problems.json', 'w') as f:
-            data = {"problems": []}
-            for pi, folder in problem_ids:
-                data["problems"].append({
-                    "problem_id": pi,
-                    "problem_folder": folder,
-                })
-            json.dump(problem_ids, f)
+        for lang in languages:
+            cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+            if not cls:
+                print(f"{lang} writer is not supported yet!")
+                continue
+            obj = cls()
+            tests_file_path = getattr(obj, "tests_file_path", None)
+            if not tests_file_path:
+                print(f"{lang} tests file not exists yet.")
+                continue
+            tests_func = getattr(obj, "change_tests", None)
+            if not tests_func:
+                print(f"{lang} run tests not supported yet!")
+                continue
+            file_path = os.path.join(root_path, tests_file_path)
+            with open(file_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            with open(file_path, "w", encoding="utf-8") as f:
+                f.write(tests_func(content, problem_ids))
 
 
 def main(problem_folder: str = None, cookie: Optional[str] = None, languages: list[str] = None):

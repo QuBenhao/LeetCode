@@ -12,6 +12,7 @@ from python.lc_libs.language_writer import LanguageWriter
 class Python3Writer(LanguageWriter):
     solution_file = "solution.py"
     test_file_path = "python/test.py"
+    tests_file_path = "python/tests.py"
 
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         ans = []
@@ -19,6 +20,14 @@ class Python3Writer(LanguageWriter):
             if line.startswith("QUESTION = "):
                 ans.append(f'QUESTION = "{question_id}"')
                 continue
+            ans.append(line)
+        return "\n".join(ans)
+
+    def change_tests(self, content: str, problem_ids_folders: list) -> str:
+        ans = []
+        for line in content.split("\n"):
+            if line.startswith("QUESTIONS ="):
+                line = "QUESTIONS = {}".format(problem_ids_folders)
             ans.append(line)
         return "\n".join(ans)
 
