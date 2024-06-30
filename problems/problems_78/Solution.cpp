@@ -7,8 +7,23 @@ using json = nlohmann::json;
 
 class Solution {
 public:
-    vector<vector<int>> subsets(vector<int>& nums) {
+    vector<int> t;
+    vector<vector<int>> ans;
 
+    void dfs(int cur, vector<int>& nums) {
+        if (cur == nums.size()) {
+            ans.push_back(t);
+            return;
+        }
+        dfs(cur + 1, nums);
+        t.push_back(nums[cur]);
+        dfs(cur + 1, nums);
+        t.pop_back();
+    }
+
+    vector<vector<int>> subsets(vector<int>& nums) {
+        dfs(0, nums);
+        return ans;
     }
 };
 
