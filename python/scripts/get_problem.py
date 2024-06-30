@@ -94,7 +94,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
             file_path = os.path.join(dir_path, solution_file)
             if skip_language and solution_file and os.path.exists(file_path):
                 continue
-            with open(file, "w", encoding="utf-8") as f:
+            with open(file_path, "w", encoding="utf-8") as f:
                 f.write(func(val, None, problem_id, problem_folder))
         except Exception as _:
             traceback.print_exc()
