@@ -8,7 +8,22 @@ using json = nlohmann::json;
 class Solution {
 public:
     int findTargetSumWays(vector<int>& nums, int target) {
-
+        int t = target;
+        for (auto num: nums) {
+            target += num;
+        }
+        if (target % 2 != 0 || target < 0 || target < 2 * t) {
+            return 0;
+        }
+        target >>= 1;
+        auto dp = vector<int>(target + 1);
+        dp[0] = 1;
+        for (auto num: nums) {
+            for (int x = target; x >= num; x--) {
+                dp[x] += dp[x - num];
+            }
+        }
+        return dp[target];
     }
 };
 
