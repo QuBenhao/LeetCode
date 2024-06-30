@@ -25,14 +25,9 @@ public class Solution extends BaseSolution {
         t.removeLast();
     }
 
-
-
     @Override
     public Object solve(String[] values) {
         int[] nums = jsonArrayToIntArray(values[0]);
-		int cur = Integer.parseInt(values[0]);
-		int[] nums = jsonArrayToIntArray(values[1]);
-		dfs(cur, nums);
-        return JSON.toJSON(cur, nums);
+        return JSON.toJSON(subsets(nums));
     }
 }
