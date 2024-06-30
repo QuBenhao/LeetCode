@@ -1,3 +1,4 @@
+import json
 import os
 import sys
 import traceback
@@ -172,7 +173,7 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
                 remain_languages = check_remain_languages(dir_path, languages)
                 write_question(dir_path, tmp_folder, question_id, info["title"], question_slug, remain_languages,
                                cookie)
-            problem_ids.append(question_id)
+            problem_ids.append((question_id, tmp_folder))
     if problem_ids:
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         with open(f"{root_path}/tests.py", "r", encoding="utf-8") as f:
@@ -180,8 +181,16 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
         with open(f"{root_path}/tests.py", "w", encoding="utf-8") as f:
             for line in lines:
                 if line.startswith("QUESTIONS ="):
-                    line = "QUESTIONS = {}\n".format(problem_ids)
+                    line = "QUESTIONS = {}\n".format([pi[0] for pi in problem_ids])
                 f.write(line)
+        with open(f'{os.path.dirname(root_path)}/problems.json', 'w') as f:
+            data = {"problems": []}
+            for pi, folder in problem_ids:
+                data["problems"].append({
+                    "problem_id": pi,
+                    "problem_folder": folder,
+                })
+            json.dump(problem_ids, f)
 
 
 def main(problem_folder: str = None, cookie: Optional[str] = None, languages: list[str] = None):
