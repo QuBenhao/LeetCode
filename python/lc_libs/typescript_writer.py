@@ -6,6 +6,8 @@ from python.lc_libs.language_writer import LanguageWriter
 
 
 class TypescriptWriter(LanguageWriter):
+    solution_file = "solution.ts"
+    test_file_path = "typescript/test.ts"
     _LIST_NODE_PATH = "\"../../typescript/models/listnode\";"
     _TREE_NODE_PATH = "\"../../typescript/models/treenode\";"
 

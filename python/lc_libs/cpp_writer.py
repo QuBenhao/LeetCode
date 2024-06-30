@@ -7,6 +7,9 @@ from python.lc_libs.language_writer import LanguageWriter
 
 
 class CppWriter(LanguageWriter):
+    solution_file = "Solution.cpp"
+    test_file_path = "WORKSPACE"
+
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         ans = []
         is_problem = False

@@ -2,6 +2,9 @@ import abc
 
 
 class LanguageWriter(abc.ABC):
+    solution_file = ""
+    test_file_path = ""
+
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         pass
 

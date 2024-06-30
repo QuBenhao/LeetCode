@@ -13,10 +13,10 @@ from dotenv import load_dotenv
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from python.constants import constant
-from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, write_problem_md, \
-    get_question_testcases, extract_outputs_from_md, write_testcase, get_question_code, write_solution_python, \
-    write_solution_golang, write_solution_java, write_solution_cpp, change_test_python, change_test_java, \
-    change_test_golang, change_test_cpp, get_question_desc_cn, write_solution_typescript, change_test_typescript
+from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, \
+    get_question_testcases, extract_outputs_from_md, get_question_code, \
+    get_question_desc_cn, Python3Writer, GolangWriter, JavaWriter, CppWriter, TypescriptWriter
+import python.lc_libs as lc_libs
 from python.utils import get_default_folder
 
 
@@ -51,14 +51,14 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         is_chinese = True
     else:
         with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
-            f.write(write_problem_md(problem_id, problem_title, desc))
+            f.write(Python3Writer.write_problem_md(problem_id, problem_title, desc))
     cn_result = get_question_desc_cn(problem_slug, cookie=cookie)
     if cn_result is not None:
         cn_desc, cn_title = cn_result
         if is_chinese:
             desc = cn_desc
         with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
-            f.write(write_problem_md(problem_id, cn_title, cn_desc))
+            f.write(Python3Writer.write_problem_md(problem_id, cn_title, cn_desc))
     code_maps = get_question_code(problem_slug, lang_slugs=languages, cookie=cookie)
     if code_maps is None:
         print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}", file=file)
@@ -72,7 +72,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         return
     if not os.path.exists(f"{dir_path}/testcase.py"):
         with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
-            f.write(write_testcase(testcases, outputs))
+            f.write(Python3Writer.write_testcase(testcases, outputs))
     if not os.path.exists(f"{dir_path}/testcase"):
         with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
             f.writelines([testcase_str, "\n",
@@ -81,34 +81,21 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
                          .replace("'", "\"")])
     for key, val in code_maps.items():
         try:
-            match key:
-                case "python3":
-                    if skip_language and os.path.exists(f"{dir_path}/solution.py"):
-                        continue
-                    with open(f"{dir_path}/solution.py", "w", encoding="utf-8") as f:
-                        f.write(write_solution_python(val))
-                case "golang":
-                    if skip_language and os.path.exists(f"{dir_path}/solution.go"):
-                        continue
-                    with open(f"{dir_path}/solution.go", "w", encoding="utf-8") as f:
-                        f.write(write_solution_golang(val, None, problem_id))
-                case "java":
-                    if skip_language and os.path.exists(f"{dir_path}/Solution.java"):
-                        continue
-                    with open(f"{dir_path}/Solution.java", "w", encoding="utf-8") as f:
-                        f.write(write_solution_java(val, None, problem_id, problem_folder))
-                case "cpp":
-                    if skip_language and os.path.exists(f"{dir_path}/Solution.cpp"):
-                        continue
-                    with open(f"{dir_path}/Solution.cpp", "w", encoding="utf-8") as f:
-                        f.write(write_solution_cpp(val, None, problem_id))
-                case "typescript":
-                    if skip_language and os.path.exists(f"{dir_path}/solution.ts"):
-                        continue
-                    with open(f"{dir_path}/solution.ts", "w", encoding="utf-8") as f:
-                        f.write(write_solution_typescript(val, None, problem_id))
-                case _:
-                    print(f"Unsupported language {key} yet")
+            cls = getattr(lc_libs, f"{key.capitalize()}Writer", None)
+            if not cls:
+                print(f"Unsupported language {key} yet")
+                continue
+            obj = cls()
+            func = getattr(obj, "write_solution", None)
+            if not func:
+                print(f"Unsupported language writer {key} yet")
+                continue
+            solution_file = getattr(obj, "solution_file", None)
+            file_path = os.path.join(dir_path, solution_file)
+            if skip_language and solution_file and os.path.exists(file_path):
+                continue
+            with open(file, "w", encoding="utf-8") as f:
+                f.write(func(val, None, problem_id, problem_folder))
         except Exception as _:
             traceback.print_exc()
 
@@ -125,7 +112,7 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
         print(f"Unable to fetch question content, [{problem_id}]{problem_slug}", file=file)
         return
     with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
-        f.write(write_problem_md(problem_id, problem_title, desc))
+        f.write(Python3Writer.write_problem_md(problem_id, problem_title, desc))
     code = get_question_code(problem_slug, ["mysql"], cookie=cookie)["mysql"]
     if code is None:
         print(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}", file=file)
@@ -184,34 +171,21 @@ def main(problem_id: Optional[str], problem_slug: Optional[str], problem_categor
                 problem_id = problem_id.replace(" ", "_")
                 root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
                 for lang in languages:
-                    match lang:
-                        case "python3":
-                            with open(f"{root_path}/python/test.py", "r", encoding="utf-8") as f:
-                                content = f.read()
-                            with open(f"{root_path}/python/test.py", "w", encoding="utf-8") as f:
-                                f.write(change_test_python(content, tmp, problem_id))
-                        case "golang":
-                            with open(f"{root_path}/golang/solution_test.go", "r", encoding="utf-8") as f:
-                                content = f.read()
-                            with open(f"{root_path}/golang/solution_test.go", "w", encoding="utf-8") as f:
-                                f.write(change_test_golang(content, tmp, problem_id))
-                        case "java":
-                            with open(f"{root_path}/qubhjava/test/TestMain.java", "r", encoding="utf-8") as f:
-                                content = f.read()
-                            with open(f"{root_path}/qubhjava/test/TestMain.java", "w", encoding="utf-8") as f:
-                                f.write(change_test_java(content, tmp, problem_id))
-                        case "cpp":
-                            with open(f"{root_path}/WORKSPACE", "r", encoding="utf-8") as f:
-                                content = f.read()
-                            with open(f"{root_path}/WORKSPACE", "w", encoding="utf-8") as f:
-                                f.write(change_test_cpp(content, tmp, problem_id))
-                        case "typescript":
-                            with open(f"{root_path}/typescript/test.ts", "r", encoding="utf-8") as f:
-                                content = f.read()
-                            with open(f"{root_path}/typescript/test.ts", "w", encoding="utf-8") as f:
-                                f.write(change_test_typescript(content, tmp, problem_id))
-                        case _:
-                            pass
+                    cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+                    if not cls:
+                        continue
+                    obj = cls()
+                    func = getattr(obj, "change_test", None)
+                    if not func:
+                        continue
+                    test_file_path = getattr(obj, "test_file_path", None)
+                    if not test_file_path:
+                        continue
+                    file_path = os.path.join(root_path, test_file_path)
+                    with open(file_path, "r", encoding="utf-8") as f:
+                        content = f.read()
+                    with open(file_path, "w", encoding="utf-8") as f:
+                        f.write(func(content, tmp, problem_id))
     else:
         if premium_only and not cookie:
             print("Requires premium cookie to keep going.")

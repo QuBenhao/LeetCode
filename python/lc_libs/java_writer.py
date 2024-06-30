@@ -6,6 +6,9 @@ from python.lc_libs.language_writer import LanguageWriter
 
 
 class JavaWriter(LanguageWriter):
+    solution_file = "Solution.java"
+    test_file_path = "qubhjava/test/TestMain.java"
+
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         ans = []
         appear_problem_folder = False

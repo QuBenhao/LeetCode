@@ -6,6 +6,9 @@ from python.lc_libs.language_writer import LanguageWriter
 
 
 class GolangWriter(LanguageWriter):
+    solution_file = "solution.go"
+    test_file_path = "golang/solution_test.go"
+
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         ans = []
         appear_problem, appear_test_folder = False, False

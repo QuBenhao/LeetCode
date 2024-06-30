@@ -10,6 +10,9 @@ from python.lc_libs.language_writer import LanguageWriter
 
 
 class Python3Writer(LanguageWriter):
+    solution_file = "solution.py"
+    test_file_path = "python/test.py"
+
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         ans = []
         for line in content.split("\n"):
