@@ -89,6 +89,7 @@ if __name__ == '__main__':
         traceback.print_exc()
     question_id = args.id
     cke = os.getenv(constant.COOKIE)
+    pf = os.getenv(constant.PROBLEM_FOLDER, None)
     try:
         langs = os.getenv(constant.LANGUAGES, "python3").split(",")
     except Exception as _:
@@ -99,5 +100,5 @@ if __name__ == '__main__':
         asyncio.set_event_loop(loop)
     else:
         loop = asyncio.get_event_loop()
-    loop.run_until_complete(main(rp, question_id, args.lang, cke))
+    loop.run_until_complete(main(rp, question_id, args.lang, cke, pf))
     sys.exit(0)
