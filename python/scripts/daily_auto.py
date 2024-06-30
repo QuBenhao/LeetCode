@@ -7,8 +7,8 @@ from typing import Optional
 from dotenv import load_dotenv
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from python.lc_libs import (get_daily_question, get_question_desc, get_question_testcases, write_problem_md, \
-                            write_testcase, extract_outputs_from_md, get_user_study_plans, get_user_study_plan_progress,
+from python.lc_libs import (get_daily_question, get_question_desc, get_question_testcases, Python3Writer,
+                            extract_outputs_from_md, get_user_study_plans, get_user_study_plan_progress,
                             get_question_info, get_question_code, get_question_desc_cn)
 import python.lc_libs as lc_libs
 from python.constants import constant
@@ -47,7 +47,7 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
     if cn_result is not None and cn_result[0] is not None:
         cn_desc, cn_title = cn_result
         with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
-            f.write(write_problem_md(question_id, cn_title, cn_desc))
+            f.write(Python3Writer.write_problem_md(question_id, cn_title, cn_desc))
     if desc is not None:
         is_chinese = False
         if "English description is not available for the problem. Please switch to Chinese." in desc:
@@ -55,14 +55,14 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
             is_chinese = True
         else:
             with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
-                f.write(write_problem_md(question_id, question_name, desc))
+                f.write(Python3Writer.write_problem_md(question_id, question_name, desc))
         testcases, testcase_str = get_question_testcases(slug)
         if testcases is not None:
             outputs = extract_outputs_from_md(desc, is_chinese)
             print(f"question_id: {question_id}, outputs: {outputs}")
             if (not languages or "python3" in languages) and not os.path.exists(f"{dir_path}/testcase.py"):
                 with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
-                    f.write(write_testcase(testcases, outputs))
+                    f.write(Python3Writer.write_testcase(testcases, outputs))
             if not os.path.exists(f"{dir_path}/testcase"):
                 with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
                     f.writelines([testcase_str, "\n",
@@ -77,7 +77,12 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
     for language in languages:
         try:
             code = code_map[language]
-            func = getattr(lc_libs, f"write_solution_{language}", None)
+            cls = getattr(lc_libs, f"{language.capitalize()}Writer", None)
+            if not cls:
+                print("Language Writer not supported yet")
+                continue
+            obj = cls()
+            func = getattr(obj, f"write_solution", None)
             if func is None:
                 print("Language not supported yet")
                 continue
@@ -134,7 +139,12 @@ def process_daily(languages: list[str], problem_folder: str = None):
             case _:
                 print("Language {} is not implemented to save".format(lang))
                 continue
-        test_func = getattr(lc_libs, f"change_test_{lang}", None)
+        cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+        if not cls:
+            print("Language Writer not supported yet")
+            continue
+        obj = cls()
+        test_func = getattr(obj, f"change_test", None)
         if not test_func:
             print("Test function [change_test_{}] not implemented.".format(lang))
             continue
