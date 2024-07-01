@@ -4,8 +4,7 @@ import os
 from collections import defaultdict, Counter
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from python.lc_libs import write_solution_python, write_solution_golang, write_solution_java, write_solution_cpp, \
-    write_solution_typescript
+from python import lc_libs
 
 default_test_list = [
     # problem 1
@@ -1325,24 +1324,19 @@ if __name__ == '__main__':
     code_counter = Counter()
     for test_problem, codes in problems.items():
         for code in codes:
-            lang = code["langSlug"]
-            match lang:
-                case "cpp":
-                    with open(f"tmp_Solution{code_counter[lang]}.cpp", "w", encoding="utf-8") as f:
-                        f.writelines(write_solution_cpp(code["code"], None, test_problem))
-                    code_counter[lang] += 1
-                case "java":
-                    with open(f"tmp_Solution{code_counter[lang]}.java", "w", encoding="utf-8") as f:
-                        f.writelines(write_solution_java(code["code"], None, test_problem))
-                    code_counter[lang] += 1
-                case "golang":
-                    with open(f"tmp_solution{code_counter[lang]}.go", "w", encoding="utf-8") as f:
-                        f.writelines(write_solution_golang(code["code"], None, test_problem))
-                    code_counter[lang] += 1
-                case "typescript":
-                    with open(f"tmp_solution{code_counter[lang]}.ts", "w", encoding="utf-8") as f:
-                        f.writelines(write_solution_typescript(code["code"], None, test_problem))
-                    code_counter[lang] += 1
-                case _:
-                    pass
+            lang: str = code["langSlug"]
+            cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+            if not cls:
+                continue
+            obj = cls()
+            writer_func = getattr(obj, "write_solution", None)
+            if not writer_func:
+                continue
+            solution_file: str = getattr(cls, "solution_file", None)
+            if not solution_file:
+                continue
+            tmp_sol = solution_file.split(".")
+            with open(f"tmp_{tmp_sol[0]}{code_counter[lang]}.{tmp_sol[1]}", "w", encoding="utf-8") as f:
+                f.writelines(writer_func(code["code"], None, test_problem))
+                code_counter[lang] += 1
     sys.exit()
