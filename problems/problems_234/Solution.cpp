@@ -18,7 +18,16 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-
+        vector<int> vals;
+        for (ListNode* node = head; node != nullptr; node = node->next) {
+            vals.push_back(node->val);
+        }
+        for (int left = 0, right = static_cast<int>(vals.size()) - 1; left < right; left++, right--) {
+            if (vals[left] != vals[right]) {
+                return false;
+            }
+        }
+        return true;
     }
 };
 

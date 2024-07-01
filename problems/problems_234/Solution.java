@@ -17,7 +17,16 @@ import qubhjava.models.ListNode;
 
 public class Solution extends BaseSolution {
     public boolean isPalindrome(ListNode head) {
-
+        List<Integer> vals = new ArrayList<>();
+        for (ListNode node = head; node != null; node = node.next) {
+            vals.add(node.val);
+        }
+        for (int left = 0, right = vals.size() - 1; left < right; left++, right--) {
+            if (vals.get(left) != vals.get(right)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

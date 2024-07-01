@@ -69,9 +69,9 @@ public class Solution extends BaseSolution {
 
     @Override
     public Object solve(String[] values) {
-        int[] values = jsonArrayToIntArray(values[0]);
+        int[] valuesParam = jsonArrayToIntArray(values[0]);
 		int[][] edges = jsonArrayToInt2DArray(values[1]);
 		int maxTime = Integer.parseInt(values[2]);
-        return JSON.toJSON(maximalPathQuality(values, edges, maxTime));
+        return JSON.toJSON(maximalPathQuality(valuesParam, edges, maxTime));
     }
 }
