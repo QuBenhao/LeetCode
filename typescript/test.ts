@@ -4,8 +4,8 @@ import * as dotenv from 'dotenv'
 var _ = require('lodash-contrib');
 
 
-const PROBLEM_ID: string = "2065";
-import {Solve} from "../problems/problems_2065/solution";
+const PROBLEM_ID: string = "3115";
+import {Solve} from "../problems/problems_3115/solution";
 // import {Solve} from "../premiums/premiums_1056/solution";
 
 describe("TestMain===" + PROBLEM_ID, () => {

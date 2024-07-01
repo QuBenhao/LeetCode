@@ -65,9 +65,9 @@ import (
 \t"testing"
 )
 
-func TestSolution(t *testing.T) {
+func {}(t *testing.T) {}
 \t{}
-}
+{}
 """
 
 SOLUTION_TEMPLATE_JAVA = """package {}.{}_{};

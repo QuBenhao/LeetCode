@@ -14,13 +14,19 @@ class GolangWriter(LanguageWriter):
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         return TESTCASE_TEMPLATE_GOLANG.format(
             f"problem \"leetCode/{problem_folder}/{problem_folder}_{question_id}\"",
+            "TestSolution",
+            "{",
             f"TestEach(t, \"{question_id}\", \"{problem_folder}\", problem.Solve)",
+            "}",
         )
 
     def change_tests(self, content: str, problem_ids_folders: list) -> str:
         return TESTCASE_TEMPLATE_GOLANG.format(
             "\n\t".join(f"leetCode/{pf}/{pf}_{pid}" for pid, pf in problem_ids_folders),
+            "TestSolutions",
+            "{",
             "\n\t".join(f"TestEach(t, \"{pid}\", \"{pf}\", problem{pid}.Solve)" for pid, pf in problem_ids_folders),
+            "}",
         )
 
     def write_solution(self, code_default: str, code: str = None, problem_id: str = "",
