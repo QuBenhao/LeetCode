@@ -33,8 +33,8 @@ import (
 
 {}
 
-func Solve(input string) {}
-\tvalues := strings.Split(input, "\\n")
+func Solve(inputJsonValues string) {}
+\tinputValues := strings.Split(inputJsonValues, "\\n")
 {}
 {}
 \treturn {}({})
@@ -90,7 +90,7 @@ json leetcode::qubh::Solve(string input_json_values) {}
 \tsize_t pos = input_json_values.find('\\n');
 \twhile (pos != string::npos) {}
 \t\tinputArray.push_back(input_json_values.substr(0, pos));
-\t\input_json_values = input_json_values.substr(pos + 1);
+\t\tinput_json_values = input_json_values.substr(pos + 1);
 \t\tpos = input_json_values.find('\\n');
 \t{}
 \tinputArray.push_back(input_json_values);
