@@ -31,9 +31,9 @@ function maximalPathQuality(values: number[], edges: number[][], maxTime: number
 };
 
 export function Solve(inputJsonElement: string): any {
-	const splits: string[] = inputJsonElement.split("\n");
-	const values: number[] = JSON.parse(splits[0]);
-	const edges: number[][] = JSON.parse(splits[1]);
-	const maxTime: number = JSON.parse(splits[2]);
+	const inputValues: string[] = inputJsonElement.split("\n");
+	const values: number[] = JSON.parse(inputValues[0]);
+	const edges: number[][] = JSON.parse(inputValues[1]);
+	const maxTime: number = JSON.parse(inputValues[2]);
 	return maximalPathQuality(values, edges, maxTime);
 }
