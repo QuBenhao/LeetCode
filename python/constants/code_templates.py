@@ -33,8 +33,8 @@ import (
 
 {}
 
-func Solve(input string) {}
-\tvalues := strings.Split(input, "\\n")
+func Solve(inputJsonValues string) {}
+\tinputValues := strings.Split(inputJsonValues, "\\n")
 {}
 {}
 \treturn {}({})
@@ -49,8 +49,8 @@ import (
 
 {}
 
-func Solve(input string) {}
-\tvalues := strings.Split(input, "\\n")
+func Solve(inputJsonValues string) {}
+\tinputValues := strings.Split(inputJsonValues, "\\n")
 {}
 {}
 \t{}({})
@@ -69,7 +69,7 @@ public class Solution extends BaseSolution {}
 {}
 
     @Override
-    public Object solve(String[] values) {}
+    public Object solve(String[] inputJsonValues) {}
         {}
         return JSON.toJSON({});
     {}
@@ -85,15 +85,15 @@ using json = nlohmann::json;
 
 {}
 
-json leetcode::qubh::Solve(string input) {}
+json leetcode::qubh::Solve(string input_json_values) {}
 \tvector<string> inputArray;
-\tsize_t pos = input.find('\\n');
+\tsize_t pos = input_json_values.find('\\n');
 \twhile (pos != string::npos) {}
-\t\tinputArray.push_back(input.substr(0, pos));
-\t\tinput = input.substr(pos + 1);
-\t\tpos = input.find('\\n');
+\t\tinputArray.push_back(input_json_values.substr(0, pos));
+\t\tinput_json_values = input_json_values.substr(pos + 1);
+\t\tpos = input_json_values.find('\\n');
 \t{}
-\tinputArray.push_back(input);
+\tinputArray.push_back(input_json_values);
 
 {}
 {}
@@ -103,7 +103,7 @@ json leetcode::qubh::Solve(string input) {}
 SOLUTION_TEMPLATE_TYPESCRIPT = """{}{}
 
 export function Solve(inputJsonElement: string): any {}
-\tconst splits: string[] = inputJsonElement.split(\"\\n\");
+\tconst inputValues: string[] = inputJsonElement.split(\"\\n\");
 {}
 \treturn {};
 {}

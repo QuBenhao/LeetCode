@@ -62,7 +62,8 @@ class GolangWriter(LanguageWriter):
                                                                            structs_map, True)
                         rt = tmp.split("{")[0].split(")")[-1].strip()
                         structs_map[struct_name]["construct"] = (tmp.split("(")[0].split("func ")[-1].strip(),
-                                                                 (tp0, tp1, tp2, tp3.replace("values", "vals[0]")),
+                                                                 (tp0, tp1, tp2,
+                                                                  tp3.replace("inputValues", "opValues[0]")),
                                                                  rt)
                     elif tmp.startswith("func (") and struct_name in tmp.split(")")[0]:
                         if "funcs" not in structs_map[struct_name]:
@@ -72,7 +73,8 @@ class GolangWriter(LanguageWriter):
                                                                            structs_map, True)
                         rt = tmp.split("{")[0].split(")")[-1].strip()
                         structs_map[struct_name]["funcs"].append((tmp.split("(")[1].split(")")[-1].strip(),
-                                                                  (tp0, tp1, tp2, tp3.replace("values", "vals[i]")),
+                                                                  (tp0, tp1, tp2,
+                                                                   tp3.replace("inputValues", "opValues[i]")),
                                                                   rt))
 
                 import_set = set()
@@ -88,14 +90,14 @@ class GolangWriter(LanguageWriter):
                                                                          name, its[3])
                     if "construct" in d:
                         constructor = d["construct"]
-                build_body = ("\tvar opts []string\n" +
-                              "\tvar vals [][]interface{}\n" +
+                build_body = ("\tvar operators []string\n" +
+                              "\tvar opValues [][]interface{}\n" +
                               "\tvar ans []interface{}\n" +
-                              "\tif err := json.Unmarshal([]byte(values[0]), &opts); err != nil {\n" +
+                              "\tif err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {\n" +
                               "\t\tlog.Println(err)\n" +
                               "\t\treturn nil\n" +
                               "\t}\n" +
-                              "\tif err := json.Unmarshal([]byte(values[1]), &vals); err != nil {\n" +
+                              "\tif err := json.Unmarshal([]byte(inputValues[1]), &opValues); err != nil {\n" +
                               "\t\tlog.Println(err)\n" +
                               "\t\treturn nil\n" +
                               "\t}\n" +
@@ -105,10 +107,10 @@ class GolangWriter(LanguageWriter):
                                   ""
                               ) +
                               "\tans = append(ans, nil)\n" +
-                              "\tfor i := 1; i < len(opts); i++ {\n" +
+                              "\tfor i := 1; i < len(operators); i++ {\n" +
                               "\t\tvar res interface{}\n" +
                               "{}".format(
-                                  "\t\tswitch opts[i] {\n" +
+                                  "\t\tswitch operators[i] {\n" +
                                   func_loop +
                                   "\t\tdefault:\n"
                                   "\t\t\tres = nil\n"
@@ -226,7 +228,7 @@ class GolangWriter(LanguageWriter):
                 elif "import " in line:
                     import_part = True
                     continue
-                if "func Solve(input string) interface{} {" in line:
+                if "func Solve(input string) interface{} {" in line or "func Solve(inputJsonValues string) {" in line:
                     break
                 final_codes.append(line)
         while final_codes and final_codes[0].strip() == '':
@@ -282,15 +284,15 @@ class GolangWriter(LanguageWriter):
                 imports_libs.add("\t\"encoding/json\"")
                 imports_libs.add("\t\"log\"")
                 for _ in vrs:
-                    variables.append(f"values[{counts}].({tp})") if tp != "int" else variables.append(
-                        f"int(values[{counts}].(float64))")
+                    variables.append(f"inputValues[{counts}].({tp})") if tp != "int" else variables.append(
+                        f"int(inputValues[{counts}].(float64))")
                     counts += 1
             else:
                 match tp:
                     case "*ListNode":
                         for var in vrs:
                             json_parse.append(f"\tvar {var}IntArray []int\n")
-                            json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
+                            json_parse.append(f"\tif err := json.Unmarshal([]byte(inputValues[{i}]), &" + var +
                                               "IntArray); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
                             json_parse.append(f"\t{var} = IntArrayToLinkedList({var}IntArray)\n")
                         imports_libs.add("\t. \"leetCode/golang/models\"")
@@ -298,20 +300,21 @@ class GolangWriter(LanguageWriter):
                         imports_libs.add("\t\"log\"")
                     case "*TreeNode":
                         for var in vrs:
-                            json_parse.append(f"\t{var} = ArrayToTree(values[{i}])\n")
+                            json_parse.append(f"\t{var} = ArrayToTree(inputValues[{i}])\n")
                         imports_libs.add("\t. \"leetCode/golang/models\"")
                     case "*Node":
                         if ("Left *Node" in code_default
                                 and "Right *Node" in code_default
                                 and "Next *Node" in code_default):
                             for var in vrs:
-                                json_parse.append(f"\t{var} = ArrayToTree(values[{i}])\n")
+                                json_parse.append(f"\t{var} = ArrayToTree(inputValues[{i}])\n")
                             imports_libs.add("\t. \"leetCode/golang/tree_next\"")
                         elif "Neighbors []*Node" in code_default:
                             for var in vrs:
                                 json_parse.append("\tvar arr" + f"{i}" + " [][]int\n")
-                                json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + f"arr{i}" +
-                                                  "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                                json_parse.append(
+                                    f"\tif err := json.Unmarshal([]byte(inputValues[{i}]), &" + f"arr{i}" +
+                                    "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
                                 json_parse.append(f"\t{var} = ArrayRelationToNodeNeighbour(arr{i})\n")
                             imports_libs.add("\t. \"leetCode/golang/node_neighbours\"")
                             imports_libs.add("\t\"encoding/json\"")
@@ -326,8 +329,9 @@ class GolangWriter(LanguageWriter):
                              " */" in code_default:
                             for var in vrs:
                                 json_parse.append("\tvar arr" + f"{i}" + " [][]interface{}\n")
-                                json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + f"arr{i}" +
-                                                  "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                                json_parse.append(
+                                    f"\tif err := json.Unmarshal([]byte(inputValues[{i}]), &" + f"arr{i}" +
+                                    "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
                                 json_parse.append(f"\t{var} = IntRandomArrayToNodeArray(arr{i})\n")
                             imports_libs.add("\t. \"leetCode/golang/node_random\"")
                             imports_libs.add("\t\"encoding/json\"")
@@ -335,7 +339,7 @@ class GolangWriter(LanguageWriter):
                     case "[]byte":
                         for var in vrs:
                             json_parse.append(f"\tvar {var}Str []string\n")
-                            json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
+                            json_parse.append(f"\tif err := json.Unmarshal([]byte(inputValues[{i}]), &" + var +
                                               "Str); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
                             json_parse.append(f"\t{var} := make([]byte, len({var}Str))\n")
                             json_parse.append("\tfor i := 0; i < len(" + var + "); i++ {\n")
@@ -344,7 +348,7 @@ class GolangWriter(LanguageWriter):
                     case "[][]byte":
                         for var in vrs:
                             json_parse.append(f"\tvar {var}Str [][]string\n")
-                            json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
+                            json_parse.append(f"\tif err := json.Unmarshal([]byte(inputValues[{i}]), &" + var +
                                               "Str); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
                             json_parse.append(f"\t{var} = make([][]byte, len({var}Str))\n")
                             json_parse.append("\tfor i := 0; i < len(" + var + "); i++ {\n")
@@ -357,7 +361,7 @@ class GolangWriter(LanguageWriter):
                         imports_libs.add("\t\"log\"")
                     case _:
                         for var in vrs:
-                            json_parse.append(f"\tif err := json.Unmarshal([]byte(values[{i}]), &" + var +
+                            json_parse.append(f"\tif err := json.Unmarshal([]byte(inputValues[{i}]), &" + var +
                                               "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
                         imports_libs.add("\t\"encoding/json\"")
                         imports_libs.add("\t\"log\"")

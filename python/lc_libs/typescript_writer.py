@@ -69,21 +69,21 @@ class TypescriptWriter(LanguageWriter):
                     case "ListNode | null":
                         import_part[TypescriptWriter._LIST_NODE_PATH].add("ListNode")
                         import_part[TypescriptWriter._LIST_NODE_PATH].add("IntArrayToLinkedList")
-                        process_inputs.append(f"const {variable} = IntArrayToLinkedList(JSON.parse(splits[{i}]));")
+                        process_inputs.append(f"const {variable} = IntArrayToLinkedList(JSON.parse(inputValues[{i}]));")
                     case "TreeNode | null":
                         import_part[TypescriptWriter._TREE_NODE_PATH].add("TreeNode")
                         import_part[TypescriptWriter._TREE_NODE_PATH].add("JSONArrayToTreeNode")
-                        process_inputs.append(f"const {variable} = JSONArrayToTreeNode(JSON.parse(splits[{i}]));")
+                        process_inputs.append(f"const {variable} = JSONArrayToTreeNode(JSON.parse(inputValues[{i}]));")
                     case "Array<ListNode | null>":
                         import_part[TypescriptWriter._LIST_NODE_PATH].add("ListNode")
                         import_part[TypescriptWriter._LIST_NODE_PATH].add("IntArrayToLinkedList")
-                        process_inputs.append(f"const jsonArray{i}: any = JSON.parse(splits[{i}]);")
+                        process_inputs.append(f"const jsonArray{i}: any = JSON.parse(inputValues[{i}]);")
                         process_inputs.append(f"const {variable} = [];")
                         process_inputs.append(f"for (let i = 0; i < jsonArray{i}.length; i++) " + "{")
                         process_inputs.append(f"\t{var_name}.push(IntArrayToLinkedList(jsonArray{i}[i]));")
                         process_inputs.append("}")
                     case _:
-                        process_inputs.append(f"const {variable} = JSON.parse(splits[{i}]);")
+                        process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
             match func[2]:
                 case "ListNode | null":
                     import_part[TypescriptWriter._LIST_NODE_PATH].add("ListNode")
@@ -106,8 +106,8 @@ class TypescriptWriter(LanguageWriter):
                 "\t" + "\n\t".join(process_inputs),
                 return_part,
                 "}")
-        process_inputs = ["const operators: string[] = JSON.parse(splits[0]);",
-                          "const values: any[][] = JSON.parse(splits[1]);",
+        process_inputs = ["const operators: string[] = JSON.parse(inputValues[0]);",
+                          "const opValues: any[][] = JSON.parse(inputValues[1]);",
                           "const ans: any[] = [null];"]
         stack = []
         class_name = ""
@@ -138,7 +138,7 @@ class TypescriptWriter(LanguageWriter):
                     process_inputs.append("const obj: {} = new {}({});".format(
                         class_name,
                         class_name,
-                        ", ".join("values[0][{}]".format(i) for i in range(len(variables)))
+                        ", ".join("opValues[0][{}]".format(i) for i in range(len(variables)))
                     ))
                 else:
                     class_methods[class_name].append((func_name, variables, return_type))
@@ -149,10 +149,10 @@ class TypescriptWriter(LanguageWriter):
                 if return_type != "" and return_type != "void":
                     process_inputs.append("\t\tans.push(obj.{}({}));".format(
                         func_name,
-                        ", ".join("values[i][{}]".format(i) for i in range(len(variables)))))
+                        ", ".join("opValues[i][{}]".format(i) for i in range(len(variables)))))
                 else:
                     process_inputs.append("\t\tobj.{}({});".format(func_name,
-                                                                   ", ".join("values[i][{}]".format(i) for i in
+                                                                   ", ".join("opValues[i][{}]".format(i) for i in
                                                                              range(len(variables)))))
                     process_inputs.append("\t\tans.push(null);")
                 process_inputs.append("\t\tcontinue;")
