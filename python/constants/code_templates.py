@@ -58,6 +58,18 @@ func Solve(inputJsonValues string) {}
 {}
 """
 
+TESTCASE_TEMPLATE_GOLANG = """package golang
+
+import (
+\t{}
+\t"testing"
+)
+
+func TestSolution(t *testing.T) {
+\t{}
+}
+"""
+
 SOLUTION_TEMPLATE_JAVA = """package {}.{}_{};
 
 import com.alibaba.fastjson.JSON;

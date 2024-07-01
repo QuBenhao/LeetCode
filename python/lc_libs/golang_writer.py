@@ -1,41 +1,27 @@
 import os.path
 from collections import deque
 
-from python.constants import SOLUTION_TEMPLATE_GOLANG, SOLUTION_TEMPLATE_GOLANG_MODIFY_IN_PLACE
+from python.constants import SOLUTION_TEMPLATE_GOLANG, SOLUTION_TEMPLATE_GOLANG_MODIFY_IN_PLACE, \
+    TESTCASE_TEMPLATE_GOLANG
 from python.lc_libs.language_writer import LanguageWriter
 
 
 class GolangWriter(LanguageWriter):
     solution_file = "solution.go"
     test_file_path = "golang/solution_test.go"
+    tests_file_path = "golang/problems_test.go"
 
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
-        ans = []
-        appear_problem, appear_test_folder = False, False
-        for line in content.split("\n"):
-            if f"problem \"leetCode/{problem_folder}/{problem_folder}_" in line:
-                ans.append(f'\tproblem "leetCode/{problem_folder}/{problem_folder}_{question_id}"')
-                appear_problem = True
-                continue
-            elif f"const TestcaseFolderFmt = \"{problem_folder}/{problem_folder}_%s/testcase\"" in line:
-                ans.append(f"const TestcaseFolderFmt = \"{problem_folder}/{problem_folder}_%s/testcase\"")
-                appear_test_folder = True
-                continue
-            elif (f"problem \"leetCode/" in line or
-                  f"const TestcaseFolderFmt = \"" in line) and not line.strip().startswith("//"):
-                ans.append(f"// {line}")
-                continue
-            elif line.strip() == "\"log\"" and not appear_problem:
-                ans.append(f'\tproblem "leetCode/{problem_folder}/{problem_folder}_{question_id}"')
-                appear_problem = True
-            elif "var problemId string =" in line:
-                if not appear_test_folder:
-                    ans.append(f"const TestcaseFolderFmt = \"{problem_folder}/{problem_folder}_%s/testcase\"")
-                    appear_test_folder = True
-                ans.append(f'var problemId string = "{question_id}"')
-                continue
-            ans.append(line)
-        return "\n".join(ans)
+        return TESTCASE_TEMPLATE_GOLANG.format(
+            f"problem \"leetCode/{problem_folder}/{problem_folder}_{question_id}\"",
+            f"TestEach(t, \"{question_id}\", \"{problem_folder}\", problem{question_id}.Solve)",
+        )
+
+    def change_tests(self, content: str, problem_ids_folders: list) -> str:
+        return TESTCASE_TEMPLATE_GOLANG.format(
+            "\n\t".join(f"leetCode/{pf}/{pf}_{pid}" for pid, pf in problem_ids_folders),
+            "\n\t".join(f"TestEach(t, \"{pid}\", \"{pf}\", problem{pid}.Solve)" for pid, pf in problem_ids_folders),
+        )
 
     def write_solution(self, code_default: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:
