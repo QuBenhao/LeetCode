@@ -1303,24 +1303,6 @@ problems["283"] = [
 ]
 
 if __name__ == '__main__':
-    # for idx, test in enumerate(default_test_list):
-    #     res = write_solution_python(test)
-    #     with open(f"tmp_default{idx}.py", "w") as f:
-    #         f.writelines(res)
-
-    # for idx, test in enumerate(submit_test_list):
-    #     res = write_solution_python(test, False)
-    #     with open(f"tmp_submit{idx}.py", "w") as f:
-    #         f.writelines(res)
-
-    # for idx, test in enumerate(golang_test_list):
-    #     res = write_solution_golang(test, None, str(idx))
-    #     with open(f"tmp_solution{idx}.go", "w") as f:
-    #         f.writelines(res)
-
-    # for problem, code_templates in problems.values():
-    #     pass
-
     code_counter = Counter()
     for test_problem, codes in problems.items():
         for code in codes:
