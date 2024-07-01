@@ -80,7 +80,7 @@ def __parse_java_method(strip_line: str):
             rt_type, variable = var_split[0], var_split[1]
             last = rt_type
         variables.append(variable)
-        parse_input.append(__process_variable_type(f"values[{i}]", variable, rt_type))
+        parse_input.append(__process_variable_type(f"inputJsonValues[{i}]", variable, rt_type))
         if "ListNode" in rt_type:
             additional_import.add("import qubhjava.models.ListNode;")
         elif "TreeNode" in rt_type:
@@ -109,8 +109,8 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
     code = code if code else code_default
     if "object will be instantiated and called as such:" in code:
         return_part = "ans"
-        parse_input.append("String[] operators = jsonArrayToStringArray(values[0]);")
-        parse_input.append("String[][] opValues = jsonArrayToString2DArray(values[1]);")
+        parse_input.append("String[] operators = jsonArrayToStringArray(inputJsonValues[0]);")
+        parse_input.append("String[][] opValues = jsonArrayToString2DArray(inputJsonValues[1]);")
         class_name = ""
         all_return_parts = []
         func_parse_input = defaultdict(list)
@@ -123,10 +123,10 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
                 variables.extend(vs)
                 import_packages.extend(ai)
                 if func_name == class_name:
-                    parse_input.extend([p.replace("values", "opValues[0]") for p in pi])
+                    parse_input.extend([p.replace("inputJsonValues", "opValues[0]") for p in pi])
                     parse_input.append(f"{class_name} obj = new {rp};")
                 else:
-                    func_parse_input[func_name].extend(["\t\t" + p.replace("values", "opValues[i]") for p in pi])
+                    func_parse_input[func_name].extend(["\t\t" + p.replace("inputJsonValues", "opValues[i]") for p in pi])
                     all_return_parts.append((func_name, rt, rp))
         import_packages.append("")
         import_packages.append("")

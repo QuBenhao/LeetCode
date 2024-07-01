@@ -89,11 +89,11 @@ json leetcode::qubh::Solve(string input_json_values) {}
 \tvector<string> inputArray;
 \tsize_t pos = input_json_values.find('\\n');
 \twhile (pos != string::npos) {}
-\t\tinputArray.push_back(input.substr(0, pos));
-\t\tinput = input.substr(pos + 1);
-\t\tpos = input.find('\\n');
+\t\tinputArray.push_back(input_json_values.substr(0, pos));
+\t\input_json_values = input_json_values.substr(pos + 1);
+\t\tpos = input_json_values.find('\\n');
 \t{}
-\tinputArray.push_back(input);
+\tinputArray.push_back(input_json_values);
 
 {}
 {}

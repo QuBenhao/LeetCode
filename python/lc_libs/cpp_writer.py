@@ -203,7 +203,7 @@ def get_solution_code_cpp(root_path, problem_folder: str, problem_id: str) -> (s
                 continue
             if line.startswith("using "):
                 continue
-            if "json leetcode::qubh::Solve(string input)" in line:
+            if "json leetcode::qubh::Solve(string input)" in line or "json leetcode::qubh::Solve(string input_json_values)" in line:
                 break
             final_codes.append(line)
     while final_codes and final_codes[0].strip() == '':
