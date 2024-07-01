@@ -10,7 +10,7 @@ import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import problems.problems_2065.Solution;
+import problems.problems_3115.Solution;
 // import premiums.premiums_1056.Solution;
 import org.testng.util.Strings;
 import qubhjava.Testcase;
@@ -33,7 +33,7 @@ import static org.testng.Assert.assertEquals;
 public class TestMain {
 
     private static final Logger log = LoggerFactory.getLogger(TestMain.class);
-    private static final String PROBLEM_ID = "2065";
+    private static final String PROBLEM_ID = "3115";
 
     private Testcase[] loadTestcases() throws IOException {
         Testcase[] testcases = null;
