@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <queue>
 
 
 using namespace std;
@@ -64,15 +65,15 @@ public:
     }
 };
 
-json leetcode::qubh::Solve(string input) {
+json leetcode::qubh::Solve(string input_json_values) {
 	vector<string> inputArray;
-	size_t pos = input.find('\n');
+	size_t pos = input_json_values.find('\n');
 	while (pos != string::npos) {
-		inputArray.push_back(input.substr(0, pos));
-		input = input.substr(pos + 1);
-		pos = input.find('\n');
+		inputArray.push_back(input_json_values.substr(0, pos));
+		input_json_values = input_json_values.substr(pos + 1);
+		pos = input_json_values.find('\n');
 	}
-	inputArray.push_back(input);
+	inputArray.push_back(input_json_values);
 
 	Solution solution;
 	vector<int> values = json::parse(inputArray.at(0));
