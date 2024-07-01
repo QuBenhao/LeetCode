@@ -8,6 +8,7 @@ from python.lc_libs.language_writer import LanguageWriter
 class JavaWriter(LanguageWriter):
     solution_file = "Solution.java"
     test_file_path = "qubhjava/test/TestMain.java"
+    tests_file_path = "qubhjava/test/ProblemsTest.java"
 
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         ans = []
@@ -26,6 +27,16 @@ class JavaWriter(LanguageWriter):
             elif line.strip() == "import qubhjava.Testcase;" and not appear_problem_folder:
                 ans.append(f"import {problem_folder}.{problem_folder}_{question_id}.Solution;")
                 appear_problem_folder = True
+            ans.append(line)
+        return "\n".join(ans)
+
+    def change_tests(self, content: str, problem_ids_folders: list) -> str:
+        ans = []
+        for line in content.split("\n"):
+            if "private static final String[][] PROBLEMS = " in line:
+                ans.append("private static final String[][] PROBLEMS = {" +
+                           ", ".join("{\"" + pid + "\", \"" + pf + "\"}" for pid, pf in problem_ids_folders) + "};")
+                continue
             ans.append(line)
         return "\n".join(ans)
 
