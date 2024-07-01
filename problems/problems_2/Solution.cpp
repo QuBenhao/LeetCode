@@ -1,6 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
-#include "cpp/models/ListNode.h";
+#include "cpp/models/ListNode.h"
 
 using namespace std;
 using json = nlohmann::json;
