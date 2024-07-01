@@ -14,7 +14,7 @@ class GolangWriter(LanguageWriter):
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         return TESTCASE_TEMPLATE_GOLANG.format(
             f"problem \"leetCode/{problem_folder}/{problem_folder}_{question_id}\"",
-            f"TestEach(t, \"{question_id}\", \"{problem_folder}\", problem{question_id}.Solve)",
+            f"TestEach(t, \"{question_id}\", \"{problem_folder}\", problem.Solve)",
         )
 
     def change_tests(self, content: str, problem_ids_folders: list) -> str:
