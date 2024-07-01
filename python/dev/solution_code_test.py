@@ -1345,5 +1345,4 @@ if __name__ == '__main__':
                     code_counter[lang] += 1
                 case _:
                     pass
-        break
     sys.exit()

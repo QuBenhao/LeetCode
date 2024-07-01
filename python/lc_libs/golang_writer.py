@@ -187,7 +187,7 @@ def write_solution_golang(code_default: str, code: str = None, problem_id: str =
                                                           structs_map, True)
                     rt = tmp.split("{")[0].split(")")[-1].strip()
                     structs_map[struct_name]["construct"] = (tmp.split("(")[0].split("func ")[-1].strip(),
-                                                             (tp0, tp1, tp2, tp3.replace("inputValues", "vals[0]")),
+                                                             (tp0, tp1, tp2, tp3.replace("inputValues", "opValues[0]")),
                                                              rt)
                 elif tmp.startswith("func (") and struct_name in tmp.split(")")[0]:
                     if "funcs" not in structs_map[struct_name]:
@@ -196,7 +196,7 @@ def write_solution_golang(code_default: str, code: str = None, problem_id: str =
                                                           structs_map, True)
                     rt = tmp.split("{")[0].split(")")[-1].strip()
                     structs_map[struct_name]["funcs"].append((tmp.split("(")[1].split(")")[-1].strip(),
-                                                              (tp0, tp1, tp2, tp3.replace("inputValues", "vals[i]")),
+                                                              (tp0, tp1, tp2, tp3.replace("inputValues", "opValues[i]")),
                                                               rt))
 
             import_set = set()
@@ -212,14 +212,14 @@ def write_solution_golang(code_default: str, code: str = None, problem_id: str =
                                                                      name, its[3])
                 if "construct" in d:
                     constructor = d["construct"]
-            build_body = ("\tvar opts []string\n" +
-                          "\tvar vals [][]interface{}\n" +
+            build_body = ("\tvar operators []string\n" +
+                          "\tvar opValues [][]interface{}\n" +
                           "\tvar ans []interface{}\n" +
-                          "\tif err := json.Unmarshal([]byte(inputValues[0]), &opts); err != nil {\n" +
+                          "\tif err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {\n" +
                           "\t\tlog.Println(err)\n" +
                           "\t\treturn nil\n" +
                           "\t}\n" +
-                          "\tif err := json.Unmarshal([]byte(inputValues[1]), &vals); err != nil {\n" +
+                          "\tif err := json.Unmarshal([]byte(inputValues[1]), &opValues); err != nil {\n" +
                           "\t\tlog.Println(err)\n" +
                           "\t\treturn nil\n" +
                           "\t}\n" +
@@ -229,10 +229,10 @@ def write_solution_golang(code_default: str, code: str = None, problem_id: str =
                               ""
                           ) +
                           "\tans = append(ans, nil)\n" +
-                          "\tfor i := 1; i < len(opts); i++ {\n" +
+                          "\tfor i := 1; i < len(operators); i++ {\n" +
                           "\t\tvar res interface{}\n" +
                           "{}".format(
-                              "\t\tswitch opts[i] {\n" +
+                              "\t\tswitch operators[i] {\n" +
                               func_loop +
                               "\t\tdefault:\n"
                               "\t\t\tres = nil\n"

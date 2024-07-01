@@ -125,7 +125,7 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
                                .format(func_name, ", ".join([v[1] for v in variables])))
     elif len(functions) > 1:
         process_variables.append("\tvector<string> operators = json::parse(inputArray[0]);")
-        process_variables.append("vector<vector<json>> values = json::parse(inputArray[1]);")
+        process_variables.append("vector<vector<json>> op_values = json::parse(inputArray[1]);")
 
         class_and_functions = []
         for i, f in enumerate(functions):
@@ -135,7 +135,7 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
                 variables = [sp.strip().split(" ") for sp in f.get("args", "").split(",")] if f.get("args", "") else []
                 tmp_vars = []
                 for j, _ in enumerate(variables):
-                    tmp_vars.append(f"values[{i}][{j}]")
+                    tmp_vars.append(f"op_values[{i}][{j}]")
                 cur += ", ".join(tmp_vars)
                 cur += ");"
                 process_variables.append(cur)
@@ -147,7 +147,7 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
                 variables = [sp.strip().split(" ") for sp in f.get("args", "").split(",")] if f.get("args", "") else []
                 class_and_functions[-1].append((func_name, ret_type, variables))
         process_variables.append("vector<json> ans = {nullptr};")
-        process_variables.append("for (size_t i = 1; i < values.size(); i++) {")
+        process_variables.append("for (size_t i = 1; i < op_values.size(); i++) {")
         list_methods = []
         for class_methods in class_and_functions:
             i = class_methods[1]
@@ -155,7 +155,7 @@ def write_solution_cpp(code_default: str, code: str = None, problem_id: str = ""
                 list_methods.append("\tif (operators[i] == \"" + func_name + "\") {")
                 tmp_vars = []
                 for j, _ in enumerate(variables):
-                    tmp_vars.append(f"values[i][{j}]")
+                    tmp_vars.append(f"op_values[i][{j}]")
                 if not ret_type or ret_type == "void":
                     list_methods.append("\t\tobj{}->{}({});".format(i, func_name, ", ".join(tmp_vars)))
                     list_methods.append("\t\tans.push_back(nullptr);")

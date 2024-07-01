@@ -116,7 +116,7 @@ def write_solution_java(code_default: str, code: str = None, problem_id: str = "
         func_parse_input = defaultdict(list)
         for line in code.split("\n"):
             strip_line = line.strip()
-            if strip_line.startswith("class ") and strip_line.endswith("{"):
+            if (strip_line.startswith("class ") or strip_line.startswith("public class")) and strip_line.endswith("{"):
                 class_name = strip_line.split("{")[0].split("class ")[-1].strip()
             elif strip_line.startswith("public ") and strip_line.endswith("{"):
                 vs, pi, ai, rp, func_name, rt = __parse_java_method(strip_line)
