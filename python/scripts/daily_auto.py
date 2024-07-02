@@ -172,19 +172,20 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
                 print(f"{lang} writer is not supported yet!")
                 continue
             obj = cls()
-            tests_file_path = getattr(obj, "tests_file_path", None)
-            if not tests_file_path:
-                print(f"{lang} tests file not exists yet.")
+            tests_file_paths = getattr(obj, "tests_file_paths", None)
+            if not tests_file_paths:
+                print(f"{lang} tests files not exists yet.")
                 continue
             tests_func = getattr(obj, "change_tests", None)
             if not tests_func:
                 print(f"{lang} run tests not supported yet!")
                 continue
-            file_path = os.path.join(root_path, tests_file_path)
-            with open(file_path, "r", encoding="utf-8") as f:
-                content = f.read()
-            with open(file_path, "w", encoding="utf-8") as f:
-                f.write(tests_func(content, problem_ids))
+            for i, tests_file_path in enumerate(tests_file_paths):
+                file_path = os.path.join(root_path, tests_file_path)
+                with open(file_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                with open(file_path, "w", encoding="utf-8") as f:
+                    f.write(tests_func(content, problem_ids, i))
 
 
 def main(problem_folder: str = None, cookie: Optional[str] = None, languages: list[str] = None):

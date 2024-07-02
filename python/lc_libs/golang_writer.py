@@ -9,7 +9,7 @@ from python.lc_libs.language_writer import LanguageWriter
 class GolangWriter(LanguageWriter):
     solution_file = "solution.go"
     test_file_path = "golang/solution_test.go"
-    tests_file_path = "golang/problems_test.go"
+    tests_file_paths = ["golang/problems_test.go"]
 
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         return TESTCASE_TEMPLATE_GOLANG.format(
@@ -20,7 +20,7 @@ class GolangWriter(LanguageWriter):
             "}",
         )
 
-    def change_tests(self, content: str, problem_ids_folders: list) -> str:
+    def change_tests(self, content: str, problem_ids_folders: list, idx: int = 0) -> str:
         return TESTCASE_TEMPLATE_GOLANG.format(
             "\n\t".join(f"\"leetCode/{pf}/{pf}_{pid}\"" for pid, pf in problem_ids_folders),
             "TestSolutions",
