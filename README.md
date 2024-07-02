@@ -134,6 +134,148 @@ If you get problem like this,
 it will add the problem and change the tests of your languages as below:
 ![new_problem.png](docs/new_problem.png)
 ![changed_golang.png](docs/changed_golang.png)
+
+In VsCode,
+add launch.json under `.vscode`
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Typescript Test",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "typescript-test",
+        },
+        {
+            "name": "Typescript Tests",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "typescript-tests",
+        },
+        {
+            "name": "Python Test",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "python-test",
+        },
+        {
+            "name": "Python Tests",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "python-tests",
+        },
+        {
+            "name": "Golang Test",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "golang-test",
+        },
+        {
+            "name": "Golang Tests",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "golang-tests",
+        },
+        {
+            "name": "C++ Test",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "cpp-test",
+        },
+        {
+            "name": "C++ Tests",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "cpp-tests",
+        },
+        {
+            "name": "Java Test",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "java-test",
+        },
+        {
+            "name": "Java Tests",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "java-tests",
+        }
+    ]
+}
+```
+and tasks.json under `.vscode`
+```json
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "typescript-test",
+			"command": "npm",
+			"args": ["test", "--", "typescript/test.ts"],
+			"type": "shell"
+		},
+		{
+			"label": "typescript-tests",
+			"command": "npm",
+			"args": ["test", "--", "typescript/problems.test.ts"],
+			"type": "shell"
+		},
+		{
+			"label": "python-test",
+			"command": "python",
+			"args": ["python/test.py"],
+			"type": "shell"
+		},
+		{
+			"label": "python-tests",
+			"command": "python",
+			"args": ["python/tests.py"],
+			"type": "shell"
+		},
+		{
+			"label": "golang-test",
+			"command": "go",
+			"args": ["test", "golang/solution_test.go", "golang/test_basic.go", "-test.timeout", "3s"],
+			"type": "shell"
+		},
+		{
+			"label": "golang-tests",
+			"command": "go",
+			"args": ["test", "golang/problems_test.go", "golang/test_basic.go", "-test.timeout", "10s"],
+			"type": "shell"
+		},
+		{
+			"label": "cpp-test",
+			"command": "bazel",
+			"args": ["test", "--cxxopt=-std=c++20", "--test_timeout=3", "--test_output=all", "//cpp:solution_test"],
+			"type": "shell"
+		},
+		{
+			"label": "cpp-tests",
+			"command": "bazel",
+			"args": ["test", "--cxxopt=-std=c++20", "--test_timeout=10", "--test_output=all", "//cpp/tests:all"],
+			"type": "shell"
+		},
+		{
+			"label": "java-test",
+			"command": "mvn",
+			"args": ["test", "-Dtest=\"qubhjava.test.TestMain\""],
+			"type": "shell"
+		},
+		{
+			"label": "java-tests",
+			"command": "mvn",
+			"args": ["test", "-Dtest=\"qubhjava.test.ProblemsTest\""],
+			"type": "shell"
+		}
+	]
+}
+```
+
 Solve your problem and enjoy!
 
 Feel free to ask the author and add issues, discussions on GitHub.
