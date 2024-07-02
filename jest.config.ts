@@ -7,6 +7,7 @@ const jestConfig: JestConfigWithTsJest = {
   // from the above list
   preset: 'ts-jest',
   testEnvironment: "node",
+  modulePathIgnorePatterns: ["<rootDir>/bazel-*/", "<rootDir>/bin/"],
 }
 
 export default jestConfig
