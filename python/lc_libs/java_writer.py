@@ -92,7 +92,7 @@ class JavaWriter(LanguageWriter):
             parse_input.append("\tans.add(null);")
             parse_input.append("}")
         else:
-            for line in code.split("\n"):
+            for line in code_default.split("\n"):
                 if "class Solution {" in line:
                     import_part = False
                     continue
@@ -110,8 +110,14 @@ class JavaWriter(LanguageWriter):
                         additional_import.update(ai)
                         return_part = rp
                     import_packages.extend(additional_import)
+            for line in code.split("\n"):
+                if "class Solution {" in line:
+                    import_part = False
+                    continue
+                if not import_part:
+                    if line == "}":
+                        continue
                     body.append(line)
-
         return SOLUTION_TEMPLATE_JAVA.format(
             problem_folder,
             problem_folder,

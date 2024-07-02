@@ -62,7 +62,7 @@ def check_problem_solved_and_write(question_id: str,
             test_commands = [["python", main_file]]
         case "golang":
             lang_env = ["go", "version"]
-            test_commands = [["go", "test", main_file]]
+            test_commands = [["go", "test", main_file, "golang/test_basic.go"]]
         case "java":
             lang_env = ["mvn", "-v"]
             test_commands = [["mvn", "test", "-Dtest=qubhjava.test.TestMain"]]
@@ -77,7 +77,7 @@ def check_problem_solved_and_write(question_id: str,
             test_commands = [["npm", "test"]]
         case "typescript":
             lang_env = ["npm", "--version"]
-            test_commands = [["npm", "test"]]
+            test_commands = [["npm", "test", "--", "typescript/test.ts"]]
         case _:
             file_name = "unknown"
             lang_env = None
