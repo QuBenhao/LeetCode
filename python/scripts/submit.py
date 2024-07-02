@@ -11,8 +11,17 @@ from python import lc_libs as lc_libs
 from python.constants import constant
 from python.utils import get_default_folder
 
+_LANG_TRANS_MAP = {
+    "go": "golang",
+    "py": "python3",
+    "ts": "typescript",
+    "js": "javascript",
+    "c++": "cpp",
+}
+
 
 async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folder: str = None):
+    lang = _LANG_TRANS_MAP.get(lang.lower(), lang)
     load_code = False
     code = ""
     cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
@@ -71,10 +80,12 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     for plan in plans:
         all_problems = lc_libs.get_user_study_plan_progress(plan, cookie, 0).get("all_problems", set())
         if problem_slug in all_problems:
-            result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang, lc_question_id, code, plan)
+            result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang,
+                                               lc_question_id, code, plan)
             exists = True
     if not exists:
-        result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang, lc_question_id, code)
+        result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang,
+                                           lc_question_id, code)
     print("\n题解查看: https://leetcode.cn/problems/{}/solutions/".format(problem_slug))
     print("外网查看: https://leetcode.com/problems/{}/solutions/".format(problem_slug))
     return result
