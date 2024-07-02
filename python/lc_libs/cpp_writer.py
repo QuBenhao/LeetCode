@@ -9,6 +9,7 @@ from python.lc_libs.language_writer import LanguageWriter
 class CppWriter(LanguageWriter):
     solution_file = "Solution.cpp"
     test_file_path = "WORKSPACE"
+    tests_file_paths = ["WORKSPACE", "cpp/tests/BUILD"]
 
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         ans = []
@@ -21,6 +22,33 @@ class CppWriter(LanguageWriter):
                 is_problem = False
                 continue
             ans.append(line)
+        return "\n".join(ans)
+    
+    def change_tests(self, content: str, problem_ids_folders: list, idx: int = 0) -> str:
+        ans = []
+        match idx:
+            case 0:
+                splits = content.split("\n")
+                while idx < len(splits):
+                    if "new_local_repository(" in splits[idx]:
+                        if "name = \"problems\"," in splits[idx + 1]:
+                            ans.extend(splits[idx:idx + 5])
+                        idx += 5
+                        continue
+                    ans.append(splits[idx])
+                    idx += 1
+                ans.append("")
+                for i, (problem_id, problem_folder) in enumerate(problem_ids_folders):
+                    ans.append("new_local_repository(")
+                    ans.append(f"    name = \"problem{i}\",")
+                    ans.append(f"    path = \"{problem_folder}/{problem_folder}_{problem_id}/\",")
+                    ans.append("    build_file = \"//cpp:solution.BUILD\",")
+                    ans.append(")")
+                    ans.append("")
+            case 1:
+                pass
+            case _:
+                pass
         return "\n".join(ans)
 
     def write_solution(self, code_default: str, code: str = None,
