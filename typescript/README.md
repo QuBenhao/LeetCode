@@ -14,5 +14,11 @@ import {Solve} from "../problems/problems_${}/solution";`
 in [test.ts](test.ts)**, and try at root:
 
 ```shell
-npm test
+npm test -- typescript/test.ts
+```
+
+or if you want to run more than one questions,
+**change problem and problem folder `const PROBLEMS: string[][] = [["1", "problems"], ["2", "problems"]];` in [problems.test.ts](problems.test.ts)**, and try:
+```shell
+npm test -- typescript/problems.test.ts
 ```

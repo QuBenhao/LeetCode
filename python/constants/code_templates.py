@@ -58,6 +58,18 @@ func Solve(inputJsonValues string) {}
 {}
 """
 
+TESTCASE_TEMPLATE_GOLANG = """package golang
+
+import (
+\t{}
+\t"testing"
+)
+
+func {}(t *testing.T) {}
+\t{}
+{}
+"""
+
 SOLUTION_TEMPLATE_JAVA = """package {}.{}_{};
 
 import com.alibaba.fastjson.JSON;
@@ -98,6 +110,28 @@ json leetcode::qubh::Solve(string input_json_values) {}
 {}
 {}
 {}
+"""
+
+TESTCASE_TEMPLATE_CPP = """cc_test(
+    name = "test_problem_{}",
+    size = "small",
+    srcs = [
+        "//cpp:TestMain.cpp",
+        "//cpp:TestMain.h",
+        "//cpp/common:Solution.h",
+        "@problem{}//:Solution.cpp"
+    ],
+    args = [
+        "$(rlocationpath @problem{}//:testcase)",
+    ],
+    data = ["@problem{}//:testcase"],
+    deps = [
+        "//cpp/models:models",
+        "@bazel_tools//tools/cpp/runfiles",
+        "@com_google_googletest//:gtest_main",
+        "@nlohmann_json//:json",
+    ],
+)
 """
 
 SOLUTION_TEMPLATE_TYPESCRIPT = """{}{}

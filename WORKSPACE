@@ -18,3 +18,15 @@ new_local_repository(
     path = "problems/problems_3115/",
     build_file = "//cpp:solution.BUILD",
 )
+
+new_local_repository(
+    name = "problem0",
+    path = "problems/problems_1/",
+    build_file = "//cpp:solution.BUILD",
+)
+
+new_local_repository(
+    name = "problem1",
+    path = "problems/problems_2/",
+    build_file = "//cpp:solution.BUILD",
+)

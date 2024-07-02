@@ -7,7 +7,23 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int maximumPrimeDifference(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        while (left < right && !isPrime(nums[left])) {
+            left++;
+        }
+        while (left < right && !isPrime(nums[right])) {
+            right--;
+        }
+        return right - left;
+    }
 
+    private boolean isPrime(int n) {
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return n >= 2;
     }
 
     @Override

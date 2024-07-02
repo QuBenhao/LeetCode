@@ -7,7 +7,7 @@ import traceback
 from dotenv import load_dotenv
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-import python.lc_libs as lc_libs
+from python import lc_libs as lc_libs
 from python.constants import constant
 from python.utils import get_default_folder
 
@@ -24,9 +24,14 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     lang = _LANG_TRANS_MAP.get(lang.lower(), lang)
     load_code = False
     code = ""
-    code_func = getattr(lc_libs, "get_solution_code_{}".format(lang), None)
+    cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+    if not cls:
+        print(f"{lang} writer is not supported yet!")
+        return
+    obj = cls()
+    code_func = getattr(obj, "get_solution_code", None)
     if not code_func:
-        print(f"{lang} is not supported yet!")
+        print(f"{lang} get_solution_code is not supported yet!")
         return
     if not problem_id:
         if not problem_folder:

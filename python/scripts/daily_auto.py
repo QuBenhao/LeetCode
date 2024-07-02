@@ -6,8 +6,8 @@ from typing import Optional
 from dotenv import load_dotenv
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-from python.lc_libs import (get_daily_question, get_question_desc, get_question_testcases, write_problem_md, \
-                            write_testcase, extract_outputs_from_md, get_user_study_plans, get_user_study_plan_progress,
+from python.lc_libs import (get_daily_question, get_question_desc, get_question_testcases, Python3Writer,
+                            extract_outputs_from_md, get_user_study_plans, get_user_study_plan_progress,
                             get_question_info, get_question_code, get_question_desc_cn)
 import python.lc_libs as lc_libs
 from python.constants import constant
@@ -20,15 +20,15 @@ def check_remain_languages(dir_path, languages: list[str]) -> list[str]:
         for f in files:
             try:
                 match f:
-                    case "Solution.cpp":
+                    case lc_libs.CppWriter.solution_file:
                         remain_languages.remove("cpp")
-                    case "solution.go":
+                    case lc_libs.GolangWriter.solution_file:
                         remain_languages.remove("golang")
-                    case "Solution.java":
+                    case lc_libs.JavaWriter.solution_file:
                         remain_languages.remove("java")
-                    case "solution.py":
+                    case Python3Writer.solution_file:
                         remain_languages.remove("python3")
-                    case "solution.ts":
+                    case lc_libs.TypescriptWriter.solution_file:
                         remain_languages.remove("typescript")
                     case _:
                         continue
@@ -46,7 +46,7 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
     if cn_result is not None and cn_result[0] is not None:
         cn_desc, cn_title = cn_result
         with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
-            f.write(write_problem_md(question_id, cn_title, cn_desc))
+            f.write(Python3Writer.write_problem_md(question_id, cn_title, cn_desc))
     if desc is not None:
         is_chinese = False
         if "English description is not available for the problem. Please switch to Chinese." in desc:
@@ -54,14 +54,14 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
             is_chinese = True
         else:
             with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
-                f.write(write_problem_md(question_id, question_name, desc))
+                f.write(Python3Writer.write_problem_md(question_id, question_name, desc))
         testcases, testcase_str = get_question_testcases(slug)
         if testcases is not None:
             outputs = extract_outputs_from_md(desc, is_chinese)
             print(f"question_id: {question_id}, outputs: {outputs}")
             if (not languages or "python3" in languages) and not os.path.exists(f"{dir_path}/testcase.py"):
                 with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
-                    f.write(write_testcase(testcases, outputs))
+                    f.write(Python3Writer.write_testcase(testcases, outputs))
             if not os.path.exists(f"{dir_path}/testcase"):
                 with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
                     f.writelines([testcase_str, "\n",
@@ -76,24 +76,20 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
     for language in languages:
         try:
             code = code_map[language]
-            func = getattr(lc_libs, f"write_solution_{language}", None)
+            cls = getattr(lc_libs, f"{language.capitalize()}Writer", None)
+            if not cls:
+                print("Language Writer not supported yet")
+                continue
+            obj = cls()
+            func = getattr(obj, f"write_solution", None)
             if func is None:
                 print("Language not supported yet")
                 continue
-            match language:
-                case "python3":
-                    main_file = f"{dir_path}/solution.py"
-                case "golang":
-                    main_file = f"{dir_path}/solution.go"
-                case "java":
-                    main_file = f"{dir_path}/Solution.java"
-                case "cpp":
-                    main_file = f"{dir_path}/Solution.cpp"
-                case "typescript":
-                    main_file = f"{dir_path}/solution.ts"
-                case _:
-                    continue
-            with open(main_file, "w", encoding="utf-8") as f:
+            solution_file = getattr(obj, "solution_file", None)
+            if not solution_file:
+                print("Language solution_file not supported yet")
+                continue
+            with open(os.path.join(dir_path, solution_file), "w", encoding="utf-8") as f:
                 f.write(func(code, None, question_id, problem_folder))
         except Exception as _:
             traceback.print_stack()
@@ -119,27 +115,23 @@ def process_daily(languages: list[str], problem_folder: str = None):
         write_question(dir_path, tmp, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
                        remain_languages)
     for lang in languages:
-        match lang:
-            case "python3":
-                main_file = f"{root_path}/python/test.py"
-            case "golang":
-                main_file = f"{root_path}/golang/solution_test.go"
-            case "java":
-                main_file = f"{root_path}/qubhjava/test/TestMain.java"
-            case "cpp":
-                main_file = f"{root_path}/WORKSPACE"
-            case "typescript":
-                main_file = f"{root_path}/typescript/test.ts"
-            case _:
-                print("Language {} is not implemented to save".format(lang))
-                continue
-        test_func = getattr(lc_libs, f"change_test_{lang}", None)
+        cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+        if not cls:
+            print("Language Writer not supported yet")
+            continue
+        obj = cls()
+        test_func = getattr(obj, f"change_test", None)
         if not test_func:
             print("Test function [change_test_{}] not implemented.".format(lang))
             continue
-        with open(main_file, "r", encoding="utf-8") as f:
+        test_file_path = getattr(obj, "test_file_path", None)
+        if not test_file_path:
+            print("Language {} is not implemented to save".format(lang))
+            continue
+        file_path = os.path.join(root_path, test_file_path)
+        with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
-        with open(main_file, "w", encoding="utf-8") as f:
+        with open(file_path, "w", encoding="utf-8") as f:
             f.write(test_func(content, tmp, question_id))
 
 
@@ -152,6 +144,7 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
         print("The LeetCode cookie might be expired, unable to check study plans!")
         return
     problem_ids = []
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     for slug in plans:
         plan_prog = get_user_study_plan_progress(slug, cookie)
         print("Plan: {}, total: {}, cur: {}".format(slug, plan_prog["total"], plan_prog["finished"]))
@@ -162,7 +155,6 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
                 continue
             question_id = info["questionFrontendId"].replace(" ", "_")
             paid_only = info.get("isPaidOnly", False)
-            root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
             tmp_folder = problem_folder if problem_folder else get_default_folder(paid_only=paid_only)
             dir_path = os.path.join(root_path, tmp_folder, f"{tmp_folder}_{question_id}")
             if not os.path.exists(dir_path):
@@ -172,16 +164,28 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
                 remain_languages = check_remain_languages(dir_path, languages)
                 write_question(dir_path, tmp_folder, question_id, info["title"], question_slug, remain_languages,
                                cookie)
-            problem_ids.append(question_id)
+            problem_ids.append([question_id, tmp_folder])
     if problem_ids:
-        root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        with open(f"{root_path}/tests.py", "r", encoding="utf-8") as f:
-            lines = f.readlines()
-        with open(f"{root_path}/tests.py", "w", encoding="utf-8") as f:
-            for line in lines:
-                if line.startswith("QUESTIONS ="):
-                    line = "QUESTIONS = {}\n".format(problem_ids)
-                f.write(line)
+        for lang in languages:
+            cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+            if not cls:
+                print(f"{lang} writer is not supported yet!")
+                continue
+            obj = cls()
+            tests_file_paths = getattr(obj, "tests_file_paths", None)
+            if not tests_file_paths:
+                print(f"{lang} tests files not exists yet.")
+                continue
+            tests_func = getattr(obj, "change_tests", None)
+            if not tests_func:
+                print(f"{lang} run tests not supported yet!")
+                continue
+            for i, tests_file_path in enumerate(tests_file_paths):
+                file_path = os.path.join(root_path, tests_file_path)
+                with open(file_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                with open(file_path, "w", encoding="utf-8") as f:
+                    f.write(tests_func(content, problem_ids, i))
 
 
 def main(problem_folder: str = None, cookie: Optional[str] = None, languages: list[str] = None):

@@ -16,3 +16,5 @@ cc_test(
         "@nlohmann_json//:json",
     ],
 )
+
+exports_files(["TestMain.cpp","TestMain.h"])
