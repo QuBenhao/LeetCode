@@ -8,6 +8,7 @@ from python.lc_libs.language_writer import LanguageWriter
 class TypescriptWriter(LanguageWriter):
     solution_file = "solution.ts"
     test_file_path = "typescript/test.ts"
+    tests_file_path = "typescript/problems.test.ts"
     _LIST_NODE_PATH = "\"../../typescript/models/listnode\";"
     _TREE_NODE_PATH = "\"../../typescript/models/treenode\";"
 
@@ -33,6 +34,15 @@ class TypescriptWriter(LanguageWriter):
                 ans.append("import {Solve} from \"../" +
                            f"{problem_folder}/{problem_folder}_" + question_id + "/solution\";")
                 appear_problem = True
+            ans.append(line)
+        return "\n".join(ans)
+    
+    def change_tests(self, content: str, problem_ids_folders: list) -> str:
+        ans = []
+        for line in content.split("\n"):
+            if "const PROBLEMS: string[][] = " in line:
+                ans.append("const PROBLEMS: string[][] = {};".format(str(problem_ids_folders)))
+                continue
             ans.append(line)
         return "\n".join(ans)
 
