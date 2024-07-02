@@ -6,7 +6,7 @@ from typing import Optional
 import requests
 
 from python.constants import LEET_CODE_BACKEND, PLAN_QUERY, PLAN_PROGRESS_QUERY
-from python.utils import general_request
+from python.utils import general_request, get_cur_weekday
 
 
 def get_user_study_plans(cookie: str) -> Optional[list]:
@@ -87,7 +87,11 @@ def generate_question_todo(plan_sub_groups, todo_num: int):
     return all_problems, all_solved, recommends
 
 
-def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = 1):
+def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = -1):
+    if todo_num < 0:
+        cur_weekday = get_cur_weekday()
+        todo_num = 1 if cur_weekday < 5 else 2
+
     def handle_response(response: requests.Response):
         if response.text:
             res_dict = json.loads(response.text)["data"]["studyPlanV2ProgressDetail"]

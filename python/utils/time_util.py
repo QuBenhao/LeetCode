@@ -6,7 +6,7 @@ import sys
 import time
 
 
-def get_china_daily_time():
+def get_china_local_time():
     # get current time
     cur_time = time.time()
 
@@ -17,14 +17,22 @@ def get_china_daily_time():
     timezone = pytz.timezone('Asia/Shanghai')  # Shanghai is in UTC+8
 
     # convert utc_time to local timezone
-    local_time = utc_time.replace(tzinfo=pytz.utc).astimezone(timezone)
+    return utc_time.replace(tzinfo=pytz.utc).astimezone(timezone)
 
+
+def get_china_daily_time():
+    local_time = get_china_local_time()
     # apply the same logic to get the start of day in local timezone
     min_timestamp = local_time.replace(hour=0, minute=0, second=0, microsecond=0)
 
     # convert back to timestamp
     min_timestamp = min_timestamp.timestamp()
     return min_timestamp
+
+
+def get_cur_weekday():
+    local_time = get_china_local_time()
+    return local_time.weekday()
 
 
 def timeout(second: int = 3):
