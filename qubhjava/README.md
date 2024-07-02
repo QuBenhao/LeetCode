@@ -8,3 +8,16 @@ First install maven environment,
 ```shell
 mvn test -Dtest="qubhjava.test.TestMain"
 ```
+
+** If you are facing errors from problems folder Java file **, add thest to [pom.xml](../pom.xml)
+```xml
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <excludes>
+                        <exclude>bazel-*/**</exclude>
+                        <exclude>problems/**</exclude>
+                        <exclude>premiums/**</exclude>
+                    </excludes>
+                </configuration>
+```
