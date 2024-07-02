@@ -7,5 +7,8 @@ class Solution(solution.Solution):
         return self.sumOfTheDigitsOfHarshadNumber(test_input)
 
     def sumOfTheDigitsOfHarshadNumber(self, x: int) -> int:
-        pass
-
+        num, s = x, 0
+        while num:
+            num, mod = divmod(num, 10)
+            s += mod
+        return  s if x % s == 0 else -1
