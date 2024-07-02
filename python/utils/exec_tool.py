@@ -62,7 +62,7 @@ def check_problem_solved_and_write(question_id: str,
             test_commands = [["python", main_file]]
         case "golang":
             lang_env = ["go", "version"]
-            test_commands = [["go", "test", main_file, "golang/test_basic.go"]]
+            test_commands = [["go", "test", main_file, str(os.path.join(root_path, "golang/test_basic.go"))]]
         case "java":
             lang_env = ["mvn", "-v"]
             test_commands = [["mvn", "test", "-Dtest=qubhjava.test.TestMain"]]
