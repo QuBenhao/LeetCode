@@ -22,7 +22,7 @@ class GolangWriter(LanguageWriter):
 
     def change_tests(self, content: str, problem_ids_folders: list) -> str:
         return TESTCASE_TEMPLATE_GOLANG.format(
-            "\n\t".join(f"leetCode/{pf}/{pf}_{pid}" for pid, pf in problem_ids_folders),
+            "\n\t".join(f"\"leetCode/{pf}/{pf}_{pid}\"" for pid, pf in problem_ids_folders),
             "TestSolutions",
             "{",
             "\n\t".join(f"TestEach(t, \"{pid}\", \"{pf}\", problem{pid}.Solve)" for pid, pf in problem_ids_folders),
