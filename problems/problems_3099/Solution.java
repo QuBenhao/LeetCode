@@ -7,7 +7,11 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int sumOfTheDigitsOfHarshadNumber(int x) {
-
+        int s = 0;
+        for (int num = x; num > 0; num /= 10) {
+            s += num % 10;
+        }
+        return x % s == 0 ? s : -1;
     }
 
     @Override
