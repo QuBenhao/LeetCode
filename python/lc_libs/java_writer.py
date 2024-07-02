@@ -152,7 +152,8 @@ class JavaWriter(LanguageWriter):
                     continue
                 if line.startswith("import "):
                     continue
-                if "public Object solve(String[] values) {" in line or "public Object solve(String[] inputJsonValues) {":
+                if "public Object solve(String[] values) {" in line or \
+                        "public Object solve(String[] inputJsonValues) {" in line:
                     last = final_codes.pop()
                     if last.strip() != "@Override":
                         final_codes.append(last)
