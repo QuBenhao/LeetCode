@@ -34,6 +34,8 @@ class CppWriter(LanguageWriter):
                         if "name = \"problems\"," in splits[idx + 1]:
                             ans.extend(splits[idx:idx + 5])
                         idx += 5
+                        while idx < len(splits) and splits[idx].strip() == "":
+                            idx += 1
                         continue
                     ans.append(splits[idx])
                     idx += 1

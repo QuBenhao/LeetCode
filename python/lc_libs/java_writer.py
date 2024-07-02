@@ -34,7 +34,7 @@ class JavaWriter(LanguageWriter):
         ans = []
         for line in content.split("\n"):
             if "private static final String[][] PROBLEMS = " in line:
-                ans.append("private static final String[][] PROBLEMS = {" +
+                ans.append("\tprivate static final String[][] PROBLEMS = {" +
                            ", ".join("{\"" + pid + "\", \"" + pf + "\"}" for pid, pf in problem_ids_folders) + "};")
                 continue
             ans.append(line)
