@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <unordered_map>
 
 
 using namespace std;
@@ -8,7 +9,14 @@ using json = nlohmann::json;
 class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
-
+        int ans = 0, s = 0;
+        unordered_map<int, int> counter{{0, 1}}; // s[0]=0 单独统计
+        for (auto num: nums) {
+            s += num;
+            ans += counter.find(s - k) != counter.end() ? counter[s - k] : 0;
+            counter[s]++;
+        }
+        return ans;
     }
 };
 
