@@ -1,6 +1,6 @@
 import os.path
 import re
-from python.constants import SOLUTION_TEMPLATE_CPP
+from python.constants import SOLUTION_TEMPLATE_CPP, TESTCASE_TEMPLATE_CPP
 from collections import deque
 
 from python.lc_libs.language_writer import LanguageWriter
@@ -46,7 +46,8 @@ class CppWriter(LanguageWriter):
                     ans.append(")")
                     ans.append("")
             case 1:
-                pass
+                for i, (problem_id, _) in enumerate(problem_ids_folders):
+                    ans.append(TESTCASE_TEMPLATE_CPP.format(problem_id, i, i, i))
             case _:
                 pass
         return "\n".join(ans)
