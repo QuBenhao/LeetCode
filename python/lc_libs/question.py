@@ -98,6 +98,8 @@ def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
             except Exception as sxe:
                 print(f"{j}. Error: {sxe}, [{tmp}]")
                 traceback.print_exc()
+                if not tmp:
+                    continue
                 html_content = ""
                 try:
                     # 将Markdown转换为HTML

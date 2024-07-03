@@ -2,52 +2,60 @@ name: Sync Fork
 
 on:
   schedule:
-  - cron:  "0 1 * * *"
+    - cron: "0 1 * * *"
   workflow_dispatch:
 
 jobs:
   repo-sync:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-      with:
-        persist-credentials: false
-    - name: Sync From Source
-      uses: repo-sync/github-sync@v2
-      with:
-        source_repo: "https://github.com/QuBenhao/LeetCode.git"
-        source_branch: "master"
-        destination_branch: "master"
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # Ensure all history is fetched
 
-    # Step to check for changes
-    - name: Check for changes
-      id: check_changes
-      uses: actions/github-script@v5
-      with:
-        script: |
-          const result = await github.rest.repos.compareCommits({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            base: "master",
-            head: "HEAD",
-          });
-          if (result.data.files.length > 0) {
-            core.setOutput("changes", "true");
-          } else {
-            core.setOutput("changes", "false");
-          }
+      - name: Sync From Source
+        uses: repo-sync/github-sync@v2
+        with:
+          source_repo: "https://github.com/QuBenhao/LeetCode.git"
+          source_branch: "master"
+          destination_branch: "master"
+          github_token: ${{ secrets.TOKEN }}
 
-    # Conditional step to create a pull request only if there are changes
-    - name: Create Pull Request
-      if: steps.check_changes.outputs.changes == 'true'
-      uses: peter-evans/create-pull-request@v6
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: |
-          feat: update from master
-          
-          auto generated
-        author: "benhao <qubenhao2@gmail.com>"
-        branch: "master"
-        title: "Merge from master"
+      # Step to check for changes
+      - name: Check for changes
+        id: check_changes
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const result = await github.rest.repos.compareCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base: "master",
+              head: "HEAD",
+            });
+            if (result.data.files.length > 0) {
+              core.setOutput("changes", "true");
+            } else {
+              core.setOutput("changes", "false");
+            }
+      - name: Reset master branch
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git fetch origin master:master
+          git reset --hard master
+
+      # Conditional step to create a pull request only if there are changes
+      - name: Create Pull Request
+        if: steps.check_changes.outputs.changes == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.TOKEN }}
+          commit-message: |
+            feat: update from master
+            
+            auto generated
+          author: "benhao <qubenhao2@gmail.com>"
+          branch: "master"
+          title: "Merge from master"
+          body: "This is an auto-generated PR to sync changes from the master branch to demo_master."
