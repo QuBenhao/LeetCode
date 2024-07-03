@@ -2,6 +2,7 @@
 #define LEETCODECPP_TREENODE_H
 
 #include <nlohmann/json.hpp>
+#include <vector>
 
 using json = nlohmann::json;
 
@@ -19,6 +20,7 @@ struct TreeNode
 };
 
 TreeNode *JsonArrayToTreeNode(json arr);
+std::vector<TreeNode *> JsonArrayToTreeNodeArray(json arr);
 json TreeNodeToJsonArray(TreeNode *root);
 
 #endif //LEETCODECPP_TREENODE_H

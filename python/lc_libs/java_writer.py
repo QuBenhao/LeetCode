@@ -110,6 +110,7 @@ class JavaWriter(LanguageWriter):
                         additional_import.update(ai)
                         return_part = rp
                     import_packages.extend(additional_import)
+            import_part = True
             for line in code.split("\n"):
                 if "class Solution {" in line:
                     import_part = False
@@ -215,6 +216,10 @@ class JavaWriter(LanguageWriter):
                 return f"{rt_type} {variable_name} = jsonArrayToListNodeArray({input_name});"
             case "TreeNode":
                 return f"{rt_type} {variable_name} = TreeNode.ArrayToTreeNode({input_name});"
+            case "TreeNode[]":
+                return f"{rt_type} {variable_name} = jsonArrayToTreeNodeArray({input_name});"
+            case "List<TreeNode>":
+                return f"{rt_type} {variable_name} = jsonArrayToTreeNodeList({input_name});"
             case "char[]":
                 return f"{rt_type} {variable_name} = jsonArrayToCharArray({input_name});"
             case "char[][]":

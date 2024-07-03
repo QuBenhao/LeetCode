@@ -3,6 +3,7 @@ package qubhjava;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import qubhjava.models.ListNode;
+import qubhjava.models.TreeNode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,6 +113,24 @@ public abstract class BaseSolution {
 
     protected String jsonStringToString(String jsonString) {
         return jsonString.replaceAll("\"", "");
+    }
+
+    protected TreeNode[] jsonArrayToTreeNodeArray(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        TreeNode[] result = new TreeNode[jsonArray.size()];
+        for (int i = 0; i < jsonArray.size(); i++) {
+            result[i] = TreeNode.ArrayToTreeNode(jsonArray.getString(i));
+        }
+        return result;
+    }
+
+    protected List<TreeNode> jsonArrayToTreeNodeList(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        List<TreeNode> result = new ArrayList<>(jsonArray.size());
+        for (int i = 0; i < jsonArray.size(); i++) {
+            result.add(TreeNode.ArrayToTreeNode(jsonArray.getString(i)));
+        }
+        return result;
     }
 
 }

@@ -1302,6 +1302,89 @@ problems["283"] = [
     }
 ]
 
+problems["1932"] = [
+  {
+    "lang": "C++",
+    "langSlug": "cpp",
+    "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* canMerge(vector<TreeNode*>& trees) {\n        \n    }\n};"
+  },
+  {
+    "lang": "Java",
+    "langSlug": "java",
+    "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     int val;\n *     TreeNode left;\n *     TreeNode right;\n *     TreeNode() {}\n *     TreeNode(int val) { this.val = val; }\n *     TreeNode(int val, TreeNode left, TreeNode right) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\nclass Solution {\n    public TreeNode canMerge(List<TreeNode> trees) {\n        \n    }\n}"
+  },
+  {
+    "lang": "Python",
+    "langSlug": "python",
+    "code": "# Definition for a binary tree node.\n# class TreeNode(object):\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution(object):\n    def canMerge(self, trees):\n        \"\"\"\n        :type trees: List[TreeNode]\n        :rtype: TreeNode\n        \"\"\"\n        "
+  },
+  {
+    "lang": "Python3",
+    "langSlug": "python3",
+    "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def canMerge(self, trees: List[TreeNode]) -> Optional[TreeNode]:\n        "
+  },
+  {
+    "lang": "C",
+    "langSlug": "c",
+    "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     struct TreeNode *left;\n *     struct TreeNode *right;\n * };\n */\n\n\nstruct TreeNode* canMerge(struct TreeNode** trees, int treesSize){\n\n}"
+  },
+  {
+    "lang": "C#",
+    "langSlug": "csharp",
+    "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     public int val;\n *     public TreeNode left;\n *     public TreeNode right;\n *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {\n *         this.val = val;\n *         this.left = left;\n *         this.right = right;\n *     }\n * }\n */\npublic class Solution {\n    public TreeNode CanMerge(IList<TreeNode> trees) {\n        \n    }\n}"
+  },
+  {
+    "lang": "JavaScript",
+    "langSlug": "javascript",
+    "code": "/**\n * Definition for a binary tree node.\n * function TreeNode(val, left, right) {\n *     this.val = (val===undefined ? 0 : val)\n *     this.left = (left===undefined ? null : left)\n *     this.right = (right===undefined ? null : right)\n * }\n */\n/**\n * @param {TreeNode[]} trees\n * @return {TreeNode}\n */\nvar canMerge = function(trees) {\n    \n};"
+  },
+  {
+    "lang": "TypeScript",
+    "langSlug": "typescript",
+    "code": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     val: number\n *     left: TreeNode | null\n *     right: TreeNode | null\n *     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {\n *         this.val = (val===undefined ? 0 : val)\n *         this.left = (left===undefined ? null : left)\n *         this.right = (right===undefined ? null : right)\n *     }\n * }\n */\n\nfunction canMerge(trees: Array<TreeNode | null>): TreeNode | null {\n\n};"
+  },
+  {
+    "lang": "PHP",
+    "langSlug": "php",
+    "code": "/**\n * Definition for a binary tree node.\n * class TreeNode {\n *     public $val = null;\n *     public $left = null;\n *     public $right = null;\n *     function __construct($val = 0, $left = null, $right = null) {\n *         $this->val = $val;\n *         $this->left = $left;\n *         $this->right = $right;\n *     }\n * }\n */\nclass Solution {\n\n    /**\n     * @param TreeNode[] $trees\n     * @return TreeNode\n     */\n    function canMerge($trees) {\n        \n    }\n}"
+  },
+  {
+    "lang": "Swift",
+    "langSlug": "swift",
+    "code": "/**\n * Definition for a binary tree node.\n * public class TreeNode {\n *     public var val: Int\n *     public var left: TreeNode?\n *     public var right: TreeNode?\n *     public init() { self.val = 0; self.left = nil; self.right = nil; }\n *     public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }\n *     public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {\n *         self.val = val\n *         self.left = left\n *         self.right = right\n *     }\n * }\n */\nclass Solution {\n    func canMerge(_ trees: [TreeNode?]) -> TreeNode? {\n        \n    }\n}"
+  },
+  {
+    "lang": "Kotlin",
+    "langSlug": "kotlin",
+    "code": "/**\n * Example:\n * var ti = TreeNode(5)\n * var v = ti.`val`\n * Definition for a binary tree node.\n * class TreeNode(var `val`: Int) {\n *     var left: TreeNode? = null\n *     var right: TreeNode? = null\n * }\n */\nclass Solution {\n    fun canMerge(trees: List<TreeNode?>): TreeNode? {\n        \n    }\n}"
+  },
+  {
+    "lang": "Go",
+    "langSlug": "golang",
+    "code": "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc canMerge(trees []*TreeNode) *TreeNode {\n    \n}"
+  },
+  {
+    "lang": "Ruby",
+    "langSlug": "ruby",
+    "code": "# Definition for a binary tree node.\n# class TreeNode\n#     attr_accessor :val, :left, :right\n#     def initialize(val = 0, left = nil, right = nil)\n#         @val = val\n#         @left = left\n#         @right = right\n#     end\n# end\n# @param {TreeNode[]} trees\n# @return {TreeNode}\ndef can_merge(trees)\n    \nend"
+  },
+  {
+    "lang": "Scala",
+    "langSlug": "scala",
+    "code": "/**\n * Definition for a binary tree node.\n * class TreeNode(_value: Int = 0, _left: TreeNode = null, _right: TreeNode = null) {\n *   var value: Int = _value\n *   var left: TreeNode = _left\n *   var right: TreeNode = _right\n * }\n */\nobject Solution {\n    def canMerge(trees: List[TreeNode]): TreeNode = {\n        \n    }\n}"
+  },
+  {
+    "lang": "Rust",
+    "langSlug": "rust",
+    "code": "// Definition for a binary tree node.\n// #[derive(Debug, PartialEq, Eq)]\n// pub struct TreeNode {\n//   pub val: i32,\n//   pub left: Option<Rc<RefCell<TreeNode>>>,\n//   pub right: Option<Rc<RefCell<TreeNode>>>,\n// }\n// \n// impl TreeNode {\n//   #[inline]\n//   pub fn new(val: i32) -> Self {\n//     TreeNode {\n//       val,\n//       left: None,\n//       right: None\n//     }\n//   }\n// }\nuse std::rc::Rc;\nuse std::cell::RefCell;\nimpl Solution {\n    pub fn can_merge(trees: Vec<Option<Rc<RefCell<TreeNode>>>>) -> Option<Rc<RefCell<TreeNode>>> {\n        \n    }\n}"
+  },
+  {
+    "lang": "Racket",
+    "langSlug": "racket",
+    "code": "; Definition for a binary tree node.\n#|\n\n; val : integer?\n; left : (or/c tree-node? #f)\n; right : (or/c tree-node? #f)\n(struct tree-node\n  (val left right) #:mutable #:transparent)\n\n; constructor\n(define (make-tree-node [val 0])\n  (tree-node val #f #f))\n\n|#\n\n(define/contract (can-merge trees)\n  (-> (listof (or/c tree-node? #f)) (or/c tree-node? #f))\n\n  )"
+  }
+]
+
 if __name__ == '__main__':
     code_counter = Counter()
     for test_problem, codes in problems.items():
