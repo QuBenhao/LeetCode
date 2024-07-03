@@ -1,4 +1,4 @@
-import {JSONArrayToTreeNodeArray,TreeNode,TreeNodeToJSONArray} from "../../typescript/models/treenode";
+import {JSONArrayToTreeNodeArray,TreeNodeToJSONArray,TreeNode} from "../../typescript/models/treenode";
 
 /**
  * Definition for a binary tree node.
