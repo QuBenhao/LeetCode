@@ -36,7 +36,7 @@ for (const [problemId, problemFolder] of PROBLEMS) {
         test(`Test solution ${problemId}`, () => {
             expect(script).toBeDefined();
             for (let i: number = 0; i < inputJson.length; i++) {
-                const context = { testInputJsonString: inputJson[i], execResult: null};
+                const context = { testInputJsonString: inputJson[i], execResult: null as any};
                 vm.createContext(context); // Contextify the object.
                 script.runInContext(context, {timeout: 3000});
                 const result: any = context.execResult;

@@ -29,7 +29,7 @@ describe("TestMain===" + PROBLEM_ID, () => {
     const script = new vm.Script(r);
     for (let i: number = 0; i < inputJson.length; i++) {
         it("TestCase" + i, () => {
-            const context = { testInputJsonString: inputJson[i], execResult: null};
+            const context = { testInputJsonString: inputJson[i], execResult: null as any};
             vm.createContext(context); // Contextify the object.
             script.runInContext(context, {timeout: 3000});
             const result: any = context.execResult;

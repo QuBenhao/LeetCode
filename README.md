@@ -220,13 +220,13 @@ and tasks.json under `.vscode`
 		{
 			"label": "typescript-test",
 			"command": "npm",
-			"args": ["test", "--", "typescript/test.ts"],
+			"args": ["test", "--alwaysStric", "--strictBindCallApply", "--strictFunctionTypes", "--target", "ES2022", "typescript/test.ts"],
 			"type": "shell"
 		},
 		{
 			"label": "typescript-tests",
 			"command": "npm",
-			"args": ["test", "--", "typescript/problems.test.ts"],
+			"args": ["test", "--alwaysStric", "--strictBindCallApply", "--strictFunctionTypes", "--target", "ES2022", "typescript/problems.test.ts"],
 			"type": "shell"
 		},
 		{
