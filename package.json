@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^7.13.0",
-    "@typescript-eslint/parser": "^7.13.0"
+    "@typescript-eslint/parser": "^7.13.0",
+    "typescript": "^5.5.2"
   }
 }
