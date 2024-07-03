@@ -14,26 +14,13 @@ class TypescriptWriter(LanguageWriter):
 
     def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
         ans = []
-        appear_problem = False
         for line in content.split("\n"):
             if "const PROBLEM_ID: string = \"" in line:
                 ans.append(line.split("\"")[0] + f"\"{question_id}\";")
                 continue
-            elif "import {Solve} from \"../" + f"{problem_folder}/{problem_folder}_" in line and "/solution\";" in line:
-                ans.append("import {Solve} from \"../" +
-                           f"{problem_folder}/{problem_folder}_" + question_id + "/solution\";")
-                appear_problem = True
+            elif "let problemFolder: string = (process.env.PROBLEM_FOLDER && process.env.PROBLEM_FOLDER.length > 0) ? process.env.PROBLEM_FOLDER : \"" in line:
+                ans.append(line.split("\"")[0]  + f"\"{problem_folder}\";")
                 continue
-            elif f"const testCasePath: string = `" in line and "${PROBLEM_ID}/testcase`;" in line:
-                ans.append(line.split("`")[0] + f"`{problem_folder}/{problem_folder}_" + "${PROBLEM_ID}/testcase`;")
-                continue
-            elif "import {Solve} from \"../" in line and not line.strip().startswith("//"):
-                ans.append(f"// {line}")
-                continue
-            elif "describe(\"TestMain===\" + PROBLEM_ID, () => {" in line and not appear_problem:
-                ans.append("import {Solve} from \"../" +
-                           f"{problem_folder}/{problem_folder}_" + question_id + "/solution\";")
-                appear_problem = True
             ans.append(line)
         return "\n".join(ans)
     
