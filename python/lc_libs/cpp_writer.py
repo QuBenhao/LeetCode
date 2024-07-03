@@ -96,6 +96,13 @@ class CppWriter(LanguageWriter):
                             "std::vector<int> " + variable[1] + "_array" + f" = json::parse(inputArray.at({i}));")
                         process_variables.append(
                             rt + " *" + variable[1] + f" = IntArrayToListNode({variable[1]}_array);")
+                    case "vector<ListNode*>":
+                        process_variables.append(
+                            "std::vector<std::vector<int>> " + variable[1] + "_arrays" + f" = json::parse(inputArray.at({i}));")
+                        process_variables.append(f"auto {variable[1]} = {rt}({variable[1]}_arrays.size());")
+                        process_variables.append("for (int i = 0; i < " + variable[1] + ".size(); i++) {")
+                        process_variables.append("\t" + variable[1] + "[i] = IntArrayToListNode(" + variable[1] + "_arrays[i]);")
+                        process_variables.append("}")
                     case "TreeNode":
                         process_variables.append(
                             "json " + variable[1] + "_array" + f" = json::parse(inputArray.at({i}));")
