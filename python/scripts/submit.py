@@ -96,7 +96,8 @@ if __name__ == '__main__':
     sys.path.insert(0, os.path.join(rp, "python"))
     parser = argparse.ArgumentParser()
     parser.add_argument("-id", required=False, type=str, help="The id of question to submit.", default="")
-    parser.add_argument("lang", type=str, help="The language to submit.")
+    parser.add_argument("lang", choices=list(_LANG_TRANS_MAP.keys()) +
+                                        ["java"] + list(_LANG_TRANS_MAP.values()))
     args = parser.parse_args()
     try:
         load_dotenv()

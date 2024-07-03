@@ -50,7 +50,11 @@ pip install -r python/requirements.txt
 To directly submit Solution to LeetCode, try any language below:
 
 ```shell
+python python/scripts/submit.py -h
+# usage: submit.py [-h] [-id ID] {go,py,ts,js,c++,java,golang,python3,typescript,javascript,cpp}
 python python/scripts/submit.py python3 -id=1
+python python/scripts/submit.py -id=2 py
+python python/scripts/submit.py py
 python python/scripts/submit.py golang -id=2
 python python/scripts/submit.py cpp -id=1
 python python/scripts/submit.py java -id=2
@@ -61,6 +65,7 @@ To get any problem you want, try:
 
 ```shell
 python python/scripts/get_problem.py -h
+# usage: get_problem.py [-h] [-id PROBLEM_ID] [-slug PROBLEM_SLUG] [-cate PROBLEM_CATEGORY] [-f] [-all] [-pm] [-debug DEBUG_FILE] [-change] [-sl]
 python python/scripts/get_problem.py -id=1
 ```
 

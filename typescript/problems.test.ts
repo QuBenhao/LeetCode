@@ -3,7 +3,7 @@ import * as fs from 'fs';
 var _ = require('lodash-contrib');
 
 
-const PROBLEMS: string[][] = [["1", "problems"], ["2", "problems"]];
+const PROBLEMS: string[][] = [['560', 'problems']];
 
 for (const [problemId, problemFolder] of PROBLEMS) {
     describe(`Test for problem ${problemId}`, () => {
