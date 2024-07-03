@@ -1,31 +1,42 @@
 import * as fs from 'fs';
 import * as dotenv from 'dotenv'
-
+import * as ts from "typescript";
 var _ = require('lodash-contrib');
+const vm = require('node:vm');
 
-
-const PROBLEM_ID: string = "3099";
-import {Solve} from "../problems/problems_3099/solution";
-// import {Solve} from "../premiums/premiums_1056/solution";
+const PROBLEM_ID: string = "1";
 
 describe("TestMain===" + PROBLEM_ID, () => {
     dotenv.config();
     let problemFolder: string = (process.env.PROBLEM_FOLDER && process.env.PROBLEM_FOLDER.length > 0) ? process.env.PROBLEM_FOLDER : "problems";
     let testCasePath: string = `${problemFolder}/${problemFolder}_${PROBLEM_ID}/testcase`;
+    let solPath: string = `${problemFolder}/${problemFolder}_${PROBLEM_ID}/solution.ts`;
     if (!fs.existsSync(testCasePath)) {
         console.log(`Problem in ${problemFolder} not found, try premiums...`);
         testCasePath = `premiums/premiums_${PROBLEM_ID}/testcase`
+        solPath = `premiums/premiums_${PROBLEM_ID}/solution.ts`;
     }
-    const fileContent: string = fs.readFileSync(testCasePath, "utf-8");
-    const splits: string[] = fileContent.split("\n");
+    const testcaseFileContent: string = fs.readFileSync(testCasePath, "utf-8");
+    const splits: string[] = testcaseFileContent.split("\n");
     const inputs: string = splits[0], outputs: string = splits[1];
     const inputJson: any = JSON.parse(inputs), outputJson: any = JSON.parse(outputs);
+    let fileContent: string = fs.readFileSync(solPath, "utf-8");
+    fileContent = fileContent.replace("export function Solve", "function Solve");
+    fileContent += "const execResult = Solve(testInputJsonString);"
+    let result = ts.transpileModule(fileContent, { compilerOptions: { module: ts.ModuleKind.ES2022 }});
+
+    const r = result["outputText"];
+    const script = new vm.Script(r);
     for (let i: number = 0; i < inputJson.length; i++) {
         it("TestCase" + i, () => {
+            const context = { testInputJsonString: inputJson[i], execResult: null};
+            vm.createContext(context); // Contextify the object.
+            script.runInContext(context, {timeout: 3000});
+            const result: any = context.execResult;
             if (_.isFloat(outputJson[i])) {
-                expect(Solve(inputJson[i])).toBeCloseTo(outputJson[i]);
+                expect(result).toBeCloseTo(outputJson[i]);
             } else {
-                expect(Solve(inputJson[i])).toEqual(outputJson[i]);
+                expect(result).toEqual(outputJson[i]);
             }
         })
     }
