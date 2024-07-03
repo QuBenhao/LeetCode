@@ -1,5 +1,6 @@
 #include "TreeNode.h"
 #include <queue>
+#include <vector>
 
 
 TreeNode *JsonArrayToTreeNode(json arr) {
@@ -28,6 +29,17 @@ TreeNode *JsonArrayToTreeNode(json arr) {
         isLeft ^= 1;
     }
     return root;
+}
+
+std::vector<TreeNode*> JsonArrayToTreeNodeArray(json arr) {
+    if (arr.empty()) {
+        return {};
+    }
+    auto ans = std::vector<TreeNode*>(arr.size(), nullptr);
+    for (size_t i = 0; i < arr.size(); i++) {
+        ans[i] = JsonArrayToTreeNode(arr[i]);
+    }
+    return ans;
 }
 
 json TreeNodeToJsonArray(TreeNode *root) {

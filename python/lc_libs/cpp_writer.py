@@ -108,6 +108,11 @@ class CppWriter(LanguageWriter):
                             "json " + variable[1] + "_array" + f" = json::parse(inputArray.at({i}));")
                         process_variables.append(
                             rt + " *" + variable[1] + f" = JsonArrayToTreeNode({variable[1]}_array);")
+                    case "vector<TreeNode*>":
+                        process_variables.append(
+                            "json " + variable[1] + "_array" + f" = json::parse(inputArray.at({i}));")
+                        process_variables.append(
+                            rt + " *" + variable[1] + f" = JsonArrayToTreeNodeArray({variable[1]}_array);")
                     case "vector<char>":
                         process_variables.append(
                             "vector<string> " + variable[1] + "_str" + f" = json::parse(inputArray.at({i}));")

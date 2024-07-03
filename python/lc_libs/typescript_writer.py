@@ -36,7 +36,7 @@ class TypescriptWriter(LanguageWriter):
                 appear_problem = True
             ans.append(line)
         return "\n".join(ans)
-    
+
     def change_tests(self, content: str, problem_ids_folders: list, idx: int = 0) -> str:
         ans = []
         for line in content.split("\n"):
@@ -92,6 +92,11 @@ class TypescriptWriter(LanguageWriter):
                         process_inputs.append(f"for (let i = 0; i < jsonArray{i}.length; i++) " + "{")
                         process_inputs.append(f"\t{var_name}.push(IntArrayToLinkedList(jsonArray{i}[i]));")
                         process_inputs.append("}")
+                    case "Array<TreeNode | null>":
+                        import_part[TypescriptWriter._TREE_NODE_PATH].add("TreeNode")
+                        import_part[TypescriptWriter._TREE_NODE_PATH].add("JSONArrayToTreeNodeArray")
+                        process_inputs.append(
+                            f"const {variable} = JSONArrayToTreeNodeArray(JSON.parse(inputValues[{i}]));")
                     case _:
                         process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
             match func[2]:
