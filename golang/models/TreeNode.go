@@ -57,6 +57,58 @@ func ArrayToTree(input string) *TreeNode {
 	return root
 }
 
+func ArrayToTreeArray(input string) []*TreeNode {
+	var value []interface{}
+	if err := json.Unmarshal([]byte(input), &value); err != nil {
+		log.Fatalf("Unable to process tree input: %s", input)
+		return nil
+	}
+	if len(value) == 0 {
+		return nil
+	}
+	var roots []*TreeNode
+	for _, v := range value {
+		arr := v.([]interface{})
+		if len(arr) == 0 {
+			roots = append(roots, nil)
+			continue
+		}
+		var root *TreeNode
+		if arr[0] == nil {
+			root = nil
+		} else {
+			root = &TreeNode{Val: int(arr[0].(float64))}
+		}
+		isLeft := 1
+		var nodes []*TreeNode
+		currNode := root
+		for i := 1; i < len(arr); i++ {
+			var node *TreeNode
+			if arr[i] == nil {
+				node = nil
+			} else {
+				node = &TreeNode{Val: int(arr[i].(float64))}
+			}
+			if isLeft == 1 {
+				if node != nil {
+					currNode.Left = node
+					nodes = append(nodes, currNode.Left)
+				}
+			} else {
+				if node != nil {
+					currNode.Right = node
+					nodes = append(nodes, currNode.Right)
+				}
+				currNode = nodes[0]
+				nodes = nodes[1:]
+			}
+			isLeft ^= 1
+		}
+		roots = append(roots, root)
+	}
+	return roots
+}
+
 func ArrayToTreeAndTarget(input string, target int) (*TreeNode, *TreeNode) {
 	input = strings.ReplaceAll(input, " ", "")
 	if input[0] == '[' {

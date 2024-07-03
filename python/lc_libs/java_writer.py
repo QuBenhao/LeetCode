@@ -216,6 +216,10 @@ class JavaWriter(LanguageWriter):
                 return f"{rt_type} {variable_name} = jsonArrayToListNodeArray({input_name});"
             case "TreeNode":
                 return f"{rt_type} {variable_name} = TreeNode.ArrayToTreeNode({input_name});"
+            case "TreeNode[]":
+                return f"{rt_type} {variable_name} = jsonArrayToTreeNodeArray({input_name});"
+            case "List<TreeNode>":
+                return f"{rt_type} {variable_name} = jsonArrayToTreeNodeList({input_name});"
             case "char[]":
                 return f"{rt_type} {variable_name} = jsonArrayToCharArray({input_name});"
             case "char[][]":

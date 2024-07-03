@@ -305,6 +305,10 @@ class GolangWriter(LanguageWriter):
                         for var in vrs:
                             json_parse.append(f"\t{var} = ArrayToTree(inputValues[{i}])\n")
                         imports_libs.add("\t. \"leetCode/golang/models\"")
+                    case "[]*TreeNode":
+                        for var in vrs:
+                            json_parse.append(f"\t{var} = ArrayToTreeArray(inputValues[{i}])\n")
+                        imports_libs.add("\t. \"leetCode/golang/models\"")
                     case "*Node":
                         if ("Left *Node" in code_default
                                 and "Right *Node" in code_default

@@ -1302,6 +1302,8 @@ problems["283"] = [
     }
 ]
 
+problems["1932"] = []
+
 if __name__ == '__main__':
     code_counter = Counter()
     for test_problem, codes in problems.items():
