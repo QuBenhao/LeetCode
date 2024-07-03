@@ -81,6 +81,7 @@ def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
         for j, str_convertors in enumerate([lambda s: s.split("\n")[0].split(">")[-1].strip(),
                                             lambda s: s.split("\n")[1].split(">")[-1].strip(),
                                             lambda s: s.split(">")[1].split("<")[0].strip(),
+                                            lambda s: s.split('</span>')[0].split(">")[-1].strip(),
                                             lambda s: s.split('example-io">')[1].split("<")[0].strip(),
                                             ] if not chinese else
                                            [lambda s: s.split("\n")[0].split("`")[1].strip(),
