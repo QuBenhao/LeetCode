@@ -4,7 +4,7 @@ var _ = require('lodash-contrib');
 const vm = require('node:vm');
 
 
-const PROBLEMS: string[][] = [['560', 'problems']];
+const PROBLEMS: string[][] = [['94', 'problems']];
 
 for (const [problemId, problemFolder] of PROBLEMS) {
     describe(`Test for problem ${problemId}`, () => {

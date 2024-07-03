@@ -4,7 +4,7 @@ import * as ts from "typescript";
 var _ = require('lodash-contrib');
 const vm = require('node:vm');
 
-const PROBLEM_ID: string = "3099";
+const PROBLEM_ID: string = "3086";
 
 describe("TestMain===" + PROBLEM_ID, () => {
     dotenv.config();
