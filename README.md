@@ -142,7 +142,7 @@ it will add the problem and change the tests of your languages as below:
 
 In VsCode,
 add launch.json under `.vscode`
-```json
+```json5
 {
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.
@@ -213,7 +213,7 @@ add launch.json under `.vscode`
 }
 ```
 and tasks.json under `.vscode`
-```json
+```json5
 {
 	"version": "2.0.0",
 	"tasks": [
@@ -314,7 +314,7 @@ Add your folder to all [actions](.github/workflows/) sparse-checkout part and co
 ```
 
 
-[**Demo project**](https://github.com/BenhaoQu/LeetCode)
+[**Demo project**](https://github.com/BenhaoQu/LeetCode/tree/demo_master)
 
 # Problems
 
