@@ -1,23 +1,22 @@
 import solution
+from typing import *
 from python.object_libs import list_to_tree, tree_to_list
 
 
-class Solution(solution.Solution):
-    def solve(self, test_input=None):
-        trees = [list_to_tree(nums) for nums in test_input]
-        root = self.canMerge(trees)
-        return tree_to_list(root)
-
-    def canMerge(self, trees):
-        """
-        :type trees: List[TreeNode]
-        :rtype: TreeNode
-        """
-
-
-# Definition for a binary tree node.
-class TreeNode(object):
+class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
+
+
+class Solution(solution.Solution):
+    def solve(self, test_input=None):
+        nums_arr = test_input
+        roots = [list_to_tree(nums) for nums in nums_arr]
+        res = self.canMerge(roots)
+        return tree_to_list(res)
+
+    def canMerge(self, trees: List[TreeNode]) -> Optional[TreeNode]:
+        pass
+
