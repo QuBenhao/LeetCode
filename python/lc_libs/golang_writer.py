@@ -290,6 +290,17 @@ class GolangWriter(LanguageWriter):
                         imports_libs.add("\t. \"leetCode/golang/models\"")
                         imports_libs.add("\t\"encoding/json\"")
                         imports_libs.add("\t\"log\"")
+                    case "[]*ListNode":
+                        for var in vrs:
+                            json_parse.append(f"\tvar {var}IntArrays [][]int\n")
+                            json_parse.append(f"\tif err := json.Unmarshal([]byte(inputValues[{i}]), &" + var +
+                                              "IntArrays); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                            json_parse.append(f"\tfor i := 0; i < len({var}IntArrays); i++" + "{\n")
+                            json_parse.append(f"\t\t{var} = append({var}, IntArrayToLinkedList({var}IntArrays[i]))\n") 
+                            json_parse.append("\t}\n")
+                        imports_libs.add("\t. \"leetCode/golang/models\"")
+                        imports_libs.add("\t\"encoding/json\"")
+                        imports_libs.add("\t\"log\"")
                     case "*TreeNode":
                         for var in vrs:
                             json_parse.append(f"\t{var} = ArrayToTree(inputValues[{i}])\n")

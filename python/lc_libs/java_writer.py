@@ -110,6 +110,7 @@ class JavaWriter(LanguageWriter):
                         additional_import.update(ai)
                         return_part = rp
                     import_packages.extend(additional_import)
+            import_part = True
             for line in code.split("\n"):
                 if "class Solution {" in line:
                     import_part = False
