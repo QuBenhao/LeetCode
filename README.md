@@ -110,6 +110,8 @@ Fork the repo of your own
 
 Clone your own forked repo
 
+**Notice: create your own branch and set it as repo default, and keep master!**
+
 ## Local
 
 Open the code project and installed languages environments as needed.
@@ -287,7 +289,7 @@ Feel free to ask the author and add issues, discussions on GitHub.
 
 ## GitHub
 
-Config GitHub Action Secrets for daily auto scripts.
+Config GitHub Action Secrets for daily auto scripts. {SECRETS: TOKEN}
 ![github_settings.png](docs/github_settings.png)
 
 Add values similar to you .env, for example, 
@@ -300,8 +302,6 @@ Add your folder to all [actions](.github/workflows/) sparse-checkout part and co
           .github
           cpp
           golang
-          problems
-          premiums
           mysql
           python
           qubhjava
@@ -312,7 +312,6 @@ Add your folder to all [actions](.github/workflows/) sparse-checkout part and co
           `demo`
           `your_folder`
 ```
-
 
 [**Demo project**](https://github.com/BenhaoQu/LeetCode/tree/demo_master)
 
