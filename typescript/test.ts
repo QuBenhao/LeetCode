@@ -3,6 +3,8 @@ import * as dotenv from 'dotenv'
 import * as ts from "typescript";
 var _ = require('lodash-contrib');
 const vm = require('node:vm');
+import { ListNode, IntArrayToLinkedList, LinkedListToIntArray } from "./models/listnode";
+import {TreeNode, TreeNodeToJSONArray, JSONArrayToTreeNode, JSONArrayToTreeNodeArray} from "./models/treenode"
 
 const PROBLEM_ID: string = "3086";
 
@@ -21,17 +23,27 @@ describe("TestMain===" + PROBLEM_ID, () => {
     const inputs: string = splits[0], outputs: string = splits[1];
     const inputJson: any = JSON.parse(inputs), outputJson: any = JSON.parse(outputs);
     let fileContent: string = fs.readFileSync(solPath, "utf-8");
+    fileContent = fileContent.split('\n').filter(line => !line.trim().startsWith('import ')).join('\n');
     fileContent = fileContent.replace("export function Solve", "function Solve");
     fileContent += "const execResult = Solve(testInputJsonString);"
-    let result = ts.transpileModule(fileContent, { compilerOptions: { module: ts.ModuleKind.ES2022 }});
+    let result = ts.transpileModule(fileContent, { compilerOptions: { module: ts.ModuleKind.ES2022 } });
 
     const r = result["outputText"];
     const script = new vm.Script(r);
     for (let i: number = 0; i < inputJson.length; i++) {
         it("TestCase" + i, () => {
-            const context = { testInputJsonString: inputJson[i], execResult: null as any};
+            const context = {
+                testInputJsonString: inputJson[i], execResult: null as any,
+                ListNode,
+                TreeNode,
+                IntArrayToLinkedList,
+                LinkedListToIntArray,
+                TreeNodeToJSONArray,
+                JSONArrayToTreeNode,
+                JSONArrayToTreeNodeArray,
+            };
             vm.createContext(context); // Contextify the object.
-            script.runInContext(context, {timeout: 3000});
+            script.runInContext(context, { timeout: 3000 });
             const result: any = context.execResult;
             if (_.isFloat(outputJson[i])) {
                 expect(result).toBeCloseTo(outputJson[i]);
