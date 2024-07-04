@@ -8,11 +8,11 @@ using json = nlohmann::json;
 class Solution {
 public:
     int sumOfTheDigitsOfHarshadNumber(int x) {
-        int s = 0;
-        for (int num = x; num > 0; num /= 10) {
+        auto s = 0;
+        for (auto num = x; num > 0; num /= 10) {
             s += num % 10;
         }
-        return x % s == 0 ? s : -1;
+        return s != 0 && x % s == 0 ? s : -1;
     }
 };
 

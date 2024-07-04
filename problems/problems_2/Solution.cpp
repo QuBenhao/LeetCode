@@ -18,8 +18,7 @@ using json = nlohmann::json;
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode *dummy = new ListNode();
-        ListNode *node = dummy;
+        auto dummy = new ListNode(), node = dummy;
         for (int addition = 0; l1 != nullptr || l2 != nullptr || addition != 0; node = node->next) {
             int cur = addition;
             if (l1 != nullptr) {
@@ -40,11 +39,11 @@ public:
 json leetcode::qubh::Solve(string input)
 {
 	vector<string> inputArray;
-	int pos = input.find("\n");
+	auto pos = input.find('\n');
 	while (pos != string::npos) {
 		inputArray.push_back(input.substr(0, pos));
 		input = input.substr(pos + 1);
-		pos = input.find("\n");
+		pos = input.find('\n');
 	}
 	inputArray.push_back(input);
 
