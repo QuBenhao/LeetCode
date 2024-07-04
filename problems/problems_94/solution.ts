@@ -15,7 +15,17 @@ import {JSONArrayToTreeNode,TreeNode} from "../../typescript/models/treenode";
  */
 
 function inorderTraversal(root: TreeNode | null): number[] {
-    
+	const ans: number[] = [];
+	const inorder: Function = (node: TreeNode | null): void => {
+		if (node == null) {
+			return
+		}
+		inorder(node.left);
+		ans.push(node.val);
+		inorder(node.right);
+	}
+	inorder(root);
+	return ans;
 };
 
 export function Solve(inputJsonElement: string): any {

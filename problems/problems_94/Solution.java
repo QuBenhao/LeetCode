@@ -22,7 +22,18 @@ import qubhjava.models.TreeNode;
 
 public class Solution extends BaseSolution {
     public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        inorder(ans, root);
+        return ans;
+    }
 
+    private void inorder(List<Integer> ans, TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        inorder(ans, node.left);
+        ans.add(node.val);
+        inorder(ans, node.right);
     }
 
     @Override

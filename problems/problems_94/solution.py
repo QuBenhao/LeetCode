@@ -17,5 +17,11 @@ class Solution(solution.Solution):
         return self.inorderTraversal(root0)
 
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        pass
+        def inorder(node: Optional[TreeNode]):
+            if not node:
+                return
+            yield from inorder(node.left)
+            yield node.val
+            yield from inorder(node.right)
 
+        return list(inorder(root))

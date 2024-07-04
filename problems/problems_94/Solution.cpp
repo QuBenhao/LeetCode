@@ -19,7 +19,18 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<int> inorderTraversal(TreeNode* root) {
-
+        vector<int> ans;
+        inorder(ans, root);
+        return ans;
+    }
+private:
+    void inorder(vector<int>& ans, TreeNode* node) {
+        if (node == nullptr) {
+            return;
+        }
+        inorder(ans, node->left);
+        ans.push_back(node->val);
+        inorder(ans, node->right);
     }
 };
 
