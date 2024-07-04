@@ -1,8 +1,15 @@
 import * as fs from 'fs';
 import * as ts from "typescript";
+
 var _ = require('lodash-contrib');
 const vm = require('node:vm');
-import { ListNode, IntArrayToLinkedList, LinkedListToIntArray } from "./models/listnode";
+import {Queue} from '@datastructures-js/queue';
+import {
+    PriorityQueue,
+    MinPriorityQueue,
+    MaxPriorityQueue
+} from '@datastructures-js/priority-queue';
+import {ListNode, IntArrayToLinkedList, LinkedListToIntArray} from "./models/listnode";
 import {TreeNode, TreeNodeToJSONArray, JSONArrayToTreeNode, JSONArrayToTreeNodeArray} from "./models/treenode"
 
 const PROBLEMS: string[][] = [['94', 'problems']];
@@ -30,7 +37,7 @@ for (const [problemId, problemFolder] of PROBLEMS) {
             solutionFileContent = solutionFileContent.split('\n').filter(line => !line.trim().startsWith('import ')).join('\n');
             solutionFileContent = solutionFileContent.replace("export function Solve", "function Solve");
             solutionFileContent += "const execResult = Solve(testInputJsonString);"
-            let result = ts.transpileModule(solutionFileContent, { compilerOptions: { module: ts.ModuleKind.ES2022 }});
+            let result = ts.transpileModule(solutionFileContent, {compilerOptions: {module: ts.ModuleKind.ES2022}});
             const codeText: string = result["outputText"];
             script = new vm.Script(codeText);
         });
@@ -42,12 +49,16 @@ for (const [problemId, problemFolder] of PROBLEMS) {
                     testInputJsonString: inputJson[i],
                     execResult: null as any,
                     ListNode,
-                    TreeNode,
                     IntArrayToLinkedList,
                     LinkedListToIntArray,
+                    TreeNode,
                     TreeNodeToJSONArray,
                     JSONArrayToTreeNode,
                     JSONArrayToTreeNodeArray,
+                    Queue,
+                    PriorityQueue,
+                    MinPriorityQueue,
+                    MaxPriorityQueue,
                 };
                 vm.createContext(context); // Contextify the object.
                 script.runInContext(context, {timeout: 3000});
