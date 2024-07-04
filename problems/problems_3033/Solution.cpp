@@ -8,7 +8,22 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<vector<int>> modifiedMatrix(vector<vector<int>>& matrix) {
-        
+        auto m = matrix.size(), n = matrix[0].size();
+        for (size_t j = 0; j < n; j++) {
+            auto mx = -1;
+            auto remain = vector<size_t>();
+            for (size_t i = 0; i < m; i++) {
+                if (matrix[i][j] != -1) {
+                    mx = max(mx, matrix[i][j]);
+                } else {
+                    remain.push_back(i);
+                }
+            }
+            for (auto i: remain) {
+                matrix[i][j] = mx;
+            }
+        }
+        return matrix;
     }
 };
 
