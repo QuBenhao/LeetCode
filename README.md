@@ -289,7 +289,7 @@ Feel free to ask the author and add issues, discussions on GitHub.
 
 ## GitHub
 
-Config GitHub Action Secrets for daily auto scripts. {SECRETS: TOKEN}
+Config [GitHub Action Secrets](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) for daily auto scripts. {SECRETS: TOKEN}
 ![github_settings.png](docs/github_settings.png)
 
 Add values similar to you .env, for example, 
