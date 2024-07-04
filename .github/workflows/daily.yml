@@ -65,7 +65,7 @@ jobs:
 
     - name: Push changes
       run: |
-        if git log origin/master..HEAD --oneline | read; then
+        if git log origin/${{ github.ref_name }}..HEAD --oneline | read; then
           git push
         else
           echo "No changes to push"
