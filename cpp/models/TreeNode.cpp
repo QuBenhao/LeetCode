@@ -6,10 +6,10 @@ TreeNode *JsonArrayToTreeNode(json arr) {
     if (arr.empty()) {
         return nullptr;
     }
-    auto *root = new TreeNode(arr[0]);
+    auto root = new TreeNode(arr[0]);
     int isLeft = true;
     std::queue<TreeNode *> q;
-    TreeNode *curr_node = root;
+    auto curr_node = root;
     for (size_t i = 1; i < arr.size(); i++) {
         json num = arr[i];
         if (isLeft == 1) {
@@ -35,7 +35,7 @@ std::vector<TreeNode*> JsonArrayToTreeNodeArray(json arr) {
         return {};
     }
     auto ans = std::vector<TreeNode*>(arr.size(), nullptr);
-    for (size_t i = 0; i < arr.size(); i++) {
+    for (auto i = 0; i < arr.size(); i++) {
         ans[i] = JsonArrayToTreeNode(arr[i]);
     }
     return ans;

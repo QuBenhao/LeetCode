@@ -6,8 +6,8 @@
 
 ListNode *IntArrayToListNode(std::vector<int> &arr) {
     auto dummy = new ListNode(), p = dummy;
-    for (auto i = 0; i < arr.size(); i++) {
-        p->next = new ListNode(arr[i]);
+    for (auto val : arr) {
+        p->next = new ListNode(val);
         p = p->next;
     }
     return dummy->next;
