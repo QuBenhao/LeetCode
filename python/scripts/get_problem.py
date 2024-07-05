@@ -15,9 +15,9 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from python.constants import constant
 from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, \
     get_question_testcases, extract_outputs_from_md, get_question_code, \
-    get_question_desc_cn, Python3Writer, GolangWriter, JavaWriter, CppWriter, TypescriptWriter
+    get_question_desc_cn, Python3Writer
 import python.lc_libs as lc_libs
-from python.utils import get_default_folder
+from python.utils import get_default_folder, back_question_id, format_question_id
 
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False,
@@ -99,7 +99,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         except Exception as _:
             traceback.print_exc()
 
-    print(f"Add question: [{problem_id}]{problem_slug}", file=file)
+    print(f"Add question: [{back_question_id(problem_id)}]{problem_slug}", file=file)
 
 
 def process_single_database_problem(problem_folder: str, problem_id: str, problem_slug: str,
@@ -129,34 +129,35 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
     print(f"Add question: [{problem_id}]{problem_slug}", file=file)
 
 
-def main(problem_id: Optional[str], problem_slug: Optional[str], problem_category: Optional[str],
+def main(origin_problem_id: Optional[str], problem_slug: Optional[str], problem_category: Optional[str],
          force: bool = False, cookie: Optional[str] = None, fetch_all: bool = False, premium_only: bool = False,
          file: Optional[str] = None, replace_problem_id: bool = False, skip_language: bool = False,
          languages: list[str] = None, problem_folder: str = None):
     if not fetch_all:
-        if not problem_id and not problem_slug:
+        if not origin_problem_id and not problem_slug:
             print("Requires at least one of problem_id or problem_slug to fetch in single mode.")
             return
         if not problem_slug:
-            questions = get_questions_by_key_word(problem_id, problem_category) if problem_category \
-                else get_questions_by_key_word(problem_id)
+            questions = get_questions_by_key_word(origin_problem_id, problem_category) if problem_category \
+                else get_questions_by_key_word(origin_problem_id)
             if not questions:
-                print(f"Unable to find any questions with problem_id {problem_id}")
+                print(f"Unable to find any questions with problem_id {origin_problem_id}")
                 return
             for question in questions:
                 if question["paidOnly"] and not cookie:
                     continue
-                if question["frontendQuestionId"] == problem_id:
+                if question["frontendQuestionId"] == origin_problem_id:
                     problem_slug = question["titleSlug"]
                     break
             if not problem_slug:
-                print(f"Unable to find any questions with problem_id {problem_id}, possible questions: {questions}")
+                print(
+                    f"Unable to find any questions with problem_id {origin_problem_id}, possible questions: {questions}")
                 return
         question_info = get_question_info(problem_slug, cookie)
         if not question_info:
             print(f"Unable to check out problem given by slug: {problem_slug}, please check ")
             return
-        problem_id = question_info["questionFrontendId"].replace(" ", "_")
+        problem_id = question_info["questionFrontendId"]
         problem_title = question_info["title"]
         pc = question_info["categoryTitle"]
         paid_only = premium_only or question_info["isPaidOnly"]
@@ -168,7 +169,6 @@ def main(problem_id: Optional[str], problem_slug: Optional[str], problem_categor
             process_single_algorithm_problem(tmp, problem_id, problem_slug, problem_title, cookie, force,
                                              skip_language, languages=languages)
             if replace_problem_id:
-                problem_id = problem_id.replace(" ", "_")
                 root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
                 for lang in languages:
                     cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
@@ -191,12 +191,12 @@ def main(problem_id: Optional[str], problem_slug: Optional[str], problem_categor
             print("Requires premium cookie to keep going.")
             return
         keyword = None
-        if problem_id:
-            keyword = problem_id
+        if origin_problem_id:
+            keyword = origin_problem_id
         if problem_slug:
             keyword = problem_slug
-        questions = get_questions_by_key_word(problem_id, problem_category, fetch_all, premium_only) if problem_category \
-            else get_questions_by_key_word(problem_id, fetch_all=fetch_all, premium_only=premium_only)
+        questions = get_questions_by_key_word(keyword, problem_category, fetch_all, premium_only) if problem_category \
+            else get_questions_by_key_word(keyword, fetch_all=fetch_all, premium_only=premium_only)
         if not questions:
             print(f"Unable to find any questions with keyword: [{keyword}],"
                   f" fetch_all: [{fetch_all}], premium_only: {premium_only}")
@@ -204,7 +204,7 @@ def main(problem_id: Optional[str], problem_slug: Optional[str], problem_categor
         for question in tqdm(questions):
             question_info = get_question_info(question["titleSlug"], cookie)
             pc = question_info["categoryTitle"]
-            question_id = question["frontendQuestionId"].replace(" ", "_")
+            question_id = format_question_id(question["frontendQuestionId"])
             paid_only = premium_only or question_info["isPaidOnly"]
             try:
                 if file is not None:
@@ -265,7 +265,7 @@ if __name__ == '__main__':
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, None)
     langs = os.getenv(constant.LANGUAGES, "python3").split(",")
-    main(args.problem_id, args.problem_slug, args.problem_category,
+    main(back_question_id(args.problem_id), args.problem_slug, args.problem_category,
          args.force, cke, args.fetch_all, args.premium_only, args.debug_file, args.change_problem_id,
          args.skip_language, langs, problem_folder=pf)
     sys.exit()

@@ -19,7 +19,7 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
         if not daily_info:
             print(f"Unable to get daily question")
             return 1
-        daily_question = daily_info['questionId'].replace(" ", "_")
+        daily_question = daily_info['questionId']
         finish_daily = False
         plan_questions_slug = set()
         finished_plan_questions = []
@@ -44,7 +44,6 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
         root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
         sys.path.insert(0, os.path.join(root_path, "python"))
         for question_id, submits in submit_dict.items():
-            question_id = question_id.replace(" ", "_")
             cache = set()
             info = None
             if problem_folder:

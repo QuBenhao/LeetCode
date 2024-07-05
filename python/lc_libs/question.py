@@ -8,7 +8,7 @@ import requests
 
 from python.constants import (LEET_CODE_BACKEND, QUESTION_INFO_QUERY, QUESTION_DESC_QUERY, QUESTION_DESC_CN_QUERY,
                               QUESTION_CODE_QUERY, QUESTION_TESTCASE_QUERY, QUESTION_KEYWORDS_QUERY)
-from python.utils import general_request
+from python.utils import general_request, format_question_id
 
 CATEGORY_SLUG = {"all-code-essentials", "algorithms", "database"}
 LANGUAGE_SLUG = {"python3", "mysql"}
@@ -20,7 +20,7 @@ def get_question_info(slug: str, cookie: Optional[str] = None) -> Optional[dict]
         return {
             "title": res_dict['title'],
             "difficulty": res_dict['difficulty'],
-            "questionFrontendId": res_dict['questionFrontendId'],
+            "questionFrontendId": format_question_id(res_dict['questionFrontendId']),
             "categoryTitle": res_dict["categoryTitle"],
             "questionId": res_dict["questionId"],
             "isPaidOnly": res_dict["isPaidOnly"]

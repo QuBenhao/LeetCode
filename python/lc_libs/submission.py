@@ -11,7 +11,7 @@ from python.constants import (LEET_CODE_BACKEND, RECENT_SUBMISSIONS_QUERY, RECEN
                               USER_PROFILE_QUESTIONS_QUERY, PROGRESS_SUBMISSIONS_QUERY, MY_SUBMISSION_DETAIL_QUERY,
                               SUBMIT_SUCCESS_RESULT, SUBMIT_BASIC_RESULT, SUBMIT_FAIL_RESULT,
                               TESTCASE_TEMPLATE_PYTHON_TESTCASES)
-from python.utils import general_request, get_china_daily_time
+from python.utils import general_request, get_china_daily_time, format_question_id
 
 
 def check_submission(user_slug: str, question_frontend_ids: set[str],
@@ -21,10 +21,11 @@ def check_submission(user_slug: str, question_frontend_ids: set[str],
         result_dict = json.loads(response.text)['data']['recentSubmitted']
         if result_dict:
             for submit in result_dict:
-                if submit['status'] == "A_10" and submit['question']['questionFrontendId'] in question_frontend_ids:
+                question_id = format_question_id(submit['question']['questionFrontendId'])
+                if submit['status'] == "A_10" and question_id in question_frontend_ids:
                     t = submit['submitTime']
                     if t >= min_timestamp and (not max_timestamp or t < max_timestamp):
-                        ans[submit['question']['questionFrontendId']] = t
+                        ans[question_id] = t
                 if submit['submitTime'] < min_timestamp:
                     break
 
@@ -49,8 +50,8 @@ def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=
                     break
                 print(submit)
                 if not max_timestamp or t < max_timestamp:
-                    ans[submit['question']['questionFrontendId']].append((submit["submissionId"],
-                                                                          submit['question']["titleSlug"], "python3"))
+                    (ans[format_question_id(submit['question']['questionFrontendId'])]
+                     .append((submit["submissionId"], submit['question']["titleSlug"], "python3")))
 
     if min_timestamp is None:
         min_timestamp = get_china_daily_time()
@@ -75,7 +76,7 @@ def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp
                 break
             print(submit)
             if not max_timestamp or t < max_timestamp:
-                ans[question_submit_info["frontendId"]].append(
+                ans[format_question_id(question_submit_info["frontendId"])].append(
                     (submit["id"], question_submit_info["titleSlug"], submit["lang"]))
 
     if min_timestamp is None:
@@ -272,7 +273,7 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
         )
         if submit_detail["outputDetail"]["input"] and submit_detail["outputDetail"]["expectedOutput"]:
             _add_test(root_path, problem_folder, question_id,
-                     submit_detail["outputDetail"]["input"], submit_detail["outputDetail"]["expectedOutput"])
+                      submit_detail["outputDetail"]["input"], submit_detail["outputDetail"]["expectedOutput"])
 
     print(SUBMIT_BASIC_RESULT.format(
         submit_detail["statusDisplay"],

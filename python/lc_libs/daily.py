@@ -2,7 +2,7 @@ import json
 from typing import Optional, Dict
 
 from python.constants import LEET_CODE_BACKEND, DAILY_QUERY
-from python.utils import general_request
+from python.utils import general_request, format_question_id
 
 
 def get_daily_question() -> Optional[Dict]:
@@ -11,7 +11,7 @@ def get_daily_question() -> Optional[Dict]:
         daily_question = res_dict['data']['todayRecord'][0]
         return {
             'date': daily_question['date'],
-            'questionId': daily_question['question']['frontendQuestionId'],
+            'questionId': format_question_id(daily_question['question']['frontendQuestionId']),
             'questionNameEn': daily_question['question']['title'],
             'questionName': daily_question['question']['titleCn'],
             'questionSlug': daily_question['question']['titleSlug'],

@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from python import lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder
+from python.utils import get_default_folder, back_question_id, format_question_id
 
 _LANG_TRANS_MAP = {
     "go": "golang",
@@ -36,7 +36,6 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     if not problem_id:
         if not problem_folder:
             problem_folder = get_default_folder()
-        origin_problem_id, problem_id = problem_id, problem_id.replace(" ", "_")
         code, problem_id = code_func(root_path, problem_folder, problem_id)
         load_code = True
         if not code:
@@ -45,8 +44,7 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
         if not problem_id:
             print("Unable to get problem_id")
             return
-    else:
-        origin_problem_id, problem_id = problem_id, problem_id.replace(" ", "_")
+    origin_problem_id = back_question_id(problem_id)
     questions = lc_libs.get_questions_by_key_word(origin_problem_id)
     if not questions:
         print(f"Unable to find any questions with problem_id {origin_problem_id}")
@@ -59,11 +57,13 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
             problem_slug = question["titleSlug"]
             break
     if not problem_slug:
-        print(f"Unable to find any questions with problem_id {problem_id}, possible questions: {questions}")
+        print(
+            f"Unable to find any questions with problem_id {origin_problem_id}, possible questions:\n"
+            + "\n".join(v for v in questions))
         return
     problem_info = lc_libs.get_question_info(problem_slug, cookie)
     if not problem_info:
-        print(f"Unable to get problem info: {problem_id}")
+        print(f"Unable to get problem info, slug: {problem_slug}")
         return
     is_paid_only = problem_info["isPaidOnly"]
     if not problem_folder:
@@ -118,5 +118,5 @@ if __name__ == '__main__':
         asyncio.set_event_loop(loop)
     else:
         loop = asyncio.get_event_loop()
-    loop.run_until_complete(main(rp, question_id, args.lang, cke, pf))
+    loop.run_until_complete(main(rp, format_question_id(question_id), args.lang, cke, pf))
     sys.exit(0)
