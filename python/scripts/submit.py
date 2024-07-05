@@ -82,6 +82,7 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
         if problem_slug in all_problems:
             result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang,
                                                lc_question_id, code, plan)
+            print()
             exists = True
     if not exists:
         result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang,

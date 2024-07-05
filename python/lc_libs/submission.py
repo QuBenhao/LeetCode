@@ -215,16 +215,6 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
             print(response.text)
             return None
         result_dict = json.loads(response.text)["data"]["submissionDetail"]
-        """
-        {
-          "codeOutput": "",
-          "expectedOutput": "",
-          "input": "",
-          "compileError": "",
-          "runtimeError": "",
-          "lastTestcase": ""
-        }
-        """
         return {
             "statusDisplay": result_dict["statusDisplay"],
             "outputDetail": result_dict["outputDetail"],
