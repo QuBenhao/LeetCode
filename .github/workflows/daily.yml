@@ -18,7 +18,7 @@ jobs:
           .github
           cpp
           golang
-          problems
+          python
           qubhjava
           typescript
           go.mod
@@ -28,7 +28,7 @@ jobs:
           tsconfig.json
           package.json
           jest.config.ts
-          ${{ secrets.PROBLEM_FOLDER || 'python\npremiums' }}
+          ${{ secrets.PROBLEM_FOLDER || 'problems\npremiums' }}
 
     - name: Set up Python environment
       uses: actions/setup-python@v2
