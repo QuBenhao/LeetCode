@@ -11,8 +11,7 @@ from python.constants import (LEET_CODE_BACKEND, RECENT_SUBMISSIONS_QUERY, RECEN
                               USER_PROFILE_QUESTIONS_QUERY, PROGRESS_SUBMISSIONS_QUERY, MY_SUBMISSION_DETAIL_QUERY,
                               SUBMIT_SUCCESS_RESULT, SUBMIT_BASIC_RESULT, SUBMIT_FAIL_RESULT,
                               TESTCASE_TEMPLATE_PYTHON_TESTCASES)
-from python.utils import general_request, get_china_daily_time
-from python.lc_libs import format_question_id
+from python.utils import general_request, get_china_daily_time, format_question_id
 
 
 def check_submission(user_slug: str, question_frontend_ids: set[str],

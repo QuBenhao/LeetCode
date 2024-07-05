@@ -2,8 +2,7 @@ import json
 from typing import Optional, Dict
 
 from python.constants import LEET_CODE_BACKEND, DAILY_QUERY
-from python.utils import general_request
-from python.lc_libs import format_question_id
+from python.utils import general_request, format_question_id
 
 
 def get_daily_question() -> Optional[Dict]:

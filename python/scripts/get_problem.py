@@ -15,9 +15,9 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from python.constants import constant
 from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, \
     get_question_testcases, extract_outputs_from_md, get_question_code, \
-    get_question_desc_cn, Python3Writer, back_question_id, format_question_id
+    get_question_desc_cn, Python3Writer
 import python.lc_libs as lc_libs
-from python.utils import get_default_folder
+from python.utils import get_default_folder, back_question_id, format_question_id
 
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False,

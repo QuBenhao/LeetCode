@@ -8,8 +8,7 @@ import requests
 
 from python.constants import (LEET_CODE_BACKEND, QUESTION_INFO_QUERY, QUESTION_DESC_QUERY, QUESTION_DESC_CN_QUERY,
                               QUESTION_CODE_QUERY, QUESTION_TESTCASE_QUERY, QUESTION_KEYWORDS_QUERY)
-from python.utils import general_request
-from python.lc_libs import format_question_id
+from python.utils import general_request, format_question_id
 
 CATEGORY_SLUG = {"all-code-essentials", "algorithms", "database"}
 LANGUAGE_SLUG = {"python3", "mysql"}

@@ -11,4 +11,3 @@ from .java_writer import JavaWriter
 from .cpp_writer import CppWriter
 from .typescript_writer import TypescriptWriter
 from .study_plan import get_user_study_plans, get_user_study_plan_progress
-from .common import format_question_id, back_question_id
