@@ -7,6 +7,7 @@ from importlib.util import spec_from_file_location, module_from_spec
 
 from python.constants import TESTCASE_TEMPLATE_PYTHON, TESTCASE_TEMPLATE_PYTHON_TESTCASES, SOLUTION_TEMPLATE_PYTHON
 from python.lc_libs.language_writer import LanguageWriter
+from python.utils import back_question_id
 
 
 class Python3Writer(LanguageWriter):
@@ -119,7 +120,7 @@ class Python3Writer(LanguageWriter):
             elif check and len(line) == 0:
                 continue
             formated.append(line)
-        return "# {}. {}\n\n{}".format(question_id, question_name, "\n".join(formated))
+        return "# {}. {}\n\n{}".format(back_question_id(question_id), question_name, "\n".join(formated))
 
     @staticmethod
     def write_testcase(testcases, outputs) -> str:

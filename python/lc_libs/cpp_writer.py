@@ -213,7 +213,7 @@ class CppWriter(LanguageWriter):
                 lines = f.read().split('\n')
                 for line in lines:
                     if f"path = \"{problem_folder}/{problem_folder}_" in line:
-                        problem_id = line.split('_')[-1].split('/')[0]
+                        problem_id = "_".join(line.split('_')[1:]).split('/')[0]
                         break
         if not problem_id:
             return "", problem_id
