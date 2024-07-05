@@ -13,17 +13,18 @@ from python import lc_libs
 
 def get_args():
     parser = argparse.ArgumentParser(description="Test code snippets for solutions")
-    subparsers = parser.add_subparsers(
-        title="subcommands", description="valid subcommands", help="additional help"
-    )
-    sol = subparsers.add_subparsers("solution", type=str, help="Solution test mode")
-    sol.set_defaults(func=test_solution)
-    smt = subparsers.add_subparsers("submit", type=str, help="Submit test mode")
-    smt.set_defaults(func=test_submit)
     parser.add_argument(
         "-p", "--problem", type=str, help="Problem name to test", default=None
     )
     parser.add_argument("-l", "--lang", type=str, help="Language to test", default=None)
+    subparsers = parser.add_subparsers(
+        title="subcommands", description="valid subcommands", help="additional help"
+    )
+    sol = subparsers.add_parser("solution", help="Solution test mode")
+    sol.set_defaults(func=test_solution)
+    smt = subparsers.add_parser("submit", help="Submit test mode")
+    smt.set_defaults(func=test_submit)
+
     return parser.parse_args()
 
 
@@ -72,7 +73,43 @@ def test_solution(args):
 
 
 def test_submit(args):
-    pass
+    if not args.problem:
+        raise ValueError("Problem id is required")
+    if args.lang:
+        languages = args.lang.split(",")
+    else:
+        languages = ["python3", "golang", "java", "cpp", "typescript"]
+    cur_path = os.path.dirname(os.path.abspath(__file__))
+    root_path = os.path.dirname(os.path.dirname(cur_path))
+    problem_path = f"{root_path}/problems/problems_{args.problem}/"
+    if not os.path.exists(problem_path):
+        problem_path = problem_path.replace("problems", "premiums")
+        if not os.path.exists(problem_path):
+            raise FileNotFoundError(
+                f"Problem file not found, check problem: {args.problem}"
+            )
+        problem_folder = "premiums"
+    else:
+        problem_folder = "problems"
+    for lang in languages:
+        cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+        if not cls:
+            continue
+        obj = cls()
+        gsc_func = getattr(obj, "get_solution_code", None)
+        if not gsc_func:
+            continue
+        solution_file: str = getattr(cls, "solution_file", None)
+        if not solution_file:
+            continue
+        code, _ = gsc_func(root_path, problem_folder, args.problem)
+        tmp_sol = solution_file.split(".")
+        with open(
+            f"{cur_path}/tmp_submit_{tmp_sol[0]}.{tmp_sol[1]}",
+            "w",
+            encoding="utf-8",
+        ) as f:
+            f.write(code)
 
 
 if __name__ == "__main__":
