@@ -36,7 +36,6 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     if not problem_id:
         if not problem_folder:
             problem_folder = get_default_folder()
-        origin_problem_id, problem_id = problem_id, problem_id.replace(" ", "_")
         code, problem_id = code_func(root_path, problem_folder, problem_id)
         load_code = True
         if not code:
@@ -45,8 +44,7 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
         if not problem_id:
             print("Unable to get problem_id")
             return
-    else:
-        origin_problem_id, problem_id = problem_id, problem_id.replace(" ", "_")
+    origin_problem_id, problem_id = lc_libs.back_question_id(problem_id), lc_libs.format_question_id(problem_id)
     questions = lc_libs.get_questions_by_key_word(origin_problem_id)
     if not questions:
         print(f"Unable to find any questions with problem_id {origin_problem_id}")
