@@ -77,7 +77,8 @@ def check_problem_solved_and_write(question_id: str,
             test_commands = [["npm", "test"]]
         case "typescript":
             lang_env = ["npm", "--version"]
-            test_commands = [["npm", "test", "--", "typescript/test.ts"]]
+            test_commands = [["npm", "test", "--alwaysStrict", "--strictBindCallApply",
+                              "--strictFunctionTypes", "--target ES202", "typescript/test.ts"]]
         case _:
             file_name = "unknown"
             lang_env = None
