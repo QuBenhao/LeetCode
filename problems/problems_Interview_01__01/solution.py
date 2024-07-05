@@ -6,6 +6,7 @@ class Solution(solution.Solution):
     def solve(self, test_input=None):
         return self.isUnique(test_input)
 
+
     def isUnique(self, astr: str) -> bool:
-        pass
+        return len(set(astr)) == len(astr)
 
