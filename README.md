@@ -339,22 +339,7 @@ Add values similar to you .env, for example,
 ![cookie_key.png](docs/cookie_key.png)
 
 **Notice:** 
-Add your folder to all [actions](.github/workflows/) sparse-checkout part and commit
-```yaml
-        sparse-checkout: |
-          .github
-          cpp
-          golang
-          mysql
-          python
-          qubhjava
-          typescript
-          go.mod
-          go.sum
-          pom.xml
-          `demo`
-          `your_folder`
-```
+Add PROBLEM_FOLDER for [actions](.github/workflows/) to work properly.
 
 [**Demo project**](https://github.com/BenhaoQu/LeetCode/tree/demo_master)
 
