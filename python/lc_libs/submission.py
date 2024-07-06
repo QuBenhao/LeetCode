@@ -199,21 +199,21 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
                       leetcode_question_id: str, typed_code: str, study_plan_slug: str = None) -> dict | None:
     def handle_submit_response(response: requests.Response):
         if not response.text or response.status_code != 200:
-            print(response.text)
+            print(response.status_code, response.text)
             return None
         result_dict = json.loads(response.text)
         return result_dict["submission_id"]
 
     def handle_submit_check_response(response: requests.Response):
         if not response.text or response.status_code != 200:
-            print(response.text)
+            print(response.status_code, response.text)
             return False
         result_dict = json.loads(response.text)
         return result_dict["state"] == "SUCCESS"
 
     def handle_submit_detail_response(response: requests.Response):
         if not response.text or response.status_code != 200:
-            print(response.text)
+            print(response.status_code, response.text)
             return None
         result_dict = json.loads(response.text)["data"]["submissionDetail"]
         return {

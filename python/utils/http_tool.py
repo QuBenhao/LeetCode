@@ -12,7 +12,7 @@ def general_request(url: str, func=None, request_method: str = "post", params=No
             case _:
                 resp = requests.post(url, data=data, json=json, timeout=30, **kwargs)
         if resp.status_code != 200:
-            print(f"{resp.status_code}: {resp.text}")
+            print(f"Response code[{resp.status_code}] msg: {resp.text}")
         else:
             return func(resp) if func else resp
     except Exception as e:
