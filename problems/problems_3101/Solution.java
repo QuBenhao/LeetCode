@@ -7,7 +7,16 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public long countAlternatingSubarrays(int[] nums) {
-
+        long ans = 0L, cnt = 0L;
+        for (int i = 0; i < nums.length; i++) {
+            if (i == 0 || nums[i] != nums[i - 1]) {
+                cnt++;
+            } else {
+                cnt = 1;
+            }
+            ans += cnt;
+        }
+        return ans;
     }
 
     @Override

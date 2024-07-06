@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static org.testng.Assert.assertEquals;
@@ -39,7 +40,11 @@ public class Common {
             JSONArray outputArray = JSON.parseArray(splits[1]);
             testcases = new Testcase[inputArray.size()];
             for (int i = 0; i < inputArray.size(); i++) {
-                String[] inputSplits = inputArray.getString(i).split("\n");
+                String inputString = inputArray.getString(i);
+                if (inputString.startsWith("\"") && inputString.endsWith("\"")) {
+                    inputString = inputString.substring(1, inputString.length() - 1);
+                }
+                String[] inputSplits = inputString.split("\n");
                 testcases[i] = new Testcase(inputSplits, outputArray.get(i));
                 log.info("Added {}", testcases[i]);
             }
