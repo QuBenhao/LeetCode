@@ -8,7 +8,16 @@ using json = nlohmann::json;
 class Solution {
 public:
     long long countAlternatingSubarrays(vector<int>& nums) {
-        
+        auto ans = 0LL, cnt = 0LL;
+        for (size_t i = 0; i < nums.size(); i++) {
+            if (i == 0 || nums[i] != nums[i - 1]) {
+                cnt++;
+            } else {
+                cnt = 1;
+            }
+            ans += cnt;
+        }
+        return ans;
     }
 };
 

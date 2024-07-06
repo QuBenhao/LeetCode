@@ -10,8 +10,8 @@ class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
         unordered_map<char, int> map;
-        int ans = 0;
-        for (int i = 0, j = -1; i < s.length(); i++) {
+        auto ans = 0;
+        for (int i = 0, j = -1; i < static_cast<int>(s.length()); i++) {
             if (map.find(s[i]) != map.end()) {
                 j = max(j, map[s[i]]);
             }
