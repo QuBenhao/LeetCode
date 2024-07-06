@@ -198,7 +198,7 @@ class GolangWriter(LanguageWriter):
             with open(os.path.join(root_path, "golang", "solution_test.go"), 'r', encoding="utf-8") as f:
                 lines = f.read().split('\n')
                 for line in lines:
-                    if "var problemId string = \"" in line:
+                    if "TestEach(t, \"" in line and "\", \"problems\", problem.Solve)" in line:
                         problem_id = line.split('"')[1]
                         break
         if not problem_id:
