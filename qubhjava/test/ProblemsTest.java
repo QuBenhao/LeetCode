@@ -20,7 +20,7 @@ import java.util.List;
 public class ProblemsTest {
 
     private static final Logger log = LoggerFactory.getLogger(ProblemsTest.class);
-	private static final String[][] PROBLEMS = {{"3", "problems"}, {"73", "problems"}};
+	private static final String[][] PROBLEMS = {{"200", "problems"}, {"20", "problems"}};
 
     @TestFactory
     @SuppressWarnings("unchecked")
