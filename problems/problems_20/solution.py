@@ -1,23 +1,17 @@
 import solution
+from typing import *
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.isValid(str(test_input))
+        return self.isValid(test_input)
 
-    def isValid(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
-        left = ["(","[","{"]
-        right = [")","]","}"]
+    def isValid(self, s: str) -> bool:
         stack = []
+        left, right = "{[(", "}])"
         for c in s:
-            if c in right:
-                if not stack or stack[-1] != left[right.index(c)]:
-                    return False
-                stack.pop()
-            else:
+            if c in left:
                 stack.append(c)
-        return len(stack) == 0
+            elif not stack or left.index(stack.pop()) != right.index(c):
+                return False
+        return not stack
