@@ -14,6 +14,7 @@ Algorithms in LeetCode by Benhao
 - [Demo](#Demo)
     * [Local](#Local)
     * [GitHub](#GitHub)
+    * [Demo Projects](#Demo-Projects)
 - [Problems](#problems)
     * [Easy](#easy)
     * [Medium](#medium)
@@ -341,7 +342,10 @@ Add values similar to you .env, for example,
 **Notice:** 
 Add PROBLEM_FOLDER for [actions](.github/workflows/) to work properly.
 
-[**Demo project**](https://github.com/BenhaoQu/LeetCode/tree/demo_master)
+## Demo Projects
+1. [Benhao Demo](https://github.com/BenhaoQu/LeetCode/tree/demo_master)
+2. [SilentSliver Demo](https://github.com/SilentSliver/LeetCode/)
+
 
 # Problems
 
