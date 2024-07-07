@@ -12,7 +12,7 @@ import {
 import {ListNode, IntArrayToLinkedList, LinkedListToIntArray} from "./models/listnode";
 import {TreeNode, TreeNodeToJSONArray, JSONArrayToTreeNode, JSONArrayToTreeNodeArray} from "./models/treenode"
 
-const PROBLEMS: string[][] = [['62', 'problems'], ['35', 'problems']];
+const PROBLEMS: string[][] = [['70', 'problems']];
 
 for (const [problemId, problemFolder] of PROBLEMS) {
     describe(`Test for problem ${problemId}`, () => {
