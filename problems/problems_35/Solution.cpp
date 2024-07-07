@@ -8,7 +8,16 @@ using json = nlohmann::json;
 class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
-
+        auto left = 0, right = static_cast<int>(nums.size());
+        while (left < right) {
+            auto mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
     }
 };
 
