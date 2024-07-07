@@ -227,7 +227,8 @@ class JavaWriter(LanguageWriter):
             case "List<String>":
                 return f"{rt_type} {variable_name} = jsonArrayToStringList({input_name});"
             case "char":
-                return f"{rt_type} {variable_name} = {input_name}.charAt(0);"
+                return (f"{rt_type} {variable_name} = {input_name}.length() > 1 ?"
+                        f" {input_name}.charAt(1) : {input_name}.charAt(0);")
             case "":
                 return ""
             case _:
