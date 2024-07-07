@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <stack>
 
 
 using namespace std;
@@ -8,7 +9,18 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool isValid(string s) {
-
+        stack<char> stack;
+        string left = "([{", right = ")]}";
+        for (auto c: s) {
+            if (left.find(c) != string::npos) {
+                stack.push(c);
+            } else if (stack.empty() || stack.top() != left[right.find(c)]) {
+                return false;
+            } else {
+                stack.pop();
+            }
+        }
+        return stack.empty();
     }
 };
 
