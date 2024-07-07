@@ -226,6 +226,8 @@ class JavaWriter(LanguageWriter):
                 return f"{rt_type} {variable_name} = jsonArrayToChar2DArray({input_name});"
             case "List<String>":
                 return f"{rt_type} {variable_name} = jsonArrayToStringList({input_name});"
+            case "char":
+                return f"{rt_type} {variable_name} = {input_name}.charAt(0);"
             case "":
                 return ""
             case _:
