@@ -6,8 +6,28 @@ import (
 	"strings"
 )
 
-func numIslands(grid [][]byte) int {
-    
+func numIslands(grid [][]byte) (ans int) {
+	m, n := len(grid), len(grid[0])
+	directions := [][]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+	var dfs func(i, j int)
+	dfs = func(i, j int) {
+		if i < 0 || i >= m || j < 0 || j >= n || grid[i][j] == '0' {
+			return
+		}
+		grid[i][j] = '0'
+		for _, d := range directions {
+			dfs(i+d[0], j+d[1])
+		}
+	}
+	for i := 0; i < m; i++ {
+		for j := 0; j < n; j++ {
+			if grid[i][j] == '1' {
+				ans++
+				dfs(i, j)
+			}
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {

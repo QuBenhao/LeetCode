@@ -7,7 +7,21 @@ import (
 )
 
 func checkMove(board [][]byte, rMove int, cMove int, color byte) bool {
-
+	m, n := len(board), len(board[0])
+	directions := [][]int{{0, 1}, {1, 1}, {1, 0}, {-1, 1}, {1, -1}, {0, -1}, {-1, -1}, {-1, 0}}
+	for _, direction := range directions {
+		x, y := rMove+direction[0], cMove+direction[1]
+		if x < 0 || x >= m || y < 0 || y >= n || board[x][y] == '.' || board[x][y] == color {
+			continue
+		}
+		for x >= 0 && x < m && y >= 0 && y < n && board[x][y] != '.' {
+			if board[x][y] == color {
+				return true
+			}
+			x, y = x+direction[0], y+direction[1]
+		}
+	}
+	return false
 }
 
 func Solve(inputJsonValues string) interface{} {
@@ -34,8 +48,14 @@ func Solve(inputJsonValues string) interface{} {
 	if err := json.Unmarshal([]byte(inputValues[2]), &cMove); err != nil {
 		log.Fatal(err)
 	}
-	if err := json.Unmarshal([]byte(inputValues[3]), &color); err != nil {
+	var colorStr string
+	if err := json.Unmarshal([]byte(inputValues[3]), &colorStr); err != nil {
 		log.Fatal(err)
+	}
+	if len(colorStr) > 1 {
+		color = colorStr[1]
+	} else {
+		color = colorStr[0]
 	}
 
 	return checkMove(board, rMove, cMove, color)
