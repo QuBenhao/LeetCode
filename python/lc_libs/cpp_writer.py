@@ -23,7 +23,7 @@ class CppWriter(LanguageWriter):
                 continue
             ans.append(line)
         return "\n".join(ans)
-    
+
     def change_tests(self, content: str, problem_ids_folders: list, idx: int = 0) -> str:
         ans = []
         match idx:
@@ -98,10 +98,12 @@ class CppWriter(LanguageWriter):
                             rt + " *" + variable[1] + f" = IntArrayToListNode({variable[1]}_array);")
                     case "vector<ListNode*>":
                         process_variables.append(
-                            "std::vector<std::vector<int>> " + variable[1] + "_arrays" + f" = json::parse(inputArray.at({i}));")
+                            "std::vector<std::vector<int>> " + variable[
+                                1] + "_arrays" + f" = json::parse(inputArray.at({i}));")
                         process_variables.append(f"auto {variable[1]} = {rt}({variable[1]}_arrays.size());")
                         process_variables.append("for (int i = 0; i < " + variable[1] + ".size(); i++) {")
-                        process_variables.append("\t" + variable[1] + "[i] = IntArrayToListNode(" + variable[1] + "_arrays[i]);")
+                        process_variables.append(
+                            "\t" + variable[1] + "[i] = IntArrayToListNode(" + variable[1] + "_arrays[i]);")
                         process_variables.append("}")
                     case "TreeNode":
                         process_variables.append(
@@ -113,6 +115,10 @@ class CppWriter(LanguageWriter):
                             "json " + variable[1] + "_array" + f" = json::parse(inputArray.at({i}));")
                         process_variables.append(
                             rt + " " + variable[1] + f" = JsonArrayToTreeNodeArray({variable[1]}_array);")
+                    case "char":
+                        process_variables.append(f"string {variable[1]}_string = json::parse(inputArray.at({i}));")
+                        process_variables.append(f"char {variable[1]} = {variable[1]}_string.length() > 1 ?"
+                                                 f" {variable[1]}_string[1] : {variable[1]}_string[0];")
                     case "vector<char>":
                         process_variables.append(
                             "vector<string> " + variable[1] + "_str" + f" = json::parse(inputArray.at({i}));")
