@@ -367,6 +367,18 @@ class GolangWriter(LanguageWriter):
                             json_parse.append("\t}\n")
                         imports_libs.add("\t\"encoding/json\"")
                         imports_libs.add("\t\"log\"")
+                    case "byte":
+                        for var in vrs:
+                            json_parse.append(f"\tvar {var}Str string\n")
+                            json_parse.append(f"\tif err := json.Unmarshal([]byte(inputValues[{i}]), &" + var +
+                                              "Str); err != nil {\n\t\tlog.Fatal(err)\n\t}\n")
+                            json_parse.append(f"\tif len({var}Str) > 1 " + "{\n")
+                            json_parse.append(f"\t\t{var} = {var}Str[1]\n")
+                            json_parse.append("\t} else {\n")
+                            json_parse.append(f"\t\t{var} = {var}Str[0]\n")
+                            json_parse.append("\t}\n")
+                        imports_libs.add("\t\"encoding/json\"")
+                        imports_libs.add("\t\"log\"")
                     case _:
                         for var in vrs:
                             json_parse.append(f"\tif err := json.Unmarshal([]byte(inputValues[{i}]), &" + var +

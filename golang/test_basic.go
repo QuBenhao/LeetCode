@@ -31,12 +31,10 @@ func processTestcase(problemPath string) (tests []TestCase) {
 	}
 	testcasesStr := string(testcaseContent)
 	testcasesSplit := strings.Split(testcasesStr, "\n")
-	inputErr := json.Unmarshal([]byte(testcasesSplit[0]), &inputs)
-	if inputErr != nil {
+	if inputErr := json.Unmarshal([]byte(testcasesSplit[0]), &inputs); inputErr != nil {
 		log.Fatal(inputErr)
 	}
-	outputErr := json.Unmarshal([]byte(testcasesSplit[1]), &outputs)
-	if outputErr != nil {
+	if outputErr := json.Unmarshal([]byte(testcasesSplit[1]), &outputs); outputErr != nil {
 		log.Fatal(outputErr)
 	}
 	for i, input := range inputs {
