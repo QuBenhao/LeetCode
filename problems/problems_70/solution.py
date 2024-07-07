@@ -7,5 +7,7 @@ class Solution(solution.Solution):
         return self.climbStairs(test_input)
 
     def climbStairs(self, n: int) -> int:
-        pass
-
+        a, b = 1, 1
+        for _ in range(n - 1):
+            a, b = b, a + b
+        return b
