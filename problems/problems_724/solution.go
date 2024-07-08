@@ -7,7 +7,19 @@ import (
 )
 
 func pivotIndex(nums []int) int {
-
+	s := 0
+	for _, num := range nums {
+		s += num
+	}
+	leftSum := 0
+	for i, num := range nums {
+		s -= num
+		if leftSum == s {
+			return i
+		}
+		leftSum += num
+	}
+	return -1
 }
 
 func Solve(inputJsonValues string) interface{} {
