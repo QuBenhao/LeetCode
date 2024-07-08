@@ -8,7 +8,16 @@ using json = nlohmann::json;
 class Solution {
 public:
     int pivotIndex(vector<int>& nums) {
-
+        auto sum = accumulate(nums.begin(), nums.end(), 0);
+        auto left_sum = 0;
+        for (auto i = 0; i < static_cast<int>(nums.size()); i++) {
+            sum -= nums[i];
+            if (left_sum == sum) {
+                return i;
+            }
+            left_sum += nums[i];
+        }
+        return -1;
     }
 };
 

@@ -8,7 +8,13 @@ using json = nlohmann::json;
 class Solution {
 public:
     int climbStairs(int n) {
-
+        auto a = 1, b = 1;
+        for (auto i = 0; i < n - 1; i++) {
+            auto temp = a;
+            a = b;
+            b += temp;
+        }
+        return b;
     }
 };
 
