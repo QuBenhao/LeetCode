@@ -66,6 +66,7 @@ func f(v, v1, v2 int) int {
 	return v1
 }
 
+
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var points [][]int
