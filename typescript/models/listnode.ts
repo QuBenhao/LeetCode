@@ -27,5 +27,24 @@ function IntArrayToLinkedList(arr: Array<number>): ListNode | null {
     return dummy.next;
 }
 
+function IntArrayToIntersectionLinkedList(arr1: Array<number>, arr2: Array<number>, iv: number, skipA: number, skipB: number): Array<ListNode> {
+    const headA: ListNode | null = IntArrayToLinkedList(arr1);
+    if (iv == 0 || skipA == arr1.length || skipB == arr2.length) {
+        return [headA, IntArrayToLinkedList(arr2)];
+    }
+    let pa: ListNode | null = headA;
+    for (let i: number = 0; i < skipA; i++) {
+        pa = pa?.next;
+    }
+    const headB: ListNode | null = skipB == 0 ? pa : new ListNode(arr2[0]);
+    let pb: ListNode | null = headB;
+    for (let i: number = 1; i < skipB; i++) {
+        pb!!.next = new ListNode(arr2[i]);
+        pb = pb?.next;
+    }
+    pb.next = pa;
+    return [headA, headB];
+}
 
-export {ListNode, LinkedListToIntArray, IntArrayToLinkedList};
+
+export {ListNode, LinkedListToIntArray, IntArrayToLinkedList, IntArrayToIntersectionLinkedList};

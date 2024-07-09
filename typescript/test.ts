@@ -10,7 +10,7 @@ import {
     MinPriorityQueue,
     MaxPriorityQueue
 } from '@datastructures-js/priority-queue';
-import {ListNode, IntArrayToLinkedList, LinkedListToIntArray} from "./models/listnode";
+import {ListNode, IntArrayToLinkedList, LinkedListToIntArray, IntArrayToIntersectionLinkedList} from "./models/listnode";
 import {TreeNode, TreeNodeToJSONArray, JSONArrayToTreeNode, JSONArrayToTreeNodeArray} from "./models/treenode"
 
 const PROBLEM_ID: string = "3102";
@@ -44,6 +44,7 @@ describe("TestMain===" + PROBLEM_ID, () => {
                 ListNode,
                 IntArrayToLinkedList,
                 LinkedListToIntArray,
+                IntArrayToIntersectionLinkedList,
                 TreeNode,
                 TreeNodeToJSONArray,
                 JSONArrayToTreeNode,

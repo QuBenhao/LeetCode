@@ -21,3 +21,23 @@ std::vector<int> &ListNodeToIntArray(ListNode *head) {
     }
     return *arr;
 }
+
+std::tuple<ListNode *, ListNode *>
+IntArrayToIntersectionListNode(std::vector<int> &arr1, std::vector<int> &arr2, int iv, int idxA, int idxB) {
+    auto headA = IntArrayToListNode(arr1);
+    if (iv == 0 || idxA == static_cast<int>(arr1.size()) || idxB == static_cast<int>(arr2.size())) {
+        return {headA, IntArrayToListNode(arr2)};
+    }
+    auto pa = headA;
+    for (int i = 0; i < idxA; i++) {
+        pa = pa->next;
+    }
+    auto headB = idxB == 0 ? pa : new ListNode(arr2[0]);
+    auto pb = headB;
+    for (int i = 1; i < idxB - 1; i++) {
+        pb->next = new ListNode(arr2[i]);
+        pb = pb->next;
+    }
+    pb->next = pa;
+    return {headA, headB};
+}
