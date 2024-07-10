@@ -6,6 +6,7 @@
 #define LEETCODECPP_LISTNODE_H
 
 #include <vector>
+#include <tuple>
 
 struct ListNode {
     int val;
