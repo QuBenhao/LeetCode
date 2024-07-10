@@ -8,7 +8,7 @@ import constants
 from utils import get_default_folder, timeout
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTION = "2970"
+QUESTION = "2972"
 # QUESTION = "Interview/10_02"
 # QUESTION = "LCP/07"
 # QUESTION = "剑指Offer/52"
