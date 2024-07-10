@@ -6,9 +6,23 @@ using namespace std;
 using json = nlohmann::json;
 
 class Solution {
+private:
+    void backtrack(vector<vector<int>>& res, vector<int>& nums, int idx) {
+        if (idx == static_cast<int>(nums.size())) {
+            res.push_back(nums);
+            return;
+        }
+        for (int i = idx; i < static_cast<int>(nums.size()); i++) {
+            swap(nums[i], nums[idx]);
+            backtrack(res, nums, idx + 1);
+            swap(nums[i], nums[idx]);
+        }
+    }
 public:
     vector<vector<int>> permute(vector<int>& nums) {
-
+        vector<vector<int>> res;
+        backtrack(res, nums, 0);
+        return res;
     }
 };
 

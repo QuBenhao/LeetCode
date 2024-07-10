@@ -8,7 +8,24 @@ using json = nlohmann::json;
 class Solution {
 public:
     long long incremovableSubarrayCount(vector<int>& nums) {
-        
+        long long n = static_cast<long long>(nums.size());
+        long long i = 0;
+        while (i < n - 1 && nums[i] < nums[i + 1]) {
+            i++;
+        }
+        if (i == n - 1) {
+            return n * (n + 1) / 2;
+        }
+        long long ans = i + 2;
+        auto j = n - 1;
+        while (j == n - 1 || nums[j] < nums[j + 1]) {
+            while (i >= 0 && nums[i] >= nums[j]) {
+                i--;
+            }
+            ans += i + 2;
+            j--;
+        }
+        return ans;
     }
 };
 
