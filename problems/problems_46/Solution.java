@@ -1,33 +1,40 @@
 package problems.problems_46;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.alibaba.fastjson.JSON;
+import java.util.*;
+import qubhjava.BaseSolution;
 
-public class Solution {
 
+public class Solution extends BaseSolution {
     private void swap(int[] nums, int i, int j) {
-        int tmp = nums[i];
+        int t = nums[i];
         nums[i] = nums[j];
-        nums[j] = tmp;
+        nums[j] = t;
     }
-
-    private void dfs(int[] nums, List<List<Integer>> ans, int x) {
-        if (x == nums.length - 1) {
-            ans.add(Arrays.stream(nums).boxed().collect(Collectors.toList()));
+    private void backtrack(List<List<Integer>> res, int[] nums, int idx) {
+        if (idx == nums.length) {
+            List<Integer> list = new ArrayList<>(nums.length);
+            for (int num : nums) {
+                list.add(num);
+            }
+            res.add(list);
             return;
         }
-        for (int i = x; i < nums.length; i++) {
-            swap(nums, x, i);
-            dfs(nums, ans, x + 1);
-            swap(nums, x, i);
+        for (int i = idx; i < nums.length; i++) {
+            swap(nums, idx, i);
+            backtrack(res, nums, idx + 1);
+            swap(nums, idx, i);
         }
     }
-
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
-        dfs(nums, ans, 0);
+        backtrack(ans, nums, 0);
         return ans;
+    }
+
+    @Override
+    public Object solve(String[] inputJsonValues) {
+        int[] nums = jsonArrayToIntArray(inputJsonValues[0]);
+        return JSON.toJSON(permute(nums));
     }
 }
