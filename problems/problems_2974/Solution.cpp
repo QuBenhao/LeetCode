@@ -8,7 +8,13 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<int> numberGame(vector<int>& nums) {
-        
+        std::sort(nums.begin(), nums.end());
+        vector<int> res;
+        for (int i = 1; i < static_cast<int>(nums.size()); i += 2) {
+            res.push_back(nums[i]);
+            res.push_back(nums[i - 1]);
+        }
+        return res;
     }
 };
 
