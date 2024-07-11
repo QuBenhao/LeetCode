@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.numberGame(test_input)
 
     def numberGame(self, nums: List[int]) -> List[int]:
-        pass
-
+        nums.sort(reverse=True)
+        ans = []
+        for i in range(len(nums) // 2):
+            last = nums.pop()
+            ans.append(nums.pop())
+            ans.append(last)
+        return ans
