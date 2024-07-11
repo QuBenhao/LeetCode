@@ -343,8 +343,9 @@ Add values similar to you .env, for example,
 Add PROBLEM_FOLDER for [actions](.github/workflows/) to work properly.
 
 ## Demo Projects
-1. [Benhao Demo](https://github.com/BenhaoQu/LeetCode/tree/demo_master)
-2. [SilentSliver Demo](https://github.com/SilentSliver/LeetCode/)
+1. [Benhao Demo](https://github.com/BenhaoQu/LeetCode/tree/demo_master) (Python3)
+2. [SilentSliver Demo](https://github.com/SilentSliver/LeetCode/) (Java)
+3. [LazyKindMan Demo](https://github.com/lazyKindMan/LeetCode) (Golang)
 
 
 # Problems
