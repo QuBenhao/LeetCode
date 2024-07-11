@@ -247,10 +247,14 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
         if general_request(f"https://leetcode.cn/submissions/detail/{submit_id}/check/",
                            handle_submit_check_response,
                            cookies={"cookie": cookie},
-                           headers={"Origin": "https://leetcode.cn"}):
+                           headers={"Origin": "https://leetcode.cn",
+                                    "Host": "leetcode.cn",
+                                    "Referer": f"https://leetcode.cn/problems/{question_slug}/",
+                                    "Referer-Policy": "strict-origin-when-cross-origin"},
+                           ):
             submit_success = True
             break
-        time.sleep(random.randint(200, 300) / 1000)
+        time.sleep(random.randint(300, 500) / 1000)
     if not submit_success:
         return None
     submit_detail = get_submission_detail(submit_id, cookie, handle_submit_detail_response)
