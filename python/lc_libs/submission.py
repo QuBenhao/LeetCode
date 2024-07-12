@@ -244,6 +244,7 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
         return None
     submit_success = False
     for _ in tqdm(range(50)):
+        time.sleep(random.randint(200, 300) / 1000)
         if general_request(f"https://leetcode.cn/submissions/detail/{submit_id}/check/",
                            handle_submit_check_response,
                            cookies={"cookie": cookie},
@@ -254,7 +255,6 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
                            ):
             submit_success = True
             break
-        time.sleep(random.randint(300, 500) / 1000)
     if not submit_success:
         return None
     submit_detail = get_submission_detail(submit_id, cookie, handle_submit_detail_response)

@@ -19,6 +19,10 @@ def general_request(url: str, func=None, request_method: str = "post",
             print("Too many requests, please try again later!")
             time.sleep((4 - depth) * 3)
             return general_request(url, func, request_method, params, data, json, depth - 1, **kwargs)
+        if resp.status_code == 403:
+            print("Access denied!")
+            time.sleep(1)
+            return None
         print(f"Response code[{resp.status_code}] msg: {resp.text}")
     except Exception as e:
         print("Exception caught: ", str(e))
