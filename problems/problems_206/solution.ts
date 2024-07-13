@@ -13,7 +13,11 @@ import {ListNode,IntArrayToLinkedList,LinkedListToIntArray} from "../../typescri
  */
 
 function reverseList(head: ListNode | null): ListNode | null {
-    
+	if (head === null || head.next === null) return head;
+	const newHead: ListNode | null = reverseList(head.next);
+	head.next.next = head;
+	head.next = null;
+	return newHead;
 };
 
 export function Solve(inputJsonElement: string): any {
