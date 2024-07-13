@@ -2,7 +2,7 @@
 
 ## Start
 
-First install npm environment at root,
+First install npm environment at root, recommend using npm v10.7.0 and node v20.15.1
 
 ```shell
 npm install
