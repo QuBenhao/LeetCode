@@ -260,7 +260,6 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
                }
     if csrf_token:
         headers["X-Csrftoken"] = csrf_token
-    print(csrf_token)
     for _ in tqdm(range(50)):
         time.sleep(random.randint(200, 300) / 1000)
         if general_request(f"https://leetcode.cn/submissions/detail/{submit_id}/check/",
