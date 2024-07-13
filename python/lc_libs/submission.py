@@ -243,15 +243,30 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
     if not submit_id:
         return None
     submit_success = False
+    csrf_token = None
+    for line in cookie.split(";"):
+        if "csrftoken" in line:
+            csrf_token = line.split("=")[-1]
+            break
+    headers = {"Origin": "https://leetcode.cn",
+               "Host": "leetcode.cn",
+               "Referer": f"https://leetcode.cn/problems/{question_slug}/",
+               "Referer-Policy": "strict-origin-when-cross-origin",
+               "Sec-Fetch-Dest": "empty",
+               "Sec-Fetch-Mode": "cors",
+               "Sec-Fetch-Site": "same-origin",
+               "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                             "Chrome/91.0.4472.124 Safari/537.36"
+               }
+    if csrf_token:
+        headers["X-Csrftoken"] = csrf_token
+    print(csrf_token)
     for _ in tqdm(range(50)):
         time.sleep(random.randint(200, 300) / 1000)
         if general_request(f"https://leetcode.cn/submissions/detail/{submit_id}/check/",
                            handle_submit_check_response,
                            cookies={"cookie": cookie},
-                           headers={"Origin": "https://leetcode.cn",
-                                    "Host": "leetcode.cn",
-                                    "Referer": f"https://leetcode.cn/problems/{question_slug}/",
-                                    "Referer-Policy": "strict-origin-when-cross-origin"},
+                           headers=headers,
                            ):
             submit_success = True
             break
