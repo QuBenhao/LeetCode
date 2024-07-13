@@ -14,7 +14,7 @@ import {Solve} from "../problems/problems_${}/solution";`
 in [test.ts](test.ts)**, and try at root:
 
 ```shell
-/npm test --alwaysStrict --strictBindCallApply --strictFunctionTypes --target ES2022 typescript/test.ts
+npm test --alwaysStrict --strictBindCallApply --strictFunctionTypes --target ES2022 typescript/test.ts
 ```
 
 or if you want to run more than one questions,
