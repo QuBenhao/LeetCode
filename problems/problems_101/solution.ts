@@ -15,7 +15,16 @@ import {TreeNode,JSONArrayToTreeNode} from "../../typescript/models/treenode";
  */
 
 function isSymmetric(root: TreeNode | null): boolean {
-    
+	const dfs: Function = (left: TreeNode | null, right: TreeNode | null): boolean => {
+		if (left === null && right === null) {
+			return true;
+		}
+		if (left === null || right === null || left.val !== right.val) {
+			return false;
+		}
+		return dfs(left.left, right.right) && dfs(left.right, right.left);
+	}
+	return  root === null || dfs(root.left, root.right);
 };
 
 export function Solve(inputJsonElement: string): any {
