@@ -7,34 +7,32 @@ import (
 )
 
 type MinStack struct {
-
+	Stack [][]int
 }
-
 
 func Constructor() MinStack {
-
+	return MinStack{}
 }
 
-
-func (this *MinStack) Push(val int)  {
-
+func (this *MinStack) Push(val int) {
+	if len(this.Stack) > 0 && this.Stack[this.Stack[len(this.Stack)-1][1]][0] < val {
+		this.Stack = append(this.Stack, []int{val, this.Stack[len(this.Stack)-1][1]})
+	} else {
+		this.Stack = append(this.Stack, []int{val, len(this.Stack)})
+	}
 }
 
-
-func (this *MinStack) Pop()  {
-
+func (this *MinStack) Pop() {
+	this.Stack = this.Stack[:len(this.Stack)-1]
 }
-
 
 func (this *MinStack) Top() int {
-
+	return this.Stack[len(this.Stack)-1][0]
 }
-
 
 func (this *MinStack) GetMin() int {
-
+	return this.Stack[this.Stack[len(this.Stack)-1][1]][0]
 }
-
 
 /**
  * Your MinStack object will be instantiated and called as such:
@@ -58,7 +56,7 @@ func Solve(inputJsonValues string) interface{} {
 		log.Println(err)
 		return nil
 	}
-	obj :=Constructor()
+	obj := Constructor()
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
 		var res interface{}
@@ -78,7 +76,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
