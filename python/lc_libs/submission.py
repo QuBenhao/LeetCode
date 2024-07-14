@@ -156,28 +156,41 @@ def _add_test(root_path, problem_folder: str, question_id: str, code_input: str,
     file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}", "testcase.py")
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read().split("\n")
-        for line in content:
-            if "self.testcases.append(case(Input=" in line:
-                splits = line.split(", Output=")
-                ipt, opt = splits[0].split("=")[-1].strip(), splits[-1].strip()[:-2]
-                if (ipt.replace(" ", "") == code_input_py.replace(" ", "") or
-                    ipt.replace(" ", "").replace("'", "\"") == code_input_py.replace(" ", "")) and \
-                        opt.replace(" ", "") == expected_output_py.replace(" ", ""):
-                    need_add_test = False
-                    break
+        idx = 0
+        while idx < len(content):
+            line = content[idx]
+            if "self.testcases.append(case(Input=" not in line:
+                idx += 1
+                continue
+            cur = [line]
+            while idx < len(content) and (
+                    "self.testcases.append(case(Input=" in content[idx] or "def get_testcases(self):" in content[idx]):
+                cur.append(content[idx])
+                idx += 1
+            final_line = "".join(cur)
+            splits = final_line.split(", Output=")
+            ipt, opt = splits[0].split("=")[-1].strip(), splits[-1].strip()[:-2]
+            if (ipt.replace(" ", "") == code_input_py.replace(" ", "") or
+                ipt.replace(" ", "").replace("'", "\"") == code_input_py.replace(" ", "")) and \
+                    opt.replace(" ", "") == expected_output_py.replace(" ", ""):
+                need_add_test = False
+                break
+
     if need_add_test:
-        new_content = []
-        add_line = False
-        for line in content:
-            if line.strip().startswith("self.testcases.append(case(Input="):
-                add_line = True
-            elif add_line:
-                new_content.append(
-                    TESTCASE_TEMPLATE_PYTHON_TESTCASES.format(code_input_py, expected_output_py).replace("\n", ""))
-                add_line = False
-            new_content.append(line)
+        use_space = False
+        for i, line in enumerate(content):
+            if "self.testcases.append(case(Input=" in line:
+                use_space = line.startswith(" ")
+            if "def get_testcases(self):" in line:
+                new_test_case = TESTCASE_TEMPLATE_PYTHON_TESTCASES.format(
+                                   code_input_py, expected_output_py).replace("\n", "")
+                if use_space:
+                    new_test_case = new_test_case.replace("\t", "    ")
+                content.insert(i - 1 if i else 0,
+                               new_test_case)
+                break
         with open(file_path, 'w', encoding='utf-8') as f:
-            f.write("\n".join(new_content))
+            f.write("\n".join(content))
 
     need_add_test = True
     file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}", "testcase")
