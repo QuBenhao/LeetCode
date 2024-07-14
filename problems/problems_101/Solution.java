@@ -21,8 +21,17 @@ import qubhjava.BaseSolution;
 import qubhjava.models.TreeNode;
 
 public class Solution extends BaseSolution {
-    public boolean isSymmetric(TreeNode root) {
+    private boolean dfs(TreeNode left, TreeNode right) {
+        if (left == null && right == null) {
+            return true;
+        } else if (left == null || right == null) {
+            return false;
+        }
+        return left.val == right.val && dfs(left.left, right.right) && dfs(left.right, right.left);
+    }
 
+    public boolean isSymmetric(TreeNode root) {
+        return root == null || dfs(root.left, root.right);
     }
 
     @Override
