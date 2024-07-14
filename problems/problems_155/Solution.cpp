@@ -1,30 +1,39 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <stack>
 
 
 using namespace std;
 using json = nlohmann::json;
 
 class MinStack {
+private:
+    stack<int> data;
+    stack<int> helper;
 public:
     MinStack() {
-
     }
     
     void push(int val) {
-
+        data.push(val);
+        if (helper.empty() || helper.top() >= val) {
+            helper.push(val);
+        } else {
+            helper.push(helper.top());
+        }
     }
     
     void pop() {
-
+        data.pop();
+        helper.pop();
     }
     
     int top() {
-
+        return data.top();
     }
     
     int getMin() {
-
+        return helper.top();
     }
 };
 
