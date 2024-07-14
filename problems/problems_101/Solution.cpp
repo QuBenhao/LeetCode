@@ -17,9 +17,18 @@ using json = nlohmann::json;
  * };
  */
 class Solution {
+private:
+    bool dfs(TreeNode* left, TreeNode* root) {
+        if (left == nullptr && root == nullptr) {
+            return true;
+        } else if (left == nullptr || root == nullptr) {
+            return false;
+        }
+        return left->val == root->val && dfs(left->left, root->right) && dfs(left->right, root->left);
+    }
 public:
     bool isSymmetric(TreeNode* root) {
-
+        return root == nullptr || dfs(root->left, root->right);
     }
 };
 
