@@ -1,9 +1,32 @@
 package problems.problems_721;
 
 import com.alibaba.fastjson.JSON;
+
 import java.util.*;
+
 import qubhjava.BaseSolution;
 
+class UnionFind {
+    int[] parent;
+
+    public UnionFind(int n) {
+        parent = new int[n];
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+        }
+    }
+
+    public void union(int index1, int index2) {
+        parent[find(index2)] = find(index1);
+    }
+
+    public int find(int index) {
+        if (parent[index] != index) {
+            parent[index] = find(parent[index]);
+        }
+        return parent[index];
+    }
+}
 
 public class Solution extends BaseSolution {
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
@@ -50,8 +73,6 @@ public class Solution extends BaseSolution {
         }
         return merged;
     }
-
-
 
     @Override
     public Object solve(String[] inputJsonValues) {

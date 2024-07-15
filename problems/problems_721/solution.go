@@ -3,6 +3,7 @@ package problem721
 import (
 	"encoding/json"
 	"log"
+	"sort"
 	"strings"
 )
 
@@ -53,7 +54,6 @@ func accountsMerge(accounts [][]string) [][]string {
 	}
 	return res
 }
-
 
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")

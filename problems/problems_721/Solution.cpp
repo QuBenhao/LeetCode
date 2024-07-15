@@ -1,27 +1,5 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
-class UnionFind {
-public:
-    vector<int> parent;
-
-    UnionFind(int n) {
-        parent.resize(n);
-        for (int i = 0; i < n; i++) {
-            parent[i] = i;
-        }
-    }
-
-    void unionSet(int index1, int index2) {
-        parent[find(index2)] = find(index1);
-    }
-
-    int find(int index) {
-        if (parent[index] != index) {
-            parent[index] = find(parent[index]);
-        }
-        return parent[index];
-    }
-};
 
 
 using namespace std;
@@ -99,7 +77,6 @@ public:
         return merged;
     }
 };
-
 
 json leetcode::qubh::Solve(string input_json_values) {
 	vector<string> inputArray;
