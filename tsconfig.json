@@ -10,6 +10,7 @@
     "strictNullChecks":false,
     "alwaysStrict": true,
     "strictBindCallApply": true,
-    "strictFunctionTypes": true
+    "strictFunctionTypes": true,
+    "downlevelIteration": true
   }
 }
