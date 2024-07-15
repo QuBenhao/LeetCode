@@ -6,25 +6,33 @@ import qubhjava.BaseSolution;
 
 
 class MinStack {
+	private Stack<Integer> data, helper;
 
     public MinStack() {
-
+		data = new Stack<>();
+		helper = new Stack<>();
     }
     
     public void push(int val) {
-
+		data.push(val);
+		if (helper.empty() || helper.lastElement() >= val) {
+			helper.push(val);
+		} else {
+			helper.push(helper.lastElement());
+		}
     }
     
     public void pop() {
-
+		data.pop();
+		helper.pop();
     }
     
     public int top() {
-
+		return data.lastElement();
     }
     
     public int getMin() {
-
+		return helper.lastElement();
     }
 }
 
