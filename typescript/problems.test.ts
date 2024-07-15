@@ -37,7 +37,7 @@ for (const [problemId, problemFolder] of PROBLEMS) {
             solutionFileContent = solutionFileContent.split('\n').filter(line => !line.trim().startsWith('import ')).join('\n');
             solutionFileContent = solutionFileContent.replace("export function Solve", "function Solve");
             solutionFileContent += "const execResult = Solve(testInputJsonString);"
-            let result = ts.transpileModule(solutionFileContent, {compilerOptions: {module: ts.ModuleKind.ES2022}});
+            let result = ts.transpileModule(solutionFileContent, { compilerOptions: { module: ts.ModuleKind.ES2022, downlevelIteration: true } });
             const codeText: string = result["outputText"];
             script = new vm.Script(codeText);
         });

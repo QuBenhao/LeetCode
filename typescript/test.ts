@@ -4,14 +4,14 @@ import * as ts from "typescript";
 
 var _ = require('lodash-contrib');
 const vm = require('node:vm');
-import {Queue} from '@datastructures-js/queue';
+import { Queue } from '@datastructures-js/queue';
 import {
     PriorityQueue,
     MinPriorityQueue,
     MaxPriorityQueue
 } from '@datastructures-js/priority-queue';
-import {ListNode, IntArrayToLinkedList, LinkedListToIntArray, IntArrayToIntersectionLinkedList} from "./models/listnode";
-import {TreeNode, TreeNodeToJSONArray, JSONArrayToTreeNode, JSONArrayToTreeNodeArray} from "./models/treenode"
+import { ListNode, IntArrayToLinkedList, LinkedListToIntArray, IntArrayToIntersectionLinkedList } from "./models/listnode";
+import { TreeNode, TreeNodeToJSONArray, JSONArrayToTreeNode, JSONArrayToTreeNodeArray } from "./models/treenode"
 
 const PROBLEM_ID: string = "721";
 
@@ -33,7 +33,7 @@ describe("TestMain===" + PROBLEM_ID, () => {
     fileContent = fileContent.split('\n').filter(line => !line.trim().startsWith('import ')).join('\n');
     fileContent = fileContent.replace("export function Solve", "function Solve");
     fileContent += "const execResult = Solve(testInputJsonString);"
-    let result = ts.transpileModule(fileContent, {compilerOptions: {module: ts.ModuleKind.ES2022}});
+    let result = ts.transpileModule(fileContent, { compilerOptions: { module: ts.ModuleKind.ES2022, downlevelIteration: true } });
 
     const r = result["outputText"];
     const script = new vm.Script(r);
@@ -55,7 +55,7 @@ describe("TestMain===" + PROBLEM_ID, () => {
                 MaxPriorityQueue,
             };
             vm.createContext(context); // Contextify the object.
-            script.runInContext(context, {timeout: 3000});
+            script.runInContext(context, { timeout: 3000 });
             const result: any = context.execResult;
             if (_.isFloat(outputJson[i])) {
                 expect(result).toBeCloseTo(outputJson[i]);
