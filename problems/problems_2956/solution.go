@@ -7,7 +7,19 @@ import (
 )
 
 func findIntersectionValues(nums1 []int, nums2 []int) []int {
-
+	ans := make([]int, 2)
+	counter := make(map[int]int)
+	for _, num := range nums2 {
+		counter[num]++
+	}
+	for _, num := range nums1 {
+		if v, ok := counter[num]; ok {
+			ans[0]++
+			ans[1] += v
+			counter[num] = 0
+		}
+	}
+	return ans
 }
 
 func Solve(inputJsonValues string) interface{} {
