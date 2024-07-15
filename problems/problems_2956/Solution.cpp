@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <unordered_map>
 
 
 using namespace std;
@@ -8,7 +9,19 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<int> findIntersectionValues(vector<int>& nums1, vector<int>& nums2) {
-        
+        unordered_map<int, int> map;
+        vector<int> result(2, 0);
+        for (auto num: nums2) {
+            map[num]++;
+        }
+        for (auto num: nums1) {
+            if (map.find(num) != map.end()) {
+                result[0]++;
+                result[1] += map[num];
+                map[num] = 0;
+            }
+        }
+        return result;
     }
 };
 

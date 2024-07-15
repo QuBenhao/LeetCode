@@ -8,7 +8,15 @@ using json = nlohmann::json;
 class Solution {
 public:
     int minPathSum(vector<vector<int>>& grid) {
-
+        auto m = grid.size(), n = grid[0].size();
+        vector<int> dp(n, 0);
+        for (size_t i = 0; i < m; i++) {
+            dp[0] += grid[i][0];
+            for (size_t j = 1; j < n; j++) {
+                dp[j] = (i == 0 ? dp[j - 1] : min(dp[j], dp[j - 1])) + grid[i][j];
+            }
+        }
+        return dp[n - 1];
     }
 };
 
