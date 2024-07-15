@@ -36,15 +36,15 @@ function accountsMerge(accounts: string[][]): string[][] {
 
 class UnionFind {
     parent: any;
-    constructor(n: number) {
+    constructor(n) {
         this.parent = new Array(n).fill(0).map((value, index) => index);
     }
 
-    union(index1: number, index2: number) {
+    union(index1, index2) {
         this.parent[this.find(index2)] = this.find(index1);
     }
 
-    find(index: number) {
+    find(index) {
         if (this.parent[index] !== index) {
             this.parent[index] = this.find(this.parent[index]);
         }
