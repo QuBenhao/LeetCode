@@ -1,5 +1,9 @@
 function singleNumber(nums: number[]): number {
-    
+    let ans: number = 0;
+	for (const num of nums) {
+		ans ^= num;
+	}
+	return ans;
 };
 
 export function Solve(inputJsonElement: string): any {
