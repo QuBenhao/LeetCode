@@ -13,7 +13,7 @@ import {
 import { ListNode, IntArrayToLinkedList, LinkedListToIntArray, IntArrayToIntersectionLinkedList } from "./models/listnode";
 import { TreeNode, TreeNodeToJSONArray, JSONArrayToTreeNode, JSONArrayToTreeNodeArray } from "./models/treenode"
 
-const PROBLEM_ID: string = "2959";
+const PROBLEM_ID: string = "3112";
 
 describe("TestMain===" + PROBLEM_ID, () => {
     dotenv.config();
