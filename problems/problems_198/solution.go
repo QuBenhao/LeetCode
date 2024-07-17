@@ -7,7 +7,11 @@ import (
 )
 
 func rob(nums []int) int {
-
+	dp0, dp1 := 0, nums[0]
+	for i := 1; i < len(nums); i++ {
+		dp0, dp1 = max(dp0, dp1), max(dp0+nums[i], dp1)
+	}
+	return max(dp0, dp1)
 }
 
 func Solve(inputJsonValues string) interface{} {
