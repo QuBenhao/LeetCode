@@ -8,7 +8,8 @@ function minimumTime(n: number, edges: number[][], disappear: number[]): number[
 	}
 	const dis: number[] = Array(n).fill(-1);
 	dis[0] = 0;
-	const pq = new MinPriorityQueue();
+	//@ts-ignore
+	const pq: MinPriorityQueue<number[]> = new MinPriorityQueue<number[]>();
 	pq.enqueue([0, 0], 0);
 	while (!pq.isEmpty()) {
 		const [d, u] = pq.dequeue().element;
