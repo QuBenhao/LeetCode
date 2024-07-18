@@ -15,7 +15,18 @@ import (
  * }
  */
 func hasCycle(head *ListNode) bool {
-    
+	if head == nil {
+		return false
+	}
+	slow, fast := head, head.Next
+	for slow != fast {
+		if fast == nil || fast.Next == nil {
+			return false
+		}
+		slow = slow.Next
+		fast = fast.Next.Next
+	}
+	return true
 }
 
 func Solve(inputJsonValues string) interface{} {
@@ -26,7 +37,11 @@ func Solve(inputJsonValues string) interface{} {
 	if err := json.Unmarshal([]byte(inputValues[0]), &headIntArray); err != nil {
 		log.Fatal(err)
 	}
-	head = IntArrayToLinkedList(headIntArray)
+	var pos int
+	if err := json.Unmarshal([]byte(inputValues[1]), &pos); err != nil {
+		log.Fatal(err)
+	}
+	head = IntArrayToLinkedListCycle(headIntArray, pos)
 
 	return hasCycle(head)
 }

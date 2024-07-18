@@ -7,7 +7,26 @@ import (
 )
 
 func minimumLevels(possible []int) int {
-
+	s := 0
+	for _, v := range possible {
+		if v == 0 {
+			s--
+		} else {
+			s += v
+		}
+	}
+	pre := 0
+	for i, v := range possible[:len(possible)-1] {
+		if v == 0 {
+			pre--
+		} else {
+			pre += v
+		}
+		if pre*2 > s {
+			return i + 1
+		}
+	}
+	return -1
 }
 
 func Solve(inputJsonValues string) interface{} {

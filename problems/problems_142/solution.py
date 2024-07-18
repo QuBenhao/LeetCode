@@ -17,6 +17,12 @@ class Solution(solution.Solution):
         return res.val if res else None
 
     def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        (m * 2 - a) % c = (m - a) % c
+        m * 2 - a = n * c + m - a
+        m = n * c
+        (m + a) % c = 0
+        """
         slow = fast = head
         while fast and fast.next:
             slow = slow.next
