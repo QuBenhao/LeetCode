@@ -38,6 +38,21 @@ public class ListNode {
         return dummy.next;
     }
 
+    public static ListNode IntArrayToLinkedListCycle(int[] arr, int pos) {
+        ListNode dummy = new ListNode();
+        ListNode node = dummy;
+        ListNode cycle = null;
+        for (int i = 0; i < arr.length; i++) {
+            node.next = new ListNode(arr[i]);
+            node = node.next;
+            if (i == pos) {
+                cycle = node;
+            }
+        }
+        node.next = cycle;
+        return dummy.next;
+    }
+
     public static ListNode[] IntArrayToIntersectionListNode(int[] arr1, int[] arr2, int iv, int idx1, int idx2) {
         ListNode headA = IntArrayToLinkedList(arr1);
         if (iv == 0 || idx1 == arr1.length || idx2 == arr2.length) {

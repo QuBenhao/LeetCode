@@ -18,12 +18,25 @@ import qubhjava.models.ListNode;
 
 public class Solution extends BaseSolution {
     public boolean hasCycle(ListNode head) {
-        
+        if (head == null) {
+            return false;
+        }
+        ListNode slow = head, fast = head.next;
+        while (slow != fast) {
+            if (fast == null || fast.next == null) {
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return true;
     }
 
     @Override
     public Object solve(String[] inputJsonValues) {
-        ListNode head = jsonArrayToListNode(inputJsonValues[0]);
+        int[] arr = jsonArrayToIntArray(inputJsonValues[0]);
+        int pos = Integer.parseInt(inputJsonValues[1]);
+        ListNode head = ListNode.IntArrayToLinkedListCycle(arr, pos);
         return JSON.toJSON(hasCycle(head));
     }
 }
