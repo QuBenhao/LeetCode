@@ -1,45 +1,32 @@
 import solution
-from python.object_libs import list_to_linked_list_cycle
+from typing import *
+from python.object_libs import list_to_linked_list
+
+
+class ListNode:
+    def __init__(self, x):
+        self.val = x
+        self.next = None
 
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        nums, pos = test_input
-        head = list_to_linked_list_cycle(nums, pos)
-        return node.val if (node := self.detectCycle(head)) else None
+        nums0 = test_input
+        head0 = list_to_linked_list(nums0)
+        res = self.detectCycle(head0)
+        return res.val if res else None
 
-    def detectCycle(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
         slow = fast = head
-        while fast:
+        while fast and fast.next:
             slow = slow.next
-            if fast.next:
-                fast = fast.next.next
-            else:
-                return None
-
-            # slow == ENTRY, fast == HEAD -> ENTRY * 2
-            # slow == fast:
-            # t % C == 2 * t + HEAD -> ENTRY % C
-            # t % C == - HEAD -> ENTRY
-            if fast == slow:
+            fast = fast.next.next
+            if slow == fast:
                 break
-
-        if not fast:
+        else:
             return None
-
         slow = head
         while slow != fast:
             slow = slow.next
             fast = fast.next
         return slow
-
-
-# Definition for singly-linked list.
-class ListNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.next = None

@@ -1,4 +1,4 @@
-package problems.problems_141;
+package problems.problems_142;
 
 import com.alibaba.fastjson.JSON;
 import java.util.*;
@@ -17,13 +17,13 @@ import qubhjava.BaseSolution;
 import qubhjava.models.ListNode;
 
 public class Solution extends BaseSolution {
-    public boolean hasCycle(ListNode head) {
+    public ListNode detectCycle(ListNode head) {
         
     }
 
     @Override
     public Object solve(String[] inputJsonValues) {
         ListNode head = jsonArrayToListNode(inputJsonValues[0]);
-        return JSON.toJSON(hasCycle(head));
+        return JSON.toJSON(ListNode.LinkedListToIntArray(detectCycle(head)));
     }
 }

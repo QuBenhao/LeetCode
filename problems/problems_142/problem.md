@@ -1,51 +1,44 @@
 # 142. Linked List Cycle II
 
-Given a linked list, return the node where the cycle begins. If there is no cycle, return `null`.
+<p>Given the <code>head</code> of a linked list, return <em>the node where the cycle begins. If there is no cycle, return </em><code>null</code>.</p>
 
-There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the `next` pointer. Internally, `pos` is used to denote the index of the node that tail's `next` pointer is connected to. **Note that `pos` is not passed as a parameter**.
+<p>There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the <code>next</code> pointer. Internally, <code>pos</code> is used to denote the index of the node that tail&#39;s <code>next</code> pointer is connected to (<strong>0-indexed</strong>). It is <code>-1</code> if there is no cycle. <strong>Note that</strong> <code>pos</code> <strong>is not passed as a parameter</strong>.</p>
 
-**Notice** that you **should not modify** the linked list.
+<p><strong>Do not modify</strong> the linked list.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png" style="height: 145px; width: 450px;" />
+<pre>
+<strong>Input:</strong> head = [3,2,0,-4], pos = 1
+<strong>Output:</strong> tail connects to node index 1
+<strong>Explanation:</strong> There is a cycle in the linked list, where tail connects to the second node.
+</pre>
 
-**Example 1:**
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test2.png" style="height: 105px; width: 201px;" />
+<pre>
+<strong>Input:</strong> head = [1,2], pos = 0
+<strong>Output:</strong> tail connects to node index 0
+<strong>Explanation:</strong> There is a cycle in the linked list, where tail connects to the first node.
+</pre>
 
-![img](https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist.png)
+<p><strong class="example">Example 3:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test3.png" style="height: 65px; width: 65px;" />
+<pre>
+<strong>Input:</strong> head = [1], pos = -1
+<strong>Output:</strong> no cycle
+<strong>Explanation:</strong> There is no cycle in the linked list.
+</pre>
 
-```
-Input: head = [3,2,0,-4], pos = 1
-Output: tail connects to node index 1
-Explanation: There is a cycle in the linked list, where tail connects to the second node.
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 2:**
+<ul>
+	<li>The number of the nodes in the list is in the range <code>[0, 10<sup>4</sup>]</code>.</li>
+	<li><code>-10<sup>5</sup> &lt;= Node.val &lt;= 10<sup>5</sup></code></li>
+	<li><code>pos</code> is <code>-1</code> or a <strong>valid index</strong> in the linked-list.</li>
+</ul>
 
-![img](https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test2.png)
-
-```
-Input: head = [1,2], pos = 0
-Output: tail connects to node index 0
-Explanation: There is a cycle in the linked list, where tail connects to the first node.
-```
-
-**Example 3:**
-
-![img](https://assets.leetcode.com/uploads/2018/12/07/circularlinkedlist_test3.png)
-
-```
-Input: head = [1], pos = -1
-Output: no cycle
-Explanation: There is no cycle in the linked list.
-```
-
- 
-
-**Constraints:**
-
-- The number of the nodes in the list is in the range [0, 10<sup>4</sup>].
-- -10<sup>5</sup> <= Node.val <= 10<sup>5</sup>
-- `pos` is `-1` or a **valid index** in the linked-list.
-
- 
-
-**Follow up:** Can you solve it using `O(1)` (i.e. constant) memory?
+<p>&nbsp;</p>
+<p><strong>Follow up:</strong> Can you solve it using <code>O(1)</code> (i.e. constant) memory?</p>
