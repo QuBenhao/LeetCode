@@ -8,7 +8,17 @@ using json = nlohmann::json;
 class Solution {
 public:
     int minimumLevels(vector<int>& possible) {
-        
+        auto s = 0;
+        for (auto v: possible) {
+            s += v == 0 ? -1 : v;
+        }
+        for (auto pre = 0, i = 0; i < static_cast<int>(possible.size()) - 1; i++) {
+            pre += possible[i] == 0 ? -1 : possible[i];
+            if (pre * 2 > s) {
+                return i + 1;
+            }
+        }
+        return -1;
     }
 };
 

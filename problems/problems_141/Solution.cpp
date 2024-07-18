@@ -16,7 +16,18 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
-        
+        if (head == nullptr) {
+            return false;
+        }
+        auto slow = head, fast = head->next;
+        while (slow != fast) {
+            if (fast == nullptr || fast->next == nullptr) {
+                return false;
+            }
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return true;
     }
 };
 
@@ -31,7 +42,8 @@ json leetcode::qubh::Solve(string input_json_values) {
 	inputArray.push_back(input_json_values);
 
 	Solution solution;
-	std::vector<int> *head_array = json::parse(inputArray.at(0));
-	ListNode **head = IntArrayToListNode(*head_array);
-	return solution.hasCycle(*head);
+	std::vector<int> head_array = json::parse(inputArray.at(0));
+    int position = json::parse(inputArray.at(1));
+    ListNode* head = IntArrayToListNodeCycle(head_array, position);
+	return solution.hasCycle(head);
 }

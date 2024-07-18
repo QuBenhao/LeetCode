@@ -22,6 +22,20 @@ std::vector<int> &ListNodeToIntArray(ListNode *head) {
     return *arr;
 }
 
+ListNode *IntArrayToListNodeCycle(std::vector<int> &arr, int pos) {
+    auto dummy = new ListNode(), p = dummy;
+    ListNode *cycle = nullptr;
+    for (int i = 0; i < static_cast<int>(arr.size()); i++) {
+        p->next = new ListNode(arr[i]);
+        p = p->next;
+        if (i == pos) {
+            cycle = p;
+        }
+    }
+    p->next = cycle;
+    return dummy->next;
+}
+
 std::tuple<ListNode *, ListNode *>
 IntArrayToIntersectionListNode(std::vector<int> &arr1, std::vector<int> &arr2, int iv, int idxA, int idxB) {
     auto headA = IntArrayToListNode(arr1);
