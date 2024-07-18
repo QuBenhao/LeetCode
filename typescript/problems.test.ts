@@ -9,10 +9,16 @@ import {
     MinPriorityQueue,
     MaxPriorityQueue
 } from '@datastructures-js/priority-queue';
-import {ListNode, IntArrayToLinkedList, LinkedListToIntArray, IntArrayToIntersectionLinkedList} from "./models/listnode";
+import {
+    ListNode,
+    IntArrayToLinkedList,
+    LinkedListToIntArray,
+    IntArrayToLinkedListWithCycle,
+    IntArrayToIntersectionLinkedList
+} from "./models/listnode";
 import {TreeNode, TreeNodeToJSONArray, JSONArrayToTreeNode, JSONArrayToTreeNodeArray} from "./models/treenode"
 
-const PROBLEMS: string[][] = [['141', 'problems']];
+const PROBLEMS: string[][] = [['141', 'problems'], ['142', 'problems']];
 
 for (const [problemId, problemFolder] of PROBLEMS) {
     describe(`Test for problem ${problemId}`, () => {
@@ -37,7 +43,12 @@ for (const [problemId, problemFolder] of PROBLEMS) {
             solutionFileContent = solutionFileContent.split('\n').filter(line => !line.trim().startsWith('import ')).join('\n');
             solutionFileContent = solutionFileContent.replace("export function Solve", "function Solve");
             solutionFileContent += "const execResult = Solve(testInputJsonString);"
-            let result = ts.transpileModule(solutionFileContent, { compilerOptions: { module: ts.ModuleKind.ES2022, downlevelIteration: true } });
+            let result = ts.transpileModule(solutionFileContent, {
+                compilerOptions: {
+                    module: ts.ModuleKind.ES2022,
+                    downlevelIteration: true
+                }
+            });
             const codeText: string = result["outputText"];
             script = new vm.Script(codeText);
         });
@@ -51,6 +62,7 @@ for (const [problemId, problemFolder] of PROBLEMS) {
                     ListNode,
                     IntArrayToLinkedList,
                     LinkedListToIntArray,
+                    IntArrayToLinkedListWithCycle,
                     IntArrayToIntersectionLinkedList,
                     TreeNode,
                     TreeNodeToJSONArray,
