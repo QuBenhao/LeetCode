@@ -2,6 +2,13 @@ import solution
 from python.object_libs import list_to_linked_list_cycle
 
 
+# Definition for singly-linked list.
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         head = list_to_linked_list_cycle(*test_input)
@@ -22,10 +29,3 @@ class Solution(solution.Solution):
             if fast == slow:
                 return True
         return False
-
-
-# Definition for singly-linked list.
-class ListNode(object):
-    def __init__(self, x):
-        self.val = x
-        self.next = None
