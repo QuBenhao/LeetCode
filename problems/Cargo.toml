@@ -18,4 +18,4 @@ library = { path = "../rust/library", features = ["model"]}
 
 [lib]
 name = "solution"
-path = "problems_1/solution.rs"
+path = "problems_2/solution.rs"

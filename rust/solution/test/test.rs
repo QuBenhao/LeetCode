@@ -1,5 +1,5 @@
 const PROBLEM_FOLDER: &str = "problems";
-const PROBLEM_ID: &str = "1";
+const PROBLEM_ID: &str = "2";
 
 #[cfg(test)]
 mod test {
