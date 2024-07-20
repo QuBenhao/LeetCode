@@ -24,8 +24,30 @@ def get_args():
     sol.set_defaults(func=test_solution)
     smt = subparsers.add_parser("submit", help="Submit test mode")
     smt.set_defaults(func=test_submit)
+    po = subparsers.add_parser("print_origin", help="Print origin code snippets")
+    po.set_defaults(func=test_print_origin)
 
     return parser.parse_args()
+
+
+def test_print_origin(args):
+    language = args.lang
+    problem_id = args.problem
+    if not language or not problem_id:
+        raise ValueError("Language and problem are required")
+    cur_path = os.path.dirname(os.path.abspath(__file__))
+    with open(f"{cur_path}/question_code_snippets.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+        for problem in data:
+            for k, v in problem.items():
+                if k != problem_id:
+                    continue
+                for code in v:
+                    if code["langSlug"] != language:
+                        continue
+                    print(code["code"])
+                    return
+    print("No code found for [{}] in [{}]".format(problem_id, language))
 
 
 def test_solution(args):
