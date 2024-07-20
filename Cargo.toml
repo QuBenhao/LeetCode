@@ -1,17 +1,25 @@
+[workspace]
+members = [
+    "problems",
+    "rust/library",
+    "rust/solution"
+]
+
 [package]
 name = "leetcode"
 version = "0.1.0"
 edition = "2021"
+rust-version = "1.79.0"
+authors = ["benhao"]
+description = "LeetCode solutions in Rust"
+readme = "README.md"
+
+[[test]]
+name = "solution_test"
+path = "rust/solution/test/test.rs"
 
 [dependencies]
 serde_json = "1.0"
 rand = "0.8.4"
 regex = "1.10.5"
-
-[lib]
-name = "solution"
-path = "problems/problems_1/solution.rs"
-
-[[test]]
-name = "solution_test"
-path = "rust/tests/test.rs"
+problems = { path = "problems", features = ["solution"] }

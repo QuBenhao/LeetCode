@@ -3,11 +3,11 @@ const PROBLEM_ID: &str = "1";
 
 #[cfg(test)]
 mod test {
+    use solution;
     use std::env;
     use std::{sync::mpsc, thread, time::Duration};
     use serde_json::Value;
     use crate::{PROBLEM_FOLDER, PROBLEM_ID};
-
 
     fn panic_after<T, F>(d: Duration, f: F) -> T
     where

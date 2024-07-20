@@ -1,0 +1,16 @@
+[package]
+name = "solution"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79.0"
+authors = ["benhao"]
+description = "LeetCode Rust Test Main"
+readme = "../README.md"
+
+[dependencies]
+serde_json = "1.0"
+problems = { path = "../../problems", features = ["solution"] }
+
+[[test]]
+name = "solution_test"
+path = "test/test.rs"
