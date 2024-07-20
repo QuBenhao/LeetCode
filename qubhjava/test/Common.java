@@ -40,11 +40,11 @@ public class Common {
             JSONArray outputArray = JSON.parseArray(splits[1]);
             testcases = new Testcase[inputArray.size()];
             for (int i = 0; i < inputArray.size(); i++) {
-                String inputString = inputArray.getString(i);
-                if (inputString.startsWith("\"") && inputString.endsWith("\"")) {
-                    inputString = inputString.substring(1, inputString.length() - 1);
+                String input_string = inputArray.getString(i);
+                if (input_string.startsWith("\"") && input_string.endsWith("\"")) {
+                    input_string = input_string.substring(1, input_string.length() - 1);
                 }
-                String[] inputSplits = inputString.split("\n");
+                String[] inputSplits = input_string.split("\n");
                 testcases[i] = new Testcase(inputSplits, outputArray.get(i));
                 log.info("Added {}", testcases[i]);
             }

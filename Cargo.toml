@@ -1,0 +1,15 @@
+[package]
+name = "leetcode"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde_json = "1.0"
+
+[lib]
+name = "solution"
+path = "problems/problems_1/solution.rs"
+
+[[test]]
+name = "solution_test"
+path = "rust/tests/test.rs"
