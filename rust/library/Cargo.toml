@@ -12,3 +12,8 @@ model = []
 
 [dependencies]
 serde_json = "1.0"
+
+[[test]]
+name = "model_test"
+path = "test/test.rs"
+required-features = ["model"]
