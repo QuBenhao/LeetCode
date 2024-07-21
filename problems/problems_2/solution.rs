@@ -47,7 +47,7 @@ pub fn solve(input_string: String) -> Value {
     let input_values: Vec<String> = input_string.split('\n').map(|x| x.to_string()).collect();
     let nums0: Vec<i32> = serde_json::from_str(&input_values[0]).expect("Failed to parse input");
     let nums1: Vec<i32> = serde_json::from_str(&input_values[1]).expect("Failed to parse input");
-    let l1: Option<Box<ListNode>> = int_array_to_list_node(nums0);
-    let l2: Option<Box<ListNode>> = int_array_to_list_node(nums1);
-    json!(list_node_to_int_array(Solution::add_two_numbers(l1, l2)))
+    let l1: Option<Box<ListNode>> = int_array_to_list_node(&nums0);
+    let l2: Option<Box<ListNode>> = int_array_to_list_node(&nums1);
+    json!(list_node_to_int_array(&Solution::add_two_numbers(l1, l2)))
 }
