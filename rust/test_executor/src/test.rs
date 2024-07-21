@@ -12,6 +12,7 @@ mod test {
 
     #[test]
     fn test_solution() {
+        println!("Run [Problem {}] Test Cases", PROBLEM_ID);
         let (inputs, expected_outputs) = load_test_cases(PROBLEM_FOLDER, PROBLEM_ID);
         panic_after(Duration::from_secs(10), move || {
             for i in 0..inputs.len() {
