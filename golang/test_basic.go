@@ -80,7 +80,18 @@ func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) 
 		}
 
 	case []string:
-		ast.Equal(want.([]string), resp)
+		if v, ok := want.([]string); ok {
+			ast.Equal(v, resp)
+			return
+		}
+		if !ast.Equalf(len(want.([]interface{})), len(resp.([]string)),
+			"Expected: [%v], actual: [%v]", want, resp) {
+			return
+		}
+		for i := 0; i < len(resp.([]string)); i++ {
+			ast.Equalf(want.([]interface{})[i], resp.([]string)[i],
+				"Expected: [%v], actual: [%v]", want, resp)
+		}
 	case [][]string:
 		wantArray := want.([]interface{})
 		respStrArray := resp.([][]string)
