@@ -42,6 +42,7 @@ dependencies = [
  "rand",
  "regex",
  "serde_json",
+ "test_executor",
 ]
 
 [[package]]
@@ -194,14 +195,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "solution"
-version = "0.1.0"
-dependencies = [
- "problems",
- "serde_json",
-]
-
-[[package]]
 name = "syn"
 version = "2.0.71"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -210,6 +203,14 @@ dependencies = [
  "proc-macro2",
  "quote",
  "unicode-ident",
+]
+
+[[package]]
+name = "test_executor"
+version = "0.1.0"
+dependencies = [
+ "problems",
+ "serde_json",
 ]
 
 [[package]]
