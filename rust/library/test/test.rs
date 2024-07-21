@@ -13,9 +13,10 @@ mod test {
 
     #[test]
     fn test_tree_node() {
-        let nums = vec![Some(1), Some(2), Some(3), Some(4), Some(5)];
+        let nums = vec![Some(1), None, Some(2), Some(3), Some(4), Some(5)];
         let root = tree_node::array_to_tree(&nums);
-        let res = tree_node::tree_to_array(root);
+        let res = tree_node::tree_to_array(&root);
         assert_eq!(nums, res);
+        println!("{:?}", root);
     }
 }

@@ -25,49 +25,48 @@ pub fn array_to_tree(arr: &Vec<Option<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
     if arr.is_empty() {
         return None;
     }
-    let mut root: Option<Rc<RefCell<TreeNode>>> = Some(Rc::new(RefCell::new(TreeNode::new(arr[0].unwrap()))));
+    let root: Option<Rc<RefCell<TreeNode>>> = Some(Rc::new(RefCell::new(TreeNode::new(arr[0].unwrap()))));
+    let mut queue = VecDeque::new();
+    let mut cur_node = root.clone();
     let mut is_left = true;
-    let mut curr_nodes = VecDeque::new();
-    let mut curr_node = &mut root;
     for i in 1..arr.len() {
         let num = arr[i];
-        if is_left {
-            if let Some(val) = num {
-                let node = Rc::new(RefCell::new(TreeNode::new(val)));
-                curr_node.as_mut().unwrap().borrow_mut().left = Some(node.clone());
-                curr_nodes.push_back(node);
+        if num.is_some() {
+            let node = Rc::new(RefCell::new(TreeNode::new(num.unwrap())));
+            if is_left {
+                cur_node.as_ref().unwrap().borrow_mut().left = Some(node.clone());
+            } else {
+                cur_node.as_ref().unwrap().borrow_mut().right = Some(node.clone());
             }
-        } else {
-            if let Some(val) = num {
-                let node = Rc::new(RefCell::new(TreeNode::new(val)));
-                curr_node.as_mut().unwrap().borrow_mut().right = Some(node.clone());
-                curr_nodes.push_back(node);
-            }
-            *curr_node = curr_nodes.pop_front();
+            queue.push_back(node.clone());
+        }
+        if !is_left {
+            cur_node = queue.pop_front();
         }
         is_left = !is_left;
     }
     root
 }
 
-pub fn tree_to_array(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Option<i32>> {
+pub fn tree_to_array(root: &Option<Rc<RefCell<TreeNode>>>) -> Vec<Option<i32>> {
     let mut res = vec![];
     if root.is_none() {
         return res;
     }
-    let mut nodes = VecDeque::new();
-    nodes.push_back(root);
-    while !nodes.is_empty() {
-        let node = nodes.pop_front().unwrap();
-        if let Some(n) = node {
-            res.push(Some(n.borrow().val));
-            nodes.push_back(n.borrow().left.clone());
-            nodes.push_back(n.borrow().right.clone());
-        } else {
+    let mut queue = VecDeque::new();
+    queue.push_back(root.clone());
+    while !queue.is_empty() {
+        let node = queue.pop_front().unwrap();
+        if node.is_none() {
             res.push(None);
+        } else {
+            let node = node.unwrap();
+            res.push(Some(node.borrow().val));
+            queue.push_back(node.borrow().left.clone());
+            queue.push_back(node.borrow().right.clone());
         }
     }
-    while let Some(None) = res.last() {
+    while res.last().unwrap().is_none() {
         res.pop();
     }
     res
