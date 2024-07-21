@@ -7,7 +7,13 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int maximumSum(int[] arr) {
-
+        int ans = Integer.MIN_VALUE / 2, dp0 = ans, dp1 = ans;
+        for (int num: arr) {
+            dp1 = Math.max(dp1 + num, dp0);
+            dp0 = Math.max(dp0 + num, num);
+            ans = Math.max(ans, Math.max(dp0, dp1));
+        }
+        return ans;
     }
 
     @Override
