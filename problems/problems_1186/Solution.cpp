@@ -8,7 +8,13 @@ using json = nlohmann::json;
 class Solution {
 public:
     int maximumSum(vector<int>& arr) {
-
+        auto ans = INT_MIN / 2, dp0 = ans, dp1 = ans;
+        for (auto num: arr) {
+            dp1 = max(dp1 + num, dp0);
+            dp0 = max(dp0 + num, num);
+            ans = max({ans, dp0, dp1});
+        }
+        return ans;
     }
 };
 

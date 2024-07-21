@@ -8,7 +8,12 @@ using json = nlohmann::json;
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-
+        auto buy = -prices[0], sell = 0;
+        for (auto price: prices) {
+            buy = max(buy, -price);
+            sell = max(sell, buy + price);
+        }
+        return sell;
     }
 };
 
