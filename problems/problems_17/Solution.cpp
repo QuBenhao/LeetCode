@@ -8,7 +8,31 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<string> letterCombinations(string digits) {
-
+        if (digits.empty()) {
+            return {};
+        }
+        auto translator = map<char, string>{
+            {'2', "abc"},
+            {'3', "def"},
+            {'4', "ghi"},
+            {'5', "jkl"},
+            {'6', "mno"},
+            {'7', "pqrs"},
+            {'8', "tuv"},
+            {'9', "wxyz"}
+        };
+        vector<string> ans;
+        function<void(int, string)> dfs = [&](int index, const string& path) {
+            if (index == digits.size()) {
+                ans.push_back(path);
+                return;
+            }
+            for (auto c: translator[digits[index]]) {
+                dfs(index + 1, path + c);
+            }
+        };
+        dfs(0, "");
+        return ans;
     }
 };
 
