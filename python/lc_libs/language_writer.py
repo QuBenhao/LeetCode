@@ -3,13 +3,13 @@ import abc
 
 class LanguageWriter(abc.ABC):
     solution_file = ""
-    test_file_path = ""
-    tests_file_paths = []
+    env_commands = []
+    test_commands = []
 
-    def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
+    def change_test(self, root_path, problem_folder: str, question_id: str):
         pass
 
-    def change_tests(self, content: str, problem_ids_folders: list, idx: int = 0) -> str:
+    def change_tests(self, root_path, problem_ids_folders: list) -> str:
         pass
 
     def write_solution(self, code_default: str, code: str = None,

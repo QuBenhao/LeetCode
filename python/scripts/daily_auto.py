@@ -124,15 +124,7 @@ def process_daily(languages: list[str], problem_folder: str = None):
         if not test_func:
             print("Test function [change_test_{}] not implemented.".format(lang))
             continue
-        test_file_path = getattr(obj, "test_file_path", None)
-        if not test_file_path:
-            print("Language {} is not implemented to save".format(lang))
-            continue
-        file_path = os.path.join(root_path, test_file_path)
-        with open(file_path, "r", encoding="utf-8") as f:
-            content = f.read()
-        with open(file_path, "w", encoding="utf-8") as f:
-            f.write(test_func(content, tmp, question_id))
+        test_func(root_path, tmp, question_id)
 
 
 def process_plans(cookie: str, languages: list[str] = None, problem_folder: str = None):
