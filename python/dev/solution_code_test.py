@@ -77,20 +77,15 @@ def test_solution(args):
             cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
             if not cls:
                 continue
-            obj = cls()
-            writer_func = getattr(obj, "write_solution", None)
-            if not writer_func:
-                continue
-            solution_file: str = getattr(cls, "solution_file", None)
-            if not solution_file:
-                continue
+            obj: lc_libs.LanguageWriter = cls()
+            solution_file: str = obj.solution_file
             tmp_sol = solution_file.split(".")
             with open(
                 f"{cur_path}/tmp_{tmp_sol[0]}{code_counter[lang]}.{tmp_sol[1]}",
                 "w",
                 encoding="utf-8",
             ) as f:
-                f.writelines(writer_func(code["code"], None, test_problem))
+                f.writelines(obj.write_solution(code["code"], None, test_problem))
                 code_counter[lang] += 1
 
 
@@ -117,14 +112,11 @@ def test_submit(args):
         cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
         if not cls:
             continue
-        obj = cls()
-        gsc_func = getattr(obj, "get_solution_code", None)
-        if not gsc_func:
-            continue
-        solution_file: str = getattr(cls, "solution_file", None)
+        obj: lc_libs.LanguageWriter = cls()
+        solution_file: str = obj.solution_file
         if not solution_file:
             continue
-        code, _ = gsc_func(root_path, problem_folder, args.problem)
+        code, _ = obj.get_solution_code(root_path, problem_folder, args.problem)
         tmp_sol = solution_file.split(".")
         with open(
             f"{cur_path}/tmp_submit_{tmp_sol[0]}.{tmp_sol[1]}",
