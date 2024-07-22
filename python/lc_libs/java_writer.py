@@ -145,7 +145,7 @@ class JavaWriter(LanguageWriter):
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:
-            with open(os.path.join(root_path, "qubhjava", "test", "TestMain.java"), 'r', encoding="utf-8") as f:
+            with open(os.path.join(root_path, self.main_folder, self.test_file), 'r', encoding="utf-8") as f:
                 lines = f.read().split("\n")
                 for line in lines:
                     if "private static final String PROBLEM_ID = \"" in line:
@@ -153,7 +153,7 @@ class JavaWriter(LanguageWriter):
                         break
         if not problem_id:
             return "", problem_id
-        file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "Solution.java")
+        file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", self.solution_file)
         if not os.path.exists(file_path):
             return "", problem_id
         final_codes = deque([])

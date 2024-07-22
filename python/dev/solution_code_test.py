@@ -2,6 +2,7 @@ import sys
 import os
 import json
 import argparse
+import traceback
 
 from collections import defaultdict, Counter
 
@@ -81,12 +82,20 @@ def test_solution(args):
             solution_file: str = obj.solution_file
             tmp_sol = solution_file.split(".")
             with open(
-                f"{cur_path}/tmp_{tmp_sol[0]}{code_counter[lang]}.{tmp_sol[1]}",
-                "w",
-                encoding="utf-8",
+                    f"{cur_path}/tmp_{tmp_sol[0]}{code_counter[lang]}.{tmp_sol[1]}",
+                    "w",
+                    encoding="utf-8",
             ) as f:
-                f.writelines(obj.write_solution(code["code"], None, test_problem))
-                code_counter[lang] += 1
+                try:
+                    f.writelines(obj.write_solution(code["code"], None, test_problem))
+                    code_counter[lang] += 1
+                except NotImplementedError as _:
+                    f.write(code["code"])
+                    print("Language {} for Problem {} not implemented yet".format(lang, test_problem))
+                except Exception as _:
+                    print("Language {} for Problem {} error".format(lang, test_problem))
+                    traceback.print_exc()
+                    raise
 
 
 def test_submit(args):
@@ -119,9 +128,9 @@ def test_submit(args):
         code, _ = obj.get_solution_code(root_path, problem_folder, args.problem)
         tmp_sol = solution_file.split(".")
         with open(
-            f"{cur_path}/tmp_submit_{tmp_sol[0]}.{tmp_sol[1]}",
-            "w",
-            encoding="utf-8",
+                f"{cur_path}/tmp_submit_{tmp_sol[0]}.{tmp_sol[1]}",
+                "w",
+                encoding="utf-8",
         ) as f:
             f.write(code)
 

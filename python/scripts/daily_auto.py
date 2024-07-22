@@ -148,12 +148,16 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
             problem_ids.append([question_id, tmp_folder])
     if problem_ids:
         for lang in languages:
-            cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
-            if not cls:
-                print(f"{lang} writer is not supported yet!")
+            try:
+                cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+                if not cls:
+                    print(f"{lang} writer is not supported yet!")
+                    continue
+                obj: lc_libs.LanguageWriter = cls()
+                obj.change_tests(root_path, problem_ids)
+            except Exception as _:
+                traceback.print_exc()
                 continue
-            obj: lc_libs.LanguageWriter = cls()
-            obj.change_tests(root_path, problem_ids)
 
 
 def main(problem_folder: str = None, cookie: Optional[str] = None, languages: list[str] = None):

@@ -143,15 +143,56 @@ export function Solve(inputJsonElement: string): any {}
 {}
 """
 
-SOLUTION_TEMPLATE_RUST = """use serde_json::{json, Value};
+SOLUTION_TEMPLATE_RUST = """use serde_json::{}json, Value{};
 {}
 pub struct Solution;
 
 {}
 
 #[cfg(feature = "solution")]
-pub fn solve(input_string: String) -> Value {
-\tlet input_values: Vec<String> = input_string.split('\n').map(|x| x.to_string()).collect();
+pub fn solve(input_string: String) -> Value {}
+\tlet input_values: Vec<String> = input_string.split('\\n').map(|x| x.to_string()).collect();
 \t{}
-}
+{}
+"""
+
+CARGO_TOML_TEMPLATE_TEST_EXECUTOR = """[package]
+name = "test_executor"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79.0"
+authors = ["benhao"]
+description = "LeetCode Rust Test Main"
+readme = "../README.md"
+
+[features]
+timer = []
+test_case = []
+
+[dependencies]
+serde_json = "1.0"
+problems = {} path = "../../{}", features = ["solution"] {}
+"""
+
+CARGO_TOML_TEMPLATE_SOLUTION = """[package]
+name = "problems"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79.0"
+authors = ["benhao"]
+description = "LeetCode Solutions in Rust"
+readme = "../README.md"
+
+[features]
+solution = []
+
+[dependencies]
+serde_json = "1.0"
+rand = "0.8.4"
+regex = "1.10.5"
+library = {} path = "../rust/library", features = ["model"]{}
+
+[lib]
+name = "solution"
+path = "{}_{}/solution.rs"
 """
