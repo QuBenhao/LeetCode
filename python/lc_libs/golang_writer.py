@@ -59,11 +59,11 @@ class GolangWriter(LanguageWriter):
             )
 
     def write_solution(
-        self,
-        code_default: str,
-        code: str = None,
-        problem_id: str = "",
-        problem_folder: str = "",
+            self,
+            code_default: str,
+            code: str = None,
+            problem_id: str = "",
+            problem_folder: str = "",
     ) -> str:
         its = []
         rts = []
@@ -80,13 +80,13 @@ class GolangWriter(LanguageWriter):
                 )
                 func_names.append(line.split("(")[0].split("func ")[-1].strip())
             elif line.startswith("type ") and line.endswith(" struct {"):
-                struct_name = line[len("type ") : -len(" struct {")]
+                struct_name = line[len("type "): -len(" struct {")]
                 structs_map[struct_name] = dict()
                 for tmp in code_default.split("\n"):
                     tmp = tmp.strip()
                     if tmp.startswith("func ") and (
-                        tmp.endswith(f") {struct_name} " + "{")
-                        or tmp.endswith(f") *{struct_name} " + "{")
+                            tmp.endswith(f") {struct_name} " + "{")
+                            or tmp.endswith(f") *{struct_name} " + "{")
                     ):
                         tp0, tp1, tp2, tp3 = GolangWriter.__process_inputs(
                             code_default,
@@ -142,35 +142,35 @@ class GolangWriter(LanguageWriter):
                     if "construct" in d:
                         constructor = d["construct"]
                 build_body = (
-                    "\tvar operators []string\n"
-                    + "\tvar opValues [][]interface{}\n"
-                    + "\tvar ans []interface{}\n"
-                    + "\tif err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {\n"
-                    + "\t\tlog.Println(err)\n"
-                    + "\t\treturn nil\n"
-                    + "\t}\n"
-                    + "\tif err := json.Unmarshal([]byte(inputValues[1]), &opValues); err != nil {\n"
-                    + "\t\tlog.Println(err)\n"
-                    + "\t\treturn nil\n"
-                    + "\t}\n"
-                    + "{}".format(
-                        (
-                            "\tobj :=" + constructor[0] + f"({constructor[1][3]})\n"
-                            if constructor is not None
-                            else ""
-                        ),
-                        "",
-                    )
-                    + "\tans = append(ans, nil)\n"
-                    + "\tfor i := 1; i < len(operators); i++ {\n"
-                    + "\t\tvar res interface{}\n"
-                    + "{}".format(
-                        "\t\tswitch operators[i] {\n" + func_loop + "\t\tdefault:\n"
-                        "\t\t\tres = nil\n"
-                        "\t\t}\n"
-                    )
-                    + "\t\tans = append(ans, res)\n"
-                    "\t}\n"
+                        "\tvar operators []string\n"
+                        + "\tvar opValues [][]interface{}\n"
+                        + "\tvar ans []interface{}\n"
+                        + "\tif err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {\n"
+                        + "\t\tlog.Println(err)\n"
+                        + "\t\treturn nil\n"
+                        + "\t}\n"
+                        + "\tif err := json.Unmarshal([]byte(inputValues[1]), &opValues); err != nil {\n"
+                        + "\t\tlog.Println(err)\n"
+                        + "\t\treturn nil\n"
+                        + "\t}\n"
+                        + "{}".format(
+                    (
+                        "\tobj :=" + constructor[0] + f"({constructor[1][3]})\n"
+                        if constructor is not None
+                        else ""
+                    ),
+                    "",
+                )
+                        + "\tans = append(ans, nil)\n"
+                        + "\tfor i := 1; i < len(operators); i++ {\n"
+                        + "\t\tvar res interface{}\n"
+                        + "{}".format(
+                    "\t\tswitch operators[i] {\n" + func_loop + "\t\tdefault:\n"
+                                                                "\t\t\tres = nil\n"
+                                                                "\t\t}\n"
+                )
+                        + "\t\tans = append(ans, res)\n"
+                          "\t}\n"
                 )
 
                 return SOLUTION_TEMPLATE_GOLANG.format(
@@ -196,10 +196,10 @@ class GolangWriter(LanguageWriter):
             import_set.update(it[0])
 
         if (
-            len(rts) != 1
-            or rts[0] == "*TreeNode"
-            or rts[0] == "*ListNode"
-            or rts[0] == "*Node"
+                len(rts) != 1
+                or rts[0] == "*TreeNode"
+                or rts[0] == "*ListNode"
+                or rts[0] == "*Node"
         ):
             return_func_var = "{}({})".format(
                 func_names[0], ", ".join(list(zip(*its))[3])
@@ -213,22 +213,22 @@ class GolangWriter(LanguageWriter):
                 case "*Node":
                     return_func_name = "ToBeImplemented"
                     if (
-                        "Left *Node" in code_default
-                        and "Right *Node" in code_default
-                        and "Next *Node" in code_default
+                            "Left *Node" in code_default
+                            and "Right *Node" in code_default
+                            and "Next *Node" in code_default
                     ):
                         return_func_name = "TreeNextToArray"
                     elif "Neighbors []*Node" in code_default:
                         return_func_name = "NodeNeighbourToArrayRelation"
                     elif (
-                        "/**\n"
-                        " * Definition for a Node.\n"
-                        " * type Node struct {\n"
-                        " *     Val int\n"
-                        " *     Next *Node\n"
-                        " *     Random *Node\n"
-                        " * }\n"
-                        " */" in code_default
+                            "/**\n"
+                            " * Definition for a Node.\n"
+                            " * type Node struct {\n"
+                            " *     Val int\n"
+                            " *     Next *Node\n"
+                            " *     Random *Node\n"
+                            " * }\n"
+                            " */" in code_default
                     ):
                         return_func_name = "NodeArrayToIntRandomArray"
                 case _:
@@ -293,19 +293,19 @@ class GolangWriter(LanguageWriter):
         )
 
     def get_solution_code(
-        self, root_path, problem_folder: str, problem_id: str
+            self, root_path, problem_folder: str, problem_id: str
     ) -> Tuple[str, str]:
         if not problem_id:
             with open(
-                os.path.join(root_path, "golang", "solution_test.go"),
-                "r",
-                encoding="utf-8",
+                    os.path.join(root_path, "golang", "solution_test.go"),
+                    "r",
+                    encoding="utf-8",
             ) as f:
                 lines = f.read().split("\n")
                 for line in lines:
                     if (
-                        'TestEach(t, "' in line
-                        and '", "problems", problem.Solve)' in line
+                            'TestEach(t, "' in line
+                            and '", "problems", problem.Solve)' in line
                     ):
                         problem_id = line.split('"')[1]
                         break
@@ -331,8 +331,8 @@ class GolangWriter(LanguageWriter):
                     import_part = True
                     continue
                 if (
-                    "func Solve(input string) interface{} {" in line
-                    or "func Solve(inputJsonValues string) interface{} {" in line
+                        "func Solve(input string) interface{} {" in line
+                        or "func Solve(inputJsonValues string) interface{} {" in line
                 ):
                     break
                 final_codes.append(line)
@@ -342,7 +342,7 @@ class GolangWriter(LanguageWriter):
 
     @staticmethod
     def __process_inputs(
-        code_default: str, input_str: str, struct_dict: dict, struct_func: bool = False
+            code_default: str, input_str: str, struct_dict: dict, struct_func: bool = False
     ) -> Tuple[set, str, str, str]:
         res = []
         imports_libs = set()
@@ -442,9 +442,9 @@ class GolangWriter(LanguageWriter):
                         imports_libs.add('\t. "leetCode/golang/models"')
                     case "*Node":
                         if (
-                            "Left *Node" in code_default
-                            and "Right *Node" in code_default
-                            and "Next *Node" in code_default
+                                "Left *Node" in code_default
+                                and "Right *Node" in code_default
+                                and "Next *Node" in code_default
                         ):
                             for var in vrs:
                                 json_parse.append(
@@ -466,14 +466,14 @@ class GolangWriter(LanguageWriter):
                             imports_libs.add('\t"encoding/json"')
                             imports_libs.add('\t"log"')
                         elif (
-                            "/**\n"
-                            " * Definition for a Node.\n"
-                            " * type Node struct {\n"
-                            " *     Val int\n"
-                            " *     Next *Node\n"
-                            " *     Random *Node\n"
-                            " * }\n"
-                            " */" in code_default
+                                "/**\n"
+                                " * Definition for a Node.\n"
+                                " * type Node struct {\n"
+                                " *     Val int\n"
+                                " *     Next *Node\n"
+                                " *     Random *Node\n"
+                                " * }\n"
+                                " */" in code_default
                         ):
                             for var in vrs:
                                 json_parse.append(

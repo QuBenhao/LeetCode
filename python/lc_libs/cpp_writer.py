@@ -45,6 +45,7 @@ class CppWriter(LanguageWriter):
         with open(test_file_path0, "w", encoding="utf-8") as f:
             splits = content.split("\n")
             ans = []
+            idx = 0
             while idx < len(splits):
                 if "new_local_repository(" in splits[idx]:
                     if 'name = "problems",' in splits[idx + 1]:
@@ -67,8 +68,6 @@ class CppWriter(LanguageWriter):
                 ans.append("")
             f.write("\n".join(ans))
         test_file_path1 = os.path.join(root_path, self.tests_files[1])
-        with open(test_file_path1, "r", encoding="utf-8") as f:
-            content = f.read()
         with open(test_file_path1, "w", encoding="utf-8") as f:
             for i, (problem_id, _) in enumerate(problem_ids_folders):
                 f.write(TESTCASE_TEMPLATE_CPP.format(problem_id, i, i, i) + "\n")

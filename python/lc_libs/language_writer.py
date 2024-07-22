@@ -20,16 +20,16 @@ class LanguageWriter(abc.ABC):
         pass
 
     def write_solution(
-        self,
-        code_default: str,
-        code: str = None,
-        problem_id: str = "",
-        problem_folder: str = "",
+            self,
+            code_default: str,
+            code: str = None,
+            problem_id: str = "",
+            problem_folder: str = "",
     ) -> str:
         pass
 
     def get_solution_code(
-        self, root_path, problem_folder: str, problem_id: str
+            self, root_path, problem_folder: str, problem_id: str
     ) -> Tuple[str, str]:
         pass
 
@@ -85,15 +85,14 @@ class LanguageWriter(abc.ABC):
             return False
         return True
 
-
     def run_code(
-        self,
-        root_path,
-        problem_folder: str,
-        problem_id: str,
-        write: bool,
-        default_code: str,
-        code: str,
+            self,
+            root_path,
+            problem_folder: str,
+            problem_id: str,
+            write: bool,
+            default_code: str,
+            code: str,
     ) -> bool:
         exec_res = False
         if self.env_check():
@@ -111,14 +110,14 @@ class LanguageWriter(abc.ABC):
         if not write or exec_res:
             return exec_res
         with open(
-            os.path.join(
-                root_path,
-                problem_folder,
-                f"{problem_folder}_{problem_id}",
-                self.solution_file,
-            ),
-            "w",
-            encoding="utf-8",
+                os.path.join(
+                    root_path,
+                    problem_folder,
+                    f"{problem_folder}_{problem_id}",
+                    self.solution_file,
+                ),
+                "w",
+                encoding="utf-8",
         ) as f:
             code_content = self.write_solution(
                 default_code, code, problem_id, problem_folder
