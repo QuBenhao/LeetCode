@@ -17,9 +17,22 @@ using json = nlohmann::json;
  * };
  */
 class Solution {
+private:
+    int ans;
+    int dfs(TreeNode* node) {
+        if (node == nullptr) {
+            return 0;
+        }
+        int left = dfs(node->left);
+        int right = dfs(node->right);
+        ans = max(ans, left + right);
+        return max(left, right) + 1;
+    }
 public:
     int diameterOfBinaryTree(TreeNode* root) {
-
+        ans = 0;
+        dfs(root);
+        return ans;
     }
 };
 
