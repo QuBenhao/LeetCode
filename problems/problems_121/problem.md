@@ -1,24 +1,33 @@
 # 121. Best Time to Buy and Sell Stock
 
-Say you have an array for which the *i*th element is the price of a given stock on day *i*.
+<p>You are given an array <code>prices</code> where <code>prices[i]</code> is the price of a given stock on the <code>i<sup>th</sup></code> day.</p>
 
-If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
+<p>You want to maximize your profit by choosing a <strong>single day</strong> to buy one stock and choosing a <strong>different day in the future</strong> to sell that stock.</p>
 
-Note that you cannot sell a stock before you buy one.
+<p>Return <em>the maximum profit you can achieve from this transaction</em>. If you cannot achieve any profit, return <code>0</code>.</p>
 
-**Example 1:**
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-```
-Input: [7,1,5,3,6,4]
-Output: 5
-Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
-             Not 7-1 = 6, as selling price needs to be larger than buying price.
-```
+<pre>
+<strong>Input:</strong> prices = [7,1,5,3,6,4]
+<strong>Output:</strong> 5
+<strong>Explanation:</strong> Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+</pre>
 
-**Example 2:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: [7,6,4,3,1]
-Output: 0
-Explanation: In this case, no transaction is done, i.e. max profit = 0.
-```
+<pre>
+<strong>Input:</strong> prices = [7,6,4,3,1]
+<strong>Output:</strong> 0
+<strong>Explanation:</strong> In this case, no transactions are done and the max profit = 0.
+</pre>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= prices.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>0 &lt;= prices[i] &lt;= 10<sup>4</sup></code></li>
+</ul>

@@ -25,6 +25,4 @@ class Solution(solution.Solution):
                 dp[i] = max(prices[i] - curr_min, dp[i - 1])
                 # curr_min = float("inf")
 
-        print(dp)
-
         return dp[-1]

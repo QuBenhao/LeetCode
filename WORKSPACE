@@ -16,18 +16,12 @@ git_repository(
 new_local_repository(
     name = "problems",
     build_file = "//cpp:solution.BUILD",
-    path = "problems/problems_2850/",
+    path = "problems/problems_2101/",
 )
 
 new_local_repository(
     name = "problem0",
-    path = "problems/problems_11/",
-    build_file = "//cpp:solution.BUILD",
-)
-
-new_local_repository(
-    name = "problem1",
-    path = "problems/problems_54/",
+    path = "problems/problems_17/",
     build_file = "//cpp:solution.BUILD",
 )
 
