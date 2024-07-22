@@ -211,6 +211,12 @@ add launch.json under `.vscode`
             "type": "node",
             "request": "launch",
             "preLaunchTask": "java-tests",
+        },
+        {
+            "name": "Rust Test",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "rust-test",
         }
     ]
 }
@@ -278,6 +284,12 @@ and tasks.json under `.vscode`
 			"label": "java-tests",
 			"command": "mvn",
 			"args": ["test", "-Dtest=\"qubhjava.test.ProblemsTest\""],
+			"type": "shell"
+		},
+        {
+			"label": "rust-test",
+			"command": "cargo",
+			"args": ["test", "--test", "solution_test"],
 			"type": "shell"
 		}
 	]
