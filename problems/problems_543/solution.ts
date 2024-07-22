@@ -15,7 +15,15 @@ import {TreeNode,JSONArrayToTreeNode} from "../../typescript/models/treenode";
  */
 
 function diameterOfBinaryTree(root: TreeNode | null): number {
-    
+    let ans: number = 0;
+	const dfs: Function = (node: TreeNode | null): number => {
+		if (node == null) return 0;
+		const left: number = dfs(node.left), right: number = dfs(node.right);
+		ans = Math.max(ans, left + right);
+		return Math.max(left, right) + 1;
+	}
+	dfs(root);
+	return ans;
 };
 
 export function Solve(inputJsonElement: string): any {
