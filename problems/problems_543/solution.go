@@ -13,8 +13,18 @@ import (
  *     Right *TreeNode
  * }
  */
-func diameterOfBinaryTree(root *TreeNode) int {
-
+func diameterOfBinaryTree(root *TreeNode) (ans int) {
+	var dfs func(*TreeNode) int
+	dfs = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		left, right := dfs(node.Left), dfs(node.Right)
+		ans = max(ans, left+right)
+		return max(left, right) + 1
+	}
+	dfs(root)
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
