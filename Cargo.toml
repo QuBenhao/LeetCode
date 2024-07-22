@@ -16,7 +16,7 @@ readme = "README.md"
 
 [[test]]
 name = "solution_test"
-path = "rust/test_executor/src/test.rs"
+path = "rust/test_executor/tests/test.rs"
 
 [dependencies]
 serde_json = "1.0"
