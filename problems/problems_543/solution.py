@@ -17,5 +17,10 @@ class Solution(solution.Solution):
         return self.diameterOfBinaryTree(root0)
 
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        pass
+        def dfs(node: Optional[TreeNode]) -> Tuple[int, int]:
+            if not node:
+                return 0, 0
+            left, right = dfs(node.left), dfs(node.right)
+            return max(left[0], right[0], left[1] + right[1] + 1), max(left[1], right[1]) + 1
 
+        return max(dfs(root)) - 1
