@@ -81,7 +81,8 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
                     print("Language Writer not supported yet")
                     continue
                 obj: lc_libs.LanguageWriter = cls()
-                if obj.run_code(root_path, problem_folder, question_id, True, default_code[detail["lang"]], code):
+                if obj.run_code(root_path, tmp_problem_folder, question_id,
+                                True, default_code[detail["lang"]], code):
                     print(f"Already solved problem: {question_id}, language: {language}")
                 cache.add(language)
                 if question_id == daily_question:
