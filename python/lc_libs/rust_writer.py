@@ -71,6 +71,8 @@ class RustWriter(LanguageWriter):
                         "Solution::{}({})".format(function_name, ", ".join([v[0] for v in variables]))
                     )
                 else:
+                    return_part.append("Solution::{}({});".format(function_name,
+                                                                  ", ".join([v[0] for v in variables])))
                     return_part.append(variables[0][0])
                 fn_count += 1
         if fn_count != 1:
@@ -165,7 +167,7 @@ class RustWriter(LanguageWriter):
             var_name, var_type = var.split(":")
             var_list.append((var_name.strip(), var_type.strip()))
         rts = line.split("->")
-        return_type = line.split("->")[1].strip() if len(rts) > 1 else None
+        return_type = line.split("->")[1].split("{")[0].strip() if len(rts) > 1 else None
         return function_name, var_list, return_type
 
     @staticmethod
@@ -182,7 +184,7 @@ class RustWriter(LanguageWriter):
         :param is_return: bool
         """
         match var_type:
-            case "Option<Box<ListNode>>":
+            case "Option<Box<ListNode>>" | "Vec<Option<Box<ListNode>>>":
                 idx = -1
                 for i, lib in enumerate(import_libs):
                     if "use library::lib::list_node::" in lib:
@@ -203,16 +205,27 @@ class RustWriter(LanguageWriter):
                     else:
                         import_libs.append("use library::lib::list_node::{ListNode, list_node_to_int_array};")
                 if is_return:
-                    return_parts.append("json!(list_node_to_int_array(&{})")
+                    if var_type == "Vec<Option<Box<ListNode>>>":
+                        return_parts.append("let mut res = vec![];")
+                        return_parts.append("for node in " + var_name + " {")
+                        return_parts.append("\tres.push(list_node_to_int_array(&node));")
+                        return_parts.append("}")
+                        return_parts.append("json!(res)")
+                    else:
+                        return_parts.append("json!(list_node_to_int_array(&{}))")
                 else:
-                    solve_part.append(f"let input_nums{idx}: Vec<i32> = serde_json::from_str("
-                                      f"&input_values[{idx}]).expect(\"Failed to parse input\");")
-                    solve_part.append(f"let {var_name}: Option<Box<ListNode>> ="
-                                      f" int_array_to_list_node(&input_nums{var_idx});")
-            case "Vec<Option<Box<ListNode>>>":
-                idx = -1
+                    if var_type == "Vec<Option<Box<ListNode>>>":
+                        solve_part.append(f"let input_nums{var_idx}: Vec<Vec<i32>> = serde_json::from_str("
+                                          f"&input_values[{var_idx}]).expect(\"Failed to parse input\");")
+                        solve_part.append(f"let {var_name}: Vec<Option<Box<ListNode>>> = input_nums{var_idx}."
+                                          f"into_iter().map(|nums| int_array_to_list_node(&nums)).collect();")
+                    else:
+                        solve_part.append(f"let input_nums{var_idx}: Vec<i32> = serde_json::from_str("
+                                          f"&input_values[{var_idx}]).expect(\"Failed to parse input\");")
+                        solve_part.append(f"let {var_name}: Option<Box<ListNode>> ="
+                                          f" int_array_to_list_node(&input_nums{var_idx});")
 
-            case "Option<Rc<RefCell<TreeNode>>>":
+            case "Option<Rc<RefCell<TreeNode>>>" | "Vec<Option<Rc<RefCell<TreeNode>>>>":
                 idx = -1
                 for i, lib in enumerate(import_libs):
                     if "use library::lib::tree_node::" in lib:
@@ -233,12 +246,18 @@ class RustWriter(LanguageWriter):
                     else:
                         import_libs.append("use library::lib::tree_node::{TreeNode, tree_to_array};")
                 if is_return:
-                    return_parts.append("json!(tree_to_array(&{})")
+                    return_parts.append("json!(tree_to_array(&{}))")
                 else:
-                    solve_part.append(f"let input_vec{idx}: Vec<Option<i32>> = serde_json::from_str("
-                                      f"&input_values[{idx}]).expect(\"Failed to parse input\");")
-                    solve_part.append(f"let {var_name}: Option<Rc<RefCell<TreeNode>>> ="
-                                      f" array_to_tree(&input_vec{var_idx});")
+                    if var_type == "Vec<Option<Rc<RefCell<TreeNode>>>>":
+                        solve_part.append(f"let input_values{var_idx}: Vec<String> = serde_json::from_str("
+                                          f"&input_values[{var_idx}]).expect(\"Failed to parse input\");")
+                        solve_part.append(f"let {var_name}: Vec<Option<Rc<RefCell<TreeNode>>> ="
+                                          f" input_values{var_idx}.into_iter().map(|s| array_to_tree(&s)).collect();")
+                    else:
+                        solve_part.append(f"let input_vec{var_idx}: Vec<Option<i32>> = serde_json::from_str("
+                                          f"&input_values[{var_idx}]).expect(\"Failed to parse input\");")
+                        solve_part.append(f"let {var_name}: Option<Rc<RefCell<TreeNode>>> ="
+                                          f" array_to_tree(&input_vec{var_idx});")
             case _:
                 if is_return:
                     return_parts.append("json!({})")
