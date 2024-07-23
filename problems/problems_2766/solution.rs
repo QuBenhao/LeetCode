@@ -2,9 +2,18 @@ use serde_json::{json, Value};
 
 pub struct Solution;
 
+use std::collections::HashSet;
+
 impl Solution {
     pub fn relocate_marbles(nums: Vec<i32>, move_from: Vec<i32>, move_to: Vec<i32>) -> Vec<i32> {
-
+		let mut s: HashSet<i32> = nums.into_iter().collect();
+		for i in 0..move_from.len() {
+			s.remove(&move_from[i]);
+			s.insert(move_to[i]);
+		}
+		let mut res: Vec<i32> = s.into_iter().collect();
+		res.sort();
+		res
     }
 }
 

@@ -104,7 +104,8 @@ class RustWriter(LanguageWriter):
             self, root_path, problem_folder: str, problem_id: str
     ) -> Tuple[str, str]:
         if not problem_id:
-            with open(os.path.join(root_path, self.test_executor_folder, self.test_file), "r", encoding="utf-8") as f:
+            test_file_path = os.path.join(root_path, self.main_folder, self.test_executor_folder, self.test_file)
+            with open(test_file_path, "r", encoding="utf-8") as f:
                 content = f.read()
                 for line in content.split("\n"):
                     if "const PROBLEM_ID: &str = \"" in line:
