@@ -81,8 +81,8 @@ class GolangWriter(LanguageWriter):
                 for tmp in code_default.split("\n"):
                     tmp = tmp.strip()
                     if tmp.startswith("func ") and (
-                            tmp.endswith(f") {struct_name} " + "{")
-                            or tmp.endswith(f") *{struct_name} " + "{")
+                            tmp.endswith(f") {struct_name} {{")
+                            or tmp.endswith(f") *{struct_name} {{")
                     ):
                         tp0, tp1, tp2, tp3 = GolangWriter.__process_inputs(
                             code_default,

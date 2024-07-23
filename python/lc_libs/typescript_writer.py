@@ -88,7 +88,7 @@ class TypescriptWriter(LanguageWriter):
                         import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedList")
                         process_inputs.append(f"const jsonArray{i}: any = JSON.parse(inputValues[{i}]);")
                         process_inputs.append(f"const {variable} = [];")
-                        process_inputs.append(f"for (let i = 0; i < jsonArray{i}.length; i++) " + "{")
+                        process_inputs.append(f"for (let i = 0; i < jsonArray{i}.length; i++) {{")
                         process_inputs.append(f"\t{var_name}.push(IntArrayToLinkedList(jsonArray{i}[i]));")
                         process_inputs.append("}")
                     case "Array<TreeNode | null>":
