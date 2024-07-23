@@ -49,7 +49,7 @@ class JavaWriter(LanguageWriter):
             for line_idx, line in enumerate(lines):
                 if "private static final String[][] PROBLEMS = " in line:
                     f.write("\tprivate static final String[][] PROBLEMS = {" +
-                            ", ".join("{\"" + pid + "\", \"" + pf + "\"}" for pid, pf in problem_ids_folders) + "};\n")
+                            ", ".join(f"{{\"{pid}\", \"{pf}\"}}" for pid, pf in problem_ids_folders) + "};\n")
                     continue
                 if line_idx < len(lines) - 1 or line:
                     f.write(line + "\n")
@@ -138,13 +138,9 @@ class JavaWriter(LanguageWriter):
             problem_folder,
             problem_id,
             "\n".join(import_packages),
-            "{",
             "\n".join(body),
-            "{",
             "\n\t\t".join(parse_input),
             return_part,
-            "}",
-            "}"
         )
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:

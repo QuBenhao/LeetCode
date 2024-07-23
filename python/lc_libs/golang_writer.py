@@ -35,9 +35,7 @@ class GolangWriter(LanguageWriter):
                 TESTCASE_TEMPLATE_GOLANG.format(
                     f'problem "leetCode/{problem_folder}/{problem_folder}_{question_id}"',
                     "TestSolution",
-                    "{",
                     f'TestEach(t, "{question_id}", "{problem_folder}", problem.Solve)',
-                    "}",
                 )
             )
 
@@ -49,12 +47,10 @@ class GolangWriter(LanguageWriter):
                         f'"leetCode/{pf}/{pf}_{pid}"' for pid, pf in problem_ids_folders
                     ),
                     "TestSolutions",
-                    "{",
                     "\n\t".join(
                         f'TestEach(t, "{pid}", "{pf}", problem{pid}.Solve)'
                         for pid, pf in problem_ids_folders
                     ),
-                    "}",
                 )
             )
 
@@ -85,8 +81,8 @@ class GolangWriter(LanguageWriter):
                 for tmp in code_default.split("\n"):
                     tmp = tmp.strip()
                     if tmp.startswith("func ") and (
-                            tmp.endswith(f") {struct_name} " + "{")
-                            or tmp.endswith(f") *{struct_name} " + "{")
+                            tmp.endswith(f") {struct_name} {{")
+                            or tmp.endswith(f") *{struct_name} {{")
                     ):
                         tp0, tp1, tp2, tp3 = GolangWriter.__process_inputs(
                             code_default,
@@ -184,12 +180,10 @@ class GolangWriter(LanguageWriter):
                         )
                     ),
                     code_default if not code else code,
-                    "interface{} {",
                     build_body,
                     "",
                     "ans",
                     "",
-                    "}",
                 ).replace("return ans()", "return ans")
         import_set = set()
         for it in its:
@@ -246,12 +240,10 @@ class GolangWriter(LanguageWriter):
                     )
                 ),
                 code_default if not code else code,
-                "interface{} {",
                 "\n".join(list(zip(*its))[1]),
                 "\n".join(list(zip(*its))[2]),
                 return_func_name,
                 return_func_var,
-                "}",
             )
         if rts[0] == "":
             return SOLUTION_TEMPLATE_GOLANG_MODIFY_IN_PLACE.format(
@@ -265,13 +257,11 @@ class GolangWriter(LanguageWriter):
                     )
                 ),
                 code_default if not code else code,
-                "interface{} {",
                 "\n".join(list(zip(*its))[1]),
                 "\n".join(list(zip(*its))[2]),
                 func_names[0],
                 ", ".join(list(zip(*its))[3]),
                 its[0][3],
-                "}",
             )
         return SOLUTION_TEMPLATE_GOLANG.format(
             problem_id,
@@ -284,12 +274,10 @@ class GolangWriter(LanguageWriter):
                 )
             ),
             code_default if not code else code,
-            "interface{} {",
             "\n".join(list(zip(*its))[1]),
             "\n".join(list(zip(*its))[2]),
             func_names[0],
             ", ".join(list(zip(*its))[3]),
-            "}",
         )
 
     def get_solution_code(

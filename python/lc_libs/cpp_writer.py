@@ -334,12 +334,8 @@ class CppWriter(LanguageWriter):
         return SOLUTION_TEMPLATE_CPP.format(
             "\n".join(include_libs),
             code,
-            "{",
-            "{",
-            "}",
             "\n\t".join(process_variables),
             "\n\t".join(return_part),
-            "}",
         )
 
     def get_solution_code(

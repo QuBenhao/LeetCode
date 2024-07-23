@@ -2,7 +2,7 @@ import os
 from collections import deque
 from typing import Tuple, List
 
-from python.constants import CARGO_TOML_TEMPLATE_ROOT, CARGO_TOML_TEMPLATE_SOLUTION, SOLUTION_TEMPLATE_RUST, \
+from python.constants import CARGO_TOML_TEMPLATE_SOLUTION, SOLUTION_TEMPLATE_RUST, \
     SOLUTIONS_TEMPLATE_RUST
 from python.lc_libs.language_writer import LanguageWriter
 
@@ -98,7 +98,7 @@ class RustWriter(LanguageWriter):
         cargo_file_path = os.path.join(dir_path, self.cargo_file)
         if not os.path.exists(cargo_file_path):
             with open(cargo_file_path, "w", encoding="utf-8") as f:
-                f.write(CARGO_TOML_TEMPLATE_SOLUTION.format(problem_id, problem_id, problem_id, "{", "}", problem_id))
+                f.write(CARGO_TOML_TEMPLATE_SOLUTION.format(problem_id, problem_id, problem_id, problem_id))
 
     def get_solution_code(
             self, root_path, problem_folder: str, problem_id: str
