@@ -90,9 +90,7 @@ class RustWriter(LanguageWriter):
         if fn_count != 1:
             raise NotImplementedError("RustWriter does not support multiple functions yet!")
         solve_part.extend(return_part)
-        return SOLUTION_TEMPLATE_RUST.format(
-            "{", "}", "\n".join(import_libs), code, "{", "\n\t".join(solve_part), "}"
-        )
+        return SOLUTION_TEMPLATE_RUST.format("\n".join(import_libs), code, problem_id, "\n\t".join(solve_part))
 
     def write_cargo_toml(self, dir_path, problem_id: str):
         cargo_file_path = os.path.join(dir_path, self.cargo_file)

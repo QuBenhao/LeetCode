@@ -143,17 +143,17 @@ export function Solve(inputJsonElement: string): any {}
 {}
 """
 
-SOLUTION_TEMPLATE_RUST = """use serde_json::{}json, Value{};
+SOLUTION_TEMPLATE_RUST = """use serde_json::{{json, Value}};
 {}
 pub struct Solution;
 
 {}
 
-#[cfg(feature = "solution")]
-pub fn solve(input_string: String) -> Value {}
+#[cfg(feature = "solution_{}")]
+pub fn solve(input_string: String) -> Value {{
 \tlet input_values: Vec<String> = input_string.split('\\n').map(|x| x.to_string()).collect();
 \t{}
-{}
+}}
 """
 
 SOLUTIONS_TEMPLATE_RUST = """const PROBLEMS: [[&str; 2]; {}] = [{}];
