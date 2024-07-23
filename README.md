@@ -217,6 +217,12 @@ add launch.json under `.vscode`
             "type": "node",
             "request": "launch",
             "preLaunchTask": "rust-test",
+        },
+        {
+            "name": "Rust Tests",
+            "type": "node",
+            "request": "launch",
+            "preLaunchTask": "rust-tests",
         }
     ]
 }
@@ -290,6 +296,12 @@ and tasks.json under `.vscode`
 			"label": "rust-test",
 			"command": "cargo",
 			"args": ["test", "--test", "solution_test"],
+			"type": "shell"
+		},
+		{
+			"label": "rust-tests",
+			"command": "cargo",
+			"args": ["test", "--test", "solutions_test"],
 			"type": "shell"
 		}
 	]
