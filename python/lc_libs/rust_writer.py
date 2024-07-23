@@ -291,7 +291,8 @@ class RustWriter(LanguageWriter):
         with open(file_path, "w", encoding="utf-8") as f:
             member_start = False
             dependencies_start = False
-            for line in content.split("\n"):
+            splits = content.split("\n")
+            for line_idx, line in enumerate(splits):
                 if "members = [" in line:
                     f.write(line + "\n")
                     member_start = True
@@ -320,7 +321,8 @@ class RustWriter(LanguageWriter):
                         pi = line.split("_")[-1].split("\"")[0].strip()
                         if (pi, pf) in remain_dependencies:
                             remain_dependencies.remove((pi, pf))
-                f.write(line + "\n")
+                if line_idx < len(splits) - 1 or line:
+                    f.write(line + "\n")
             for problem_id, problem_folder in remain_dependencies:
                 f.write(f"solution_{problem_id} = {{ path = \"{problem_folder}/{problem_folder}_{problem_id}\", "
                         f"features = [\"solution_{problem_id}\"] }}\n")
