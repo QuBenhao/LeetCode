@@ -25,25 +25,30 @@ class TypescriptWriter(LanguageWriter):
         with open(test_file_path, 'r', encoding="utf-8") as f:
             content = f.read()
         with open(test_file_path, 'w', encoding="utf-8") as f:
-            for line in content.split("\n"):
+            lines = content.split("\n")
+            for line_idx, line in enumerate(lines):
                 if "const PROBLEM_ID: string = \"" in line:
                     f.write(line.split("\"")[0] + f"\"{question_id}\";\n")
                     continue
-                elif "let problemFolder: string = (process.env.PROBLEM_FOLDER && process.env.PROBLEM_FOLDER.length > 0) ? process.env.PROBLEM_FOLDER : \"" in line:
+                elif ("let problemFolder: string = (process.env.PROBLEM_FOLDER && process.env.PROBLEM_FOLDER.length > "
+                      "0) ? process.env.PROBLEM_FOLDER : \"") in line:
                     f.write(line.split("\"")[0] + f"\"{problem_folder}\";\n")
                     continue
-                f.write(line + "\n")
+                if line_idx < len(lines) - 1 or line:
+                    f.write(line + "\n")
 
     def change_tests(self, root_path, problem_ids_folders: list):
         tests_file_path = os.path.join(root_path, self.main_folder, self.tests_file)
         with open(tests_file_path, 'r', encoding="utf-8") as f:
             content = f.read()
         with open(tests_file_path, 'w', encoding="utf-8") as f:
-            for line in content.split("\n"):
+            lines = content.split("\n")
+            for line_idx, line in enumerate(lines):
                 if "const PROBLEMS: string[][] = " in line:
                     f.write("const PROBLEMS: string[][] = {};\n".format(str(problem_ids_folders)))
                     continue
-                f.write(line + "\n")
+                if line_idx < len(lines) - 1 or line:
+                    f.write(line + "\n")
 
     def write_solution(self, code_default: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:

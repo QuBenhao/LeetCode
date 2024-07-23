@@ -25,7 +25,8 @@ class CppWriter(LanguageWriter):
             content = f.read()
         with open(test_file_path, "w", encoding="utf-8") as f:
             is_problem = False
-            for line in content.split("\n"):
+            lines = content.split("\n")
+            for line_idx, line in enumerate(lines):
                 if 'name = "problems",' in line:
                     is_problem = True
                 elif is_problem and 'path = "' in line:
@@ -36,25 +37,26 @@ class CppWriter(LanguageWriter):
                     )
                     is_problem = False
                     continue
-                f.write(line + "\n")
+                if line_idx < len(lines) - 1 or line:
+                    f.write(line + "\n")
 
     def change_tests(self, root_path, problem_ids_folders: list):
         test_file_path0 = os.path.join(root_path, self.tests_files[0])
         with open(test_file_path0, "r", encoding="utf-8") as f:
             content = f.read()
         with open(test_file_path0, "w", encoding="utf-8") as f:
-            splits = content.split("\n")
+            lines = content.split("\n")
             ans = []
             idx = 0
-            while idx < len(splits):
-                if "new_local_repository(" in splits[idx]:
-                    if 'name = "problems",' in splits[idx + 1]:
-                        ans.extend(splits[idx : idx + 5])
+            while idx < len(lines):
+                if "new_local_repository(" in lines[idx]:
+                    if 'name = "problems",' in lines[idx + 1]:
+                        ans.extend(lines[idx : idx + 5])
                     idx += 5
-                    while idx < len(splits) and splits[idx].strip() == "":
+                    while idx < len(lines) and lines[idx].strip() == "":
                         idx += 1
                     continue
-                ans.append(splits[idx])
+                ans.append(lines[idx])
                 idx += 1
             ans.append("")
             for i, (problem_id, problem_folder) in enumerate(problem_ids_folders):
