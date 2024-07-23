@@ -21,7 +21,7 @@ class TypescriptWriter(LanguageWriter):
                                str(os.path.join(self.main_folder, self.test_file))]]
 
     def change_test(self, root_path, problem_folder: str, question_id: str):
-        test_file_path = os.path.join(root_path, self.main_folder, self.tests_file)
+        test_file_path = os.path.join(root_path, self.main_folder, self.test_file)
         with open(test_file_path, 'r', encoding="utf-8") as f:
             content = f.read()
         with open(test_file_path, 'w', encoding="utf-8") as f:
