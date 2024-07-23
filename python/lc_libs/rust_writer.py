@@ -2,7 +2,8 @@ import os
 from collections import deque
 from typing import Tuple, List
 
-from python.constants import CARGO_TOML_TEMPLATE_TEST_EXECUTOR, CARGO_TOML_TEMPLATE_SOLUTION, SOLUTION_TEMPLATE_RUST
+from python.constants import CARGO_TOML_TEMPLATE_ROOT, CARGO_TOML_TEMPLATE_SOLUTION, SOLUTION_TEMPLATE_RUST, \
+    SOLUTIONS_TEMPLATE_RUST
 from python.lc_libs.language_writer import LanguageWriter
 
 
@@ -13,7 +14,8 @@ class RustWriter(LanguageWriter):
         self.solution_file = "solution.rs"
         self.main_folder = "rust"
         self.test_executor_folder = "test_executor"
-        self.test_file = "src/test.rs"
+        self.test_file = "tests/test.rs"
+        self.tests_file = "tests/solutions_test.rs"
         self.cargo_file = "Cargo.toml"
         self.lang_env_commands = [["rustc", "--version"], ["cargo", "--version"]]
         self.test_commands = [["cargo", "test", "--test", "solution_test"]]
@@ -30,16 +32,71 @@ class RustWriter(LanguageWriter):
                 if "const PROBLEM_ID: &str = \"" in line:
                     f.write(f'const PROBLEM_ID: &str = "{question_id}";\n')
                     continue
+                if " as solution;" in line:
+                    f.write(f"use solution_{question_id} as solution;\n")
+                    continue
                 f.write(f"{line}\n")
-        test_cargo_path = os.path.join(root_path, self.main_folder, self.test_executor_folder, self.cargo_file)
-        with open(test_cargo_path, "w", encoding="utf-8") as f:
-            f.write(CARGO_TOML_TEMPLATE_TEST_EXECUTOR.format("{", problem_folder, "}"))
-        folder_cargo_path = os.path.join(root_path, problem_folder, self.cargo_file)
-        with open(folder_cargo_path, "w", encoding="utf-8") as f:
-            f.write(CARGO_TOML_TEMPLATE_SOLUTION.format("{", "}", problem_folder, question_id))
+        root_cargo_path = os.path.join(root_path, self.cargo_file)
+        with open(root_cargo_path, "w", encoding="utf-8") as f:
+            f.write(CARGO_TOML_TEMPLATE_ROOT.format(
+                f"\"{problem_folder}/{problem_folder}_{question_id}\",\n",
+                "{", "}",
+                "solution_" + question_id + " = { path = \"" +
+                f"{problem_folder}/{problem_folder}_{question_id}\", features = [\"solution_{question_id}\"]" + " }"
+            ))
 
     def change_tests(self, root_path, problem_ids_folders: list):
-        raise NotImplementedError("RustWriter does not support change_tests yet!")
+        root_cargo_path = os.path.join(root_path, self.cargo_file)
+        with open(root_cargo_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        remain = set((problem_id, problem_folder) for problem_id, problem_folder in problem_ids_folders)
+        remain_dependencies = set(remain)
+        with open(root_cargo_path, "w", encoding="utf-8") as f:
+            member_start = False
+            dependencies_start = False
+            for line in content.split("\n"):
+                if "members = [" in line:
+                    f.write(line + "\n")
+                    member_start = True
+                    continue
+                if member_start:
+                    if "]" in line:
+                        member_start = False
+                        for problem_id, problem_folder in remain:
+                            f.write(f"\t\"{problem_folder}/{problem_folder}_{problem_id}\",\n")
+                        f.write(line + "\n")
+                        continue
+                    if "rust/" not in line:
+                        pf = line.split("/")[0].strip()
+                        pi = line.split("_")[-1].split("\"")[0].strip()
+                        if (pi, pf) in remain:
+                            remain.remove((pi, pf))
+                    f.write(line + "\n")
+                    continue
+                if "[dependencies]" in line:
+                    dependencies_start = True
+                    f.write(line + "\n")
+                    continue
+                if dependencies_start:
+                    if "path =" in line and "rust/" not in line:
+                        pf = line.split("/")[0].split("\"")[-1].strip()
+                        pi = line.split("_")[-1].split("\"")[0].strip()
+                        if (pi, pf) in remain_dependencies:
+                            remain_dependencies.remove((pi, pf))
+                f.write(line + "\n")
+            for problem_id, problem_folder in remain_dependencies:
+                f.write(f"solution_{problem_id} = {{ path = \"{problem_folder}/{problem_folder}_{problem_id}\", "
+                        f"features = [\"solution_{problem_id}\"] }}\n")
+        tests_file_path = os.path.join(root_path, self.main_folder, self.test_executor_folder, self.tests_file)
+        with open(tests_file_path, "w", encoding="utf-8") as f:
+            f.write(SOLUTIONS_TEMPLATE_RUST.format(
+                len(problem_ids_folders),
+                ", ".join([f"[\"{problem_folder}\", \"{problem_id}\"]"
+                           for problem_id, problem_folder in problem_ids_folders]),
+                "\n\t".join([f"use solution_{problem_id} as solution{i};"
+                             for i, (problem_id, _) in enumerate(problem_ids_folders)]),
+                "\n\t\t\t\t".join([f"{i} => solution{i}::solve," for i in range(len(problem_ids_folders))]),
+            ))
 
     def write_solution(
             self,
@@ -81,6 +138,12 @@ class RustWriter(LanguageWriter):
         return SOLUTION_TEMPLATE_RUST.format(
             "{", "}", "\n".join(import_libs), code, "{", "\n\t".join(solve_part), "}"
         )
+
+    def write_carto_toml(self, root_path, problem_folder: str, problem_id: str):
+        cargo_file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", self.cargo_file)
+        if not os.path.exists(cargo_file_path):
+            with open(cargo_file_path, "w", encoding="utf-8") as f:
+                f.write(CARGO_TOML_TEMPLATE_SOLUTION.format(problem_id, problem_id, problem_id, "{", "}", problem_id))
 
     def get_solution_code(
             self, root_path, problem_folder: str, problem_id: str

@@ -156,43 +156,80 @@ pub fn solve(input_string: String) -> Value {}
 {}
 """
 
-CARGO_TOML_TEMPLATE_TEST_EXECUTOR = """[package]
-name = "test_executor"
-version = "0.1.0"
-edition = "2021"
-rust-version = "1.79.0"
-authors = ["benhao"]
-description = "LeetCode Rust Test Main"
-readme = "../README.md"
+SOLUTIONS_TEMPLATE_RUST = """const PROBLEMS: [[&str; 2]; {}] = [{}];
 
-[features]
-timer = []
-test_case = []
+#[cfg(test)]
+mod test {{
+\tuse test_executor::run_test::run_test;
+\tuse crate::PROBLEMS;
 
-[dependencies]
-serde_json = "1.0"
-problems = {} path = "../../{}", features = ["solution"] {}
+\t{}
+
+\t#[test]
+\tfn test_solutions() {{
+\t\tfor (i, problem) in PROBLEMS.iter().enumerate() {{
+\t\t\tlet (folder, id) = (problem[0], problem[1]);
+\t\t\tprintln!("Testing problem {{}}", id);
+\t\t\trun_test(id, folder, match i {{
+\t\t\t\t{}
+\t\t\t\t_ => panic!("Unknown solution"),
+\t\t\t}});
+\t\t}}
+\t}}
+}}
 """
 
-CARGO_TOML_TEMPLATE_SOLUTION = """[package]
-name = "problems"
+CARGO_TOML_TEMPLATE_ROOT = """[workspace]
+members = [
+\t"rust/library",
+\t"rust/test_executor",
+\t{}
+]
+
+[package]
+name = "leetcode"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.79.0"
 authors = ["benhao"]
-description = "LeetCode Solutions in Rust"
-readme = "../README.md"
+description = "LeetCode solutions in Rust"
+readme = "README.md"
 
-[features]
-solution = []
+[[test]]
+name = "solution_test"
+path = "rust/test_executor/tests/test.rs"
+
+[[test]]
+name = "solutions_test"
+path = "rust/test_executor/tests/solutions_test.rs"
 
 [dependencies]
 serde_json = "1.0"
 rand = "0.8.4"
 regex = "1.10.5"
-library = {} path = "../rust/library", features = ["model"]{}
+test_executor = {} path = "rust/test_executor", features = ["run_test"] {}
+{}
+"""
+
+CARGO_TOML_TEMPLATE_SOLUTION = """[package]
+name = "solution_{}"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79.0"
+authors = ["benhao"]
+description = "LeetCode Solution {} in Rust"
+readme = "../../README.md"
+
+[features]
+solution_{} = []
+
+[dependencies]
+serde_json = "1.0"
+rand = "0.8.4"
+regex = "1.10.5"
+library = {} path = "../../rust/library", features = ["model"]{}
 
 [lib]
-name = "solution"
-path = "{}_{}/solution.rs"
+name = "solution_{}"
+path = "solution.rs"
 """

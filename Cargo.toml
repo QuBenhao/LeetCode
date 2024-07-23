@@ -1,9 +1,9 @@
 [workspace]
 members = [
+    "rust/library",
+    "rust/test_executor",
     "problems/problems_1",
     "problems/problems_2",
-    "rust/library",
-    "rust/test_executor"
 ]
 
 [package]
