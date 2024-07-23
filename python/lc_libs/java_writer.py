@@ -46,7 +46,7 @@ class JavaWriter(LanguageWriter):
             for line in content.split("\n"):
                 if "private static final String[][] PROBLEMS = " in line:
                     f.write("\tprivate static final String[][] PROBLEMS = {" +
-                            ", ".join("{\"" + pid + "\", \"" + pf + "\"}" for pid, pf in problem_ids_folders) + "};\n")
+                            ", ".join(f"{{\"{pid}\", \"{pf}\"}}" for pid, pf in problem_ids_folders) + "};\n")
                     continue
                 f.write(line + "\n")
 
