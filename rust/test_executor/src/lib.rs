@@ -1,5 +1,5 @@
-#[cfg(feature = "timer")]
-pub mod timer;
+mod test_case;
+mod timer;
 
-#[cfg(feature = "test_case")]
-pub mod test_case;
+#[cfg(feature = "run_test")]
+pub mod run_test;

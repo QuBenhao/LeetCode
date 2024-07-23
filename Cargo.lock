@@ -38,10 +38,11 @@ checksum = "49f1f14873335454500d59611f1cf4a4b0f786f9ac11f4312a78e4cf2566695b"
 name = "leetcode"
 version = "0.1.0"
 dependencies = [
- "problems",
  "rand",
  "regex",
  "serde_json",
+ "solution_1",
+ "solution_2",
  "test_executor",
 ]
 
@@ -69,16 +70,6 @@ name = "ppv-lite86"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5b40af805b3121feab8a3c29f04d8ad262fa8e0561883e7653e024ae4479e6de"
-
-[[package]]
-name = "problems"
-version = "0.1.0"
-dependencies = [
- "library",
- "rand",
- "regex",
- "serde_json",
-]
 
 [[package]]
 name = "proc-macro2"
@@ -195,10 +186,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "solution_1"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "solution_2"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
 name = "syn"
-version = "2.0.71"
+version = "2.0.72"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b146dcf730474b4bcd16c311627b31ede9ab149045db4d6088b3becaea046462"
+checksum = "dc4b9b9bf2add8093d3f2c0204471e951b2285580335de42f9d2534f3ae7a8af"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -209,7 +220,6 @@ dependencies = [
 name = "test_executor"
 version = "0.1.0"
 dependencies = [
- "problems",
  "serde_json",
 ]
 

@@ -1,6 +1,7 @@
 [workspace]
 members = [
-    "problems",
+    "problems/problems_1",
+    "problems/problems_2",
     "rust/library",
     "rust/test_executor"
 ]
@@ -18,9 +19,14 @@ readme = "README.md"
 name = "solution_test"
 path = "rust/test_executor/tests/test.rs"
 
+[[test]]
+name = "solutions_test"
+path = "rust/test_executor/tests/solutions_test.rs"
+
 [dependencies]
 serde_json = "1.0"
 rand = "0.8.4"
 regex = "1.10.5"
-problems = { path = "problems", features = ["solution"] }
-test_executor = { path = "rust/test_executor", features = ["timer", "test_case"] }
+test_executor = { path = "rust/test_executor", features = ["run_test"] }
+solution_1 = { path = "problems/problems_1", features = ["solution_1"] }
+solution_2 = { path = "problems/problems_2", features = ["solution_2"] }
