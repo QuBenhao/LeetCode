@@ -116,10 +116,8 @@ class TypescriptWriter(LanguageWriter):
                 "" if not import_part else "\n".join(
                     ["import {" + ",".join(v) + "} from " + k for k, v in import_part.items()]) + "\n\n",
                 code,
-                "{",
                 "\t" + "\n\t".join(process_inputs),
-                return_part,
-                "}")
+                return_part)
         process_inputs = ["const operators: string[] = JSON.parse(inputValues[0]);",
                           "const opValues: any[][] = JSON.parse(inputValues[1]);",
                           "const ans: any[] = [null];"]
@@ -178,10 +176,9 @@ class TypescriptWriter(LanguageWriter):
             "" if not import_part else "\n".join(
                 ["import {" + ",".join(v) + "} from " + k for k, v in import_part.items()]) + "\n\n",
             code,
-            "{",
             "\t" + "\n\t".join(process_inputs),
-            "ans",
-            "}")
+            "ans"
+        )
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:
