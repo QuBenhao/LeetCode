@@ -43,6 +43,8 @@ dependencies = [
  "serde_json",
  "solution_1",
  "solution_2",
+ "solution_2766",
+ "solution_279",
  "test_executor",
 ]
 
@@ -197,6 +199,26 @@ dependencies = [
 
 [[package]]
 name = "solution_2"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "solution_2766"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "solution_279"
 version = "0.1.0"
 dependencies = [
  "library",

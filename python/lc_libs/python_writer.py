@@ -27,21 +27,25 @@ class Python3Writer(LanguageWriter):
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
         with open(file_path, "w", encoding="utf-8") as f:
-            for line in content.split("\n"):
+            lines = content.split("\n")
+            for line_idx, line in enumerate(lines):
                 if line.startswith("QUESTION = "):
                     f.write(f'QUESTION = "{question_id}"\n')
                     continue
-                f.write(line + "\n")
+                if line_idx < len(lines) - 1 or line:
+                    f.write(line + "\n")
 
     def change_tests(self, root_path, problem_ids_folders: list):
         file_path = os.path.join(root_path, self.main_folder, self.tests_file)
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
         with open(file_path, "w", encoding="utf-8") as f:
-            for line in content.split("\n"):
+            lines = content.split("\n")
+            for line_idx, line in enumerate(lines):
                 if line.startswith("QUESTIONS ="):
                     line = "QUESTIONS = {}".format(problem_ids_folders)
-                f.write(line + "\n")
+                if line_idx < len(lines) - 1 or line:
+                    f.write(line + "\n")
 
     def write_solution(self, code_template: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:

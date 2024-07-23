@@ -25,7 +25,8 @@ class RustWriter(LanguageWriter):
         with open(test_file_path, "r", encoding="utf-8") as f:
             content = f.read()
         with open(test_file_path, "w", encoding="utf-8") as f:
-            for line in content.split("\n"):
+            lines = content.split("\n")
+            for line_idx, line in enumerate(lines):
                 if "const PROBLEM_FOLDER: &str = \"" in line:
                     f.write(f'const PROBLEM_FOLDER: &str = "{problem_folder}";\n')
                     continue
@@ -35,7 +36,8 @@ class RustWriter(LanguageWriter):
                 if " as solution;" in line:
                     f.write(f"\tuse solution_{question_id} as solution;\n")
                     continue
-                f.write(f"{line}\n")
+                if line_idx < len(lines) - 1 or line:
+                    f.write(f"{line}\n")
         root_cargo_path = os.path.join(root_path, self.cargo_file)
         RustWriter.__cargo_add_problems(root_cargo_path, [[question_id, problem_folder]])
 
@@ -305,7 +307,7 @@ class RustWriter(LanguageWriter):
                         f.write(line + "\n")
                         continue
                     if "rust/" not in line:
-                        pf = line.split("/")[0].strip()
+                        pf = line.split("/")[0].split("\"")[-1].strip()
                         pi = line.split("_")[-1].split("\"")[0].strip()
                         if (pi, pf) in remain:
                             remain.remove((pi, pf))

@@ -1,4 +1,4 @@
-const PROBLEMS: [[&str; 2]; 2] = [["problems", "1"], ["problems", "2"]];
+const PROBLEMS: [[&str; 2]; 1] = [["problems", "279"]];
 
 
 #[cfg(test)]
@@ -6,8 +6,7 @@ mod test {
     use test_executor::run_test::run_test;
     use crate::PROBLEMS;
 
-    use solution_1 as solution0;
-    use solution_2 as solution1;
+    use solution_279 as solution0;
 
     #[test]
     fn test_solutions() {
@@ -15,7 +14,6 @@ mod test {
             let (folder, id) = (problem[0], problem[1]);
             run_test(id, folder, match i {
                 0 => solution0::solve,
-                1 => solution1::solve,
                 _ => panic!("Unknown solution"),
             });
         }

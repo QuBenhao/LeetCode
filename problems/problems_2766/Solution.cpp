@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <unordered_set>
 
 
 using namespace std;
@@ -8,7 +9,14 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<int> relocateMarbles(vector<int>& nums, vector<int>& moveFrom, vector<int>& moveTo) {
-        
+        unordered_set<int> s(nums.begin(), nums.end());
+        for (size_t i = 0; i < moveFrom.size(); i++) {
+            s.erase(moveFrom[i]);
+            s.insert(moveTo[i]);
+        }
+        vector<int> res(s.begin(), s.end());
+        sort(res.begin(), res.end());
+        return res;
     }
 };
 

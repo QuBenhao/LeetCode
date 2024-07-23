@@ -17,12 +17,13 @@ class JavaWriter(LanguageWriter):
         self.test_commands = [["mvn", "test", "-Dtest=qubhjava.test.TestMain"]]
 
     def change_test(self, root_path, problem_folder: str, question_id: str):
-        test_file_path = os.path.join(root_path, self.main_folder, self.tests_file)
+        test_file_path = os.path.join(root_path, self.main_folder, self.test_file)
         with open(test_file_path, 'r', encoding="utf-8") as f:
             content = f.read()
         with open(test_file_path, 'w', encoding="utf-8") as f:
             appear_problem_folder = False
-            for line in content.split("\n"):
+            lines = content.split("\n")
+            for line_idx, line in enumerate(lines):
                 if "private static final String PROBLEM_ID = " in line:
                     f.write(line.split("\"")[0] + f"\"{question_id}\";\n")
                     continue
@@ -36,19 +37,22 @@ class JavaWriter(LanguageWriter):
                 elif line.strip() == "import qubhjava.Testcase;" and not appear_problem_folder:
                     f.write(f"import {problem_folder}.{problem_folder}_{question_id}.Solution;\n")
                     appear_problem_folder = True
-                f.write(line + "\n")
+                if line_idx < len(lines) - 1 or line:
+                    f.write(line + "\n")
 
     def change_tests(self, root_path, problem_ids_folders: list):
         tests_file_path = os.path.join(root_path, self.main_folder, self.tests_file)
         with open(tests_file_path, 'r', encoding="utf-8") as f:
             content = f.read()
         with open(tests_file_path, 'w', encoding="utf-8") as f:
-            for line in content.split("\n"):
+            lines = content.split("\n")
+            for line_idx, line in enumerate(lines):
                 if "private static final String[][] PROBLEMS = " in line:
                     f.write("\tprivate static final String[][] PROBLEMS = {" +
                             ", ".join(f"{{\"{pid}\", \"{pf}\"}}" for pid, pf in problem_ids_folders) + "};\n")
                     continue
-                f.write(line + "\n")
+                if line_idx < len(lines) - 1 or line:
+                    f.write(line + "\n")
 
     def write_solution(self, code_default: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:
