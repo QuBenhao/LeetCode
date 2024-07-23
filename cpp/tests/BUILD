@@ -1,5 +1,5 @@
 cc_test(
-    name = "test_problem_543",
+    name = "test_problem_279",
     size = "small",
     srcs = [
         "//cpp:TestMain.cpp",
@@ -18,3 +18,4 @@ cc_test(
         "@nlohmann_json//:json",
     ],
 )
+
