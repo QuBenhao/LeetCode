@@ -21,6 +21,7 @@ jobs:
           python
           qubhjava
           typescript
+          rust
           go.mod
           go.sum
           pom.xml
@@ -28,6 +29,7 @@ jobs:
           tsconfig.json
           package.json
           jest.config.ts
+          Cargo.toml
           ${{ secrets.PROBLEM_FOLDER || 'problems' }}
           ${{ secrets.PREMIUM_FOLDER || 'premiums' }}
 
