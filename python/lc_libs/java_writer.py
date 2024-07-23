@@ -134,13 +134,9 @@ class JavaWriter(LanguageWriter):
             problem_folder,
             problem_id,
             "\n".join(import_packages),
-            "{",
             "\n".join(body),
-            "{",
             "\n\t\t".join(parse_input),
             return_part,
-            "}",
-            "}"
         )
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
