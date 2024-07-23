@@ -142,3 +142,94 @@ export function Solve(inputJsonElement: string): any {}
 \treturn {};
 {}
 """
+
+SOLUTION_TEMPLATE_RUST = """use serde_json::{{json, Value}};
+{}
+pub struct Solution;
+
+{}
+
+#[cfg(feature = "solution_{}")]
+pub fn solve(input_string: String) -> Value {{
+\tlet input_values: Vec<String> = input_string.split('\\n').map(|x| x.to_string()).collect();
+\t{}
+}}
+"""
+
+SOLUTIONS_TEMPLATE_RUST = """const PROBLEMS: [[&str; 2]; {}] = [{}];
+
+#[cfg(test)]
+mod test {{
+\tuse test_executor::run_test::run_test;
+\tuse crate::PROBLEMS;
+
+\t{}
+
+\t#[test]
+\tfn test_solutions() {{
+\t\tfor (i, problem) in PROBLEMS.iter().enumerate() {{
+\t\t\tlet (folder, id) = (problem[0], problem[1]);
+\t\t\tprintln!("Testing problem {{}}", id);
+\t\t\trun_test(id, folder, match i {{
+\t\t\t\t{}
+\t\t\t\t_ => panic!("Unknown solution"),
+\t\t\t}});
+\t\t}}
+\t}}
+}}
+"""
+
+CARGO_TOML_TEMPLATE_ROOT = """[workspace]
+members = [
+\t"rust/library",
+\t"rust/test_executor",
+\t{}
+]
+
+[package]
+name = "leetcode"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79.0"
+authors = ["benhao"]
+description = "LeetCode solutions in Rust"
+readme = "README.md"
+
+[[test]]
+name = "solution_test"
+path = "rust/test_executor/tests/test.rs"
+
+[[test]]
+name = "solutions_test"
+path = "rust/test_executor/tests/solutions_test.rs"
+
+[dependencies]
+serde_json = "1.0"
+rand = "0.8.4"
+regex = "1.10.5"
+test_executor = {} path = "rust/test_executor", features = ["run_test"] {}
+{}
+"""
+
+CARGO_TOML_TEMPLATE_SOLUTION = """[package]
+name = "solution_{}"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79.0"
+authors = ["benhao"]
+description = "LeetCode Solution {} in Rust"
+readme = "../../README.md"
+
+[features]
+solution_{} = []
+
+[dependencies]
+serde_json = "1.0"
+rand = "0.8.4"
+regex = "1.10.5"
+library = {} path = "../../rust/library", features = ["model"]{}
+
+[lib]
+name = "solution_{}"
+path = "solution.rs"
+"""

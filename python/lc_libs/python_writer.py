@@ -2,6 +2,7 @@ import inspect
 import os
 import time
 import traceback
+from typing import Tuple
 from collections import defaultdict, deque
 from importlib.util import spec_from_file_location, module_from_spec
 
@@ -11,26 +12,36 @@ from python.utils import back_question_id
 
 
 class Python3Writer(LanguageWriter):
-    solution_file = "solution.py"
-    test_file_path = "python/test.py"
-    tests_file_paths = ["python/tests.py"]
+    
+    def __init__(self) -> None:
+        super().__init__()
+        self.solution_file = "solution.py"
+        self.main_folder = "python"
+        self.test_file = "test.py"
+        self.tests_file = "tests.py"
+        self.lang_env_commands = [["python", "--version"]]
+        self.test_commands = [["python", os.path.join(self.main_folder, self.test_file)]]
 
-    def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
-        ans = []
-        for line in content.split("\n"):
-            if line.startswith("QUESTION = "):
-                ans.append(f'QUESTION = "{question_id}"')
-                continue
-            ans.append(line)
-        return "\n".join(ans)
+    def change_test(self, root_path, problem_folder: str, question_id: str):
+        file_path = os.path.join(root_path, self.main_folder, self.test_file)
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        with open(file_path, "w", encoding="utf-8") as f:
+            for line in content.split("\n"):
+                if line.startswith("QUESTION = "):
+                    f.write(f'QUESTION = "{question_id}"\n')
+                    continue
+                f.write(line + "\n")
 
-    def change_tests(self, content: str, problem_ids_folders: list, idx: int = 0) -> str:
-        ans = []
-        for line in content.split("\n"):
-            if line.startswith("QUESTIONS ="):
-                line = "QUESTIONS = {}".format(problem_ids_folders)
-            ans.append(line)
-        return "\n".join(ans)
+    def change_tests(self, root_path, problem_ids_folders: list):
+        file_path = os.path.join(root_path, self.main_folder, self.tests_file)
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        with open(file_path, "w", encoding="utf-8") as f:
+            for line in content.split("\n"):
+                if line.startswith("QUESTIONS ="):
+                    line = "QUESTIONS = {}".format(problem_ids_folders)
+                f.write(line + "\n")
 
     def write_solution(self, code_template: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:
@@ -61,9 +72,9 @@ class Python3Writer(LanguageWriter):
             traceback.print_exc()
         return Python3Writer.__write_solution_python_backup(code_template)
 
-    def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> (str, str):
+    def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:
-            with open(os.path.join(root_path, "python", "test.py"), "r", encoding="utf-8") as f:
+            with open(os.path.join(root_path, self.main_folder, self.test_file), "r", encoding="utf-8") as f:
                 lines = f.readlines()
                 for line in lines:
                     if line.strip().startswith("QUESTION ="):

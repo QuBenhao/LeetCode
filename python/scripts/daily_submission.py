@@ -10,7 +10,7 @@ from daily_auto import write_question
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import python.lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, send_text_message, check_problem_solved_and_write
+from python.utils import get_default_folder, send_text_message
 
 
 def main(cookie: Optional[str], languages: list[str], problem_folder: str = None, user_slug: str = None):
@@ -80,23 +80,9 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
                 if not cls:
                     print("Language Writer not supported yet")
                     continue
-                obj = cls()
-                func = getattr(obj, f"write_solution", None)
-                test_func = getattr(obj, "change_test", None)
-                solution_file = getattr(obj, "solution_file", None)
-                test_file_path = getattr(obj, "test_file_path", None)
-                if check_problem_solved_and_write(question_id,
-                                                  detail["lang"],
-                                                  tmp_problem_folder,
-                                                  root_path,
-                                                  dir_path,
-                                                  solution_file,
-                                                  test_file_path,
-                                                  True,
-                                                  func,
-                                                  (default_code[detail["lang"]], code,
-                                                   question_id, tmp_problem_folder),
-                                                  test_func):
+                obj: lc_libs.LanguageWriter = cls()
+                if obj.run_code(root_path, tmp_problem_folder, question_id,
+                                True, default_code[detail["lang"]], code):
                     print(f"Already solved problem: {question_id}, language: {language}")
                 cache.add(language)
                 if question_id == daily_question:

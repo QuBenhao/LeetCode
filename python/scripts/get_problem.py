@@ -85,17 +85,15 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
             if not cls:
                 print(f"Unsupported language {key} yet")
                 continue
-            obj = cls()
-            func = getattr(obj, "write_solution", None)
-            if not func:
-                print(f"Unsupported language writer {key} yet")
-                continue
-            solution_file = getattr(obj, "solution_file", None)
+            obj: lc_libs.LanguageWriter = cls()
+            solution_file = obj.solution_file
             file_path = os.path.join(dir_path, solution_file)
             if skip_language and solution_file and os.path.exists(file_path):
                 continue
             with open(file_path, "w", encoding="utf-8") as f:
-                f.write(func(val, None, problem_id, problem_folder))
+                f.write(obj.write_solution(val, None, problem_id, problem_folder))
+            if isinstance(obj, lc_libs.RustWriter):
+                obj.write_cargo_toml(dir_path, problem_id)
         except Exception as _:
             traceback.print_exc()
 
@@ -174,18 +172,8 @@ def main(origin_problem_id: Optional[str], problem_slug: Optional[str], problem_
                     cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
                     if not cls:
                         continue
-                    obj = cls()
-                    func = getattr(obj, "change_test", None)
-                    if not func:
-                        continue
-                    test_file_path = getattr(obj, "test_file_path", None)
-                    if not test_file_path:
-                        continue
-                    file_path = os.path.join(root_path, test_file_path)
-                    with open(file_path, "r", encoding="utf-8") as f:
-                        content = f.read()
-                    with open(file_path, "w", encoding="utf-8") as f:
-                        f.write(func(content, tmp, problem_id))
+                    obj: lc_libs.LanguageWriter = cls()
+                    obj.change_test(root_path, tmp, problem_id)
     else:
         if premium_only and not cookie:
             print("Requires premium cookie to keep going.")

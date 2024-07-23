@@ -17,6 +17,7 @@ _LANG_TRANS_MAP = {
     "ts": "typescript",
     "js": "javascript",
     "c++": "cpp",
+    "rs": "rust",
 }
 
 
@@ -28,22 +29,18 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     if not cls:
         print(f"{lang} writer is not supported yet!")
         return
-    obj = cls()
-    code_func = getattr(obj, "get_solution_code", None)
-    if not code_func:
-        print(f"{lang} get_solution_code is not supported yet!")
-        return
+    obj: lc_libs.LanguageWriter = cls()
     if not problem_id:
         if not problem_folder:
             problem_folder = get_default_folder()
-        code, problem_id = code_func(root_path, problem_folder, problem_id)
-        load_code = True
+        code, problem_id = obj.get_solution_code(root_path, problem_folder, problem_id)
         if not code:
             print("No solution yet!")
             return
         if not problem_id:
             print("Unable to get problem_id")
             return
+        load_code = True
     origin_problem_id = back_question_id(problem_id)
     questions = lc_libs.get_questions_by_key_word(origin_problem_id)
     if not questions:
@@ -69,7 +66,7 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     if not problem_folder:
         problem_folder = get_default_folder(paid_only=is_paid_only)
     if not load_code:
-        code, _ = code_func(root_path, problem_folder, problem_id)
+        code, _ = obj.get_solution_code(root_path, problem_folder, problem_id)
         if not code:
             print("No solution yet!")
             return

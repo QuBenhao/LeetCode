@@ -10,4 +10,5 @@ from .golang_writer import GolangWriter
 from .java_writer import JavaWriter
 from .cpp_writer import CppWriter
 from .typescript_writer import TypescriptWriter
+from .rust_writer import RustWriter
 from .study_plan import get_user_study_plans, get_user_study_plan_progress

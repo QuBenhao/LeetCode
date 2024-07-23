@@ -20,16 +20,18 @@ def check_remain_languages(dir_path, languages: list[str]) -> list[str]:
         for f in files:
             try:
                 match f:
-                    case lc_libs.CppWriter.solution_file:
+                    case "Solution.cpp":
                         remain_languages.remove("cpp")
-                    case lc_libs.GolangWriter.solution_file:
+                    case "solution.go":
                         remain_languages.remove("golang")
-                    case lc_libs.JavaWriter.solution_file:
+                    case "Solution.java":
                         remain_languages.remove("java")
-                    case Python3Writer.solution_file:
+                    case "solution.py":
                         remain_languages.remove("python3")
-                    case lc_libs.TypescriptWriter.solution_file:
+                    case "solution.ts":
                         remain_languages.remove("typescript")
+                    case "solution.rs":
+                        remain_languages.remove("rust")
                     case _:
                         continue
             except ValueError as _:
@@ -78,19 +80,14 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
             code = code_map[language]
             cls = getattr(lc_libs, f"{language.capitalize()}Writer", None)
             if not cls:
-                print("Language Writer not supported yet")
+                print(f"{language} Language Writer not supported yet")
                 continue
-            obj = cls()
-            func = getattr(obj, f"write_solution", None)
-            if func is None:
-                print("Language not supported yet")
-                continue
-            solution_file = getattr(obj, "solution_file", None)
-            if not solution_file:
-                print("Language solution_file not supported yet")
-                continue
+            obj: lc_libs.LanguageWriter = cls()
+            solution_file = obj.solution_file
             with open(os.path.join(dir_path, solution_file), "w", encoding="utf-8") as f:
-                f.write(func(code, None, question_id, problem_folder))
+                f.write(obj.write_solution(code, None, question_id, problem_folder))
+            if isinstance(obj, lc_libs.RustWriter):
+                obj.write_cargo_toml(dir_path, question_id)
         except Exception as _:
             traceback.print_stack()
             continue
@@ -117,22 +114,10 @@ def process_daily(languages: list[str], problem_folder: str = None):
     for lang in languages:
         cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
         if not cls:
-            print("Language Writer not supported yet")
+            print(f"{lang} Language Writer not supported yet")
             continue
-        obj = cls()
-        test_func = getattr(obj, f"change_test", None)
-        if not test_func:
-            print("Test function [change_test_{}] not implemented.".format(lang))
-            continue
-        test_file_path = getattr(obj, "test_file_path", None)
-        if not test_file_path:
-            print("Language {} is not implemented to save".format(lang))
-            continue
-        file_path = os.path.join(root_path, test_file_path)
-        with open(file_path, "r", encoding="utf-8") as f:
-            content = f.read()
-        with open(file_path, "w", encoding="utf-8") as f:
-            f.write(test_func(content, tmp, question_id))
+        obj: lc_libs.LanguageWriter = cls()
+        obj.change_test(root_path, tmp, question_id)
 
 
 def process_plans(cookie: str, languages: list[str] = None, problem_folder: str = None):
@@ -167,25 +152,16 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
             problem_ids.append([question_id, tmp_folder])
     if problem_ids:
         for lang in languages:
-            cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
-            if not cls:
-                print(f"{lang} writer is not supported yet!")
+            try:
+                cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+                if not cls:
+                    print(f"{lang} writer is not supported yet!")
+                    continue
+                obj: lc_libs.LanguageWriter = cls()
+                obj.change_tests(root_path, problem_ids)
+            except Exception as _:
+                traceback.print_exc()
                 continue
-            obj = cls()
-            tests_file_paths = getattr(obj, "tests_file_paths", None)
-            if not tests_file_paths:
-                print(f"{lang} tests files not exists yet.")
-                continue
-            tests_func = getattr(obj, "change_tests", None)
-            if not tests_func:
-                print(f"{lang} run tests not supported yet!")
-                continue
-            for i, tests_file_path in enumerate(tests_file_paths):
-                file_path = os.path.join(root_path, tests_file_path)
-                with open(file_path, "r", encoding="utf-8") as f:
-                    content = f.read()
-                with open(file_path, "w", encoding="utf-8") as f:
-                    f.write(tests_func(content, problem_ids, i))
 
 
 def main(problem_folder: str = None, cookie: Optional[str] = None, languages: list[str] = None):

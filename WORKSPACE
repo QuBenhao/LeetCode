@@ -24,3 +24,9 @@ new_local_repository(
     path = "problems/problems_543/",
     build_file = "//cpp:solution.BUILD",
 )
+
+new_local_repository(
+    name = "rust_problems",
+    build_file = "//rust:solution.BUILD",
+    path = "problems/problems_1/",
+)

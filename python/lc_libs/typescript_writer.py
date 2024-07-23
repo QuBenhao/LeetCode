@@ -1,37 +1,49 @@
 import os.path
 from collections import defaultdict, deque
+from typing import Tuple
 
 from python.constants import SOLUTION_TEMPLATE_TYPESCRIPT
 from python.lc_libs.language_writer import LanguageWriter
 
 
 class TypescriptWriter(LanguageWriter):
-    solution_file = "solution.ts"
-    test_file_path = "typescript/test.ts"
-    tests_file_paths = ["typescript/problems.test.ts"]
-    _LIST_NODE_PATH = "\"../../typescript/models/listnode\";"
-    _TREE_NODE_PATH = "\"../../typescript/models/treenode\";"
+    def __init__(self) -> None:
+        super().__init__()
+        self.solution_file = "solution.ts"
+        self.main_folder = "typescript"
+        self.test_file = "test.ts"
+        self.tests_file = "problems.test.ts"
+        self._LIST_NODE_PATH = "\"../../typescript/models/listnode\";"
+        self._TREE_NODE_PATH = "\"../../typescript/models/treenode\";"
+        self.lang_env_commands = [["npm", "--version"]]
+        self.test_commands = [["npm", "test", "--alwaysStrict", "--strictBindCallApply",
+                               "--strictFunctionTypes", "--target ES202",
+                               str(os.path.join(self.main_folder, self.test_file))]]
 
-    def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
-        ans = []
-        for line in content.split("\n"):
-            if "const PROBLEM_ID: string = \"" in line:
-                ans.append(line.split("\"")[0] + f"\"{question_id}\";")
-                continue
-            elif "let problemFolder: string = (process.env.PROBLEM_FOLDER && process.env.PROBLEM_FOLDER.length > 0) ? process.env.PROBLEM_FOLDER : \"" in line:
-                ans.append(line.split("\"")[0]  + f"\"{problem_folder}\";")
-                continue
-            ans.append(line)
-        return "\n".join(ans)
+    def change_test(self, root_path, problem_folder: str, question_id: str):
+        test_file_path = os.path.join(root_path, self.main_folder, self.tests_file)
+        with open(test_file_path, 'r', encoding="utf-8") as f:
+            content = f.read()
+        with open(test_file_path, 'w', encoding="utf-8") as f:
+            for line in content.split("\n"):
+                if "const PROBLEM_ID: string = \"" in line:
+                    f.write(line.split("\"")[0] + f"\"{question_id}\";\n")
+                    continue
+                elif "let problemFolder: string = (process.env.PROBLEM_FOLDER && process.env.PROBLEM_FOLDER.length > 0) ? process.env.PROBLEM_FOLDER : \"" in line:
+                    f.write(line.split("\"")[0] + f"\"{problem_folder}\";\n")
+                    continue
+                f.write(line + "\n")
 
-    def change_tests(self, content: str, problem_ids_folders: list, idx: int = 0) -> str:
-        ans = []
-        for line in content.split("\n"):
-            if "const PROBLEMS: string[][] = " in line:
-                ans.append("const PROBLEMS: string[][] = {};".format(str(problem_ids_folders)))
-                continue
-            ans.append(line)
-        return "\n".join(ans)
+    def change_tests(self, root_path, problem_ids_folders: list):
+        tests_file_path = os.path.join(root_path, self.main_folder, self.tests_file)
+        with open(tests_file_path, 'r', encoding="utf-8") as f:
+            content = f.read()
+        with open(tests_file_path, 'w', encoding="utf-8") as f:
+            for line in content.split("\n"):
+                if "const PROBLEMS: string[][] = " in line:
+                    f.write("const PROBLEMS: string[][] = {};\n".format(str(problem_ids_folders)))
+                    continue
+                f.write(line + "\n")
 
     def write_solution(self, code_default: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:
@@ -64,36 +76,36 @@ class TypescriptWriter(LanguageWriter):
                 var_type = variable.split(":")[-1].strip()
                 match var_type:
                     case "ListNode | null":
-                        import_part[TypescriptWriter._LIST_NODE_PATH].add("ListNode")
-                        import_part[TypescriptWriter._LIST_NODE_PATH].add("IntArrayToLinkedList")
+                        import_part[self._LIST_NODE_PATH].add("ListNode")
+                        import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedList")
                         process_inputs.append(f"const {variable} = IntArrayToLinkedList(JSON.parse(inputValues[{i}]));")
                     case "TreeNode | null":
-                        import_part[TypescriptWriter._TREE_NODE_PATH].add("TreeNode")
-                        import_part[TypescriptWriter._TREE_NODE_PATH].add("JSONArrayToTreeNode")
+                        import_part[self._TREE_NODE_PATH].add("TreeNode")
+                        import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNode")
                         process_inputs.append(f"const {variable} = JSONArrayToTreeNode(JSON.parse(inputValues[{i}]));")
                     case "Array<ListNode | null>":
-                        import_part[TypescriptWriter._LIST_NODE_PATH].add("ListNode")
-                        import_part[TypescriptWriter._LIST_NODE_PATH].add("IntArrayToLinkedList")
+                        import_part[self._LIST_NODE_PATH].add("ListNode")
+                        import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedList")
                         process_inputs.append(f"const jsonArray{i}: any = JSON.parse(inputValues[{i}]);")
                         process_inputs.append(f"const {variable} = [];")
                         process_inputs.append(f"for (let i = 0; i < jsonArray{i}.length; i++) " + "{")
                         process_inputs.append(f"\t{var_name}.push(IntArrayToLinkedList(jsonArray{i}[i]));")
                         process_inputs.append("}")
                     case "Array<TreeNode | null>":
-                        import_part[TypescriptWriter._TREE_NODE_PATH].add("TreeNode")
-                        import_part[TypescriptWriter._TREE_NODE_PATH].add("JSONArrayToTreeNodeArray")
+                        import_part[self._TREE_NODE_PATH].add("TreeNode")
+                        import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNodeArray")
                         process_inputs.append(
                             f"const {variable} = JSONArrayToTreeNodeArray(JSON.parse(inputValues[{i}]));")
                     case _:
                         process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
             match func[2]:
                 case "ListNode | null":
-                    import_part[TypescriptWriter._LIST_NODE_PATH].add("ListNode")
-                    import_part[TypescriptWriter._LIST_NODE_PATH].add("LinkedListToIntArray")
+                    import_part[self._LIST_NODE_PATH].add("ListNode")
+                    import_part[self._LIST_NODE_PATH].add("LinkedListToIntArray")
                     return_part = "LinkedListToIntArray({}({}))".format(func[0], ", ".join(var_names))
                 case "TreeNode | null":
-                    import_part[TypescriptWriter._TREE_NODE_PATH].add("TreeNode")
-                    import_part[TypescriptWriter._TREE_NODE_PATH].add("TreeNodeToJSONArray")
+                    import_part[self._TREE_NODE_PATH].add("TreeNode")
+                    import_part[self._TREE_NODE_PATH].add("TreeNodeToJSONArray")
                     return_part = "TreeNodeToJSONArray({}({}))".format(func[0], ", ".join(var_names))
                 case "void":
                     process_inputs.append("{}({})".format(func[0], ", ".join(var_names)))
@@ -171,7 +183,7 @@ class TypescriptWriter(LanguageWriter):
             "ans",
             "}")
 
-    def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> (str, str):
+    def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:
             with open(os.path.join(root_path, "typescript", "test.ts"), 'r', encoding="utf-8") as f:
                 lines = f.read().split("\n")

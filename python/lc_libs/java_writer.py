@@ -1,44 +1,54 @@
 import os.path
 from collections import deque, defaultdict
+from typing import Tuple
 
 from python.constants import SOLUTION_TEMPLATE_JAVA
 from python.lc_libs.language_writer import LanguageWriter
 
 
 class JavaWriter(LanguageWriter):
-    solution_file = "Solution.java"
-    test_file_path = "qubhjava/test/TestMain.java"
-    tests_file_paths = ["qubhjava/test/ProblemsTest.java"]
+    def __init__(self) -> None:
+        super().__init__()
+        self.solution_file = "Solution.java"
+        self.main_folder = "qubhjava/test"
+        self.test_file = "TestMain.java"
+        self.tests_file = "ProblemsTest.java"
+        self.lang_env_commands = [["mvn", "-v"]]
+        self.test_commands = [["mvn", "test", "-Dtest=qubhjava.test.TestMain"]]
 
-    def change_test(self, content: str, problem_folder: str, question_id: str) -> str:
-        ans = []
-        appear_problem_folder = False
-        for line in content.split("\n"):
-            if "private static final String PROBLEM_ID = " in line:
-                ans.append(line.split("\"")[0] + f"\"{question_id}\";")
-                continue
-            elif f"import {problem_folder}.{problem_folder}_" in line and ".Solution;" in line:
-                ans.append(f"import {problem_folder}.{problem_folder}_{question_id}.Solution;")
-                appear_problem_folder = True
-                continue
-            elif "import " in line and ".Solution;" in line and not line.startswith("//"):
-                ans.append(f"// {line}")
-                continue
-            elif line.strip() == "import qubhjava.Testcase;" and not appear_problem_folder:
-                ans.append(f"import {problem_folder}.{problem_folder}_{question_id}.Solution;")
-                appear_problem_folder = True
-            ans.append(line)
-        return "\n".join(ans)
+    def change_test(self, root_path, problem_folder: str, question_id: str):
+        test_file_path = os.path.join(root_path, self.main_folder, self.tests_file)
+        with open(test_file_path, 'r', encoding="utf-8") as f:
+            content = f.read()
+        with open(test_file_path, 'w', encoding="utf-8") as f:
+            appear_problem_folder = False
+            for line in content.split("\n"):
+                if "private static final String PROBLEM_ID = " in line:
+                    f.write(line.split("\"")[0] + f"\"{question_id}\";\n")
+                    continue
+                elif f"import {problem_folder}.{problem_folder}_" in line and ".Solution;" in line:
+                    f.write(f"import {problem_folder}.{problem_folder}_{question_id}.Solution;\n")
+                    appear_problem_folder = True
+                    continue
+                elif "import " in line and ".Solution;" in line and not line.startswith("//"):
+                    f.write(f"// {line}\n")
+                    continue
+                elif line.strip() == "import qubhjava.Testcase;" and not appear_problem_folder:
+                    f.write(f"import {problem_folder}.{problem_folder}_{question_id}.Solution;\n")
+                    appear_problem_folder = True
+                f.write(line + "\n")
 
-    def change_tests(self, content: str, problem_ids_folders: list, idx: int = 0) -> str:
-        ans = []
-        for line in content.split("\n"):
-            if "private static final String[][] PROBLEMS = " in line:
-                ans.append("\tprivate static final String[][] PROBLEMS = {" +
-                           ", ".join("{\"" + pid + "\", \"" + pf + "\"}" for pid, pf in problem_ids_folders) + "};")
-                continue
-            ans.append(line)
-        return "\n".join(ans)
+    def change_tests(self, root_path, problem_ids_folders: list):
+        tests_file_path = os.path.join(root_path, self.main_folder, self.tests_file)
+        with open(tests_file_path, 'r', encoding="utf-8") as f:
+            content = f.read()
+        with open(tests_file_path, 'w', encoding="utf-8") as f:
+            for line in content.split("\n"):
+                if "private static final String[][] PROBLEMS = " in line:
+                    f.write("\tprivate static final String[][] PROBLEMS = {" +
+                            ", ".join("{\"" + pid + "\", \"" + pf + "\"}" for pid, pf in problem_ids_folders) + "};\n")
+                    continue
+                f.write(line + "\n")
 
     def write_solution(self, code_default: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:
@@ -133,9 +143,9 @@ class JavaWriter(LanguageWriter):
             "}"
         )
 
-    def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> (str, str):
+    def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:
-            with open(os.path.join(root_path, "qubhjava", "test", "TestMain.java"), 'r', encoding="utf-8") as f:
+            with open(os.path.join(root_path, self.main_folder, self.test_file), 'r', encoding="utf-8") as f:
                 lines = f.read().split("\n")
                 for line in lines:
                     if "private static final String PROBLEM_ID = \"" in line:
@@ -143,7 +153,7 @@ class JavaWriter(LanguageWriter):
                         break
         if not problem_id:
             return "", problem_id
-        file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "Solution.java")
+        file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", self.solution_file)
         if not os.path.exists(file_path):
             return "", problem_id
         final_codes = deque([])

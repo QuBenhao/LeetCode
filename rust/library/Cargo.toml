@@ -1,0 +1,19 @@
+[package]
+name = "library"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79.0"
+authors = ["benhao"]
+description = "LeetCode Rust library"
+readme = "../README.md"
+
+[features]
+model = []
+
+[dependencies]
+serde_json = "1.0"
+
+[[test]]
+name = "model_test"
+path = "test/test.rs"
+required-features = ["model"]
