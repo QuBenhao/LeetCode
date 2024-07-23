@@ -33,7 +33,7 @@ class RustWriter(LanguageWriter):
                     f.write(f'const PROBLEM_ID: &str = "{question_id}";\n')
                     continue
                 if " as solution;" in line:
-                    f.write(f"use solution_{question_id} as solution;\n")
+                    f.write(f"\tuse solution_{question_id} as solution;\n")
                     continue
                 f.write(f"{line}\n")
         root_cargo_path = os.path.join(root_path, self.cargo_file)
@@ -94,8 +94,8 @@ class RustWriter(LanguageWriter):
             "{", "}", "\n".join(import_libs), code, "{", "\n\t".join(solve_part), "}"
         )
 
-    def write_carto_toml(self, root_path, problem_folder: str, problem_id: str):
-        cargo_file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", self.cargo_file)
+    def write_carto_toml(self, dir_path, problem_id: str):
+        cargo_file_path = os.path.join(dir_path, self.cargo_file)
         if not os.path.exists(cargo_file_path):
             with open(cargo_file_path, "w", encoding="utf-8") as f:
                 f.write(CARGO_TOML_TEMPLATE_SOLUTION.format(problem_id, problem_id, problem_id, "{", "}", problem_id))

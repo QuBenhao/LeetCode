@@ -87,7 +87,7 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
             with open(os.path.join(dir_path, solution_file), "w", encoding="utf-8") as f:
                 f.write(obj.write_solution(code, None, question_id, problem_folder))
             if isinstance(obj, lc_libs.RustWriter):
-                obj.write_carto_toml(dir_path, problem_folder, question_id)
+                obj.write_carto_toml(dir_path, question_id)
         except Exception as _:
             traceback.print_stack()
             continue
