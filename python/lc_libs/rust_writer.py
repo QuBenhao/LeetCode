@@ -37,56 +37,11 @@ class RustWriter(LanguageWriter):
                     continue
                 f.write(f"{line}\n")
         root_cargo_path = os.path.join(root_path, self.cargo_file)
-        with open(root_cargo_path, "w", encoding="utf-8") as f:
-            f.write(CARGO_TOML_TEMPLATE_ROOT.format(
-                f"\"{problem_folder}/{problem_folder}_{question_id}\",\n",
-                "{", "}",
-                "solution_" + question_id + " = { path = \"" +
-                f"{problem_folder}/{problem_folder}_{question_id}\", features = [\"solution_{question_id}\"]" + " }"
-            ))
+        RustWriter.__cargo_add_problems(root_cargo_path, [[question_id, problem_folder]])
 
     def change_tests(self, root_path, problem_ids_folders: list):
         root_cargo_path = os.path.join(root_path, self.cargo_file)
-        with open(root_cargo_path, "r", encoding="utf-8") as f:
-            content = f.read()
-        remain = set((problem_id, problem_folder) for problem_id, problem_folder in problem_ids_folders)
-        remain_dependencies = set(remain)
-        with open(root_cargo_path, "w", encoding="utf-8") as f:
-            member_start = False
-            dependencies_start = False
-            for line in content.split("\n"):
-                if "members = [" in line:
-                    f.write(line + "\n")
-                    member_start = True
-                    continue
-                if member_start:
-                    if "]" in line:
-                        member_start = False
-                        for problem_id, problem_folder in remain:
-                            f.write(f"\t\"{problem_folder}/{problem_folder}_{problem_id}\",\n")
-                        f.write(line + "\n")
-                        continue
-                    if "rust/" not in line:
-                        pf = line.split("/")[0].strip()
-                        pi = line.split("_")[-1].split("\"")[0].strip()
-                        if (pi, pf) in remain:
-                            remain.remove((pi, pf))
-                    f.write(line + "\n")
-                    continue
-                if "[dependencies]" in line:
-                    dependencies_start = True
-                    f.write(line + "\n")
-                    continue
-                if dependencies_start:
-                    if "path =" in line and "rust/" not in line:
-                        pf = line.split("/")[0].split("\"")[-1].strip()
-                        pi = line.split("_")[-1].split("\"")[0].strip()
-                        if (pi, pf) in remain_dependencies:
-                            remain_dependencies.remove((pi, pf))
-                f.write(line + "\n")
-            for problem_id, problem_folder in remain_dependencies:
-                f.write(f"solution_{problem_id} = {{ path = \"{problem_folder}/{problem_folder}_{problem_id}\", "
-                        f"features = [\"solution_{problem_id}\"] }}\n")
+        RustWriter.__cargo_add_problems(root_cargo_path, problem_ids_folders)
         tests_file_path = os.path.join(root_path, self.main_folder, self.test_executor_folder, self.tests_file)
         with open(tests_file_path, "w", encoding="utf-8") as f:
             f.write(SOLUTIONS_TEMPLATE_RUST.format(
@@ -328,3 +283,46 @@ class RustWriter(LanguageWriter):
                     solve_part.append("let {}: {} = serde_json::from_str(&input_values[{}])"
                                       ".expect(\"Failed to parse input\");"
                                       .format(var_name, var_type, var_idx))
+
+    @staticmethod
+    def __cargo_add_problems(file_path, problem_ids_folders: list):
+        with open(file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        remain = set((problem_id, problem_folder) for problem_id, problem_folder in problem_ids_folders)
+        remain_dependencies = set(remain)
+        with open(file_path, "w", encoding="utf-8") as f:
+            member_start = False
+            dependencies_start = False
+            for line in content.split("\n"):
+                if "members = [" in line:
+                    f.write(line + "\n")
+                    member_start = True
+                    continue
+                if member_start:
+                    if "]" in line:
+                        member_start = False
+                        for problem_id, problem_folder in remain:
+                            f.write(f"\t\"{problem_folder}/{problem_folder}_{problem_id}\",\n")
+                        f.write(line + "\n")
+                        continue
+                    if "rust/" not in line:
+                        pf = line.split("/")[0].strip()
+                        pi = line.split("_")[-1].split("\"")[0].strip()
+                        if (pi, pf) in remain:
+                            remain.remove((pi, pf))
+                    f.write(line + "\n")
+                    continue
+                if "[dependencies]" in line:
+                    dependencies_start = True
+                    f.write(line + "\n")
+                    continue
+                if dependencies_start:
+                    if "path =" in line and "rust/" not in line:
+                        pf = line.split("/")[0].split("\"")[-1].strip()
+                        pi = line.split("_")[-1].split("\"")[0].strip()
+                        if (pi, pf) in remain_dependencies:
+                            remain_dependencies.remove((pi, pf))
+                f.write(line + "\n")
+            for problem_id, problem_folder in remain_dependencies:
+                f.write(f"solution_{problem_id} = {{ path = \"{problem_folder}/{problem_folder}_{problem_id}\", "
+                        f"features = [\"solution_{problem_id}\"] }}\n")
