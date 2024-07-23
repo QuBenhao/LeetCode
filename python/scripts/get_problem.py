@@ -93,7 +93,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
             with open(file_path, "w", encoding="utf-8") as f:
                 f.write(obj.write_solution(val, None, problem_id, problem_folder))
             if isinstance(obj, lc_libs.RustWriter):
-                obj.write_carto_toml(dir_path, problem_id)
+                obj.write_cargo_toml(dir_path, problem_id)
         except Exception as _:
             traceback.print_exc()
 

@@ -94,7 +94,7 @@ class RustWriter(LanguageWriter):
             "{", "}", "\n".join(import_libs), code, "{", "\n\t".join(solve_part), "}"
         )
 
-    def write_carto_toml(self, dir_path, problem_id: str):
+    def write_cargo_toml(self, dir_path, problem_id: str):
         cargo_file_path = os.path.join(dir_path, self.cargo_file)
         if not os.path.exists(cargo_file_path):
             with open(cargo_file_path, "w", encoding="utf-8") as f:
