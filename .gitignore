@@ -1,4 +1,5 @@
 .name
+.vscode
 .idea/
 __pycache__/
 .env
