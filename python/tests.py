@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 from utils import get_default_folder, timeout
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTIONS = [['279', 'problems']]
+QUESTIONS = [['863', 'problems'], ['1379', 'problems']]
 
 
 class Test(unittest.TestCase):
@@ -67,6 +67,8 @@ class Test(unittest.TestCase):
                                                          msg=f"problem: {q}, input = {i}")
                                 else:
                                     self.assertListEqual(o, result, msg=f"problem: {q}, input = {i}")
+                            elif result and isinstance(result, list):
+                                self.assertEqual(o, result[0], msg=f"input = {i}")
                             else:
                                 if isinstance(o, float):
                                     self.assertAlmostEqual(o, result, msg=f"problem: {q}, input = {i}", delta=0.00001)
