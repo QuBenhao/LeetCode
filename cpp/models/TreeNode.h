@@ -1,32 +1,33 @@
-#ifndef LEETCODECPP_TREENODE_H
-#define LEETCODECPP_TREENODE_H
+#ifndef CPP_MODELS_TREENODE_H_
+#define CPP_MODELS_TREENODE_H_
 
-#include <nlohmann/json.hpp>
 #include <vector>
+#include <nlohmann/json.hpp>
 
 using json = nlohmann::json;
+using std::vector;
 
-struct TreeNode
-{
-    int val;
-    TreeNode *left;
-    TreeNode *right;
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
 
-    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+  TreeNode() : val(0), left(nullptr), right(nullptr) {}
 
-    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+  explicit TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
 
-    TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+  TreeNode(int x, TreeNode *left, TreeNode *right)
+      : val(x), left(left), right(right) {}
 
-    ~TreeNode()
-    {
-        delete left;
-        delete right;
-    }
+  ~TreeNode() {
+    delete left;
+    delete right;
+  }
 };
 
 TreeNode *JsonArrayToTreeNode(json arr);
-std::vector<TreeNode *> JsonArrayToTreeNodeArray(json arr);
+vector<TreeNode *> JsonArrayToTreeNodeWithTargets(json arr, vector<int> targets);
+vector<TreeNode *> JsonArrayToTreeNodeArray(json arr);
 json TreeNodeToJsonArray(TreeNode *root);
 
-#endif //LEETCODECPP_TREENODE_H
+#endif  // CPP_MODELS_TREENODE_H_
