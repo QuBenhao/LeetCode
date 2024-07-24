@@ -73,9 +73,9 @@ class LeetCodeSuiteSet : public testing::Test {
 
   static void TearDownTestSuite() {}
 
-  void SetUp() override {}
+  void SetUp() {}
 
-  void TearDown() override {}
+  void TearDown() {}
 };
 
 class LeetCodeTest : public LeetCodeSuiteSet {

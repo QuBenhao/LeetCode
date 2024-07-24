@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <unordered_map>
 
 
 using namespace std;
@@ -8,7 +9,17 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
-
+        unordered_map<string, vector<string>> group;
+        for (const string& str: strs) {
+            string key = str;
+            sort(key.begin(), key.end());
+            group[key].push_back(str);
+        }
+        vector<vector<string>> result;
+        for (auto& [key, value]: group) {
+            result.push_back(value);
+        }
+        return result;
     }
 };
 
