@@ -75,6 +75,9 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
                 if not detail:
                     print(f"Unable to get submission detail for {submit_id}")
                     continue
+                if detail["lang"] not in default_code:
+                    print(f"Language {detail['lang']} is not added to check submission, please add it if needed")
+                    continue
                 code = detail["code"]
                 cls = getattr(lc_libs, f"{language.capitalize()}Writer", None)
                 if not cls:
