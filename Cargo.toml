@@ -29,6 +29,7 @@ path = "rust/test_executor/tests/solutions_test.rs"
 serde_json = "1.0"
 rand = "0.8.4"
 regex = "1.10.5"
+assert_float_eq = "1"
 test_executor = { path = "rust/test_executor", features = ["run_test"] }
 solution_1 = { path = "problems/problems_1", features = ["solution_1"] }
 solution_2 = { path = "problems/problems_2", features = ["solution_2"] }
