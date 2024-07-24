@@ -4,20 +4,6 @@ import * as ts from "typescript";
 
 var _ = require('lodash-contrib');
 const vm = require('node:vm');
-import {Queue} from '@datastructures-js/queue';
-import {
-    PriorityQueue,
-    MinPriorityQueue,
-    MaxPriorityQueue
-} from '@datastructures-js/priority-queue';
-import {
-    ListNode,
-    IntArrayToLinkedList,
-    LinkedListToIntArray,
-    IntArrayToLinkedListWithCycle,
-    IntArrayToIntersectionLinkedList
-} from "./models/listnode";
-import {TreeNode, TreeNodeToJSONArray, JSONArrayToTreeNode, JSONArrayToTreeNodeArray} from "./models/treenode"
 import {CompareResults} from "./common";
 
 const PROBLEM_ID: string = "2766";
