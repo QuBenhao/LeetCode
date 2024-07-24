@@ -1,0 +1,21 @@
+[package]
+name = "solution_2844"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79.0"
+authors = ["benhao"]
+description = "LeetCode Solution 2844 in Rust"
+readme = "../../README.md"
+
+[features]
+solution_2844 = []
+
+[dependencies]
+serde_json = "1.0"
+rand = "0.8.4"
+regex = "1.10.5"
+library = { path = "../../rust/library", features = ["model"] }
+
+[lib]
+name = "solution_2844"
+path = "solution.rs"
