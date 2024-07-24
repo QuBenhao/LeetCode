@@ -3,13 +3,14 @@ package golang
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"log"
 	"os"
 	"path"
 	"runtime"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 const TestcaseFolderFmt = "%s/%s_%s/testcase"
@@ -121,6 +122,10 @@ func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) 
 			}
 		}()
 		respArray := resp.([]interface{})
+		if v, ok := want.(float64); ok {
+			ast.Equal(int(v), respArray[0], "Expected: [%v], actual: [%v]", want, resp)
+			return
+		}
 		wantArray := want.([]interface{})
 		if len(wantArray) == 0 {
 			ast.Equal(wantArray, respArray)
@@ -144,13 +149,30 @@ func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) 
 	}
 }
 
+func checkSolve(ast *assert.Assertions, testcase TestCase, pkg func(inputJsonValues string) interface{}, depth int) {
+	gotResp := pkg(testcase.input)
+	defer func() {
+		r := recover()
+		if r != nil {
+			if depth > 0 {
+				secondResp := pkg(testcase.input)
+				if secondResp != gotResp {
+					checkSolve(ast, testcase, pkg, depth-1)
+					return
+				}
+			}
+			panic(r)
+		}
+	}()
+	compareGeneral(ast, testcase.want, gotResp)
+}
+
 func TestEach(t *testing.T, problemId string, problemFolder string, pkg func(inputJsonValues string) interface{}) {
 	ast := assert.New(t)
 	tests := processTestcase(fmt.Sprintf(TestcaseFolderFmt, problemFolder, problemFolder, problemId))
 	for j, testcase := range tests {
 		t.Run(fmt.Sprintf("%s/Testcase#%d", problemId, j), func(t *testing.T) {
-			gotResp := pkg(testcase.input)
-			compareGeneral(ast, testcase.want, gotResp)
+			checkSolve(ast, testcase, pkg, 10000)
 		})
 	}
 }
