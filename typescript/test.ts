@@ -18,6 +18,7 @@ import {
     IntArrayToIntersectionLinkedList
 } from "./models/listnode";
 import {TreeNode, TreeNodeToJSONArray, JSONArrayToTreeNode, JSONArrayToTreeNodeArray} from "./models/treenode"
+import {CompareResults} from "./common";
 
 const PROBLEM_ID: string = "2766";
 
@@ -50,30 +51,7 @@ describe("TestMain===" + PROBLEM_ID, () => {
     const script = new vm.Script(r);
     for (let i: number = 0; i < inputJson.length; i++) {
         it("TestCase" + i, () => {
-            const context = {
-                testInputJsonString: inputJson[i], execResult: null as any,
-                ListNode,
-                IntArrayToLinkedList,
-                LinkedListToIntArray,
-                IntArrayToLinkedListWithCycle,
-                IntArrayToIntersectionLinkedList,
-                TreeNode,
-                TreeNodeToJSONArray,
-                JSONArrayToTreeNode,
-                JSONArrayToTreeNodeArray,
-                Queue,
-                PriorityQueue,
-                MinPriorityQueue,
-                MaxPriorityQueue,
-            };
-            vm.createContext(context); // Contextify the object.
-            script.runInContext(context, {timeout: 3000});
-            const result: any = context.execResult;
-            if (_.isFloat(outputJson[i])) {
-                expect(result).toBeCloseTo(outputJson[i]);
-            } else {
-                expect(result).toEqual(outputJson[i]);
-            }
+            CompareResults(script, inputJson[i], outputJson[i]);
         })
     }
 })
