@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <deque>
 
 
 using namespace std;
@@ -8,7 +9,22 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
-
+        vector<int> ans;
+        deque<int> q;
+        int n = static_cast<int>(nums.size());
+        for (int i = 0; i < n; i++) {
+            while (!q.empty() && nums[q.back()] <= nums[i]) {
+                q.pop_back();
+            }
+            q.emplace_back(i);
+            if (i - q.front() >= k) {
+                q.pop_front();
+            }
+            if (i >= k - 1) {
+                ans.emplace_back(nums[q.front()]);
+            }
+        }
+        return ans;
     }
 };
 
