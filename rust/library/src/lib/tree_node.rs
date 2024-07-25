@@ -48,6 +48,35 @@ pub fn array_to_tree(arr: &Vec<Option<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
     root
 }
 
+pub fn array_to_tree_with_targets(arr: &Vec<Option<i32>>, targets: Vec<i32>) -> Vec<Option<Rc<RefCell<TreeNode>>>> {
+    let tree = array_to_tree(&arr);
+    let mut result_nodes = vec![None; targets.len() + 1];
+
+    let mut queue = std::collections::VecDeque::new();
+    if let Some(root) = &tree {
+        queue.push_back(root.clone());
+        result_nodes[0] = Some(root.clone());
+    }
+
+    while let Some(node_rc) = queue.pop_front() {
+        let node = node_rc.borrow();
+        for i in 0..targets.len() {
+            if node.val == targets[i] {
+                result_nodes[i + 1] = Some(node_rc.clone());
+                break;
+            }
+        }
+        if let Some(left) = &node.left {
+            queue.push_back(left.clone());
+        }
+        if let Some(right) = &node.right {
+            queue.push_back(right.clone());
+        }
+    }
+
+    result_nodes
+}
+
 pub fn tree_to_array(root: &Option<Rc<RefCell<TreeNode>>>) -> Vec<Option<i32>> {
     let mut res = vec![];
     if root.is_none() {

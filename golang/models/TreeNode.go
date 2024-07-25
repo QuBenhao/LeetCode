@@ -109,7 +109,12 @@ func ArrayToTreeArray(input string) []*TreeNode {
 	return roots
 }
 
-func ArrayToTreeAndTarget(input string, target int) (*TreeNode, *TreeNode) {
+func ArrayToTreeAndTarget(input string, targets ...int) []*TreeNode {
+	targetNums := len(targets)
+	ans := make([]*TreeNode, 1+targetNums)
+	for i := 0; i <= targetNums; i++ {
+		ans[i] = nil
+	}
 	input = strings.ReplaceAll(input, " ", "")
 	if input[0] == '[' {
 		input = input[1:]
@@ -118,18 +123,22 @@ func ArrayToTreeAndTarget(input string, target int) (*TreeNode, *TreeNode) {
 		input = input[:len(input)-1]
 	}
 	if len(input) == 0 {
-		return nil, nil
+		return ans
 	}
 	splits := strings.Split(input, ",")
-	var root, targetNode *TreeNode
+	var root *TreeNode
 	if v, err := strconv.Atoi(splits[0]); err != nil {
-		return nil, nil
+		log.Printf("Unable to process tree input: %s", input)
+		return ans
 	} else {
 		root = &TreeNode{Val: v}
-		if v == target {
-			targetNode = root
+		for i, target := range targets {
+			if v == target {
+				ans[i+1] = root
+			}
 		}
 	}
+	ans[0] = root
 	isLeft := 1
 	var nodes []*TreeNode
 	currNode := root
@@ -137,14 +146,18 @@ func ArrayToTreeAndTarget(input string, target int) (*TreeNode, *TreeNode) {
 		if v, err := strconv.Atoi(splits[i]); err == nil {
 			if isLeft == 1 {
 				currNode.Left = &TreeNode{Val: v}
-				if v == target {
-					targetNode = currNode.Left
+				for i, target := range targets {
+					if v == target {
+						ans[i+1] = currNode.Left
+					}
 				}
 				nodes = append(nodes, currNode.Left)
 			} else {
 				currNode.Right = &TreeNode{Val: v}
-				if v == target {
-					targetNode = currNode.Right
+				for i, target := range targets {
+					if v == target {
+						ans[i+1] = currNode.Right
+					}
 				}
 				nodes = append(nodes, currNode.Right)
 				currNode = nodes[0]
@@ -153,7 +166,7 @@ func ArrayToTreeAndTarget(input string, target int) (*TreeNode, *TreeNode) {
 		}
 		isLeft ^= 1
 	}
-	return root, targetNode
+	return ans
 }
 
 func TreeToArray(root *TreeNode) []interface{} {

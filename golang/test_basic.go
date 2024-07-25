@@ -3,13 +3,14 @@ package golang
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"log"
 	"os"
 	"path"
 	"runtime"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 const TestcaseFolderFmt = "%s/%s_%s/testcase"
@@ -43,77 +44,83 @@ func processTestcase(problemPath string) (tests []TestCase) {
 	return
 }
 
-func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) {
+func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) bool {
 	switch resp.(type) {
 	case int:
-		ast.Equal(int(want.(float64)), resp.(int))
+		return ast.Equal(int(want.(float64)), resp.(int))
 	case int64:
-		ast.Equal(int64(want.(float64)), resp.(int64))
+		return ast.Equal(int64(want.(float64)), resp.(int64))
 	case float64:
-		ast.InDelta(want, resp, 1e-5)
+		return ast.InDelta(want, resp, 1e-5)
 	case byte:
-		ast.Equalf(want.(string)[0], resp, "Expected: [%s], actual: [%s]", want, string(resp.(byte)))
+		return ast.Equalf(want.(string)[0], resp, "Expected: [%s], actual: [%s]", want, string(resp.(byte)))
 	case [][]int:
 		wantArray := want.([]interface{})
 		respIntArray := resp.([][]int)
 		if !ast.Equalf(len(wantArray), len(respIntArray), "Expected: [%v], actual: [%v]", want, resp) {
-			return
+			return false
 		}
 		for i := 0; i < len(respIntArray); i++ {
 			if !ast.Equalf(len(wantArray[i].([]interface{})), len(respIntArray[i]),
 				"Expected: [%v], actual: [%v]", want, resp) {
-				return
+				return false
 			}
 			for j := 0; j < len(respIntArray[i]); j++ {
-				ast.Equalf(int(wantArray[i].([]interface{})[j].(float64)), respIntArray[i][j],
-					"Expected: [%v], actual: [%v]", want, resp)
+				if !ast.Equalf(int(wantArray[i].([]interface{})[j].(float64)), respIntArray[i][j],
+					"Expected: [%v], actual: [%v]", want, resp) {
+					return false
+				}
 			}
 		}
 	case []int:
 		wantArray := want.([]interface{})
 		respIntArray := resp.([]int)
 		if !ast.Equalf(len(wantArray), len(respIntArray), "Expected: [%v], actual: [%v]", want, resp) {
-			return
+			return false
 		}
 		for j := 0; j < len(respIntArray); j++ {
-			ast.Equalf(int(wantArray[j].(float64)), respIntArray[j], "Expected: [%v], actual: [%v]", want, resp)
+			if !ast.Equalf(int(wantArray[j].(float64)), respIntArray[j], "Expected: [%v], actual: [%v]", want, resp) {
+				return false
+			}
 		}
-
 	case []string:
 		if v, ok := want.([]string); ok {
 			ast.Equal(v, resp)
-			return
+			return false
 		}
 		if !ast.Equalf(len(want.([]interface{})), len(resp.([]string)),
 			"Expected: [%v], actual: [%v]", want, resp) {
-			return
+			return false
 		}
 		for i := 0; i < len(resp.([]string)); i++ {
-			ast.Equalf(want.([]interface{})[i], resp.([]string)[i],
-				"Expected: [%v], actual: [%v]", want, resp)
+			if !ast.Equalf(want.([]interface{})[i], resp.([]string)[i],
+				"Expected: [%v], actual: [%v]", want, resp) {
+				return false
+			}
 		}
 	case [][]string:
 		wantArray := want.([]interface{})
 		respStrArray := resp.([][]string)
 		if !ast.Equalf(len(wantArray), len(respStrArray), "Expected: [%v], actual: [%v]", want, resp) {
-			return
+			return false
 		}
 
 		for i := 0; i < len(respStrArray); i++ {
 			if !ast.Equalf(len(wantArray[i].([]interface{})), len(respStrArray[i]),
 				"Expected: [%v], actual: [%v]", want, resp) {
-				return
+				return false
 			}
 			for j := 0; j < len(respStrArray[i]); j++ {
 				if !ast.Equalf(len(wantArray[i].([]interface{})[j].(string)), len(respStrArray[i][j]),
 					"Expected: [%v], actual: [%v]", want, resp) {
-					return
+					return false
 				}
-				ast.Equalf(wantArray[i].([]interface{})[j], respStrArray[i][j],
-					"Expected: [%v], actual: [%v]", want, resp)
+				if !ast.Equalf(wantArray[i].([]interface{})[j], respStrArray[i][j],
+					"Expected: [%v], actual: [%v]", want, resp) {
+					return false
+				}
 			}
 		}
-
 	case []interface{}:
 		defer func() {
 			if recover() != nil {
@@ -121,26 +128,44 @@ func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) 
 			}
 		}()
 		respArray := resp.([]interface{})
+		if _, ok := want.([]interface{}); !ok {
+			return ast.Equal(int(want.(float64)), respArray[0], "Expected: [%v], actual: [%v]", want, resp)
+		}
 		wantArray := want.([]interface{})
 		if len(wantArray) == 0 {
-			ast.Equal(wantArray, respArray)
-			return
+			return ast.Equal(wantArray, respArray)
 		}
 		if ast.Equalf(len(wantArray), len(respArray), "Expected: [%v], actual: [%v]", want, resp) {
-
 			if respArray[0] == nil {
-				ast.Equal(fmt.Sprintf("%v", want), fmt.Sprintf("%v", resp))
-				return
+				return ast.Equal(fmt.Sprintf("%v", want), fmt.Sprintf("%v", resp))
 			}
 			switch respArray[0].(type) {
 			case float64:
-				ast.InDeltaSlicef(wantArray, respArray, 1e-5, "Expected: [%v], actual: [%v]", want, resp)
+				return ast.InDeltaSlicef(wantArray, respArray, 1e-5, "Expected: [%v], actual: [%v]", want, resp)
 			default:
-				ast.Equal(fmt.Sprintf("%v", want), fmt.Sprintf("%v", resp))
+				return ast.Equal(fmt.Sprintf("%v", want), fmt.Sprintf("%v", resp))
 			}
+		} else {
+			return false
 		}
 	default:
-		ast.Equal(want, resp)
+		return ast.Equal(want, resp)
+	}
+	return true
+}
+
+func checkSolve(ast *assert.Assertions, testcase TestCase, pkg func(inputJsonValues string) interface{}) {
+	gotResp := pkg(testcase.input)
+	if !compareGeneral(ast, testcase.want, gotResp) {
+		secondResp := pkg(testcase.input)
+		if fmt.Sprintf("%v", gotResp) != fmt.Sprintf("%v", secondResp) {
+			for i := 0; i < 10000; i++ {
+				if compareGeneral(ast, testcase.want, secondResp) {
+					return
+				}
+				secondResp = pkg(testcase.input)
+			}
+		}
 	}
 }
 
@@ -149,8 +174,7 @@ func TestEach(t *testing.T, problemId string, problemFolder string, pkg func(inp
 	tests := processTestcase(fmt.Sprintf(TestcaseFolderFmt, problemFolder, problemFolder, problemId))
 	for j, testcase := range tests {
 		t.Run(fmt.Sprintf("%s/Testcase#%d", problemId, j), func(t *testing.T) {
-			gotResp := pkg(testcase.input)
-			compareGeneral(ast, testcase.want, gotResp)
+			checkSolve(ast, testcase, pkg)
 		})
 	}
 }

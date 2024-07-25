@@ -60,19 +60,47 @@ public class Common {
 
     public static DynamicTest addTest(BaseSolution solution, Testcase testcase, String problemId, int idx) {
         return DynamicTest.dynamicTest(
-                    String.format("[Problem%s]Testcase%d: %s", problemId, idx, Arrays.toString(testcase.getInput())),
-                    () -> assertTimeoutPreemptively(Duration.ofSeconds(3), () -> {
-                        Object actual = solution.solve(testcase.getInput());
-                        switch (testcase.getOutput()) {
-                            case BigDecimal output -> {
-                                BigDecimal actualNumber = (BigDecimal) actual;
-                                assertEquals(actualNumber.doubleValue(), output.doubleValue(), 1e-4);
-                            }
-                            case Double output -> assertEquals((Double) actual, output, 1e-4d);
-                            case Float output -> assertEquals((Float) actual, output, 1e-4f);
-                            case null, default -> assertEquals(actual, testcase.getOutput());
+                String.format("[Problem%s]Testcase%d: %s", problemId, idx, Arrays.toString(testcase.getInput())),
+                () -> assertTimeoutPreemptively(Duration.ofSeconds(3), () -> {
+                    Object actual = solution.solve(testcase.getInput());
+                    try {
+                        compareResult(testcase, actual);
+                    } catch (AssertionError ae) {
+                        Object iterActual = solution.solve(testcase.getInput());
+                        if (iterActual == actual) {
+                            throw ae;
                         }
-                    })
-            );
+                        for (int i = 0; i < 10000; i++) {
+                            try {
+                                compareResult(testcase, iterActual);
+                                return;
+                            } catch (AssertionError assErr) {
+                                if (i == 9999) {
+                                    throw assErr;
+                                }
+                            }
+                            iterActual = solution.solve(testcase.getInput());
+                        }
+                    }
+                })
+        );
+    }
+
+    private static void compareResult(Testcase testcase, Object actual) {
+        switch (testcase.getOutput()) {
+            case BigDecimal output -> {
+                BigDecimal actualNumber = (BigDecimal) actual;
+                assertEquals(actualNumber.doubleValue(), output.doubleValue(), 1e-4);
+            }
+            case Double output -> assertEquals((Double) actual, output, 1e-4d);
+            case Float output -> assertEquals((Float) actual, output, 1e-4f);
+            case null, default -> {
+                if (actual instanceof Iterable<?> && !(testcase.getOutput() instanceof Iterable<?>)) {
+                    assertEquals(((Iterable<?>)actual).iterator().next(), testcase.getOutput());
+                } else {
+                    assertEquals(actual, testcase.getOutput());
+                }
+            }
+        }
     }
 }

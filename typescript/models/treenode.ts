@@ -11,17 +11,33 @@ class TreeNode {
 }
 
 function JSONArrayToTreeNode(jsonArray: any): TreeNode | null {
+    return JsonArrayToTreeNodeWithTargets(jsonArray)[0];
+}
+
+function JsonArrayToTreeNodeWithTargets(jsonArray: any, ...targets: number[]): TreeNode[] {
+    const ans: TreeNode[] = Array.from({length: targets.length + 1}, () => null);
     if (jsonArray == null || jsonArray.length === 0 || jsonArray[0] == null) {
-        return null;
+        return ans;
     }
     const root: TreeNode | null = new TreeNode(jsonArray[0]);
     let isLeft: number = 1;
     const nodes: Array<TreeNode | null> = []
     let currNode: TreeNode | null = root;
+    ans[0] = root;
+    for (let i: number = 0; i < targets.length; i++) {
+        if (root.val === targets[i]) {
+            ans[i + 1] = root;
+        }
+    }
     for (let i = 1; i < jsonArray.length; i++) {
         let node: TreeNode | null = null;
         if (jsonArray[i] != null) {
             node = new TreeNode(jsonArray[i]);
+            for (let i: number = 0; i < targets.length; i++) {
+                if (node.val === targets[i]) {
+                    ans[i + 1] = node;
+                }
+            }
         }
         if (isLeft == 1) {
             if (node != null) {
@@ -40,7 +56,7 @@ function JSONArrayToTreeNode(jsonArray: any): TreeNode | null {
         }
         isLeft ^= 1;
     }
-    return root
+    return ans;
 }
 
 function JSONArrayToTreeNodeArray(jsonArray: any): Array<TreeNode | null> {

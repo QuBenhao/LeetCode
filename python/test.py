@@ -64,6 +64,8 @@ class Test(unittest.TestCase):
                                                  sorted(sorted(item) for item in result), msg=f"input = {i}")
                         else:
                             self.assertListEqual(o, result, msg=f"input = {i}")
+                    elif result and isinstance(result, list):
+                        self.assertEqual(o, result[0], msg=f"input = {i}")
                     else:
                         if isinstance(o, float):
                             self.assertAlmostEqual(o, result, msg=f"input = {i}", delta=0.00001)

@@ -12,3 +12,4 @@ run_test = []
 
 [dependencies]
 serde_json = "1.0"
+assert_float_eq = "1"

@@ -14,3 +14,6 @@ or if you want to run more than one questions,
 ```shell
 bazel test --cxxopt=-std=c++20 --test_timeout=10 --test_output=all //cpp/tests:all
 ```
+
+## Environment setup for idea:
+[bazel-compile-commands-extractor](https://github.com/hedronvision/bazel-compile-commands-extractor)

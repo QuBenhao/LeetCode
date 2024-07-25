@@ -1,9 +1,10 @@
 package test
 
 import (
-	"github.com/stretchr/testify/assert"
 	. "leetCode/golang/models"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestTree(t *testing.T) {
@@ -17,7 +18,8 @@ func TestTree(t *testing.T) {
 }
 
 func TestTreeTarget(t *testing.T) {
-	node, target := ArrayToTreeAndTarget("[1,2,3,null,4,null,5]", 5)
+	nodes := ArrayToTreeAndTarget("[1,2,3,null,4,null,5]", 5)
+	node, target := nodes[0], nodes[1]
 	assert.NotNil(t, node)
 	assert.NotNil(t, target)
 	assert.Equal(t, node.Right.Right, target)

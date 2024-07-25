@@ -31,13 +31,14 @@ def list_to_tree(nums: list[Optional[int]]) -> Optional[TreeNode]:
     return root
 
 
-def list_to_tree_with_target(nums: list[Optional[int]], target: int) -> tuple[Optional[TreeNode], Optional[TreeNode]]:
+def list_to_tree_with_target(nums: list[Optional[int]], *args) -> tuple[Optional[TreeNode], ...]:
     if not nums:
-        return None, None
+        return None, *[None] * len(args)
     root = TreeNode(nums[0])
-    target_node = None
-    if nums[0] == target:
-        target_node = root
+    target_nodes = [None for _ in range(len(args))]
+    for i, target in enumerate(args):
+        if nums[0] == target:
+            target_nodes[i] = root
     is_left = 1
     curr_nodes = deque([])
     curr_node = root
@@ -46,18 +47,20 @@ def list_to_tree_with_target(nums: list[Optional[int]], target: int) -> tuple[Op
         if is_left:
             if num is not None:
                 curr_node.left = TreeNode(val=num)
-                if num == target:
-                    target_node = curr_node.left
+                for i, target in enumerate(args):
+                    if num == target:
+                        target_nodes[i] = curr_node.left
                 curr_nodes.append(curr_node.left)
         else:
             if num is not None:
                 curr_node.right = TreeNode(val=num)
-                if num == target:
-                    target_node = curr_node.right
+                for i, target in enumerate(args):
+                    if num == target:
+                        target_nodes[i] = curr_node.right
                 curr_nodes.append(curr_node.right)
             curr_node = curr_nodes.popleft()
         is_left ^= 1
-    return root, target_node
+    return root, *target_nodes
 
 
 def tree_to_list(root: Optional[TreeNode]) -> list[Optional[int]]:
