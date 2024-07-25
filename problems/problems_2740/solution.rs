@@ -4,7 +4,9 @@ pub struct Solution;
 
 impl Solution {
     pub fn find_value_of_partition(nums: Vec<i32>) -> i32 {
-
+		let mut nums = nums;
+		nums.sort_unstable();
+		nums.windows(2).map(|x| x[1] - x[0]).min().unwrap()
     }
 }
 
