@@ -124,7 +124,7 @@ class RustWriter(LanguageWriter):
                 if "pub struct Solution;" in line:
                     start = True
                     continue
-                if "#[cfg(feature = \"solution\")]" in line:
+                if "#[cfg(feature = \"solution\")]" in line or f"#[cfg(feature = \"solution_{problem_id}\")]" in line:
                     break
                 if start:
                     final_codes.append(line)

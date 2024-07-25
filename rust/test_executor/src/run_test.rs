@@ -34,16 +34,16 @@ pub fn run_test(problem_id: &str, problem_folder: &str, solve: fn(String) -> Val
                 if check.is_err() {
                     let mut iter_result = solve(inputs_clone[i].to_string());
                     if iter_result == result {
-                        panic!("{:?}", check.err())
+                        panic!("{:?}", check.err());
                     }
-                    for j in 0..10000 {
+                    for j in 0..500 {
                         let iter_check = panic::catch_unwind(|| {
                             compare_general(&iter_result, &expected_outputs_clone[i]);
                         });
                         if iter_check.is_ok() {
                             return;
-                        } else if j == 9999 {
-                            panic!("{:?}", iter_check.err())
+                        } else if j == 499 {
+                            panic!("{:?}", iter_check.err());
                         }
                         iter_result = solve(inputs_clone[i].to_string());
                     }
