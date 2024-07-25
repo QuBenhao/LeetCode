@@ -138,12 +138,23 @@ def get_question_code(slug: str,
         code_snippets = res_dict['data']['question']['codeSnippets']
         ans = dict()
         for cs in code_snippets:
-            if cs["langSlug"] in lang_slugs:
+            if not lang_slugs or cs["langSlug"] in lang_slugs:
                 ans[cs["langSlug"]] = cs["code"]
         return ans
 
-    if lang_slugs is None:
-        lang_slugs = ["python3"]
+    return general_request(LEET_CODE_BACKEND, handle_response,
+                           json={
+                               "query": QUESTION_CODE_QUERY,
+                               "variables": {"titleSlug": slug},
+                               "operationName": "questionEditorData"},
+                           cookies={'cookie': cookie} if cookie else None)
+
+
+def get_question_code_origin(slug: str, cookie: Optional[str] = None) -> list:
+    def handle_response(response):
+        res_dict = json.loads(response.text)
+        return res_dict['data']['question']['codeSnippets']
+
     return general_request(LEET_CODE_BACKEND, handle_response,
                            json={
                                "query": QUESTION_CODE_QUERY,

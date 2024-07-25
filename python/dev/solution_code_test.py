@@ -27,6 +27,9 @@ def get_args():
     smt.set_defaults(func=test_submit)
     po = subparsers.add_parser("print_origin", help="Print origin code snippets")
     po.set_defaults(func=test_print_origin)
+    aqc = subparsers.add_parser("add_question_code", help="Add question code snippets")
+    aqc.add_argument("-c", "--cookie", type=str, help="Cookie for premium questions", default=None)
+    aqc.set_defaults(func=test_add_question_code)
 
     return parser.parse_args()
 
@@ -49,6 +52,41 @@ def test_print_origin(args):
                     print(code["code"])
                     return
     print("No code found for [{}] in [{}]".format(problem_id, language))
+
+
+def test_add_question_code(args):
+    if not args.problem:
+        raise ValueError("Problem id is required")
+    questions = lc_libs.get_questions_by_key_word(args.problem, "algorithms")
+    if not questions:
+        raise ValueError(f"Unable to find any questions with problem_id {args.problem}")
+    problem_slug = None
+    for question in questions:
+        if question["paidOnly"] and not args.cookie:
+            continue
+        if question["frontendQuestionId"] == args.problem:
+            problem_slug = question["titleSlug"]
+            break
+    if problem_slug is None:
+        raise ValueError(f"Unable to find problem slug for problem_id {args.problem}")
+    code_list = lc_libs.get_question_code_origin(problem_slug, args.cookie)
+    if not code_list:
+        raise ValueError(f"Unable to find code snippets for problem_id {args.problem} problem {problem_slug}")
+    cur_path = os.path.dirname(os.path.abspath(__file__))
+    with open(f"{cur_path}/question_code_snippets.json", "r", encoding="utf-8") as f:
+        data = json.load(f)
+    with open(f"{cur_path}/question_code_snippets.json", "w", encoding="utf-8") as f:
+        idx = -1
+        for i, problem in enumerate(data):
+            if args.problem in problem.keys():
+                idx = i
+                break
+        if idx != -1:
+            data[idx] = {args.problem: code_list}
+        else:
+            data.append({args.problem: code_list})
+        json.dump(data, f, indent=4)
+        print(f"Code snippets for problem {args.problem} added successfully")
 
 
 def test_solution(args):
