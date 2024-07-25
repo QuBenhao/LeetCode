@@ -12,7 +12,7 @@ from python.utils import back_question_id
 
 
 class Python3Writer(LanguageWriter):
-    
+
     def __init__(self) -> None:
         super().__init__()
         self.solution_file = "solution.py"
@@ -56,7 +56,9 @@ class Python3Writer(LanguageWriter):
                 import_libs, process_input = (Python3Writer.
                                               __finalize_solution_code_with_single_class(cs_map, modify_in_place))
             else:
-                import_libs, process_input = Python3Writer.__finalize_solution_code_complex(cs_map, modify_in_place)
+                testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
+                import_libs, process_input = Python3Writer.__finalize_solution_code_complex(
+                    cs_map, modify_in_place, testcases)
             if code:
                 # submission code, not template code
                 if "class Solution" in code:
@@ -288,7 +290,7 @@ class Python3Writer(LanguageWriter):
         return count
 
     @staticmethod
-    def __extract_process_input_from_method(cs_map, modify_in_place, import_libs, method):
+    def __extract_process_input_from_method(cs_map, modify_in_place, import_libs, method, testcases=None):
         func_name, parameters, return_anno = method
         par_map = dict()
         add_lib = ""
@@ -319,6 +321,24 @@ class Python3Writer(LanguageWriter):
                     remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
                     inputs += "roots"
                 else:
+                    if testcases:
+                        i = idx + 1
+                        while all(i < len(testcase) and testcase[i] is not None
+                                  and isinstance(testcase[i], list) for testcase in testcases):
+                            i += 1
+                        if i != idx + 1:
+                            add_lib += ", list_to_tree_with_target"
+                            process_input += f"nums{idx}"
+                            for j in range(idx + 1, i):
+                                process_input += f", num{j}"
+                            remain += f"        nodes = list_to_tree_with_target(nums{idx}, " + ", ".join(
+                                [f"num{j}" for j in range(idx + 1, i)]) + ")\n"
+                            remain += f"        root{idx} = nodes[0]\n"
+                            for j in range(idx + 1, i):
+                                remain += f"        node{j} = nodes[{j - idx}]\n"
+                            inputs += f"root{idx}"
+                            idx = i
+                            continue
                     process_input += f"nums{idx}"
                     remain += f"        root{idx} = list_to_tree(nums{idx})\n"
                     inputs += f"root{idx}"
@@ -486,14 +506,14 @@ class Python3Writer(LanguageWriter):
         return import_libs, process_input
 
     @staticmethod
-    def __finalize_solution_code_complex(cs_map, modify_in_place: bool = False):
+    def __finalize_solution_code_complex(cs_map, modify_in_place: bool = False, testcases=None):
         process_input = "pass"
         import_libs = []
         if "Solution" in cs_map:
             methods = cs_map["Solution"]
             if len(methods) == 1:
                 process_input = Python3Writer.__extract_process_input_from_method(
-                    cs_map, modify_in_place, import_libs, methods[0])
+                    cs_map, modify_in_place, import_libs, methods[0], testcases)
         else:
             import_libs.append("from python.object_libs import call_method")
             if "TreeNode" in cs_map:
