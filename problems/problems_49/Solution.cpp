@@ -1,6 +1,5 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
-#include <unordered_map>
 
 
 using namespace std;
@@ -22,6 +21,7 @@ public:
         return result;
     }
 };
+
 
 json leetcode::qubh::Solve(string input_json_values) {
 	vector<string> inputArray;
