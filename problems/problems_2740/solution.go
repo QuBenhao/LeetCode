@@ -3,11 +3,18 @@ package problem2740
 import (
 	"encoding/json"
 	"log"
+	"math"
+	"sort"
 	"strings"
 )
 
 func findValueOfPartition(nums []int) int {
-
+	sort.Ints(nums)
+	ans := math.MaxInt
+	for i := 1; i < len(nums); i++ {
+		ans = min(ans, nums[i]-nums[i-1])
+	}
+	return ans
 }
 
 func Solve(inputJsonValues string) interface{} {
