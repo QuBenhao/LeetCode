@@ -1,6 +1,7 @@
 import solution
 from typing import *
 from python.object_libs import list_to_tree
+from collections import deque
 
 
 class TreeNode:
@@ -17,5 +18,18 @@ class Solution(solution.Solution):
         return self.levelOrder(root0)
 
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        pass
-
+        ans = []
+        if not root:
+            return ans
+        q = deque([root])
+        while q:
+            cur = []
+            for _ in range(len(q)):
+                node = q.popleft()
+                cur.append(node.val)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            ans.append(cur)
+        return ans
