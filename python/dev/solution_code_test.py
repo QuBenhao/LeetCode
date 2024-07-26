@@ -109,6 +109,7 @@ def test_solution(args):
     for test_problem, codes in problems.items():
         if limit and test_problem != limit:
             continue
+        print(f"Testing problem {test_problem}")
         for code in codes:
             lang: str = code["langSlug"]
             if languages and lang not in languages:

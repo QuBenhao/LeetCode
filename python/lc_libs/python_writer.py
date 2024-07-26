@@ -307,7 +307,8 @@ class Python3Writer(LanguageWriter):
             elif parameters[k].name == "kwargs":
                 parameters.pop(k)
         idx = 0
-        for vid, v in enumerate(parameters.values()):
+        p_values = list(parameters.values())
+        for vid, v in enumerate(p_values):
             if vid < idx:
                 continue
             par_map[v.name] = v.annotation
@@ -326,21 +327,32 @@ class Python3Writer(LanguageWriter):
                 else:
                     if testcases:
                         i = idx + 1
-                        while all(i < len(testcase) and testcase[i] is not None
+                        while all(i < len(testcase)
+                                  and "TreeNode" in str(p_values[i].annotation)
+                                  and testcase[i] is not None
                                   and not isinstance(testcase[i], list) for testcase in testcases):
                             i += 1
                         if i != idx + 1:
                             add_lib += ", list_to_tree_with_target"
-                            process_input += f"nums{idx}"
-                            for j in range(idx + 1, i):
-                                process_input += f", num{j}"
-                            remain += f"        nodes = list_to_tree_with_target(nums{idx}, " + ", ".join(
-                                [f"num{j}" for j in range(idx + 1, i)]) + ")\n"
-                            remain += f"        root{idx} = nodes[0]\n"
-                            for j in range(idx + 1, i):
-                                remain += f"        node{j} = nodes[{j - idx}]\n"
-                            inputs += f"root{idx}, " + ", ".join([f"node{j}" for j in range(idx + 1, i)])
-                            idx = i
+                            if (len(p_values) == len(testcases[0]) + 1 and
+                                    all("TreeNode" in str(p.annotation) for p in p_values)):
+                                process_input += f"nums{idx}, target_val"
+                                remain += (f"        original, target = list_to_tree_with_target(nums{idx},"
+                                           f" target_val)\n")
+                                remain += f"        cloned = list_to_tree(nums0)\n"
+                                inputs += f"original, cloned, target"
+                                idx += 3
+                            else:
+                                process_input += f"nums{idx}"
+                                for j in range(idx + 1, i):
+                                    process_input += f", num{j}"
+                                remain += f"        nodes = list_to_tree_with_target(nums{idx}, " + ", ".join(
+                                    [f"num{j}" for j in range(idx + 1, i)]) + ")\n"
+                                remain += f"        root{idx} = nodes[0]\n"
+                                for j in range(idx + 1, i):
+                                    remain += f"        node{j} = nodes[{j - idx}]\n"
+                                inputs += f"root{idx}, " + ", ".join([f"node{j}" for j in range(idx + 1, i)])
+                                idx = i
                             continue
                     process_input += f"nums{idx}"
                     remain += f"        root{idx} = list_to_tree(nums{idx})\n"
