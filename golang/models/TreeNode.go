@@ -3,8 +3,6 @@ package models
 import (
 	"encoding/json"
 	"log"
-	"strconv"
-	"strings"
 )
 
 type TreeNode struct {
@@ -109,60 +107,60 @@ func ArrayToTreeArray(input string) []*TreeNode {
 	return roots
 }
 
-func ArrayToTreeAndTarget(input string, targets ...int) []*TreeNode {
+func ArrayToTreeAndTargets(input string, targets ...int) []*TreeNode {
 	targetNums := len(targets)
 	ans := make([]*TreeNode, 1+targetNums)
 	for i := 0; i <= targetNums; i++ {
 		ans[i] = nil
 	}
-	input = strings.ReplaceAll(input, " ", "")
-	if input[0] == '[' {
-		input = input[1:]
-	}
-	if input[len(input)-1] == ']' {
-		input = input[:len(input)-1]
-	}
-	if len(input) == 0 {
+	var value interface{}
+	if err := json.Unmarshal([]byte(input), &value); err != nil {
+		log.Fatalf("Unable to process tree input: %s", input)
 		return ans
 	}
-	splits := strings.Split(input, ",")
+	arr := value.([]interface{})
+	if len(arr) == 0 {
+		return ans
+	}
 	var root *TreeNode
-	if v, err := strconv.Atoi(splits[0]); err != nil {
-		log.Printf("Unable to process tree input: %s", input)
+	if arr[0] == nil {
 		return ans
 	} else {
-		root = &TreeNode{Val: v}
+		root = &TreeNode{Val: int(arr[0].(float64))}
+		ans[0] = root
 		for i, target := range targets {
-			if v == target {
+			if target == root.Val {
 				ans[i+1] = root
 			}
 		}
 	}
-	ans[0] = root
 	isLeft := 1
 	var nodes []*TreeNode
 	currNode := root
-	for i := 1; i < len(splits); i++ {
-		if v, err := strconv.Atoi(splits[i]); err == nil {
-			if isLeft == 1 {
-				currNode.Left = &TreeNode{Val: v}
-				for i, target := range targets {
-					if v == target {
-						ans[i+1] = currNode.Left
-					}
+	for i := 1; i < len(arr); i++ {
+		var node *TreeNode
+		if arr[i] == nil {
+			node = nil
+		} else {
+			node = &TreeNode{Val: int(arr[i].(float64))}
+			for j, target := range targets {
+				if target == node.Val {
+					ans[j+1] = node
 				}
-				nodes = append(nodes, currNode.Left)
-			} else {
-				currNode.Right = &TreeNode{Val: v}
-				for i, target := range targets {
-					if v == target {
-						ans[i+1] = currNode.Right
-					}
-				}
-				nodes = append(nodes, currNode.Right)
-				currNode = nodes[0]
-				nodes = nodes[1:]
 			}
+		}
+		if isLeft == 1 {
+			if node != nil {
+				currNode.Left = node
+				nodes = append(nodes, currNode.Left)
+			}
+		} else {
+			if node != nil {
+				currNode.Right = node
+				nodes = append(nodes, currNode.Right)
+			}
+			currNode = nodes[0]
+			nodes = nodes[1:]
 		}
 		isLeft ^= 1
 	}

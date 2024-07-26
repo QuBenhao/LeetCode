@@ -65,13 +65,14 @@ class GolangWriter(LanguageWriter):
         rts = []
         func_names = []
         structs_map = dict()
+        testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
         for i, line in enumerate(code_default.split("\n")):
             line = line.strip()
             if line.startswith("func "):
                 rts.append(line.split("{")[0].split(")")[-1].strip())
                 its.append(
                     GolangWriter.__process_inputs(
-                        code_default, line.split("(")[1].split(")")[0], structs_map
+                        code_default, line.split("(")[1].split(")")[0], structs_map, False, testcases,
                     )
                 )
                 func_names.append(line.split("(")[0].split("func ")[-1].strip())
@@ -89,6 +90,7 @@ class GolangWriter(LanguageWriter):
                             tmp.split("(")[1].split(")")[0],
                             structs_map,
                             True,
+                            testcases,
                         )
                         rt = tmp.split("{")[0].split(")")[-1].strip()
                         structs_map[struct_name]["construct"] = (
@@ -104,6 +106,7 @@ class GolangWriter(LanguageWriter):
                             tmp.split("(")[2].split(")")[0],
                             structs_map,
                             True,
+                            testcases,
                         )
                         rt = tmp.split("{")[0].split(")")[-1].strip()
                         structs_map[struct_name]["funcs"].append(
@@ -330,7 +333,7 @@ class GolangWriter(LanguageWriter):
 
     @staticmethod
     def __process_inputs(
-            code_default: str, input_str: str, struct_dict: dict, struct_func: bool = False
+            code_default: str, input_str: str, struct_dict: dict, struct_func: bool, testcases=None
     ) -> Tuple[set, str, str, str]:
         res = []
         imports_libs = set()
@@ -418,11 +421,27 @@ class GolangWriter(LanguageWriter):
                         imports_libs.add('\t"encoding/json"')
                         imports_libs.add('\t"log"')
                     case "*TreeNode":
-                        for j, var in enumerate(vrs):
-                            json_parse.append(
-                                f"\t{var} = ArrayToTree(inputValues[{count + j}])\n"
-                            )
                         imports_libs.add('\t. "leetCode/golang/models"')
+                        if testcases:
+                            if len(vrs) == len(testcases[0]) + 1:
+                                imports_libs.add('\t"encoding/json"')
+                                imports_libs.add('\t"log"')
+                                json_parse.append("\tvar targetVal int\n")
+                                json_parse.append(
+                                    f"\tif err := json.Unmarshal([]byte(inputValues[1]), &targetVal); err != nil {{\n"
+                                    f"\t\tlog.Fatal(err)\n"
+                                    f"\t}}\n"
+                                )
+                                json_parse.append(f"\tnodes := ArrayToTreeAndTargets(inputValues[0], targetVal)\n")
+                                json_parse.append(f"\t{vrs[0]}, {vrs[-1]} = nodes[0], nodes[1]\n")
+                                json_parse.append(f"\t{vrs[1]} = ArrayToTree(inputValues[0])\n")
+                                continue
+                            elif len(vrs) > 1 and any(
+                                    t is not None and not isinstance(t, list) for testcase in testcases for t in
+                                    testcase):
+                                continue
+                        for j, var in enumerate(vrs):
+                            json_parse.append(f"\t{var} = ArrayToTree(inputValues[{count + j}])\n")
                     case "[]*TreeNode":
                         for j, var in enumerate(vrs):
                             json_parse.append(
