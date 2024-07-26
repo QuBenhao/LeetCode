@@ -15,7 +15,26 @@ import {JSONArrayToTreeNode,TreeNode} from "../../typescript/models/treenode";
  */
 
 function levelOrder(root: TreeNode | null): number[][] {
-    
+	const ans: number[][] = [];
+	if (root === null) {
+		return ans;
+	}
+	const queue: TreeNode[] = [root];
+	while (queue.length > 0) {
+		const cur: number[] = [];
+		for (let i: number = queue.length; i > 0; i--) {
+			const node: TreeNode = queue.shift();
+			cur.push(node.val);
+			if (node.left !== null) {
+				queue.push(node.left);
+			}
+			if (node.right !== null) {
+				queue.push(node.right);
+			}
+		}
+		ans.push(cur);
+	}
+	return ans;
 };
 
 export function Solve(inputJsonElement: string): any {
