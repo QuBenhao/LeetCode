@@ -299,13 +299,16 @@ class Python3Writer(LanguageWriter):
         remain = ""
         inputs = ""
         is_first = True
+        for k in list(parameters.keys()):
+            if parameters[k].name == "self":
+                parameters.pop(k)
+            elif parameters[k].name == "args":
+                parameters.pop(k)
+            elif parameters[k].name == "kwargs":
+                parameters.pop(k)
         idx = 0
-        for v in parameters.values():
-            if v.name == "self":
-                continue
-            if v.name == "args":
-                continue
-            if v.name == "kwargs":
+        for vid, v in enumerate(parameters.values()):
+            if vid < idx:
                 continue
             par_map[v.name] = v.annotation
             if is_first:
@@ -324,7 +327,7 @@ class Python3Writer(LanguageWriter):
                     if testcases:
                         i = idx + 1
                         while all(i < len(testcase) and testcase[i] is not None
-                                  and isinstance(testcase[i], list) for testcase in testcases):
+                                  and not isinstance(testcase[i], list) for testcase in testcases):
                             i += 1
                         if i != idx + 1:
                             add_lib += ", list_to_tree_with_target"
@@ -336,7 +339,7 @@ class Python3Writer(LanguageWriter):
                             remain += f"        root{idx} = nodes[0]\n"
                             for j in range(idx + 1, i):
                                 remain += f"        node{j} = nodes[{j - idx}]\n"
-                            inputs += f"root{idx}"
+                            inputs += f"root{idx}, " + ", ".join([f"node{j}" for j in range(idx + 1, i)])
                             idx = i
                             continue
                     process_input += f"nums{idx}"

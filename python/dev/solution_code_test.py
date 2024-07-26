@@ -125,7 +125,7 @@ def test_solution(args):
                     encoding="utf-8",
             ) as f:
                 try:
-                    f.writelines(obj.write_solution(code["code"], None, test_problem))
+                    f.writelines(obj.write_solution(code["code"], None, test_problem, "problems"))
                     code_counter[lang] += 1
                 except NotImplementedError as _:
                     f.write(code["code"])
