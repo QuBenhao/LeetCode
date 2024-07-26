@@ -22,9 +22,30 @@ pub struct Solution;
 // }
 use std::rc::Rc;
 use std::cell::RefCell;
+use std::collections::VecDeque;
 impl Solution {
     pub fn level_order(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
-
+		let mut ans = vec![];
+		if root.is_none() {
+			return ans
+		}
+		let mut queue = VecDeque::new();
+		queue.push_back(root.clone().unwrap());
+		while !queue.is_empty() {
+			let mut cur = vec![];
+			for _ in 0..queue.len() {
+				let node = queue.pop_front().unwrap();
+				cur.push(node.borrow().val);
+				if node.borrow().left.is_some() {
+					queue.push_back(node.borrow().left.clone().unwrap());
+				}
+				if node.borrow().right.is_some() {
+					queue.push_back(node.borrow().right.clone().unwrap());
+				}
+			}
+			ans.push(cur);
+		}
+		ans
     }
 }
 
