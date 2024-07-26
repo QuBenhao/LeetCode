@@ -7,7 +7,28 @@ import (
 )
 
 func getSmallestString(s string, k int) string {
-
+	distance := func(a, b byte) int {
+		return int(min((b-a+26)%26, (a-b+26)%26))
+	}
+	var ans []byte
+	idx := 0
+	for idx < len(s) && k > 0 {
+		if s[idx] == 'a' {
+			ans = append(ans, s[idx])
+			idx++
+			continue
+		}
+		d := distance('a', s[idx])
+		if k >= d {
+			ans = append(ans, 'a')
+			k -= d
+		} else {
+			ans = append(ans, s[idx]-byte(k))
+			k = 0
+		}
+		idx++
+	}
+	return string(ans) + s[idx:]
 }
 
 func Solve(inputJsonValues string) interface{} {

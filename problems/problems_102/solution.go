@@ -13,8 +13,27 @@ import (
  *     Right *TreeNode
  * }
  */
-func levelOrder(root *TreeNode) [][]int {
-
+func levelOrder(root *TreeNode) (ans [][]int) {
+	if root == nil {
+		return
+	}
+	queue := []*TreeNode{root}
+	for len(queue) > 0 {
+		var cur []int
+		for i, l := 0, len(queue); i < l; i++ {
+			node := queue[0]
+			queue = queue[1:]
+			cur = append(cur, node.Val)
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+			}
+		}
+		ans = append(ans, cur)
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
