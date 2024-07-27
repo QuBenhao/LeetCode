@@ -71,13 +71,61 @@ class RustWriter(LanguageWriter):
         solve_part = []
         return_part = []
         fn_count = 0
+        testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
         for line in code.split("\n"):
             if line.startswith("//"):
                 continue
             if "fn " in line:
                 function_name, variables, return_type = self.__parse_function(line)
-                for i, (var_name, var_type) in enumerate(variables):
+                i = 0
+                while i < len(variables):
+                    var_name, var_type = variables[i]
+                    if testcases and var_type == "Option<Rc<RefCell<TreeNode>>>":
+                        if len(variables) == len(testcases[0]) + 1:
+                            RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "TreeNode")
+                            RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::",
+                                                           "array_to_tree")
+                            RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::",
+                                                           "tree_to_array")
+                            RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::",
+                                                           "array_to_tree_with_targets")
+                            solve_part.append(f"let input_vec{i}: Vec<Option<i32>> = serde_json::from_str("
+                                              f"&input_values[{i}]).expect(\"Failed to parse input\");")
+                            solve_part.append("let target_val: i32 = serde_json::from_str(&input_values[1])"
+                                              ".expect(\"Failed to parse input\");")
+                            solve_part.append(
+                                f"let nodes = array_to_tree_with_targets(&input_vec{i}, vec![target_val]);")
+                            solve_part.append(f"let original = nodes[0].clone();")
+                            solve_part.append(f"let cloned = array_to_tree(&input_vec{i});")
+                            solve_part.append(f"let target = nodes[1].clone();")
+                            i += 3
+                            continue
+                        idx = i + 1
+                        while all(idx < len(testcase)
+                                  and "Option<Rc<RefCell<TreeNode>>>" == variables[idx][1]
+                                  and testcase[idx] is not None
+                                  and not isinstance(testcase[idx], list) for testcase in testcases):
+                            idx += 1
+                        if idx != i + 1:
+                            RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "TreeNode")
+                            RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::",
+                                                           "tree_to_array")
+                            RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::",
+                                                           "array_to_tree_with_targets")
+                            solve_part.append(f"let input_vec{i}: Vec<Option<i32>> = serde_json::from_str("
+                                              f"&input_values[{i}]).expect(\"Failed to parse input\");")
+                            for j in range(i + 1, idx):
+                                solve_part.append(f"let {variables[j][0]}_val: i32 = serde_json::from_str("
+                                                  f"&input_values[{j}]).expect(\"Failed to parse input\");")
+                            solve_part.append(f"let nodes = array_to_tree_with_targets(&input_vec{i}, "
+                                              f"vec![{', '.join([f'{variables[j][0]}_val'
+                                                                 for j in range(i + 1, idx)])}]);")
+                            for j in range(i, idx):
+                                solve_part.append(f"let {variables[j][0]} = nodes[{j - i}].clone();")
+                            i = idx
+                            continue
                     self.__parse_type(i, var_name, var_type, import_libs, solve_part, return_part)
+                    i += 1
                 if return_type:
                     self.__parse_type(0, "", return_type,
                                       import_libs, solve_part, return_part, True)
@@ -204,25 +252,13 @@ class RustWriter(LanguageWriter):
         """
         match var_type:
             case "Option<Box<ListNode>>" | "Vec<Option<Box<ListNode>>>":
-                idx = -1
-                for i, lib in enumerate(import_libs):
-                    if "use library::lib::list_node::" in lib:
-                        idx = i
-                        break
-                if idx != -1:
-                    before = import_libs[idx].split("::")[-1].split("}")[0].split(";")[0].split("{")[-1].split(",")
-                    if "ListNode" not in import_libs[idx]:
-                        before.insert(0, "ListNode")
-                    if not is_return and "int_array_to_list_node" not in import_libs[idx]:
-                        before.append("int_array_to_list_node")
-                    elif is_return and "list_node_to_int_array" not in import_libs[idx]:
-                        before.append("list_node_to_int_array")
-                    import_libs[idx] = "use library::lib::list_node::{" + ", ".join(before) + "};"
+                RustWriter._add_to_import_libs(import_libs, "use library::lib::list_node::", "ListNode")
+                if not is_return:
+                    RustWriter._add_to_import_libs(import_libs, "use library::lib::list_node::",
+                                                   "int_array_to_list_node")
                 else:
-                    if not is_return:
-                        import_libs.append("use library::lib::list_node::{ListNode, int_array_to_list_node};")
-                    else:
-                        import_libs.append("use library::lib::list_node::{ListNode, list_node_to_int_array};")
+                    RustWriter._add_to_import_libs(import_libs, "use library::lib::list_node::",
+                                                   "list_node_to_int_array")
                 if is_return:
                     if var_type == "Vec<Option<Box<ListNode>>>":
                         return_parts.append("let mut res = vec![];")
@@ -245,25 +281,11 @@ class RustWriter(LanguageWriter):
                                           f" int_array_to_list_node(&input_nums{var_idx});")
 
             case "Option<Rc<RefCell<TreeNode>>>" | "Vec<Option<Rc<RefCell<TreeNode>>>>":
-                idx = -1
-                for i, lib in enumerate(import_libs):
-                    if "use library::lib::tree_node::" in lib:
-                        idx = i
-                        break
-                if idx != -1:
-                    before = import_libs[idx].split("::")[-1].split("}")[0].split(";")[0].split("{")[-1].split(",")
-                    if "TreeNode" not in import_libs[idx]:
-                        before.insert(0, "TreeNode")
-                    if not is_return and "array_to_tree" not in import_libs[idx]:
-                        before.append("array_to_tree")
-                    elif is_return and "tree_to_array" not in import_libs[idx]:
-                        before.append("tree_to_array")
-                    import_libs[idx] = "use library::lib::tree_node::{" + ", ".join(before) + "};"
+                RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "TreeNode")
+                if not is_return:
+                    RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "array_to_tree")
                 else:
-                    if not is_return:
-                        import_libs.append("use library::lib::tree_node::{TreeNode, array_to_tree};")
-                    else:
-                        import_libs.append("use library::lib::tree_node::{TreeNode, tree_to_array};")
+                    RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "tree_to_array")
                 if is_return:
                     return_parts.append("json!(tree_to_array(&{}))")
                 else:
@@ -329,3 +351,20 @@ class RustWriter(LanguageWriter):
             for problem_id, problem_folder in remain_dependencies:
                 f.write(f"solution_{problem_id} = {{ path = \"{problem_folder}/{problem_folder}_{problem_id}\", "
                         f"features = [\"solution_{problem_id}\"] }}\n")
+
+    @staticmethod
+    def _add_to_import_libs(import_libs: list, crate: str, fn: str):
+        idx = -1
+        for i, lib in enumerate(import_libs):
+            if crate in lib:
+                idx = i
+                break
+        if idx != -1:
+            before = list(
+                map(str.strip, import_libs[idx].split("::")[-1].split("}")[0].split(";")[0].split("{")[-1].split(",")))
+            if fn in import_libs[idx]:
+                return
+            before.append(fn)
+            import_libs[idx] = f"{crate}{{{', '.join(before)}}};"
+        else:
+            import_libs.append(f"{crate}{{{fn}}};")
