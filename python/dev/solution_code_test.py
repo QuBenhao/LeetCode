@@ -1,8 +1,8 @@
+import logging
 import sys
 import os
 import json
 import argparse
-import traceback
 
 from collections import defaultdict, Counter
 
@@ -10,6 +10,7 @@ sys.path.append(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 )
 from python import lc_libs
+from python.constants import LOGGING_FORMAT, DATE_FORMAT
 
 
 def get_args():
@@ -49,9 +50,9 @@ def test_print_origin(args):
                 for code in v:
                     if code["langSlug"] != language:
                         continue
-                    print(code["code"])
+                    logging.info(code["code"])
                     return
-    print("No code found for [{}] in [{}]".format(problem_id, language))
+    logging.warning("No code found for [{}] in [{}]".format(problem_id, language))
 
 
 def test_add_question_code(args):
@@ -86,7 +87,7 @@ def test_add_question_code(args):
         else:
             data.append({args.problem: code_list})
         json.dump(data, f, indent=4)
-        print(f"Code snippets for problem {args.problem} added successfully")
+        logging.info(f"Code snippets for problem {args.problem} added successfully")
 
 
 def test_solution(args):
@@ -126,14 +127,16 @@ def test_solution(args):
             ) as f:
                 try:
                     f.writelines(obj.write_solution(code["code"], None, test_problem))
+                    logging.info(f"Code snippet for problem {test_problem} in language {lang} written successfully")
                     code_counter[lang] += 1
                 except NotImplementedError as _:
                     f.write(code["code"])
-                    print("Language {} for Problem {} not implemented yet".format(lang, test_problem))
+                    logging.warning("Language {} for Problem {} not implemented yet".format(lang, test_problem))
                 except Exception as _:
-                    print("Language {} for Problem {} error".format(lang, test_problem))
-                    traceback.print_exc()
+                    logging.error("Language {} for Problem {} error".format(lang, test_problem), exc_info=True)
                     raise
+    if not code_counter:
+        logging.warning(f"No code snippets found for the given problem [{limit}] and languages [{languages}]")
 
 
 def test_submit(args):
@@ -174,6 +177,7 @@ def test_submit(args):
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG, format=LOGGING_FORMAT, datefmt=DATE_FORMAT)
     args = get_args()
     args.func(args)
     sys.exit(0)

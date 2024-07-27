@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+import logging
 import os
 import sys
 import traceback
@@ -27,7 +28,7 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     code = ""
     cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
     if not cls:
-        print(f"{lang} writer is not supported yet!")
+        logging.warning(f"{lang} writer is not supported yet!")
         return
     obj: lc_libs.LanguageWriter = cls()
     if not problem_id:
@@ -35,16 +36,17 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
             problem_folder = get_default_folder()
         code, problem_id = obj.get_solution_code(root_path, problem_folder, problem_id)
         if not code:
-            print("No solution yet!")
+            logging.error("No solution yet!")
             return
         if not problem_id:
-            print("Unable to get problem_id")
+            logging.error(f"Unable to get problem_id: {problem_id}, check input or environments folder")
             return
         load_code = True
     origin_problem_id = back_question_id(problem_id)
     questions = lc_libs.get_questions_by_key_word(origin_problem_id)
     if not questions:
-        print(f"Unable to find any questions with problem_id {origin_problem_id}")
+        logging.error(f"Unable to find any questions with LeetCode problem_id {origin_problem_id},"
+                      f"check the input problem_id or contact the author")
         return
     problem_slug = None
     for question in questions:
@@ -54,13 +56,13 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
             problem_slug = question["titleSlug"]
             break
     if not problem_slug:
-        print(
+        logging.warning(
             f"Unable to find any questions with problem_id {origin_problem_id}, possible questions:\n"
             + "\n".join(v for v in questions))
         return
     problem_info = lc_libs.get_question_info(problem_slug, cookie)
     if not problem_info:
-        print(f"Unable to get problem info, slug: {problem_slug}")
+        logging.warning(f"Unable to get problem info, possibly network issue, slug: {problem_slug}")
         return
     is_paid_only = problem_info["isPaidOnly"]
     if not problem_folder:
@@ -68,7 +70,7 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
     if not load_code:
         code, _ = obj.get_solution_code(root_path, problem_folder, problem_id)
         if not code:
-            print("No solution yet!")
+            logging.error(f"No solution for problem [{problem_id}.{problem_slug}] yet!")
             return
     lc_question_id = problem_info["questionId"]
     plans = lc_libs.get_user_study_plans(cookie)
@@ -79,18 +81,17 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
         if problem_slug in all_problems:
             if i > 0:
                 await asyncio.sleep(1)
-            print("Submit code in plan [{}] problem: {}".format(plan, problem_slug))
+            logging.info("Submit code in plan [{}] problem: {}".format(plan, problem_slug))
             result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang,
                                                lc_question_id, code, plan)
-            print()
             exists = True
             if result and result["statusDisplay"] != "Accepted":
                 break
     if not exists:
         result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang,
                                            lc_question_id, code)
-    print("\n题解查看: https://leetcode.cn/problems/{}/solutions/".format(problem_slug))
-    print("外网查看: https://leetcode.com/problems/{}/solutions/".format(problem_slug))
+    logging.info("题解查看: https://leetcode.cn/problems/{}/solutions/".format(problem_slug))
+    logging.info("外网查看: https://leetcode.com/problems/{}/solutions/".format(problem_slug))
     return result
 
 
@@ -110,10 +111,12 @@ if __name__ == '__main__':
     question_id = args.id
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, None)
+    log_level = os.getenv(constant.LOG_LEVEL, "INFO")
+    logging.basicConfig(level=log_level.upper(), format=constant.LOGGING_FORMAT, datefmt=constant.DATE_FORMAT)
     try:
         langs = os.getenv(constant.LANGUAGES, "python3").split(",")
     except Exception as _:
-        traceback.print_exc()
+        logging.warning("Load languages failed, use default python3", exc_info=True)
         langs = ["python3"]
     if sys.version_info.major == 3 and sys.version_info.minor > 10:
         loop = asyncio.new_event_loop()

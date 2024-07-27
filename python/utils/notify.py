@@ -1,6 +1,6 @@
+import logging
 import os
 import sys
-import traceback
 from typing import Optional
 
 from dotenv import load_dotenv
@@ -20,14 +20,12 @@ def send_text_message(msg: str, description: Optional[str] = None, server: Optio
             if not push_key:
                 push_key = os.getenv(constant.PUSH_KEY)
         except Exception as e:
-            print(f"Load Env exception, {e}")
+            logging.error(f"Load Env exception, {e}")
         push_deer = PushDeer(pushkey=push_key)
         res = push_deer.send_text(msg, desp=description, server=server)
         return res
     except ValueError as _:
-        traceback.print_exc()
-        print("Possibly invalid push_key!")
+        logging.error("[PUSH_DEER] Failed, possibly invalid push_key!", exc_info=True)
     except Exception as _:
-        traceback.print_exc()
-        print("Possibly invalid server!")
+        logging.error("[PUSH_DEER] Failed, possibly invalid server or network issues!", exc_info=True)
     return False
