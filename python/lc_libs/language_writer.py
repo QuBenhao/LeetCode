@@ -63,7 +63,7 @@ class LanguageWriter(abc.ABC):
                     cmd, capture_output=True, timeout=300, cwd=root_path
                 )
                 if execute_res.returncode == 0:
-                    logging.info("Execute [{}] succeeded".format(" ".join(cmd)))
+                    logging.info("Execute [{}] success".format(" ".join(cmd)))
                     logging.debug(
                         "Execute [{}] output: {}".format(
                             " ".join(cmd), execute_res.stdout.decode("utf-8")

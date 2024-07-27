@@ -169,7 +169,7 @@ class RustWriter(LanguageWriter):
                     default_code, code, problem_id, problem_folder
                 )
                 f.writelines(code_content)
-        return False
+        return exec_res
 
     @staticmethod
     def __parse_function(line: str) -> Tuple[str, List[Tuple[str, str]], str]:
