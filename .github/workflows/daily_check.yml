@@ -65,6 +65,8 @@ jobs:
     - name: Set up rust-cargo
       continue-on-error: true
       uses: actions-rs/cargo@v1.0.1
+      with:
+        command: check
 
     - name: Install python dependencies
       run: |
