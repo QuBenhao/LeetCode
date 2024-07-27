@@ -367,6 +367,14 @@ class GolangWriter(LanguageWriter):
                 res.append(tp)
                 res.append("\n")
                 first = True
+        list_type_vars_new = []
+        for vars_type in list_type_vars:
+            if list_type_vars_new and list_type_vars_new[-1][-1] == vars_type[-1]:
+                list_type_vars_new[-1] = list_type_vars_new[-1][:-1]
+                list_type_vars_new[-1].extend(vars_type)
+            else:
+                list_type_vars_new.append(vars_type)
+        list_type_vars = list_type_vars_new
         counts = 0
         if struct_func:
             variables = []
@@ -435,6 +443,7 @@ class GolangWriter(LanguageWriter):
                                 json_parse.append(f"\tnodes := ArrayToTreeAndTargets(inputValues[0], targetVal)\n")
                                 json_parse.append(f"\t{vrs[0]}, {vrs[-1]} = nodes[0], nodes[1]\n")
                                 json_parse.append(f"\t{vrs[1]} = ArrayToTree(inputValues[0])\n")
+                                count += len(vrs)
                                 continue
                             elif len(vrs) > 1 and any(t is not None and not isinstance(t, list)
                                                       for testcase in testcases for t in testcase):
@@ -461,9 +470,10 @@ class GolangWriter(LanguageWriter):
                                         json_parse.append(f"\t{vrs[last_idx]},"
                                                           f" {', '.join(vrs[idx] for idx in range(last_idx + 1, j))}"
                                                           f" = nodes[0], {', '.join(
-                                                              f'nodes[{idx}]' for idx in range(1, j - last_idx))}")
+                                                              f'nodes[{idx}]' for idx in range(1, j - last_idx))}\n")
                                         last_idx = j
                                     j += 1
+                                count += len(vrs)
                                 continue
                         for j, var in enumerate(vrs):
                             json_parse.append(f"\t{var} = ArrayToTree(inputValues[{count + j}])\n")
