@@ -328,6 +328,18 @@ class CppWriter(LanguageWriter):
                     process_variables.append("}")
                 case "TreeNode":
                     if testcases:
+                        if len(variables) == len(testcases[0]) + 1:
+                            process_variables.append(
+                                f"json {variable[1]}_array = json::parse(inputArray.at({i}));")
+                            process_variables.append("int target_val = json::parse(inputArray.at(1));")
+                            process_variables.append(f"auto nodes = JsonArrayToTreeNodeWithTargets("
+                                                     f"{variable[1]}_array, {{target_val}});")
+                            process_variables.append("TreeNode *original = nodes[0];")
+                            process_variables.append("TreeNode *target = nodes[1];")
+                            process_variables.append(
+                                f"TreeNode *cloned = JsonArrayToTreeNode({variable[1]}_array);")
+                            i += 3
+                            continue
                         idx = i + 1
                         while all(idx < len(testcase)
                                   and "TreeNode" == CppWriter._simplify_variable_type(variables[idx])
@@ -335,32 +347,19 @@ class CppWriter(LanguageWriter):
                                   and not isinstance(testcase[idx], list) for testcase in testcases):
                             idx += 1
                         if idx != i + 1:
-                            if len(variables) == len(testcases[0]) + 1:
+                            process_variables.append(
+                                f"json {variable[1]}_array = json::parse(inputArray.at({i}));")
+                            for j in range(i + 1, idx):
                                 process_variables.append(
-                                    f"json {variable[1]}_array = json::parse(inputArray.at({i}));")
-                                process_variables.append("int target_val = json::parse(inputArray.at(1));")
-                                process_variables.append(f"auto nodes = JsonArrayToTreeNodeWithTargets("
-                                                         f"{variable[1]}_array, {{target_val}});")
-                                process_variables.append("TreeNode *original = nodes[0];")
-                                process_variables.append("TreeNode *target = nodes[1];")
-                                process_variables.append(
-                                    f"TreeNode *cloned = JsonArrayToTreeNode({variable[1]}_array);")
-                                i += 3
-                                continue
-                            else:
-                                process_variables.append(
-                                    f"json {variable[1]}_array = json::parse(inputArray.at({i}));")
-                                for j in range(i + 1, idx):
-                                    process_variables.append(
-                                        f"int {variables[j][1]}_val = json::parse(inputArray.at({j}));")
-                                process_variables.append(
-                                    f"auto nodes = JsonArrayToTreeNodeWithTargets({variable[1]}_array, {{"
-                                    + ", ".join([f"{variables[j][1]}_val" for j in range(i + 1, idx)]) + "});")
-                                process_variables.append(f"TreeNode *{variable[1]} = nodes[0], "
-                                                         + ", ".join([f"*{variables[j][1]} = nodes[{j - i}]"
-                                                                      for j in range(i + 1, idx)]) + ";")
-                                i = idx
-                                continue
+                                    f"int {variables[j][1]}_val = json::parse(inputArray.at({j}));")
+                            process_variables.append(
+                                f"auto nodes = JsonArrayToTreeNodeWithTargets({variable[1]}_array, {{"
+                                + ", ".join([f"{variables[j][1]}_val" for j in range(i + 1, idx)]) + "});")
+                            process_variables.append(f"TreeNode *{variable[1]} = nodes[0], "
+                                                     + ", ".join([f"*{variables[j][1]} = nodes[{j - i}]"
+                                                                  for j in range(i + 1, idx)]) + ";")
+                            i = idx
+                            continue
                     process_variables.append(
                         "json "
                         + variable[1]
