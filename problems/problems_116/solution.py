@@ -2,6 +2,15 @@ import solution
 from python.object_libs import tree_next_node_to_list, list_to_tree_next_node
 
 
+# Definition for a Node.
+class Node:
+    def __init__(self, val=0, left=None, right=None, next=None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+
+
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         root = list_to_tree_next_node(test_input)
@@ -33,12 +42,3 @@ class Solution(solution.Solution):
             nodes[-1].next = None
             nodes = new_nodes
         return root
-
-
-# Definition for a Node.
-class Node:
-    def __init__(self, val=0, left=None, right=None, next=None):
-        self.val = val
-        self.left = left
-        self.right = right
-        self.next = next

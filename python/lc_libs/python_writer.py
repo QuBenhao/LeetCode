@@ -382,6 +382,14 @@ class Python3Writer(LanguageWriter):
                     process_input += f"nums{idx}"
                     remain += f"        node{idx} = list_relation_to_node_neigh(nums{idx})\n"
                     inputs += f"node{idx}"
+            elif ("Node" in str(v.annotation) and "Node" in cs_map and "left" in cs_map["Node"][0][1] and
+                  "right" in cs_map["Node"][0][1] and "next" in cs_map["Node"][0][1]):
+                # special handle Next Nodes
+                exists = True
+                add_lib = "from python.object_libs import list_to_tree_next_node"
+                process_input += "nums"
+                remain += f"        root = list_to_tree_next_node(nums)\n"
+                inputs += "root"
             else:
                 process_input += v.name
                 inputs += v.name
@@ -418,6 +426,12 @@ class Python3Writer(LanguageWriter):
             else:
                 remain += ("        res = self.{}({})\n        return node_neigh_to_list_relation(res)"
                            .format(func_name, inputs))
+        elif ("Node" in str(v.annotation) and "Node" in cs_map and "left" in cs_map["Node"][0][1] and
+              "right" in cs_map["Node"][0][1] and "next" in cs_map["Node"][0][1]):
+            add_lib += ", tree_next_node_to_list" if exists else \
+                "from python.object_libs import tree_next_node_to_list"
+            remain += ("        res = self.{}({})\n        return tree_next_node_to_list(res)"
+                       .format(func_name, inputs))
         else:
             if not modify_in_place:
                 remain += "        return self.{}({})".format(func_name, inputs)
