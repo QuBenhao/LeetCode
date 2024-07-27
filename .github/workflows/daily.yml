@@ -50,6 +50,7 @@ jobs:
         PUSH_KEY: ${{ secrets.PUSH_KEY || '' }}
         PROBLEM_FOLDER: ${{ secrets.PROBLEM_FOLDER || '' }}
         LANGUAGES: ${{secrets.LANGUAGES || ''}}
+        LOG_LEVEL: ${{secrets.LOG_LEVEL || 'INFO'}}
       run: |
         set +e
         python python/scripts/daily_auto.py > /tmp/msg

@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import random
 import time
@@ -48,7 +49,7 @@ def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=
                 t = submit['submitTime']
                 if t < min_timestamp:
                     break
-                print(submit)
+                logging.debug(submit)
                 if not max_timestamp or t < max_timestamp:
                     (ans[format_question_id(submit['question']['questionFrontendId'])]
                      .append((submit["submissionId"], submit['question']["titleSlug"], "python3")))
@@ -74,7 +75,7 @@ def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp
             t = int(submit['timestamp'])
             if t < min_timestamp:
                 break
-            print(submit)
+            logging.debug(submit)
             if not max_timestamp or t < max_timestamp:
                 ans[format_question_id(question_submit_info["frontendId"])].append(
                     (submit["id"], question_submit_info["titleSlug"], submit["lang"]))
@@ -212,21 +213,21 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
                       leetcode_question_id: str, typed_code: str, study_plan_slug: str = None) -> dict | None:
     def handle_submit_response(response: requests.Response):
         if not response.text or response.status_code != 200:
-            print(response.status_code, response.text)
+            logging.error(f"Submit code error, status_code: {response.status_code}, text: {response.text}")
             return None
         result_dict = json.loads(response.text)
         return result_dict["submission_id"]
 
     def handle_submit_check_response(response: requests.Response):
         if not response.text or response.status_code != 200:
-            print(response.status_code, response.text)
+            logging.warning(f"Failed to get submit status, status_code: {response.status_code}, text: {response.text}")
             return False
         result_dict = json.loads(response.text)
         return result_dict["state"] == "SUCCESS"
 
     def handle_submit_detail_response(response: requests.Response):
         if not response.text or response.status_code != 200:
-            print(response.status_code, response.text)
+            logging.error(f"Failed to get submit result, status_code: {response.status_code}, text: {response.text}")
             return None
         result_dict = json.loads(response.text)["data"]["submissionDetail"]
         return {
@@ -273,7 +274,7 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
                }
     if csrf_token:
         headers["X-Csrftoken"] = csrf_token
-    for _ in tqdm(range(50)):
+    for _ in tqdm(range(100), desc="Waiting for submit result"):
         time.sleep(random.randint(200, 300) / 1000)
         if general_request(f"https://leetcode.cn/submissions/detail/{submit_id}/check/",
                            handle_submit_check_response,
@@ -306,7 +307,7 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
             _add_test(root_path, problem_folder, question_id,
                       submit_detail["outputDetail"]["input"], submit_detail["outputDetail"]["expectedOutput"])
 
-    print(SUBMIT_BASIC_RESULT.format(
+    logging.info(f"[{question_id}.{question_slug}]提交结果\n" + SUBMIT_BASIC_RESULT.format(
         submit_detail["statusDisplay"],
         submit_detail["passedTestCaseCnt"],
         submit_detail["totalTestCaseCnt"],

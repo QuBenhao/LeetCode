@@ -1,3 +1,4 @@
+import logging
 import os.path
 import sys
 import unittest
@@ -6,6 +7,8 @@ from importlib.util import spec_from_file_location, module_from_spec
 import constants
 from dotenv import load_dotenv
 from utils import get_default_folder, timeout
+
+logging.basicConfig(level=logging.INFO, format=constants.LOGGING_FORMAT, datefmt=constants.DATE_FORMAT)
 
 # Question ID that wants to test, modify here as passing arguments
 QUESTIONS = [['102', 'problems'], ['34', 'problems']]
@@ -21,7 +24,7 @@ class Test(unittest.TestCase):
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         problem_folder = os.getenv(constants.PROBLEM_FOLDER, None)
 
-        print(f"Testing problems: {list(zip(*QUESTIONS))[0]}")
+        logging.info(f"Testing problems: {list(zip(*QUESTIONS))[0]}")
 
         for q, folder in QUESTIONS:
             with self.subTest(f"Testing problem: {q}", question=q):
@@ -30,7 +33,7 @@ class Test(unittest.TestCase):
                 else:
                     problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{q}")
                 if not os.path.exists(problem_path):
-                    print("Warning: [QUESTION: {}] not found under problem folder: {}".format(q, problem_path))
+                    logging.warning("[QUESTION: {}] not found under problem folder: {}".format(q, problem_path))
                     tmp_folder = get_default_folder(paid_only=True)
                     problem_path = os.path.join(root_path, tmp_folder, f"{tmp_folder}_{q}")
                 self.assertTrue(os.path.exists(problem_path), msg="Please set up the problem env first!")
@@ -87,7 +90,7 @@ class Test(unittest.TestCase):
                                             self.assertListEqual(o, result)
                                         else:
                                             self.assertEqual(o, result)
-                                        print(f"Meet expect output in {idx + 2} loop: {result}")
+                                        logging.info(f"Meet expect output in {idx + 2} loop: {result}")
                                         break
                                     except AssertionError as _:
                                         result = solution_obj.solve(test_input=i)

@@ -1,3 +1,4 @@
+import logging
 import os.path
 from collections import deque
 from typing import Tuple
@@ -371,8 +372,9 @@ class GolangWriter(LanguageWriter):
         for i, vars_type in enumerate(list_type_vars):
             vrs, tp = vars_type[:-1], vars_type[-1]
             if (tp.startswith("*") and tp[1:] in struct_dict) or tp in struct_dict:
+                logging.debug("Golang unimplemented struct: ")
                 for var in vrs:
-                    print(var)
+                    logging.debug(var)
             elif struct_func:
                 imports_libs.add('\t"encoding/json"')
                 imports_libs.add('\t"log"')

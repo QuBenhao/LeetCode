@@ -1,4 +1,5 @@
 import inspect
+import logging
 import os
 import time
 import traceback
@@ -71,9 +72,9 @@ class Python3Writer(LanguageWriter):
                 process_input,
                 last_part
             )
-        except Exception as e:
-            print("Exception raised:", e)
-            traceback.print_exc()
+        except Exception as _:
+            logging.error(f"Failed to write [{problem_id}] python3 solution", exc_info=True)
+        logging.warning("Fall back to write python3 backup solution")
         return Python3Writer.__write_solution_python_backup(code_template)
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:

@@ -1,3 +1,4 @@
+import logging
 import os.path
 from collections import deque, defaultdict
 from typing import Tuple
@@ -244,7 +245,7 @@ class JavaWriter(LanguageWriter):
             case "":
                 return ""
             case _:
-                print("Java type not Implemented yet: {}".format(rt_type))
+                logging.warning("Java type not Implemented yet: {}".format(rt_type))
         return f"{rt_type} {variable_name} = FIXME({input_name})"
 
     @staticmethod

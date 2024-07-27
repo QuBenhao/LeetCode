@@ -1,7 +1,10 @@
 import argparse
+import logging
 import sys
 import os
 import shutil
+
+from python.constants import constant
 
 
 def main(folder: str, force: bool = False) -> None:
@@ -11,10 +14,10 @@ def main(folder: str, force: bool = False) -> None:
         for name in dirs:
             cur_path = os.path.join(dir_path, name)
             if not force and os.listdir(cur_path):
-                print(f"skip problem[{name}]")
+                logging.warning(f"skip problem[{name}]")
                 continue
             shutil.rmtree(cur_path)
-            print(f"remove problem[{name}]")
+            logging.info(f"remove problem[{name}]")
 
 
 if __name__ == '__main__':
@@ -23,6 +26,9 @@ if __name__ == '__main__':
                         help="The folder to clean up.")
     parser.add_argument("-f", "--force", required=False, action="store_true",
                         help="Careful! If exists problem files before, it will still be cleaned!")
+    parser.add_argument("-l", "--log", required=False, type=str, default="INFO",
+                        help="The log level.")
     args = parser.parse_args()
+    logging.basicConfig(level=args.log.upper(), format=constant.LOGGING_FORMAT, datefmt=constant.DATE_FORMAT)
     main(args.folder, args.force)
     sys.exit()
