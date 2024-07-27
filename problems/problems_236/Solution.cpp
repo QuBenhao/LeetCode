@@ -14,18 +14,18 @@ using json = nlohmann::json;
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-
 class Solution {
 public:
-    TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
-        if (original == nullptr || original == target) {
-            return cloned;
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (root == nullptr || root == p || root == q) {
+            return root;
         }
-        TreeNode *left = getTargetCopy(original->left, cloned->left, target);
-        if (left != nullptr) {
-            return left;
+        TreeNode *left = lowestCommonAncestor(root->left, p, q);
+        TreeNode *right = lowestCommonAncestor(root->right, p, q);
+        if (left != nullptr && right != nullptr) {
+            return root;
         }
-        return getTargetCopy(original->right, cloned->right, target);
+        return left != nullptr ? left : right;
     }
 };
 
@@ -40,11 +40,10 @@ json leetcode::qubh::Solve(string input_json_values) {
 	inputArray.push_back(input_json_values);
 
 	Solution solution;
-	json original_array = json::parse(inputArray.at(0));
-	int target_val = json::parse(inputArray.at(1));
-	auto nodes = JsonArrayToTreeNodeWithTargets(original_array, {target_val});
-	TreeNode *original = nodes[0];
-	TreeNode *target = nodes[1];
-	TreeNode *cloned = JsonArrayToTreeNode(original_array);
-	return TreeNodeToJsonArray(solution.getTargetCopy(original, cloned, target));
+	json root_array = json::parse(inputArray.at(0));
+	int p_val = json::parse(inputArray.at(1));
+	int q_val = json::parse(inputArray.at(2));
+	auto nodes = JsonArrayToTreeNodeWithTargets(root_array, {p_val, q_val});
+	TreeNode *root = nodes[0], *p = nodes[1], *q = nodes[2];
+	return TreeNodeToJsonArray(solution.lowestCommonAncestor(root, p, q));
 }

@@ -290,11 +290,7 @@ class CppWriter(LanguageWriter):
         i = 0
         while i < len(variables):
             variable = variables[i]
-            rt = (
-                variable[0]
-                if not variable[0].endswith("&") and not variable[0].endswith("*")
-                else variable[0][:-1]
-            )
+            rt = CppWriter._simplify_variable_type(variable)
             match rt:
                 case "ListNode":
                     process_variables.append(
@@ -332,25 +328,39 @@ class CppWriter(LanguageWriter):
                     process_variables.append("}")
                 case "TreeNode":
                     if testcases:
-                        if len(variables) == len(testcases[0]) + 1:
-                            # json_parse.append("\tvar targetVal int\n")
-                            # json_parse.append(
-                            #     f"\tif err := json.Unmarshal([]byte(inputValues[1]), &targetVal); err != nil {{\n"
-                            #     f"\t\tlog.Fatal(err)\n"
-                            #     f"\t}}\n"
-                            # )
-                            # json_parse.append(f"\tnodes := ArrayToTreeAndTargets(inputValues[0], targetVal)\n")
-                            # json_parse.append(f"\t{vrs[0]}, {vrs[-1]} = nodes[0], nodes[1]\n")
-                            # json_parse.append(f"\t{vrs[1]} = ArrayToTree(inputValues[0])\n")
-                            process_variables.append(f"json {variable[1]}_array = json::parse(inputArray.at({i}));")
-                            process_variables.append("json target_val = json::parse(inputArray.at(1));")
-                            process_variables.append(f"auto nodes = JsonArrayToTreeNodeWithTargets("
-                                                     f"{variable[1]}_array, {{target_val}});")
-                            process_variables.append("TreeNode *original = nodes[0];")
-                            process_variables.append("TreeNode *target = nodes[1];")
-                            process_variables.append(f"TreeNode *cloned = JsonArrayToTreeNode({variable[1]}_array);")
-                            i += len(variables)
-                            continue
+                        idx = i + 1
+                        while all(idx < len(testcase)
+                                  and "TreeNode" == CppWriter._simplify_variable_type(variables[idx])
+                                  and testcase[idx] is not None
+                                  and not isinstance(testcase[idx], list) for testcase in testcases):
+                            idx += 1
+                        if idx != i + 1:
+                            if len(variables) == len(testcases[0]) + 1:
+                                process_variables.append(
+                                    f"json {variable[1]}_array = json::parse(inputArray.at({i}));")
+                                process_variables.append("int target_val = json::parse(inputArray.at(1));")
+                                process_variables.append(f"auto nodes = JsonArrayToTreeNodeWithTargets("
+                                                         f"{variable[1]}_array, {{target_val}});")
+                                process_variables.append("TreeNode *original = nodes[0];")
+                                process_variables.append("TreeNode *target = nodes[1];")
+                                process_variables.append(
+                                    f"TreeNode *cloned = JsonArrayToTreeNode({variable[1]}_array);")
+                                i += 3
+                                continue
+                            else:
+                                process_variables.append(
+                                    f"json {variable[1]}_array = json::parse(inputArray.at({i}));")
+                                for j in range(i + 1, idx):
+                                    process_variables.append(
+                                        f"int {variables[j][1]}_val = json::parse(inputArray.at({j}));")
+                                process_variables.append(
+                                    f"auto nodes = JsonArrayToTreeNodeWithTargets({variable[1]}_array, {{"
+                                    + ", ".join([f"{variables[j][1]}_val" for j in range(i + 1, idx)]) + "});")
+                                process_variables.append(f"TreeNode *{variable[1]} = nodes[0], "
+                                                         + ", ".join([f"*{variables[j][1]} = nodes[{j - i}]"
+                                                                      for j in range(i + 1, idx)]) + ";")
+                                i = idx
+                                continue
                     process_variables.append(
                         "json "
                         + variable[1]
@@ -433,3 +443,7 @@ class CppWriter(LanguageWriter):
                         + f" = json::parse(inputArray.at({i}));"
                     )
             i += 1
+
+    @staticmethod
+    def _simplify_variable_type(variable: str) -> str:
+        return variable[0] if not variable[0].endswith("&") and not variable[0].endswith("*") else variable[0][:-1]
