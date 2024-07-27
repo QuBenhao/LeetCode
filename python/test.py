@@ -1,3 +1,4 @@
+import logging
 import os.path
 import sys
 import unittest
@@ -7,8 +8,10 @@ from dotenv import load_dotenv
 import constants
 from utils import get_default_folder, timeout
 
+logging.basicConfig(level=logging.INFO, format=constants.LOGGING_FORMAT, datefmt=constants.DATE_FORMAT)
+
 # Question ID that wants to test, modify here as passing arguments
-QUESTION = "2844"
+QUESTION = "3106"
 # QUESTION = "Interview/10_02"
 # QUESTION = "LCP/07"
 # QUESTION = "剑指Offer/52"
@@ -20,7 +23,7 @@ class Test(unittest.TestCase):
         def exec_solution(sol, ipt):
             return sol.solve(test_input=ipt)
 
-        print(f"Testing problem: {QUESTION}")
+        logging.info(f"Testing problem: {QUESTION}")
 
         load_dotenv()
         root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +32,7 @@ class Test(unittest.TestCase):
             problem_folder = get_default_folder()
         problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{QUESTION}")
         if not os.path.exists(problem_path):
-            print("Warning: [QUESTION: {}] not found under problem folder: {}".format(QUESTION, problem_folder))
+            logging.warning("[QUESTION: {}] not found under problem folder: {}".format(QUESTION, problem_folder))
             problem_folder = get_default_folder(paid_only=True)
             problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{QUESTION}")
         self.assertTrue(os.path.exists(problem_path), msg="Please set up the problem env first!")
@@ -84,7 +87,7 @@ class Test(unittest.TestCase):
                                     self.assertListEqual(o, result)
                                 else:
                                     self.assertEqual(o, result)
-                                print(f"Meet expect output in {idx + 2} loop: {result}")
+                                logging.info(f"Meet expect output in {idx + 2} loop: {result}")
                                 break
                             except AssertionError as _:
                                 result = solution_obj.solve(test_input=i)

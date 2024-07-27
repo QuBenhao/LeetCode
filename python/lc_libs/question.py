@@ -1,5 +1,5 @@
 import json
-import traceback
+import logging
 from typing import Optional, Mapping, Tuple
 
 import html2text
@@ -97,8 +97,7 @@ def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
                 success_process = True
                 break
             except Exception as sxe:
-                print(f"{j}. Error: {sxe}, [{tmp}]")
-                traceback.print_exc()
+                logging.debug(f"{j}. Error: {sxe}, [{tmp}]", exc_info=True)
                 if not tmp:
                     continue
                 html_content = ""
@@ -113,8 +112,7 @@ def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
                     success_process = True
                     break
                 except Exception as e:
-                    print(f"Exception error: {e}, [{html_content}]")
-                    traceback.print_exc()
+                    logging.debug(f"Exception error: {e}, [{html_content}]", exc_info=True)
         if success_process:
             continue
         if "the node at which the two lists intersect" in backup_origin:
@@ -177,14 +175,13 @@ def get_question_testcases(slug: str, lang_slug: str = "python3") -> tuple[Optio
                         ans.append(eval(input_strs[0]))
                     else:
                         ans.append([eval(i) for i in input_strs])
-                except Exception as ex:
-                    print("Exception caught: ", ex)
-                    traceback.print_exc()
+                except Exception as _:
+                    logging.error(f"Unable to parse test case [{item}]", exc_info=True)
                     ans.append(None)
             elif lang_slug == "mysql":
                 ans.append(item)
             else:
-                print("Unsupported language")
+                logging.warning(f"Unsupported language in test cases: {lang_slug}")
         return ans, origin_data
 
     res = general_request(LEET_CODE_BACKEND, handle_response, json={"query": QUESTION_TESTCASE_QUERY,
@@ -223,7 +220,6 @@ def get_questions_by_key_word(keyword: Optional[str],
                 break
             page_no += 1
         return ans
-    except Exception as e:
-        print("Exception caught: ", str(e))
-        traceback.print_exc()
+    except Exception as _:
+        logging.error(f"Error in getting questions by keyword: {keyword}", exc_info=True)
         return None

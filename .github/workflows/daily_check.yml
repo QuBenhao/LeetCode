@@ -65,6 +65,8 @@ jobs:
     - name: Set up rust-cargo
       continue-on-error: true
       uses: actions-rs/cargo@v1.0.1
+      with:
+        command: check
 
     - name: Install python dependencies
       run: |
@@ -99,6 +101,7 @@ jobs:
         PROBLEM_FOLDER: ${{ secrets.PROBLEM_FOLDER || '' }}
         LANGUAGES: ${{secrets.LANGUAGES || ''}}
         USER: ${{ secrets.USER }}
+        LOG_LEVEL: ${{secrets.LOG_LEVEL || 'INFO'}}
       run:  |
         set +e
         python python/scripts/daily_submission.py  &> /tmp/msg

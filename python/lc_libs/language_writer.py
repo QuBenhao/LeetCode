@@ -1,5 +1,6 @@
 import abc
 import json
+import logging
 import os
 import subprocess
 from typing import Tuple, Optional, List
@@ -40,13 +41,10 @@ class LanguageWriter(abc.ABC):
         for cmd in self.lang_env_commands:
             env_check = subprocess.run(cmd, capture_output=True, timeout=60)
             if env_check.returncode == 0:
-                print(
-                    "[{}] env ok, output: {}".format(
-                        cmd, env_check.stdout.decode("utf-8")
-                    )
-                )
+                logging.info(f"[{cmd}] env ok")
+                logging.debug(f"[{cmd}] output: {env_check.stdout.decode('utf-8')}")
             else:
-                print(
+                logging.warning(
                     "Execute language env [{}]\n"
                     "output: {}, err: {}".format(
                         " ".join(cmd),
@@ -66,14 +64,14 @@ class LanguageWriter(abc.ABC):
                     cmd, capture_output=True, timeout=300, cwd=root_path
                 )
                 if execute_res.returncode == 0:
-                    print(
-                        "Execute [{}] succeeded,"
-                        " output: {}".format(
+                    logging.info("Execute [{}] success".format(" ".join(cmd)))
+                    logging.debug(
+                        "Execute [{}] output: {}".format(
                             " ".join(cmd), execute_res.stdout.decode("utf-8")
                         )
                     )
                     continue
-                print(
+                logging.warning(
                     "Execute failed, command: [{}],"
                     " error: {}, output: {}".format(
                         " ".join(cmd),
@@ -82,7 +80,8 @@ class LanguageWriter(abc.ABC):
                     )
                 )
             except subprocess.TimeoutExpired as _:
-                print("Execute timeout, command: [{}]".format(" ".join(cmd)))
+                logging.info("Execute code timeout, command: [{}]".format(" ".join(cmd)))
+                logging.debug("Timeout command: [{}]".format(" ".join(cmd)), exc_info=True)
             return False
         return True
 

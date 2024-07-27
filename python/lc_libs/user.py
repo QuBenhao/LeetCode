@@ -29,8 +29,3 @@ def get_user_profile(user_slug: str) -> Optional[dict]:
 
 def check_user_exist(user_slug):
     return get_user_profile(user_slug) is not None
-
-
-if __name__ == '__main__':
-    print(check_user_exist("himymben"))
-    print(check_user_exist("rearwassdgfvaswf"))

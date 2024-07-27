@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import qubhjava.BaseSolution;
-import problems.problems_49.Solution;
+import problems.problems_239.Solution;
 import qubhjava.Testcase;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.util.List;
 public class ProblemsTest {
 
     private static final Logger log = LoggerFactory.getLogger(ProblemsTest.class);
-	private static final String[][] PROBLEMS = {{"49", "problems"}};
+	private static final String[][] PROBLEMS = {{"102", "problems"}, {"34", "problems"}};
 
     @TestFactory
     @SuppressWarnings("unchecked")

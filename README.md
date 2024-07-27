@@ -29,7 +29,7 @@ Algorithms in LeetCode by Benhao
 
 After clone this repo, add a .env file to tell where to locate your problems and solutions (locally).
 For remote GitHub Action, add `COOKIE` (LeetCode cookie), `PUSH_KEY` (PushDeer notification), `PROBLEM_FOLDER` (where to
-add problems), `USER` (LeetCode personal page uri).
+add problems), `USER` (LeetCode personal page uri), `LOG_LEVEL` (Log print).
 
 **Notice:** If you want more than just python3, add `LANGUAGES="python3,golang"` (and so on in .env)
 
@@ -41,6 +41,7 @@ PUSH_KEY="***[key from PushDeer]"
 COOKIE="***[cookie from LeetCode graphql]"
 LANGUAGES="python3,golang,java,cpp,typescript,rust"
 USER="himymben"
+LOG_LEVEL="info"
 ```
 
 install python3.12 requirements:
@@ -83,6 +84,8 @@ To fetch daily submits from LeetCode (requires `.env` COOKIE or USER to be ready
 ```shell
 python python/scripts/daily_submission.py
 ```
+
+**If you think there are too many logs for those scripts in the console, you can set the `LOG_LEVEL` in the `.env` file to `ERROR`.**
 
 # Supported Languages
 

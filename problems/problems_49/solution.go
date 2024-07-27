@@ -3,6 +3,7 @@ package problem49
 import (
 	"encoding/json"
 	"log"
+	"sort"
 	"strings"
 )
 
@@ -20,7 +21,6 @@ func groupAnagrams(strs []string) [][]string {
 	}
 	return ans
 }
-
 
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")

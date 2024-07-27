@@ -1,4 +1,5 @@
 import functools
+import logging
 
 import pytz
 import datetime
@@ -66,7 +67,7 @@ def timeout(second: int = 3):
                     t.start()
                     t.join(second)
                 except Exception as e:
-                    print('error starting thread')
+                    logging.error('error starting thread', exc_info=True)
                     raise e
                 ret = res[0]
                 if isinstance(ret, BaseException):
