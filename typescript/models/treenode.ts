@@ -91,4 +91,4 @@ function TreeNodeToJSONArray(root: TreeNode | null): Array<number | null> {
     return ans;
 }
 
-export {TreeNode, JSONArrayToTreeNode, TreeNodeToJSONArray, JSONArrayToTreeNodeArray};
+export {TreeNode, JSONArrayToTreeNode, TreeNodeToJSONArray, JSONArrayToTreeNodeArray, JsonArrayToTreeNodeWithTargets};

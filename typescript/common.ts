@@ -8,7 +8,13 @@ import {
     LinkedListToIntArray,
     ListNode
 } from "./models/listnode";
-import {JSONArrayToTreeNode, JSONArrayToTreeNodeArray, TreeNode, TreeNodeToJSONArray} from "./models/treenode";
+import {
+    JSONArrayToTreeNode,
+    JSONArrayToTreeNodeArray,
+    JsonArrayToTreeNodeWithTargets,
+    TreeNode,
+    TreeNodeToJSONArray
+} from "./models/treenode";
 import {Queue} from "@datastructures-js/queue";
 import {MaxPriorityQueue, MinPriorityQueue, PriorityQueue} from "@datastructures-js/priority-queue";
 
@@ -27,6 +33,7 @@ export function CompareResults(script: vm.Script, inputJson: any, outputJson: an
         TreeNodeToJSONArray,
         JSONArrayToTreeNode,
         JSONArrayToTreeNodeArray,
+        JsonArrayToTreeNodeWithTargets,
         Queue,
         PriorityQueue,
         MinPriorityQueue,

@@ -56,6 +56,7 @@ class TypescriptWriter(LanguageWriter):
         code = code if code else code_default
         comment = False
         functions = []
+        testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
         for line in code_default.split("\n"):
             strip_line = line.strip()
             if strip_line.startswith("/**"):
@@ -75,7 +76,9 @@ class TypescriptWriter(LanguageWriter):
             process_inputs = []
             var_names = []
             func = functions[0]
-            for i, variable in enumerate(func[1]):
+            i = 0
+            while i < len(func[1]):
+                variable = func[1][i]
                 var_name = variable.split(":")[0]
                 var_names.append(var_name)
                 var_type = variable.split(":")[-1].strip()
@@ -85,6 +88,44 @@ class TypescriptWriter(LanguageWriter):
                         import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedList")
                         process_inputs.append(f"const {variable} = IntArrayToLinkedList(JSON.parse(inputValues[{i}]));")
                     case "TreeNode | null":
+                        if testcases:
+                            if len(func[1]) == len(testcases[0]) + 1:
+                                import_part[self._TREE_NODE_PATH].add("TreeNode")
+                                import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNode")
+                                import_part[self._TREE_NODE_PATH].add("JsonArrayToTreeNodeWithTargets")
+                                process_inputs.append("const targetVal: number = JSON.parse(inputValues[1]);")
+                                process_inputs.append("const nodes: TreeNode[] = JsonArrayToTreeNodeWithTargets"
+                                                      "(JSON.parse(inputValues[0]), targetVal);")
+                                process_inputs.append(f"const {var_name}: TreeNode = nodes[0],"
+                                                      " target: TreeNode = nodes[1];")
+                                process_inputs.append("const cloned: TreeNode = "
+                                                      "JSONArrayToTreeNode(JSON.parse(inputValues[0]));")
+                                var_names.append("cloned")
+                                var_names.append("target")
+                                i += 3
+                                continue
+                            idx = i + 1
+                            while all(idx < len(testcase)
+                                      and "TreeNode | null" == func[1][idx].split(":")[-1].strip()
+                                      and testcase[idx] is not None
+                                      and not isinstance(testcase[idx], list) for testcase in testcases):
+                                idx += 1
+                            if idx != i + 1:
+                                import_part[self._TREE_NODE_PATH].add("TreeNode")
+                                import_part[self._TREE_NODE_PATH].add("JsonArrayToTreeNodeWithTargets")
+                                for j in range(i + 1, idx):
+                                    process_inputs.append(f"const targetVal{j}: number = JSON.parse(inputValues[{j}]);")
+                                    var_names.append(func[1][j].split(":")[0])
+                                process_inputs.append(
+                                    f"const nodes: TreeNode[] = "
+                                    f"JsonArrayToTreeNodeWithTargets(JSON.parse(inputValues[{i}]), "
+                                    + ", ".join([f"targetVal{j}" for j in range(i + 1, idx)]) + ");")
+                                process_inputs.append(
+                                    f"const {var_name}: TreeNode = nodes[0], "
+                                    + ", ".join([f"{var_names[j - i]}: TreeNode = nodes[{j - i}]"
+                                                 for j in range(i + 1, idx)]) + ";")
+                                i = idx
+                                continue
                         import_part[self._TREE_NODE_PATH].add("TreeNode")
                         import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNode")
                         process_inputs.append(f"const {variable} = JSONArrayToTreeNode(JSON.parse(inputValues[{i}]));")
@@ -103,6 +144,7 @@ class TypescriptWriter(LanguageWriter):
                             f"const {variable} = JSONArrayToTreeNodeArray(JSON.parse(inputValues[{i}]));")
                     case _:
                         process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
+                i += 1
             match func[2]:
                 case "ListNode | null":
                     import_part[self._LIST_NODE_PATH].add("ListNode")
