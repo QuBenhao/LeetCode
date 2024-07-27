@@ -32,7 +32,7 @@ TreeNode *JsonArrayToTreeNode(json arr) {
 
 vector<TreeNode *> JsonArrayToTreeNodeWithTargets(json arr, vector<int> targets) {
     if (arr.empty()) {
-        return vector<TreeNode *>(targets.size() + 1, nullptr);
+        return {targets.size() + 1, nullptr};
     }
     vector<TreeNode *> ans = vector<TreeNode *>(targets.size() + 1);
     auto root = new TreeNode(arr[0]);
