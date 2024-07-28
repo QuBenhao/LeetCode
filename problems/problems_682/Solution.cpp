@@ -18,11 +18,11 @@ public:
                 continue;
             }
             if (op == "+") {
-                arr.push_back(arr[n - 2] + arr[n - 1]);
+                arr.emplace_back(arr[n - 2] + arr[n - 1]);
             } else if (op == "D") {
-                arr.push_back(arr[n - 1] * 2);
+                arr.emplace_back(arr[n - 1] * 2);
             } else {
-                arr.push_back(stoi(op, nullptr, 10));
+                arr.emplace_back(stoi(op, nullptr, 10));
             }
             ans += arr[n];
         }

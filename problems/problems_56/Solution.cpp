@@ -12,7 +12,7 @@ public:
         sort(intervals.begin(), intervals.end());
         for (auto interval: intervals) {
             if (ans.empty() || ans.back()[1] < interval[0]) {
-                ans.push_back(interval);
+                ans.emplace_back(interval);
             } else {
                 ans.back()[1] = max(ans.back()[1], interval[1]);
             }
