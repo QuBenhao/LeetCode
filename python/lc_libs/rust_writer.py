@@ -1,3 +1,4 @@
+import logging
 import os
 from collections import deque
 from typing import Tuple, List
@@ -124,10 +125,10 @@ class RustWriter(LanguageWriter):
                                 solve_part.append(f"let {variables[j][0]} = nodes[{j - i}].clone();")
                             i = idx
                             continue
-                    self.__parse_type(i, var_name, var_type, import_libs, solve_part, return_part)
+                    self.__parse_type(i, var_name, var_type, code_default, import_libs, solve_part, return_part)
                     i += 1
                 if return_type:
-                    self.__parse_type(0, "", return_type,
+                    self.__parse_type(0, "", return_type, code_default,
                                       import_libs, solve_part, return_part, True)
                     return_part[-1] = return_part[-1].format(
                         "Solution::{}({})".format(function_name, ", ".join([v[0] for v in variables]))
@@ -238,8 +239,8 @@ class RustWriter(LanguageWriter):
         return function_name, var_list, return_type
 
     @staticmethod
-    def __parse_type(var_idx: int, var_name: str, var_type: str, import_libs: List[str], solve_part: List[str],
-                     return_parts: List[str], is_return: bool = False):
+    def __parse_type(var_idx: int, var_name: str, var_type: str, code_default: str, import_libs: List[str],
+                     solve_part: List[str], return_parts: List[str], is_return: bool = False):
         """
         Parse variable type to get the corresponding Rust type
         :param var_idx: int
@@ -256,19 +257,6 @@ class RustWriter(LanguageWriter):
                 if not is_return:
                     RustWriter._add_to_import_libs(import_libs, "use library::lib::list_node::",
                                                    "int_array_to_list_node")
-                else:
-                    RustWriter._add_to_import_libs(import_libs, "use library::lib::list_node::",
-                                                   "list_node_to_int_array")
-                if is_return:
-                    if var_type == "Vec<Option<Box<ListNode>>>":
-                        return_parts.append("let mut res = vec![];")
-                        return_parts.append("for node in " + var_name + " {")
-                        return_parts.append("\tres.push(list_node_to_int_array(&node));")
-                        return_parts.append("}")
-                        return_parts.append("json!(res)")
-                    else:
-                        return_parts.append("json!(list_node_to_int_array(&{}))")
-                else:
                     if var_type == "Vec<Option<Box<ListNode>>>":
                         solve_part.append(f"let input_nums{var_idx}: Vec<Vec<i32>> = serde_json::from_str("
                                           f"&input_values[{var_idx}]).expect(\"Failed to parse input\");")
@@ -279,16 +267,22 @@ class RustWriter(LanguageWriter):
                                           f"&input_values[{var_idx}]).expect(\"Failed to parse input\");")
                         solve_part.append(f"let {var_name}: Option<Box<ListNode>> ="
                                           f" int_array_to_list_node(&input_nums{var_idx});")
+                else:
+                    RustWriter._add_to_import_libs(import_libs, "use library::lib::list_node::",
+                                                   "list_node_to_int_array")
+                    if var_type == "Vec<Option<Box<ListNode>>>":
+                        return_parts.append("let mut res = vec![];")
+                        return_parts.append("for node in " + var_name + " {")
+                        return_parts.append("\tres.push(list_node_to_int_array(&node));")
+                        return_parts.append("}")
+                        return_parts.append("json!(res)")
+                    else:
+                        return_parts.append("json!(list_node_to_int_array(&{}))")
 
             case "Option<Rc<RefCell<TreeNode>>>" | "Vec<Option<Rc<RefCell<TreeNode>>>>":
                 RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "TreeNode")
                 if not is_return:
                     RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "array_to_tree")
-                else:
-                    RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "tree_to_array")
-                if is_return:
-                    return_parts.append("json!(tree_to_array(&{}))")
-                else:
                     if var_type == "Vec<Option<Rc<RefCell<TreeNode>>>>":
                         solve_part.append(f"let input_values{var_idx}: Vec<String> = serde_json::from_str("
                                           f"&input_values[{var_idx}]).expect(\"Failed to parse input\");")
@@ -299,6 +293,25 @@ class RustWriter(LanguageWriter):
                                           f"&input_values[{var_idx}]).expect(\"Failed to parse input\");")
                         solve_part.append(f"let {var_name}: Option<Rc<RefCell<TreeNode>>> ="
                                           f" array_to_tree(&input_vec{var_idx});")
+                else:
+                    RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "tree_to_array")
+                    return_parts.append("json!(tree_to_array(&{}))")
+            case "Option<Rc<RefCell<Node>>>":
+                if "left:" in code_default and "right:" in code_default and "next:" in code_default:
+                    RustWriter._add_to_import_libs(import_libs, "use library::lib::node_next::", "Node")
+                    if not is_return:
+                        RustWriter._add_to_import_libs(import_libs, "use library::lib::node_next::",
+                                                       "array_to_tree_next")
+                        solve_part.append(f"let input_vec{var_idx}: Vec<Option<i32>> = serde_json::from_str("
+                                          f"&input_values[{var_idx}]).expect(\"Failed to parse input\");")
+                        solve_part.append(f"let {var_name}: Option<Rc<RefCell<Node>>> ="
+                                          f" array_to_tree_next(&input_vec{var_idx});")
+                    else:
+                        RustWriter._add_to_import_libs(import_libs, "use library::lib::node_next::",
+                                                       "tree_next_to_array")
+                        return_parts.append("json!(tree_next_to_array(&{}))")
+                else:
+                    logging.debug(f"Node struct not found in code, skip parsing, {code_default}")
             case _:
                 if is_return:
                     return_parts.append("json!({})")

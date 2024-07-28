@@ -1780,6 +1780,11 @@
                 "lang": "Scala",
                 "langSlug": "scala",
                 "code": "/**\n * Definition for a Node.\n * class Node(var _value: Int) {\n *   var value: Int = _value\n *   var left: Node = null\n *   var right: Node = null\n *   var next: Node = null\n * }\n */\n\nobject Solution {\n    def connect(root: Node): Node = {\n        \n    }\n}"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "/*\n// Definition for a Node.\n#[derive(Debug, PartialEq, Eq)]\npub struct Node {\n    pub val: i32,\n    pub left: Option<Rc<RefCell<Node>>>, // left child\n    pub right: Option<Rc<RefCell<Node>>>, // right child\n    pub next: Option<Rc<RefCell<Node>>>, // next child\n}\n*/\nuse std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn connect(root: Option<Rc<RefCell<Node>>>) -> Option<Rc<RefCell<Node>>> {\n        \n    }\n}"
             }
         ]
     },
@@ -1854,6 +1859,11 @@
                 "lang": "Scala",
                 "langSlug": "scala",
                 "code": "/**\n * Definition for a Node.\n * class Node(var _value: Int) {\n *   var value: Int = _value\n *   var left: Node = null\n *   var right: Node = null\n *   var next: Node = null\n * }\n */\n\nobject Solution {\n    def connect(root: Node): Node = {\n        \n    }\n}"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "/*\n// Definition for a Node.\n#[derive(Debug, PartialEq, Eq)]\npub struct Node {\n    pub val: i32,\n    pub left: Option<Rc<RefCell<Node>>>, // left child\n    pub right: Option<Rc<RefCell<Node>>>, // right child\n    pub next: Option<Rc<RefCell<Node>>>, // next child\n}\n*/\nuse std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn connect(root: Option<Rc<RefCell<Node>>>) -> Option<Rc<RefCell<Node>>> {\n        \n    }\n}"
             }
         ]
     }
