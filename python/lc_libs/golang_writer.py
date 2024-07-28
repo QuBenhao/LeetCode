@@ -493,7 +493,7 @@ class GolangWriter(LanguageWriter):
                         ):
                             for j, var in enumerate(vrs):
                                 json_parse.append(
-                                    f"\t{var} = ArrayToTree(inputValues[{count + j}])\n"
+                                    f"\t{var} = ArrayToTreeNext(inputValues[{count + j}])\n"
                                 )
                             imports_libs.add('\t. "leetCode/golang/tree_next"')
                         elif "Neighbors []*Node" in code_default:

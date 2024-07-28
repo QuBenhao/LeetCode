@@ -12,7 +12,7 @@ type Node struct {
 	Next  *Node
 }
 
-func ArrayToTree(input string) *Node {
+func ArrayToTreeNext(input string) *Node {
 	var value interface{}
 	if err := json.Unmarshal([]byte(input), &value); err != nil {
 		log.Fatalf("Unable to process tree input: %s", input)
