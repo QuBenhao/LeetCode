@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <random>
 
 
 using namespace std;
@@ -8,7 +9,25 @@ using json = nlohmann::json;
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
-        
+        auto pivot = nums[random() % nums.size()];
+        vector<int> lefts, rights, equals;
+        for (auto num : nums) {
+            if (num < pivot) {
+                lefts.push_back(num);
+            } else if (num > pivot) {
+                rights.push_back(num);
+            } else {
+                equals.push_back(num);
+            }
+        }
+        int r = static_cast<int>(rights.size()), e = static_cast<int>(equals.size());
+        if (r >= k) {
+            return findKthLargest(rights, k);
+        } else if (r + e >= k) {
+            return pivot;
+        } else {
+            return findKthLargest(lefts, k - r - e);
+        }
     }
 };
 
