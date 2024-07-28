@@ -15,6 +15,11 @@ import {
     TreeNode,
     TreeNodeToJSONArray
 } from "./models/treenode";
+import {
+    NodeNext,
+    JSONArrayToTreeNodeNext,
+    TreeNodeNextToJSONArray
+} from "./models/node.next";
 import {Queue} from "@datastructures-js/queue";
 import {MaxPriorityQueue, MinPriorityQueue, PriorityQueue} from "@datastructures-js/priority-queue";
 
@@ -38,6 +43,9 @@ export function CompareResults(script: vm.Script, inputJson: any, outputJson: an
         PriorityQueue,
         MinPriorityQueue,
         MaxPriorityQueue,
+        NodeNext,
+        JSONArrayToTreeNodeNext,
+        TreeNodeNextToJSONArray,
     };
     vm.createContext(context); // Contextify the object.
     script.runInContext(context, {timeout: 3000});

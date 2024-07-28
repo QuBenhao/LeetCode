@@ -1,3 +1,4 @@
+import logging
 import os.path
 from collections import defaultdict, deque
 from typing import Tuple
@@ -15,6 +16,7 @@ class TypescriptWriter(LanguageWriter):
         self.tests_file = "problems.test.ts"
         self._LIST_NODE_PATH = "\"../../typescript/models/listnode\";"
         self._TREE_NODE_PATH = "\"../../typescript/models/treenode\";"
+        self._NODE_NEXT_PATH = "\"../../typescript/models/node.next\";"
         self.lang_env_commands = [["npm", "--version"]]
         self.test_commands = [["npm", "test", "--alwaysStrict", "--strictBindCallApply",
                                "--strictFunctionTypes", "--target ES202",
@@ -76,89 +78,8 @@ class TypescriptWriter(LanguageWriter):
             process_inputs = []
             var_names = []
             func = functions[0]
-            i = 0
-            while i < len(func[1]):
-                variable = func[1][i]
-                var_name = variable.split(":")[0]
-                var_names.append(var_name)
-                var_type = variable.split(":")[-1].strip()
-                match var_type:
-                    case "ListNode | null":
-                        import_part[self._LIST_NODE_PATH].add("ListNode")
-                        import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedList")
-                        process_inputs.append(f"const {variable} = IntArrayToLinkedList(JSON.parse(inputValues[{i}]));")
-                    case "TreeNode | null":
-                        if testcases:
-                            if len(func[1]) == len(testcases[0]) + 1:
-                                import_part[self._TREE_NODE_PATH].add("TreeNode")
-                                import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNode")
-                                import_part[self._TREE_NODE_PATH].add("JsonArrayToTreeNodeWithTargets")
-                                process_inputs.append("const targetVal: number = JSON.parse(inputValues[1]);")
-                                process_inputs.append("const nodes: TreeNode[] = JsonArrayToTreeNodeWithTargets"
-                                                      "(JSON.parse(inputValues[0]), targetVal);")
-                                process_inputs.append(f"const {var_name}: TreeNode = nodes[0],"
-                                                      " target: TreeNode = nodes[1];")
-                                process_inputs.append("const cloned: TreeNode = "
-                                                      "JSONArrayToTreeNode(JSON.parse(inputValues[0]));")
-                                var_names.append("cloned")
-                                var_names.append("target")
-                                i += 3
-                                continue
-                            idx = i + 1
-                            while all(idx < len(testcase)
-                                      and "TreeNode | null" == func[1][idx].split(":")[-1].strip()
-                                      and testcase[idx] is not None
-                                      and not isinstance(testcase[idx], list) for testcase in testcases):
-                                idx += 1
-                            if idx != i + 1:
-                                import_part[self._TREE_NODE_PATH].add("TreeNode")
-                                import_part[self._TREE_NODE_PATH].add("JsonArrayToTreeNodeWithTargets")
-                                for j in range(i + 1, idx):
-                                    process_inputs.append(f"const targetVal{j}: number = JSON.parse(inputValues[{j}]);")
-                                    var_names.append(func[1][j].split(":")[0])
-                                process_inputs.append(
-                                    f"const nodes: TreeNode[] = "
-                                    f"JsonArrayToTreeNodeWithTargets(JSON.parse(inputValues[{i}]), "
-                                    + ", ".join([f"targetVal{j}" for j in range(i + 1, idx)]) + ");")
-                                process_inputs.append(
-                                    f"const {var_name}: TreeNode = nodes[0], "
-                                    + ", ".join([f"{var_names[j - i]}: TreeNode = nodes[{j - i}]"
-                                                 for j in range(i + 1, idx)]) + ";")
-                                i = idx
-                                continue
-                        import_part[self._TREE_NODE_PATH].add("TreeNode")
-                        import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNode")
-                        process_inputs.append(f"const {variable} = JSONArrayToTreeNode(JSON.parse(inputValues[{i}]));")
-                    case "Array<ListNode | null>":
-                        import_part[self._LIST_NODE_PATH].add("ListNode")
-                        import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedList")
-                        process_inputs.append(f"const jsonArray{i}: any = JSON.parse(inputValues[{i}]);")
-                        process_inputs.append(f"const {variable} = [];")
-                        process_inputs.append(f"for (let i = 0; i < jsonArray{i}.length; i++) {{")
-                        process_inputs.append(f"\t{var_name}.push(IntArrayToLinkedList(jsonArray{i}[i]));")
-                        process_inputs.append("}")
-                    case "Array<TreeNode | null>":
-                        import_part[self._TREE_NODE_PATH].add("TreeNode")
-                        import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNodeArray")
-                        process_inputs.append(
-                            f"const {variable} = JSONArrayToTreeNodeArray(JSON.parse(inputValues[{i}]));")
-                    case _:
-                        process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
-                i += 1
-            match func[2]:
-                case "ListNode | null":
-                    import_part[self._LIST_NODE_PATH].add("ListNode")
-                    import_part[self._LIST_NODE_PATH].add("LinkedListToIntArray")
-                    return_part = "LinkedListToIntArray({}({}))".format(func[0], ", ".join(var_names))
-                case "TreeNode | null":
-                    import_part[self._TREE_NODE_PATH].add("TreeNode")
-                    import_part[self._TREE_NODE_PATH].add("TreeNodeToJSONArray")
-                    return_part = "TreeNodeToJSONArray({}({}))".format(func[0], ", ".join(var_names))
-                case "void":
-                    process_inputs.append("{}({})".format(func[0], ", ".join(var_names)))
-                    return_part = ", ".join(var_names)
-                case _:
-                    return_part = "{}({})".format(func[0], ", ".join(var_names))
+            self._process_variables(func, process_inputs, var_names, import_part, code_default, testcases)
+            return_part = self._process_return(func, process_inputs, var_names, import_part, code_default)
             return SOLUTION_TEMPLATE_TYPESCRIPT.format(
                 "" if not import_part else "\n".join(
                     ["import {" + ",".join(v) + "} from " + k for k, v in import_part.items()]) + "\n\n",
@@ -255,3 +176,110 @@ class TypescriptWriter(LanguageWriter):
         while final_codes and final_codes[-1].strip() == '':
             final_codes.pop()
         return "\n".join(final_codes), problem_id
+
+    def _process_variables(self, func, process_inputs, var_names, import_part, code_default: str, testcases=None):
+        i = 0
+        while i < len(func[1]):
+            variable = func[1][i]
+            var_name = variable.split(":")[0]
+            var_names.append(var_name)
+            var_type = variable.split(":")[-1].strip()
+            match var_type:
+                case "ListNode | null":
+                    import_part[self._LIST_NODE_PATH].add("ListNode")
+                    import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedList")
+                    process_inputs.append(f"const {variable} = IntArrayToLinkedList(JSON.parse(inputValues[{i}]));")
+                case "TreeNode | null":
+                    if testcases:
+                        if len(func[1]) == len(testcases[0]) + 1:
+                            import_part[self._TREE_NODE_PATH].add("TreeNode")
+                            import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNode")
+                            import_part[self._TREE_NODE_PATH].add("JsonArrayToTreeNodeWithTargets")
+                            process_inputs.append("const targetVal: number = JSON.parse(inputValues[1]);")
+                            process_inputs.append("const nodes: TreeNode[] = JsonArrayToTreeNodeWithTargets"
+                                                  "(JSON.parse(inputValues[0]), targetVal);")
+                            process_inputs.append(f"const {var_name}: TreeNode = nodes[0],"
+                                                  " target: TreeNode = nodes[1];")
+                            process_inputs.append("const cloned: TreeNode = "
+                                                  "JSONArrayToTreeNode(JSON.parse(inputValues[0]));")
+                            var_names.append("cloned")
+                            var_names.append("target")
+                            i += 3
+                            continue
+                        idx = i + 1
+                        while all(idx < len(testcase)
+                                  and "TreeNode | null" == func[1][idx].split(":")[-1].strip()
+                                  and testcase[idx] is not None
+                                  and not isinstance(testcase[idx], list) for testcase in testcases):
+                            idx += 1
+                        if idx != i + 1:
+                            import_part[self._TREE_NODE_PATH].add("TreeNode")
+                            import_part[self._TREE_NODE_PATH].add("JsonArrayToTreeNodeWithTargets")
+                            for j in range(i + 1, idx):
+                                process_inputs.append(f"const targetVal{j}: number = JSON.parse(inputValues[{j}]);")
+                                var_names.append(func[1][j].split(":")[0])
+                            process_inputs.append(
+                                f"const nodes: TreeNode[] = "
+                                f"JsonArrayToTreeNodeWithTargets(JSON.parse(inputValues[{i}]), "
+                                + ", ".join([f"targetVal{j}" for j in range(i + 1, idx)]) + ");")
+                            process_inputs.append(
+                                f"const {var_name}: TreeNode = nodes[0], "
+                                + ", ".join([f"{var_names[j - i]}: TreeNode = nodes[{j - i}]"
+                                             for j in range(i + 1, idx)]) + ";")
+                            i = idx
+                            continue
+                    import_part[self._TREE_NODE_PATH].add("TreeNode")
+                    import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNode")
+                    process_inputs.append(f"const {variable} = JSONArrayToTreeNode(JSON.parse(inputValues[{i}]));")
+                case "Array<ListNode | null>":
+                    import_part[self._LIST_NODE_PATH].add("ListNode")
+                    import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedList")
+                    process_inputs.append(f"const jsonArray{i}: any = JSON.parse(inputValues[{i}]);")
+                    process_inputs.append(f"const {variable} = [];")
+                    process_inputs.append(f"for (let i = 0; i < jsonArray{i}.length; i++) {{")
+                    process_inputs.append(f"\t{var_name}.push(IntArrayToLinkedList(jsonArray{i}[i]));")
+                    process_inputs.append("}")
+                case "Array<TreeNode | null>":
+                    import_part[self._TREE_NODE_PATH].add("TreeNode")
+                    import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNodeArray")
+                    process_inputs.append(
+                        f"const {variable} = JSONArrayToTreeNodeArray(JSON.parse(inputValues[{i}]));")
+                case "_Node | null":
+                    if "left: _Node | null" in code_default and "right: _Node | null" in code_default and \
+                            "next: _Node | null" in code_default:
+                        import_part[self._NODE_NEXT_PATH].add("NodeNext as _Node")
+                        import_part[self._NODE_NEXT_PATH].add("JSONArrayToTreeNodeNext")
+                        process_inputs.append(
+                            f"const {variable} = JSONArrayToTreeNodeNext(JSON.parse(inputValues[{i}]));")
+                    else:
+                        logging.debug(f"Please implement the conversion function for _Node, {code_default}")
+                        process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
+                case _:
+                    process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
+            i += 1
+
+    def _process_return(self, func, process_inputs, var_names, import_part, code_default: str) -> str:
+        match func[2]:
+            case "ListNode | null":
+                import_part[self._LIST_NODE_PATH].add("ListNode")
+                import_part[self._LIST_NODE_PATH].add("LinkedListToIntArray")
+                return_part = "LinkedListToIntArray({}({}))".format(func[0], ", ".join(var_names))
+            case "TreeNode | null":
+                import_part[self._TREE_NODE_PATH].add("TreeNode")
+                import_part[self._TREE_NODE_PATH].add("TreeNodeToJSONArray")
+                return_part = "TreeNodeToJSONArray({}({}))".format(func[0], ", ".join(var_names))
+            case "_Node | null":
+                if "left: _Node | null" in code_default and "right: _Node | null" in code_default and \
+                        "next: _Node | null" in code_default:
+                    import_part[self._NODE_NEXT_PATH].add("NodeNext as _Node")
+                    import_part[self._NODE_NEXT_PATH].add("TreeNodeNextToJSONArray")
+                    return_part = "TreeNodeNextToJSONArray({}({}))".format(func[0], ", ".join(var_names))
+                else:
+                    return_part = "{}({})".format(func[0], ", ".join(var_names))
+                    logging.debug(f"Please implement the return part for _Node, {code_default}")
+            case "void":
+                process_inputs.append("{}({})".format(func[0], ", ".join(var_names)))
+                return_part = ", ".join(var_names)
+            case _:
+                return_part = "{}({})".format(func[0], ", ".join(var_names))
+        return return_part
