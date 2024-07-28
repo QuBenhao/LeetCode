@@ -4,7 +4,32 @@ pub struct Solution;
 
 impl Solution {
     pub fn cal_points(operations: Vec<String>) -> i32 {
-
+		let mut stack: Vec<i32> = Vec::new();
+		let mut ans: i32 = 0;
+		for operation in operations {
+			match operation.as_str() {
+				"C" => {
+					ans -= stack.last().unwrap();
+					stack.pop();
+				},
+				"D" => {
+					let last = stack.last().unwrap();
+					ans += last * 2;
+					stack.push(last * 2);
+				},
+				"+" => {
+					let last = stack.last().unwrap();
+					let second_last = stack[stack.len() - 2];
+					ans += last + second_last;
+					stack.push(last + second_last);
+				},
+				_ => {
+					stack.push(operation.parse::<i32>().unwrap());
+					ans += stack.last().unwrap();
+				}
+			}
+		}
+		ans
     }
 }
 
