@@ -78,7 +78,7 @@ class JavaWriter(LanguageWriter):
                         "{"):
                     class_name = strip_line.split("{")[0].split("class ")[-1].strip()
                 elif strip_line.startswith("public ") and strip_line.endswith("{"):
-                    vs, pi, ai, rp, func_name, rt = JavaWriter.__parse_java_method(strip_line)
+                    vs, pi, ai, rp, func_name, rt = JavaWriter.__parse_java_method(strip_line, code_default)
                     variables.extend(vs)
                     import_packages.extend(ai)
                     if func_name == class_name:
@@ -120,7 +120,7 @@ class JavaWriter(LanguageWriter):
                     strip_line = line.strip()
                     additional_import = set()
                     if strip_line.startswith("public ") and strip_line.endswith("{"):
-                        vs, pi, ai, rp, _, _ = JavaWriter.__parse_java_method(strip_line, testcases)
+                        vs, pi, ai, rp, _, _ = JavaWriter.__parse_java_method(strip_line, code_default, testcases)
                         variables.extend(vs)
                         parse_input.extend(pi)
                         additional_import.update(ai)
@@ -202,7 +202,7 @@ class JavaWriter(LanguageWriter):
         return "\n".join(final_codes), problem_id
 
     @staticmethod
-    def __process_variable_type(input_name: str, variable_name: str, rt_type: str) -> str:
+    def __process_variable_type(input_name: str, variable_name: str, rt_type: str, code_default: str) -> str:
         match rt_type:
             case "int":
                 return f"{rt_type} {variable_name} = Integer.parseInt({input_name});"
@@ -243,14 +243,21 @@ class JavaWriter(LanguageWriter):
             case "char":
                 return (f"{rt_type} {variable_name} = {input_name}.length() > 1 ?"
                         f" {input_name}.charAt(1) : {input_name}.charAt(0);")
+            case "Node":
+                if "Node left;" in code_default and "Node right;" in code_default and "Node next;" in code_default:
+                    return f"{rt_type} {variable_name} = Node.ArrayToTreeNodeNext({input_name});"
+                logging.debug(f"Node type not implemented yet, variable_name: {variable_name},"
+                              f" rt_type: {rt_type}, code: [{code_default}]")
             case "":
+                logging.debug(f"Empty Java type, variable_name: {variable_name},"
+                              f" rt_type: {rt_type}, code: [{code_default}]")
                 return ""
             case _:
                 logging.warning("Java type not Implemented yet: {}".format(rt_type))
         return f"{rt_type} {variable_name} = FIXME({input_name})"
 
     @staticmethod
-    def __parse_java_method(strip_line: str, testcases=None):
+    def __parse_java_method(strip_line: str, code_default: str, testcases=None):
         variables = []
         parse_input = []
         additional_import = set()
@@ -296,7 +303,8 @@ class JavaWriter(LanguageWriter):
                     i = idx
                     continue
             variables.append(variable)
-            parse_input.append(JavaWriter.__process_variable_type(f"inputJsonValues[{i}]", variable, rt_type))
+            parse_input.append(JavaWriter.__process_variable_type(f"inputJsonValues[{i}]",
+                                                                  variable, rt_type, code_default))
             if "ListNode" in rt_type:
                 additional_import.add("import qubhjava.models.ListNode;")
             elif "TreeNode" in rt_type:
@@ -311,6 +319,12 @@ class JavaWriter(LanguageWriter):
         elif return_type == "void":
             parse_input.append("{}({});".format(return_func, ", ".join(variables)))
             return_part = ", ".join(variables)
+        elif "Node" in return_type:
+            if "Node left;" in code_default and "Node right;" in code_default and "Node next;" in code_default:
+                additional_import.add("import qubhjava.models.node.next.Node;")
+                return_part = "Node.TreeNodeNextToArray({}({}))".format(return_func, ", ".join(variables))
+            else:
+                return_part = "{}({})".format(return_func, ", ".join(variables))
         else:
             return_part = "{}({})".format(return_func, ", ".join(variables))
         return variables, parse_input, additional_import, return_part, return_func, return_type
