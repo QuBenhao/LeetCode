@@ -421,7 +421,14 @@ class CppWriter(LanguageWriter):
                             + variable[1]
                             + f" = JsonArrayToTreeNodeNext({variable[1]}_array);"
                         )
-                    logging.debug(f"Handle Node Type variable: {variable}")
+                    elif "vector<Node*> neighbors;" in code_default:
+                        include_libs.append('#include "cpp/models/NodeNeighbors.h"')
+                        process_variables.append(f"vector<vector<int>> {variable[1]}_arrays ="
+                                                 f" json::parse(inputArray.at({i}));")
+                        process_variables.append(f"{rt}* {variable[1]} ="
+                                                 f" JsonArrayToNodeNeighbors({variable[1]}_arrays);")
+                    else:
+                        logging.debug(f"Unhandled Node Type variable: {variable}, code: [{code_default}]")
                 case _:
                     process_variables.append(
                         rt
@@ -450,6 +457,12 @@ class CppWriter(LanguageWriter):
                     and "Node* next;" in code_default):
                 return_part.append(
                     "\treturn TreeNodeNextToJsonArray(solution.{}({}));".format(
+                        func_name, ", ".join([v[1] for v in variables])
+                    )
+                )
+            elif "vector<Node*> neighbors;" in code_default:
+                return_part.append(
+                    "\treturn NodeNeighborsToJsonArray(solution.{}({}));".format(
                         func_name, ", ".join([v[1] for v in variables])
                     )
                 )
