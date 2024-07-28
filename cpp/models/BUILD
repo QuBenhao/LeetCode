@@ -3,10 +3,15 @@ cc_library(
     srcs = [
         "ListNode.cpp",
         "TreeNode.cpp",
+        "TreeNodeNext.cpp",
     ],
-    hdrs = ["ListNode.h", "TreeNode.h"],
+    hdrs = [
+        "ListNode.h",
+        "TreeNode.h",
+        "TreeNodeNext.h",
+    ],
+    visibility = ["//visibility:public"],
     deps = [
         "@nlohmann_json//:json",
     ],
-    visibility = ["//visibility:public"],
 )

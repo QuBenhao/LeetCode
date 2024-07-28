@@ -1,3 +1,4 @@
+import logging
 import os.path
 import re
 from typing import Tuple
@@ -103,10 +104,6 @@ class CppWriter(LanguageWriter):
                 if "class Solution" in line:
                     break
                 include_libs.append(line)
-        if " TreeNode " in code_default:
-            include_libs.append('#include "cpp/models/TreeNode.h"')
-        if " ListNode " in code_default:
-            include_libs.append('#include "cpp/models/ListNode.h"')
 
         if len(functions) == 1:
             ret_type = functions[0].get("ret_type", "")
@@ -115,38 +112,8 @@ class CppWriter(LanguageWriter):
                 sp.strip().split(" ") for sp in functions[0].get("args", "").split(",")
             ]
             process_variables.append("\tSolution solution;")
-            CppWriter._process_variables(variables, process_variables, testcases)
-
-            if "ListNode" in ret_type:
-                return_part.append(
-                    "\treturn ListNodeToIntArray(solution.{}({}));".format(
-                        func_name, ", ".join([v[1] for v in variables])
-                    )
-                )
-            elif "TreeNode" in ret_type:
-                return_part.append(
-                    "\treturn TreeNodeToJsonArray(solution.{}({}));".format(
-                        func_name, ", ".join([v[1] for v in variables])
-                    )
-                )
-            elif ret_type == "char":
-                return_part.append(
-                    "\treturn std::string(1, solution.{}({}));".format(
-                        func_name, ", ".join([v[1] for v in variables])
-                    )
-                )
-            elif ret_type == "void":
-                return_part.append(
-                    "\tsolution.{}({});\n\treturn {};".format(
-                        func_name, ", ".join([v[1] for v in variables]), variables[0][1]
-                    )
-                )
-            else:
-                return_part.append(
-                    "\treturn solution.{}({});".format(
-                        func_name, ", ".join([v[1] for v in variables])
-                    )
-                )
+            CppWriter._process_variables(variables, process_variables, include_libs, code_default, testcases)
+            CppWriter._process_return_part(ret_type, func_name, variables, code_default, return_part)
         elif len(functions) > 1:
             process_variables.append(
                 "\tvector<string> operators = json::parse(inputArray[0]);"
@@ -286,13 +253,14 @@ class CppWriter(LanguageWriter):
         return functions
 
     @staticmethod
-    def _process_variables(variables, process_variables, testcases=None):
+    def _process_variables(variables, process_variables: list, include_libs: list, code_default: str, testcases=None):
         i = 0
         while i < len(variables):
             variable = variables[i]
             rt = CppWriter._simplify_variable_type(variable)
             match rt:
                 case "ListNode":
+                    include_libs.append('#include "cpp/models/ListNode.h"')
                     process_variables.append(
                         "std::vector<int> "
                         + variable[1]
@@ -306,6 +274,7 @@ class CppWriter(LanguageWriter):
                         + f" = IntArrayToListNode({variable[1]}_array);"
                     )
                 case "vector<ListNode*>":
+                    include_libs.append('#include "cpp/models/ListNode.h"')
                     process_variables.append(
                         "std::vector<std::vector<int>> "
                         + variable[1]
@@ -327,6 +296,7 @@ class CppWriter(LanguageWriter):
                     )
                     process_variables.append("}")
                 case "TreeNode":
+                    include_libs.append('#include "cpp/models/TreeNode.h"')
                     if testcases:
                         if len(variables) == len(testcases[0]) + 1:
                             process_variables.append(
@@ -373,6 +343,7 @@ class CppWriter(LanguageWriter):
                         + f" = JsonArrayToTreeNode({variable[1]}_array);"
                     )
                 case "vector<TreeNode*>":
+                    include_libs.append('#include "cpp/models/TreeNode.h"')
                     process_variables.append(
                         "json "
                         + variable[1]
@@ -434,6 +405,23 @@ class CppWriter(LanguageWriter):
                     )
                     process_variables.append("\t}")
                     process_variables.append("}")
+                case "Node":
+                    if ("Node* left;" in code_default and "Node* right;" in code_default
+                            and "Node* next;" in code_default):
+                        include_libs.append('#include "cpp/models/TreeNodeNext.h"')
+                        process_variables.append(
+                            "json "
+                            + variable[1]
+                            + "_array"
+                            + f" = json::parse(inputArray.at({i}));"
+                        )
+                        process_variables.append(
+                            rt
+                            + " *"
+                            + variable[1]
+                            + f" = JsonArrayToTreeNodeNext({variable[1]}_array);"
+                        )
+                    logging.debug(f"Handle Node Type variable: {variable}")
                 case _:
                     process_variables.append(
                         rt
@@ -442,6 +430,47 @@ class CppWriter(LanguageWriter):
                         + f" = json::parse(inputArray.at({i}));"
                     )
             i += 1
+
+    @staticmethod
+    def _process_return_part(ret_type: str, func_name: str, variables: list, code_default: str, return_part: list):
+        if "ListNode" in ret_type:
+            return_part.append(
+                "\treturn ListNodeToIntArray(solution.{}({}));".format(
+                    func_name, ", ".join([v[1] for v in variables])
+                )
+            )
+        elif "TreeNode" in ret_type:
+            return_part.append(
+                "\treturn TreeNodeToJsonArray(solution.{}({}));".format(
+                    func_name, ", ".join([v[1] for v in variables])
+                )
+            )
+        elif "Node" in ret_type:
+            if ("Node* left;" in code_default and "Node* right;" in code_default
+                    and "Node* next;" in code_default):
+                return_part.append(
+                    "\treturn TreeNodeNextToJsonArray(solution.{}({}));".format(
+                        func_name, ", ".join([v[1] for v in variables])
+                    )
+                )
+        elif ret_type == "char":
+            return_part.append(
+                "\treturn std::string(1, solution.{}({}));".format(
+                    func_name, ", ".join([v[1] for v in variables])
+                )
+            )
+        elif ret_type == "void":
+            return_part.append(
+                "\tsolution.{}({});\n\treturn {};".format(
+                    func_name, ", ".join([v[1] for v in variables]), variables[0][1]
+                )
+            )
+        else:
+            return_part.append(
+                "\treturn solution.{}({});".format(
+                    func_name, ", ".join([v[1] for v in variables])
+                )
+            )
 
     @staticmethod
     def _simplify_variable_type(variable: str) -> str:
