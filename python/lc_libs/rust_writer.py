@@ -127,7 +127,7 @@ class RustWriter(LanguageWriter):
                             continue
                     self.__parse_type(i, var_name, var_type, code_default, import_libs, solve_part, return_part)
                     i += 1
-                if return_part:
+                if return_type:
                     self.__parse_type(0, "", return_type, code_default,
                                       import_libs, solve_part, return_part, True)
                     return_part[-1] = return_part[-1].format(
@@ -310,7 +310,22 @@ class RustWriter(LanguageWriter):
                         RustWriter._add_to_import_libs(import_libs, "use library::lib::node_next::",
                                                        "tree_next_to_array")
                         return_parts.append("json!(tree_next_to_array(&{}))")
+                elif "neighbors:" in code_default:
+                    RustWriter._add_to_import_libs(import_libs, "use library::lib::node_neighbors::", "Node")
+                    if not is_return:
+                        RustWriter._add_to_import_libs(import_libs, "use library::lib::node_neighbors::",
+                                                       "array_to_node_neighbors")
+                        solve_part.append(f"let input_vec{var_idx}: Vec<Vec<i32>> = serde_json::from_str("
+                                            f"&input_values[{var_idx}]).expect(\"Failed to parse input\");")
+                        solve_part.append(f"let {var_name}: Option<Rc<RefCell<Node>>> ="
+                                            f" array_to_node_neighbors(&input_vec{var_idx});")
+                    else:
+                        RustWriter._add_to_import_libs(import_libs, "use library::lib::node_neighbors::",
+                                                       "node_neighbors_to_array")
+                        return_parts.append("json!(node_neighbors_to_array(&{}))")
                 else:
+                    if is_return:
+                        return_parts.append("json!({})")
                     logging.debug(f"Node struct not found in code, skip parsing, {code_default}")
             case _:
                 if is_return:
