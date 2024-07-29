@@ -179,6 +179,6 @@ def test_submit(args):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format=LOGGING_FORMAT, datefmt=DATE_FORMAT)
-    args = get_args()
-    args.func(args)
+    arguments = get_args()
+    arguments.func(arguments)
     sys.exit(0)
