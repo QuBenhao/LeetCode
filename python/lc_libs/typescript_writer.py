@@ -17,6 +17,7 @@ class TypescriptWriter(LanguageWriter):
         self._LIST_NODE_PATH = "\"../../typescript/models/listnode\";"
         self._TREE_NODE_PATH = "\"../../typescript/models/treenode\";"
         self._NODE_NEXT_PATH = "\"../../typescript/models/node.next\";"
+        self._NODE_NEIGHBORS_PATH = "\"../../typescript/models/node.neighbors\";"
         self.lang_env_commands = [["npm", "--version"]]
         self.test_commands = [["npm", "test", "--alwaysStrict", "--strictBindCallApply",
                                "--strictFunctionTypes", "--target ES202",
@@ -251,6 +252,12 @@ class TypescriptWriter(LanguageWriter):
                         import_part[self._NODE_NEXT_PATH].add("JSONArrayToTreeNodeNext")
                         process_inputs.append(
                             f"const {variable} = JSONArrayToTreeNodeNext(JSON.parse(inputValues[{i}]));")
+                    elif "neighbors: _Node[]" in code_default:
+                        import_part[self._NODE_NEIGHBORS_PATH].add("NodeNeighbors as _Node")
+                        import_part[self._NODE_NEIGHBORS_PATH].add("JsonArrayToNodeNeighbors")
+                        process_inputs.append(
+                            f"const intArray{i}: Array<Array<number>> = JSON.parse(inputValues[{i}]);")
+                        process_inputs.append(f"const {variable} = JsonArrayToNodeNeighbors(intArray{i});")
                     else:
                         logging.debug(f"Please implement the conversion function for _Node, {code_default}")
                         process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
@@ -274,6 +281,10 @@ class TypescriptWriter(LanguageWriter):
                     import_part[self._NODE_NEXT_PATH].add("NodeNext as _Node")
                     import_part[self._NODE_NEXT_PATH].add("TreeNodeNextToJSONArray")
                     return_part = "TreeNodeNextToJSONArray({}({}))".format(func[0], ", ".join(var_names))
+                elif "neighbors: _Node[]" in code_default:
+                    import_part[self._NODE_NEIGHBORS_PATH].add("NodeNeighbors as _Node")
+                    import_part[self._NODE_NEIGHBORS_PATH].add("NodeNeighborsToJsonArray")
+                    return_part = "NodeNeighborsToJsonArray({}({}))".format(func[0], ", ".join(var_names))
                 else:
                     return_part = "{}({})".format(func[0], ", ".join(var_names))
                     logging.debug(f"Please implement the return part for _Node, {code_default}")

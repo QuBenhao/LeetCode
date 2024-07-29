@@ -20,6 +20,11 @@ import {
     JSONArrayToTreeNodeNext,
     TreeNodeNextToJSONArray
 } from "./models/node.next";
+import {
+    NodeNeighbors,
+    JsonArrayToNodeNeighbors,
+    NodeNeighborsToJsonArray
+} from "./models/node.neighbors";
 import {Queue} from "@datastructures-js/queue";
 import {MaxPriorityQueue, MinPriorityQueue, PriorityQueue} from "@datastructures-js/priority-queue";
 
@@ -46,6 +51,9 @@ export function CompareResults(script: vm.Script, inputJson: any, outputJson: an
         NodeNext,
         JSONArrayToTreeNodeNext,
         TreeNodeNextToJSONArray,
+        NodeNeighbors,
+        JsonArrayToNodeNeighbors,
+        NodeNeighborsToJsonArray,
     };
     vm.createContext(context); // Contextify the object.
     script.runInContext(context, {timeout: 3000});
