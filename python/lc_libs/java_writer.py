@@ -246,6 +246,9 @@ class JavaWriter(LanguageWriter):
             case "Node":
                 if "Node left;" in code_default and "Node right;" in code_default and "Node next;" in code_default:
                     return f"{rt_type} {variable_name} = Node.ArrayToTreeNodeNext({input_name});"
+                elif "List<Node> neighbors;" in code_default:
+                    return (f"{rt_type} {variable_name} ="
+                            f" Node.ArrayToNodeNeighbors(jsonArrayToInt2DArray({input_name}));")
                 logging.debug(f"Node type not implemented yet, variable_name: {variable_name},"
                               f" rt_type: {rt_type}, code: [{code_default}]")
             case "":
@@ -323,6 +326,9 @@ class JavaWriter(LanguageWriter):
             if "Node left;" in code_default and "Node right;" in code_default and "Node next;" in code_default:
                 additional_import.add("import qubhjava.models.node.next.Node;")
                 return_part = "Node.TreeNodeNextToArray({}({}))".format(return_func, ", ".join(variables))
+            elif "List<Node> neighbors;" in code_default:
+                additional_import.add("import qubhjava.models.node.neighbors.Node;")
+                return_part = "Node.NodeNeighborsToArray({}({}))".format(return_func, ", ".join(variables))
             else:
                 return_part = "{}({})".format(return_func, ", ".join(variables))
         else:
