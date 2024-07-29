@@ -19,11 +19,7 @@ impl Node {
     }
 }
 
-pub fn array_to_node_neighbors(arr: Option<Vec<Vec<i32>>>) -> Option<Rc<RefCell<Node>>> {
-    if arr.is_none() {
-        return None;
-    }
-    let arr = arr.unwrap();
+pub fn array_to_node_neighbors(arr: &Vec<Vec<i32>>) -> Option<Rc<RefCell<Node>>> {
     if arr.is_empty() {
         return None;
     }
@@ -40,7 +36,11 @@ pub fn array_to_node_neighbors(arr: Option<Vec<Vec<i32>>>) -> Option<Rc<RefCell<
     Some(nodes[0].clone())
 }
 
-fn dfs(node: Rc<RefCell<Node>>, visited: &mut HashSet<i32>, res: &mut Vec<Vec<i32>>) {
+fn dfs(node: &Option<Rc<RefCell<Node>>>, visited: &mut HashSet<i32>, res: &mut Vec<Vec<i32>>) {
+    if node.is_none() {
+        return;
+    }
+    let node = node.as_ref().unwrap();
     for _ in res.len()..node.borrow().val as usize {
         res.push(vec![]);
     }
@@ -52,7 +52,7 @@ fn dfs(node: Rc<RefCell<Node>>, visited: &mut HashSet<i32>, res: &mut Vec<Vec<i3
             continue;
         }
         visited.insert(val);
-        dfs(neighbor.clone(), visited, res);
+        dfs(&Some(neighbor.clone()), visited, res);
     }
 }
 
@@ -63,6 +63,6 @@ pub fn node_neighbors_to_array(root: &Option<Rc<RefCell<Node>>>) -> Vec<Vec<i32>
     }
     let mut visited = HashSet::new();
     visited.insert(root.as_ref().unwrap().borrow().val);
-    dfs(root.as_ref().unwrap().clone(), &mut visited, &mut res);
+    dfs(&root.clone(), &mut visited, &mut res);
     res
 }

@@ -1,6 +1,5 @@
 use serde_json::{json, Value};
 use library::lib::node_neighbors::{Node, array_to_node_neighbors, node_neighbors_to_array};
-
 pub struct Solution;
 
 // Definition for a Node.
@@ -37,7 +36,7 @@ impl Solution {
 #[cfg(feature = "solution_133")]
 pub fn solve(input_string: String) -> Value {
 	let input_values: Vec<String> = input_string.split('\n').map(|x| x.to_string()).collect();
-    let input_vec0: Option<Vec<Vec<i32>>> = serde_json::from_str(&input_values[0]).expect("Failed to parse input");
-    let node: Option<Rc<RefCell<Node>>>= array_to_node_neighbors(input_vec0);
-    json!(node_neighbors_to_array(&Solution::clone_graph(node)))
+	let input_vec0: Vec<Vec<i32>> = serde_json::from_str(&input_values[0]).expect("Failed to parse input");
+	let node: Option<Rc<RefCell<Node>>> = array_to_node_neighbors(&input_vec0);
+	json!(node_neighbors_to_array(&Solution::clone_graph(node)))
 }
