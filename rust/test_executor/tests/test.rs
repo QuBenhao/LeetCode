@@ -10,7 +10,6 @@ mod test {
 
     #[test]
     fn test_solution() {
-        println!("Run [Problem {}] Test Cases", PROBLEM_ID);
         run_test(PROBLEM_ID, PROBLEM_FOLDER, solution::solve);
     }
 }

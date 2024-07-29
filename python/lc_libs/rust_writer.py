@@ -127,7 +127,7 @@ class RustWriter(LanguageWriter):
                             continue
                     self.__parse_type(i, var_name, var_type, code_default, import_libs, solve_part, return_part)
                     i += 1
-                if return_type:
+                if return_part:
                     self.__parse_type(0, "", return_type, code_default,
                                       import_libs, solve_part, return_part, True)
                     return_part[-1] = return_part[-1].format(

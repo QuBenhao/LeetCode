@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 rust-version = "1.79.0"
 authors = ["benhao"]
-description = "LeetCode Solution 1117 in Rust"
+description = "LeetCode Solution 117 in Rust"
 readme = "../../README.md"
 
 [features]

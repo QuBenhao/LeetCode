@@ -644,6 +644,11 @@
                 "lang": "Scala",
                 "langSlug": "scala",
                 "code": "/**\n * Definition for a Node.\n * class Node(var _value: Int) {\n *   var value: Int = _value\n *   var neighbors: List[Node] = List()\n * }\n */\n\nobject Solution {\n    def cloneGraph(graph: Node): Node = {\n        \n    }\n}"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "// Definition for a Node.\n// #[derive(Debug, PartialEq, Eq)]\n// pub struct Node {\n//   pub val: i32,\n//   pub neighbors: Vec<Rc<RefCell<Node>>>,\n// }\n//\n// impl Node {\n//   #[inline]\n//   pub fn new(val: i32) -> Self {\n//     Node {\n//       val,\n//       neighbors: Vec::new(),\n//     }\n//   }\n// }\n\nstruct Solution;\n\nimpl Solution {\n    pub fn clone_graph(node: Option<Rc<RefCell<Node>>>) -> Option<Rc<RefCell<Node>>> {\n        \n    }\n}\n\n\n/**\n * Your Solution object will be instantiated and called as such:\n * let obj = Solution;\n * let data: Option<Rc<RefCell<Node>>> = obj.clone_graph(node);\n */"
             }
         ]
     },
