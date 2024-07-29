@@ -4,7 +4,24 @@ pub struct Solution;
 
 impl Solution {
     pub fn decode_string(s: String) -> String {
-
+		let mut stack: Vec<(String, usize)> = vec![];
+		let mut num = 0;
+		let mut res = String::new();
+		for c in s.chars() {
+			if c == '[' {
+				stack.push((res.clone(), num));
+				res = String::new();
+				num = 0;
+			} else if c == ']' {
+				let (last_res, t) = stack.pop().unwrap();
+				res = last_res + &*res.repeat(t);
+			} else if c.is_digit(10) {
+				num = num * 10 + c.to_digit(10).unwrap() as usize;
+			} else {
+				res.push(c);
+			}
+		}
+		res
     }
 }
 
