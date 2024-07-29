@@ -196,7 +196,7 @@ class TypescriptWriter(LanguageWriter):
                             import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNode")
                             import_part[self._TREE_NODE_PATH].add("JsonArrayToTreeNodeWithTargets")
                             process_inputs.append("const targetVal: number = JSON.parse(inputValues[1]);")
-                            process_inputs.append("const nodes: TreeNode[] = JsonArrayToTreeNodeWithTargets"
+                            process_inputs.append("const nodes: Array<TreeNode | null> = JsonArrayToTreeNodeWithTargets"
                                                   "(JSON.parse(inputValues[0]), targetVal);")
                             process_inputs.append(f"const {var_name}: TreeNode = nodes[0],"
                                                   " target: TreeNode = nodes[1];")
@@ -219,7 +219,7 @@ class TypescriptWriter(LanguageWriter):
                                 process_inputs.append(f"const targetVal{j}: number = JSON.parse(inputValues[{j}]);")
                                 var_names.append(func[1][j].split(":")[0])
                             process_inputs.append(
-                                f"const nodes: TreeNode[] = "
+                                f"const nodes: Array<TreeNode | null> = "
                                 f"JsonArrayToTreeNodeWithTargets(JSON.parse(inputValues[{i}]), "
                                 + ", ".join([f"targetVal{j}" for j in range(i + 1, idx)]) + ");")
                             process_inputs.append(

@@ -30,7 +30,7 @@ export function Solve(inputJsonElement: string): any {
 	const inputValues: string[] = inputJsonElement.split("\n");
 	const targetVal1: number = JSON.parse(inputValues[1]);
 	const targetVal2: number = JSON.parse(inputValues[2]);
-	const nodes: TreeNode[] = JsonArrayToTreeNodeWithTargets(JSON.parse(inputValues[0]), targetVal1, targetVal2);
+	const nodes: Array<TreeNode | null> = JsonArrayToTreeNodeWithTargets(JSON.parse(inputValues[0]), targetVal1, targetVal2);
 	const root: TreeNode = nodes[0], p: TreeNode = nodes[1], q: TreeNode = nodes[2];
 	return TreeNodeToJSONArray(lowestCommonAncestor(root, p, q));
 }
