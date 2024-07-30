@@ -25,6 +25,11 @@ import {
     JsonArrayToNodeNeighbors,
     NodeNeighborsToJsonArray
 } from "./models/node.neighbors";
+import {
+    NodeRandom,
+    JSONArrayToNodeRandom,
+    NodeRandomToJSONArray,
+} from "./models/node.random";
 import {Queue} from "@datastructures-js/queue";
 import {MaxPriorityQueue, MinPriorityQueue, PriorityQueue} from "@datastructures-js/priority-queue";
 
@@ -54,6 +59,9 @@ export function CompareResults(script: vm.Script, inputJson: any, outputJson: an
         NodeNeighbors,
         JsonArrayToNodeNeighbors,
         NodeNeighborsToJsonArray,
+        NodeRandom,
+        JSONArrayToNodeRandom,
+        NodeRandomToJSONArray,
     };
     vm.createContext(context); // Contextify the object.
     script.runInContext(context, {timeout: 3000});

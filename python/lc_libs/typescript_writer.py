@@ -18,6 +18,7 @@ class TypescriptWriter(LanguageWriter):
         self._TREE_NODE_PATH = "\"../../typescript/models/treenode\";"
         self._NODE_NEXT_PATH = "\"../../typescript/models/node.next\";"
         self._NODE_NEIGHBORS_PATH = "\"../../typescript/models/node.neighbors\";"
+        self._NODE_RANDOM_PATH = "\"../../typescript/models/node.random\";"
         self.lang_env_commands = [["npm", "--version"]]
         self.test_commands = [["npm", "test", "--alwaysStrict", "--strictBindCallApply",
                                "--strictFunctionTypes", "--target ES202",
@@ -258,6 +259,11 @@ class TypescriptWriter(LanguageWriter):
                         process_inputs.append(
                             f"const intArray{i}: Array<Array<number>> = JSON.parse(inputValues[{i}]);")
                         process_inputs.append(f"const {variable} = JsonArrayToNodeNeighbors(intArray{i});")
+                    elif "next: _Node | null" in code_default:
+                        import_part[self._NODE_RANDOM_PATH].add("NodeRandom as _Node")
+                        import_part[self._NODE_RANDOM_PATH].add("JSONArrayToNodeRandom")
+                        process_inputs.append(
+                            f"const {variable} = JSONArrayToNodeRandom(JSON.parse(inputValues[{i}]));")
                     else:
                         logging.debug(f"Please implement the conversion function for _Node, {code_default}")
                         process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
@@ -285,6 +291,10 @@ class TypescriptWriter(LanguageWriter):
                     import_part[self._NODE_NEIGHBORS_PATH].add("NodeNeighbors as _Node")
                     import_part[self._NODE_NEIGHBORS_PATH].add("NodeNeighborsToJsonArray")
                     return_part = "NodeNeighborsToJsonArray({}({}))".format(func[0], ", ".join(var_names))
+                elif "next: _Node | null" in code_default:
+                    import_part[self._NODE_RANDOM_PATH].add("NodeRandom as _Node")
+                    import_part[self._NODE_RANDOM_PATH].add("NodeRandomToJSONArray")
+                    return_part = "NodeRandomToJSONArray({}({}))".format(func[0], ", ".join(var_names))
                 else:
                     return_part = "{}({})".format(func[0], ", ".join(var_names))
                     logging.debug(f"Please implement the return part for _Node, {code_default}")
