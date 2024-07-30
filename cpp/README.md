@@ -17,3 +17,8 @@ bazel test --cxxopt=-std=c++20 --test_timeout=10 --test_output=all //cpp/tests:a
 
 ## Environment setup for idea:
 [bazel-compile-commands-extractor](https://github.com/hedronvision/bazel-compile-commands-extractor)
+
+Run all tests:
+```shell
+bazel test //... --cxxopt=-std=c++20 --test_timeout=3 --test_output=all
+```
