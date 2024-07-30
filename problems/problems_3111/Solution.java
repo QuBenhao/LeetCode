@@ -7,7 +7,16 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int minRectanglesToCoverPoints(int[][] points, int w) {
-
+        Arrays.sort(points, Comparator.comparingInt(a -> a[0]));
+        int ans = 0;
+        for (int idx = 0; idx < points.length; ) {
+            ans++;
+            int cur = points[idx][0] + w;
+            while (idx < points.length && points[idx][0] <= cur) {
+                idx++;
+            }
+        }
+        return ans;
     }
 
     @Override
