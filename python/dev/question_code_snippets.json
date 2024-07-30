@@ -1563,6 +1563,11 @@
                 "lang": "Scala",
                 "langSlug": "scala",
                 "code": "/**\n * Definition for a Node.\n * class Node(var _value: Int) {\n *   var value: Int = _value\n *   var next: Node = null\n *   var random: Node = null\n * }\n */\n\nobject Solution {\n    def copyRandomList(head: Node): Node = {\n        \n    }\n}"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "// Definition for a Node.\n// #[derive(Debug, Clone, PartialEq, Eq)]\n// pub struct Node {\n//   pub val: i32,\n//   pub next: Option<Rc<RefCell<Node>>>,\n//   pub random: Option<Rc<RefCell<Node>>>,\n// }\n// \n// impl Node {\n//   #[inline]\n//   pub fn new(val: i32) -> Self {\n//     Node {\n//       val,\n//       next: None,\n//       random: None,\n//     }\n//   }\n// }\nuse std::rc::Rc;\nuse std::cell::RefCell;\nimpl Solution {\n    pub fn copy_random_list(head: Option<Rc<RefCell<Node>>>) -> Option<Rc<RefCell<Node>>> {\n        \n    }\n}"
             }
         ]
     },

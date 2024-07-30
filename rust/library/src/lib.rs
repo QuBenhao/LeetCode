@@ -4,4 +4,5 @@ pub mod lib {
     pub mod tree_node;
     pub mod node_next;
     pub mod node_neighbors;
+    pub mod node_random;
 }

@@ -323,6 +323,19 @@ class RustWriter(LanguageWriter):
                         RustWriter._add_to_import_libs(import_libs, "use library::lib::node_neighbors::",
                                                        "node_neighbors_to_array")
                         return_parts.append("json!(node_neighbors_to_array(&{}))")
+                elif "random:" in code_default:
+                    RustWriter._add_to_import_libs(import_libs, "use library::lib::node_random::", "Node")
+                    if not is_return:
+                        RustWriter._add_to_import_libs(import_libs, "use library::lib::node_random::",
+                                                       "array_to_node_random")
+                        solve_part.append(f"let input_vec{var_idx}: Vec<Vec<Option<i32>>> = serde_json::from_str("
+                                          f"&input_values[{var_idx}]).expect(\"Failed to parse input\");")
+                        solve_part.append(f"let {var_name}: Option<Rc<RefCell<Node>>> ="
+                                          f" array_to_node_random(&input_vec{var_idx});")
+                    else:
+                        RustWriter._add_to_import_libs(import_libs, "use library::lib::node_random::",
+                                                       "node_random_to_array")
+                        return_parts.append("json!(node_random_to_array(&{}))")
                 else:
                     if is_return:
                         return_parts.append("json!({})")
