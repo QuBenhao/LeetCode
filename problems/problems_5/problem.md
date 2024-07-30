@@ -1,41 +1,27 @@
 # 5. Longest Palindromic Substring
 
-Given a string `s`, return *the longest palindromic substring* in `s`.
+<p>Given a string <code>s</code>, return <em>the longest</em> <span data-keyword="palindromic-string"><em>palindromic</em></span> <span data-keyword="substring-nonempty"><em>substring</em></span> in <code>s</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> s = &quot;babad&quot;
+<strong>Output:</strong> &quot;bab&quot;
+<strong>Explanation:</strong> &quot;aba&quot; is also a valid answer.
+</pre>
 
-```
-Input: s = "babad"
-Output: "bab"
-Note: "aba" is also a valid answer.
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> s = &quot;cbbd&quot;
+<strong>Output:</strong> &quot;bb&quot;
+</pre>
 
-```
-Input: s = "cbbd"
-Output: "bb"
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 3:**
-
-```
-Input: s = "a"
-Output: "a"
-```
-
-**Example 4:**
-
-```
-Input: s = "ac"
-Output: "a"
-```
-
- 
-
-**Constraints:**
-
-- `1 <= s.length <= 1000`
-- `s` consist of only digits and English letters (lower-case and/or upper-case),
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 1000</code></li>
+	<li><code>s</code> consist of only digits and English letters.</li>
+</ul>
