@@ -8,7 +8,13 @@ using json = nlohmann::json;
 class Solution {
 public:
     int minRectanglesToCoverPoints(vector<vector<int>>& points, int w) {
-        
+        sort(points.begin(), points.end());
+        int ans = 0, n = static_cast<int>(points.size());
+        for (int idx = 0; idx < n; ) {
+            ans++;
+            for (int cur = points[idx][0] + w; idx < n && points[idx][0] <= cur; idx++) {}
+        }
+        return ans;
     }
 };
 

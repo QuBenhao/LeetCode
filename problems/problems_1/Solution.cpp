@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <map>
 
 
 using namespace std;
