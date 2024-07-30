@@ -59,10 +59,12 @@ dependencies = [
  "solution_2844",
  "solution_2961",
  "solution_3106",
+ "solution_3111",
  "solution_34",
  "solution_39",
  "solution_394",
  "solution_49",
+ "solution_5",
  "solution_56",
  "solution_682",
  "solution_699",
@@ -319,6 +321,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "solution_3111"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
 name = "solution_34"
 version = "0.1.0"
 dependencies = [
@@ -350,6 +362,16 @@ dependencies = [
 
 [[package]]
 name = "solution_49"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "solution_5"
 version = "0.1.0"
 dependencies = [
  "library",
