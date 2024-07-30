@@ -103,6 +103,7 @@ def process_daily(languages: list[str], problem_folder: str = None):
     question_id = daily_info['questionId']
     tmp = get_default_folder(paid_only=daily_info['paidOnly']) if not problem_folder else problem_folder
     dir_path = os.path.join(root_path, tmp, f"{tmp}_{question_id}")
+    logging.info("Daily: {}, id: {}".format(daily_info['questionNameEn'], question_id))
     if not os.path.exists(dir_path):
         os.makedirs(dir_path, exist_ok=True)
         write_question(dir_path, tmp, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
@@ -167,6 +168,8 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
             except Exception as _:
                 logging.error(f"Failed to change tests for {lang}", exc_info=True)
                 continue
+    else:
+        logging.info("No recommended questions in the study plan today!")
 
 
 def main(problem_folder: str = None, cookie: Optional[str] = None, languages: list[str] = None):
