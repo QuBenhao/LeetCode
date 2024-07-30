@@ -7,10 +7,9 @@
 
 #include "nlohmann/json.hpp"
 #include <vector>
-#include <variant>
 
 using std::vector;
-using std::variant;
+using nlohmann::json;
 
 // Definition for a Node.
 class Node {
@@ -26,6 +25,7 @@ public:
     }
 };
 
-Node* JsonArrayToNodeRandom(vector<vector<variant<int, nullptr_t>>> arr);
+Node* JsonArrayToNodeRandom(json arr);
+json NodeRandomToJsonArray(Node* head);
 
 #endif //LEETCODE_NODERANDOM_H

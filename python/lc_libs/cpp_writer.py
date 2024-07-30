@@ -427,6 +427,14 @@ class CppWriter(LanguageWriter):
                                                  f" json::parse(inputArray.at({i}));")
                         process_variables.append(f"{rt}* {variable[1]} ="
                                                  f" JsonArrayToNodeNeighbors({variable[1]}_arrays);")
+                    elif "Node* random;" in code_default:
+                        include_libs.append('#include "cpp/models/NodeRandom.h"')
+                        process_variables.append(
+                            rt
+                            + " *"
+                            + variable[1]
+                            + f" = JsonArrayToNodeRandom(json::parse(inputArray.at({i})));"
+                        )
                     else:
                         logging.debug(f"Unhandled Node Type variable: {variable}, code: [{code_default}]")
                 case _:
@@ -463,6 +471,19 @@ class CppWriter(LanguageWriter):
             elif "vector<Node*> neighbors;" in code_default:
                 return_part.append(
                     "\treturn NodeNeighborsToJsonArray(solution.{}({}));".format(
+                        func_name, ", ".join([v[1] for v in variables])
+                    )
+                )
+            elif "Node* random;" in code_default:
+                return_part.append(
+                    "\treturn NodeRandomToJsonArray(solution.{}({}));".format(
+                        func_name, ", ".join([v[1] for v in variables])
+                    )
+                )
+            else:
+                logging.debug(f"Unhandled Node Type return: {ret_type}, code: [{code_default}]")
+                return_part.append(
+                    "\treturn solution.{}({});".format(
                         func_name, ", ".join([v[1] for v in variables])
                     )
                 )
