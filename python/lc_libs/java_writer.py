@@ -249,6 +249,8 @@ class JavaWriter(LanguageWriter):
                 elif "List<Node> neighbors;" in code_default:
                     return (f"{rt_type} {variable_name} ="
                             f" Node.ArrayToNodeNeighbors(jsonArrayToInt2DArray({input_name}));")
+                elif "Node random;" in code_default:
+                    return f"{rt_type} {variable_name} = Node.JsonArrayToNodeRandom({input_name});"
                 logging.debug(f"Node type not implemented yet, variable_name: {variable_name},"
                               f" rt_type: {rt_type}, code: [{code_default}]")
             case "":
@@ -329,6 +331,9 @@ class JavaWriter(LanguageWriter):
             elif "List<Node> neighbors;" in code_default:
                 additional_import.add("import qubhjava.models.node.neighbors.Node;")
                 return_part = "Node.NodeNeighborsToArray({}({}))".format(return_func, ", ".join(variables))
+            elif "Node random;" in code_default:
+                additional_import.add("import qubhjava.models.node.random.Node;")
+                return_part = "Node.NodeRandomToJsonArray({}({}))".format(return_func, ", ".join(variables))
             else:
                 return_part = "{}({})".format(return_func, ", ".join(variables))
         else:
