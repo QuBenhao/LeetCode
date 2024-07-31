@@ -7,7 +7,16 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int majorityElement(int[] nums) {
-
+        int ans = 0, cnt = 0;
+        for (int num: nums) {
+            if (cnt != 0 && ans != num) {
+                cnt--;
+            } else {
+                ans = num;
+                cnt++;
+            }
+        }
+        return ans;
     }
 
     @Override

@@ -8,7 +8,16 @@ using json = nlohmann::json;
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-
+        int ans = 0, cnt = 0;
+        for (auto num : nums) {
+            if (cnt != 0 && ans != num) {
+                cnt--;
+            } else {
+                cnt++;
+                ans = num;
+            }
+        }
+        return ans;
     }
 };
 

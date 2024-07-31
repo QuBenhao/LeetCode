@@ -8,7 +8,30 @@ using json = nlohmann::json;
 class Solution {
 public:
     int maxmiumScore(vector<int>& cards, int cnt) {
-
+        sort(cards.begin(), cards.end(), greater<int>());
+        int sum = 0;
+        for (int i = 0; i < cnt; i++) {
+            sum += cards[i];
+        }
+        if (sum % 2 == 0) {
+            return sum;
+        }
+        auto replace_sum = [&](int x) -> int {
+            for (int i = cnt; i < static_cast<int>(cards.size()); i++) {
+                if (cards[i] % 2 != x % 2) {
+                    return sum + cards[i] - x;
+                }
+            }
+            return 0;
+        };
+        int ans = replace_sum(cards[cnt - 1]);
+        for (int i = cnt - 2; i >= 0; i--) {
+            if (cards[i] % 2 != cards[cnt - 1] % 2) {
+                ans = max(ans, replace_sum(cards[i]));
+                break;
+            }
+        }
+        return ans;
     }
 };
 
