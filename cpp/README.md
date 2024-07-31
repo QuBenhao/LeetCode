@@ -16,6 +16,8 @@ bazel test --cxxopt=-std=c++20 --test_timeout=10 --test_output=all //cpp/tests:a
 ```
 
 ## Environment setup for idea:
+First Change the path of the problem in the [solutions.bzl](../solutions.bzl) file
+
 [bazel-compile-commands-extractor](https://github.com/hedronvision/bazel-compile-commands-extractor)
 
 Run all tests:
