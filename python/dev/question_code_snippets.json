@@ -1642,6 +1642,11 @@
                 "lang": "Scala",
                 "langSlug": "scala",
                 "code": "/**\n * Definition for singly-linked list.\n * class ListNode(var _x: Int = 0) {\n *   var next: ListNode = null\n *   var x: Int = _x\n * }\n */\n\nobject Solution {\n    def hasCycle(head: ListNode): Boolean = {\n        \n    }\n}"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "// Definition for singly-linked list.\n// #[derive(Debug, PartialEq, Eq)]\n// pub struct ListNode {\n//   pub val: i32,\n//   pub next: Option<Box<ListNode>>,\n// }\n// \n// impl ListNode {\n//   #[inline]\n//   fn new(val: i32) -> Self {\n//     ListNode {\n//       val,\n//       next: None,\n//     }\n//   }\n// }\nuse std::collections::HashSet;\nimpl Solution {\n    pub fn has_cycle(head: Option<Box<ListNode>>) -> bool {\n        \n    }\n}"
             }
         ]
     },
@@ -1716,6 +1721,11 @@
                 "lang": "Scala",
                 "langSlug": "scala",
                 "code": "/**\n * Definition for singly-linked list.\n * class ListNode(var _x: Int = 0) {\n *   var next: ListNode = null\n *   var x: Int = _x\n * }\n */\n\nobject Solution {\n    def getIntersectionNode(headA: ListNode, headB: ListNode): ListNode = {\n        \n    }\n}"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "// Definition for singly-linked list.\n// #[derive(Debug, PartialEq, Eq)]\n// pub struct ListNode {\n//   pub val: i32,\n//   pub next: Option<Box<ListNode>>,\n// }\n// \n// impl ListNode {\n//   #[inline]\n//   fn new(val: i32) -> Self {\n//     ListNode {\n//       val,\n//       next: None,\n//     }\n//   }\n// }\nuse std::collections::HashSet;\nimpl Solution {\n    pub fn get_intersection_node(head_a: Option<Box<ListNode>>, head_b: Option<Box<ListNode>>) -> Option<Box<ListNode>> {\n        \n    }\n}"
             }
         ]
     },
