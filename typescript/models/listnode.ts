@@ -9,6 +9,9 @@ class ListNode {
 }
 
 function LinkedListToIntArray(node: ListNode | null): Array<number> {
+    if (node == null) {
+        return null;
+    }
     const ans: Array<number> = [];
     while (node != null) {
         ans.push(node.val);
@@ -42,7 +45,7 @@ function IntArrayToLinkedListWithCycle(arr: Array<number>, pos: number): ListNod
     return dummy.next;
 }
 
-function IntArrayToIntersectionLinkedList(arr1: Array<number>, arr2: Array<number>, iv: number, skipA: number, skipB: number): Array<ListNode> {
+function IntArrayToIntersectionLinkedList(iv: number, arr1: Array<number>, arr2: Array<number>,skipA: number, skipB: number): Array<ListNode> {
     const headA: ListNode | null = IntArrayToLinkedList(arr1);
     if (iv == 0 || skipA == arr1.length || skipB == arr2.length) {
         return [headA, IntArrayToLinkedList(arr2)];

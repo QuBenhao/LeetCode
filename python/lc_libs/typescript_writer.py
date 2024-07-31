@@ -188,6 +188,39 @@ class TypescriptWriter(LanguageWriter):
             var_type = variable.split(":")[-1].strip()
             match var_type:
                 case "ListNode | null":
+                    if testcases:
+                        if len(testcases[0]) == len(func[1]) + 1 and all(
+                                isinstance(testcase[0], list)
+                                and isinstance(testcase[1], int)
+                                for testcase in testcases):
+                            import_part[self._LIST_NODE_PATH].add("ListNode")
+                            import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedListWithCycle")
+                            process_inputs.append("const inputArray: number[] = JSON.parse(inputValues[0]);")
+                            process_inputs.append("const cyclePos: number = JSON.parse(inputValues[1]);")
+                            process_inputs.append(f"const {variable} ="
+                                                  f" IntArrayToLinkedListWithCycle(inputArray, cyclePos);")
+                            i += 2
+                            continue
+                        elif (len(func[1]) == 2 and len(testcases[0]) == 5
+                              and all(isinstance(testcase[0], int) and isinstance(testcase[1], list) and
+                                      isinstance(testcase[2], list) and isinstance(testcase[3], int) and
+                                      isinstance(testcase[4], int) for testcase in testcases)):
+                            import_part[self._LIST_NODE_PATH].add("ListNode")
+                            import_part[self._LIST_NODE_PATH].add("IntArrayToIntersectionLinkedList")
+                            process_inputs.append("const iv: number = JSON.parse(inputValues[0]);")
+                            process_inputs.append("const inputArray1: number[] = JSON.parse(inputValues[1]);")
+                            process_inputs.append("const inputArray2: number[] = JSON.parse(inputValues[2]);")
+                            process_inputs.append("const skipA: number = JSON.parse(inputValues[3]);")
+                            process_inputs.append("const skipB: number = JSON.parse(inputValues[4]);")
+                            next_var_name = func[1][i + 1].split(":")[0]
+                            process_inputs.append(f"const [{var_name}, {next_var_name}] = "
+                                                  "IntArrayToIntersectionLinkedList("
+                                                  "iv, inputArray1, inputArray2, skipA, skipB);")
+                            var_names.append(next_var_name)
+                            i += 5
+                            continue
+                        elif len(func[1]) != len(testcases[0]):
+                            logging.debug(f"Testcases: {testcases}, variables: {func[1]}")
                     import_part[self._LIST_NODE_PATH].add("ListNode")
                     import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedList")
                     process_inputs.append(f"const {variable} = IntArrayToLinkedList(JSON.parse(inputValues[{i}]));")
