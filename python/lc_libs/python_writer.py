@@ -389,8 +389,15 @@ class Python3Writer(LanguageWriter):
                 exists = True
                 add_lib = "from python.object_libs import list_to_tree_next_node"
                 process_input += "nums"
-                remain += f"        root = list_to_tree_next_node(nums)\n"
+                remain += "        root = list_to_tree_next_node(nums)\n"
                 inputs += "root"
+            elif ("Node" in str(v.annotation) and "Node" in cs_map and "next" in cs_map["Node"][0][1] and
+                  "random" in cs_map["Node"][0][1]):
+                exists = True
+                add_lib = "from python.object_libs import list_to_linked_random_list"
+                process_input += "nums"
+                remain += "        head = list_to_linked_random_list(nums)\n"
+                inputs += "head"
             else:
                 process_input += v.name
                 inputs += v.name
@@ -427,11 +434,17 @@ class Python3Writer(LanguageWriter):
             else:
                 remain += ("        res = self.{}({})\n        return node_neigh_to_list_relation(res)"
                            .format(func_name, inputs))
-        elif ("Node" in str(v.annotation) and "Node" in cs_map and "left" in cs_map["Node"][0][1] and
+        elif ("Node" in str(return_anno) and "Node" in cs_map and "left" in cs_map["Node"][0][1] and
               "right" in cs_map["Node"][0][1] and "next" in cs_map["Node"][0][1]):
             add_lib += ", tree_next_node_to_list" if exists else \
                 "from python.object_libs import tree_next_node_to_list"
             remain += ("        res = self.{}({})\n        return tree_next_node_to_list(res)"
+                       .format(func_name, inputs))
+        elif ("Node" in str(return_anno) and "Node" in cs_map and "next" in cs_map["Node"][0][1] and
+              "random" in cs_map["Node"][0][1]):
+            add_lib += ", linked_random_list_to_list" if exists else \
+                "from python.object_libs import linked_random_list_to_list"
+            remain += ("        res = self.{}({})\n        return linked_random_list_to_list(res)"
                        .format(func_name, inputs))
         else:
             if not modify_in_place:
