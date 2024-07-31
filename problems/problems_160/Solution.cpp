@@ -45,5 +45,5 @@ json leetcode::qubh::Solve(string input_json_values) {
 	auto tp = IntArrayToIntersectionListNode(iv, headA_array, headB_array, skip_a, skip_b);
 	ListNode *headA = get<0>(tp);
 	ListNode *headB = get<1>(tp);
-	return solution.getIntersectionNode(headA, headB);
+	return ListNodeToIntArray(solution.getIntersectionNode(headA, headB));
 }
