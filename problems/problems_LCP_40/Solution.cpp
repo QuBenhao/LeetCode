@@ -28,6 +28,7 @@ public:
         for (int i = cnt - 2; i >= 0; i--) {
             if (cards[i] % 2 != cards[cnt - 1] % 2) {
                 ans = max(ans, replace_sum(cards[i]));
+                break;
             }
         }
         return ans;

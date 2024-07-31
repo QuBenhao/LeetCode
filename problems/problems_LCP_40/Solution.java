@@ -28,6 +28,7 @@ public class Solution extends BaseSolution {
         for (int i = n -cnt + 1; i < n; i++) {
             if (cards[i] % 2 != cur % 2) {
                 ans = Math.max(ans, replaceSum(cards, s, cnt, cards[i]));
+                break;
             }
         }
         return ans;
