@@ -4,7 +4,21 @@ pub struct Solution;
 
 impl Solution {
     pub fn majority_element(nums: Vec<i32>) -> i32 {
-
+		let mut ans = 0;
+		let mut cnt = 0;
+		for &num in nums.iter() {
+			if cnt == 0 {
+				ans = num;
+				cnt = 1;
+			} else {
+				if num == ans {
+					cnt += 1;
+				} else {
+					cnt -= 1;
+				}
+			}
+		}
+		ans
     }
 }
 

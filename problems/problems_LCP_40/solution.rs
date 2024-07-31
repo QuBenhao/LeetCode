@@ -4,7 +4,30 @@ pub struct Solution;
 
 impl Solution {
     pub fn maxmium_score(cards: Vec<i32>, cnt: i32) -> i32 {
-
+		let mut cards = cards;
+		cards.sort_unstable_by(|a, b| b.cmp(a));
+		let cnt = cnt as usize;
+		let s: i32 = cards.iter().take(cnt).sum();
+		if s % 2 == 0 {
+			return s;
+		}
+		let cur = cards[cnt - 1];
+		let replace_sum = |x: i32| -> i32 {
+			for &v in cards.iter().skip(cnt) {
+				if v % 2 != x % 2 {
+					return s - x + v;
+				}
+			}
+			0
+		};
+		let mut ans = replace_sum(cur);
+		for &v in cards[..cnt - 1].iter().rev() {
+			if v % 2 != cur % 2 {
+				ans = ans.max(replace_sum(v));
+				break;
+			}
+		}
+		ans
     }
 }
 

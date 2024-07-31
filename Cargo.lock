@@ -50,6 +50,7 @@ dependencies = [
  "serde_json",
  "solution_1",
  "solution_102",
+ "solution_169",
  "solution_2",
  "solution_215",
  "solution_239",
@@ -68,6 +69,7 @@ dependencies = [
  "solution_56",
  "solution_682",
  "solution_699",
+ "solution_LCP_40",
  "test_executor",
 ]
 
@@ -222,6 +224,16 @@ dependencies = [
 
 [[package]]
 name = "solution_102"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "solution_169"
 version = "0.1.0"
 dependencies = [
  "library",
@@ -402,6 +414,16 @@ dependencies = [
 
 [[package]]
 name = "solution_699"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "solution_LCP_40"
 version = "0.1.0"
 dependencies = [
  "library",
