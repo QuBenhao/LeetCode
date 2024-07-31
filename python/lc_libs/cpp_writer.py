@@ -232,7 +232,7 @@ class CppWriter(LanguageWriter):
             r"""
                 (?:(?P<access_mod>\b(public|protected|private)\b)\s*:)?     # access modifier followed by :
                 \s*
-                (?P<ret_type>[^\s:]*\**)?                      # return type, including * to capture pointer return types
+                (?P<ret_type>[^\s:]*\s*\*?)?                                # return type, including * with optional space
                 \s*
                 (?:(?P<class_name>\b\w+\b)::)?                 # class name, followed by ::
                 (?P<name>\b\w+\b)                               # function name
@@ -261,6 +261,41 @@ class CppWriter(LanguageWriter):
             match rt:
                 case "ListNode":
                     include_libs.append('#include "cpp/models/ListNode.h"')
+                    if testcases:
+                        if len(testcases[0]) == len(variables) + 1 and all(
+                                isinstance(testcase[0], list)
+                                and isinstance(testcase[1], int)
+                                for testcase in testcases):
+                            variable[1] = variable[1][1:]
+                            process_variables.append(
+                                f"std::vector<int> {variable[1]}_array = json::parse(inputArray.at({i}));"
+                            )
+                            process_variables.append(
+                                f"int position = json::parse(inputArray.at({i + 1}));"
+                            )
+                            process_variables.append(
+                                f"ListNode* {variable[1]} = IntArrayToListNodeCycle({variable[1]}_array, position);"
+                            )
+                            i += 2
+                            continue
+                        elif (len(variables) == 2 and len(testcases[0]) == 5
+                              and all(isinstance(testcase[0], int) and isinstance(testcase[1], list) and
+                                      isinstance(testcase[2], list) and isinstance(testcase[3], int) and
+                                      isinstance(testcase[4], int) for testcase in testcases)):
+                            variables[0][1] = variables[0][1][1:]
+                            variables[1][1] = variables[1][1][1:]
+                            process_variables.append(f"int iv = json::parse(inputArray.at({i}));")
+                            process_variables.append(f"std::vector<int> {variables[0][1]}_array = json::parse(inputArray.at({i + 1}));")
+                            process_variables.append(f"std::vector<int> {variables[1][1]}_array = json::parse(inputArray.at({i + 2}));")
+                            process_variables.append(f"int skip_a = json::parse(inputArray.at({i + 3}));")
+                            process_variables.append(f"int skip_b = json::parse(inputArray.at({i + 4}));")
+                            process_variables.append(f"auto tp = IntArrayToIntersectionListNode(iv, {variables[0][1]}_array, {variables[1][1]}_array, skip_a, skip_b);")
+                            process_variables.append(f"ListNode *{variables[0][1]} = get<0>(tp);")
+                            process_variables.append(f"ListNode *{variables[1][1]} = get<1>(tp);")
+                            i += 5
+                            continue
+                        elif len(variables) != len(testcases[0]):
+                            logging.debug(f"Testcases: {testcases}, variables: {variables}")
                     process_variables.append(
                         "std::vector<int> "
                         + variable[1]
