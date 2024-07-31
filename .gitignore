@@ -48,4 +48,8 @@ bazel-LeetCode/
 package-lock.json
 bin/
 
+# bazel
 .clwb/
+
+# rust
+Cargo.lock
