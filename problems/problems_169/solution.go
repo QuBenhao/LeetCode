@@ -6,8 +6,17 @@ import (
 	"strings"
 )
 
-func majorityElement(nums []int) int {
-
+func majorityElement(nums []int) (ans int) {
+	cnt := 0
+	for _, num := range nums {
+		if cnt != 0 && ans != num {
+			cnt--
+		} else {
+			ans = num
+			cnt++
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
