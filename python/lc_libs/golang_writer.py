@@ -421,7 +421,7 @@ class GolangWriter(LanguageWriter):
                                 imports_libs.add('\t. "leetCode/golang/models"')
                                 imports_libs.add('\t"encoding/json"')
                                 imports_libs.add('\t"log"')
-                                i += 2
+                                count += 2
                                 continue
                             elif (len(vrs) == 2 and len(testcases[0]) == 5
                                   and all(isinstance(testcase[0], int) and
@@ -460,7 +460,7 @@ class GolangWriter(LanguageWriter):
                                 imports_libs.add('\t. "leetCode/golang/models"')
                                 imports_libs.add('\t"encoding/json"')
                                 imports_libs.add('\t"log"')
-                                i += 5
+                                count += 5
                                 continue
                             elif len(vrs) != len(testcases[0]):
                                 logging.debug(f"Testcases: {testcases}, variables: {vrs}")

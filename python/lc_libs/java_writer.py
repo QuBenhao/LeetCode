@@ -311,6 +311,37 @@ class JavaWriter(LanguageWriter):
             parse_input.append(JavaWriter.__process_variable_type(f"inputJsonValues[{i}]",
                                                                   variable, rt_type, code_default))
             if "ListNode" in rt_type:
+                if testcases:
+                    if len(testcases[0]) == len(input_parts) + 1 and all(
+                            isinstance(testcase[0], list)
+                            and isinstance(testcase[1], int)
+                            for testcase in testcases):
+                        parse_input.clear()
+                        parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[0]", "arr", "int[]", ""))
+                        parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[1]", "pos", "int", ""))
+                        parse_input.append("ListNode head = ListNode.IntArrayToLinkedListCycle(arr, pos);")
+                        i += 2
+                        continue
+                    elif (len(input_parts) == 2 and len(testcases[0]) == 5
+                          and all(isinstance(testcase[0], int) and isinstance(testcase[1], list) and
+                                  isinstance(testcase[2], list) and isinstance(testcase[3], int) and
+                                  isinstance(testcase[4], int) for testcase in testcases)):
+                        parse_input.clear()
+                        parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[0]", 'iv', "int", ""))
+                        parse_input.append(
+                            JavaWriter.__process_variable_type("inputJsonValues[1]", 'arrA', "int[]", ""))
+                        parse_input.append(
+                            JavaWriter.__process_variable_type("inputJsonValues[2]", 'arrB', "int[]", ""))
+                        parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[3]", 'skipA', "int", ""))
+                        parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[4]", 'skipB', "int", ""))
+                        parse_input.append(
+                            "ListNode[] nodes = ListNode.IntArrayToIntersectionListNode(arrA, arrB, iv, skipA, skipB);")
+                        parse_input.append("ListNode headA = nodes[0], headB = nodes[1];")
+                        variables.append("headB")
+                        i += 5
+                        continue
+                    elif len(input_parts) != len(testcases[0]):
+                        logging.debug(f"Testcases: {testcases}, variables: {input_parts}")
                 additional_import.add("import qubhjava.models.ListNode;")
             elif "TreeNode" in rt_type:
                 additional_import.add("import qubhjava.models.TreeNode;")
