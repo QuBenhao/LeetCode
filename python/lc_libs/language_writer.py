@@ -1,8 +1,9 @@
 import abc
+import json
 import logging
 import os
 import subprocess
-from typing import Tuple
+from typing import Tuple, Optional, List
 
 
 class LanguageWriter(abc.ABC):
@@ -123,3 +124,21 @@ class LanguageWriter(abc.ABC):
             )
             f.writelines(code_content)
         return False
+
+    @staticmethod
+    def get_test_cases(problem_folder: str, problem_id: str) -> Optional[List[List]]:
+        root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        test_case_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "testcase")
+        if not os.path.exists(test_case_path):
+            return None
+        testcases = []
+        with open(test_case_path, "r", encoding="utf-8") as f:
+            inputs_str = f.readline()
+            inputs_list = json.loads(inputs_str)
+            for input_str in inputs_list:
+                splits = input_str.split("\n")
+                cur = []
+                for ipt in splits:
+                    cur.append(json.loads(ipt))
+                testcases.append(cur)
+        return testcases

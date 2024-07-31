@@ -13,7 +13,7 @@ from python.utils import back_question_id
 
 
 class Python3Writer(LanguageWriter):
-    
+
     def __init__(self) -> None:
         super().__init__()
         self.solution_file = "solution.py"
@@ -57,7 +57,9 @@ class Python3Writer(LanguageWriter):
                 import_libs, process_input = (Python3Writer.
                                               __finalize_solution_code_with_single_class(cs_map, modify_in_place))
             else:
-                import_libs, process_input = Python3Writer.__finalize_solution_code_complex(cs_map, modify_in_place)
+                testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
+                import_libs, process_input = Python3Writer.__finalize_solution_code_complex(
+                    cs_map, modify_in_place, testcases)
             if code:
                 # submission code, not template code
                 if "class Solution" in code:
@@ -289,7 +291,7 @@ class Python3Writer(LanguageWriter):
         return count
 
     @staticmethod
-    def __extract_process_input_from_method(cs_map, modify_in_place, import_libs, method):
+    def __extract_process_input_from_method(cs_map, modify_in_place, import_libs, method, testcases=None):
         func_name, parameters, return_anno = method
         par_map = dict()
         add_lib = ""
@@ -298,13 +300,17 @@ class Python3Writer(LanguageWriter):
         remain = ""
         inputs = ""
         is_first = True
+        for k in list(parameters.keys()):
+            if parameters[k].name == "self":
+                parameters.pop(k)
+            elif parameters[k].name == "args":
+                parameters.pop(k)
+            elif parameters[k].name == "kwargs":
+                parameters.pop(k)
         idx = 0
-        for v in parameters.values():
-            if v.name == "self":
-                continue
-            if v.name == "args":
-                continue
-            if v.name == "kwargs":
+        p_values = list(parameters.values())
+        for vid, v in enumerate(p_values):
+            if vid < idx:
                 continue
             par_map[v.name] = v.annotation
             if is_first:
@@ -320,6 +326,35 @@ class Python3Writer(LanguageWriter):
                     remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
                     inputs += "roots"
                 else:
+                    if testcases:
+                        if (len(p_values) == len(testcases[0]) + 1 and
+                                all("TreeNode" in str(p.annotation) for p in p_values)):
+                            process_input += f"nums{idx}, target_val"
+                            remain += (f"        original, target = list_to_tree_with_target(nums{idx},"
+                                       f" target_val)\n")
+                            remain += f"        cloned = list_to_tree(nums0)\n"
+                            inputs += f"original, cloned, target"
+                            idx += 3
+                            continue
+                        i = idx + 1
+                        while all(i < len(testcase)
+                                  and "TreeNode" in str(p_values[i].annotation)
+                                  and testcase[i] is not None
+                                  and not isinstance(testcase[i], list) for testcase in testcases):
+                            i += 1
+                        if i != idx + 1:
+                            add_lib += ", list_to_tree_with_target"
+                            process_input += f"nums{idx}"
+                            for j in range(idx + 1, i):
+                                process_input += f", num{j}"
+                            remain += f"        nodes = list_to_tree_with_target(nums{idx}, " + ", ".join(
+                                [f"num{j}" for j in range(idx + 1, i)]) + ")\n"
+                            remain += f"        root{idx} = nodes[0]\n"
+                            for j in range(idx + 1, i):
+                                remain += f"        node{j} = nodes[{j - idx}]\n"
+                            inputs += f"root{idx}, " + ", ".join([f"node{j}" for j in range(idx + 1, i)])
+                            idx = i
+                        continue
                     process_input += f"nums{idx}"
                     remain += f"        root{idx} = list_to_tree(nums{idx})\n"
                     inputs += f"root{idx}"
@@ -332,6 +367,32 @@ class Python3Writer(LanguageWriter):
                     remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
                     inputs += "heads"
                 else:
+                    if testcases:
+                        if len(testcases[0]) == len(p_values) + 1 and all(
+                                isinstance(testcase[0], list)
+                                and isinstance(testcase[1], int)
+                                for testcase in testcases):
+                            add_lib += ", list_to_linked_list_cycle"
+                            process_input += f"nums{idx}, pos{idx}"
+                            remain += f"        head{idx} = list_to_linked_list_cycle(nums{idx}, pos{idx})\n"
+                            inputs += f"head{idx}"
+                            idx += 2
+                            continue
+                        elif (len(p_values) == 2 and all("ListNode" in str(p.annotation) for p in p_values) and
+                              len(testcases[0]) == 5 and all(isinstance(testcase[0], int) and
+                                                             isinstance(testcase[1], list) and
+                                                             isinstance(testcase[2], list) and
+                                                             isinstance(testcase[3], int) and
+                                                             isinstance(testcase[4], int) for testcase in testcases)):
+                            add_lib += ", list_to_linked_list_intersection"
+                            process_input += "iv, nums1, nums2, idx1, idx2"
+                            remain += ("        head1, head2 = "
+                                       "list_to_linked_list_intersection(iv, nums1, nums2, idx1, idx2)\n")
+                            inputs += "head1, head2"
+                            idx += 5
+                            continue
+                        elif len(p_values) != len(testcases[0]):
+                            logging.debug(f"Testcases: {testcases}, p_values: {p_values}")
                     process_input += f"nums{idx}"
                     remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
                     inputs += f"head{idx}"
@@ -348,6 +409,21 @@ class Python3Writer(LanguageWriter):
                     process_input += f"nums{idx}"
                     remain += f"        node{idx} = list_relation_to_node_neigh(nums{idx})\n"
                     inputs += f"node{idx}"
+            elif ("Node" in str(v.annotation) and "Node" in cs_map and "left" in cs_map["Node"][0][1] and
+                  "right" in cs_map["Node"][0][1] and "next" in cs_map["Node"][0][1]):
+                # special handle Next Nodes
+                exists = True
+                add_lib = "from python.object_libs import list_to_tree_next_node"
+                process_input += "nums"
+                remain += "        root = list_to_tree_next_node(nums)\n"
+                inputs += "root"
+            elif ("Node" in str(v.annotation) and "Node" in cs_map and "next" in cs_map["Node"][0][1] and
+                  "random" in cs_map["Node"][0][1]):
+                exists = True
+                add_lib = "from python.object_libs import list_to_linked_random_list"
+                process_input += "nums"
+                remain += "        head = list_to_linked_random_list(nums)\n"
+                inputs += "head"
             else:
                 process_input += v.name
                 inputs += v.name
@@ -384,6 +460,18 @@ class Python3Writer(LanguageWriter):
             else:
                 remain += ("        res = self.{}({})\n        return node_neigh_to_list_relation(res)"
                            .format(func_name, inputs))
+        elif ("Node" in str(return_anno) and "Node" in cs_map and "left" in cs_map["Node"][0][1] and
+              "right" in cs_map["Node"][0][1] and "next" in cs_map["Node"][0][1]):
+            add_lib += ", tree_next_node_to_list" if exists else \
+                "from python.object_libs import tree_next_node_to_list"
+            remain += ("        res = self.{}({})\n        return tree_next_node_to_list(res)"
+                       .format(func_name, inputs))
+        elif ("Node" in str(return_anno) and "Node" in cs_map and "next" in cs_map["Node"][0][1] and
+              "random" in cs_map["Node"][0][1]):
+            add_lib += ", linked_random_list_to_list" if exists else \
+                "from python.object_libs import linked_random_list_to_list"
+            remain += ("        res = self.{}({})\n        return linked_random_list_to_list(res)"
+                       .format(func_name, inputs))
         else:
             if not modify_in_place:
                 remain += "        return self.{}({})".format(func_name, inputs)
@@ -487,14 +575,14 @@ class Python3Writer(LanguageWriter):
         return import_libs, process_input
 
     @staticmethod
-    def __finalize_solution_code_complex(cs_map, modify_in_place: bool = False):
+    def __finalize_solution_code_complex(cs_map, modify_in_place: bool = False, testcases=None):
         process_input = "pass"
         import_libs = []
         if "Solution" in cs_map:
             methods = cs_map["Solution"]
             if len(methods) == 1:
                 process_input = Python3Writer.__extract_process_input_from_method(
-                    cs_map, modify_in_place, import_libs, methods[0])
+                    cs_map, modify_in_place, import_libs, methods[0], testcases)
         else:
             import_libs.append("from python.object_libs import call_method")
             if "TreeNode" in cs_map:

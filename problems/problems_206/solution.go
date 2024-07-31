@@ -34,5 +34,5 @@ func Solve(input string) interface{} {
 	}
 	head = IntArrayToLinkedList(headIntArray)
 
-	return reverseList(head).LinkedListToIntArray()
+	return LinkedListToIntArray(reverseList(head))
 }

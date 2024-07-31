@@ -8,7 +8,28 @@ import {
     LinkedListToIntArray,
     ListNode
 } from "./models/listnode";
-import {JSONArrayToTreeNode, JSONArrayToTreeNodeArray, TreeNode, TreeNodeToJSONArray} from "./models/treenode";
+import {
+    JSONArrayToTreeNode,
+    JSONArrayToTreeNodeArray,
+    JsonArrayToTreeNodeWithTargets,
+    TreeNode,
+    TreeNodeToJSONArray
+} from "./models/treenode";
+import {
+    NodeNext,
+    JSONArrayToTreeNodeNext,
+    TreeNodeNextToJSONArray
+} from "./models/node.next";
+import {
+    NodeNeighbors,
+    JsonArrayToNodeNeighbors,
+    NodeNeighborsToJsonArray
+} from "./models/node.neighbors";
+import {
+    NodeRandom,
+    JSONArrayToNodeRandom,
+    NodeRandomToJSONArray,
+} from "./models/node.random";
 import {Queue} from "@datastructures-js/queue";
 import {MaxPriorityQueue, MinPriorityQueue, PriorityQueue} from "@datastructures-js/priority-queue";
 
@@ -27,10 +48,20 @@ export function CompareResults(script: vm.Script, inputJson: any, outputJson: an
         TreeNodeToJSONArray,
         JSONArrayToTreeNode,
         JSONArrayToTreeNodeArray,
+        JsonArrayToTreeNodeWithTargets,
         Queue,
         PriorityQueue,
         MinPriorityQueue,
         MaxPriorityQueue,
+        NodeNext,
+        JSONArrayToTreeNodeNext,
+        TreeNodeNextToJSONArray,
+        NodeNeighbors,
+        JsonArrayToNodeNeighbors,
+        NodeNeighborsToJsonArray,
+        NodeRandom,
+        JSONArrayToNodeRandom,
+        NodeRandomToJSONArray,
     };
     vm.createContext(context); // Contextify the object.
     script.runInContext(context, {timeout: 3000});

@@ -29,13 +29,12 @@ public class Solution extends BaseSolution {
     @Override
     public Object solve(String[] inputJsonValues) {
         int iv = Integer.parseInt(inputJsonValues[0]);
-        int[] arrA = jsonArrayToIntArray(inputJsonValues[1]);
+		int[] arrA = jsonArrayToIntArray(inputJsonValues[1]);
 		int[] arrB = jsonArrayToIntArray(inputJsonValues[2]);
-        int idxA = Integer.parseInt(inputJsonValues[3]);
-        int idxB = Integer.parseInt(inputJsonValues[4]);
-        ListNode[] nodes = ListNode.IntArrayToIntersectionListNode(arrA, arrB, iv, idxA, idxB);
-        ListNode headA = nodes[0], headB = nodes[1];
-        ListNode result = getIntersectionNode(headA, headB);
-        return JSON.toJSON(result != null ? result.val : null);
+		int skipA = Integer.parseInt(inputJsonValues[3]);
+		int skipB = Integer.parseInt(inputJsonValues[4]);
+		ListNode[] nodes = ListNode.IntArrayToIntersectionListNode(arrA, arrB, iv, skipA, skipB);
+		ListNode headA = nodes[0], headB = nodes[1];
+        return JSON.toJSON(ListNode.LinkedListToIntArray(getIntersectionNode(headA, headB)));
     }
 }

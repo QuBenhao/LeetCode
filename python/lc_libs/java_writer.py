@@ -64,6 +64,7 @@ class JavaWriter(LanguageWriter):
         import_part = True
         variables = []
         code = code if code else code_default
+        testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
         if "object will be instantiated and called as such:" in code:
             return_part = "ans"
             parse_input.append("String[] operators = jsonArrayToStringArray(inputJsonValues[0]);")
@@ -77,7 +78,7 @@ class JavaWriter(LanguageWriter):
                         "{"):
                     class_name = strip_line.split("{")[0].split("class ")[-1].strip()
                 elif strip_line.startswith("public ") and strip_line.endswith("{"):
-                    vs, pi, ai, rp, func_name, rt = JavaWriter.__parse_java_method(strip_line)
+                    vs, pi, ai, rp, func_name, rt = JavaWriter.__parse_java_method(strip_line, code_default)
                     variables.extend(vs)
                     import_packages.extend(ai)
                     if func_name == class_name:
@@ -119,7 +120,7 @@ class JavaWriter(LanguageWriter):
                     strip_line = line.strip()
                     additional_import = set()
                     if strip_line.startswith("public ") and strip_line.endswith("{"):
-                        vs, pi, ai, rp, _, _ = JavaWriter.__parse_java_method(strip_line)
+                        vs, pi, ai, rp, _, _ = JavaWriter.__parse_java_method(strip_line, code_default, testcases)
                         variables.extend(vs)
                         parse_input.extend(pi)
                         additional_import.update(ai)
@@ -201,7 +202,7 @@ class JavaWriter(LanguageWriter):
         return "\n".join(final_codes), problem_id
 
     @staticmethod
-    def __process_variable_type(input_name: str, variable_name: str, rt_type: str) -> str:
+    def __process_variable_type(input_name: str, variable_name: str, rt_type: str, code_default: str) -> str:
         match rt_type:
             case "int":
                 return f"{rt_type} {variable_name} = Integer.parseInt({input_name});"
@@ -242,34 +243,109 @@ class JavaWriter(LanguageWriter):
             case "char":
                 return (f"{rt_type} {variable_name} = {input_name}.length() > 1 ?"
                         f" {input_name}.charAt(1) : {input_name}.charAt(0);")
+            case "Node":
+                if "Node left;" in code_default and "Node right;" in code_default and "Node next;" in code_default:
+                    return f"{rt_type} {variable_name} = Node.ArrayToTreeNodeNext({input_name});"
+                elif "List<Node> neighbors;" in code_default:
+                    return (f"{rt_type} {variable_name} ="
+                            f" Node.ArrayToNodeNeighbors(jsonArrayToInt2DArray({input_name}));")
+                elif "Node random;" in code_default:
+                    return f"{rt_type} {variable_name} = Node.JsonArrayToNodeRandom({input_name});"
+                logging.debug(f"Node type not implemented yet, variable_name: {variable_name},"
+                              f" rt_type: {rt_type}, code: [{code_default}]")
             case "":
+                logging.debug(f"Empty Java type, variable_name: {variable_name},"
+                              f" rt_type: {rt_type}, code: [{code_default}]")
                 return ""
             case _:
                 logging.warning("Java type not Implemented yet: {}".format(rt_type))
         return f"{rt_type} {variable_name} = FIXME({input_name})"
 
     @staticmethod
-    def __parse_java_method(strip_line: str):
+    def __parse_java_method(strip_line: str, code_default: str, testcases=None):
         variables = []
         parse_input = []
         additional_import = set()
         return_func = strip_line.split("(")[0].split(" ")[-1]
-        return_type = strip_line.split("(")[0].split(" ")[1]
+        return_type = strip_line.split("(")[0].split(" ")[-2]
         input_parts = strip_line.split("(")[1].split(")")[0].strip().split(",")
-        last = ""
-        for i, input_part in enumerate(input_parts):
+        last = [""]
+        i = 0
+        while i < len(input_parts):
+            input_part = input_parts[i]
             var_split = input_part.strip().split(" ")
-            if len(var_split) < 2:
-                rt_type, variable = last, var_split[0]
-            else:
-                rt_type, variable = var_split[0], var_split[1]
-                last = rt_type
+            rt_type, variable = JavaWriter._get_variable(var_split, last)
+            if testcases and rt_type == "TreeNode":
+                if len(input_parts) == len(testcases[0]) + 1:
+                    parse_input.append("int targetVal = Integer.parseInt(inputJsonValues[1]);")
+                    parse_input.append(
+                        "TreeNode[] nodes = TreeNode.ArrayToTreeNodeWithTargets(inputJsonValues[0], targetVal);")
+                    parse_input.append("TreeNode original = nodes[0], target = nodes[1];")
+                    parse_input.append("TreeNode cloned = TreeNode.ArrayToTreeNode(inputJsonValues[0]);")
+                    variables.append("original")
+                    variables.append("cloned")
+                    variables.append("target")
+                    i += 3
+                    continue
+                idx = i + 1
+                while all(idx < len(testcase)
+                          and "TreeNode" == JavaWriter._get_variable(input_parts[idx].split(" "), last)[0]
+                          and testcase[idx] is not None
+                          and not isinstance(testcase[idx], list) for testcase in testcases):
+                    idx += 1
+                if idx != i + 1:
+                    variables.append(variable)
+                    for j in range(i + 1, idx):
+                        parse_input.append(f"int targetVal{j} = Integer.parseInt(inputJsonValues[{j}]);")
+                        variables.append(JavaWriter._get_variable(input_parts[j].split(" "), last)[1])
+                    parse_input.append(
+                        f"TreeNode[] nodes = TreeNode.ArrayToTreeNodeWithTargets(inputJsonValues[{i}], "
+                        + ", ".join([f"targetVal{j}" for j in range(i + 1, idx)]) + ");")
+                    parse_input.append(
+                        f"TreeNode {JavaWriter._get_variable(input_parts[i].split(" "), last)[1]} = nodes[0], "
+                        + ", ".join([f"{JavaWriter._get_variable(
+                            input_parts[j].split(' '), last)[1]} = nodes[{j - i}]" for j in range(i + 1, idx)]) + ";")
+                    i = idx
+                    continue
             variables.append(variable)
-            parse_input.append(JavaWriter.__process_variable_type(f"inputJsonValues[{i}]", variable, rt_type))
+            parse_input.append(JavaWriter.__process_variable_type(f"inputJsonValues[{i}]",
+                                                                  variable, rt_type, code_default))
             if "ListNode" in rt_type:
+                if testcases:
+                    if len(testcases[0]) == len(input_parts) + 1 and all(
+                            isinstance(testcase[0], list)
+                            and isinstance(testcase[1], int)
+                            for testcase in testcases):
+                        parse_input.clear()
+                        parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[0]", "arr", "int[]", ""))
+                        parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[1]", "pos", "int", ""))
+                        parse_input.append("ListNode head = ListNode.IntArrayToLinkedListCycle(arr, pos);")
+                        i += 2
+                        continue
+                    elif (len(input_parts) == 2 and len(testcases[0]) == 5
+                          and all(isinstance(testcase[0], int) and isinstance(testcase[1], list) and
+                                  isinstance(testcase[2], list) and isinstance(testcase[3], int) and
+                                  isinstance(testcase[4], int) for testcase in testcases)):
+                        parse_input.clear()
+                        parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[0]", 'iv', "int", ""))
+                        parse_input.append(
+                            JavaWriter.__process_variable_type("inputJsonValues[1]", 'arrA', "int[]", ""))
+                        parse_input.append(
+                            JavaWriter.__process_variable_type("inputJsonValues[2]", 'arrB', "int[]", ""))
+                        parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[3]", 'skipA', "int", ""))
+                        parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[4]", 'skipB', "int", ""))
+                        parse_input.append(
+                            "ListNode[] nodes = ListNode.IntArrayToIntersectionListNode(arrA, arrB, iv, skipA, skipB);")
+                        parse_input.append("ListNode headA = nodes[0], headB = nodes[1];")
+                        variables.append("headB")
+                        i += 5
+                        continue
+                    elif len(input_parts) != len(testcases[0]):
+                        logging.debug(f"Testcases: {testcases}, variables: {input_parts}")
                 additional_import.add("import qubhjava.models.ListNode;")
             elif "TreeNode" in rt_type:
                 additional_import.add("import qubhjava.models.TreeNode;")
+            i += 1
         if "ListNode" in return_type:
             additional_import.add("import qubhjava.models.ListNode;")
             return_part = "ListNode.LinkedListToIntArray({}({}))".format(return_func, ", ".join(variables))
@@ -279,6 +355,27 @@ class JavaWriter(LanguageWriter):
         elif return_type == "void":
             parse_input.append("{}({});".format(return_func, ", ".join(variables)))
             return_part = ", ".join(variables)
+        elif "Node" in return_type:
+            if "Node left;" in code_default and "Node right;" in code_default and "Node next;" in code_default:
+                additional_import.add("import qubhjava.models.node.next.Node;")
+                return_part = "Node.TreeNodeNextToArray({}({}))".format(return_func, ", ".join(variables))
+            elif "List<Node> neighbors;" in code_default:
+                additional_import.add("import qubhjava.models.node.neighbors.Node;")
+                return_part = "Node.NodeNeighborsToArray({}({}))".format(return_func, ", ".join(variables))
+            elif "Node random;" in code_default:
+                additional_import.add("import qubhjava.models.node.random.Node;")
+                return_part = "Node.NodeRandomToJsonArray({}({}))".format(return_func, ", ".join(variables))
+            else:
+                return_part = "{}({})".format(return_func, ", ".join(variables))
         else:
             return_part = "{}({})".format(return_func, ", ".join(variables))
         return variables, parse_input, additional_import, return_part, return_func, return_type
+
+    @staticmethod
+    def _get_variable(var_split, last: list):
+        if len(var_split) < 2:
+            rt_type, variable = last[0], var_split[0]
+        else:
+            rt_type, variable = var_split[-2], var_split[-1]
+            last[0] = rt_type
+        return rt_type, variable

@@ -50,9 +50,15 @@ dependencies = [
  "serde_json",
  "solution_1",
  "solution_102",
+ "solution_116",
+ "solution_117",
+ "solution_133",
+ "solution_1379",
+ "solution_138",
  "solution_169",
  "solution_2",
  "solution_215",
+ "solution_236",
  "solution_239",
  "solution_2740",
  "solution_2766",
@@ -233,6 +239,56 @@ dependencies = [
 ]
 
 [[package]]
+name = "solution_116"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "solution_117"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "solution_133"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "solution_1379"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "solution_138"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
 name = "solution_169"
 version = "0.1.0"
 dependencies = [
@@ -254,6 +310,16 @@ dependencies = [
 
 [[package]]
 name = "solution_215"
+version = "0.1.0"
+dependencies = [
+ "library",
+ "rand",
+ "regex",
+ "serde_json",
+]
+
+[[package]]
+name = "solution_236"
 version = "0.1.0"
 dependencies = [
  "library",

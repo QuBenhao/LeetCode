@@ -15,8 +15,7 @@ func IntArrayToLinkedList(arr []int) *ListNode {
 	return dummy.Next
 }
 
-func (listNode *ListNode) LinkedListToIntArray() []int {
-	var arr []int
+func LinkedListToIntArray(listNode *ListNode) (arr []int) {
 	for node := listNode; node != nil; node = node.Next {
 		arr = append(arr, node.Val)
 	}

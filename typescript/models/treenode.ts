@@ -14,8 +14,8 @@ function JSONArrayToTreeNode(jsonArray: any): TreeNode | null {
     return JsonArrayToTreeNodeWithTargets(jsonArray)[0];
 }
 
-function JsonArrayToTreeNodeWithTargets(jsonArray: any, ...targets: number[]): TreeNode[] {
-    const ans: TreeNode[] = Array.from({length: targets.length + 1}, () => null);
+function JsonArrayToTreeNodeWithTargets(jsonArray: any, ...targets: number[]): Array<TreeNode | null> {
+    const ans: Array<TreeNode | null> = Array.from({length: targets.length + 1}, () => null);
     if (jsonArray == null || jsonArray.length === 0 || jsonArray[0] == null) {
         return ans;
     }
@@ -91,4 +91,4 @@ function TreeNodeToJSONArray(root: TreeNode | null): Array<number | null> {
     return ans;
 }
 
-export {TreeNode, JSONArrayToTreeNode, TreeNodeToJSONArray, JSONArrayToTreeNodeArray};
+export {TreeNode, JSONArrayToTreeNode, TreeNodeToJSONArray, JSONArrayToTreeNodeArray, JsonArrayToTreeNodeWithTargets};

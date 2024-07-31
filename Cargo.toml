@@ -13,6 +13,12 @@ members = [
 	"problems/problems_3106",
 	"problems/problems_34",
 	"problems/problems_102",
+    "problems/problems_1379",
+    "problems/problems_236",
+	"problems/problems_116",
+	"problems/problems_117",
+	"problems/problems_133",
+	"problems/problems_138",
 	"problems/problems_699",
 	"problems/problems_39",
 	"problems/problems_215",
@@ -60,6 +66,12 @@ solution_239 = { path = "problems/problems_239", features = ["solution_239"] }
 solution_3106 = { path = "problems/problems_3106", features = ["solution_3106"] }
 solution_34 = { path = "problems/problems_34", features = ["solution_34"] }
 solution_102 = { path = "problems/problems_102", features = ["solution_102"] }
+solution_1379 = { path = "problems/problems_1379", features = ["solution_1379"] }
+solution_236 = { path = "problems/problems_236", features = ["solution_236"] }
+solution_116 = { path = "problems/problems_116", features = ["solution_116"] }
+solution_117 = { path = "problems/problems_117", features = ["solution_117"] }
+solution_133 = { path = "problems/problems_133", features = ["solution_133"] }
+solution_138 = { path = "problems/problems_138", features = ["solution_138"] }
 solution_699 = { path = "problems/problems_699", features = ["solution_699"] }
 solution_39 = { path = "problems/problems_39", features = ["solution_39"] }
 solution_215 = { path = "problems/problems_215", features = ["solution_215"] }

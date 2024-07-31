@@ -28,7 +28,7 @@ export function Solve(inputJsonElement: string): any {
 	const arrB: number[] = JSON.parse(inputValues[2]);
 	const skipA: number = JSON.parse(inputValues[3]);
 	const skipB: number = JSON.parse(inputValues[4]);
-	const [headA, headB] = IntArrayToIntersectionLinkedList(arrA, arrB, iv, skipA, skipB);
+	const [headA, headB] = IntArrayToIntersectionLinkedList(iv, arrA, arrB, skipA, skipB);
 	const result: ListNode | null = getIntersectionNode(headA, headB);
-	return result ? result.val : null;
+	return LinkedListToIntArray(result);
 }

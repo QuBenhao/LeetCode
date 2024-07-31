@@ -62,8 +62,5 @@ func Solve(inputJsonValues string) interface{} {
 	headA, headB = heads[0], heads[1]
 
 	result := getIntersectionNode(headA, headB)
-	if result == nil {
-		return nil
-	}
-	return result.Val
+	return LinkedListToIntArray(result)
 }

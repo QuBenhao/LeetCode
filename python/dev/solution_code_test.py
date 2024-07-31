@@ -110,6 +110,7 @@ def test_solution(args):
     for test_problem, codes in problems.items():
         if limit and test_problem != limit:
             continue
+        print(f"Testing problem {test_problem}")
         for code in codes:
             lang: str = code["langSlug"]
             if languages and lang not in languages:
@@ -126,7 +127,7 @@ def test_solution(args):
                     encoding="utf-8",
             ) as f:
                 try:
-                    f.writelines(obj.write_solution(code["code"], None, test_problem))
+                    f.writelines(obj.write_solution(code["code"], None, test_problem, "problems"))
                     logging.info(f"Code snippet for problem {test_problem} in language {lang} written successfully")
                     code_counter[lang] += 1
                 except NotImplementedError as _:
@@ -178,6 +179,6 @@ def test_submit(args):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format=LOGGING_FORMAT, datefmt=DATE_FORMAT)
-    args = get_args()
-    args.func(args)
+    arguments = get_args()
+    arguments.func(arguments)
     sys.exit(0)

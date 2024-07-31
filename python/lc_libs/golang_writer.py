@@ -66,13 +66,14 @@ class GolangWriter(LanguageWriter):
         rts = []
         func_names = []
         structs_map = dict()
+        testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
         for i, line in enumerate(code_default.split("\n")):
             line = line.strip()
             if line.startswith("func "):
                 rts.append(line.split("{")[0].split(")")[-1].strip())
                 its.append(
                     GolangWriter.__process_inputs(
-                        code_default, line.split("(")[1].split(")")[0], structs_map
+                        code_default, line.split("(")[1].split(")")[0], structs_map, False, testcases,
                     )
                 )
                 func_names.append(line.split("(")[0].split("func ")[-1].strip())
@@ -90,6 +91,7 @@ class GolangWriter(LanguageWriter):
                             tmp.split("(")[1].split(")")[0],
                             structs_map,
                             True,
+                            testcases,
                         )
                         rt = tmp.split("{")[0].split(")")[-1].strip()
                         structs_map[struct_name]["construct"] = (
@@ -105,6 +107,7 @@ class GolangWriter(LanguageWriter):
                             tmp.split("(")[2].split(")")[0],
                             structs_map,
                             True,
+                            testcases,
                         )
                         rt = tmp.split("{")[0].split(")")[-1].strip()
                         structs_map[struct_name]["funcs"].append(
@@ -203,8 +206,7 @@ class GolangWriter(LanguageWriter):
                 case "*TreeNode":
                     return_func_name = "TreeToArray"
                 case "*ListNode":
-                    return_func_name = return_func_var + ".LinkedListToIntArray"
-                    return_func_var = ""
+                    return_func_name = "LinkedListToIntArray"
                 case "*Node":
                     return_func_name = "ToBeImplemented"
                     if (
@@ -331,7 +333,7 @@ class GolangWriter(LanguageWriter):
 
     @staticmethod
     def __process_inputs(
-            code_default: str, input_str: str, struct_dict: dict, struct_func: bool = False
+            code_default: str, input_str: str, struct_dict: dict, struct_func: bool, testcases=None
     ) -> Tuple[set, str, str, str]:
         res = []
         imports_libs = set()
@@ -365,6 +367,14 @@ class GolangWriter(LanguageWriter):
                 res.append(tp)
                 res.append("\n")
                 first = True
+        list_type_vars_new = []
+        for vars_type in list_type_vars:
+            if list_type_vars_new and list_type_vars_new[-1][-1] == vars_type[-1]:
+                list_type_vars_new[-1] = list_type_vars_new[-1][:-1]
+                list_type_vars_new[-1].extend(vars_type)
+            else:
+                list_type_vars_new.append(vars_type)
+        list_type_vars = list_type_vars_new
         counts = 0
         if struct_func:
             variables = []
@@ -388,6 +398,72 @@ class GolangWriter(LanguageWriter):
             else:
                 match tp:
                     case "*ListNode":
+                        if testcases:
+                            if len(testcases[0]) == len(vrs) + 1 and all(
+                                    isinstance(testcase[0], list)
+                                    and isinstance(testcase[1], int)
+                                    for testcase in testcases):
+                                for j, var in enumerate(vrs):
+                                    json_parse.append(f"\tvar {var}IntArray []int\n")
+                                    json_parse.append(
+                                        f"\tif err := json.Unmarshal([]byte(inputValues[{count + j}]), &"
+                                        + var
+                                        + "IntArray); err != nil {\n\t\tlog.Fatal(err)\n\t}\n"
+                                    )
+                                    json_parse.append(f"\t var {var}Pos int\n")
+                                    json_parse.append(
+                                        f"\tif err := json.Unmarshal([]byte(inputValues[{count + len(vrs)}]),"
+                                        f" &{var}Pos); err != nil {{\n\t\tlog.Fatal(err)\n\t}}\n"
+                                    )
+                                    json_parse.append(
+                                        f"\t{var} = IntArrayToLinkedListCycle({var}IntArray, {var}Pos)\n"
+                                    )
+                                imports_libs.add('\t. "leetCode/golang/models"')
+                                imports_libs.add('\t"encoding/json"')
+                                imports_libs.add('\t"log"')
+                                count += 2
+                                continue
+                            elif (len(vrs) == 2 and len(testcases[0]) == 5
+                                  and all(isinstance(testcase[0], int) and
+                                          isinstance(testcase[1], list) and
+                                          isinstance(testcase[2], list) and
+                                          isinstance(testcase[3], int) and
+                                          isinstance(testcase[4], int) for testcase in
+                                          testcases)):
+                                json_parse.append("\tvar iv, idx1, idx2 int\n\tvar headA, headB *ListNode\n")
+                                json_parse.append(
+                                    f"\tif err := json.Unmarshal([]byte(inputValues[{count}]), &iv); err != nil {{\n"
+                                    f"\t\tlog.Fatal(err)\n"
+                                    f"\t}}\n"
+                                )
+                                json_parse.append(f"\tvar headAIntArray []int\n")
+                                json_parse.append(
+                                    f"\tif err := json.Unmarshal([]byte(inputValues[{count + 1}]), &headAIntArray);"
+                                    f" err != nil {{\n\t\tlog.Fatal(err)\n\t}}\n"
+                                )
+                                json_parse.append(f"\tvar headBIntArray []int\n")
+                                json_parse.append(
+                                    f"\tif err := json.Unmarshal([]byte(inputValues[{count + 2}]), &headBIntArray);"
+                                    f" err != nil {{\n\t\tlog.Fatal(err)\n\t}}\n"
+                                )
+                                json_parse.append(
+                                    f"\tif err := json.Unmarshal([]byte(inputValues[{count + 3}]), &idx1);"
+                                    f" err != nil {{\n\t\tlog.Fatal(err)\n\t}}\n"
+                                )
+                                json_parse.append(
+                                    f"\tif err := json.Unmarshal([]byte(inputValues[{count + 4}]), &idx2);"
+                                    f" err != nil {{\n\t\tlog.Fatal(err)\n\t}}\n"
+                                )
+                                json_parse.append("\theads := IntArrayToLinkedListIntersection(headAIntArray,"
+                                                  " headBIntArray, iv, idx1, idx2)\n")
+                                json_parse.append("\theadA, headB = heads[0], heads[1]\n")
+                                imports_libs.add('\t. "leetCode/golang/models"')
+                                imports_libs.add('\t"encoding/json"')
+                                imports_libs.add('\t"log"')
+                                count += 5
+                                continue
+                            elif len(vrs) != len(testcases[0]):
+                                logging.debug(f"Testcases: {testcases}, variables: {vrs}")
                         for j, var in enumerate(vrs):
                             json_parse.append(f"\tvar {var}IntArray []int\n")
                             json_parse.append(
@@ -420,11 +496,54 @@ class GolangWriter(LanguageWriter):
                         imports_libs.add('\t"encoding/json"')
                         imports_libs.add('\t"log"')
                     case "*TreeNode":
-                        for j, var in enumerate(vrs):
-                            json_parse.append(
-                                f"\t{var} = ArrayToTree(inputValues[{count + j}])\n"
-                            )
                         imports_libs.add('\t. "leetCode/golang/models"')
+                        if testcases:
+                            if len(vrs) == len(testcases[0]) + 1:
+                                imports_libs.add('\t"encoding/json"')
+                                imports_libs.add('\t"log"')
+                                json_parse.append("\tvar targetVal int\n")
+                                json_parse.append(
+                                    f"\tif err := json.Unmarshal([]byte(inputValues[1]), &targetVal); err != nil {{\n"
+                                    f"\t\tlog.Fatal(err)\n"
+                                    f"\t}}\n"
+                                )
+                                json_parse.append(f"\tnodes := ArrayToTreeAndTargets(inputValues[0], targetVal)\n")
+                                json_parse.append(f"\t{vrs[0]}, {vrs[-1]} = nodes[0], nodes[1]\n")
+                                json_parse.append(f"\t{vrs[1]} = ArrayToTree(inputValues[0])\n")
+                                count += len(vrs)
+                                continue
+                            elif len(vrs) > 1 and any(t is not None and not isinstance(t, list)
+                                                      for testcase in testcases for t in testcase):
+                                imports_libs.add('\t"encoding/json"')
+                                imports_libs.add('\t"log"')
+                                j = last_idx = 0
+
+                                while j <= len(vrs):
+                                    if j < len(vrs) and any(testcase[j] is not None
+                                                            and not isinstance(testcase[j], list)
+                                                            for testcase in testcases):
+                                        json_parse.append(f"\tvar targetVal{count + j} int\n")
+                                        json_parse.append(
+                                            f"\tif err := json.Unmarshal([]byte(inputValues[{count + j}]),"
+                                            f" &targetVal{count + j} ); err != nil {{\n"
+                                            f"\t\tlog.Fatal(err)\n"
+                                            f"\t}}\n"
+                                        )
+                                    elif j:
+                                        json_parse.append(f"\tnodes := ArrayToTreeAndTargets(inputValues[{last_idx}], "
+                                                          + ", ".join([f"targetVal{count + idx}"
+                                                                       for idx in range(last_idx + 1, j)])
+                                                          + ")\n")
+                                        json_parse.append(f"\t{vrs[last_idx]},"
+                                                          f" {', '.join(vrs[idx] for idx in range(last_idx + 1, j))}"
+                                                          f" = nodes[0], {', '.join(
+                                                              f'nodes[{idx}]' for idx in range(1, j - last_idx))}\n")
+                                        last_idx = j
+                                    j += 1
+                                count += len(vrs)
+                                continue
+                        for j, var in enumerate(vrs):
+                            json_parse.append(f"\t{var} = ArrayToTree(inputValues[{count + j}])\n")
                     case "[]*TreeNode":
                         for j, var in enumerate(vrs):
                             json_parse.append(
@@ -439,7 +558,7 @@ class GolangWriter(LanguageWriter):
                         ):
                             for j, var in enumerate(vrs):
                                 json_parse.append(
-                                    f"\t{var} = ArrayToTree(inputValues[{count + j}])\n"
+                                    f"\t{var} = ArrayToTreeNext(inputValues[{count + j}])\n"
                                 )
                             imports_libs.add('\t. "leetCode/golang/tree_next"')
                         elif "Neighbors []*Node" in code_default:

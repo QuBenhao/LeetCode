@@ -58,5 +58,5 @@ func Solve(input string) interface{} {
 	}
 	l2 = IntArrayToLinkedList(l2IntArray)
 
-	return addTwoNumbers(l1, l2).LinkedListToIntArray()
+	return LinkedListToIntArray(addTwoNumbers(l1, l2))
 }

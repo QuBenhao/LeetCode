@@ -11,7 +11,7 @@ import . "leetCode/golang/tree_next"
 
 func TestTreeNodeNext(t *testing.T) {
 	inputStr := "[1,2,3,4,5,null,7]"
-	node := ArrayToTree(inputStr)
+	node := ArrayToTreeNext(inputStr)
 	assert.Equal(t, 1, node.Val)
 	assert.Equal(t, 2, node.Left.Val)
 	assert.Equal(t, 3, node.Right.Val)
