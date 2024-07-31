@@ -73,6 +73,12 @@ func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) 
 			}
 		}
 	case []int:
+		if v, ok := want.(float64); ok {
+			return ast.Equal(int(v), resp.([]int)[0])
+		}
+		if want == nil {
+			return ast.Nil(resp)
+		}
 		wantArray := want.([]interface{})
 		respIntArray := resp.([]int)
 		if !ast.Equalf(len(wantArray), len(respIntArray), "Expected: [%v], actual: [%v]", want, resp) {

@@ -44,5 +44,5 @@ func Solve(input string) interface{} {
 	}
 	list2 = IntArrayToLinkedList(list2IntArray)
 
-	return mergeTwoLists(list1, list2).LinkedListToIntArray()
+	return LinkedListToIntArray(mergeTwoLists(list1, list2))
 }
