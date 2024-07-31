@@ -367,6 +367,32 @@ class Python3Writer(LanguageWriter):
                     remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
                     inputs += "heads"
                 else:
+                    if testcases:
+                        if len(testcases[0]) == len(p_values) + 1 and all(
+                                isinstance(testcase[0], list)
+                                and isinstance(testcase[1], int)
+                                for testcase in testcases):
+                            add_lib += ", list_to_linked_list_cycle"
+                            process_input += f"nums{idx}, pos{idx}"
+                            remain += f"        head{idx} = list_to_linked_list_cycle(nums{idx}, pos{idx})\n"
+                            inputs += f"head{idx}"
+                            idx += 2
+                            continue
+                        elif (len(p_values) == 2 and all("ListNode" in str(p.annotation) for p in p_values) and
+                              len(testcases[0]) == 5 and all(isinstance(testcase[0], int) and
+                                                             isinstance(testcase[1], list) and
+                                                             isinstance(testcase[2], list) and
+                                                             isinstance(testcase[3], int) and
+                                                             isinstance(testcase[4], int) for testcase in testcases)):
+                            add_lib += ", list_to_linked_list_intersection"
+                            process_input += "iv, nums1, nums2, idx1, idx2"
+                            remain += ("        head1, head2 = "
+                                       "list_to_linked_list_intersection(iv, nums1, nums2, idx1, idx2)\n")
+                            inputs += "head1, head2"
+                            idx += 5
+                            continue
+                        elif len(p_values) != len(testcases[0]):
+                            logging.debug(f"Testcases: {testcases}, p_values: {p_values}")
                     process_input += f"nums{idx}"
                     remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
                     inputs += f"head{idx}"
