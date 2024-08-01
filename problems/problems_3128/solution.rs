@@ -4,7 +4,26 @@ pub struct Solution;
 
 impl Solution {
     pub fn number_of_right_triangles(grid: Vec<Vec<i32>>) -> i64 {
-
+		let m: usize = grid.len();
+		let n: usize = grid[0].len();
+		let mut row_count: Vec<i64> = vec![0; m];
+		let mut col_count: Vec<i64> = vec![0; n];
+		for i in 0..m {
+			for j in 0..n {
+				row_count[i] += grid[i][j] as i64;
+				col_count[j] += grid[i][j] as i64;
+			}
+		}
+		let mut ans: i64 = 0;
+		for i in 0..m {
+			for j in 0..n {
+				if grid[i][j] == 0 {
+					continue;
+				}
+				ans += (row_count[i] - 1) * (col_count[j] - 1);
+			}
+		}
+		ans
     }
 }
 
