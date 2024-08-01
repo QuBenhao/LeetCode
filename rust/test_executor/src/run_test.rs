@@ -27,6 +27,7 @@ pub fn run_test(problem_id: &str, problem_folder: &str, solve: fn(String) -> Val
             let inputs_clone = inputs.clone();
             let expected_outputs_clone = expected_outputs.clone();
             panic_after(Duration::from_secs(5), move || {
+                println!("Test Case {}: {}", i, inputs_clone[i].clone().replace("\n", ","));
                 let result = solve(inputs_clone[i].to_string());
                 let check = panic::catch_unwind(|| {
                     compare_general(&result, &expected_outputs_clone[i]);
