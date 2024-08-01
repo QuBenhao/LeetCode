@@ -1,6 +1,8 @@
 # LeetCode
 
-Algorithms in LeetCode by Benhao
+Debugging LeetCode locally, Automatic daily problems generator, submit solutions directly and more!
+
+**Algorithms in LeetCode by Benhao**
 
 # Table of Content
 
