@@ -384,7 +384,7 @@ class RustWriter(LanguageWriter):
                 if dependencies_start:
                     if "path =" in line and "rust/" not in line:
                         pf = line.split("/")[0].split("\"")[-1].strip()
-                        pi = line.split("_")[-1].split("\"")[0].strip()
+                        pi = line.split(f"/{pf}_")[-1].split("\"")[0].strip()
                         if (pi, pf) in remain_dependencies:
                             remain_dependencies.remove((pi, pf))
                 if line_idx < len(splits) - 1 or line:
