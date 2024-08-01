@@ -8,7 +8,23 @@ using json = nlohmann::json;
 class Solution {
 public:
     long long numberOfRightTriangles(vector<vector<int>>& grid) {
-        
+        int m = static_cast<int>(grid.size()), n = static_cast<int>(grid[0].size());
+        vector<int> row_count = vector<int>(m, 0), col_count = vector<int>(n, 0);
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                row_count[i] += grid[i][j];
+                col_count[j] += grid[i][j];
+            }
+        }
+        long long ans = 0LL;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] > 0) {
+                    ans += (static_cast<long long>(row_count[i]) - 1) * (static_cast<long long>(col_count[j]) - 1);
+                }
+            }
+        }
+        return ans;
     }
 };
 
