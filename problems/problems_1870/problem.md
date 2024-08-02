@@ -1,4 +1,4 @@
-# 1870. Minimum Speed to Arrive on Time
+# 1870. Minimum Speed to Arrive on Time [Rating: 1675.76]
 
 You are given a floating-point number `hour`, representing the amount of time you have to reach the office. To commute to the office, you must take `n` trains in sequential order. You are also given an integer array `dist` of length `n`, where `dist[i]` describes the distance (in kilometers) of the `ith` train ride.
 

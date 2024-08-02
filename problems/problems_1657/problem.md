@@ -1,4 +1,4 @@
-# 1657. Determine if Two Strings Are Close
+# 1657. Determine if Two Strings Are Close [Rating: 1530.47]
 
 Two strings are considered **close** if you can attain one from the other using the following operations:
 

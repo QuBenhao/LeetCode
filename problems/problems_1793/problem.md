@@ -1,4 +1,4 @@
-# 1793. Maximum Score of a Good Subarray
+# 1793. Maximum Score of a Good Subarray [Rating: 1945.75]
 
 You are given an array of integers `nums` **(0-indexed)** and an integer `k`.
 

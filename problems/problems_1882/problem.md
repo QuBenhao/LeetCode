@@ -1,4 +1,4 @@
-# 1882. Process Tasks Using Servers
+# 1882. Process Tasks Using Servers [Rating: 1979.11]
 
 You are given two **0-indexed** integer arrays `servers` and `tasks` of lengths `n` and `m` respectively. `servers[i]` is the **weight** of the `ith` server, and `tasks[j]` is the **time needed** to process the `jth` task **in seconds**.
 

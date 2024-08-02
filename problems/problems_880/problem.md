@@ -1,4 +1,4 @@
-# 880. Decoded String at Index
+# 880. Decoded String at Index [Rating: 2010.55]
 
 An encoded string `S` is given. To find and write the *decoded* string to a tape, the encoded string is read **one character at a time** and the following steps are taken:
 

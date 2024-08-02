@@ -1,4 +1,4 @@
-# 1844. Replace All Digits with Characters
+# 1844. Replace All Digits with Characters [Rating: 1300.90]
 
 You are given a **0-indexed** string `s` that has lowercase English letters in its **even** indices and digits in its **odd** indices.
 

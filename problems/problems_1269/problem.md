@@ -1,4 +1,4 @@
-# 1269. Number of Ways to Stay in the Same Place After Some Steps
+# 1269. Number of Ways to Stay in the Same Place After Some Steps [Rating: 1854.01]
 
 You have a pointer at index `0` in an array of size `arrLen`. At each step, you can move 1 position to the left, 1 position to the right in the array or stay in the same place (The pointer should not be placed outside the array at any time).
 

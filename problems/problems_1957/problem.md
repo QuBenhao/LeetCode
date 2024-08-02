@@ -1,4 +1,4 @@
-# 1957. Delete Characters to Make Fancy String
+# 1957. Delete Characters to Make Fancy String [Rating: 1357.66]
 
 A **fancy string** is a string where no **three** **consecutive** characters are equal.
 

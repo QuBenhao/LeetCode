@@ -1,4 +1,4 @@
-# 1801. Number of Orders in the Backlog
+# 1801. Number of Orders in the Backlog [Rating: 1711.12]
 
 You are given a 2D integer array `orders`, where each `orders[i] = [pricei, amounti, orderTypei]` denotes that `amounti`orders have been placed of type `orderTypei` at the price `pricei`. The `orderTypei` is:
 

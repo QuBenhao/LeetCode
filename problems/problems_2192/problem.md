@@ -1,4 +1,4 @@
-# 2192. All Ancestors of a Node in a Directed Acyclic Graph
+# 2192. All Ancestors of a Node in a Directed Acyclic Graph [Rating: 1787.86]
 
 <p>You are given a positive integer <code>n</code> representing the number of nodes of a <strong>Directed Acyclic Graph</strong> (DAG). The nodes are numbered from <code>0</code> to <code>n - 1</code> (<strong>inclusive</strong>).</p>
 

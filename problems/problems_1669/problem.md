@@ -1,4 +1,4 @@
-# 1669. Merge In Between Linked Lists
+# 1669. Merge In Between Linked Lists [Rating: 1428.14]
 
 <p>You are given two linked lists: <code>list1</code> and <code>list2</code> of sizes <code>n</code> and <code>m</code> respectively.</p>
 

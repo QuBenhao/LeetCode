@@ -1,4 +1,4 @@
-# 1832. Check if the Sentence Is Pangram
+# 1832. Check if the Sentence Is Pangram [Rating: 1166.79]
 
 A **pangram** is a sentence where every letter of the English alphabet appears at least once.
 

@@ -1,4 +1,4 @@
-# 1912. Design Movie Rental System
+# 1912. Design Movie Rental System [Rating: 2181.78]
 
 You have a movie renting company consisting of `n` shops. You want to implement a renting system that supports searching for, booking, and returning movies. The system should also support generating a report of the currently rented movies.
 

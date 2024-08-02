@@ -1,4 +1,4 @@
-# 1480.Running Sum of 1d Array
+# 1480.Running Sum of 1d Array [Rating: 1104.74]
 
 Given an array `nums`. We define a running sum of an array as `runningSum[i] = sum(nums[0]…nums[i])`.
 

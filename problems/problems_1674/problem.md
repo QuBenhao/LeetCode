@@ -1,4 +1,4 @@
-# 1674. Minimum Moves to Make Array Complementary
+# 1674. Minimum Moves to Make Array Complementary [Rating: 2333.24]
 
 You are given an integer array `nums` of **even** length `n` and an integer `limit`. In one move, you can replace any integer from `nums` with another integer between `1` and `limit`, inclusive.
 

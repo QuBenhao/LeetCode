@@ -1,4 +1,4 @@
-# 1389. Create Target Array in the Given Order
+# 1389. Create Target Array in the Given Order [Rating: 1208.04]
 
 Given two arrays of integers `nums` and `index`. Your task is to create *target* array under the following rules:
 

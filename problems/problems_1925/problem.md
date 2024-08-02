@@ -1,4 +1,4 @@
-# 1925. Count Square Sum Triples
+# 1925. Count Square Sum Triples [Rating: 1323.82]
 
 A **square triple** `(a,b,c)` is a triple where `a`, `b`, and `c` are **integers** and a<sup>2</sup>+ b<sup>2</sup> = c<sup>2</sup>.
 

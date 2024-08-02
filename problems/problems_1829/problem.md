@@ -1,4 +1,4 @@
-# 1829. Maximum XOR for Each Query
+# 1829. Maximum XOR for Each Query [Rating: 1523.41]
 
 You are given a **sorted** array `nums` of `n` non-negative integers and an integer `maximumBit`. You want to perform the following query `n` **times**:
 

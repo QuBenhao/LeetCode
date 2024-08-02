@@ -1,4 +1,4 @@
-# 1770. Maximum Score from Performing Multiplication Operations
+# 1770. Maximum Score from Performing Multiplication Operations [Rating: 2068.00]
 
 You are given two integer arrays `nums` and `multipliers` of size `n` and `m` respectively, where `n >= m`. The arrays are **1-indexed**.
 

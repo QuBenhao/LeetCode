@@ -1,4 +1,4 @@
-# 1137. N-th Tribonacci Number
+# 1137. N-th Tribonacci Number [Rating: 1142.87]
 
 The Tribonacci sequence Tn is defined as follows: 
 

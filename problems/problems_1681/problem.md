@@ -1,4 +1,4 @@
-# 1681. Minimum Incompatibility
+# 1681. Minimum Incompatibility [Rating: 2389.96]
 
 You are given an integer array `nums` and an integer `k`. You are asked to distribute this array into `k` subsets of **equal size** such that there are no two equal elements in the same subset.
 

@@ -1,4 +1,4 @@
-# 1964. Find the Longest Valid Obstacle Course at Each Position
+# 1964. Find the Longest Valid Obstacle Course at Each Position [Rating: 1933.22]
 
 You want to build some obstacle courses. You are given a **0-indexed** integer array `obstacles`of length `n`, where `obstacles[i]` describes the height of the `ith` obstacle.
 

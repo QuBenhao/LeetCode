@@ -1,4 +1,4 @@
-# 1675. Minimize Deviation in Array
+# 1675. Minimize Deviation in Array [Rating: 2533.30]
 
 You are given an array `nums` of `n` positive integers.
 

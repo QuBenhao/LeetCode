@@ -1,4 +1,4 @@
-# 856. Score of Parentheses
+# 856. Score of Parentheses [Rating: 1562.72]
 
 Given a balanced parentheses string `S`, compute the score of the string based on the following rule:
 

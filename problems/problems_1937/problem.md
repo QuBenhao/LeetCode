@@ -1,4 +1,4 @@
-# 1937. Maximum Number of Points with Cost
+# 1937. Maximum Number of Points with Cost [Rating: 2105.78]
 
 You are given an `m x n` integer matrix `points` (**0-indexed**). Starting with `0`points, you want to **maximize** the number of points you can get from the matrix.
 

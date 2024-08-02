@@ -1,4 +1,4 @@
-# 1703. Minimum Adjacent Swaps for K Consecutive Ones
+# 1703. Minimum Adjacent Swaps for K Consecutive Ones [Rating: 2466.89]
 
 You are given an integer array, `nums`, and an integer `k`. `nums` comprises of only `0`'s and `1`'s. In one move, you can choose two **adjacent** indices and swap their values.
 

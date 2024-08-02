@@ -1,4 +1,4 @@
-# 1424. Diagonal Traverse II
+# 1424. Diagonal Traverse II [Rating: 1779.84]
 
 Given a list of lists of integers, `nums`, return all elements of `nums` in diagonal order as shown in the below images.
 

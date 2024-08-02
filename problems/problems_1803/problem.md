@@ -1,4 +1,4 @@
-# 1803. Count Pairs With XOR in a Range
+# 1803. Count Pairs With XOR in a Range [Rating: 2479.33]
 
 Given a **(0-indexed)** integer array `nums` and two integers `low` and `high`, return *the number of **nice pairs***.
 

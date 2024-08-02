@@ -1,4 +1,4 @@
-# 895. Maximum Frequency Stack
+# 895. Maximum Frequency Stack [Rating: 2027.88]
 
 Implement `FreqStack`, a class which simulates the operation of a stack-like data structure.
 

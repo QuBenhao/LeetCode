@@ -1,4 +1,4 @@
-# 1799. Maximize Score After N Operations
+# 1799. Maximize Score After N Operations [Rating: 2072.73]
 
 You are given `nums`, an array of positive integers of size `2 * n`. You must perform `n` operations on this array.
 

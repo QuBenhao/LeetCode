@@ -44,6 +44,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         return
     desc = get_question_desc(problem_slug, cookie)
     is_chinese = False
+    question_rating = lc_libs.get_rating(problem_id)
     if desc is None:
         logging.warning(f"Unable to fetch question content, [{problem_id}]{problem_slug}")
         return
@@ -52,14 +53,14 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         is_chinese = True
     else:
         with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
-            f.write(Python3Writer.write_problem_md(problem_id, problem_title, desc))
+            f.write(Python3Writer.write_problem_md(problem_id, problem_title, desc, rating=question_rating))
     cn_result = get_question_desc_cn(problem_slug, cookie=cookie)
     if cn_result is not None:
         cn_desc, cn_title = cn_result
         if is_chinese:
             desc = cn_desc
         with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
-            f.write(Python3Writer.write_problem_md(problem_id, cn_title, cn_desc))
+            f.write(Python3Writer.write_problem_md(problem_id, cn_title, cn_desc, True, rating=question_rating))
     code_maps = get_question_code(problem_slug, lang_slugs=languages, cookie=cookie)
     if code_maps is None:
         logging.warning(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}")

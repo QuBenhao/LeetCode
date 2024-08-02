@@ -1,4 +1,4 @@
-# 1735. Count Ways to Make Array With Product
+# 1735. Count Ways to Make Array With Product [Rating: 2499.56]
 
 You are given a 2D integer array, `queries`. For each `queries[i]`, where `queries[i] = [ni, ki]`, find the number of different ways you can place positive integers into an array of size `ni` such that the product of the integers is `ki`. As the number of ways may be too large, the answer to the `ith` query is the number of ways **modulo** 10<sup>9</sup> + 7.
 

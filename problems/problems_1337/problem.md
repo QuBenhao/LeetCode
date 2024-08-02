@@ -1,4 +1,4 @@
-# 1337. The K Weakest Rows in a Matrix
+# 1337. The K Weakest Rows in a Matrix [Rating: 1224.76]
 
 Given a `m * n` matrix `mat` of *ones* (representing soldiers) and *zeros* (representing civilians), return the indexes of the `k` weakest rows in the matrix ordered from the weakest to the strongest.
 

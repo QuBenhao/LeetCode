@@ -1,4 +1,4 @@
-# 2009. Minimum Number of Operations to Make Array Continuous
+# 2009. Minimum Number of Operations to Make Array Continuous [Rating: 2084.50]
 
 <p>You are given an integer array <code>nums</code>. In one operation, you can replace <strong>any</strong> element in <code>nums</code> with <strong>any</strong> integer.</p>
 

@@ -1,4 +1,4 @@
-# 1927. Sum Game
+# 1927. Sum Game [Rating: 2004.53]
 
 Alice and Bob take turns playing a game, with **Alice** **starting first**.
 

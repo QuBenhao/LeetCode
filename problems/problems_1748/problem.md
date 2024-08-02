@@ -1,4 +1,4 @@
-# 1748. Sum of Unique Elements
+# 1748. Sum of Unique Elements [Rating: 1228.48]
 
 You are given an integer array `nums`. The unique elements of an array are the elements that appear **exactly once** in the array.
 

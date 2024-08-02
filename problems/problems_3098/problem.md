@@ -1,4 +1,4 @@
-# 3098. Find the Sum of Subsequence Powers
+# 3098. Find the Sum of Subsequence Powers [Rating: 2552.51]
 
 <p>You are given an integer array <code>nums</code> of length <code>n</code>, and a <strong>positive</strong> integer <code>k</code>.</p>
 

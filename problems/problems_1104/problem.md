@@ -1,4 +1,4 @@
-# 1104. Path In Zigzag Labelled Binary Tree
+# 1104. Path In Zigzag Labelled Binary Tree [Rating: 1544.84]
 
 In an infinite binary tree where every node has two children, the nodes are labelled in row order.
 

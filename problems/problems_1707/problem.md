@@ -1,4 +1,4 @@
-# 1707. Maximum XOR With an Element From Array
+# 1707. Maximum XOR With an Element From Array [Rating: 2358.97]
 
 You are given an array `nums` consisting of non-negative integers. You are also given a `queries` array, where `queries[i] = [xi, mi]`.
 

@@ -1,4 +1,4 @@
-# 1476. Subrectangle Queries
+# 1476. Subrectangle Queries [Rating: 1326.40]
 
 Implement the class `SubrectangleQueries` which receives a `rows x cols` rectangle as a matrix of integers in the constructor and supports two methods:
 

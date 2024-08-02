@@ -1,4 +1,4 @@
-# 1773. Count Items Matching a Rule
+# 1773. Count Items Matching a Rule [Rating: 1174.86]
 
 You are given an array `items`, where each `items[i] = [typei, colori, namei]` describes the type, color, and name of the i<sup>th</sup> item. You are also given a rule represented by two strings, `ruleKey` and `ruleValue`.
 

@@ -1,4 +1,4 @@
-# 1923. Longest Common Subpath
+# 1923. Longest Common Subpath [Rating: 2661.07]
 
 There is a country of `n` cities numbered from `0` to `n - 1`. In this country, there is a road connecting **every pair** of cities.
 

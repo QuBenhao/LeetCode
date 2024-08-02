@@ -1,4 +1,4 @@
-# 1713. Minimum Operations to Make a Subsequence
+# 1713. Minimum Operations to Make a Subsequence [Rating: 2350.97]
 
 You are given an array `target` that consists of **distinct** integers and another integer array `arr` that **can**have duplicates.
 

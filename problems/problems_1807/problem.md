@@ -1,4 +1,4 @@
-# 1807. Evaluate the Bracket Pairs of a String
+# 1807. Evaluate the Bracket Pairs of a String [Rating: 1481.96]
 
 You are given a string `s` that contains some bracket pairs, with each pair containing a **non-empty** key.
 

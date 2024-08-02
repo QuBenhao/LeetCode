@@ -1,4 +1,4 @@
-# 1656. Design an Ordered Stream
+# 1656. Design an Ordered Stream [Rating: 1418.82]
 
 There is a stream of `n` `(id, value)` pairs arriving in an **arbitrary** order, where `id` is an integer between `1` and `n` and `value` is a string. No two pairs have the same `id`.
 

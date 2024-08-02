@@ -1,4 +1,4 @@
-# 1854. Maximum Population Year
+# 1854. Maximum Population Year [Rating: 1370.42]
 
 You are given a 2D integer array `logs` where each `logs[i] = [birthi, deathi]` indicates the birth and death years of the `ith` person.
 

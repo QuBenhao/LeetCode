@@ -1,4 +1,4 @@
-# 1845. Seat Reservation Manager
+# 1845. Seat Reservation Manager [Rating: 1428.67]
 
 Design a system that manages the reservation state of `n` seats that are numbered from `1` to `n`.
 

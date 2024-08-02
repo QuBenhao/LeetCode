@@ -1,4 +1,4 @@
-#  1716. Calculate Money in Leetcode Bank
+#  1716. Calculate Money in Leetcode Bank [Rating: 1294.53]
 
 Hercy wants to save money for his first car. He puts money in the Leetcode bank **every day**.
 

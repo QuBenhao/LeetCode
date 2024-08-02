@@ -1,4 +1,4 @@
-# 1646. Get Maximum in Generated Array
+# 1646. Get Maximum in Generated Array [Rating: 1301.40]
 
 You are given an integer `n`. An array `nums` of length `n + 1` is generated in the following way:
 

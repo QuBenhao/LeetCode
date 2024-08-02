@@ -1,4 +1,4 @@
-# 1510. Stone Game IV
+# 1510. Stone Game IV [Rating: 1786.93]
 
 Alice and Bob take turns playing a game, with Alice starting first.
 

@@ -1,4 +1,4 @@
-# 1539. Kth Missing Positive Number
+# 1539. Kth Missing Positive Number [Rating: 1295.50]
 
 Given an array `arr` of positive integers sorted in a **strictly increasing order**, and an integer `k`.
 

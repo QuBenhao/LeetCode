@@ -1,4 +1,4 @@
-# 1785. Minimum Elements to Add to Form a Given Sum
+# 1785. Minimum Elements to Add to Form a Given Sum [Rating: 1432.10]
 
 You are given an integer array `nums` and two integers `limit` and `goal`. The array `nums` has an interesting property that `abs(nums[i]) <= limit`.
 

@@ -46,10 +46,11 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
     desc = get_question_desc(slug, cookie)
     cn_result = get_question_desc_cn(slug, cookie)
     cn_desc = None
+    question_rating = lc_libs.get_rating(question_id)
     if cn_result is not None and cn_result[0] is not None:
         cn_desc, cn_title = cn_result
         with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
-            f.write(Python3Writer.write_problem_md(question_id, cn_title, cn_desc))
+            f.write(Python3Writer.write_problem_md(question_id, cn_title, cn_desc, True, rating=question_rating))
     if desc is not None:
         is_chinese = False
         if "English description is not available for the problem. Please switch to Chinese." in desc:
@@ -57,7 +58,7 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
             is_chinese = True
         else:
             with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
-                f.write(Python3Writer.write_problem_md(question_id, question_name, desc))
+                f.write(Python3Writer.write_problem_md(question_id, question_name, desc, rating=question_rating))
         testcases, testcase_str = get_question_testcases(slug)
         if testcases is not None:
             outputs = extract_outputs_from_md(desc, is_chinese)

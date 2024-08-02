@@ -1,4 +1,4 @@
-# 1931. Painting a Grid With Three Different Colors
+# 1931. Painting a Grid With Three Different Colors [Rating: 2170.04]
 
 You are given two integers `m` and `n`. Consider an `m x n` grid where each cell is initially white. You can paint each cell **red**, **green**, or **blue**. All cells **must** be painted.
 

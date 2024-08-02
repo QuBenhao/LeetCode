@@ -1,4 +1,4 @@
-# 1691. Maximum Height by Stacking Cuboids
+# 1691. Maximum Height by Stacking Cuboids [Rating: 2171.72]
 
 Given `n` `cuboids` where the dimensions of the `ith` cuboid is `cuboids[i] = [widthi, lengthi, heighti]` (**0-indexed**). Choose a **subset** of `cuboids` and place them on each other.
 

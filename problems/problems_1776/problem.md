@@ -1,4 +1,4 @@
-# 1776. Car Fleet II
+# 1776. Car Fleet II [Rating: 2530.69]
 
 There are `n` cars traveling at different speeds in the same direction along a one-lane road. You are given an array `cars` of length `n`, where cars[i] = [position<sub>i</sub>, speed<sub>i</sub>] represents:
 

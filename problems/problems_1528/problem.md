@@ -1,4 +1,4 @@
-# 1528. Shuffle String
+# 1528. Shuffle String [Rating: 1193.13]
 
 Given a string `s` and an integer array `indices` of the **same length**.
 

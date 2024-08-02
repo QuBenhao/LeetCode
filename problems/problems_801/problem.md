@@ -1,4 +1,4 @@
-# 801. Minimum Swaps To Make Sequences Increasing
+# 801. Minimum Swaps To Make Sequences Increasing [Rating: 2066.10]
 
 We have two integer sequences `A` and `B` of the same non-zero length.
 

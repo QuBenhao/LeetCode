@@ -1,4 +1,4 @@
-# 1035. Uncrossed Lines
+# 1035. Uncrossed Lines [Rating: 1805.59]
 
 We write the integers of `nums1` and `nums2` (in the order they are given) on two separate horizontal lines.
 

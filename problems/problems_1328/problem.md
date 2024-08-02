@@ -1,4 +1,4 @@
-# 1328. Break a Palindrome
+# 1328. Break a Palindrome [Rating: 1473.86]
 
 Given a palindromic string `palindrome`, replace **exactly one** character by any lowercase English letter so that the string becomes the lexicographically smallest possible string that **isn't** a palindrome.
 

@@ -1,4 +1,4 @@
-# 773. Sliding Puzzle
+# 773. Sliding Puzzle [Rating: 1815.13]
 
 On a 2x3 `board`, there are 5 tiles represented by the integers 1 through 5, and an empty square represented by 0.
 

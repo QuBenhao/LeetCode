@@ -1,4 +1,4 @@
-# 928. Minimize Malware Spread II
+# 928. Minimize Malware Spread II [Rating: 1985.25]
 
 <p>You are given a network of <code>n</code> nodes represented as an <code>n x n</code> adjacency matrix <code>graph</code>, where the <code>i<sup>th</sup></code> node is directly connected to the <code>j<sup>th</sup></code> node if <code>graph[i][j] == 1</code>.</p>
 

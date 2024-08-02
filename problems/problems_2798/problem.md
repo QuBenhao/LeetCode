@@ -1,4 +1,4 @@
-# 2798. Number of Employees Who Met the Target
+# 2798. Number of Employees Who Met the Target [Rating: 1142.03]
 
 <p>There are <code>n</code> employees in a company, numbered from <code>0</code> to <code>n - 1</code>. Each employee <code>i</code> has worked for <code>hours[i]</code> hours in the company.</p>
 

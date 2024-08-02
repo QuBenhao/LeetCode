@@ -1,4 +1,4 @@
-# 1382. Balance a Binary Search Tree
+# 1382. Balance a Binary Search Tree [Rating: 1540.58]
 
 <p>Given the <code>root</code> of a binary search tree, return <em>a <strong>balanced</strong> binary search tree with the same node values</em>. If there is more than one answer, return <strong>any of them</strong>.</p>
 

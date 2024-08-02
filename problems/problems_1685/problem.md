@@ -1,4 +1,4 @@
-# 1685. Sum of Absolute Differences in a Sorted Array
+# 1685. Sum of Absolute Differences in a Sorted Array [Rating: 1495.72]
 
 You are given an integer array `nums` sorted in **non-decreasing** order.
 

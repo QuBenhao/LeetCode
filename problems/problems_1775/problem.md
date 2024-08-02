@@ -1,4 +1,4 @@
-# 1775. Equal Sum Arrays With Minimum Number of Operations
+# 1775. Equal Sum Arrays With Minimum Number of Operations [Rating: 1850.41]
 
 You are given two arrays of integers `nums1` and `nums2`, possibly of different lengths. The values in the arrays are between `1` and `6`, inclusive.
 

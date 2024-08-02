@@ -1,4 +1,4 @@
-# 1642. Furthest Building You Can Reach
+# 1642. Furthest Building You Can Reach [Rating: 1962.20]
 
 You are given an integer array `heights` representing the heights of buildings, some `bricks`, and some `ladders`.
 

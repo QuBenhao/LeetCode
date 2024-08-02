@@ -1,4 +1,4 @@
-# 1876. Substrings of Size Three with Distinct Characters
+# 1876. Substrings of Size Three with Distinct Characters [Rating: 1248.72]
 
 A string is **good** if there are no repeated characters.
 

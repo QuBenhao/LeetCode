@@ -1,4 +1,4 @@
-# 1898. Maximum Number of Removable Characters
+# 1898. Maximum Number of Removable Characters [Rating: 1912.84]
 
 You are given two strings `s` and `p` where `p` is a **subsequence** of `s`. You are also given a **distinct 0-indexed** integer array `removable` containing a subset of indices of `s` (`s` is also **0-indexed**).
 

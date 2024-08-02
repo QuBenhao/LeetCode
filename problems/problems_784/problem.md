@@ -1,4 +1,4 @@
-# 784. Letter Case Permutation
+# 784. Letter Case Permutation [Rating: 1341.51]
 
 <p>Given a string <code>s</code>, you&nbsp;can transform every letter individually to be lowercase or uppercase to create another string.</p>
 

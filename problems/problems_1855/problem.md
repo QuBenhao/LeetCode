@@ -1,4 +1,4 @@
-# 1855. Maximum Distance Between a Pair of Values
+# 1855. Maximum Distance Between a Pair of Values [Rating: 1514.82]
 
 You are given two **non-increasing 0-indexed** integer arrays `nums1` and `nums2`.
 

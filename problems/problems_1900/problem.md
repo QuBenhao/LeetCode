@@ -1,4 +1,4 @@
-# 1900. The Earliest and Latest Rounds Where Players Compete
+# 1900. The Earliest and Latest Rounds Where Players Compete [Rating: 2454.77]
 
 There is a tournament where `n` players are participating. The players are standing in a single row and are numbered from `1` to `n` based on their **initial**standing position (player `1` is the first player in the row, player `2` is the second player in the row, etc.).
 

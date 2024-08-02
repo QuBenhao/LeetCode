@@ -1,4 +1,4 @@
-# 1688. Count of Matches in Tournament
+# 1688. Count of Matches in Tournament [Rating: 1203.14]
 
 You are given an integer `n`, the number of teams in a tournament that has strange rules:
 

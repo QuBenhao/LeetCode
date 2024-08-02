@@ -1,4 +1,4 @@
-# 1010. Pairs of Songs With Total Durations Divisible by 60
+# 1010. Pairs of Songs With Total Durations Divisible by 60 [Rating: 1377.19]
 
 You are given a list of songs where the ith song has a duration of `time[i]` seconds.
 

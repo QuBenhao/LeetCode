@@ -1,4 +1,4 @@
-# 1764. Form Array by Concatenating Subarrays of Another Array
+# 1764. Form Array by Concatenating Subarrays of Another Array [Rating: 1588.38]
 
 You are given a 2D integer array `groups` of length `n`. You are also given an integer array `nums`.
 

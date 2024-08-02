@@ -1,4 +1,4 @@
-# 783. Minimum Distance Between BST Nodes
+# 783. Minimum Distance Between BST Nodes [Rating: 1303.32]
 
 <p>Given the <code>root</code> of a Binary Search Tree (BST), return <em>the minimum difference between the values of any two different nodes in the tree</em>.</p>
 

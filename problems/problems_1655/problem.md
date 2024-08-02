@@ -1,4 +1,4 @@
-# 1655. Distribute Repeating Integers
+# 1655. Distribute Repeating Integers [Rating: 2307.02]
 
 You are given an array of `n` integers, `nums`, where there are at most `50`unique values in the array. You are also given an array of `m` customer order quantities, `quantity`, where `quantity[i]` is the amount of integers the `ith`customer ordered. Determine if it is possible to distribute `nums` such that:
 

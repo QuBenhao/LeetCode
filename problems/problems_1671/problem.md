@@ -1,4 +1,4 @@
-# 1671. Minimum Number of Removals to Make Mountain Array
+# 1671. Minimum Number of Removals to Make Mountain Array [Rating: 1912.85]
 
 You may recall that an array `arr` is a **mountain array** if and only if:
 

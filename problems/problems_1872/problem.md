@@ -1,4 +1,4 @@
-# 1872. Stone Game VIII
+# 1872. Stone Game VIII [Rating: 2439.73]
 
 Alice and Bob take turns playing a game, with **Alice starting first**.
 

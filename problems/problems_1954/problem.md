@@ -1,4 +1,4 @@
-# 1954. Minimum Garden Perimeter to Collect Enough Apples
+# 1954. Minimum Garden Perimeter to Collect Enough Apples [Rating: 1758.51]
 
 In a garden represented as an infinite 2D grid, there is an apple tree planted at **every** integer coordinate. The apple tree planted at an integer coordinate `(i, j)` has `|i| + |j|` apples growing on it.
 

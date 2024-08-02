@@ -1,4 +1,4 @@
-# 1745. Palindrome Partitioning IV
+# 1745. Palindrome Partitioning IV [Rating: 1924.96]
 
 Given a string `s`, return `true` *if it is possible to split the string* `s` *into three **non-empty** palindromic substrings. Otherwise, return* `false`.
 

@@ -1,4 +1,4 @@
-# 1492. The kth Factor of n
+# 1492. The kth Factor of n [Rating: 1232.00]
 
 Given two positive integers `n` and `k`.
 

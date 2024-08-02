@@ -1,4 +1,4 @@
-# 1766. Tree of Coprimes
+# 1766. Tree of Coprimes [Rating: 2231.81]
 
 There is a tree (i.e., a connected, undirected graph that has no cycles) consisting of `n` nodes numbered from `0` to `n - 1` and exactly `n - 1` edges. Each node has a value associated with it, and the **root** of the tree is node `0`.
 

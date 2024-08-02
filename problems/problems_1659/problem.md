@@ -1,4 +1,4 @@
-# 1659. Maximize Grid Happiness
+# 1659. Maximize Grid Happiness [Rating: 2655.22]
 
 You are given four integers, `m`, `n`, `introvertsCount`, and `extrovertsCount`. You have an `m x n` grid, and there are two types of people: introverts and extroverts. There are `introvertsCount` introverts and `extrovertsCount` extroverts.
 

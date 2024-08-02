@@ -1,4 +1,4 @@
-# 1850. Minimum Adjacent Swaps to Reach the Kth Smallest Number
+# 1850. Minimum Adjacent Swaps to Reach the Kth Smallest Number [Rating: 2073.01]
 
 You are given a string `num`, representing a large integer, and an integer `k`.
 

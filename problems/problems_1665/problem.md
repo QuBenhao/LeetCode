@@ -1,4 +1,4 @@
-# 1665. Minimum Initial Energy to Finish Tasks
+# 1665. Minimum Initial Energy to Finish Tasks [Rating: 1900.84]
 
 You are given an array `tasks` where `tasks[i] = [actuali, minimumi]`:
 

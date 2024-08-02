@@ -1,4 +1,4 @@
-# 2924. Find Champion II
+# 2924. Find Champion II [Rating: 1430.31]
 
 <p>There are <code>n</code> teams numbered from <code>0</code> to <code>n - 1</code> in a tournament; each team is also a node in a <strong>DAG</strong>.</p>
 

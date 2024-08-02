@@ -1,4 +1,4 @@
-# 1833. Maximum Ice Cream Bars
+# 1833. Maximum Ice Cream Bars [Rating: 1252.75]
 
 It is a sweltering summer day, and a boy wants to buy some ice cream bars.
 

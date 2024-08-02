@@ -1,4 +1,4 @@
-# 1600. Throne Inheritance
+# 1600. Throne Inheritance [Rating: 1768.62]
 
 <p>A kingdom consists of a king, his children, his grandchildren, and so on. Every once in a while, someone in the family dies or a child is born.</p>
 

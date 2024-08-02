@@ -1,4 +1,4 @@
-# 1281. Subtract the Product and Sum of Digits of an Integer
+# 1281. Subtract the Product and Sum of Digits of an Integer [Rating: 1141.24]
 
 Given an integer number `n`, return the difference between the product of its digits and the sum of its digits.
 

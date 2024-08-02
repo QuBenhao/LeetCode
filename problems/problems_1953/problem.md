@@ -1,4 +1,4 @@
-# 1953. Maximum Number of Weeks for Which You Can Work
+# 1953. Maximum Number of Weeks for Which You Can Work [Rating: 1803.75]
 
 <p>There are <code>n</code> projects numbered from <code>0</code> to <code>n - 1</code>. You are given an integer array <code>milestones</code> where each <code>milestones[i]</code> denotes the number of milestones the <code>i<sup>th</sup></code> project has.</p>
 

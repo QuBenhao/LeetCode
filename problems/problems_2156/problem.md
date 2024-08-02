@@ -1,4 +1,4 @@
-# 2156. Find Substring With Given Hash Value
+# 2156. Find Substring With Given Hash Value [Rating: 2062.99]
 
 <p>The hash of a <strong>0-indexed</strong> string <code>s</code> of length <code>k</code>, given integers <code>p</code> and <code>m</code>, is computed using the following function:</p>
 

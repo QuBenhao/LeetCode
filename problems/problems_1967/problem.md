@@ -1,4 +1,4 @@
-# 1967. Number of Strings That Appear as Substrings in Word
+# 1967. Number of Strings That Appear as Substrings in Word [Rating: 1231.87]
 
 Given an array of strings `patterns` and a string `word`, return *the **number** of strings in* `patterns` *that exist as a **substring** in* `word`.
 

@@ -1,4 +1,4 @@
-# 1743. Restore the Array From Adjacent Pairs
+# 1743. Restore the Array From Adjacent Pairs [Rating: 1579.23]
 
 <p>There is an integer array <code>nums</code> that consists of <code>n</code> <strong>unique </strong>elements, but you have forgotten it. However, you do remember every pair of adjacent elements in <code>nums</code>.</p>
 

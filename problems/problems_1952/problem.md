@@ -1,4 +1,4 @@
-# 1952. Three Divisors
+# 1952. Three Divisors [Rating: 1203.75]
 
 Given an integer `n`, return `true` *if* `n` *has **exactly three positive divisors**. Otherwise, return* `false`.
 

@@ -1,4 +1,4 @@
-# 1712. Ways to Split Array Into Three Subarrays
+# 1712. Ways to Split Array Into Three Subarrays [Rating: 2078.70]
 
 A split of an integer array is **good** if:
 

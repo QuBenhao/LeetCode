@@ -1,4 +1,4 @@
-# 908. Smallest Range I
+# 908. Smallest Range I [Rating: 1298.59]
 
 Given an array `A` of integers, for each integer `A[i]` we may choose any `x` with `-K <= x <= K`, and add `x` to `A[i]`.
 

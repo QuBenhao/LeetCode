@@ -1,4 +1,4 @@
-# 1719. Number Of Ways To Reconstruct A Tree
+# 1719. Number Of Ways To Reconstruct A Tree [Rating: 3018.49]
 
 You are given an array `pairs`, where `pairs[i] = [xi, yi]`, and:
 

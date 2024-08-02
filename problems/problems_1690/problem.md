@@ -1,4 +1,4 @@
-# 1690. Stone Game VII
+# 1690. Stone Game VII [Rating: 1951.21]
 
 Alice and Bob take turns playing a game, with **Alice starting first**.
 

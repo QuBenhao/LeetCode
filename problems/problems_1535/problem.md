@@ -1,4 +1,4 @@
-# 1535. Find the Winner of an Array Game
+# 1535. Find the Winner of an Array Game [Rating: 1433.08]
 
 <p>Given an integer array <code>arr</code> of <strong>distinct</strong> integers and an integer <code>k</code>.</p>
 

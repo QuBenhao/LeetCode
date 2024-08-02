@@ -1,4 +1,4 @@
-# 1862. Sum of Floored Pairs
+# 1862. Sum of Floored Pairs [Rating: 2170.11]
 
 Given an integer array `nums`, return the sum of `floor(nums[i] / nums[j])`for all pairs of indices `0 <= i, j < nums.length` in the array. Since the answer may be too large, return it **modulo** 10<sup>9</sup> + 7.
 

@@ -1,4 +1,4 @@
-# 1235. Maximum Profit in Job Scheduling
+# 1235. Maximum Profit in Job Scheduling [Rating: 2022.85]
 
 <p>We have <code>n</code> jobs, where every job is scheduled to be done from <code>startTime[i]</code> to <code>endTime[i]</code>, obtaining a profit of <code>profit[i]</code>.</p>
 

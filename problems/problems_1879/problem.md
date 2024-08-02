@@ -1,4 +1,4 @@
-# 1879. Minimum XOR Sum of Two Arrays
+# 1879. Minimum XOR Sum of Two Arrays [Rating: 2145.18]
 
 You are given two integer arrays `nums1` and `nums2` of length `n`.
 

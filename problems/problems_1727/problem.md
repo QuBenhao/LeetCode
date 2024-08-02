@@ -1,4 +1,4 @@
-# 1727. Largest Submatrix With Rearrangements
+# 1727. Largest Submatrix With Rearrangements [Rating: 1926.71]
 
 You are given a binary matrix `matrix` of size `m x n`, and you are allowed to rearrange the **columns** of the `matrix` in any order.
 

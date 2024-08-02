@@ -1,4 +1,4 @@
-# 1473. Paint House III
+# 1473. Paint House III [Rating: 2056.34]
 
 There is a row of `m` houses in a small city, each house must be painted with one of the `n` colors (labeled from `1` to `n`), some houses that have been painted last summer should not be painted again.
 

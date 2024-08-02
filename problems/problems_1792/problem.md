@@ -1,4 +1,4 @@
-# 1792. Maximum Average Pass Ratio
+# 1792. Maximum Average Pass Ratio [Rating: 1818.00]
 
 There is a school that has classes of students and each class will be having a final exam. You are given a 2D integer array `classes`, where `classes[i] = [passi, totali]`. You know beforehand that in the `ith`class, there are `totali` total students, but only `passi` number of students will pass the exam.
 

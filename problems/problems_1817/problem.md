@@ -1,4 +1,4 @@
-# 1817. Finding the Users Active Minutes
+# 1817. Finding the Users Active Minutes [Rating: 1360.30]
 
 You are given the logs for users' actions on LeetCode, and an integer `k`. The logs are represented by a 2D integer array `logs` where each logs[i] = [ID<sub>i</sub>, time<sub>i</sub>] indicates that the user with ID<sub>i</sub> performed an action at the minute time<sub>i</sub>.
 

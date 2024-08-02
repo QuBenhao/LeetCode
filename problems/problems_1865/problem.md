@@ -1,4 +1,4 @@
-# 1865. Finding Pairs With a Certain Sum
+# 1865. Finding Pairs With a Certain Sum [Rating: 1680.82]
 
 You are given two integer arrays `nums1` and `nums2`. You are tasked to implement a data structure that supports queries of two types:
 

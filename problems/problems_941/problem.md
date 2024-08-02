@@ -1,4 +1,4 @@
-# 941. Valid Mountain Array
+# 941. Valid Mountain Array [Rating: 1208.01]
 
 Given an array of integers `arr`, return *`true` if and only if it is a valid mountain array*.
 

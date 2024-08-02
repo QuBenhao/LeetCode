@@ -1,4 +1,4 @@
-# 1856. Maximum Subarray Min-Product
+# 1856. Maximum Subarray Min-Product [Rating: 2051.09]
 
 The **min-product** of an array is equal to the **minimum value** in the array **multiplied by** the array's **sum**.
 

@@ -1,4 +1,4 @@
-# 1734. Decode XORed Permutation
+# 1734. Decode XORed Permutation [Rating: 2024.38]
 
 There is an integer array `perm` that is a permutation of the first `n` positive integers, where `n` is always **odd**.
 

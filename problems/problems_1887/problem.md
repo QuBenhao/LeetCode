@@ -1,4 +1,4 @@
-# 1887. Reduction Operations to Make the Array Elements Equal
+# 1887. Reduction Operations to Make the Array Elements Equal [Rating: 1427.79]
 
 Given an integer array `nums`, your goal is to make all elements in `nums` equal. To complete one operation, follow these steps:
 

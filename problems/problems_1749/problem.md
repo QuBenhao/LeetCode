@@ -1,4 +1,4 @@
-# 1749. Maximum Absolute Sum of Any Subarray
+# 1749. Maximum Absolute Sum of Any Subarray [Rating: 1541.62]
 
 You are given an integer array `nums`. The **absolute sum** of a subarray [nums<sub>l</sub>, nums<sub>l+1</sub>, ..., nums<sub>r-1</sub>, nums<sub>r</sub>]` is `abs(nums<sub>l</sub> + nums<sub>l+1</sub> + ... + nums<sub>r-1</sub> + nums<sub>r</sub>).
 

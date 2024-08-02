@@ -1,4 +1,4 @@
-# 1686. Stone Game VI
+# 1686. Stone Game VI [Rating: 2000.84]
 
 Alice and Bob take turns playing a game, with Alice starting first.
 

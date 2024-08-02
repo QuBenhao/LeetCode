@@ -1,4 +1,4 @@
-# 1753. Maximum Score From Removing Stones
+# 1753. Maximum Score From Removing Stones [Rating: 1487.58]
 
 You are playing a solitaire game with **three piles** of stones of sizes `a`, `b`, and `c` respectively. Each turn you choose two **different non-empty** piles, take one stone from each, and add `1` point to your score. The game stops when there are **fewer than two non-empty** piles (meaning there are no more available moves).
 
