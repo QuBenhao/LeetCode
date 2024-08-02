@@ -82,7 +82,6 @@ solution_56 = { path = "problems/problems_56", features = ["solution_56"] }
 solution_2961 = { path = "problems/problems_2961", features = ["solution_2961"] }
 solution_394 = { path = "problems/problems_394", features = ["solution_394"] }
 solution_3111 = { path = "problems/problems_3111", features = ["solution_3111"] }
-solution_LCP_40 = { path = "problems/problems_LCP_40", features = ["solution_LCP_40"] }
 solution_5 = { path = "problems/problems_5", features = ["solution_5"] }
 solution_169 = { path = "problems/problems_169", features = ["solution_169"] }
 solution_3128 = { path = "problems/problems_3128", features = ["solution_3128"] }
