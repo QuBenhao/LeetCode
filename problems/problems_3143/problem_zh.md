@@ -1,4 +1,4 @@
-# 3143. 正方形中的最多点数 
+# 3143. 正方形中的最多点数 [难度分: 1696.95]
 
 <p>给你一个二维数组&nbsp;<code>points</code>&nbsp;和一个字符串&nbsp;<code>s</code>&nbsp;，其中&nbsp;<code>points[i]</code>&nbsp;表示第 <code>i</code>&nbsp;个点的坐标，<code>s[i]</code>&nbsp;表示第 <code>i</code>&nbsp;个点的 <strong>标签</strong>&nbsp;。</p>
 
