@@ -1,4 +1,4 @@
-# 1758. Minimum Changes To Make Alternating Binary String
+# 1758. Minimum Changes To Make Alternating Binary String [Rating: 1353.63]
 
 You are given a string `s` consisting only of the characters `'0'` and `'1'`. In one operation, you can change any `'0'` to `'1'` or vice versa.
 

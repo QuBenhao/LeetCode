@@ -1,4 +1,4 @@
-# 1108.Defanging an IP Address
+# 1108.Defanging an IP Address [Rating: 1084.13]
 
 Given a valid (IPv4) IP `address`, return a defanged version of that IP address.
 

@@ -1,4 +1,4 @@
-# 1880. Check if Word Equals Summation of Two Words
+# 1880. Check if Word Equals Summation of Two Words [Rating: 1187.16]
 
 The **letter value** of a letter is its position in the alphabet **starting from 0** (i.e. `'a' -> 0`, `'b' -> 1`, `'c' -> 2`, etc.).
 

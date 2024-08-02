@@ -1,4 +1,4 @@
-# 1649. Create Sorted Array through Instructions
+# 1649. Create Sorted Array through Instructions [Rating: 2207.86]
 
 Given an integer array `instructions`, you are asked to create a sorted array from the elements in `instructions`. You start with an empty container `nums`. For each element from **left to right** in `instructions`, insert it into `nums`. The **cost** of each insertion is the **minimum** of the following:
 

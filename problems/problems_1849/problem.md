@@ -1,4 +1,4 @@
-# 1849. Splitting a String Into Descending Consecutive Values
+# 1849. Splitting a String Into Descending Consecutive Values [Rating: 1746.88]
 
 You are given a string `s` that consists of only digits.
 

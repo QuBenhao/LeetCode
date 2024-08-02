@@ -1,4 +1,4 @@
-# 1030. Matrix Cells in Distance Order
+# 1030. Matrix Cells in Distance Order [Rating: 1585.58]
 
 We are given a matrix with `R` rows and `C` columns has cells with integer coordinates `(r, c)`, where `0 <= r < R` and `0 <= c < C`.
 

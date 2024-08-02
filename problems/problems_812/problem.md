@@ -1,4 +1,4 @@
-# 812. Largest Triangle Area
+# 812. Largest Triangle Area [Rating: 1542.56]
 
 You have a list of points in the plane. Return the area of the largest triangle that can be formed by any 3 of the points.
 

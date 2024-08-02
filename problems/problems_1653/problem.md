@@ -1,4 +1,4 @@
-# 1653. Minimum Deletions to Make String Balanced
+# 1653. Minimum Deletions to Make String Balanced [Rating: 1793.80]
 
 You are given a string `s` consisting only of characters `'a'` and `'b'`.
 

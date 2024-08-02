@@ -1,4 +1,4 @@
-# 852. Peak Index in a Mountain Array
+# 852. Peak Index in a Mountain Array [Rating: 1181.58]
 
 Let's call an array `arr` a **mountain** if the following properties hold:
 

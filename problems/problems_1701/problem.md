@@ -1,4 +1,4 @@
-# 1701. Average Waiting Time
+# 1701. Average Waiting Time [Rating: 1436.39]
 
 There is a restaurant with a single chef. You are given an array `customers`, where `customers[i] = [arrivali, timei]:`
 

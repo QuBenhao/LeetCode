@@ -1,4 +1,4 @@
-# 754. Reach a Number
+# 754. Reach a Number [Rating: 1880.33]
 
 You are standing at position `0` on an infinite number line. There is a goal at position `target`.
 

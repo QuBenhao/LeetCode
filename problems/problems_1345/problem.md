@@ -1,4 +1,4 @@
-# 1345. Jump Game IV
+# 1345. Jump Game IV [Rating: 1809.82]
 
 Given an array of integers `arr`, you are initially positioned at the first index of the array.
 

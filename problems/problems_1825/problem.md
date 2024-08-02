@@ -1,4 +1,4 @@
-# 1825. Finding MK Average
+# 1825. Finding MK Average [Rating: 2395.88]
 
 You are given two integers, `m` and `k`, and a stream of integers. You are tasked to implement a data structure that calculates the **MKAverage** for the stream.
 

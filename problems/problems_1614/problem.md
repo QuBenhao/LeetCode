@@ -1,4 +1,4 @@
-# 1614. Maximum Nesting Depth of the Parentheses
+# 1614. Maximum Nesting Depth of the Parentheses [Rating: 1322.83]
 
 A string is a **valid parentheses string** (denoted **VPS**) if it meets one of the following:
 

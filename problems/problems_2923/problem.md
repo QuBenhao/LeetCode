@@ -1,4 +1,4 @@
-# 2923. Find Champion I
+# 2923. Find Champion I [Rating: 1235.65]
 
 <p>There are <code>n</code> teams numbered from <code>0</code> to <code>n - 1</code> in a tournament.</p>
 

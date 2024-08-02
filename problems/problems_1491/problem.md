@@ -1,4 +1,4 @@
-# 1491. Average Salary Excluding the Minimum and Maximum Salary
+# 1491. Average Salary Excluding the Minimum and Maximum Salary [Rating: 1201.35]
 
 <p>You are given an array of <strong>unique</strong> integers <code>salary</code> where <code>salary[i]</code> is the salary of the <code>i<sup>th</sup></code> employee.</p>
 

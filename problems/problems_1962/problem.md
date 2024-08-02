@@ -1,4 +1,4 @@
-# 1962. Remove Stones to Minimize the Total
+# 1962. Remove Stones to Minimize the Total [Rating: 1418.68]
 
 You are given a **0-indexed** integer array `piles`, where `piles[i]` represents the number of stones in the `ith` pile, and an integer `k`. You should apply the following operation **exactly** `k`times:
 

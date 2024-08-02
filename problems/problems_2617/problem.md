@@ -1,4 +1,4 @@
-# 2617. Minimum Number of Visited Cells in a Grid
+# 2617. Minimum Number of Visited Cells in a Grid [Rating: 2582.00]
 
 <p>You are given a <strong>0-indexed</strong> <code>m x n</code> integer matrix <code>grid</code>. Your initial position is at the <strong>top-left</strong> cell <code>(0, 0)</code>.</p>
 

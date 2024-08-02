@@ -1,4 +1,4 @@
-# 1942. The Number of the Smallest Unoccupied Chair
+# 1942. The Number of the Smallest Unoccupied Chair [Rating: 1695.28]
 
 There is a party where `n` friends numbered from `0` to `n - 1` are attending. There is an **infinite** number of chairs in this party that are numbered from `0` to `infinity`. When a friend arrives at the party, they sit on the unoccupied chair with the **smallest number**.
 

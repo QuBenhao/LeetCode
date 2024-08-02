@@ -1,4 +1,4 @@
-# 1947. Maximum Compatibility Score Sum
+# 1947. Maximum Compatibility Score Sum [Rating: 1704.36]
 
 There is a survey that consists of `n` questions where each question's answer is either `0` (no) or `1` (yes).
 

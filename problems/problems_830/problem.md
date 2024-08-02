@@ -1,4 +1,4 @@
-# 830. Positions of Large Groups
+# 830. Positions of Large Groups [Rating: 1251.82]
 
 In a string `s` of lowercase letters, these letters form consecutive groups of the same character.
 

@@ -1,4 +1,4 @@
-# 1095. Find in Mountain Array
+# 1095. Find in Mountain Array [Rating: 1827.09]
 
 *(This problem is an **interactive problem**.)*
 

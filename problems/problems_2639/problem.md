@@ -1,4 +1,4 @@
-# 2639. Find the Width of Columns of a Grid
+# 2639. Find the Width of Columns of a Grid [Rating: 1282.52]
 
 <p>You are given a <strong>0-indexed</strong> <code>m x n</code> integer matrix <code>grid</code>. The width of a column is the maximum <strong>length </strong>of its integers.</p>
 

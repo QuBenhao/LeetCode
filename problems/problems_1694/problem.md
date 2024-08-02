@@ -1,4 +1,4 @@
-# 1694. Reformat Phone Number
+# 1694. Reformat Phone Number [Rating: 1321.93]
 
 You are given a phone number as a string `number`. `number` consists of digits, spaces `' '`, and/or dashes `'-'`.
 

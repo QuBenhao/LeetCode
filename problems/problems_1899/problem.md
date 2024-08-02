@@ -1,4 +1,4 @@
-# 1899. Merge Triplets to Form Target Triplet
+# 1899. Merge Triplets to Form Target Triplet [Rating: 1635.69]
 
 A **triplet** is an array of three integers. You are given a 2D integer array `triplets`, where `triplets[i] = [ai, bi, ci]` describes the `ith` **triplet**. You are also given an integer array `target = [x, y, z]` that describes the **triplet** you want to obtain.
 

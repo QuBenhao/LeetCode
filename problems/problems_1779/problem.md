@@ -1,4 +1,4 @@
-# 1779. Find Nearest Point That Has the Same X or Y Coordinate
+# 1779. Find Nearest Point That Has the Same X or Y Coordinate [Rating: 1259.57]
 
 You are given two integers, `x` and `y`, which represent your current location on a Cartesian grid: `(x, y)`. You are also given an array `points` where each `points[i] = [ai, bi]` represents that a point exists at `(ai, bi)`. A point is **valid** if it shares the same x-coordinate or the same y-coordinate as your location.
 

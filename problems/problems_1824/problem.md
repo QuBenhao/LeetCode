@@ -1,4 +1,4 @@
-# 1824. Minimum Sideway Jumps
+# 1824. Minimum Sideway Jumps [Rating: 1778.49]
 
 There is a **3 lane road** of length `n` that consists of `n + 1` **points** labeled from `0` to `n`. A frog **starts** at point `0` in the **second** laneand wants to jump to point `n`. However, there could be obstacles along the way.
 

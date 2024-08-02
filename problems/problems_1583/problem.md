@@ -1,4 +1,4 @@
-# 1583. Count Unhappy Friends
+# 1583. Count Unhappy Friends [Rating: 1658.33]
 
 You are given a list of `preferences` for `n` friends, where `n` is always **even**.
 

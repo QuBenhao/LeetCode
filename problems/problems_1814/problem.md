@@ -1,4 +1,4 @@
-# 1814. Count Nice Pairs in an Array
+# 1814. Count Nice Pairs in an Array [Rating: 1737.84]
 
 You are given an array `nums` that consists of non-negative integers. Let us define `rev(x)`as the reverse of the non-negative integer `x`. For example, `rev(123) = 321`, and `rev(120) = 21`. A pair of indices `(i, j)` is **nice** if it satisfies all of the following conditions:
 

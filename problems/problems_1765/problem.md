@@ -1,4 +1,4 @@
-# 1765. Map of Highest Peak
+# 1765. Map of Highest Peak [Rating: 1782.98]
 
 You are given an integer matrix `isWater` of size `m x n` that represents a map of **land** and **water** cells.
 

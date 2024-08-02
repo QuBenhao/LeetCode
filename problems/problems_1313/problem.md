@@ -1,4 +1,4 @@
-# 1313. Decompress Run-Length Encoded List
+# 1313. Decompress Run-Length Encoded List [Rating: 1317.46]
 
 We are given a list `nums` of integers representing a list compressed with run-length encoding.
 

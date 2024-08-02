@@ -1,4 +1,4 @@
-# 1728. Cat and Mouse II
+# 1728. Cat and Mouse II [Rating: 2849.48]
 
 A game is played by a cat and a mouse named Cat and Mouse.
 

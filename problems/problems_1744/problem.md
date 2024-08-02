@@ -1,4 +1,4 @@
-# 1744. Can You Eat Your Favorite Candy on Your Favorite Day?
+# 1744. Can You Eat Your Favorite Candy on Your Favorite Day? [Rating: 1858.96]
 
 You are given a **(0-indexed)** array of positive integers `candiesCount` where `candiesCount[i]` represents the number of candies of the `ith` type you have. You are also given a 2D array `queries` where `queries[i] = [favoriteTypei, favoriteDayi, dailyCapi]`.
 

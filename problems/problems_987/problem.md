@@ -1,4 +1,4 @@
-# 987. Vertical Order Traversal of a Binary Tree
+# 987. Vertical Order Traversal of a Binary Tree [Rating: 1675.96]
 
 Given the `root` of a binary tree, calculate the **vertical order traversal** of the binary tree.
 

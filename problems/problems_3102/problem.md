@@ -1,4 +1,4 @@
-# 3102. Minimize Manhattan Distances
+# 3102. Minimize Manhattan Distances [Rating: 2215.73]
 
 <p>You are given a array <code>points</code> representing integer coordinates of some points on a 2D plane, where <code>points[i] = [x<sub>i</sub>, y<sub>i</sub>]</code>.</p>
 

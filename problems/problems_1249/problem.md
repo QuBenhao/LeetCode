@@ -1,4 +1,4 @@
-# 1249. Minimum Remove to Make Valid Parentheses
+# 1249. Minimum Remove to Make Valid Parentheses [Rating: 1657.12]
 
 <p>Given a string <font face="monospace">s</font> of <code>&#39;(&#39;</code> , <code>&#39;)&#39;</code> and lowercase English characters.</p>
 

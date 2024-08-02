@@ -1,4 +1,4 @@
-# 1812. Determine Color of a Chessboard Square
+# 1812. Determine Color of a Chessboard Square [Rating: 1328.51]
 
 You are given `coordinates`, a string that represents the coordinates of a square of the chessboard. Below is a chessboard for your reference.
 

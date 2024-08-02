@@ -1,4 +1,4 @@
-# 1721. Swapping Nodes in a Linked List
+# 1721. Swapping Nodes in a Linked List [Rating: 1386.92]
 
 You are given the `head` of a linked list, and an integer `k`.
 

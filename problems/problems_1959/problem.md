@@ -1,4 +1,4 @@
-# 1959. Minimum Total Space Wasted With K Resizing Operations
+# 1959. Minimum Total Space Wasted With K Resizing Operations [Rating: 2310.38]
 
 You are currently designing a dynamic array. You are given a **0-indexed** integer array `nums`, where `nums[i]` is the number of elements that will be in the array at time `i`. In addition, you are given an integer `k`, the **maximum** number of times you can **resize** the array (to **any** size).
 

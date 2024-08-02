@@ -1,4 +1,4 @@
-# 1711. Count Good Meals
+# 1711. Count Good Meals [Rating: 1797.87]
 
 A **good meal** is a meal that contains **exactly two different food items** with a sum of deliciousness equal to a power of two.
 

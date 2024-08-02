@@ -1,4 +1,4 @@
-# 1806. Minimum Number of Operations to Reinitialize a Permutation
+# 1806. Minimum Number of Operations to Reinitialize a Permutation [Rating: 1491.46]
 
 You are given an **even** integer `n`. You initially have a permutation `perm` of size `n` where `perm[i] == i` **(0-indexed)**.
 

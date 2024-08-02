@@ -1,4 +1,4 @@
-# 1755. Closest Subsequence Sum
+# 1755. Closest Subsequence Sum [Rating: 2363.51]
 
 You are given an integer array `nums` and an integer `goal`.
 

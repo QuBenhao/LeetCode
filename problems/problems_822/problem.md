@@ -1,4 +1,4 @@
-# 822. Card Flipping Game
+# 822. Card Flipping Game [Rating: 1594.26]
 
 On a table are `N` cards, with a positive integer printed on the front and back of each card (possibly different).
 

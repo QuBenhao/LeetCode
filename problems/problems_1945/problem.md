@@ -1,4 +1,4 @@
-# 1945. Sum of Digits of String After Convert
+# 1945. Sum of Digits of String After Convert [Rating: 1254.86]
 
 You are given a string `s` consisting of lowercase English letters, and an integer `k`.
 

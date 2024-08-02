@@ -1,4 +1,4 @@
-# 1808. Maximize Number of Nice Divisors
+# 1808. Maximize Number of Nice Divisors [Rating: 2070.21]
 
 You are given a positive integer `primeFactors`. You are asked to construct a positive integer `n` that satisfies the following conditions:
 

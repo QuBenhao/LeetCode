@@ -1,4 +1,4 @@
-# 1787. Make the XOR of All Segments Equal to Zero
+# 1787. Make the XOR of All Segments Equal to Zero [Rating: 2640.38]
 
 You are given an array `nums` and an integer `k`. The XOR of a segment `[left, right]` where `left <= right` is the `XOR` of all the elements with indices between `left` and `right`, inclusive: `nums[left] XOR nums[left+1] XOR ... XOR nums[right]`.
 

@@ -1,4 +1,4 @@
-# 896. Monotonic Array
+# 896. Monotonic Array [Rating: 1258.67]
 
 <p>An array is <strong>monotonic</strong> if it is either monotone increasing or monotone decreasing.</p>
 

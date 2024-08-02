@@ -1,4 +1,4 @@
-# 865. Smallest Subtree with all the Deepest Nodes
+# 865. Smallest Subtree with all the Deepest Nodes [Rating: 1534.33]
 
 Given the `root` of a binary tree, the depth of each node is **the shortest distance to the root**.
 

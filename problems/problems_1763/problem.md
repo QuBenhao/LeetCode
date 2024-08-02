@@ -1,4 +1,4 @@
-# 1763. Longest Nice Substring
+# 1763. Longest Nice Substring [Rating: 1521.71]
 
 A string `s` is **nice** if, for every letter of the alphabet that `s` contains, it appears **both** in uppercase and lowercase. For example, `"abABB"` is nice because `'A'` and `'a'` appear, and `'B'` and `'b'` appear. However, `"abA"` is not because `'b'` appears, but `'B'` does not.
 

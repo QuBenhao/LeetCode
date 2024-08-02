@@ -1,4 +1,4 @@
-# 1140. Stone Game II
+# 1140. Stone Game II [Rating: 2034.97]
 
 Alice and Bob continue their games with piles of stones. There are a number of piles **arranged in a row**, and each pile has a positive integer number of stones `piles[i]`. The objective of the game is to end with the most stones. 
 

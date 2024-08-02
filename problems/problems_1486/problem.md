@@ -1,4 +1,4 @@
-# 1486. XOR Operation in an Array
+# 1486. XOR Operation in an Array [Rating: 1180.92]
 
 Given an integer `n` and an integer `start`.
 

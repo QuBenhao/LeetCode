@@ -1,4 +1,4 @@
-# 1553. Minimum Number of Days to Eat N Oranges
+# 1553. Minimum Number of Days to Eat N Oranges [Rating: 2048.10]
 
 <p>There are <code>n</code> oranges in the kitchen and you decided to eat some of these oranges every day as follows:</p>
 

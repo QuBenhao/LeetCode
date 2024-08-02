@@ -1,4 +1,4 @@
-# 1961. Check If String Is a Prefix of Array
+# 1961. Check If String Is a Prefix of Array [Rating: 1234.06]
 
 Given a string `s` and an array of strings `words`, determine whether `s` is a **prefix string** of `words`.
 

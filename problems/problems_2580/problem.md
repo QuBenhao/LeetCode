@@ -1,4 +1,4 @@
-# 2580. Count Ways to Group Overlapping Ranges
+# 2580. Count Ways to Group Overlapping Ranges [Rating: 1631.59]
 
 <p>You are given a 2D integer array <code>ranges</code> where <code>ranges[i] = [start<sub>i</sub>, end<sub>i</sub>]</code> denotes that all integers between <code>start<sub>i</sub></code> and <code>end<sub>i</sub></code> (both <strong>inclusive</strong>) are contained in the <code>i<sup>th</sup></code> range.</p>
 

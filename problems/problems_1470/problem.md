@@ -1,4 +1,4 @@
-# 1470.Shuffle the Array
+# 1470.Shuffle the Array [Rating: 1120.70]
 
 Given the array `nums` consisting of `2n` elements in the form `[x1,x2,...,xn,y1,y2,...,yn]`.
 

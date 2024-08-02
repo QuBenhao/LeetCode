@@ -1,4 +1,4 @@
-# 1124. Longest Well-Performing Interval
+# 1124. Longest Well-Performing Interval [Rating: 1908.39]
 
 We are given `hours`, a list of the number of hours worked per day for a given employee.
 

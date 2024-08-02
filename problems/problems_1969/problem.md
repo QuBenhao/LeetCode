@@ -1,4 +1,4 @@
-# 1969. Minimum Non-Zero Product of the Array Elements
+# 1969. Minimum Non-Zero Product of the Array Elements [Rating: 1966.71]
 
 You are given a positive integer `p`. Consider an array `nums` (**1-indexed**) that consists of the integers in the **inclusive** range `[1, 2p - 1]` in their binary representations. You are allowed to do the following operation **any** number of times:
 

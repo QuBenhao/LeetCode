@@ -1,4 +1,4 @@
-# 1190. Reverse Substrings Between Each Pair of Parentheses
+# 1190. Reverse Substrings Between Each Pair of Parentheses [Rating: 1485.66]
 
 You are given a string `s` that consists of lower case English letters and brackets. 
 

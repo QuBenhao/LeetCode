@@ -1,4 +1,4 @@
-# 1221. Split a String in Balanced Strings
+# 1221. Split a String in Balanced Strings [Rating: 1219.53]
 
 *Balanced* strings are those who have equal quantity of 'L' and 'R' characters.
 

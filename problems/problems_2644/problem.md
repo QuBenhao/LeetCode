@@ -1,4 +1,4 @@
-# 2644. Find the Maximum Divisibility Score
+# 2644. Find the Maximum Divisibility Score [Rating: 1257.83]
 
 <p>You are given two <strong>0-indexed</strong> integer arrays <code>nums</code> and <code>divisors</code>.</p>
 

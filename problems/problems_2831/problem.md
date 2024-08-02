@@ -1,4 +1,4 @@
-# 2831. Find the Longest Equal Subarray
+# 2831. Find the Longest Equal Subarray [Rating: 1975.97]
 
 <p>You are given a <strong>0-indexed</strong> integer array <code>nums</code> and an integer <code>k</code>.</p>
 

@@ -1,4 +1,4 @@
-# 1813. Sentence Similarity III
+# 1813. Sentence Similarity III [Rating: 1588.97]
 
 A sentence is a list of words that are separated by a single space with no leading or trailing spaces. For example, `"Hello World"`, `"HELLO"`, `"hello world hello world"` are all sentences. Words consist of **only** uppercase and lowercase English letters.
 

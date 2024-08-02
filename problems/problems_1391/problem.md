@@ -1,4 +1,4 @@
-# 1391. Check if There is a Valid Path in a Grid
+# 1391. Check if There is a Valid Path in a Grid [Rating: 1745.65]
 
 Given a *m* x *n* `grid`. Each cell of the `grid` represents a street. The street of `grid[i][j]` can be:
 

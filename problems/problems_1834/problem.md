@@ -1,4 +1,4 @@
-# 1834. Single-Threaded CPU
+# 1834. Single-Threaded CPU [Rating: 1797.75]
 
 You are given `n` tasks labeled from `0` to `n - 1` represented by a 2D integer array `tasks`, where tasks[i] = [enqueueTime<sub>i</sub>, processingTime<sub>i</sub>] means that the i<sup>th</sup> task will be available to process at enqueueTime<sub>i</sub> and will take processingTime<sub>i</sub> to finish processing.
 

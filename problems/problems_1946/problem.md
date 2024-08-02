@@ -1,4 +1,4 @@
-# 1946. Largest Number After Mutating Substring
+# 1946. Largest Number After Mutating Substring [Rating: 1445.37]
 
 You are given a string `num`, which represents a large integer. You are also given a **0-indexed**integer array `change` of length `10` that maps each digit `0-9` to another digit. More formally, digit `d` maps to digit `change[d]`.
 

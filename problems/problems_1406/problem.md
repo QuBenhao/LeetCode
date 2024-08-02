@@ -1,4 +1,4 @@
-# 1406. Stone Game III
+# 1406. Stone Game III [Rating: 2026.90]
 
 Alice and Bob continue their games with piles of stones. There are several stones **arranged in a row**, and each stone has an associated value which is an integer given in the array `stoneValue`.
 

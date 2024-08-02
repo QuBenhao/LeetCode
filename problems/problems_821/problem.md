@@ -1,4 +1,4 @@
-# 821. Shortest Distance to a Character
+# 821. Shortest Distance to a Character [Rating: 1266.34]
 
 Given a string `s` and a character `c` that occurs in `s`, return *an array of integers `answer` where*`answer.length == s.length` *and* `answer[i]` *is the shortest distance from* `s[i]` *to the character* `c` *in* `s`.
 

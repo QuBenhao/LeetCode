@@ -1,4 +1,4 @@
-# 1431.Kids With the Greatest Number of Candies
+# 1431.Kids With the Greatest Number of Candies [Rating: 1176.45]
 
 Given the array `candies` and the integer `extraCandies`, where `candies[i]` represents the number of candies that the ***ith*** kid has.
 

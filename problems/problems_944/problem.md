@@ -1,4 +1,4 @@
-# 944. Delete Columns to Make Sorted
+# 944. Delete Columns to Make Sorted [Rating: 1396.49]
 
 We are given an array `A` of `N` lowercase letter strings, all of the same length.
 

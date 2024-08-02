@@ -1,4 +1,4 @@
-# 1835. Find XOR Sum of All Pairs Bitwise AND
+# 1835. Find XOR Sum of All Pairs Bitwise AND [Rating: 1825.01]
 
 The **XOR sum** of a list is the bitwise `XOR` of all its elements. If the list only contains one element, then its **XOR sum** will be equal to this element.
 

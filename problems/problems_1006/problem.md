@@ -1,4 +1,4 @@
-# 1006. Clumsy Factorial
+# 1006. Clumsy Factorial [Rating: 1407.99]
 
 Normally, the factorial of a positive integer `n` is the product of all positive integers less than or equal to `n`. For example, `factorial(10) = 10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2 * 1`.
 

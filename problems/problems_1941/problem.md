@@ -1,4 +1,4 @@
-# 1941. Check if All Characters Have Equal Number of Occurrences
+# 1941. Check if All Characters Have Equal Number of Occurrences [Rating: 1242.62]
 
 Given a string `s`, return `true` *if* `s` *is a **good** string, or* `false` *otherwise*.
 

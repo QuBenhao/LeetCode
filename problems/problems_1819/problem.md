@@ -1,4 +1,4 @@
-# 1819. Number of Different Subsequences GCDs
+# 1819. Number of Different Subsequences GCDs [Rating: 2539.86]
 
 You are given an array `nums` that consists of positive integers.
 

@@ -1,4 +1,4 @@
-# 1780. Check if Number is a Sum of Powers of Three
+# 1780. Check if Number is a Sum of Powers of Three [Rating: 1505.82]
 
 Given an integer `n`, return `true` *if it is possible to represent* `n` *as the sum of distinct powers of three.*Otherwise, return `false`.
 

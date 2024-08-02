@@ -1,4 +1,4 @@
-# 1670. Design Front Middle Back Queue
+# 1670. Design Front Middle Back Queue [Rating: 1610.19]
 
 Design a queue that supports `push` and `pop` operations in the front, middle, and back.
 

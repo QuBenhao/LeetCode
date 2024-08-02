@@ -1,4 +1,4 @@
-# 1769. Minimum Number of Operations to Move All Balls to Each Box
+# 1769. Minimum Number of Operations to Move All Balls to Each Box [Rating: 1294.77]
 
 You have `n` boxes. You are given a binary string `boxes` of length `n`, where `boxes[i]` is `'0'` if the i<sup>th</sup> box is **empty**, and `'1'` if it contains **one** ball.
 

@@ -1,4 +1,4 @@
-# 1860. Incremental Memory Leak
+# 1860. Incremental Memory Leak [Rating: 1387.29]
 
 You are given two integers `memory1` and `memory2` representing the available memory in bits on two memory sticks. There is currently a faulty program running that consumes an increasing amount of memory every second.
 

@@ -1,4 +1,4 @@
-# 785. Is Graph Bipartite?
+# 785. Is Graph Bipartite? [Rating: 1624.98]
 
 Given an undirected `graph`, return `true` if and only if it is bipartite.
 

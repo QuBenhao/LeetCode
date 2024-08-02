@@ -1,4 +1,4 @@
-# 1668. Maximum Repeating Substring
+# 1668. Maximum Repeating Substring [Rating: 1395.51]
 
 For a string `sequence`, a string `word` is **`k`-repeating** if `word` concatenated `k` times is a substring of `sequence`. The `word`'s **maximum `k`-repeating value** is the highest value `k` where `word` is `k`-repeating in `sequence`. If `word` is not a substring of `sequence`, `word`'s maximum `k`-repeating value is `0`.
 

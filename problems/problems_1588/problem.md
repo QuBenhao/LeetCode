@@ -1,4 +1,4 @@
-# 1588. Sum of All Odd Length Subarrays
+# 1588. Sum of All Odd Length Subarrays [Rating: 1408.79]
 
 Given an array of positive integers `arr`, calculate the sum of all possible odd-length subarrays.
 

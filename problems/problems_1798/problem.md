@@ -1,4 +1,4 @@
-# 1798. Maximum Number of Consecutive Values You Can Make
+# 1798. Maximum Number of Consecutive Values You Can Make [Rating: 1931.08]
 
 You are given an integer array `coins` of length `n` which represents the `n` coins that you own. The value of the `ith` coin is `coins[i]`. You can **make** some value `x` if you can choose some of your `n` coins such that their values sum up to `x`.
 

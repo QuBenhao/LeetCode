@@ -1,4 +1,4 @@
-# 2007. Find Original Array From Doubled Array
+# 2007. Find Original Array From Doubled Array [Rating: 1557.02]
 
 <p>An integer array <code>original</code> is transformed into a <strong>doubled</strong> array <code>changed</code> by appending <strong>twice the value</strong> of every element in <code>original</code>, and then randomly <strong>shuffling</strong> the resulting array.</p>
 

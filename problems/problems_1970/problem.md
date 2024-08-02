@@ -1,4 +1,4 @@
-# 1970. Last Day Where You Can Still Cross
+# 1970. Last Day Where You Can Still Cross [Rating: 2123.57]
 
 There is a **1-based** binary matrix where `0` represents land and `1` represents water. You are given integers `row` and `col` representing the number of rows and columns in the matrix, respectively.
 

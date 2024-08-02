@@ -1,4 +1,4 @@
-# 1800. Maximum Ascending Subarray Sum
+# 1800. Maximum Ascending Subarray Sum [Rating: 1229.17]
 
 Given an array of positive integers `nums`, return the *maximum possible sum of an **ascending** subarray in* `nums`.
 

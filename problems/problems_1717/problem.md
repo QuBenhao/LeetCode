@@ -1,4 +1,4 @@
-# 1717. Maximum Score From Removing Substrings
+# 1717. Maximum Score From Removing Substrings [Rating: 1867.99]
 
 You are given a string `s` and two integers `x` and `y`. You can perform two types of operations any number of times.
 

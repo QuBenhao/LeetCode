@@ -1,4 +1,4 @@
-# 1894. Find the Student that Will Replace the Chalk
+# 1894. Find the Student that Will Replace the Chalk [Rating: 1355.54]
 
 There are `n` students in a class numbered from `0` to `n - 1`. The teacher will give each student a problem starting with the student number `0`, then the student number `1`, and so on until the teacher reaches the student number `n - 1`. After that, the teacher will restart the process, starting with the student number `0` again.
 

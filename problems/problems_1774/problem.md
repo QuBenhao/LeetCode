@@ -1,4 +1,4 @@
-# 1774. Closest Dessert Cost
+# 1774. Closest Dessert Cost [Rating: 1701.76]
 
 You would like to make dessert and are preparing to buy the ingredients. You have `n` ice cream base flavors and `m` types of toppings to choose from. You must follow these rules when making your dessert:
 

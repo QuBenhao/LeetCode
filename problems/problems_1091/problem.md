@@ -1,4 +1,4 @@
-# 1091. Shortest Path in Binary Matrix
+# 1091. Shortest Path in Binary Matrix [Rating: 1658.35]
 
 In an N by N square grid, each cell is either empty (0) or blocked (1).
 

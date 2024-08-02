@@ -1,4 +1,4 @@
-# 1915. Number of Wonderful Substrings
+# 1915. Number of Wonderful Substrings [Rating: 2234.92]
 
 A **wonderful** string is a string where **at most one** letter appears an **odd**number of times.
 

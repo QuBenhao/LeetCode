@@ -1,4 +1,4 @@
-# 1696. Jump Game VI
+# 1696. Jump Game VI [Rating: 1954.25]
 
 You are given a **0-indexed** integer array `nums` and an integer `k`.
 

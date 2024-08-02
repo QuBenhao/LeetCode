@@ -1,4 +1,4 @@
-# 1955. Count Number of Special Subsequences
+# 1955. Count Number of Special Subsequences [Rating: 2125.31]
 
 A sequence is **special** if it consists of a **positive** number of `0`s, followed by a **positive** number of `1`s, then a **positive** number of `2`s.
 

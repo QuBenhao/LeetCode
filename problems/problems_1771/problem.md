@@ -1,4 +1,4 @@
-# 1771. Maximize Palindrome Length From Subsequences
+# 1771. Maximize Palindrome Length From Subsequences [Rating: 2182.05]
 
 You are given two strings, `word1` and `word2`. You want to construct a string in the following manner:
 

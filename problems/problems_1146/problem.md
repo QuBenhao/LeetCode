@@ -1,4 +1,4 @@
-# 1146. Snapshot Array
+# 1146. Snapshot Array [Rating: 1770.89]
 
 <p>Implement a SnapshotArray that supports the following interface:</p>
 

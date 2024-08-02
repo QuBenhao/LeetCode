@@ -1,4 +1,4 @@
-# 1846. Maximum Element After Decreasing and Rearranging
+# 1846. Maximum Element After Decreasing and Rearranging [Rating: 1454.39]
 
 You are given an array of positive integers `arr`. Perform some operations (possibly none) on `arr` so that it satisfies these conditions:
 

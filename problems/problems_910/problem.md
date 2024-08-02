@@ -1,4 +1,4 @@
-# 910. Smallest Range II
+# 910. Smallest Range II [Rating: 2134.54]
 
 Given an array `A` of integers, for each integer `A[i]` we need to choose **either `x = -K` or `x = K`**, and add `x` to `A[i] **(only once)**`.
 

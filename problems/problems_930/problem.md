@@ -1,4 +1,4 @@
-# 930. Binary Subarrays With Sum
+# 930. Binary Subarrays With Sum [Rating: 1591.55]
 
 Given a binary array `nums` and an integer `goal`, return *the number of non-empty **subarrays** with a sum* `goal`.
 

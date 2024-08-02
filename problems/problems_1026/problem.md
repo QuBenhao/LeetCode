@@ -1,4 +1,4 @@
-# 1026. Maximum Difference Between Node and Ancestor
+# 1026. Maximum Difference Between Node and Ancestor [Rating: 1446.43]
 
 <p>Given the <code>root</code> of a binary tree, find the maximum value <code>v</code> for which there exist <strong>different</strong> nodes <code>a</code> and <code>b</code> where <code>v = |a.val - b.val|</code> and <code>a</code> is an ancestor of <code>b</code>.</p>
 

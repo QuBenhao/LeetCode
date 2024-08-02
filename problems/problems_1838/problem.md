@@ -1,4 +1,4 @@
-# 1838. Frequency of the Most Frequent Element
+# 1838. Frequency of the Most Frequent Element [Rating: 1876.36]
 
 The **frequency** of an element is the number of times it occurs in an array.
 

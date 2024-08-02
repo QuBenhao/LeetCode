@@ -1,4 +1,4 @@
-# 1687. Delivering Boxes from Storage to Ports
+# 1687. Delivering Boxes from Storage to Ports [Rating: 2610.08]
 
 You have the task of delivering some boxes from storage to their ports using only one ship. However, this ship has a **limit** on the **number of boxes** and the **total weight** that it can carry.
 

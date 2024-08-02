@@ -1,4 +1,4 @@
-# 1240.Tiling a Rectangle with the Fewest Squares
+# 1240.Tiling a Rectangle with the Fewest Squares [Rating: 2241.52]
 
 Given a rectangle of size `n` x `m`, find the minimum number of integer-sided squares that tile the rectangle.
 

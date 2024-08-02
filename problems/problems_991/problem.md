@@ -1,4 +1,4 @@
-# 991. Broken Calculator
+# 991. Broken Calculator [Rating: 1909.42]
 
 On a broken calculator that has a number showing on its display, we can perform two operations:
 

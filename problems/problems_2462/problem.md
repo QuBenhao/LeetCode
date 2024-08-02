@@ -1,4 +1,4 @@
-# 2462. Total Cost to Hire K Workers
+# 2462. Total Cost to Hire K Workers [Rating: 1763.64]
 
 <p>You are given a <strong>0-indexed</strong> integer array <code>costs</code> where <code>costs[i]</code> is the cost of hiring the <code>i<sup>th</sup></code> worker.</p>
 

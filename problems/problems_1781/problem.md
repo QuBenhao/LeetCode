@@ -1,4 +1,4 @@
-# 1781. Sum of Beauty of All Substrings
+# 1781. Sum of Beauty of All Substrings [Rating: 1714.70]
 
 The **beauty** of a string is the difference in frequencies between the most frequent and least frequent characters.
 

@@ -1,4 +1,4 @@
-# 3102. 最小化曼哈顿距离
+# 3102. 最小化曼哈顿距离 [难度分: 2215.73]
 
 <p>给你一个下标从 <strong>0</strong> 开始的数组 <code>points</code> ，它表示二维平面上一些点的整数坐标，其中 <code>points[i] = [x<sub>i</sub>, y<sub>i</sub>]</code> 。</p>
 

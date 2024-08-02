@@ -1,4 +1,4 @@
-# 2244. Minimum Rounds to Complete All Tasks
+# 2244. Minimum Rounds to Complete All Tasks [Rating: 1371.81]
 
 <p>You are given a <strong>0-indexed</strong> integer array <code>tasks</code>, where <code>tasks[i]</code> represents the difficulty level of a task. In each round, you can complete either 2 or 3 tasks of the <strong>same difficulty level</strong>.</p>
 

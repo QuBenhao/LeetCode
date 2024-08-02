@@ -1,4 +1,4 @@
-# 1641. Count Sorted Vowel Strings
+# 1641. Count Sorted Vowel Strings [Rating: 1519.17]
 
 Given an integer `n`, return *the number of strings of length* `n` *that consist only of vowels (*`a`*,* `e`*,* `i`*,* `o`*,* `u`*) and are **lexicographically sorted**.*
 

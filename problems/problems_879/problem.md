@@ -1,4 +1,4 @@
-# 879. Profitable Schemes
+# 879. Profitable Schemes [Rating: 2204.35]
 
 There is a group of `n` members, and a list of various crimes they could commit. The `ith` crime generates a `profit[i]` and requires `group[i]`members to participate in it. If a member participates in one crime, that member can't participate in another crime.
 

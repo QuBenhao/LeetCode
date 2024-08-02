@@ -1,4 +1,4 @@
-# 1049. Last Stone Weight II
+# 1049. Last Stone Weight II [Rating: 2092.49]
 
 You are given an array of integers `stones` where `stones[i]` is the weight of the `ith` stone.
 

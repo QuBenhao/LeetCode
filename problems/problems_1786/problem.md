@@ -1,4 +1,4 @@
-# 1786. Number of Restricted Paths From First to Last Node
+# 1786. Number of Restricted Paths From First to Last Node [Rating: 2078.54]
 
 There is an undirected weighted connected graph. You are given a positive integer `n` which denotes that the graph has `n` nodes labeled from `1` to `n`, and an array `edges` where each `edges[i] = [ui, vi, weighti]` denotes that there is an edge between nodes `ui` and `vi` with weight equal to `weighti`.
 

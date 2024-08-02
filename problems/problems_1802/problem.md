@@ -1,4 +1,4 @@
-# 1802. Maximum Value at a Given Index in a Bounded Array
+# 1802. Maximum Value at a Given Index in a Bounded Array [Rating: 1929.32]
 
 You are given three positive integers `n`, `index` and `maxSum`. You want to construct an array `nums` **(0-indexed)** that satisfies the following conditions:
 

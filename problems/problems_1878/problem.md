@@ -1,4 +1,4 @@
-# 1878. Get Biggest Three Rhombus Sums in a Grid
+# 1878. Get Biggest Three Rhombus Sums in a Grid [Rating: 1897.55]
 
 You are given an `m x n` integer matrix `grid`.
 

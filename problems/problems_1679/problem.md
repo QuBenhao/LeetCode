@@ -1,4 +1,4 @@
-# 1679. Max Number of K-Sum Pairs
+# 1679. Max Number of K-Sum Pairs [Rating: 1345.74]
 
 You are given an integer array `nums` and an integer `k`.
 

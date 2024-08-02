@@ -1,4 +1,4 @@
-# 1782. Count Pairs Of Nodes
+# 1782. Count Pairs Of Nodes [Rating: 2457.12]
 
 You are given an undirected graph represented by an integer `n`, which is the number of nodes, and `edges`, where `edges[i] = [ui, vi]` which indicates that there is an undirected edge between `ui` and `vi`. You are also given an integer array `queries`.
 

@@ -1,4 +1,4 @@
-# 1847. Closest Room
+# 1847. Closest Room [Rating: 2081.75]
 
 There is a hotel with `n` rooms. The rooms are represented by a 2D integer array `rooms` where `rooms[i] = [roomIdi, sizei]` denotes that there is a room with room number `roomIdi` and size equal to `sizei`. Each `roomIdi` is guaranteed to be **unique**.
 

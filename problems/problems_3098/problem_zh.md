@@ -1,4 +1,4 @@
-# 3098. 求出所有子序列的能量和
+# 3098. 求出所有子序列的能量和 [难度分: 2552.51]
 
 <p>给你一个长度为 <code>n</code>&nbsp;的整数数组&nbsp;<code>nums</code>&nbsp;和一个 <strong>正</strong>&nbsp;整数&nbsp;<code>k</code>&nbsp;。</p>
 

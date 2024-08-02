@@ -1,4 +1,4 @@
-# 1839. Longest Substring Of All Vowels in Order
+# 1839. Longest Substring Of All Vowels in Order [Rating: 1580.36]
 
 A string is considered **beautiful** if it satisfies the following conditions:
 

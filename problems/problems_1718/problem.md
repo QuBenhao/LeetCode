@@ -1,4 +1,4 @@
-# 1718. Construct the Lexicographically Largest Valid Sequence
+# 1718. Construct the Lexicographically Largest Valid Sequence [Rating: 2080.04]
 
 Given an integer `n`, find a sequence that satisfies all of the following:
 

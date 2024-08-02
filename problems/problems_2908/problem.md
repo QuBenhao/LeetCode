@@ -1,4 +1,4 @@
-# 2908. Minimum Sum of Mountain Triplets I
+# 2908. Minimum Sum of Mountain Triplets I [Rating: 1253.52]
 
 <p>You are given a <strong>0-indexed</strong> array <code>nums</code> of integers.</p>
 

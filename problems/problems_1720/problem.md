@@ -1,4 +1,4 @@
-# 1720. Decode XORed Array
+# 1720. Decode XORed Array [Rating: 1284.45]
 
 There is a **hidden** integer array `arr` that consists of `n` non-negative integers.
 

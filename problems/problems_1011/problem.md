@@ -1,4 +1,4 @@
-# 1011. Capacity To Ship Packages Within D Days
+# 1011. Capacity To Ship Packages Within D Days [Rating: 1725.45]
 
 A conveyor belt has packages that must be shipped from one port to another within `D` days.
 

@@ -1,4 +1,4 @@
-# 1805. Number of Different Integers in a String
+# 1805. Number of Different Integers in a String [Rating: 1333.31]
 
 You are given a string `word` that consists of digits and lowercase English letters.
 

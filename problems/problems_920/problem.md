@@ -1,4 +1,4 @@
-# 920. Number of Music Playlists
+# 920. Number of Music Playlists [Rating: 2399.57]
 
 Your music player contains `N` different songs and she wants to listen to `L` (not necessarily different) songs during your trip.  You create a playlist so that:
 

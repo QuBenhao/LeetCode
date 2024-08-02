@@ -1,4 +1,4 @@
-# 2952. Minimum Number of Coins to be Added
+# 2952. Minimum Number of Coins to be Added [Rating: 1784.35]
 
 <p>You are given a <strong>0-indexed</strong> integer array <code>coins</code>, representing the values of the coins available, and an integer <code>target</code>.</p>
 

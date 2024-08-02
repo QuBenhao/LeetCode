@@ -1,4 +1,4 @@
-# 2391. Minimum Amount of Time to Collect Garbage
+# 2391. Minimum Amount of Time to Collect Garbage [Rating: 1455.85]
 
 <p>You are given a <strong>0-indexed</strong> array of strings <code>garbage</code> where <code>garbage[i]</code> represents the assortment of garbage at the <code>i<sup>th</sup></code> house. <code>garbage[i]</code> consists only of the characters <code>&#39;M&#39;</code>, <code>&#39;P&#39;</code> and <code>&#39;G&#39;</code> representing one unit of metal, paper and glass garbage respectively. Picking up <strong>one</strong> unit of any type of garbage takes <code>1</code> minute.</p>
 

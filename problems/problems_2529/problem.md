@@ -1,4 +1,4 @@
-# 2529. Maximum Count of Positive Integer and Negative Integer
+# 2529. Maximum Count of Positive Integer and Negative Integer [Rating: 1195.97]
 
 <p>Given an array <code>nums</code> sorted in <strong>non-decreasing</strong> order, return <em>the maximum between the number of positive integers and the number of negative integers.</em></p>
 

@@ -1,4 +1,4 @@
-# 1482. Minimum Number of Days to Make m Bouquets
+# 1482. Minimum Number of Days to Make m Bouquets [Rating: 1945.51]
 
 Given an integer array `bloomDay`, an integer `m` and an integer `k`.
 

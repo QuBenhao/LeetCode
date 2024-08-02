@@ -1,4 +1,4 @@
-# 1888. Minimum Number of Flips to Make the Binary String Alternating
+# 1888. Minimum Number of Flips to Make the Binary String Alternating [Rating: 2005.59]
 
 You are given a binary string `s`. You are allowed to perform two types of operations on the string in any sequence:
 

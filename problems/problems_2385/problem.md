@@ -1,4 +1,4 @@
-# 2385. Amount of Time for Binary Tree to Be Infected
+# 2385. Amount of Time for Binary Tree to Be Infected [Rating: 1711.49]
 
 <p>You are given the <code>root</code> of a binary tree with <strong>unique</strong> values, and an integer <code>start</code>. At minute <code>0</code>, an <strong>infection</strong> starts from the node with value <code>start</code>.</p>
 

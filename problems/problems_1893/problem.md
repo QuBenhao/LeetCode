@@ -1,4 +1,4 @@
-# 1893. Check if All the Integers in a Range Are Covered
+# 1893. Check if All the Integers in a Range Are Covered [Rating: 1307.38]
 
 You are given a 2D integer array `ranges` and two integers `left` and `right`. Each `ranges[i] = [starti, endi]` represents an **inclusive** interval between `starti` and `endi`.
 

@@ -1,4 +1,4 @@
-# 1906. Minimum Absolute Difference Queries
+# 1906. Minimum Absolute Difference Queries [Rating: 2146.64]
 
 The **minimum absolute difference** of an array `a` is defined as the **minimum value** of `|a[i] - a[j]|`, where `0 <= i < j < a.length` and `a[i] != a[j]`. If all elements of `a` are the **same**, the minimum absolute difference is `-1`.
 

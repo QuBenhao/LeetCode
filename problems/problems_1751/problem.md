@@ -1,4 +1,4 @@
-# 1751. Maximum Number of Events That Can Be Attended II
+# 1751. Maximum Number of Events That Can Be Attended II [Rating: 2040.56]
 
 You are given an array of `events` where `events[i] = [startDayi, endDayi, valuei]`. The `ith` event starts at `startDayi` and ends at `endDayi`, and if you attend this event, you will receive a value of `valuei`. You are also given an integer `k` which represents the maximum number of events you can attend.
 

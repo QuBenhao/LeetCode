@@ -1,4 +1,4 @@
-# 1664. Ways to Make a Fair Array
+# 1664. Ways to Make a Fair Array [Rating: 1590.27]
 
 You are given an integer array `nums`. You can choose **exactly one** index (**0-indexed**) and remove the element. Notice that the index of the elements may change after the removal.
 

@@ -1,4 +1,4 @@
-# 1647. Minimum Deletions to Make Character Frequencies Unique
+# 1647. Minimum Deletions to Make Character Frequencies Unique [Rating: 1509.54]
 
 A string `s` is called **good** if there are no two different characters in `s` that have the same **frequency**.
 
