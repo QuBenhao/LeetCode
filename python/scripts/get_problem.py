@@ -60,7 +60,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         if is_chinese:
             desc = cn_desc
         with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
-            f.write(Python3Writer.write_problem_md(problem_id, cn_title, cn_desc, rating=question_rating))
+            f.write(Python3Writer.write_problem_md(problem_id, cn_title, cn_desc, True, rating=question_rating))
     code_maps = get_question_code(problem_slug, lang_slugs=languages, cookie=cookie)
     if code_maps is None:
         logging.warning(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}")

@@ -48,7 +48,7 @@ def process_each(dir_path, problem_id: str):
         lines[0] += " [难度分: {:.2f}]".format(rating)
         with open(problem_file_path_zh, "w") as f:
             f.write("\n".join(lines))
-        logging.info("Rating back filled for CN problem id: %s", problem_id)
+        logging.debug("Rating back filled for CN problem id: %s", problem_id)
 
 
 def back_fill_ratings(args):
@@ -69,7 +69,7 @@ def back_fill_ratings(args):
             for d in list(dirs):
                 if not d.startswith(f"{problem_folder}_"):
                     dirs.remove(d)
-                    logging.info("Skip folder: %s", d)
+                    logging.debug("Skip folder: %s", d)
             continue
         for file in files:
             if file == PROBLEM_MD or file == PROBLEM_MD_ZH:

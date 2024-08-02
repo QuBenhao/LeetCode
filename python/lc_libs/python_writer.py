@@ -127,7 +127,8 @@ class Python3Writer(LanguageWriter):
         return "\n".join(final_codes), problem_id
 
     @staticmethod
-    def write_problem_md(question_id: str, question_name: str, desc: str, rating: float = None) -> str:
+    def write_problem_md(question_id: str, question_name: str, desc: str, cn: bool = False,
+                         rating: float = None) -> str:
         check = False
         formated = []
         for line in desc.split("\n"):
@@ -139,8 +140,9 @@ class Python3Writer(LanguageWriter):
                 continue
             formated.append(line)
         return "# {}. {} {}\n\n{}".format(back_question_id(question_id), question_name,
-                                          "" if not rating else "[Rating: {:.2f}]".format(rating),
-                                        "\n".join(formated))
+                                          "" if not rating else "[{}: {:.2f}]".format(
+                                              "难度分" if cn else "Rating", rating),
+                                          "\n".join(formated))
 
     @staticmethod
     def write_testcase(testcases, outputs) -> str:

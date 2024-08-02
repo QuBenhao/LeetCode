@@ -50,7 +50,7 @@ def write_question(dir_path, problem_folder: str, question_id: str, question_nam
     if cn_result is not None and cn_result[0] is not None:
         cn_desc, cn_title = cn_result
         with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
-            f.write(Python3Writer.write_problem_md(question_id, cn_title, cn_desc, rating=question_rating))
+            f.write(Python3Writer.write_problem_md(question_id, cn_title, cn_desc, True, rating=question_rating))
     if desc is not None:
         is_chinese = False
         if "English description is not available for the problem. Please switch to Chinese." in desc:
