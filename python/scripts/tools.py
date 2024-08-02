@@ -28,8 +28,8 @@ def process_each(dir_path, problem_id: str):
         if not lines:
             logging.warning("Empty file: %s", problem_file_path)
         else:
-            if "[Rating" in lines[0]:
-                lines[0] = lines[0].split("[Rating")[0]
+            if " [Rating" in lines[0]:
+                lines[0] = lines[0].split(" [Rating")[0]
             lines[0] += " [Rating: {:.2f}]".format(rating)
             with open(problem_file_path, "w") as f:
                 f.write("\n".join(lines))
@@ -41,10 +41,10 @@ def process_each(dir_path, problem_id: str):
         if not lines:
             logging.warning("Empty file: %s", problem_file_path_zh)
             return
-        if "[Rating" in lines[0]:
-            lines[0] = lines[0].split("[Rating")[0]
-        if "[难度分" in lines[0]:
-            lines[0] = lines[0].split("[难度分")[0]
+        if " [Rating" in lines[0]:
+            lines[0] = lines[0].split(" [Rating")[0]
+        if " [难度分" in lines[0]:
+            lines[0] = lines[0].split(" [难度分")[0]
         lines[0] += " [难度分: {:.2f}]".format(rating)
         with open(problem_file_path_zh, "w") as f:
             f.write("\n".join(lines))
