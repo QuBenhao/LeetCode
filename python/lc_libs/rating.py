@@ -47,7 +47,9 @@ def get_rating(problem_id: str) -> Optional[float]:
             data = json.load(f)
             for problem in data:
                 if problem["ID"] == pid:
+                    logging.debug("Rating found for problem id: %s, [%s]", problem_id, problem)
                     return problem["Rating"]
+        logging.debug("Rating not found for problem id: %s", problem_id)
     except Exception as _:
         logging.error("Failed to get rating data.", exc_info=True)
     return None
