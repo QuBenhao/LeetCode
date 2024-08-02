@@ -30,6 +30,7 @@ jobs:
           package.json
           jest.config.ts
           Cargo.toml
+          data
           ${{ secrets.PROBLEM_FOLDER || 'problems' }}
           ${{ secrets.PREMIUM_FOLDER || 'premiums' }}
 
