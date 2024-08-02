@@ -12,3 +12,4 @@ from .cpp_writer import CppWriter
 from .typescript_writer import TypescriptWriter
 from .rust_writer import RustWriter
 from .study_plan import get_user_study_plans, get_user_study_plan_progress
+from .rating import get_rating
