@@ -1,4 +1,4 @@
-# 3128. Right Triangles
+# 3128. Right Triangles [Rating: 1540.84]
 
 <p>You are given a 2D boolean matrix <code>grid</code>.</p>
 

@@ -1,4 +1,4 @@
-# 2779. Maximum Beauty of an Array After Applying Operation
+# 2779. Maximum Beauty of an Array After Applying Operation [Rating: 1638.41]
 
 <p>You are given a <strong>0-indexed</strong> array <code>nums</code> and a <strong>non-negative</strong> integer <code>k</code>.</p>
 

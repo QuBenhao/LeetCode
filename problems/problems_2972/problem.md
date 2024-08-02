@@ -1,4 +1,4 @@
-# 2972. Count the Number of Incremovable Subarrays II
+# 2972. Count the Number of Incremovable Subarrays II [Rating: 2152.80]
 
 <p>You are given a <strong>0-indexed</strong> array of <strong>positive</strong> integers <code>nums</code>.</p>
 

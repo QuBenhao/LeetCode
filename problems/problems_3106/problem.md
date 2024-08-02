@@ -1,4 +1,4 @@
-# 3106. Lexicographically Smallest String After Operations With Constraint
+# 3106. Lexicographically Smallest String After Operations With Constraint [Rating: 1515.43]
 
 <p>You are given a string <code>s</code> and an integer <code>k</code>.</p>
 

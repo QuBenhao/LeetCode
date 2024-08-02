@@ -1,4 +1,4 @@
-# 3033. Modify the Matrix
+# 3033. Modify the Matrix [Rating: 1180.59]
 
 <p>Given a <strong>0-indexed</strong> <code>m x n</code> integer matrix <code>matrix</code>, create a new <strong>0-indexed</strong> matrix called <code>answer</code>. Make <code>answer</code> equal to <code>matrix</code>, then replace each element with the value <code>-1</code> with the <strong>maximum</strong> element in its respective column.</p>
 

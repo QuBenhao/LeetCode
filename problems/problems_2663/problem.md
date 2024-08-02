@@ -1,4 +1,4 @@
-# 2663. Lexicographically Smallest Beautiful String
+# 2663. Lexicographically Smallest Beautiful String [Rating: 2415.74]
 
 <p>A string is <strong>beautiful</strong> if:</p>
 

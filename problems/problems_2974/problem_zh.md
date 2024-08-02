@@ -1,4 +1,4 @@
-# 2974. 最小数字游戏
+# 2974. 最小数字游戏 [难度分: 1184.84]
 
 <p>你有一个下标从 <strong>0</strong> 开始、长度为 <strong>偶数</strong> 的整数数组 <code>nums</code> ，同时还有一个空数组 <code>arr</code> 。Alice 和 Bob 决定玩一个游戏，游戏中每一轮 Alice 和 Bob 都会各自执行一次操作。游戏规则如下：</p>
 

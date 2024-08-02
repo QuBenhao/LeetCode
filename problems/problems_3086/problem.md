@@ -1,4 +1,4 @@
-# 3086. Minimum Moves to Pick K Ones
+# 3086. Minimum Moves to Pick K Ones [Rating: 2672.76]
 
 <p>You are given a binary array <code>nums</code> of length <code>n</code>, a <strong>positive</strong> integer <code>k</code> and a <strong>non-negative</strong> integer <code>maxChanges</code>.</p>
 

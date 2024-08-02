@@ -1,4 +1,4 @@
-# 1932. 合并多棵二叉搜索树
+# 1932. 合并多棵二叉搜索树 [难度分: 2483.94]
 
 <p>给你 <code>n</code> 个 <strong>二叉搜索树的根节点</strong> ，存储在数组 <code>trees</code> 中（<strong>下标从 0 开始</strong>），对应 <code>n</code> 棵不同的二叉搜索树。<code>trees</code> 中的每棵二叉搜索树 <strong>最多有 3 个节点</strong> ，且不存在值相同的两个根节点。在一步操作中，将会完成下述步骤：</p>
 

@@ -1,4 +1,4 @@
-# 2732. 找到矩阵中的好子集
+# 2732. 找到矩阵中的好子集 [难度分: 2239.71]
 
 <p>给你一个下标从 <strong>0</strong>&nbsp;开始大小为&nbsp;<code>m x n</code>&nbsp;的二进制矩阵&nbsp;<code>grid</code>&nbsp;。</p>
 

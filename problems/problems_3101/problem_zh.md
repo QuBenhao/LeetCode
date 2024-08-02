@@ -1,4 +1,4 @@
-# 3101. 交替子数组计数
+# 3101. 交替子数组计数 [难度分: 1404.97]
 
 <p>给你一个<span data-keyword="binary-array">二进制数组 </span><code>nums</code> 。</p>
 

@@ -1,4 +1,4 @@
-# 2813. Maximum Elegance of a K-Length Subsequence
+# 2813. Maximum Elegance of a K-Length Subsequence [Rating: 2582.08]
 
 <p>You are given a <strong>0-indexed</strong> 2D integer array <code>items</code> of length <code>n</code> and an integer <code>k</code>.</p>
 

@@ -1,4 +1,4 @@
-# 1603. Design Parking System
+# 1603. Design Parking System [Rating: 1324.18]
 
 <p>Design a parking system for a parking lot. The parking lot has three kinds of parking spaces: big, medium, and small, with a fixed number of slots for each size.</p>
 

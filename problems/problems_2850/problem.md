@@ -1,4 +1,4 @@
-# 2850. Minimum Moves to Spread Stones Over Grid
+# 2850. Minimum Moves to Spread Stones Over Grid [Rating: 2001.45]
 
 <p>You are given a <strong>0-indexed</strong> 2D integer matrix <code>grid</code> of size <code>3 * 3</code>, representing the number of stones in each cell. The grid contains exactly <code>9</code> stones, and there can be <strong>multiple</strong> stones in a single cell.</p>
 

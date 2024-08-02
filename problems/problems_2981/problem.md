@@ -1,4 +1,4 @@
-# 2981. Find Longest Special Substring That Occurs Thrice I
+# 2981. Find Longest Special Substring That Occurs Thrice I [Rating: 1505.31]
 
 <p>You are given a string <code>s</code> that consists of lowercase English letters.</p>
 

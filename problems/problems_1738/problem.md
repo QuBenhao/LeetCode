@@ -1,4 +1,4 @@
-# 1738. Find Kth Largest XOR Coordinate Value
+# 1738. Find Kth Largest XOR Coordinate Value [Rating: 1671.47]
 
 <p>You are given a 2D <code>matrix</code> of size <code>m x n</code>, consisting of non-negative integers. You are also given an integer <code>k</code>.</p>
 

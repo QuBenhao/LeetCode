@@ -1,4 +1,4 @@
-# 3067. Count Pairs of Connectable Servers in a Weighted Tree Network
+# 3067. Count Pairs of Connectable Servers in a Weighted Tree Network [Rating: 1908.94]
 
 <p>You are given an unrooted weighted tree with <code>n</code> vertices representing servers numbered from <code>0</code> to <code>n - 1</code>, an array <code>edges</code> where <code>edges[i] = [a<sub>i</sub>, b<sub>i</sub>, weight<sub>i</sub>]</code> represents a bidirectional edge between vertices <code>a<sub>i</sub></code> and <code>b<sub>i</sub></code> of weight <code>weight<sub>i</sub></code>. You are also given an integer <code>signalSpeed</code>.</p>
 

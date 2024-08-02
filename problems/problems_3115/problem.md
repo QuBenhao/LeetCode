@@ -1,4 +1,4 @@
-# 3115. Maximum Prime Difference
+# 3115. Maximum Prime Difference [Rating: 1294.46]
 
 <p>You are given an integer array <code>nums</code>.</p>
 

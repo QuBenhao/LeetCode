@@ -1,4 +1,4 @@
-# 2101. Detonate the Maximum Bombs
+# 2101. Detonate the Maximum Bombs [Rating: 1880.05]
 
 <p>You are given a list of bombs. The <strong>range</strong> of a bomb is defined as the area where its effect can be felt. This area is in the shape of a <strong>circle</strong> with the center as the location of the bomb.</p>
 

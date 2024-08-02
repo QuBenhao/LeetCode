@@ -1,4 +1,4 @@
-# 2734. Lexicographically Smallest String After Substring Operation
+# 2734. Lexicographically Smallest String After Substring Operation [Rating: 1405.12]
 
 <p>Given a string <code>s</code> consisting of lowercase English letters. Perform the following operation:</p>
 

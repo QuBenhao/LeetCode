@@ -1,4 +1,4 @@
-# 1103. Distribute Candies to People
+# 1103. Distribute Candies to People [Rating: 1287.11]
 
 <p>We distribute some&nbsp;number of <code>candies</code>, to a row of <strong><code>n =&nbsp;num_people</code></strong>&nbsp;people in the following way:</p>
 

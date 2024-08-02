@@ -1,4 +1,4 @@
-# 2961. Double Modular Exponentiation
+# 2961. Double Modular Exponentiation [Rating: 1450.70]
 
 <p>You are given a <strong>0-indexed</strong> 2D array <code>variables</code> where <code>variables[i] = [a<sub>i</sub>, b<sub>i</sub>, c<sub>i,</sub> m<sub>i</sub>]</code>, and an integer <code>target</code>.</p>
 

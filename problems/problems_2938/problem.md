@@ -1,4 +1,4 @@
-# 2938. Separate Black and White Balls
+# 2938. Separate Black and White Balls [Rating: 1422.71]
 
 <p>There are <code>n</code> balls on a table, each ball has a color black or white.</p>
 

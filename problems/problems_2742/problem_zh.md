@@ -1,4 +1,4 @@
-# 2742. 给墙壁刷油漆
+# 2742. 给墙壁刷油漆 [难度分: 2424.68]
 
 <p>给你两个长度为 <code>n</code>&nbsp;下标从 <strong>0</strong>&nbsp;开始的整数数组&nbsp;<code>cost</code> 和&nbsp;<code>time</code>&nbsp;，分别表示给&nbsp;<code>n</code>&nbsp;堵不同的墙刷油漆需要的开销和时间。你有两名油漆匠：</p>
 

@@ -1,4 +1,4 @@
-# 2732. Find a Good Subset of the Matrix
+# 2732. Find a Good Subset of the Matrix [Rating: 2239.71]
 
 <p>You are given a <strong>0-indexed</strong> <code>m x n</code> binary matrix <code>grid</code>.</p>
 

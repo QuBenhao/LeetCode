@@ -70,7 +70,6 @@ def back_fill_ratings(args):
                 if not d.startswith(f"{problem_folder}_"):
                     dirs.remove(d)
                     logging.debug("Skip folder: %s", d)
-            continue
         for file in files:
             if file == PROBLEM_MD or file == PROBLEM_MD_ZH:
                 process_each(root, os.path.basename(root).split(f"{problem_folder}_")[-1])

@@ -1,4 +1,4 @@
-# 3038. Maximum Number of Operations With the Same Score I
+# 3038. Maximum Number of Operations With the Same Score I [Rating: 1201.78]
 
 <p>Given an array of integers called <code>nums</code>, you can perform the following operation while <code>nums</code> contains <strong>at least</strong> <code>2</code> elements:</p>
 

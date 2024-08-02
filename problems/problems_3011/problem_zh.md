@@ -1,4 +1,4 @@
-# 3011. 判断一个数组是否可以变为有序
+# 3011. 判断一个数组是否可以变为有序 [难度分: 1496.64]
 
 <p>给你一个下标从 <strong>0</strong>&nbsp;开始且全是 <strong>正</strong>&nbsp;整数的数组&nbsp;<code>nums</code>&nbsp;。</p>
 

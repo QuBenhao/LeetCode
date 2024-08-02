@@ -1,4 +1,4 @@
-# 3112. Minimum Time to Visit Disappearing Nodes
+# 3112. Minimum Time to Visit Disappearing Nodes [Rating: 1756.96]
 
 <p>There is an undirected graph of <code>n</code> nodes. You are given a 2D array <code>edges</code>, where <code>edges[i] = [u<sub>i</sub>, v<sub>i</sub>, length<sub>i</sub>]</code> describes an edge between node <code>u<sub>i</sub></code> and node <code>v<sub>i</sub></code> with a traversal time of <code>length<sub>i</sub></code> units.</p>
 

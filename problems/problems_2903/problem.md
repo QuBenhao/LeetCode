@@ -1,4 +1,4 @@
-# 2903. Find Indices With Index and Value Difference I
+# 2903. Find Indices With Index and Value Difference I [Rating: 1157.64]
 
 <p>You are given a <strong>0-indexed</strong> integer array <code>nums</code> having length <code>n</code>, an integer <code>indexDifference</code>, and an integer <code>valueDifference</code>.</p>
 

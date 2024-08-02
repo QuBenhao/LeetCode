@@ -1,4 +1,4 @@
-# 2806. Account Balance After Rounded Purchase
+# 2806. Account Balance After Rounded Purchase [Rating: 1214.70]
 
 <p>Initially, you have a bank account balance of <code>100</code> dollars.</p>
 

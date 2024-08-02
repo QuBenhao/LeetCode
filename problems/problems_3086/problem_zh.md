@@ -1,4 +1,4 @@
-# 3086. 拾起 K 个 1 需要的最少行动次数
+# 3086. 拾起 K 个 1 需要的最少行动次数 [难度分: 2672.76]
 
 <p>给你一个下标从 <strong>0</strong> 开始的二进制数组 <code>nums</code>，其长度为 <code>n</code> ；另给你一个 <strong>正整数 </strong><code>k</code> 以及一个 <strong>非负整数 </strong><code>maxChanges</code> 。</p>
 

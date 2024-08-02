@@ -1,4 +1,4 @@
-# 2959. Number of Possible Sets of Closing Branches
+# 2959. Number of Possible Sets of Closing Branches [Rating: 2077.47]
 
 <p>There is a company with <code>n</code> branches across the country, some of which are connected by roads. Initially, all branches are reachable from each other by traveling some roads.</p>
 

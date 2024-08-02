@@ -1,4 +1,4 @@
-# 2850. 将石头分散到网格图的最少移动次数
+# 2850. 将石头分散到网格图的最少移动次数 [难度分: 2001.45]
 
 <p>给你一个大小为 <code>3 * 3</code>&nbsp;，下标从 <strong>0</strong>&nbsp;开始的二维整数矩阵&nbsp;<code>grid</code>&nbsp;，分别表示每一个格子里石头的数目。网格图中总共恰好有&nbsp;<code>9</code>&nbsp;个石头，一个格子里可能会有 <strong>多个</strong>&nbsp;石头。</p>
 

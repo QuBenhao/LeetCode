@@ -1,4 +1,4 @@
-# 2844. Minimum Operations to Make a Special Number
+# 2844. Minimum Operations to Make a Special Number [Rating: 1588.48]
 
 <p>You are given a <strong>0-indexed</strong> string <code>num</code> representing a non-negative integer.</p>
 

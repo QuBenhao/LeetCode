@@ -1,4 +1,4 @@
-# 3011. Find if Array Can Be Sorted
+# 3011. Find if Array Can Be Sorted [Rating: 1496.64]
 
 <p>You are given a <strong>0-indexed</strong> array of <strong>positive</strong> integers <code>nums</code>.</p>
 

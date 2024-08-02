@@ -1,4 +1,4 @@
-# 994. Rotting Oranges
+# 994. Rotting Oranges [Rating: 1432.91]
 
 <p>You are given an <code>m x n</code> <code>grid</code> where each cell can have one of three values:</p>
 

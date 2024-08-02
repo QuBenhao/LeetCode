@@ -1,4 +1,4 @@
-# 3111. 覆盖所有点的最少矩形数目
+# 3111. 覆盖所有点的最少矩形数目 [难度分: 1401.27]
 
 <p>给你一个二维整数数组&nbsp;<code>point</code>&nbsp;，其中&nbsp;<code>points[i] = [x<sub>i</sub>, y<sub>i</sub>]</code>&nbsp;表示二维平面内的一个点。同时给你一个整数&nbsp;<code>w</code>&nbsp;。你需要用矩形&nbsp;<strong>覆盖所有</strong>&nbsp;点。</p>
 

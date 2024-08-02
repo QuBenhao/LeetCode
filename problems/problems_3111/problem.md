@@ -1,4 +1,4 @@
-# 3111. Minimum Rectangles to Cover Points
+# 3111. Minimum Rectangles to Cover Points [Rating: 1401.27]
 
 <p>You are given a 2D integer array <code>points</code>, where <code>points[i] = [x<sub>i</sub>, y<sub>i</sub>]</code>. You are also given an integer <code>w</code>. Your task is to <strong>cover</strong> <strong>all</strong> the given points with rectangles.</p>
 

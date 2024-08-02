@@ -1,4 +1,4 @@
-# 2713. Maximum Strictly Increasing Cells in a Matrix
+# 2713. Maximum Strictly Increasing Cells in a Matrix [Rating: 2387.35]
 
 <p>Given a <strong>1-indexed</strong>&nbsp;<code>m x n</code> integer matrix <code>mat</code>, you can select any cell in the matrix as your <strong>starting cell</strong>.</p>
 

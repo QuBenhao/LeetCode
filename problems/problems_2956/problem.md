@@ -1,4 +1,4 @@
-# 2956. Find Common Elements Between Two Arrays
+# 2956. Find Common Elements Between Two Arrays [Rating: 1214.54]
 
 <p>You are given two integer arrays <code>nums1</code> and <code>nums2</code> of sizes <code>n</code> and <code>m</code>, respectively. Calculate the following values:</p>
 

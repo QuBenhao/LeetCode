@@ -1,4 +1,4 @@
-# 2766. Relocate Marbles
+# 2766. Relocate Marbles [Rating: 1613.25]
 
 <p>You are given a <strong>0-indexed</strong> integer array <code>nums</code> representing the initial positions of some marbles. You are also given two <strong>0-indexed </strong>integer arrays <code>moveFrom</code> and <code>moveTo</code> of <strong>equal</strong> length.</p>
 

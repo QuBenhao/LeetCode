@@ -1,4 +1,4 @@
-# 3101. Count Alternating Subarrays
+# 3101. Count Alternating Subarrays [Rating: 1404.97]
 
 <p>You are given a <span data-keyword="binary-array">binary array</span> <code>nums</code>.</p>
 

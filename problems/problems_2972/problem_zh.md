@@ -1,4 +1,4 @@
-# 2972. 统计移除递增子数组的数目 II
+# 2972. 统计移除递增子数组的数目 II [难度分: 2152.80]
 
 <p>给你一个下标从 <strong>0</strong>&nbsp;开始的 <b>正</b>&nbsp;整数数组&nbsp;<code>nums</code>&nbsp;。</p>
 

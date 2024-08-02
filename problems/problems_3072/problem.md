@@ -1,4 +1,4 @@
-# 3072. Distribute Elements Into Two Arrays II
+# 3072. Distribute Elements Into Two Arrays II [Rating: 2052.86]
 
 <p>You are given a <strong>1-indexed</strong> array of integers <code>nums</code> of length <code>n</code>.</p>
 

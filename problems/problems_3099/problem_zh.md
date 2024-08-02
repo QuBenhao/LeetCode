@@ -1,4 +1,4 @@
-# 3099. 哈沙德数
+# 3099. 哈沙德数 [难度分: 1100.53]
 
 <p>如果一个整数能够被其各个数位上的数字之和整除，则称之为<strong> 哈沙德数</strong>（Harshad number）。给你一个整数 <code>x</code> 。如果 <code>x</code> 是 <strong>哈沙德数 </strong>，则返回<em> </em><code>x</code> 各个数位上的数字之和，否则，返回<em> </em><code>-1</code> 。</p>
 

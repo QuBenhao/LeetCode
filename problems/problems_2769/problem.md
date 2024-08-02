@@ -1,4 +1,4 @@
-# 2769. Find the Maximum Achievable Number
+# 2769. Find the Maximum Achievable Number [Rating: 1191.37]
 
 <p>You are given two integers, <code>num</code> and <code>t</code>.</p>
 

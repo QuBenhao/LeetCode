@@ -1,4 +1,4 @@
-# 2951. Find the Peaks
+# 2951. Find the Peaks [Rating: 1189.44]
 
 <p>You are given a <strong>0-indexed</strong> array <code>mountain</code>. Your task is to find all the <strong>peaks</strong> in the <code>mountain</code> array.</p>
 

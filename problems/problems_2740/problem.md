@@ -1,4 +1,4 @@
-# 2740. Find the Value of the Partition
+# 2740. Find the Value of the Partition [Rating: 1301.93]
 
 <p>You are given a <strong>positive</strong> integer array <code>nums</code>.</p>
 

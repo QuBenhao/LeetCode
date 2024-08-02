@@ -1,4 +1,4 @@
-# 3096. Minimum Levels to Gain More Points
+# 3096. Minimum Levels to Gain More Points [Rating: 1500.94]
 
 <p>You are given a binary array <code>possible</code> of length <code>n</code>.</p>
 

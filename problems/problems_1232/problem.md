@@ -1,4 +1,4 @@
-# 1232. Check If It Is a Straight Line
+# 1232. Check If It Is a Straight Line [Rating: 1247.32]
 
 <p>You are given an array&nbsp;<code>coordinates</code>, <code>coordinates[i] = [x, y]</code>, where <code>[x, y]</code> represents the coordinate of a point. Check if these points&nbsp;make a straight line in the XY plane.</p>
 

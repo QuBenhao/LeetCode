@@ -1,4 +1,4 @@
-# 1472. 设计浏览器历史记录
+# 1472. 设计浏览器历史记录 [难度分: 1453.78]
 
 <p>你有一个只支持单个标签页的 <strong>浏览器</strong>&nbsp;，最开始你浏览的网页是&nbsp;<code>homepage</code>&nbsp;，你可以访问其他的网站&nbsp;<code>url</code>&nbsp;，也可以在浏览历史中后退&nbsp;<code>steps</code>&nbsp;步或前进&nbsp;<code>steps</code>&nbsp;步。</p>
 

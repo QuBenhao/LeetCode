@@ -1,4 +1,4 @@
-# 1672. Richest Customer Wealth
+# 1672. Richest Customer Wealth [Rating: 1182.65]
 
 <p>You are given an <code>m x n</code> integer grid <code>accounts</code> where <code>accounts[i][j]</code> is the amount of money the <code>i​​​​​<sup>​​​​​​th</sup>​​​​</code> customer has in the <code>j​​​​​<sup>​​​​​​th</sup></code>​​​​ bank. Return<em> the <strong>wealth</strong> that the richest customer has.</em></p>
 

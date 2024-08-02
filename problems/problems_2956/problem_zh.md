@@ -1,4 +1,4 @@
-# 2956. 找到两个数组中的公共元素
+# 2956. 找到两个数组中的公共元素 [难度分: 1214.54]
 
 <p>给你两个下标从 <strong>0</strong>&nbsp;开始的整数数组&nbsp;<code>nums1</code>&nbsp;和&nbsp;<code>nums2</code>&nbsp;，它们分别含有 <code>n</code>&nbsp;和 <code>m</code>&nbsp;个元素。</p>
 

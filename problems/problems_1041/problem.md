@@ -1,4 +1,4 @@
-# 1041. Robot Bounded In Circle
+# 1041. Robot Bounded In Circle [Rating: 1521.18]
 
 <p>On an infinite plane, a robot initially stands at <code>(0, 0)</code> and faces north. Note that:</p>
 

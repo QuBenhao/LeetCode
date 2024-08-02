@@ -1,4 +1,4 @@
-# 2928. Distribute Candies Among Children I
+# 2928. Distribute Candies Among Children I [Rating: 1393.36]
 
 <p>You are given two positive integers <code>n</code> and <code>limit</code>.</p>
 

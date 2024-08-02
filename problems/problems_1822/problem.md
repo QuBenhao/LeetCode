@@ -1,4 +1,4 @@
-# 1822. Sign of the Product of an Array
+# 1822. Sign of the Product of an Array [Rating: 1209.66]
 
 <p>There is a function <code>signFunc(x)</code> that returns:</p>
 

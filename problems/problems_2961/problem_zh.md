@@ -1,4 +1,4 @@
-# 2961. 双模幂运算
+# 2961. 双模幂运算 [难度分: 1450.70]
 
 <p>给你一个下标从 <strong>0 </strong>开始的二维数组 <code>variables</code> ，其中 <code>variables[i] = [a<sub>i</sub>, b<sub>i</sub>, c<sub>i,</sub> m<sub>i</sub>]</code>，以及一个整数 <code>target</code> 。</p>
 
