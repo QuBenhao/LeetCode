@@ -113,7 +113,7 @@ class CppWriter(LanguageWriter):
             ]
             process_variables.append("\tSolution solution;")
             CppWriter._process_variables(variables, process_variables, include_libs, code_default, testcases)
-            CppWriter._process_return_part(ret_type, func_name, variables, code_default, return_part)
+            CppWriter._process_return_part(ret_type, func_name, variables, code_default, return_part, include_libs)
         elif len(functions) > 1:
             process_variables.append(
                 "\tvector<string> operators = json::parse(inputArray[0]);"
@@ -482,14 +482,19 @@ class CppWriter(LanguageWriter):
             i += 1
 
     @staticmethod
-    def _process_return_part(ret_type: str, func_name: str, variables: list, code_default: str, return_part: list):
+    def _process_return_part(ret_type: str, func_name: str, variables: list, code_default: str, return_part: list,
+                             include_libs: list):
         if "ListNode" in ret_type:
+            if '#include "cpp/models/ListNode.h"' not in include_libs:
+                include_libs.append('#include "cpp/models/ListNode.h"')
             return_part.append(
                 "\treturn ListNodeToIntArray(solution.{}({}));".format(
                     func_name, ", ".join([v[1] for v in variables])
                 )
             )
         elif "TreeNode" in ret_type:
+            if '#include "cpp/models/TreeNode.h"' not in include_libs:
+                include_libs.append('#include "cpp/models/TreeNode.h"')
             return_part.append(
                 "\treturn TreeNodeToJsonArray(solution.{}({}));".format(
                     func_name, ", ".join([v[1] for v in variables])

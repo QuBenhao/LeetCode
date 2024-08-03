@@ -8,7 +8,26 @@ using json = nlohmann::json;
 class Solution {
 public:
     int maxPointsInsideSquare(vector<vector<int>>& points, string s) {
-        
+        vector<int> idx_map = vector<int>(26, INT32_MAX);
+        int n = static_cast<int>(points.size());
+        int dis = INT32_MAX;
+        for (int i = 0; i < n; i++) {
+            int c = s[i] - 'a';
+            int cur = max(abs(points[i][0]), abs(points[i][1]));
+            if (cur < idx_map[c]) {
+				dis = min(dis, idx_map[c]);
+				idx_map[c] = cur;
+			} else {
+				dis = min(dis, cur);
+            }
+        }
+		int ans = 0;
+		for (int i = 0; i < 26; i++) {
+			if (idx_map[i] < dis) {
+				ans++;
+			}
+		}
+		return ans;
     }
 };
 
