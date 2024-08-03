@@ -9,9 +9,6 @@ class ListNode {
 }
 
 function LinkedListToIntArray(node: ListNode | null): Array<number> {
-    if (node == null) {
-        return null;
-    }
     const ans: Array<number> = [];
     while (node != null) {
         ans.push(node.val);

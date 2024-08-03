@@ -13,7 +13,19 @@ import {IntArrayToLinkedList,ListNode,LinkedListToIntArray} from "../../typescri
  */
 
 function mergeTwoLists(list1: ListNode | null, list2: ListNode | null): ListNode | null {
-    
+	const dummy: ListNode = new ListNode();
+	let node: ListNode = dummy;
+	while (list1 !== null || list2 !== null) {
+		if (list2 === null || (list1 !== null && list1.val < list2.val)) {
+			node.next = list1;
+			list1 = list1.next;
+		} else {
+			node.next = list2;
+			list2 = list2.next;
+		}
+		node = node.next;
+	}
+	return dummy.next;
 };
 
 export function Solve(inputJsonElement: string): any {
