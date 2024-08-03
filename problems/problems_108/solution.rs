@@ -24,7 +24,14 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn sorted_array_to_bst(nums: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
-
+		if nums.is_empty() {
+			return None;
+		}
+		let mid = nums.len() / 2;
+		let mut root = TreeNode::new(nums[mid]);
+		root.left = Solution::sorted_array_to_bst(nums[..mid].to_vec());
+		root.right = Solution::sorted_array_to_bst(nums[mid + 1..].to_vec());
+		Some(Rc::new(RefCell::new(root)))
     }
 }
 
