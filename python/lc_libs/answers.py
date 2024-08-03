@@ -6,7 +6,7 @@ from typing import Optional, List
 from python.utils.http_tool import github_iterate_repo, github_get_file_content
 from python.utils.str_util import back_question_id
 
-BASE_URL = "https://github.com/SharingSource/LogicStack-LeetCode/tree/main/"
+BASE_URL = "https://github.com/SharingSource/LogicStack-LeetCode/blob/main/"
 SAN_YE = "SharingSource"
 REPO = "LogicStack-LeetCode"
 BRANCH = "main"
@@ -48,13 +48,13 @@ def get_answer_san_ye(problem_id: str, problem_slug: Optional[str] = None) -> Op
         folder = f"{rg + 1}-{rg + 10}"
         for file in source:
             if file.startswith(f"LeetCode/{folder}/{origin_id}"):
-                return urllib.parse.quote(BASE_URL + file)
+                return BASE_URL + file.replace(" ", "%20")
         logging.debug("Solution not found for problem id: " + problem_id)
     if origin_id.startswith("LCR "):
         possibles = list(itertools.filterfalse(lambda x: "LCR" not in x and "剑指 Offer" not in x, source))
         logging.debug(possibles)
         file = _find_by_slug(origin_id, problem_slug, possibles)
         if file:
-            return urllib.parse.quote(BASE_URL + file)
+            return BASE_URL + file.replace(" ", "%20")
         logging.debug(f"Solution not found for problem id: {problem_id} and problem slug: {problem_slug}")
     return None
