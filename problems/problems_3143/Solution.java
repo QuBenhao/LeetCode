@@ -7,7 +7,26 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int maxPointsInsideSquare(int[][] points, String s) {
-
+        int[] idxMap = new int[26];
+        Arrays.fill(idxMap, Integer.MAX_VALUE);
+        int dist = Integer.MAX_VALUE;
+        for (int i = 0; i < points.length; i++) {
+            int idx = s.charAt(i) - 'a';
+            int cur = Math.max(Math.abs(points[i][0]), Math.abs(points[i][1]));
+            if (cur < idxMap[idx]) {
+                dist = Math.min(dist, idxMap[idx]);
+                idxMap[idx] = cur;
+            } else {
+                dist = Math.min(dist, cur);
+            }
+        }
+        int ans = 0;
+        for (int v: idxMap) {
+            if (v < dist) {
+                ans++;
+            }
+        }
+        return ans;
     }
 
     @Override
