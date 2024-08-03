@@ -33,6 +33,7 @@ def general_request(url: str, func=None, request_method: str = "post",
 
 
 def github_iterate_repo(owner: str, repo: str, branch: str = "master", folder_path: str = "") -> List[str]:
+    response = None
     try:
         # GitHub API URL for the repository tree
         api_url = f"https://api.github.com/repos/{owner}/{repo}/git/trees/{branch}?recursive=1"
@@ -51,17 +52,20 @@ def github_iterate_repo(owner: str, repo: str, branch: str = "master", folder_pa
             if item['type'] == 'tree':
                 logging.debug(f"Folder: {path}")
             elif item['type'] == 'blob':
-                logging.debug(f"File: {path}")
                 files.append(path)
         return files
     except requests.exceptions.RequestException as _:
-        logging.error(f"Error accessing the GitHub API", exc_info=True)
+        if response and response.status_code == 403 and "API rate limit exceeded" in response.text:
+            logging.warning("API rate limit exceeded. Maximum 60 requests per hour. You can change ip or wait 1 hour.")
+        else:
+            logging.error(f"Error accessing the GitHub API", exc_info=True)
     except Exception as _:
         logging.error(f"An error occurred while iterating the GitHub repository", exc_info=True)
     return []
 
 
 def github_get_file_content(owner: str, repo: str, file_path: str, branch: str = "master") -> Optional[str]:
+    response = None
     try:
         # GitHub API URL for the file content
         api_url = f"https://api.github.com/repos/{owner}/{repo}/contents/{file_path}?ref={branch}"
@@ -76,7 +80,10 @@ def github_get_file_content(owner: str, repo: str, file_path: str, branch: str =
         return decoded_content
 
     except requests.exceptions.RequestException as e:
-        logging.error(f"Error accessing the GitHub API: {e}", exc_info=True)
+        if response and response.status_code == 403 and "API rate limit exceeded" in response.text:
+            logging.warning("API rate limit exceeded. Maximum 60 requests per hour. You can change ip or wait 1 hour.")
+        else:
+            logging.error(f"Error accessing the GitHub API", exc_info=True)
     except Exception as e:
         logging.error(f"An error occurred while getting the file content: {e}", exc_info=True)
     return None
