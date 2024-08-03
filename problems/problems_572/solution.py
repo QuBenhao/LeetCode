@@ -18,5 +18,13 @@ class Solution(solution.Solution):
         return self.isSubtree(root0, root1)
 
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
-        pass
+        def dfs(r1: Optional[TreeNode], r2: Optional[TreeNode], must_match: bool=False):
+            if not r1 or not r2:
+                return not r1 and not r2
+            if r1.val == r2.val and dfs(r1.left, r2.left, True) and dfs(r1.right, r2.right, True):
+                return True
+            if must_match:
+                return False
+            return dfs(r1.left, r2) or dfs(r1.right, r2)
 
+        return dfs(root, subRoot)
