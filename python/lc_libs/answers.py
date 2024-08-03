@@ -1,6 +1,5 @@
 import itertools
 import logging
-import urllib.parse
 from typing import Optional, List
 
 from python.utils.http_tool import github_iterate_repo, github_get_file_content
