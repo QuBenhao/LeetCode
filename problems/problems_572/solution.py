@@ -12,8 +12,10 @@ class TreeNode:
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ,  = test_input
-        return self.isSubtree(, )
+        nums0, nums1 = test_input
+        root0 = list_to_tree(nums0)
+        root1 = list_to_tree(nums1)
+        return self.isSubtree(root0, root1)
 
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
         pass

@@ -358,7 +358,7 @@ class Python3Writer(LanguageWriter):
                                 remain += f"        node{j} = nodes[{j - idx}]\n"
                             inputs += f"root{idx}, " + ", ".join([f"node{j}" for j in range(idx + 1, i)])
                             idx = i
-                        continue
+                            continue
                     process_input += f"nums{idx}"
                     remain += f"        root{idx} = list_to_tree(nums{idx})\n"
                     inputs += f"root{idx}"
