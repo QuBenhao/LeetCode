@@ -92,6 +92,9 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
                                            lc_question_id, code)
     logging.info("题解查看: https://leetcode.cn/problems/{}/solutions/".format(problem_slug))
     logging.info("外网查看: https://leetcode.com/problems/{}/solutions/".format(problem_slug))
+    san_ye_solution = lc_libs.get_answer_san_ye(problem_id, problem_slug)
+    if san_ye_solution:
+        logging.info(f"参考题解: {san_ye_solution}")
     return result
 
 
