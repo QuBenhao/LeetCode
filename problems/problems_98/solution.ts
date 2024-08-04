@@ -15,7 +15,16 @@ import {JSONArrayToTreeNode,TreeNode} from "../../typescript/models/treenode";
  */
 
 function isValidBST(root: TreeNode | null): boolean {
-    
+    const dfs: Function = (node: TreeNode | null, lower: number, upper: number): boolean => {
+		if (node === null) {
+			return true;
+		}
+		if (node.val <= lower || node.val >= upper) {
+			return false;
+		}
+		return dfs(node.left, lower, node.val) && dfs(node.right, node.val, upper);
+	}
+	return dfs(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER);
 };
 
 export function Solve(inputJsonElement: string): any {

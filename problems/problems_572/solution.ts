@@ -15,7 +15,19 @@ import {JSONArrayToTreeNode,TreeNode} from "../../typescript/models/treenode";
  */
 
 function isSubtree(root: TreeNode | null, subRoot: TreeNode | null): boolean {
-
+	const dfs: Function = (node: TreeNode | null, subNode: TreeNode | null, mustMatch: boolean) => {
+		if (node === null || subNode === null) {
+			return node === subNode;
+		}
+		if (node.val === subNode.val && dfs(node.left, subNode.left, true) && dfs(node.right, subNode.right, true)) {
+			return true;
+		}
+		if (mustMatch) {
+			return false;
+		}
+		return dfs(node.left, subNode, false) || dfs(node.right, subNode, false);
+	}
+	return dfs(root, subRoot, false);
 };
 
 export function Solve(inputJsonElement: string): any {
