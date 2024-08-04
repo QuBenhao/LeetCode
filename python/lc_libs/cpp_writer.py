@@ -260,7 +260,8 @@ class CppWriter(LanguageWriter):
             rt = CppWriter._simplify_variable_type(variable)
             match rt:
                 case "ListNode":
-                    include_libs.append('#include "cpp/models/ListNode.h"')
+                    if '#include "cpp/models/ListNode.h"' not in include_libs:
+                        include_libs.append('#include "cpp/models/ListNode.h"')
                     if testcases:
                         if len(testcases[0]) == len(variables) + 1 and all(
                                 isinstance(testcase[0], list)
@@ -309,7 +310,8 @@ class CppWriter(LanguageWriter):
                         + f" = IntArrayToListNode({variable[1]}_array);"
                     )
                 case "vector<ListNode*>":
-                    include_libs.append('#include "cpp/models/ListNode.h"')
+                    if '#include "cpp/models/ListNode.h"' not in include_libs:
+                        include_libs.append('#include "cpp/models/ListNode.h"')
                     process_variables.append(
                         "std::vector<std::vector<int>> "
                         + variable[1]
@@ -331,7 +333,8 @@ class CppWriter(LanguageWriter):
                     )
                     process_variables.append("}")
                 case "TreeNode":
-                    include_libs.append('#include "cpp/models/TreeNode.h"')
+                    if '#include "cpp/models/TreeNode.h"' not in include_libs:
+                        include_libs.append('#include "cpp/models/TreeNode.h"')
                     if testcases:
                         if len(variables) == len(testcases[0]) + 1:
                             process_variables.append(
@@ -378,7 +381,8 @@ class CppWriter(LanguageWriter):
                         + f" = JsonArrayToTreeNode({variable[1]}_array);"
                     )
                 case "vector<TreeNode*>":
-                    include_libs.append('#include "cpp/models/TreeNode.h"')
+                    if '#include "cpp/models/TreeNode.h"' not in include_libs:
+                        include_libs.append('#include "cpp/models/TreeNode.h"')
                     process_variables.append(
                         "json "
                         + variable[1]

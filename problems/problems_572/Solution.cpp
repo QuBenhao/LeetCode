@@ -1,7 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
 #include "cpp/models/TreeNode.h"
-#include "cpp/models/TreeNode.h"
 
 using namespace std;
 using json = nlohmann::json;
@@ -18,9 +17,22 @@ using json = nlohmann::json;
  * };
  */
 class Solution {
+private:
+	bool dfs(TreeNode* root, TreeNode* subRoot, bool must_match) {
+		if (root == nullptr || subRoot == nullptr) {
+			return root == subRoot;
+		}
+		if (root->val == subRoot->val && dfs(root->left, subRoot->left, true) && dfs(root->right, subRoot->right, true)) {
+			return true;
+		}
+		if (must_match) {
+			return false;
+		}
+		return dfs(root->left, subRoot, false) || dfs(root->right, subRoot, false);
+	}
 public:
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-
+		return dfs(root, subRoot, false);
     }
 };
 
