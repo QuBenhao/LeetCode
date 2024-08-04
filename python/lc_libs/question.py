@@ -198,7 +198,7 @@ def get_questions_by_key_word(keyword: Optional[str],
                               premium_only: bool = False) -> Optional[list]:
     try:
         ans = []
-        page_size, page_no = 50, 0
+        page_size, page_no = 100, 0
         while True:
             filters = dict()
             if keyword:
@@ -223,3 +223,48 @@ def get_questions_by_key_word(keyword: Optional[str],
     except Exception as _:
         logging.error(f"Error in getting questions by keyword: {keyword}", exc_info=True)
         return None
+
+
+def get_questions_total(category: str = "all-code-essentials",
+                        skip_premiums: bool = False) -> int:
+    try:
+        filters = dict()
+        if skip_premiums:
+            filters["premiumOnly"] = False
+        result = requests.post("https://leetcode.cn/graphql",
+                               json={"query": QUESTION_KEYWORDS_QUERY,
+                                     "variables": {
+                                         "categorySlug": category if category in CATEGORY_SLUG
+                                         else "all-code-essentials",
+                                         "skip": 0, "limit": 1,
+                                         "filters": filters,
+                                     },
+                                     "operationName": "problemsetQuestionList"})
+        return json.loads(result.text)["data"]["problemsetQuestionList"]["total"]
+    except Exception as _:
+        logging.error(f"Error in getting total questions", exc_info=True)
+    return 0
+
+
+def get_questions_by_number(number: int, category: str = "all-code-essentials",
+                            skip_premiums: bool = False) -> Optional[list]:
+    try:
+        ans = []
+        filters = dict()
+        if skip_premiums:
+            filters["premiumOnly"] = False
+        result = requests.post("https://leetcode.cn/graphql",
+                               json={"query": QUESTION_KEYWORDS_QUERY,
+                                     "variables": {
+                                         "categorySlug": category if category in CATEGORY_SLUG
+                                         else "all-code-essentials",
+                                         "skip": max(0, number - 50), "limit": 100,
+                                         "filters": filters
+                                     },
+                                     "operationName": "problemsetQuestionList"})
+        res_dict = json.loads(result.text)["data"]["problemsetQuestionList"]
+        ans.extend(res_dict["questions"])
+        return ans
+    except Exception as _:
+        logging.error(f"Error in getting question by number: {number}", exc_info=True)
+    return None
