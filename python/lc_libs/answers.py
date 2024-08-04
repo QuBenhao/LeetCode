@@ -47,13 +47,13 @@ def get_answer_san_ye(problem_id: str, problem_slug: Optional[str] = None) -> Op
         rg = (num - 1) // 10 * 10
         folder = f"{rg + 1}-{rg + 10}"
         for file in source:
-            if file.startswith(f"LeetCode/{folder}/{origin_id}"):
+            if file.startswith(f"LeetCode/{folder}/{origin_id}."):
                 return BASE_URL + urllib.parse.quote(file)
         logging.debug("Solution not found for problem id: " + problem_id)
     if origin_id.startswith("LCR "):
         possibles = list(itertools.filterfalse(lambda x: "LCR" not in x and "剑指 Offer" not in x, source))
         logging.debug(possibles)
-        file = _find_by_slug(origin_id, problem_slug, possibles)
+        file = _find_by_slug(origin_id + ".", problem_slug, possibles)
         if file:
             return BASE_URL + urllib.parse.quote(file)
         logging.debug(f"Solution not found for problem id: {problem_id} and problem slug: {problem_slug}")
