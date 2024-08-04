@@ -8,7 +8,26 @@ using json = nlohmann::json;
 class Solution {
 public:
     int findIntegers(int n) {
-
+        auto dp = vector<int>(31, 0);
+        dp[0] = 1;
+        dp[1] = 2;
+        for (int i = 2; i < 31; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        n++;
+        int pre = 0, ans = 0;
+        for (int i = 29; i >= 0; i--) {
+            if (n & (1 << i)) {
+                ans += dp[i];
+                if (pre == 1) {
+                    break;
+                }
+                pre = 1;
+            } else {
+                pre = 0;
+            }
+        }
+        return ans;
     }
 };
 
