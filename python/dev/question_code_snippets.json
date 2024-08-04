@@ -1876,5 +1876,104 @@
                 "code": "/*\n// Definition for a Node.\n#[derive(Debug, PartialEq, Eq)]\npub struct Node {\n    pub val: i32,\n    pub left: Option<Rc<RefCell<Node>>>, // left child\n    pub right: Option<Rc<RefCell<Node>>>, // right child\n    pub next: Option<Rc<RefCell<Node>>>, // next child\n}\n*/\nuse std::cell::RefCell;\nuse std::rc::Rc;\nimpl Solution {\n    pub fn connect(root: Option<Rc<RefCell<Node>>>) -> Option<Rc<RefCell<Node>>> {\n        \n    }\n}"
             }
         ]
+    },
+    {
+        "1603": [
+            {
+                "lang": "C++",
+                "langSlug": "cpp",
+                "code": "class ParkingSystem {\npublic:\n    ParkingSystem(int big, int medium, int small) {\n\n    }\n    \n    bool addCar(int carType) {\n\n    }\n};\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * ParkingSystem* obj = new ParkingSystem(big, medium, small);\n * bool param_1 = obj->addCar(carType);\n */"
+            },
+            {
+                "lang": "Java",
+                "langSlug": "java",
+                "code": "class ParkingSystem {\n\n    public ParkingSystem(int big, int medium, int small) {\n\n    }\n    \n    public boolean addCar(int carType) {\n\n    }\n}\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * ParkingSystem obj = new ParkingSystem(big, medium, small);\n * boolean param_1 = obj.addCar(carType);\n */"
+            },
+            {
+                "lang": "Python",
+                "langSlug": "python",
+                "code": "class ParkingSystem(object):\n\n    def __init__(self, big, medium, small):\n        \"\"\"\n        :type big: int\n        :type medium: int\n        :type small: int\n        \"\"\"\n\n\n    def addCar(self, carType):\n        \"\"\"\n        :type carType: int\n        :rtype: bool\n        \"\"\"\n\n\n\n# Your ParkingSystem object will be instantiated and called as such:\n# obj = ParkingSystem(big, medium, small)\n# param_1 = obj.addCar(carType)"
+            },
+            {
+                "lang": "Python3",
+                "langSlug": "python3",
+                "code": "class ParkingSystem:\n\n    def __init__(self, big: int, medium: int, small: int):\n\n\n    def addCar(self, carType: int) -> bool:\n\n\n\n# Your ParkingSystem object will be instantiated and called as such:\n# obj = ParkingSystem(big, medium, small)\n# param_1 = obj.addCar(carType)"
+            },
+            {
+                "lang": "C",
+                "langSlug": "c",
+                "code": "\n\n\ntypedef struct {\n\n} ParkingSystem;\n\n\nParkingSystem* parkingSystemCreate(int big, int medium, int small) {\n\n}\n\nbool parkingSystemAddCar(ParkingSystem* obj, int carType) {\n\n}\n\nvoid parkingSystemFree(ParkingSystem* obj) {\n\n}\n\n/**\n * Your ParkingSystem struct will be instantiated and called as such:\n * ParkingSystem* obj = parkingSystemCreate(big, medium, small);\n * bool param_1 = parkingSystemAddCar(obj, carType);\n \n * parkingSystemFree(obj);\n*/"
+            },
+            {
+                "lang": "C#",
+                "langSlug": "csharp",
+                "code": "public class ParkingSystem {\n\n    public ParkingSystem(int big, int medium, int small) {\n\n    }\n    \n    public bool AddCar(int carType) {\n\n    }\n}\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * ParkingSystem obj = new ParkingSystem(big, medium, small);\n * bool param_1 = obj.AddCar(carType);\n */"
+            },
+            {
+                "lang": "JavaScript",
+                "langSlug": "javascript",
+                "code": "/**\n * @param {number} big\n * @param {number} medium\n * @param {number} small\n */\nvar ParkingSystem = function(big, medium, small) {\n\n};\n\n/** \n * @param {number} carType\n * @return {boolean}\n */\nParkingSystem.prototype.addCar = function(carType) {\n\n};\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * var obj = new ParkingSystem(big, medium, small)\n * var param_1 = obj.addCar(carType)\n */"
+            },
+            {
+                "lang": "TypeScript",
+                "langSlug": "typescript",
+                "code": "class ParkingSystem {\n    constructor(big: number, medium: number, small: number) {\n\n    }\n\n    addCar(carType: number): boolean {\n\n    }\n}\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * var obj = new ParkingSystem(big, medium, small)\n * var param_1 = obj.addCar(carType)\n */"
+            },
+            {
+                "lang": "PHP",
+                "langSlug": "php",
+                "code": "class ParkingSystem {\n    /**\n     * @param Integer $big\n     * @param Integer $medium\n     * @param Integer $small\n     */\n    function __construct($big, $medium, $small) {\n\n    }\n\n    /**\n     * @param Integer $carType\n     * @return Boolean\n     */\n    function addCar($carType) {\n\n    }\n}\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * $obj = ParkingSystem($big, $medium, $small);\n * $ret_1 = $obj->addCar($carType);\n */"
+            },
+            {
+                "lang": "Swift",
+                "langSlug": "swift",
+                "code": "\nclass ParkingSystem {\n\n    init(_ big: Int, _ medium: Int, _ small: Int) {\n\n    }\n    \n    func addCar(_ carType: Int) -> Bool {\n\n    }\n}\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * let obj = ParkingSystem(big, medium, small)\n * let ret_1: Bool = obj.addCar(carType)\n */"
+            },
+            {
+                "lang": "Kotlin",
+                "langSlug": "kotlin",
+                "code": "class ParkingSystem(big: Int, medium: Int, small: Int) {\n\n    fun addCar(carType: Int): Boolean {\n\n    }\n\n}\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * var obj = ParkingSystem(big, medium, small)\n * var param_1 = obj.addCar(carType)\n */"
+            },
+            {
+                "lang": "Dart",
+                "langSlug": "dart",
+                "code": "class ParkingSystem {\n\n  ParkingSystem(int big, int medium, int small) {\n\n  }\n  \n  bool addCar(int carType) {\n\n  }\n}\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * ParkingSystem obj = ParkingSystem(big, medium, small);\n * bool param1 = obj.addCar(carType);\n */"
+            },
+            {
+                "lang": "Go",
+                "langSlug": "golang",
+                "code": "type ParkingSystem struct {\n\n}\n\n\nfunc Constructor(big int, medium int, small int) ParkingSystem {\n\n}\n\n\nfunc (this *ParkingSystem) AddCar(carType int) bool {\n\n}\n\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * obj := Constructor(big, medium, small);\n * param_1 := obj.AddCar(carType);\n */"
+            },
+            {
+                "lang": "Ruby",
+                "langSlug": "ruby",
+                "code": "class ParkingSystem\n\n=begin\n    :type big: Integer\n    :type medium: Integer\n    :type small: Integer\n=end\n    def initialize(big, medium, small)\n\n    end\n\n\n=begin\n    :type car_type: Integer\n    :rtype: Boolean\n=end\n    def add_car(car_type)\n\n    end\n\n\nend\n\n# Your ParkingSystem object will be instantiated and called as such:\n# obj = ParkingSystem.new(big, medium, small)\n# param_1 = obj.add_car(car_type)"
+            },
+            {
+                "lang": "Scala",
+                "langSlug": "scala",
+                "code": "class ParkingSystem(_big: Int, _medium: Int, _small: Int) {\n\n    def addCar(carType: Int): Boolean = {\n\n    }\n\n}\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * var obj = new ParkingSystem(big, medium, small)\n * var param_1 = obj.addCar(carType)\n */"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "struct ParkingSystem {\n\n}\n\n\n/**\n * `&self` means the method takes an immutable reference.\n * If you need a mutable reference, change it to `&mut self` instead.\n */\nimpl ParkingSystem {\n\n    fn new(big: i32, medium: i32, small: i32) -> Self {\n\n    }\n    \n    fn add_car(&self, car_type: i32) -> bool {\n\n    }\n}\n\n/**\n * Your ParkingSystem object will be instantiated and called as such:\n * let obj = ParkingSystem::new(big, medium, small);\n * let ret_1: bool = obj.add_car(carType);\n */"
+            },
+            {
+                "lang": "Racket",
+                "langSlug": "racket",
+                "code": "(define parking-system%\n  (class object%\n    (super-new)\n\n    ; big : exact-integer?\n\n    ; medium : exact-integer?\n\n    ; small : exact-integer?\n    (init-field\n      big\n      medium\n      small)\n    \n    ; add-car : exact-integer? -> boolean?\n    (define/public (add-car car-type)\n\n      )))\n\n;; Your parking-system% object will be instantiated and called as such:\n;; (define obj (new parking-system% [big big] [medium medium] [small small]))\n;; (define param_1 (send obj add-car car-type))"
+            },
+            {
+                "lang": "Erlang",
+                "langSlug": "erlang",
+                "code": "-spec parking_system_init_(Big :: integer(), Medium :: integer(), Small :: integer()) -> any().\nparking_system_init_(Big, Medium, Small) ->\n  .\n\n-spec parking_system_add_car(CarType :: integer()) -> boolean().\nparking_system_add_car(CarType) ->\n  .\n\n\n%% Your functions will be called as such:\n%% parking_system_init_(Big, Medium, Small),\n%% Param_1 = parking_system_add_car(CarType),\n\n%% parking_system_init_ will be called before every test case, in which you can do some necessary initializations."
+            },
+            {
+                "lang": "Elixir",
+                "langSlug": "elixir",
+                "code": "defmodule ParkingSystem do\n  @spec init_(big :: integer, medium :: integer, small :: integer) :: any\n  def init_(big, medium, small) do\n\n  end\n\n  @spec add_car(car_type :: integer) :: boolean\n  def add_car(car_type) do\n\n  end\nend\n\n# Your functions will be called as such:\n# ParkingSystem.init_(big, medium, small)\n# param_1 = ParkingSystem.add_car(car_type)\n\n# ParkingSystem.init_ will be called before every test case, in which you can do some necessary initializations."
+            }
+        ]
     }
 ]
