@@ -57,13 +57,13 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
             dir_path = os.path.join(root_path, tmp_problem_folder, f"{tmp_problem_folder}_{question_id}")
             if question_id == daily_question and not os.path.exists(dir_path):
                 os.makedirs(dir_path, exist_ok=True)
-                write_question(dir_path, tmp_problem_folder, daily_question, daily_info['questionNameEn'],
+                write_question(root_path, dir_path, tmp_problem_folder, daily_question, daily_info['questionNameEn'],
                                daily_info['questionSlug'], list(languages), cookie)
             elif not os.path.exists(dir_path):
                 if not info:
                     info = lc_libs.get_question_info(submits[0][1], cookie)
                 os.makedirs(dir_path, exist_ok=True)
-                write_question(dir_path, tmp_problem_folder, question_id, info["title"],
+                write_question(root_path, dir_path, tmp_problem_folder, question_id, info["title"],
                                submits[0][1], list(languages), cookie)
             default_code = lc_libs.get_question_code(submits[0][1], lang_slugs=languages, cookie=cookie)
             for submit_id, question_slug, language in submits:
@@ -97,7 +97,7 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
                 elif question_slug in plan_questions_slug and question_slug not in finished_plan_questions:
                     finished_plan_questions.append(question_slug)
         logging.info("Daily Question {}: {}, Study plan problem solved today: {}"
-              .format(daily_question, "DONE" if finish_daily else "TODO", finished_plan_questions))
+                     .format(daily_question, "DONE" if finish_daily else "TODO", finished_plan_questions))
         if not finish_daily:
             return 1
     except Exception as _:

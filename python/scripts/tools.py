@@ -84,7 +84,7 @@ def lucky(args):
         if not os.path.exists(dir_path):
             logging.info("Found: %s", question_id)
             os.makedirs(dir_path, exist_ok=True)
-            write_question(dir_path, problem_folder, question_id, question["title"],
+            write_question(root_path, dir_path, problem_folder, question_id, question["title"],
                            question["titleSlug"], langs)
             return True
         return False
@@ -130,7 +130,8 @@ if __name__ == '__main__':
     bfr.add_argument("-p", "--problem_id", required=False, default=None, help="Add specified Problem id only.")
     bfr.set_defaults(func=back_fill_ratings)
     ly = sub_parser.add_parser("lucky", help="Lucky")
-    ly.add_argument("-c", "--category", required=False, default="algorithms", help="Add specified problem category only.")
+    ly.add_argument("-c", "--category", required=False, default="algorithms",
+                    help="Add specified problem category only.")
     ly.set_defaults(func=lucky)
     args = parser.parse_args()
     args.func(args)

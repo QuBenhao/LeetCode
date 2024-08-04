@@ -33,13 +33,13 @@ def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, forc
             return dir_path
         shutil.rmtree(dir_path)
     os.makedirs(dir_path, exist_ok=True)
-    return dir_path
+    return root_path, dir_path
 
 
 def process_single_algorithm_problem(problem_folder: str, problem_id: str, problem_slug: str,
                                      problem_title: str, cookie: str, force: bool = False, skip_language: bool = False,
                                      languages=None):
-    dir_path = __check_path__(problem_folder, problem_id, problem_slug, force, skip_language)
+    root_path, dir_path = __check_path__(problem_folder, problem_id, problem_slug, force, skip_language)
     if not dir_path:
         return
     desc = get_question_desc(problem_slug, cookie)
@@ -104,7 +104,7 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
 
 def process_single_database_problem(problem_folder: str, problem_id: str, problem_slug: str,
                                     problem_title: str, cookie: str, force: bool = False):
-    dir_path = __check_path__(problem_folder, problem_id, problem_slug, force)
+    _, dir_path = __check_path__(problem_folder, problem_id, problem_slug, force)
     if not dir_path:
         return
     desc = get_question_desc(problem_slug, cookie)
