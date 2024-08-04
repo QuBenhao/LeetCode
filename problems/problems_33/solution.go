@@ -7,7 +7,32 @@ import (
 )
 
 func search(nums []int, target int) int {
-
+	left, right := 0, len(nums)-1
+	for left < right {
+		mid := (left + right) / 2
+		if nums[mid] < nums[0] {
+			right = mid
+		} else {
+			left = mid + 1
+		}
+	}
+	if target >= nums[0] {
+		left, right = 0, left
+	} else {
+		right = len(nums) - 1
+	}
+	for left < right {
+		mid := (left + right) / 2
+		if nums[mid] < target {
+			left = mid + 1
+		} else {
+			right = mid
+		}
+	}
+	if nums[left] == target {
+		return left
+	}
+	return -1
 }
 
 func Solve(inputJsonValues string) interface{} {

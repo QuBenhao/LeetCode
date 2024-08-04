@@ -14,7 +14,20 @@ import (
  * }
  */
 func isSubtree(root *TreeNode, subRoot *TreeNode) bool {
-
+	var dfs func(root *TreeNode, subRoot *TreeNode, mustMatch bool) bool
+	dfs = func(root *TreeNode, subRoot *TreeNode, mustMatch bool) bool {
+		if root == nil || subRoot == nil {
+			return root == nil && subRoot == nil
+		}
+		if root.Val == subRoot.Val && dfs(root.Left, subRoot.Left, true) && dfs(root.Right, subRoot.Right, true) {
+			return true
+		}
+		if mustMatch {
+			return false
+		}
+		return dfs(root.Left, subRoot, false) || dfs(root.Right, subRoot, false)
+	}
+	return dfs(root, subRoot, false)
 }
 
 func Solve(inputJsonValues string) interface{} {
