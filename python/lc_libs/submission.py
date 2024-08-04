@@ -314,4 +314,5 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
         part,
         typed_code
     ))
+    logging.info(f"提交详情: https://leetcode.cn/submissions/detail/{submit_id}/ [需登录查看]")
     return submit_detail
