@@ -10,43 +10,21 @@ class Solution(solution.Solution):
         :type nums: List[int]
         :rtype: List[List[int]]
         """
-        N = 3
-        target = 0
-        n = len(nums)
         nums.sort()
-        if n < N:
-            return []
+        n = len(nums)
         ans = []
-
-        def dfs(k, sum, curr_list, index):
-            # implement two sum here
-            if k == 2:
-                left = index
-                right = n - 1
-                while left < right:
-                    if nums[left] + nums[right] < target - sum:
-                        left += 1
-                    elif nums[left] + nums[right] > target - sum:
-                        right -= 1
-                    else:
-                        l = nums[left]
-                        r = nums[right]
-                        c = list(curr_list)
-                        c.append(l)
-                        c.append(r)
-                        if c not in ans:
-                            ans.append(c)
-                        while left < right and nums[left] == l:
-                            left += 1
-                        while right > left and nums[right] == r:
-                            right -= 1
-                return
-
-            for i in range(index, n + 1 - k):
-                c = list(curr_list)
-                c.append(nums[i])
-                dfs(k - 1, sum + nums[i], c, i + 1)
-
-        dfs(N, 0, [], 0)
-
+        for first in range(n - 2):
+            if first > 0 and nums[first] == nums[first - 1]:
+                continue
+            third = n - 1
+            target = -nums[first]
+            for second in range(first + 1, n - 1):
+                if second > first + 1 and nums[second] == nums[second - 1]:
+                    continue
+                while second < third and nums[second] + nums[third] > target:
+                    third -= 1
+                if second == third:
+                    break
+                if nums[second] + nums[third] == target:
+                    ans.append([nums[first], nums[second], nums[third]])
         return ans
