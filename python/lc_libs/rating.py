@@ -8,11 +8,13 @@ from python.constants import constant
 
 
 def _update_rating(data_path: str) -> None:
+    response = None
     try:
         response = requests.get(constant.RATING_URL_CN, timeout=10)
     except requests.exceptions.Timeout:
         logging.debug("Timeout for rating data from %s, try to get from %s",
                       constant.RATING_URL_CN, constant.RATING_URL)
+    if not response or response.status_code != 200:
         response = requests.get(constant.RATING_URL, timeout=30)
     response.raise_for_status()
 

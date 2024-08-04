@@ -204,8 +204,10 @@ class GolangWriter(LanguageWriter):
             )
             match rts[0]:
                 case "*TreeNode":
+                    import_set.add('\t. "leetCode/golang/models"')
                     return_func_name = "TreeToArray"
                 case "*ListNode":
+                    import_set.add('\t. "leetCode/golang/models"')
                     return_func_name = "LinkedListToIntArray"
                 case "*Node":
                     return_func_name = "ToBeImplemented"

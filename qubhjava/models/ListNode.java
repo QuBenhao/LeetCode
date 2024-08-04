@@ -20,9 +20,6 @@ public class ListNode {
     }
 
     public static int[] LinkedListToIntArray(ListNode node) {
-        if (node == null) {
-            return null;
-        }
         List<Integer> ans = new ArrayList<>();
         while (node != null) {
             ans.add(node.val);

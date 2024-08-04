@@ -113,7 +113,7 @@ class CppWriter(LanguageWriter):
             ]
             process_variables.append("\tSolution solution;")
             CppWriter._process_variables(variables, process_variables, include_libs, code_default, testcases)
-            CppWriter._process_return_part(ret_type, func_name, variables, code_default, return_part)
+            CppWriter._process_return_part(ret_type, func_name, variables, code_default, return_part, include_libs)
         elif len(functions) > 1:
             process_variables.append(
                 "\tvector<string> operators = json::parse(inputArray[0]);"
@@ -260,7 +260,8 @@ class CppWriter(LanguageWriter):
             rt = CppWriter._simplify_variable_type(variable)
             match rt:
                 case "ListNode":
-                    include_libs.append('#include "cpp/models/ListNode.h"')
+                    if '#include "cpp/models/ListNode.h"' not in include_libs:
+                        include_libs.append('#include "cpp/models/ListNode.h"')
                     if testcases:
                         if len(testcases[0]) == len(variables) + 1 and all(
                                 isinstance(testcase[0], list)
@@ -309,7 +310,8 @@ class CppWriter(LanguageWriter):
                         + f" = IntArrayToListNode({variable[1]}_array);"
                     )
                 case "vector<ListNode*>":
-                    include_libs.append('#include "cpp/models/ListNode.h"')
+                    if '#include "cpp/models/ListNode.h"' not in include_libs:
+                        include_libs.append('#include "cpp/models/ListNode.h"')
                     process_variables.append(
                         "std::vector<std::vector<int>> "
                         + variable[1]
@@ -331,7 +333,8 @@ class CppWriter(LanguageWriter):
                     )
                     process_variables.append("}")
                 case "TreeNode":
-                    include_libs.append('#include "cpp/models/TreeNode.h"')
+                    if '#include "cpp/models/TreeNode.h"' not in include_libs:
+                        include_libs.append('#include "cpp/models/TreeNode.h"')
                     if testcases:
                         if len(variables) == len(testcases[0]) + 1:
                             process_variables.append(
@@ -378,7 +381,8 @@ class CppWriter(LanguageWriter):
                         + f" = JsonArrayToTreeNode({variable[1]}_array);"
                     )
                 case "vector<TreeNode*>":
-                    include_libs.append('#include "cpp/models/TreeNode.h"')
+                    if '#include "cpp/models/TreeNode.h"' not in include_libs:
+                        include_libs.append('#include "cpp/models/TreeNode.h"')
                     process_variables.append(
                         "json "
                         + variable[1]
@@ -482,14 +486,19 @@ class CppWriter(LanguageWriter):
             i += 1
 
     @staticmethod
-    def _process_return_part(ret_type: str, func_name: str, variables: list, code_default: str, return_part: list):
+    def _process_return_part(ret_type: str, func_name: str, variables: list, code_default: str, return_part: list,
+                             include_libs: list):
         if "ListNode" in ret_type:
+            if '#include "cpp/models/ListNode.h"' not in include_libs:
+                include_libs.append('#include "cpp/models/ListNode.h"')
             return_part.append(
                 "\treturn ListNodeToIntArray(solution.{}({}));".format(
                     func_name, ", ".join([v[1] for v in variables])
                 )
             )
         elif "TreeNode" in ret_type:
+            if '#include "cpp/models/TreeNode.h"' not in include_libs:
+                include_libs.append('#include "cpp/models/TreeNode.h"')
             return_part.append(
                 "\treturn TreeNodeToJsonArray(solution.{}({}));".format(
                     func_name, ", ".join([v[1] for v in variables])
