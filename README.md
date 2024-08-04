@@ -87,7 +87,22 @@ To fetch daily submits from LeetCode (requires `.env` COOKIE or USER to be ready
 python python/scripts/daily_submission.py
 ```
 
-**If you think there are too many logs for those scripts in the console, you can set the `LOG_LEVEL` in the `.env` file to `ERROR`.**
+Some extra tools:
+
+1. To backfield existing problems rating, try:
+
+```shell
+python python/scripts/tools.py rating
+```
+
+2. To get the lucky problem of the day, try:
+
+```shell
+python python/scripts/tools.py lucky 
+```
+
+**If you think there are too many logs for those scripts in the console, you can set the `LOG_LEVEL` in the `.env` file
+to `ERROR`.**
 
 # Supported Languages
 
@@ -148,7 +163,7 @@ Create the folder 'demo' based on your own .env
 
 Run scripts to fetch problems, run tests and submit your solution.
 
-If you get problem like this, 
+If you get problem like this,
 ![get_problem.png](docs/get_problem.png)
 it will add the problem and change the tests of your languages as below:
 ![new_problem.png](docs/new_problem.png)
@@ -156,170 +171,232 @@ it will add the problem and change the tests of your languages as below:
 
 In VsCode,
 add launch.json under `.vscode`
+
 ```json5
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Typescript Test",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "typescript-test",
-        },
-        {
-            "name": "Typescript Tests",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "typescript-tests",
-        },
-        {
-            "name": "Python Test",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "python-test",
-        },
-        {
-            "name": "Python Tests",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "python-tests",
-        },
-        {
-            "name": "Golang Test",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "golang-test",
-        },
-        {
-            "name": "Golang Tests",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "golang-tests",
-        },
-        {
-            "name": "C++ Test",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "cpp-test",
-        },
-        {
-            "name": "C++ Tests",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "cpp-tests",
-        },
-        {
-            "name": "Java Test",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "java-test",
-        },
-        {
-            "name": "Java Tests",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "java-tests",
-        },
-        {
-            "name": "Rust Test",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "rust-test",
-        },
-        {
-            "name": "Rust Tests",
-            "type": "node",
-            "request": "launch",
-            "preLaunchTask": "rust-tests",
-        }
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Typescript Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "typescript-test",
+    },
+    {
+      "name": "Typescript Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "typescript-tests",
+    },
+    {
+      "name": "Python Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "python-test",
+    },
+    {
+      "name": "Python Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "python-tests",
+    },
+    {
+      "name": "Golang Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "golang-test",
+    },
+    {
+      "name": "Golang Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "golang-tests",
+    },
+    {
+      "name": "C++ Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "cpp-test",
+    },
+    {
+      "name": "C++ Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "cpp-tests",
+    },
+    {
+      "name": "Java Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "java-test",
+    },
+    {
+      "name": "Java Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "java-tests",
+    },
+    {
+      "name": "Rust Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "rust-test",
+    },
+    {
+      "name": "Rust Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "rust-tests",
+    }
+  ]
 }
 ```
+
 and tasks.json under `.vscode`
+
 ```json5
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "typescript-test",
-			"command": "npm",
-			"args": ["test", "--alwaysStric", "--strictBindCallApply", "--strictFunctionTypes", "--target", "ES2022", "typescript/test.ts"],
-			"type": "shell"
-		},
-		{
-			"label": "typescript-tests",
-			"command": "npm",
-			"args": ["test", "--alwaysStric", "--strictBindCallApply", "--strictFunctionTypes", "--target", "ES2022", "typescript/problems.test.ts"],
-			"type": "shell"
-		},
-		{
-			"label": "python-test",
-			"command": "python",
-			"args": ["python/test.py"],
-			"type": "shell"
-		},
-		{
-			"label": "python-tests",
-			"command": "python",
-			"args": ["python/tests.py"],
-			"type": "shell"
-		},
-		{
-			"label": "golang-test",
-			"command": "go",
-			"args": ["test", "golang/solution_test.go", "golang/test_basic.go", "-test.timeout", "3s"],
-			"type": "shell"
-		},
-		{
-			"label": "golang-tests",
-			"command": "go",
-			"args": ["test", "golang/problems_test.go", "golang/test_basic.go", "-test.timeout", "10s"],
-			"type": "shell"
-		},
-		{
-			"label": "cpp-test",
-			"command": "bazel",
-			"args": ["test", "--cxxopt=-std=c++20", "--test_timeout=3", "--test_output=all", "//cpp:solution_test"],
-			"type": "shell"
-		},
-		{
-			"label": "cpp-tests",
-			"command": "bazel",
-			"args": ["test", "--cxxopt=-std=c++20", "--test_timeout=10", "--test_output=all", "//cpp/tests:all"],
-			"type": "shell"
-		},
-		{
-			"label": "java-test",
-			"command": "mvn",
-			"args": ["test", "-Dtest=\"qubhjava.test.TestMain\""],
-			"type": "shell"
-		},
-		{
-			"label": "java-tests",
-			"command": "mvn",
-			"args": ["test", "-Dtest=\"qubhjava.test.ProblemsTest\""],
-			"type": "shell"
-		},
-        {
-			"label": "rust-test",
-			"command": "cargo",
-			"args": ["test", "--test", "solution_test"],
-			"type": "shell"
-		},
-		{
-			"label": "rust-tests",
-			"command": "cargo",
-			"args": ["test", "--test", "solutions_test"],
-			"type": "shell"
-		}
-	]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "typescript-test",
+      "command": "npm",
+      "args": [
+        "test",
+        "--alwaysStric",
+        "--strictBindCallApply",
+        "--strictFunctionTypes",
+        "--target",
+        "ES2022",
+        "typescript/test.ts"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "typescript-tests",
+      "command": "npm",
+      "args": [
+        "test",
+        "--alwaysStric",
+        "--strictBindCallApply",
+        "--strictFunctionTypes",
+        "--target",
+        "ES2022",
+        "typescript/problems.test.ts"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "python-test",
+      "command": "python",
+      "args": [
+        "python/test.py"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "python-tests",
+      "command": "python",
+      "args": [
+        "python/tests.py"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "golang-test",
+      "command": "go",
+      "args": [
+        "test",
+        "golang/solution_test.go",
+        "golang/test_basic.go",
+        "-test.timeout",
+        "3s"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "golang-tests",
+      "command": "go",
+      "args": [
+        "test",
+        "golang/problems_test.go",
+        "golang/test_basic.go",
+        "-test.timeout",
+        "10s"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "cpp-test",
+      "command": "bazel",
+      "args": [
+        "test",
+        "--cxxopt=-std=c++20",
+        "--test_timeout=3",
+        "--test_output=all",
+        "//cpp:solution_test"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "cpp-tests",
+      "command": "bazel",
+      "args": [
+        "test",
+        "--cxxopt=-std=c++20",
+        "--test_timeout=10",
+        "--test_output=all",
+        "//cpp/tests:all"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "java-test",
+      "command": "mvn",
+      "args": [
+        "test",
+        "-Dtest=\"qubhjava.test.TestMain\""
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "java-tests",
+      "command": "mvn",
+      "args": [
+        "test",
+        "-Dtest=\"qubhjava.test.ProblemsTest\""
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "rust-test",
+      "command": "cargo",
+      "args": [
+        "test",
+        "--test",
+        "solution_test"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "rust-tests",
+      "command": "cargo",
+      "args": [
+        "test",
+        "--test",
+        "solutions_test"
+      ],
+      "type": "shell"
+    }
+  ]
 }
 ```
 
 If you want to write c++ in idea better, load this `.bazelproject`.
+
 ```yaml
 directories:
   cpp
@@ -338,20 +415,21 @@ Feel free to ask the author and add issues, discussions on GitHub.
 
 ## GitHub
 
-Config [GitHub Action Secrets](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic) for daily auto scripts. {SECRETS: TOKEN}
+Config [GitHub Action Secrets](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic)
+for daily auto scripts. {SECRETS: TOKEN}
 ![github_settings.png](docs/github_settings.png)
 
-Add values similar to you .env, for example, 
+Add values similar to you .env, for example,
 ![cookie_key.png](docs/cookie_key.png)
 
-**Notice:** 
+**Notice:**
 Add PROBLEM_FOLDER for [actions](.github/workflows/) to work properly.
 
 ## Demo Projects
+
 1. [Benhao Demo](https://github.com/BenhaoQu/LeetCode/tree/demo_master) (Python3)
 2. [SilentSliver Demo](https://github.com/SilentSliver/LeetCode/) (Java)
 3. [LazyKindMan Demo](https://github.com/lazyKindMan/LeetCode) (Golang)
-
 
 # Problems
 
