@@ -4,7 +4,34 @@ pub struct Solution;
 
 impl Solution {
     pub fn search(nums: Vec<i32>, target: i32) -> i32 {
-
+		let mut left: usize = 0;
+		let mut right: usize = nums.len() - 1;
+		while left < right {
+			let mid = left + (right - left) / 2;
+			if nums[mid] >= nums[0] {
+				left = mid + 1;
+			} else {
+				right = mid;
+			}
+		}
+		if target >= nums[0] {
+			left = 0;
+		} else {
+			right = nums.len() - 1;
+		}
+		while left < right {
+			let mid = left + (right - left) / 2;
+			if nums[mid] < target {
+				left = mid + 1;
+			} else {
+				right = mid;
+			}
+		}
+		if left < nums.len() && nums[left] == target {
+			left as i32
+		} else {
+			-1
+		}
     }
 }
 

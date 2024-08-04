@@ -23,8 +23,22 @@ pub struct Solution;
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
+	fn dfs(node: Option<Rc<RefCell<TreeNode>>>, sub_root: Option<Rc<RefCell<TreeNode>>>, must_match: bool) -> bool {
+		if node.is_none() || sub_root.is_none() {
+			return node.is_none() && sub_root.is_none();
+		}
+		let nd = node.as_ref().unwrap().borrow();
+		let sd = sub_root.as_ref().unwrap().borrow();
+		if nd.val == sd.val && Solution::dfs(nd.left.clone(), sd.left.clone(), true) && Solution::dfs(nd.right.clone(), sd.right.clone(), true) {
+			return true;
+		}
+		if must_match {
+			return false
+		}
+		Solution::dfs(nd.left.clone(), sub_root.clone(), false) || Solution::dfs(nd.right.clone(), sub_root.clone(), false)
+	}
     pub fn is_subtree(root: Option<Rc<RefCell<TreeNode>>>, sub_root: Option<Rc<RefCell<TreeNode>>>) -> bool {
-
+		Solution::dfs(root, sub_root, false)
     }
 }
 

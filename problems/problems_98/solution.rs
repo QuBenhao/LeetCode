@@ -23,8 +23,19 @@ pub struct Solution;
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
-    pub fn is_valid_bst(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
+	fn dfs(node: Option<Rc<RefCell<TreeNode>>>, lower: i64, upper: i64) -> bool {
+		if node.is_none() {
+			return true;
+		}
+		let nd = node.as_ref().unwrap().borrow();
+		if nd.val as i64 <= lower || nd.val as i64 >= upper {
+			return false;
+		}
+		Solution::dfs(nd.left.clone(), lower, nd.val as i64) && Solution::dfs(nd.right.clone(), nd.val as i64, upper)
+	}
 
+    pub fn is_valid_bst(root: Option<Rc<RefCell<TreeNode>>>) -> bool {
+		Solution::dfs(root, i64::MIN, i64::MAX)
     }
 }
 
