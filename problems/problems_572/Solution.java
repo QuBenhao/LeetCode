@@ -21,8 +21,23 @@ import qubhjava.BaseSolution;
 import qubhjava.models.TreeNode;
 
 public class Solution extends BaseSolution {
+    private boolean dfs(TreeNode root, TreeNode subRoot, boolean mustMatch) {
+        if (root == null || subRoot == null) {
+            return root == subRoot;
+        }
+        if (root.val == subRoot.val && dfs(root.left, subRoot.left, true) && dfs(root.right, subRoot.right, true)) {
+            return true;
+        }
+        if (mustMatch) {
+            return false;
+        }
+        return dfs(root.left, subRoot) || dfs(root.right, subRoot);
+    }
+    private boolean dfs(TreeNode root, TreeNode subRoot) {
+        return dfs(root, subRoot, false);
+    }
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-
+        return dfs(root, subRoot);
     }
 
     @Override
