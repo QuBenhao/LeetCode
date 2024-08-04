@@ -58,7 +58,7 @@ def github_iterate_repo(owner: str, repo: str, branch: str = "master", folder_pa
         if response and response.status_code == 403 and "API rate limit exceeded" in response.text:
             logging.warning("API rate limit exceeded. Maximum 60 requests per hour. You can change ip or wait 1 hour.")
         else:
-            logging.error(f"Error accessing the GitHub API", exc_info=True)
+            logging.debug(f"Error accessing the GitHub API", exc_info=True)
     except Exception as _:
         logging.error(f"An error occurred while iterating the GitHub repository", exc_info=True)
     return []
@@ -83,7 +83,7 @@ def github_get_file_content(owner: str, repo: str, file_path: str, branch: str =
         if response and response.status_code == 403 and "API rate limit exceeded" in response.text:
             logging.warning("API rate limit exceeded. Maximum 60 requests per hour. You can change ip or wait 1 hour.")
         else:
-            logging.error(f"Error accessing the GitHub API", exc_info=True)
+            logging.debug(f"Error accessing the GitHub API", exc_info=True)
     except Exception as e:
         logging.error(f"An error occurred while getting the file content: {e}", exc_info=True)
     return None
