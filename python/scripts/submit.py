@@ -74,6 +74,9 @@ async def main(root_path, problem_id: str, lang: str, cookie: str, problem_folde
             return
     lc_question_id = problem_info["questionId"]
     plans = lc_libs.get_user_study_plans(cookie)
+    if plans is None:
+        logging.error("Cookie might be expired, please check the cookie")
+        return
     result = None
     exists = False
     for i, plan in enumerate(plans):

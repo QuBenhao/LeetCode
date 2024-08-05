@@ -1,5 +1,6 @@
 import heapq
 import json
+import logging
 from collections import defaultdict, deque
 from typing import Optional
 
@@ -14,6 +15,9 @@ def get_user_study_plans(cookie: str) -> Optional[list]:
         if response.text:
             res_dict = json.loads(response.text)["data"]["studyPlanV2UserProgresses"]
             ans = []
+            if not res_dict:
+                logging.warning("Cookie might be expired! Please update the cookie and try again.")
+                return None
             if res_dict["total"] > 0:
                 for progress in res_dict["planUserProgresses"]:
                     plan = progress["plan"]
