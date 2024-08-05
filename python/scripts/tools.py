@@ -9,8 +9,8 @@ from daily_auto import write_question
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from python.constants import constant
-from python.lc_libs import get_rating, get_questions_total, get_questions_by_number
-from python.utils import get_default_folder
+from python.lc_libs import get_rating, get_questions_total, get_questions_by_number, get_questions_by_status
+from python.utils import get_default_folder, format_question_id
 
 PROBLEM_MD = "problem.md"
 PROBLEM_MD_ZH = "problem_zh.md"
@@ -56,13 +56,13 @@ def back_fill_ratings(args):
     root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     try:
         load_dotenv()
-    except Exception as e:
-        print(f"Load Env exception, {e}")
-        traceback.print_exc()
+    except Exception as _:
+        logging.error("Load Env exception", exc_info=True)
     problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     logging.info("Processing Problem folder: %s", problem_folder)
     if args.problem_id:
-        process_each(os.path.join(root_path, problem_folder, f"{problem_folder}_{args.problem_id}"), args.problem_id)
+        question_id = format_question_id(args.problem_id)
+        process_each(os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}"), question_id)
         return
 
     for root, dirs, files in os.walk(str(os.path.join(root_path, problem_folder))):
@@ -79,7 +79,7 @@ def back_fill_ratings(args):
 
 def lucky(args):
     def process_problem(root_path, question: dict, langs) -> bool:
-        question_id = question["frontendQuestionId"]
+        question_id = format_question_id(question["frontendQuestionId"])
         dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
         if not os.path.exists(dir_path):
             logging.info("Found: %s", question_id)
@@ -91,9 +91,8 @@ def lucky(args):
 
     try:
         load_dotenv()
-    except Exception as e:
-        print(f"Load Env exception, {e}")
-        traceback.print_exc()
+    except Exception as _:
+        logging.error("Load Env exception", exc_info=True)
     languages = os.getenv(constant.LANGUAGES, "python3").split(",")
     problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     category = args.category
@@ -122,6 +121,39 @@ def lucky(args):
     logging.warning("All problems are solved in random locations, flag: %d", number)
 
 
+def remain(args):
+    try:
+        load_dotenv()
+    except Exception as _:
+        logging.error("Load Env exception", exc_info=True)
+    problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
+    langs = os.getenv(constant.LANGUAGES, "python3").split(",")
+    cookie = os.getenv(constant.COOKIE)
+    if not cookie:
+        logging.error("Cookie is needed for remaining questions.")
+        return
+    remains = get_questions_by_status(args.status, args.category, True, cookie=cookie)
+    if remains is None:
+        logging.error("Failed to get remain problems.")
+        return
+    if not remains:
+        logging.warning("No remain problems found.")
+        return
+    logging.info("Remain problems: %d", len(remains))
+    pick = random.choice(remains)
+    question_id = format_question_id(pick["frontendQuestionId"])
+    logging.info("Pick problem: [%s].%s", pick["frontendQuestionId"], pick["title"])
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
+    if os.path.exists(dir_path):
+        logging.warning("Folder already exists: %s", dir_path)
+        return
+    os.makedirs(dir_path, exist_ok=True)
+    write_question(root_path, dir_path, problem_folder, question_id, pick["title"], pick["titleSlug"],
+                   langs)
+    logging.info("Problem created: %s", question_id)
+
+
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format=constant.LOGGING_FORMAT, datefmt=constant.DATE_FORMAT)
     parser = argparse.ArgumentParser()
@@ -133,6 +165,12 @@ if __name__ == '__main__':
     ly.add_argument("-c", "--category", required=False, default="algorithms",
                     help="Add specified problem category only.")
     ly.set_defaults(func=lucky)
+    rm = sub_parser.add_parser("remain", help="Remain")
+    rm.add_argument("-c", "--category", required=False, default="algorithms",
+                    help="Add specified problem category only.")
+    rm.add_argument("-s", "--status", required=False, choices=["TRIED", "AC", "NOT_STARTED"],
+                    default="TRIED", help="Add specified problem status only.")
+    rm.set_defaults(func=remain)
     args = parser.parse_args()
     args.func(args)
     sys.exit()

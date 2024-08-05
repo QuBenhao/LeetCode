@@ -5,6 +5,7 @@ from typing import Optional, Mapping, Tuple
 import html2text
 import markdown
 import requests
+from itertools import filterfalse
 
 from python.constants import (LEET_CODE_BACKEND, QUESTION_INFO_QUERY, QUESTION_DESC_QUERY, QUESTION_DESC_CN_QUERY,
                               QUESTION_CODE_QUERY, QUESTION_TESTCASE_QUERY, QUESTION_KEYWORDS_QUERY)
@@ -195,7 +196,8 @@ def get_question_testcases(slug: str, lang_slug: str = "python3") -> tuple[Optio
 def get_questions_by_key_word(keyword: Optional[str],
                               category: str = "all-code-essentials",
                               fetch_all: bool = False,
-                              premium_only: bool = False) -> Optional[list]:
+                              premium_only: bool = False,
+                              cookie: Optional[str] = None) -> Optional[list]:
     try:
         ans = []
         page_size, page_no = 100, 0
@@ -213,7 +215,8 @@ def get_questions_by_key_word(keyword: Optional[str],
                                              "skip": page_no * page_size, "limit": page_size,
                                              "filters": filters
                                          },
-                                         "operationName": "problemsetQuestionList"})
+                                         "operationName": "problemsetQuestionList"},
+                                   cookies={'cookie': cookie} if cookie else None)
             res_dict = json.loads(result.text)["data"]["problemsetQuestionList"]
             ans.extend(res_dict["questions"])
             if not res_dict["hasMore"] or not fetch_all:
@@ -226,7 +229,7 @@ def get_questions_by_key_word(keyword: Optional[str],
 
 
 def get_questions_total(category: str = "all-code-essentials",
-                        skip_premiums: bool = False) -> int:
+                        skip_premiums: bool = False, cookie: Optional[str] = None) -> int:
     try:
         filters = dict()
         if skip_premiums:
@@ -239,7 +242,8 @@ def get_questions_total(category: str = "all-code-essentials",
                                          "skip": 0, "limit": 1,
                                          "filters": filters,
                                      },
-                                     "operationName": "problemsetQuestionList"})
+                                     "operationName": "problemsetQuestionList"},
+                               cookies={'cookie': cookie} if cookie else None)
         return json.loads(result.text)["data"]["problemsetQuestionList"]["total"]
     except Exception as _:
         logging.error(f"Error in getting total questions", exc_info=True)
@@ -247,7 +251,7 @@ def get_questions_total(category: str = "all-code-essentials",
 
 
 def get_questions_by_number(number: int, category: str = "all-code-essentials",
-                            skip_premiums: bool = False) -> Optional[list]:
+                            skip_premiums: bool = False, cookie: Optional[str] = None) -> Optional[list]:
     try:
         ans = []
         filters = dict()
@@ -261,10 +265,48 @@ def get_questions_by_number(number: int, category: str = "all-code-essentials",
                                          "skip": max(0, number - 50), "limit": 100,
                                          "filters": filters
                                      },
-                                     "operationName": "problemsetQuestionList"})
+                                     "operationName": "problemsetQuestionList"},
+                               cookies={'cookie': cookie} if cookie else None)
         res_dict = json.loads(result.text)["data"]["problemsetQuestionList"]
         ans.extend(res_dict["questions"])
         return ans
     except Exception as _:
         logging.error(f"Error in getting question by number: {number}", exc_info=True)
     return None
+
+
+def get_questions_by_status(status: str, category: str = "all-code-essentials", skip_premiums: bool = False,
+                            skip_lcp: bool = True, cookie: Optional[str] = None) -> Optional[list]:
+    if status not in {"NOT_STARTED", "TRIED", "AC"}:
+        logging.warning(f"Unsupported question status: {status}")
+        return None
+    try:
+        ans = []
+        page_size, page_no = 100, 0
+        while True:
+            filters = dict()
+            if skip_premiums:
+                filters["premiumOnly"] = False
+            filters["status"] = status
+            result = requests.post("https://leetcode.cn/graphql",
+                                   json={"query": QUESTION_KEYWORDS_QUERY,
+                                         "variables": {
+                                             "categorySlug": category if category in CATEGORY_SLUG
+                                             else "all-code-essentials",
+                                             "skip": page_no * page_size, "limit": page_size,
+                                             "filters": filters,
+                                         },
+                                         "operationName": "problemsetQuestionList"},
+                                   cookies={'cookie': cookie} if cookie else None)
+            res_dict = json.loads(result.text)["data"]["problemsetQuestionList"]
+            logging.debug(res_dict["questions"])
+            ans.extend(
+                filterfalse(lambda x: skip_lcp and x["frontendQuestionId"].startswith("LCP "),
+                            res_dict["questions"]))
+            if not res_dict["hasMore"]:
+                break
+            page_no += 1
+        return ans
+    except Exception as _:
+        logging.error(f"Error in getting questions by status: {status}", exc_info=True)
+        return None
