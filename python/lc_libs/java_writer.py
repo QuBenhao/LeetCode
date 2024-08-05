@@ -210,6 +210,8 @@ class JavaWriter(LanguageWriter):
                 return f"{rt_type} {variable_name} = Float.parseFloat({input_name});"
             case "double":
                 return f"{rt_type} {variable_name} = Double.parseDouble({input_name});"
+            case "long":
+                return f"{rt_type} {variable_name} = Long.parseLong({input_name});"
             case "int[]":
                 return f"{rt_type} {variable_name} = jsonArrayToIntArray({input_name});"
             case "String":
