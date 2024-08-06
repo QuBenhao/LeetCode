@@ -249,6 +249,7 @@ class CppWriter(LanguageWriter):
         functions = []
         for match in matches:
             logging.debug("ret_type: \"%s\"", match.group("ret_type"))
+            logging.debug("args: \"%s\"", match.group("args"))
             functions.append(match.groupdict())
 
         return functions
@@ -259,6 +260,7 @@ class CppWriter(LanguageWriter):
         while i < len(variables):
             variable = variables[i]
             rt = CppWriter._simplify_variable_type(variable)
+            logging.debug(f"Processing variable: \"%s\", return type: \"%s\"", variable, rt)
             match rt:
                 case "ListNode":
                     if '#include "cpp/models/ListNode.h"' not in include_libs:
@@ -268,7 +270,7 @@ class CppWriter(LanguageWriter):
                                 isinstance(testcase[0], list)
                                 and isinstance(testcase[1], int)
                                 for testcase in testcases):
-                            variable[1] = variable[1][1:]
+                            variable[-1] = variable[-1][1:]
                             process_variables.append(
                                 f"std::vector<int> {variable[1]}_array = json::parse(inputArray.at({i}));"
                             )
@@ -284,8 +286,8 @@ class CppWriter(LanguageWriter):
                               and all(isinstance(testcase[0], int) and isinstance(testcase[1], list) and
                                       isinstance(testcase[2], list) and isinstance(testcase[3], int) and
                                       isinstance(testcase[4], int) for testcase in testcases)):
-                            variables[0][1] = variables[0][1][1:]
-                            variables[1][1] = variables[1][1][1:]
+                            variables[0][-1] = variables[0][-1][1:]
+                            variables[1][-1] = variables[1][-1][1:]
                             process_variables.append(f"int iv = json::parse(inputArray.at({i}));")
                             process_variables.append(f"std::vector<int> {variables[0][1]}_array = json::parse(inputArray.at({i + 1}));")
                             process_variables.append(f"std::vector<int> {variables[1][1]}_array = json::parse(inputArray.at({i + 2}));")
@@ -300,14 +302,14 @@ class CppWriter(LanguageWriter):
                             logging.debug(f"Testcases: {testcases}, variables: {variables}")
                     process_variables.append(
                         "std::vector<int> "
-                        + variable[1]
+                        + variable[-1]
                         + "_array"
                         + f" = json::parse(inputArray.at({i}));"
                     )
                     process_variables.append(
                         rt
                         + " *"
-                        + variable[1]
+                        + variable[-1]
                         + f" = IntArrayToListNode({variable[1]}_array);"
                     )
                 case "vector<ListNode*>":
@@ -320,16 +322,16 @@ class CppWriter(LanguageWriter):
                         + f" = json::parse(inputArray.at({i}));"
                     )
                     process_variables.append(
-                        f"auto {variable[1]} = {rt}({variable[1]}_arrays.size());"
+                        f"auto {variable[-1]} = {rt}({variable[-1]}_arrays.size());"
                     )
                     process_variables.append(
-                        "for (int i = 0; i < " + variable[1] + ".size(); i++) {"
+                        "for (int i = 0; i < " + variable[-1] + ".size(); i++) {"
                     )
                     process_variables.append(
                         "\t"
-                        + variable[1]
+                        + variable[-1]
                         + "[i] = IntArrayToListNode("
-                        + variable[1]
+                        + variable[-1]
                         + "_arrays[i]);"
                     )
                     process_variables.append("}")
@@ -342,11 +344,11 @@ class CppWriter(LanguageWriter):
                                 f"json {variable[1]}_array = json::parse(inputArray.at({i}));")
                             process_variables.append("int target_val = json::parse(inputArray.at(1));")
                             process_variables.append(f"auto nodes = JsonArrayToTreeNodeWithTargets("
-                                                     f"{variable[1]}_array, {{target_val}});")
+                                                     f"{variable[-1]}_array, {{target_val}});")
                             process_variables.append("TreeNode *original = nodes[0];")
                             process_variables.append("TreeNode *target = nodes[1];")
                             process_variables.append(
-                                f"TreeNode *cloned = JsonArrayToTreeNode({variable[1]}_array);")
+                                f"TreeNode *cloned = JsonArrayToTreeNode({variable[-1]}_array);")
                             i += 3
                             continue
                         idx = i + 1
@@ -357,91 +359,91 @@ class CppWriter(LanguageWriter):
                             idx += 1
                         if idx != i + 1:
                             process_variables.append(
-                                f"json {variable[1]}_array = json::parse(inputArray.at({i}));")
+                                f"json {variable[-1]}_array = json::parse(inputArray.at({i}));")
                             for j in range(i + 1, idx):
                                 process_variables.append(
-                                    f"int {variables[j][1]}_val = json::parse(inputArray.at({j}));")
+                                    f"int {variables[j][-1]}_val = json::parse(inputArray.at({j}));")
                             process_variables.append(
-                                f"auto nodes = JsonArrayToTreeNodeWithTargets({variable[1]}_array, {{"
-                                + ", ".join([f"{variables[j][1]}_val" for j in range(i + 1, idx)]) + "});")
-                            process_variables.append(f"TreeNode *{variable[1]} = nodes[0], "
-                                                     + ", ".join([f"*{variables[j][1]} = nodes[{j - i}]"
+                                f"auto nodes = JsonArrayToTreeNodeWithTargets({variable[-1]}_array, {{"
+                                + ", ".join([f"{variables[j][-1]}_val" for j in range(i + 1, idx)]) + "});")
+                            process_variables.append(f"TreeNode *{variable[-1]} = nodes[0], "
+                                                     + ", ".join([f"*{variables[j][-1]} = nodes[{j - i}]"
                                                                   for j in range(i + 1, idx)]) + ";")
                             i = idx
                             continue
                     process_variables.append(
                         "json "
-                        + variable[1]
+                        + variable[-1]
                         + "_array"
                         + f" = json::parse(inputArray.at({i}));"
                     )
                     process_variables.append(
                         rt
                         + " *"
-                        + variable[1]
-                        + f" = JsonArrayToTreeNode({variable[1]}_array);"
+                        + variable[-1]
+                        + f" = JsonArrayToTreeNode({variable[-1]}_array);"
                     )
                 case "vector<TreeNode*>":
                     if '#include "cpp/models/TreeNode.h"' not in include_libs:
                         include_libs.append('#include "cpp/models/TreeNode.h"')
                     process_variables.append(
                         "json "
-                        + variable[1]
+                        + variable[-1]
                         + "_array"
                         + f" = json::parse(inputArray.at({i}));"
                     )
                     process_variables.append(
                         rt
                         + " "
-                        + variable[1]
-                        + f" = JsonArrayToTreeNodeArray({variable[1]}_array);"
+                        + variable[-1]
+                        + f" = JsonArrayToTreeNodeArray({variable[-1]}_array);"
                     )
                 case "char":
                     process_variables.append(
-                        f"string {variable[1]}_string = json::parse(inputArray.at({i}));"
+                        f"string {variable[-1]}_string = json::parse(inputArray.at({i}));"
                     )
                     process_variables.append(
-                        f"char {variable[1]} = {variable[1]}_string.length() > 1 ?"
-                        f" {variable[1]}_string[1] : {variable[1]}_string[0];"
+                        f"char {variable[-1]} = {variable[-1]}_string.length() > 1 ?"
+                        f" {variable[-1]}_string[1] : {variable[-1]}_string[0];"
                     )
                 case "vector<char>":
                     process_variables.append(
                         "vector<string> "
-                        + variable[1]
+                        + variable[-1]
                         + "_str"
                         + f" = json::parse(inputArray.at({i}));"
                     )
                     process_variables.append(
-                        f"auto {variable[1]} = {rt}({variable[1]}_str.size());"
+                        f"auto {variable[-1]} = {rt}({variable[-1]}_str.size());"
                     )
                     process_variables.append(
-                        "for (int i = 0; i < " + variable[1] + ".size(); i++) {"
+                        "for (int i = 0; i < " + variable[-1] + ".size(); i++) {"
                     )
                     process_variables.append(
-                        f"\t{variable[1]}[i] = {variable[1]}_str[i][0];"
+                        f"\t{variable[-1]}[i] = {variable[-1]}_str[i][0];"
                     )
                     process_variables.append("}")
                 case "vector<vector<char>>":
                     process_variables.append(
                         "vector<vector<string>> "
-                        + variable[1]
+                        + variable[-1]
                         + "_str"
                         + f" = json::parse(inputArray.at({i}));"
                     )
                     process_variables.append(
-                        f"auto {variable[1]} = {rt}({variable[1]}_str.size(),"
-                        f" vector<char>({variable[1]}_str[0].size()));"
+                        f"auto {variable[-1]} = {rt}({variable[-1]}_str.size(),"
+                        f" vector<char>({variable[-1]}_str[0].size()));"
                     )
                     process_variables.append(
-                        "for (int i = 0; i < " + variable[1] + ".size(); i++) {"
+                        "for (int i = 0; i < " + variable[-1] + ".size(); i++) {"
                     )
                     process_variables.append(
                         "\tfor (int j = 0; j < "
-                        + variable[1]
+                        + variable[-1]
                         + "[i].size(); j++) {"
                     )
                     process_variables.append(
-                        f"\t\t{variable[1]}[i][j] = {variable[1]}_str[i][j][0];"
+                        f"\t\t{variable[-1]}[i][j] = {variable[-1]}_str[i][j][0];"
                     )
                     process_variables.append("\t}")
                     process_variables.append("}")
@@ -451,28 +453,28 @@ class CppWriter(LanguageWriter):
                         include_libs.append('#include "cpp/models/TreeNodeNext.h"')
                         process_variables.append(
                             "json "
-                            + variable[1]
+                            + variable[-1]
                             + "_array"
                             + f" = json::parse(inputArray.at({i}));"
                         )
                         process_variables.append(
                             rt
                             + " *"
-                            + variable[1]
-                            + f" = JsonArrayToTreeNodeNext({variable[1]}_array);"
+                            + variable[-1]
+                            + f" = JsonArrayToTreeNodeNext({variable[-1]}_array);"
                         )
                     elif "vector<Node*> neighbors;" in code_default:
                         include_libs.append('#include "cpp/models/NodeNeighbors.h"')
-                        process_variables.append(f"vector<vector<int>> {variable[1]}_arrays ="
+                        process_variables.append(f"vector<vector<int>> {variable[-1]}_arrays ="
                                                  f" json::parse(inputArray.at({i}));")
-                        process_variables.append(f"{rt}* {variable[1]} ="
-                                                 f" JsonArrayToNodeNeighbors({variable[1]}_arrays);")
+                        process_variables.append(f"{rt}* {variable[-1]} ="
+                                                 f" JsonArrayToNodeNeighbors({variable[-1]}_arrays);")
                     elif "Node* random;" in code_default:
                         include_libs.append('#include "cpp/models/NodeRandom.h"')
                         process_variables.append(
                             rt
                             + " *"
-                            + variable[1]
+                            + variable[-1]
                             + f" = JsonArrayToNodeRandom(json::parse(inputArray.at({i})));"
                         )
                     else:
@@ -481,7 +483,7 @@ class CppWriter(LanguageWriter):
                     process_variables.append(
                         rt
                         + " "
-                        + variable[1]
+                        + variable[-1]
                         + f" = json::parse(inputArray.at({i}));"
                     )
             i += 1
@@ -494,7 +496,7 @@ class CppWriter(LanguageWriter):
                 include_libs.append('#include "cpp/models/ListNode.h"')
             return_part.append(
                 "\treturn ListNodeToIntArray(solution.{}({}));".format(
-                    func_name, ", ".join([v[1] for v in variables])
+                    func_name, ", ".join([v[-1] for v in variables])
                 )
             )
         elif "TreeNode" in ret_type:
@@ -502,7 +504,7 @@ class CppWriter(LanguageWriter):
                 include_libs.append('#include "cpp/models/TreeNode.h"')
             return_part.append(
                 "\treturn TreeNodeToJsonArray(solution.{}({}));".format(
-                    func_name, ", ".join([v[1] for v in variables])
+                    func_name, ", ".join([v[-1] for v in variables])
                 )
             )
         elif "Node" in ret_type:
@@ -510,47 +512,49 @@ class CppWriter(LanguageWriter):
                     and "Node* next;" in code_default):
                 return_part.append(
                     "\treturn TreeNodeNextToJsonArray(solution.{}({}));".format(
-                        func_name, ", ".join([v[1] for v in variables])
+                        func_name, ", ".join([v[-1] for v in variables])
                     )
                 )
             elif "vector<Node*> neighbors;" in code_default:
                 return_part.append(
                     "\treturn NodeNeighborsToJsonArray(solution.{}({}));".format(
-                        func_name, ", ".join([v[1] for v in variables])
+                        func_name, ", ".join([v[-1] for v in variables])
                     )
                 )
             elif "Node* random;" in code_default:
                 return_part.append(
                     "\treturn NodeRandomToJsonArray(solution.{}({}));".format(
-                        func_name, ", ".join([v[1] for v in variables])
+                        func_name, ", ".join([v[-1] for v in variables])
                     )
                 )
             else:
                 logging.debug(f"Unhandled Node Type return: {ret_type}, code: [{code_default}]")
                 return_part.append(
                     "\treturn solution.{}({});".format(
-                        func_name, ", ".join([v[1] for v in variables])
+                        func_name, ", ".join([v[-1] for v in variables])
                     )
                 )
         elif ret_type == "char":
             return_part.append(
                 "\treturn std::string(1, solution.{}({}));".format(
-                    func_name, ", ".join([v[1] for v in variables])
+                    func_name, ", ".join([v[-1] for v in variables])
                 )
             )
         elif ret_type == "void":
             return_part.append(
                 "\tsolution.{}({});\n\treturn {};".format(
-                    func_name, ", ".join([v[1] for v in variables]), variables[0][1]
+                    func_name, ", ".join([v[-1] for v in variables]), variables[0][1]
                 )
             )
         else:
             return_part.append(
                 "\treturn solution.{}({});".format(
-                    func_name, ", ".join([v[1] for v in variables])
+                    func_name, ", ".join([v[-1] for v in variables])
                 )
             )
 
     @staticmethod
-    def _simplify_variable_type(variable: str) -> str:
+    def _simplify_variable_type(variable: list[str]) -> str:
+        if len(variable) > 2:
+            return " ".join(variable[:-1])
         return variable[0] if not variable[0].endswith("&") and not variable[0].endswith("*") else variable[0][:-1]
