@@ -30,6 +30,8 @@ public class Solution extends BaseSolution {
         return (dp[zero][one][0] + dp[zero][one][1]) % MOD;
     }
 
+
+
     @Override
     public Object solve(String[] inputJsonValues) {
         int zero = Integer.parseInt(inputJsonValues[0]);
