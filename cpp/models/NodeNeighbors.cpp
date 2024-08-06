@@ -22,8 +22,9 @@ Node *JsonArrayToNodeNeighbors(vector<vector<int>> arr) {
 }
 
 void dfs(Node* cur, vector<vector<int>>& ans, std::unordered_set<int>& visited) {
-    if (ans.size() < cur->val) {
-        for (auto i = ans.size(); i < cur->val; i++) {
+    int n = static_cast<int>(ans.size());
+    if (n < cur->val) {
+        for (auto i = n; i < cur->val; i++) {
             ans.emplace_back();
         }
         for (auto neighbor : cur->neighbors) {

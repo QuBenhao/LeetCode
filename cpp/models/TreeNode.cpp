@@ -80,7 +80,7 @@ std::vector<TreeNode*> JsonArrayToTreeNodeArray(json arr) {
         return {};
     }
     auto ans = std::vector<TreeNode*>(arr.size(), nullptr);
-    for (auto i = 0; i < arr.size(); i++) {
+    for (auto i = 0; i < static_cast<int>(arr.size()); i++) {
         ans[i] = JsonArrayToTreeNode(arr[i]);
     }
     return ans;
