@@ -140,7 +140,7 @@ class RustWriter(LanguageWriter):
                 else:
                     return_part.append("Solution::{}({});".format(function_name,
                                                                   ", ".join([v[0] for v in variables])))
-                    return_part.append(variables[0][0])
+                    return_part.append(f"json!({variables[0][0]})")
                 fn_count += 1
         if fn_count != 1:
             raise NotImplementedError("RustWriter does not support multiple functions yet!")
@@ -351,9 +351,16 @@ class RustWriter(LanguageWriter):
                 if is_return:
                     return_parts.append("json!({})")
                 else:
+                    clean_type = var_type
+                    if "mut " in var_type:
+                        clean_type = var_type.replace("mut ", "")
+                        var_name = "mut " + var_name
+                    if "&" in var_type:
+                        clean_type = clean_type.replace("&", "")
+                    logging.debug("var_name: %s, var_type: %s, Clean type: %s", var_name, var_type, clean_type)
                     solve_part.append("let {}: {} = serde_json::from_str(&input_values[{}])"
                                       ".expect(\"Failed to parse input\");"
-                                      .format(var_name, var_type, var_idx))
+                                      .format(var_name, clean_type, var_idx))
 
     @staticmethod
     def cargo_add_problems(file_path, problem_ids_folders: list):
