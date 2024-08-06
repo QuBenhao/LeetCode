@@ -1975,5 +1975,94 @@
                 "code": "defmodule ParkingSystem do\n  @spec init_(big :: integer, medium :: integer, small :: integer) :: any\n  def init_(big, medium, small) do\n\n  end\n\n  @spec add_car(car_type :: integer) :: boolean\n  def add_car(car_type) do\n\n  end\nend\n\n# Your functions will be called as such:\n# ParkingSystem.init_(big, medium, small)\n# param_1 = ParkingSystem.add_car(car_type)\n\n# ParkingSystem.init_ will be called before every test case, in which you can do some necessary initializations."
             }
         ]
+    },
+    {
+        "48": [
+            {
+                "lang": "C++",
+                "langSlug": "cpp",
+                "code": "class Solution {\npublic:\n    void rotate(vector<vector<int>>& matrix) {\n\n    }\n};"
+            },
+            {
+                "lang": "Java",
+                "langSlug": "java",
+                "code": "class Solution {\n    public void rotate(int[][] matrix) {\n\n    }\n}"
+            },
+            {
+                "lang": "Python",
+                "langSlug": "python",
+                "code": "class Solution(object):\n    def rotate(self, matrix):\n        \"\"\"\n        :type matrix: List[List[int]]\n        :rtype: None Do not return anything, modify matrix in-place instead.\n        \"\"\""
+            },
+            {
+                "lang": "Python3",
+                "langSlug": "python3",
+                "code": "class Solution:\n    def rotate(self, matrix: List[List[int]]) -> None:\n        \"\"\"\n        Do not return anything, modify matrix in-place instead.\n        \"\"\""
+            },
+            {
+                "lang": "C",
+                "langSlug": "c",
+                "code": "void rotate(int** matrix, int matrixSize, int* matrixColSize) {\n    \n}"
+            },
+            {
+                "lang": "C#",
+                "langSlug": "csharp",
+                "code": "public class Solution {\n    public void Rotate(int[][] matrix) {\n\n    }\n}"
+            },
+            {
+                "lang": "JavaScript",
+                "langSlug": "javascript",
+                "code": "/**\n * @param {number[][]} matrix\n * @return {void} Do not return anything, modify matrix in-place instead.\n */\nvar rotate = function(matrix) {\n\n};"
+            },
+            {
+                "lang": "TypeScript",
+                "langSlug": "typescript",
+                "code": "/**\n Do not return anything, modify matrix in-place instead.\n */\nfunction rotate(matrix: number[][]): void {\n    \n};"
+            },
+            {
+                "lang": "PHP",
+                "langSlug": "php",
+                "code": "class Solution {\n\n    /**\n     * @param Integer[][] $matrix\n     * @return NULL\n     */\n    function rotate(&$matrix) {\n\n    }\n}"
+            },
+            {
+                "lang": "Swift",
+                "langSlug": "swift",
+                "code": "class Solution {\n    func rotate(_ matrix: inout [[Int]]) {\n\n    }\n}"
+            },
+            {
+                "lang": "Kotlin",
+                "langSlug": "kotlin",
+                "code": "class Solution {\n    fun rotate(matrix: Array<IntArray>): Unit {\n\n    }\n}"
+            },
+            {
+                "lang": "Dart",
+                "langSlug": "dart",
+                "code": "class Solution {\n  void rotate(List<List<int>> matrix) {\n    \n  }\n}"
+            },
+            {
+                "lang": "Go",
+                "langSlug": "golang",
+                "code": "func rotate(matrix [][]int)  {\n\n}"
+            },
+            {
+                "lang": "Ruby",
+                "langSlug": "ruby",
+                "code": "# @param {Integer[][]} matrix\n# @return {Void} Do not return anything, modify matrix in-place instead.\ndef rotate(matrix)\n\nend"
+            },
+            {
+                "lang": "Scala",
+                "langSlug": "scala",
+                "code": "object Solution {\n    def rotate(matrix: Array[Array[Int]]): Unit = {\n\n    }\n}"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "impl Solution {\n    pub fn rotate(matrix: &mut Vec<Vec<i32>>) {\n\n    }\n}"
+            },
+            {
+                "lang": "Racket",
+                "langSlug": "racket",
+                "code": "(define/contract (rotate matrix)\n  (-> (listof (listof exact-integer?)) void?)\n\n  )"
+            }
+        ]
     }
 ]

@@ -106,7 +106,7 @@ class CppWriter(LanguageWriter):
                 include_libs.append(line)
 
         if len(functions) == 1:
-            ret_type = functions[0].get("ret_type", "")
+            ret_type = functions[0].get("ret_type", "").strip()
             func_name = functions[0].get("name", "")
             variables = [
                 sp.strip().split(" ") for sp in functions[0].get("args", "").split(",")
@@ -141,7 +141,7 @@ class CppWriter(LanguageWriter):
                     class_and_functions.append([name, i])
 
                 elif class_and_functions:
-                    ret_type = f.get("ret_type", "")
+                    ret_type = f.get("ret_type", "").strip()
                     func_name = f.get("name", "")
                     variables = (
                         [sp.strip().split(" ") for sp in f.get("args", "").split(",")]
@@ -248,6 +248,7 @@ class CppWriter(LanguageWriter):
         # Extract and return the information for each function
         functions = []
         for match in matches:
+            logging.debug("ret_type: \"%s\"", match.group("ret_type"))
             functions.append(match.groupdict())
 
         return functions
