@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <deque>
 
 
 using namespace std;
@@ -8,7 +9,18 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<int> deckRevealedIncreasing(vector<int>& deck) {
-
+        deque<int> ans;
+        sort(deck.begin(), deck.end());
+        while (!deck.empty()) {
+            if (!ans.empty()) {
+                int last = ans.back();
+				ans.pop_back();
+				ans.push_front(last);
+            }
+			ans.push_front(deck.back());
+			deck.pop_back();
+        }
+		return vector<int>(ans.begin(), ans.end());
     }
 };
 
