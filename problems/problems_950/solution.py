@@ -2,6 +2,7 @@ import solution
 from typing import *
 from collections import deque
 
+
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         return self.deckRevealedIncreasing(test_input)
