@@ -33,6 +33,7 @@ func numberOfStableArrays(zero int, one int, limit int) int {
 	return (dp[zero][one][0] + dp[zero][one][1]) % mod
 }
 
+
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var zero int

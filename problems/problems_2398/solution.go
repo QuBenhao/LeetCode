@@ -41,6 +41,7 @@ func maximumRobots(chargeTimes []int, runningCosts []int, budget int64) int {
 	return left
 }
 
+
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var chargeTimes []int

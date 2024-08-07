@@ -16,6 +16,7 @@ func rotate(matrix [][]int) {
 	}
 }
 
+
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var matrix [][]int
