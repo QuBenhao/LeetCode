@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.addedInteger(*test_input)
 
     def addedInteger(self, nums1: List[int], nums2: List[int]) -> int:
-        pass
-
+        return sorted(nums2)[0] - sorted(nums1)[0]
