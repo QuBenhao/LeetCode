@@ -7,7 +7,14 @@ import (
 )
 
 func addedInteger(nums1 []int, nums2 []int) int {
-
+	m1, m2 := nums1[0], nums2[0]
+	for _, v := range nums1 {
+		m1 = min(m1, v)
+	}
+	for _, v := range nums2 {
+		m2 = min(m2, v)
+	}
+	return m2 - m1
 }
 
 func Solve(inputJsonValues string) interface{} {
