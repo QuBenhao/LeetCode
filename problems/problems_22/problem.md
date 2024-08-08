@@ -1,4 +1,4 @@
-# 22. Generate Parentheses
+# 22. Generate Parentheses 
 
 <p>Given <code>n</code> pairs of parentheses, write a function to <em>generate all combinations of well-formed parentheses</em>.</p>
 
