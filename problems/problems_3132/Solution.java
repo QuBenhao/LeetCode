@@ -7,7 +7,23 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int minimumAddedInteger(int[] nums1, int[] nums2) {
-
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        out:
+        for (int i = 2; i >= 0; i--) {
+            int quota = 2 - i, diff = nums2[0] - nums1[i], idx = i + 1;
+            for (int j = 1; j < nums2.length; j++) {
+                while (nums2[j] - nums1[idx] != diff) {
+                    if (quota-- == 0) {
+                        continue out;
+                    }
+                    idx++;
+                }
+                idx++;
+            }
+            return diff;
+        }
+        return nums2[0] - nums1[0];
     }
 
     @Override
