@@ -15,7 +15,7 @@ public:
                 cur.emplace_back(num % 10);
                 num /= 10;
             }
-            for (int i = cur.size() - 1; i >= 0; --i) {
+            for (int i = static_cast<int>(cur.size()) - 1; i >= 0; --i) {
                 ans.emplace_back(cur[i]);
             }
         }
