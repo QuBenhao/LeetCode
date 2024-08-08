@@ -7,7 +7,32 @@ import (
 )
 
 func canFinish(numCourses int, prerequisites [][]int) bool {
-
+	dg := make([]int, numCourses)
+	graph := map[int][]int{}
+	for _, req := range prerequisites {
+		a, b := req[0], req[1]
+		dg[a] += 1
+		graph[b] = append(graph[b], a)
+	}
+	var q []int
+	for i, d := range dg {
+		if d == 0 {
+			q = append(q, i)
+		}
+	}
+	explored := 0
+	for len(q) > 0 {
+		first := q[0]
+		q = q[1:]
+		explored++
+		for _, other := range graph[first] {
+			dg[other]--
+			if dg[other] == 0 {
+				q = append(q, other)
+			}
+		}
+	}
+	return explored == numCourses
 }
 
 func Solve(inputJsonValues string) interface{} {
