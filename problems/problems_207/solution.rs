@@ -1,10 +1,35 @@
 use serde_json::{json, Value};
 
 pub struct Solution;
-
+use std::collections::{HashMap, VecDeque};
 impl Solution {
     pub fn can_finish(num_courses: i32, prerequisites: Vec<Vec<i32>>) -> bool {
-		
+		let mut degree: Vec<i32> = vec![0; num_courses as usize];
+		let mut graph: HashMap<i32, Vec<i32>> = HashMap::new();
+		for req in prerequisites.iter() {
+			degree[req[0] as usize] += 1;
+			graph.entry(req[1]).or_insert(Vec::new()).push(req[0]);
+		}
+		let mut queue: VecDeque<i32> = VecDeque::new();
+		for i in 0..num_courses {
+			if degree[i as usize] == 0 {
+				queue.push_back(i);
+			}
+		}
+		let mut count = 0;
+		while !queue.is_empty() {
+			let cur = queue.pop_back().unwrap();
+			count += 1;
+			if let Some(neighbors) = graph.get(&cur) {
+				for neighbor in neighbors.iter() {
+					degree[*neighbor as usize] -= 1;
+					if degree[*neighbor as usize] == 0 {
+						queue.push_back(*neighbor);
+					}
+				}
+			}
+		}
+		count == num_courses
     }
 }
 
