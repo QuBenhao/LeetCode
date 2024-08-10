@@ -17,5 +17,14 @@ class Solution(solution.Solution):
         return self.kthSmallest(root0, k)
 
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        pass
+        def inorder(node):
+            if not node:
+                return
+            yield from inorder(node.left)
+            yield node.val
+            yield from inorder(node.right)
 
+        iterator, ans = inorder(root), -1
+        for i in range(k):
+            ans = next(iterator)
+        return ans
