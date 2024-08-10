@@ -7,7 +7,11 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> words = new HashSet<>();
+        for (String word : wordDict) {
 
+        }
+        return null;
     }
 
     @Override

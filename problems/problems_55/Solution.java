@@ -7,7 +7,17 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public boolean canJump(int[] nums) {
-
+        int maxDis = 0, n = nums.length;
+        for (int i = 0; i < n; i++) {
+            maxDis = Math.max(maxDis, nums[i]);
+            if (maxDis >= n - 1) {
+                return true;
+            }
+            if (i >= maxDis) {
+                return false;
+            }
+        }
+        return false;
     }
 
     @Override
