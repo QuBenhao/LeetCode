@@ -1,4 +1,4 @@
-# 19. Remove Nth Node From End of List
+# 19. Remove Nth Node From End of List 
 
 <p>Given the <code>head</code> of a linked list, remove the <code>n<sup>th</sup></code> node from the end of the list and return its head.</p>
 
