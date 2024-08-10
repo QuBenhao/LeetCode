@@ -7,7 +7,17 @@ import (
 )
 
 func canJump(nums []int) bool {
-
+	maxDis := 0
+	for i, v := range nums {
+		maxDis = max(maxDis, i+v)
+		if maxDis >= len(nums)-1 {
+			return true
+		}
+		if i >= maxDis {
+			return false
+		}
+	}
+	return false
 }
 
 func Solve(inputJsonValues string) interface{} {
