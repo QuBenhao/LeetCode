@@ -1,5 +1,7 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <string>
+#include <unordered_set>
 
 
 using namespace std;
@@ -8,7 +10,22 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
-
+		unordered_set<string> words;
+		for (const string& word : wordDict) {
+			words.insert(word);
+		}
+		int n = static_cast<int>(s.size());
+		vector<bool> dp(n + 1, false);
+		dp[0] = true;
+		for (int i = 1; i <= n; i++) {
+			for (int j = 0; j < i; j++) {
+				if (dp[j] && words.find(s.substr(j, i - j)) != words.end()) {
+					dp[i] = true;
+					break;
+				}
+			}
+		}
+		return dp[n];
     }
 };
 

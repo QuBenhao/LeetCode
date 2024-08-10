@@ -8,7 +8,17 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
-
+		int max_dis = 0, n = static_cast<int>(nums.size());
+		for (int i = 0; i < n; i++) {
+			max_dis = max(max_dis, i + nums[i]);
+			if (max_dis >= n - 1) {
+				return true;
+			}
+			if (i >= max_dis) {
+				return false;
+			}
+		}
+		return false;
     }
 };
 
