@@ -4,7 +4,17 @@ pub struct Solution;
 
 impl Solution {
     pub fn can_jump(nums: Vec<i32>) -> bool {
-
+		let mut max_dis: i32 = 0;
+		for i in 0..nums.len() {
+			max_dis = max_dis.max(i as i32 + nums[i]);
+			if max_dis >= nums.len() as i32 - 1 {
+				return true;
+			}
+			if i as i32 >= max_dis {
+				return false;
+			}
+		}
+		false
     }
 }
 
