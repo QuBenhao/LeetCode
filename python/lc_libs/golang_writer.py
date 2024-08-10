@@ -1,7 +1,7 @@
 import logging
 import os.path
 from collections import deque
-from typing import Tuple
+from typing import Tuple, List
 
 from python.constants import (
     SOLUTION_TEMPLATE_GOLANG,
@@ -369,13 +369,16 @@ class GolangWriter(LanguageWriter):
                 res.append(tp)
                 res.append("\n")
                 first = True
-        list_type_vars_new = []
+        list_type_vars_new: List[List] = []
+        total_vars = 0
         for vars_type in list_type_vars:
             if list_type_vars_new and list_type_vars_new[-1][-1] == vars_type[-1]:
                 list_type_vars_new[-1] = list_type_vars_new[-1][:-1]
                 list_type_vars_new[-1].extend(vars_type)
             else:
                 list_type_vars_new.append(vars_type)
+            total_vars += len(vars_type) - 1
+        logging.debug("Total vars: %d", total_vars)
         list_type_vars = list_type_vars_new
         counts = 0
         if struct_func:
@@ -401,7 +404,8 @@ class GolangWriter(LanguageWriter):
                 match tp:
                     case "*ListNode":
                         if testcases:
-                            if len(testcases[0]) == len(vrs) + 1 and all(
+                            logging.debug(f"Testcases: {testcases}, variables: {vrs}")
+                            if len(testcases[0]) == total_vars + 1 and all(
                                     isinstance(testcase[0], list)
                                     and isinstance(testcase[1], int)
                                     for testcase in testcases):
@@ -425,7 +429,7 @@ class GolangWriter(LanguageWriter):
                                 imports_libs.add('\t"log"')
                                 count += 2
                                 continue
-                            elif (len(vrs) == 2 and len(testcases[0]) == 5
+                            elif (total_vars == 2 and len(testcases[0]) == 5
                                   and all(isinstance(testcase[0], int) and
                                           isinstance(testcase[1], list) and
                                           isinstance(testcase[2], list) and
@@ -464,7 +468,7 @@ class GolangWriter(LanguageWriter):
                                 imports_libs.add('\t"log"')
                                 count += 5
                                 continue
-                            elif len(vrs) != len(testcases[0]):
+                            elif total_vars != len(testcases[0]):
                                 logging.debug(f"Testcases: {testcases}, variables: {vrs}")
                         for j, var in enumerate(vrs):
                             json_parse.append(f"\tvar {var}IntArray []int\n")
@@ -500,7 +504,7 @@ class GolangWriter(LanguageWriter):
                     case "*TreeNode":
                         imports_libs.add('\t. "leetCode/golang/models"')
                         if testcases:
-                            if len(vrs) == len(testcases[0]) + 1:
+                            if total_vars == len(testcases[0]) + 1:
                                 imports_libs.add('\t"encoding/json"')
                                 imports_libs.add('\t"log"')
                                 json_parse.append("\tvar targetVal int\n")
@@ -514,7 +518,7 @@ class GolangWriter(LanguageWriter):
                                 json_parse.append(f"\t{vrs[1]} = ArrayToTree(inputValues[0])\n")
                                 count += len(vrs)
                                 continue
-                            elif len(vrs) > 1 and any(t is not None and not isinstance(t, list)
+                            elif total_vars > 1 and any(t is not None and not isinstance(t, list)
                                                       for testcase in testcases for t in testcase):
                                 imports_libs.add('\t"encoding/json"')
                                 imports_libs.add('\t"log"')

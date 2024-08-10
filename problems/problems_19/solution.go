@@ -15,7 +15,18 @@ import (
  * }
  */
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
-
+	slow, fast := head, head
+	for i := 0; i < n; i++ {
+		fast = fast.Next
+	}
+	if fast == nil {
+		return head.Next
+	}
+	for fast.Next != nil {
+		slow, fast = slow.Next, fast.Next
+	}
+	slow.Next = slow.Next.Next
+	return head
 }
 
 func Solve(inputJsonValues string) interface{} {
@@ -27,12 +38,8 @@ func Solve(inputJsonValues string) interface{} {
 	if err := json.Unmarshal([]byte(inputValues[0]), &headIntArray); err != nil {
 		log.Fatal(err)
 	}
-	 var headPos int
-	if err := json.Unmarshal([]byte(inputValues[1]), &headPos); err != nil {
-		log.Fatal(err)
-	}
-	head = IntArrayToLinkedListCycle(headIntArray, headPos)
-	if err := json.Unmarshal([]byte(inputValues[2]), &n); err != nil {
+	head = IntArrayToLinkedList(headIntArray)
+	if err := json.Unmarshal([]byte(inputValues[1]), &n); err != nil {
 		log.Fatal(err)
 	}
 
