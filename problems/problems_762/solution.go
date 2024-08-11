@@ -6,8 +6,22 @@ import (
 	"strings"
 )
 
-func countPrimeSetBits(left int, right int) int {
+func countPrimeSetBits(left int, right int) (ans int) {
+	primeNumbers := []int{2, 3, 5, 7, 11, 13, 17, 19}
 
+	for i := left; i <= right; i++ {
+		bits := 0
+		for n := i; n > 0; n >>= 1 {
+			bits += n & 1
+		}
+		for _, prime := range primeNumbers {
+			if bits == prime {
+				ans++
+				break
+			}
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
