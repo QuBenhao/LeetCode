@@ -15,7 +15,17 @@ import {TreeNode,JSONArrayToTreeNode} from "../../typescript/models/treenode";
  */
 
 function kthSmallest(root: TreeNode | null, k: number): number {
-    
+    const ans: number[] = [];
+	const inorder: Function = (node: TreeNode | null) => {
+		if (!node) {
+			return;
+		}
+		inorder(node.left);
+		ans.push(node.val);
+		inorder(node.right);
+	}
+	inorder(root);
+	return ans[k - 1];
 };
 
 export function Solve(inputJsonElement: string): any {

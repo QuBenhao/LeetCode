@@ -13,7 +13,19 @@ import {ListNode,LinkedListToIntArray,IntArrayToLinkedList} from "../../typescri
  */
 
 function removeNthFromEnd(head: ListNode | null, n: number): ListNode | null {
-    
+	let slow: ListNode | null = head, fast: ListNode | null = head;
+	for (let i: number = 0; i < n; i++) {
+		fast = fast?.next;
+	}
+	if (!fast) {
+		return head?.next;
+	}
+	while (fast?.next) {
+		slow = slow?.next;
+		fast = fast.next;
+	}
+	slow!.next = slow!.next!.next;
+	return head;
 };
 
 export function Solve(inputJsonElement: string): any {
