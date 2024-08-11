@@ -22,7 +22,7 @@ import qubhjava.models.TreeNode;
 
 public class Solution extends BaseSolution {
     public boolean checkTree(TreeNode root) {
-
+        return root.val == root.left.val + root.right.val;
     }
 
     @Override
