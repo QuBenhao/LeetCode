@@ -229,7 +229,7 @@ def get_questions_by_key_word(keyword: Optional[str],
 
 
 def get_questions_total(category: str = "all-code-essentials",
-                        skip_premiums: bool = False, cookie: Optional[str] = None) -> int:
+                        skip_premiums: bool = True, cookie: Optional[str] = None) -> int:
     try:
         filters = dict()
         if skip_premiums:
@@ -251,7 +251,7 @@ def get_questions_total(category: str = "all-code-essentials",
 
 
 def get_questions_by_number(number: int, category: str = "all-code-essentials",
-                            skip_premiums: bool = False, cookie: Optional[str] = None) -> Optional[list]:
+                            skip_premiums: bool = True, cookie: Optional[str] = None) -> Optional[list]:
     try:
         ans = []
         filters = dict()

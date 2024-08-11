@@ -1,15 +1,16 @@
 import argparse
 import logging
-import sys
 import os
-import traceback
 import random
+import sys
+
 from dotenv import load_dotenv
+
 from daily_auto import write_question
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from python.constants import constant
-from python.lc_libs import get_rating, get_questions_total, get_questions_by_number, get_questions_by_status
+import python.lc_libs as lc_libs
 from python.utils import get_default_folder, format_question_id
 
 PROBLEM_MD = "problem.md"
@@ -20,7 +21,7 @@ def back_fill_ratings(args):
     def process_each(dir_path, problem_id: str):
         if not os.path.isdir(dir_path):
             return
-        rating = get_rating(problem_id)
+        rating = lc_libs.get_rating(problem_id)
         if not rating:
             logging.debug("Rating not found for problem id: %s", problem_id)
             return
@@ -86,6 +87,12 @@ def lucky(args):
             os.makedirs(dir_path, exist_ok=True)
             write_question(root_path, dir_path, problem_folder, question_id, question["title"],
                            question["titleSlug"], langs)
+            for lang in languages:
+                cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+                if not cls:
+                    continue
+                obj: lc_libs.LanguageWriter = cls()
+                obj.change_test(root_path, problem_folder, question_id)
             return True
         return False
 
@@ -96,10 +103,10 @@ def lucky(args):
     languages = os.getenv(constant.LANGUAGES, "python3").split(",")
     problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     category = args.category
-    total = get_questions_total(category)
+    total = lc_libs.get_questions_total(category)
     number = random.randint(1, total)
     logging.info("Random For Problem folder: %s [%d]", problem_folder, number)
-    questions = get_questions_by_number(number, category)
+    questions = lc_libs.get_questions_by_number(number, category)
     if not questions:
         logging.error(f"No question found for number: {number}")
         return
@@ -132,7 +139,7 @@ def remain(args):
     if not cookie:
         logging.error("Cookie is needed for remaining questions.")
         return
-    remains = get_questions_by_status(args.status, args.category, True, cookie=cookie)
+    remains = lc_libs.get_questions_by_status(args.status, args.category, True, cookie=cookie)
     if remains is None:
         logging.error("Failed to get remain problems.")
         return
