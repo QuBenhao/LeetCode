@@ -24,7 +24,22 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn kth_smallest(root: Option<Rc<RefCell<TreeNode>>>, k: i32) -> i32 {
-
+		let mut stack: Vec<Rc<RefCell<TreeNode>>> = vec![];
+		let mut root = root;
+		let mut k = k;
+		while root.is_some() || !stack.is_empty() {
+			while let Some(node) = root {
+				stack.push(node.clone());
+				root = node.borrow().left.clone();
+			}
+			root = stack.pop();
+			k -= 1;
+			if k == 0 {
+				return root.unwrap().borrow().val;
+			}
+			root = root.unwrap().borrow().right.clone();
+		}
+		0
     }
 }
 

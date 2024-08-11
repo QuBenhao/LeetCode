@@ -4,7 +4,19 @@ pub struct Solution;
 
 impl Solution {
     pub fn max_uncrossed_lines(nums1: Vec<i32>, nums2: Vec<i32>) -> i32 {
-
+		let m: usize = nums1.len();
+		let n: usize = nums2.len();
+		let mut dp: Vec<Vec<i32>> = vec![vec![0; n + 1]; m + 1];
+		for i in 0..m {
+			for j in 0..n {
+				if nums1[i] == nums2[j] {
+					dp[i + 1][j + 1] = dp[i][j] + 1;
+				} else {
+					dp[i+1][j+1] = dp[i][j + 1].max(dp[i + 1][j]);
+				}
+			}
+		}
+		dp[m][n]
     }
 }
 
