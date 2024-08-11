@@ -4,7 +4,20 @@ pub struct Solution;
 
 impl Solution {
     pub fn count_prime_set_bits(left: i32, right: i32) -> i32 {
-
+		let primes: Vec<i32> = vec![2, 3, 5, 7, 11, 13, 17, 19, 23, 29];
+		let mut count: i32 = 0;
+		for i in left..=right {
+			let mut bits: i32 = 0;
+			let mut n = i;
+			while n > 0 {
+				bits += n & 1;
+				n >>= 1;
+			}
+			if primes.contains(&bits) {
+				count += 1;
+			}
+		}
+		count
     }
 }
 
