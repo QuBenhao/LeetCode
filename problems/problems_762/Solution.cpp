@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <unordered_set>
 
 
 using namespace std;
@@ -8,7 +9,15 @@ using json = nlohmann::json;
 class Solution {
 public:
     int countPrimeSetBits(int left, int right) {
-
+        static const unordered_set<int> primes = {2, 3, 5, 7, 11, 13, 17, 19};
+        int ans = 0;
+        for (int i = left; i <= right; i++) {
+            int count = __builtin_popcount(i);
+            if (primes.find(count) != primes.end()) {
+                ans++;
+            }
+        }
+        return ans;
     }
 };
 
