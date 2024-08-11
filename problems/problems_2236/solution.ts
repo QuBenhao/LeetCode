@@ -15,7 +15,7 @@ import {JSONArrayToTreeNode,TreeNode} from "../../typescript/models/treenode";
  */
 
 function checkTree(root: TreeNode | null): boolean {
-
+	return root.val === root.left.val + root.right.val;
 };
 
 export function Solve(inputJsonElement: string): any {
