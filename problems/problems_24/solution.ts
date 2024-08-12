@@ -13,7 +13,17 @@ import {ListNode,IntArrayToLinkedList,LinkedListToIntArray} from "../../typescri
  */
 
 function swapPairs(head: ListNode | null): ListNode | null {
-    
+    const dummy: ListNode = new ListNode(0, head);
+	let prev: ListNode = dummy, cur: ListNode | null = head;
+	while (cur && cur.next) {
+		const nxt: ListNode = cur.next;
+		cur.next = nxt.next;
+		nxt.next = cur;
+		prev.next = nxt;
+		prev = cur;
+		cur = cur.next;
+	}
+	return dummy.next;
 };
 
 export function Solve(inputJsonElement: string): any {
