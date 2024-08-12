@@ -333,7 +333,8 @@ class TypescriptWriter(LanguageWriter):
                     logging.debug(f"Please implement the return part for _Node, {code_default}")
             case "void":
                 process_inputs.append("{}({})".format(func[0], ", ".join(var_names)))
-                return_part = ", ".join(var_names)
+                logging.debug("process_inputs: %s, var_names: %s", process_inputs, var_names)
+                return_part = var_names[0]
             case _:
                 return_part = "{}({})".format(func[0], ", ".join(var_names))
         return return_part
