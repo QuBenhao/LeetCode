@@ -176,8 +176,9 @@ class RustWriter(LanguageWriter):
         with open(file_path, 'r', encoding="utf-8") as f:
             content = f.read()
             start = False
+            is_obj_question = "object will be instantiated and called as such:" in content
             for line in content.split("\n"):
-                if "pub struct Solution;" in line:
+                if (is_obj_question and "use serde_json::{json, Value};" in line) or "pub struct Solution;" in line:
                     start = True
                     continue
                 if "#[cfg(feature = \"solution\")]" in line or f"#[cfg(feature = \"solution_{problem_id}\")]" in line:
@@ -481,6 +482,7 @@ class RustWriter(LanguageWriter):
             solve_lines.append("let mut ans = vec![None];")
             solve_lines.append("for i in 1..operators.len() {")
             solve_lines.append("\tmatch operators[i].as_str() {")
+            logging.debug(f"Method param names: {method_param_names}")
             for method_params in method_param_names:
                 method_name = method_params[0]
                 splits = method_name.split("_")

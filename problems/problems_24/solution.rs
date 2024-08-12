@@ -20,7 +20,18 @@ pub struct Solution;
 // }
 impl Solution {
     pub fn swap_pairs(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-
+		let mut dummy: ListNode = ListNode::new(0);
+		dummy.next = head;
+		let mut prev: &mut ListNode = &mut dummy;
+		while prev.next.is_some() && prev.next.as_ref()?.next.is_some() {
+			let mut node1: Box<ListNode> = prev.next.take()?;
+			let mut node2: Box<ListNode> = node1.next.take()?;
+			node1.next = node2.next.take();
+			node2.next = Some(node1);
+			prev.next = Some(node2);
+			prev = prev.next.as_mut()?.next.as_mut()?;
+		}
+		dummy.next
     }
 }
 
