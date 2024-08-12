@@ -15,7 +15,18 @@ import (
  * }
  */
 func swapPairs(head *ListNode) *ListNode {
-
+	dummy := &ListNode{Next: head}
+	pre := dummy
+	cur := head
+	for cur != nil && cur.Next != nil {
+		next := cur.Next
+		pre.Next = next
+		cur.Next = next.Next
+		next.Next = cur
+		pre = cur
+		cur = cur.Next
+	}
+	return dummy.Next
 }
 
 func Solve(inputJsonValues string) interface{} {

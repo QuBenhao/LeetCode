@@ -129,6 +129,7 @@ class GolangWriter(LanguageWriter):
                 for d in structs_map.values():
                     if "funcs" in d:
                         for name, its, rt in d["funcs"]:
+                            logging.debug("Function: %s, its: %v", name, its)
                             import_set.update(its[0])
                             func_loop += (
                                 '\t\tcase "{}", "{}":\n' "\t\t\t{}obj.{}({})\n"
@@ -164,11 +165,10 @@ class GolangWriter(LanguageWriter):
                         + "\tans = append(ans, nil)\n"
                         + "\tfor i := 1; i < len(operators); i++ {\n"
                         + "\t\tvar res interface{}\n"
-                        + "{}".format(
-                    "\t\tswitch operators[i] {\n" + func_loop + "\t\tdefault:\n"
-                                                                "\t\t\tres = nil\n"
-                                                                "\t\t}\n"
-                )
+                        + "{}".format("\t\tswitch operators[i] {\n" + func_loop + "\t\tdefault:\n"
+                                                                                  "\t\t\tres = nil\n"
+                                                                                  "\t\t}\n"
+                                      )
                         + "\t\tans = append(ans, res)\n"
                           "\t}\n"
                 )
@@ -519,7 +519,7 @@ class GolangWriter(LanguageWriter):
                                 count += len(vrs)
                                 continue
                             elif total_vars > 1 and any(t is not None and not isinstance(t, list)
-                                                      for testcase in testcases for t in testcase):
+                                                        for testcase in testcases for t in testcase):
                                 imports_libs.add('\t"encoding/json"')
                                 imports_libs.add('\t"log"')
                                 j = last_idx = 0

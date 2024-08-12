@@ -6,25 +6,68 @@ import (
 	"strings"
 )
 
-type MagicDictionary struct {
-
+type TrieNode struct {
+	children map[byte]*TrieNode
+	isEnd    bool
 }
 
+func constructorTrie() *TrieNode {
+	return &TrieNode{
+		children: make(map[byte]*TrieNode),
+		isEnd:    false,
+	}
+}
+
+func query(node *TrieNode, word []byte, remain int) bool {
+	if len(word) == 0 {
+		return node.isEnd && remain == 0
+	}
+	if v, ok := node.children[word[0]]; ok {
+		if query(v, word[1:], remain) {
+			return true
+		}
+	}
+	if remain == 0 {
+		return false
+	}
+	remain--
+	for k, v := range node.children {
+		if k == word[0] {
+			continue
+		}
+		if query(v, word[1:], remain) {
+			return true
+		}
+	}
+	return false
+}
+
+type MagicDictionary struct {
+	root *TrieNode
+}
 
 func Constructor() MagicDictionary {
-
+	return MagicDictionary{
+		root: constructorTrie(),
+	}
 }
 
-
-func (this *MagicDictionary) BuildDict(dictionary []string)  {
-
+func (this *MagicDictionary) BuildDict(dictionary []string) {
+	for _, word := range dictionary {
+		node := this.root
+		for i := 0; i < len(word); i++ {
+			if _, ok := node.children[word[i]]; !ok {
+				node.children[word[i]] = constructorTrie()
+			}
+			node = node.children[word[i]]
+		}
+		node.isEnd = true
+	}
 }
-
 
 func (this *MagicDictionary) Search(searchWord string) bool {
-
+	return query(this.root, []byte(searchWord), 1)
 }
-
 
 /**
  * Your MagicDictionary object will be instantiated and called as such:
@@ -46,14 +89,22 @@ func Solve(inputJsonValues string) interface{} {
 		log.Println(err)
 		return nil
 	}
-	obj :=Constructor()
+	obj := Constructor()
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
 		var res interface{}
 		switch operators[i] {
 		case "buildDict", "BuildDict":
 			res = nil
-			obj.BuildDict(opValues[i][0].([]string))
+			if stringArray, ok := opValues[i][0].([]string); ok {
+				obj.BuildDict(stringArray)
+			} else {
+				var arr []string
+				for _, v := range opValues[i][0].([]interface{}) {
+					arr = append(arr, v.(string))
+				}
+				obj.BuildDict(arr)
+			}
 		case "search", "Search":
 			res = obj.Search(opValues[i][0].(string))
 		default:
@@ -61,7 +112,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
