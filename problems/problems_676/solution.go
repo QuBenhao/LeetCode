@@ -95,16 +95,16 @@ func Solve(inputJsonValues string) interface{} {
 		var res interface{}
 		switch operators[i] {
 		case "buildDict", "BuildDict":
-			res = nil
-			if stringArray, ok := opValues[i][0].([]string); ok {
-				obj.BuildDict(stringArray)
+			var arr []string
+			if v, ok := opValues[i][0].([]string); ok {
+				arr = v
 			} else {
-				var arr []string
-				for _, v := range opValues[i][0].([]interface{}) {
-					arr = append(arr, v.(string))
+				for _, vi := range opValues[i][0].([]interface{}) {
+					arr = append(arr, vi.(string))
 				}
-				obj.BuildDict(arr)
 			}
+			res = nil
+			obj.BuildDict(arr)
 		case "search", "Search":
 			res = obj.Search(opValues[i][0].(string))
 		default:

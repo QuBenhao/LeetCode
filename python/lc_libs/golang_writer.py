@@ -86,7 +86,7 @@ class GolangWriter(LanguageWriter):
                             tmp.endswith(f") {struct_name} {{")
                             or tmp.endswith(f") *{struct_name} {{")
                     ):
-                        tp0, tp1, tp2, tp3 = GolangWriter.__process_inputs(
+                        tp0, tp1, tp2, tp3, tp4 = GolangWriter.__process_inputs(
                             code_default,
                             tmp.split("(")[1].split(")")[0],
                             structs_map,
@@ -97,12 +97,13 @@ class GolangWriter(LanguageWriter):
                         structs_map[struct_name]["construct"] = (
                             tmp.split("(")[0].split("func ")[-1].strip(),
                             (tp0, tp1, tp2, tp3.replace("inputValues", "opValues[0]")),
+                            tp4.replace("inputValues", "opValues[0]"),
                             rt,
                         )
                     elif tmp.startswith("func (") and struct_name in tmp.split(")")[0]:
                         if "funcs" not in structs_map[struct_name]:
                             structs_map[struct_name]["funcs"] = []
-                        tp0, tp1, tp2, tp3 = GolangWriter.__process_inputs(
+                        tp0, tp1, tp2, tp3, tp4 = GolangWriter.__process_inputs(
                             code_default,
                             tmp.split("(")[2].split(")")[0],
                             structs_map,
@@ -118,6 +119,7 @@ class GolangWriter(LanguageWriter):
                                     tp1,
                                     tp2,
                                     tp3.replace("inputValues", "opValues[i]"),
+                                    tp4.replace("inputValues", "opValues[i]"),
                                 ),
                                 rt,
                             )
@@ -129,13 +131,14 @@ class GolangWriter(LanguageWriter):
                 for d in structs_map.values():
                     if "funcs" in d:
                         for name, its, rt in d["funcs"]:
-                            logging.debug("Function: %s, its: %v", name, its)
+                            logging.debug("Function: %s, its: %s", name, its)
                             import_set.update(its[0])
                             func_loop += (
-                                '\t\tcase "{}", "{}":\n' "\t\t\t{}obj.{}({})\n"
+                                '\t\tcase "{}", "{}":\n' "\t\t\t{}{}obj.{}({})\n"
                             ).format(
                                 name[0].lower() + name[1:],
                                 name,
+                                its[4],
                                 "res = nil\n\t\t\t" if rt == "" else "res = ",
                                 name,
                                 its[3],
@@ -156,11 +159,10 @@ class GolangWriter(LanguageWriter):
                         + "\t}\n"
                         + "{}".format(
                     (
-                        "\tobj :=" + constructor[0] + f"({constructor[1][3]})\n"
+                        "\tobj := " + constructor[0] + f"({constructor[1][3]})\n"
                         if constructor is not None
                         else ""
-                    ),
-                    "",
+                    ), "",
                 )
                         + "\tans = append(ans, nil)\n"
                         + "\tfor i := 1; i < len(operators); i++ {\n"
@@ -336,13 +338,14 @@ class GolangWriter(LanguageWriter):
     @staticmethod
     def __process_inputs(
             code_default: str, input_str: str, struct_dict: dict, struct_func: bool, testcases=None
-    ) -> Tuple[set, str, str, str]:
+    ) -> Tuple[set, str, str, str, str]:
         res = []
         imports_libs = set()
         json_parse = []
         variables = []
+        extra = ""
         if input_str.strip() == "":
-            return set(), "", "", ""
+            return set(), "", "", "", extra
         splits = input_str.split(",")
         first = True
         list_type_vars = []
@@ -394,11 +397,18 @@ class GolangWriter(LanguageWriter):
                 imports_libs.add('\t"encoding/json"')
                 imports_libs.add('\t"log"')
                 for _ in vrs:
-                    (
-                        variables.append(f"inputValues[{counts}].({tp})")
-                        if tp != "int"
-                        else variables.append(f"int(inputValues[{counts}].(float64))")
-                    )
+                    match tp:
+                        case "int":
+                            variables.append(f"int(inputValues[{counts}].(float64))")
+                        case "[]string":
+                            extra = (f"var arr []string\n\t\t\tif v, ok := inputValues[{count}].([]string); ok {{\n"
+                                     f"\t\t\t\tarr = v\n\t\t\t}} else {{\n"
+                                     f"\t\t\t\tfor _, vi := range inputValues[{count}].([]interface{{}}) {{\n"
+                                     f"\t\t\t\t\tarr = append(arr, vi.(string))\n"
+                                     f"\t\t\t\t}}\n\t\t\t}}\n\t\t\t")
+                            variables.append("arr")
+                        case _:
+                            variables.append(f"inputValues[{counts}].({tp})")
                     counts += 1
             else:
                 match tp:
@@ -675,4 +685,4 @@ class GolangWriter(LanguageWriter):
                         imports_libs.add('\t"log"')
             count += len(vrs)
         imports_libs.add('\t"strings"')
-        return imports_libs, "".join(res), "".join(json_parse), ", ".join(variables)
+        return imports_libs, "".join(res), "".join(json_parse), ", ".join(variables), extra

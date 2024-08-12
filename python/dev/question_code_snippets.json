@@ -2262,5 +2262,104 @@
                 "code": "# Definition for singly-linked list.\n#\n# defmodule ListNode do\n#   @type t :: %__MODULE__{\n#           val: integer,\n#           next: ListNode.t() | nil\n#         }\n#   defstruct val: 0, next: nil\n# end\n\ndefmodule Solution do\n  @spec remove_nth_from_end(head :: ListNode.t | nil, n :: integer) :: ListNode.t | nil\n  def remove_nth_from_end(head, n) do\n    \n  end\nend"
             }
         ]
+    },
+    {
+        "676": [
+            {
+                "lang": "C++",
+                "langSlug": "cpp",
+                "code": "class MagicDictionary {\npublic:\n    MagicDictionary() {\n\n    }\n    \n    void buildDict(vector<string> dictionary) {\n\n    }\n    \n    bool search(string searchWord) {\n\n    }\n};\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * MagicDictionary* obj = new MagicDictionary();\n * obj->buildDict(dictionary);\n * bool param_2 = obj->search(searchWord);\n */"
+            },
+            {
+                "lang": "Java",
+                "langSlug": "java",
+                "code": "class MagicDictionary {\n\n    public MagicDictionary() {\n\n    }\n    \n    public void buildDict(String[] dictionary) {\n\n    }\n    \n    public boolean search(String searchWord) {\n\n    }\n}\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * MagicDictionary obj = new MagicDictionary();\n * obj.buildDict(dictionary);\n * boolean param_2 = obj.search(searchWord);\n */"
+            },
+            {
+                "lang": "Python",
+                "langSlug": "python",
+                "code": "class MagicDictionary(object):\n\n    def __init__(self):\n\n\n    def buildDict(self, dictionary):\n        \"\"\"\n        :type dictionary: List[str]\n        :rtype: None\n        \"\"\"\n\n\n    def search(self, searchWord):\n        \"\"\"\n        :type searchWord: str\n        :rtype: bool\n        \"\"\"\n\n\n\n# Your MagicDictionary object will be instantiated and called as such:\n# obj = MagicDictionary()\n# obj.buildDict(dictionary)\n# param_2 = obj.search(searchWord)"
+            },
+            {
+                "lang": "Python3",
+                "langSlug": "python3",
+                "code": "class MagicDictionary:\n\n    def __init__(self):\n\n\n    def buildDict(self, dictionary: List[str]) -> None:\n\n\n    def search(self, searchWord: str) -> bool:\n\n\n\n# Your MagicDictionary object will be instantiated and called as such:\n# obj = MagicDictionary()\n# obj.buildDict(dictionary)\n# param_2 = obj.search(searchWord)"
+            },
+            {
+                "lang": "C",
+                "langSlug": "c",
+                "code": "\n\n\ntypedef struct {\n    \n} MagicDictionary;\n\n\nMagicDictionary* magicDictionaryCreate() {\n    \n}\n\nvoid magicDictionaryBuildDict(MagicDictionary* obj, char** dictionary, int dictionarySize) {\n    \n}\n\nbool magicDictionarySearch(MagicDictionary* obj, char* searchWord) {\n    \n}\n\nvoid magicDictionaryFree(MagicDictionary* obj) {\n    \n}\n\n/**\n * Your MagicDictionary struct will be instantiated and called as such:\n * MagicDictionary* obj = magicDictionaryCreate();\n * magicDictionaryBuildDict(obj, dictionary, dictionarySize);\n \n * bool param_2 = magicDictionarySearch(obj, searchWord);\n \n * magicDictionaryFree(obj);\n*/"
+            },
+            {
+                "lang": "C#",
+                "langSlug": "csharp",
+                "code": "public class MagicDictionary {\n\n    public MagicDictionary() {\n\n    }\n    \n    public void BuildDict(string[] dictionary) {\n\n    }\n    \n    public bool Search(string searchWord) {\n\n    }\n}\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * MagicDictionary obj = new MagicDictionary();\n * obj.BuildDict(dictionary);\n * bool param_2 = obj.Search(searchWord);\n */"
+            },
+            {
+                "lang": "JavaScript",
+                "langSlug": "javascript",
+                "code": "\nvar MagicDictionary = function() {\n\n};\n\n/** \n * @param {string[]} dictionary\n * @return {void}\n */\nMagicDictionary.prototype.buildDict = function(dictionary) {\n\n};\n\n/** \n * @param {string} searchWord\n * @return {boolean}\n */\nMagicDictionary.prototype.search = function(searchWord) {\n\n};\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * var obj = new MagicDictionary()\n * obj.buildDict(dictionary)\n * var param_2 = obj.search(searchWord)\n */"
+            },
+            {
+                "lang": "TypeScript",
+                "langSlug": "typescript",
+                "code": "class MagicDictionary {\n    constructor() {\n        \n    }\n\n    buildDict(dictionary: string[]): void {\n        \n    }\n\n    search(searchWord: string): boolean {\n        \n    }\n}\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * var obj = new MagicDictionary()\n * obj.buildDict(dictionary)\n * var param_2 = obj.search(searchWord)\n */"
+            },
+            {
+                "lang": "PHP",
+                "langSlug": "php",
+                "code": "class MagicDictionary {\n    /**\n     */\n    function __construct() {\n\n    }\n\n    /**\n     * @param String[] $dictionary\n     * @return NULL\n     */\n    function buildDict($dictionary) {\n\n    }\n\n    /**\n     * @param String $searchWord\n     * @return Boolean\n     */\n    function search($searchWord) {\n\n    }\n}\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * $obj = MagicDictionary();\n * $obj->buildDict($dictionary);\n * $ret_2 = $obj->search($searchWord);\n */"
+            },
+            {
+                "lang": "Swift",
+                "langSlug": "swift",
+                "code": "\nclass MagicDictionary {\n\n    init() {\n\n    }\n    \n    func buildDict(_ dictionary: [String]) {\n\n    }\n    \n    func search(_ searchWord: String) -> Bool {\n\n    }\n}\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * let obj = MagicDictionary()\n * obj.buildDict(dictionary)\n * let ret_2: Bool = obj.search(searchWord)\n */"
+            },
+            {
+                "lang": "Kotlin",
+                "langSlug": "kotlin",
+                "code": "class MagicDictionary() {\n\n    fun buildDict(dictionary: Array<String>) {\n\n    }\n\n    fun search(searchWord: String): Boolean {\n\n    }\n\n}\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * var obj = MagicDictionary()\n * obj.buildDict(dictionary)\n * var param_2 = obj.search(searchWord)\n */"
+            },
+            {
+                "lang": "Dart",
+                "langSlug": "dart",
+                "code": "class MagicDictionary {\n\n  MagicDictionary() {\n    \n  }\n  \n  void buildDict(List<String> dictionary) {\n    \n  }\n  \n  bool search(String searchWord) {\n    \n  }\n}\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * MagicDictionary obj = MagicDictionary();\n * obj.buildDict(dictionary);\n * bool param2 = obj.search(searchWord);\n */"
+            },
+            {
+                "lang": "Go",
+                "langSlug": "golang",
+                "code": "type MagicDictionary struct {\n\n}\n\n\nfunc Constructor() MagicDictionary {\n\n}\n\n\nfunc (this *MagicDictionary) BuildDict(dictionary []string)  {\n\n}\n\n\nfunc (this *MagicDictionary) Search(searchWord string) bool {\n\n}\n\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * obj := Constructor();\n * obj.BuildDict(dictionary);\n * param_2 := obj.Search(searchWord);\n */"
+            },
+            {
+                "lang": "Ruby",
+                "langSlug": "ruby",
+                "code": "class MagicDictionary\n    def initialize()\n\n    end\n\n\n=begin\n    :type dictionary: String[]\n    :rtype: Void\n=end\n    def build_dict(dictionary)\n\n    end\n\n\n=begin\n    :type search_word: String\n    :rtype: Boolean\n=end\n    def search(search_word)\n\n    end\n\n\nend\n\n# Your MagicDictionary object will be instantiated and called as such:\n# obj = MagicDictionary.new()\n# obj.build_dict(dictionary)\n# param_2 = obj.search(search_word)"
+            },
+            {
+                "lang": "Scala",
+                "langSlug": "scala",
+                "code": "class MagicDictionary() {\n\n    def buildDict(dictionary: Array[String]) {\n\n    }\n\n    def search(searchWord: String): Boolean = {\n\n    }\n\n}\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * var obj = new MagicDictionary()\n * obj.buildDict(dictionary)\n * var param_2 = obj.search(searchWord)\n */"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "struct MagicDictionary {\n\n}\n\n\n/**\n * `&self` means the method takes an immutable reference.\n * If you need a mutable reference, change it to `&mut self` instead.\n */\nimpl MagicDictionary {\n\n    fn new() -> Self {\n\n    }\n    \n    fn build_dict(&self, dictionary: Vec<String>) {\n\n    }\n    \n    fn search(&self, search_word: String) -> bool {\n\n    }\n}\n\n/**\n * Your MagicDictionary object will be instantiated and called as such:\n * let obj = MagicDictionary::new();\n * obj.build_dict(dictionary);\n * let ret_2: bool = obj.search(searchWord);\n */"
+            },
+            {
+                "lang": "Racket",
+                "langSlug": "racket",
+                "code": "(define magic-dictionary%\n  (class object%\n    (super-new)\n    \n    (init-field)\n    \n    ; build-dict : (listof string?) -> void?\n    (define/public (build-dict dictionary)\n      )\n    ; search : string? -> boolean?\n    (define/public (search search-word)\n      )))\n\n;; Your magic-dictionary% object will be instantiated and called as such:\n;; (define obj (new magic-dictionary%))\n;; (send obj build-dict dictionary)\n;; (define param_2 (send obj search search-word))"
+            },
+            {
+                "lang": "Erlang",
+                "langSlug": "erlang",
+                "code": "-spec magic_dictionary_init_() -> any().\nmagic_dictionary_init_() ->\n  .\n\n-spec magic_dictionary_build_dict(Dictionary :: [unicode:unicode_binary()]) -> any().\nmagic_dictionary_build_dict(Dictionary) ->\n  .\n\n-spec magic_dictionary_search(SearchWord :: unicode:unicode_binary()) -> boolean().\nmagic_dictionary_search(SearchWord) ->\n  .\n\n\n%% Your functions will be called as such:\n%% magic_dictionary_init_(),\n%% magic_dictionary_build_dict(Dictionary),\n%% Param_2 = magic_dictionary_search(SearchWord),\n\n%% magic_dictionary_init_ will be called before every test case, in which you can do some necessary initializations."
+            },
+            {
+                "lang": "Elixir",
+                "langSlug": "elixir",
+                "code": "defmodule MagicDictionary do\n  @spec init_() :: any\n  def init_() do\n    \n  end\n\n  @spec build_dict(dictionary :: [String.t]) :: any\n  def build_dict(dictionary) do\n    \n  end\n\n  @spec search(search_word :: String.t) :: boolean\n  def search(search_word) do\n    \n  end\nend\n\n# Your functions will be called as such:\n# MagicDictionary.init_()\n# MagicDictionary.build_dict(dictionary)\n# param_2 = MagicDictionary.search(search_word)\n\n# MagicDictionary.init_ will be called before every test case, in which you can do some necessary initializations."
+            }
+        ]
     }
 ]
