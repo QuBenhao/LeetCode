@@ -5,18 +5,64 @@ import java.util.*;
 import qubhjava.BaseSolution;
 
 
+class TrieNode {
+	Map<Character, TrieNode> children;
+	boolean isEnd;
+	public TrieNode() {
+		children = new HashMap<>();
+		isEnd = false;
+	}
+
+	void addWord(String word) {
+		TrieNode node = this;
+		for (char c : word.toCharArray()) {
+			if (!node.children.containsKey(c)) {
+				node.children.put(c, new TrieNode());
+			}
+			node = node.children.get(c);
+		}
+		node.isEnd = true;
+	}
+
+	static boolean query(TrieNode node, String word, int idx, int remain) {
+		if (idx == word.length()) {
+			return node.isEnd && remain == 0;
+		}
+		char c = word.charAt(idx);
+		if (node.children.containsKey(c)) {
+			if (query(node.children.get(c), word, idx + 1, remain)) {
+				return true;
+			}
+		}
+		if (remain-- == 0) {
+			return false;
+		}
+		for (char nxt: node.children.keySet()) {
+			if (nxt == c) {
+				continue;
+			}
+			if (query(node.children.get(nxt), word, idx + 1, remain)) {
+				return true;
+			}
+		}
+		return false;
+	}
+}
+
 class MagicDictionary {
-
+	private final TrieNode root;
     public MagicDictionary() {
-
+		root = new TrieNode();
     }
     
     public void buildDict(String[] dictionary) {
-
+		for (String word: dictionary) {
+			root.addWord(word);
+		}
     }
     
     public boolean search(String searchWord) {
-
+		return TrieNode.query(root, searchWord, 0, 1);
     }
 }
 
