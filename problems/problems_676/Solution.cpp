@@ -5,18 +5,68 @@
 using namespace std;
 using json = nlohmann::json;
 
+class TrieNode {
+public:
+    TrieNode* children[26];
+    bool isEnd;
+    TrieNode() {
+        for (int i = 0; i < 26; i++) {
+            children[i] = nullptr;
+        }
+        isEnd = false;
+    }
+
+    void insert(string word) {
+        TrieNode* node = this;
+        for (char c : word) {
+            if (node->children[c - 'a'] == nullptr) {
+                node->children[c - 'a'] = new TrieNode();
+            }
+            node = node->children[c - 'a'];
+        }
+        node->isEnd = true;
+    }
+};
+
 class MagicDictionary {
+private:
+    TrieNode* root;
+    bool query(TrieNode* node, string word, size_t idx, int remain) {
+        if (idx == word.size()) {
+            return remain == 0 && node->isEnd;
+        }
+        int cur = word[idx] - 'a';
+        if (node->children[cur] != nullptr) {
+            if (query(node->children[cur], word, idx + 1, remain)) {
+                return true;
+            }
+        }
+        if (remain-- == 0) {
+            return false;
+        }
+        for (int i = 0; i < 26; i++) {
+            if (i == cur || node->children[i] == nullptr) {
+                continue;
+            }
+            if (query(node->children[i], word, idx + 1, remain)) {
+                return true;
+            }
+        }
+        return false;
+    }
 public:
     MagicDictionary() {
-
+        root = new TrieNode();
     }
     
     void buildDict(vector<string> dictionary) {
-
+        for (string word : dictionary) {
+            root->insert(word);
+        }
     }
     
     bool search(string searchWord) {
-
+        return query(root, searchWord, 0, 1);
     }
 };
 
