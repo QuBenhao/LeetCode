@@ -356,7 +356,8 @@ class JavaWriter(LanguageWriter):
             return_part = "TreeNode.TreeNodeToArray({}({}))".format(return_func, ", ".join(variables))
         elif return_type == "void":
             parse_input.append("{}({});".format(return_func, ", ".join(variables)))
-            return_part = ", ".join(variables)
+            logging.debug("Void return type, function: {}, variables: {}".format(return_func, variables))
+            return_part = variables[0]
         elif "Node" in return_type:
             if "Node left;" in code_default and "Node right;" in code_default and "Node next;" in code_default:
                 additional_import.add("import qubhjava.models.node.next.Node;")

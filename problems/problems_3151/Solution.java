@@ -7,7 +7,14 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public boolean isArraySpecial(int[] nums) {
-
+        int last = nums[0] & 1;
+        for (int i = 1; i < nums.length; i++) {
+            if ((nums[i] & 1) == last) {
+                return false;
+            }
+            last ^= 1;
+        }
+        return true;
     }
 
     @Override
