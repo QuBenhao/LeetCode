@@ -84,24 +84,24 @@ impl MagicDictionary {
 
 #[cfg(feature = "solution_676")]
 pub fn solve(input_string: String) -> Value {
-    let input_values: Vec<String> = input_string.split('\n').map(|x| x.to_string()).collect();
-    let operators: Vec<String> = serde_json::from_str(&input_values[0]).expect("Failed to parse input");
-    let op_values: Vec<Vec<Value>> = serde_json::from_str(&input_values[1]).expect("Failed to parse input");
-    let mut obj = MagicDictionary::new();
-    let mut ans = vec![None];
-    for i in 1..operators.len() {
-        match operators[i].as_str() {
-            "search" => {
-                let search_word: String = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
-                ans.push(Some(obj.search(search_word)));
-            },
+	let input_values: Vec<String> = input_string.split('\n').map(|x| x.to_string()).collect();
+	let operators: Vec<String> = serde_json::from_str(&input_values[0]).expect("Failed to parse input");
+	let op_values: Vec<Vec<Value>> = serde_json::from_str(&input_values[1]).expect("Failed to parse input");
+	let mut obj = MagicDictionary::new();
+	let mut ans = vec![None];
+	for i in 1..operators.len() {
+		match operators[i].as_str() {
 			"buildDict" => {
 				let dictionary: Vec<String> = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
 				obj.build_dict(dictionary);
 				ans.push(None);
 			},
-            _ => ans.push(None),
-        }
-    }
-    json!(ans)
+			"search" => {
+				let search_word: String = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
+				ans.push(Some(obj.search(search_word)));
+			},
+			_ => ans.push(None),
+		}
+	}
+	json!(ans)
 }
