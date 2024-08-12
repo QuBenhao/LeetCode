@@ -8,7 +8,16 @@ using json = nlohmann::json;
 class Solution {
 public:
     void rotate(vector<int>& nums, int k) {
-
+		auto reverse = [&](int l, int r) {
+			while (l < r) {
+				swap(nums[l++], nums[r--]);
+			}
+		};
+		int n = static_cast<int>(nums.size());
+		k %= n;
+		reverse(0, n - 1);
+		reverse(0, k - 1);
+		reverse(k, n - 1);
     }
 };
 

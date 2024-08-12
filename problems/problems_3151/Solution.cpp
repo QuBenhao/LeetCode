@@ -8,7 +8,14 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool isArraySpecial(vector<int>& nums) {
-        
+		int last = nums[0] & 1, n = static_cast<int>(nums.size());
+		for (int i = 1; i < n; i++) {
+			if ((nums[i] & 1) == last) {
+				return false;
+			}
+			last ^= 1;
+		}
+		return true;
     }
 };
 
