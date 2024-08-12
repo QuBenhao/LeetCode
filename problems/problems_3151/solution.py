@@ -1,5 +1,6 @@
 import solution
 from typing import *
+from itertools import pairwise
 
 
 class Solution(solution.Solution):
@@ -7,5 +8,4 @@ class Solution(solution.Solution):
         return self.isArraySpecial(test_input)
 
     def isArraySpecial(self, nums: List[int]) -> bool:
-        pass
-
+        return all(a & 1 != b & 1 for a, b in pairwise(nums))
