@@ -2361,5 +2361,94 @@
                 "code": "defmodule MagicDictionary do\n  @spec init_() :: any\n  def init_() do\n    \n  end\n\n  @spec build_dict(dictionary :: [String.t]) :: any\n  def build_dict(dictionary) do\n    \n  end\n\n  @spec search(search_word :: String.t) :: boolean\n  def search(search_word) do\n    \n  end\nend\n\n# Your functions will be called as such:\n# MagicDictionary.init_()\n# MagicDictionary.build_dict(dictionary)\n# param_2 = MagicDictionary.search(search_word)\n\n# MagicDictionary.init_ will be called before every test case, in which you can do some necessary initializations."
             }
         ]
+    },
+    {
+        "189": [
+            {
+                "lang": "C++",
+                "langSlug": "cpp",
+                "code": "class Solution {\npublic:\n    void rotate(vector<int>& nums, int k) {\n\n    }\n};"
+            },
+            {
+                "lang": "Java",
+                "langSlug": "java",
+                "code": "class Solution {\n    public void rotate(int[] nums, int k) {\n\n    }\n}"
+            },
+            {
+                "lang": "Python",
+                "langSlug": "python",
+                "code": "class Solution(object):\n    def rotate(self, nums, k):\n        \"\"\"\n        :type nums: List[int]\n        :type k: int\n        :rtype: None Do not return anything, modify nums in-place instead.\n        \"\"\""
+            },
+            {
+                "lang": "Python3",
+                "langSlug": "python3",
+                "code": "class Solution:\n    def rotate(self, nums: List[int], k: int) -> None:\n        \"\"\"\n        Do not return anything, modify nums in-place instead.\n        \"\"\""
+            },
+            {
+                "lang": "C",
+                "langSlug": "c",
+                "code": "void rotate(int* nums, int numsSize, int k) {\n    \n}"
+            },
+            {
+                "lang": "C#",
+                "langSlug": "csharp",
+                "code": "public class Solution {\n    public void Rotate(int[] nums, int k) {\n\n    }\n}"
+            },
+            {
+                "lang": "JavaScript",
+                "langSlug": "javascript",
+                "code": "/**\n * @param {number[]} nums\n * @param {number} k\n * @return {void} Do not return anything, modify nums in-place instead.\n */\nvar rotate = function(nums, k) {\n\n};"
+            },
+            {
+                "lang": "TypeScript",
+                "langSlug": "typescript",
+                "code": "/**\n Do not return anything, modify nums in-place instead.\n */\nfunction rotate(nums: number[], k: number): void {\n    \n};"
+            },
+            {
+                "lang": "PHP",
+                "langSlug": "php",
+                "code": "class Solution {\n\n    /**\n     * @param Integer[] $nums\n     * @param Integer $k\n     * @return NULL\n     */\n    function rotate(&$nums, $k) {\n\n    }\n}"
+            },
+            {
+                "lang": "Swift",
+                "langSlug": "swift",
+                "code": "class Solution {\n    func rotate(_ nums: inout [Int], _ k: Int) {\n\n    }\n}"
+            },
+            {
+                "lang": "Kotlin",
+                "langSlug": "kotlin",
+                "code": "class Solution {\n    fun rotate(nums: IntArray, k: Int): Unit {\n\n    }\n}"
+            },
+            {
+                "lang": "Dart",
+                "langSlug": "dart",
+                "code": "class Solution {\n  void rotate(List<int> nums, int k) {\n    \n  }\n}"
+            },
+            {
+                "lang": "Go",
+                "langSlug": "golang",
+                "code": "func rotate(nums []int, k int)  {\n\n}"
+            },
+            {
+                "lang": "Ruby",
+                "langSlug": "ruby",
+                "code": "# @param {Integer[]} nums\n# @param {Integer} k\n# @return {Void} Do not return anything, modify nums in-place instead.\ndef rotate(nums, k)\n\nend"
+            },
+            {
+                "lang": "Scala",
+                "langSlug": "scala",
+                "code": "object Solution {\n    def rotate(nums: Array[Int], k: Int): Unit = {\n\n    }\n}"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "impl Solution {\n    pub fn rotate(nums: &mut Vec<i32>, k: i32) {\n\n    }\n}"
+            },
+            {
+                "lang": "Racket",
+                "langSlug": "racket",
+                "code": "(define/contract (rotate nums k)\n  (-> (listof exact-integer?) exact-integer? void?)\n\n  )"
+            }
+        ]
     }
 ]

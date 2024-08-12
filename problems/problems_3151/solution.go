@@ -7,7 +7,15 @@ import (
 )
 
 func isArraySpecial(nums []int) bool {
-
+	last := nums[0] & 1
+	for i := 1; i < len(nums); i++ {
+		if cur := nums[i] & 1; cur == last {
+			return false
+		} else {
+			last = cur
+		}
+	}
+	return true
 }
 
 func Solve(inputJsonValues string) interface{} {

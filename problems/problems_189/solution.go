@@ -6,8 +6,18 @@ import (
 	"strings"
 )
 
-func rotate(nums []int, k int)  {
-
+func rotate(nums []int, k int) {
+	reverse := func(i int, j int) {
+		for i < j {
+			nums[i], nums[j] = nums[j], nums[i]
+			i++
+			j--
+		}
+	}
+	n := len(nums)
+	reverse(0, n-1)
+	reverse(0, k%n-1)
+	reverse(k%n, n-1)
 }
 
 func Solve(inputJsonValues string) interface{} {
@@ -23,5 +33,5 @@ func Solve(inputJsonValues string) interface{} {
 	}
 
 	rotate(nums, k)
-	return nums, k
+	return nums
 }
