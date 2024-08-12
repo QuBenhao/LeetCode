@@ -131,15 +131,15 @@ class RustWriter(LanguageWriter):
                             continue
                     self.__parse_type(i, var_name, var_type, code_default, import_libs, solve_part, return_part)
                     i += 1
+                logging.debug("variables: %s", variables)
+                format_variables = ", ".join([f"{v[1].split(' ')[0]} {v[0]}" if "mut" in v[1] or "&" in v[1]
+                                              else v[0] for v in variables])
                 if return_type:
                     self.__parse_type(0, "", return_type, code_default,
                                       import_libs, solve_part, return_part, True)
-                    return_part[-1] = return_part[-1].format(
-                        "Solution::{}({})".format(function_name, ", ".join([v[0] for v in variables]))
-                    )
+                    return_part[-1] = return_part[-1].format(f"Solution::{function_name}({format_variables})")
                 else:
-                    return_part.append("Solution::{}({});".format(function_name,
-                                                                  ", ".join([v[0] for v in variables])))
+                    return_part.append(f"Solution::{function_name}({format_variables});")
                     return_part.append(f"json!({variables[0][0]})")
                 fn_count += 1
         if fn_count != 1:

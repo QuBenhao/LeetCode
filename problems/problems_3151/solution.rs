@@ -4,7 +4,14 @@ pub struct Solution;
 
 impl Solution {
     pub fn is_array_special(nums: Vec<i32>) -> bool {
-
+		let mut last: i32 = (nums[0] & 1) ^ 1;
+		for num in nums {
+			if num & 1 == last {
+				return false;
+			}
+			last ^= 1;
+		}
+		true
     }
 }
 
