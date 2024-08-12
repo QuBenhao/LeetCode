@@ -2,6 +2,12 @@ import solution
 from python.object_libs import list_to_linked_list, linked_list_to_list
 
 
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         head = list_to_linked_list(test_input)
@@ -29,9 +35,3 @@ class Solution(solution.Solution):
                 break
             front = front.next
         return head.next
-
-
-class ListNode(object):
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
