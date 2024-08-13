@@ -1,5 +1,6 @@
 import solution
 from typing import *
+from itertools import pairwise
 
 
 class Solution(solution.Solution):
@@ -7,5 +8,8 @@ class Solution(solution.Solution):
         return self.isArraySpecial(*test_input)
 
     def isArraySpecial(self, nums: List[int], queries: List[List[int]]) -> List[bool]:
-        pass
-
+        n = len(nums)
+        pre_sum = [0] * (n + 1)
+        for i, (a, b) in enumerate(pairwise(nums)):
+            pre_sum[i + 1] = pre_sum[i] + (a & 1 != b & 1)
+        return [pre_sum[b] - pre_sum[a] == b - a for a, b in queries]

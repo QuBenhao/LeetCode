@@ -2,6 +2,14 @@ import solution
 from python.object_libs import list_to_tree
 
 
+# Definition for a binary tree node.
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         root = list_to_tree(test_input)
@@ -39,11 +47,3 @@ class Solution(solution.Solution):
                     next_nodes.append(node.right)
             nodes = next_nodes
         return ans
-
-
-# Definition for a binary tree node.
-class TreeNode(object):
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
