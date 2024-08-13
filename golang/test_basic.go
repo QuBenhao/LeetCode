@@ -127,6 +127,17 @@ func compareGeneral(ast *assert.Assertions, want interface{}, resp interface{}) 
 				}
 			}
 		}
+	case []bool:
+		wantArray := want.([]interface{})
+		respBoolArray := resp.([]bool)
+		if !ast.Equalf(len(wantArray), len(respBoolArray), "Expected: [%v], actual: [%v]", want, resp) {
+			return false
+		}
+		for i := 0; i < len(respBoolArray); i++ {
+			if !ast.Equalf(wantArray[i], respBoolArray[i], "Expected: [%v], actual: [%v]", want, resp) {
+				return false
+			}
+		}
 	case []interface{}:
 		defer func() {
 			if recover() != nil {
