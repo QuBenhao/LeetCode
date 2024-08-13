@@ -1,6 +1,7 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
 #include "cpp/models/TreeNode.h"
+#include <deque>
 
 using namespace std;
 using json = nlohmann::json;
@@ -19,7 +20,28 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<int> rightSideView(TreeNode* root) {
-
+		vector<int> res;
+		if (root == nullptr) {
+			return res;
+		}
+		deque<TreeNode*> q;
+		q.push_back(root);
+		while (!q.empty()) {
+			size_t n = q.size();
+			TreeNode* node;
+			for (size_t i = 0; i < n; i++) {
+				node = q.front();
+				q.pop_front();
+				if (node->left != nullptr) {
+					q.push_back(node->left);
+				}
+				if (node->right != nullptr) {
+					q.push_back(node->right);
+				}
+			}
+			res.push_back(node->val);
+		}
+		return res;
     }
 };
 

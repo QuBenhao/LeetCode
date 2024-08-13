@@ -1,14 +1,23 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
 
-
 using namespace std;
 using json = nlohmann::json;
 
 class Solution {
 public:
     vector<bool> isArraySpecial(vector<int>& nums, vector<vector<int>>& queries) {
-        
+		size_t n = nums.size();
+        vector<int> pre_sum(n, 0);
+		for (size_t i = 0; i + 1 < n; i++) {
+			pre_sum[i + 1] = pre_sum[i] + ((nums[i] & 1) != (nums[i + 1] & 1));
+		}
+		vector<bool> res;
+		for (auto query : queries) {
+			int l = query[0], r = query[1];
+			res.emplace_back(pre_sum[r] - pre_sum[l] == r - l);
+		}
+		return res;
     }
 };
 
