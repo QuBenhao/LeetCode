@@ -5,6 +5,7 @@
 #include "TestMain.h"
 #include <fstream>
 #include <sstream>
+#include <iostream>
 #include <utility>
 #include <memory>
 #include <vector>
@@ -20,6 +21,7 @@ using std::vector;
 using std::size_t;
 using std::endl;
 using std::cerr;
+using std::cout;
 using json = nlohmann::json;
 using bazel::tools::cpp::runfiles::Runfiles;
 
@@ -86,6 +88,8 @@ class LeetCodeTest : public LeetCodeSuiteSet {
         bool isEqual = false;
         int retries = 0;
         const int maxRetries = 1e5;  // Set the maximum number of retries
+        cout << "Input: " << data_.GetInput() << endl;
+        cout << "Expected: " << data_.GetExpected() << endl;
         auto output = leetcode::qubh::Solve(data_.GetInput());
         while (!isEqual && retries < maxRetries) {
             if (data_.GetExpected().is_number_float()) {
