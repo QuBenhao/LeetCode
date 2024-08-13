@@ -15,7 +15,26 @@ import {TreeNode,JSONArrayToTreeNode} from "../../typescript/models/treenode";
  */
 
 function rightSideView(root: TreeNode | null): number[] {
-    
+	const ans: number[] = [];
+	if (root === null) {
+		return ans;
+	}
+	const queue: TreeNode[] = [root];
+	while (queue.length > 0) {
+		const n: number = queue.length;
+		let node: TreeNode | null;
+		for (let i: number = 0; i < n; i++) {
+			node = queue.shift();
+			if (node.left) {
+				queue.push(node.left);
+			}
+			if (node.right) {
+				queue.push(node.right);
+			}
+		}
+		ans.push(node.val);
+	}
+	return ans;
 };
 
 export function Solve(inputJsonElement: string): any {
