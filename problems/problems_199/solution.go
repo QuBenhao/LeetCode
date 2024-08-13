@@ -13,8 +13,26 @@ import (
  *     Right *TreeNode
  * }
  */
-func rightSideView(root *TreeNode) []int {
-
+func rightSideView(root *TreeNode) (ans []int) {
+	if root == nil {
+		return
+	}
+	queue := []*TreeNode{root}
+	for len(queue) > 0 {
+		n := len(queue)
+		ans = append(ans, queue[n-1].Val)
+		for i := 0; i < n; i++ {
+			node := queue[i]
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+			}
+		}
+		queue = queue[n:]
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
