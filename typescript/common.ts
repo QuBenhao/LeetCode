@@ -37,6 +37,7 @@ const vm = require('node:vm');
 
 // @ts-ignore
 export function CompareResults(script: vm.Script, inputJson: any, outputJson: any) {
+    console.log(`Input: ${inputJson}, Expected: ${outputJson}`);
     const context = {
         testInputJsonString: inputJson, execResult: null as any,
         ListNode,
