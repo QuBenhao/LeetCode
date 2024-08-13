@@ -1,18 +1,33 @@
-# 199. Binary Tree Right Side View
+# 199. Binary Tree Right Side View 
 
-Given a binary tree, imagine yourself standing on the *right* side of it, return the values of the nodes you can see ordered from top to bottom.
+<p>Given the <code>root</code> of a binary tree, imagine yourself standing on the <strong>right side</strong> of it, return <em>the values of the nodes you can see ordered from top to bottom</em>.</p>
 
-**Example:**
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2021/02/14/tree.jpg" style="width: 401px; height: 301px;" />
+<pre>
+<strong>Input:</strong> root = [1,2,3,null,5,null,4]
+<strong>Output:</strong> [1,3,4]
+</pre>
 
-```
-Input: [1,2,3,null,5,null,4]
-Output: [1, 3, 4]
-Explanation:
+<p><strong class="example">Example 2:</strong></p>
 
-   1            <---
- /   \
-2     3         <---
- \     \
-  5     4       <---
-```
+<pre>
+<strong>Input:</strong> root = [1,null,3]
+<strong>Output:</strong> [1,3]
+</pre>
 
+<p><strong class="example">Example 3:</strong></p>
+
+<pre>
+<strong>Input:</strong> root = []
+<strong>Output:</strong> []
+</pre>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li>The number of nodes in the tree is in the range <code>[0, 100]</code>.</li>
+	<li><code>-100 &lt;= Node.val &lt;= 100</code></li>
+</ul>
