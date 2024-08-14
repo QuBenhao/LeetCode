@@ -4,7 +4,18 @@ pub struct Solution;
 
 impl Solution {
     pub fn is_array_special(nums: Vec<i32>, queries: Vec<Vec<i32>>) -> Vec<bool> {
-
+		let n = nums.len();
+		let mut pre_sum: Vec<i32> = vec![0; n];
+		for i in 0..n - 1 {
+			pre_sum[i + 1] = pre_sum[i] + ((nums[i] & 1) != (nums[i + 1] & 1)) as i32;
+		}
+		let mut res: Vec<bool> = Vec::new();
+		for query in queries {
+			let l = query[0];
+			let r = query[1];
+			res.push(pre_sum[r as usize] - pre_sum[l as usize] == r - l);
+		}
+		res
     }
 }
 

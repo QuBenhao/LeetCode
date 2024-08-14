@@ -21,10 +21,35 @@ pub struct Solution;
 //   }
 // }
 use std::rc::Rc;
-use std::cell::RefCell;
+use std::cell::{Ref, RefCell};
+use std::collections::VecDeque;
+
 impl Solution {
     pub fn right_side_view(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
-
+		let mut res: Vec<i32> = Vec::new();
+		if root.is_none() {
+			return res;
+		}
+		let mut queue: VecDeque<Option<Rc<RefCell<TreeNode>>>> = VecDeque::new();
+		queue.push_back(root);
+		while !queue.is_empty() {
+			let n = queue.len();
+			for i in 0..n {
+				if let Some(node) = queue.pop_front().as_ref().unwrap() {
+					let node_ref: Ref<TreeNode> = node.borrow();
+					if i == n - 1 {
+						res.push(node_ref.val);
+					}
+					if node_ref.left.is_some() {
+						queue.push_back(node_ref.left.clone());
+					}
+					if node_ref.right.is_some() {
+						queue.push_back(node_ref.right.clone());
+					}
+				}
+			}
+		}
+		res
     }
 }
 
