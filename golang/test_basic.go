@@ -191,6 +191,8 @@ func TestEach(t *testing.T, problemId string, problemFolder string, pkg func(inp
 	tests := processTestcase(fmt.Sprintf(TestcaseFolderFmt, problemFolder, problemFolder, problemId))
 	for j, testcase := range tests {
 		t.Run(fmt.Sprintf("%s/Testcase#%d", problemId, j), func(t *testing.T) {
+			fmt.Printf("Input: %v\n", testcase.input)
+			fmt.Printf("Expected: %v\n", testcase.want)
 			checkSolve(ast, testcase, pkg)
 		})
 	}
