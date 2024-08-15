@@ -7,7 +7,24 @@ import (
 )
 
 func lengthOfLIS(nums []int) int {
-
+	stack := []int{nums[0]}
+	for i := 1; i < len(nums); i++ {
+		if nums[i] > stack[len(stack)-1] {
+			stack = append(stack, nums[i])
+		} else {
+			l, r := 0, len(stack)-1
+			for l < r {
+				m := l + (r-l)/2
+				if stack[m] < nums[i] {
+					l = m + 1
+				} else {
+					r = m
+				}
+			}
+			stack[l] = nums[i]
+		}
+	}
+	return len(stack)
 }
 
 func Solve(inputJsonValues string) interface{} {
