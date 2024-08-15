@@ -224,6 +224,8 @@ class JavaWriter(LanguageWriter):
                 return f"{rt_type} {variable_name} = jsonArrayToInt2DArray({input_name});"
             case "List<Integer>":
                 return f"{rt_type} {variable_name} = jsonArrayToIntList({input_name});"
+            case "List<List<Integer>>":
+                return f"{rt_type} {variable_name} = jsonArrayTo2DIntList({input_name});"
             case "ListNode":
                 return f"{rt_type} {variable_name} = jsonArrayToListNode({input_name});"
             case "ListNode[]":

@@ -1,12 +1,13 @@
 package qubhjava;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import qubhjava.models.ListNode;
-import qubhjava.models.TreeNode;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+
+import qubhjava.models.ListNode;
+import qubhjava.models.TreeNode;
 
 
 public abstract class BaseSolution {
@@ -62,6 +63,19 @@ public abstract class BaseSolution {
         List<Integer> result = new ArrayList<>(jsonArray.size());
         for (int i = 0; i < jsonArray.size(); i++) {
             result.add(Integer.parseInt(jsonArray.getString(i)));
+        }
+        return result;
+    }
+
+    protected List<List<Integer>> jsonArrayTo2DIntList(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        List<List<Integer>> result = new ArrayList<>(jsonArray.size());
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONArray innerArray = jsonArray.getJSONArray(i);
+            result.add(new ArrayList<>(innerArray.size()));
+            for (int j = 0; j < innerArray.size(); j++) {
+                result.get(i).add(Integer.parseInt(innerArray.getString(j)));
+            }
         }
         return result;
     }
