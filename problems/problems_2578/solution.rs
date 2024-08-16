@@ -4,7 +4,25 @@ pub struct Solution;
 
 impl Solution {
     pub fn split_num(num: i32) -> i32 {
-
+		let mut nums: Vec<i32> = Vec::new();
+		let mut num = num;
+		while num > 0 {
+			if num % 10 > 0 {
+				nums.push(num % 10);
+			}
+			num = num / 10;
+		}
+		nums.sort_unstable();
+		let mut a = 0;
+		let mut b = 0;
+		for v in nums {
+			if a <= b {
+				a = a * 10 + v;
+			} else {
+				b = b * 10 + v;
+			}
+		}
+		a + b
     }
 }
 
