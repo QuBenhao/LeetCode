@@ -64,7 +64,7 @@ class RustWriter(LanguageWriter):
     ) -> str:
         add_title = ""
         if not RustWriter.is_snake_case(f"{problem_folder}_{problem_id}"):
-            add_title = f"#[allow(non_snake_case)]\n"
+            add_title = f"#![allow(non_snake_case)]\n"
         code = code or code_default
         if "object will be instantiated and called as such:" in code:
             struct_map = RustWriter._parse_rust_structs(code)
