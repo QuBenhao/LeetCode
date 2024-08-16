@@ -72,7 +72,6 @@ members = [
 	"problems/problems_3117",
 	"problems/problems_LCR_007",
 	"problems/problems_300",
-	"problems/problems_1216",
 	"problems/problems_2578",
 ]
 
@@ -168,5 +167,4 @@ solution_739 = { path = "problems/problems_739", features = ["solution_739"] }
 solution_3117 = { path = "problems/problems_3117", features = ["solution_3117"] }
 solution_LCR_007 = { path = "problems/problems_LCR_007", features = ["solution_LCR_007"] }
 solution_300 = { path = "problems/problems_300", features = ["solution_300"] }
-solution_1216 = { path = "problems/problems_1216", features = ["solution_1216"] }
 solution_2578 = { path = "problems/problems_2578", features = ["solution_2578"] }
