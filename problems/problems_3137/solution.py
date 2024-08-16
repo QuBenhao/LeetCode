@@ -1,5 +1,6 @@
 import solution
 from typing import *
+from collections import Counter
 
 
 class Solution(solution.Solution):
@@ -7,5 +8,4 @@ class Solution(solution.Solution):
         return self.minimumOperationsToMakeKPeriodic(*test_input)
 
     def minimumOperationsToMakeKPeriodic(self, word: str, k: int) -> int:
-        pass
-
+        return len(word) // k - max(Counter(word[i:i + k] for i in range(0, len(word), k)).values())
