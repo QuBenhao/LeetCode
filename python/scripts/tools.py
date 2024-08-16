@@ -81,6 +81,9 @@ def back_fill_ratings(args):
 def lucky(args):
     def process_problem(root_path, question: dict, langs) -> bool:
         question_id = format_question_id(question["frontendQuestionId"])
+        if question.get("paidOnly", False):
+            logging.warning("Paid problem: %s", question_id)
+            return False
         dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
         if not os.path.exists(dir_path):
             logging.info("Found: %s", question_id)
