@@ -62,11 +62,15 @@ class RustWriter(LanguageWriter):
             problem_id: str = "",
             problem_folder: str = "",
     ) -> str:
+        add_title = ""
+        if not RustWriter.is_snake_case(f"{problem_folder}_{problem_id}"):
+            add_title = f"#[allow(non_snake_case)]\n"
         code = code or code_default
         if "object will be instantiated and called as such:" in code:
             struct_map = RustWriter._parse_rust_structs(code)
             solve_part = RustWriter._generate_solve_function(struct_map)
-            return SOLUTION_TEMPLATE_RUST.format("\n".join([]), "", code, problem_id, "\n\t".join(solve_part))
+            return SOLUTION_TEMPLATE_RUST.format(add_title, "\n".join([]), "",
+                                                 code, problem_id, "\n\t".join(solve_part))
 
         if "impl Solution" not in code:
             raise NotImplementedError("RustWriter does not support problem without Solution yet!")
@@ -145,8 +149,8 @@ class RustWriter(LanguageWriter):
         if fn_count != 1:
             raise NotImplementedError("RustWriter does not support multiple functions yet!")
         solve_part.extend(return_part)
-        return SOLUTION_TEMPLATE_RUST.format("\n".join(import_libs), "pub struct Solution;\n", code, problem_id,
-                                             "\n\t".join(solve_part))
+        return SOLUTION_TEMPLATE_RUST.format(add_title, "\n".join(import_libs), "pub struct Solution;\n", code,
+                                             problem_id, "\n\t".join(solve_part))
 
     def write_cargo_toml(self, root_path, dir_path, problem_folder: str, problem_id: str):
         root_cargo_path = os.path.join(root_path, self.cargo_file)
@@ -510,3 +514,8 @@ class RustWriter(LanguageWriter):
             solve_lines.append("}")
             solve_lines.append("json!(ans)")
         return solve_lines
+
+    @staticmethod
+    def is_snake_case(s: str) -> bool:
+        pattern = r'^[a-z0-9]+(_[a-z0-9]+)*$'
+        return bool(re.match(pattern, s))
