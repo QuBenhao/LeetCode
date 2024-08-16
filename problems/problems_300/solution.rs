@@ -4,7 +4,25 @@ pub struct Solution;
 
 impl Solution {
     pub fn length_of_lis(nums: Vec<i32>) -> i32 {
-
+		let mut stack: Vec<i32> = vec![];
+		for num in nums {
+			if stack.is_empty() || *stack.last().unwrap() < num {
+				stack.push(num);
+			} else {
+				let mut left = 0;
+				let mut right = stack.len() - 1;
+				while left < right {
+					let mid = left + (right - left) / 2;
+					if stack[mid as usize] < num {
+						left = mid + 1;
+					} else {
+						right = mid;
+					}
+				}
+				stack[right] = num;
+			}
+		}
+		stack.len() as i32
     }
 }
 
