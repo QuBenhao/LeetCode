@@ -8,7 +8,24 @@ using json = nlohmann::json;
 class Solution {
 public:
     int splitNum(int num) {
-        
+        vector<int> nums;
+        while (num > 0) {
+            int r = num % 10;
+            if (r != 0) {
+                nums.emplace_back(r);
+            }
+            num /= 10;
+        }
+        sort(nums.begin(), nums.end());
+        int a = 0, b = 0;
+        for (int i = 0; i < static_cast<int>(nums.size()); i++) {
+            if ((i & 1) == 1) {
+                b = b * 10 + nums[i];
+            } else {
+                a = a * 10 + nums[i];
+            }
+        }
+        return a + b;
     }
 };
 
