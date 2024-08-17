@@ -1,10 +1,18 @@
 use serde_json::{json, Value};
 
 pub struct Solution;
-
+use std::collections::HashMap;
 impl Solution {
     pub fn minimum_operations_to_make_k_periodic(word: String, k: i32) -> i32 {
-
+		let n: usize = word.len();
+		let mut count: HashMap<String, i32> = HashMap::new();
+		let mut ans: i32 = 0;
+		for i in (0..n).step_by(k as usize) {
+			let sub = &word[i..i+k as usize];
+			*count.entry(sub.to_string()).or_insert(0) += 1;
+			ans = ans.max(count[&sub.to_string()]);
+		}
+		n as i32 / k - ans
     }
 }
 

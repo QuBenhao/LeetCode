@@ -4,7 +4,21 @@ pub struct Solution;
 
 impl Solution {
     pub fn next_permutation(nums: &mut Vec<i32>) {
-
+		let n: usize = nums.len();
+		let mut idx: usize = n - 1;
+		while idx > 0 && nums[idx - 1] >= nums[idx] {
+			idx -= 1;
+		}
+		if idx == 0 {
+			nums.reverse();
+			return;
+		}
+		let mut i: usize = n - 1;
+		while i >= idx && nums[i] <= nums[idx - 1] {
+			i -= 1;
+		}
+		nums.swap(idx - 1, i);
+		nums[idx..].reverse();
     }
 }
 
