@@ -7,7 +7,21 @@ import (
 )
 
 func checkInclusion(s1 string, s2 string) bool {
-
+	m, n := len(s1), len(s2)
+	cnt1, cnt2 := [26]int{}, [26]int{}
+	for _, ch := range s1 {
+		cnt1[ch-'a']++
+	}
+	for i := 0; i < n; i++ {
+		cnt2[s2[i]-'a']++
+		if i >= m-1 {
+			if cnt1 == cnt2 {
+				return true
+			}
+			cnt2[s2[i-m+1]-'a']--
+		}
+	}
+	return false
 }
 
 func Solve(inputJsonValues string) interface{} {

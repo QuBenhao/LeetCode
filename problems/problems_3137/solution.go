@@ -7,7 +7,13 @@ import (
 )
 
 func minimumOperationsToMakeKPeriodic(word string, k int) int {
-
+	n, ans := len(word), 0
+	counts := map[string]int{}
+	for i := 0; i < n; i += k {
+		counts[word[i:i+k]]++
+		ans = max(ans, counts[word[i:i+k]])
+	}
+	return n/k - ans
 }
 
 func Solve(inputJsonValues string) interface{} {

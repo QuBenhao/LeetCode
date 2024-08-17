@@ -7,7 +7,7 @@ class Solution(solution.Solution):
         return self.evalRPN(test_input)
 
     def evalRPN(self, tokens: List[str]) -> int:
-        values, ops = [], []
+        values = []
         for token in tokens:
             if token in "+-*/":
                 b, a = values.pop(), values.pop()
@@ -22,4 +22,3 @@ class Solution(solution.Solution):
             else:
                 values.append(int(token))
         return values[0]
-
