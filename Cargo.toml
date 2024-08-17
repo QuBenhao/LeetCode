@@ -79,6 +79,8 @@ members = [
 	"problems/problems_31",
 	"problems/problems_LCR_014",
 	"problems/problems_LCR_036",
+	"problems/problems_LCR_036",
+	"problems/problems_LCR_014",
 ]
 
 [package]
