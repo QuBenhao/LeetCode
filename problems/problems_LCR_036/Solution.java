@@ -7,7 +7,30 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int evalRPN(String[] tokens) {
-
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (String token: tokens) {
+            if ("+-*/".contains(token)) {
+                int num2 = stack.pop();
+                int num1 = stack.pop();
+                switch (token) {
+                    case "+":
+                        stack.push(num1 + num2);
+                        break;
+                    case "-":
+                        stack.push(num1 - num2);
+                        break;
+                    case "*":
+                        stack.push(num1 * num2);
+                        break;
+                    case "/":
+                        stack.push(num1 / num2);
+                        break;
+                }
+            } else {
+                stack.push(Integer.parseInt(token));
+            }
+        }
+        return stack.pop();
     }
 
     @Override
