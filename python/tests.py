@@ -11,7 +11,7 @@ from utils import get_default_folder, timeout
 logging.basicConfig(level=logging.INFO, format=constants.LOGGING_FORMAT, datefmt=constants.DATE_FORMAT)
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTIONS = [['1143', 'problems'], ['31', 'problems'], ['LCR_014', 'problems'], ['LCR_036', 'problems']]
+QUESTIONS = [['79', 'problems'], ['25', 'problems'], ['LCR_059', 'problems'], ['LCR_062', 'problems']]
 
 
 class Test(unittest.TestCase):
