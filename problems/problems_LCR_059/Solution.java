@@ -7,12 +7,26 @@ import qubhjava.BaseSolution;
 
 class KthLargest {
 
-    public KthLargest(int k, int[] nums) {
+	private int k;
+	private PriorityQueue<Integer> pq;
 
+    public KthLargest(int k, int[] nums) {
+		this.k = k;
+		this.pq = new PriorityQueue<>(k);
+		for (int num : nums) {
+			this.pq.add(num);
+			if (this.pq.size() > k) {
+				this.pq.poll();
+			}
+		}
     }
     
     public int add(int val) {
-
+		this.pq.add(val);
+		if (this.pq.size() > k) {
+			this.pq.poll();
+		}
+		return this.pq.peek() == null ? 0 : this.pq.peek();
     }
 }
 

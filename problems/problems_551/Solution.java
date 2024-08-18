@@ -7,7 +7,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public boolean checkRecord(String s) {
-
+        return !s.contains("LLL") && s.indexOf("A") == s.lastIndexOf("A");
     }
 
     @Override

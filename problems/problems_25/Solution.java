@@ -17,7 +17,28 @@ import qubhjava.models.ListNode;
 
 public class Solution extends BaseSolution {
     public ListNode reverseKGroup(ListNode head, int k) {
-
+        if (head == null) {
+            return null;
+        }
+        ListNode node = head;
+        for (int i = 0; i < k - 1; i++) {
+            if (node == null) {
+                return head;
+            }
+            node = node.next;
+        }
+        if (node == null) {
+            return head;
+        }
+        node.next = reverseKGroup(node.next, k);
+        ListNode tail = node.next, last = tail;
+        while (head != last) {
+            ListNode next = head.next;
+            head.next = tail;
+            tail = head;
+            head = next;
+        }
+        return node;
     }
 
     @Override
