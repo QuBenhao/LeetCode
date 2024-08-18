@@ -1,5 +1,5 @@
 cc_test(
-    name = "test_problem_79",
+    name = "test_problem_LCR_074",
     size = "small",
     srcs = [
         "//cpp:TestMain.cpp",
@@ -20,7 +20,7 @@ cc_test(
 )
 
 cc_test(
-    name = "test_problem_25",
+    name = "test_problem_128",
     size = "small",
     srcs = [
         "//cpp:TestMain.cpp",
@@ -32,48 +32,6 @@ cc_test(
         "$(rlocationpath @problem1//:testcase)",
     ],
     data = ["@problem1//:testcase"],
-    deps = [
-        "//cpp/models:models",
-        "@bazel_tools//tools/cpp/runfiles",
-        "@com_google_googletest//:gtest_main",
-        "@nlohmann_json//:json",
-    ],
-)
-
-cc_test(
-    name = "test_problem_LCR_059",
-    size = "small",
-    srcs = [
-        "//cpp:TestMain.cpp",
-        "//cpp:TestMain.h",
-        "//cpp/common:Solution.h",
-        "@problem2//:Solution.cpp"
-    ],
-    args = [
-        "$(rlocationpath @problem2//:testcase)",
-    ],
-    data = ["@problem2//:testcase"],
-    deps = [
-        "//cpp/models:models",
-        "@bazel_tools//tools/cpp/runfiles",
-        "@com_google_googletest//:gtest_main",
-        "@nlohmann_json//:json",
-    ],
-)
-
-cc_test(
-    name = "test_problem_LCR_062",
-    size = "small",
-    srcs = [
-        "//cpp:TestMain.cpp",
-        "//cpp:TestMain.h",
-        "//cpp/common:Solution.h",
-        "@problem3//:Solution.cpp"
-    ],
-    args = [
-        "$(rlocationpath @problem3//:testcase)",
-    ],
-    data = ["@problem3//:testcase"],
     deps = [
         "//cpp/models:models",
         "@bazel_tools//tools/cpp/runfiles",

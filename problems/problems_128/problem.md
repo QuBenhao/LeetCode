@@ -1,4 +1,4 @@
-# 128. Longest Consecutive Sequence
+# 128. Longest Consecutive Sequence 
 
 <p>Given an unsorted array of integers <code>nums</code>, return <em>the length of the longest consecutive elements sequence.</em></p>
 
