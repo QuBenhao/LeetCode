@@ -6,8 +6,26 @@ import (
 	"strings"
 )
 
-func longestConsecutive(nums []int) int {
-
+func longestConsecutive(nums []int) (ans int) {
+	lengthMap := map[int]int{}
+	for _, num := range nums {
+		if _, ok := lengthMap[num]; ok {
+			continue
+		}
+		left, right := 0, 0
+		if l, ok := lengthMap[num-1]; ok {
+			left = l
+		}
+		if r, ok := lengthMap[num+1]; ok {
+			right = r
+		}
+		length := left + right + 1
+		ans = max(ans, length)
+		lengthMap[num] = length
+		lengthMap[num-left] = length
+		lengthMap[num+right] = length
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
