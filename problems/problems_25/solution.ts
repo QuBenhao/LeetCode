@@ -13,7 +13,29 @@ import {LinkedListToIntArray,IntArrayToLinkedList,ListNode} from "../../typescri
  */
 
 function reverseKGroup(head: ListNode | null, k: number): ListNode | null {
-    
+	if (head == null) {
+		return null;
+	}
+	let node: ListNode | null = head;
+	for (let i: number = 0; i < k - 1; i++) {
+		if (node == null) {
+			return head;
+		}
+		node = node.next;
+	}
+	if (node == null) {
+		return head;
+	}
+	node.next = reverseKGroup(node.next, k);
+	const last: ListNode | null = node.next;
+	let tail: ListNode | null = last;
+	while (head != last) {
+		const next: ListNode | null = head.next;
+		head.next = tail;
+		tail = head;
+		head = next;
+	}
+	return node;
 };
 
 export function Solve(inputJsonElement: string): any {

@@ -1,18 +1,40 @@
 class Trie {
+	children: Map<string, Trie>
+	isEnd: boolean
     constructor() {
-
+		this.children = new Map<string, Trie>();
+		this.isEnd = false;
     }
 
     insert(word: string): void {
-
+		let node: Trie = this;
+		for (const ch of word) {
+			if (!node.children.has(ch)) {
+				node.children.set(ch, new Trie());
+			}
+			node = node.children.get(ch);
+		}
+		node.isEnd = true;
     }
 
-    search(word: string): boolean {
+	searchPrefix(prefix: string): Trie {
+		let node: Trie = this;
+		for (const ch of prefix) {
+			if (!node.children.has(ch)) {
+				return null;
+			}
+			node = node.children.get(ch);
+		}
+		return node;
+	}
 
+    search(word: string): boolean {
+		const node: Trie = this.searchPrefix(word);
+		return node != null && node.isEnd;
     }
 
     startsWith(prefix: string): boolean {
-
+		return this.searchPrefix(prefix) != null;
     }
 }
 
