@@ -132,9 +132,18 @@ class CppWriter(LanguageWriter):
                         if f.get("args", "")
                         else []
                     )
+                    logging.debug("variables: %s", variables)
                     tmp_vars = []
-                    for j, _ in enumerate(variables):
-                        tmp_vars.append(f"op_values[{i}][{j}]")
+                    for j, (var_tp, var_nm) in enumerate(variables):
+                        rt = CppWriter._simplify_variable_type([var_tp])
+                        logging.debug("Processing variable: \"%s\", return type: \"%s\"", var_tp, rt)
+                        match rt:
+                            case "vector<int>":
+                                process_variables.insert(2, f"vector<int> {var_nm}_array"
+                                                            f" = op_values[{i}][{j}].get<vector<int>>();")
+                                tmp_vars.append(f"{var_nm}_array")
+                            case _:
+                                tmp_vars.append(f"op_values[{i}][{j}]")
                     cur += ", ".join(tmp_vars)
                     cur += ");"
                     process_variables.append(cur)
