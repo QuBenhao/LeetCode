@@ -87,6 +87,7 @@ def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
                                             ] if not chinese else
                                            [lambda s: s.split("\n")[0].split("`")[1].strip(),
                                             lambda s: s.split("\n")[0].split(">")[-1].strip(),
+                                            lambda s: s.split("\n")[1].strip(),
                                             ]):
             tmp = ""
             try:
