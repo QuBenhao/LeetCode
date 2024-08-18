@@ -99,7 +99,7 @@ class GolangWriter(LanguageWriter):
                         structs_map[struct_name]["construct"] = (
                             tmp.split("(")[0].split("func ")[-1].strip(),
                             (tp0, tp1, tp2, tp3.replace("inputValues", "opValues[0]")),
-                            tp4.replace("inputValues", "opValues[0]"),
+                            tp4.replace("inputValues", "opValues[0]").replace("\t\t\t", "\t"),
                             rt,
                         )
                     elif tmp.startswith("func (") and struct_name in tmp.split(")")[0]:
@@ -161,7 +161,7 @@ class GolangWriter(LanguageWriter):
                         + "\t}\n"
                         + "{}".format(
                     (
-                        "\tobj := " + constructor[0] + f"({constructor[1][3]})\n"
+                        f"\t{constructor[2]}obj := " + constructor[0] + f"({constructor[1][3]})\n"
                         if constructor is not None
                         else ""
                     ), "",
@@ -409,6 +409,13 @@ class GolangWriter(LanguageWriter):
                                      f"\t\t\t\tfor _, vi := range inputValues[{count}].([]interface{{}}) {{\n"
                                      f"\t\t\t\t\tarr = append(arr, vi.(string))\n"
                                      f"\t\t\t\t}}\n\t\t\t}}\n\t\t\t")
+                            variables.append("arr")
+                        case "[]int":
+                            extra = (f"var arr []int\n\t\t\tif v, ok := inputValues[{count}].([]int); ok {{\n"
+                                        f"\t\t\t\tarr = v\n\t\t\t}} else {{\n"
+                                        f"\t\t\t\tfor _, vi := range inputValues[{count}].([]interface{{}}) {{\n"
+                                        f"\t\t\t\t\tarr = append(arr, int(vi.(float64)))\n"
+                                        f"\t\t\t\t}}\n\t\t\t}}\n\t\t\t")
                             variables.append("arr")
                         case _:
                             variables.append(f"inputValues[{counts}].({tp})")
