@@ -41,11 +41,13 @@ class GolangWriter(LanguageWriter):
             )
 
     def change_tests(self, root_path, problem_ids_folders: list):
+        pifs = problem_ids_folders.copy()
+        pifs.sort(key=lambda x: f"{x[1]}_{x[0]}")
         with open(os.path.join(root_path, self.main_folder, self.tests_file), "w") as f:
             f.write(
                 TESTCASE_TEMPLATE_GOLANG.format(
                     "\n\t".join(
-                        f'"leetCode/{pf}/{pf}_{pid}"' for pid, pf in problem_ids_folders
+                        f'"leetCode/{pf}/{pf}_{pid}"' for pid, pf in pifs
                     ),
                     "TestSolutions",
                     "\n\t".join(
