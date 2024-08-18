@@ -1,19 +1,31 @@
-//go:build ignore
+// go:build ignore
 #include "cpp/common/Solution.h"
-
+#include <queue>
 
 using namespace std;
 using json = nlohmann::json;
 
 class KthLargest {
 public:
-    KthLargest(int k, vector<int>& nums) {
-
+  priority_queue<int, vector<int>, greater<int>> pq;
+  int k;
+  KthLargest(int k, vector<int> &nums) {
+    this->k = k;
+    for (auto num : nums) {
+      pq.push(num);
+      if (pq.size() > k) {
+        pq.pop();
+      }
     }
-    
-    int add(int val) {
+  }
 
+  int add(int val) {
+    pq.push(val);
+    if (pq.size() > k) {
+      pq.pop();
     }
+    return pq.top();
+  }
 };
 
 /**
@@ -34,7 +46,8 @@ json leetcode::qubh::Solve(string input_json_values) {
 
 	vector<string> operators = json::parse(inputArray[0]);
 	vector<vector<json>> op_values = json::parse(inputArray[1]);
-	auto obj0 = make_shared<KthLargest>(op_values[0][0], op_values[0][1]);
+	vector<int> nums_array = op_values[0][1].get<vector<int>>();
+	auto obj0 = make_shared<KthLargest>(op_values[0][0], nums_array);
 	vector<json> ans = {nullptr};
 	for (size_t i = 1; i < op_values.size(); i++) {
 		if (operators[i] == "add") {
