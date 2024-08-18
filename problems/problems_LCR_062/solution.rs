@@ -2,8 +2,10 @@
 use serde_json::{json, Value};
 
 
+use std::collections::HashMap;
 struct Trie {
-
+	children: HashMap<char, Trie>,
+	is_end: bool
 }
 
 
@@ -15,22 +17,42 @@ impl Trie {
 
     /** Initialize your data structure here. */
     fn new() -> Self {
-
+		Trie{
+			children: HashMap::new(),
+			is_end: false
+		}
     }
     
     /** Inserts a word into the trie. */
-    fn insert(&self, word: String) {
-
+    fn insert(&mut self, word: String) {
+		let mut node = self;
+		for c in word.chars() {
+			node = node.children.entry(c).or_insert(Trie::new());
+		}
+		node.is_end = true;
     }
+
+	fn search_node(&self, word: String) -> Option<&Trie> {
+		let mut node = self;
+		for c in word.chars() {
+			if let Some(next_node) = node.children.get(&c) {
+				node = next_node;
+			} else {
+				return None;
+			}
+		}
+		Some(node)
+	}
     
     /** Returns if the word is in the trie. */
     fn search(&self, word: String) -> bool {
-
+		let node = self.search_node(word);
+		node.is_some_and(|node| node.is_end)
     }
     
     /** Returns if there is any word in the trie that starts with the given prefix. */
     fn starts_with(&self, prefix: String) -> bool {
-
+		self.search_node(prefix).is_some()
     }
 }
 

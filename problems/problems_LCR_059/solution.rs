@@ -1,9 +1,11 @@
 #![allow(non_snake_case)]
 use serde_json::{json, Value};
 
-
+use std::cmp::Reverse;
+use std::collections::BinaryHeap;
 struct KthLargest {
-
+	k: i32,
+	heap: BinaryHeap<Reverse<i32>>,
 }
 
 
@@ -14,11 +16,25 @@ struct KthLargest {
 impl KthLargest {
 
     fn new(k: i32, nums: Vec<i32>) -> Self {
-
+		let mut heap = BinaryHeap::new();
+		for num in nums {
+			heap.push(Reverse(num));
+			if heap.len() > k as usize {
+				heap.pop();
+			}
+		}
+		KthLargest {
+			k,
+			heap
+		}
     }
     
-    fn add(&self, val: i32) -> i32 {
-
+    fn add(&mut self, val: i32) -> i32 {
+		self.heap.push(Reverse(val));
+		if self.heap.len() > self.k as usize {
+			self.heap.pop();
+		}
+		self.heap.peek().unwrap().0
     }
 }
 

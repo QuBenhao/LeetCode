@@ -4,7 +4,7 @@ pub struct Solution;
 
 impl Solution {
     pub fn check_record(s: String) -> bool {
-
+		!s.contains("LLL") && s.chars().filter(|&c| c == 'A').count() < 2
     }
 }
 

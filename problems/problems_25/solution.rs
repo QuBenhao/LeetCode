@@ -19,8 +19,27 @@ pub struct Solution;
 //   }
 // }
 impl Solution {
-    pub fn reverse_k_group(head: Option<Box<ListNode>>, k: i32) -> Option<Box<ListNode>> {
-
+    pub fn reverse_k_group(mut head: Option<Box<ListNode>>, k: i32) -> Option<Box<ListNode>> {
+        let mut next_head = &mut head;
+        // 获取下一轮头结点
+        for _ in 0..k {
+            if let Some(node) = next_head.as_mut() {
+                next_head = &mut node.next;
+            } else {
+                return head;
+            }
+        }
+        // 获取除本轮结果
+        let mut new_head = Self::reverse_k_group(next_head.take(), k);
+        // 翻转本轮k个节点
+        for _ in 0..k {
+            if let Some(mut node) = head {
+                head = node.next.take();
+                node.next = new_head.take();
+                new_head = Some(node);
+            }
+        }
+        new_head
     }
 }
 
