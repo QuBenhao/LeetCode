@@ -1,5 +1,4 @@
 import solution
-import numpy as np
 
 
 class Solution(solution.Solution):
@@ -16,6 +15,8 @@ class Solution(solution.Solution):
         # for i in range(2, n + 2):
         #     alast, alastL, alastLL, last, lastL, lastLL = (alastLL + alastL + alast + last + lastL + lastLL) % mod,alast,alastL,(last + lastL + lastLL) % mod,last,lastL
         # return alast
+
+        import numpy as np
 
         mod = 10 ** 9 + 7
         cell = np.diag([1] * 6)

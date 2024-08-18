@@ -7,5 +7,11 @@ class Solution(solution.Solution):
         return self.merge(test_input)
 
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
-        pass
-
+        intervals.sort()
+        ans = [intervals[0]]
+        for a, b in intervals:
+            if a <= ans[-1][1]:
+                ans[-1][1] = max(ans[-1][1], b)
+            else:
+                ans.append([a, b])
+        return ans
