@@ -391,7 +391,7 @@ class RustWriter(LanguageWriter):
                         continue
                     if "rust/" not in line:
                         pf = line.split("/")[0].split("\"")[-1].strip()
-                        pi = line.split("_")[-1].split("\"")[0].strip()
+                        pi = "_".join(line.split("_")[1:]).split("\"")[0].strip()
                         if (pi, pf) in remain:
                             remain.remove((pi, pf))
                     f.write(line + "\n")
