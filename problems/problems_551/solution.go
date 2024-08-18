@@ -7,7 +7,7 @@ import (
 )
 
 func checkRecord(s string) bool {
-
+	return !strings.Contains(s, "LLL") && strings.Count(s, "A") < 2
 }
 
 func Solve(inputJsonValues string) interface{} {

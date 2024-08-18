@@ -15,7 +15,29 @@ import (
  * }
  */
 func reverseKGroup(head *ListNode, k int) *ListNode {
-
+	if head == nil {
+		return nil
+	}
+	node := head
+	for i := 0; i < k-1; i++ {
+		if node == nil {
+			break
+		}
+		node = node.Next
+	}
+	if node == nil {
+		return head
+	}
+	node.Next = reverseKGroup(node.Next, k)
+	tail := node.Next
+	last := tail
+	for head != last {
+		nxt := head.Next
+		head.Next = tail
+		tail = head
+		head = nxt
+	}
+	return node
 }
 
 func Solve(inputJsonValues string) interface{} {
