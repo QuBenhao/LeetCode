@@ -1,6 +1,7 @@
 package problemLCR_059
 
 import (
+	"container/heap"
 	"encoding/json"
 	"log"
 	"strings"
@@ -56,7 +57,6 @@ func (h *IntHeap) Pop() interface{} {
  * param_1 := obj.Add(val);
  */
 
-
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
@@ -90,7 +90,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
