@@ -31,7 +31,7 @@ func minWindow(s string, t string) string {
 		}
 		for l < r {
 			i := getIdx(s[l])
-			if cntS[i] > cntT[i] && cntS[i] >= 1 {
+			if cntS[i] > cntT[i] {
 				cntS[i]--
 				l++
 			} else {
