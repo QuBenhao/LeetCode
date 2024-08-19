@@ -5,7 +5,17 @@ pub struct Solution;
 
 impl Solution {
     pub fn merge(intervals: Vec<Vec<i32>>) -> Vec<Vec<i32>> {
-
+		let mut intervals = intervals;
+		intervals.sort_unstable();
+		let mut res: Vec<Vec<i32>> = vec![];
+		for interval in intervals {
+			if res.is_empty() || res.last().unwrap()[1] < interval[0] {
+				res.push(interval);
+			} else {
+				res.last_mut().unwrap()[1] = res.last().unwrap()[1].max(interval[1]);
+			}
+		}
+		res
     }
 }
 
