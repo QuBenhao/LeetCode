@@ -6,8 +6,26 @@ import (
 	"strings"
 )
 
-func waysToReachStair(k int) int {
+const mx int = 31
 
+var c [mx][mx]int
+
+func init() {
+	for i := 0; i < mx; i++ {
+		c[i][0], c[i][i] = 1, 1
+		for j := 1; j < i; j++ {
+			c[i][j] = c[i-1][j] + c[i-1][j-1]
+		}
+	}
+}
+
+func waysToReachStair(k int) (ans int) {
+	for j := 0; j < 30; j++ {
+		if d := 1<<j - k; d >= 0 && d <= j+1 {
+			ans += c[j+1][d]
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
