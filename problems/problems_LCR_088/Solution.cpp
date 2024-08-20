@@ -8,7 +8,12 @@ using json = nlohmann::json;
 class Solution {
 public:
     int minCostClimbingStairs(vector<int>& cost) {
-
+		int n = static_cast<int>(cost.size());
+		vector<int> dp(3, 0);
+		for (int i = 2; i <= n; i++) {
+			dp[i % 3] = min(dp[(i - 1) % 3] + cost[i - 1], dp[(i - 2) % 3] + cost[i - 2]);
+		}
+		return dp[n % 3];
     }
 };
 
