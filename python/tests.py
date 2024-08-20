@@ -47,6 +47,8 @@ class Test(unittest.TestCase):
                 testcase = module_from_spec(testcase_spec)
                 testcase_spec.loader.exec_module(testcase)
                 testcase_obj = testcase.Testcase()
+                if not testcase_obj.get_testcases():
+                    self.fail(f"No testcases found in [{q}] testcase.py")
 
                 for test in testcase_obj.get_testcases():
                     with self.subTest(f"testcase: {test}", testcase=test):
