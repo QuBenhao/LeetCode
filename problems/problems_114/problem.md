@@ -1,4 +1,4 @@
-# 114. Flatten Binary Tree to Linked List
+# 114. Flatten Binary Tree to Linked List 
 
 <p>Given the <code>root</code> of a binary tree, flatten the tree into a &quot;linked list&quot;:</p>
 
