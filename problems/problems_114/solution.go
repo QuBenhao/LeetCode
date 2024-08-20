@@ -13,8 +13,19 @@ import (
  *     Right *TreeNode
  * }
  */
-func flatten(root *TreeNode)  {
-
+func flatten(root *TreeNode) {
+	if root == nil {
+		return
+	}
+	flatten(root.Left)
+	flatten(root.Right)
+	left, right := root.Left, root.Right
+	root.Left, root.Right = nil, left
+	last := root
+	for last.Right != nil {
+		last = last.Right
+	}
+	last.Right = right
 }
 
 func Solve(inputJsonValues string) interface{} {
@@ -24,5 +35,5 @@ func Solve(inputJsonValues string) interface{} {
 	root = ArrayToTree(inputValues[0])
 
 	flatten(root)
-	return root
+	return TreeToArray(root)
 }
