@@ -72,7 +72,8 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
                     logging.debug(f"Found the original question slug: {origin_slug}")
                     testcases, testcase_str = get_question_testcases(origin_slug)
                     if testcases:
-                        logging.info(f"Load question_id from origin question: {slug}, test cases outputs: {testcases}")
+                        logging.info(f"Load question_id from origin question: {origin_slug},"
+                                     f" test cases outputs: {testcases}")
         if testcases:
             outputs = extract_outputs_from_md(desc, is_chinese)
             logging.debug(f"Parse question_id: {question_id}, teat cases outputs: {outputs}")
