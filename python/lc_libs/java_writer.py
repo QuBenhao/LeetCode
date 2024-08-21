@@ -63,7 +63,7 @@ class JavaWriter(LanguageWriter):
         return_part = ""
         import_part = True
         variables = []
-        code = code if code else code_default
+        code = code or code_default
         testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
         if "object will be instantiated and called as such:" in code:
             return_part = "ans"

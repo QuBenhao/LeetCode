@@ -187,7 +187,7 @@ class GolangWriter(LanguageWriter):
                             ),
                         )
                     ),
-                    code_default if not code else code,
+                    code or code_default,
                     build_body,
                     "",
                     "ans",
@@ -248,7 +248,7 @@ class GolangWriter(LanguageWriter):
                         ),
                     )
                 ),
-                code_default if not code else code,
+                code or code_default,
                 "\n".join(list(zip(*its))[1]),
                 "\n".join(list(zip(*its))[2]),
                 return_func_name,
@@ -283,7 +283,7 @@ class GolangWriter(LanguageWriter):
                     ),
                 )
             ),
-            code_default if not code else code,
+            code or code_default
             "\n".join(list(zip(*its))[1]),
             "\n".join(list(zip(*its))[2]),
             func_names[0],

@@ -81,7 +81,7 @@ class RustWriter(LanguageWriter):
         return_part = []
         fn_count = 0
         testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
-        for line in code.split("\n"):
+        for line in code_default.split("\n"):
             if line.startswith("//"):
                 continue
             if "fn " in line:

@@ -146,7 +146,7 @@ def test_submit(args):
     if args.lang:
         languages = args.lang.split(",")
     else:
-        languages = ["python3", "golang", "java", "cpp", "typescript"]
+        languages = ["python3", "golang", "java", "cpp", "typescript", "rust"]
     cur_path = os.path.dirname(os.path.abspath(__file__))
     root_path = os.path.dirname(os.path.dirname(cur_path))
     problem_path = f"{root_path}/problems/problems_{args.problem}/"
