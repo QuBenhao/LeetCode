@@ -144,7 +144,14 @@ class RustWriter(LanguageWriter):
                     return_part[-1] = return_part[-1].format(f"Solution::{function_name}({format_variables})")
                 else:
                     return_part.append(f"Solution::{function_name}({format_variables});")
-                    return_part.append(f"json!({variables[0][0]})")
+                    if "TreeNode" in variables[0][1]:
+                        RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "tree_to_array")
+                        return_part.append(f"json!(tree_to_array({variables[0][0]}))")
+                    elif "ListNode" in variables[0][1]:
+                        RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "list_node_to_int_array")
+                        return_part.append(f"json!(list_node_to_int_array({variables[0][0]}))")
+                    else:
+                        return_part.append(f"json!({variables[0][0]})")
                 fn_count += 1
         if fn_count != 1:
             raise NotImplementedError("RustWriter does not support multiple functions yet!")
