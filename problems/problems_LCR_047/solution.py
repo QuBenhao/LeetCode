@@ -17,6 +17,11 @@ class Solution(solution.Solution):
         res = self.pruneTree(root0)
         return tree_to_list(res)
 
-    def pruneTree(self, root: TreeNode) -> TreeNode:
-        pass
-
+    def pruneTree(self, root: TreeNode) -> Optional[TreeNode]:
+        if root is None:
+            return root
+        root.left = self.pruneTree(root.left)
+        root.right = self.pruneTree(root.right)
+        if root.left is None and root.right is None and root.val == 0:
+            return None
+        return root
