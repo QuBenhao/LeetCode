@@ -264,7 +264,7 @@ class RustWriter(LanguageWriter):
         :param is_return: bool
         """
         match var_type:
-            case "Option<Box<ListNode>>" | "Vec<Option<Box<ListNode>>>":
+            case "Option<Box<ListNode>>" | "Vec<Option<Box<ListNode>>>" | "&mut Option<Box<ListNode>>":
                 RustWriter._add_to_import_libs(import_libs, "use library::lib::list_node::", "ListNode")
                 if not is_return:
                     RustWriter._add_to_import_libs(import_libs, "use library::lib::list_node::",
@@ -291,7 +291,7 @@ class RustWriter(LanguageWriter):
                     else:
                         return_parts.append("json!(list_node_to_int_array(&{}))")
 
-            case "Option<Rc<RefCell<TreeNode>>>" | "Vec<Option<Rc<RefCell<TreeNode>>>>":
+            case "Option<Rc<RefCell<TreeNode>>>" | "Vec<Option<Rc<RefCell<TreeNode>>>>" | "&mut Option<Rc<RefCell<TreeNode>>>":
                 RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "TreeNode")
                 if not is_return:
                     RustWriter._add_to_import_libs(import_libs, "use library::lib::tree_node::", "array_to_tree")
