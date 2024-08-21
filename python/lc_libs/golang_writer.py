@@ -288,7 +288,7 @@ class GolangWriter(LanguageWriter):
                     ),
                 )
             ),
-            code or code_default
+            code or code_default,
             "\n".join(list(zip(*its))[1]),
             "\n".join(list(zip(*its))[2]),
             func_names[0],
