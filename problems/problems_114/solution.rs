@@ -24,7 +24,20 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
-
+		if let Some(root) = root {
+			Self::flatten(&mut root.borrow_mut().left);
+			Self::flatten(&mut root.borrow_mut().right);
+			let left = root.borrow_mut().left.take();
+			let right = root.borrow_mut().right.take();
+			root.borrow_mut().left = None;
+			root.borrow_mut().right = left;
+			let mut cur = root.clone();
+			while cur.borrow().right.is_some() {
+				let next = cur.borrow().right.clone().unwrap();
+				cur = next;
+			}
+			cur.borrow_mut().right = right;
+		}
     }
 }
 
