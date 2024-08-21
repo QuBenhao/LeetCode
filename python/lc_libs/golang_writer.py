@@ -256,6 +256,11 @@ class GolangWriter(LanguageWriter):
             )
         if rts[0] == "":
             logging.debug("Modify in place, its: %s", its)
+            modify_in_place_return = its[0][3].split(",")[0].strip()
+            if "TreeNode" in its[0][1]:
+                modify_in_place_return = f"TreeToArray({modify_in_place_return})"
+            elif "ListNode" in its[0][1]:
+                modify_in_place_return = f"LinkedListToIntArray({modify_in_place_return})"
             return SOLUTION_TEMPLATE_GOLANG_MODIFY_IN_PLACE.format(
                 problem_id,
                 "\n".join(
@@ -271,7 +276,7 @@ class GolangWriter(LanguageWriter):
                 "\n".join(list(zip(*its))[2]),
                 func_names[0],
                 ", ".join(list(zip(*its))[3]),
-                its[0][3].split(",")[0].strip()
+                modify_in_place_return
             )
         return SOLUTION_TEMPLATE_GOLANG.format(
             problem_id,
