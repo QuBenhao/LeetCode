@@ -93,6 +93,9 @@ members = [
 	"problems/problems_3007",
 	"problems/problems_LCR_088",
 	"problems/problems_114",
+	"problems/problems_3133",
+	"problems/problems_153",
+	"problems/problems_LCR_047",
 ]
 
 [package]
@@ -208,3 +211,6 @@ solution_76 = { path = "problems/problems_76", features = ["solution_76"] }
 solution_3007 = { path = "problems/problems_3007", features = ["solution_3007"] }
 solution_LCR_088 = { path = "problems/problems_LCR_088", features = ["solution_LCR_088"] }
 solution_114 = { path = "problems/problems_114", features = ["solution_114"] }
+solution_3133 = { path = "problems/problems_3133", features = ["solution_3133"] }
+solution_153 = { path = "problems/problems_153", features = ["solution_153"] }
+solution_LCR_047 = { path = "problems/problems_LCR_047", features = ["solution_LCR_047"] }
