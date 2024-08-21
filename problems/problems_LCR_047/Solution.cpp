@@ -13,28 +13,37 @@ using json = nlohmann::json;
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 class Solution {
 public:
-    TreeNode* pruneTree(TreeNode* root) {
-
+  TreeNode *pruneTree(TreeNode *root) {
+    if (root == nullptr) {
+      return root;
     }
+    root->left = pruneTree(root->left);
+    root->right = pruneTree(root->right);
+    if (root->left == nullptr && root->right == nullptr && root->val == 0) {
+      return nullptr;
+    }
+    return root;
+  }
 };
 
 json leetcode::qubh::Solve(string input_json_values) {
-	vector<string> inputArray;
-	size_t pos = input_json_values.find('\n');
-	while (pos != string::npos) {
-		inputArray.push_back(input_json_values.substr(0, pos));
-		input_json_values = input_json_values.substr(pos + 1);
-		pos = input_json_values.find('\n');
-	}
-	inputArray.push_back(input_json_values);
+  vector<string> inputArray;
+  size_t pos = input_json_values.find('\n');
+  while (pos != string::npos) {
+    inputArray.push_back(input_json_values.substr(0, pos));
+    input_json_values = input_json_values.substr(pos + 1);
+    pos = input_json_values.find('\n');
+  }
+  inputArray.push_back(input_json_values);
 
-	Solution solution;
-	json root_array = json::parse(inputArray.at(0));
-	TreeNode *root = JsonArrayToTreeNode(root_array);
-	return TreeNodeToJsonArray(solution.pruneTree(root));
+  Solution solution;
+  json root_array = json::parse(inputArray.at(0));
+  TreeNode *root = JsonArrayToTreeNode(root_array);
+  return TreeNodeToJsonArray(solution.pruneTree(root));
 }
