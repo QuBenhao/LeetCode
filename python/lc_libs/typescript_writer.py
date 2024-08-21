@@ -57,7 +57,7 @@ class TypescriptWriter(LanguageWriter):
     def write_solution(self, code_default: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:
         import_part = defaultdict(set)
-        code = code if code else code_default
+        code = code or code_default
         comment = False
         functions = []
         testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)

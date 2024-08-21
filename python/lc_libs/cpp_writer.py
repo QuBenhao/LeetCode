@@ -82,7 +82,7 @@ class CppWriter(LanguageWriter):
             problem_id: str = "",
             problem_folder: str = "",
     ) -> str:
-        code = code if code else code_default
+        code = code or code_default
         is_solution_code = "class Solution" in code
         functions = CppWriter._extract_functions(code_default)
         testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
