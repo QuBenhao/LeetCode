@@ -25,25 +25,26 @@ use std::cell::RefCell;
 use std::collections::VecDeque;
 impl Solution {
     pub fn level_order(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<Vec<i32>> {
-		let mut ans = vec![];
-		if root.is_none() {
-			return ans
-		}
-		let mut queue = VecDeque::new();
-		queue.push_back(root.clone().unwrap());
-		while !queue.is_empty() {
-			let mut cur = vec![];
-			for _ in 0..queue.len() {
-				let node = queue.pop_front().unwrap();
-				cur.push(node.borrow().val);
-				if node.borrow().left.is_some() {
-					queue.push_back(node.borrow().left.clone().unwrap());
+		let mut ans: Vec<Vec<i32>> = Vec::new();
+		if let Some(root) = root {
+			let mut queue = VecDeque::new();
+			queue.push_back(root);
+			while !queue.is_empty() {
+				let size = queue.len();
+				let mut level = Vec::new();
+				for _ in 0..size {
+					if let Some(node) = queue.pop_front() {
+						level.push(node.borrow().val);
+						if let Some(left) = node.borrow().left.clone() {
+							queue.push_back(left);
+						}
+						if let Some(right) = node.borrow().right.clone() {
+							queue.push_back(right);
+						}
+					}
 				}
-				if node.borrow().right.is_some() {
-					queue.push_back(node.borrow().right.clone().unwrap());
-				}
+				ans.push(level);
 			}
-			ans.push(cur);
 		}
 		ans
     }
