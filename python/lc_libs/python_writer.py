@@ -309,6 +309,7 @@ class Python3Writer(LanguageWriter):
         process_input = ""
         remain = ""
         inputs = ""
+        modify_in_place_inputs = ""
         is_first = True
         for k in list(parameters.keys()):
             if parameters[k].name == "self":
@@ -335,6 +336,9 @@ class Python3Writer(LanguageWriter):
                     process_input += "nums_arr"
                     remain += "        roots = [list_to_tree(nums) for nums in nums_arr]\n"
                     inputs += "roots"
+                    if modify_in_place and not modify_in_place_inputs:
+                        add_lib += ", tree_to_list" if exists else "from python.object_libs import tree_to_list"
+                        modify_in_place_inputs = "tree_to_list(roots[0])"
                 else:
                     if testcases:
                         if (len(p_values) == len(testcases[0]) + 1 and
@@ -368,6 +372,9 @@ class Python3Writer(LanguageWriter):
                     process_input += f"nums{idx}"
                     remain += f"        root{idx} = list_to_tree(nums{idx})\n"
                     inputs += f"root{idx}"
+                    if modify_in_place and not modify_in_place_inputs:
+                        add_lib += ", tree_to_list" if exists else "from python.object_libs import tree_to_list"
+                        modify_in_place_inputs = f"tree_to_list(root{idx})"
                     idx += 1
             elif "ListNode" in str(v.annotation):
                 exists = True
@@ -376,6 +383,9 @@ class Python3Writer(LanguageWriter):
                     process_input += "nums_arr"
                     remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
                     inputs += "heads"
+                    if modify_in_place and not modify_in_place_inputs:
+                        add_lib += ", tree_to_list" if exists else "from python.object_libs import linked_list_to_list"
+                        modify_in_place_inputs = "linked_list_to_list(heads[0])"
                 else:
                     if testcases:
                         if len(testcases[0]) == len(p_values) + 1 and all(
@@ -406,6 +416,9 @@ class Python3Writer(LanguageWriter):
                     process_input += f"nums{idx}"
                     remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
                     inputs += f"head{idx}"
+                    if modify_in_place and not modify_in_place_inputs:
+                        add_lib += ", tree_to_list" if exists else "from python.object_libs import linked_list_to_list"
+                        modify_in_place_inputs = f"linked_list_to_list(head{idx})"
                     idx += 1
             elif "Node" in str(v.annotation) and "Node" in cs_map and "neighbors" in cs_map["Node"][0][1]:
                 # special handle Neighbour Nodes
@@ -437,6 +450,8 @@ class Python3Writer(LanguageWriter):
             else:
                 process_input += v.name
                 inputs += v.name
+                if modify_in_place and not modify_in_place_inputs:
+                    modify_in_place_inputs = v.name
                 idx += 1
 
         if len(parameters) > 0:
@@ -486,7 +501,8 @@ class Python3Writer(LanguageWriter):
             if not modify_in_place:
                 remain += "        return self.{}({})".format(func_name, inputs)
             else:
-                remain += "        self.{}({})\n        return {}".format(func_name, inputs, inputs)
+                logging.debug("Modify in place complex: func_name [%s], inputs [%s], ", func_name, inputs)
+                remain += "        self.{}({})\n        return {}".format(func_name, inputs, modify_in_place_inputs)
         import_libs.append(add_lib + "\n")
 
         process_input += remain
