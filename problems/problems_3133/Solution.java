@@ -7,7 +7,15 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public long minEnd(int n, int x) {
-
+        long ans = x;
+        n--;
+        for (int i = 0, j = 0; n >> j > 0; i++) {
+            if ((ans >> i & 1) == 0) {
+                ans |= (1L & (n >> j)) << i;
+                j++;
+            }
+        }
+        return ans;
     }
 
     @Override
