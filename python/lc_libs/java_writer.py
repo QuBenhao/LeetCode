@@ -275,6 +275,7 @@ class JavaWriter(LanguageWriter):
         input_parts = strip_line.split("(")[1].split(")")[0].strip().split(",")
         last = [""]
         i = 0
+        logging.debug("input_parts: %s", input_parts)
         while i < len(input_parts):
             input_part = input_parts[i]
             var_split = input_part.strip().split(" ")
@@ -359,7 +360,12 @@ class JavaWriter(LanguageWriter):
         elif return_type == "void":
             parse_input.append("{}({});".format(return_func, ", ".join(variables)))
             logging.debug("Void return type, function: {}, variables: {}".format(return_func, variables))
-            return_part = variables[0]
+            if "ListNode" in input_parts[0]:
+                return_part = f"ListNode.LinkedListToIntArray({variables[0]})"
+            elif "TreeNode" in input_parts[0]:
+                return_part = f"TreeNode.TreeNodeToArray({variables[0]})"
+            else:
+                return_part = variables[0]
         elif "Node" in return_type:
             if "Node left;" in code_default and "Node right;" in code_default and "Node next;" in code_default:
                 additional_import.add("import qubhjava.models.node.next.Node;")

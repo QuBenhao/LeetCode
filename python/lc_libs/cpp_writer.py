@@ -1,7 +1,7 @@
 import logging
 import os.path
 import re
-from typing import Tuple
+from typing import Optional, Tuple
 from python.constants import SOLUTION_TEMPLATE_CPP, TESTCASE_TEMPLATE_CPP
 from collections import deque
 
@@ -112,8 +112,8 @@ class CppWriter(LanguageWriter):
                 sp.strip().split(" ") for sp in functions[0].get("args", "").split(",")
             ]
             process_variables.append("\tSolution solution;")
-            CppWriter._process_variables(variables, process_variables, include_libs, code_default, testcases)
-            CppWriter._process_return_part(ret_type, func_name, variables, code_default, return_part, include_libs)
+            if_modify_in_place = CppWriter._process_variables(variables, process_variables, include_libs, code_default, testcases)
+            CppWriter._process_return_part(ret_type, func_name, variables, code_default, return_part, include_libs, if_modify_in_place)
         elif len(functions) > 1:
             process_variables.append(
                 "\tvector<string> operators = json::parse(inputArray[0]);"
@@ -264,8 +264,9 @@ class CppWriter(LanguageWriter):
         return functions
 
     @staticmethod
-    def _process_variables(variables, process_variables: list, include_libs: list, code_default: str, testcases=None):
+    def _process_variables(variables, process_variables: list, include_libs: list, code_default: str, testcases=None) -> Optional[str]:
         i = 0
+        if_modify_in_place = None
         while i < len(variables):
             variable = variables[i]
             rt = CppWriter._simplify_variable_type(variable)
@@ -321,6 +322,8 @@ class CppWriter(LanguageWriter):
                         + variable[-1]
                         + f" = IntArrayToListNode({variable[1]}_array);"
                     )
+                    if not if_modify_in_place:
+                        if_modify_in_place = f"ListNodeToIntArray({variable[-1]})"
                 case "vector<ListNode*>":
                     if '#include "cpp/models/ListNode.h"' not in include_libs:
                         include_libs.append('#include "cpp/models/ListNode.h"')
@@ -344,6 +347,8 @@ class CppWriter(LanguageWriter):
                         + "_arrays[i]);"
                     )
                     process_variables.append("}")
+                    if not if_modify_in_place:
+                        if_modify_in_place = f"ListNodeToIntArray({variable[-1]}[0])"
                 case "TreeNode":
                     if '#include "cpp/models/TreeNode.h"' not in include_libs:
                         include_libs.append('#include "cpp/models/TreeNode.h"')
@@ -392,6 +397,8 @@ class CppWriter(LanguageWriter):
                         + variable[-1]
                         + f" = JsonArrayToTreeNode({variable[-1]}_array);"
                     )
+                    if not if_modify_in_place:
+                        if_modify_in_place = f"TreeNodeToJsonArray({variable[-1]})"
                 case "vector<TreeNode*>":
                     if '#include "cpp/models/TreeNode.h"' not in include_libs:
                         include_libs.append('#include "cpp/models/TreeNode.h"')
@@ -407,6 +414,8 @@ class CppWriter(LanguageWriter):
                         + variable[-1]
                         + f" = JsonArrayToTreeNodeArray({variable[-1]}_array);"
                     )
+                    if not if_modify_in_place:
+                        if_modify_in_place = f"TreeNodeToJsonArray({variable[-1]}_array[0])"
                 case "char":
                     process_variables.append(
                         f"string {variable[-1]}_string = json::parse(inputArray.at({i}));"
@@ -496,10 +505,11 @@ class CppWriter(LanguageWriter):
                         + f" = json::parse(inputArray.at({i}));"
                     )
             i += 1
+        return if_modify_in_place
 
     @staticmethod
     def _process_return_part(ret_type: str, func_name: str, variables: list, code_default: str, return_part: list,
-                             include_libs: list):
+                             include_libs: list, if_modify_in_place: Optional[str]):
         if "ListNode" in ret_type:
             if '#include "cpp/models/ListNode.h"' not in include_libs:
                 include_libs.append('#include "cpp/models/ListNode.h"')
@@ -552,7 +562,7 @@ class CppWriter(LanguageWriter):
         elif ret_type == "void":
             return_part.append(
                 "\tsolution.{}({});\n\treturn {};".format(
-                    func_name, ", ".join([v[-1] for v in variables]), variables[0][1]
+                    func_name, ", ".join([v[-1] for v in variables]), if_modify_in_place or variables[0][1]
                 )
             )
         else:

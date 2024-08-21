@@ -1,5 +1,5 @@
 use serde_json::{json, Value};
-
+use library::lib::tree_node::{TreeNode, array_to_tree, tree_to_array};
 pub struct Solution;
 
 // Definition for a binary tree node.
@@ -31,7 +31,8 @@ impl Solution {
 #[cfg(feature = "solution_114")]
 pub fn solve(input_string: String) -> Value {
 	let input_values: Vec<String> = input_string.split('\n').map(|x| x.to_string()).collect();
-	let mut root: Option<Rc<RefCell<TreeNode>>> = serde_json::from_str(&input_values[0]).expect("Failed to parse input");
+	let input_vec0: Vec<Option<i32>> = serde_json::from_str(&input_values[0]).expect("Failed to parse input");
+	let mut root: Option<Rc<RefCell<TreeNode>>> = array_to_tree(&input_vec0);
 	Solution::flatten(&mut root);
-	json!(root)
+	json!(tree_to_array(&root))
 }
