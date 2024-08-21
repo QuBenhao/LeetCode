@@ -7,7 +7,15 @@ import (
 )
 
 func minEnd(n int, x int) int64 {
-
+	n--
+	ans := int64(x)
+	for i, j := 0, 0; n>>j > 0; i++ {
+		if (x>>i)&1 == 0 {
+			ans |= int64((n>>j)&1) << i
+			j++
+		}
+	}
+	return ans
 }
 
 func Solve(inputJsonValues string) interface{} {
