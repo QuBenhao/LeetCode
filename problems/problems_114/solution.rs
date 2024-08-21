@@ -25,12 +25,14 @@ use std::cell::RefCell;
 impl Solution {
     pub fn flatten(root: &mut Option<Rc<RefCell<TreeNode>>>) {
 		if let Some(root) = root {
-			Self::flatten(&mut root.borrow_mut().left);
-			Self::flatten(&mut root.borrow_mut().right);
-			let left = root.borrow_mut().left.take();
-			let right = root.borrow_mut().right.take();
-			root.borrow_mut().left = None;
-			root.borrow_mut().right = left;
+			let root_clone = root.clone();
+			let mut mut_root = root_clone.borrow_mut();
+			Self::flatten(&mut mut_root.left);
+			Self::flatten(&mut mut_root.right);
+			let left = mut_root.left.take();
+			let right = mut_root.right.take();
+			mut_root.right = left;
+			drop(mut_root);
 			let mut cur = root.clone();
 			while cur.borrow().right.is_some() {
 				let next = cur.borrow().right.clone().unwrap();
