@@ -1,4 +1,4 @@
-import {TreeNode,JSONArrayToTreeNode} from "../../typescript/models/treenode";
+import {TreeNode,JSONArrayToTreeNode, TreeNodeToJSONArray} from "../../typescript/models/treenode";
 
 /**
  * Definition for a binary tree node.
@@ -18,12 +18,24 @@ import {TreeNode,JSONArrayToTreeNode} from "../../typescript/models/treenode";
  Do not return anything, modify root in-place instead.
  */
 function flatten(root: TreeNode | null): void {
-    
+	if (root === null) {
+		return;
+	}
+	let left: TreeNode | null = root.left;
+	let right: TreeNode | null = root.right;
+	root.left = null;
+	root.right = left;
+	let p: TreeNode | null = root;
+	while (p.right !== null) {
+		p = p.right;
+	}
+	p.right = right;
+	flatten(root.right);
 };
 
 export function Solve(inputJsonElement: string): any {
 	const inputValues: string[] = inputJsonElement.split("\n");
 	const root: TreeNode | null = JSONArrayToTreeNode(JSON.parse(inputValues[0]));
 	flatten(root)
-	return root;
+	return TreeNodeToJSONArray(root);
 }
