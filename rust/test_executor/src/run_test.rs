@@ -22,6 +22,7 @@ fn compare_general(result: &Value, expected: &Value) {
 pub fn run_test(problem_id: &str, problem_folder: &str, solve: fn(String) -> Value) {
     println!("Run [Problem {}] Test Cases", problem_id);
     let (inputs, expected_outputs) = load_test_cases(problem_folder, problem_id);
+    assert!(inputs.len() > 0, "[ERROR] Load testcases failed for problem {}", problem_id);
     panic_after(Duration::from_secs(10), move || {
         for i in 0..inputs.len() {
             let inputs_clone = inputs.clone();

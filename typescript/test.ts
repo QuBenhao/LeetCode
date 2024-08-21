@@ -22,6 +22,7 @@ describe("TestMain===" + PROBLEM_ID, () => {
     const splits: string[] = testcaseFileContent.split("\n");
     const inputs: string = splits[0], outputs: string = splits[1];
     const inputJson: any = JSON.parse(inputs), outputJson: any = JSON.parse(outputs);
+    expect(inputJson.length).toBeGreaterThan(0);
     let fileContent: string = fs.readFileSync(solPath, "utf-8");
     fileContent = fileContent.split('\n').filter(line => !line.trim().startsWith('import ')).join('\n');
     fileContent = fileContent.replace("export function Solve", "function Solve");

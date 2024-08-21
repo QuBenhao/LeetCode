@@ -41,6 +41,9 @@ func processTestcase(problemPath string) (tests []TestCase) {
 	for i, input := range inputs {
 		tests = append(tests, TestCase{input, outputs.([]interface{})[i]})
 	}
+	if len(inputs) == 0 {
+		log.Fatalf("[ERROR] No testcases found! ProblemPath: %s", problemPath)
+	}
 	return
 }
 

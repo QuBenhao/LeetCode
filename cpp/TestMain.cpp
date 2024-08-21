@@ -1,27 +1,26 @@
 //
 // Created by BenHao on 2024/5/21.
 //
+#include <fstream>
+#include <iostream>
+#include <memory>
+#include <sstream>
+#include <utility>
+#include <vector>
 
 #include "TestMain.h"
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <utility>
-#include <memory>
-#include <vector>
 #include "cpp/common/Solution.h"
 #include "tools/cpp/runfiles/runfiles.h"
 
-
-using std::string;
-using std::ifstream;
-using std::stringstream;
-using std::runtime_error;
-using std::vector;
-using std::size_t;
-using std::endl;
 using std::cerr;
 using std::cout;
+using std::endl;
+using std::ifstream;
+using std::runtime_error;
+using std::size_t;
+using std::string;
+using std::stringstream;
+using std::vector;
 using json = nlohmann::json;
 using bazel::tools::cpp::runfiles::Runfiles;
 
@@ -85,40 +84,41 @@ class LeetCodeTest : public LeetCodeSuiteSet {
   explicit LeetCodeTest(TestCase data) : data_(std::move(data)) {}
 
   void TestBody() override {
-        bool isEqual = false;
-        int retries = 0;
-        const int maxRetries = 1e5;  // Set the maximum number of retries
-        cout << "Input: " << data_.GetInput() << endl;
-        cout << "Expected: " << data_.GetExpected() << endl;
-        auto output = leetcode::qubh::Solve(data_.GetInput());
-        while (!isEqual && retries < maxRetries) {
-            if (data_.GetExpected().is_number_float()) {
-                isEqual = std::abs(output.get<double>() - data_.GetExpected().get<double>()) < 1e-6;
-            } else if (output.is_array() && !data_.GetExpected().is_array()) {
-                isEqual = (output[0] == data_.GetExpected());
-            } else {
-                isEqual = (output == data_.GetExpected());
-            }
+    bool isEqual = false;
+    int retries = 0;
+    const int maxRetries = 1e5;  // Set the maximum number of retries
+    cout << "Input: " << data_.GetInput() << endl;
+    cout << "Expected: " << data_.GetExpected() << endl;
+    auto output = leetcode::qubh::Solve(data_.GetInput());
+    while (!isEqual && retries < maxRetries) {
+      if (data_.GetExpected().is_number_float()) {
+        isEqual = std::abs(output.get<double>() -
+                           data_.GetExpected().get<double>()) < 1e-6;
+      } else if (output.is_array() && !data_.GetExpected().is_array()) {
+        isEqual = (output[0] == data_.GetExpected());
+      } else {
+        isEqual = (output == data_.GetExpected());
+      }
 
-            if (!isEqual) {
-                auto secondOutput = leetcode::qubh::Solve(data_.GetInput());
-                if (retries == 0 && secondOutput == output) {
-                    break;
-                }
-                output = secondOutput;
-                retries++;
-            }
+      if (!isEqual) {
+        auto secondOutput = leetcode::qubh::Solve(data_.GetInput());
+        if (retries == 0 && secondOutput == output) {
+          break;
         }
+        output = secondOutput;
+        retries++;
+      }
+    }
 
-        if (data_.GetExpected().is_number_float()) {
-            ASSERT_DOUBLE_EQ(output.get<double>(), data_.GetExpected().get<double>());
-        } else {
-            if (output.is_array() && !data_.GetExpected().is_array()) {
-                ASSERT_EQ(output[0], data_.GetExpected());
-            } else {
-                ASSERT_EQ(output, data_.GetExpected());
-            }
-        }
+    if (data_.GetExpected().is_number_float()) {
+      ASSERT_DOUBLE_EQ(output.get<double>(), data_.GetExpected().get<double>());
+    } else {
+      if (output.is_array() && !data_.GetExpected().is_array()) {
+        ASSERT_EQ(output[0], data_.GetExpected());
+      } else {
+        ASSERT_EQ(output, data_.GetExpected());
+      }
+    }
   }
 
  private:
@@ -126,6 +126,9 @@ class LeetCodeTest : public LeetCodeSuiteSet {
 };
 
 void RegisterMyTests(const vector<TestCase> &values) {
+  if (values.empty()) {
+    FAIL() << "Empty testcases!";
+  }
   for (size_t i = 0; i < values.size(); i++) {
     testing::RegisterTest(
         "LeetCode Solution Test", ("Testcase" + to_string(i)).c_str(), nullptr,

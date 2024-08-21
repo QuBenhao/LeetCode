@@ -42,6 +42,7 @@ for (const [problemId, problemFolder] of PROBLEMS) {
 
         test(`Test solution ${problemId}`, () => {
             expect(script).toBeDefined();
+            expect(inputJson.length).toBeGreaterThan(0);
             for (let i: number = 0; i < inputJson.length; i++) {
                 CompareResults(script, inputJson[i], outputJson[i]);
             }
