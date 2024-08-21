@@ -146,7 +146,10 @@ class Python3Writer(LanguageWriter):
 
     @staticmethod
     def write_testcase(testcases, outputs) -> str:
-        if len(testcases) != len(outputs):
+        if len(testcases) == 0 or len(outputs) == 0:
+            logging.error("No testcases or outputs found, please check the problem."
+                          " Testcases: %s, Outputs: %s", testcases, outputs)
+        elif len(testcases) != len(outputs):
             logging.warning("Testcases [%d] and outputs [%d] are not the same length, "
                             "please check the testcases and outputs", len(testcases), len(outputs))
         res = ""
@@ -154,9 +157,6 @@ class Python3Writer(LanguageWriter):
             res += (TESTCASE_TEMPLATE_PYTHON_TESTCASES
                     .format(f"\"{inputs}\"" if isinstance(inputs, str) else inputs,
                             f"\"{output}\"" if isinstance(output, str) else output))
-        if len(testcases) == 0 or len(outputs) == 0:
-            logging.error("No testcases or outputs found, please check the problem."
-                          " Testcases: %s, Outputs: %s", testcases, outputs)
         return TESTCASE_TEMPLATE_PYTHON.format(res)
 
     @staticmethod

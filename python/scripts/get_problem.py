@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import random
+import re
 import shutil
 import sys
 import time
@@ -69,9 +70,23 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
     outputs = extract_outputs_from_md(desc, is_chinese)
     logging.info(f"Load question_id: {problem_id}, test cases outputs: {outputs}")
     testcases, testcase_str = get_question_testcases(problem_slug)
-    if testcases is None:
+    if not testcases:
         logging.warning(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}")
-        return
+        # try getting the original question slug
+        if "本题与主站" not in desc:
+            return
+        logging.debug("Try to get the original question slug")
+        match = re.search(r"https://(?:leetcode-cn\.com|leetcode\.cn)/problems/(.*?)/\"", desc)
+        if not match:
+            logging.debug("Failed to get the original question slug, %s", problem_id)
+            return
+        slug = match.group(1)
+        logging.debug(f"Found the original question slug: {slug}")
+        testcases, testcase_str = get_question_testcases(slug)
+        if not testcases:
+            logging.warning(f"Unable to fetch question testcases with origin, [{problem_id}]{problem_slug}")
+            return
+        logging.info(f"Load question_id from origin question: {slug}, test cases outputs: {testcases}")
     if not os.path.exists(f"{dir_path}/testcase.py"):
         with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
             f.write(Python3Writer.write_testcase(testcases, outputs))

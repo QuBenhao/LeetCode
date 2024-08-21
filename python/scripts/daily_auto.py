@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import traceback
 import logging
@@ -60,7 +61,19 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
             with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
                 f.write(Python3Writer.write_problem_md(question_id, question_name, desc, rating=question_rating))
         testcases, testcase_str = get_question_testcases(slug)
-        if testcases is not None:
+        if not testcases:
+            logging.warning(f"Unable to fetch question testcases, [{question_id}]{slug}")
+            # try getting the original question slug
+            if "本题与主站" in desc:
+                logging.debug("Try to get the original question slug")
+                match = re.search(r"https://(?:leetcode-cn\.com|leetcode\.cn)/problems/(.*?)/\"", desc)
+                if match:
+                    origin_slug = match.group(1)
+                    logging.debug(f"Found the original question slug: {origin_slug}")
+                    testcases, testcase_str = get_question_testcases(origin_slug)
+                    if testcases:
+                        logging.info(f"Load question_id from origin question: {slug}, test cases outputs: {testcases}")
+        if testcases:
             outputs = extract_outputs_from_md(desc, is_chinese)
             logging.debug(f"Parse question_id: {question_id}, teat cases outputs: {outputs}")
             if (not languages or "python3" in languages) and not os.path.exists(f"{dir_path}/testcase.py"):
