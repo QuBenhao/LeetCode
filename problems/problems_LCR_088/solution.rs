@@ -3,9 +3,15 @@ use serde_json::{json, Value};
 
 pub struct Solution;
 
+use std::cmp::min;
 impl Solution {
     pub fn min_cost_climbing_stairs(cost: Vec<i32>) -> i32 {
-
+		let n = cost.len();
+		let mut dp = vec![0; 3];
+		for i in 2..n + 1 {
+			dp[i % 3] = min(dp[(i - 1) % 3] + cost[i - 1], dp[(i - 2) % 3] + cost[i - 2]);
+		}
+		dp[n % 3]
     }
 }
 
