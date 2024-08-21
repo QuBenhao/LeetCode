@@ -17,12 +17,12 @@ impl ListNode {
 
 pub fn int_array_to_list_node(arr: &Vec<i32>) -> Option<Box<ListNode>> {
     let mut dummy = Some(Box::new(ListNode::new(0)));
-    let mut p = dummy.as_mut().unwrap();
+    let mut p = dummy.as_mut()?;
     for i in arr {
         p.next = Some(Box::new(ListNode::new(*i)));
-        p = p.next.as_mut().unwrap();
+        p = p.next.as_mut()?;
     }
-    dummy.unwrap().next
+    dummy?.next
 }
 
 pub fn list_node_to_int_array(head: &Option<Box<ListNode>>) -> Vec<i32> {

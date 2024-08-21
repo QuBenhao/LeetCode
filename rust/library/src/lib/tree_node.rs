@@ -25,25 +25,28 @@ pub fn array_to_tree(arr: &Vec<Option<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
     if arr.is_empty() {
         return None;
     }
-    let root: Option<Rc<RefCell<TreeNode>>> = Some(Rc::new(RefCell::new(TreeNode::new(arr[0].unwrap()))));
-    let mut queue = VecDeque::new();
-    let mut cur_node = root.clone();
-    let mut is_left = true;
-    for i in 1..arr.len() {
-        let num = arr[i];
-        if num.is_some() {
-            let node = Rc::new(RefCell::new(TreeNode::new(num.unwrap())));
-            if is_left {
-                cur_node.as_ref().unwrap().borrow_mut().left = Some(node.clone());
-            } else {
-                cur_node.as_ref().unwrap().borrow_mut().right = Some(node.clone());
+    let root: Option<Rc<RefCell<TreeNode>>> = Some(Rc::new(RefCell::new(TreeNode::new(arr[0]?))));
+    if let Some(mut cur_node) = root.clone() {
+        let mut queue = VecDeque::new();
+        let mut is_left = true;
+        for i in 1..arr.len() {
+            let num = arr[i];
+            if num.is_some() {
+                let node = Rc::new(RefCell::new(TreeNode::new(num?)));
+                if is_left {
+                    cur_node.borrow_mut().left = Some(node.clone());
+                } else {
+                    cur_node.borrow_mut().right = Some(node.clone());
+                }
+                queue.push_back(node.clone());
             }
-            queue.push_back(node.clone());
+            if !is_left {
+                if let Some(next) = queue.pop_front() {
+                    cur_node = next;
+                }
+            }
+            is_left = !is_left;
         }
-        if !is_left {
-            cur_node = queue.pop_front();
-        }
-        is_left = !is_left;
     }
     root
 }
@@ -52,7 +55,7 @@ pub fn array_to_tree_with_targets(arr: &Vec<Option<i32>>, targets: Vec<i32>) -> 
     let tree = array_to_tree(&arr);
     let mut result_nodes = vec![None; targets.len() + 1];
 
-    let mut queue = std::collections::VecDeque::new();
+    let mut queue = VecDeque::new();
     if let Some(root) = &tree {
         queue.push_back(root.clone());
         result_nodes[0] = Some(root.clone());
@@ -85,14 +88,12 @@ pub fn tree_to_array(root: &Option<Rc<RefCell<TreeNode>>>) -> Vec<Option<i32>> {
     let mut queue = VecDeque::new();
     queue.push_back(root.clone());
     while !queue.is_empty() {
-        let node = queue.pop_front().unwrap();
-        if node.is_none() {
-            res.push(None);
-        } else {
-            let node = node.unwrap();
+        if let Some(node) = queue.pop_front().unwrap() {
             res.push(Some(node.borrow().val));
             queue.push_back(node.borrow().left.clone());
             queue.push_back(node.borrow().right.clone());
+        } else {
+            res.push(None);
         }
     }
     while res.last().unwrap().is_none() {
