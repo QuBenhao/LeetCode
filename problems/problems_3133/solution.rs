@@ -4,7 +4,19 @@ pub struct Solution;
 
 impl Solution {
     pub fn min_end(n: i32, x: i32) -> i64 {
-
+		let mut n = n;
+		n -= 1;
+		let mut x: i64 = x as i64;
+		let mut i: i64 = 0;
+		let mut j: i32 = 0;
+		while n >> j > 0 {
+			if ((x >> i) & 1) == 0 {
+				x |= ((n >> j & 1) as i64) << i;
+				j += 1;
+			}
+			i += 1;
+		}
+		x
     }
 }
 

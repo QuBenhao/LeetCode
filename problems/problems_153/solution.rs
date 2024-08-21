@@ -4,7 +4,20 @@ pub struct Solution;
 
 impl Solution {
     pub fn find_min(nums: Vec<i32>) -> i32 {
-
+		let mut left: usize = 0;
+		let mut right: usize = nums.len() - 1;
+		while left < right {
+			if nums[left] < nums[right] {
+				return nums[left];
+			}
+			let mid: usize = left + (right - left) / 2;
+			if nums[mid] < nums[right] {
+				right = mid;
+			} else {
+				left = mid + 1;
+			}
+		}
+		nums[left]
     }
 }
 
