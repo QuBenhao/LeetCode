@@ -1,7 +1,7 @@
 import logging
 import os.path
 from collections import defaultdict, deque
-from typing import Tuple
+from typing import Optional, Tuple
 
 from python.constants import SOLUTION_TEMPLATE_TYPESCRIPT
 from python.lc_libs.language_writer import LanguageWriter
@@ -80,8 +80,8 @@ class TypescriptWriter(LanguageWriter):
             process_inputs = []
             var_names = []
             func = functions[0]
-            self._process_variables(func, process_inputs, var_names, import_part, code_default, testcases)
-            return_part = self._process_return(func, process_inputs, var_names, import_part, code_default)
+            modify_in_place_if = self._process_variables(func, process_inputs, var_names, import_part, code_default, testcases)
+            return_part = self._process_return(func, process_inputs, var_names, import_part, code_default, modify_in_place_if)
             return SOLUTION_TEMPLATE_TYPESCRIPT.format(
                 "" if not import_part else "\n".join(
                     ["import {" + ",".join(v) + "} from " + k for k, v in import_part.items()]) + "\n\n",
@@ -179,8 +179,9 @@ class TypescriptWriter(LanguageWriter):
             final_codes.pop()
         return "\n".join(final_codes), problem_id
 
-    def _process_variables(self, func, process_inputs, var_names, import_part, code_default: str, testcases=None):
+    def _process_variables(self, func, process_inputs, var_names, import_part, code_default: str, testcases=None) -> Optional[str]:
         i = 0
+        modify_in_place_if = None
         while i < len(func[1]):
             variable = func[1][i]
             var_name = variable.split(":")[0]
@@ -224,6 +225,8 @@ class TypescriptWriter(LanguageWriter):
                     import_part[self._LIST_NODE_PATH].add("ListNode")
                     import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedList")
                     process_inputs.append(f"const {variable} = IntArrayToLinkedList(JSON.parse(inputValues[{i}]));")
+                    if not modify_in_place_if:
+                        modify_in_place_if = f"LinkedListToIntArray({var_name})"
                 case "TreeNode | null":
                     if testcases:
                         if len(func[1]) == len(testcases[0]) + 1:
@@ -266,6 +269,8 @@ class TypescriptWriter(LanguageWriter):
                     import_part[self._TREE_NODE_PATH].add("TreeNode")
                     import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNode")
                     process_inputs.append(f"const {variable} = JSONArrayToTreeNode(JSON.parse(inputValues[{i}]));")
+                    if not modify_in_place_if:
+                        modify_in_place_if = f"TreeNodeToJSONArray({var_name})"
                 case "Array<ListNode | null>":
                     import_part[self._LIST_NODE_PATH].add("ListNode")
                     import_part[self._LIST_NODE_PATH].add("IntArrayToLinkedList")
@@ -274,11 +279,15 @@ class TypescriptWriter(LanguageWriter):
                     process_inputs.append(f"for (let i = 0; i < jsonArray{i}.length; i++) {{")
                     process_inputs.append(f"\t{var_name}.push(IntArrayToLinkedList(jsonArray{i}[i]));")
                     process_inputs.append("}")
+                    if not modify_in_place_if:
+                        modify_in_place_if = f"LinkedListToIntArray({var_name}[0])"
                 case "Array<TreeNode | null>":
                     import_part[self._TREE_NODE_PATH].add("TreeNode")
                     import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNodeArray")
                     process_inputs.append(
                         f"const {variable} = JSONArrayToTreeNodeArray(JSON.parse(inputValues[{i}]));")
+                    if not modify_in_place_if:
+                        modify_in_place_if = f"TreeNodeToJSONArray({var_name}[0])"
                 case "_Node | null":
                     if "left: _Node | null" in code_default and "right: _Node | null" in code_default and \
                             "next: _Node | null" in code_default:
@@ -303,8 +312,9 @@ class TypescriptWriter(LanguageWriter):
                 case _:
                     process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
             i += 1
+        return modify_in_place_if
 
-    def _process_return(self, func, process_inputs, var_names, import_part, code_default: str) -> str:
+    def _process_return(self, func, process_inputs, var_names, import_part, code_default: str, modify_in_place_if: Optional[str]) -> str:
         match func[2]:
             case "ListNode | null":
                 import_part[self._LIST_NODE_PATH].add("ListNode")
@@ -333,8 +343,14 @@ class TypescriptWriter(LanguageWriter):
                     logging.debug(f"Please implement the return part for _Node, {code_default}")
             case "void":
                 process_inputs.append("{}({})".format(func[0], ", ".join(var_names)))
-                logging.debug("process_inputs: %s, var_names: %s", process_inputs, var_names)
-                return_part = var_names[0]
+                logging.debug("process_inputs: %s, var_names: %s, modify_in_place: %s", process_inputs, var_names, modify_in_place_if)
+                return_part = modify_in_place_if or var_names[0]
+                if modify_in_place_if:
+                    extra_import = modify_in_place_if.split("(")[0]
+                    logging.debug("import_part: %s", import_part)
+                    for v in import_part.values():
+                        if ("ListNode" in v and "ListNode" in extra_import) or ("TreeNode" in v and "TreeNode" in extra_import):
+                            v.add(extra_import)
             case _:
                 return_part = "{}({})".format(func[0], ", ".join(var_names))
         return return_part
