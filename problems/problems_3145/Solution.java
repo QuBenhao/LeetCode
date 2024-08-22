@@ -12,7 +12,7 @@ public class Solution extends BaseSolution {
 
     @Override
     public Object solve(String[] inputJsonValues) {
-        long[][] queries = FIXME(inputJsonValues[0])
+        long[][] queries = jsonArrayToLong2DArray(inputJsonValues[0]);
         return JSON.toJSON(findProductsOfElements(queries));
     }
 }

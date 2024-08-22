@@ -36,6 +36,55 @@ public abstract class BaseSolution {
         return result;
     }
 
+    protected long[] jsonArrayToLongArray(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        long[] result = new long[jsonArray.size()];
+        for (int i = 0; i < jsonArray.size(); i++) {
+            result[i] = Long.parseLong(jsonArray.getString(i));
+        }
+        return result;
+    }
+
+    protected long[][] jsonArrayToLong2DArray(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        long[][] result = new long[jsonArray.size()][];
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONArray innerArray = jsonArray.getJSONArray(i);
+            result[i] = new long[innerArray.size()];
+            for (int j = 0; j < innerArray.size(); j++) {
+                result[i][j] = Long.parseLong(innerArray.getString(j));
+            }
+        }
+        return result;
+    }
+
+    protected float[] jsonArrayToFloatArray(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        float[] result = new float[jsonArray.size()];
+        for (int i = 0; i < jsonArray.size(); i++) {
+            result[i] = Float.parseFloat(jsonArray.getString(i));
+        }
+        return result;
+    }
+
+    protected double[] jsonArrayToDoubleArray(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        double[] result = new double[jsonArray.size()];
+        for (int i = 0; i < jsonArray.size(); i++) {
+            result[i] = Double.parseDouble(jsonArray.getString(i));
+        }
+        return result;
+    }
+
+    protected boolean[] jsonArrayToBooleanArray(String jsonString) {
+        JSONArray jsonArray = JSON.parseArray(jsonString);
+        boolean[] result = new boolean[jsonArray.size()];
+        for (int i = 0; i < jsonArray.size(); i++) {
+            result[i] = Boolean.parseBoolean(jsonArray.getString(i));
+        }
+        return result;
+    }
+
     protected String[] jsonArrayToStringArray(String jsonString) {
         JSONArray jsonArray = JSON.parseArray(jsonString);
         String[] result = new String[jsonArray.size()];
