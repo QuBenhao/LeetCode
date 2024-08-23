@@ -61,8 +61,7 @@ jobs:
       continue-on-error: true
       run: |
         npm install || echo "Failed to install npm packages"
-        npm audit fix || echo "Failed to fix npm audit"
-        npm audit fix --force --no-save || echo "Failed to fix npm audit"
+        npm audit fix --force || echo "Failed to fix npm audit"
 
     - name: Set up rust-cargo
       continue-on-error: true
