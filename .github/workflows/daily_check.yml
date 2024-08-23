@@ -60,8 +60,7 @@ jobs:
     - name: Set up TypeScript
       continue-on-error: true
       run: |
-        npm install || echo "Failed to install npm packages"
-        npm audit fix --force || echo "Failed to fix npm audit"
+        npm install
 
     - name: Set up rust-cargo
       continue-on-error: true
