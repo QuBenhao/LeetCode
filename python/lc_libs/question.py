@@ -88,6 +88,7 @@ def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
                                            [lambda s: s.split("\n")[0].split("`")[1].strip(),
                                             lambda s: s.split("\n")[0].split(">")[-1].strip(),
                                             lambda s: s.split("\n")[1].strip(),
+                                            lambda s: s.split("</pre>")[0].split("</strong>")[-1].strip(),
                                             ]):
             tmp = ""
             try:
