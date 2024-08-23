@@ -53,6 +53,7 @@ class Test(unittest.TestCase):
                 for test in testcase_obj.get_testcases():
                     with self.subTest(f"testcase: {test}", testcase=test):
                         i, o = test
+                        logging.info("Testing problem: {}, input: {}".format(q, i))
                         try:
                             result = exec_solution(solution_obj, i)
                         except TimeoutError as _:
