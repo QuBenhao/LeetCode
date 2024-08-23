@@ -1,14 +1,34 @@
+import {MaxPriorityQueue, MinPriorityQueue} from "@datastructures-js/priority-queue";
+
+
 class MedianFinder {
+	left: MaxPriorityQueue<number>;
+	right: MinPriorityQueue<number>;
     constructor() {
-        
+		this.left = new MaxPriorityQueue();
+		this.right = new MinPriorityQueue();
     }
 
     addNum(num: number): void {
-        
+		if (this.left.size() == this.right.size()) {
+			if (this.right.isEmpty() || num <= this.right.front()) {
+				this.left.enqueue(num);
+			} else {
+				this.left.enqueue(this.right.dequeue());
+				this.right.enqueue(num);
+			}
+		} else {
+			if (num >= this.left.front()) {
+				this.right.enqueue(num);
+			} else {
+				this.right.enqueue(this.left.dequeue());
+				this.left.enqueue(num);
+			}
+		}
     }
 
     findMedian(): number {
-        
+        return this.left.size() === this.right.size()? (this.left.front() + this.right.front()) / 2 : this.left.front();
     }
 }
 

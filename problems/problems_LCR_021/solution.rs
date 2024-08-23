@@ -21,7 +21,23 @@ pub struct Solution;
 // }
 impl Solution {
     pub fn remove_nth_from_end(head: Option<Box<ListNode>>, n: i32) -> Option<Box<ListNode>> {
-
+		let mut dummy = Some(Box::new(ListNode{val: 0, next: head}));
+		let mut slow = &mut dummy;
+		let mut fast = &slow.clone();
+		for _ in 0..=n {
+			if let Some(node) = fast {
+				fast = &node.next;
+			} else {
+				return None;
+			}
+		}
+		while fast.is_some() {
+			slow = &mut slow.as_mut()?.next;
+			fast = & fast.as_ref()?.next;
+		}
+		let remove_node = &mut slow.as_mut().unwrap().next;
+		slow.as_mut()?.next = remove_node.as_mut()?.next.take();
+		dummy?.next
     }
 }
 

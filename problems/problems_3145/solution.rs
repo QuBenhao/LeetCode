@@ -46,7 +46,7 @@ impl Solution {
     }
 
     // 计算 <= x 所有数的数位1的和
-    fn count_one(mut x: i64) -> i64 {
+    fn count_one(x: i64) -> i64 {
         let mut res = 0i64;
         let mut sum = 0i64;
 
@@ -64,7 +64,7 @@ impl Solution {
     }
 
     // 计算 <= x 所有数的数位对幂的贡献之和
-    fn count_pow(mut x: i64) -> i64 {
+    fn count_pow(x: i64) -> i64 {
         let mut res = 0i64;
         let mut sum = 0i64;
         for i in (0..=60).rev() {

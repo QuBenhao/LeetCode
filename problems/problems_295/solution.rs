@@ -1,8 +1,10 @@
 use serde_json::{json, Value};
 
+use std::{cmp::Reverse, collections::BinaryHeap};
 
 struct MedianFinder {
-
+	left: BinaryHeap<i32>,
+	right: BinaryHeap<Reverse<i32>>,
 }
 
 
@@ -13,15 +15,47 @@ struct MedianFinder {
 impl MedianFinder {
 
     fn new() -> Self {
-
+		let left = BinaryHeap::new();
+		let right = BinaryHeap::new();
+		MedianFinder {
+			left,
+			right
+		}
     }
     
-    fn add_num(&self, num: i32) {
-
+    fn add_num(&mut self, num: i32) {
+		let left = &mut self.left;
+		let right = &mut self.right;
+		if left.len() == right.len() {
+			if right.is_empty() || num <= right.peek().unwrap().0 {
+				left.push(num);
+			} else {
+				if let Some(v) = right.pop() {
+					left.push(v.0);
+				}
+				right.push(Reverse(num));
+			}
+		} else {
+			if let Some(v) = left.peek() {
+				if num >= *v {
+					right.push(Reverse(num));
+				} else {
+					right.push(Reverse(*v));
+					left.pop();
+					left.push(num);
+				}
+			}
+		}
     }
     
     fn find_median(&self) -> f64 {
-
+		let left = &self.left;
+		let right = &self.right;
+		if left.len() == right.len() {
+			(*left.peek().unwrap() + right.peek().unwrap().0) as f64 / 2.0
+		} else {
+			*left.peek().unwrap() as f64
+		}
     }
 }
 

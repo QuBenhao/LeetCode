@@ -1,22 +1,41 @@
 package problems.problems_295;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+
 import com.alibaba.fastjson.JSON;
-import java.util.*;
+
 import qubhjava.BaseSolution;
 
 
 class MedianFinder {
-
+	PriorityQueue<Integer> left, right;
     public MedianFinder() {
-
+		left = new PriorityQueue<>((a, b) -> b - a);
+		right = new PriorityQueue<>((a, b) -> a - b);
     }
     
     public void addNum(int num) {
-
+		if (left.size() == right.size()) {
+			if (right.isEmpty() || num <= right.peek()) {
+				left.add(num);
+			} else {
+				left.add(right.poll());
+				right.add(num);
+			}
+		} else {
+			if (num >= left.peek()) {
+				right.add(num);
+			} else {
+				right.add(left.poll());
+				left.add(num);
+			}
+		}
     }
     
     public double findMedian() {
-
+		return left.size() == right.size() ? (left.peek() + right.peek()) / 2.0 : left.peek();
     }
 }
 
