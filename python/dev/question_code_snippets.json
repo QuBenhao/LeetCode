@@ -2638,5 +2638,104 @@
                 "code": "; Definition for a binary tree node.\n#|\n\n; val : integer?\n; left : (or/c tree-node? #f)\n; right : (or/c tree-node? #f)\n(struct tree-node\n  (val left right) #:mutable #:transparent)\n\n; constructor\n(define (make-tree-node [val 0])\n  (tree-node val #f #f))\n\n|#\n\n(define/contract (flatten root)\n  (-> (or/c tree-node? #f) void?)\n  )"
             }
         ]
+    },
+    {
+        "3145": [
+            {
+                "lang": "C++",
+                "langSlug": "cpp",
+                "code": "class Solution {\npublic:\n    vector<int> findProductsOfElements(vector<vector<long long>>& queries) {\n        \n    }\n};"
+            },
+            {
+                "lang": "Java",
+                "langSlug": "java",
+                "code": "class Solution {\n    public int[] findProductsOfElements(long[][] queries) {\n\n    }\n}"
+            },
+            {
+                "lang": "Python",
+                "langSlug": "python",
+                "code": "class Solution(object):\n    def findProductsOfElements(self, queries):\n        \"\"\"\n        :type queries: List[List[int]]\n        :rtype: List[int]\n        \"\"\""
+            },
+            {
+                "lang": "Python3",
+                "langSlug": "python3",
+                "code": "class Solution:\n    def findProductsOfElements(self, queries: List[List[int]]) -> List[int]:"
+            },
+            {
+                "lang": "C",
+                "langSlug": "c",
+                "code": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nint* findProductsOfElements(long long** queries, int queriesSize, int* queriesColSize, int* returnSize) {\n    \n}"
+            },
+            {
+                "lang": "C#",
+                "langSlug": "csharp",
+                "code": "public class Solution {\n    public int[] FindProductsOfElements(long[][] queries) {\n\n    }\n}"
+            },
+            {
+                "lang": "JavaScript",
+                "langSlug": "javascript",
+                "code": "/**\n * @param {number[][]} queries\n * @return {number[]}\n */\nvar findProductsOfElements = function(queries) {\n\n};"
+            },
+            {
+                "lang": "TypeScript",
+                "langSlug": "typescript",
+                "code": "function findProductsOfElements(queries: number[][]): number[] {\n    \n};"
+            },
+            {
+                "lang": "PHP",
+                "langSlug": "php",
+                "code": "class Solution {\n\n    /**\n     * @param Integer[][] $queries\n     * @return Integer[]\n     */\n    function findProductsOfElements($queries) {\n\n    }\n}"
+            },
+            {
+                "lang": "Swift",
+                "langSlug": "swift",
+                "code": "class Solution {\n    func findProductsOfElements(_ queries: [[Int]]) -> [Int] {\n\n    }\n}"
+            },
+            {
+                "lang": "Kotlin",
+                "langSlug": "kotlin",
+                "code": "class Solution {\n    fun findProductsOfElements(queries: Array<LongArray>): IntArray {\n\n    }\n}"
+            },
+            {
+                "lang": "Dart",
+                "langSlug": "dart",
+                "code": "class Solution {\n  List<int> findProductsOfElements(List<List<int>> queries) {\n    \n  }\n}"
+            },
+            {
+                "lang": "Go",
+                "langSlug": "golang",
+                "code": "func findProductsOfElements(queries [][]int64) []int {\n\n}"
+            },
+            {
+                "lang": "Ruby",
+                "langSlug": "ruby",
+                "code": "# @param {Integer[][]} queries\n# @return {Integer[]}\ndef find_products_of_elements(queries)\n\nend"
+            },
+            {
+                "lang": "Scala",
+                "langSlug": "scala",
+                "code": "object Solution {\n    def findProductsOfElements(queries: Array[Array[Long]]): Array[Int] = {\n        \n    }\n}"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "impl Solution {\n    pub fn find_products_of_elements(queries: Vec<Vec<i64>>) -> Vec<i32> {\n\n    }\n}"
+            },
+            {
+                "lang": "Racket",
+                "langSlug": "racket",
+                "code": "(define/contract (find-products-of-elements queries)\n  (-> (listof (listof exact-integer?)) (listof exact-integer?))\n  )"
+            },
+            {
+                "lang": "Erlang",
+                "langSlug": "erlang",
+                "code": "-spec find_products_of_elements(Queries :: [[integer()]]) -> [integer()].\nfind_products_of_elements(Queries) ->\n  ."
+            },
+            {
+                "lang": "Elixir",
+                "langSlug": "elixir",
+                "code": "defmodule Solution do\n  @spec find_products_of_elements(queries :: [[integer]]) :: [integer]\n  def find_products_of_elements(queries) do\n    \n  end\nend"
+            }
+        ]
     }
 ]
