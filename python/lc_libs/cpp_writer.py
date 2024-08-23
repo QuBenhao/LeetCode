@@ -109,11 +109,14 @@ class CppWriter(LanguageWriter):
             ret_type = functions[0].get("ret_type", "").strip()
             func_name = functions[0].get("name", "")
             variables = [
-                sp.strip().split(" ") for sp in functions[0].get("args", "").split(",")
+                [" ".join(sp.strip().split(" ")[:-1]), sp.strip().split(" ")[-1]]
+                for sp in functions[0].get("args", "").split(",")
             ]
             process_variables.append("\tSolution solution;")
-            if_modify_in_place = CppWriter._process_variables(variables, process_variables, include_libs, code_default, testcases)
-            CppWriter._process_return_part(ret_type, func_name, variables, code_default, return_part, include_libs, if_modify_in_place)
+            if_modify_in_place = CppWriter._process_variables(variables, process_variables, include_libs, code_default,
+                                                              testcases)
+            CppWriter._process_return_part(ret_type, func_name, variables, code_default, return_part, include_libs,
+                                           if_modify_in_place)
         elif len(functions) > 1:
             process_variables.append(
                 "\tvector<string> operators = json::parse(inputArray[0]);"
@@ -128,7 +131,8 @@ class CppWriter(LanguageWriter):
                 if name and name[0].isupper() and f.get("ret_type", "") == "":
                     cur = f"auto obj{i} = make_shared<{name}>("
                     variables = (
-                        [sp.strip().split(" ") for sp in f.get("args", "").split(",")]
+                        [[" ".join(sp.strip().split(" ")[:-1]), sp.strip().split(" ")[-1]]
+                         for sp in f.get("args", "").split(",")]
                         if f.get("args", "")
                         else []
                     )
@@ -264,7 +268,8 @@ class CppWriter(LanguageWriter):
         return functions
 
     @staticmethod
-    def _process_variables(variables, process_variables: list, include_libs: list, code_default: str, testcases=None) -> Optional[str]:
+    def _process_variables(variables, process_variables: list, include_libs: list, code_default: str, testcases=None) -> \
+            Optional[str]:
         i = 0
         if_modify_in_place = None
         while i < len(variables):
@@ -299,11 +304,14 @@ class CppWriter(LanguageWriter):
                             variables[0][-1] = variables[0][-1][1:]
                             variables[1][-1] = variables[1][-1][1:]
                             process_variables.append(f"int iv = json::parse(inputArray.at({i}));")
-                            process_variables.append(f"std::vector<int> {variables[0][1]}_array = json::parse(inputArray.at({i + 1}));")
-                            process_variables.append(f"std::vector<int> {variables[1][1]}_array = json::parse(inputArray.at({i + 2}));")
+                            process_variables.append(
+                                f"std::vector<int> {variables[0][1]}_array = json::parse(inputArray.at({i + 1}));")
+                            process_variables.append(
+                                f"std::vector<int> {variables[1][1]}_array = json::parse(inputArray.at({i + 2}));")
                             process_variables.append(f"int skip_a = json::parse(inputArray.at({i + 3}));")
                             process_variables.append(f"int skip_b = json::parse(inputArray.at({i + 4}));")
-                            process_variables.append(f"auto tp = IntArrayToIntersectionListNode(iv, {variables[0][1]}_array, {variables[1][1]}_array, skip_a, skip_b);")
+                            process_variables.append(
+                                f"auto tp = IntArrayToIntersectionListNode(iv, {variables[0][1]}_array, {variables[1][1]}_array, skip_a, skip_b);")
                             process_variables.append(f"ListNode *{variables[0][1]} = get<0>(tp);")
                             process_variables.append(f"ListNode *{variables[1][1]} = get<1>(tp);")
                             i += 5
@@ -574,6 +582,7 @@ class CppWriter(LanguageWriter):
 
     @staticmethod
     def _simplify_variable_type(variable: list[str]) -> str:
+        logging.debug("Simplifying variable type: \"%s\"", variable)
         if len(variable) > 2:
             return " ".join(variable[:-1])
         return variable[0] if not variable[0].endswith("&") and not variable[0].endswith("*") else variable[0][:-1]
