@@ -1,4 +1,4 @@
-import {ListNode,LinkedListToIntArray,IntArrayToLinkedList} from "../../typescript/models/listnode";
+import {IntArrayToLinkedList,ListNode,LinkedListToIntArray} from "../../typescript/models/listnode";
 
 /**
  * Definition for singly-linked list.
