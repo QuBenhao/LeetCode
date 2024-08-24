@@ -17,7 +17,32 @@ import {JSONArrayToNodeRandom,NodeRandom as _Node,NodeRandomToJSONArray} from ".
 
 
 function copyRandomList(head: _Node | null): _Node | null {
-    
+	if (head === null) {
+		return null;
+	}
+	let current: _Node | null = head;
+	while (current !== null) {
+		const copy: _Node = new _Node(current.val, null, null);
+		copy.next = current.next;
+		current.next = copy;
+		current = copy.next;
+	}
+	current = head;
+	while (current !== null) {
+		if (current.random !== null) {
+			current.next!.random = current.random.next;
+		}
+		current = current.next!.next;
+	}
+	current = head;
+	const newHead: _Node = head.next;
+	while (current !== null) {
+		const copied = current.next;
+		current.next = copied!.next;
+		copied.next = current.next !== null ? current.next.next : null;
+		current = current.next;
+	}
+	return newHead;
 };
 
 export function Solve(inputJsonElement: string): any {
