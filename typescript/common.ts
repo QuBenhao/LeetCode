@@ -36,8 +36,12 @@ import {MaxPriorityQueue, MinPriorityQueue, PriorityQueue} from "@datastructures
 const vm = require('node:vm');
 
 // @ts-ignore
-export function CompareResults(script: vm.Script, inputJson: any, outputJson: any) {
+export function CompareResults(script: vm.Script, inputJson: any, outputJson: any, NodeClass: String | null): void {
     console.log(`Input: ${inputJson}, Expected: ${outputJson}`);
+    const nodeClassMap: Map<String, any> = new Map<String, any>();
+    nodeClassMap.set("NodeNext", NodeNext);
+    nodeClassMap.set("NodeNeighbors", NodeNeighbors);
+    nodeClassMap.set("NodeRandom", NodeRandom);
     const context = {
         testInputJsonString: inputJson, execResult: null as any,
         ListNode,
@@ -63,6 +67,7 @@ export function CompareResults(script: vm.Script, inputJson: any, outputJson: an
         NodeRandom,
         JSONArrayToNodeRandom,
         NodeRandomToJSONArray,
+        _Node: NodeClass !== null && nodeClassMap.has(NodeClass) ? nodeClassMap.get(NodeClass) : null
     };
     vm.createContext(context); // Contextify the object.
     script.runInContext(context, {timeout: 3000});
