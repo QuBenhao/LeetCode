@@ -6,8 +6,20 @@ import (
 	"strings"
 )
 
-func findPermutationDifference(s string, t string) int {
-
+func findPermutationDifference(s string, t string) (ans int) {
+	idxes := make([]int, 26)
+	for i := 0; i < len(s); i++ {
+		idxes[s[i]-'a'] += i
+		idxes[t[i]-'a'] -= i
+	}
+	for _, v := range idxes {
+		if v < 0 {
+			ans += -v
+		} else {
+			ans += v
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
