@@ -4,7 +4,17 @@ pub struct Solution;
 
 impl Solution {
     pub fn max_product(nums: Vec<i32>) -> i32 {
-
+		let mut ans: i32 = nums[0];
+		let mut mx: i32 = nums[0];
+		let mut mn: i32 = nums[0];
+		for i in 1..nums.len() {
+			let cur_mx = nums[i] * mx;
+			let cur_mn = nums[i] * mn;
+			mx = cur_mx.max(cur_mn).max(nums[i]);
+			mn = cur_mx.min(cur_mn).min(nums[i]);
+			ans = ans.max(mx);
+		}
+		ans
     }
 }
 

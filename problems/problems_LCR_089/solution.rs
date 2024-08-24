@@ -5,7 +5,14 @@ pub struct Solution;
 
 impl Solution {
     pub fn rob(nums: Vec<i32>) -> i32 {
-
+		let mut dp_not_rob = 0;
+		let mut dp_rob = 0;
+		for num in nums {
+			let temp = dp_not_rob;
+			dp_not_rob = dp_not_rob.max(dp_rob);
+			dp_rob = temp + num;
+		}
+		dp_rob.max(dp_not_rob)
     }
 }
 

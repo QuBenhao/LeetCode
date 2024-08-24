@@ -25,7 +25,7 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn prune_tree(root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
-		if let Some(node) = root.clone() {
+		if let Some(node) = root {
 			let left = node.borrow_mut().left.take();
 			let right = node.borrow_mut().right.take();
 			node.borrow_mut().left = Self::prune_tree(left);
@@ -33,8 +33,10 @@ impl Solution {
 			if node.borrow().val == 0 && node.borrow().left.is_none() && node.borrow().right.is_none() {
 				return None;
 			}
+			Some(node)
+		} else {
+			None
 		}
-		root
     }
 }
 
