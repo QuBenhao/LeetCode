@@ -2935,5 +2935,74 @@
                 "code": "defmodule LRUCache do\n  @spec init_(capacity :: integer) :: any\n  def init_(capacity) do\n    \n  end\n\n  @spec get(key :: integer) :: integer\n  def get(key) do\n    \n  end\n\n  @spec put(key :: integer, value :: integer) :: any\n  def put(key, value) do\n    \n  end\nend\n\n# Your functions will be called as such:\n# LRUCache.init_(capacity)\n# param_1 = LRUCache.get(key)\n# LRUCache.put(key, value)\n\n# LRUCache.init_ will be called before every test case, in which you can do some necessary initializations."
             }
         ]
+    },
+    {
+        "690": [
+            {
+                "lang": "C++",
+                "langSlug": "cpp",
+                "code": "/*\n// Definition for Employee.\nclass Employee {\npublic:\n    int id;\n    int importance;\n    vector<int> subordinates;\n};\n*/\n\nclass Solution {\npublic:\n    int getImportance(vector<Employee*> employees, int id) {\n        \n    }\n};"
+            },
+            {
+                "lang": "Java",
+                "langSlug": "java",
+                "code": "/*\n// Definition for Employee.\nclass Employee {\n    public int id;\n    public int importance;\n    public List<Integer> subordinates;\n};\n*/\n\nclass Solution {\n    public int getImportance(List<Employee> employees, int id) {\n        \n    }\n}"
+            },
+            {
+                "lang": "Python",
+                "langSlug": "python",
+                "code": "\"\"\"\n# Definition for Employee.\nclass Employee(object):\n    def __init__(self, id, importance, subordinates):\n    \t#################\n        :type id: int\n        :type importance: int\n        :type subordinates: List[int]\n        #################\n        self.id = id\n        self.importance = importance\n        self.subordinates = subordinates\n\"\"\"\n\nclass Solution(object):\n    def getImportance(self, employees, id):\n        \"\"\"\n        :type employees: List[Employee]\n        :type id: int\n        :rtype: int\n        \"\"\"\n        "
+            },
+            {
+                "lang": "Python3",
+                "langSlug": "python3",
+                "code": "\"\"\"\n# Definition for Employee.\nclass Employee:\n    def __init__(self, id: int, importance: int, subordinates: List[int]):\n        self.id = id\n        self.importance = importance\n        self.subordinates = subordinates\n\"\"\"\n\nclass Solution:\n    def getImportance(self, employees: List['Employee'], id: int) -> int:\n        "
+            },
+            {
+                "lang": "C#",
+                "langSlug": "csharp",
+                "code": "/*\n// Definition for Employee.\nclass Employee {\n    public int id;\n    public int importance;\n    public IList<int> subordinates;\n}\n*/\n\nclass Solution {\n    public int GetImportance(IList<Employee> employees, int id) {\n        \n    }\n}"
+            },
+            {
+                "lang": "JavaScript",
+                "langSlug": "javascript",
+                "code": "/**\n * Definition for Employee.\n * function Employee(id, importance, subordinates) {\n *     this.id = id;\n *     this.importance = importance;\n *     this.subordinates = subordinates;\n * }\n */\n\n/**\n * @param {Employee[]} employees\n * @param {number} id\n * @return {number}\n */\nvar GetImportance = function(employees, id) {\n    \n};"
+            },
+            {
+                "lang": "TypeScript",
+                "langSlug": "typescript",
+                "code": "/**\n * Definition for Employee.\n * class Employee {\n *     id: number\n *     importance: number\n *     subordinates: number[]\n *     constructor(id: number, importance: number, subordinates: number[]) {\n *         this.id = (id === undefined) ? 0 : id;\n *         this.importance = (importance === undefined) ? 0 : importance;\n *         this.subordinates = (subordinates === undefined) ? [] : subordinates;\n *     }\n * }\n */\n\nfunction getImportance(employees: Employee[], id: number): number {\n\t\n};"
+            },
+            {
+                "lang": "PHP",
+                "langSlug": "php",
+                "code": "/**\n * Definition for Employee.\n * class Employee {\n *     public $id = null;\n *     public $importance = null;\n *     public $subordinates = array();\n *     function __construct($id, $importance, $subordinates) {\n *         $this->id = $id;\n *         $this->importance = $importance;\n *         $this->subordinates = $subordinates;\n *     }\n * }\n */\n\nclass Solution {\n    /**\n     * @param Employee[] $employees\n     * @param Integer $id\n     * @return Integer\n     */\n    function getImportance($employees, $id) {\n        \n    }\n}"
+            },
+            {
+                "lang": "Swift",
+                "langSlug": "swift",
+                "code": "/**\n * Definition for Employee.\n * public class Employee {\n *     public var id: Int\n *     public var importance: Int\n *     public var subordinates: [Int]\n *     public init(_ id: Int, _ importance: Int, _ subordinates: [Int]) {\n *         self.id = id\n *         self.importance = importance\n *         self.subordinates = subordinates\n *     }\n * }\n */\n\nclass Solution {\n    func getImportance(_ employees: [Employee], _ id: Int) -> Int {\n        \n    }\n}"
+            },
+            {
+                "lang": "Kotlin",
+                "langSlug": "kotlin",
+                "code": "/*\n *\t// Definition for Employee.\n *\tclass Employee {\n *\t\tvar id:Int = 0\n *\t\tvar importance:Int = 0\n *\t\tvar subordinates:List<Int> = listOf()\n *\t}\n */\n\nclass Solution {\n    fun getImportance(employees: List<Employee?>, id: Int): Int {\n        \n    }\n}"
+            },
+            {
+                "lang": "Go",
+                "langSlug": "golang",
+                "code": "/**\n * Definition for Employee.\n * type Employee struct {\n *     Id int\n *     Importance int\n *     Subordinates []int\n * }\n */\n\nfunc getImportance(employees []*Employee, id int) int {\n    \n}"
+            },
+            {
+                "lang": "Ruby",
+                "langSlug": "ruby",
+                "code": "=begin\n# Definition for Employee.\nclass Employee\n    attr_accessor :id, :importance, :subordinates\n    def initialize( id, importance, subordinates)\n        @id = id\n        @importance = importance\n        @subordinates = subordinates\n    end\nend\n=end\n\n# @param {Employee} employees\n# @param {Integer} id\n# @return {Integer}\ndef get_importance(employees, id)\n    \nend"
+            },
+            {
+                "lang": "Scala",
+                "langSlug": "scala",
+                "code": "/*\n// Definition for Employee.\nclass Employee() {\n    var id: Int = 0\n    var importance: Int = 0\n    var subordinates: List[Int] = List()\n};\n*/\n\nobject Solution {\n    def getImportance(employees: List[Employee], id: Int): Int = {\n        \n    }\n}"
+            }
+        ]
     }
 ]
