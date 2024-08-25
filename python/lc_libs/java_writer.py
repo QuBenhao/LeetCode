@@ -78,7 +78,8 @@ class JavaWriter(LanguageWriter):
                         "{"):
                     class_name = strip_line.split("{")[0].split("class ")[-1].strip()
                 elif strip_line.startswith("public ") and strip_line.endswith("{"):
-                    vs, pi, ai, rp, func_name, rt = JavaWriter.__parse_java_method(strip_line, code_default)
+                    vs, pi, ai, rp, func_name, rt = JavaWriter.__parse_java_method(strip_line, code_default,
+                                                                                   is_object_problem=True)
                     variables.extend(vs)
                     import_packages.extend(ai)
                     if func_name == class_name:
@@ -94,6 +95,7 @@ class JavaWriter(LanguageWriter):
             parse_input.append("List<Object> ans = new ArrayList<>(operators.length);")
             parse_input.append("ans.add(null);")
             parse_input.append("for (int i = 1; i < operators.length; i++) {")
+            logging.debug("all_return_parts: %s", all_return_parts)
             for func_name, rt, rp in all_return_parts:
                 parse_input.append("\tif (operators[i].compareTo(\"" + func_name + "\") == 0) {")
                 if rt == "void":
@@ -266,7 +268,8 @@ class JavaWriter(LanguageWriter):
         return f"{rt_type} {variable_name} = FIXME({input_name})"
 
     @staticmethod
-    def __parse_java_method(strip_line: str, code_default: str, testcases=None):
+    def __parse_java_method(strip_line: str, code_default: str, testcases=None,
+                            is_object_problem: bool = False) -> Tuple:
         variables = []
         parse_input = []
         additional_import = set()
@@ -360,12 +363,15 @@ class JavaWriter(LanguageWriter):
         elif return_type == "void":
             parse_input.append("{}({});".format(return_func, ", ".join(variables)))
             logging.debug("Void return type, function: {}, variables: {}".format(return_func, variables))
-            if "ListNode" in input_parts[0]:
-                return_part = f"ListNode.LinkedListToIntArray({variables[0]})"
-            elif "TreeNode" in input_parts[0]:
-                return_part = f"TreeNode.TreeNodeToArray({variables[0]})"
+            if not is_object_problem:
+                if "ListNode" in input_parts[0]:
+                    return_part = f"ListNode.LinkedListToIntArray({variables[0]})"
+                elif "TreeNode" in input_parts[0]:
+                    return_part = f"TreeNode.TreeNodeToArray({variables[0]})"
+                else:
+                    return_part = variables[0]
             else:
-                return_part = variables[0]
+                return_part = ", ".join(variables)
         elif "Node" in return_type:
             if "Node left;" in code_default and "Node right;" in code_default and "Node next;" in code_default:
                 additional_import.add("import qubhjava.models.node.next.Node;")
