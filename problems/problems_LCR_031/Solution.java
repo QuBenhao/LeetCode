@@ -5,18 +5,82 @@ import java.util.*;
 import qubhjava.BaseSolution;
 
 
+class DoubleLinkedList {
+	int key;
+	int value;
+	DoubleLinkedList prev;
+	DoubleLinkedList next;
+
+	public DoubleLinkedList() {
+		key = -1;
+		value = -1;
+	}
+
+	public DoubleLinkedList(int key, int value) {
+		this.key = key;
+		this.value = value;
+	}
+
+	public void insert(DoubleLinkedList node) {
+		node.prev = this;
+		node.next = this.next;
+		if (this.next != null) {
+			this.next.prev = node;
+		}
+		this.next = node;
+	}
+
+	public void remove() {
+		if (this.prev != null) {
+			this.prev.next = this.next;
+		}
+		if (this.next != null) {
+			this.next.prev = this.prev;
+		}
+	}
+}
+
+
 class LRUCache {
 
-    public LRUCache(int capacity) {
+	int capacity;
+	Map<Integer, DoubleLinkedList> map;
+	DoubleLinkedList head, tail;
 
+    public LRUCache(int capacity) {
+		this.capacity = capacity;
+		this.map = new HashMap<>(capacity);
+		this.head = new DoubleLinkedList();
+		this.tail = new DoubleLinkedList();
+		this.head.next = this.tail;
+		this.tail.prev = this.head;
     }
     
     public int get(int key) {
-
+		if (!map.containsKey(key)) {
+			return -1;
+		}
+		DoubleLinkedList node = map.get(key);
+		node.remove();
+		head.insert(node);
+		return node.value;
     }
     
     public void put(int key, int value) {
-
+		DoubleLinkedList node;
+		if (map.containsKey(key)) {
+			node = map.get(key);
+			node.remove();
+			node.value = value;
+		} else {
+			if (map.size() == capacity) {
+				map.remove(tail.prev.key);
+				tail.prev.remove();
+			}
+			node = new DoubleLinkedList(key, value);
+			map.put(key, node);
+		}
+		head.insert(node);
     }
 }
 
@@ -47,7 +111,7 @@ public class Solution extends BaseSolution {
 			if (operators[i].compareTo("put") == 0) {
 				int key = Integer.parseInt(opValues[i][0]);
 				int value = Integer.parseInt(opValues[i][1]);
-				obj.put(key);
+				obj.put(key, value);
 				ans.add(null);
 				continue;
 			}
