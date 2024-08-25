@@ -24,7 +24,21 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn build_tree(preorder: Vec<i32>, inorder: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
-
+		if preorder.is_empty() {
+			return None;
+		}
+		let root_val = preorder[0];
+		let root = Some(Rc::new(RefCell::new(TreeNode::new(root_val))));
+		let mut root_index = 0;
+		for i in 0..inorder.len() {
+			if inorder[i] == root_val {
+				root_index = i;
+				break;
+			}
+		}
+		root.clone()?.borrow_mut().left = Self::build_tree(preorder[1..=root_index].to_vec(), inorder[..root_index].to_vec());
+		root.clone()?.borrow_mut().right = Self::build_tree(preorder[root_index + 1..].to_vec(), inorder[root_index + 1..].to_vec());
+		root
     }
 }
 

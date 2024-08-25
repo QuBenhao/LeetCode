@@ -4,7 +4,30 @@ pub struct Solution;
 
 impl Solution {
     pub fn can_partition_k_subsets(nums: Vec<i32>, k: i32) -> bool {
-
+		let sum: i32 = nums.iter().sum();
+		if sum % k != 0 {
+			return false;
+		}
+		let target = sum / k;
+		for num in nums.iter() {
+			if *num > target {
+				return false;
+			}
+		}
+		let n = nums.len();
+		let mut dp = vec![-1; 1 << n];
+		dp[0] = 0;
+		for mask in 0..1<<n {
+			for i in 0..n {
+				if (mask >> i) & 1 != 0 {
+					let before = mask ^ (1 << i);
+					if dp[before] != -1 && dp[before] + nums[i] <= target {
+						dp[mask] = (dp[before] + nums[i]) % target;
+					}
+				}
+			}
+		}
+		dp[(1 << n) - 1] == 0
     }
 }
 

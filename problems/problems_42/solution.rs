@@ -4,7 +4,21 @@ pub struct Solution;
 
 impl Solution {
     pub fn trap(height: Vec<i32>) -> i32 {
-
+		let n = height.len();
+		let mut right_max = vec![0; n];
+		for i in (0..n - 1).rev() {
+			right_max[i] = right_max[i + 1].max(height[i + 1]);
+		}
+		let mut left_max = 0;
+		let mut ans = 0;
+		for i in 1..n-1 {
+			left_max = left_max.max(height[i - 1]);
+			let min = left_max.min(right_max[i]);
+			if min > height[i] {
+				ans += min - height[i];
+			}
+		}
+		ans
     }
 }
 

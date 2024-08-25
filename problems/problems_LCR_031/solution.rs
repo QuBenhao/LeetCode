@@ -1,9 +1,34 @@
 #![allow(non_snake_case)]
 use serde_json::{json, Value};
 
+use std::collections::HashMap;
+use std::rc::Rc;
+use std::cell::RefCell;
+
+struct DoubleLinkedList {
+	key: i32,
+	value: i32,
+	prev: Option<Rc<RefCell<DoubleLinkedList>>>,
+	next: Option<Rc<RefCell<DoubleLinkedList>>>,
+}
+
+impl DoubleLinkedList {
+	fn new(key: i32, value: i32) -> Rc<RefCell<Self>> {
+		Rc::new(RefCell::new(DoubleLinkedList {
+			key,
+			value,
+			prev: None,
+			next: None,
+		}))
+	}
+}
+
 
 struct LRUCache {
-
+	capacity: i32,
+	cache: HashMap<i32, Rc<RefCell<DoubleLinkedList>>>,
+	head: Rc<RefCell<DoubleLinkedList>>,
+	tail: Rc<RefCell<DoubleLinkedList>>,
 }
 
 
@@ -14,16 +39,63 @@ struct LRUCache {
 impl LRUCache {
 
     fn new(capacity: i32) -> Self {
-
+		let head = DoubleLinkedList::new(-1, -1);
+		let tail = DoubleLinkedList::new(-1, -1);
+		head.borrow_mut().next = Some(tail.clone());
+		tail.borrow_mut().prev = Some(head.clone());
+		LRUCache {
+			capacity,
+			cache: HashMap::new(),
+			head,
+			tail,
+		}
     }
     
-    fn get(&self, key: i32) -> i32 {
-
+    fn get(&mut self, key: i32) -> i32 {
+		if let Some(node) = self.cache.get(&key) {
+			let node = node.clone();
+			let value = node.borrow().value;
+			self.remove_node(node.clone());
+			self.insert_node(node.clone());
+			value
+		} else {
+			-1
+		}
     }
     
-    fn put(&self, key: i32, value: i32) {
-
+    fn put(&mut self, key: i32, value: i32) {
+		if let Some(node) = self.cache.get(&key) {
+			let node = node.clone();
+			node.clone().borrow_mut().value = value;
+			self.remove_node(node.clone());
+			self.insert_node(node.clone());
+		} else {
+			if self.cache.len() == self.capacity as usize {
+				let last = self.tail.borrow().prev.clone().unwrap();
+				self.cache.remove(&last.borrow().key);
+				self.remove_node(last.clone());
+			}
+			let new_node = DoubleLinkedList::new(key, value);
+			self.cache.insert(key, new_node.clone());
+			self.insert_node(new_node);
+		}
     }
+
+	fn remove_node(&mut self, node: Rc<RefCell<DoubleLinkedList>>) {
+		let prev = node.borrow().prev.clone().unwrap();
+		let next = node.borrow().next.clone().unwrap();
+		prev.borrow_mut().next = Some(next.clone());
+		next.borrow_mut().prev = Some(prev.clone());
+	}
+
+	fn insert_node(&mut self, node: Rc<RefCell<DoubleLinkedList>>) {
+		let prev = self.head.clone();
+		let next = self.head.borrow().next.clone().unwrap();
+		node.borrow_mut().prev = Some(prev.clone());
+		node.borrow_mut().next = Some(next.clone());
+		prev.borrow_mut().next = Some(node.clone());
+		next.borrow_mut().prev = Some(node.clone());
+	}
 }
 
 /**
