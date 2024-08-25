@@ -51,7 +51,7 @@ jobs:
         echo "Commit message: $commit_message"
 
         # Determine the new version based on the commit message
-        if [[ $commit_message == *BREAKING CHANGE* ]] || [[ $commit_message == feat!* ]] || [[ $commit_message == fix!* ]]; then
+        if [[ $commit_message == *"BREAKING CHANGE"* ]] || [[ $commit_message == feat!* ]] || [[ $commit_message == fix!* ]]; then
           new_version=$(echo $latest_tag | awk -F. -v OFS=. '{$1+=1; $2=0; $3=0; print}')
         elif [[ $commit_message == feat* ]]; then
           new_version=$(echo $latest_tag | awk -F. -v OFS=. '{$2+=1; $3=0; print}')
