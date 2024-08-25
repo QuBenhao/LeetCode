@@ -118,7 +118,7 @@ jobs:
           echo "No changes to commit"
           exit 0
         fi
-        git commit -m "[$(TZ=Asia/Shanghai date +%Y%m%d)] Add daily problem solution"
+        git commit -m "test: [$(TZ=Asia/Shanghai date +%Y%m%d)] Add daily problem solution"
 
     - name: Push changes
       run: |
