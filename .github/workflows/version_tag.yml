@@ -24,16 +24,28 @@ jobs:
     - name: Determine new version
       id: new_version
       run: |
-        # Extract the latest tag
-        latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+        # Check if there are any tags
+        if [ -z "$(git tag)" ]; then
+          latest_tag="v1.0.0"
+        else
+          # Extract the latest tag
+          latest_tag_hash=$(git rev-list --tags --max-count=1)
+          latest_tag=$(git describe --tags $latest_tag_hash)
+        fi
         echo "Latest tag: $latest_tag"
+
+        # Ensure the latest tag has three parts
+        if [[ $(echo $latest_tag | grep -o '\.' | wc -l) -eq 1 ]]; then
+          latest_tag="${latest_tag}.0"
+        fi
+        echo "Normalized latest tag: $latest_tag"
 
         # Get the commit message of the latest commit
         commit_message=$(git log -1 --pretty=%B)
         echo "Commit message: $commit_message"
 
         # Determine the new version based on the commit message
-        if [[ $commit_message == *"BREAKING CHANGE"* ]]; then
+        if [[ $commit_message == *"BREAKING CHANGE"* ]] || [[ $commit_message == feat!* ]] || [[ $commit_message == fix!* ]]; then
           new_version=$(echo $latest_tag | awk -F. -v OFS=. '{$1+=1; $2=0; $3=0; print}')
         elif [[ $commit_message == feat* ]]; then
           new_version=$(echo $latest_tag | awk -F. -v OFS=. '{$2+=1; $3=0; print}')
