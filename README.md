@@ -425,6 +425,14 @@ Add values similar to you .env, for example,
 **Notice:**
 Add PROBLEM_FOLDER for [actions](.github/workflows/) to work properly.
 
+### Enable GitHub Actions Below based on your needs:
+1. [Daily Problems](.github/workflows/daily.yml)
+2. [Submits Check](.github/workflows/daily_check.yml)
+3. [Sync](.github/workflows/sync.yml)
+
+**Notice:**
+Do not enable [Version Tagging](.github/workflows/version_tag.yml) unless you know what you are doing.
+
 ## Demo Projects
 
 1. [Benhao Demo](https://github.com/BenhaoQu/LeetCode/tree/demo_master) (Python3)
