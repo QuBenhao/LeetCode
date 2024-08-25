@@ -1,23 +1,45 @@
-# 690. Employee Importance
+# 690. Employee Importance 
 
-You are given a data structure of employee information, which includes the employee's **unique id**, their **importance value** and their **direct** subordinates' id.
+<p>You have a data structure of employee information, including the employee&#39;s unique ID, importance value, and direct subordinates&#39; IDs.</p>
 
-For example, employee 1 is the leader of employee 2, and employee 2 is the leader of employee 3. They have importance value 15, 10 and 5, respectively. Then employee 1 has a data structure like [1, 15, [2]], and employee 2 has [2, 10, [3]], and employee 3 has [3, 5, []]. Note that although employee 3 is also a subordinate of employee 1, the relationship is **not direct**.
+<p>You are given an array of employees <code>employees</code> where:</p>
 
-Now given the employee information of a company, and an employee id, you need to return the total importance value of this employee and all their subordinates.
+<ul>
+	<li><code>employees[i].id</code> is the ID of the <code>i<sup>th</sup></code> employee.</li>
+	<li><code>employees[i].importance</code> is the importance value of the <code>i<sup>th</sup></code> employee.</li>
+	<li><code>employees[i].subordinates</code> is a list of the IDs of the direct subordinates of the <code>i<sup>th</sup></code> employee.</li>
+</ul>
 
-**Example 1:**
+<p>Given an integer <code>id</code> that represents an employee&#39;s ID, return <em>the <strong>total</strong> importance value of this employee and all their direct and indirect subordinates</em>.</p>
 
-```
-Input: [[1, 5, [2, 3]], [2, 3, []], [3, 3, []]], 1
-Output: 11
-Explanation:
-Employee 1 has importance value 5, and he has two direct subordinates: employee 2 and employee 3. They both have importance value 3. So the total importance value of employee 1 is 5 + 3 + 3 = 11.
-```
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2021/05/31/emp1-tree.jpg" style="width: 400px; height: 258px;" />
+<pre>
+<strong>Input:</strong> employees = [[1,5,[2,3]],[2,3,[]],[3,3,[]]], id = 1
+<strong>Output:</strong> 11
+<strong>Explanation:</strong> Employee 1 has an importance value of 5 and has two direct subordinates: employee 2 and employee 3.
+They both have an importance value of 3.
+Thus, the total importance value of employee 1 is 5 + 3 + 3 = 11.
+</pre>
 
- 
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2021/05/31/emp2-tree.jpg" style="width: 362px; height: 361px;" />
+<pre>
+<strong>Input:</strong> employees = [[1,2,[5]],[5,-3,[]]], id = 5
+<strong>Output:</strong> -3
+<strong>Explanation:</strong> Employee 5 has an importance value of -3 and has no direct subordinates.
+Thus, the total importance value of employee 5 is -3.
+</pre>
 
-**Note:**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-1. One employee has at most one **direct** leader and may have several subordinates.
-2. The maximum number of employees won't exceed 2000.
+<ul>
+	<li><code>1 &lt;= employees.length &lt;= 2000</code></li>
+	<li><code>1 &lt;= employees[i].id &lt;= 2000</code></li>
+	<li>All <code>employees[i].id</code> are <strong>unique</strong>.</li>
+	<li><code>-100 &lt;= employees[i].importance &lt;= 100</code></li>
+	<li>One employee has at most one direct leader and may have several subordinates.</li>
+	<li>The IDs in <code>employees[i].subordinates</code> are valid IDs.</li>
+</ul>
