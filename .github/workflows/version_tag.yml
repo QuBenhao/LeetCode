@@ -17,6 +17,8 @@ jobs:
 
     - name: Check out the repository
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Ensure full history is fetched
 
     - name: Install dependencies
       run: npm install
@@ -24,12 +26,16 @@ jobs:
     - name: Determine new version
       id: new_version
       run: |
+        # Debugging: Print all tags and latest tag hash
+        echo "All tags:"
+        git tag -l
         # Check if there are any tags
         if [ -z "$(git tag)" ]; then
           latest_tag="v1.0.0"
         else
           # Extract the latest tag
           latest_tag_hash=$(git rev-list --tags --max-count=1)
+          echo "Latest tag hash: $latest_tag_hash"
           latest_tag=$(git describe --tags $latest_tag_hash)
         fi
         echo "Latest tag: $latest_tag"
@@ -56,7 +62,7 @@ jobs:
         fi
 
         echo "New version: $new_version"
-        echo "::set-output name=version::$new_version"
+        echo "{version}={$new_version}" >> $GITHUB_OUTPUT
 
     - name: Create new version tag
       if: steps.new_version.outputs.version != steps.new_version.outputs.latest_tag
