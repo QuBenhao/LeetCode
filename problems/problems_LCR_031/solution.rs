@@ -82,10 +82,10 @@ impl LRUCache {
     }
 
 	fn remove_node(&mut self, node: Rc<RefCell<DoubleLinkedList>>) {
-		let prev = node.borrow().prev.clone().unwrap();
-		let next = node.borrow().next.clone().unwrap();
-		prev.borrow_mut().next = Some(next.clone());
-		next.borrow_mut().prev = Some(prev.clone());
+		let mut prev = node.borrow_mut().prev.take();
+		let mut next = node.borrow_mut().next.take();
+		prev.as_mut().unwrap().borrow_mut().next = next.clone();
+		next.as_mut().unwrap().borrow_mut().prev = prev.clone();
 	}
 
 	fn insert_node(&mut self, node: Rc<RefCell<DoubleLinkedList>>) {
