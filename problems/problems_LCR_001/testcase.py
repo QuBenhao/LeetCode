@@ -14,6 +14,7 @@ class Testcase(testcase.Testcase):
         self.testcases.append(case(Input=[1, 1], Output=1))
         self.testcases.append(case(Input=[-2147483648,1], Output=-2147483648))
         self.testcases.append(case(Input=[-2147483648,2], Output=-1073741824))
+        self.testcases.append(case(Input=[-2147483648,-1], Output=2147483647))
 
     def get_testcases(self):
         return self.testcases
