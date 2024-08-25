@@ -63,6 +63,7 @@ jobs:
 
         echo "New version: $new_version"
         echo "{version}={$new_version}" >> $GITHUB_OUTPUT
+        echo "{latest_tag}=${latest_tag}" >> $GITHUB_OUTPUT
 
     - name: Create new version tag
       if: steps.new_version.outputs.version != steps.new_version.outputs.latest_tag
