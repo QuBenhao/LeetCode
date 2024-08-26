@@ -10,7 +10,7 @@ public:
     if (a == INT_MIN && b == -1) {
       return INT_MAX;
     }
-	// To allow abs of INT_MIN, we need to use unsigned int
+    // To allow abs of INT_MIN, we need to use unsigned int
     unsigned int dividend = abs(a), divisor = abs(b), res = 0;
     for (int i = 31; i >= 0; i--) {
       if ((dividend >> i) >= divisor) {
