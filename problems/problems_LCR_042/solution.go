@@ -7,19 +7,29 @@ import (
 )
 
 type RecentCounter struct {
-
+	recent []int
 }
-
 
 func Constructor() RecentCounter {
-
+	return RecentCounter{}
 }
-
 
 func (this *RecentCounter) Ping(t int) int {
-
+	if len(this.recent) > 0 {
+		left, right := 0, len(this.recent)
+		for left < right {
+			mid := (left + right) / 2
+			if this.recent[mid] < t-3000 {
+				left = mid + 1
+			} else {
+				right = mid
+			}
+		}
+		this.recent = this.recent[left:]
+	}
+	this.recent = append(this.recent, t)
+	return len(this.recent)
 }
-
 
 /**
  * Your RecentCounter object will be instantiated and called as such:
@@ -52,7 +62,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }

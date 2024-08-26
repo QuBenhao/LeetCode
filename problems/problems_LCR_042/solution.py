@@ -1,7 +1,7 @@
 import solution
 from typing import *
 from python.object_libs import call_method
-import heapq
+from collections import deque
 
 
 class Solution(solution.Solution):
@@ -13,10 +13,10 @@ class Solution(solution.Solution):
 
 class RecentCounter:
     def __init__(self):
-        self.pq = []
+        self.queue = deque()
 
     def ping(self, t: int) -> int:
-        heapq.heappush(self.pq, t)
-        while self.pq[0] < t - 3000:
-            heapq.heappop(self.pq)
-        return len(self.pq)
+        while self.queue and self.queue[0] < t - 3000:
+            self.queue.popleft()
+        self.queue.append(t)
+        return len(self.queue)

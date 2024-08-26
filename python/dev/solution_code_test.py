@@ -151,6 +151,7 @@ def test_submit(args):
     root_path = os.path.dirname(os.path.dirname(cur_path))
     problem_path = f"{root_path}/problems/problems_{args.problem}/"
     if not os.path.exists(problem_path):
+        logging.debug(f"Problem not found in problems folder, checking in premiums folder")
         problem_path = problem_path.replace("problems", "premiums")
         if not os.path.exists(problem_path):
             raise FileNotFoundError(
@@ -175,6 +176,7 @@ def test_submit(args):
                 encoding="utf-8",
         ) as f:
             f.write(code)
+        logging.debug(code)
 
 
 if __name__ == "__main__":
