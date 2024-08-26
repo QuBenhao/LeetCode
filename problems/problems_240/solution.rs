@@ -4,7 +4,23 @@ pub struct Solution;
 
 impl Solution {
     pub fn search_matrix(matrix: Vec<Vec<i32>>, target: i32) -> bool {
-        
+		let m: usize = matrix.len();
+		let n: usize = matrix[0].len();
+		let mut row: usize = m - 1;
+		let mut col: usize = 0;
+		while col < n {
+			if matrix[row][col] == target {
+				return true;
+			} else if matrix[row][col] > target {
+				if row == 0 {
+					break;
+				}
+				row -= 1;
+			}  else {
+				col += 1;
+			}
+		}
+		false
     }
 }
 

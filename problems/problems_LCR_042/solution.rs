@@ -2,8 +2,9 @@
 use serde_json::{json, Value};
 
 
+use std::collections::VecDeque;
 struct RecentCounter {
-
+	queue: VecDeque<i32>,
 }
 
 
@@ -14,11 +15,21 @@ struct RecentCounter {
 impl RecentCounter {
 
     fn new() -> Self {
-
+		RecentCounter{
+			queue: VecDeque::new(),
+		}
     }
     
-    fn ping(&self, t: i32) -> i32 {
-
+    fn ping(&mut self, t: i32) -> i32 {
+		while let Some(&front) = self.queue.front() {
+			if front < t - 3000 {
+				self.queue.pop_front();
+			} else {
+				break;
+			}
+		}
+		self.queue.push_back(t);
+		self.queue.len() as i32
     }
 }
 
