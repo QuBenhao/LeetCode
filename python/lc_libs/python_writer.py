@@ -95,9 +95,9 @@ class Python3Writer(LanguageWriter):
         final_codes = []
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
-            idx = content.index("def solve(self, test_input=None):")
-            idx = content.index("return ", idx)
-            idx = content.index("\n", idx) + 1
+            idx = content.find("def solve(self, test_input=None):")
+            idx = content.find("return ", idx)
+            idx = content.find("\n", idx) + 1
             while idx < len(content) and content[idx] == "\n":
                 idx += 1
             logging.debug("Start idx: %d", idx)

@@ -10,6 +10,18 @@ import com.alibaba.fastjson.JSONArray;
 
 import qubhjava.BaseSolution;
 
+// Definition for Employee.
+class Employee {
+    public int id;
+    public int importance;
+    public List<Integer> subordinates;
+
+    public Employee(int id, int importance, List<Integer> subordinates) {
+        this.id = id;
+        this.importance = importance;
+        this.subordinates = subordinates;
+    }
+};
 
 public class Solution extends BaseSolution {
     private int dfs(Map<Integer, Employee> employeeMap, Employee employee) {
@@ -41,16 +53,3 @@ public class Solution extends BaseSolution {
         return JSON.toJSON(getImportance(employees, id));
     }
 }
-
-// Definition for Employee.
-class Employee {
-    public int id;
-    public int importance;
-    public List<Integer> subordinates;
-
-    public Employee(int id, int importance, List<Integer> subordinates) {
-        this.id = id;
-        this.importance = importance;
-        this.subordinates = subordinates;
-    }
-};

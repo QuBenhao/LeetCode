@@ -163,44 +163,34 @@ class JavaWriter(LanguageWriter):
         final_codes = deque([])
         with open(file_path, 'r', encoding="utf-8") as f:
             content = f.read()
-            is_obj_question = False
-            if "object will be instantiated and called as such:" in content:
-                is_obj_question = True
-            lines = content.split("\n")
-            solve_part = []
-            for line in lines:
-                if line.startswith("package "):
-                    continue
-                if line.startswith("import "):
-                    continue
-                if "public Object solve(String[] values) {" in line or \
-                        "public Object solve(String[] inputJsonValues) {" in line:
-                    last = final_codes.pop()
-                    if last.strip() != "@Override":
-                        final_codes.append(last)
-                    solve_part.append(0)
-                    continue
-                if solve_part:
-                    for _ in range(line.count("{")):
-                        solve_part.append(0)
-                    for _ in range(line.count("}")):
-                        solve_part.pop()
-                    continue
-                if "public class Solution extends BaseSolution {" in line:
-                    if not is_obj_question:
-                        final_codes.append("class Solution {")
-                    continue
-                final_codes.append(line)
-        while final_codes and final_codes[0].strip() == '':
-            final_codes.popleft()
-
-        if is_obj_question:
-            while final_codes and final_codes[-1].strip() == '':
-                final_codes.pop()
-            if final_codes and final_codes[-1].strip() == "}":
-                final_codes.pop()
-            while final_codes and final_codes[-1].strip() == '':
-                final_codes.pop()
+            solution_class_idx = content.find("public class Solution extends BaseSolution {")
+            logging.debug("solution_class_idx: %s", solution_class_idx)
+            solve_method_idx = content.find("public Object solve(String[] ", solution_class_idx)
+            logging.debug("solve_method_idx: %s", solve_method_idx)
+            # if there are any method in between, add them to final_codes
+            between_content = content[solution_class_idx + len("public class Solution extends BaseSolution {"):solve_method_idx]
+            if between_content.strip() != "@Override":
+                splits = between_content.split("\n")
+                while splits and splits[-1].strip() != "@Override":
+                    splits.pop()
+                splits.pop()
+                logging.debug(splits)
+                final_codes.extend(splits)
+                while final_codes and not final_codes[-1].strip():
+                    final_codes.pop()
+                while final_codes and not final_codes[0].strip():
+                    final_codes.popleft()
+                final_codes.appendleft("class Solution {")
+                final_codes.append("}")
+            else:
+                # last import sentence
+                last_import_idx = content.rfind("import ")
+                start_idx = content.find("\n", last_import_idx) + 1
+                final_codes.extend(content[start_idx:solution_class_idx].split("\n"))
+                while final_codes and not final_codes[-1].strip():
+                    final_codes.pop()
+                while final_codes and not final_codes[0].strip():
+                    final_codes.popleft()
         return "\n".join(final_codes), problem_id
 
     @staticmethod
