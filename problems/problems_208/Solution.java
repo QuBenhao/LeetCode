@@ -5,22 +5,54 @@ import java.util.*;
 import qubhjava.BaseSolution;
 
 
+class TrieNode {
+	public boolean isEnd;
+	public Map<Character, TrieNode> children;
+
+	public TrieNode() {
+		isEnd = false;
+		children = new HashMap<>();
+	}
+}
+
 class Trie {
+	private final TrieNode root;
 
     public Trie() {
-
+		root = new TrieNode();
     }
     
     public void insert(String word) {
-
+		TrieNode node = root;
+		for (int i = 0; i < word.length(); i++) {
+			char ch = word.charAt(i);
+			if (!node.children.containsKey(ch)) {
+				node.children.put(ch, new TrieNode());
+			}
+			node = node.children.get(ch);
+		}
+		node.isEnd = true;
     }
+
+	private TrieNode searchPrefix(String word) {
+		TrieNode node = root;
+		for (int i = 0; i < word.length(); i++) {
+			char ch = word.charAt(i);
+			if (!node.children.containsKey(ch)) {
+				return null;
+			}
+			node = node.children.get(ch);
+		}
+		return node;
+	}
     
     public boolean search(String word) {
-
+		TrieNode node = searchPrefix(word);
+		return node != null && node.isEnd;
     }
     
     public boolean startsWith(String prefix) {
-
+		return searchPrefix(prefix) != null;
     }
 }
 
