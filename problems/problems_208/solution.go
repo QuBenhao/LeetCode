@@ -7,29 +7,47 @@ import (
 )
 
 type Trie struct {
-
+	Root map[rune]interface{}
 }
-
 
 func Constructor() Trie {
-
+	return Trie{Root: map[rune]interface{}{}}
 }
 
-
-func (this *Trie) Insert(word string)  {
-
+func (this *Trie) Insert(word string) {
+	node := this.Root
+	for _, r := range word {
+		if _, ok := node[r]; !ok {
+			node[r] = map[rune]interface{}{}
+		}
+		node = node[r].(map[rune]interface{})
+	}
+	node['#'] = nil
 }
 
+func (this *Trie) serachNode(word string) map[rune]interface{} {
+	node := this.Root
+	for _, r := range word {
+		if _, ok := node[r]; !ok {
+			return nil
+		}
+		node = node[r].(map[rune]interface{})
+	}
+	return node
+}
 
 func (this *Trie) Search(word string) bool {
-
+	if node := this.serachNode(word); node != nil {
+		if _, ok := node['#']; ok {
+			return true
+		}
+	}
+	return false
 }
-
 
 func (this *Trie) StartsWith(prefix string) bool {
-
+	return this.serachNode(prefix) != nil
 }
-
 
 /**
  * Your Trie object will be instantiated and called as such:
@@ -69,7 +87,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
