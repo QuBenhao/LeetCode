@@ -1,12 +1,6 @@
 import solution
 
 
-def list_to_employee_list(nums):
-    employees = []
-    for id, importance, subordinates in nums:
-        employees.append(Employee(id, importance, subordinates))
-    return employees
-
 # Definition for Employee.
 class Employee(object):
     def __init__(self, id, importance, subordinates):
@@ -18,6 +12,14 @@ class Employee(object):
         self.id = id
         self.importance = importance
         self.subordinates = subordinates
+
+
+def list_to_employee_list(nums):
+    employees = []
+    for id, importance, subordinates in nums:
+        employees.append(Employee(id, importance, subordinates))
+    return employees
+
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
