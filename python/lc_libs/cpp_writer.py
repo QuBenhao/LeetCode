@@ -217,20 +217,13 @@ class CppWriter(LanguageWriter):
             return "", problem_id
         final_codes = deque([])
         with open(file_path, "r", encoding="utf-8") as f:
-            lines = f.read().split("\n")
-            for line in lines:
-                if line.startswith("//"):
-                    continue
-                if line.startswith("#include "):
-                    continue
-                if line.startswith("using "):
-                    continue
-                if (
-                        "json leetcode::qubh::Solve(string input)" in line
-                        or "json leetcode::qubh::Solve(string input_json_values)" in line
-                ):
-                    break
-                final_codes.append(line)
+            content = f.read()
+            end_index = content.find("json leetcode::qubh::Solve(string input_json_values)")
+            if end_index == -1:
+                end_index = content.find("json leetcode::qubh::Solve(string input)")
+            start_index = content.find("using json = nlohmann::json;") + len("using json = nlohmann::json;")
+            logging.debug("start_index: %d, end_index: %d", start_index, end_index)
+            final_codes.extend(content[start_index:end_index].strip().split("\n"))
         while final_codes and final_codes[0].strip() == "":
             final_codes.popleft()
         return "\n".join(final_codes), problem_id
