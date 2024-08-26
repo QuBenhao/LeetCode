@@ -3,7 +3,8 @@ import re
 import sys
 import traceback
 import logging
-from typing import Optional
+from collections import defaultdict
+from typing import Optional, List
 
 from dotenv import load_dotenv
 
@@ -43,7 +44,7 @@ def check_remain_languages(dir_path, languages: list[str]) -> list[str]:
 
 
 def write_question(root_path, dir_path, problem_folder: str, question_id: str, question_name: str,
-                   slug: str, languages: list[str] = None, cookie: str = None):
+                   slug: str, languages: List[str] = None, cookie: str = None) -> List[str]:
     desc = get_question_desc(slug, cookie)
     cn_result = get_question_desc_cn(slug, cookie)
     cn_desc = None
@@ -87,10 +88,11 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
                                  .replace("True", "true").replace("False", "false")
                                  .replace("'", "\"")])
     if not languages:
-        return
+        return []
     code_map = get_question_code(slug, lang_slugs=languages, cookie=cookie)
     if code_map is None:
-        return
+        return []
+    success_languages = []
     for language in languages:
         try:
             code = code_map[language]
@@ -104,10 +106,12 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
                 f.write(obj.write_solution(code, None, question_id, problem_folder))
             if isinstance(obj, lc_libs.RustWriter):
                 obj.write_cargo_toml(root_path, dir_path, problem_folder, question_id)
+            success_languages.append(language)
         except Exception as _:
             logging.error(f"Failed to write [{question_id}] {language}solution", exc_info=True)
             continue
     logging.info(f"Add question: [{question_id}]{slug}")
+    return success_languages
 
 
 def process_daily(languages: list[str], problem_folder: str = None):
@@ -121,14 +125,15 @@ def process_daily(languages: list[str], problem_folder: str = None):
     logging.info("Daily: {}, id: {}".format(daily_info['questionNameEn'], question_id))
     if not os.path.exists(dir_path):
         os.makedirs(dir_path, exist_ok=True)
-        write_question(root_path, dir_path, tmp, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
-                       languages)
+        success_languages = write_question(root_path, dir_path, tmp, question_id,
+                                           daily_info['questionNameEn'], daily_info['questionSlug'], languages)
     else:
         logging.warning("Already solved {} before".format(daily_info['questionId']))
         remain_languages = check_remain_languages(dir_path, languages)
-        write_question(root_path, dir_path, tmp, question_id, daily_info['questionNameEn'], daily_info['questionSlug'],
-                       remain_languages)
-    for lang in languages:
+        success_languages = write_question(root_path, dir_path, tmp, question_id,
+                                           daily_info['questionNameEn'], daily_info['questionSlug'], remain_languages)
+    logging.debug(f"Success languages: {success_languages}")
+    for lang in success_languages:
         try:
             cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
             if not cls:
@@ -141,7 +146,7 @@ def process_daily(languages: list[str], problem_folder: str = None):
             continue
 
 
-def process_plans(cookie: str, languages: list[str] = None, problem_folder: str = None):
+def process_plans(cookie: str, languages: List[str] = None, problem_folder: str = None):
     plans = get_user_study_plans(cookie)
     if plans is None:
         if not send_text_message("The LeetCode in GitHub secrets might be expired, please check!",
@@ -149,8 +154,8 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
             logging.error("Unable to send PushDeer notification!")
         logging.error("The LeetCode cookie might be expired, unable to check study plans!")
         return
-    problem_ids = []
     root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    success_languages = defaultdict(list)
     for slug in plans:
         plan_prog = get_user_study_plan_progress(slug, cookie)
         logging.info("Plan: {}, total: {}, cur: {}".format(slug, plan_prog["total"], plan_prog["finished"]))
@@ -165,15 +170,17 @@ def process_plans(cookie: str, languages: list[str] = None, problem_folder: str 
             dir_path = os.path.join(root_path, tmp_folder, f"{tmp_folder}_{question_id}")
             if not os.path.exists(dir_path):
                 os.makedirs(dir_path, exist_ok=True)
-                write_question(root_path, dir_path, tmp_folder, question_id, info["title"], question_slug,
-                               languages, cookie)
+                suc_langs = write_question(root_path, dir_path, tmp_folder, question_id, info["title"],
+                                           question_slug, languages, cookie)
             else:
                 remain_languages = check_remain_languages(dir_path, languages)
-                write_question(root_path, dir_path, tmp_folder, question_id, info["title"], question_slug,
-                               remain_languages, cookie)
-            problem_ids.append([question_id, tmp_folder])
-    if problem_ids:
-        for lang in languages:
+                suc_langs = write_question(root_path, dir_path, tmp_folder, question_id, info["title"],
+                                           question_slug, remain_languages, cookie)
+            for lang in suc_langs:
+                success_languages[lang].append([question_id, tmp_folder])
+    logging.debug(f"Success languages: {success_languages}")
+    if success_languages:
+        for lang, problem_ids in success_languages.items():
             try:
                 cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
                 if not cls:
