@@ -1,40 +1,41 @@
-# 208. Implement Trie (Prefix Tree)
+# 208. Implement Trie (Prefix Tree) 
 
-A [**trie**](https://en.wikipedia.org/wiki/Trie) (pronounced as "try") or **prefix tree** is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.
+<p>A <a href="https://en.wikipedia.org/wiki/Trie" target="_blank"><strong>trie</strong></a> (pronounced as &quot;try&quot;) or <strong>prefix tree</strong> is a tree data structure used to efficiently store and retrieve keys in a dataset of strings. There are various applications of this data structure, such as autocomplete and spellchecker.</p>
 
-Implement the Trie class:
+<p>Implement the Trie class:</p>
 
-- `Trie()` Initializes the trie object.
-- `void insert(String word)` Inserts the string `word` into the trie.
-- `boolean search(String word)` Returns `true` if the string `word` is in the trie (i.e., was inserted before), and `false` otherwise.
-- `boolean startsWith(String prefix)` Returns `true` if there is a previously inserted string `word` that has the prefix `prefix`, and `false` otherwise.
+<ul>
+	<li><code>Trie()</code> Initializes the trie object.</li>
+	<li><code>void insert(String word)</code> Inserts the string <code>word</code> into the trie.</li>
+	<li><code>boolean search(String word)</code> Returns <code>true</code> if the string <code>word</code> is in the trie (i.e., was inserted before), and <code>false</code> otherwise.</li>
+	<li><code>boolean startsWith(String prefix)</code> Returns <code>true</code> if there is a previously inserted string <code>word</code> that has the prefix <code>prefix</code>, and <code>false</code> otherwise.</li>
+</ul>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
-
-```
-Input
-["Trie", "insert", "search", "search", "startsWith", "insert", "search"]
-[[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
-Output
+<pre>
+<strong>Input</strong>
+[&quot;Trie&quot;, &quot;insert&quot;, &quot;search&quot;, &quot;search&quot;, &quot;startsWith&quot;, &quot;insert&quot;, &quot;search&quot;]
+[[], [&quot;apple&quot;], [&quot;apple&quot;], [&quot;app&quot;], [&quot;app&quot;], [&quot;app&quot;], [&quot;app&quot;]]
+<strong>Output</strong>
 [null, null, true, false, true, null, true]
 
-Explanation
+<strong>Explanation</strong>
 Trie trie = new Trie();
-trie.insert("apple");
-trie.search("apple");   // return True
-trie.search("app");     // return False
-trie.startsWith("app"); // return True
-trie.insert("app");
-trie.search("app");     // return True
-```
+trie.insert(&quot;apple&quot;);
+trie.search(&quot;apple&quot;);   // return True
+trie.search(&quot;app&quot;);     // return False
+trie.startsWith(&quot;app&quot;); // return True
+trie.insert(&quot;app&quot;);
+trie.search(&quot;app&quot;);     // return True
+</pre>
 
- 
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Constraints:**
-
-- `1 <= word.length, prefix.length <= 2000`
-- `word` and `prefix` consist only of lowercase English letters.
-- At most 3 * 10<sup>4</sup> calls **in total** will be made to `insert`, `search`, and `startsWith`.
-
+<ul>
+	<li><code>1 &lt;= word.length, prefix.length &lt;= 2000</code></li>
+	<li><code>word</code> and <code>prefix</code> consist only of lowercase English letters.</li>
+	<li>At most <code>3 * 10<sup>4</sup></code> calls <strong>in total</strong> will be made to <code>insert</code>, <code>search</code>, and <code>startsWith</code>.</li>
+</ul>
