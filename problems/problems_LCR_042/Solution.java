@@ -1,18 +1,27 @@
 package problems.problems_LCR_042;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+
 import com.alibaba.fastjson.JSON;
-import java.util.*;
+
 import qubhjava.BaseSolution;
 
 
 class RecentCounter {
-
+	Deque<Integer> queue;
     public RecentCounter() {
-
+		queue = new ArrayDeque<>();
     }
     
     public int ping(int t) {
-
+		while (!queue.isEmpty() && queue.peekFirst() < t - 3000) {
+			queue.pollFirst();
+		}
+		queue.offer(t);
+		return queue.size();
     }
 }
 

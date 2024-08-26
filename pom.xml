@@ -88,6 +88,7 @@
                     <excludes>
                         <exclude>bazel-*/**</exclude>
                         <exclude>external/**</exclude>
+                        <exclude>python/dev/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>
