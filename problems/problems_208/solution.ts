@@ -1,18 +1,38 @@
 class Trie {
+	root: Map<string, any>;
     constructor() {
-        
+        this.root = new Map();
     }
 
     insert(word: string): void {
-        
+		let node: Map<string, any> = this.root;
+		for (let i: number = 0; i < word.length; i++) {
+			if (!node.has(word[i])) {
+				node.set(word[i], new Map());
+			}
+			node = node.get(word[i]);
+		}
+		node.set("end", null);
     }
 
+	private searchNode(word: string): Map<string, any> {
+		let node: Map<string, any> = this.root;
+		for (let i: number = 0; i < word.length; i++) {
+			if (!node.has(word[i])) {
+				return null;
+			}
+			node = node.get(word[i]);
+		}
+		return node;
+	}
+
     search(word: string): boolean {
-        
+		const node: Map<string, any> = this.searchNode(word);
+		return node != null && node.has("end");
     }
 
     startsWith(prefix: string): boolean {
-        
+        return this.searchNode(prefix) != null;
     }
 }
 
