@@ -1,7 +1,8 @@
 import logging
 import os.path
 from collections import deque, defaultdict
-from typing import Tuple
+import re
+from typing import List, Optional, Tuple
 
 from python.constants import SOLUTION_TEMPLATE_JAVA
 from python.lc_libs.language_writer import LanguageWriter
@@ -60,6 +61,7 @@ class JavaWriter(LanguageWriter):
         import_packages = []
         body = []
         parse_input = []
+        end_extra = []
         return_part = ""
         import_part = True
         variables = []
@@ -122,7 +124,7 @@ class JavaWriter(LanguageWriter):
                     strip_line = line.strip()
                     additional_import = set()
                     if strip_line.startswith("public ") and strip_line.endswith("{"):
-                        vs, pi, ai, rp, _, _ = JavaWriter.__parse_java_method(strip_line, code_default, testcases)
+                        vs, pi, ai, rp, _, _ = JavaWriter.__parse_java_method(strip_line, code_default, testcases, end_extra=end_extra)
                         variables.extend(vs)
                         parse_input.extend(pi)
                         additional_import.update(ai)
@@ -145,6 +147,7 @@ class JavaWriter(LanguageWriter):
             "\n".join(body),
             "\n\t\t".join(parse_input),
             return_part,
+            "\n\n" + "\n".join(end_extra) if end_extra else "",
         )
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
@@ -194,7 +197,7 @@ class JavaWriter(LanguageWriter):
         return "\n".join(final_codes), problem_id
 
     @staticmethod
-    def __process_variable_type(input_name: str, variable_name: str, rt_type: str, code_default: str) -> str:
+    def __process_variable_type(input_name: str, variable_name: str, rt_type: str, code_default: str, end_extra:Optional[List]=None) -> str:
         match rt_type:
             case "int":
                 return f"{rt_type} {variable_name} = Integer.parseInt({input_name});"
@@ -254,12 +257,25 @@ class JavaWriter(LanguageWriter):
                               f" rt_type: {rt_type}, code: [{code_default}]")
                 return ""
             case _:
+                mit = re.finditer(r"// Definition for (\w+).", code_default)
+                for m in mit:
+                    if m.group(1) in rt_type:
+                        class_name = m.group(1)
+                        logging.debug("Match custom Class at %d-%d, %s", m.start(), m.end(), class_name)
+                        start_index = m.start()
+                        end_index = code_default.find("*/")
+                        logging.debug("Add extra class code:\n%s", code_default[start_index:end_index])
+                        end_extra.extend(code_default[start_index:end_index].split("\n"))
+                        end_extra.append(f"{rt_type} {class_name.lower()}Constructor(String input) {{")
+                        end_extra.append("\treturn null;")
+                        end_extra.append("}")
+                        return f"{rt_type} {variable_name} = {class_name.lower()}Constructor({input_name});"
                 logging.warning("Java type not Implemented yet: {}".format(rt_type))
         return f"{rt_type} {variable_name} = FIXME({input_name})"
 
     @staticmethod
     def __parse_java_method(strip_line: str, code_default: str, testcases=None,
-                            is_object_problem: bool = False) -> Tuple:
+                            is_object_problem: bool = False, end_extra=None) -> Tuple:
         variables = []
         parse_input = []
         additional_import = set()
@@ -307,7 +323,7 @@ class JavaWriter(LanguageWriter):
                     continue
             variables.append(variable)
             parse_input.append(JavaWriter.__process_variable_type(f"inputJsonValues[{i}]",
-                                                                  variable, rt_type, code_default))
+                                                                  variable, rt_type, code_default, end_extra))
             if "ListNode" in rt_type:
                 if testcases:
                     if len(testcases[0]) == len(input_parts) + 1 and all(

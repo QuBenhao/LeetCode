@@ -85,7 +85,7 @@ public class Solution extends BaseSolution {{
         {}
         return JSON.toJSON({});
     }}
-}}
+}}{}
 """
 
 SOLUTION_TEMPLATE_CPP = """//go:build ignore
