@@ -7,7 +7,23 @@ import (
 )
 
 func minSubArrayLen(target int, nums []int) int {
-
+	n := len(nums)
+	ans := n + 1
+	var queue []int
+	curSum := 0
+	for i, num := range nums {
+		queue = append(queue, i)
+		curSum += num
+		for curSum >= target {
+			ans = min(ans, len(queue))
+			curSum -= nums[queue[0]]
+			queue = queue[1:]
+		}
+	}
+	if ans == n+1 {
+		return 0
+	}
+	return ans
 }
 
 func Solve(inputJsonValues string) interface{} {
