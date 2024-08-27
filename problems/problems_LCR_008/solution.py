@@ -13,10 +13,10 @@ class Solution(solution.Solution):
         q = deque()
         cur_sum = 0
         ans = inf
-        for i, num in enumerate(nums):
-            q.append(i)
+        for num in nums:
+            q.append(num)
             cur_sum += num
             while cur_sum >= target:
                 ans = min(ans, len(q))
-                cur_sum -= nums[q.popleft()]
+                cur_sum -= q.popleft()
         return ans if ans != inf else 0
