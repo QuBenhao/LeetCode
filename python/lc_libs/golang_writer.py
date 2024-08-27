@@ -68,6 +68,7 @@ class GolangWriter(LanguageWriter):
         rts = []
         func_names = []
         structs_map = dict()
+        end_extra_code = ""
         testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
         for i, line in enumerate(code_default.split("\n")):
             line = line.strip()
@@ -88,7 +89,7 @@ class GolangWriter(LanguageWriter):
                             tmp.endswith(f") {struct_name} {{")
                             or tmp.endswith(f") *{struct_name} {{")
                     ):
-                        tp0, tp1, tp2, tp3, tp4 = GolangWriter.__process_inputs(
+                        tp0, tp1, tp2, tp3, tp4, tp5 = GolangWriter.__process_inputs(
                             code_default,
                             tmp.split("(")[1].split(")")[0],
                             structs_map,
@@ -102,10 +103,11 @@ class GolangWriter(LanguageWriter):
                             tp4.replace("inputValues", "opValues[0]").replace("\t\t\t", "\t"),
                             rt,
                         )
+                        end_extra_code += tp5
                     elif tmp.startswith("func (") and struct_name in tmp.split(")")[0]:
                         if "funcs" not in structs_map[struct_name]:
                             structs_map[struct_name]["funcs"] = []
-                        tp0, tp1, tp2, tp3, tp4 = GolangWriter.__process_inputs(
+                        tp0, tp1, tp2, tp3, tp4, tp5 = GolangWriter.__process_inputs(
                             code_default,
                             tmp.split("(")[2].split(")")[0],
                             structs_map,
@@ -126,6 +128,7 @@ class GolangWriter(LanguageWriter):
                                 rt,
                             )
                         )
+                        end_extra_code += tp5
 
                 import_set = set()
                 func_loop = ""
@@ -192,10 +195,12 @@ class GolangWriter(LanguageWriter):
                     "",
                     "ans",
                     "",
+                    "\n\n" + end_extra_code if end_extra_code else "",
                 ).replace("return ans()", "return ans")
         import_set = set()
         for it in its:
             import_set.update(it[0])
+            end_extra_code += it[5]
 
         if (
                 len(rts) != 1
@@ -253,6 +258,7 @@ class GolangWriter(LanguageWriter):
                 "\n".join(list(zip(*its))[2]),
                 return_func_name,
                 return_func_var,
+                "\n\n" + end_extra_code if end_extra_code else "",
             )
         if rts[0] == "":
             logging.debug("Modify in place, its: %s", its)
@@ -276,7 +282,8 @@ class GolangWriter(LanguageWriter):
                 "\n".join(list(zip(*its))[2]),
                 func_names[0],
                 ", ".join(list(zip(*its))[3]),
-                modify_in_place_return
+                modify_in_place_return,
+                "\n\n" + end_extra_code if end_extra_code else "",
             )
         return SOLUTION_TEMPLATE_GOLANG.format(
             problem_id,
@@ -293,6 +300,7 @@ class GolangWriter(LanguageWriter):
             "\n".join(list(zip(*its))[2]),
             func_names[0],
             ", ".join(list(zip(*its))[3]),
+            "\n\n" + end_extra_code if end_extra_code else "",
         )
 
     def get_solution_code(
@@ -346,14 +354,15 @@ class GolangWriter(LanguageWriter):
     @staticmethod
     def __process_inputs(
             code_default: str, input_str: str, struct_dict: dict, struct_func: bool, testcases=None
-    ) -> Tuple[set, str, str, str, str]:
+    ) -> Tuple[set, str, str, str, str, str]:
         res = []
         imports_libs = set()
         json_parse = []
         variables = []
         extra = ""
+        end_extra = []
         if input_str.strip() == "":
-            return set(), "", "", "", extra
+            return set(), "", "", "", extra, ""
         splits = input_str.split(",")
         first = True
         list_type_vars = []
@@ -690,14 +699,54 @@ class GolangWriter(LanguageWriter):
                         imports_libs.add('\t"encoding/json"')
                         imports_libs.add('\t"log"')
                     case _:
-                        for j, var in enumerate(vrs):
-                            json_parse.append(
-                                f"\tif err := json.Unmarshal([]byte(inputValues[{count + j}]), &"
-                                + var
-                                + "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n"
-                            )
+                        logging.debug("Unhandled type %s", tp)
+                        pure_type = "".join(c for c in tp if c.isalnum())
+                        logging.debug("Pure type: %s", pure_type)
+                        if (index := code_default.find(f"Definition for {pure_type}")) != -1:
+                            logging.debug("Add definition for %s, idx: %d", pure_type, index)
+                            # extract comment code definition at back
+                            end_index = code_default.find("*/", index)
+                            logging.debug("Code content:\n%s", code_default[index:end_index])
+                            for i, line in enumerate(code_default[index:end_index].split("\n")):
+                                line = line.strip()
+                                if i == 0:
+                                    end_extra.append(f"// {line}")
+                                    continue
+                                line_start = 0
+                                if line.startswith("*"):
+                                    while line_start < len(line) and line[line_start] == "*":
+                                        line_start += 1
+                                    if line[line_start] == " ":
+                                        line_start += 1
+                                end_extra.append(line[line_start:])
+                            logging.debug("End extra: %s", end_extra)
+                            end_extra.append(f"func constructor(input interface{{}}) *{pure_type} {{")
+                            end_extra.append("\treturn nil")
+                            end_extra.append("}")
+                            logging.debug("Vars: %s", vrs)
+                            if tp == pure_type or tp == f"*{pure_type}":
+                                for j, var in enumerate(vrs):
+                                    json_parse.append(f"\t{var} = constructor(inputValues[{count + j}])\n")
+                            elif "[]" in tp:
+                                for j, var in enumerate(vrs):
+                                    json_parse.append(f"\tvar {var}_input_array []interface{{}}\n")
+                                    json_parse.append(
+                                        f"\tif err := json.Unmarshal([]byte(inputValues[{count + j}]), &"
+                                        + var
+                                        + "_input_array); err != nil {\n\t\tlog.Fatal(err)\n\t}\n"
+                                    )
+                                    json_parse.append(f"\tfor _, ipt := range {var}_input_array {{\n")
+                                    json_parse.append(f"\t\t{var} = append({var}, constructor(ipt))\n")
+                                    json_parse.append("\t}\n")
+                        else:
+                            for j, var in enumerate(vrs):
+                                json_parse.append(
+                                    f"\tif err := json.Unmarshal([]byte(inputValues[{count + j}]), &"
+                                    + var
+                                    + "); err != nil {\n\t\tlog.Fatal(err)\n\t}\n"
+                                )
                         imports_libs.add('\t"encoding/json"')
                         imports_libs.add('\t"log"')
             count += len(vrs)
         imports_libs.add('\t"strings"')
-        return imports_libs, "".join(res), "".join(json_parse), ", ".join(variables), extra
+        return imports_libs, "".join(res), "".join(json_parse), ", ".join(variables), extra, "\n".join(end_extra)

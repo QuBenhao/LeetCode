@@ -218,10 +218,9 @@ class CppWriter(LanguageWriter):
         final_codes = deque([])
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
-            end_index = content.find("json leetcode::qubh::Solve(string input_json_values)")
-            if end_index == -1:
-                end_index = content.find("json leetcode::qubh::Solve(string input)")
-            start_index = content.find("using json = nlohmann::json;") + len("using json = nlohmann::json;")
+            end_index = content.find("json leetcode::qubh::Solve(string ")
+            start_index = content.find("using json = nlohmann::json;")
+            start_index = content.find("\n", start_index) + 1
             logging.debug("start_index: %d, end_index: %d", start_index, end_index)
             final_codes.extend(content[start_index:end_index].strip().split("\n"))
         while final_codes and final_codes[0].strip() == "":
@@ -265,6 +264,7 @@ class CppWriter(LanguageWriter):
             Optional[str]:
         i = 0
         if_modify_in_place = None
+        extra_parts = []
         while i < len(variables):
             variable = variables[i]
             rt = CppWriter._simplify_variable_type(variable)
@@ -499,13 +499,41 @@ class CppWriter(LanguageWriter):
                     else:
                         logging.debug(f"Unhandled Node Type variable: {variable}, code: [{code_default}]")
                 case _:
-                    process_variables.append(
-                        rt
-                        + " "
-                        + variable[-1]
-                        + f" = json::parse(inputArray.at({i}));"
-                    )
+                    logging.debug("Unhandled variable type: %s", rt)
+                    found_defination = False
+                    mit = re.finditer(r"// Definition for (\w+).", code_default)
+                    for m in mit:
+                        if m.group(1) in rt:
+                            class_name = m.group(1)
+                            logging.debug("Match custom Class at %d-%d, %s", m.start(), m.end(), class_name)
+                            start_index = m.start()
+                            end_index = code_default.find("*/")
+                            logging.debug("Add extra class code:\n%s", code_default[start_index:end_index])
+                            extra_parts.extend(code_default[start_index:end_index].split("\n"))
+                            extra_parts.append("")
+                            extra_parts.append(f"static {class_name}* {class_name.lower()}_from_input(json input) {{")
+                            extra_parts.append("\treturn nullptr;")
+                            extra_parts.append("}")
+                            found_defination = True
+                            process_variables.append(f"{rt} {variable[-1]};")
+                            if "vector" in rt:
+                                process_variables.append(f"vector<json> {variable[-1]}_input = json::parse(inputArray.at({i}));")
+                                process_variables.append(f"for (json ipt: {variable[-1]}_input) {{")
+                                process_variables.append(f"\t{variable[-1]}.emplace_back({class_name.lower()}_from_input(ipt));")
+                                process_variables.append("}")
+                            else:
+                                process_variables.append(f"{variable[-1]} = {class_name.lower()}_from_input(inputArray.at({i}))")
+                    if not found_defination:
+                        process_variables.append(
+                            rt
+                            + " "
+                            + variable[-1]
+                            + f" = json::parse(inputArray.at({i}));"
+                        )
             i += 1
+        if extra_parts:
+            include_libs.append("")
+            include_libs.extend(extra_parts)
         return if_modify_in_place
 
     @staticmethod

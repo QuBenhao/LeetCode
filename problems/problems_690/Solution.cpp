@@ -10,6 +10,17 @@ public:
   vector<int> subordinates;
 };
 
+static Employee *employee_from_input(json input) {
+  Employee *employee = new Employee();
+  employee->id = input[0];
+  employee->importance = input[1];
+  vector<json> array = input[2];
+  for (int v : array) {
+    employee->subordinates.push_back(v);
+  }
+  return employee;
+}
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -44,15 +55,9 @@ json leetcode::qubh::Solve(string input_json_values) {
 
   Solution solution;
   vector<Employee *> employees;
-  vector<json> employees_json = json::parse(inputArray.at(0));
-  for (size_t i = 0; i < employees_json.size(); i++) {
-    Employee *employee = new Employee();
-    employee->id = employees_json[i][0];
-    employee->importance = employees_json[i][1];
-    for (size_t j = 0; j < employees_json[i][2].size(); j++) {
-      employee->subordinates.push_back(employees_json[i][2][j]);
-    }
-    employees.push_back(employee);
+  vector<json> employees_input = json::parse(inputArray.at(0));
+  for (json ipt : employees_input) {
+    employees.emplace_back(employee_from_input(ipt));
   }
   int id = json::parse(inputArray.at(1));
   return solution.getImportance(employees, id);

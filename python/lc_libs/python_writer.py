@@ -92,38 +92,17 @@ class Python3Writer(LanguageWriter):
         file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "solution.py")
         if not os.path.exists(file_path):
             return "", problem_id
-        final_codes = deque([])
-        solve_part = False
-        class_part = False
+        final_codes = []
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
-            skip_solution = "from python.object_libs import " in content and " call_method" in content
-            lines = content.split("\n")
-            for line in lines:
-                if line.startswith("import") or line.startswith("from "):
-                    continue
-                if "class Solution(solution.Solution):" in line:
-                    if not skip_solution:
-                        final_codes.append("class Solution:")
-                    continue
-                if "class Node:" in line or "class ListNode:" in line or "class TreeNode" in line:
-                    class_part = True
-                    continue
-                if class_part:
-                    if line.strip() == '' or line.startswith("class"):
-                        class_part = False
-                    else:
-                        continue
-                if "def solve(self, test_input=None):" in line:
-                    solve_part = True
-                    continue
-                if solve_part:
-                    if "return " in line:
-                        solve_part = False
-                    continue
-                final_codes.append(line)
-        while final_codes and final_codes[0].strip() == '':
-            final_codes.popleft()
+            idx = content.find("def solve(self, test_input=None):")
+            idx = content.find("return ", idx)
+            idx = content.find("\n", idx) + 1
+            while idx < len(content) and content[idx] == "\n":
+                idx += 1
+            logging.debug("Start idx: %d", idx)
+            final_codes.append("class Solution:")
+            final_codes.extend(content[idx:].split("\n"))
         return "\n".join(final_codes), problem_id
 
     @staticmethod

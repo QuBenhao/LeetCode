@@ -186,16 +186,23 @@ class RustWriter(LanguageWriter):
         final_codes = deque([])
         with open(file_path, 'r', encoding="utf-8") as f:
             content = f.read()
-            start = False
-            is_obj_question = "object will be instantiated and called as such:" in content
-            for line in content.split("\n"):
-                if (is_obj_question and "use serde_json::{json, Value};" in line) or "pub struct Solution;" in line:
-                    start = True
-                    continue
-                if "#[cfg(feature = \"solution\")]" in line or f"#[cfg(feature = \"solution_{problem_id}\")]" in line:
-                    break
-                if start:
-                    final_codes.append(line)
+            # start = False
+            # is_obj_question = "object will be instantiated and called as such:" in content
+            # for line in content.split("\n"):
+            #     if (is_obj_question and "use serde_json::{json, Value};" in line) or "pub struct Solution;" in line:
+            #         start = True
+            #         continue
+            #     if "#[cfg(feature = \"solution\")]" in line or f"#[cfg(feature = \"solution_{problem_id}\")]" in line:
+            #         break
+            #     if start:
+            #         final_codes.append(line)
+            start_idx = content.find("pub struct Solution;")
+            if start_idx == -1:
+                start_idx = content.find("use serde_json::{json, Value};")
+            start_idx = content.find("\n", start_idx) + 1
+            logging.debug("start idx: %s", start_idx)
+            end_idx = content.find("#[cfg(feature = \"solution", start_idx)
+            final_codes.extend(content[start_idx:end_idx].split("\n"))
         while final_codes and final_codes[0].strip() == '':
             final_codes.popleft()
         while final_codes and final_codes[-1].strip() == '':

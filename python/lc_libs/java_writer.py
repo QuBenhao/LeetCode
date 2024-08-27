@@ -1,7 +1,8 @@
 import logging
 import os.path
 from collections import deque, defaultdict
-from typing import Tuple
+import re
+from typing import List, Optional, Tuple
 
 from python.constants import SOLUTION_TEMPLATE_JAVA
 from python.lc_libs.language_writer import LanguageWriter
@@ -60,6 +61,7 @@ class JavaWriter(LanguageWriter):
         import_packages = []
         body = []
         parse_input = []
+        end_extra = []
         return_part = ""
         import_part = True
         variables = []
@@ -122,7 +124,7 @@ class JavaWriter(LanguageWriter):
                     strip_line = line.strip()
                     additional_import = set()
                     if strip_line.startswith("public ") and strip_line.endswith("{"):
-                        vs, pi, ai, rp, _, _ = JavaWriter.__parse_java_method(strip_line, code_default, testcases)
+                        vs, pi, ai, rp, _, _ = JavaWriter.__parse_java_method(strip_line, code_default, testcases, end_extra=end_extra)
                         variables.extend(vs)
                         parse_input.extend(pi)
                         additional_import.update(ai)
@@ -145,6 +147,7 @@ class JavaWriter(LanguageWriter):
             "\n".join(body),
             "\n\t\t".join(parse_input),
             return_part,
+            "\n\n" + "\n".join(end_extra) if end_extra else "",
         )
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
@@ -163,48 +166,38 @@ class JavaWriter(LanguageWriter):
         final_codes = deque([])
         with open(file_path, 'r', encoding="utf-8") as f:
             content = f.read()
-            is_obj_question = False
-            if "object will be instantiated and called as such:" in content:
-                is_obj_question = True
-            lines = content.split("\n")
-            solve_part = []
-            for line in lines:
-                if line.startswith("package "):
-                    continue
-                if line.startswith("import "):
-                    continue
-                if "public Object solve(String[] values) {" in line or \
-                        "public Object solve(String[] inputJsonValues) {" in line:
-                    last = final_codes.pop()
-                    if last.strip() != "@Override":
-                        final_codes.append(last)
-                    solve_part.append(0)
-                    continue
-                if solve_part:
-                    for _ in range(line.count("{")):
-                        solve_part.append(0)
-                    for _ in range(line.count("}")):
-                        solve_part.pop()
-                    continue
-                if "public class Solution extends BaseSolution {" in line:
-                    if not is_obj_question:
-                        final_codes.append("class Solution {")
-                    continue
-                final_codes.append(line)
-        while final_codes and final_codes[0].strip() == '':
-            final_codes.popleft()
-
-        if is_obj_question:
-            while final_codes and final_codes[-1].strip() == '':
-                final_codes.pop()
-            if final_codes and final_codes[-1].strip() == "}":
-                final_codes.pop()
-            while final_codes and final_codes[-1].strip() == '':
-                final_codes.pop()
+            solution_class_idx = content.find("public class Solution extends BaseSolution {")
+            logging.debug("solution_class_idx: %s", solution_class_idx)
+            solve_method_idx = content.find("public Object solve(String[] ", solution_class_idx)
+            logging.debug("solve_method_idx: %s", solve_method_idx)
+            # if there are any method in between, add them to final_codes
+            between_content = content[solution_class_idx + len("public class Solution extends BaseSolution {"):solve_method_idx]
+            if between_content.strip() != "@Override":
+                splits = between_content.split("\n")
+                while splits and splits[-1].strip() != "@Override":
+                    splits.pop()
+                splits.pop()
+                logging.debug(splits)
+                final_codes.extend(splits)
+                while final_codes and not final_codes[-1].strip():
+                    final_codes.pop()
+                while final_codes and not final_codes[0].strip():
+                    final_codes.popleft()
+                final_codes.appendleft("class Solution {")
+                final_codes.append("}")
+            else:
+                # last import sentence
+                last_import_idx = content.rfind("import ")
+                start_idx = content.find("\n", last_import_idx) + 1
+                final_codes.extend(content[start_idx:solution_class_idx].split("\n"))
+                while final_codes and not final_codes[-1].strip():
+                    final_codes.pop()
+                while final_codes and not final_codes[0].strip():
+                    final_codes.popleft()
         return "\n".join(final_codes), problem_id
 
     @staticmethod
-    def __process_variable_type(input_name: str, variable_name: str, rt_type: str, code_default: str) -> str:
+    def __process_variable_type(input_name: str, variable_name: str, rt_type: str, code_default: str, end_extra:Optional[List]=None) -> str:
         match rt_type:
             case "int":
                 return f"{rt_type} {variable_name} = Integer.parseInt({input_name});"
@@ -264,12 +257,26 @@ class JavaWriter(LanguageWriter):
                               f" rt_type: {rt_type}, code: [{code_default}]")
                 return ""
             case _:
+                mit = re.finditer(r"// Definition for (\w+).", code_default)
+                for m in mit:
+                    if m.group(1) in rt_type:
+                        class_name = m.group(1)
+                        logging.debug("Match custom Class at %d-%d, Class [%s]", m.start(), m.end(), class_name)
+                        start_index = m.start()
+                        end_index = code_default.find("*/")
+                        logging.debug("Add extra class code:\n%s", code_default[start_index:end_index])
+                        end_extra.extend(code_default[start_index:end_index].split("\n"))
+                        insert_pos = len(end_extra) - 1
+                        while insert_pos > 0 and "}" not in end_extra[insert_pos]:
+                            insert_pos -= 1
+                        end_extra.insert(insert_pos, f"\tpublic static {rt_type} Constructor(String input) {{\n\t\treturn null;\n\t}}")
+                        return f"{rt_type} {variable_name} = {class_name}.Constructor({input_name});"
                 logging.warning("Java type not Implemented yet: {}".format(rt_type))
         return f"{rt_type} {variable_name} = FIXME({input_name})"
 
     @staticmethod
     def __parse_java_method(strip_line: str, code_default: str, testcases=None,
-                            is_object_problem: bool = False) -> Tuple:
+                            is_object_problem: bool = False, end_extra=None) -> Tuple:
         variables = []
         parse_input = []
         additional_import = set()
@@ -317,7 +324,7 @@ class JavaWriter(LanguageWriter):
                     continue
             variables.append(variable)
             parse_input.append(JavaWriter.__process_variable_type(f"inputJsonValues[{i}]",
-                                                                  variable, rt_type, code_default))
+                                                                  variable, rt_type, code_default, end_extra))
             if "ListNode" in rt_type:
                 if testcases:
                     if len(testcases[0]) == len(input_parts) + 1 and all(
