@@ -1,7 +1,7 @@
 import logging
 import os.path
 from collections import defaultdict, deque
-from typing import Optional, Tuple
+from typing import Optional, Tuple, List
 
 from python.constants import SOLUTION_TEMPLATE_TYPESCRIPT
 from python.lc_libs.language_writer import LanguageWriter
@@ -60,6 +60,7 @@ class TypescriptWriter(LanguageWriter):
         code = code or code_default
         comment = False
         functions = []
+        end_extra = []
         testcases = LanguageWriter.get_test_cases(problem_folder, problem_id)
         for line in code_default.split("\n"):
             strip_line = line.strip()
@@ -80,14 +81,18 @@ class TypescriptWriter(LanguageWriter):
             process_inputs = []
             var_names = []
             func = functions[0]
-            modify_in_place_if = self._process_variables(func, process_inputs, var_names, import_part, code_default, testcases)
-            return_part = self._process_return(func, process_inputs, var_names, import_part, code_default, modify_in_place_if)
+            modify_in_place_if = self._process_variables(func, process_inputs, var_names, import_part, code_default,
+                                                         testcases, end_extra)
+            return_part = self._process_return(func, process_inputs, var_names, import_part, code_default,
+                                               modify_in_place_if)
             return SOLUTION_TEMPLATE_TYPESCRIPT.format(
                 "" if not import_part else "\n".join(
                     ["import {" + ",".join(v) + "} from " + k for k, v in import_part.items()]) + "\n\n",
                 code,
                 "\t" + "\n\t".join(process_inputs),
-                return_part)
+                return_part,
+                "\n\n" + "\n".join(end_extra) if end_extra else "",
+            )
         process_inputs = ["const operators: string[] = JSON.parse(inputValues[0]);",
                           "const opValues: any[][] = JSON.parse(inputValues[1]);",
                           "const ans: any[] = [null];"]
@@ -147,7 +152,8 @@ class TypescriptWriter(LanguageWriter):
                 ["import {" + ",".join(v) + "} from " + k for k, v in import_part.items()]) + "\n\n",
             code,
             "\t" + "\n\t".join(process_inputs),
-            "ans"
+            "ans",
+            "\n\n" + "\n".join(end_extra) if end_extra else ""
         )
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
@@ -179,7 +185,8 @@ class TypescriptWriter(LanguageWriter):
             final_codes.pop()
         return "\n".join(final_codes), problem_id
 
-    def _process_variables(self, func, process_inputs, var_names, import_part, code_default: str, testcases=None) -> Optional[str]:
+    def _process_variables(self, func, process_inputs, var_names, import_part, code_default: str, testcases=None,
+                           end_extra: Optional[List[str]] = None) -> Optional[str]:
         i = 0
         modify_in_place_if = None
         while i < len(func[1]):
@@ -310,11 +317,38 @@ class TypescriptWriter(LanguageWriter):
                         logging.debug(f"Please implement the conversion function for _Node, {code_default}")
                         process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
                 case _:
-                    process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
+                    logging.debug("Unhandled type %s", var_type)
+                    pure_type = "".join(c for c in var_type if c.isalnum())
+                    logging.debug("Pure type: %s", pure_type)
+                    if (index := code_default.find(f"Definition for {pure_type}")) != -1:
+                        logging.debug("Add definition for %s, start idx: %d", pure_type, index)
+                        end_index = code_default.find("*/", index)
+                        logging.debug("Code content:\n%s", code_default[index:end_index])
+                        for inner_i, line in enumerate(code_default[index:end_index].split("\n")):
+                            line = line.strip()
+                            if inner_i == 0:
+                                end_extra.append(f"// {line}")
+                                continue
+                            line_start = 0
+                            if line.startswith("*"):
+                                while line_start < len(line) and line[line_start] == "*":
+                                    line_start += 1
+                                if line[line_start] == " ":
+                                    line_start += 1
+                            end_extra.append(line[line_start:])
+                        end_extra.append(f"function {pure_type}Construct(input: any): {var_type} {{")
+                        end_extra.append(f"\treturn null;")
+                        end_extra.append("}")
+                        logging.debug("End extra: %s", end_extra)
+                        logging.debug("Vars: %s", var_names)
+                        process_inputs.append(f"const {var_name} = {pure_type}Construct(JSON.parse(inputValues[{i}]));")
+                    else:
+                        process_inputs.append(f"const {variable} = JSON.parse(inputValues[{i}]);")
             i += 1
         return modify_in_place_if
 
-    def _process_return(self, func, process_inputs, var_names, import_part, code_default: str, modify_in_place_if: Optional[str]) -> str:
+    def _process_return(self, func, process_inputs, var_names, import_part, code_default: str,
+                        modify_in_place_if: Optional[str]) -> str:
         match func[2]:
             case "ListNode | null":
                 import_part[self._LIST_NODE_PATH].add("ListNode")
@@ -343,13 +377,15 @@ class TypescriptWriter(LanguageWriter):
                     logging.debug(f"Please implement the return part for _Node, {code_default}")
             case "void":
                 process_inputs.append("{}({})".format(func[0], ", ".join(var_names)))
-                logging.debug("process_inputs: %s, var_names: %s, modify_in_place: %s", process_inputs, var_names, modify_in_place_if)
+                logging.debug("process_inputs: %s, var_names: %s, modify_in_place: %s", process_inputs, var_names,
+                              modify_in_place_if)
                 return_part = modify_in_place_if or var_names[0]
                 if modify_in_place_if:
                     extra_import = modify_in_place_if.split("(")[0]
                     logging.debug("import_part: %s", import_part)
                     for v in import_part.values():
-                        if ("ListNode" in v and "ListNode" in extra_import) or ("TreeNode" in v and "TreeNode" in extra_import):
+                        if ("ListNode" in v and "ListNode" in extra_import) or (
+                                "TreeNode" in v and "TreeNode" in extra_import):
                             v.add(extra_import)
             case _:
                 return_part = "{}({})".format(func[0], ", ".join(var_names))
