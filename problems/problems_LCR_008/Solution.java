@@ -7,7 +7,20 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int minSubArrayLen(int target, int[] nums) {
-
+        Deque<Integer> queue = new ArrayDeque<>();
+        int sum = 0;
+        int n = nums.length;
+        int ans = n + 1;
+        for (int num: nums) {
+            queue.addLast(num);
+            sum += num;
+            while (sum >= target) {
+                ans = Math.min(ans, queue.size());
+                Integer first = queue.pollFirst();
+                sum -= first == null ? 0 : first;
+            }
+        }
+        return ans == n + 1 ? 0 : ans;
     }
 
     @Override
