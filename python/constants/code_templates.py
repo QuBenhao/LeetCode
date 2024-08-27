@@ -38,7 +38,7 @@ func Solve(inputJsonValues string) interface{{}} {{
 {}
 {}
 \treturn {}({})
-}}
+}}{}
 """
 
 SOLUTION_TEMPLATE_GOLANG_MODIFY_IN_PLACE = """package problem{}
@@ -55,7 +55,7 @@ func Solve(inputJsonValues string) interface{{}} {{
 {}
 \t{}({})
 \treturn {}
-}}
+}}{}
 """
 
 TESTCASE_TEMPLATE_GOLANG = """package golang

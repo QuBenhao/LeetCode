@@ -28,22 +28,12 @@ func Solve(inputJsonValues string) interface{} {
 	var employees []*Employee
 	var id int
 
-	var employeesJson [][]interface{}
-	if err := json.Unmarshal([]byte(inputValues[0]), &employeesJson); err != nil {
+	var employees_input_array []interface{}
+	if err := json.Unmarshal([]byte(inputValues[0]), &employees_input_array); err != nil {
 		log.Fatal(err)
 	}
-	for _, employeeJson := range employeesJson {
-		eid := int(employeeJson[0].(float64))
-		importance := int(employeeJson[1].(float64))
-		subordinates := []int{}
-		for _, sub := range employeeJson[2].([]interface{}) {
-			subordinates = append(subordinates, int(sub.(float64)))
-		}
-		employees = append(employees, &Employee{
-			Id:           eid,
-			Importance:   importance,
-			Subordinates: subordinates,
-		})
+	for _, ipt := range employees_input_array {
+		employees = append(employees, constructor(ipt))
 	}
 	if err := json.Unmarshal([]byte(inputValues[1]), &id); err != nil {
 		log.Fatal(err)
@@ -52,9 +42,19 @@ func Solve(inputJsonValues string) interface{} {
 	return getImportance(employees, id)
 }
 
-// Employee Definition for Employee.
+// Definition for Employee.
 type Employee struct {
 	Id           int
 	Importance   int
 	Subordinates []int
+}
+
+func constructor(input interface{}) *Employee {
+	arr := input.([]interface{})
+	num_arr := arr[2].([]interface{})
+	nums := make([]int, len(num_arr))
+	for i, v := range num_arr {
+		nums[i] = int(v.(float64))
+	}
+	return &Employee{int(arr[0].(float64)), int(arr[1].(float64)), nums}
 }
