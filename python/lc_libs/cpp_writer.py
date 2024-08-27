@@ -504,15 +504,25 @@ class CppWriter(LanguageWriter):
                     mit = re.finditer(r"// Definition for (\w+).", code_default)
                     for m in mit:
                         if m.group(1) in rt:
-                            logging.debug("Match custom Class at %d-%d, %s", m.start(), m.end(), m.group(1))
+                            class_name = m.group(1)
+                            logging.debug("Match custom Class at %d-%d, %s", m.start(), m.end(), class_name)
                             start_index = m.start()
                             end_index = code_default.find("*/")
                             logging.debug("Add extra class code:\n%s", code_default[start_index:end_index])
                             extra_parts.extend(code_default[start_index:end_index].split("\n"))
+                            extra_parts.append("")
+                            extra_parts.append(f"static {class_name}* {class_name.lower()}_from_input(json input) {{")
+                            extra_parts.append("\treturn nullptr;")
+                            extra_parts.append("}")
                             found_defination = True
-                            process_variables.append("// TODO(benhao): fix me")
                             process_variables.append(f"{rt} {variable[-1]};")
-                            process_variables.append(f"inputArray.at({i});")
+                            if "vector" in rt:
+                                process_variables.append(f"vector<json> {variable[-1]}_input = json::parse(inputArray.at({i}));")
+                                process_variables.append(f"for (json ipt: {variable[-1]}_input) {{")
+                                process_variables.append(f"\t{variable[-1]}.emplace_back({class_name.lower()}_from_input(ipt));")
+                                process_variables.append("}")
+                            else:
+                                process_variables.append(f"{variable[-1]} = {class_name.lower()}_from_input(inputArray.at({i}))")
                     if not found_defination:
                         process_variables.append(
                             rt
