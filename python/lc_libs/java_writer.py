@@ -261,15 +261,16 @@ class JavaWriter(LanguageWriter):
                 for m in mit:
                     if m.group(1) in rt_type:
                         class_name = m.group(1)
-                        logging.debug("Match custom Class at %d-%d, %s", m.start(), m.end(), class_name)
+                        logging.debug("Match custom Class at %d-%d, Class [%s]", m.start(), m.end(), class_name)
                         start_index = m.start()
                         end_index = code_default.find("*/")
                         logging.debug("Add extra class code:\n%s", code_default[start_index:end_index])
                         end_extra.extend(code_default[start_index:end_index].split("\n"))
-                        end_extra.append(f"{rt_type} {class_name.lower()}Constructor(String input) {{")
-                        end_extra.append("\treturn null;")
-                        end_extra.append("}")
-                        return f"{rt_type} {variable_name} = {class_name.lower()}Constructor({input_name});"
+                        insert_pos = len(end_extra) - 1
+                        while insert_pos > 0 and "}" not in end_extra[insert_pos]:
+                            insert_pos -= 1
+                        end_extra.insert(insert_pos, f"\tpublic static {rt_type} Constructor(String input) {{\n\t\treturn null;\n\t}}")
+                        return f"{rt_type} {variable_name} = {class_name}.Constructor({input_name});"
                 logging.warning("Java type not Implemented yet: {}".format(rt_type))
         return f"{rt_type} {variable_name} = FIXME({input_name})"
 

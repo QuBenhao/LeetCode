@@ -1,27 +1,18 @@
 package problems.problems_690;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-
+import java.util.*;
 import qubhjava.BaseSolution;
 
+/*
 // Definition for Employee.
 class Employee {
     public int id;
     public int importance;
     public List<Integer> subordinates;
-
-    public Employee(int id, int importance, List<Integer> subordinates) {
-        this.id = id;
-        this.importance = importance;
-        this.subordinates = subordinates;
-    }
 };
+*/
 
 public class Solution extends BaseSolution {
     private int dfs(Map<Integer, Employee> employeeMap, Employee employee) {
@@ -40,16 +31,35 @@ public class Solution extends BaseSolution {
         return dfs(employeeMap, employeeMap.get(id));
     }
 
-
     @Override
     public Object solve(String[] inputJsonValues) {
-        JSONArray jsonArray = JSON.parseArray(inputJsonValues[0]);
-        List<Employee> employees = new ArrayList<>(jsonArray.size());
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JSONArray innerArray = JSON.parseArray(jsonArray.getString(i));
-            employees.add(new Employee(innerArray.getIntValue(0), innerArray.getIntValue(1), jsonArrayToIntList(innerArray.getString(2))));
-        }
+        List<Employee> employees = Employee.Constructor(inputJsonValues[0]);
 		int id = Integer.parseInt(inputJsonValues[1]);
         return JSON.toJSON(getImportance(employees, id));
     }
 }
+
+// Definition for Employee.
+class Employee {
+    public int id;
+    public int importance;
+    public List<Integer> subordinates;
+	public static List<Employee> Constructor(String input) {
+		JSONArray jsonArray = JSON.parseArray(input);
+        List<Employee> employees = new ArrayList<>(jsonArray.size());
+        for (int i = 0; i < jsonArray.size(); i++) {
+            JSONArray innerArray = JSON.parseArray(jsonArray.getString(i));
+            JSONArray subordinates = innerArray.getJSONArray(2);
+            List<Integer> subordinatesList = new ArrayList<>(subordinates.size());
+            for (int j = 0; j < subordinates.size(); j++) {
+                subordinatesList.add(subordinates.getIntValue(j));
+            }
+            Employee employee = new Employee();
+            employee.id = innerArray.getIntValue(0);
+            employee.importance = innerArray.getIntValue(1);
+            employee.subordinates = subordinatesList;
+            employees.add(employee);
+        }
+        return employees;
+	}
+};
