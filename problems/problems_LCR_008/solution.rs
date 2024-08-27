@@ -3,9 +3,26 @@ use serde_json::{json, Value};
 
 pub struct Solution;
 
+use std::collections::VecDeque;
 impl Solution {
     pub fn min_sub_array_len(target: i32, nums: Vec<i32>) -> i32 {
-
+		let n = nums.len();
+		let mut ans = n + 1;
+		let mut queue = VecDeque::new();
+		let mut sum = 0;
+		for num in nums {
+			queue.push_back(num);
+			sum += num;
+			while sum >= target {
+				ans = ans.min(queue.len());
+				sum -= queue.pop_front().unwrap();
+			}
+		}
+		if ans == n + 1 {
+			0
+		} else {
+			ans as _
+		}
     }
 }
 
