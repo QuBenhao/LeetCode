@@ -431,7 +431,7 @@ Add PROBLEM_FOLDER for [actions](.github/workflows/) to work properly.
 3. [Sync](.github/workflows/sync.yml)
 
 **Notice:**
-Do not enable [Version Tagging](.github/workflows/version_tag.yml) unless you know what you are doing.
+Do not enable [Semantic Release](.github/workflows/release.yml) unless you know what you are doing.
 
 ## Demo Projects
 
