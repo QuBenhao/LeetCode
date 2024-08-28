@@ -1,0 +1,26 @@
+name: Semantic Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    concurrency: release
+    permissions:
+      id-token: write
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Python Semantic Release
+        # Adjust tag with desired version if applicable. Version shorthand
+        # is NOT available, e.g. vX or vX.X will not work.
+        uses: python-semantic-release/python-semantic-release@v9.8.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
