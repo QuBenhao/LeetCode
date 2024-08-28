@@ -21,7 +21,7 @@ import java.util.List;
 public class ProblemsTest {
 
     private static final Logger log = LoggerFactory.getLogger(ProblemsTest.class);
-	private static final String[][] PROBLEMS = {{"LCR_008", "problems"}, {"131", "problems"}};
+	private static final String[][] PROBLEMS = {{"LCR_015", "problems"}, {"45", "problems"}};
 
     @TestFactory
     @SuppressWarnings("unchecked")

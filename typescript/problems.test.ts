@@ -5,7 +5,7 @@ var _ = require('lodash-contrib');
 const vm = require('node:vm');
 import {CompareResults} from "./common";
 
-const PROBLEMS: string[][] = [['LCR_008', 'problems'], ['131', 'problems']];
+const PROBLEMS: string[][] = [['LCR_015', 'problems'], ['45', 'problems']];
 
 for (const [problemId, problemFolder] of PROBLEMS) {
     describe(`Test for problem ${problemId}`, () => {
