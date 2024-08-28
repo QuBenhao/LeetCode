@@ -6,8 +6,15 @@ import (
 	"strings"
 )
 
-func jump(nums []int) int {
-
+func jump(nums []int) (ans int) {
+	for cur, nxt, n := 0, 0, len(nums); nxt < n-1; ans++ {
+		tmp := nxt
+		for i := cur; i <= tmp; i++ {
+			nxt = max(nxt, i+nums[i])
+		}
+		cur = tmp
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
