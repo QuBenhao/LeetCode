@@ -4,7 +4,22 @@ pub struct Solution;
 
 impl Solution {
     pub fn satisfies_conditions(grid: Vec<Vec<i32>>) -> bool {
-
+		let m = grid.len();
+		let n = grid[0].len();
+		for j in 0..n-1 {
+			if grid[0][j] == grid[0][j + 1] {
+				return false;
+			}
+		}
+		for j in 0..n {
+			let v = grid[0][j];
+			for i in 1..m {
+				if grid[i][j] != v {
+					return false;
+				}
+			}
+		}
+		true
     }
 }
 

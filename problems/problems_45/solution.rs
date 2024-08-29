@@ -4,7 +4,20 @@ pub struct Solution;
 
 impl Solution {
     pub fn jump(nums: Vec<i32>) -> i32 {
-
+		let mut ans: i32 = 0;
+		let n = nums.len();
+		let mut cur: usize = 0;
+		let mut nxt: usize = 0;
+		while nxt + 1 < n {
+			let mut tmp = nxt;
+			for i in cur..=nxt {
+				tmp = tmp.max(i + nums[i] as usize);
+			}
+			cur = nxt + 1;
+			nxt = tmp;
+			ans += 1;
+		}
+		ans
     }
 }
 
