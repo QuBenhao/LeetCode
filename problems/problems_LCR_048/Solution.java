@@ -1,31 +1,71 @@
 package problems.problems_LCR_048;
 
 import com.alibaba.fastjson.JSON;
+
 import java.util.*;
+
 import qubhjava.BaseSolution;
-import qubhjava.models.TreeNode;
 import qubhjava.models.TreeNode;
 
 
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode(int x) { val = x; }
  * }
  */
-public class Codec {
+class Codec {
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
-        
+        if (root == null) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        preorder(root, sb);
+        while (sb.charAt(sb.length() - 1) == '#' && sb.charAt(sb.length() - 2) == ',') {
+            sb.delete(sb.length() - 2, sb.length());
+        }
+        while (sb.charAt(sb.length() - 1) == ',') {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
     }
+
+    private void preorder(TreeNode root, StringBuilder sb) {
+        if (root == null) {
+            sb.append("#,");
+            return;
+        }
+        sb.append(root.val).append(",");
+        preorder(root.left, sb);
+        preorder(root.right, sb);
+    }
+
+    private int idx;
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        
+        if (data.isEmpty()) {
+            return null;
+        }
+        String[] nodes = data.split(",");
+        idx = 0;
+        return buildTree(nodes);
+    }
+
+    private TreeNode buildTree(String[] nodes) {
+        if (idx >= nodes.length || nodes[idx].equals("#")) {
+            idx++;
+            return null;
+        }
+        TreeNode root = new TreeNode(Integer.parseInt(nodes[idx++]));
+        root.left = buildTree(nodes);
+        root.right = buildTree(nodes);
+        return root;
     }
 }
 
@@ -39,23 +79,10 @@ public class Solution extends BaseSolution {
 
     @Override
     public Object solve(String[] inputJsonValues) {
-        String[] operators = jsonArrayToStringArray(inputJsonValues[0]);
-		String[][] opValues = jsonArrayToString2DArray(inputJsonValues[1]);
-		List<Object> ans = new ArrayList<>(operators.length);
-		ans.add(null);
-		for (int i = 1; i < operators.length; i++) {
-			if (operators[i].compareTo("serialize") == 0) {
-				TreeNode root = TreeNode.ArrayToTreeNode(opValues[i][0]);
-				ans.add(obj.serialize(root));
-				continue;
-			}
-			if (operators[i].compareTo("deserialize") == 0) {
-				String data = jsonStringToString(opValues[i][0]);
-				ans.add(obj.TreeNode.TreeNodeToArray(deserialize(data)));
-				continue;
-			}
-			ans.add(null);
-		}
-        return JSON.toJSON(ans);
+        TreeNode root = TreeNode.ArrayToTreeNode(inputJsonValues[0]);
+        Codec ser = new Codec();
+        Codec der = new Codec();
+        TreeNode ans = der.deserialize(ser.serialize(root));
+        return JSON.toJSON(TreeNode.TreeNodeToArray(ans));
     }
 }
