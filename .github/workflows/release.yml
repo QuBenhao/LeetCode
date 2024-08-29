@@ -26,3 +26,43 @@ jobs:
         uses: python-semantic-release/python-semantic-release@v9.8.6
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup old tags and releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Fetch all tags
+          git fetch --tags
+
+          # Get the list of tags sorted by date
+          tags=$(git for-each-ref --sort=-taggerdate --format '%(refname:short)' refs/tags)
+
+          # Get the current date in seconds since epoch
+          current_date=$(date +%s)
+
+          # Initialize counters
+          count=0
+          max_count=3
+          max_days=7
+
+          for tag in $tags; do
+            # Get the tag date in seconds since epoch
+            tag_date=$(git log -1 --format=%at $tag)
+
+            # Calculate the age of the tag in days
+            age_days=$(( (current_date - tag_date) / 86400 ))
+
+            if [ $age_days -le $max_days ] && [ $count -lt $max_count ]; then
+              count=$((count + 1))
+            else
+              # Delete the tag locally and remotely
+              git tag -d $tag
+              git push origin :refs/tags/$tag
+
+              # Delete the release associated with the tag
+              release_id=$(gh release view $tag --json id --jq '.id')
+              if [ -n "$release_id" ]; then
+                gh release delete $release_id --yes
+              fi
+            fi
+          done
