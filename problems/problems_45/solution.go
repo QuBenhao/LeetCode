@@ -12,7 +12,7 @@ func jump(nums []int) (ans int) {
 		for i := cur; i <= tmp; i++ {
 			nxt = max(nxt, i+nums[i])
 		}
-		cur = tmp
+		cur = tmp + 1
 	}
 	return
 }
