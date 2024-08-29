@@ -60,7 +60,7 @@ jobs:
               git push origin :refs/tags/$tag
 
               # Delete the release associated with the tag
-              release_id=$(gh release view $tag --json id --jq '.id')
+              release_id=$(gh release view $tag --json id --jq '.id' || echo "")
               if [ -n "$release_id" ]; then
                 gh release delete $release_id --yes
               fi
