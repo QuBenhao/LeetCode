@@ -1,8 +1,8 @@
 package problemLCR_048
 
 import (
-	"encoding/json"
-	"log"
+	. "leetCode/golang/models"
+	"strconv"
 	"strings"
 )
 
@@ -16,23 +16,57 @@ import (
  */
 
 type Codec struct {
-    
 }
 
 func Constructor() Codec {
-    
+	return Codec{}
 }
 
 // Serializes a tree to a single string.
 func (this *Codec) serialize(root *TreeNode) string {
-    
+	var ans []string
+	var dfs func(*TreeNode)
+	dfs = func(node *TreeNode) {
+		if node == nil {
+			ans = append(ans, "#")
+			return
+		}
+		ans = append(ans, strconv.Itoa(node.Val))
+		dfs(node.Left)
+		dfs(node.Right)
+	}
+	dfs(root)
+	for len(ans) > 0 && ans[len(ans)-1] == "#" {
+		ans = ans[:len(ans)-1]
+	}
+	return strings.Join(ans, ",")
 }
 
 // Deserializes your encoded data to tree.
-func (this *Codec) deserialize(data string) *TreeNode {    
-    
+func (this *Codec) deserialize(data string) *TreeNode {
+	if data == "" {
+		return nil
+	}
+	nodes := strings.Split(data, ",")
+	var index int
+	var dfs func() *TreeNode
+	dfs = func() *TreeNode {
+		if index == len(nodes) {
+			return nil
+		}
+		if nodes[index] == "#" {
+			index++
+			return nil
+		}
+		val, _ := strconv.Atoi(nodes[index])
+		index++
+		node := &TreeNode{Val: val}
+		node.Left = dfs()
+		node.Right = dfs()
+		return node
+	}
+	return dfs()
 }
-
 
 /**
  * Your Codec object will be instantiated and called as such:
@@ -44,32 +78,9 @@ func (this *Codec) deserialize(data string) *TreeNode {
 
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
-	var operators []string
-	var opValues [][]interface{}
-	var ans []interface{}
-	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
-		log.Println(err)
-		return nil
-	}
-	if err := json.Unmarshal([]byte(inputValues[1]), &opValues); err != nil {
-		log.Println(err)
-		return nil
-	}
 	obj := Constructor()
-	ans = append(ans, nil)
-	for i := 1; i < len(operators); i++ {
-		var res interface{}
-		switch operators[i] {
-		case "serialize", "serialize":
-			res = obj.serialize(opValues[i][0].(*TreeNode))
-		case "deserialize", "deserialize":
-			res = obj.deserialize(opValues[i][0].(string))
-		default:
-			res = nil
-		}
-		ans = append(ans, res)
-	}
-
-
-	return ans
+	root := ArrayToTree(inputValues[0])
+	serialize := obj.serialize(root)
+	deserialize := obj.deserialize(serialize)
+	return TreeToArray(deserialize)
 }

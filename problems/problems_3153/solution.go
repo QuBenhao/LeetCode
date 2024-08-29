@@ -6,8 +6,23 @@ import (
 	"strings"
 )
 
-func sumDigitDifferences(nums []int) int64 {
-
+func sumDigitDifferences(nums []int) (ans int64) {
+	length := 0
+	for num := nums[0]; num > 0; num /= 10 {
+		length++
+	}
+	counter := make([][]int64, length)
+	for i := range counter {
+		counter[i] = make([]int64, 10)
+	}
+	for i, num := range nums {
+		for j := 0; num > 0; num /= 10 {
+			ans += int64(i) - counter[j][num%10]
+			counter[j][num%10]++
+			j++
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
