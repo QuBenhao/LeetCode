@@ -1,6 +1,6 @@
 import solution
 from typing import *
-from python.object_libs import call_method, list_to_tree
+from python.object_libs import call_method, list_to_tree, tree_to_list
 
 
 class TreeNode(object):
@@ -12,9 +12,10 @@ class TreeNode(object):
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        ops, inputs = test_input
+        root = list_to_tree(test_input)
         obj = Codec()
-        return [None] + [call_method(obj, op, *ipt) for op, ipt in zip(ops[1:], inputs[1:])]
+        serial = obj.serialize(root)
+        return tree_to_list(obj.deserialize(serial))
 
 
 class Codec:
@@ -24,7 +25,20 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
-        pass
+        ans = []
+
+        def preorder(node):
+            if not node:
+                ans.append("#")
+                return
+            ans.append(str(node.val))
+            preorder(node.left)
+            preorder(node.right)
+
+        preorder(root)
+        while ans and ans[-1] == "#":
+            ans.pop()
+        return ",".join(ans)
 
     def deserialize(self, data):
         """Decodes your encoded data to tree.
@@ -32,5 +46,20 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        pass
+        if not data:
+            return None
+        preorder_list = data.split(",")
+        idx = 0
 
+        def build() -> Optional[TreeNode]:
+            nonlocal idx
+            if idx >= len(preorder_list) or preorder_list[idx] == "#":
+                idx += 1
+                return None
+            root = TreeNode(int(preorder_list[idx]))
+            idx += 1
+            root.left = build()
+            root.right = build()
+            return root
+
+        return build()
