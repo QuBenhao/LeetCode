@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## v8.6.0 (2024-08-29)
+
+### Documentation
+
+* docs: update README.md
+
+workflow for release note ([`7be1f2f`](https://github.com/QuBenhao/LeetCode/commit/7be1f2f54ef3b90ae9cb0d03de21bfe5b9007d3b))
+
+### Feature
+
+* feat: clang-format
+
+try cpp format file ([`3e2f884`](https://github.com/QuBenhao/LeetCode/commit/3e2f8849cc3abbd347e53bc4d3ae5042d98379cf))
+
+### Test
+
+* test: 3142, 45, LCR 015 solution
+
+Java, typescript, rust ([`33c6459`](https://github.com/QuBenhao/LeetCode/commit/33c64591c765e4931a386c91cbfbd8aa14b9c229))
+
+* test: c++ 3142, 45, LCR 015
+
+solution ([`afecd31`](https://github.com/QuBenhao/LeetCode/commit/afecd312ab17d80df863416d678086702a54e989))
+
+* test: golang 3142, 45, LCR 015
+
+solution ([`9d498bb`](https://github.com/QuBenhao/LeetCode/commit/9d498bb809f6ee25b07381ec9834c3446a27c151))
+
+* test: python 3142, 45, LCR 015
+
+solution ([`689fbeb`](https://github.com/QuBenhao/LeetCode/commit/689fbeb306f70d63422001770399d750f511d7ca))
+
+* test: [20240829] Add daily LeetCode problem ([`1d2f0ed`](https://github.com/QuBenhao/LeetCode/commit/1d2f0ed667108f219dcbbcb78f3858dd90fe7448))
+
 ## v8.5.0 (2024-08-28)
 
 ### Feature
