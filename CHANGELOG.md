@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v8.6.1 (2024-08-29)
+
+### Fix
+
+* fix: python submit
+
+object question should not have Solution class ([`e25ce18`](https://github.com/QuBenhao/LeetCode/commit/e25ce1867bdf08b5d5fe43100ce8b3f9868ac582))
+
+### Test
+
+* test: python 3153, 148, LCR 048
+
+solution ([`9b6bb34`](https://github.com/QuBenhao/LeetCode/commit/9b6bb34c9af8d7b37b3f756dcb9373d8f2ddb366))
+
+* test: [20240830] Add daily LeetCode problem ([`9b4e0b9`](https://github.com/QuBenhao/LeetCode/commit/9b4e0b97c12b83e394750ebcbe71e4ee60e89722))
+
 ## v8.6.0 (2024-08-29)
 
 ### Documentation
