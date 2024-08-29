@@ -95,13 +95,15 @@ class Python3Writer(LanguageWriter):
         final_codes = []
         with open(file_path, "r", encoding="utf-8") as f:
             content = f.read()
+            skip_solution = "from python.object_libs import " in content and " call_method" in content
             idx = content.find("def solve(self, test_input=None):")
             idx = content.find("return ", idx)
             idx = content.find("\n", idx) + 1
             while idx < len(content) and content[idx] == "\n":
                 idx += 1
             logging.debug("Start idx: %d", idx)
-            final_codes.append("class Solution:")
+            if not skip_solution:
+                final_codes.append("class Solution:")
             final_codes.extend(content[idx:].split("\n"))
         return "\n".join(final_codes), problem_id
 
