@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## v8.6.2 (2024-08-29)
+
+### Fix
+
+* fix: only one workflow at a time ([`a9dfbf4`](https://github.com/QuBenhao/LeetCode/commit/a9dfbf434b4c15e40f4cb11b85cb0318785626c2))
+
+### Test
+
+* test: c++ 3153, 148, LCR 048
+
+solution ([`44e3164`](https://github.com/QuBenhao/LeetCode/commit/44e3164961a6a6460d5768a3b99b15c61db2e283))
+
+* test: golang 3153, 148, LCR 048
+
+solution ([`1696765`](https://github.com/QuBenhao/LeetCode/commit/16967654d6b7cf5c900844aa53818001130f1c82))
+
 ## v8.6.1 (2024-08-29)
 
 ### Fix
