@@ -168,6 +168,9 @@ def test_submit(args):
         solution_file: str = obj.solution_file
         if not solution_file:
             continue
+        if not os.path.exists(f"{problem_path}/{solution_file}"):
+            logging.warning(f"Solution file not found for {lang} in {problem_path}")
+            continue
         code, _ = obj.get_solution_code(root_path, problem_folder, args.problem)
         tmp_sol = solution_file.split(".")
         with open(
