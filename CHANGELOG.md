@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v8.7.0 (2024-08-29)
+
+### Feature
+
+* feat: try remove older tag
+
+clean up older tags and releases ([`6301925`](https://github.com/QuBenhao/LeetCode/commit/63019253800480a3e2ae99fb629711aa3bb64aae))
+
+### Fix
+
+* fix: do not run submit
+
+when no solution ([`237984c`](https://github.com/QuBenhao/LeetCode/commit/237984cd9ba25247192c4354a14beff4e91d312b))
+
+### Test
+
+* test: Java 3153, 148, LCR 048
+
+solution ([`c03851c`](https://github.com/QuBenhao/LeetCode/commit/c03851c0783897d0da25717c6487158d684f2c59))
+
 ## v8.6.2 (2024-08-29)
 
 ### Fix
