@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v8.7.2 (2024-08-30)
+
+### Fix
+
+* fix: clean tag only
+
+as well as draft release ([`9be1c45`](https://github.com/QuBenhao/LeetCode/commit/9be1c458e0c9820cceec9d030867853bf42e24a2))
+
 ## v8.7.1 (2024-08-30)
 
 ### Fix
@@ -30,22 +38,6 @@ solution ([`c03851c`](https://github.com/QuBenhao/LeetCode/commit/c03851c0783897
 
 ## v8.6.2 (2024-08-29)
 
-### Fix
-
-* fix: only one workflow at a time ([`a9dfbf4`](https://github.com/QuBenhao/LeetCode/commit/a9dfbf434b4c15e40f4cb11b85cb0318785626c2))
-
-### Test
-
-* test: c++ 3153, 148, LCR 048
-
-solution ([`44e3164`](https://github.com/QuBenhao/LeetCode/commit/44e3164961a6a6460d5768a3b99b15c61db2e283))
-
-* test: golang 3153, 148, LCR 048
-
-solution ([`1696765`](https://github.com/QuBenhao/LeetCode/commit/16967654d6b7cf5c900844aa53818001130f1c82))
-
-## v8.6.1 (2024-08-29)
-
 ### Documentation
 
 * docs: update README.md
@@ -60,11 +52,21 @@ try cpp format file ([`3e2f884`](https://github.com/QuBenhao/LeetCode/commit/3e2
 
 ### Fix
 
+* fix: only one workflow at a time ([`a9dfbf4`](https://github.com/QuBenhao/LeetCode/commit/a9dfbf434b4c15e40f4cb11b85cb0318785626c2))
+
 * fix: python submit
 
 object question should not have Solution class ([`e25ce18`](https://github.com/QuBenhao/LeetCode/commit/e25ce1867bdf08b5d5fe43100ce8b3f9868ac582))
 
 ### Test
+
+* test: c++ 3153, 148, LCR 048
+
+solution ([`44e3164`](https://github.com/QuBenhao/LeetCode/commit/44e3164961a6a6460d5768a3b99b15c61db2e283))
+
+* test: golang 3153, 148, LCR 048
+
+solution ([`1696765`](https://github.com/QuBenhao/LeetCode/commit/16967654d6b7cf5c900844aa53818001130f1c82))
 
 * test: python 3153, 148, LCR 048
 
