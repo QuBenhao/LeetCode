@@ -39,6 +39,17 @@ impl Codec {
     fn serialize(&self, root: Option<Rc<RefCell<TreeNode>>>) -> String {
         if let Some(root) = root {
 			let mut ans: Vec<String> = Vec::new();
+			fn dfs(node: Option<Rc<RefCell<TreeNode>>>, ans: &mut Vec<String>) {
+				if let Some(node) = node {
+					let node = node.borrow();
+					ans.push(node.val.to_string());
+					dfs(node.left.clone(), ans);
+					dfs(node.right.clone(), ans);
+				} else {
+					ans.push("#".to_string());
+				}
+			}
+			dfs(Some(root), &mut ans);
 			ans.join(",")
 		} else {
 			"".to_string()
@@ -46,7 +57,26 @@ impl Codec {
     }
 	
     fn deserialize(&self, data: String) -> Option<Rc<RefCell<TreeNode>>> {
-		None
+		if data.is_empty() {
+			return None;
+		}
+		let data: Vec<&str> = data.split(",").collect();
+		fn dfs(data: &Vec<&str>, idx: &mut usize) -> Option<Rc<RefCell<TreeNode>>> {
+			if *idx >= data.len() || data[*idx] == "#" {
+				*idx += 1;
+				return None;
+			}
+			let val: i32 = data[*idx].parse().unwrap();
+			*idx += 1;
+			let left = dfs(data, idx);
+			let right = dfs(data, idx);
+			let node = Rc::new(RefCell::new(TreeNode::new(val)));
+			node.borrow_mut().left = left;
+			node.borrow_mut().right = right;
+			Some(node)
+		}
+		let mut idx: usize = 0;
+		dfs(&data, &mut idx)
     }
 }
 
