@@ -61,8 +61,7 @@ jobs:
             fi
           done
 
-          # Cleanup draft releases
-          draft_releases=$(gh release list --json name --jq '.[] | select(.isDraft == true) | .name')
-          for tag_name in $draft_releases; do
-            gh release delete $tag_name --yes
-          done
+      - name: Delete Draft Releases
+        uses: hugo19941994/delete-draft-releases@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
