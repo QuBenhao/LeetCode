@@ -58,11 +58,11 @@ jobs:
               # Delete the tag locally and remotely
               git tag -d $tag
               git push origin :refs/tags/$tag
-
-              # Delete the release associated with the tag
-              release_id=$(gh release view $tag --json id --jq '.id' || echo "")
-              if [ -n "$release_id" ]; then
-                gh release delete $release_id --yes
-              fi
             fi
+          done
+
+          # Cleanup draft releases
+          draft_releases=$(gh release list --json id --jq '.[] | select(.draft == true) | .id')
+          for release_id in $draft_releases; do
+            gh release delete $release_id --yes
           done
