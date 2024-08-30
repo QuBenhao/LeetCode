@@ -62,7 +62,7 @@ jobs:
           done
 
           # Cleanup draft releases
-          draft_releases=$(gh release list --json tagName --jq '.[] | select(.isDraft == true) | .tagName')
+          draft_releases=$(gh release list --json name --jq '.[] | select(.isDraft == true) | .name')
           for tag_name in $draft_releases; do
             gh release delete $tag_name --yes
           done
