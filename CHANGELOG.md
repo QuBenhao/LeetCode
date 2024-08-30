@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v8.7.5 (2024-08-30)
+
+### Fix
+
+* fix: clean draft release
+
+try action ([`d3fc403`](https://github.com/QuBenhao/LeetCode/commit/d3fc4034fc26396efe8231b9ef5567f27f8ef2fc))
+
 ## v8.7.4 (2024-08-30)
 
 ### Fix
@@ -17,14 +25,6 @@ use name ([`ff7e015`](https://github.com/QuBenhao/LeetCode/commit/ff7e015d5d4c7b
 use tagName ([`89c5c3f`](https://github.com/QuBenhao/LeetCode/commit/89c5c3f2e1dcb952276e5ed37ab67ba024accfcb))
 
 ## v8.7.2 (2024-08-30)
-
-### Fix
-
-* fix: clean tag only
-
-as well as draft release ([`9be1c45`](https://github.com/QuBenhao/LeetCode/commit/9be1c458e0c9820cceec9d030867853bf42e24a2))
-
-## v8.7.1 (2024-08-30)
 
 ### Breaking
 
@@ -1051,6 +1051,10 @@ The code refactors the way TreeNodes are converted to arrays and vice versa in G
 Generate linkedList from int array or the opposite, as well as basic test for linkedList ([`72fde28`](https://github.com/QuBenhao/LeetCode/commit/72fde2896de1d2cac24ed03d5aaac71a7d8dcf55))
 
 ### Fix
+
+* fix: clean tag only
+
+as well as draft release ([`9be1c45`](https://github.com/QuBenhao/LeetCode/commit/9be1c458e0c9820cceec9d030867853bf42e24a2))
 
 * fix: no release exist
 
