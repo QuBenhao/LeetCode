@@ -10,6 +10,7 @@ class Testcase(testcase.Testcase):
 		self.testcases.append(case(Input=[['B', 'W', 'B'], ['B', 'W', 'W'], ['B', 'W', 'B']], Output=True))
 		self.testcases.append(case(Input=[['B', 'W', 'B'], ['W', 'B', 'W'], ['B', 'W', 'B']], Output=False))
 		self.testcases.append(case(Input=[['B', 'W', 'B'], ['B', 'W', 'W'], ['B', 'W', 'W']], Output=True))
+		self.testcases.append(case(Input=[["B","B","B"],["B","B","B"],["B","B","B"]], Output=True))
 
 	def get_testcases(self):
 		return self.testcases
