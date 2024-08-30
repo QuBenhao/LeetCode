@@ -13,7 +13,31 @@ import {ListNode,LinkedListToIntArray,IntArrayToLinkedList} from "../../typescri
  */
 
 function sortList(head: ListNode | null): ListNode | null {
-    
+	if (head === null || head.next === null) {
+		return head;
+	}
+	let slow: ListNode | null = head, fast: ListNode | null = head.next;
+	while (fast != null && fast.next != null) {
+		slow = slow!.next;
+		fast = fast.next.next;
+	}
+	let right: ListNode | null = sortList(slow!.next);
+	slow!.next = null;
+	let left: ListNode | null = sortList(head);
+	const dummy: ListNode = new ListNode(0);
+	let node: ListNode = dummy;
+	while (left !== null && right !== null) {
+		if (left.val < right.val) {
+			node.next = left;
+			left = left.next;
+		} else {
+			node.next = right;
+			right = right.next;
+		}
+		node = node.next;
+	}
+	node.next = left === null ? right : left;
+	return dummy.next;
 };
 
 export function Solve(inputJsonElement: string): any {

@@ -1,3 +1,5 @@
+import {TreeNode,JSONArrayToTreeNode,TreeNodeToJSONArray} from "../../typescript/models/treenode";
+
 /**
  * Definition for a binary tree node.
  * class TreeNode {
@@ -16,14 +18,46 @@
  * Encodes a tree to a single string.
  */
 function serialize(root: TreeNode | null): string {
-
+	if (root === null) {
+		return "";
+	}
+	const result: Array<string> = [];
+	const dfs = (node: TreeNode | null) => {
+		if (node === null) {
+			result.push("#");
+			return;
+		}
+		result.push(node.val.toString());
+		dfs(node.left);
+		dfs(node.right);
+	}
+	dfs(root);
+	while (result.length > 0 && result[result.length-1] === "#") {
+		result.pop();
+	}
+	return result.join(",")
 };
 
 /*
  * Decodes your encoded data to tree.
  */
 function deserialize(data: string): TreeNode | null {
-
+	if (data.length === 0) {
+		return null;
+	}
+	const arr = data.split(",")
+	let idx: number = 0;
+	const dfs = () => {
+		if (idx >= arr.length || arr[idx] === "#") {
+			idx++;
+			return null;
+		}
+		const node = new TreeNode(Number.parseInt(arr[idx++]));
+		node.left = dfs();
+		node.right = dfs();
+		return node;
+	}
+	return dfs();
 };
 
 
@@ -34,8 +68,7 @@ function deserialize(data: string): TreeNode | null {
 
 export function Solve(inputJsonElement: string): any {
 	const inputValues: string[] = inputJsonElement.split("\n");
-	const operators: string[] = JSON.parse(inputValues[0]);
-	const opValues: any[][] = JSON.parse(inputValues[1]);
-	const ans: any[] = [null];
-	return ans;
+	const root: TreeNode | null = JSONArrayToTreeNode(JSON.parse(inputValues[0]));
+	const s = serialize(root);
+	return TreeNodeToJSONArray(deserialize(s));
 }
