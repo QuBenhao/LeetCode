@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v8.7.1 (2024-08-30)
+
+### Fix
+
+* fix: no release exist
+
+tag related release ([`db57ce8`](https://github.com/QuBenhao/LeetCode/commit/db57ce86a00454cbbe7c9ba8335177933460670d))
+
 ## v8.7.0 (2024-08-29)
 
 ### Feature
@@ -38,6 +46,18 @@ solution ([`1696765`](https://github.com/QuBenhao/LeetCode/commit/16967654d6b7cf
 
 ## v8.6.1 (2024-08-29)
 
+### Documentation
+
+* docs: update README.md
+
+workflow for release note ([`7be1f2f`](https://github.com/QuBenhao/LeetCode/commit/7be1f2f54ef3b90ae9cb0d03de21bfe5b9007d3b))
+
+### Feature
+
+* feat: clang-format
+
+try cpp format file ([`3e2f884`](https://github.com/QuBenhao/LeetCode/commit/3e2f8849cc3abbd347e53bc4d3ae5042d98379cf))
+
 ### Fix
 
 * fix: python submit
@@ -51,22 +71,6 @@ object question should not have Solution class ([`e25ce18`](https://github.com/Q
 solution ([`9b6bb34`](https://github.com/QuBenhao/LeetCode/commit/9b6bb34c9af8d7b37b3f756dcb9373d8f2ddb366))
 
 * test: [20240830] Add daily LeetCode problem ([`9b4e0b9`](https://github.com/QuBenhao/LeetCode/commit/9b4e0b97c12b83e394750ebcbe71e4ee60e89722))
-
-## v8.6.0 (2024-08-29)
-
-### Documentation
-
-* docs: update README.md
-
-workflow for release note ([`7be1f2f`](https://github.com/QuBenhao/LeetCode/commit/7be1f2f54ef3b90ae9cb0d03de21bfe5b9007d3b))
-
-### Feature
-
-* feat: clang-format
-
-try cpp format file ([`3e2f884`](https://github.com/QuBenhao/LeetCode/commit/3e2f8849cc3abbd347e53bc4d3ae5042d98379cf))
-
-### Test
 
 * test: 3142, 45, LCR 015 solution
 
