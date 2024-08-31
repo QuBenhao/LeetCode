@@ -1,5 +1,47 @@
 # CHANGELOG
 
+## v8.7.7 (2024-08-31)
+
+### Fix
+
+* fix: compare zero and negative zero
+
+convert result to JSON to eliminate negative zero ([`0cc32a9`](https://github.com/QuBenhao/LeetCode/commit/0cc32a97721f34639fee3a50470cb316ddcbeff6))
+
+### Refactor
+
+* refactor: format
+
+typo ([`17d5322`](https://github.com/QuBenhao/LeetCode/commit/17d5322d0b9499f3537d09fda32df551854e8517))
+
+### Test
+
+* test: rust 3127, 238, 437, LCR 090, LCR 105
+
+solution ([`5964ec1`](https://github.com/QuBenhao/LeetCode/commit/5964ec1bc8cd2f56db181ced524c1576e4b32566))
+
+* test: typescript 3127, 238, 437, LCR 090, LCR 105
+
+solution, bug 0 and -0 not equal in 238 ([`e3656d3`](https://github.com/QuBenhao/LeetCode/commit/e3656d3e72988197438f04ea2dfe86daf0ebbdbf))
+
+* test: Java 3127, 238, 437, LCR 090, LCR 105
+
+solution ([`c7eebf0`](https://github.com/QuBenhao/LeetCode/commit/c7eebf0788400058e7686a173bcc49655e3e871f))
+
+* test: c++ 3127, 238, 437, LCR 090, LCR 105
+
+solution ([`30f50d8`](https://github.com/QuBenhao/LeetCode/commit/30f50d8664abccaf90c3a4ceb331262e71c3946c))
+
+* test: golang 3127, 238, 437, LCR 090, LCR 105
+
+solution ([`2017d08`](https://github.com/QuBenhao/LeetCode/commit/2017d08aa4ad5a6b139752d39187f31f4dd01a3f))
+
+### Unknown
+
+* Merge pull request #134 from QuBenhao/133-ts-jest-0-and-0
+
+133 ts jest zero and negative zero ([`1eefa24`](https://github.com/QuBenhao/LeetCode/commit/1eefa245e9bfa71ff455b8e8bab2e17d7cf99422))
+
 ## v8.7.6 (2024-08-31)
 
 ### Fix
@@ -39,14 +81,6 @@ solution ([`44542c6`](https://github.com/QuBenhao/LeetCode/commit/44542c66054d1c
 try action ([`d3fc403`](https://github.com/QuBenhao/LeetCode/commit/d3fc4034fc26396efe8231b9ef5567f27f8ef2fc))
 
 ## v8.7.4 (2024-08-30)
-
-### Fix
-
-* fix: clean draft release
-
-use name ([`ff7e015`](https://github.com/QuBenhao/LeetCode/commit/ff7e015d5d4c7b0203cd4397d045038593e1d016))
-
-## v8.7.3 (2024-08-30)
 
 ### Breaking
 
@@ -1073,6 +1107,10 @@ The code refactors the way TreeNodes are converted to arrays and vice versa in G
 Generate linkedList from int array or the opposite, as well as basic test for linkedList ([`72fde28`](https://github.com/QuBenhao/LeetCode/commit/72fde2896de1d2cac24ed03d5aaac71a7d8dcf55))
 
 ### Fix
+
+* fix: clean draft release
+
+use name ([`ff7e015`](https://github.com/QuBenhao/LeetCode/commit/ff7e015d5d4c7b0203cd4397d045038593e1d016))
 
 * fix: clean draft release
 
