@@ -17,32 +17,6 @@ from python.constants import constant
 from python.utils import get_default_folder, send_text_message
 
 
-def check_remain_languages(dir_path, languages: list[str]) -> list[str]:
-    remain_languages = list(languages)
-    for _, _, files in os.walk(dir_path):
-        for f in files:
-            try:
-                match f:
-                    case "Solution.cpp":
-                        remain_languages.remove("cpp")
-                    case "solution.go":
-                        remain_languages.remove("golang")
-                    case "Solution.java":
-                        remain_languages.remove("java")
-                    case "solution.py":
-                        remain_languages.remove("python3")
-                    case "solution.ts":
-                        remain_languages.remove("typescript")
-                    case "solution.rs":
-                        remain_languages.remove("rust")
-                    case _:
-                        continue
-            except ValueError as _:
-                continue
-        break
-    return remain_languages
-
-
 def write_question(root_path, dir_path, problem_folder: str, question_id: str, question_name: str,
                    slug: str, languages: List[str] = None, cookie: str = None) -> List[str]:
     desc = get_question_desc(slug, cookie)
@@ -102,7 +76,12 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
                 continue
             obj: lc_libs.LanguageWriter = cls()
             solution_file = obj.solution_file
-            with open(os.path.join(dir_path, solution_file), "w", encoding="utf-8") as f:
+            solution_file_path = os.path.join(dir_path, solution_file)
+            if os.path.exists(solution_file_path):
+                logging.debug(f"Solution file [{solution_file}] already exists, skip")
+                success_languages.append(language)
+                continue
+            with open(solution_file_path, "w", encoding="utf-8") as f:
                 f.write(obj.write_solution(code, None, question_id, problem_folder))
             if isinstance(obj, lc_libs.RustWriter):
                 obj.write_cargo_toml(root_path, dir_path, problem_folder, question_id)
@@ -125,13 +104,10 @@ def process_daily(languages: list[str], problem_folder: str = None):
     logging.info("Daily: {}, id: {}".format(daily_info['questionNameEn'], question_id))
     if not os.path.exists(dir_path):
         os.makedirs(dir_path, exist_ok=True)
-        success_languages = write_question(root_path, dir_path, tmp, question_id,
-                                           daily_info['questionNameEn'], daily_info['questionSlug'], languages)
     else:
         logging.warning("Already solved {} before".format(daily_info['questionId']))
-        remain_languages = check_remain_languages(dir_path, languages)
-        success_languages = write_question(root_path, dir_path, tmp, question_id,
-                                           daily_info['questionNameEn'], daily_info['questionSlug'], remain_languages)
+    success_languages = write_question(root_path, dir_path, tmp, question_id,
+                                       daily_info['questionNameEn'], daily_info['questionSlug'], languages)
     logging.debug(f"Success languages: {success_languages}")
     for lang in success_languages:
         try:
@@ -170,12 +146,8 @@ def process_plans(cookie: str, languages: List[str] = None, problem_folder: str 
             dir_path = os.path.join(root_path, tmp_folder, f"{tmp_folder}_{question_id}")
             if not os.path.exists(dir_path):
                 os.makedirs(dir_path, exist_ok=True)
-                suc_langs = write_question(root_path, dir_path, tmp_folder, question_id, info["title"],
-                                           question_slug, languages, cookie)
-            else:
-                remain_languages = check_remain_languages(dir_path, languages)
-                suc_langs = write_question(root_path, dir_path, tmp_folder, question_id, info["title"],
-                                           question_slug, remain_languages, cookie)
+            suc_langs = write_question(root_path, dir_path, tmp_folder, question_id, info["title"],
+                                       question_slug, languages, cookie)
             for lang in suc_langs:
                 success_languages[lang].append([question_id, tmp_folder])
     logging.debug(f"Success languages: {success_languages}")
