@@ -7,7 +7,22 @@ import (
 )
 
 func canMakeSquare(grid [][]byte) bool {
-
+	for m, n, i := len(grid), len(grid[0]), 0; i < m-1; i++ {
+		for j := 0; j < n-1; j++ {
+			count := 0
+			for r := i; r < i+2; r++ {
+				for c := j; c < j+2; c++ {
+					if grid[r][c] == 'B' {
+						count++
+					}
+				}
+			}
+			if count != 2 {
+				return true
+			}
+		}
+	}
+	return false
 }
 
 func Solve(inputJsonValues string) interface{} {
