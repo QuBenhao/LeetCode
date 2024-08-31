@@ -15,7 +15,20 @@ import {TreeNode,JSONArrayToTreeNode} from "../../typescript/models/treenode";
  */
 
 function pathSum(root: TreeNode | null, targetSum: number): number {
-    
+    const dfs = (node: TreeNode | null, counter: Map<number, number>, sum: number): number => {
+		if (node === null) {
+			return 0;
+		}
+		let result: number = 0;
+		sum += node.val;
+		result += counter.get(sum - targetSum) || 0;
+		counter.set(sum, (counter.get(sum) || 0) + 1);
+		result += dfs(node.left, counter, sum);
+		result += dfs(node.right, counter, sum);
+		counter.set(sum, (counter.get(sum) || 0) - 1);
+		return result;
+	}
+	return dfs(root, new Map<number, number>().set(0, 1), 0);
 };
 
 export function Solve(inputJsonElement: string): any {
