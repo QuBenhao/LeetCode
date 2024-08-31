@@ -23,9 +23,9 @@ describe("TestMain===" + PROBLEM_ID, () => {
     for (let i: number = 0; i < inputJson.length; i++) {
         it("TestCase" + i, () => {
             if (_.isFloat(outputJson[i])) {
-                expect(Solve(inputJson[i])).toBeCloseTo(outputJson[i]);
+                expect(JSON.parse(JSON.stringify(Solve(inputJson[i])))).toBeCloseTo(outputJson[i]);
             } else {
-                expect(Solve(inputJson[i])).toEqual(outputJson[i]);
+                expect(JSON.parse(JSON.stringify(Solve(inputJson[i])))).toEqual(outputJson[i]);
             }
         })
     }
