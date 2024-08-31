@@ -1,7 +1,6 @@
 import solution
 from typing import *
 from python.object_libs import list_to_tree
-from collections import Counter
 
 
 class TreeNode:
@@ -32,3 +31,4 @@ class Solution(solution.Solution):
             return ans
 
         return dfs(root, Counter({0: 1}), 0)
+
