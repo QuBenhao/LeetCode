@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v8.7.8 (2024-08-31)
+
+### Fix
+
+* fix: add test problem in languages
+
+Even it was solved with the language before, keep adding it to daily problems or plans ([`139b134`](https://github.com/QuBenhao/LeetCode/commit/139b1342d1f5e1278bdc67736513eb9103823737))
+
+### Test
+
+* test: python 1450, 84, 416, LCR 022, LCR 063
+
+solution ([`e30476c`](https://github.com/QuBenhao/LeetCode/commit/e30476c95ce99eb2973c076431deb819c90b40c5))
+
+* test: [20240901] Add daily LeetCode problem ([`39910d8`](https://github.com/QuBenhao/LeetCode/commit/39910d8650107bfb56e8b20d89d00116b8b92f13))
+
+* test: [20240831] Add daily problem solution ([`227fbec`](https://github.com/QuBenhao/LeetCode/commit/227fbec81860c23efb92694ce199dd5dbd470221))
+
 ## v8.7.7 (2024-08-31)
 
 ### Fix
@@ -73,14 +91,6 @@ remain todo solution ([`d81fc1d`](https://github.com/QuBenhao/LeetCode/commit/d8
 solution ([`44542c6`](https://github.com/QuBenhao/LeetCode/commit/44542c66054d1c8d3677a99cc4a7015be784eb2b))
 
 ## v8.7.5 (2024-08-30)
-
-### Fix
-
-* fix: clean draft release
-
-try action ([`d3fc403`](https://github.com/QuBenhao/LeetCode/commit/d3fc4034fc26396efe8231b9ef5567f27f8ef2fc))
-
-## v8.7.4 (2024-08-30)
 
 ### Breaking
 
@@ -1107,6 +1117,10 @@ The code refactors the way TreeNodes are converted to arrays and vice versa in G
 Generate linkedList from int array or the opposite, as well as basic test for linkedList ([`72fde28`](https://github.com/QuBenhao/LeetCode/commit/72fde2896de1d2cac24ed03d5aaac71a7d8dcf55))
 
 ### Fix
+
+* fix: clean draft release
+
+try action ([`d3fc403`](https://github.com/QuBenhao/LeetCode/commit/d3fc4034fc26396efe8231b9ef5567f27f8ef2fc))
 
 * fix: clean draft release
 
