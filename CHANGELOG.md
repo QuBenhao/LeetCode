@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## v8.7.6 (2024-08-31)
+
+### Fix
+
+* fix: golang mismatch TreeNode and int
+
+TreeNodeWithTarget applies only when all treated as TreeNode. 437 is a normal TreeNode problem ([`ce20864`](https://github.com/QuBenhao/LeetCode/commit/ce208644228630c170c8c27a1e7762b8a1cf4752))
+
+### Test
+
+* test: python 3127, 238, 437, LCR 090, LCR 105
+
+solution ([`9112847`](https://github.com/QuBenhao/LeetCode/commit/9112847525e936adc45e9bbc1819a3b335eba4ac))
+
+* test: [20240831] Add daily LeetCode problem ([`957fab2`](https://github.com/QuBenhao/LeetCode/commit/957fab2bfc18472d061180868211dd33c71c706b))
+
+* test: rust LCR 048
+
+solution ([`885ad0e`](https://github.com/QuBenhao/LeetCode/commit/885ad0e7a39da8f13e7f5227752f7124626124d9))
+
+* test: LCR_048 fix problem
+
+remain todo solution ([`d81fc1d`](https://github.com/QuBenhao/LeetCode/commit/d81fc1da0e285c18d48b54ccd46e40dcd529112f))
+
+* test: rust 3153, 148 ([`945903e`](https://github.com/QuBenhao/LeetCode/commit/945903edc9e6e2738cb03c0843236d833803754b))
+
+* test: typescript 3153, 148, LCR 048
+
+solution ([`44542c6`](https://github.com/QuBenhao/LeetCode/commit/44542c66054d1c8d3677a99cc4a7015be784eb2b))
+
 ## v8.7.5 (2024-08-30)
 
 ### Fix
@@ -17,14 +47,6 @@ try action ([`d3fc403`](https://github.com/QuBenhao/LeetCode/commit/d3fc4034fc26
 use name ([`ff7e015`](https://github.com/QuBenhao/LeetCode/commit/ff7e015d5d4c7b0203cd4397d045038593e1d016))
 
 ## v8.7.3 (2024-08-30)
-
-### Fix
-
-* fix: clean draft release
-
-use tagName ([`89c5c3f`](https://github.com/QuBenhao/LeetCode/commit/89c5c3f2e1dcb952276e5ed37ab67ba024accfcb))
-
-## v8.7.2 (2024-08-30)
 
 ### Breaking
 
@@ -1051,6 +1073,10 @@ The code refactors the way TreeNodes are converted to arrays and vice versa in G
 Generate linkedList from int array or the opposite, as well as basic test for linkedList ([`72fde28`](https://github.com/QuBenhao/LeetCode/commit/72fde2896de1d2cac24ed03d5aaac71a7d8dcf55))
 
 ### Fix
+
+* fix: clean draft release
+
+use tagName ([`89c5c3f`](https://github.com/QuBenhao/LeetCode/commit/89c5c3f2e1dcb952276e5ed37ab67ba024accfcb))
 
 * fix: clean tag only
 
