@@ -24,8 +24,7 @@ func Solve(inputJsonValues string) interface{} {
 	var root *TreeNode
 	var targetSum int
 
-	nodes := ArrayToTreeAndTargets(inputValues[0], )
-	root,  = nodes[0], 
+	root = ArrayToTree(inputValues[0])
 	if err := json.Unmarshal([]byte(inputValues[1]), &targetSum); err != nil {
 		log.Fatal(err)
 	}
