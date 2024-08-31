@@ -71,7 +71,7 @@ export function CompareResults(script: vm.Script, inputJson: any, outputJson: an
     };
     vm.createContext(context); // Contextify the object.
     script.runInContext(context, {timeout: 3000});
-    const result: any = context.execResult;
+    const result: any = JSON.parse(JSON.stringify(context.execResult));
     try {
         if (_.isFloat(outputJson)) {
             expect(result).toBeCloseTo(outputJson);
