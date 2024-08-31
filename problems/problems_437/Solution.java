@@ -22,7 +22,21 @@ import qubhjava.models.TreeNode;
 
 public class Solution extends BaseSolution {
     public int pathSum(TreeNode root, int targetSum) {
+        Map<Long, Integer> counter = new HashMap<>();
+        counter.put(0L, 1);
+        return dfs(root, counter, 0, targetSum);
+    }
 
+    private int dfs(TreeNode node, Map<Long, Integer> counter, long curSum, int targetSum) {
+        if (node == null) {
+            return 0;
+        }
+        curSum += node.val;
+        int res = counter.getOrDefault(curSum - targetSum, 0);
+        counter.put(curSum, counter.getOrDefault(curSum, 0) + 1);
+        res += dfs(node.left, counter, curSum, targetSum) + dfs(node.right, counter, curSum, targetSum);
+        counter.put(curSum, counter.get(curSum) - 1);
+        return res;
     }
 
     @Override
