@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.busyStudent(*test_input)
 
     def busyStudent(self, startTime: List[int], endTime: List[int], queryTime: int) -> int:
-        pass
-
+        return sum(s <= queryTime <= e for s, e in zip(startTime, endTime))
