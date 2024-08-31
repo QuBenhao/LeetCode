@@ -1,14 +1,13 @@
-const PROBLEMS: [[&str; 2]; 4] = [["problems", "LCR_105"], ["problems", "LCR_090"], ["problems", "437"], ["problems", "238"]];
+const PROBLEMS: [[&str; 2]; 3] = [["problems", "LCR_063"], ["problems", "84"], ["problems", "416"]];
 
 #[cfg(test)]
 mod test {
 	use test_executor::run_test::run_test;
 	use crate::PROBLEMS;
 
-	use solution_LCR_105 as solution0;
-	use solution_LCR_090 as solution1;
-	use solution_437 as solution2;
-	use solution_238 as solution3;
+	use solution_LCR_063 as solution0;
+	use solution_84 as solution1;
+	use solution_416 as solution2;
 
 	#[test]
 	fn test_solutions() {
@@ -19,7 +18,6 @@ mod test {
 				0 => solution0::solve,
 				1 => solution1::solve,
 				2 => solution2::solve,
-				3 => solution3::solve,
 				_ => panic!("Unknown solution"),
 			});
 		}
