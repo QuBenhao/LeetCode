@@ -5,7 +5,23 @@ pub struct Solution;
 
 impl Solution {
     pub fn rob(nums: Vec<i32>) -> i32 {
-
+		let n = nums.len();
+		let mut dp_rob = nums[0];
+		let mut dp_not_rob = nums[0];
+		for i in 2..n.checked_sub(1).unwrap_or(1) {
+			let temp = dp_rob;
+			dp_rob = dp_not_rob + nums[i];
+			dp_not_rob = dp_not_rob.max(temp);
+		}
+		let res = dp_not_rob.max(dp_rob);
+		dp_rob = 0;
+		dp_not_rob = 0;
+		for i in 1..n {
+			let temp = dp_rob;
+			dp_rob = dp_not_rob + nums[i];
+			dp_not_rob = dp_not_rob.max(temp);
+		}
+		res.max(dp_not_rob.max(dp_rob))
     }
 }
 

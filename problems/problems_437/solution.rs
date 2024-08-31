@@ -22,9 +22,26 @@ pub struct Solution;
 // }
 use std::rc::Rc;
 use std::cell::RefCell;
+use std::collections::HashMap;
 impl Solution {
     pub fn path_sum(root: Option<Rc<RefCell<TreeNode>>>, target_sum: i32) -> i32 {
-
+		fn dfs(node: &Option<Rc<RefCell<TreeNode>>>, counter: &mut HashMap<i64, i32>, target_sum: i32, current_sum: i64) -> i32 {
+			if node.is_none() {
+				return 0;
+			}
+			let node = node.as_ref().unwrap().borrow();
+			let mut res = 0;
+			let current_sum = current_sum + node.val as i64;
+			res += counter.get(&(current_sum - target_sum as i64)).unwrap_or(&0);
+			*counter.entry(current_sum).or_insert(0) += 1;
+			res += dfs(&node.left, counter, target_sum, current_sum);
+			res += dfs(&node.right, counter, target_sum, current_sum);
+			*counter.get_mut(&current_sum).unwrap() -= 1;
+			res
+		}
+		let mut counter = HashMap::new();
+		counter.insert(0, 1);
+		dfs(&root, &mut counter, target_sum, 0)
     }
 }
 

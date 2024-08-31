@@ -4,7 +4,24 @@ pub struct Solution;
 
 impl Solution {
     pub fn can_make_square(grid: Vec<Vec<char>>) -> bool {
-
+		let m = grid.len();
+		let n = grid[0].len();
+		for i in 0..m-1 {
+			for j in 0..n-1 {
+				let mut count = 0;
+				for r in i..=i+1 {
+					for c in j..=j+1 {
+						if grid[r][c] == 'B' {
+							count += 1;
+						}
+					}
+				}
+				if count != 2 {
+					return true;
+				}
+			}
+		}
+		false
     }
 }
 
