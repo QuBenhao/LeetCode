@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## v8.7.9 (2024-09-01)
+
+### Fix
+
+* fix: ListNode with cycle return
+
+cannot convert ListNode with cycle to a standard array, return it&#39;s value. ([`5994d12`](https://github.com/QuBenhao/LeetCode/commit/5994d1245edda60522c772d7b1f7be74267d235a))
+
 ## v8.7.8 (2024-08-31)
 
 ### Fix
@@ -61,36 +69,6 @@ solution ([`2017d08`](https://github.com/QuBenhao/LeetCode/commit/2017d08aa4ad5a
 133 ts jest zero and negative zero ([`1eefa24`](https://github.com/QuBenhao/LeetCode/commit/1eefa245e9bfa71ff455b8e8bab2e17d7cf99422))
 
 ## v8.7.6 (2024-08-31)
-
-### Fix
-
-* fix: golang mismatch TreeNode and int
-
-TreeNodeWithTarget applies only when all treated as TreeNode. 437 is a normal TreeNode problem ([`ce20864`](https://github.com/QuBenhao/LeetCode/commit/ce208644228630c170c8c27a1e7762b8a1cf4752))
-
-### Test
-
-* test: python 3127, 238, 437, LCR 090, LCR 105
-
-solution ([`9112847`](https://github.com/QuBenhao/LeetCode/commit/9112847525e936adc45e9bbc1819a3b335eba4ac))
-
-* test: [20240831] Add daily LeetCode problem ([`957fab2`](https://github.com/QuBenhao/LeetCode/commit/957fab2bfc18472d061180868211dd33c71c706b))
-
-* test: rust LCR 048
-
-solution ([`885ad0e`](https://github.com/QuBenhao/LeetCode/commit/885ad0e7a39da8f13e7f5227752f7124626124d9))
-
-* test: LCR_048 fix problem
-
-remain todo solution ([`d81fc1d`](https://github.com/QuBenhao/LeetCode/commit/d81fc1da0e285c18d48b54ccd46e40dcd529112f))
-
-* test: rust 3153, 148 ([`945903e`](https://github.com/QuBenhao/LeetCode/commit/945903edc9e6e2738cb03c0843236d833803754b))
-
-* test: typescript 3153, 148, LCR 048
-
-solution ([`44542c6`](https://github.com/QuBenhao/LeetCode/commit/44542c66054d1c8d3677a99cc4a7015be784eb2b))
-
-## v8.7.5 (2024-08-30)
 
 ### Breaking
 
@@ -1117,6 +1095,10 @@ The code refactors the way TreeNodes are converted to arrays and vice versa in G
 Generate linkedList from int array or the opposite, as well as basic test for linkedList ([`72fde28`](https://github.com/QuBenhao/LeetCode/commit/72fde2896de1d2cac24ed03d5aaac71a7d8dcf55))
 
 ### Fix
+
+* fix: golang mismatch TreeNode and int
+
+TreeNodeWithTarget applies only when all treated as TreeNode. 437 is a normal TreeNode problem ([`ce20864`](https://github.com/QuBenhao/LeetCode/commit/ce208644228630c170c8c27a1e7762b8a1cf4752))
 
 * fix: clean draft release
 
@@ -2491,6 +2473,26 @@ query param load from str ([`576737d`](https://github.com/QuBenhao/LeetCode/comm
 go.sum uploaded ([`064618d`](https://github.com/QuBenhao/LeetCode/commit/064618d550530aefd4c12eeb3a8d7d3e328cf9f0))
 
 ### Test
+
+* test: python 3127, 238, 437, LCR 090, LCR 105
+
+solution ([`9112847`](https://github.com/QuBenhao/LeetCode/commit/9112847525e936adc45e9bbc1819a3b335eba4ac))
+
+* test: [20240831] Add daily LeetCode problem ([`957fab2`](https://github.com/QuBenhao/LeetCode/commit/957fab2bfc18472d061180868211dd33c71c706b))
+
+* test: rust LCR 048
+
+solution ([`885ad0e`](https://github.com/QuBenhao/LeetCode/commit/885ad0e7a39da8f13e7f5227752f7124626124d9))
+
+* test: LCR_048 fix problem
+
+remain todo solution ([`d81fc1d`](https://github.com/QuBenhao/LeetCode/commit/d81fc1da0e285c18d48b54ccd46e40dcd529112f))
+
+* test: rust 3153, 148 ([`945903e`](https://github.com/QuBenhao/LeetCode/commit/945903edc9e6e2738cb03c0843236d833803754b))
+
+* test: typescript 3153, 148, LCR 048
+
+solution ([`44542c6`](https://github.com/QuBenhao/LeetCode/commit/44542c66054d1c8d3677a99cc4a7015be784eb2b))
 
 * test: Java 3153, 148, LCR 048
 
