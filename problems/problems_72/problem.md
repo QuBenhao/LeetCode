@@ -1,4 +1,4 @@
-# 72. Edit Distance
+# 72. Edit Distance 
 
 <p>Given two strings <code>word1</code> and <code>word2</code>, return <em>the minimum number of operations required to convert <code>word1</code> to <code>word2</code></em>.</p>
 
