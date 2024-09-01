@@ -1,5 +1,61 @@
 # CHANGELOG
 
+## v8.7.10 (2024-09-01)
+
+### Fix
+
+* fix: rust timeout check
+
+check type of TimeoutError, disconnected means thread panic, timeout means timeout ([`5a08c92`](https://github.com/QuBenhao/LeetCode/commit/5a08c92e3065d76ce3d2640dab34b97e2df6630f))
+
+### Test
+
+* test: rust 2024, 72, LCR 037
+
+solution ([`eed0898`](https://github.com/QuBenhao/LeetCode/commit/eed089861095a2ecc4edfe5553f8ab1fe6db23b0))
+
+* test: typescript 2024, 72, LCR 037
+
+solution ([`cff7387`](https://github.com/QuBenhao/LeetCode/commit/cff7387cdf55fab82849c2a317955c7199df775a))
+
+* test: Java 2024, 72, LCR 037
+
+solution ([`92890b6`](https://github.com/QuBenhao/LeetCode/commit/92890b6607ddc18bed9c2c009a0c150785b9dda8))
+
+* test: c++ 2024, 72, LCR 037
+
+solution ([`026360b`](https://github.com/QuBenhao/LeetCode/commit/026360b0da97a5d1a589cfa8327640297ff3871f))
+
+* test: golang 2024, 72, LCR 037
+
+solution ([`3f99ad5`](https://github.com/QuBenhao/LeetCode/commit/3f99ad597c1f49b0f21f8c15e7238564cec72036))
+
+* test: python 2024, 72, LCR 037
+
+solution ([`b8f4094`](https://github.com/QuBenhao/LeetCode/commit/b8f4094a0b6acad0b4cf2589ffe747a0437ff855))
+
+* test: [20240902] Add daily LeetCode problem ([`a9db8a7`](https://github.com/QuBenhao/LeetCode/commit/a9db8a7561a9397e21f6dd016fd4d9263f6082bd))
+
+* test: rust 1450, 84, 416, LCR 063
+
+solution ([`a5025ee`](https://github.com/QuBenhao/LeetCode/commit/a5025eedc6c6091a1e0ce55389260f8e5c5fb027))
+
+* test: typescript 1450, 84, 416, LCR 022, LCR 063
+
+solution ([`fa9dd67`](https://github.com/QuBenhao/LeetCode/commit/fa9dd6704df8960aae85d351574d4a329daeb640))
+
+* test: Java 1450, 84, 416, LCR 022, LCR 063
+
+solution ([`56809ba`](https://github.com/QuBenhao/LeetCode/commit/56809ba7c7f3e105e8375cee2369ffa1203fa014))
+
+* test: c++ 1450, 84, 416, LCR 022, LCR 063
+
+solution ([`e006ce9`](https://github.com/QuBenhao/LeetCode/commit/e006ce9dc505bf0a9780453a00a2c75abf6e1bf3))
+
+* test: golang 1450, 84, 416, LCR 022, LCR 063
+
+solution ([`7e50c8e`](https://github.com/QuBenhao/LeetCode/commit/7e50c8efb7eeec3552f2932d1f6f060ab47eea6b))
+
 ## v8.7.9 (2024-09-01)
 
 ### Fix
@@ -27,48 +83,6 @@ solution ([`e30476c`](https://github.com/QuBenhao/LeetCode/commit/e30476c95ce99e
 * test: [20240831] Add daily problem solution ([`227fbec`](https://github.com/QuBenhao/LeetCode/commit/227fbec81860c23efb92694ce199dd5dbd470221))
 
 ## v8.7.7 (2024-08-31)
-
-### Fix
-
-* fix: compare zero and negative zero
-
-convert result to JSON to eliminate negative zero ([`0cc32a9`](https://github.com/QuBenhao/LeetCode/commit/0cc32a97721f34639fee3a50470cb316ddcbeff6))
-
-### Refactor
-
-* refactor: format
-
-typo ([`17d5322`](https://github.com/QuBenhao/LeetCode/commit/17d5322d0b9499f3537d09fda32df551854e8517))
-
-### Test
-
-* test: rust 3127, 238, 437, LCR 090, LCR 105
-
-solution ([`5964ec1`](https://github.com/QuBenhao/LeetCode/commit/5964ec1bc8cd2f56db181ced524c1576e4b32566))
-
-* test: typescript 3127, 238, 437, LCR 090, LCR 105
-
-solution, bug 0 and -0 not equal in 238 ([`e3656d3`](https://github.com/QuBenhao/LeetCode/commit/e3656d3e72988197438f04ea2dfe86daf0ebbdbf))
-
-* test: Java 3127, 238, 437, LCR 090, LCR 105
-
-solution ([`c7eebf0`](https://github.com/QuBenhao/LeetCode/commit/c7eebf0788400058e7686a173bcc49655e3e871f))
-
-* test: c++ 3127, 238, 437, LCR 090, LCR 105
-
-solution ([`30f50d8`](https://github.com/QuBenhao/LeetCode/commit/30f50d8664abccaf90c3a4ceb331262e71c3946c))
-
-* test: golang 3127, 238, 437, LCR 090, LCR 105
-
-solution ([`2017d08`](https://github.com/QuBenhao/LeetCode/commit/2017d08aa4ad5a6b139752d39187f31f4dd01a3f))
-
-### Unknown
-
-* Merge pull request #134 from QuBenhao/133-ts-jest-0-and-0
-
-133 ts jest zero and negative zero ([`1eefa24`](https://github.com/QuBenhao/LeetCode/commit/1eefa245e9bfa71ff455b8e8bab2e17d7cf99422))
-
-## v8.7.6 (2024-08-31)
 
 ### Breaking
 
@@ -1095,6 +1109,10 @@ The code refactors the way TreeNodes are converted to arrays and vice versa in G
 Generate linkedList from int array or the opposite, as well as basic test for linkedList ([`72fde28`](https://github.com/QuBenhao/LeetCode/commit/72fde2896de1d2cac24ed03d5aaac71a7d8dcf55))
 
 ### Fix
+
+* fix: compare zero and negative zero
+
+convert result to JSON to eliminate negative zero ([`0cc32a9`](https://github.com/QuBenhao/LeetCode/commit/0cc32a97721f34639fee3a50470cb316ddcbeff6))
 
 * fix: golang mismatch TreeNode and int
 
@@ -2340,6 +2358,10 @@ fix case with space and output with space ([`96434b2`](https://github.com/QuBenh
 
 ### Refactor
 
+* refactor: format
+
+typo ([`17d5322`](https://github.com/QuBenhao/LeetCode/commit/17d5322d0b9499f3537d09fda32df551854e8517))
+
 * refactor: rust lib
 
 better code ([`a8b581f`](https://github.com/QuBenhao/LeetCode/commit/a8b581f988c48e7d047035a8a24187b3f4216582))
@@ -2473,6 +2495,26 @@ query param load from str ([`576737d`](https://github.com/QuBenhao/LeetCode/comm
 go.sum uploaded ([`064618d`](https://github.com/QuBenhao/LeetCode/commit/064618d550530aefd4c12eeb3a8d7d3e328cf9f0))
 
 ### Test
+
+* test: rust 3127, 238, 437, LCR 090, LCR 105
+
+solution ([`5964ec1`](https://github.com/QuBenhao/LeetCode/commit/5964ec1bc8cd2f56db181ced524c1576e4b32566))
+
+* test: typescript 3127, 238, 437, LCR 090, LCR 105
+
+solution, bug 0 and -0 not equal in 238 ([`e3656d3`](https://github.com/QuBenhao/LeetCode/commit/e3656d3e72988197438f04ea2dfe86daf0ebbdbf))
+
+* test: Java 3127, 238, 437, LCR 090, LCR 105
+
+solution ([`c7eebf0`](https://github.com/QuBenhao/LeetCode/commit/c7eebf0788400058e7686a173bcc49655e3e871f))
+
+* test: c++ 3127, 238, 437, LCR 090, LCR 105
+
+solution ([`30f50d8`](https://github.com/QuBenhao/LeetCode/commit/30f50d8664abccaf90c3a4ceb331262e71c3946c))
+
+* test: golang 3127, 238, 437, LCR 090, LCR 105
+
+solution ([`2017d08`](https://github.com/QuBenhao/LeetCode/commit/2017d08aa4ad5a6b139752d39187f31f4dd01a3f))
 
 * test: python 3127, 238, 437, LCR 090, LCR 105
 
@@ -4823,6 +4865,10 @@ Introduced a new test file, tree_test.go, containing unit tests for the conversi
 The extended test coverage now includes the &#39;ListNode&#39; function. This also involves the creation and validation of cyclic nodes and intersecting nodes within a linked list. The respective checks for node existence, length, and correct values have been implemented in these new tests. ([`a61f839`](https://github.com/QuBenhao/LeetCode/commit/a61f8397e29900191980b5ec3e02ca0850f12df3))
 
 ### Unknown
+
+* Merge pull request #134 from QuBenhao/133-ts-jest-0-and-0
+
+133 ts jest zero and negative zero ([`1eefa24`](https://github.com/QuBenhao/LeetCode/commit/1eefa245e9bfa71ff455b8e8bab2e17d7cf99422))
 
 * Merge pull request #132 from QuBenhao/131-custom-class-690
 
