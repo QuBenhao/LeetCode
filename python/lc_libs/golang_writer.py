@@ -193,10 +193,10 @@ class GolangWriter(LanguageWriter):
                     code or code_default,
                     build_body,
                     "",
-                    "ans",
                     "",
+                    "ans",
                     "\n\n" + end_extra_code if end_extra_code else "",
-                ).replace("return ans()", "return ans")
+                )
         import_set = set()
         for it in its:
             import_set.update(it[0])
@@ -211,23 +211,31 @@ class GolangWriter(LanguageWriter):
             return_func_var = "{}({})".format(
                 func_names[0], ", ".join(list(zip(*its))[3])
             )
+            special_return_process = ""
             match rts[0]:
                 case "*TreeNode":
                     import_set.add('\t. "leetCode/golang/models"')
-                    return_func_name = "TreeToArray"
+                    return_line = f"TreeToArray({return_func_var})"
                 case "*ListNode":
-                    import_set.add('\t. "leetCode/golang/models"')
-                    return_func_name = "LinkedListToIntArray"
+                    if "IntArrayToLinkedListCycle" in "".join(list(zip(*its))[2]):
+                        logging.debug(return_func_var)
+                        special_return_process = (f"res := {return_func_var}\n"
+                                                  f"\tif res == nil {{\n"
+                                                  f"\t\treturn nil\n"
+                                                  f"\t}}\n\t")
+                        return_line = "res.Val"
+                    else:
+                        import_set.add('\t. "leetCode/golang/models"')
+                        return_line = f"LinkedListToIntArray({return_func_var})"
                 case "*Node":
-                    return_func_name = "ToBeImplemented"
                     if (
                             "Left *Node" in code_default
                             and "Right *Node" in code_default
                             and "Next *Node" in code_default
                     ):
-                        return_func_name = "TreeNextToArray"
+                        return_line = f"TreeNextToArray({return_func_var})"
                     elif "Neighbors []*Node" in code_default:
-                        return_func_name = "NodeNeighbourToArrayRelation"
+                        return_line = f"NodeNeighbourToArrayRelation({return_func_var})"
                     elif (
                             "/**\n"
                             " * Definition for a Node.\n"
@@ -238,9 +246,11 @@ class GolangWriter(LanguageWriter):
                             " * }\n"
                             " */" in code_default
                     ):
-                        return_func_name = "NodeArrayToIntRandomArray"
+                        return_line = f"NodeArrayToIntRandomArray({return_func_var})"
+                    else:
+                        return_line = f"FIXME({return_func_var})"
                 case _:
-                    return_func_name = ""
+                    return_line = return_func_var
 
             return SOLUTION_TEMPLATE_GOLANG.format(
                 problem_id,
@@ -256,8 +266,8 @@ class GolangWriter(LanguageWriter):
                 code or code_default,
                 "\n".join(list(zip(*its))[1]),
                 "\n".join(list(zip(*its))[2]),
-                return_func_name,
-                return_func_var,
+                special_return_process,
+                return_line,
                 "\n\n" + end_extra_code if end_extra_code else "",
             )
         if rts[0] == "":
@@ -298,8 +308,8 @@ class GolangWriter(LanguageWriter):
             code or code_default,
             "\n".join(list(zip(*its))[1]),
             "\n".join(list(zip(*its))[2]),
-            func_names[0],
-            ", ".join(list(zip(*its))[3]),
+            "",
+            func_names[0] + "(" + ", ".join(list(zip(*its))[3]) + ")",
             "\n\n" + end_extra_code if end_extra_code else "",
         )
 

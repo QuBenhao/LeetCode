@@ -116,7 +116,7 @@ class CppWriter(LanguageWriter):
             if_modify_in_place = CppWriter._process_variables(variables, process_variables, include_libs, code_default,
                                                               testcases)
             CppWriter._process_return_part(ret_type, func_name, variables, code_default, return_part, include_libs,
-                                           if_modify_in_place)
+                                           if_modify_in_place, process_variables)
         elif len(functions) > 1:
             process_variables.append(
                 "\tvector<string> operators = json::parse(inputArray[0]);"
@@ -538,15 +538,25 @@ class CppWriter(LanguageWriter):
 
     @staticmethod
     def _process_return_part(ret_type: str, func_name: str, variables: list, code_default: str, return_part: list,
-                             include_libs: list, if_modify_in_place: Optional[str]):
+                             include_libs: list, if_modify_in_place: Optional[str], process_variables: list):
         if "ListNode" in ret_type:
-            if '#include "cpp/models/ListNode.h"' not in include_libs:
-                include_libs.append('#include "cpp/models/ListNode.h"')
-            return_part.append(
-                "\treturn ListNodeToIntArray(solution.{}({}));".format(
-                    func_name, ", ".join([v[-1] for v in variables])
+            # IntArrayToListNodeCycle
+            logging.debug(f"Process variables: {process_variables}")
+            if any("IntArrayToListNodeCycle" in pv for pv in process_variables):
+                return_part.append(
+                    "\tListNode *res = solution.{}({});".format(
+                        func_name, ", ".join([v[-1] for v in variables])
+                    )
                 )
-            )
+                return_part.append("return res ? res->val : nullptr;")
+            else:
+                if '#include "cpp/models/ListNode.h"' not in include_libs:
+                    include_libs.append('#include "cpp/models/ListNode.h"')
+                return_part.append(
+                    "\treturn ListNodeToIntArray(solution.{}({}));".format(
+                        func_name, ", ".join([v[-1] for v in variables])
+                    )
+                )
         elif "TreeNode" in ret_type:
             if '#include "cpp/models/TreeNode.h"' not in include_libs:
                 include_libs.append('#include "cpp/models/TreeNode.h"')

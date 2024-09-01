@@ -335,6 +335,8 @@ class JavaWriter(LanguageWriter):
                         parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[0]", "arr", "int[]", ""))
                         parse_input.append(JavaWriter.__process_variable_type("inputJsonValues[1]", "pos", "int", ""))
                         parse_input.append("ListNode head = ListNode.IntArrayToLinkedListCycle(arr, pos);")
+                        if "ListNode" in return_type:
+                            parse_input.append(f"ListNode res = {return_func}({', '.join(variables)})")
                         i += 2
                         continue
                     elif (len(input_parts) == 2 and len(testcases[0]) == 5
@@ -362,8 +364,11 @@ class JavaWriter(LanguageWriter):
                 additional_import.add("import qubhjava.models.TreeNode;")
             i += 1
         if "ListNode" in return_type:
-            additional_import.add("import qubhjava.models.ListNode;")
-            return_part = "ListNode.LinkedListToIntArray({}({}))".format(return_func, ", ".join(variables))
+            if any("IntArrayToLinkedListCycle" in pi for pi in parse_input):
+                return_part = "res == null ? null : res.val"
+            else:
+                additional_import.add("import qubhjava.models.ListNode;")
+                return_part = "ListNode.LinkedListToIntArray({}({}))".format(return_func, ", ".join(variables))
         elif "TreeNode" in return_type:
             additional_import.add("import qubhjava.models.TreeNode;")
             return_part = "TreeNode.TreeNodeToArray({}({}))".format(return_func, ", ".join(variables))

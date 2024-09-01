@@ -37,7 +37,7 @@ func Solve(inputJsonValues string) interface{{}} {{
 \tinputValues := strings.Split(inputJsonValues, "\\n")
 {}
 {}
-\treturn {}({})
+\t{}return {}
 }}{}
 """
 

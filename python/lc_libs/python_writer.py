@@ -378,6 +378,7 @@ class Python3Writer(LanguageWriter):
                             remain += f"        head{idx} = list_to_linked_list_cycle(nums{idx}, pos{idx})\n"
                             inputs += f"head{idx}"
                             idx += 2
+                            logging.debug(process_input)
                             continue
                         elif (len(p_values) == 2 and all("ListNode" in str(p.annotation) for p in p_values) and
                               len(testcases[0]) == 5 and all(isinstance(testcase[0], int) and
@@ -447,14 +448,20 @@ class Python3Writer(LanguageWriter):
                 remain += ("        res = self.{}({})\n        return tree_to_list(res)"
                            .format(func_name, inputs))
         elif "ListNode" in str(return_anno):
-            add_lib += ", linked_list_to_list" if exists else \
-                "from python.object_libs import linked_list_to_list"
-            if "List[" in str(return_anno):
-                remain += ("res = self.{}({})\n        return [linked_list_to_list(head) for head in "
-                           "res]").format(func_name, inputs)
-            else:
-                remain += ("        res = self.{}({})\n        return linked_list_to_list(res)"
+            if "list_to_linked_list_cycle" in add_lib:
+                logging.debug("Cycle linked list return")
+                remain += ("        res = self.{}({})\n        return res.val if res else None"
                            .format(func_name, inputs))
+            else:
+                add_lib += ", linked_list_to_list" if exists else \
+                    "from python.object_libs import linked_list_to_list"
+                if "List[" in str(return_anno):
+                    remain += ("res = self.{}({})\n        return [linked_list_to_list(head) for head in "
+                               "res]").format(func_name, inputs)
+                else:
+                    remain += ("        res = self.{}({})\n        return linked_list_to_list(res)"
+                               .format(func_name, inputs))
+            logging.debug(remain)
         elif "Node" in str(return_anno) and "Node" in cs_map and "neighbors" in cs_map["Node"][0][1]:
             # special handle Neighbour Nodes
             add_lib += ", node_neigh_to_list_relation" if exists else \

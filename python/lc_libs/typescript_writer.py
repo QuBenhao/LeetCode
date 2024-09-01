@@ -207,6 +207,8 @@ class TypescriptWriter(LanguageWriter):
                             process_inputs.append("const cyclePos: number = JSON.parse(inputValues[1]);")
                             process_inputs.append(f"const {variable} ="
                                                   f" IntArrayToLinkedListWithCycle(inputArray, cyclePos);")
+                            if func[2] == "ListNode | null":
+                                process_inputs.append(f"const res: ListNode | null = {func[0]}({var_name});")
                             i += 2
                             continue
                         elif (len(func[1]) == 2 and len(testcases[0]) == 5
@@ -347,13 +349,17 @@ class TypescriptWriter(LanguageWriter):
             i += 1
         return modify_in_place_if
 
-    def _process_return(self, func, process_inputs, var_names, import_part, code_default: str,
+    def _process_return(self, func, process_inputs: List, var_names, import_part, code_default: str,
                         modify_in_place_if: Optional[str]) -> str:
         match func[2]:
             case "ListNode | null":
                 import_part[self._LIST_NODE_PATH].add("ListNode")
-                import_part[self._LIST_NODE_PATH].add("LinkedListToIntArray")
-                return_part = "LinkedListToIntArray({}({}))".format(func[0], ", ".join(var_names))
+                logging.debug(f"process_inputs: {process_inputs}, var_names: {var_names}")
+                if any("IntArrayToLinkedListWithCycle" in v for v in process_inputs):
+                    return_part = "res === null ? null : res.val"
+                else:
+                    import_part[self._LIST_NODE_PATH].add("LinkedListToIntArray")
+                    return_part = "LinkedListToIntArray({}({}))".format(func[0], ", ".join(var_names))
             case "TreeNode | null":
                 import_part[self._TREE_NODE_PATH].add("TreeNode")
                 import_part[self._TREE_NODE_PATH].add("TreeNodeToJSONArray")
