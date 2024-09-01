@@ -6,8 +6,22 @@ import (
 	"strings"
 )
 
-func asteroidCollision(asteroids []int) []int {
-
+func asteroidCollision(asteroids []int) (ans []int) {
+	stack := []int{}
+out:
+	for _, ast := range asteroids {
+		for len(stack) > 0 && ast < 0 && stack[len(stack)-1] > 0 {
+			if stack[len(stack)-1] < -ast {
+				stack = stack[:len(stack)-1]
+				continue
+			} else if stack[len(stack)-1] == -ast {
+				stack = stack[:len(stack)-1]
+			}
+			continue out
+		}
+		stack = append(stack, ast)
+	}
+	return stack
 }
 
 func Solve(inputJsonValues string) interface{} {
