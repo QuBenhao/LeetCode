@@ -4,7 +4,18 @@ pub struct Solution;
 
 impl Solution {
     pub fn largest_rectangle_area(heights: Vec<i32>) -> i32 {
-
+		let mut stack: Vec<i32> = vec![-1; 1];
+		let mut ans = 0;
+		let mut heights = heights;
+		heights.push(0);
+		for i in 0..heights.len() {
+			while stack.len() > 1 && heights[*stack.last().unwrap() as usize] > heights[i] {
+				let h = heights[stack.pop().unwrap() as usize];
+				ans = ans.max(h * (i as i32 - stack.last().unwrap() - 1));
+			}
+			stack.push(i as i32);
+		}
+		ans
     }
 }
 

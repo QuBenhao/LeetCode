@@ -4,7 +4,22 @@ pub struct Solution;
 
 impl Solution {
     pub fn can_partition(nums: Vec<i32>) -> bool {
-
+		let mut s: i32 = 0;
+		for num in &nums {
+			s += num;
+		}
+		if s % 2 != 0 {
+			return false;
+		}
+		let s = s / 2;
+		let mut dp = vec![false; (s + 1) as usize];
+		dp[0] = true;
+		for num in &nums {
+			for i in (*num..=s).rev() {
+				dp[i as usize] = dp[i as usize] || dp[(i - num) as usize];
+			}
+		}
+		dp[s as usize]
     }
 }
 
