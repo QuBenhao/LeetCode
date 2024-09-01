@@ -6,8 +6,13 @@ import (
 	"strings"
 )
 
-func busyStudent(startTime []int, endTime []int, queryTime int) int {
-
+func busyStudent(startTime []int, endTime []int, queryTime int) (ans int) {
+	for i := 0; i < len(startTime); i++ {
+		if startTime[i] <= queryTime && queryTime <= endTime[i] {
+			ans++
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
