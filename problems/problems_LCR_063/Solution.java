@@ -6,8 +6,57 @@ import qubhjava.BaseSolution;
 
 
 public class Solution extends BaseSolution {
-    public String replaceWords(List<String> dictionary, String sentence) {
+    private TrieNode root;
+    class TrieNode {
+        TrieNode[] children;
+        boolean isEnd;
 
+        public TrieNode() {
+            children = new TrieNode[26];
+            isEnd = false;
+        }
+    }
+
+    private void insert(String word) {
+        TrieNode node = root;
+        for (char c : word.toCharArray()) {
+            int index = c - 'a';
+            if (node.children[index] == null) {
+                node.children[index] = new TrieNode();
+            }
+            node = node.children[index];
+        }
+        node.isEnd = true;
+    }
+
+    private String search(String word) {
+        TrieNode node = root;
+        StringBuilder sb = new StringBuilder();
+        for (char c : word.toCharArray()) {
+            int index = c - 'a';
+            if (node.children[index] == null) {
+                return word;
+            }
+            sb.append(c);
+            node = node.children[index];
+            if (node.isEnd) {
+                return sb.toString();
+            }
+        }
+        return word;
+    }
+
+    public String replaceWords(List<String> dictionary, String sentence) {
+        root = new TrieNode();
+        for (String word : dictionary) {
+            insert(word);
+        }
+        String[] words = sentence.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (String word : words) {
+            sb.append(search(word)).append(" ");
+        }
+        return sb.toString().trim();
     }
 
     @Override
