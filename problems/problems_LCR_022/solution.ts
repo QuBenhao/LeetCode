@@ -13,7 +13,23 @@ import {LinkedListToIntArray,IntArrayToLinkedListWithCycle,ListNode} from "../..
  */
 
 function detectCycle(head: ListNode | null): ListNode | null {
-    
+    if (head === null || head.next === null) {
+		return null;
+	}
+	let slow: ListNode | null = head, fast: ListNode | null = head;
+	while (fast !== null && fast.next !== null) {
+		slow = slow!.next;
+		fast = fast.next.next;
+		if (slow === fast) {
+			let ptr: ListNode | null = head;
+			while (ptr !== slow) {
+				ptr = ptr!.next;
+				slow = slow!.next;
+			}
+			return ptr;
+		}
+	}
+	return null;
 };
 
 export function Solve(inputJsonElement: string): any {
@@ -21,5 +37,6 @@ export function Solve(inputJsonElement: string): any {
 	const inputArray: number[] = JSON.parse(inputValues[0]);
 	const cyclePos: number = JSON.parse(inputValues[1]);
 	const head: ListNode | null = IntArrayToLinkedListWithCycle(inputArray, cyclePos);
-	return LinkedListToIntArray(detectCycle(head));
+	const res: ListNode | null = detectCycle(head);
+	return res === null ? null : res.val;
 }
