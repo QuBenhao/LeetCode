@@ -6,8 +6,28 @@ import (
 	"strings"
 )
 
-func relativeSortArray(arr1 []int, arr2 []int) []int {
-
+func relativeSortArray(arr1 []int, arr2 []int) (ans []int) {
+	mx := 0
+	for _, v := range arr1 {
+		mx = max(mx, v)
+	}
+	cnt := make([]int, mx+1)
+	for _, v := range arr1 {
+		cnt[v]++
+	}
+	for _, v := range arr2 {
+		for cnt[v] > 0 {
+			ans = append(ans, v)
+			cnt[v]--
+		}
+	}
+	for i := 0; i <= mx; i++ {
+		for cnt[i] > 0 {
+			ans = append(ans, i)
+			cnt[i]--
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
