@@ -3,11 +3,22 @@ package problem2860
 import (
 	"encoding/json"
 	"log"
+	"sort"
 	"strings"
 )
 
-func countWays(nums []int) int {
-
+func countWays(nums []int) (ans int) {
+	sort.Ints(nums)
+	ans = 1
+	if nums[0] > 0 {
+		ans++
+	}
+	for i, n := 1, len(nums); i < n; i++ {
+		if nums[i-1] < i && nums[i] > i {
+			ans++
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
