@@ -9,11 +9,9 @@ class Solution(solution.Solution):
     def minFlipsMonoIncr(self, s: str) -> int:
         n = len(s)
         ans = n
-        pre_sum = [0] * (n + 1)
+        one = 0
         for i in range(n):
-            pre_sum[i + 1] = pre_sum[i] + int(s[i] == '1')
-        cur = 0
-        for i in range(n - 1, -1, -1):
-            ans = min(ans, cur + pre_sum[i])
-            cur += int(s[i] == '0')
-        return ans
+            # 一共有k个1，右边就有n-i-k+one个0，提取n和k在最后加
+            ans = min(ans, one * 2 - i)
+            one += s[i] == '1'
+        return min(ans + n - one, one)
