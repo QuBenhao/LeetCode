@@ -7,5 +7,11 @@ class Solution(solution.Solution):
         return self.clearDigits(test_input)
 
     def clearDigits(self, s: str) -> str:
-        pass
-
+        st = []
+        for c in s:
+            if c.isdigit():
+                if st:
+                    st.pop()
+            else:
+                st.append(c)
+        return "".join(st)
