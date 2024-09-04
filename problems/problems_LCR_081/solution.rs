@@ -5,7 +5,26 @@ pub struct Solution;
 
 impl Solution {
     pub fn combination_sum(candidates: Vec<i32>, target: i32) -> Vec<Vec<i32>> {
-
+		let mut candidates = candidates;
+		candidates.sort_unstable();
+		let mut ans = vec![];
+		let mut path = vec![];
+		fn backtrack(candidates: &Vec<i32>, target: i32, path: &mut Vec<i32>, ans: &mut Vec<Vec<i32>>, start: usize) {
+			if target == 0 {
+				ans.push(path.clone());
+				return;
+			}
+			for i in start..candidates.len() {
+				if target < candidates[i] {
+					break;
+				}
+				path.push(candidates[i]);
+				backtrack(candidates, target - candidates[i], path, ans, i);
+				path.pop();
+			}
+		}
+		backtrack(&candidates, target, &mut path, &mut ans, 0);
+		ans
     }
 }
 
