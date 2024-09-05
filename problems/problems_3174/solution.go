@@ -7,7 +7,17 @@ import (
 )
 
 func clearDigits(s string) string {
-
+	var st []rune
+	for _, r := range s {
+		if r >= '0' && r <= '9' {
+			if len(st) > 0 {
+				st = st[:len(st)-1]
+			}
+		} else {
+			st = append(st, r)
+		}
+	}
+	return string(st)
 }
 
 func Solve(inputJsonValues string) interface{} {
