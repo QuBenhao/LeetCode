@@ -7,7 +7,22 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public String clearDigits(String s) {
-
+        Deque<Character> deque = new ArrayDeque<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (Character.isDigit(c)) {
+                if (!deque.isEmpty()) {
+                    deque.pollLast();
+                }
+            } else {
+                deque.offerLast(c);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while (!deque.isEmpty()) {
+            sb.append(deque.pollFirst());
+        }
+        return sb.toString();
     }
 
     @Override

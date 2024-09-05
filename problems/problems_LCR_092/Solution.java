@@ -7,7 +7,13 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int minFlipsMonoIncr(String s) {
-
+        int n = s.length();
+        int ans = n, one = 0;
+        for (int i = 0; i < n; i++) {
+            ans = Math.min(ans, one * 2 - i);
+            one += s.charAt(i) - '0';
+        }
+        return Math.min(ans + n - one, one);
     }
 
     @Override
