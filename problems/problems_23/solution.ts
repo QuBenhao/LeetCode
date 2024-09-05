@@ -1,4 +1,5 @@
 import {ListNode,LinkedListToIntArray,IntArrayToLinkedList} from "../../typescript/models/listnode";
+import {MinPriorityQueue} from "@datastructures-js/priority-queue";
 
 /**
  * Definition for singly-linked list.
@@ -13,8 +14,24 @@ import {ListNode,LinkedListToIntArray,IntArrayToLinkedList} from "../../typescri
  */
 
 function mergeKLists(lists: Array<ListNode | null>): ListNode | null {
-    
-};
+    const pq = new MinPriorityQueue({ priority: (node: ListNode) => node.val });
+    for (const head of lists) {
+        if (head) {
+            pq.enqueue(head);
+        }
+    }
+    const dummy: ListNode = new ListNode();
+    let cur: ListNode = dummy;
+    while (!pq.isEmpty()) {
+        const node = pq.dequeue().element;
+        cur.next = node;
+        cur = cur.next;
+        if (node.next) {
+            pq.enqueue(node.next);
+        }
+    }
+    return dummy.next;
+}
 
 export function Solve(inputJsonElement: string): any {
 	const inputValues: string[] = inputJsonElement.split("\n");

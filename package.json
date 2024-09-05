@@ -14,8 +14,8 @@
     "lodash": ">=4.17.21"
   },
   "devDependencies": {
-    "@datastructures-js/priority-queue": "^5.4.0",
-    "@datastructures-js/queue": "^4.2.3",
+    "@datastructures-js/priority-queue": "5.4.0",
+    "@datastructures-js/queue": "4.2.3",
     "@types/jest": "^29.5.12",
     "@types/lodash": "^4.17.5",
     "@typescript-eslint/eslint-plugin": "^7.13.0",
