@@ -18,9 +18,26 @@ pub struct Solution;
 //     }
 //   }
 // }
+use std::collections::BinaryHeap;
+use std::cmp::Reverse;
+
 impl Solution {
     pub fn merge_k_lists(lists: Vec<Option<Box<ListNode>>>) -> Option<Box<ListNode>> {
-
+        let mut ans=Box::new(ListNode::new(0));
+        let mut pans=&mut ans;
+        let mut heap = BinaryHeap::new();
+        for list in lists{
+            let mut plist = &list;
+            while let Some(node) = plist{
+                heap.push(Reverse(node.val));
+                plist=&node.next;
+            }
+        }
+        while let Some(Reverse(n)) = heap.pop(){
+            pans.next=Some(Box::new(ListNode::new(n)));
+            pans=pans.next.as_mut().unwrap();
+        }
+        ans.next
     }
 }
 
