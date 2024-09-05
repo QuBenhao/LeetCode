@@ -1,4 +1,4 @@
-# 236. Lowest Common Ancestor of a Binary Tree
+# 236. Lowest Common Ancestor of a Binary Tree 
 
 <p>Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.</p>
 
