@@ -1,32 +1,30 @@
-# 51. N-Queens
+# 51. N-Queens 
 
-The **n-queens** puzzle is the problem of placing `n` queens on an `n x n` chessboard such that no two queens attack each other.
+<p>The <strong>n-queens</strong> puzzle is the problem of placing <code>n</code> queens on an <code>n x n</code> chessboard such that no two queens attack each other.</p>
 
-Given an integer `n`, return *all distinct solutions to the **n-queens puzzle***.
+<p>Given an integer <code>n</code>, return <em>all distinct solutions to the <strong>n-queens puzzle</strong></em>. You may return the answer in <strong>any order</strong>.</p>
 
-Each solution contains a distinct board configuration of the n-queens' placement, where `'Q'` and `'.'` both indicate a queen and an empty space, respectively.
+<p>Each solution contains a distinct board configuration of the n-queens&#39; placement, where <code>&#39;Q&#39;</code> and <code>&#39;.&#39;</code> both indicate a queen and an empty space, respectively.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/11/13/queens.jpg" style="width: 600px; height: 268px;" />
+<pre>
+<strong>Input:</strong> n = 4
+<strong>Output:</strong> [[&quot;.Q..&quot;,&quot;...Q&quot;,&quot;Q...&quot;,&quot;..Q.&quot;],[&quot;..Q.&quot;,&quot;Q...&quot;,&quot;...Q&quot;,&quot;.Q..&quot;]]
+<strong>Explanation:</strong> There exist two distinct solutions to the 4-queens puzzle as shown above
+</pre>
 
-**Example 1:**
+<p><strong class="example">Example 2:</strong></p>
 
-![img](https://assets.leetcode.com/uploads/2020/11/13/queens.jpg)
+<pre>
+<strong>Input:</strong> n = 1
+<strong>Output:</strong> [[&quot;Q&quot;]]
+</pre>
 
-```
-Input: n = 4
-Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
-Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 2:**
-
-```
-Input: n = 1
-Output: [["Q"]]
-```
-
- 
-
-**Constraints:**
-
-- `1 <= n <= 9`
+<ul>
+	<li><code>1 &lt;= n &lt;= 9</code></li>
+</ul>
