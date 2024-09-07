@@ -1,5 +1,5 @@
 cc_test(
-    name = "test_problem_LCR_049",
+    name = "test_problem_LCR_009",
     size = "small",
     srcs = [
         "//cpp:TestMain.cpp",
@@ -20,7 +20,7 @@ cc_test(
 )
 
 cc_test(
-    name = "test_problem_LCR_093",
+    name = "test_problem_LCR_016",
     size = "small",
     srcs = [
         "//cpp:TestMain.cpp",
@@ -41,7 +41,7 @@ cc_test(
 )
 
 cc_test(
-    name = "test_problem_51",
+    name = "test_problem_146",
     size = "small",
     srcs = [
         "//cpp:TestMain.cpp",
@@ -62,7 +62,7 @@ cc_test(
 )
 
 cc_test(
-    name = "test_problem_32",
+    name = "test_problem_124",
     size = "small",
     srcs = [
         "//cpp:TestMain.cpp",
