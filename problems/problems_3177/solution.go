@@ -7,7 +7,19 @@ import (
 )
 
 func maximumLength(nums []int, k int) int {
-
+	fs := map[int][]int{}
+	mx := make([]int, k+2)
+	for _, x := range nums {
+		if fs[x] == nil {
+			fs[x] = make([]int, k+1)
+		}
+		f := fs[x]
+		for j := k; j >= 0; j-- {
+			f[j] = max(f[j], mx[j]) + 1
+			mx[j+1] = max(mx[j+1], f[j])
+		}
+	}
+	return mx[k+1]
 }
 
 func Solve(inputJsonValues string) interface{} {
