@@ -5,7 +5,23 @@ pub struct Solution;
 
 impl Solution {
     pub fn len_longest_fib_subseq(arr: Vec<i32>) -> i32 {
-
+		let mut ans = 0;
+		let mut index = std::collections::HashMap::new();
+		let n = arr.len();
+		for i in 0..n {
+			index.insert(arr[i], i);
+		}
+		let mut dp = vec![vec![2; n]; n];
+		for i in 0..n {
+			for j in 0..i {
+				let k = index.get(&(arr[i] - arr[j]));
+				if k.is_some() && k.unwrap() < &j {
+					dp[i][j] = dp[j][*k.unwrap()] + 1;
+					ans = ans.max(dp[i][j]);
+				}
+			}
+		}
+		ans
     }
 }
 
