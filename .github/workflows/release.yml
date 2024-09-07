@@ -1,7 +1,9 @@
 name: Semantic Release
 
 on:
-  push:
+  workflow_dispatch:
+  pull_request:
+    types: [closed]
     branches:
       - master
 

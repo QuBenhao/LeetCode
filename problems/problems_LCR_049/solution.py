@@ -17,5 +17,17 @@ class Solution(solution.Solution):
         return self.sumNumbers(root0)
 
     def sumNumbers(self, root: TreeNode) -> int:
-        pass
+        ans = 0
+        def dfs(node, num):
+            if not node:
+                return
+            num = num * 10 + node.val
+            if not node.left and not node.right:
+                nonlocal ans
+                ans += num
+                return
+            dfs(node.left, num)
+            dfs(node.right, num)
 
+        dfs(root, 0)
+        return ans
