@@ -1,13 +1,25 @@
 package problems.problems_3177;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.alibaba.fastjson.JSON;
-import java.util.*;
+
 import qubhjava.BaseSolution;
 
 
 public class Solution extends BaseSolution {
     public int maximumLength(int[] nums, int k) {
-
+        Map<Integer, int[]> fs = new HashMap<>();
+        int[] mx = new int[k + 2];
+        for (int x : nums) {
+            int[] f = fs.computeIfAbsent(x, i -> new int[k + 1]);
+            for (int j = k; j >= 0; j--) {
+                f[j] = Math.max(f[j], mx[j]) + 1;
+                mx[j + 1] = Math.max(mx[j + 1], f[j]);
+            }
+        }
+        return mx[k + 1];
     }
 
     @Override
