@@ -20,7 +20,22 @@ pub struct Solution;
 // }
 impl Solution {
     pub fn merge_nodes(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+        let mut dummy = Box::new(ListNode::new(0));
+        let mut tail = &mut dummy;
+        let mut total = 0;
+        let mut cur = head?.next;
+        while let Some(mut node) = cur {
+            if node.val == 0 {
+                tail.next = Some(Box::new(ListNode::new(total)));
+                tail = tail.next.as_mut()?;
+                total = 0;
+            } else {
+                total += node.val;
+            }
+            cur = node.next.take();
+        }
 
+        dummy.next
     }
 }
 
