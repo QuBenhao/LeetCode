@@ -5,7 +5,18 @@ pub struct Solution;
 
 impl Solution {
     pub fn num_subarray_product_less_than_k(nums: Vec<i32>, k: i32) -> i32 {
-
+		let mut ans: i32 = 0;
+		let mut cur: i32 = 1;
+		let mut left: usize = 0;
+		for right in 0..nums.len() {
+			cur *= nums[right];
+			while cur >= k && left <= right {
+				cur /= nums[left];
+				left += 1;
+			}
+			ans += right as i32 - left as i32 + 1;
+		}
+		ans
     }
 }
 

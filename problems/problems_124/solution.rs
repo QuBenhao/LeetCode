@@ -24,7 +24,19 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn max_path_sum(root: Option<Rc<RefCell<TreeNode>>>) -> i32 {
-
+		let mut ans: i32 = i32::MIN;
+		fn dfs(node: &Option<Rc<RefCell<TreeNode>>>, ans: &mut i32) -> i32 {
+			if let Some(node) = node {
+				let left = dfs(&node.borrow().left, ans);
+				let right = dfs(&node.borrow().right, ans);
+				*ans = (*ans).max(node.borrow().val + left + right);
+				0.max(node.borrow().val + left.max(right))
+			} else {
+				0
+			}
+		}
+		dfs(&root, &mut ans);
+		ans
     }
 }
 
