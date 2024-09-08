@@ -17,5 +17,15 @@ class Solution(solution.Solution):
         return linked_list_to_list(res)
 
     def mergeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        pass
-
+        dummy = ListNode()
+        node, cur = dummy, head.next
+        while cur:
+            s = 0
+            while cur and cur.val != 0:
+                s += cur.val
+                cur = cur.next
+            node.next = ListNode(s)
+            node = node.next
+            if cur:
+                cur = cur.next
+        return dummy.next
