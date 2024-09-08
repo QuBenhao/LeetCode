@@ -1,26 +1,29 @@
 package problems.problems_977;
 
+import com.alibaba.fastjson.JSON;
+import java.util.*;
+import qubhjava.BaseSolution;
 
-public class Solution {
+
+public class Solution extends BaseSolution {
     public int[] sortedSquares(int[] nums) {
-        int start = 0, left = 0, right = 0, index = 0, n = nums.length;
-        int[] result = new int[n];
-        for (; start < n; start++) {
-            if (nums[start] >= 0)
-                break;
-        }
-        left = start - 1;
-        right = start;
-        while (left >= 0 || right < n) {
-            if (left < 0 || (right < n && nums[right] <= -nums[left])) {
-                result[index] = nums[right] * nums[right];
-                right++;
+        int n = nums.length;
+        int[] ans = new int[n];
+        for (int left = 0, right = n - 1, pos = n - 1; left <= right; pos--) {
+            if (nums[left] * nums[left] > nums[right] * nums[right]) {
+                ans[pos] = nums[left] * nums[left];
+                left++;
             } else {
-                result[index] = nums[left] * nums[left];
-                left--;
+                ans[pos] = nums[right] * nums[right];
+                right--;
             }
-            index++;
         }
-        return result;
+        return ans;
+    }
+
+    @Override
+    public Object solve(String[] inputJsonValues) {
+        int[] nums = jsonArrayToIntArray(inputJsonValues[0]);
+        return JSON.toJSON(sortedSquares(nums));
     }
 }

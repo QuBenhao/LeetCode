@@ -5,18 +5,72 @@ import java.util.*;
 import qubhjava.BaseSolution;
 
 
+class DLinkedNode {
+	int key;
+	int value;
+	DLinkedNode prev;
+	DLinkedNode next;
+	public DLinkedNode() {}
+	public DLinkedNode(int _key, int _value) {key = _key; value = _value;}
+}
+
+
 class LRUCache {
+	private Map<Integer, DLinkedNode> cache;
+	private int capacity;
+	private DLinkedNode head, tail;
+
+	private void addNode(DLinkedNode node) {
+		node.prev = head;
+		node.next = head.next;
+		head.next.prev = node;
+		head.next = node;
+	}
+
+	private void removeNode(DLinkedNode node) {
+		if (node.prev != null) {
+			node.prev.next = node.next;
+		}
+		if (node.next != null) {
+			node.next.prev = node.prev;
+		}
+	}
 
     public LRUCache(int capacity) {
-
+		this.capacity = capacity;
+		head = new DLinkedNode();
+		tail = new DLinkedNode();
+		head.next = tail;
+		tail.prev = head;
+		cache = new HashMap<>(capacity);
     }
     
     public int get(int key) {
-
+		DLinkedNode node = cache.get(key);
+		if (node == null) {
+			return -1;
+		}
+		removeNode(node);
+		addNode(node);
+		return node.value;
     }
     
     public void put(int key, int value) {
-
+		DLinkedNode node = cache.get(key);
+		if (node != null) {
+			node.value = value;
+			removeNode(node);
+			addNode(node);
+			return;
+		}
+		if (cache.size() == capacity) {
+			DLinkedNode last = tail.prev;
+			removeNode(last);
+			cache.remove(last.key);
+		}
+		DLinkedNode newNode = new DLinkedNode(key, value);
+		cache.put(key, newNode);
+		addNode(newNode);
     }
 }
 

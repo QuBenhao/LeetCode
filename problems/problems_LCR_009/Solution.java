@@ -7,7 +7,17 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int numSubarrayProductLessThanK(int[] nums, int k) {
-
+        int ans = 0;
+        int cur = 1;
+        for (int left = 0, right = 0; right < nums.length; right++) {
+            cur *= nums[right];
+            while (left <= right && cur >= k) {
+                cur /= nums[left];
+                left++;
+            }
+            ans += right - left + 1;
+        }
+        return ans;
     }
 
     @Override
