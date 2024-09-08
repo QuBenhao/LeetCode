@@ -15,7 +15,21 @@ import (
  * }
  */
 func mergeNodes(head *ListNode) *ListNode {
-
+	dummy := &ListNode{Val: 0}
+	node, cur := dummy, head.Next
+	for cur != nil {
+		s := 0
+		for cur != nil && cur.Val != 0 {
+			s += cur.Val
+			cur = cur.Next
+		}
+		node.Next = &ListNode{Val: s}
+		node = node.Next
+		if cur != nil {
+			cur = cur.Next
+		}
+	}
+	return dummy.Next
 }
 
 func Solve(inputJsonValues string) interface{} {
