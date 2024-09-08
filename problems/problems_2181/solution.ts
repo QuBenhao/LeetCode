@@ -13,7 +13,21 @@ import {ListNode,IntArrayToLinkedList,LinkedListToIntArray} from "../../typescri
  */
 
 function mergeNodes(head: ListNode | null): ListNode | null {
-
+	const dummy: ListNode | null = new ListNode(0);
+	let node: ListNode | null = dummy, current: ListNode | null = head.next;
+	while (current !== null) {
+		let s: number = 0;
+		while (current !== null && current.val !== 0) {
+			s += current.val;
+			current = current.next;
+		}
+		node.next = new ListNode(s);
+		node = node.next;
+		if (current !== null) {
+			current = current.next;
+		}
+	}
+	return dummy.next;
 };
 
 export function Solve(inputJsonElement: string): any {
