@@ -17,7 +17,21 @@ import qubhjava.models.ListNode;
 
 public class Solution extends BaseSolution {
     public ListNode mergeNodes(ListNode head) {
-
+        ListNode dummy = new ListNode(0);
+        ListNode cur = dummy, node = head.next;
+        while (node != null) {
+            int s = 0;
+            while (node != null && node.val != 0) {
+                s += node.val;
+                node = node.next;
+            }
+            cur.next = new ListNode(s);
+            cur = cur.next;
+            if (node != null) {
+                node = node.next;
+            }
+        }
+        return dummy.next;
     }
 
     @Override
