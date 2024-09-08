@@ -17,23 +17,37 @@ using json = nlohmann::json;
  */
 class Solution {
 public:
-    ListNode* mergeNodes(ListNode* head) {
-        
+    ListNode *mergeNodes(ListNode *head) {
+        ListNode *dummy = new ListNode(0);
+        ListNode *cur = dummy, *node = head->next;
+        while (node != nullptr) {
+            int s = 0;
+            while (node != nullptr && node->val != 0) {
+                s += node->val;
+                node = node->next;
+            }
+            cur->next = new ListNode(s);
+            cur = cur->next;
+            if (node != nullptr) {
+                node = node->next;
+            }
+        }
+        return dummy->next;
     }
 };
 
 json leetcode::qubh::Solve(string input_json_values) {
-	vector<string> inputArray;
-	size_t pos = input_json_values.find('\n');
-	while (pos != string::npos) {
-		inputArray.push_back(input_json_values.substr(0, pos));
-		input_json_values = input_json_values.substr(pos + 1);
-		pos = input_json_values.find('\n');
-	}
-	inputArray.push_back(input_json_values);
+    vector<string> inputArray;
+    size_t pos = input_json_values.find('\n');
+    while (pos != string::npos) {
+        inputArray.push_back(input_json_values.substr(0, pos));
+        input_json_values = input_json_values.substr(pos + 1);
+        pos = input_json_values.find('\n');
+    }
+    inputArray.push_back(input_json_values);
 
-	Solution solution;
-	std::vector<int> head_array = json::parse(inputArray.at(0));
-	ListNode *head = IntArrayToListNode(head_array);
-	return ListNodeToIntArray(solution.mergeNodes(head));
+    Solution solution;
+    std::vector<int> head_array = json::parse(inputArray.at(0));
+    ListNode *head = IntArrayToListNode(head_array);
+    return ListNodeToIntArray(solution.mergeNodes(head));
 }
