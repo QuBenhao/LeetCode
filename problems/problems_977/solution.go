@@ -6,8 +6,21 @@ import (
 	"strings"
 )
 
-func sortedSquares(nums []int) []int {
-
+func sortedSquares(nums []int) (ans []int) {
+	n := len(nums)
+	ans = make([]int, n)
+	i, j, pos := 0, n-1, n-1
+	for i <= j {
+		if left, right := nums[i]*nums[i], nums[j]*nums[j]; left > right {
+			ans[pos] = left
+			i++
+		} else {
+			ans[pos] = right
+			j--
+		}
+		pos--
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {

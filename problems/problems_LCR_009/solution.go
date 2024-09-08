@@ -6,8 +6,16 @@ import (
 	"strings"
 )
 
-func numSubarrayProductLessThanK(nums []int, k int) int {
-
+func numSubarrayProductLessThanK(nums []int, k int) (ans int) {
+	for cur, left, right := 1, 0, 0; right < len(nums); right++ {
+		cur *= nums[right]
+		for cur >= k && left <= right {
+			cur /= nums[left]
+			left++
+		}
+		ans += right - left + 1
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {

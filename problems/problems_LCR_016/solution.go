@@ -6,8 +6,26 @@ import (
 	"strings"
 )
 
-func lengthOfLongestSubstring(s string) int {
-
+func lengthOfLongestSubstring(s string) (ans int) {
+	var window []byte
+	var explored = make(map[byte]bool)
+	for i := 0; i < len(s); i++ {
+		if explored[s[i]] {
+			for j := 0; j < len(window); j++ {
+				if window[j] == s[i] {
+					window = window[j+1:]
+					break
+				}
+				delete(explored, window[j])
+			}
+		}
+		window = append(window, s[i])
+		explored[s[i]] = true
+		if len(window) > ans {
+			ans = len(window)
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
