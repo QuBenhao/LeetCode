@@ -5,7 +5,22 @@ pub struct Solution;
 
 impl Solution {
     pub fn is_anagram(s: String, t: String) -> bool {
-
+		if s.len() != t.len() || s == t {
+			return false;
+		}
+		let mut cnt: [i32; 26] = [0; 26];
+		let chars_s: Vec<char> = s.chars().collect();
+		let chars_t: Vec<char> = t.chars().collect();
+		for i in 0..s.len() {
+			cnt[(chars_s[i] as u8 - b'a') as usize] += 1;
+			cnt[(chars_t[i] as u8 - b'a') as usize] -= 1;
+		}
+		for i in 0..26 {
+			if cnt[i] != 0 {
+				return false;
+			}
+		}
+		true
     }
 }
 

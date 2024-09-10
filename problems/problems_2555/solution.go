@@ -9,8 +9,9 @@ import (
 func maximizeWin(prizePositions []int, k int) (ans int) {
 	n := len(prizePositions)
 	dp := make([]int, n+1)
-	for left, right := 0, 0; right < n; right++ {
-		for prizePositions[left] < prizePositions[right]-k {
+	left := 0
+	for right, p := range prizePositions {
+		for prizePositions[left] < p-k {
 			left++
 		}
 		dp[right+1] = max(dp[right], right-left+1)

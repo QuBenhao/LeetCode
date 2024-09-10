@@ -4,7 +4,18 @@ pub struct Solution;
 
 impl Solution {
     pub fn maximize_win(prize_positions: Vec<i32>, k: i32) -> i32 {
-
+		let mut ans: i32 = 0;
+		let n = prize_positions.len();
+		let mut dp: Vec<i32> = vec![0; n + 1];
+		let mut left: usize = 0;
+		for (right, &p) in prize_positions.iter().enumerate() {
+			while p - prize_positions[left] > k {
+				left += 1;
+			}
+			dp[right + 1] = dp[right].max((right + 1 - left) as i32);
+			ans = ans.max(dp[left] + (right + 1 - left) as i32);
+		}
+		ans
     }
 }
 
