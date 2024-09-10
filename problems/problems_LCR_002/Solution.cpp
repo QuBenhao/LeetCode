@@ -19,7 +19,7 @@ public:
       int sum = a[i] - '0' + (i - diff >= 0 ? b[i - diff] - '0' : 0) + carry;
       ss << sum % 2;
       carry = sum / 2;
-			i--;
+      i--;
     }
     if (carry) {
       ss << carry;
