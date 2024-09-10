@@ -5,7 +5,32 @@ pub struct Solution;
 
 impl Solution {
     pub fn add_binary(a: String, b: String) -> String {
-
+		if a.len() < b.len() {
+			return Solution::add_binary(b, a);
+		}
+		let mut res: Vec<char> = Vec::new();
+		let mut carry = 0;
+		let n = a.len();
+		let d = n - b.len();
+		let chars_a: Vec<char> = a.chars().collect();
+		let chars_b: Vec<char> = b.chars().collect();
+		for i in (0..n).rev() {
+			let mut sum = carry;
+			if i >= d {
+				if chars_b[i - d] == '1' {
+					sum += 1;
+				}
+			}
+			if chars_a[i] == '1' {
+				sum += 1;
+			}
+			carry = sum / 2;
+			res.push(std::char::from_digit(sum % 2, 10).unwrap());
+		}
+		if carry > 0 {
+			res.push('1');
+		}
+		res.iter().rev().collect()
     }
 }
 

@@ -4,7 +4,21 @@ pub struct Solution;
 
 impl Solution {
     pub fn count_quadruplets(nums: Vec<i32>) -> i64 {
-
+		let mut cnt4: i64 = 0;
+		let n = nums.len();
+		let mut cnt3: Vec<i64> = vec![0; n];
+		for l in 2..n {
+			let mut cnt2: i64 = 0;
+			for j in 0..l {
+				if nums[j] < nums[l] {
+					cnt4 += cnt3[j];
+					cnt2 += 1;
+				} else {
+					cnt3[j] += cnt2;
+				}
+			}
+		}
+		cnt4
     }
 }
 
