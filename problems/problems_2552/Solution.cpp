@@ -8,7 +8,21 @@ using json = nlohmann::json;
 class Solution {
 public:
     long long countQuadruplets(vector<int>& nums) {
-        
+		int64_t cnt4 = 0;
+		size_t n = nums.size();
+		vector<int64_t> cnt3(n);
+		for (size_t l = 2; l < n; l++) {
+			int64_t cnt2 = 0;
+			for (size_t j = 0; j < l; j++) {
+				if (nums[j] < nums[l]) {
+					cnt4 += cnt3[j];
+					cnt2++;
+				} else {
+					cnt3[j] += cnt2;
+				}
+			}
+		}
+		return cnt4;
     }
 };
 
