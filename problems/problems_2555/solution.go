@@ -6,8 +6,17 @@ import (
 	"strings"
 )
 
-func maximizeWin(prizePositions []int, k int) int {
-
+func maximizeWin(prizePositions []int, k int) (ans int) {
+	n := len(prizePositions)
+	dp := make([]int, n+1)
+	for left, right := 0, 0; right < n; right++ {
+		for prizePositions[left] < prizePositions[right]-k {
+			left++
+		}
+		dp[right+1] = max(dp[right], right-left+1)
+		ans = max(ans, dp[left]+right-left+1)
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
