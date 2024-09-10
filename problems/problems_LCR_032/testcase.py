@@ -9,6 +9,7 @@ class Testcase(testcase.Testcase):
 		self.testcases = []
 		self.testcases.append(case(Input=['anagram', 'nagaram'], Output=True))
 		self.testcases.append(case(Input=['rat', 'car'], Output=False))
+		self.testcases.append(case(Input=["a","a"], Output=False))
 
 	def get_testcases(self):
 		return self.testcases
