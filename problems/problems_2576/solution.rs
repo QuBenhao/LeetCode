@@ -4,7 +4,16 @@ pub struct Solution;
 
 impl Solution {
     pub fn max_num_of_marked_indices(nums: Vec<i32>) -> i32 {
-
+			let mut nums = nums;
+			nums.sort_unstable();
+			let n = nums.len();
+			let mut left: usize = 0;
+			for right in (n+1)/2..n {
+				if nums[right] >= 2 * nums[left] {
+					left += 1;
+				}
+			}
+			(2 * left) as _
     }
 }
 
