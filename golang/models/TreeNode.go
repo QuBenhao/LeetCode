@@ -11,31 +11,25 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func ArrayToTree(input string) *TreeNode {
-	var value interface{}
-	if err := json.Unmarshal([]byte(input), &value); err != nil {
-		log.Fatalf("Unable to process tree input: %s", input)
-		return nil
-	}
-	arr := value.([]interface{})
-	if len(arr) == 0 {
+func InterfaceArrayToTree(input []interface{}) *TreeNode {
+	if len(input) == 0 {
 		return nil
 	}
 	var root *TreeNode
-	if arr[0] == nil {
+	if input[0] == nil {
 		return nil
 	} else {
-		root = &TreeNode{Val: int(arr[0].(float64))}
+		root = &TreeNode{Val: int(input[0].(float64))}
 	}
 	isLeft := 1
 	var nodes []*TreeNode
 	currNode := root
-	for i := 1; i < len(arr); i++ {
+	for i := 1; i < len(input); i++ {
 		var node *TreeNode
-		if arr[i] == nil {
+		if input[i] == nil {
 			node = nil
 		} else {
-			node = &TreeNode{Val: int(arr[i].(float64))}
+			node = &TreeNode{Val: int(input[i].(float64))}
 		}
 		if isLeft == 1 {
 			if node != nil {
@@ -53,6 +47,16 @@ func ArrayToTree(input string) *TreeNode {
 		isLeft ^= 1
 	}
 	return root
+}
+
+func ArrayToTree(input string) *TreeNode {
+	var value interface{}
+	if err := json.Unmarshal([]byte(input), &value); err != nil {
+		log.Fatalf("Unable to process tree input: %s", input)
+		return nil
+	}
+	arr := value.([]interface{})
+	return InterfaceArrayToTree(arr)
 }
 
 func ArrayToTreeArray(input string) []*TreeNode {
