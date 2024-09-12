@@ -1,12 +1,11 @@
 from collections import deque
-
-import python.object_libs.tree
 import solution
 from typing import *
 from python.object_libs import call_method, list_to_tree, tree_to_list
+import python.object_libs.tree
 
 
-class TreeNode(object):
+class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
@@ -16,7 +15,8 @@ class TreeNode(object):
 class Solution(solution.Solution):
     def solve(self, test_input=None):
         ops, inputs = test_input
-        root0 = list_to_tree(*inputs[0])
+        nums0 = inputs[0][0]
+        root0 = list_to_tree(nums0)
         obj = CBTInserter(root0)
         return [None] + [tree_to_list(r) if isinstance((r := call_method(obj, op, *ipt)), python.object_libs.tree.TreeNode) else r for op, ipt in zip(ops[1:], inputs[1:])]
 

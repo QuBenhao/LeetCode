@@ -465,12 +465,12 @@
             {
                 "lang": "Ruby",
                 "langSlug": "ruby",
-                "code": "# Definition for a binary tree node.\n# class TreeNode\n#     attr_accessor :val, :left, :right\n#     def initialize(val = 0, left = nil, right = nil)\n#         @val = val\n#         @left = left\n#         @right = right\n#     end\n# end\nclass CBTInserter\n\n=begin\n    :type root: TreeNode\n=end\n    def initialize(root)\n\n    end\n\n\n=begin\n    :type val: Integer\n    :rtype: Integer\n=end\n    def insert(val)\n\n    end\n\n\n=begin\n    :rtype: TreeNode\n=end\n    def get_root()\n\n    end\n\n\nend\n\n# Your CBTInserter object will be instantiated and called as such:\n# obj = CBTInserter.new(root)\n# param_1 = obj.insert(val)\n# param_2 = obj.get_root()"
+                "code": "# Definition for a binary tree node.\n# class TreeNode\n#     attr_accessor :val, :left, :right\n#     def initialize(val = 0, left = nil, right = nil)\n#         @val = val\n#         @left = left\n#         @right = right\n#     end\n# end\nclass CBTInserter\n\n=begin\n    :type root: TreeNode\n=end\n    def initialize(root)\n        \n    end\n\n\n=begin\n    :type val: Integer\n    :rtype: Integer\n=end\n    def insert(val)\n        \n    end\n\n\n=begin\n    :rtype: TreeNode\n=end\n    def get_root()\n        \n    end\n\n\nend\n\n# Your CBTInserter object will be instantiated and called as such:\n# obj = CBTInserter.new(root)\n# param_1 = obj.insert(val)\n# param_2 = obj.get_root()"
             },
             {
                 "lang": "Scala",
                 "langSlug": "scala",
-                "code": "/**\n * Definition for a binary tree node.\n * class TreeNode(_value: Int = 0, _left: TreeNode = null, _right: TreeNode = null) {\n *   var value: Int = _value\n *   var left: TreeNode = _left\n *   var right: TreeNode = _right\n * }\n */\nclass CBTInserter(_root: TreeNode) {\n\n    def insert(`val`: Int): Int = {\n\n    }\n\n    def get_root(): TreeNode = {\n\n    }\n\n}\n\n/**\n * Your CBTInserter object will be instantiated and called as such:\n * var obj = new CBTInserter(root)\n * var param_1 = obj.insert(`val`)\n * var param_2 = obj.get_root()\n */"
+                "code": "/**\n * Definition for a binary tree node.\n * class TreeNode(_value: Int = 0, _left: TreeNode = null, _right: TreeNode = null) {\n *   var value: Int = _value\n *   var left: TreeNode = _left\n *   var right: TreeNode = _right\n * }\n */\nclass CBTInserter(_root: TreeNode) {\n\n    def insert(`val`: Int): Int = {\n        \n    }\n\n    def get_root(): TreeNode = {\n        \n    }\n\n}\n\n/**\n * Your CBTInserter object will be instantiated and called as such:\n * val obj = new CBTInserter(root)\n * val param_1 = obj.insert(`val`)\n * val param_2 = obj.get_root()\n */"
             },
             {
                 "lang": "Rust",
