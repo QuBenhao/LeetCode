@@ -89,7 +89,7 @@ class GolangWriter(LanguageWriter):
                             tmp.endswith(f") {struct_name} {{")
                             or tmp.endswith(f") *{struct_name} {{")
                     ):
-                        tp0, tp1, tp2, tp3, tp4, tp5 = GolangWriter.__process_inputs(
+                        tp0, tp1, tp2, tp3, tp4, tp5 = GolangWriter. __process_inputs(
                             code_default,
                             tmp.split("(")[1].split(")")[0],
                             structs_map,
@@ -134,20 +134,34 @@ class GolangWriter(LanguageWriter):
                 func_loop = ""
                 constructor = None
                 for d in structs_map.values():
+                    logging.debug("Struct: %s", d)
                     if "funcs" in d:
                         for name, its, rt in d["funcs"]:
-                            logging.debug("Function: %s, its: %s", name, its)
+                            logging.debug("Function: %s, its: %s, rt: %s", name, its, rt)
                             import_set.update(its[0])
-                            func_loop += (
-                                '\t\tcase "{}", "{}":\n' "\t\t\t{}{}obj.{}({})\n"
-                            ).format(
-                                name[0].lower() + name[1:],
-                                name,
-                                its[4],
-                                "res = nil\n\t\t\t" if rt == "" else "res = ",
-                                name,
-                                its[3],
-                            )
+                            if "TreeNode" in rt:
+                                import_set.add('\t. "leetCode/golang/models"')
+                                func_loop += (
+                                    '\t\tcase "{}", "{}":\n' "\t\t\t{}{}TreeToArray(obj.{}({}))\n"
+                                ).format(
+                                    name[0].lower() + name[1:],
+                                    name,
+                                    its[4],
+                                    "res = nil\n\t\t\t" if rt == "" else "res = ",
+                                    name,
+                                    its[3],
+                                )
+                            else:
+                                func_loop += (
+                                    '\t\tcase "{}", "{}":\n' "\t\t\t{}{}obj.{}({})\n"
+                                ).format(
+                                    name[0].lower() + name[1:],
+                                    name,
+                                    its[4],
+                                    "res = nil\n\t\t\t" if rt == "" else "res = ",
+                                    name,
+                                    its[3],
+                                )
                     if "construct" in d:
                         constructor = d["construct"]
                 build_body = (
@@ -423,6 +437,7 @@ class GolangWriter(LanguageWriter):
                 for var in vrs:
                     logging.debug(var)
             elif struct_func:
+                logging.debug("Struct function: %s", tp)
                 imports_libs.add('\t"encoding/json"')
                 imports_libs.add('\t"log"')
                 for _ in vrs:
@@ -443,6 +458,9 @@ class GolangWriter(LanguageWriter):
                                         f"\t\t\t\t\tarr = append(arr, int(vi.(float64)))\n"
                                         f"\t\t\t\t}}\n\t\t\t}}\n\t\t\t")
                             variables.append("arr")
+                        case "*TreeNode" | "TreeNode":
+                            imports_libs.add('\t. "leetCode/golang/models"')
+                            variables.append(f"InterfaceArrayToTree(inputValues[{counts}].([]interface{{}}))")
                         case _:
                             variables.append(f"inputValues[{counts}].({tp})")
                     counts += 1
