@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.removeStars(test_input)
 
     def removeStars(self, s: str) -> str:
-        pass
-
+        ans = []
+        for c in s:
+            if c == "*" and ans:
+                ans.pop()
+            elif c != "*":
+                ans.append(c)
+        return "".join(ans)

@@ -17,5 +17,8 @@ class Solution(solution.Solution):
         return linked_list_to_list(res)
 
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
-        pass
-
+        node_a, node_b = headA, headB
+        while node_a != node_b:
+            node_a = node_a.next if node_a else headB
+            node_b = node_b.next if node_b else headA
+        return node_a

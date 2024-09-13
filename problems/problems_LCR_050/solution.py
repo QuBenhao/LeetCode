@@ -1,6 +1,7 @@
 import solution
 from typing import *
 from python.object_libs import list_to_tree
+from collections import Counter
 
 
 class TreeNode:
@@ -17,5 +18,15 @@ class Solution(solution.Solution):
         return self.pathSum(root0, targetSum)
 
     def pathSum(self, root: TreeNode, targetSum: int) -> int:
-        pass
+        def dfs(node, counter, cur):
+            if not node:
+                return 0
+            cur += node.val
+            ans = counter[cur - targetSum]
+            counter[cur] += 1
+            ans += dfs(node.left, counter, cur)
+            ans += dfs(node.right, counter, cur)
+            counter[cur] -= 1
+            return ans
 
+        return dfs(root, Counter({0: 1}), 0)
