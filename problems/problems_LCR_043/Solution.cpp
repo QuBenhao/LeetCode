@@ -1,6 +1,7 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
 #include "cpp/models/TreeNode.h"
+#include <deque>
 
 using namespace std;
 using json = nlohmann::json;
@@ -19,17 +20,51 @@ using json = nlohmann::json;
  */
 class CBTInserter {
 private:
-	int n;
-	TreeNode *root;
+  int n;
+  TreeNode *root;
+
 public:
   CBTInserter(TreeNode *root) {
-		this->root = root;
-		
-	}
+    this->root = root;
+    int n = 0;
+    if (root) {
+      std::deque<TreeNode *> q;
+      q.push_back(root);
+      while (!q.empty()) {
+        TreeNode *node = q.front();
+        q.pop_front();
+        n++;
+        if (node->left) {
+          q.push_back(node->left);
+        }
+        if (node->right) {
+          q.push_back(node->right);
+        }
+      }
+    }
+    this->n = n;
+  }
 
-  int insert(int v) {}
+  int insert(int v) {
+    n++;
+    int bit_length = 31 - __builtin_clz(n);
+    TreeNode *node = root;
+    for (int i = bit_length - 1; i > 0; i--) {
+      if (n & (1 << i)) {
+        node = node->right;
+      } else {
+        node = node->left;
+      }
+    }
+    if (n & 1) {
+      node->right = new TreeNode(v);
+    } else {
+      node->left = new TreeNode(v);
+    }
+    return node->val;
+  }
 
-  TreeNode *get_root() {}
+  TreeNode *get_root() { return root; }
 };
 
 /**
