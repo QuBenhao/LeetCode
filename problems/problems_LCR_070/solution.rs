@@ -5,7 +5,17 @@ pub struct Solution;
 
 impl Solution {
     pub fn single_non_duplicate(nums: Vec<i32>) -> i32 {
-
+		let mut left: usize = 0;
+		let mut right: usize = nums.len() - 1;
+		while left < right {
+			let mid = left + (right - left) / 2;
+			if nums[mid] == nums[mid ^ 1] {
+				left = (mid | 1) + 1;
+			} else {
+				right = mid;
+			}
+		}
+		nums[left]
     }
 }
 
