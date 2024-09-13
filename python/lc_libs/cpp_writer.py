@@ -146,7 +146,12 @@ class CppWriter(LanguageWriter):
                                 process_variables.insert(2, f"vector<int> {var_nm}_array"
                                                             f" = op_values[{i}][{j}].get<vector<int>>();")
                                 tmp_vars.append(f"{var_nm}_array")
+                            case "TreeNode":
+                                if '#include "cpp/models/TreeNode.h"' not in include_libs:
+                                    include_libs.append('#include "cpp/models/TreeNode.h"')
+                                tmp_vars.append(f"JsonArrayToTreeNode(op_values[{i}][{j}])")
                             case _:
+                                logging.debug("Unhandled variable type: %s", rt)
                                 tmp_vars.append(f"op_values[{i}][{j}]")
                     cur += ", ".join(tmp_vars)
                     cur += ");"
@@ -172,6 +177,7 @@ class CppWriter(LanguageWriter):
                     tmp_vars = []
                     for j, _ in enumerate(variables):
                         tmp_vars.append(f"op_values[i][{j}]")
+                    logging.debug("ret_type: %s", ret_type)
                     if not ret_type or ret_type == "void":
                         list_methods.append(
                             "\t\tobj{}->{}({});".format(
@@ -179,6 +185,14 @@ class CppWriter(LanguageWriter):
                             )
                         )
                         list_methods.append("\t\tans.push_back(nullptr);")
+                    elif "TreeNode" in ret_type:
+                        if '#include "cpp/models/TreeNode.h"' not in include_libs:
+                            include_libs.append('#include "cpp/models/TreeNode.h"')
+                        list_methods.append(
+                            "\t\tans.push_back(TreeNodeToJsonArray(obj{}->{}({})));".format(
+                                i, func_name, ", ".join(tmp_vars)
+                            )
+                        )
                     else:
                         list_methods.append(
                             "\t\tans.push_back(obj{}->{}({}));".format(

@@ -9,6 +9,7 @@ from importlib.util import spec_from_file_location, module_from_spec
 
 from python.constants import TESTCASE_TEMPLATE_PYTHON, TESTCASE_TEMPLATE_PYTHON_TESTCASES, SOLUTION_TEMPLATE_PYTHON
 from python.lc_libs.language_writer import LanguageWriter
+from python.object_libs.tree import TreeNode
 from python.utils import back_question_id
 
 
@@ -512,6 +513,7 @@ class Python3Writer(LanguageWriter):
                 continue
             if v.name == "kwargs":
                 continue
+            logging.debug("Parameter: %s, %s", v.name, v.annotation)
             par_map[v.name] = v.annotation
             if is_first:
                 is_first = False
@@ -545,7 +547,7 @@ class Python3Writer(LanguageWriter):
                 idx += 1
 
         if len(par_map) > 0:
-            process_input += " = ops[0]\n"
+            process_input += " = inputs[0][0]\n"
 
         process_input += remain + f"        obj = {class_name}({inputs})\n"
         return process_input
@@ -608,19 +610,23 @@ class Python3Writer(LanguageWriter):
             else:
                 # Too complex to fix here
                 pass
-            import_libs.append("\n")
             if len(cs_map) == 1:
                 class_name, methods = "", []
                 for k, v in cs_map.items():
                     class_name, methods = k, v
+                return_part = ("        return [None] + [call_method(obj, op, *ipt)"
+                               " for op, ipt in zip(ops[1:], inputs[1:])]")
                 for method in methods:
+                    logging.debug("Method: %s", method)
                     if method[0] == "__init__":
                         process_input = Python3Writer.__extract_object_process_input_from_method(class_name, method)
-                        break
-
-                process_input += ("        return [None] + [call_method(obj, op, *ipt)"
-                                  " for op, ipt in zip(ops[1:], inputs[1:])]")
-
+                    elif "TreeNode" in str(method[2]):
+                        import_libs.append(", tree_to_list\nimport python.object_libs.tree")
+                        return_part = ("        return [None] + [tree_to_list(r) if isinstance("
+                                       "(r := call_method(obj, op, *ipt)), python.object_libs.tree.TreeNode)"
+                                       " else r for op, ipt in zip(ops[1:], inputs[1:])]")
+                process_input += return_part
+            import_libs.append("\n")
         return import_libs, process_input
 
     @staticmethod

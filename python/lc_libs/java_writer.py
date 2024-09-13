@@ -74,6 +74,7 @@ class JavaWriter(LanguageWriter):
             class_name = ""
             all_return_parts = []
             func_parse_input = defaultdict(list)
+            tmp_additional_import = set()
             for line in code.split("\n"):
                 strip_line = line.strip()
                 if (strip_line.startswith("class ") or strip_line.startswith("public class")) and strip_line.endswith(
@@ -83,7 +84,7 @@ class JavaWriter(LanguageWriter):
                     vs, pi, ai, rp, func_name, rt = JavaWriter.__parse_java_method(strip_line, code_default,
                                                                                    is_object_problem=True)
                     variables.extend(vs)
-                    import_packages.extend(ai)
+                    tmp_additional_import.update(ai)
                     if func_name == class_name:
                         parse_input.extend([p.replace("inputJsonValues", "opValues[0]") for p in pi])
                         parse_input.append(f"{class_name} obj = new {rp};")
@@ -91,6 +92,7 @@ class JavaWriter(LanguageWriter):
                         func_parse_input[func_name].extend(
                             ["\t\t" + p.replace("inputJsonValues", "opValues[i]") for p in pi])
                         all_return_parts.append((func_name, rt, rp))
+            import_packages.extend(tmp_additional_import)
             import_packages.append("")
             import_packages.append("")
             import_packages.extend(code.split("\n"))
@@ -104,6 +106,10 @@ class JavaWriter(LanguageWriter):
                     parse_input.extend(func_parse_input[func_name][:-1])
                     parse_input.append(f"\t\tobj.{func_name}({rp});")
                     parse_input.append(f"\t\tans.add(null);")
+                elif "TreeNode" in rt:
+                    parse_input.extend(func_parse_input[func_name])
+                    rp = rp.replace("TreeNode.TreeNodeToArray(", "TreeNode.TreeNodeToArray(obj.")
+                    parse_input.append(f"\t\tans.add({rp});")
                 else:
                     parse_input.extend(func_parse_input[func_name])
                     parse_input.append(f"\t\tans.add(obj.{rp});")

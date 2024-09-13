@@ -1,3 +1,5 @@
+import {JSONArrayToTreeNode,TreeNodeToJSONArray,TreeNode} from "../../typescript/models/treenode";
+
 /**
  * Definition for a binary tree node.
  * class TreeNode {
@@ -13,16 +15,46 @@
  */
 
 class CBTInserter {
-    constructor(root: TreeNode | null) {
+    private root: TreeNode | null = null;
+    private n: number;
 
+    constructor(root: TreeNode | null) {
+        this.root = root;
+        let n: number = 0;
+        const dfs = (node: TreeNode | null): void => {
+            if (node == null) {
+                return;
+            }
+            n++;
+            dfs(node.left);
+            dfs(node.right);
+        }
+        dfs(root);
+        this.n = n;
     }
 
     insert(v: number): number {
-
+        this.n++;
+		const highbit = ('' + this.n.toString(2)).length - 1;
+        const child: TreeNode = new TreeNode(v);
+        let node: TreeNode = this.root;
+        for (let i: number = highbit - 1; i > 0; i--) {
+            if ((this.n & (1 << i)) === 0) {
+                node = node.left;
+            } else {
+                node = node.right;
+            }
+        }
+		if ((this.n & 1) === 0) {
+			node.left = child;
+		} else {
+			node.right = child;
+		}
+		return node.val;
     }
 
     get_root(): TreeNode | null {
-
+        return this.root;
     }
 }
 
@@ -38,14 +70,14 @@ export function Solve(inputJsonElement: string): any {
 	const operators: string[] = JSON.parse(inputValues[0]);
 	const opValues: any[][] = JSON.parse(inputValues[1]);
 	const ans: any[] = [null];
-	const obj: CBTInserter = new CBTInserter(opValues[0][0]);
+	const obj: CBTInserter = new CBTInserter(JSONArrayToTreeNode(opValues[0][0]));
 	for (let i: number = 1; i < operators.length; i++) {
 		if (operators[i] == "insert") {
 			ans.push(obj.insert(opValues[i][0]));
 			continue;
 		}
 		if (operators[i] == "get_root") {
-			ans.push(obj.get_root());
+			ans.push(TreeNodeToJSONArray(obj.get_root()));
 			continue;
 		}
 		ans.push(null);

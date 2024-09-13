@@ -122,21 +122,39 @@ class TypescriptWriter(LanguageWriter):
                 return_type = strip_line.split("{")[0].split(")")[-1].split(":")[-1].strip()
                 variables = [s for s in map(str.strip, strip_line.split("(")[1].split(")")[0].split(",")) if s != ""]
                 if func_name == "constructor" and return_type == "":
+                    logging.debug("Constructor: %s, vars: %s", func_name, variables)
+                    variables_strs = []
+                    for i, v in enumerate(variables):
+                        if "TreeNode" in v:
+                            import_part[self._TREE_NODE_PATH].add("TreeNode")
+                            import_part[self._TREE_NODE_PATH].add("JSONArrayToTreeNode")
+                            variables_strs.append(f"JSONArrayToTreeNode(opValues[0][{i}])")
+                            continue
+                        variables_strs.append(f"opValues[0][{i}]")
                     process_inputs.append("const obj: {} = new {}({});".format(
                         class_name,
                         class_name,
-                        ", ".join("opValues[0][{}]".format(i) for i in range(len(variables)))
+                        ", ".join(variables_strs)
                     ))
                 else:
+                    logging.debug("Func: %s, vars: %s, return: %s", func_name, variables, return_type)
                     class_methods[class_name].append((func_name, variables, return_type))
         for cs, methods in class_methods.items():
             process_inputs.append("for (let i: number = 1; i < operators.length; i++) {")
             for func_name, variables, return_type in methods:
                 process_inputs.append(f"\tif (operators[i] == \"{func_name}\")" + " {")
                 if return_type != "" and return_type != "void":
-                    process_inputs.append("\t\tans.push(obj.{}({}));".format(
-                        func_name,
-                        ", ".join("opValues[i][{}]".format(i) for i in range(len(variables)))))
+                    logging.debug("Return type: %s", return_type)
+                    if "TreeNode" in return_type:
+                        import_part[self._TREE_NODE_PATH].add("TreeNode")
+                        import_part[self._TREE_NODE_PATH].add("TreeNodeToJSONArray")
+                        process_inputs.append("\t\tans.push(TreeNodeToJSONArray(obj.{}({})));".format(
+                            func_name,
+                            ", ".join("opValues[i][{}]".format(i) for i in range(len(variables)))))
+                    else:
+                        process_inputs.append("\t\tans.push(obj.{}({}));".format(
+                            func_name,
+                            ", ".join("opValues[i][{}]".format(i) for i in range(len(variables)))))
                 else:
                     process_inputs.append("\t\tobj.{}({});".format(func_name,
                                                                    ", ".join("opValues[i][{}]".format(i) for i in

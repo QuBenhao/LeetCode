@@ -1,4 +1,5 @@
 #![allow(non_snake_case)]
+use library::lib::tree_node::{TreeNode, array_to_tree,  tree_to_array};
 use serde_json::{json, Value};
 
 
@@ -20,27 +21,45 @@ use serde_json::{json, Value};
 //     }
 //   }
 // }
+use std::rc::Rc;
+use std::cell::RefCell;
+use std::collections::VecDeque;
 struct CBTInserter {
-
+    root: Rc<RefCell<TreeNode>>,
+    fifo: VecDeque<Rc<RefCell<TreeNode>>>,
 }
 
-
-/**
- * `&self` means the method takes an immutable reference.
- * If you need a mutable reference, change it to `&mut self` instead.
- */
 impl CBTInserter {
 
     fn new(root: Option<Rc<RefCell<TreeNode>>>) -> Self {
-
+        let root = root.unwrap();
+        let mut fifo = VecDeque::new();
+        fifo.push_back(root.clone());
+        loop {
+            let t = fifo.pop_front().unwrap();
+            if t.borrow().right.is_none() {fifo.push_front(t); break}
+            fifo.push_back(t.borrow().left.as_ref().unwrap().clone());
+            fifo.push_back(t.borrow().right.as_ref().unwrap().clone());
+        }
+        Self {root, fifo}
     }
-    
-    fn insert(&self, v: i32) -> i32 {
 
+    fn insert(&mut self, v: i32) -> i32 {
+        let t = self.fifo.pop_front().unwrap();
+        let ans = t.borrow().val;
+        if t.borrow().left.is_none() {
+            t.borrow_mut().left = Some(Rc::new(RefCell::new(TreeNode::new(v))));
+            self.fifo.push_front(t);
+        } else {
+            t.borrow_mut().right = Some(Rc::new(RefCell::new(TreeNode::new(v))));
+            self.fifo.push_back(t.borrow().left.as_ref().unwrap().clone());
+            self.fifo.push_back(t.borrow().right.as_ref().unwrap().clone());
+        }
+        ans
     }
-    
+
     fn get_root(&self) -> Option<Rc<RefCell<TreeNode>>> {
-
+        Some(self.root.clone())
     }
 }
 
@@ -53,43 +72,24 @@ impl CBTInserter {
 
 #[cfg(feature = "solution_LCR_043")]
 pub fn solve(input_string: String) -> Value {
-	let input_values: Vec<String> = input_string.split('\n').map(|x| x.to_string()).collect();
-	let operators: Vec<String> = serde_json::from_str(&input_values[0]).expect("Failed to parse input");
-	let op_values: Vec<Vec<Value>> = serde_json::from_str(&input_values[1]).expect("Failed to parse input");
-	let val_obj: i32 = serde_json::from_value(op_values[0][0].clone()).expect("Failed to parse input");
-	let mut obj = TreeNode::new(val_obj);
-	let root_obj: Option<Rc<RefCell<TreeNode>>> = serde_json::from_value(op_values[0][0].clone()).expect("Failed to parse input");
-	let mut obj = TreeNode::new(root_obj);
-	let mut ans = vec![None];
-	for i in 1..operators.len() {
-		match operators[i].as_str() {
-			"insert" => {
-				let v: i32 = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
-				ans.push(Some(obj.insert(v)));
-			},
-			"getRoot" => {
-				ans.push(Some(obj.get_root()));
-			},
-			_ => ans.push(None),
-		}
-	}
-	json!(ans)
-	let val_obj: i32 = serde_json::from_value(op_values[0][0].clone()).expect("Failed to parse input");
-	let mut obj = CBTInserter::new(val_obj);
-	let root_obj: Option<Rc<RefCell<TreeNode>>> = serde_json::from_value(op_values[0][0].clone()).expect("Failed to parse input");
-	let mut obj = CBTInserter::new(root_obj);
-	let mut ans = vec![None];
-	for i in 1..operators.len() {
-		match operators[i].as_str() {
-			"insert" => {
-				let v: i32 = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
-				ans.push(Some(obj.insert(v)));
-			},
-			"getRoot" => {
-				ans.push(Some(obj.get_root()));
-			},
-			_ => ans.push(None),
-		}
-	}
-	json!(ans)
+    let input_values: Vec<String> = input_string.split('\n').map(|x| x.to_string()).collect();
+    let operators: Vec<String> = serde_json::from_str(&input_values[0]).expect("Failed to parse input");
+    let op_values: Vec<Vec<Value>> = serde_json::from_str(&input_values[1]).expect("Failed to parse input");
+	let root_vec: Vec<Option<i32>> = serde_json::from_value(op_values[0][0].clone()).expect("Failed to parse input");
+    let root_obj: Option<Rc<RefCell<TreeNode>>> = array_to_tree(&root_vec);
+    let mut obj = CBTInserter::new(root_obj);
+    let mut ans: Vec<Option<Value>> = vec![None];
+    for i in 1..operators.len() {
+        match operators[i].as_str() {
+            "insert" => {
+                let v: i32 = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
+                ans.push(Some(Value::from(obj.insert(v))));
+            },
+            "get_root" => {
+                ans.push(Some(Value::from(tree_to_array(&obj.get_root()))));
+            },
+            _ => ans.push(None),
+        }
+    }
+    json!(ans)
 }
