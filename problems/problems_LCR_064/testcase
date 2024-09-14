@@ -1,0 +1,2 @@
+["[\"MagicDictionary\", \"buildDict\", \"search\", \"search\", \"search\", \"search\"]\n[[], [[\"hello\",\"leetcode\"]], [\"hello\"], [\"hhllo\"], [\"hell\"], [\"leetcoded\"]]"]
+[[null, null, false, true, false, false]]
