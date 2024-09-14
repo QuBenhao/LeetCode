@@ -13,7 +13,12 @@ import {ListNode,IntArrayToIntersectionLinkedList,LinkedListToIntArray} from "..
  */
 
 function getIntersectionNode(headA: ListNode | null, headB: ListNode | null): ListNode | null {
-
+	let pa: ListNode | null = headA, pb: ListNode | null = headB;
+	while (pa != pb) {
+		pa = pa != null ? pa.next : headB;
+		pb = pb != null ? pb.next : headA;
+	}
+	return pa;
 };
 
 export function Solve(inputJsonElement: string): any {
