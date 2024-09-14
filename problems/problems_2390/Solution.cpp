@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <string>
 
 
 using namespace std;
@@ -8,7 +9,17 @@ using json = nlohmann::json;
 class Solution {
 public:
     string removeStars(string s) {
-        
+			string result;
+			for (size_t i = 0, n = s.size(); i < n; i++) {
+				if (s[i] == '*') {
+					if (!result.empty()) {
+						result.pop_back();
+					}
+				} else {
+					result.push_back(s[i]);
+				}
+			}
+			return result;
     }
 };
 
