@@ -15,13 +15,24 @@ import (
  * }
  */
 func getIntersectionNode(headA, headB *ListNode) *ListNode {
-    
+	nodeA, nodeB := headA, headB
+	for nodeA != nodeB {
+		if nodeA == nil {
+			nodeA = headB
+		} else {
+			nodeA = nodeA.Next
+		}
+		if nodeB == nil {
+			nodeB = headA
+		} else {
+			nodeB = nodeB.Next
+		}
+	}
+	return nodeA
 }
 
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
-	var headA, headB *ListNode
-
 	var iv, idx1, idx2 int
 	var headA, headB *ListNode
 	if err := json.Unmarshal([]byte(inputValues[0]), &iv); err != nil {

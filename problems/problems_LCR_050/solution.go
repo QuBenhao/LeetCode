@@ -16,7 +16,24 @@ import (
  * }
  */
 func pathSum(root *TreeNode, targetSum int) int {
+	counter := make(map[int]int)
+	counter[0] = 1
 
+	var dfs func(*TreeNode, map[int]int, int) int
+	dfs = func(node *TreeNode, counter map[int]int, target int) int {
+		if node == nil {
+			return 0
+		}
+		ret := 0
+		target += node.Val
+		ret += counter[target-targetSum]
+		counter[target]++
+		ret += dfs(node.Left, counter, target)
+		ret += dfs(node.Right, counter, target)
+		counter[target]--
+		return ret
+	}
+	return dfs(root, counter, 0)
 }
 
 func Solve(inputJsonValues string) interface{} {
