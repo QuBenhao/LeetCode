@@ -500,7 +500,7 @@ class GolangWriter(LanguageWriter):
                                           isinstance(testcase[3], int) and
                                           isinstance(testcase[4], int) for testcase in
                                           testcases)):
-                                json_parse.append("\tvar iv, idx1, idx2 int\n\tvar headA, headB *ListNode\n")
+                                json_parse.append("\tvar iv, idx1, idx2 int\n")
                                 json_parse.append(
                                     f"\tif err := json.Unmarshal([]byte(inputValues[{count}]), &iv); err != nil {{\n"
                                     f"\t\tlog.Fatal(err)\n"
