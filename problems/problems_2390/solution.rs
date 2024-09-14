@@ -4,7 +4,18 @@ pub struct Solution;
 
 impl Solution {
     pub fn remove_stars(s: String) -> String {
-
+		let mut str = String::new();
+		let chars: Vec<char> = s.chars().collect();
+		for i in 0..s.len() {
+			if chars[i] == '*' {
+				if !str.is_empty() {
+					str.pop();
+				}
+			} else {
+				str.push(chars[i]);
+			}
+		}
+		str
     }
 }
 
