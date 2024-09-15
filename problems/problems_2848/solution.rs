@@ -4,7 +4,20 @@ pub struct Solution;
 
 impl Solution {
     pub fn number_of_points(nums: Vec<Vec<i32>>) -> i32 {
-
+		let mut nums = nums;
+		nums.sort_unstable();
+		let mut ans = 0;
+		let mut cur = nums[0][0] - 1;
+		for v in nums {
+			if v[0] > cur {
+				ans += v[1] - v[0] + 1;
+				cur = v[1];
+			} else if v[1] > cur {
+				ans += v[1] - cur;
+				cur = v[1];
+			}
+		}
+		ans
     }
 }
 
