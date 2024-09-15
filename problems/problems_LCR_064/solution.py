@@ -15,11 +15,27 @@ class MagicDictionary:
         """
         Initialize your data structure here.
         """
-        pass
+        self.root = {}
 
     def buildDict(self, dictionary: List[str]) -> None:
-        pass
+        for word in dictionary:
+            node = self.root
+            for char in word:
+                if char not in node:
+                    node[char] = {}
+                node = node[char]
+            node['#'] = word
+
+    @staticmethod
+    def query(node, word, i, change):
+        if i == len(word):
+            return '#' in node and change
+        if not change:
+            for char in node:
+                if char != '#' and MagicDictionary.query(node[char], word, i + 1, char != word[i]):
+                    return True
+            return False
+        return word[i] in node and MagicDictionary.query(node[word[i]], word, i + 1, change)
 
     def search(self, searchWord: str) -> bool:
-        pass
-
+        return MagicDictionary.query(self.root, searchWord, 0, False)

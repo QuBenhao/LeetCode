@@ -7,5 +7,13 @@ class Solution(solution.Solution):
         return self.numberOfPoints(test_input)
 
     def numberOfPoints(self, nums: List[List[int]]) -> int:
-        pass
-
+        nums.sort()
+        ans, cur = 0, nums[0][0] - 1
+        for left, right in nums:
+            if left > cur:
+                ans += right - left + 1
+                cur = right
+            elif right > cur:
+                ans += right - cur
+                cur = right
+        return ans
