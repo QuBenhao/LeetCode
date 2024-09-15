@@ -7,7 +7,19 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int numberOfPoints(List<List<Integer>> nums) {
-
+        nums.sort(Comparator.comparingInt(List::getFirst));
+        int ans = 0, cur = nums.getFirst().getFirst() - 1;
+        for (List<Integer> num : nums) {
+            int left = num.getFirst(), right = num.getLast();
+            if (left > cur) {
+                ans += right - left + 1;
+                cur = right;
+            } else if (right > cur) {
+                ans += right - cur;
+                cur = right;
+            }
+        }
+        return ans;
     }
 
     @Override
