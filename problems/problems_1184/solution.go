@@ -7,7 +7,15 @@ import (
 )
 
 func distanceBetweenBusStops(distance []int, start int, destination int) int {
-
+	n, mn, mx := len(distance), min(start, destination), max(start, destination)
+	clock, clockwise := 0, 0
+	for i := mn; i < mx; i++ {
+		clock += distance[i]
+	}
+	for i := mx; i < mn+n; i++ {
+		clockwise += distance[i%n]
+	}
+	return min(clock, clockwise)
 }
 
 func Solve(inputJsonValues string) interface{} {
