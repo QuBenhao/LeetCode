@@ -7,7 +7,15 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int distanceBetweenBusStops(int[] distance, int start, int destination) {
-
+        int n = distance.length, min = Math.min(start, destination), max = Math.max(start, destination);
+        int clockwise = 0, counterclockwise = 0;
+        for (int i = min; i < max; i++) {
+            clockwise += distance[i];
+        }
+        for (int i = max; i < n + min; i++) {
+            counterclockwise += distance[i % n];
+        }
+        return Math.min(clockwise, counterclockwise);
     }
 
     @Override
