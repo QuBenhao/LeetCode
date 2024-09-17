@@ -32,9 +32,9 @@ class Solution(solution.Solution):
                 return cost
             # 当前车站中尚未乘坐的公交车
             for bus in stations[pos] - buses:
+                buses.add(bus)
                 # 该公交车尚未到达过的车站
                 for s in routes[bus] - stops:
-                    buses.add(bus)
                     stops.add(s)
                     q.append((s, cost + 1))
         return -1
