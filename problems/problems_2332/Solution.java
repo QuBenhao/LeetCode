@@ -7,7 +7,24 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int latestTimeCatchTheBus(int[] buses, int[] passengers, int capacity) {
-
+        Arrays.sort(buses);
+        Arrays.sort(passengers);
+        int n = passengers.length;
+        int j = 0, c = 0;
+        for (int bus: buses) {
+            c = capacity;
+            while (c > 0 && j < n && passengers[j] <= bus) {
+                c--;
+                j++;
+            }
+        }
+        j--;
+        int ans = c > 0 ? buses[buses.length - 1] : passengers[j];
+        while (j >= 0 && ans == passengers[j]) {
+            j--;
+            ans--;
+        }
+        return ans;
     }
 
     @Override
