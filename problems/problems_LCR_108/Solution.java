@@ -22,7 +22,7 @@ public class Solution extends BaseSolution {
     int bfs() {
         // d1 代表从起点 beginWord 开始搜索（正向）
         // d2 代表从结尾 endWord 开始搜索（反向）
-        Deque<String> d1 = new ArrayDeque<>(), d2 = new ArrayDeque();
+        Deque<String> d1 = new ArrayDeque<>(), d2 = new ArrayDeque<>();
 
         /*
          * m1 和 m2 分别记录两个方向出现的单词是经过多少次转换而来
@@ -43,7 +43,7 @@ public class Solution extends BaseSolution {
          * 例如，如果 d1 为空了，说明从 beginWord 搜索到底都搜索不到 endWord，反向搜索也没必要进行了
          */
         while (!d1.isEmpty() && !d2.isEmpty()) {
-            int t = -1;
+            int t;
             // 为了让两个方向的搜索尽可能平均，优先拓展队列内元素少的方向
             if (d1.size() <= d2.size()) {
                 t = update(d1, m1, m2);
