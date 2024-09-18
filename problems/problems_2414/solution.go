@@ -7,7 +7,16 @@ import (
 )
 
 func longestContinuousSubstring(s string) int {
-
+	ans := 1
+	for i, cur := 0, 1; i < len(s)-1; i++ {
+		if s[i+1]-s[i] == 1 {
+			cur++
+			ans = max(ans, cur)
+		} else {
+			cur = 1
+		}
+	}
+	return ans
 }
 
 func Solve(inputJsonValues string) interface{} {
