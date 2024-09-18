@@ -8,7 +8,24 @@ using json = nlohmann::json;
 class Solution {
 public:
     int latestTimeCatchTheBus(vector<int>& buses, vector<int>& passengers, int capacity) {
-        
+      sort(buses.begin(), buses.end());
+			sort(passengers.begin(), passengers.end());
+			int n = static_cast<int>(passengers.size());
+			int j = 0, c = 0;
+			for (auto bus : buses) {
+				c = capacity;
+				while (c > 0 && j < n && passengers[j] <= bus) {
+					j++;
+					c--;
+				}
+			}
+			j--;
+			int ans = c > 0 ? buses.back() : passengers[j];
+			while (j >= 0 && passengers[j] == ans) {
+				j--;
+				ans--;
+			}
+			return ans;
     }
 };
 
