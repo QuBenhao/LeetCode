@@ -21,8 +21,21 @@ import qubhjava.BaseSolution;
 import qubhjava.models.TreeNode;
 
 public class Solution extends BaseSolution {
+    private int ans;
     public int maxPathSum(TreeNode root) {
+        ans = Integer.MIN_VALUE;
+        dfs(root);
+        return ans;
+    }
 
+    private int dfs(TreeNode node) {
+        if (node == null) {
+            return 0;
+        }
+        int left = dfs(node.left);
+        int right = dfs(node.right);
+        ans = Math.max(ans, node.val + left + right);
+        return Math.max(0, node.val + Math.max(left, right));
     }
 
     @Override

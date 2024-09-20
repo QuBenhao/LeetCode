@@ -15,7 +15,16 @@ import {JSONArrayToTreeNode,TreeNode} from "../../typescript/models/treenode";
  */
 
 function maxPathSum(root: TreeNode | null): number {
-
+	let ans: number = Number.MIN_SAFE_INTEGER;
+	const dfs = (node: TreeNode | null): number => {
+		if (node == null) return 0;
+		const left: number =dfs(node.left);
+		const right: number = dfs(node.right);
+		ans = Math.max(ans, node.val + left + right);
+		return Math.max(0, node.val + Math.max(left, right));
+	};
+	dfs(root);
+	return ans;
 };
 
 export function Solve(inputJsonElement: string): any {
