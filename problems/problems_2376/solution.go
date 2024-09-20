@@ -51,6 +51,7 @@ func countSpecialNumbers(n int) int {
     return dfs(0, 0, true, false)
 }
 
+
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
