@@ -3,11 +3,13 @@ package problemLCR_076
 import (
 	"encoding/json"
 	"log"
+	"sort"
 	"strings"
 )
 
 func findKthLargest(nums []int, k int) int {
-
+	sort.Ints(nums)
+	return nums[len(nums)-k]
 }
 
 func Solve(inputJsonValues string) interface{} {
