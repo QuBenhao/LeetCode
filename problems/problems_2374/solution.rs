@@ -4,7 +4,18 @@ pub struct Solution;
 
 impl Solution {
     pub fn edge_score(edges: Vec<i32>) -> i32 {
-
+		let mut ans: i32 = 0;
+		let n = edges.len();
+		let mut counter: Vec<i64> = vec![0; n];
+		for i in 0..n {
+			counter[edges[i] as usize] += i as i64;
+			if counter[edges[i] as usize] > counter[ans as usize] {
+				ans = edges[i];
+			} else if counter[edges[i] as usize] == counter[ans as usize] {
+				ans = ans.min(edges[i]);
+			}
+		}
+		ans
     }
 }
 
