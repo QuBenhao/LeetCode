@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.findKthLargest(*test_input)
 
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        pass
-
+        return sorted(nums, reverse=True)[k-1]
