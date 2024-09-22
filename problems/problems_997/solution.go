@@ -7,7 +7,17 @@ import (
 )
 
 func findJudge(n int, trust [][]int) int {
-
+	counter := make([]int, n+1)
+	for _, t := range trust {
+		counter[t[0]]--
+		counter[t[1]]++
+	}
+	for i := 1; i <= n; i++ {
+		if counter[i] == n-1 {
+			return i
+		}
+	}
+	return -1
 }
 
 func Solve(inputJsonValues string) interface{} {

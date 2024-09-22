@@ -15,7 +15,14 @@ import (
  * }
  */
 func reverseList(head *ListNode) *ListNode {
-
+	dummy := &ListNode{}
+	for head != nil {
+		next := head.Next
+		head.Next = dummy.Next
+		dummy.Next = head
+		head = next
+	}
+	return dummy.Next
 }
 
 func Solve(inputJsonValues string) interface{} {
