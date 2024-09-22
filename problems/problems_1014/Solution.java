@@ -7,7 +7,12 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int maxScoreSightseeingPair(int[] values) {
-
+        int ans = 0, left = values[0];
+        for (int i = 1; i < values.length; i++) {
+            ans = Math.max(ans, left + values[i] - i);
+            left = Math.max(left, values[i] + i);
+        }
+        return ans;
     }
 
     @Override
