@@ -6,8 +6,13 @@ import (
 	"strings"
 )
 
-func maxScoreSightseeingPair(values []int) int {
-
+func maxScoreSightseeingPair(values []int) (ans int) {
+	left := values[0]
+	for i := 1; i < len(values); i++ {
+		ans = max(ans, left+values[i]-i)
+		left = max(left, values[i]+i)
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {

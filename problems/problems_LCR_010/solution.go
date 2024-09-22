@@ -6,8 +6,15 @@ import (
 	"strings"
 )
 
-func subarraySum(nums []int, k int) int {
-
+func subarraySum(nums []int, k int) (ans int) {
+	counter := map[int]int{0: 1}
+	sum := 0
+	for _, num := range nums {
+		sum += num
+		ans += counter[sum-k]
+		counter[sum]++
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
