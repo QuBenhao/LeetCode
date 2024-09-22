@@ -7,5 +7,8 @@ class Solution(solution.Solution):
         return self.maxScoreSightseeingPair(test_input)
 
     def maxScoreSightseeingPair(self, values: List[int]) -> int:
-        pass
-
+        ans = left = 0
+        for i, val in enumerate(values):
+            ans = max(ans, left + val - i)
+            left = max(left, val + i)
+        return ans
