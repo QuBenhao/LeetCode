@@ -13,7 +13,15 @@ import {LinkedListToIntArray,IntArrayToLinkedList,ListNode} from "../../typescri
  */
 
 function reverseList(head: ListNode | null): ListNode | null {
-
+	const dummy: ListNode = new ListNode();
+	let current: ListNode | null = head;
+	while (current !== null) {
+		const next: ListNode = current.next;
+		current.next = dummy.next;
+		dummy.next = current;
+		current = next;
+	}
+	return dummy.next;
 };
 
 export function Solve(inputJsonElement: string): any {
