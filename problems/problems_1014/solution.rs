@@ -4,7 +4,14 @@ pub struct Solution;
 
 impl Solution {
     pub fn max_score_sightseeing_pair(values: Vec<i32>) -> i32 {
-
+		let mut ans = 0;
+		let mut left = values[0];
+		let n = values.len();
+		for i in 1..n {
+			ans = ans.max(left + values[i] - i as i32);
+			left = left.max(values[i] + i as i32);
+		}
+		ans
     }
 }
 
