@@ -17,7 +17,14 @@ import qubhjava.models.ListNode;
 
 public class Solution extends BaseSolution {
     public ListNode reverseList(ListNode head) {
-
+        ListNode dummy = new ListNode();
+        while (head != null) {
+            ListNode next = head.next;
+            head.next = dummy.next;
+            dummy.next = head;
+            head = next;
+        }
+        return dummy.next;
     }
 
     @Override
