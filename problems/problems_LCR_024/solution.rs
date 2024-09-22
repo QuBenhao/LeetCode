@@ -21,7 +21,15 @@ pub struct Solution;
 // }
 impl Solution {
     pub fn reverse_list(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-
+		let mut prev = None;
+		let mut current = head;
+		while let Some(mut current_node) = current {
+			let next = current_node.next.take();
+			current_node.next = prev.take();
+			prev = Some(current_node);
+			current = next;
+		}
+		prev
     }
 }
 
