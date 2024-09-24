@@ -27,6 +27,13 @@ def general_request(url: str, func=None, request_method: str = "post",
             time.sleep(1)
             return None
         logging.debug(f"Response code[{resp.status_code}] msg: {resp.text}")
+    except requests.ConnectTimeout:
+        if depth > 0:
+            time.sleep((4 - depth) * 2)
+            logging.warning(f"{url} Connection timeout!")
+            return general_request(url, func, request_method, params, data, json, depth - 1, **kwargs)
+        else:
+            logging.error(f"{url} Connection timeout!", exc_info=True)
     except Exception as _:
         logging.error(f"Request error: {url}, params: {params}, data: {data}, json: {json}", exc_info=True)
     return None
