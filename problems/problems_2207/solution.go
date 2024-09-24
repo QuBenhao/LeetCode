@@ -6,8 +6,20 @@ import (
 	"strings"
 )
 
-func maximumSubsequenceCount(text string, pattern string) int64 {
-
+func maximumSubsequenceCount(text string, pattern string) (ans int64) {
+	p0, p1 := int64(0), int64(0)
+	r0, r1 := rune(pattern[0]), rune(pattern[1])
+	for _, c := range text {
+		if c == r1 {
+			ans += p0
+			p1++
+		}
+		if c == r0 {
+			p0++
+		}
+	}
+	ans += max(p0, p1)
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
