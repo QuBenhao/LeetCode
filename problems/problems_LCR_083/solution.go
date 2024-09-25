@@ -23,6 +23,7 @@ func permute(nums []int) (ans [][]int) {
 	return
 }
 
+
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
