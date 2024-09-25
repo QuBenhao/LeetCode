@@ -6,8 +6,21 @@ import (
 	"strings"
 )
 
-func permute(nums []int) [][]int {
-
+func permute(nums []int) (ans [][]int) {
+	var backtrack func(int)
+	backtrack = func(first int) {
+		if first == len(nums) {
+			ans = append(ans, append([]int(nil), nums...))
+			return
+		}
+		for i := first; i < len(nums); i++ {
+			nums[first], nums[i] = nums[i], nums[first]
+			backtrack(first + 1)
+			nums[first], nums[i] = nums[i], nums[first]
+		}
+	}
+	backtrack(0)
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
