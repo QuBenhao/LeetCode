@@ -5,7 +5,24 @@ pub struct Solution;
 
 impl Solution {
     pub fn is_interleave(s1: String, s2: String, s3: String) -> bool {
-
+		let m = s1.len();
+		let n = s2.len();
+		if m + n != s3.len() {
+			return false;
+		}
+		let mut dp: Vec<bool> = vec![false; n + 1];
+		dp[0] = true;
+		for i in 0..=m {
+			for j in 0..=n {
+				if i > 0 {
+					dp[j] = dp[j] && s1.chars().nth(i - 1).unwrap() == s3.chars().nth(i + j - 1).unwrap();
+				}
+				if j > 0 {
+					dp[j] = dp[j] || dp[j - 1] && s2.chars().nth(j - 1).unwrap() == s3.chars().nth(i + j - 1).unwrap();
+				}
+			}
+		}
+		dp[n]
     }
 }
 

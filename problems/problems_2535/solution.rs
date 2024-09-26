@@ -4,7 +4,16 @@ pub struct Solution;
 
 impl Solution {
     pub fn difference_of_sum(nums: Vec<i32>) -> i32 {
-
+		let mut ans: i32 = 0;
+		for num in nums {
+			ans += num;
+			let mut temp: i32 = num;
+			while temp > 0 {
+				ans -= temp % 10;
+				temp /= 10;
+			}
+		}
+		ans
     }
 }
 
