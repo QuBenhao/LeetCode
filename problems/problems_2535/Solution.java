@@ -7,7 +7,15 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int differenceOfSum(int[] nums) {
-
+        int ans = 0;
+        for (int num: nums) {
+            ans += num;
+            while (num > 0) {
+                ans -= num % 10;
+                num /= 10;
+            }
+        }
+        return ans;
     }
 
     @Override
