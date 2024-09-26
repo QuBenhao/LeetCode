@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.differenceOfSum(test_input)
 
     def differenceOfSum(self, nums: List[int]) -> int:
-        pass
-
+        s1, s2 = 0, 0
+        for num in nums:
+            s1 += num
+            while num:
+                s2 += num % 10
+                num //= 10
+        return abs(s1 - s2)
