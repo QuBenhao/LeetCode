@@ -2,10 +2,18 @@
 use serde_json::{json, Value};
 
 pub struct Solution;
-
+use std::collections::HashMap;
 impl Solution {
     pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
-
+		let mut map: HashMap<Vec<u8>, Vec<String>> = HashMap::new();
+		for s in strs {
+			let mut cnt = vec![0; 26];
+			for c in s.bytes() {
+				cnt[(c - b'a') as usize] += 1;
+			}
+			map.entry(cnt).or_insert(vec![]).push(s);
+		}
+		map.into_iter().map(|(_, v)| v).collect()
     }
 }
 

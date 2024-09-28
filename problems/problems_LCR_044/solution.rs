@@ -2,7 +2,6 @@
 use serde_json::{json, Value};
 use library::lib::tree_node::{TreeNode, array_to_tree};
 pub struct Solution;
-
 // Definition for a binary tree node.
 // #[derive(Debug, PartialEq, Eq)]
 // pub struct TreeNode {
@@ -23,9 +22,33 @@ pub struct Solution;
 // }
 use std::rc::Rc;
 use std::cell::RefCell;
+use std::collections::VecDeque;
 impl Solution {
     pub fn largest_values(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
-
+		let mut res = vec![];
+		if root.is_none() {
+			return res;
+		}
+		let mut queue = VecDeque::new();
+		queue.push_back(root);
+		while !queue.is_empty() {
+			let mut max = i32::MIN;
+			let len = queue.len();
+			for _ in 0..len {
+				let node = queue.pop_front().unwrap();
+				let node = node.unwrap();
+				let node = node.borrow();
+				max = max.max(node.val);
+				if node.left.is_some() {
+					queue.push_back(node.left.clone());
+				}
+				if node.right.is_some() {
+					queue.push_back(node.right.clone());
+				}
+			}
+			res.push(max);
+		}
+		res
     }
 }
 
