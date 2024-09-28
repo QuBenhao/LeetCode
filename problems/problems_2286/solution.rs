@@ -114,18 +114,43 @@ pub fn solve(input_string: String) -> Value {
 	let n_obj: i32 = serde_json::from_value(op_values[0][0].clone()).expect("Failed to parse input");
 	let m_obj: i32 = serde_json::from_value(op_values[0][1].clone()).expect("Failed to parse input");
 	let mut obj = BookMyShow::new(n_obj, m_obj);
-	let mut ans: Vec<Option<Value>> = vec![];
+	let mut ans = vec![None];
 	for i in 1..operators.len() {
 		match operators[i].as_str() {
+			"update" => {
+				let o: usize = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
+				let l: usize = serde_json::from_value(op_values[i][1].clone()).expect("Failed to parse input");
+				let r: usize = serde_json::from_value(op_values[i][2].clone()).expect("Failed to parse input");
+				let i: usize = serde_json::from_value(op_values[i][3].clone()).expect("Failed to parse input");
+				let val: i32 = serde_json::from_value(op_values[i][4].clone()).expect("Failed to parse input");
+				obj.update(o, l, r, i, val);
+				ans.push(None);
+			},
+			"querySum" => {
+				let o: usize = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
+				let l: usize = serde_json::from_value(op_values[i][1].clone()).expect("Failed to parse input");
+				let r: usize = serde_json::from_value(op_values[i][2].clone()).expect("Failed to parse input");
+				let left: usize = serde_json::from_value(op_values[i][3].clone()).expect("Failed to parse input");
+				let right: usize = serde_json::from_value(op_values[i][4].clone()).expect("Failed to parse input");
+				ans.push(Some(obj.query_sum(o, l, r, left, right)));
+			},
+			"findFirst" => {
+				let o: usize = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
+				let l: usize = serde_json::from_value(op_values[i][1].clone()).expect("Failed to parse input");
+				let r: usize = serde_json::from_value(op_values[i][2].clone()).expect("Failed to parse input");
+				let right: usize = serde_json::from_value(op_values[i][3].clone()).expect("Failed to parse input");
+				let val: i32 = serde_json::from_value(op_values[i][4].clone()).expect("Failed to parse input");
+				ans.push(Some(obj.find_first(o, l, r, right, val)));
+			},
 			"gather" => {
 				let k: i32 = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
 				let max_row: i32 = serde_json::from_value(op_values[i][1].clone()).expect("Failed to parse input");
-				ans.push(Some(Value::from(obj.gather(k, max_row))));
+				ans.push(Some(obj.gather(k, max_row)));
 			},
 			"scatter" => {
-				let k: i32 = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
+				let mut k: i32 = serde_json::from_value(op_values[i][0].clone()).expect("Failed to parse input");
 				let max_row: i32 = serde_json::from_value(op_values[i][1].clone()).expect("Failed to parse input");
-				ans.push(Some(Value::from(obj.scatter(k, max_row))));
+				ans.push(Some(obj.scatter(mut k, max_row)));
 			},
 			_ => ans.push(None),
 		}
