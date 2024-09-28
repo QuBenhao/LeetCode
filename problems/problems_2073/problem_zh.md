@@ -1,0 +1,59 @@
+# 2073. 买票需要的时间 [难度分: 1325.36]
+
+<p>有 <code>n</code> 个人前来排队买票，其中第 <code>0</code> 人站在队伍 <strong>最前方</strong> ，第 <code>(n - 1)</code> 人站在队伍 <strong>最后方</strong> 。</p>
+
+<p>给你一个下标从 <strong>0</strong> 开始的整数数组 <code>tickets</code> ，数组长度为 <code>n</code> ，其中第 <code>i</code> 人想要购买的票数为 <code>tickets[i]</code> 。</p>
+
+<p>每个人买票都需要用掉 <strong>恰好 1 秒</strong> 。一个人 <strong>一次只能买一张票</strong> ，如果需要购买更多票，他必须走到&nbsp; <strong>队尾</strong> 重新排队（<strong>瞬间 </strong>发生，不计时间）。如果一个人没有剩下需要买的票，那他将会 <strong>离开</strong> 队伍。</p>
+
+<p>返回位于位置 <code>k</code>（下标从 <strong>0</strong> 开始）的人完成买票需要的时间（以秒为单位）。</p>
+
+<p>&nbsp;</p>
+
+<p><strong>示例 1：</strong></p>
+
+<div class="example-block"><strong>输入：</strong>tickets = [2,3,2], k = 2</div>
+
+<div class="example-block"><strong>输出：</strong>6</div>
+
+<div class="example-block"><strong>解释：</strong></div>
+
+<div class="example-block">&nbsp;</div>
+
+<ul>
+	<li class="example-block">队伍一开始为 [2,3,2]，第 k 个人以下划线标识。</li>
+	<li class="example-block">在最前面的人买完票后，队伍在第 1 秒变成 [3,<u>2</u>,1]。</li>
+	<li class="example-block">继续这个过程，队伍在第 2 秒变为[<u>2</u>,1,2]。</li>
+	<li class="example-block">继续这个过程，队伍在第 3 秒变为[1,2,<u>1</u>]。</li>
+	<li class="example-block">继续这个过程，队伍在第 4 秒变为[2,<u>1</u>]。</li>
+	<li class="example-block">继续这个过程，队伍在第 5 秒变为[<u>1</u>,1]。</li>
+	<li class="example-block">继续这个过程，队伍在第 6 秒变为[1]。第 k 个人完成买票，所以返回 6。</li>
+</ul>
+
+<div class="example-block">&nbsp;</div>
+
+<p><strong>示例 2：</strong></p>
+
+<div class="example-block"><strong>输入：</strong>tickets = [5,1,1,1], k = 0</div>
+
+<div class="example-block"><strong>输出：</strong>8</div>
+
+<div class="example-block"><strong>解释：</strong></div>
+
+<ul>
+	<li class="example-block">队伍一开始为 [<u>5</u>,1,1,1]，第 k 个人以下划线标识。</li>
+	<li class="example-block">在最前面的人买完票后，队伍在第 1 秒变成 [1,1,1,<u>4</u>]。</li>
+	<li class="example-block">继续这个过程 3 秒，队伍在第 4&nbsp;秒变为[<u>4</u>]。</li>
+	<li class="example-block">继续这个过程 4 秒，队伍在第 8&nbsp;秒变为[]。第 k 个人完成买票，所以返回 8。</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<p><strong>提示：</strong></p>
+
+<ul>
+	<li><code>n == tickets.length</code></li>
+	<li><code>1 &lt;= n &lt;= 100</code></li>
+	<li><code>1 &lt;= tickets[i] &lt;= 100</code></li>
+	<li><code>0 &lt;= k &lt; n</code></li>
+</ul>
