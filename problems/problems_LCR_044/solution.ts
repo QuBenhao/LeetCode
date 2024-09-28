@@ -15,7 +15,27 @@ import {TreeNode,JSONArrayToTreeNode} from "../../typescript/models/treenode";
  */
 
 function largestValues(root: TreeNode | null): number[] {
-
+	if (!root) {
+		return [];
+	}
+	const res: number[] = [];
+	const queue: TreeNode[] = [root];
+	while (queue.length > 0) {
+		const size: number = queue.length;
+		let max: number = -Infinity;
+		for (let i: number = 0; i < size; i++) {
+			const node: TreeNode = queue.shift();
+			max = Math.max(max, node.val);
+			if (node.left) {
+				queue.push(node.left);
+			}
+			if (node.right) {
+				queue.push(node.right);
+			}
+		}
+		res.push(max);
+	}
+	return res;
 };
 
 export function Solve(inputJsonElement: string): any {
