@@ -94,7 +94,7 @@ def generate_question_todo(plan_sub_groups, todo_num: int):
 def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = -1):
     if todo_num < 0:
         cur_weekday = get_cur_weekday()
-        todo_num = 1 if cur_weekday < 5 else 2
+        todo_num = 0 if cur_weekday < 5 else 1
 
     def handle_response(response: requests.Response):
         if response.text:
