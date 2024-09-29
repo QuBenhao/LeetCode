@@ -2,6 +2,7 @@ package problem98
 
 import (
 	. "leetCode/golang/models"
+	"math"
 	"strings"
 )
 
@@ -26,7 +27,6 @@ func isValidBST(root *TreeNode) bool {
 	}
 	return dfs(root, math.MinInt, math.MaxInt)
 }
-
 
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
