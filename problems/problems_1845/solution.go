@@ -1,0 +1,67 @@
+package problem1845
+
+import (
+	"encoding/json"
+	"log"
+	"strings"
+)
+
+type SeatManager struct {
+
+}
+
+
+func Constructor(n int) SeatManager {
+
+}
+
+
+func (this *SeatManager) Reserve() int {
+
+}
+
+
+func (this *SeatManager) Unreserve(seatNumber int)  {
+
+}
+
+
+/**
+ * Your SeatManager object will be instantiated and called as such:
+ * obj := Constructor(n);
+ * param_1 := obj.Reserve();
+ * obj.Unreserve(seatNumber);
+ */
+
+func Solve(inputJsonValues string) interface{} {
+	inputValues := strings.Split(inputJsonValues, "\n")
+	var operators []string
+	var opValues [][]interface{}
+	var ans []interface{}
+	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
+		log.Println(err)
+		return nil
+	}
+	if err := json.Unmarshal([]byte(inputValues[1]), &opValues); err != nil {
+		log.Println(err)
+		return nil
+	}
+	obj := Constructor(int(opValues[0][0].(float64)))
+	ans = append(ans, nil)
+	for i := 1; i < len(operators); i++ {
+		var res interface{}
+		switch operators[i] {
+		case "reserve", "Reserve":
+			res = obj.Reserve()
+		case "unreserve", "Unreserve":
+			res = nil
+			obj.Unreserve(int(opValues[i][0].(float64)))
+		default:
+			res = nil
+		}
+		ans = append(ans, res)
+	}
+
+
+	return ans
+}
