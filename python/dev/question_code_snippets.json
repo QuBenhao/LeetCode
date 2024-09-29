@@ -3177,5 +3177,109 @@
                 "code": "/**\n * Definition for singly-linked list.\n * class ListNode(var _x: Int = 0) {\n *   var next: ListNode = null\n *   var x: Int = _x\n * }\n */\n\nobject Solution {\n    def detectCycle(head: ListNode): ListNode = {\n        \n    }\n}"
             }
         ]
+    },
+    {
+        "528": [
+            {
+                "lang": "C++",
+                "langSlug": "cpp",
+                "code": "class Solution {\npublic:\n    Solution(vector<int>& w) {\n\n    }\n    \n    int pickIndex() {\n\n    }\n};\n\n/**\n * Your Solution object will be instantiated and called as such:\n * Solution* obj = new Solution(w);\n * int param_1 = obj->pickIndex();\n */"
+            },
+            {
+                "lang": "Java",
+                "langSlug": "java",
+                "code": "class Solution {\n\n    public Solution(int[] w) {\n\n    }\n    \n    public int pickIndex() {\n\n    }\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * Solution obj = new Solution(w);\n * int param_1 = obj.pickIndex();\n */"
+            },
+            {
+                "lang": "Python",
+                "langSlug": "python",
+                "code": "class Solution(object):\n\n    def __init__(self, w):\n        \"\"\"\n        :type w: List[int]\n        \"\"\"\n\n\n    def pickIndex(self):\n        \"\"\"\n        :rtype: int\n        \"\"\"\n\n\n\n# Your Solution object will be instantiated and called as such:\n# obj = Solution(w)\n# param_1 = obj.pickIndex()"
+            },
+            {
+                "lang": "Python3",
+                "langSlug": "python3",
+                "code": "class Solution:\n\n    def __init__(self, w: List[int]):\n\n\n    def pickIndex(self) -> int:\n\n\n\n# Your Solution object will be instantiated and called as such:\n# obj = Solution(w)\n# param_1 = obj.pickIndex()"
+            },
+            {
+                "lang": "C",
+                "langSlug": "c",
+                "code": "\n\n\ntypedef struct {\n    \n} Solution;\n\n\nSolution* solutionCreate(int* w, int wSize) {\n    \n}\n\nint solutionPickIndex(Solution* obj) {\n    \n}\n\nvoid solutionFree(Solution* obj) {\n    \n}\n\n/**\n * Your Solution struct will be instantiated and called as such:\n * Solution* obj = solutionCreate(w, wSize);\n * int param_1 = solutionPickIndex(obj);\n \n * solutionFree(obj);\n*/"
+            },
+            {
+                "lang": "C#",
+                "langSlug": "csharp",
+                "code": "public class Solution {\n\n    public Solution(int[] w) {\n\n    }\n    \n    public int PickIndex() {\n\n    }\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * Solution obj = new Solution(w);\n * int param_1 = obj.PickIndex();\n */"
+            },
+            {
+                "lang": "JavaScript",
+                "langSlug": "javascript",
+                "code": "/**\n * @param {number[]} w\n */\nvar Solution = function(w) {\n\n};\n\n/**\n * @return {number}\n */\nSolution.prototype.pickIndex = function() {\n\n};\n\n/**\n * Your Solution object will be instantiated and called as such:\n * var obj = new Solution(w)\n * var param_1 = obj.pickIndex()\n */"
+            },
+            {
+                "lang": "TypeScript",
+                "langSlug": "typescript",
+                "code": "class Solution {\n    constructor(w: number[]) {\n        \n    }\n\n    pickIndex(): number {\n        \n    }\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * var obj = new Solution(w)\n * var param_1 = obj.pickIndex()\n */"
+            },
+            {
+                "lang": "PHP",
+                "langSlug": "php",
+                "code": "class Solution {\n    /**\n     * @param Integer[] $w\n     */\n    function __construct($w) {\n\n    }\n\n    /**\n     * @return Integer\n     */\n    function pickIndex() {\n\n    }\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * $obj = Solution($w);\n * $ret_1 = $obj->pickIndex();\n */"
+            },
+            {
+                "lang": "Swift",
+                "langSlug": "swift",
+                "code": "\nclass Solution {\n\n    init(_ w: [Int]) {\n\n    }\n    \n    func pickIndex() -> Int {\n\n    }\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * let obj = Solution(w)\n * let ret_1: Int = obj.pickIndex()\n */"
+            },
+            {
+                "lang": "Kotlin",
+                "langSlug": "kotlin",
+                "code": "class Solution(w: IntArray) {\n\n    fun pickIndex(): Int {\n\n    }\n\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * var obj = Solution(w)\n * var param_1 = obj.pickIndex()\n */"
+            },
+            {
+                "lang": "Dart",
+                "langSlug": "dart",
+                "code": "class Solution {\n\n  Solution(List<int> w) {\n    \n  }\n  \n  int pickIndex() {\n    \n  }\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * Solution obj = Solution(w);\n * int param1 = obj.pickIndex();\n */"
+            },
+            {
+                "lang": "Go",
+                "langSlug": "golang",
+                "code": "type Solution struct {\n\n}\n\n\nfunc Constructor(w []int) Solution {\n\n}\n\n\nfunc (this *Solution) PickIndex() int {\n\n}\n\n\n/**\n * Your Solution object will be instantiated and called as such:\n * obj := Constructor(w);\n * param_1 := obj.PickIndex();\n */"
+            },
+            {
+                "lang": "Ruby",
+                "langSlug": "ruby",
+                "code": "class Solution\n\n=begin\n    :type w: Integer[]\n=end\n    def initialize(w)\n        \n    end\n\n\n=begin\n    :rtype: Integer\n=end\n    def pick_index()\n        \n    end\n\n\nend\n\n# Your Solution object will be instantiated and called as such:\n# obj = Solution.new(w)\n# param_1 = obj.pick_index()"
+            },
+            {
+                "lang": "Scala",
+                "langSlug": "scala",
+                "code": "class Solution(_w: Array[Int]) {\n\n    def pickIndex(): Int = {\n        \n    }\n\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * val obj = new Solution(w)\n * val param_1 = obj.pickIndex()\n */"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "struct Solution {\n\n}\n\n\n/**\n * `&self` means the method takes an immutable reference.\n * If you need a mutable reference, change it to `&mut self` instead.\n */\nimpl Solution {\n\n    fn new(w: Vec<i32>) -> Self {\n\n    }\n    \n    fn pick_index(&self) -> i32 {\n\n    }\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * let obj = Solution::new(w);\n * let ret_1: i32 = obj.pick_index();\n */"
+            },
+            {
+                "lang": "Racket",
+                "langSlug": "racket",
+                "code": "(define solution%\n  (class object%\n    (super-new)\n    \n    ; w : (listof exact-integer?)\n    (init-field\n      w)\n    \n    ; pick-index : -> exact-integer?\n    (define/public (pick-index)\n      )))\n\n;; Your solution% object will be instantiated and called as such:\n;; (define obj (new solution% [w w]))\n;; (define param_1 (send obj pick-index))"
+            },
+            {
+                "lang": "Erlang",
+                "langSlug": "erlang",
+                "code": "-spec solution_init_(W :: [integer()]) -> any().\nsolution_init_(W) ->\n  .\n\n-spec solution_pick_index() -> integer().\nsolution_pick_index() ->\n  .\n\n\n%% Your functions will be called as such:\n%% solution_init_(W),\n%% Param_1 = solution_pick_index(),\n\n%% solution_init_ will be called before every test case, in which you can do some necessary initializations."
+            },
+            {
+                "lang": "Elixir",
+                "langSlug": "elixir",
+                "code": "defmodule Solution do\n  @spec init_(w :: [integer]) :: any\n  def init_(w) do\n    \n  end\n\n  @spec pick_index() :: integer\n  def pick_index() do\n    \n  end\nend\n\n# Your functions will be called as such:\n# Solution.init_(w)\n# param_1 = Solution.pick_index()\n\n# Solution.init_ will be called before every test case, in which you can do some necessary initializations."
+            },
+            {
+                "lang": "Cangjie",
+                "langSlug": "cangjie",
+                "code": "class Solution {\n    init(w: Array<Int64>) {\n\n    }\n    \n    func pickIndex(): Int64 {\n\n    }\n}\n\n/**\n * Your Solution object will be instantiated and called as such:\n * let obj: Solution = Solution(w)\n * let param_1 = obj.pickIndex()\n */"
+            }
+        ]
     }
 ]

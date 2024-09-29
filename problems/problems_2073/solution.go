@@ -7,7 +7,15 @@ import (
 )
 
 func timeRequiredToBuy(tickets []int, k int) int {
-
+	ans, ticketToBuy := 0, tickets[k]
+	for i, ticket := range tickets {
+		if i <= k {
+			ans += min(ticket, ticketToBuy)
+		} else {
+			ans += min(ticket, ticketToBuy-1)
+		}
+	}
+	return ans
 }
 
 func Solve(inputJsonValues string) interface{} {
