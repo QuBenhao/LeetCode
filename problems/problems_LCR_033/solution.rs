@@ -2,7 +2,6 @@
 use serde_json::{json, Value};
 
 pub struct Solution;
-
 use std::collections::HashMap;
 impl Solution {
     pub fn group_anagrams(strs: Vec<String>) -> Vec<Vec<String>> {
