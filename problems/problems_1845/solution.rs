@@ -1,27 +1,26 @@
 use serde_json::{json, Value};
 
+use std::collections::BinaryHeap;
 
 struct SeatManager {
-
+    available: BinaryHeap<i32>,
 }
 
-
-/**
- * `&self` means the method takes an immutable reference.
- * If you need a mutable reference, change it to `&mut self` instead.
- */
 impl SeatManager {
-
     fn new(n: i32) -> Self {
-
+        let mut available = BinaryHeap::new();
+        for i in 1..=n {
+            available.push(-i); // 取相反数，变成最小堆
+        }
+        Self { available }
     }
-    
-    fn reserve(&self) -> i32 {
 
+    fn reserve(&mut self) -> i32 {
+        -self.available.pop().unwrap()
     }
-    
-    fn unreserve(&self, seat_number: i32) {
 
+    fn unreserve(&mut self, seat_number: i32) {
+        self.available.push(-seat_number);
     }
 }
 

@@ -1,14 +1,23 @@
+import MinPriorityQueue from "@datastructures-js/priority-queue";
+
+
 class SeatManager {
+	//@ts-ignore
+	pq: MinPriorityQueue;
     constructor(n: number) {
-        
+		//@ts-ignore
+		this.pq = new MinPriorityQueue();
+		for (let i: number = 1; i <= n; i++) {
+			this.pq.enqueue(i);
+		}
     }
 
     reserve(): number {
-        
+		return this.pq.dequeue().element;
     }
 
     unreserve(seatNumber: number): void {
-        
+        this.pq.enqueue(seatNumber);
     }
 }
 

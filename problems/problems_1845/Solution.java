@@ -1,22 +1,30 @@
 package problems.problems_1845;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.PriorityQueue;
+
 import com.alibaba.fastjson.JSON;
-import java.util.*;
+
 import qubhjava.BaseSolution;
 
 
 class SeatManager {
+	private PriorityQueue<Integer> pq;
 
     public SeatManager(int n) {
-
+		pq = new PriorityQueue<>(n);
+		for (int i = 1; i <= n; i++) {
+			pq.add(i);
+		}
     }
     
     public int reserve() {
-
+		return pq.poll();
     }
     
     public void unreserve(int seatNumber) {
-
+		pq.add(seatNumber);
     }
 }
 
