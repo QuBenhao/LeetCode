@@ -1,10 +1,8 @@
 package problem1845
 
 import (
-	"container/heap"
 	"encoding/json"
 	"log"
-	"sort"
 	"strings"
 )
 
@@ -43,6 +41,7 @@ func (m *SeatManager) Pop() any {
  * obj.Unreserve(seatNumber);
  */
 
+
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
@@ -71,6 +70,7 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
+
 
 	return ans
 }
