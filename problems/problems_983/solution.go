@@ -7,7 +7,18 @@ import (
 )
 
 func mincostTickets(days []int, costs []int) int {
-
+	dp := make([]int, len(days)+1)
+	j, k := 0, 0
+	for i, d := range days {
+		for days[j] <= d-7 {
+			j += 1
+		}
+		for days[k] <= d-30 {
+			k += 1
+		}
+		dp[i+1] = min(dp[j]+costs[1], dp[k]+costs[2], dp[i]+costs[0])
+	}
+	return dp[len(days)]
 }
 
 func Solve(inputJsonValues string) interface{} {
