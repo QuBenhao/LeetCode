@@ -1,54 +1,54 @@
 # 1928. Minimum Cost to Reach Destination in Time [Rating: 2413.40]
 
-There is a country of `n` cities numbered from `0` to `n - 1` where **all the cities are connected** by bi-directional roads. The roads are represented as a 2D integer array `edges` where `edges[i] = [xi, yi, timei]` denotes a road between cities `xi` and `yi` that takes `timei` minutes to travel. There may be multiple roads of differing travel times connecting the same two cities, but no road connects a city to itself.
+<p>There is a country of <code>n</code> cities numbered from <code>0</code> to <code>n - 1</code> where <strong>all the cities are connected</strong> by bi-directional roads. The roads are represented as a 2D integer array <code>edges</code> where <code>edges[i] = [x<sub>i</sub>, y<sub>i</sub>, time<sub>i</sub>]</code> denotes a road between cities <code>x<sub>i</sub></code> and <code>y<sub>i</sub></code> that takes <code>time<sub>i</sub></code> minutes to travel. There may be multiple roads of differing travel times connecting the same two cities, but no road connects a city to itself.</p>
 
-Each time you pass through a city, you must pay a passing fee. This is represented as a **0-indexed** integer array `passingFees` of length `n` where `passingFees[j]` is the amount of dollars you must pay when you pass through city `j`.
+<p>Each time you pass through a city, you must pay a passing fee. This is represented as a <strong>0-indexed</strong> integer array <code>passingFees</code> of length <code>n</code> where <code>passingFees[j]</code> is the amount of dollars you must pay when you pass through city <code>j</code>.</p>
 
-In the beginning, you are at city `0` and want to reach city `n - 1` in `maxTime`**minutes or less**. The **cost** of your journey is the **summation of passing fees**for each city that you passed through at some moment of your journey (**including** the source and destination cities).
+<p>In the beginning, you are at city <code>0</code> and want to reach city <code>n - 1</code> in <code>maxTime</code><strong> minutes or less</strong>. The <strong>cost</strong> of your journey is the <strong>summation of passing fees</strong> for each city that you passed through at some moment of your journey (<strong>including</strong> the source and destination cities).</p>
 
-Given `maxTime`, `edges`, and `passingFees`, return *the **minimum cost** to complete your journey, or* `-1` *if you cannot complete it within* `maxTime`*minutes*.
+<p>Given <code>maxTime</code>, <code>edges</code>, and <code>passingFees</code>, return <em>the <strong>minimum cost</strong> to complete your journey, or </em><code>-1</code><em> if you cannot complete it within </em><code>maxTime</code><em> minutes</em>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<p><img alt="" src="https://assets.leetcode.com/uploads/2021/06/04/leetgraph1-1.png" style="width: 371px; height: 171px;" /></p>
 
-![img](https://assets.leetcode.com/uploads/2021/06/04/leetgraph1-1.png)
+<pre>
+<strong>Input:</strong> maxTime = 30, edges = [[0,1,10],[1,2,10],[2,5,10],[0,3,1],[3,4,10],[4,5,15]], passingFees = [5,1,2,20,20,3]
+<strong>Output:</strong> 11
+<strong>Explanation:</strong> The path to take is 0 -&gt; 1 -&gt; 2 -&gt; 5, which takes 30 minutes and has $11 worth of passing fees.
+</pre>
 
-```
-Input: maxTime = 30, edges = [[0,1,10],[1,2,10],[2,5,10],[0,3,1],[3,4,10],[4,5,15]], passingFees = [5,1,2,20,20,3]
-Output: 11
-Explanation: The path to take is 0 -> 1 -> 2 -> 5, which takes 30 minutes and has $11 worth of passing fees.
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<p><strong><img alt="" src="https://assets.leetcode.com/uploads/2021/06/04/copy-of-leetgraph1-1.png" style="width: 371px; height: 171px;" /></strong></p>
 
-**![img](https://assets.leetcode.com/uploads/2021/06/04/copy-of-leetgraph1-1.png)**
+<pre>
+<strong>Input:</strong> maxTime = 29, edges = [[0,1,10],[1,2,10],[2,5,10],[0,3,1],[3,4,10],[4,5,15]], passingFees = [5,1,2,20,20,3]
+<strong>Output:</strong> 48
+<strong>Explanation:</strong> The path to take is 0 -&gt; 3 -&gt; 4 -&gt; 5, which takes 26 minutes and has $48 worth of passing fees.
+You cannot take path 0 -&gt; 1 -&gt; 2 -&gt; 5 since it would take too long.
+</pre>
 
-```
-Input: maxTime = 29, edges = [[0,1,10],[1,2,10],[2,5,10],[0,3,1],[3,4,10],[4,5,15]], passingFees = [5,1,2,20,20,3]
-Output: 48
-Explanation: The path to take is 0 -> 3 -> 4 -> 5, which takes 26 minutes and has $48 worth of passing fees.
-You cannot take path 0 -> 1 -> 2 -> 5 since it would take too long.
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
+<pre>
+<strong>Input:</strong> maxTime = 25, edges = [[0,1,10],[1,2,10],[2,5,10],[0,3,1],[3,4,10],[4,5,15]], passingFees = [5,1,2,20,20,3]
+<strong>Output:</strong> -1
+<strong>Explanation:</strong> There is no way to reach city 5 from city 0 within 25 minutes.
+</pre>
 
-```
-Input: maxTime = 25, edges = [[0,1,10],[1,2,10],[2,5,10],[0,3,1],[3,4,10],[4,5,15]], passingFees = [5,1,2,20,20,3]
-Output: -1
-Explanation: There is no way to reach city 5 from city 0 within 25 minutes.
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `1 <= maxTime <= 1000`
-- `n == passingFees.length`
-- `2 <= n <= 1000`
-- `n - 1 <= edges.length <= 1000`
-- `0 <= xi, yi <= n - 1`
-- `1 <= timei <= 1000`
-- `1 <= passingFees[j] <= 1000` 
-- The graph may contain multiple edges between two nodes.
-- The graph does not contain self loops.
+<ul>
+	<li><code>1 &lt;= maxTime &lt;= 1000</code></li>
+	<li><code>n == passingFees.length</code></li>
+	<li><code>2 &lt;= n &lt;= 1000</code></li>
+	<li><code>n - 1 &lt;= edges.length &lt;= 1000</code></li>
+	<li><code>0 &lt;= x<sub>i</sub>, y<sub>i</sub> &lt;= n - 1</code></li>
+	<li><code>1 &lt;= time<sub>i</sub> &lt;= 1000</code></li>
+	<li><code>1 &lt;= passingFees[j] &lt;= 1000</code>&nbsp;</li>
+	<li>The graph may contain multiple edges between two nodes.</li>
+	<li>The graph does not contain self loops.</li>
+</ul>
