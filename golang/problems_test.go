@@ -6,5 +6,5 @@ import (
 )
 
 func TestSolutions(t *testing.T) {
-	TestEach(t, "LCR_071", "problems", problem1.Solve)
+	TestEach(t, "problem_1", "problems", problem1.Solve)
 }
