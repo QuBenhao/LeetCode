@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.nthPersonGetsNthSeat(test_input)
 
     def nthPersonGetsNthSeat(self, n: int) -> float:
-        pass
-
+        return 1 if n == 1 else 0.5
