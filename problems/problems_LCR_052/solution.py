@@ -18,5 +18,14 @@ class Solution(solution.Solution):
         return tree_to_list(res)
 
     def increasingBST(self, root: TreeNode) -> TreeNode:
-        pass
+        def inorder(node):
+            if not node:
+                return
+            inorder(node.left)
+            self.cur.right = TreeNode(node.val)
+            self.cur = self.cur.right
+            inorder(node.right)
 
+        dummy = self.cur = TreeNode()
+        inorder(root)
+        return dummy.right
