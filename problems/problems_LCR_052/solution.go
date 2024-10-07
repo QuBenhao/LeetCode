@@ -14,7 +14,24 @@ import (
  * }
  */
 func increasingBST(root *TreeNode) *TreeNode {
-
+	var head, tail *TreeNode
+	var inorder func(*TreeNode)
+	inorder = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		inorder(node.Left)
+		if head == nil {
+			head = node
+		} else {
+			tail.Right = node
+		}
+		tail = node
+		tail.Left = nil
+		inorder(node.Right)
+	}
+	inorder(root)
+	return head
 }
 
 func Solve(inputJsonValues string) interface{} {
