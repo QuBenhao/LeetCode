@@ -15,7 +15,21 @@ import {JSONArrayToTreeNode,TreeNodeToJSONArray,TreeNode} from "../../typescript
  */
 
 function increasingBST(root: TreeNode | null): TreeNode | null {
-
+	const dummy = new TreeNode();
+	let current = dummy;
+	
+	const inorder = (node: TreeNode | null) => {
+		if (!node) {
+			return;
+		}
+		inorder(node.left);
+		current.right = new TreeNode(node.val);
+		current = current.right;
+		inorder(node.right);
+	};
+	
+	inorder(root);
+	return dummy.right;
 };
 
 export function Solve(inputJsonElement: string): any {

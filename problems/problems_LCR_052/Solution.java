@@ -1,28 +1,34 @@
 package problems.problems_LCR_052;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.alibaba.fastjson.JSON;
-import java.util.*;
+
 import qubhjava.BaseSolution;
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 import qubhjava.models.TreeNode;
 
 public class Solution extends BaseSolution {
-    public TreeNode increasingBST(TreeNode root) {
+    private void inorder(TreeNode node, List<Integer> vals) {
+        if (node == null) {
+            return;
+        }
+        inorder(node.left, vals);
+        vals.add(node.val);
+        inorder(node.right, vals);
+    }
 
+    public TreeNode increasingBST(TreeNode root) {
+        List<Integer> vals = new ArrayList<>();
+        inorder(root, vals);
+
+        TreeNode dummyNode = new TreeNode(0);
+        TreeNode currNode = dummyNode;
+        for (int val : vals) {
+            currNode.right = new TreeNode(val);
+            currNode = currNode.right;
+        }
+        return dummyNode.right;
     }
 
     @Override

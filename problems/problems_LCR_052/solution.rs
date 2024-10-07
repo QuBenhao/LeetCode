@@ -21,11 +21,30 @@ pub struct Solution;
 //     }
 //   }
 // }
+use std::collections::VecDeque;
 use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn increasing_bst(root: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
-
+        let mut stk = VecDeque::new();
+        
+        fn dfs(root: Option<Rc<RefCell<TreeNode>>>, stk: &mut VecDeque<Rc<RefCell<TreeNode>>>) {
+            if let Some(root) = root {
+                let tr = Rc::clone(&root);
+                dfs(tr.borrow_mut().left.take(), stk);
+                stk.push_back(root);
+                dfs(tr.borrow_mut().right.take(), stk);
+            }        
+        }
+        
+        dfs(root, &mut stk);
+        
+        let mut head = None;
+        while let Some(last) = stk.pop_back() {
+            last.borrow_mut().right = head;
+            head = Some(last);
+        }
+        head
     }
 }
 
