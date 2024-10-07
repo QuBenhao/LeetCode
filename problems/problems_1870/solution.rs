@@ -4,7 +4,26 @@ pub struct Solution;
 
 impl Solution {
     pub fn min_speed_on_time(dist: Vec<i32>, hour: f64) -> i32 {
-
+				let mut left = 1;
+				let mut right = 1_000_000_000;
+				while left < right {
+						let mid = (left + right) / 2;
+						let mut time = 0.0;
+						for i in 0..dist.len() - 1 {
+								time += (dist[i] + mid - 1) / mid;
+						}
+						time += dist[dist.len() - 1] as f64 / mid;
+						if time > hour {
+								left = mid + 1;
+						} else {
+								right = mid;
+						}
+				}
+				if left == 1_000_000_001 {
+						-1
+				} else {
+						left
+				}
     }
 }
 
