@@ -1,7 +1,9 @@
 package problems.problems_1928;
 
+import java.util.Arrays;
+
 import com.alibaba.fastjson.JSON;
-import java.util.*;
+
 import qubhjava.BaseSolution;
 
 

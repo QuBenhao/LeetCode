@@ -1,7 +1,7 @@
 package problems.problems_1227;
 
 import com.alibaba.fastjson.JSON;
-import java.util.*;
+
 import qubhjava.BaseSolution;
 
 
