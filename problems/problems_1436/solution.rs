@@ -2,9 +2,19 @@ use serde_json::{json, Value};
 
 pub struct Solution;
 
+use std::collections::hash_set;
 impl Solution {
     pub fn dest_city(paths: Vec<Vec<String>>) -> String {
-
+		let mut cities: hash_set::HashSet<String> = hash_set::HashSet::new();
+		for path in paths.iter() {
+			cities.insert(path[0].clone());
+		}
+		for path in paths.iter() {
+			if !cities.contains(&path[1]) {
+				return path[1].clone();
+			}
+		}
+		"".to_string()
     }
 }
 

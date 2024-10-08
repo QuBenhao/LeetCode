@@ -7,5 +7,8 @@ class Solution(solution.Solution):
         return self.destCity(test_input)
 
     def destCity(self, paths: List[List[str]]) -> str:
-        pass
-
+        start, end = set(), set()
+        for f, t in paths:
+            start.add(f)
+            end.add(t)
+        return (end - start).pop()
