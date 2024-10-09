@@ -6,8 +6,23 @@ import (
 	"strings"
 )
 
-func minimumDifference(nums []int, k int) int {
+func abs(a int) int {
+	if a < 0 {
+		return -a
+	}
+	return a
+}
 
+func minimumDifference(nums []int, k int) int {
+	ans := abs(nums[0] - k)
+	for i := 1; i < len(nums); i++ {
+		ans = min(ans, abs(nums[i]-k))
+		for j := i - 1; j >= 0 && nums[j]|nums[i] != nums[j]; j-- {
+			nums[j] |= nums[i]
+			ans = min(ans, abs(nums[j]-k))
+		}
+	}
+	return ans
 }
 
 func Solve(inputJsonValues string) interface{} {

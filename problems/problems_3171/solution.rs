@@ -2,9 +2,25 @@ use serde_json::{json, Value};
 
 pub struct Solution;
 
-impl Solution {
-    pub fn minimum_difference(nums: Vec<i32>, k: i32) -> i32 {
 
+impl Solution {
+    pub fn minimum_difference(mut nums: Vec<i32>, k: i32) -> i32 {
+		let n = nums.len();
+		let mut ans = (k - nums[0]).abs();
+		for i in 1..n {
+			ans = ans.min((k - nums[i]).abs());
+			let mut j = i - 1;
+			while (nums[j] | nums[i]) != nums[j] {
+				nums[j] |= nums[i];
+				ans = ans.min((k - nums[j]).abs());
+				let nj = j.checked_sub(1);
+				if nj.is_none() {
+					break;
+				}
+				j = nj.unwrap();
+			}
+		}
+		ans
     }
 }
 
