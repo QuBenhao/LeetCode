@@ -2,7 +2,6 @@ use serde_json::{json, Value};
 
 pub struct Solution;
 
-
 impl Solution {
     pub fn minimum_difference(mut nums: Vec<i32>, k: i32) -> i32 {
 		let n = nums.len();
