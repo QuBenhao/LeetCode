@@ -7,7 +7,27 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int numberOfPairs(int[] nums1, int[] nums2, int k) {
-
+        Map<Integer, Integer> counter = new HashMap<>();
+        for (int num: nums1) {
+            if (num % k != 0) {
+                continue;
+            }
+            num /= k;
+            for (int i = 1; i * i <= num; i++) {
+                if (num % i != 0) {
+                    continue;
+                }
+                counter.put(i, counter.getOrDefault(i, 0) + 1);
+                if (i * i != num) {
+                    counter.put(num / i, counter.getOrDefault(num / i, 0) + 1);
+                }
+            }
+        }
+        int ans = 0;
+        for (int num: nums2) {
+            ans += counter.getOrDefault(num, 0);
+        }
+        return ans;
     }
 
     @Override

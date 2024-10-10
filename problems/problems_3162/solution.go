@@ -6,8 +6,27 @@ import (
 	"strings"
 )
 
-func numberOfPairs(nums1 []int, nums2 []int, k int) int {
-
+func numberOfPairs(nums1 []int, nums2 []int, k int) (ans int) {
+	counter := map[int]int{}
+	for _, num := range nums1 {
+		if num%k != 0 {
+			continue
+		}
+		num /= k
+		for i := 1; i*i <= num; i++ {
+			if num%i != 0 {
+				continue
+			}
+			counter[i]++
+			if i*i != num {
+				counter[num/i]++
+			}
+		}
+	}
+	for _, num := range nums2 {
+		ans += counter[num]
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
