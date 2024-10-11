@@ -1,5 +1,24 @@
 function numberOfPairs(nums1: number[], nums2: number[], k: number): number {
-    
+    const counter: Map<number, number> = new Map<number, number>();
+	for (let num of nums1) {
+		if (num % k !== 0) {
+			continue;
+		}
+		num /= k;
+		for (let i: number = 1; i * i <= num; i++) {
+			if (num % i === 0) {
+				counter.set(i, (counter.get(i) || 0) + 1);
+				if (i * i !== num) {
+					counter.set(num / i, (counter.get(num / i) || 0) + 1);
+				}
+			}
+		}
+	}
+	let result: number = 0;
+	for (const num of nums2) {
+		result += counter.get(num) || 0;
+	}
+	return result;
 };
 
 export function Solve(inputJsonElement: string): any {
