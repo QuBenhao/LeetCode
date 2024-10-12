@@ -1,10 +1,20 @@
 use serde_json::{json, Value};
 
 pub struct Solution;
+use std::collections::HashSet;
 
 impl Solution {
     pub fn duplicate_numbers_xor(nums: Vec<i32>) -> i32 {
-
+		let mut ans: i32 = 0;
+		let mut explored: HashSet<i32> = HashSet::new();
+		for num in nums {
+			if explored.contains(&num) {
+				ans ^= num;
+			} else {
+				explored.insert(num);
+			}
+		}
+		ans
     }
 }
 
