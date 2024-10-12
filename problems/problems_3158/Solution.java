@@ -7,7 +7,16 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int duplicateNumbersXOR(int[] nums) {
-
+        int ans = 0;
+        Set<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            if (set.contains(num)) {
+                ans ^= num;
+            } else {
+                set.add(num);
+            }
+        }
+        return ans;
     }
 
     @Override
