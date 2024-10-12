@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.duplicateNumbersXOR(test_input)
 
     def duplicateNumbersXOR(self, nums: List[int]) -> int:
-        pass
-
+        ans, s = 0, set()
+        for num in nums:
+            if num in s:
+                ans ^= num
+            else:
+                s.add(num)
+        return ans
