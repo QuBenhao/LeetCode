@@ -6,8 +6,16 @@ import (
 	"strings"
 )
 
-func duplicateNumbersXOR(nums []int) int {
-
+func duplicateNumbersXOR(nums []int) (ans int) {
+	explored := make(map[int]bool)
+	for _, num := range nums {
+		if explored[num] {
+			ans ^= num
+		} else {
+			explored[num] = true
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
