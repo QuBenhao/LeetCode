@@ -4,7 +4,7 @@ pub struct Solution;
 
 impl Solution {
     pub fn two_egg_drop(n: i32) -> i32 {
-
+		return ((8 * n + 1) as f64).sqrt().ceil() as i32 / 2;
     }
 }
 
