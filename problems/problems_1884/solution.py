@@ -1,3 +1,5 @@
+from math import ceil, sqrt
+
 import solution
 from typing import *
 
@@ -7,5 +9,4 @@ class Solution(solution.Solution):
         return self.twoEggDrop(test_input)
 
     def twoEggDrop(self, n: int) -> int:
-        pass
-
+        return ceil(sqrt(n * 8 + 1)) // 2
