@@ -7,7 +7,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int twoEggDrop(int n) {
-
+        return (int)Math.ceil(Math.sqrt(1 + 8 * n)) / 2;
     }
 
     @Override
