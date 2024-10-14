@@ -8,7 +8,15 @@ using json = nlohmann::json;
 class Solution {
 public:
     int superEggDrop(int k, int n) {
-
+        vector<int> f(k + 1);
+        for (int i = 1; ; i++) {
+            for (int j = k; j > 0; j--) {
+                f[j] += f[j - 1] + 1;
+            }
+            if (f[k] >= n) {
+                return i;
+            }
+        }
     }
 };
 

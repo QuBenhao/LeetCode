@@ -4,7 +4,20 @@ pub struct Solution;
 
 impl Solution {
     pub fn super_egg_drop(k: i32, n: i32) -> i32 {
-
+		let mut f: Vec<i32> = vec![0; k as usize + 1];
+		let mut i = 1;
+		loop {
+			let mut j = k;
+			while j > 0 {
+				f[j as usize] = f[j as usize] + f[j as usize - 1] + 1;
+				j -= 1;
+			}
+			if f[k as usize] >= n {
+				break;
+			}
+			i += 1;
+		}
+		i
     }
 }
 
