@@ -6,9 +6,15 @@ using namespace std;
 using json = nlohmann::json;
 
 class Solution {
+    int f(int n, int m) {
+        int odd = sqrt(n);
+        int even = (sqrt(m * 4 + 1) - 1) / 2;
+        return odd > even ? even * 2 + 1 : odd * 2;
+    }
+
 public:
     int maxHeightOfTriangle(int red, int blue) {
-        
+        return max(f(red, blue), f(blue, red));
     }
 };
 
