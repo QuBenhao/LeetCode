@@ -3,8 +3,14 @@ use serde_json::{json, Value};
 pub struct Solution;
 
 impl Solution {
-    pub fn minimum_average(nums: Vec<i32>) -> f64 {
-
+    pub fn minimum_average(mut nums: Vec<i32>) -> f64 {
+		nums.sort_unstable();
+		let n = nums.len();
+		let mut ans = nums[0] + nums[n - 1];
+		for i in 1..n/2 {
+			ans = ans.min(nums[i] + nums[n - i - 1]);
+		}
+		ans as f64 / 2.0
     }
 }
 
