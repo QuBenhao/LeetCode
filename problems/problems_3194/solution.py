@@ -7,5 +7,6 @@ class Solution(solution.Solution):
         return self.minimumAverage(test_input)
 
     def minimumAverage(self, nums: List[int]) -> float:
-        pass
-
+        nums.sort()
+        n = len(nums)
+        return min((nums[i] + nums[n - i - 1]) / 2 for i in range(n // 2))
