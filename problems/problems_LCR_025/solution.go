@@ -14,8 +14,39 @@ import (
  *     Next *ListNode
  * }
  */
+func reverseLinkedList(head *ListNode) *ListNode {
+	var prev *ListNode
+	curr := head
+	for curr != nil {
+		nextTemp := curr.Next
+		curr.Next = prev
+		prev = curr
+		curr = nextTemp
+	}
+	return prev
+}
+
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
-    
+	l1 = reverseLinkedList(l1)
+	l2 = reverseLinkedList(l2)
+
+	var head *ListNode
+	var carry int
+	for l1 != nil || l2 != nil || carry > 0 {
+		sum := carry
+		if l1 != nil {
+			sum += l1.Val
+			l1 = l1.Next
+		}
+		if l2 != nil {
+			sum += l2.Val
+			l2 = l2.Next
+		}
+		carry = sum / 10
+		sum = sum % 10
+		head = &ListNode{Val: sum, Next: head}
+	}
+	return head
 }
 
 func Solve(inputJsonValues string) interface{} {

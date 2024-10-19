@@ -6,8 +6,13 @@ import (
 	"strings"
 )
 
-func minOperations(nums []int) int {
-    
+func minOperations(nums []int) (ans int) {
+	for _, num := range nums {
+		if ans%2 == num {
+			ans++
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {

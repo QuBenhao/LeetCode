@@ -1,5 +1,11 @@
 function minOperations(nums: number[]): number {
-    
+    let ans: number = 0;
+	for (const num of nums) {
+		if (ans % 2 === num) {
+			ans++;
+		}
+	}
+	return ans;
 };
 
 export function Solve(inputJsonElement: string): any {

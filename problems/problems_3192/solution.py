@@ -7,5 +7,8 @@ class Solution(solution.Solution):
         return self.minOperations(test_input)
 
     def minOperations(self, nums: List[int]) -> int:
-        pass
-
+        ans = 0
+        for num in nums:
+            if ans % 2 == num:
+                ans += 1
+        return ans

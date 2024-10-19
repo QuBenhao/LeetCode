@@ -4,7 +4,14 @@ pub struct Solution;
 
 impl Solution {
     pub fn min_operations(nums: Vec<i32>) -> i32 {
-        
+		let mut ans = 0;
+		let iter = nums.iter();
+		for &num in iter {
+			if ans % 2 == num {
+				ans += 1;
+			}
+		}
+		ans
     }
 }
 

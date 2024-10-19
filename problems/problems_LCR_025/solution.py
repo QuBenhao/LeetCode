@@ -18,5 +18,27 @@ class Solution(solution.Solution):
         return linked_list_to_list(res)
 
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        pass
+        def reverse_linked_list(head):
+            pre = None
+            while head:
+                temp = head.next
+                head.next = pre
+                pre = head
+                head = temp
+            return pre
 
+        l1, l2 = reverse_linked_list(l1), reverse_linked_list(l2)
+        carry = 0
+        dummy = ListNode()
+        cur = dummy
+        while l1 or l2 or carry:
+            if l1:
+                carry += l1.val
+                l1 = l1.next
+            if l2:
+                carry += l2.val
+                l2 = l2.next
+            cur.next = ListNode(carry % 10)
+            cur = cur.next
+            carry //= 10
+        return reverse_linked_list(dummy.next)

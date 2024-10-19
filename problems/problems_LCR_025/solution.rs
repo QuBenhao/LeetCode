@@ -21,7 +21,43 @@ pub struct Solution;
 // }
 impl Solution {
     pub fn add_two_numbers(l1: Option<Box<ListNode>>, l2: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
-        
+        fn reverse_list(mut head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
+			let mut prev = None;
+			while let Some(mut node) = head {
+				let next = node.next.take();
+				node.next = prev;
+				prev = Some(node);
+				head = next;
+			}
+			prev
+		}
+		let l1 = reverse_list(l1);
+		let l2 = reverse_list(l2);
+		let mut head = None;
+		let mut carry = 0;
+		let mut p1 = &l1;
+		let mut p2 = &l2;
+		while p1.is_some() || p2.is_some() {
+			let mut sum = carry;
+			if let Some(node) = p1 {
+				sum += node.val;
+				p1 = &node.next;
+			}
+			if let Some(node) = p2 {
+				sum += node.val;
+				p2 = &node.next;
+			}
+			carry = sum / 10;
+			let mut node = ListNode::new(sum % 10);
+			node.next = head;
+			head = Some(Box::new(node));
+		}
+		if carry > 0 {
+			let mut node = ListNode::new(carry);
+			node.next = head;
+			head = Some(Box::new(node));
+		}
+		head
     }
 }
 

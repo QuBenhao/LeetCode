@@ -7,7 +7,13 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int minOperations(int[] nums) {
-        
+        int ans = 0;
+        for (int num: nums) {
+            if (ans % 2 == num) {
+                ans++;
+            }
+        }
+        return ans;
     }
 
     @Override
