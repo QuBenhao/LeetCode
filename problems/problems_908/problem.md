@@ -1,43 +1,43 @@
 # 908. Smallest Range I [Rating: 1298.59]
 
-Given an array `A` of integers, for each integer `A[i]` we may choose any `x` with `-K <= x <= K`, and add `x` to `A[i]`.
+<p>You are given an integer array <code>nums</code> and an integer <code>k</code>.</p>
 
-After this process, we have some array `B`.
+<p>In one operation, you can choose any index <code>i</code> where <code>0 &lt;= i &lt; nums.length</code> and change <code>nums[i]</code> to <code>nums[i] + x</code> where <code>x</code> is an integer from the range <code>[-k, k]</code>. You can apply this operation <strong>at most once</strong> for each index <code>i</code>.</p>
 
-Return the smallest possible difference between the maximum value of `B` and the minimum value of `B`.
+<p>The <strong>score</strong> of <code>nums</code> is the difference between the maximum and minimum elements in <code>nums</code>.</p>
 
- 
+<p>Return <em>the minimum <strong>score</strong> of </em><code>nums</code><em> after applying the mentioned operation at most once for each index in it</em>.</p>
 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
+<pre>
+<strong>Input:</strong> nums = [1], k = 0
+<strong>Output:</strong> 0
+<strong>Explanation:</strong> The score is max(nums) - min(nums) = 1 - 1 = 0.
+</pre>
 
-**Example 1:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: A = [1], K = 0
-Output: 0
-Explanation: B = [1]
-```
+<pre>
+<strong>Input:</strong> nums = [0,10], k = 2
+<strong>Output:</strong> 6
+<strong>Explanation:</strong> Change nums to be [2, 8]. The score is max(nums) - min(nums) = 8 - 2 = 6.
+</pre>
 
-**Example 2:**
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: A = [0,10], K = 2
-Output: 6
-Explanation: B = [2,8]
-```
+<pre>
+<strong>Input:</strong> nums = [1,3,6], k = 3
+<strong>Output:</strong> 0
+<strong>Explanation:</strong> Change nums to be [4, 4, 4]. The score is max(nums) - min(nums) = 4 - 4 = 0.
+</pre>
 
-**Example 3:**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-```
-Input: A = [1,3,6], K = 3
-Output: 0
-Explanation: B = [3,3,3] or B = [4,4,4]
-```
-
- 
-
-**Note:**
-
-1. `1 <= A.length <= 10000`
-2. `0 <= A[i] <= 10000`
-3. `0 <= K <= 10000`
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 10<sup>4</sup></code></li>
+	<li><code>0 &lt;= nums[i] &lt;= 10<sup>4</sup></code></li>
+	<li><code>0 &lt;= k &lt;= 10<sup>4</sup></code></li>
+</ul>
