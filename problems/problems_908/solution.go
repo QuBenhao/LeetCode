@@ -7,7 +7,20 @@ import (
 )
 
 func smallestRangeI(nums []int, k int) int {
-    
+	minVal, maxVal := nums[0], nums[0]
+	for _, num := range nums {
+		if num < minVal {
+			minVal = num
+		}
+		if num > maxVal {
+			maxVal = num
+		}
+	}
+
+	if maxVal-minVal <= 2*k {
+		return 0
+	}
+	return maxVal - minVal - 2*k
 }
 
 func Solve(inputJsonValues string) interface{} {
