@@ -4,7 +4,17 @@ pub struct Solution;
 
 impl Solution {
     pub fn count_complete_day_pairs(hours: Vec<i32>) -> i64 {
-        
+        let mut hs: Vec<i64> = vec![0; 24];
+		let mut res: i64 = 0;
+		for h in hours {
+			hs[h as usize % 24usize] += 1;
+		}
+		for i in 1..12 {
+			res += hs[i] * hs[24 - i];
+		}
+		res += hs[0] * (hs[0] - 1) / 2;
+		res += hs[12] * (hs[12] - 1) / 2;
+		res
     }
 }
 

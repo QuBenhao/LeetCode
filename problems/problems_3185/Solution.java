@@ -7,7 +7,17 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public long countCompleteDayPairs(int[] hours) {
-        
+        long[] hs = new long[24];
+        for (int h : hours) {
+            hs[h % 24]++;
+        }
+        long ans = 0;
+        for (int i = 1; i < 12; i++) {
+            ans += hs[i] * hs[24 - i];
+        }
+        ans += hs[0] * (hs[0] - 1) / 2;
+        ans += hs[12] * (hs[12] - 1) / 2;
+        return ans;
     }
 
     @Override

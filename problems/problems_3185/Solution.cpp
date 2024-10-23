@@ -7,9 +7,19 @@ using json = nlohmann::json;
 
 class Solution {
 public:
-    long long countCompleteDayPairs(vector<int>& hours) {
-        
+  long long countCompleteDayPairs(vector<int> &hours) {
+    int64_t ans = 0;
+    vector<int64_t> hs(24, 0);
+    for (int h : hours) {
+      hs[h % 24]++;
     }
+    for (int i = 1; i < 12; i++) {
+      ans += hs[i] * hs[24 - i];
+    }
+    ans += hs[0] * (hs[0] - 1) / 2;
+    ans += hs[12] * (hs[12] - 1) / 2;
+    return ans;
+  }
 };
 
 json leetcode::qubh::Solve(string input_json_values) {
