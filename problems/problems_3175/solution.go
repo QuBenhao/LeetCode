@@ -6,8 +6,19 @@ import (
 	"strings"
 )
 
-func findWinningPlayer(skills []int, k int) int {
-    
+func findWinningPlayer(skills []int, k int) (ans int) {
+	for i, cur := 1, 0; i < len(skills); i++ {
+		if skills[i] < skills[ans] {
+			cur++
+		} else {
+			cur = 1
+			ans = i
+		}
+		if cur == k {
+			break
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {

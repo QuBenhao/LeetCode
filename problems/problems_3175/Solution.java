@@ -7,7 +7,19 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int findWinningPlayer(int[] skills, int k) {
-        
+        int ans = 0, cur = 0, n = skills.length;
+        for (int i = 1; i < n; i++) {
+            if (skills[i] < skills[ans]) {
+                cur++;
+            } else {
+                cur = 1;
+                ans = i;
+            }
+            if (cur == k) {
+                break;
+            }
+        }
+        return ans;
     }
 
     @Override

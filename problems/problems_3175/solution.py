@@ -7,5 +7,13 @@ class Solution(solution.Solution):
         return self.findWinningPlayer(*test_input)
 
     def findWinningPlayer(self, skills: List[int], k: int) -> int:
-        pass
-
+        ans = cur = 0
+        for i in range(1, len(skills)):
+            if skills[i] < skills[ans]:
+                cur += 1
+            else:
+                cur = 1
+                ans = i
+            if cur == k:
+                return ans
+        return ans
