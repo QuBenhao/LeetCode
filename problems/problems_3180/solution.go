@@ -3,6 +3,8 @@ package problem3180
 import (
 	"encoding/json"
 	"log"
+	"math/big"
+	"slices"
 	"strings"
 )
 

@@ -29,6 +29,7 @@ impl Solution {
     }
 }
 
+
 #[cfg(feature = "solution_3180")]
 pub fn solve(input_string: String) -> Value {
 	let input_values: Vec<String> = input_string.split('\n').map(|x| x.to_string()).collect();

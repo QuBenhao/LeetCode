@@ -3,7 +3,7 @@ package problems.problems_3180;
 import com.alibaba.fastjson.JSON;
 import java.util.*;
 import qubhjava.BaseSolution;
-
+import java.math.BigInteger;
 
 public class Solution extends BaseSolution {
     public int maxTotalReward(int[] rewardValues) {

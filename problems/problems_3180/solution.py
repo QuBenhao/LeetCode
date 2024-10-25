@@ -11,4 +11,3 @@ class Solution(solution.Solution):
         for v in sorted(set(rewardValues)):
             f |= (f & ((1 << v) - 1)) << v
         return f.bit_length() - 1
-
