@@ -7,7 +7,12 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int maxTotalReward(int[] rewardValues) {
-        
+        BigInteger f = BigInteger.ONE;
+        for (int v : Arrays.stream(rewardValues).distinct().sorted().toArray()) {
+            BigInteger mask = BigInteger.ONE.shiftLeft(v).subtract(BigInteger.ONE);
+            f = f.or(f.and(mask).shiftLeft(v));
+        }
+        return f.bitLength() - 1;
     }
 
     @Override
