@@ -1,9 +1,9 @@
 const PROBLEM_FOLDER: &str = "problems";
-const PROBLEM_ID: &str = "3181";
+const PROBLEM_ID: &str = "684";
 
 #[cfg(test)]
 mod test {
-	use solution_3181 as solution;
+	use solution_684 as solution;
     use test_executor::run_test::run_test;
 
     use crate::{PROBLEM_FOLDER, PROBLEM_ID};
