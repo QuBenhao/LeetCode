@@ -1,4 +1,4 @@
-package problems.problems_3180;
+package problems.problems_3181;
 
 import com.alibaba.fastjson.JSON;
 import java.util.*;
