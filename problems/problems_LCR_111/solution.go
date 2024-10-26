@@ -64,6 +64,7 @@ func calcEquation(equations [][]string, values []float64, queries [][]string) []
     return ans
 }
 
+
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var equations [][]string
