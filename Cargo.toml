@@ -487,4 +487,3 @@ solution_3185 = { path = "problems/problems_3185", features = ["solution_3185"] 
 solution_3175 = { path = "problems/problems_3175", features = ["solution_3175"] }
 solution_3180 = { path = "problems/problems_3180", features = ["solution_3180"] }
 solution_3181 = { path = "problems/problems_3181", features = ["solution_3181"] }
-solution_LCR_111 = { path = "problems/problems_LCR_111", features = ["solution_LCR_111"] }
