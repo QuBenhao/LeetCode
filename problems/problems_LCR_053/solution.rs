@@ -25,7 +25,24 @@ use std::rc::Rc;
 use std::cell::RefCell;
 impl Solution {
     pub fn inorder_successor(root: Option<Rc<RefCell<TreeNode>>>, p: Option<Rc<RefCell<TreeNode>>>) -> Option<Rc<RefCell<TreeNode>>> {
-        
+		let mut stack = vec![];
+		let mut found = false;
+		let mut node = root.clone();
+		while node.is_some() || !stack.is_empty() {
+			while let Some(n) = node {
+				stack.push(n.clone());
+				node = n.borrow().left.clone();
+			}
+			node = stack.pop();
+			if found {
+				return node;
+			}
+			if node == p {
+				found = true;
+			}
+			node = node.unwrap().borrow().right.clone();
+		}
+		None
     }
 }
 
