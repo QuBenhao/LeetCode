@@ -15,7 +15,14 @@ import {TreeNodeToJSONArray,TreeNode,JsonArrayToTreeNodeWithTargets} from "../..
  */
 
 function inorderSuccessor(root: TreeNode | null, p: TreeNode | null): TreeNode | null {
-	
+	if (root === null) {
+		return null;
+	}
+	if (root.val <= p.val) {
+		return inorderSuccessor(root.right, p);
+	}
+	const left: TreeNode | null = inorderSuccessor(root.left, p);
+	return left === null ? root : left;
 };
 
 export function Solve(inputJsonElement: string): any {
