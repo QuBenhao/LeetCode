@@ -16,7 +16,17 @@ import (
  * }
  */
 func inorderSuccessor(root *TreeNode, p *TreeNode) *TreeNode {
-    
+	if root == nil {
+		return nil
+	}
+	if root.Val <= p.Val {
+		return inorderSuccessor(root.Right, p)
+	}
+	left := inorderSuccessor(root.Left, p)
+	if left != nil {
+		return left
+	}
+	return root
 }
 
 func Solve(inputJsonValues string) interface{} {
@@ -25,7 +35,7 @@ func Solve(inputJsonValues string) interface{} {
 	var p *TreeNode
 
 	var targetVal1 int
-	if err := json.Unmarshal([]byte(inputValues[1]), &targetVal1 ); err != nil {
+	if err := json.Unmarshal([]byte(inputValues[1]), &targetVal1); err != nil {
 		log.Fatal(err)
 	}
 	nodes := ArrayToTreeAndTargets(inputValues[0], targetVal1)
