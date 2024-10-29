@@ -15,7 +15,7 @@ impl Solution {
                 path[i] = '0'; // 直接覆盖
                 dfs(i + 1, path, ans);
             }
-			
+
             // 填 1
             path[i] = '1';
             dfs(i + 1, path, ans);

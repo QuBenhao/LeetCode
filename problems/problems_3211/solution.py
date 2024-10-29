@@ -22,7 +22,5 @@ class Solution(solution.Solution):
             path[i] = '1'
             backtrack(i+1)
 
-
         backtrack(0)
         return ans
-
