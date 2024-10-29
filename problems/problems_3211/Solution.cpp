@@ -7,9 +7,24 @@ using json = nlohmann::json;
 
 class Solution {
 public:
-    vector<string> validStrings(int n) {
-        
-    }
+  vector<string> validStrings(int n) {
+    vector<string> ans;
+    string path(n, 0);
+    function<void(int)> dfs = [&](int i) -> void {
+      if (i == n) {
+        ans.push_back(path);
+        return;
+      }
+      if (i == 0 || path[i - 1] == '1') {
+        path[i] = '0';
+        dfs(i + 1);
+      }
+      path[i] = '1';
+      dfs(i + 1);
+    };
+    dfs(0);
+    return ans;
+  }
 };
 
 json leetcode::qubh::Solve(string input_json_values) {
