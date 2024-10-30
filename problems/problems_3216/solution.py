@@ -1,3 +1,5 @@
+from itertools import pairwise
+
 import solution
 from typing import *
 
@@ -7,5 +9,8 @@ class Solution(solution.Solution):
         return self.getSmallestString(test_input)
 
     def getSmallestString(self, s: str) -> str:
-        pass
-
+        for i, (ca, cb) in enumerate(pairwise(s)):
+            a, b = int(ca), int(cb)
+            if a > b and a % 2 == b % 2:
+                return s[:i] + cb + ca + s[i + 2:]
+        return s
