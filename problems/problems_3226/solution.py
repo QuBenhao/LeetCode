@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.minChanges(*test_input)
 
     def minChanges(self, n: int, k: int) -> int:
-        pass
+        return -1 if (n & k) != k else (n ^ k).bit_count()
 

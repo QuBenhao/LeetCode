@@ -7,8 +7,27 @@ import (
 )
 
 func findMaxLength(nums []int) int {
+	count := 0
+	maxLength := 0
+	table := map[int]int{0: -1}
 
+	for i, num := range nums {
+		if num == 0 {
+			count--
+		} else {
+			count++
+		}
+
+		if index, ok := table[count]; ok {
+			maxLength = max(maxLength, i-index)
+		} else {
+			table[count] = i
+		}
+	}
+
+	return maxLength
 }
+
 
 func Solve(inputJsonValues string) interface{} {
 	inputValues := strings.Split(inputJsonValues, "\n")
