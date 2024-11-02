@@ -18,4 +18,3 @@ class Solution(solution.Solution):
                 count[pre_sum] = i
         return ans
 
-
