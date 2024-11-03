@@ -1,47 +1,26 @@
-# 633. Sum of Square Numbers
+# 633. Sum of Square Numbers 
 
-Given a non-negative integer `c`, decide whether there're two integers `a` and `b` such that a<sup>2</sup> + b<sup>2</sup> = c.
+<p>Given a non-negative integer <code>c</code>, decide whether there&#39;re two integers <code>a</code> and <code>b</code> such that <code>a<sup>2</sup> + b<sup>2</sup> = c</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> c = 5
+<strong>Output:</strong> true
+<strong>Explanation:</strong> 1 * 1 + 2 * 2 = 5
+</pre>
 
-```
-Input: c = 5
-Output: true
-Explanation: 1 * 1 + 2 * 2 = 5
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> c = 3
+<strong>Output:</strong> false
+</pre>
 
-```
-Input: c = 3
-Output: false
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 3:**
-
-```
-Input: c = 4
-Output: true
-```
-
-**Example 4:**
-
-```
-Input: c = 2
-Output: true
-```
-
-**Example 5:**
-
-```
-Input: c = 1
-Output: true
-```
-
- 
-
-**Constraints:**
-
-- 0 <= c <= 2<sup>31</sup> - 1
+<ul>
+	<li><code>0 &lt;= c &lt;= 2<sup>31</sup> - 1</code></li>
+</ul>
