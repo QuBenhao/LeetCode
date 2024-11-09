@@ -12,11 +12,30 @@ class Solution(solution.Solution):
 
 class NeighborSum:
     def __init__(self, grid: List[List[int]]):
-        pass
+        self.grid = grid
+        self.idx_map = {}
+        n = len(grid)
+        for i in range(n):
+            for j in range(n):
+                self.idx_map[grid[i][j]] = (i, j)
 
     def adjacentSum(self, value: int) -> int:
-        pass
+        x, y = self.idx_map[value]
+        n = len(self.grid)
+        ans = 0
+        for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < n and 0 <= ny < n:
+                ans += self.grid[nx][ny]
+        return ans
 
     def diagonalSum(self, value: int) -> int:
-        pass
+        x, y = self.idx_map[value]
+        n = len(self.grid)
+        ans = 0
+        for dx, dy in [(1, 1), (1, -1), (-1, -1), (-1, 1)]:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < n and 0 <= ny < n:
+                ans += self.grid[nx][ny]
+        return ans
 
