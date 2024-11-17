@@ -1,0 +1,21 @@
+[package]
+name = "solution_661"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.79.0"
+authors = ["benhao"]
+description = "LeetCode Solution 661 in Rust"
+readme = "../../README.md"
+
+[features]
+solution_661 = []
+
+[dependencies]
+serde_json = "1.0"
+rand = "0.8.4"
+regex = "1.10.5"
+library = { path = "../../rust/library", features = ["model"] }
+
+[lib]
+name = "solution_661"
+path = "solution.rs"
