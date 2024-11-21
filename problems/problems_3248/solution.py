@@ -7,5 +7,15 @@ class Solution(solution.Solution):
         return self.finalPositionOfSnake(*test_input)
 
     def finalPositionOfSnake(self, n: int, commands: List[str]) -> int:
-        pass
-
+        i, j = 0, 0
+        for command in commands:
+            match command:
+                case "UP":
+                    i -= 1
+                case "DOWN":
+                    i += 1
+                case "LEFT":
+                    j -= 1
+                case _:
+                    j += 1
+        return n * i + j
