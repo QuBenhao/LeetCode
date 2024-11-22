@@ -1,5 +1,6 @@
 import solution
 from typing import *
+import math
 
 
 class Solution(solution.Solution):
