@@ -8,7 +8,7 @@ class Testcase(testcase.Testcase):
 	def __init__(self):
 		self.testcases = []
 		self.testcases.append(case(Input=[2, 2, 3, 2], Output=3))
-		self.testcases.append(case(Input=[0, 1, 0, 1, 0, 1, 99], Output=100))
+		self.testcases.append(case(Input=[0, 1, 0, 1, 0, 1, 99], Output=99))
 
 	def get_testcases(self):
 		return self.testcases

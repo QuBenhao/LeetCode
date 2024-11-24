@@ -1,5 +1,6 @@
 import solution
 from typing import *
+import heapq
 
 
 class Solution(solution.Solution):
@@ -25,4 +26,3 @@ class Solution(solution.Solution):
             max_num = max(max_num, nums[i][j + 1])
             heapq.heappush(heap, (nums[i][j + 1], i, j + 1))
         return ans
-
