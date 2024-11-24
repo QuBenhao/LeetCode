@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.singleNumber(test_input)
 
     def singleNumber(self, nums: List[int]) -> int:
-        pass
+        return (3 * sum(set(nums)) - sum(nums)) // 2
 
