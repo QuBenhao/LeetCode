@@ -1,0 +1,2 @@
+["[\"hello\",\"leetcode\"]\n\"hlabcdefgijkmnopqrstuvwxyz\"", "[\"word\",\"world\",\"row\"]\n\"worldabcefghijkmnpqstuvxyz\"", "[\"apple\",\"app\"]\n\"abcdefghijklmnopqrstuvwxyz\""]
+[true, false, false]
