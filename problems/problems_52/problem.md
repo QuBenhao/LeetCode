@@ -1,30 +1,28 @@
-# 52. N-Queens II
+# 52. N-Queens II 
 
-The **n-queens** puzzle is the problem of placing `n` queens on an `n x n` chessboard such that no two queens attack each other.
+<p>The <strong>n-queens</strong> puzzle is the problem of placing <code>n</code> queens on an <code>n x n</code> chessboard such that no two queens attack each other.</p>
 
-Given an integer `n`, return *the number of distinct solutions to the **n-queens puzzle***.
+<p>Given an integer <code>n</code>, return <em>the number of distinct solutions to the&nbsp;<strong>n-queens puzzle</strong></em>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/11/13/queens.jpg" style="width: 600px; height: 268px;" />
+<pre>
+<strong>Input:</strong> n = 4
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> There are two distinct solutions to the 4-queens puzzle as shown.
+</pre>
 
-**Example 1:**
+<p><strong class="example">Example 2:</strong></p>
 
-![img](https://assets.leetcode.com/uploads/2020/11/13/queens.jpg)
+<pre>
+<strong>Input:</strong> n = 1
+<strong>Output:</strong> 1
+</pre>
 
-```
-Input: n = 4
-Output: 2
-Explanation: There are two distinct solutions to the 4-queens puzzle as shown.
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 2:**
-
-```
-Input: n = 1
-Output: 1
-```
-
- 
-
-**Constraints:**
-
-- `1 <= n <= 9`
+<ul>
+	<li><code>1 &lt;= n &lt;= 9</code></li>
+</ul>
