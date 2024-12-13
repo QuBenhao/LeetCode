@@ -7,5 +7,7 @@ class Solution(solution.Solution):
         return self.getFinalState(*test_input)
 
     def getFinalState(self, nums: List[int], k: int, multiplier: int) -> List[int]:
-        pass
-
+        for _ in range(k):
+            mn = min(nums)
+            nums[nums.index(mn)] *= multiplier
+        return nums
