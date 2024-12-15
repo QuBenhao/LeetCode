@@ -1,47 +1,47 @@
 # 1847. Closest Room [Rating: 2081.75]
 
-There is a hotel with `n` rooms. The rooms are represented by a 2D integer array `rooms` where `rooms[i] = [roomIdi, sizei]` denotes that there is a room with room number `roomIdi` and size equal to `sizei`. Each `roomIdi` is guaranteed to be **unique**.
+<p>There is a hotel with <code>n</code> rooms. The rooms are represented by a 2D integer array <code>rooms</code> where <code>rooms[i] = [roomId<sub>i</sub>, size<sub>i</sub>]</code> denotes that there is a room with room number <code>roomId<sub>i</sub></code> and size equal to <code>size<sub>i</sub></code>. Each <code>roomId<sub>i</sub></code> is guaranteed to be <strong>unique</strong>.</p>
 
-You are also given `k` queries in a 2D array `queries` where `queries[j] = [preferredj, minSizej]`. The answer to the `jth` query is the room number `id` of a room such that:
+<p>You are also given <code>k</code> queries in a 2D array <code>queries</code> where <code>queries[j] = [preferred<sub>j</sub>, minSize<sub>j</sub>]</code>. The answer to the <code>j<sup>th</sup></code> query is the room number <code>id</code> of a room such that:</p>
 
-- The room has a size of **at least** `minSizej`, and
-- `abs(id - preferredj)` is **minimized**, where `abs(x)` is the absolute value of `x`.
+<ul>
+	<li>The room has a size of <strong>at least</strong> <code>minSize<sub>j</sub></code>, and</li>
+	<li><code>abs(id - preferred<sub>j</sub>)</code> is <strong>minimized</strong>, where <code>abs(x)</code> is the absolute value of <code>x</code>.</li>
+</ul>
 
-If there is a **tie** in the absolute difference, then use the room with the **smallest**such `id`. If there is **no such room**, the answer is `-1`.
+<p>If there is a <strong>tie</strong> in the absolute difference, then use the room with the <strong>smallest</strong> such <code>id</code>. If there is <strong>no such room</strong>, the answer is <code>-1</code>.</p>
 
-Return *an array* `answer` *of length* `k` *where* `answer[j]` *contains the answer to the* `jth` *query*.
+<p>Return <em>an array </em><code>answer</code><em> of length </em><code>k</code><em> where </em><code>answer[j]</code><em> contains the answer to the </em><code>j<sup>th</sup></code><em> query</em>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
-
-```
-Input: rooms = [[2,2],[1,2],[3,2]], queries = [[3,1],[3,3],[5,2]]
-Output: [3,-1,3]
-Explanation: The answers to the queries are as follows:
+<pre>
+<strong>Input:</strong> rooms = [[2,2],[1,2],[3,2]], queries = [[3,1],[3,3],[5,2]]
+<strong>Output:</strong> [3,-1,3]
+<strong>Explanation: </strong>The answers to the queries are as follows:
 Query = [3,1]: Room number 3 is the closest as abs(3 - 3) = 0, and its size of 2 is at least 1. The answer is 3.
 Query = [3,3]: There are no rooms with a size of at least 3, so the answer is -1.
-Query = [5,2]: Room number 3 is the closest as abs(3 - 5) = 2, and its size of 2 is at least 2. The answer is 3.
-```
+Query = [5,2]: Room number 3 is the closest as abs(3 - 5) = 2, and its size of 2 is at least 2. The answer is 3.</pre>
 
-**Example 2:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: rooms = [[1,4],[2,3],[3,5],[4,1],[5,2]], queries = [[2,3],[2,4],[2,5]]
-Output: [2,1,3]
-Explanation: The answers to the queries are as follows:
+<pre>
+<strong>Input:</strong> rooms = [[1,4],[2,3],[3,5],[4,1],[5,2]], queries = [[2,3],[2,4],[2,5]]
+<strong>Output:</strong> [2,1,3]
+<strong>Explanation: </strong>The answers to the queries are as follows:
 Query = [2,3]: Room number 2 is the closest as abs(2 - 2) = 0, and its size of 3 is at least 3. The answer is 2.
 Query = [2,4]: Room numbers 1 and 3 both have sizes of at least 4. The answer is 1 since it is smaller.
-Query = [2,5]: Room number 3 is the only room with a size of at least 5. The answer is 3.
-```
+Query = [2,5]: Room number 3 is the only room with a size of at least 5. The answer is 3.</pre>
 
- 
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Constraints:**
-
-- `n == rooms.length`
-- 1 <= n <= 10<sup>5</sup>
-- `k == queries.length`
-- 1 <= k <= 10<sup>4</sup>
-- 1 <= roomIdi, preferredj <= 10<sup>7</sup>
-- 1 <= sizei, minSizej <= 10<sup>7</sup>
+<ul>
+	<li><code>n == rooms.length</code></li>
+	<li><code>1 &lt;= n &lt;= 10<sup>5</sup></code></li>
+	<li><code>k == queries.length</code></li>
+	<li><code>1 &lt;= k &lt;= 10<sup>4</sup></code></li>
+	<li><code>1 &lt;= roomId<sub>i</sub>, preferred<sub>j</sub> &lt;= 10<sup>7</sup></code></li>
+	<li><code>1 &lt;= size<sub>i</sub>, minSize<sub>j</sub> &lt;= 10<sup>7</sup></code></li>
+</ul>
