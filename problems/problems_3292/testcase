@@ -1,0 +1,2 @@
+["[\"abc\",\"aaaaa\",\"bcdef\"]\n\"aabcdabc\"", "[\"abababab\",\"ab\"]\n\"ababaababa\"", "[\"abcdef\"]\n\"xyz\""]
+[3, 2, -1]
