@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.stableMountains(*test_input)
 
     def stableMountains(self, height: List[int], threshold: int) -> List[int]:
-        pass
-
+        return [i for i in range(1, len(height)) if height[i - 1] > threshold]
