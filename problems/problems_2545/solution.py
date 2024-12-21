@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.sortTheStudents(*test_input)
 
     def sortTheStudents(self, score: List[List[int]], k: int) -> List[List[int]]:
-        pass
-
+        return sorted(score, key=lambda x: -x[k])
