@@ -7,5 +7,9 @@ class Solution(solution.Solution):
         return self.occurrencesOfElement(*test_input)
 
     def occurrencesOfElement(self, nums: List[int], queries: List[int], x: int) -> List[int]:
-        pass
-
+        mp, cnt = {}, 0
+        for i, num in enumerate(nums):
+            if num == x:
+                mp[cnt + 1] = i
+                cnt += 1
+        return [mp.get(q, -1) for q in queries]
