@@ -1,4 +1,5 @@
 import solution
+from collections import Counter
 from typing import *
 
 
@@ -7,5 +8,4 @@ class Solution(solution.Solution):
         return self.isPossibleToSplit(test_input)
 
     def isPossibleToSplit(self, nums: List[int]) -> bool:
-        pass
-
+        return all(x < 3 for x in counter.values()) if (counter := Counter(nums)) else False
