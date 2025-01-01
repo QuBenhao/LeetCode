@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.convertDateToBinary(test_input)
 
     def convertDateToBinary(self, date: str) -> str:
-        pass
+        return "-".join(bin(int(s))[2:] for s in date.split("-"))
 
