@@ -12,8 +12,11 @@ class Solution(solution.Solution):
 
 class MyCalendar:
     def __init__(self):
-        pass
+        self.intervals = []
 
     def book(self, startTime: int, endTime: int) -> bool:
-        pass
-
+        for start, end in self.intervals:
+            if start < endTime and startTime < end:
+                return False
+        self.intervals.append((startTime, endTime))
+        return True
