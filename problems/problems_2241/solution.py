@@ -12,11 +12,20 @@ class Solution(solution.Solution):
 
 class ATM:
     def __init__(self):
-        pass
+        self.banknotes = [0] * 5
+        self.amounts = [20, 50, 100, 200, 500]
 
     def deposit(self, banknotesCount: List[int]) -> None:
-        pass
+        for i, count in enumerate(banknotesCount):
+            self.banknotes[i] += count
 
     def withdraw(self, amount: int) -> List[int]:
-        pass
-
+        res = [0] * 5
+        for i in range(4, -1, -1):
+            res[i] = min(self.banknotes[i], amount // self.amounts[i])
+            amount -= res[i] * self.amounts[i]
+        if amount:
+            return [-1]
+        for i in range(5):
+            self.banknotes[i] -= res[i]
+        return res
