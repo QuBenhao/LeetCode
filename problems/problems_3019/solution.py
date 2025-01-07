@@ -1,3 +1,5 @@
+from itertools import pairwise
+
 import solution
 from typing import *
 
@@ -7,5 +9,7 @@ class Solution(solution.Solution):
         return self.countKeyChanges(test_input)
 
     def countKeyChanges(self, s: str) -> int:
-        pass
-
+        ans = 0
+        for a, b in pairwise(s):
+            ans += b.lower() != a.lower()
+        return ans
