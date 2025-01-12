@@ -7,5 +7,11 @@ class Solution(solution.Solution):
         return self.largestCombination(test_input)
 
     def largestCombination(self, candidates: List[int]) -> int:
-        pass
-
+        cnt = [0] * 24
+        for x in candidates:
+            i = 0
+            while x:
+                cnt[i] += x & 1
+                x >>= 1
+                i += 1
+        return max(cnt)
