@@ -1,5 +1,6 @@
 import solution
 from typing import *
+import heapq
 
 
 class Solution(solution.Solution):
@@ -7,5 +8,13 @@ class Solution(solution.Solution):
         return self.minOperations(*test_input)
 
     def minOperations(self, nums: List[int], k: int) -> int:
-        pass
-
+        ans = 0
+        heapq.heapify(nums)
+        while len(nums) >= 2:
+            first = heapq.heappop(nums)
+            if first >= k:
+                break
+            second = heapq.heappop(nums)
+            heapq.heappush(nums, first * 2 + second)
+            ans += 1
+        return ans
