@@ -7,5 +7,6 @@ class Solution(solution.Solution):
         return self.maxCoins(test_input)
 
     def maxCoins(self, piles: List[int]) -> int:
-        pass
+        piles.sort()
+        return sum(piles[len(piles) // 3:][::2])
 
