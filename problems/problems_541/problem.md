@@ -1,22 +1,22 @@
-# 541. Reverse String II
+# 541. Reverse String II 
 
-Given a string s and an integer k, reverse the first k characters for every 2k characters counting from the start of the string.
+<p>Given a string <code>s</code> and an integer <code>k</code>, reverse the first <code>k</code> characters for every <code>2k</code> characters counting from the start of the string.</p>
 
-If there are fewer than k characters left, reverse all of them. If there are less than 2k but greater than or equal to k characters, then reverse the first k characters and left the other as original.
+<p>If there are fewer than <code>k</code> characters left, reverse all of them. If there are less than <code>2k</code> but greater than or equal to <code>k</code> characters, then reverse the first <code>k</code> characters and leave the other as original.</p>
 
-**Example 1**:
-````
-Input: s = "abcdefg", k = 2
-Output: "bacdfeg"
-````
-**Example 2**:
-````
-Input: s = "abcd", k = 2
-Output: "bacd"
-````
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<pre><strong>Input:</strong> s = "abcdefg", k = 2
+<strong>Output:</strong> "bacdfeg"
+</pre><p><strong class="example">Example 2:</strong></p>
+<pre><strong>Input:</strong> s = "abcd", k = 2
+<strong>Output:</strong> "bacd"
+</pre>
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Constraints**:
-
-- 1 <= s.length <= 10<sup>4</sup>
-- `s consists of only lowercase English letters`.
-- 1 <= k <= 10<sup>4</sup>
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>4</sup></code></li>
+	<li><code>s</code> consists of only lowercase English letters.</li>
+	<li><code>1 &lt;= k &lt;= 10<sup>4</sup></code></li>
+</ul>
