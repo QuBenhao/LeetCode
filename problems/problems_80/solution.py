@@ -3,41 +3,17 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.removeDuplicates(test_input.copy())
+        length = self.removeDuplicates(test_input)
+        return length, test_input[:length]
 
     def removeDuplicates(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        curr = count = -1
-        i = 0
-        while i < len(nums):
-            if curr != nums[i]:
-                curr = nums[i]
-                count = 1
-            else:
-                count += 1
-            if count > 2:
-                nums.pop(i)
-                i -= 1
-            i += 1
-        return len(nums),nums
-
-    # def removeDuplicates(self, nums):
-    #     """
-    #     :type nums: List[int]
-    #     :rtype: int
-    #     """
-    #     backward = 0
-    #     forward = 2
-    #     while forward < len(nums):
-    #         if nums[forward] != nums[backward] and nums[backward + 1] == nums[backward]:
-    #             backward = forward
-    #             forward += 2
-    #         elif nums[forward] == nums[backward]:
-    #             nums[forward:] = nums[forward + 1:]
-    #         else:
-    #             forward += 1
-    #             backward += 1
-    #     return len(nums)
+        stack_size = 2  # 栈的大小，前两个元素默认保留
+        for i in range(2, len(nums)):
+            if nums[i] != nums[stack_size - 2]:  # 和栈顶下方的元素比较
+                nums[stack_size] = nums[i]  # 入栈
+                stack_size += 1
+        return min(stack_size, len(nums))
