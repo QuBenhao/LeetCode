@@ -1,82 +1,69 @@
 # 1728. Cat and Mouse II [Rating: 2849.48]
 
-A game is played by a cat and a mouse named Cat and Mouse.
+<p>A game is played by a cat and a mouse named Cat and Mouse.</p>
 
-The environment is represented by a `grid` of size `rows x cols`, where each element is a wall, floor, player (Cat, Mouse), or food.
+<p>The environment is represented by a <code>grid</code> of size <code>rows x cols</code>, where each element is a wall, floor, player (Cat, Mouse), or food.</p>
 
-- Players are represented by the characters `'C'`(Cat)`,'M'`(Mouse).
-- Floors are represented by the character `'.'` and can be walked on.
-- Walls are represented by the character `'#'` and cannot be walked on.
-- Food is represented by the character `'F'` and can be walked on.
-- There is only one of each character `'C'`, `'M'`, and `'F'` in `grid`.
+<ul>
+	<li>Players are represented by the characters <code>&#39;C&#39;</code>(Cat)<code>,&#39;M&#39;</code>(Mouse).</li>
+	<li>Floors are represented by the character <code>&#39;.&#39;</code> and can be walked on.</li>
+	<li>Walls are represented by the character <code>&#39;#&#39;</code> and cannot be walked on.</li>
+	<li>Food is represented by the character <code>&#39;F&#39;</code> and can be walked on.</li>
+	<li>There is only one of each character <code>&#39;C&#39;</code>, <code>&#39;M&#39;</code>, and <code>&#39;F&#39;</code> in <code>grid</code>.</li>
+</ul>
 
-Mouse and Cat play according to the following rules:
+<p>Mouse and Cat play according to the following rules:</p>
 
-- Mouse **moves first**, then they take turns to move.
-- During each turn, Cat and Mouse can jump in one of the four directions (left, right, up, down). They cannot jump over the wall nor outside of the `grid`.
-- `catJump, mouseJump` are the maximum lengths Cat and Mouse can jump at a time, respectively. Cat and Mouse can jump less than the maximum length.
-- Staying in the same position is allowed.
-- Mouse can jump over Cat.
+<ul>
+	<li>Mouse <strong>moves first</strong>, then they take turns to move.</li>
+	<li>During each turn, Cat and Mouse can jump in one of the four directions (left, right, up, down). They cannot jump over the wall nor outside of the <code>grid</code>.</li>
+	<li><code>catJump, mouseJump</code> are the maximum lengths Cat and Mouse can jump at a time, respectively. Cat and Mouse can jump less than the maximum length.</li>
+	<li>Staying in the same position is allowed.</li>
+	<li>Mouse can jump over Cat.</li>
+</ul>
 
-The game can end in 4 ways:
+<p>The game can end in 4 ways:</p>
 
-- If Cat occupies the same position as Mouse, Cat wins.
-- If Cat reaches the food first, Cat wins.
-- If Mouse reaches the food first, Mouse wins.
-- If Mouse cannot get to the food within 1000 turns, Cat wins.
+<ul>
+	<li>If Cat occupies the same position as Mouse, Cat wins.</li>
+	<li>If Cat reaches the food first, Cat wins.</li>
+	<li>If Mouse reaches the food first, Mouse wins.</li>
+	<li>If Mouse cannot get to the food within 1000 turns, Cat wins.</li>
+</ul>
 
-Given a `rows x cols` matrix `grid` and two integers `catJump` and `mouseJump`, return `true` *if Mouse can win the game if both Cat and Mouse play optimally, otherwise return* `false`.
+<p>Given a <code>rows x cols</code> matrix <code>grid</code> and two integers <code>catJump</code> and <code>mouseJump</code>, return <code>true</code><em> if Mouse can win the game if both Cat and Mouse play optimally, otherwise return </em><code>false</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/09/12/sample_111_1955.png" style="width: 580px; height: 239px;" />
+<pre>
+<strong>Input:</strong> grid = [&quot;####F&quot;,&quot;#C...&quot;,&quot;M....&quot;], catJump = 1, mouseJump = 2
+<strong>Output:</strong> true
+<strong>Explanation:</strong> Cat cannot catch Mouse on its turn nor can it get the food before Mouse.
+</pre>
 
-**Example 1:**
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/09/12/sample_2_1955.png" style="width: 580px; height: 175px;" />
+<pre>
+<strong>Input:</strong> grid = [&quot;M.C...F&quot;], catJump = 1, mouseJump = 4
+<strong>Output:</strong> true
+</pre>
 
-**![img](https://assets.leetcode.com/uploads/2020/09/12/sample_111_1955.png)**
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: grid = ["####F","#C...","M...."], catJump = 1, mouseJump = 2
-Output: true
-Explanation: Cat cannot catch Mouse on its turn nor can it get the food before Mouse.
-```
+<pre>
+<strong>Input:</strong> grid = [&quot;M.C...F&quot;], catJump = 1, mouseJump = 3
+<strong>Output:</strong> false
+</pre>
 
-**Example 2:**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-![img](https://assets.leetcode.com/uploads/2020/09/12/sample_2_1955.png)
-
-```
-Input: grid = ["M.C...F"], catJump = 1, mouseJump = 4
-Output: true
-```
-
-**Example 3:**
-
-```
-Input: grid = ["M.C...F"], catJump = 1, mouseJump = 3
-Output: false
-```
-
-**Example 4:**
-
-```
-Input: grid = ["C...#","...#F","....#","M...."], catJump = 2, mouseJump = 5
-Output: false
-```
-
-**Example 5:**
-
-```
-Input: grid = [".M...","..#..","#..#.","C#.#.","...#F"], catJump = 3, mouseJump = 1
-Output: true
-```
-
- 
-
-**Constraints:**
-
-- `rows == grid.length`
-- `cols = grid[i].length`
-- `1 <= rows, cols <= 8`
-- `grid[i][j]` consist only of characters `'C'`, `'M'`, `'F'`, `'.'`, and `'#'`.
-- There is only one of each character `'C'`, `'M'`, and `'F'` in `grid`.
-- `1 <= catJump, mouseJump <= 8`
-
+<ul>
+	<li><code>rows == grid.length</code></li>
+	<li><code>cols = grid[i].length</code></li>
+	<li><code>1 &lt;= rows, cols &lt;= 8</code></li>
+	<li><code>grid[i][j]</code> consist only of characters <code>&#39;C&#39;</code>, <code>&#39;M&#39;</code>, <code>&#39;F&#39;</code>, <code>&#39;.&#39;</code>, and <code>&#39;#&#39;</code>.</li>
+	<li>There is only one of each character <code>&#39;C&#39;</code>, <code>&#39;M&#39;</code>, and <code>&#39;F&#39;</code> in <code>grid</code>.</li>
+	<li><code>1 &lt;= catJump, mouseJump &lt;= 8</code></li>
+</ul>
