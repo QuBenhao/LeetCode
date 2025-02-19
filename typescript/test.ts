@@ -6,7 +6,7 @@ var _ = require('lodash-contrib');
 const vm = require('node:vm');
 import {CompareResults} from "./common";
 
-const PROBLEM_ID: string = "624";
+const PROBLEM_ID: string = "2595";
 
 describe("TestMain===" + PROBLEM_ID, () => {
     dotenv.config();
