@@ -12,17 +12,28 @@ class Solution(solution.Solution):
 
 class TextEditor:
     def __init__(self):
-        pass
+        self.left = []  # 光标左侧字符
+        self.right = []  # 光标右侧字符
 
     def addText(self, text: str) -> None:
-        pass
+        self.left.extend(text)  # 入栈
 
     def deleteText(self, k: int) -> int:
-        pass
+        pre = len(self.left)  # 删除之前的栈大小
+        del self.left[-k:]  # 出栈
+        return pre - len(self.left)  # 减去删除之后的栈大小
+
+    def text(self) -> str:
+        return ''.join(self.left[-10:])  # 光标左边至多 10 个字符
 
     def cursorLeft(self, k: int) -> str:
-        pass
+        while k and self.left:
+            self.right.append(self.left.pop())  # 左手倒右手
+            k -= 1
+        return self.text()
 
     def cursorRight(self, k: int) -> str:
-        pass
-
+        while k and self.right:
+            self.left.append(self.right.pop())  # 右手倒左手
+            k -= 1
+        return self.text()
