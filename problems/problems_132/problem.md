@@ -1,36 +1,36 @@
-# 132. Palindrome Partitioning II
+# 132. Palindrome Partitioning II 
 
-Given a string `s`, partition `s` such that every substring of the partition is a palindrome.
+<p>Given a string <code>s</code>, partition <code>s</code> such that every <span data-keyword="substring-nonempty">substring</span> of the partition is a <span data-keyword="palindrome-string">palindrome</span>.</p>
 
-Return *the minimum cuts needed* for a palindrome partitioning of `s`.
+<p>Return <em>the <strong>minimum</strong> cuts needed for a palindrome partitioning of</em> <code>s</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> s = &quot;aab&quot;
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> The palindrome partitioning [&quot;aa&quot;,&quot;b&quot;] could be produced using 1 cut.
+</pre>
 
-```
-Input: s = "aab"
-Output: 1
-Explanation: The palindrome partitioning ["aa","b"] could be produced using 1 cut.
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> s = &quot;a&quot;
+<strong>Output:</strong> 0
+</pre>
 
-```
-Input: s = "a"
-Output: 0
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
+<pre>
+<strong>Input:</strong> s = &quot;ab&quot;
+<strong>Output:</strong> 1
+</pre>
 
-```
-Input: s = "ab"
-Output: 1
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `1 <= s.length <= 2000`
-- `s` consists of lower-case English letters only.
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 2000</code></li>
+	<li><code>s</code> consists of lowercase English letters only.</li>
+</ul>
