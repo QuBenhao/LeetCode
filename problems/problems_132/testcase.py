@@ -16,6 +16,7 @@ class Testcase(testcase.Testcase):
         self.testcases.append(case(Input="coder", Output=4))
         self.testcases.append(case(Input="bb", Output=0))
         self.testcases.append(case(Input="aaaaaabbaaaaaaaaaaaaa",Output=1))
+        self.testcases.append(case(Input="abc", Output=2))
 
     def get_testcases(self):
         return self.testcases
