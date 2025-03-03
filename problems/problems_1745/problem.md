@@ -1,31 +1,30 @@
 # 1745. Palindrome Partitioning IV [Rating: 1924.96]
 
-Given a string `s`, return `true` *if it is possible to split the string* `s` *into three **non-empty** palindromic substrings. Otherwise, return* `false`.
+<p>Given a string <code>s</code>, return <code>true</code> <em>if it is possible to split the string</em> <code>s</code> <em>into three <strong>non-empty</strong> palindromic substrings. Otherwise, return </em><code>false</code>.​​​​​</p>
 
-A string is said to be palindrome if it the same string when reversed.
+<p>A string is said to be palindrome if it the same string when reversed.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> s = &quot;abcbdd&quot;
+<strong>Output:</strong> true
+<strong>Explanation: </strong>&quot;abcbdd&quot; = &quot;a&quot; + &quot;bcb&quot; + &quot;dd&quot;, and all three substrings are palindromes.
+</pre>
 
-```
-Input: s = "abcbdd"
-Output: true
-Explanation: "abcbdd" = "a" + "bcb" + "dd", and all three substrings are palindromes.
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> s = &quot;bcbddxy&quot;
+<strong>Output:</strong> false
+<strong>Explanation: </strong>s cannot be split into 3 palindromes.
+</pre>
 
-```
-Input: s = "bcbddxy"
-Output: false
-Explanation: s cannot be split into 3 palindromes.
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `3 <= s.length <= 2000`
-- `s` consists only of lowercase English letters.
-
+<ul>
+	<li><code>3 &lt;= s.length &lt;= 2000</code></li>
+	<li><code>s</code>​​​​​​ consists only of lowercase English letters.</li>
+</ul>
