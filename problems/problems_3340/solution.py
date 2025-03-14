@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.isBalanced(test_input)
 
     def isBalanced(self, num: str) -> bool:
-        pass
-
+        ans = 0
+        for i, c in enumerate(num):
+            if i % 2:
+                ans -= int(c)
+            else:
+                ans += int(c)
+        return ans == 0
