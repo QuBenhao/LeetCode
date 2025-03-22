@@ -7,5 +7,9 @@ class Solution(solution.Solution):
         return self.rowAndMaximumOnes(test_input)
 
     def rowAndMaximumOnes(self, mat: List[List[int]]) -> List[int]:
-        pass
-
+        ans = [0, 0]
+        for i, row in enumerate(mat):
+            cur = sum(row)
+            if cur > ans[1]:
+                ans[0], ans[1] = i, cur
+        return ans
