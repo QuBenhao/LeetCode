@@ -1,3 +1,5 @@
+# Enable Bzlmod for every Bazel command
+common --enable_bzlmod
 test --cxxopt=-std=c++20 --test_timeout=3 --test_output=all
 build --cxxopt=-std=c++20
 run --cxxopt=-std=c++20

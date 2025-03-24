@@ -8,7 +8,13 @@ using json = nlohmann::json;
 class Solution {
 public:
     int countPrefixes(vector<string>& words, string s) {
-        
+		int ans = 0;
+		for (const auto &word: words) {
+			if (!s.compare(0, word.size(), word)) {
+				ans++;
+			}
+		}
+		return ans;
     }
 };
 

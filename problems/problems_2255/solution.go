@@ -6,8 +6,13 @@ import (
 	"strings"
 )
 
-func countPrefixes(words []string, s string) int {
-    
+func countPrefixes(words []string, s string) (ans int) {
+	for _, word := range words {
+		if s[:len(word)] == word {
+			ans++
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {

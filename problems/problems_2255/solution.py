@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.countPrefixes(*test_input)
 
     def countPrefixes(self, words: List[str], s: str) -> int:
-        pass
+        return sum(s.startswith(v) for v in words)
 
