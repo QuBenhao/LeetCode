@@ -12,7 +12,7 @@ cc_test(
     deps = [
         "//cpp/common",
         "@bazel_tools//tools/cpp/runfiles",
-        "@com_google_googletest//:gtest_main",
+        "@googletest//:gtest_main",
         "@nlohmann_json//:json",
     ],
 )

@@ -10,7 +10,6 @@ bazel-bin
 bazel-LeetCode
 bazel-out
 bazel-testlogs
-MODULE.bazel
 MODULE.bazel.lock
 bazel-LeetCode/
 /bazel-LeetCode/

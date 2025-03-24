@@ -1,0 +1,27 @@
+# Hedron's Compile Commands Extractor for Bazel
+# https://github.com/hedronvision/bazel-compile-commands-extractor
+bazel_dep(name = "hedron_compile_commands", dev_dependency = True)
+git_override(
+    module_name = "hedron_compile_commands",
+    remote = "https://github.com/hedronvision/bazel-compile-commands-extractor.git",
+    commit = "0e990032f3c5a866e72615cf67e5ce22186dcb97",
+    # Replace the commit hash (above) with the latest (https://github.com/hedronvision/bazel-compile-commands-extractor/commits/main).
+    # Even better, set up Renovate and let it do the work for you (see "Suggestion: Updates" in the README).
+)
+
+bazel_dep(name = "googletest", version = "1.15.2")
+bazel_dep(name = "nlohmann_json", version = "3.11.3")
+
+new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
+
+new_local_repository(
+    name = "problems",
+    build_file = "//cpp:solution.BUILD",
+    path = "problems/problems_2255/",
+)
+
+new_local_repository(
+    name = "problem0",
+    path = "problems/problems_LCR_034/",
+    build_file = "//cpp:solution.BUILD",
+)

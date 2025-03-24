@@ -1,0 +1,3 @@
+module(name = "cpp", version = "1.0")
+
+exports_files(["Solution.cpp", "testcase"])
