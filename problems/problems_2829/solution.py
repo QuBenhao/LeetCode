@@ -7,5 +7,13 @@ class Solution(solution.Solution):
         return self.minimumSum(*test_input)
 
     def minimumSum(self, n: int, k: int) -> int:
-        pass
-
+        explored = set()
+        ans, cur = 0, 1
+        for _ in range(n):
+            while cur < k and k - cur in explored:
+                cur += 1
+                continue
+            ans += cur
+            explored.add(cur)
+            cur += 1
+        return ans
