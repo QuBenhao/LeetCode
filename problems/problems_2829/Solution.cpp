@@ -8,7 +8,16 @@ using json = nlohmann::json;
 class Solution {
 public:
     int minimumSum(int n, int k) {
-        
+		int ans = 0, cur = 1;
+		bool[] explored = new bool[51];
+		for (int i = 0; i < n; i++) {
+			while (cur < k && explored[k - cur]) {
+				cur++;
+			}
+			ans += cur;
+			explored[cur] = true;
+		}
+		return ans;
     }
 };
 
