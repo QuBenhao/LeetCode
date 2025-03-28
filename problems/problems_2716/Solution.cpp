@@ -11,7 +11,7 @@ public:
         int explored = 0, ans = 0;
 		for (auto c: s) {
 			int cur = c - 'a';
-			if (cur & explored) {
+			if ((explored >> cur) & 1) {
 				continue;
 			}
 			ans++;
