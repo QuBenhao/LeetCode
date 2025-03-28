@@ -128,7 +128,7 @@ TESTCASE_TEMPLATE_CPP = """cc_test(
     deps = [
         "//cpp/models:models",
         "@bazel_tools//tools/cpp/runfiles",
-        "@com_google_googletest//:gtest_main",
+        "@googletest//:gtest_main",
         "@nlohmann_json//:json",
     ],
 )

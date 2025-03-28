@@ -13,8 +13,8 @@ class CppWriter(LanguageWriter):
         super().__init__()
         self.solution_file = "Solution.cpp"
         self.main_folder = ""
-        self.test_file = "WORKSPACE"
-        self.tests_files = ["WORKSPACE", "cpp/tests/BUILD"]
+        self.test_file = "MODULE.bazel"
+        self.tests_files = ["MODULE.bazel", "cpp/tests/BUILD"]
         self.lang_env_commands = [["bazel", "version"]]
         self.test_commands = [
             ["bazel", "test", "--cxxopt=-std=c++20", "//cpp:solution_test"]
