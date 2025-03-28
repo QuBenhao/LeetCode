@@ -8,7 +8,16 @@ using json = nlohmann::json;
 class Solution {
 public:
     int minimizedStringLength(string s) {
-        
+        int explored = 0, ans = 0;
+		for (auto c: s) {
+			int cur = c - 'a';
+			if (cur & explored) {
+				continue;
+			}
+			ans++;
+			explored |= 1 << cur;
+		}
+		return ans;
     }
 };
 
