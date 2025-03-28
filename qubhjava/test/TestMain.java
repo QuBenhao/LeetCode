@@ -8,7 +8,7 @@ import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import problems.problems_2716.Solution;
+import problems.problems_2360.Solution;
 // import premiums.premiums_1056.Solution;
 import org.testng.util.Strings;
 import qubhjava.Testcase;
@@ -22,7 +22,7 @@ import java.util.List;
 public class TestMain {
 
     private static final Logger log = LoggerFactory.getLogger(TestMain.class);
-    private static final String PROBLEM_ID = "2716";
+    private static final String PROBLEM_ID = "2360";
 
     private Testcase[] loadTestcases() throws IOException {
         String problemFolder = null;
