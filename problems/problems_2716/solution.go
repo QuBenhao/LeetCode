@@ -6,8 +6,16 @@ import (
 	"strings"
 )
 
-func minimizedStringLength(s string) int {
-    
+func minimizedStringLength(s string) (ans int) {
+	explored := map[rune]bool{}
+	for _, c := range s {
+		if _, val := explored[c]; val {
+			continue
+		}
+		explored[c] = true
+		ans++
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {

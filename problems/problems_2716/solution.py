@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.minimizedStringLength(test_input)
 
     def minimizedStringLength(self, s: str) -> int:
-        pass
-
+        return len(set(s))
