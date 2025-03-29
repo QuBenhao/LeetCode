@@ -216,7 +216,7 @@ class CppWriter(LanguageWriter):
             self, root_path, problem_folder: str, problem_id: str
     ) -> Tuple[str, str]:
         if not problem_id:
-            with open(os.path.join(root_path, "WORKSPACE"), "r", encoding="utf-8") as f:
+            with open(os.path.join(root_path, "MODULE.bazel"), "r", encoding="utf-8") as f:
                 lines = f.read().split("\n")
                 for line in lines:
                     if f'path = "{problem_folder}/{problem_folder}_' in line:

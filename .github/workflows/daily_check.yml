@@ -25,7 +25,7 @@ jobs:
           go.mod
           go.sum
           pom.xml
-          WORKSPACE
+          MODULE.bazel
           tsconfig.json
           package.json
           jest.config.ts
