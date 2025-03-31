@@ -2,6 +2,8 @@ import argparse
 import logging
 import os
 import random
+import re
+import subprocess
 import sys
 
 from dotenv import load_dotenv
@@ -196,6 +198,80 @@ def clean_empty_java(args):
     logging.info("Removed %d empty java files", total_remove)
 
 
+def clean_error_rust(args):
+    def remove_rust_file(_problem_id: str):
+        nonlocal explored, total_remove, all_removed_problems, question_id
+        if _problem_id in explored:
+            return
+        explored.add(_problem_id)
+        if args.daily and _problem_id == question_id:
+            logging.info("Keep daily rust error file: %s", _problem_id)
+            return
+        file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{_problem_id}", "solution.rs")
+        cargo_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{_problem_id}", "Cargo.toml")
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            os.remove(cargo_path)
+            all_removed_problems.add(_problem_id)
+            logging.info("Remove error rust file: %s", file_path)
+            total_remove += 1
+        else:
+            logging.warning("Rust file not found: %s", file_path)
+
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
+    if not os.path.exists(os.path.join(root_path, problem_folder)):
+        logging.error("Problem folder not found: %s", problem_folder)
+        return
+    question_id = None
+    if args.daily:
+        question_id = lc_libs.get_daily_question()["questionId"]
+
+    total_remove = 0
+    explored = set()
+    all_removed_problems = set()
+    while True:
+        res = subprocess.run(
+            ["cargo", "test", "--package", "leetcode", "--test", "solution_test", "test", "--no-fail-fast"],
+            check=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60)
+        if res.returncode == 0:
+            logging.info("Cargo test passed, %s", res.stdout.decode("utf-8"))
+            break
+        stderr = res.stderr.decode("utf-8")
+        if "error:" not in stderr:
+            logging.error("Cargo test failed, but no error found. %s", stderr)
+            break
+        lines = stderr.split("\n")
+        need_to_find = False
+        for line in lines:
+            if not need_to_find and not re.match(r"error(\[[0-9A-Z]+\])?:", line):
+                continue
+            if need_to_find and (pid := re.search(rf"{problem_folder}_([0-9A-Z_]+)", line)):
+                need_to_find = False
+                remove_rust_file(pid.group(1))
+                continue
+            if problem_id_match := re.search(r"solution_([0-9A-Z_]+)", line):
+                remove_rust_file(problem_id_match.group(1))
+            else:
+                need_to_find = True
+            logging.debug("Cargo test error: %s", line)
+        with open(os.path.join(root_path, "Cargo.toml"), "r") as f:
+            lines = f.read().split("\n")
+        new_lines = []
+        for line in lines:
+            problem_id_match = re.search(rf"/{problem_folder}_([0-9A-Z_]+)", line)
+            if problem_id_match and problem_id_match.group(1) in all_removed_problems:
+                continue
+            new_lines.append(line)
+        with open(os.path.join(root_path, "Cargo.toml"), "w") as f:
+            f.write("\n".join(new_lines))
+    if not total_remove:
+        logging.info("No error rust files found.")
+        return
+
+    logging.info("Removed %d error rust files", total_remove)
+
+
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format=constant.LOGGING_FORMAT, datefmt=constant.DATE_FORMAT)
     parser = argparse.ArgumentParser()
@@ -216,6 +292,9 @@ if __name__ == '__main__':
     clean_java = sub_parser.add_parser("clean_java", help="Clean empty java files")
     clean_java.set_defaults(func=clean_empty_java)
     clean_java.add_argument("-d", "--daily", action="store_true", help="Keep daily java empty files")
+    clean_rust = sub_parser.add_parser("clean_rust", help="Clean error rust files")
+    clean_rust.set_defaults(func=clean_error_rust)
+    clean_rust.add_argument("-d", "--daily", action="store_true", help="Keep daily rust error files")
     arguments = parser.parse_args()
     arguments.func(arguments)
     sys.exit()
