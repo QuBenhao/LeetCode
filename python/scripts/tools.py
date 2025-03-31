@@ -200,13 +200,14 @@ def clean_empty_java(args):
 
 def clean_error_rust(args):
     def remove_rust_file(_problem_id: str):
-        nonlocal explored, total_remove, all_removed_problems, question_id
+        nonlocal explored, total_remove, all_removed_problems, question_id, cur_error
         if _problem_id in explored:
             return
         explored.add(_problem_id)
         if args.daily and _problem_id == question_id:
             logging.info("Keep daily rust error file: %s", _problem_id)
             return
+        cur_error += 1
         file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{_problem_id}", "solution.rs")
         cargo_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{_problem_id}", "Cargo.toml")
         if os.path.exists(file_path):
@@ -230,7 +231,8 @@ def clean_error_rust(args):
     total_remove = 0
     explored = set()
     all_removed_problems = set()
-    while True:
+    cur_error = -1
+    while cur_error != 0:
         res = subprocess.run(
             ["cargo", "test", "--package", "leetcode", "--test", "solution_test", "test", "--no-fail-fast"],
             check=False, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60)
@@ -241,6 +243,7 @@ def clean_error_rust(args):
         if "error:" not in stderr:
             logging.error("Cargo test failed, but no error found. %s", stderr)
             break
+        cur_error = 0
         lines = stderr.split("\n")
         need_to_find = False
         for line in lines:
@@ -255,6 +258,8 @@ def clean_error_rust(args):
             else:
                 need_to_find = True
             logging.debug("Cargo test error: %s", line)
+        if cur_error == 0:
+            break
         with open(os.path.join(root_path, "Cargo.toml"), "r") as f:
             lines = f.read().split("\n")
         new_lines = []
