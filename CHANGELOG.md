@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## v8.9.0 (2025-03-31)
+
+### Feature
+
+* feat: clean error rust
+
+add functionality to clean error rust files ([`158dd31`](https://github.com/QuBenhao/LeetCode/commit/158dd3190ae46ba75c4f42257bc02c13cb72f4d0))
+
+* feat: clean empty java
+
+add command to clean empty Java files ([`d937039`](https://github.com/QuBenhao/LeetCode/commit/d9370396e1150521ac15212549e4ead1073bd56c))
+
+### Fix
+
+* fix: rust daily error
+
+improve error handling in rust cleaning process ([`a9336d5`](https://github.com/QuBenhao/LeetCode/commit/a9336d52aae291a9d1e451bc02df89f6b6ef6a6b))
+
+### Test
+
+* test: 2278 solution
+
+java ([`2d33716`](https://github.com/QuBenhao/LeetCode/commit/2d3371685e905ed00895ce16dc9882f5fb15141d))
+
+* test: 2278 solution
+
+py, c++, go ([`835d859`](https://github.com/QuBenhao/LeetCode/commit/835d8597af277516f7c3565c6aec98320933786f))
+
+* test: [20250331] Add daily LeetCode problem ([`3da75a9`](https://github.com/QuBenhao/LeetCode/commit/3da75a93ab33c816d148106d90a29a16011b0f50))
+
+* test: 2109 solution ([`25c3f20`](https://github.com/QuBenhao/LeetCode/commit/25c3f20c656f46e2e306e6fa0cdb773e2dff79bb))
+
+* test: [20250330] Add daily LeetCode problem ([`7c6b705`](https://github.com/QuBenhao/LeetCode/commit/7c6b70587d4f2dfbc0148e3ada6ceadefa030b06))
+
 ## v8.8.1 (2025-03-29)
 
 ### Fix
