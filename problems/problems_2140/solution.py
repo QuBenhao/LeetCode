@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.mostPoints(test_input)
 
     def mostPoints(self, questions: List[List[int]]) -> int:
-        pass
-
+        dp = [0] * (len(questions) + 1)
+        n = len(questions)
+        for i, (points, brainpower) in enumerate(questions):
+            dp[i + 1] = max(dp[i], dp[i + 1])
+            nxt = min(i + brainpower + 1, n)
+            dp[nxt] = max(dp[nxt], dp[i] + points)
+        return dp[-1]
