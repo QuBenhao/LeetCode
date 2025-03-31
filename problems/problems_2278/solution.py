@@ -1,3 +1,5 @@
+from math import floor
+
 import solution
 from typing import *
 
@@ -7,5 +9,4 @@ class Solution(solution.Solution):
         return self.percentageLetter(*test_input)
 
     def percentageLetter(self, s: str, letter: str) -> int:
-        pass
-
+        return floor(s.count(letter) * 100 / len(s))

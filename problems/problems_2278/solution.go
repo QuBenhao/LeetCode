@@ -6,8 +6,13 @@ import (
 	"strings"
 )
 
-func percentageLetter(s string, letter byte) int {
-    
+func percentageLetter(s string, letter byte) (ans int) {
+	for b := range s {
+		if s[b] == letter {
+			ans++
+		}
+	}
+	return ans * 100 / len(s)
 }
 
 func Solve(inputJsonValues string) interface{} {
