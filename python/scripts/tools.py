@@ -166,6 +166,36 @@ def remain(args):
     logging.debug("Success languages: %s", results)
 
 
+def clean_empty_java(args):
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
+    question_id = None
+    if args.daily:
+        question_id = lc_libs.get_daily_question()["questionId"]
+
+    total_remove = 0
+    for root, dirs, files in os.walk(str(os.path.join(root_path, problem_folder))):
+        if dirs:
+            for d in list(dirs):
+                if not d.startswith(f"{problem_folder}_"):
+                    dirs.remove(d)
+                    logging.debug("Skip folder: %s", d)
+        for file in files:
+            if not file.endswith(".java"):
+                continue
+            if args.daily and root.endswith(f"{problem_folder}/{problem_folder}_{question_id}"):
+                logging.info("Keep daily java file: %s", os.path.join(root, file))
+                continue
+            with open(os.path.join(root, file), "r") as f:
+                content = f.read()
+                if content.count("return ") > 1:
+                    continue
+                logging.info("Remove empty java file: %s, %s", os.path.join(root, file), content)
+                total_remove += 1
+                os.remove(os.path.join(root, file))
+    logging.info("Removed %d empty java files", total_remove)
+
+
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format=constant.LOGGING_FORMAT, datefmt=constant.DATE_FORMAT)
     parser = argparse.ArgumentParser()
@@ -183,6 +213,9 @@ if __name__ == '__main__':
     rm.add_argument("-s", "--status", required=False, choices=["TRIED", "AC", "NOT_STARTED"],
                     default="TRIED", help="Add specified problem status only.")
     rm.set_defaults(func=remain)
+    clean_java = sub_parser.add_parser("clean_java", help="Clean empty java files")
+    clean_java.set_defaults(func=clean_empty_java)
+    clean_java.add_argument("-d", "--daily", action="store_true", help="Keep daily java empty files")
     arguments = parser.parse_args()
     arguments.func(arguments)
     sys.exit()
