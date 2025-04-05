@@ -1,33 +1,35 @@
-# 368. Largest Divisible Subset
+# 368. Largest Divisible Subset 
 
- Given a set of **distinct** positive integers `nums`, return the largest subset `answer` such that every pair `(answer[i], answer[j])`of elements in this subset satisfies:
+<p>Given a set of <strong>distinct</strong> positive integers <code>nums</code>, return the largest subset <code>answer</code> such that every pair <code>(answer[i], answer[j])</code> of elements in this subset satisfies:</p>
 
-- `answer[i] % answer[j] == 0`, or
-- `answer[j] % answer[i] == 0`
+<ul>
+	<li><code>answer[i] % answer[j] == 0</code>, or</li>
+	<li><code>answer[j] % answer[i] == 0</code></li>
+</ul>
 
-If there are multiple solutions, return any of them.
+<p>If there are multiple solutions, return any of them.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> nums = [1,2,3]
+<strong>Output:</strong> [1,2]
+<strong>Explanation:</strong> [1,3] is also accepted.
+</pre>
 
-```
-Input: nums = [1,2,3]
-Output: [1,2]
-Explanation: [1,3] is also accepted.
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> nums = [1,2,4,8]
+<strong>Output:</strong> [1,2,4,8]
+</pre>
 
-```
-Input: nums = [1,2,4,8]
-Output: [1,2,4,8]
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `1 <= nums.length <= 1000`
-- 1 <= nums[i] <= 2 * 10<sup>9</sup>
-- All the integers in `nums` are **unique**.
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 1000</code></li>
+	<li><code>1 &lt;= nums[i] &lt;= 2 * 10<sup>9</sup></code></li>
+	<li>All the integers in <code>nums</code> are <strong>unique</strong>.</li>
+</ul>
