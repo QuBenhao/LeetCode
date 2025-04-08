@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.minimumOperations(test_input)
 
     def minimumOperations(self, nums: List[int]) -> int:
-        pass
-
+        s = set()
+        n = len(nums)
+        for i in range(n - 1, -1, -1):
+            if nums[i] in s:
+                return i // 3 + 1
+            s.add(nums[i])
+        return 0
