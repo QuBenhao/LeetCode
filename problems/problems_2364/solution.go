@@ -6,8 +6,17 @@ import (
 	"strings"
 )
 
-func countBadPairs(nums []int) int64 {
-    
+func countBadPairs(nums []int) (ans int64) {
+	n := len(nums)
+	cnt := make(map[int]int)
+	for i, num := range nums {
+		cnt[num-i]++
+	}
+	for _, v := range cnt {
+		ans += int64(v) * int64(n-v)
+	}
+	ans /= 2
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
