@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import solution
 
 
@@ -10,10 +12,10 @@ class Solution(solution.Solution):
         :type answers: List[int]
         :rtype: int
         """
-        from collections import Counter
-        import math
-        c = Counter(answers)
         ans = 0
-        for k in c:
-            ans += (math.ceil(c[k]/(k+1))) * (k+1)
-        return int(ans)
+        explored = defaultdict(int)
+        for i in answers:
+            if not explored[i] % (i + 1):
+                ans += i + 1
+            explored[i] += 1
+        return ans

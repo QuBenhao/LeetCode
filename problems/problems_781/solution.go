@@ -6,8 +6,15 @@ import (
 	"strings"
 )
 
-func numRabbits(answers []int) int {
-    
+func numRabbits(answers []int) (ans int) {
+	count := make(map[int]int)
+	for _, v := range answers {
+		if cnt, exist := count[v]; !exist || cnt%(v+1) == 0 {
+			ans += v + 1
+		}
+		count[v]++
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
