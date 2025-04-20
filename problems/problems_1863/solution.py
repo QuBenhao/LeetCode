@@ -1,3 +1,6 @@
+from functools import reduce
+from operator import or_
+
 import solution
 
 
@@ -10,12 +13,5 @@ class Solution(solution.Solution):
         :type nums: List[int]
         :rtype: int
         """
-        ans = 0
-        total = [0]
-        for num in nums:
-            new = []
-            for i in total:
-                ans += i ^ num
-                new.append(i ^ num)
-            total += new
-        return ans
+        # 每个数出现的次数是 2^(n-1) 次
+        return reduce(or_, nums) << (len(nums) - 1)
