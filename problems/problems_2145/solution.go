@@ -7,7 +7,14 @@ import (
 )
 
 func numberOfArrays(differences []int, lower int, upper int) int {
-    
+	mn, mx := 0, 0
+	cur := 0
+	for _, d := range differences {
+		cur += d
+		mn = min(mn, cur)
+		mx = max(mx, cur)
+	}
+	return max(0, (upper-mx)-(lower-mn)+1)
 }
 
 func Solve(inputJsonValues string) interface{} {
