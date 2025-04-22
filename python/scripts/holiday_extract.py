@@ -29,10 +29,10 @@ def extract_holidays():
     holidays = []
     workdays = []
     for line in lines:
-        hm = re.search(r'(\d{1,2}月\d{1,2}日)（.*?）?至((\d{1,2}月)?\d{1,2}日)（.*?）?放假', line)
-        if hm:
-            start_date_str = hm.group(1)
-            end_date_str = hm.group(2)
+        holiday_match = re.search(r'(\d{1,2}月\d{1,2}日)（.*?）?至((\d{1,2}月)?\d{1,2}日)（.*?）?放假', line)
+        if holiday_match:
+            start_date_str = holiday_match.group(1)
+            end_date_str = holiday_match.group(2)
             start_date = datetime.strptime(f"{year} {start_date_str}", "%Y %m月%d日")
             if "月" not in end_date_str:
                 end_date = start_date.replace(day=int(end_date_str[:-1]))
@@ -43,9 +43,9 @@ def extract_holidays():
                 start_date += timedelta(days=1)
         else:
             # signal holiday
-            hm = re.search(r'(\d{1,2}月\d{1,2}日)（.*?）?放假', line)
-            if hm:
-                start_date_str = hm.group(1)
+            holiday_match = re.search(r'(\d{1,2}月\d{1,2}日)（.*?）?放假', line)
+            if holiday_match:
+                start_date_str = holiday_match.group(1)
                 start_date = datetime.strptime(f"{year} {start_date_str}", "%Y %m月%d日")
                 holidays.append(start_date.strftime("%Y%m%d"))
             else:
