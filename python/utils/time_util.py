@@ -1,5 +1,7 @@
 import functools
+import json
 import logging
+from pathlib import Path
 
 import pytz
 import datetime
@@ -34,6 +36,36 @@ def get_china_daily_time():
 def get_cur_weekday():
     local_time = get_china_local_time()
     return local_time.weekday()
+
+
+def _load_data():
+    root_path = Path(__file__).resolve().parent.parent.parent
+    holidays_path = root_path / "data" / "holiday.json"
+    if holidays_path.exists():
+        with holidays_path.open('r', encoding='utf-8') as f:
+            return json.load(f)
+    return {}
+
+
+def is_chinese_workday(dt: datetime.datetime) -> bool:
+    if is_chinese_holiday(dt):
+        return False
+    data = _load_data()
+    year_str = str(dt.year)
+    if year_str in data:
+        workdays = data[year_str].get("workdays", [])
+        if dt.strftime("%Y%m%d") in workdays:
+            return True
+    return dt.weekday() < 5
+
+
+def is_chinese_holiday(dt: datetime.datetime) -> bool:
+    year_str = str(dt.year)
+    data = _load_data()
+    if year_str not in data:
+        return False
+    holidays = data[year_str].get("holidays", [])
+    return dt.strftime("%Y%m%d") in holidays
 
 
 def timeout(second: int = 3):

@@ -2,12 +2,13 @@ import heapq
 import json
 import logging
 from collections import defaultdict, deque
+from datetime import datetime
 from typing import Optional
 
 import requests
 
 from python.constants import LEET_CODE_BACKEND, PLAN_QUERY, PLAN_PROGRESS_QUERY
-from python.utils import general_request, get_cur_weekday
+from python.utils import general_request, is_chinese_workday, is_chinese_holiday
 
 
 def get_user_study_plans(cookie: str) -> Optional[list]:
@@ -93,8 +94,13 @@ def generate_question_todo(plan_sub_groups, todo_num: int):
 
 def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = -1):
     if todo_num < 0:
-        cur_weekday = get_cur_weekday()
-        todo_num = 1 if cur_weekday < 5 else 2
+        current_datetime = datetime.now()
+        if is_chinese_holiday(current_datetime):
+            todo_num = 0
+        elif is_chinese_workday(current_datetime):
+            todo_num = 1
+        else:
+            todo_num = 2
 
     def handle_response(response: requests.Response):
         if response.text:
