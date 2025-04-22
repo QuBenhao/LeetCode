@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.isAlienSorted(*test_input)
 
     def isAlienSorted(self, words: List[str], order: str) -> bool:
-        pass
-
+        order_map = {c: i for i, c in enumerate(order)}
+        return words == sorted(words, key=lambda x: [order_map[c] for c in x])
