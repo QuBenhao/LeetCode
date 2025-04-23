@@ -14,7 +14,24 @@ import (
  * }
  */
 func findBottomLeftValue(root *TreeNode) int {
-
+	ans, ansLevel := 0, -1
+	var dfs func(node *TreeNode, level int)
+	dfs = func(node *TreeNode, level int) {
+		if node == nil {
+			return
+		}
+		if node.Left == nil && node.Right == nil {
+			if level > ansLevel {
+				ans = node.Val
+				ansLevel = level
+			}
+			return
+		}
+		dfs(node.Left, level+1)
+		dfs(node.Right, level+1)
+	}
+	dfs(root, 0)
+	return ans
 }
 
 func Solve(inputJsonValues string) interface{} {
