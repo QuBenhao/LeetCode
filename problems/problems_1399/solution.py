@@ -9,17 +9,16 @@ class Solution(solution.Solution):
 
     def countLargestGroup(self, n: int) -> int:
         counter = defaultdict(int)
+        ans, m = 0, 0
         for i in range(1, n + 1):
             cur, s = i, 0
             while cur:
                 s += cur % 10
                 cur //= 10
             counter[s] += 1
-        ans, m = 0, 0
-        for v in counter.values():
-            if v > m:
+            if counter[s] > m:
+                m = counter[s]
                 ans = 1
-                m = v
-            elif v == m:
+            elif counter[s] == m:
                 ans += 1
         return ans

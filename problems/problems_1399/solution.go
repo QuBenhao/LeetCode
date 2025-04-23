@@ -8,19 +8,17 @@ import (
 
 func countLargestGroup(n int) (ans int) {
 	counter := map[int]int{}
+	mx := 0
 	for i := 1; i <= n; i++ {
 		s := 0
 		for cur := i; cur > 0; cur /= 10 {
 			s += cur % 10
 		}
 		counter[s]++
-	}
-	mx := 0
-	for _, v := range counter {
-		if v > mx {
+		if counter[s] > mx {
 			ans = 1
-			mx = v
-		} else if v == mx {
+			mx = counter[s]
+		} else if counter[s] == mx {
 			ans++
 		}
 	}
