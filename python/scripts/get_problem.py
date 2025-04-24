@@ -144,20 +144,20 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
     logging.info(f"Add question: [{problem_id}]{problem_slug}")
 
 
-def main(origin_problem_id: Optional[str], problem_slug: Optional[str], problem_category: Optional[str],
-         force: bool = False, cookie: Optional[str] = None, fetch_all: bool = False, premium_only: bool = False,
-         replace_problem_id: bool = False, skip_language: bool = False, languages: list[str] = None,
-         problem_folder: str = None):
+def main(origin_problem_id: Optional[str] = None, problem_slug: Optional[str] = None,
+         problem_category: Optional[str] = None, force: bool = False, cookie: Optional[str] = None,
+         fetch_all: bool = False, premium_only: bool = False, replace_problem_id: bool = False,
+         skip_language: bool = False, languages: list[str] = None, problem_folder: str = None):
     if not fetch_all:
         if not origin_problem_id and not problem_slug:
             logging.critical("Requires at least one of problem_id or problem_slug to fetch in single mode.")
-            return
+            return 1
         if not problem_slug:
             questions = get_questions_by_key_word(origin_problem_id, problem_category) if problem_category \
                 else get_questions_by_key_word(origin_problem_id)
             if not questions:
                 logging.error(f"Unable to find any questions with problem_id {origin_problem_id}")
-                return
+                return 1
             for question in questions:
                 if question["paidOnly"] and not cookie:
                     continue
@@ -167,11 +167,11 @@ def main(origin_problem_id: Optional[str], problem_slug: Optional[str], problem_
             if not problem_slug:
                 logging.error(f"Unable to find any questions with problem_id {origin_problem_id}"
                               f", possible questions: {questions}")
-                return
+                return 1
         question_info = get_question_info(problem_slug, cookie)
         if not question_info:
             logging.warning(f"Unable to check out problem given by slug: {problem_slug}, please check ")
-            return
+            return 1
         problem_id = question_info["questionFrontendId"]
         problem_title = question_info["title"]
         pc = question_info["categoryTitle"]
@@ -194,7 +194,7 @@ def main(origin_problem_id: Optional[str], problem_slug: Optional[str], problem_
     else:
         if premium_only and not cookie:
             logging.error("Premium problems requires privileged cookie to keep going.")
-            return
+            return 1
         keyword = None
         if origin_problem_id:
             keyword = origin_problem_id
@@ -205,7 +205,7 @@ def main(origin_problem_id: Optional[str], problem_slug: Optional[str], problem_
         if not questions:
             logging.error(f"Unable to find any questions with keyword: [{keyword}],"
                           f" fetch_all: [{fetch_all}], premium_only: {premium_only}")
-            return
+            return 1
         for question in tqdm(questions):
             question_info = get_question_info(question["titleSlug"], cookie)
             pc = question_info["categoryTitle"]
@@ -225,6 +225,8 @@ def main(origin_problem_id: Optional[str], problem_slug: Optional[str], problem_
             except Exception as _:
                 logging.error("Exception caught in problem: [{}]{}".format(
                     question["frontendQuestionId"], question["titleSlug"]), exc_info=True)
+                return 1
+    return 0
 
 
 if __name__ == '__main__':
