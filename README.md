@@ -52,6 +52,115 @@ install python3.12 requirements:
 pip install -r python/requirements.txt
 ```
 
+LeetCode tools all in one
+```shell
+python python/scripts/leetcode.py
+```
+usage demo:
+```text
+Setting up the environment...
+Please select the configuration [0-1, default: 0]:
+0. Load default config from .env
+1. Custom config
+1
+Select multiple languages you want to use, separated by comma [0-5, default: 0]:
+0. python3
+1. java
+2. golang
+3. cpp
+4. typescript
+5. rust
+0,2
+Languages selected: python3, golang
+--------------------------------------------------
+Enter the problem folder path (press enter to use default): 
+Problem folder selected: problems
+--------------------------------------------------
+Enter your LeetCode cookie (press enter to use default): 
+--------------------------------------------------
+Do you want to update the .env file with this configuration? [y/n, default: n]: 
+--------------------------------------------------
+Please select the main function [0-4, default: 0]:
+0. Exit
+1. Get problem
+2. Submit
+3. Clean empty java
+4. Clean error rust
+2
+--------------------------------------------------
+Please select the submit method [0-4, default: 0]:
+0. Back
+1. Daily submit[All selected languages]
+2. Daily submit[Select language]
+3. Submit specified problem[All selected languages]
+4. Submit specified problem[Select language]
+3
+--------------------------------------------------
+Enter the problem ID (e.g., 1, LCR 043, 面试题 01.01, etc.): 1
+Starting submission, please wait...
+Submitting in language: python3
+Waiting for submit result:   1%|          | 1/100 [00:00<01:33,  1.06it/s]
+INFO:root:[1.two-sum]提交结果
+Accepted 63/63个通过的测试用例
+
+执行用时: 3 ms 击败58.9912%
+消耗内存: 18.6 MB 击败43.29040000000005%
+
+代码:
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        mp = dict()
+        for i, num in enumerate(nums):
+            if (t := target - num) in mp:
+                return [mp[t], i]
+            mp[num] = i
+
+INFO:root:提交详情: https://leetcode.cn/problems/two-sum/submissions/625296865/ [需登录查看]
+INFO:root:题解查看: https://leetcode.cn/problems/two-sum/solutions/
+INFO:root:外网查看: https://leetcode.com/problems/two-sum/solutions/
+Submitting in language: golang
+Waiting for submit result:   1%|          | 1/100 [00:00<01:30,  1.09it/s]
+INFO:root:[1.two-sum]提交结果
+Accepted 63/63个通过的测试用例
+
+执行用时: 0 ms 击败100.0%
+消耗内存: 5.7 MB 击败50.63709999999988%
+
+代码:
+func twoSum(nums []int, target int) []int {
+	m := map[int]int{}
+	for i, num := range nums {
+		d := target - num
+		if idx, ok := m[d]; ok {
+			return []int{idx, i}
+		}
+		m[num] = i
+	}
+	return nil
+}
+
+INFO:root:提交详情: https://leetcode.cn/problems/two-sum/submissions/625296886/ [需登录查看]
+INFO:root:题解查看: https://leetcode.cn/problems/two-sum/solutions/
+INFO:root:外网查看: https://leetcode.com/problems/two-sum/solutions/
+Submission completed.
+--------------------------------------------------
+Please select the submit method [0-4, default: 0]:
+0. Back
+1. Daily submit[All selected languages]
+2. Daily submit[Select language]
+3. Submit specified problem[All selected languages]
+4. Submit specified problem[Select language]
+
+Bye!
+```
+
+***DeprecationWarning: The tools below is deprecated, please use the new tools in python/scripts/leetcode.py***
+
 To directly submit Solution to LeetCode, try any language below:
 
 ```shell

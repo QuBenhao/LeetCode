@@ -70,6 +70,7 @@ def input_until_valid(prompt, check_func, error_msg=None):
 def configure():
     print("Setting up the environment...")
     config_select = input_until_valid(__user_input_config, __allow_all)
+    print(__separate_line)
 
     try:
         load_dotenv()
@@ -209,6 +210,7 @@ def submit(languages, problem_folder, cookie):
         print("Starting submission, please wait...")
         logging.basicConfig(level=logging.INFO, force=True)
         for lang in languages:
+            print(f"Submitting in {lang}...")
             loop.run_until_complete(
                 submit_main_async(
                     root_path,
