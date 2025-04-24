@@ -1,6 +1,6 @@
 import solution
 from typing import *
-from python.object_libs import list_to_linked_list, tree_to_list
+from python.object_libs import list_to_linked_list, linked_list_to_list
 
 
 class ListNode:
