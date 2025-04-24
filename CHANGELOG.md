@@ -1,218 +1,52 @@
 # CHANGELOG
 
-## v8.10.0 (2025-04-22)
+## v9.0.0 (2025-04-24)
 
-### Documentation
+### Breaking
 
-* docs: init interview
+* feat: leetcode script
 
-Add comprehensive interview preparation guide ([`fd43d8c`](https://github.com/QuBenhao/LeetCode/commit/fd43d8c6c13a96559e0cdac83a8c55a487c4904b))
+add main script for problem management and submission
 
-### Feature
-
-* feat: Chinese holiday
-
-add Chinese holiday and workday utilities with 2025 holiday data ([`91cec7d`](https://github.com/QuBenhao/LeetCode/commit/91cec7d7ad93541c17e7aadb0a1a4a97545866e3))
-
-### Refactor
-
-* refactor: rename
-
-improve regex variable naming in holiday extraction ([`5cd269c`](https://github.com/QuBenhao/LeetCode/commit/5cd269cb90b5b286e14cf8ed590409984ff44354))
+BREAKING CHANGE: LeetCode script all in one, selecting menu ([`f684b0a`](https://github.com/QuBenhao/LeetCode/commit/f684b0ad70fdf2e5035c9262f4acb8a9d57bbe89))
 
 ### Test
 
-* test: LCR 034 solution
+* test: 2799, LCR 099 solution
 
-py, go ([`01da91e`](https://github.com/QuBenhao/LeetCode/commit/01da91e047365c0d1275d13a26203085c62e498b))
+py, go ([`b780b38`](https://github.com/QuBenhao/LeetCode/commit/b780b38ec9474e2b889fdfab3d53339d75fbc644))
 
-* test: 2338 solution
+* test: [20250424] Add daily LeetCode problem ([`141ff25`](https://github.com/QuBenhao/LeetCode/commit/141ff25519be56da3d473abc50ed31b125f7d823))
 
-py ([`1bf3187`](https://github.com/QuBenhao/LeetCode/commit/1bf31873b83a5ae354ade64127f4a256b117a230))
+* test: 1399 solution
 
-* test: [20250422] Add daily LeetCode problem ([`ab0bc69`](https://github.com/QuBenhao/LeetCode/commit/ab0bc69a54ca40054b7804a8f8d2ff98127bb2b8))
+py, go ([`c356073`](https://github.com/QuBenhao/LeetCode/commit/c35607358968e4375c6c97dfcd7fc15d5fe15960))
 
-* test: 2145 solution
+* test: LCR 045 solution
 
-py, go ([`6d80ed2`](https://github.com/QuBenhao/LeetCode/commit/6d80ed266a04d649eb970f6d59e2b6ec8f417958))
+py, go ([`03405f6`](https://github.com/QuBenhao/LeetCode/commit/03405f6184cd792becb1ed0ee41d7e2e2f75c4f0))
 
-* test: [20250421] Add daily LeetCode problem ([`164c2d8`](https://github.com/QuBenhao/LeetCode/commit/164c2d8350e223b42ca974d74088df1da053c228))
+* test: 1399 solution
 
-* test: 1863 solution
+py, go ([`c9f43a1`](https://github.com/QuBenhao/LeetCode/commit/c9f43a12ac9595523b9e903d99e505bb1549cc21))
 
-py ([`260255e`](https://github.com/QuBenhao/LeetCode/commit/260255e0883c62c9c3164352b7d997edcade6189))
-
-* test: 781 solution
-
-py, go ([`b3a91a6`](https://github.com/QuBenhao/LeetCode/commit/b3a91a69d723316cf26ae5eaed56975906d608d4))
-
-* test: [20250420] Add daily LeetCode problem ([`5924522`](https://github.com/QuBenhao/LeetCode/commit/5924522097bf2ddf20805ee0d9707891f20a5ca3))
-
-* test: 2563 solution
-
-py, go ([`0788017`](https://github.com/QuBenhao/LeetCode/commit/07880175fbd70f85124ca91c2768a955a62532c3))
-
-* test: [20250419] Add daily LeetCode problem ([`c117883`](https://github.com/QuBenhao/LeetCode/commit/c11788327120388627c545416301030c6f9896ae))
-
-* test: 2364 solution
-
-go ([`20fe3a7`](https://github.com/QuBenhao/LeetCode/commit/20fe3a79d9a02c8566e5c0c02ff3808a7b2e7651))
-
-* test: 2364 solution
-
-py ([`7f8e11d`](https://github.com/QuBenhao/LeetCode/commit/7f8e11db7780bd4a84506705884c41f1885117fd))
-
-* test: [20250418] Add daily LeetCode problem ([`e8b3b7f`](https://github.com/QuBenhao/LeetCode/commit/e8b3b7fca0ed0e2ecf70634f3411bf81111b19c1))
-
-* test: 2176 solution
-
-py ([`668e285`](https://github.com/QuBenhao/LeetCode/commit/668e28574c03cc525d8414b337c6aa4deb75f8be))
-
-* test: [20250417] Add daily LeetCode problem ([`c00878e`](https://github.com/QuBenhao/LeetCode/commit/c00878ec21849dc4dc496b450bd866bab495c031))
-
-* test: 2537 solution
-
-py ([`f72469e`](https://github.com/QuBenhao/LeetCode/commit/f72469e04dc13b1c287eda575e221295a946c119))
-
-* test: [20250416] Add daily LeetCode problem ([`f3fdfce`](https://github.com/QuBenhao/LeetCode/commit/f3fdfce51394a536cfe556fe5ef045b9cdd3b9aa))
-
-* test: 2179 solution
-
-py ([`1b7e483`](https://github.com/QuBenhao/LeetCode/commit/1b7e483a80398263b25d3f854293e205e8a1a10b))
-
-* test: [20250415] Add daily LeetCode problem ([`67c49b4`](https://github.com/QuBenhao/LeetCode/commit/67c49b420cdda22a08d976fb2125e2ae78fd633d))
-
-* test: 1534 solution
-
-py ([`99c9cf9`](https://github.com/QuBenhao/LeetCode/commit/99c9cf9b22df078bac0898c1b561dce4593d0546))
-
-* test: [20250414] Add daily LeetCode problem ([`59043e0`](https://github.com/QuBenhao/LeetCode/commit/59043e03d290743e2fc92bc2002ddec2dae49dbd))
-
-* test: [20250413] Add daily LeetCode problem ([`0dc4b19`](https://github.com/QuBenhao/LeetCode/commit/0dc4b19982146a441588c77f44e96251ed990800))
-
-* test: [20250412] Add daily LeetCode problem ([`55edf9c`](https://github.com/QuBenhao/LeetCode/commit/55edf9c5ecfb3c93882dda5289254f3dfde9b362))
-
-* test: 2843 solution
-
-py ([`5bfbc67`](https://github.com/QuBenhao/LeetCode/commit/5bfbc67bdf2c90a29d1e46eee229f93f22e3fabb))
-
-* test: [20250411] Add daily LeetCode problem ([`3512a78`](https://github.com/QuBenhao/LeetCode/commit/3512a78f5f260034f2d576de0b1133c0204087a6))
-
-* test: 2999 solution
-
-py ([`7c5f884`](https://github.com/QuBenhao/LeetCode/commit/7c5f884560d3966f7431bb84a4155be06eb0f5a8))
-
-* test: [20250410] Add daily LeetCode problem ([`4bbcf38`](https://github.com/QuBenhao/LeetCode/commit/4bbcf38e728f92128e18d499da3f4352cb74d7c4))
-
-* test: 3375 solution
-
-py ([`e0f54da`](https://github.com/QuBenhao/LeetCode/commit/e0f54da12ba415a027c99cec5f5f4007799d4b9f))
-
-* test: [20250409] Add daily LeetCode problem ([`72385bd`](https://github.com/QuBenhao/LeetCode/commit/72385bd43d40f9a28358944f4d68ca896b68804d))
-
-* test: 3396 solution
-
-py ([`a208e0c`](https://github.com/QuBenhao/LeetCode/commit/a208e0cfa00e910053f2e456e57d3a17c7fa1703))
-
-* test: [20250408] Add daily LeetCode problem ([`a424f1f`](https://github.com/QuBenhao/LeetCode/commit/a424f1f87e6d37dc218c387ade48581a538560c3))
-
-* test: [20250407] Add daily LeetCode problem ([`885d522`](https://github.com/QuBenhao/LeetCode/commit/885d5222b10eed38ce5c960e82a6c5bd2cefde68))
-
-* test: [20250406] Add daily LeetCode problem ([`388b751`](https://github.com/QuBenhao/LeetCode/commit/388b75184739ce4aba1443cae15509271171c5a9))
-
-* test: [20250405] Add daily LeetCode problem ([`5565b24`](https://github.com/QuBenhao/LeetCode/commit/5565b2443881f3350b6828e8249c33061d7c5d64))
-
-* test: [20250404] Add daily LeetCode problem ([`902fcdf`](https://github.com/QuBenhao/LeetCode/commit/902fcdf410ed9da4a74fc5c630618ad7f52373cd))
-
-* test: 2874 solution
-
-py, java, rs ([`96e2e7c`](https://github.com/QuBenhao/LeetCode/commit/96e2e7c5d6e24a68bb7a2a6de95854d37b78401e))
-
-* test: 2874 solution
-
-py, java, rs ([`b8fb79b`](https://github.com/QuBenhao/LeetCode/commit/b8fb79b2d8f672c43d2b8d39d2257e3bcd1abd39))
-
-* test: [20250403] Add daily LeetCode problem ([`45e741c`](https://github.com/QuBenhao/LeetCode/commit/45e741c155f02ea877010885f632577396a67e40))
-
-* test: 2873 solution
-
-py, java, rs ([`d80adc5`](https://github.com/QuBenhao/LeetCode/commit/d80adc56400caf209c626bf1cff8a19e37c576b0))
-
-* test: 2873 solution
-
-java, rs ([`5959a5e`](https://github.com/QuBenhao/LeetCode/commit/5959a5eb09ff2af7b1867b7aab90c1f5e5b8b09b))
-
-* test: [20250402] Add daily LeetCode problem ([`83652ed`](https://github.com/QuBenhao/LeetCode/commit/83652ed929ee6ed269472505ff8fb8c4fa29f81f))
-
-* test: 2140 solution
-
-java, rs ([`355d1c7`](https://github.com/QuBenhao/LeetCode/commit/355d1c790cf30d802e0ad2026392fb3e037ccb7b))
-
-* test: 2140 solution
-
-py ([`5a1656b`](https://github.com/QuBenhao/LeetCode/commit/5a1656b95774ebce44b47a761395d374942d7b8c))
-
-* test: [20250401] Add daily LeetCode problem ([`5ccaaa4`](https://github.com/QuBenhao/LeetCode/commit/5ccaaa449f6936e27ca34b19ccd25dccc833cd79))
-
-* test: add back java
-
-wrong removing void problems ([`2283003`](https://github.com/QuBenhao/LeetCode/commit/2283003830c319a7dad35707a8bc5e9c48333895))
+* test: [20250423] Add daily LeetCode problem ([`6a1a5ca`](https://github.com/QuBenhao/LeetCode/commit/6a1a5cac6e997da44c5f9ab764bb8595e59167f4))
 
 ### Unknown
 
-* Merge pull request #141 from QuBenhao/139-festival
+* Merge pull request #143 from QuBenhao/142-command-line-tool
 
-feat: Chinese holiday ([`3d4791e`](https://github.com/QuBenhao/LeetCode/commit/3d4791e3b7444757967384d983bb69b50377a787))
+feat: leetcode script
 
-* doc: add golang interview ([`5e2ac0c`](https://github.com/QuBenhao/LeetCode/commit/5e2ac0cf7467d41bab279a942dafe38c6953f79f))
+add main script for problem management and submission
 
-## v8.9.0 (2025-03-31)
+BREAKING CHANGE: LeetCode script all in one, selecting menu ([`0d0a8c1`](https://github.com/QuBenhao/LeetCode/commit/0d0a8c1dd479c103f26a0779f3f42c0320a95f8f))
 
-### Feature
+* doc: print
 
-* feat: clean error rust
+enhance leetcode.py with submission language feedback and update README with usage demo ([`fd058e5`](https://github.com/QuBenhao/LeetCode/commit/fd058e53be3ee578f278444493aaadf712606675))
 
-add functionality to clean error rust files ([`158dd31`](https://github.com/QuBenhao/LeetCode/commit/158dd3190ae46ba75c4f42257bc02c13cb72f4d0))
-
-* feat: clean empty java
-
-add command to clean empty Java files ([`d937039`](https://github.com/QuBenhao/LeetCode/commit/d9370396e1150521ac15212549e4ead1073bd56c))
-
-### Fix
-
-* fix: rust daily error
-
-improve error handling in rust cleaning process ([`a9336d5`](https://github.com/QuBenhao/LeetCode/commit/a9336d52aae291a9d1e451bc02df89f6b6ef6a6b))
-
-### Test
-
-* test: 2278 solution
-
-java ([`2d33716`](https://github.com/QuBenhao/LeetCode/commit/2d3371685e905ed00895ce16dc9882f5fb15141d))
-
-* test: 2278 solution
-
-py, c++, go ([`835d859`](https://github.com/QuBenhao/LeetCode/commit/835d8597af277516f7c3565c6aec98320933786f))
-
-* test: [20250331] Add daily LeetCode problem ([`3da75a9`](https://github.com/QuBenhao/LeetCode/commit/3da75a93ab33c816d148106d90a29a16011b0f50))
-
-* test: 2109 solution ([`25c3f20`](https://github.com/QuBenhao/LeetCode/commit/25c3f20c656f46e2e306e6fa0cdb773e2dff79bb))
-
-* test: [20250330] Add daily LeetCode problem ([`7c6b705`](https://github.com/QuBenhao/LeetCode/commit/7c6b70587d4f2dfbc0148e3ada6ceadefa030b06))
-
-## v8.8.1 (2025-03-29)
-
-### Fix
-
-* fix: bazel workspace replace
-
-update bazel configuration and implement longestCycle function ([`b24015e`](https://github.com/QuBenhao/LeetCode/commit/b24015e9d8c2339b431450c6a86a73242ace409a))
-
-### Test
-
-* test: [20250329] Add daily LeetCode problem ([`4eb1624`](https://github.com/QuBenhao/LeetCode/commit/4eb16241e769d83b50ceb8d11a52a88e9ae5e1c7))
-
-## v8.8.0 (2025-03-28)
+## v8.10.0 (2025-04-22)
 
 ### Breaking
 
@@ -229,6 +63,10 @@ Init auto run golang
 BREAKING CHANGE: Support for golang ([`85a1fee`](https://github.com/QuBenhao/LeetCode/commit/85a1fee2453160d89cb21e94e51dac058fc9b1d0))
 
 ### Documentation
+
+* docs: init interview
+
+Add comprehensive interview preparation guide ([`fd43d8c`](https://github.com/QuBenhao/LeetCode/commit/fd43d8c6c13a96559e0cdac83a8c55a487c4904b))
 
 * docs: update README.md
 
@@ -333,6 +171,18 @@ latest ([`050396a`](https://github.com/QuBenhao/LeetCode/commit/050396aef9132d82
 README.md ([`77f8ea7`](https://github.com/QuBenhao/LeetCode/commit/77f8ea7df735d30f865ca5fa7fd51a8c506a0eb3))
 
 ### Feature
+
+* feat: Chinese holiday
+
+add Chinese holiday and workday utilities with 2025 holiday data ([`91cec7d`](https://github.com/QuBenhao/LeetCode/commit/91cec7d7ad93541c17e7aadb0a1a4a97545866e3))
+
+* feat: clean error rust
+
+add functionality to clean error rust files ([`158dd31`](https://github.com/QuBenhao/LeetCode/commit/158dd3190ae46ba75c4f42257bc02c13cb72f4d0))
+
+* feat: clean empty java
+
+add command to clean empty Java files ([`d937039`](https://github.com/QuBenhao/LeetCode/commit/d9370396e1150521ac15212549e4ead1073bd56c))
 
 * feat: bazel migrate to bzlmod
 
@@ -1243,6 +1093,14 @@ The code refactors the way TreeNodes are converted to arrays and vice versa in G
 Generate linkedList from int array or the opposite, as well as basic test for linkedList ([`72fde28`](https://github.com/QuBenhao/LeetCode/commit/72fde2896de1d2cac24ed03d5aaac71a7d8dcf55))
 
 ### Fix
+
+* fix: rust daily error
+
+improve error handling in rust cleaning process ([`a9336d5`](https://github.com/QuBenhao/LeetCode/commit/a9336d52aae291a9d1e451bc02df89f6b6ef6a6b))
+
+* fix: bazel workspace replace
+
+update bazel configuration and implement longestCycle function ([`b24015e`](https://github.com/QuBenhao/LeetCode/commit/b24015e9d8c2339b431450c6a86a73242ace409a))
 
 * fix: bazel generator
 
@@ -2540,6 +2398,10 @@ fix case with space and output with space ([`96434b2`](https://github.com/QuBenh
 
 ### Refactor
 
+* refactor: rename
+
+improve regex variable naming in holiday extraction ([`5cd269c`](https://github.com/QuBenhao/LeetCode/commit/5cd269cb90b5b286e14cf8ed590409984ff44354))
+
 * refactor: format
 
 typo ([`17d5322`](https://github.com/QuBenhao/LeetCode/commit/17d5322d0b9499f3537d09fda32df551854e8517))
@@ -2677,6 +2539,158 @@ query param load from str ([`576737d`](https://github.com/QuBenhao/LeetCode/comm
 go.sum uploaded ([`064618d`](https://github.com/QuBenhao/LeetCode/commit/064618d550530aefd4c12eeb3a8d7d3e328cf9f0))
 
 ### Test
+
+* test: LCR 034 solution
+
+py, go ([`01da91e`](https://github.com/QuBenhao/LeetCode/commit/01da91e047365c0d1275d13a26203085c62e498b))
+
+* test: 2338 solution
+
+py ([`1bf3187`](https://github.com/QuBenhao/LeetCode/commit/1bf31873b83a5ae354ade64127f4a256b117a230))
+
+* test: [20250422] Add daily LeetCode problem ([`ab0bc69`](https://github.com/QuBenhao/LeetCode/commit/ab0bc69a54ca40054b7804a8f8d2ff98127bb2b8))
+
+* test: 2145 solution
+
+py, go ([`6d80ed2`](https://github.com/QuBenhao/LeetCode/commit/6d80ed266a04d649eb970f6d59e2b6ec8f417958))
+
+* test: [20250421] Add daily LeetCode problem ([`164c2d8`](https://github.com/QuBenhao/LeetCode/commit/164c2d8350e223b42ca974d74088df1da053c228))
+
+* test: 1863 solution
+
+py ([`260255e`](https://github.com/QuBenhao/LeetCode/commit/260255e0883c62c9c3164352b7d997edcade6189))
+
+* test: 781 solution
+
+py, go ([`b3a91a6`](https://github.com/QuBenhao/LeetCode/commit/b3a91a69d723316cf26ae5eaed56975906d608d4))
+
+* test: [20250420] Add daily LeetCode problem ([`5924522`](https://github.com/QuBenhao/LeetCode/commit/5924522097bf2ddf20805ee0d9707891f20a5ca3))
+
+* test: 2563 solution
+
+py, go ([`0788017`](https://github.com/QuBenhao/LeetCode/commit/07880175fbd70f85124ca91c2768a955a62532c3))
+
+* test: [20250419] Add daily LeetCode problem ([`c117883`](https://github.com/QuBenhao/LeetCode/commit/c11788327120388627c545416301030c6f9896ae))
+
+* test: 2364 solution
+
+go ([`20fe3a7`](https://github.com/QuBenhao/LeetCode/commit/20fe3a79d9a02c8566e5c0c02ff3808a7b2e7651))
+
+* test: 2364 solution
+
+py ([`7f8e11d`](https://github.com/QuBenhao/LeetCode/commit/7f8e11db7780bd4a84506705884c41f1885117fd))
+
+* test: [20250418] Add daily LeetCode problem ([`e8b3b7f`](https://github.com/QuBenhao/LeetCode/commit/e8b3b7fca0ed0e2ecf70634f3411bf81111b19c1))
+
+* test: 2176 solution
+
+py ([`668e285`](https://github.com/QuBenhao/LeetCode/commit/668e28574c03cc525d8414b337c6aa4deb75f8be))
+
+* test: [20250417] Add daily LeetCode problem ([`c00878e`](https://github.com/QuBenhao/LeetCode/commit/c00878ec21849dc4dc496b450bd866bab495c031))
+
+* test: 2537 solution
+
+py ([`f72469e`](https://github.com/QuBenhao/LeetCode/commit/f72469e04dc13b1c287eda575e221295a946c119))
+
+* test: [20250416] Add daily LeetCode problem ([`f3fdfce`](https://github.com/QuBenhao/LeetCode/commit/f3fdfce51394a536cfe556fe5ef045b9cdd3b9aa))
+
+* test: 2179 solution
+
+py ([`1b7e483`](https://github.com/QuBenhao/LeetCode/commit/1b7e483a80398263b25d3f854293e205e8a1a10b))
+
+* test: [20250415] Add daily LeetCode problem ([`67c49b4`](https://github.com/QuBenhao/LeetCode/commit/67c49b420cdda22a08d976fb2125e2ae78fd633d))
+
+* test: 1534 solution
+
+py ([`99c9cf9`](https://github.com/QuBenhao/LeetCode/commit/99c9cf9b22df078bac0898c1b561dce4593d0546))
+
+* test: [20250414] Add daily LeetCode problem ([`59043e0`](https://github.com/QuBenhao/LeetCode/commit/59043e03d290743e2fc92bc2002ddec2dae49dbd))
+
+* test: [20250413] Add daily LeetCode problem ([`0dc4b19`](https://github.com/QuBenhao/LeetCode/commit/0dc4b19982146a441588c77f44e96251ed990800))
+
+* test: [20250412] Add daily LeetCode problem ([`55edf9c`](https://github.com/QuBenhao/LeetCode/commit/55edf9c5ecfb3c93882dda5289254f3dfde9b362))
+
+* test: 2843 solution
+
+py ([`5bfbc67`](https://github.com/QuBenhao/LeetCode/commit/5bfbc67bdf2c90a29d1e46eee229f93f22e3fabb))
+
+* test: [20250411] Add daily LeetCode problem ([`3512a78`](https://github.com/QuBenhao/LeetCode/commit/3512a78f5f260034f2d576de0b1133c0204087a6))
+
+* test: 2999 solution
+
+py ([`7c5f884`](https://github.com/QuBenhao/LeetCode/commit/7c5f884560d3966f7431bb84a4155be06eb0f5a8))
+
+* test: [20250410] Add daily LeetCode problem ([`4bbcf38`](https://github.com/QuBenhao/LeetCode/commit/4bbcf38e728f92128e18d499da3f4352cb74d7c4))
+
+* test: 3375 solution
+
+py ([`e0f54da`](https://github.com/QuBenhao/LeetCode/commit/e0f54da12ba415a027c99cec5f5f4007799d4b9f))
+
+* test: [20250409] Add daily LeetCode problem ([`72385bd`](https://github.com/QuBenhao/LeetCode/commit/72385bd43d40f9a28358944f4d68ca896b68804d))
+
+* test: 3396 solution
+
+py ([`a208e0c`](https://github.com/QuBenhao/LeetCode/commit/a208e0cfa00e910053f2e456e57d3a17c7fa1703))
+
+* test: [20250408] Add daily LeetCode problem ([`a424f1f`](https://github.com/QuBenhao/LeetCode/commit/a424f1f87e6d37dc218c387ade48581a538560c3))
+
+* test: [20250407] Add daily LeetCode problem ([`885d522`](https://github.com/QuBenhao/LeetCode/commit/885d5222b10eed38ce5c960e82a6c5bd2cefde68))
+
+* test: [20250406] Add daily LeetCode problem ([`388b751`](https://github.com/QuBenhao/LeetCode/commit/388b75184739ce4aba1443cae15509271171c5a9))
+
+* test: [20250405] Add daily LeetCode problem ([`5565b24`](https://github.com/QuBenhao/LeetCode/commit/5565b2443881f3350b6828e8249c33061d7c5d64))
+
+* test: [20250404] Add daily LeetCode problem ([`902fcdf`](https://github.com/QuBenhao/LeetCode/commit/902fcdf410ed9da4a74fc5c630618ad7f52373cd))
+
+* test: 2874 solution
+
+py, java, rs ([`96e2e7c`](https://github.com/QuBenhao/LeetCode/commit/96e2e7c5d6e24a68bb7a2a6de95854d37b78401e))
+
+* test: 2874 solution
+
+py, java, rs ([`b8fb79b`](https://github.com/QuBenhao/LeetCode/commit/b8fb79b2d8f672c43d2b8d39d2257e3bcd1abd39))
+
+* test: [20250403] Add daily LeetCode problem ([`45e741c`](https://github.com/QuBenhao/LeetCode/commit/45e741c155f02ea877010885f632577396a67e40))
+
+* test: 2873 solution
+
+py, java, rs ([`d80adc5`](https://github.com/QuBenhao/LeetCode/commit/d80adc56400caf209c626bf1cff8a19e37c576b0))
+
+* test: 2873 solution
+
+java, rs ([`5959a5e`](https://github.com/QuBenhao/LeetCode/commit/5959a5eb09ff2af7b1867b7aab90c1f5e5b8b09b))
+
+* test: [20250402] Add daily LeetCode problem ([`83652ed`](https://github.com/QuBenhao/LeetCode/commit/83652ed929ee6ed269472505ff8fb8c4fa29f81f))
+
+* test: 2140 solution
+
+java, rs ([`355d1c7`](https://github.com/QuBenhao/LeetCode/commit/355d1c790cf30d802e0ad2026392fb3e037ccb7b))
+
+* test: 2140 solution
+
+py ([`5a1656b`](https://github.com/QuBenhao/LeetCode/commit/5a1656b95774ebce44b47a761395d374942d7b8c))
+
+* test: [20250401] Add daily LeetCode problem ([`5ccaaa4`](https://github.com/QuBenhao/LeetCode/commit/5ccaaa449f6936e27ca34b19ccd25dccc833cd79))
+
+* test: add back java
+
+wrong removing void problems ([`2283003`](https://github.com/QuBenhao/LeetCode/commit/2283003830c319a7dad35707a8bc5e9c48333895))
+
+* test: 2278 solution
+
+java ([`2d33716`](https://github.com/QuBenhao/LeetCode/commit/2d3371685e905ed00895ce16dc9882f5fb15141d))
+
+* test: 2278 solution
+
+py, c++, go ([`835d859`](https://github.com/QuBenhao/LeetCode/commit/835d8597af277516f7c3565c6aec98320933786f))
+
+* test: [20250331] Add daily LeetCode problem ([`3da75a9`](https://github.com/QuBenhao/LeetCode/commit/3da75a93ab33c816d148106d90a29a16011b0f50))
+
+* test: 2109 solution ([`25c3f20`](https://github.com/QuBenhao/LeetCode/commit/25c3f20c656f46e2e306e6fa0cdb773e2dff79bb))
+
+* test: [20250330] Add daily LeetCode problem ([`7c6b705`](https://github.com/QuBenhao/LeetCode/commit/7c6b70587d4f2dfbc0148e3ada6ceadefa030b06))
+
+* test: [20250329] Add daily LeetCode problem ([`4eb1624`](https://github.com/QuBenhao/LeetCode/commit/4eb16241e769d83b50ceb8d11a52a88e9ae5e1c7))
 
 * test: 2716 solution
 
@@ -6817,6 +6831,12 @@ Introduced a new test file, tree_test.go, containing unit tests for the conversi
 The extended test coverage now includes the &#39;ListNode&#39; function. This also involves the creation and validation of cyclic nodes and intersecting nodes within a linked list. The respective checks for node existence, length, and correct values have been implemented in these new tests. ([`a61f839`](https://github.com/QuBenhao/LeetCode/commit/a61f8397e29900191980b5ec3e02ca0850f12df3))
 
 ### Unknown
+
+* Merge pull request #141 from QuBenhao/139-festival
+
+feat: Chinese holiday ([`3d4791e`](https://github.com/QuBenhao/LeetCode/commit/3d4791e3b7444757967384d983bb69b50377a787))
+
+* doc: add golang interview ([`5e2ac0c`](https://github.com/QuBenhao/LeetCode/commit/5e2ac0cf7467d41bab279a942dafe38c6953f79f))
 
 * Revert &#34;test: [20241020] Add daily problem solution&#34;
 
