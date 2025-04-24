@@ -80,7 +80,7 @@ def back_fill_ratings(args):
                 break
 
 
-def lucky(args):
+def lucky_main(languages, problem_folder, category="algorithms"):
     def process_problem(root_path, question: dict, langs) -> bool:
         question_id = format_question_id(question["frontendQuestionId"])
         if question.get("paidOnly", False):
@@ -102,36 +102,68 @@ def lucky(args):
             return True
         return False
 
-    try:
-        load_dotenv()
-    except Exception as _:
-        logging.error("Load Env exception", exc_info=True)
-    languages = os.getenv(constant.LANGUAGES, "python3").split(",")
-    problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
-    category = args.category
     total = lc_libs.get_questions_total(category)
     number = random.randint(1, total)
     logging.info("Random For Problem folder: %s [%d]", problem_folder, number)
     questions = lc_libs.get_questions_by_number(number, category)
     if not questions:
         logging.error(f"No question found for number: {number}")
-        return
+        return 1
     central = min(number, 49)
     rpath = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     left = right = central
     while left >= 0 or right < len(questions):
         if right < len(questions):
             if process_problem(rpath, questions[right], languages):
-                return
+                return 0
         if left == right:
             left -= 1
             continue
         if left >= 0:
             if process_problem(rpath, questions[left], languages):
-                return
+                return 0
         left -= 1
         right += 1
     logging.warning("All problems are solved in random locations, flag: %d", number)
+    return 1
+
+
+def lucky(args):
+    try:
+        load_dotenv()
+    except Exception as _:
+        logging.error("Load Env exception", exc_info=True)
+    languages = os.getenv(constant.LANGUAGES, "python3").split(",")
+    problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
+    lucky_main(languages, problem_folder, args.category)
+
+
+def remain_main(cookie, languages, problem_folder, status="TRIED", category="all-code-essentials"):
+    if not cookie:
+        logging.error("Cookie is needed for remaining questions.")
+        return 1
+    remains = lc_libs.get_questions_by_status(status, category, True, cookie=cookie)
+    if remains is None:
+        logging.error("Failed to get remain problems.")
+        return 1
+    if not remains:
+        logging.warning("No remain problems found.")
+        return 1
+    logging.info("Remain problems: %d", len(remains))
+    pick = random.choice(remains)
+    question_id = format_question_id(pick["frontendQuestionId"])
+    logging.info("Pick problem: [%s].%s", pick["frontendQuestionId"], pick["title"])
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
+    if os.path.exists(dir_path):
+        logging.warning("Folder already exists: %s", dir_path)
+        return 1
+    os.makedirs(dir_path, exist_ok=True)
+    results = write_question(root_path, dir_path, problem_folder, question_id,
+                             pick["title"], pick["titleSlug"], languages)
+    logging.info("Problem created: %s", question_id)
+    logging.debug("Success languages: %s", results)
+    return 0
 
 
 def remain(args):
@@ -142,37 +174,12 @@ def remain(args):
     problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     langs = os.getenv(constant.LANGUAGES, "python3").split(",")
     cookie = os.getenv(constant.COOKIE)
-    if not cookie:
-        logging.error("Cookie is needed for remaining questions.")
-        return
-    remains = lc_libs.get_questions_by_status(args.status, args.category, True, cookie=cookie)
-    if remains is None:
-        logging.error("Failed to get remain problems.")
-        return
-    if not remains:
-        logging.warning("No remain problems found.")
-        return
-    logging.info("Remain problems: %d", len(remains))
-    pick = random.choice(remains)
-    question_id = format_question_id(pick["frontendQuestionId"])
-    logging.info("Pick problem: [%s].%s", pick["frontendQuestionId"], pick["title"])
-    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
-    if os.path.exists(dir_path):
-        logging.warning("Folder already exists: %s", dir_path)
-        return
-    os.makedirs(dir_path, exist_ok=True)
-    results = write_question(root_path, dir_path, problem_folder, question_id,
-                             pick["title"], pick["titleSlug"], langs)
-    logging.info("Problem created: %s", question_id)
-    logging.debug("Success languages: %s", results)
+    remain_main(cookie, langs, problem_folder, args.status, args.category)
 
 
-def clean_empty_java(args):
-    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
+def clean_empty_java_main(root_path, problem_folder, daily: bool = False):
     question_id = None
-    if args.daily:
+    if daily:
         question_id = lc_libs.get_daily_question()["questionId"]
 
     total_remove = 0
@@ -185,7 +192,7 @@ def clean_empty_java(args):
         for file in files:
             if not file.endswith(".java"):
                 continue
-            if args.daily and root.endswith(f"{problem_folder}/{problem_folder}_{question_id}"):
+            if daily and root.endswith(f"{problem_folder}/{problem_folder}_{question_id}"):
                 logging.info("Keep daily java file: %s", os.path.join(root, file))
                 continue
             with open(os.path.join(root, file), "r") as f:
@@ -198,13 +205,19 @@ def clean_empty_java(args):
     logging.info("Removed %d empty java files", total_remove)
 
 
-def clean_error_rust(args):
+def clean_empty_java(args):
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
+    clean_empty_java_main(root_path, problem_folder, args.daily)
+
+
+def clean_error_rust_main(root_path, problem_folder, daily: bool = False):
     def remove_rust_file(_problem_id: str):
         nonlocal explored, total_remove, all_removed_problems, question_id, cur_error
         if _problem_id in explored:
             return
         explored.add(_problem_id)
-        if args.daily and _problem_id == question_id:
+        if daily and _problem_id == question_id:
             logging.info("Keep daily rust error file: %s", _problem_id)
             return
         cur_error += 1
@@ -219,13 +232,8 @@ def clean_error_rust(args):
         else:
             logging.warning("Rust file not found: %s", file_path)
 
-    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
-    if not os.path.exists(os.path.join(root_path, problem_folder)):
-        logging.error("Problem folder not found: %s", problem_folder)
-        return
     question_id = None
-    if args.daily:
+    if daily:
         question_id = lc_libs.get_daily_question()["questionId"]
 
     total_remove = 0
@@ -275,6 +283,14 @@ def clean_error_rust(args):
         return
 
     logging.info("Removed %d error rust files", total_remove)
+
+def clean_error_rust(args):
+    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
+    if not os.path.exists(os.path.join(root_path, problem_folder)):
+        logging.error("Problem folder not found: %s", problem_folder)
+        return
+    clean_error_rust_main(root_path, problem_folder, args.daily)
 
 
 if __name__ == '__main__':
