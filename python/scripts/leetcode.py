@@ -14,7 +14,7 @@ sys.path.insert(0, root_path.as_posix())
 from python.constants import constant
 from python.lc_libs import get_daily_question
 from python.scripts.submit import main as submit_main_async
-from python.utils import back_question_id
+from python.utils import back_question_id, format_question_id
 from python.scripts.daily_auto import main as daily_auto_main
 from python.scripts.get_problem import main as get_problem_main
 from python.scripts.tools import lucky_main, remain_main, clean_empty_java_main, clean_error_rust_main
@@ -214,7 +214,7 @@ def submit(languages, problem_folder, cookie):
             loop.run_until_complete(
                 submit_main_async(
                     root_path,
-                    problem_id,
+                    format_question_id(problem_id),
                     lang,
                     cookie,
                     problem_folder
