@@ -1,11 +1,11 @@
-const PROBLEMS: [[&str; 2]; 1] = [["problems", "LCR_026"]];
+const PROBLEMS: [[&str; 2]; 1] = [["problems", "LCR_054"]];
 
 #[cfg(test)]
 mod test {
 	use test_executor::run_test::run_test;
 	use crate::PROBLEMS;
 
-	use solution_LCR_026 as solution0;
+	use solution_LCR_054 as solution0;
 
 	#[test]
 	fn test_solutions() {
