@@ -7,6 +7,10 @@ import sys
 from pathlib import Path
 from dotenv import load_dotenv
 
+file_path = Path(__file__)
+root_path = file_path.parent.parent.parent
+sys.path.insert(0, root_path.as_posix())
+
 from python.constants import constant
 from python.lc_libs import get_daily_question
 from python.scripts.submit import main as submit_main_async
@@ -14,10 +18,6 @@ from python.utils import back_question_id
 from python.scripts.daily_auto import main as daily_auto_main
 from python.scripts.get_problem import main as get_problem_main
 from python.scripts.tools import lucky_main, remain_main, clean_empty_java_main, clean_error_rust_main
-
-file_path = Path(__file__)
-root_path = file_path.parent.parent.parent
-sys.path.insert(0, root_path.as_posix())
 
 __separate_line = "-" * 50
 
@@ -71,9 +71,10 @@ def configure():
     print("Setting up the environment...")
     config_select = input_until_valid(__user_input_config, __allow_all)
     print(__separate_line)
+    env_file = root_path / ".env"
 
     try:
-        load_dotenv()
+        load_dotenv(dotenv_path=env_file.as_posix())
     except Exception:
         pass
     if config_select == "1":
@@ -112,7 +113,6 @@ def configure():
             __allow_all
         )
         if update_config == "y":
-            env_file = root_path / ".env"
             with env_file.open("w") as f:
                 f.write(f"{constant.COOKIE}={cookie}\n")
                 f.write(f"{constant.PROBLEM_FOLDER}={problem_folder}\n")
