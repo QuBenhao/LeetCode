@@ -6,8 +6,23 @@ import (
 	"strings"
 )
 
-func countInterestingSubarrays(nums []int, modulo int, k int) int64 {
-    
+func countInterestingSubarrays(nums []int, modulo int, k int) (ans int64) {
+	n := len(nums)
+	preSum := make([]int, n+1)
+	for i := 1; i <= n; i++ {
+		preSum[i] = preSum[i-1]
+		if nums[i-1]%modulo == k {
+			preSum[i]++
+		}
+	}
+	counter := make(map[int]int)
+	counter[0] = 1
+	for i := 1; i <= n; i++ {
+		target := (preSum[i] - k + modulo) % modulo
+		ans += int64(counter[target])
+		counter[preSum[i]%modulo]++
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
