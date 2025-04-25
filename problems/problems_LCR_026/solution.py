@@ -20,5 +20,30 @@ class Solution(solution.Solution):
         """
         Do not return anything, modify head in-place instead.
         """
-        pass
+        n = 0
+        cur = head
+        while cur:
+            n += 1
+            cur = cur.next
+        mid = (n + 1) // 2
+        mid_node = head
+        for _ in range(mid - 1):
+            mid_node = mid_node.next
+        
+        reservsed_head = mid_node.next
+        mid_node.next = None
+        cur = reservsed_head
+        while cur and cur.next:
+            nxt = cur.next
+            cur.next = nxt.next
+            nxt.next = reservsed_head
+            reservsed_head = nxt
 
+        cur = head
+        while reservsed_head:
+            next = cur.next
+            cur.next = reservsed_head
+            rn = reservsed_head.next
+            reservsed_head.next = next
+            reservsed_head = rn
+            cur = next

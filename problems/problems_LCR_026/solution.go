@@ -14,8 +14,37 @@ import (
  *     Next *ListNode
  * }
  */
-func reorderList(head *ListNode)  {
+func reorderList(head *ListNode) {
+	n := 0
+	cur := head
+	for cur != nil {
+		n++
+		cur = cur.Next
+	}
+	mid := (n + 1) / 2
+	midNode := head
+	for i := 0; i < mid-1; i++ {
+		midNode = midNode.Next
+	}
+	reservedHead := midNode.Next
+	midNode.Next = nil
+	cur = reservedHead
+	for cur != nil && cur.Next != nil {
+		next := cur.Next
+		cur.Next = next.Next
+		next.Next = reservedHead
+		reservedHead = next
+	}
 
+	cur = head
+	for reservedHead != nil {
+		next := cur.Next
+		cur.Next = reservedHead
+		rNext := reservedHead.Next
+		reservedHead.Next = next
+		cur = next
+		reservedHead = rNext
+	}
 }
 
 func Solve(inputJsonValues string) interface{} {
