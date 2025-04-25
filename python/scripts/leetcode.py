@@ -150,8 +150,8 @@ def get_problem(languages, problem_folder, cookie):
                     __user_input_problem_id, __allow_all_not_empty, "Problem ID cannot be empty."
                 )
                 problem_id = back_question_id(input_problem_id)
-                exit_code = get_problem_main(problem_id, cookie=cookie, languages=languages,
-                                             problem_folder=problem_folder)
+                exit_code = get_problem_main(problem_id, cookie=cookie, replace_problem_id=True,
+                                             languages=languages, problem_folder=problem_folder)
                 if exit_code == 0:
                     print("Problem fetched successfully.")
                 else:
