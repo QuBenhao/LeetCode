@@ -22,6 +22,12 @@ new_local_repository(
 
 new_local_repository(
     name = "problem0",
-    path = "problems/problems_LCR_054/",
+    path = "problems/problems_LCR_061/",
+    build_file = "//cpp:solution.BUILD",
+)
+
+new_local_repository(
+    name = "problem1",
+    path = "problems/problems_LCR_066/",
     build_file = "//cpp:solution.BUILD",
 )
