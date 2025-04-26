@@ -1,5 +1,73 @@
 # CHANGELOG
 
+## v9.1.0 (2025-04-26)
+
+### Feature
+
+* feat: leetcode script
+
+add category selection and problem extraction from tags ([`1061a97`](https://github.com/QuBenhao/LeetCode/commit/1061a979e7a4e522415a8a796b6d2055239fe9a9))
+
+### Fix
+
+* fix: code review
+
+enhance problem extraction with error handling and argument parsing ([`4644c83`](https://github.com/QuBenhao/LeetCode/commit/4644c83bebfce505ae15cdac188930723129c85d))
+
+* fix: change problem
+
+leetcode script update test problem by get_problem ([`2693ac5`](https://github.com/QuBenhao/LeetCode/commit/2693ac50b3a5cf3ea6ce7a2c61c0898d3e6bf1fe))
+
+* fix: submit specified problem
+
+fromat question id ([`4f5581f`](https://github.com/QuBenhao/LeetCode/commit/4f5581f4abb2958e78c85bdd3e6940958e560788))
+
+* fix: path
+
+import path after insert root path ([`7849741`](https://github.com/QuBenhao/LeetCode/commit/78497417219f71e98c567985c574e3a9a51b9e34))
+
+### Refactor
+
+* refactor: spider arguments
+
+add argparse for command line interface in spider script ([`27d6c2e`](https://github.com/QuBenhao/LeetCode/commit/27d6c2e3ee2a35baf02d198c348950975d1554e4))
+
+### Test
+
+* test: 2104 solution
+
+py, go ([`1fafda0`](https://github.com/QuBenhao/LeetCode/commit/1fafda04fe1b182ff53496931653efd3b53dd1df))
+
+* test: LCR 061, LCR 066 solution
+
+py, go ([`2920006`](https://github.com/QuBenhao/LeetCode/commit/2920006d59788f23885eaa5c266b4e571be8aaa0))
+
+* test: 2444, LCR 054 solution
+
+py, go ([`6cf83df`](https://github.com/QuBenhao/LeetCode/commit/6cf83df454a61a2b15128948ec27f1cc2a75bc57))
+
+* test: [20250426] Add daily LeetCode problem ([`1ccafcb`](https://github.com/QuBenhao/LeetCode/commit/1ccafcbe89b407f279221311b8b89292b04fa33d))
+
+* test: LCR 026 solution
+
+py, go ([`41f917d`](https://github.com/QuBenhao/LeetCode/commit/41f917d46da90aab6dcb6fc90cb32deda723bd30))
+
+* test: 2845 solution
+
+golang ([`d17f1fd`](https://github.com/QuBenhao/LeetCode/commit/d17f1fd335c9bc9994d6d43d258a45e375c8cdf6))
+
+* test: 2845 solution
+
+py ([`cd499dc`](https://github.com/QuBenhao/LeetCode/commit/cd499dc5107c07991ec3e11b3cedd758c9e61f90))
+
+* test: [20250425] Add daily LeetCode problem ([`0e1bc48`](https://github.com/QuBenhao/LeetCode/commit/0e1bc48b0251e9f55956f5790a4163f22790f7a2))
+
+### Unknown
+
+* Merge pull request #145 from QuBenhao/144-get-problem-by-category
+
+feat: leetcode script ([`8ed9ea0`](https://github.com/QuBenhao/LeetCode/commit/8ed9ea0ed8220fa19c1e41f6222e743adaa2c6b3))
+
 ## v9.0.0 (2025-04-24)
 
 ### Breaking
