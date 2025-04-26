@@ -2,7 +2,7 @@ import heapq
 import json
 import logging
 from collections import defaultdict, deque
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Optional
 
 import requests
@@ -94,7 +94,7 @@ def generate_question_todo(plan_sub_groups, todo_num: int):
 
 def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = -1):
     if todo_num < 0:
-        current_datetime = datetime.now()
+        current_datetime = datetime.now().replace(tzinfo=None) + timedelta(hours=8)
         if is_chinese_holiday(current_datetime):
             todo_num = 0
         elif is_chinese_workday(current_datetime):

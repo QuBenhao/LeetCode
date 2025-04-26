@@ -6,8 +6,22 @@ import (
 	"strings"
 )
 
-func countSubarrays(nums []int, minK int, maxK int) int64 {
-    
+func countSubarrays(nums []int, minK int, maxK int) (ans int64) {
+	minLeft, maxLeft, invalid := -1, -1, -1
+	for i, num := range nums {
+		if num < minK || num > maxK {
+			invalid = i
+		} else {
+			if num == minK {
+				minLeft = i
+			}
+			if num == maxK {
+				maxLeft = i
+			}
+		}
+		ans += int64(max(0, min(minLeft, maxLeft)-invalid))
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {

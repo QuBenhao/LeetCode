@@ -18,5 +18,15 @@ class Solution(solution.Solution):
         return tree_to_list(res)
 
     def convertBST(self, root: TreeNode) -> TreeNode:
-        pass
+        cur_sum = 0
+        def dfs(node: TreeNode):
+            if not node:
+                return
+            dfs(node.right)
+            nonlocal cur_sum
+            cur_sum += node.val
+            node.val = cur_sum
+            dfs(node.left)
 
+        dfs(root)
+        return root

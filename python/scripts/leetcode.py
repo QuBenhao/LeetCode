@@ -3,6 +3,7 @@ import logging
 import os
 import re
 import sys
+import time
 
 from pathlib import Path
 from dotenv import load_dotenv
@@ -209,7 +210,7 @@ def submit(languages, problem_folder, cookie):
             asyncio.set_event_loop(loop)
         print("Starting submission, please wait...")
         logging.basicConfig(level=logging.INFO, force=True)
-        for lang in languages:
+        for i, lang in enumerate(languages):
             print(f"Submitting in {lang}...")
             loop.run_until_complete(
                 submit_main_async(
@@ -220,10 +221,13 @@ def submit(languages, problem_folder, cookie):
                     problem_folder
                 )
             )
+            if i < len(languages) - 1:
+                time.sleep(1)
         if loop.is_running():
             loop.stop()
         loop.close()
         logging.basicConfig(level=logging.ERROR, force=True)
+        time.sleep(1)
         print("Submission completed.")
         print(__separate_line)
 

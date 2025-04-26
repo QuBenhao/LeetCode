@@ -14,7 +14,19 @@ import (
  * }
  */
 func convertBST(root *TreeNode) *TreeNode {
-
+	var curSum int
+	var dfs func(*TreeNode)
+	dfs = func(node *TreeNode) {
+		if node == nil {
+			return
+		}
+		dfs(node.Right)
+		curSum += node.Val
+		node.Val = curSum
+		dfs(node.Left)
+	}
+	dfs(root)
+	return root
 }
 
 func Solve(inputJsonValues string) interface{} {
