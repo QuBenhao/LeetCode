@@ -1,3 +1,4 @@
+import argparse
 import re
 import json
 import sys
@@ -85,7 +86,7 @@ def save_holidays_to_json(year, holidays, workdays, file_path):
 
 
 
-def holiday_main():
+def holiday_main(args):
     result = extract_holidays()
     file_path = "../../data/holiday.json"
     save_holidays_to_json(*result, file_path)
@@ -107,7 +108,7 @@ def extract_problems(html_content):
         problems.append((title, url))
     return problems
 
-def extract_problems_main():
+def extract_problems_main(args):
     # with Path("").open('r', encoding='utf-8') as f:
     #     source = f.read()
     source = ""
@@ -120,5 +121,13 @@ def extract_problems_main():
     print(",".join(map(lambda x: f"\"{x}\"", problem_ids)))
 
 if __name__ == "__main__":
-    extract_problems_main()
+    parser = argparse.ArgumentParser(description="Spider script")
+    sub_parsers = parser.add_subparsers()
+    sub_parsers.add_parser("holiday", help="Extract holidays from the text").set_defaults(func=holiday_main)
+    sub_parsers.add_parser("problems", help="Extract problems from the HTML").set_defaults(func=extract_problems_main)
+    _args = parser.parse_args()
+    if hasattr(_args, "func"):
+        _args.func(_args)
+    else:
+        parser.print_help()
     sys.exit()
