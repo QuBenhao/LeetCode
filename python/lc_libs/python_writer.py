@@ -366,7 +366,7 @@ class Python3Writer(LanguageWriter):
                     remain += f"        heads = [list_to_linked_list(nums) for nums in nums_arr]\n"
                     inputs += "heads"
                     if modify_in_place and not modify_in_place_inputs:
-                        add_lib += ", tree_to_list" if exists else "from python.object_libs import linked_list_to_list"
+                        add_lib += ", linked_list_to_list" if exists else "from python.object_libs import linked_list_to_list"
                         modify_in_place_inputs = "linked_list_to_list(heads[0])"
                 else:
                     if testcases:
@@ -400,7 +400,7 @@ class Python3Writer(LanguageWriter):
                     remain += f"        head{idx} = list_to_linked_list(nums{idx})\n"
                     inputs += f"head{idx}"
                     if modify_in_place and not modify_in_place_inputs:
-                        add_lib += ", tree_to_list" if exists else "from python.object_libs import linked_list_to_list"
+                        add_lib += ", linked_list_to_list" if exists else "from python.object_libs import linked_list_to_list"
                         modify_in_place_inputs = f"linked_list_to_list(head{idx})"
                     idx += 1
             elif "Node" in str(v.annotation) and "Node" in cs_map and "neighbors" in cs_map["Node"][0][1]:
