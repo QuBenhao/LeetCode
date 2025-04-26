@@ -68,7 +68,7 @@ jobs:
           echo "No changes to commit"
           exit 0
         fi
-        question_ids=$(grep 'Add question: ' /tmp/msg | cut -d "[" -f 6 | cut -d "]" -f 1 | tr '\n' ' '
+        question_ids=$(grep 'Add question: ' /tmp/msg | cut -d "[" -f 6 | cut -d "]" -f 1 | tr '\n' ' ' | sed 's/ $//')
         git commit -m "test: [$(TZ=Asia/Shanghai date +%Y%m%d)] Add (${question_ids})"
 
     - name: Push changes
