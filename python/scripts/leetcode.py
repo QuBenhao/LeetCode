@@ -1,6 +1,8 @@
 import asyncio
+import json
 import logging
 import os
+import random
 import re
 import sys
 import time
@@ -33,12 +35,13 @@ __user_input_function = """Please select the main function [0-4, default: 0]:
 3. Clean empty java
 4. Clean error rust
 """
-__user_input_get_problem = """Please select the get problem method [0-4, default: 0]:
+__user_input_get_problem = """Please select the get problem method [0-5, default: 0]:
 0. Back
 1. Daily auto
 2. Specified problem ID
 3. Random
 4. Random remain [Problems that submitted but not accepted yet]
+5. Category
 """
 __user_input_submit = """Please select the submit method [0-4, default: 0]:
 0. Back
@@ -66,6 +69,25 @@ def input_until_valid(prompt, check_func, error_msg=None):
         elif error_msg:
             print(error_msg)
         print(__separate_line)
+
+
+def input_pick_array(desc, arr):
+    user_input = input_until_valid(
+        f"Enter the number of the {desc} [1-{len(arr)}, or 0 to go back (default), or input random to random: "
+        f"0. Back\n{'\n'.join(f'{i}. {v}' for i, v in enumerate(arr, 1))}\n",
+        __allow_all
+    )
+    if user_input == "0":
+        return None
+    if user_input == "random":
+        return random.randint(0, len(arr) - 1)
+    try:
+        pick = int(user_input) - 1
+        if pick < 0 or pick >= len(arr):
+            pick = random.randint(0, len(arr) - 1)
+        return pick
+    except ValueError:
+        return None
 
 
 def configure():
@@ -154,7 +176,7 @@ def get_problem(languages, problem_folder, cookie):
                 exit_code = get_problem_main(problem_id, cookie=cookie, replace_problem_id=True,
                                              languages=languages, problem_folder=problem_folder)
                 if exit_code == 0:
-                    print("Problem fetched successfully.")
+                    print(f"Problem [{problem_id}] fetched successfully.")
                 else:
                     print(f"Failed to fetch the problem. Make sure the problem ID is correct: {problem_id}")
             case "3":
@@ -170,6 +192,35 @@ def get_problem(languages, problem_folder, cookie):
                 else:
                     print("Failed to fetch a random remaining problem."
                           "Cookie may be invalid, or no remaining problems.")
+            case "5":
+                tags = root_path / "data" / "tags.json"
+                if not tags.exists():
+                    print("Tags file not found. Please contact the author.")
+                    continue
+                with tags.open("r", encoding="utf-8") as f:
+                    json_tags = json.load(f)
+                tags = list(json_tags.keys())
+                pick_tag = input_pick_array("tag", tags)
+                if pick_tag is None:
+                    continue
+                tag = tags[pick_tag]
+                tag_data = json_tags[tag]
+                print(f"Selected tag: {tag} [{','.join(tag_data.get('translations', []))}]")
+                print(__separate_line)
+                problems = tag_data.get("problems", [])
+                if not problems:
+                    print("No problems found for this tag.")
+                    continue
+                pick_problem = input_pick_array("problem", problems)
+                if pick_problem is None:
+                    continue
+                problem_id = problems[pick_problem]
+                exit_code = get_problem_main(problem_id, cookie=cookie, replace_problem_id=True,
+                                             languages=languages, problem_folder=problem_folder)
+                if exit_code == 0:
+                    print(f"Problem [{problem_id}] fetched successfully.")
+                else:
+                    print(f"Failed to fetch the problem. Check {problem_id} is correct?")
             case _:
                 return
 
