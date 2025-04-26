@@ -73,7 +73,7 @@ def input_until_valid(prompt, check_func, error_msg=None):
 
 def input_pick_array(desc, arr):
     user_input = input_until_valid(
-        f"Enter the number of the {desc} [1-{len(arr)}, or 0 to go back or random [default: 0]: "
+        f"Enter the number of the {desc} [1-{len(arr)}, or 0 to go back (default), or input random to random: "
         f"0. Back\n{'\n'.join(f'{i}. {v}' for i, v in enumerate(arr, 1))}\n",
         __allow_all
     )
