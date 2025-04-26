@@ -1,11 +1,14 @@
 import re
 import json
+import sys
 import time
 from datetime import datetime, timedelta
 
 from pathlib import Path
 
-text = """国务院办公厅关于2025年
+from bs4 import BeautifulSoup
+
+__text = """国务院办公厅关于2025年
 部分节假日安排的通知
 国办发明电〔2024〕12号
 
@@ -24,7 +27,7 @@ text = """国务院办公厅关于2025年
 
 
 def extract_holidays():
-    lines = text.split('\n')
+    lines = __text.split('\n')
     year = re.search(r'(\d{4})年', lines[0]).group(1)
     holidays = []
     workdays = []
@@ -81,7 +84,41 @@ def save_holidays_to_json(year, holidays, workdays, file_path):
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 
-if __name__ == "__main__":
+
+def holiday_main():
     result = extract_holidays()
     file_path = "../../data/holiday.json"
     save_holidays_to_json(*result, file_path)
+
+
+
+# extract problems from the HTML content
+def extract_problems(html_content):
+    problems = []
+    soup = BeautifulSoup(html_content, 'html.parser')
+    for li in soup.find_all('li'):
+        a_tag = li.find('a')
+        if not a_tag:
+            continue
+        title = a_tag.text
+        url = a_tag['href']
+        if "/problems/" not in url:
+            continue
+        problems.append((title, url))
+    return problems
+
+def extract_problems_main():
+    # with Path("").open('r', encoding='utf-8') as f:
+    #     source = f.read()
+    source = ""
+    problems = extract_problems(source)
+    problem_ids = []
+    for title, url in problems:
+        problem_id = ".".join(title.rsplit(".")[:-1])
+        print(f"Problem ID: {problem_id}, Title: {title}, URL: {url}")
+        problem_ids.append(problem_id)
+    print(",".join(map(lambda x: f"\"{x}\"", problem_ids)))
+
+if __name__ == "__main__":
+    extract_problems_main()
+    sys.exit()
