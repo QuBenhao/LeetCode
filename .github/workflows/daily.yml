@@ -55,13 +55,13 @@ jobs:
         LOG_LEVEL: ${{secrets.LOG_LEVEL || 'INFO'}}
       run: |
         set +e
-        python python/scripts/daily_auto.py >> /tmp/msg
+        python python/scripts/daily_auto.py > /tmp/msg 2>&1
         status=$?
         cat /tmp/msg
-        echo "QUESTION_IDS=$(grep -oP 'Add question: \[\K[^\]]+' /tmp/msg | tr '\n' ' ' | sed 's/ $//')" >> $GITHUB_ENV
+        echo "QUESTION_IDS=$(grep 'Add question:' /tmp/msg | cut -d '[' -f 6 | cut -d ']' -f 1 | tr '\n' ' ' | sed 's/ $//')" >> $GITHUB_ENV
         echo "question lines: $(grep 'Add question:' /tmp/msg)"
-        echo "question ids: $(grep -oP 'Add question: \[\K[^\]]+' /tmp/msg | tr '\n' ' ')"
-        echo "QUESTION_IDS=$(grep -oP 'Add question: \[\K[^\]]+' /tmp/msg | tr '\n' ' ' | sed 's/ $//')"
+        echo "question ids: $(grep 'Add question:' /tmp/msg | cut -d '[' -f 6 | cut -d ']' -f 1)"
+        echo "QUESTION_IDS=$(grep 'Add question:' /tmp/msg | cut -d '[' -f 6 | cut -d ']' -f 1 | tr '\n' ' ' | sed 's/ $//')"
         exit $status
 
     - name: Commit files
