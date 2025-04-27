@@ -45,6 +45,7 @@ jobs:
         pip install -r python/requirements.txt
 
     - name: Run script
+      id: script
       env:
         COOKIE: ${{ secrets.COOKIE }}
         PUSH_SERVER: ${{ secrets.PUSH_SERVER }}
@@ -57,6 +58,7 @@ jobs:
         python python/scripts/daily_auto.py > /tmp/msg
         status=$?
         cat /tmp/msg
+        echo "question_ids=$(grep 'Add question:' /tmp/msg | sed -n 's/.*Add question: \[\([^]]*\)\].*/\1/p' | tr '\n' ' ' | sed 's/ $//')" >> "$GITHUB_OUTPUT"
         exit $status
 
     - name: Commit files
@@ -69,9 +71,8 @@ jobs:
           exit 0
         fi
         cat /tmp/msg
-        question_ids=$(grep 'Add question:' /tmp/msg | sed -n 's/.*Add question: \[\([^]]*\)\].*/\1/p' | tr '\n' ' ' | sed 's/ $//')
-        echo "question_ids: $question_ids"
-        git commit -m "test: [$(TZ=Asia/Shanghai date +%Y%m%d)] Add (${question_ids})"
+        echo "question_ids: ${{ steps.script.outputs.question_ids }}"
+        git commit -m "test: [$(TZ=Asia/Shanghai date +%Y%m%d)] Add (${{ steps.script.outputs.question_ids }})"
 
     - name: Push changes
       run: |
