@@ -58,7 +58,10 @@ jobs:
         python python/scripts/daily_auto.py > /tmp/msg
         status=$?
         cat /tmp/msg
-        echo "question_ids=$(grep 'Add question:' /tmp/msg | cut -d "[" -f 6 | cut -d "]" -f 1 | tr '\n' ' ' | sed 's/ $//')" >> "$GITHUB_OUTPUT"
+        echo "QUESTION_IDS=$(grep 'Add question:' /tmp/msg | cut -d "[" -f 6 | cut -d "]" -f 1 | tr '\n' ' ' | sed 's/ $//')" >> $GITHUB_ENV
+        echo "question lines: $(grep 'Add question:' /tmp/msg"
+        echo "question ids: $(grep 'Add question:' /tmp/msg | cut -d "[" -f 6 | cut -d "]" -f 1"
+        echo "QUESTION_IDS=$(grep 'Add question:' /tmp/msg | cut -d "[" -f 6 | cut -d "]" -f 1 | tr '\n' ' ' | sed 's/ $//')"
         exit $status
 
     - name: Commit files
@@ -71,8 +74,8 @@ jobs:
           exit 0
         fi
         cat /tmp/msg
-        echo "question_ids: ${{ steps.script.outputs.question_ids }}"
-        git commit -m "test: [$(TZ=Asia/Shanghai date +%Y%m%d)] Add (${{ steps.script.outputs.question_ids }})"
+        echo "question_ids: ${{ env.QUESTION_IDS }}"
+        git commit -m "test: [$(TZ=Asia/Shanghai date +%Y%m%d)] Add (${{ env.QUESTION_IDS }})"
 
     - name: Push changes
       run: |
