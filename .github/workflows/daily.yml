@@ -58,7 +58,7 @@ jobs:
         python python/scripts/daily_auto.py > /tmp/msg
         status=$?
         cat /tmp/msg
-        echo "question_ids=$(grep 'Add question:' /tmp/msg | sed -n 's/.*Add question: \[\([^]]*\)\].*/\1/p' | tr '\n' ' ' | sed 's/ $//')" >> "$GITHUB_OUTPUT"
+        echo "question_ids=$(grep 'Add question:' /tmp/msg | cut -d "[" -f 6 | cut -d "]" -f 1 | tr '\n' ' ' | sed 's/ $//')" >> "$GITHUB_OUTPUT"
         exit $status
 
     - name: Commit files
