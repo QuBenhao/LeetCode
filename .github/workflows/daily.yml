@@ -59,8 +59,8 @@ jobs:
         status=$?
         cat /tmp/msg
         echo "QUESTION_IDS=$(grep 'Add question:' /tmp/msg | cut -d '[' -f 6 | cut -d ']' -f 1 | tr '\n' ' ' | sed 's/ $//')" >> $GITHUB_ENV
-        echo "question lines: $(grep 'Add question:' /tmp/msg"
-        echo "question ids: $(grep 'Add question:' /tmp/msg | cut -d '[' -f 6 | cut -d ']' -f 1"
+        echo "question lines: $(grep 'Add question:' /tmp/msg)"
+        echo "question ids: $(grep 'Add question:' /tmp/msg | cut -d '[' -f 6 | cut -d ']' -f 1)"
         echo "QUESTION_IDS=$(grep 'Add question:' /tmp/msg | cut -d '[' -f 6 | cut -d ']' -f 1 | tr '\n' ' ' | sed 's/ $//')"
         exit $status
 
