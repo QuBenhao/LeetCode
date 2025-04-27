@@ -9,6 +9,7 @@ class Testcase(testcase.Testcase):
 		self.testcases = []
 		self.testcases.append(case(Input=3, Output=['((()))', '(()())', '(())()', '()(())', '()()()']))
 		self.testcases.append(case(Input=1, Output=['()']))
+		self.testcases.append(case(Input=4, Output=["(((())))","((()()))","((())())","((()))()","(()(()))","(()()())","(()())()","(())(())","(())()()","()((()))","()(()())","()(())()","()()(())","()()()()"]))
 
 	def get_testcases(self):
 		return self.testcases
