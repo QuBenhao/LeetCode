@@ -6,8 +6,19 @@ import (
 	"strings"
 )
 
-func removeDuplicates(nums []int) int {
-    
+func removeDuplicates(nums []int) (idx int) {
+	n := len(nums)
+	for i, j := 0, 0; j < n; {
+		for j < n && nums[i] == nums[j] {
+			j++
+		}
+		for k := 0; k < min(j-i, 2); k++ {
+			nums[idx] = nums[i]
+			idx++
+		}
+		i = j
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
@@ -18,5 +29,5 @@ func Solve(inputJsonValues string) interface{} {
 		log.Fatal(err)
 	}
 
-	return removeDuplicates(nums)
+	return nums[:removeDuplicates(nums)]
 }
