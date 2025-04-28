@@ -3,9 +3,9 @@ import solution
 
 class Solution(solution.Solution):
     def solve(self, test_input=None):
-        return self.solveNQueens(test_input)
+        return self.totalNQueens(test_input)
 
-    def solveNQueens(self, n):
+    def totalNQueens(self, n):
         """
         :type n: int
         :rtype: List[List[str]]
@@ -16,12 +16,19 @@ class Solution(solution.Solution):
         def dfs(queens, lu_rd, ld_ru):
             row = len(queens)
             if row == n:
-                self.ans += 1
+                nonlocal ans
+                ans += 1
                 return
             for col in range(n):
                 if col not in queens and col - row not in lu_rd and row + col not in ld_ru:
-                    dfs(queens+[col],lu_rd+[col - row],ld_ru+[row + col])
+                    queens.add(col)
+                    lu_rd.add(col - row)
+                    ld_ru.add(row + col)
+                    dfs(queens, lu_rd, ld_ru)
+                    queens.remove(col)
+                    lu_rd.remove(col - row)
+                    ld_ru.remove(row + col)
 
-        self.ans = 0
-        dfs([], [], [])
-        return self.ans
+        ans = 0
+        dfs(set(), set(), set())
+        return ans
