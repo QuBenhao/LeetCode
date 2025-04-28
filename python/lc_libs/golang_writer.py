@@ -291,6 +291,8 @@ class GolangWriter(LanguageWriter):
                 modify_in_place_return = f"TreeToArray({modify_in_place_return})"
             elif "ListNode" in its[0][1]:
                 modify_in_place_return = f"LinkedListToIntArray({modify_in_place_return})"
+            elif "[]byte" in its[0][1]:
+                modify_in_place_return = f"byteArrToStrArr({modify_in_place_return})"
             return SOLUTION_TEMPLATE_GOLANG_MODIFY_IN_PLACE.format(
                 problem_id,
                 "\n".join(
@@ -680,13 +682,22 @@ class GolangWriter(LanguageWriter):
                                 + "Str); err != nil {\n\t\tlog.Fatal(err)\n\t}\n"
                             )
                             json_parse.append(
-                                f"\t{var} := make([]byte, len({var}Str))\n"
+                                f"\t{var} = make([]byte, len({var}Str))\n"
                             )
                             json_parse.append(
                                 "\tfor i := 0; i < len(" + var + "); i++ {\n"
                             )
                             json_parse.append(f"\t\t{var}[i] = {var}Str[i][0]\n")
                             json_parse.append("\t}\n")
+                        end_extra.append("func byteArrToStrArr(arr []byte) []string {")
+                        end_extra.append("\tans := make([]string, len(arr))")
+                        end_extra.append("\tfor i, b := range arr {")
+                        end_extra.append("\t\tans[i] = string(b)")
+                        end_extra.append("\t}")
+                        end_extra.append("\treturn ans")
+                        end_extra.append("}")
+                        imports_libs.add('\t"encoding/json"')
+                        imports_libs.add('\t"log"')
                     case "[][]byte":
                         for j, var in enumerate(vrs):
                             json_parse.append(f"\tvar {var}Str [][]string\n")
@@ -712,6 +723,13 @@ class GolangWriter(LanguageWriter):
                             )
                             json_parse.append("\t\t}\n")
                             json_parse.append("\t}\n")
+                        end_extra.append("func byteArrToStrArr(arr [][]byte) []string {")
+                        end_extra.append("\tans := make([]string, len(arr))")
+                        end_extra.append("\tfor i, b := range arr {")
+                        end_extra.append("\t\tans[i] = string(b)")
+                        end_extra.append("\t}")
+                        end_extra.append("\treturn ans")
+                        end_extra.append("}")
                         imports_libs.add('\t"encoding/json"')
                         imports_libs.add('\t"log"')
                     case "byte":
