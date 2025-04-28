@@ -6,8 +6,17 @@ import (
 	"strings"
 )
 
-func countSubarrays(nums []int, k int64) int64 {
-    
+func countSubarrays(nums []int, k int64) (ans int64) {
+	left, cur := 0, int64(0)
+	for right, num := range nums {
+		cur += int64(num)
+		for cur*int64(right-left+1) >= k {
+			cur -= int64(nums[left])
+			left++
+		}
+		ans += int64(right - left + 1)
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
