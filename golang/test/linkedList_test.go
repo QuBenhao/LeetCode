@@ -1,11 +1,10 @@
 package test
 
 import (
-	"github.com/stretchr/testify/assert"
 	. "leetCode/golang/models"
-)
-import (
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func Test(t *testing.T) {
@@ -16,7 +15,7 @@ func Test(t *testing.T) {
 		assert.Equal(t, arr[i], tmp.Val)
 		i++
 	}
-	assert.Equal(t, arr, node.LinkedListToIntArray())
+	assert.Equal(t, arr, LinkedListToIntArray(node))
 }
 
 func TestListNode(t *testing.T) {
@@ -27,7 +26,7 @@ func TestListNode(t *testing.T) {
 		assert.Equal(t, arr[i], tmp.Val)
 		i++
 	}
-	assert.Equal(t, arr, node.LinkedListToIntArray())
+	assert.Equal(t, arr, LinkedListToIntArray(node))
 
 	cycleNode := IntArrayToLinkedListCycle(arr, 2)
 	assert.NotNil(t, cycleNode)

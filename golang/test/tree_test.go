@@ -1,6 +1,7 @@
 package test
 
 import (
+	"fmt"
 	. "leetCode/golang/models"
 	"testing"
 
@@ -18,7 +19,7 @@ func TestTree(t *testing.T) {
 }
 
 func TestTreeTarget(t *testing.T) {
-	nodes := ArrayToTreeAndTarget("[1,2,3,null,4,null,5]", 5)
+	nodes := ArrayToTreeAndTargets("[1,2,3,null,4,null,5]", 5)
 	node, target := nodes[0], nodes[1]
 	assert.NotNil(t, node)
 	assert.NotNil(t, target)
@@ -31,9 +32,25 @@ func TestTreeTarget(t *testing.T) {
 	assert.Equal(t, 5, node.Right.Right.Val)
 }
 
+func arrToStr(arr []interface{}) string {
+	res := "["
+	for i, n := 0, len(arr); i < n; i++ {
+		if arr[i] == nil {
+			res += "null"
+		} else {
+			res += fmt.Sprintf("%v", arr[i])
+		}
+		if i < n-1 {
+			res += ","
+		}
+	}
+	res += "]"
+	return res
+}
+
 func TestTreeToArray(t *testing.T) {
 	node := ArrayToTree("[1,null,2]")
-	assert.Equal(t, "[1,null,2]", TreeToArray(node))
+	assert.Equal(t, "[1,null,2]", arrToStr(TreeToArray(node)))
 	node = ArrayToTree("[1,2,3,null,4,null,5]")
-	assert.Equal(t, "[1,2,3,null,4,null,5]", TreeToArray(node))
+	assert.Equal(t, "[1,2,3,null,4,null,5]", arrToStr(TreeToArray(node)))
 }
