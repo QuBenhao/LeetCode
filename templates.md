@@ -2,29 +2,34 @@
 
 # 目录
 
-1. [二分查找](#二分查找)
-    - [带重复元素的旋转数组](#带重复元素的旋转数组)
+1. [数组](#数组)
+    - [二分查找](#二分查找)
+        - [带重复元素的旋转数组](#带重复元素的旋转数组)
+    - [单调栈](#单调栈)
+    - [滑动窗口](#滑动窗口)
+    - [双指针](#双指针)
+    - [排序](#排序)
+    - [前缀和](#前缀和)
 2. [堆](#堆)
     - [优先队列](#优先队列)
 3. [字典树](#trie)
-4. [单调栈](#单调栈)
-5. [滑动窗口](#滑动窗口)
-6. [双指针](#双指针)
-7. [深度优先搜索](#DFS)
-8. [广度优先搜索](#BFS)
-9. [拓扑排序](#拓扑排序)
-10. [二进制](#二进制)
-11. [动态规划](#动态规划)
+4. [深度优先搜索](#DFS)
+5. [广度优先搜索](#BFS)
+6. [拓扑排序](#拓扑排序)
+7. [二进制](#二进制)
+    - [位运算](#位运算)
+    - [异或](#异或)
+8. [动态规划](#动态规划)
     - [回文串切割](#回文串切割)
-12. [并查集](#并查集)
-13. [树状数组](#树状数组)
-14. [线段树](#线段树)
-15. [数学](#数学)
+9. [并查集](#并查集)
+10. [树状数组](#树状数组)
+11. [线段树](#线段树)
+12. [数学](#数学)
     - [费马平方和定理](#费马平方和定理)
-16. [链表](#链表)
-17. [二叉树](二叉树)
-18. [字符串](#字符串)
-19. [回溯](#回溯)
+13. [链表](#链表)
+14. [二叉树](#二叉树)
+15. [字符串](#字符串)
+16. [回溯](#回溯)
     - [N皇后](#N皇后)
     - [排列组合](#排列组合)
         - [全排列](#全排列)
@@ -32,8 +37,14 @@
         - [组合](#组合)
         - [重复元素组合](#重复元素组合)
         - [重复元素子集](#重复元素子集)
+17. [其他](#其他)
+    - [LRU缓存](#lru缓存)
 
-# 二分查找
+---
+
+# 数组
+
+## 二分查找
 
 **「二分」的本质是二段性，并非单调性。只要一段满足某个性质，另外一段不满足某个性质，就可以用「二分」。**
 
@@ -71,7 +82,7 @@ func BinarySearch(arr []int, target int) int {
 }
 ```
 
-## 带重复元素的旋转数组
+### 带重复元素的旋转数组
 
 ```go
 // 这里的二段性是一段满足<target，另一段不满足
@@ -118,6 +129,130 @@ func search(nums []int, target int) bool {
 	}
 }
 ```
+
+## 单调栈
+
+```python3
+def solve(nums):
+    max_stack = []
+    for i, num in enumerate(nums):
+        while max_stack and num > nums[max_stack[-1]]:
+            max_stack.pop()
+        max_stack.append(i)
+```
+
+```go
+package main
+
+func subArrayRanges(nums []int) (ans int64) {
+	n := len(nums)
+	minStack, maxStack := make([]int, 0, n), make([]int, 0, n)
+	for i := 0; i <= n; i++ {
+		for len(maxStack) > 0 && (i == n || nums[i] > nums[maxStack[len(maxStack)-1]]) {
+			j := maxStack[len(maxStack)-1]
+			maxStack = maxStack[:len(maxStack)-1]
+			left := -1
+			if len(maxStack) > 0 {
+				left = maxStack[len(maxStack)-1]
+			}
+			ans += int64(nums[j]) * int64(j-left) * int64(i-j)
+		}
+		maxStack = append(maxStack, i)
+		for len(minStack) > 0 && (i == n || nums[i] < nums[minStack[len(minStack)-1]]) {
+			j := minStack[len(minStack)-1]
+			minStack = minStack[:len(minStack)-1]
+			left := -1
+			if len(minStack) > 0 {
+				left = minStack[len(minStack)-1]
+			}
+			ans -= int64(nums[j]) * int64(j-left) * int64(i-j)
+		}
+		minStack = append(minStack, i)
+	}
+	return
+}
+```
+
+## 滑动窗口
+
+```python3
+def max_sliding_window(nums, k):
+    from collections import deque
+    q = deque()
+    res = []
+    for i in range(len(nums)):
+        if q and q[0] < i - k + 1:
+            q.popleft()
+        while q and nums[q[-1]] < nums[i]:
+            q.pop()
+        q.append(i)
+        if i >= k - 1:
+            res.append(nums[q[0]])
+    return res
+```
+
+```go
+package main
+
+def maxSlidingWindow(nums []int, k int) (ans []int) {
+    q := make([]int, 0)
+    for i := range nums {
+        if len(q) > 0 && q[0] < i-k+1 {
+            q = q[1:]
+        }
+        for len(q) > 0 && nums[q[len(q)-1]] < nums[i] {
+            q = q[:len(q)-1]
+        }
+        q = append(q, i)
+        if i >= k-1 {
+            ans = append(ans, nums[q[0]])
+        }
+    }
+    return
+}
+```
+
+## 双指针
+
+## 排序
+
+## 前缀和
+
+$`prefix\_sum[i] = \sum_{k=0}^{i-1} nums[k]`$
+
+$`prefix\_sum[i] - prefix\_sum[j] = \sum_{k=j}^{i-1} nums[k]`$
+
+```python
+from itertools import accumulate
+
+
+def pivotIndex(nums) -> int:
+    pre_sum = [0] + list(accumulate(nums))
+    for i, num in enumerate(nums):
+        if pre_sum[i] == pre_sum[-1] - pre_sum[i + 1]:
+            return i
+    return -1
+```
+
+```go
+package main
+
+func pivotIndex(nums []int) int {
+	n := len(nums)
+	prefixSum := make([]int, n+1)
+	for i := 0; i < n; i++ {
+		prefixSum[i+1] = prefixSum[i] + nums[i]
+	}
+	for i := 0; i < n; i++ {
+		if prefixSum[i] == prefixSum[n]-prefixSum[i+1] {
+			return i
+		}
+	}
+	return -1
+}
+```
+
+---
 
 # 堆
 
@@ -211,6 +346,7 @@ func (hp) Pop() (_ any)         { return }
 ```
 
 ## 优先队列
+
 ```go
 // This example demonstrates a priority queue built using the heap interface.
 package main
@@ -306,6 +442,8 @@ func main() {
 }
 ```
 
+---
+
 # Trie
 
 ```python3
@@ -385,103 +523,59 @@ func (t *TrieNode) StartsWith(prefix string) bool {
 }
 ```
 
-# 单调栈
-
-```python3
-def solve(nums):
-    max_stack = []
-    for i, num in enumerate(nums):
-        while max_stack and num > nums[max_stack[-1]]:
-            max_stack.pop()
-        max_stack.append(i)
-```
-
-```go
-package main
-
-func subArrayRanges(nums []int) (ans int64) {
-	n := len(nums)
-	minStack, maxStack := make([]int, 0, n), make([]int, 0, n)
-	for i := 0; i <= n; i++ {
-		for len(maxStack) > 0 && (i == n || nums[i] > nums[maxStack[len(maxStack)-1]]) {
-			j := maxStack[len(maxStack)-1]
-			maxStack = maxStack[:len(maxStack)-1]
-			left := -1
-			if len(maxStack) > 0 {
-				left = maxStack[len(maxStack)-1]
-			}
-			ans += int64(nums[j]) * int64(j-left) * int64(i-j)
-		}
-		maxStack = append(maxStack, i)
-		for len(minStack) > 0 && (i == n || nums[i] < nums[minStack[len(minStack)-1]]) {
-			j := minStack[len(minStack)-1]
-			minStack = minStack[:len(minStack)-1]
-			left := -1
-			if len(minStack) > 0 {
-				left = minStack[len(minStack)-1]
-			}
-			ans -= int64(nums[j]) * int64(j-left) * int64(i-j)
-		}
-		minStack = append(minStack, i)
-	}
-	return
-}
-```
-
-# 滑动窗口
-
-```python3
-def max_sliding_window(nums, k):
-    from collections import deque
-    q = deque()
-    res = []
-    for i in range(len(nums)):
-        if q and q[0] < i - k + 1:
-            q.popleft()
-        while q and nums[q[-1]] < nums[i]:
-            q.pop()
-        q.append(i)
-        if i >= k - 1:
-            res.append(nums[q[0]])
-    return res
-```
-
-```go
-package main
-
-def maxSlidingWindow(nums []int, k int) (ans []int) {
-    q := make([]int, 0)
-    for i := range nums {
-        if len(q) > 0 && q[0] < i-k+1 {
-            q = q[1:]
-        }
-        for len(q) > 0 && nums[q[len(q)-1]] < nums[i] {
-            q = q[:len(q)-1]
-        }
-        q = append(q, i)
-        if i >= k-1 {
-            ans = append(ans, nums[q[0]])
-        }
-    }
-    return
-}
-```
-
-# 双指针
+---
 
 # DFS
 
+---
+
 # BFS
+
+---
 
 # 拓扑排序
 
+---
+
 # 二进制
+
+## 位运算
+
+## 异或
+
+`xor`运算的性质：
+1. $`a \oplus a = 0`$
+2. $`a \oplus 0 = a`$
+3. $`a \oplus b \oplus c = a \oplus c \oplus b`$
+
+```python3
+def single_number(nums):
+    ans = 0
+    for num in nums:
+        ans ^= num
+    return ans
+```
+
+```go
+package main
+
+func singleNumber(nums []int) int {
+    ans := 0
+    for _, num := range nums {
+        ans ^= num
+    }
+    return ans
+}
+```
+
+---
 
 # 动态规划
 
 ## 回文串切割
+
 ```python
-def minCut(s):
+def min_cut(s):
     """
     :type s: str
     :rtype: int
@@ -506,6 +600,7 @@ def minCut(s):
     return dp[-1]
 
 ```
+
 ```go
 package main
 
@@ -539,7 +634,13 @@ func minCut(s string) int {
 }
 ```
 
+---
+
 # 并查集
+
+并查集（Union-Find）是一种数据结构，用于处理一些不交集的合并及查询问题。它支持两种操作：
+1. **Find**：查找元素所在的集合。
+2. **Union**：合并两个集合。
 
 ```python
 class UnionFind:
@@ -626,9 +727,15 @@ func (uf *UnionFind) IsConnected(x, y int) bool {
 }
 ```
 
+---
+
 # 树状数组
 
+---
+
 # 线段树
+
+---
 
 # 数学
 
@@ -639,22 +746,31 @@ func (uf *UnionFind) IsConnected(x, y int) bool {
 一个奇素数$`p`$, 可以表示为两个整数的平方和（即$`p = x^2 + y^2`$），当且仅当$$p \equiv 1 \pmod{4}$$
 
 ### 证明思路（简述）
+
 如果$`p \equiv 1 \pmod{4}`$，可以通过数论方法证明$`p`$可以表示为两个平方数之和。
 如果$`p \equiv 3 \pmod{4}`$，则$`p`$无法表示为两个平方数之和。
 
 ### 示例
+
 $`5 = 2^2 + 1^2`$，且$`5 \equiv 1 \pmod{4}`$
 
 $`13 = 3^2 + 2^2`$，且$`13 \equiv 1 \pmod{4}`$
 
 $`7`$无法表示为两个平方数之和，因为$`7 \equiv 3 \pmod{4}`$
 
+---
 
 # 链表
 
+---
+
 # 二叉树
 
+---
+
 # 字符串
+
+---
 
 # 回溯
 
@@ -959,3 +1075,11 @@ func subsetsWithDup(nums []int) (ans [][]int) {
 	return
 }
 ```
+
+---
+
+# 其他
+
+## lru缓存
+
+----
