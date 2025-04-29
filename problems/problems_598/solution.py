@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.maxCount(*test_input)
 
     def maxCount(self, m: int, n: int, ops: List[List[int]]) -> int:
-        pass
-
+        return min(_ops[0]) * min(_ops[1]) if (_ops:= list(zip(*ops))) else m * n
