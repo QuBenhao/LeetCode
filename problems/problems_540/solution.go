@@ -6,8 +6,11 @@ import (
 	"strings"
 )
 
-func singleNonDuplicate(nums []int) int {
-    
+func singleNonDuplicate(nums []int) (ans int) {
+	for _, num := range nums {
+		ans ^= num
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {

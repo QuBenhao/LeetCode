@@ -1,4 +1,4 @@
-// go:build ignore
+//go:build ignore
 #include <unordered_map>
 #include "cpp/common/Solution.h"
 #include "cpp/models/TreeNode.h"
