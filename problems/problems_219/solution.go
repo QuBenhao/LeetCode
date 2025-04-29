@@ -7,7 +7,17 @@ import (
 )
 
 func containsNearbyDuplicate(nums []int, k int) bool {
-    
+	idxMap := map[int]interface{}{}
+	for i, num := range nums {
+		if _, ok := idxMap[num]; ok {
+			return true
+		}
+		if i >= k {
+			delete(idxMap, nums[i-k])
+		}
+		idxMap[num] = nil
+	}
+	return false
 }
 
 func Solve(inputJsonValues string) interface{} {
