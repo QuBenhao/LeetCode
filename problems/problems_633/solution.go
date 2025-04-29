@@ -3,11 +3,22 @@ package problem633
 import (
 	"encoding/json"
 	"log"
+	"math"
 	"strings"
 )
 
 func judgeSquareSum(c int) bool {
-    
+	i, j := 0, int(math.Sqrt(float64(c)))
+	for i <= j {
+		if s := i*i + j*j; s == c {
+			return true
+		} else if s > c {
+			j--
+		} else {
+			i++
+		}
+	}
+	return false
 }
 
 func Solve(inputJsonValues string) interface{} {
