@@ -16,6 +16,7 @@ sys.path.insert(0, root_path.as_posix())
 
 from python.constants import constant
 from python.lc_libs import get_daily_question
+import python.lc_libs as lc_libs
 from python.scripts.submit import main as submit_main_async
 from python.utils import back_question_id, format_question_id
 from python.scripts.daily_auto import main as daily_auto_main
@@ -28,12 +29,13 @@ __user_input_config = """Please select the configuration [0-1, default: 0]:
 0. Load default config from .env
 1. Custom config
 """
-__user_input_function = """Please select the main function [0-4, default: 0]:
+__user_input_function = """Please select the main function [0-5, default: 0]:
 0. Exit
 1. Get problem
 2. Submit
-3. Clean empty java
-4. Clean error rust
+3. Change test problem
+4. Clean empty java
+5. Clean error rust
 """
 __user_input_get_problem = """Please select the get problem method [0-5, default: 0]:
 0. Back
@@ -283,6 +285,22 @@ def submit(languages, problem_folder, cookie):
         print(__separate_line)
 
 
+def change_problem(languages, problem_folder):
+    input_problem_id = input_until_valid(
+        __user_input_problem_id, __allow_all_not_empty, "Problem ID cannot be empty."
+    )
+    problem_id = back_question_id(input_problem_id)
+    for lang in languages:
+        cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+        if not cls:
+            print(f"{lang} not support.")
+            continue
+        obj: lc_libs.LanguageWriter = cls()
+        obj.change_test(root_path, problem_folder, problem_id)
+        print(f"Successfully change {lang} test to {problem_id}")
+    print(__separate_line)
+
+
 def main():
     try:
         languages, problem_folder, cookie = configure()
@@ -298,10 +316,12 @@ def main():
                 case "2":
                     submit(languages, problem_folder, cookie)
                 case "3":
+                    change_problem(languages, problem_folder)
+                case "4":
                     clean_empty_java_main(root_path, problem_folder)
                     print("Done cleaning empty Java files.")
                     print(__separate_line)
-                case "4":
+                case "5":
                     clean_error_rust_main(root_path, problem_folder)
                     print("Done cleaning error Rust files.")
                     print(__separate_line)
