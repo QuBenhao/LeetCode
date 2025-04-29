@@ -7,7 +7,15 @@ import (
 )
 
 func reverseStr(s string, k int) string {
-    
+	arr := []byte(s)
+	n := len(s)
+	for i := 0; i < n; i += 2 * k {
+		for l, r := i, min(n-1, i+k-1); l < r; l++ {
+			arr[l], arr[r] = arr[r], arr[l]
+			r--
+		}
+	}
+	return string(arr)
 }
 
 func Solve(inputJsonValues string) interface{} {
