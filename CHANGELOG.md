@@ -1,5 +1,237 @@
 # CHANGELOG
 
+## v9.2.0 (2025-04-29)
+
+### Feature
+
+* feat: leetcode change problem
+
+add change test problem function in leetcode script ([`2c73074`](https://github.com/QuBenhao/LeetCode/commit/2c73074bf438ede1ce4904e9b7bf0cd78c925bdd))
+
+### Fix
+
+* fix: golang []byte return
+
+modify in place golang []byte return type should be convert to []string ([`08280f0`](https://github.com/QuBenhao/LeetCode/commit/08280f0fc04830c527a2672e0482032d45f826ee))
+
+* fix: golang test
+
+golang unit test fixed ([`517154e`](https://github.com/QuBenhao/LeetCode/commit/517154ec1f3380c9d04dc7ff52ae6deef693537e))
+
+* fix: daily commit msg
+
+problem ids ([`14df568`](https://github.com/QuBenhao/LeetCode/commit/14df5681629416f7a604f66914dcfee5cf094698))
+
+* fix: python writer
+
+correct import statement for linked_list_to_list ([`273f8fe`](https://github.com/QuBenhao/LeetCode/commit/273f8fed1f4652720bcfbf9953cefaada4a33646))
+
+### Test
+
+* test: 350 solution
+
+py, go ([`bc0855b`](https://github.com/QuBenhao/LeetCode/commit/bc0855b7afc0fa94b676112a1769c4366db53ff1))
+
+* test: 219 solution
+
+go ([`1c8b167`](https://github.com/QuBenhao/LeetCode/commit/1c8b167486d4ceb8cd2e80a472fe43245de7b376))
+
+* test: 132 solution
+
+go ([`eb5d514`](https://github.com/QuBenhao/LeetCode/commit/eb5d51432eabe0661d2a986ae30d822b14ce03f5))
+
+* test: 119 solution
+
+py, go ([`a85be3d`](https://github.com/QuBenhao/LeetCode/commit/a85be3df339505eba5c2911e41e198acd4317727))
+
+* test: 63 solution
+
+go ([`915a7b7`](https://github.com/QuBenhao/LeetCode/commit/915a7b74333ef773fbbe491777deee66664eb277))
+
+* test: 59 solution
+
+go ([`d732750`](https://github.com/QuBenhao/LeetCode/commit/d7327502377f2c9b278a81383bfba2cc2bec0c92))
+
+* test: 90 solution
+
+go ([`6c62470`](https://github.com/QuBenhao/LeetCode/commit/6c6247035c890c770c7ee29be1bddcc46ee0f4be))
+
+* test: 81 solution
+
+go ([`1770400`](https://github.com/QuBenhao/LeetCode/commit/177040009fff5500ffb06c4fa6ad7653e2516bf2))
+
+* test: 2962, LCR 100 solution
+
+py, go ([`961de02`](https://github.com/QuBenhao/LeetCode/commit/961de02a5901f22589ab526e886e78655d47bc75))
+
+* test: [20250429] Add (2962 LCR_100) ([`0a7203c`](https://github.com/QuBenhao/LeetCode/commit/0a7203c9c6e7c88b1add8a9fa05e6cb90e62da40))
+
+* test: 81 testcase
+
+add debug testcases ([`007e9ad`](https://github.com/QuBenhao/LeetCode/commit/007e9ad3a4eb85bddc3607353e08ceb76634d00b))
+
+* test: 80 solution
+
+go ([`c022682`](https://github.com/QuBenhao/LeetCode/commit/c0226829465d9f247c79c2df90db9404476798b3))
+
+* test: 52 solution
+
+py, go ([`69c1a96`](https://github.com/QuBenhao/LeetCode/commit/69c1a9697a650e5369526ac41ff9906df1b579cf))
+
+* test: 47 solution
+
+py, go ([`fca0853`](https://github.com/QuBenhao/LeetCode/commit/fca085346fa472b02370efd1a76875c633735947))
+
+* test: 47 testcase
+
+failed cases ([`dddb51a`](https://github.com/QuBenhao/LeetCode/commit/dddb51ae473f619b6e25fd11e74b298119b43d92))
+
+* test: 52 solution
+
+go ([`da010c0`](https://github.com/QuBenhao/LeetCode/commit/da010c00b4a7873ecc6a25b64d76baa71b941859))
+
+* test: 40 solution
+
+py, go ([`e517a9d`](https://github.com/QuBenhao/LeetCode/commit/e517a9d9101eb2023b5d4b4287af54ff8849951e))
+
+* test: 344 solution
+
+py, go ([`9047f6d`](https://github.com/QuBenhao/LeetCode/commit/9047f6daf422e7b9e18de40b6c33ff20fd5269e3))
+
+* test: LCR 116 solution
+
+py, go 并查集 ([`5f20b93`](https://github.com/QuBenhao/LeetCode/commit/5f20b93eda0a0258be22bee31e97e5c377fe689b))
+
+* test: 2302 solution
+
+py, go ([`0b9a9b7`](https://github.com/QuBenhao/LeetCode/commit/0b9a9b7f18a60f65f2af9fea9ed46b1bf7c84e5c))
+
+* test: [20250428] Add (2302 LCR_116) ([`51981d7`](https://github.com/QuBenhao/LeetCode/commit/51981d7e04a3f1ba10cfbe863764a07ad8a9b68a))
+
+* test: 1456 solution
+
+py, go ([`d943e6f`](https://github.com/QuBenhao/LeetCode/commit/d943e6f89fc68c81e03ae49c263cb1c4b0ce9feb))
+
+* test: 3392, LCR 085 solution
+
+py, go ([`77624fc`](https://github.com/QuBenhao/LeetCode/commit/77624fc3fac1e7188301b22fe15eeeec0b5d596e))
+
+* test: [20250427] Add (3392 LCR_085) ([`8e897d0`](https://github.com/QuBenhao/LeetCode/commit/8e897d01593d628afbd8b168a08a847a9aeb6c3e))
+
+* test: try workflow
+
+update question_ids ([`41945b5`](https://github.com/QuBenhao/LeetCode/commit/41945b527bc371a77bc685c41791bddc657595d7))
+
+* test: delete questions
+
+for debugging daily github
+
+(cherry picked from commit 671f79be8b76478f829745ebdbf4d70d58dd0fdf)
+(cherry picked from commit 297ff4e30664782daf081c76c5c7b9bbdaa66e32)
+(cherry picked from commit e1b169de651897777140d2cb8fc04b09876cd174)
+(cherry picked from commit 6e1f009d73b6003b04826c1f300e7c992af9a814) ([`56d93f4`](https://github.com/QuBenhao/LeetCode/commit/56d93f4a237fcdb496da9af8217e71397eb41c26))
+
+* test: [20250427] Add () ([`c3c2529`](https://github.com/QuBenhao/LeetCode/commit/c3c2529ffca92b2dac4d493b7239c9eacb454a09))
+
+* test: try workflow
+
+update question_ids ([`c1f6a72`](https://github.com/QuBenhao/LeetCode/commit/c1f6a72ce33ebdb1748a9e8e7500b28ee99c2b7e))
+
+* test: delete questions
+
+for debugging daily github
+
+(cherry picked from commit 671f79be8b76478f829745ebdbf4d70d58dd0fdf)
+(cherry picked from commit 297ff4e30664782daf081c76c5c7b9bbdaa66e32)
+(cherry picked from commit e1b169de651897777140d2cb8fc04b09876cd174) ([`6e1f009`](https://github.com/QuBenhao/LeetCode/commit/6e1f009d73b6003b04826c1f300e7c992af9a814))
+
+* test: [20250427] Add () ([`69453f0`](https://github.com/QuBenhao/LeetCode/commit/69453f0d4ba1e6809a800b4799bbb8b33292b974))
+
+* test: try workflow
+
+update question_ids ([`1fa3435`](https://github.com/QuBenhao/LeetCode/commit/1fa3435c81fdcc6769e02bb1a97a484f1099dd06))
+
+* test: try workflow
+
+update question_ids ([`9166350`](https://github.com/QuBenhao/LeetCode/commit/9166350bdc31c9445c0faf841cff16ff3f93112f))
+
+* test: try workflow
+
+update question_ids ([`1cf9419`](https://github.com/QuBenhao/LeetCode/commit/1cf94199f4787714261337d6b9f5bfeaa8169c5f))
+
+* test: delete questions
+
+for debugging daily github
+
+(cherry picked from commit 671f79be8b76478f829745ebdbf4d70d58dd0fdf)
+(cherry picked from commit 297ff4e30664782daf081c76c5c7b9bbdaa66e32)
+(cherry picked from commit e1b169de651897777140d2cb8fc04b09876cd174) ([`f18b0cf`](https://github.com/QuBenhao/LeetCode/commit/f18b0cf891cfb46874c6cf3807a51cf558621fb2))
+
+* test: [20250427] Add () ([`9b371f6`](https://github.com/QuBenhao/LeetCode/commit/9b371f6e627cd4a883ad817cd371a97fc0590354))
+
+* test: try workflow
+
+update question_ids ([`c5c387c`](https://github.com/QuBenhao/LeetCode/commit/c5c387c98f5f602413006b3be302251487623a28))
+
+* test: delete questions
+
+for debugging daily github
+
+(cherry picked from commit 671f79be8b76478f829745ebdbf4d70d58dd0fdf)
+(cherry picked from commit 297ff4e30664782daf081c76c5c7b9bbdaa66e32) ([`e1b169d`](https://github.com/QuBenhao/LeetCode/commit/e1b169de651897777140d2cb8fc04b09876cd174))
+
+* test: [20250427] Add () ([`3710dc8`](https://github.com/QuBenhao/LeetCode/commit/3710dc807a8e960093477bba166429458f9f1bb3))
+
+* test: try workflow
+
+update question_ids extraction in daily.yml ([`b0360ea`](https://github.com/QuBenhao/LeetCode/commit/b0360ea0e1df95c908b343e1b03ba44e67db15eb))
+
+* test: delete questions
+
+for debugging daily github
+
+(cherry picked from commit 671f79be8b76478f829745ebdbf4d70d58dd0fdf) ([`297ff4e`](https://github.com/QuBenhao/LeetCode/commit/297ff4e30664782daf081c76c5c7b9bbdaa66e32))
+
+* test: [20250427] Add () ([`d904256`](https://github.com/QuBenhao/LeetCode/commit/d9042564ed16cef72e8039daa9a2e80d6c3c3314))
+
+* test: delete questions
+
+for debugging daily github ([`671f79b`](https://github.com/QuBenhao/LeetCode/commit/671f79be8b76478f829745ebdbf4d70d58dd0fdf))
+
+* test: [20250427] Add () ([`7a19f7c`](https://github.com/QuBenhao/LeetCode/commit/7a19f7c75a2d4932197f59adb940915388641f9d))
+
+* test: daily commit msg
+
+update daily LeetCode problem commit message format ([`0b6d58b`](https://github.com/QuBenhao/LeetCode/commit/0b6d58b358aedd7a12ecc4e7146ee72771b76cb5))
+
+* test: daily commit msg
+
+update daily LeetCode problem commit message format ([`ace4301`](https://github.com/QuBenhao/LeetCode/commit/ace43013650e40dee3c2a98a032e0ddf87f7e429))
+
+### Unknown
+
+* doc: update template
+
+add backtrack ([`ffa7c7f`](https://github.com/QuBenhao/LeetCode/commit/ffa7c7f27b3fb966cb6a3af8e5b22e01ae07fb43))
+
+* doc: binary search update
+
+add binary search examples for rotated arrays ([`7082a1e`](https://github.com/QuBenhao/LeetCode/commit/7082a1ed0660f046b624cab9c51db21bd6b95ec6))
+
+* doc: add templates
+
+add interview in main README.md ([`d7d627d`](https://github.com/QuBenhao/LeetCode/commit/d7d627db3e55f49b94531e39842cdf404947cd70))
+
+* doc: add templates
+
+add algorithms for N-Queens and combinations in templates ([`356a45c`](https://github.com/QuBenhao/LeetCode/commit/356a45c1885f410731afc7b2164c4cd2dfa60814))
+
+* doc: add link
+
+add 算法模板 link in interview.md ([`08afa5d`](https://github.com/QuBenhao/LeetCode/commit/08afa5de7f238b7c940c6e80044c49a977ad20e5))
+
+* doc: update templates ([`4ea1525`](https://github.com/QuBenhao/LeetCode/commit/4ea15259b41c380b611d2ef75d5908cb02e637b3))
+
 ## v9.1.0 (2025-04-26)
 
 ### Feature
