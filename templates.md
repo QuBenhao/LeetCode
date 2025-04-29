@@ -707,3 +707,33 @@ func combinationSum2(candidates []int, target int) (ans [][]int) {
 	return
 }
 ```
+
+#### 重复元素子集
+
+```go
+func subsetsWithDup(nums []int) (ans [][]int) {
+	sort.Ints(nums)
+	n := len(nums)
+	path := []int{}
+
+	var backtrack func(idx int)
+	backtrack = func(idx int) {
+		if idx == n {
+			cp := make([]int, len(path))
+			copy(cp, path)
+			ans = append(ans, cp)
+			return
+		}
+		path = append(path, nums[idx])
+		backtrack(idx + 1)
+		path = path[:len(path)-1]
+		nxt := idx + 1
+		for nxt < n && nums[nxt] == nums[idx] {
+			nxt++
+		}
+		backtrack(nxt)
+	}
+	backtrack(0)
+	return
+}
+```
