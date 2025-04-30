@@ -353,7 +353,7 @@ $`prefix\_sum[i] - prefix\_sum[j] = \sum_{k=j}^{i-1} nums[k]`$
 from itertools import accumulate
 
 
-def pivotIndex(nums) -> int:
+def pivot_index(nums) -> int:
     pre_sum = [0] + list(accumulate(nums))
     for i, num in enumerate(nums):
         if pre_sum[i] == pre_sum[-1] - pre_sum[i + 1]:
@@ -429,7 +429,9 @@ func (this *NumMatrix) SumRegion(row1 int, col1 int, row2 int, col2 int) int {
 
 ---
 
-# 堆
+# 数据结构
+
+## 堆
 
 ```python3
 import heapq
@@ -624,9 +626,9 @@ func main() {
 ### 反转链表
 ```python
 class ListNode:
-    def __init__(self, val=0, next=None):
+    def __init__(self, val=0, nxt=None):
         self.val = val
-        self.next = next
+        self.next = nxt
 
 def reverse_list(head):
     prev = None
@@ -787,7 +789,8 @@ class RedBlackTree:
                     z.parent.parent.color = 'RED'
                     self.right_rotate(z.parent.parent)
             else:  # 镜像处理父节点在右侧的情况
-                # ... 类似左侧逻辑 ...
+                # TODO: 类似左侧逻辑 ...
+                pass
             if z == self.root:
                 break
         self.root.color = 'BLACK'
@@ -1088,11 +1091,11 @@ func (t *RedBlackTree) inOrderHelper(node *Node, result *[]int) {
 ```
 
 #### 关键操作解析
-| 操作       | 说明                                                                 |
-|------------|--------------------------------------------------------------------|
-| **左旋**   | 将右子节点提升为父节点，原父节点变为左子节点，保持二叉搜索树性质。               |
-| **右旋**   | 将左子节点提升为父节点，原父节点变为右子节点，镜像对称操作。                   |
-| **插入修复** | 通过颜色翻转和旋转解决连续红节点问题，分三种情况处理（叔节点颜色决定策略）。      |
+| 操作       | 说明                                         |
+|----------|--------------------------------------------|
+| **左旋**   | 将右子节点提升为父节点，原父节点变为左子节点，保持二叉搜索树性质。          |
+| **右旋**   | 将左子节点提升为父节点，原父节点变为右子节点，镜像对称操作。             |
+| **插入修复** | 通过颜色翻转和旋转解决连续红节点问题，分三种情况处理（叔节点颜色决定策略）。     |
 | **删除修复** | 处理双重黑节点问题，通过兄弟节点颜色和子节点分布调整（代码较复杂，未展示完整逻辑）。 |
 
 #### 应用场景
@@ -1296,30 +1299,30 @@ func (uf *UnionFind) IsConnected(x, y int) bool {
     - 查询：分解目标区间，合并覆盖区间的结果。
     - 更新：更新叶子节点，回溯更新父节点。
 
-| 类型 | 空间复杂度 | 使用场景
-| -- | -- | -- |
-| 常规线段树 | O(4n) | 区间较小（如 n ≤ 1e6）
-| 动态开点线段树 | O(Q log R) | 区间极大（如 R = 1e18）
+| 类型      | 空间复杂度      | 使用场景             |
+|---------|------------|------------------|
+| 常规线段树   | O(4n)      | 区间较小（如 n ≤ 1e6）  |
+| 动态开点线段树 | O(Q log R) | 区间极大（如 R = 1e18） |
 
 ### 常规线段树
 
 ```python
 class SegmentTree:
-    def __init__(self, data):
-        self.n = len(data)
+    def __init__(self, _data):
+        self.n = len(_data)
         self.tree = [0] * (4 * self.n)  # 预分配4倍空间
-        self.build(0, 0, self.n - 1, data)
+        self.build(0, 0, self.n - 1, _data)
     
-    def build(self, node, start, end, data):
+    def build(self, node, start, end, _data):
         """ 递归构建线段树 """
         if start == end:
-            self.tree[node] = data[start]
+            self.tree[node] = _data[start]
         else:
             mid = (start + end) // 2
             left_node = 2 * node + 1
             right_node = 2 * node + 2
-            self.build(left_node, start, mid, data)
-            self.build(right_node, mid + 1, end, data)
+            self.build(left_node, start, mid, _data)
+            self.build(right_node, mid + 1, end, _data)
             self.tree[node] = self.tree[left_node] + self.tree[right_node]
     
     def update(self, index, value):
@@ -1699,22 +1702,22 @@ class DynamicSegmentTree:
 
 
 #### 性能优化技巧
-| 技巧                | 适用场景                        | 实现方式                                                                 |
-|---------------------|-------------------------------|------------------------------------------------------------------------|
-| **节点池复用**       | 高频更新/查询操作               | 预分配节点对象池，通过索引管理而非动态创建/销毁                                 |
-| **迭代实现**         | 避免递归栈溢出                  | 用栈或队列模拟递归过程                                                   |
-| **离散化坐标**       | 区间端点稀疏但数量有限           | 将原始坐标映射到紧凑的整数范围，减少动态开点需求                               |
+| 技巧        | 适用场景        | 实现方式                     |
+|-----------|-------------|--------------------------|
+| **节点池复用** | 高频更新/查询操作   | 预分配节点对象池，通过索引管理而非动态创建/销毁 |
+| **迭代实现**  | 避免递归栈溢出     | 用栈或队列模拟递归过程              |
+| **离散化坐标** | 区间端点稀疏但数量有限 | 将原始坐标映射到紧凑的整数范围，减少动态开点需求 |
 
 
 ### 动态开点线段树应用
 线段树的核心逻辑在不同场景下需要调整的部分主要集中在 **聚合方式** 和 **惰性标记处理** 上。以下是关键修改点：
 
-| 场景              | 修改点                                                                                     | 示例（区间求和 → 区间最大值）                     |
-|-------------------|------------------------------------------------------------------------------------------|------------------------------------------------|
-| **聚合逻辑**       | 合并子区间结果的方式（如 `sum` → `max`）                                                    | `node.val = max(left.val, right.val)`          |
-| **惰性标记处理**   | 区间更新时的标记传递逻辑（如加减 → 赋值）                                                    | `lazy` 存储待赋值的值而非增量                     |
-| **初始化值**       | 根据聚合逻辑选择初始值（如求和初始化为0，最大值初始化为负无穷）                                  | `self.val = -inf`                              |
-| **区间合并方式**   | 查询时如何合并部分覆盖区间的结果（如求和直接相加，最大值取子区间最大值）                          | `return max(left_query, right_query)`          |
+| 场景         | 修改点                                  | 示例（区间求和 → 区间最大值）                      |
+|------------|--------------------------------------|---------------------------------------|
+| **聚合逻辑**   | 合并子区间结果的方式（如 `sum` → `max`）          | `node.val = max(left.val, right.val)` |
+| **惰性标记处理** | 区间更新时的标记传递逻辑（如加减 → 赋值）               | `lazy` 存储待赋值的值而非增量                    |
+| **初始化值**   | 根据聚合逻辑选择初始值（如求和初始化为0，最大值初始化为负无穷）     | `self.val = -inf`                     |
+| **区间合并方式** | 查询时如何合并部分覆盖区间的结果（如求和直接相加，最大值取子区间最大值） | `return max(left_query, right_query)` |
 
 
 #### 区间求和
@@ -1767,6 +1770,16 @@ class SumSegmentTree:
             self._update(node.right, mid + 1, r, ul, ur, val)
         node.val = node.left.val + node.right.val
     
+    def _query(self, node, l, r, ql, qr):
+        if qr < l or r < ql:
+            return 0  # 无交集
+        if ql <= l and r <= qr:
+            return node.val
+        self._push_down(node, l, r)
+        mid = (l + r) // 2
+        return self._query(node.left, l, mid, ql, qr) + \
+               self._query(node.right, mid + 1, r, ql, qr)
+    
     def query_range(self, l, r):
         return self._query(self.root, self.start, self.end, l, r)
 ```
@@ -1790,7 +1803,7 @@ class MinSegmentTree:
         self.start = start
         self.end = end
     
-    def _push_down(self, node, l, r):
+    def _push_down(self, node):
         if node.left is None:
             node.left = self.Node()
         if node.right is None:
@@ -1811,7 +1824,7 @@ class MinSegmentTree:
             node.val = val     # 直接赋值
             node.lazy = val
             return
-        self._push_down(node, l, r)
+        self._push_down(node)
         mid = (l + r) // 2
         if ul <= mid:
             self._update(node.left, l, mid, ul, ur, val)
@@ -1827,7 +1840,7 @@ class MinSegmentTree:
             return float('inf')  # 不影响最小值计算
         if ql <= l and r <= qr:
             return node.val
-        self._push_down(node, l, r)
+        self._push_down(node)
         mid = (l + r) // 2
         return min(
             self._query(node.left, l, mid, ql, qr),
@@ -1854,7 +1867,7 @@ class MaxSegmentTree:
         self.start = start
         self.end = end
     
-    def _push_down(self, node, l, r):
+    def _push_down(self, node):
         if node.left is None:
             node.left = self.Node()
         if node.right is None:
@@ -1875,7 +1888,7 @@ class MaxSegmentTree:
             node.max_val += val     # 增加最大值
             node.lazy += val
             return
-        self._push_down(node, l, r)
+        self._push_down(node)
         mid = (l + r) // 2
         if ul <= mid:
             self._update(node.left, l, mid, ul, ur, val)
@@ -1891,7 +1904,7 @@ class MaxSegmentTree:
             return -float('inf')  # 不影响最大值计算
         if ql <= l and r <= qr:
             return node.max_val
-        self._push_down(node, l, r)
+        self._push_down(node)
         mid = (l + r) // 2
         return max(
             self._query(node.left, l, mid, ql, qr),
@@ -1918,7 +1931,7 @@ class RangeAssignSegmentTree:
         self.start = start
         self.end = end
     
-    def _push_down(self, node, l, r):
+    def _push_down(self, node):
         if node.left is None:
             node.left = self.Node()
         if node.right is None:
@@ -1939,7 +1952,7 @@ class RangeAssignSegmentTree:
             node.val = val
             node.lazy = val
             return
-        self._push_down(node, l, r)
+        self._push_down(node)
         mid = (l + r) // 2
         if ul <= mid:
             self._update(node.left, l, mid, ul, ur, val)
@@ -1952,7 +1965,7 @@ class RangeAssignSegmentTree:
     def _query(self, node, l, r, idx):
         if l == r:
             return node.val
-        self._push_down(node, l, r)
+        self._push_down(node)
         mid = (l + r) // 2
         if idx <= mid:
             return self._query(node.left, l, mid, idx)
@@ -2139,13 +2152,13 @@ def num_islands(grid):
     count = 0
     rows, cols = len(grid), len(grid[0])
     
-    def dfs(i, j):
-        if 0 <= i < rows and 0 <= j < cols and grid[i][j] == '1':
-            grid[i][j] = '0'
-            dfs(i+1, j)
-            dfs(i-1, j)
-            dfs(i, j+1)
-            dfs(i, j-1)
+    def dfs(_i, _j):
+        if 0 <= _i < rows and 0 <= _j < cols and grid[_i][_j] == '1':
+            grid[_i][_j] = '0'
+            dfs(_i+1, _j)
+            dfs(_i-1, _j)
+            dfs(_i, _j+1)
+            dfs(_i, _j-1)
     
     for i in range(rows):
         for j in range(cols):
@@ -2166,6 +2179,12 @@ def num_islands(grid):
 ```python
 from collections import deque
 
+def process(node):
+    pass
+
+def get_neighbors(node):
+    return []
+
 def bfs(start_node):
     queue = deque([start_node])  # 初始化队列
     visited = set()              # 记录已访问节点（图可能需要）
@@ -2182,11 +2201,13 @@ def bfs(start_node):
                 if neighbor not in visited:
                     visited.add(neighbor)
                     queue.append(neighbor)
-    return result
+    return
 ```
 
 ### 示例：二叉树层序遍历
 ```python
+from collections import deque
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -2211,12 +2232,14 @@ def level_order(root):
     return result
 
 # 测试
-root = TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7))
-print(level_order(root))  # 输出 [[3], [9, 20], [15, 7]]
+_root = TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7)))
+print(level_order(_root))  # 输出 [[3], [9, 20], [15, 7]]
 ```
 
 ### 示例：网格最短路径（0 可走，1 障碍）
 ```python
+from collections import deque
+
 def shortest_path(grid, start, end):
     rows, cols = len(grid), len(grid[0])
     directions = [(-1,0), (1,0), (0,-1), (0,1)]  # 上下左右
@@ -2237,13 +2260,13 @@ def shortest_path(grid, start, end):
     return -1  # 不可达
 
 # 测试
-grid = [
+_grid = [
     [0,0,1,0],
     [0,0,0,0],
     [1,1,0,1],
     [0,0,0,0]
 ]
-print(shortest_path(grid, (0,0), (3,3)))  # 输出 6
+print(shortest_path(_grid, (0,0), (3,3)))  # 输出 6
 ```
 
 ### 基本结构（队列实现）
@@ -2351,12 +2374,12 @@ func main() {
 ```
 
 ### BFS 关键点
-| 特性                | 说明                                                                 |
-|---------------------|--------------------------------------------------------------------|
-| **时间复杂度**       | O(N)，N 为节点数（每个节点访问一次）                                 |
-| **空间复杂度**       | O(N)，最坏情况队列存储所有节点                                       |
-| **适用场景**         | 最短路径（无权图）、层序遍历、拓扑排序、连通块问题                     |
-| **注意事项**         | 1. 确保标记已访问节点；2. 处理空输入；3. 队列初始化正确；4. 边界检查 |
+| 特性        | 说明                                       |
+|-----------|------------------------------------------|
+| **时间复杂度** | O(N)，N 为节点数（每个节点访问一次）                    |
+| **空间复杂度** | O(N)，最坏情况队列存储所有节点                        |
+| **适用场景**  | 最短路径（无权图）、层序遍历、拓扑排序、连通块问题                |
+| **注意事项**  | 1. 确保标记已访问节点；2. 处理空输入；3. 队列初始化正确；4. 边界检查 |
 
 根据具体问题，调整 **节点定义**、**邻居获取方式** 和 **终止条件** 即可适配不同场景。
 
@@ -2366,9 +2389,10 @@ func main() {
 
 ```python
 import heapq
+from math import inf
 
 def dijkstra(graph, start, n):
-    dist = [float('inf')] * n
+    dist: list[int] = [inf] * n
     dist[start] = 0
     heap = [(0, start)]
     
@@ -2711,7 +2735,7 @@ func NextPermutation(nums []int) {
 ### 组合
 
 ```python3
-def combinationSum(candidates, target: int):
+def combination_sum(candidates, target: int):
     candidates.sort()
     ans = []
     path = []
@@ -2760,7 +2784,7 @@ func combinationSum(candidates []int, target int) (ans [][]int) {
 #### 重复元素组合
 
 ```python3
-def combinationSum2(candidates, target: int):
+def combination_sum2(candidates, target: int):
     ans = []
     path = []
     candidates.sort()
