@@ -2,7 +2,7 @@
 
 # 目录
 
-1. [数组](#数组)
+- [数组](#数组)
     - [二分查找](#二分查找)
         - [带重复元素的旋转数组](#带重复元素的旋转数组)
     - [单调栈](#单调栈)
@@ -10,20 +10,24 @@
     - [双指针](#双指针)
     - [排序](#排序)
     - [前缀和](#前缀和)
-2. [堆](#堆)
+- [堆](#堆)
     - [优先队列](#优先队列)
-3. [字典树](#trie)
-4. [深度优先搜索](#DFS)
-5. [广度优先搜索](#BFS)
-6. [拓扑排序](#拓扑排序)
-7. [二进制](#二进制)
+- [字典树](#trie)
+- [图论](#图论)
+    - [存图方式](#存图方式)
+    - [深度优先搜索](#DFS)
+    - [广度优先搜索](#BFS)
+    - [最短路径](#最短路径)
+        - [dijkstra](#dijkstra算法优先队列实现)
+    - [拓扑排序](#拓扑排序)
+- [二进制](#二进制)
     - [位运算](#位运算)
     - [异或](#异或)
-8. [动态规划](#动态规划)
+- [动态规划](#动态规划)
     - [回文串切割](#回文串切割)
-9. [并查集](#并查集)
-10. [树状数组](#树状数组)
-11. [线段树](#线段树)
+- [并查集](#并查集)
+- [树状数组](#树状数组)
+- [线段树](#线段树)
     - [常规线段树](#常规线段树)
     - [动态开点](#动态开点)
     - [动态指针](#动态指针)
@@ -34,12 +38,13 @@
         - [区间最小值](#区间最小值)
         - [区间最大值](#区间最大值)
         - [区间更新](#区间更新)
-12. [数学](#数学)
+- [数学](#数学)
     - [费马平方和定理](#费马平方和定理)
-13. [链表](#链表)
-14. [二叉树](#二叉树)
-15. [字符串](#字符串)
-16. [回溯](#回溯)
+- [链表](#链表)
+- [二叉树](#二叉树)
+- [字符串](#字符串)
+    - [KMP算法](#kmp算法模板)
+- [回溯](#回溯)
     - [N皇后](#N皇后)
     - [排列组合](#排列组合)
         - [全排列](#全排列)
@@ -47,7 +52,7 @@
         - [组合](#组合)
         - [重复元素组合](#重复元素组合)
         - [重复元素子集](#重复元素子集)
-17. [其他](#其他)
+- [其他](#其他)
     - [LRU缓存](#lru缓存)
 
 ---
@@ -224,7 +229,113 @@ def maxSlidingWindow(nums []int, k int) (ans []int) {
 
 ## 双指针
 
+- 双指针技巧通常用于处理数组或链表问题，如**快慢指针**检测循环、**左右指针**解决有序数组问题等。
+
+### 示例：移除元素（原地删除）
+```python
+def remove_element(nums, val):
+    slow = 0
+    for fast in range(len(nums)):
+        if nums[fast] != val:
+            nums[slow] = nums[fast]
+            slow += 1
+    return slow
+```
+
+```go
+package main
+
+func removeElement(nums []int, val int) int {
+    slow := 0
+    for fast := 0; fast < len(nums); fast++ {
+        if nums[fast] != val {
+            nums[slow] = nums[fast]
+            slow++
+        }
+    }
+    return slow
+}
+```
+
+### 示例：有序数组两数之和
+```python
+def two_sum(nums, target):
+    left, right = 0, len(nums)-1
+    while left < right:
+        s = nums[left] + nums[right]
+        if s == target:
+            return [left+1, right+1]
+        elif s < target:
+            left += 1
+        else:
+            right -= 1
+    return []
+```
+
+```go
+package main
+
+func twoSum(nums []int, target int) []int {
+    left, right := 0, len(nums)-1
+    for left < right {
+        sum := nums[left] + nums[right]
+        if sum == target {
+            return []int{left+1, right+1}
+        } else if sum < target {
+            left++
+        } else {
+            right--
+        }
+    }
+    return []int{}
+}
+```
+
 ## 排序
+
+### 快速排序（Python）
+```python
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    pivot = arr[len(arr)//2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    return quick_sort(left) + middle + quick_sort(right)
+```
+
+### 归并排序（Go）
+```go
+package main
+
+func mergeSort(arr []int) []int {
+    if len(arr) <= 1 {
+        return arr
+    }
+    mid := len(arr)/2
+    left := mergeSort(arr[:mid])
+    right := mergeSort(arr[mid:])
+    return merge(left, right)
+}
+
+func merge(left, right []int) []int {
+    result := make([]int, 0)
+    i, j := 0, 0
+    for i < len(left) && j < len(right) {
+        if left[i] < right[j] {
+            result = append(result, left[i])
+            i++
+        } else {
+            result = append(result, right[j])
+            j++
+        }
+    }
+    result = append(result, left[i:]...)
+    result = append(result, right[j:]...)
+    return result
+}
+```
 
 ## 前缀和
 
@@ -583,15 +694,400 @@ func (t *TrieNode) StartsWith(prefix string) bool {
 
 ---
 
-# DFS
+# 图论
 
----
+## 存图方式
 
-# BFS
+### 邻接矩阵
 
----
+这是一种使用**二维矩阵**来进行存图的方式
 
-# 拓扑排序
+适用于边数较多的**稠密图**使用，当边数量接近点数量的平方，即$`m = n^2`$，可定义为稠密图
+
+```python
+# 稠密图适用（节点编号0~n-1）
+n = 5
+graph = [[0]*n for _ in range(n)]
+
+# 添加边（带权重）
+graph[0][1] = 3  # 0→1的边权重为3
+graph[1][2] = 2  # 1→2的边权重为2
+```
+
+### 邻接表
+
+```go
+package main
+
+// 稀疏图适用
+type Graph struct {
+    nodes int
+    edges [][]int // edges[i]存储节点i的所有邻接节点
+}
+
+func NewGraph(n int) *Graph {
+    return &Graph{
+        nodes: n,
+        edges: make([][]int, n),
+    }
+}
+
+// 添加无向边
+func (g *Graph) AddEdge(u, v int) {
+    g.edges[u] = append(g.edges[u], v)
+    g.edges[v] = append(g.edges[v], u)
+}
+```
+
+### 类存图（带权重）
+```python
+class GraphNode:
+    def __init__(self, val):
+        self.val = val
+        self.neighbors = []  # 存储元组(node, weight)
+
+# 构建示例
+node0 = GraphNode(0)
+node1 = GraphNode(1)
+node0.neighbors.append((node1, 5))  # 0→1的边权重为5
+```
+
+## DFS
+
+### 模板（Python）
+```python
+def dfs(node, visited):
+    if node in visited:
+        return
+    visited.add(node)
+    # 处理当前节点
+    for neighbor in node.neighbors:
+        dfs(neighbor, visited)
+```
+
+### 模板（Go）
+```go
+func dfs(node *GraphNode, visited map[*GraphNode]bool) {
+    if visited[node] {
+        return
+    }
+    visited[node] = true
+    // 处理当前节点
+    for _, neighbor := range node.neighbors {
+        dfs(neighbor, visited)
+    }
+}
+```
+
+### 示例：岛屿数量
+```python
+def num_islands(grid):
+    count = 0
+    rows, cols = len(grid), len(grid[0])
+    
+    def dfs(i, j):
+        if 0 <= i < rows and 0 <= j < cols and grid[i][j] == '1':
+            grid[i][j] = '0'
+            dfs(i+1, j)
+            dfs(i-1, j)
+            dfs(i, j+1)
+            dfs(i, j-1)
+    
+    for i in range(rows):
+        for j in range(cols):
+            if grid[i][j] == '1':
+                dfs(i, j)
+                count += 1
+    return count
+```
+
+## BFS
+
+- 核心思想
+1. **队列结构**：用队列（先进先出）管理待访问的节点。
+2. **逐层扩展**：按层处理节点，保证最先找到最短路径。
+3. **避免重复访问**：记录已访问的节点（如哈希表、数组标记）。
+
+### 基本结构（树/图的层序遍历）
+```python
+from collections import deque
+
+def bfs(start_node):
+    queue = deque([start_node])  # 初始化队列
+    visited = set()              # 记录已访问节点（图可能需要）
+    visited.add(start_node)      # 标记初始节点
+    
+    while queue:
+        level_size = len(queue)  # 当前层的节点数（层序遍历需要）
+        for _ in range(level_size):
+            node = queue.popleft()
+            # 处理当前节点（如访问、判断目标等）
+            process(node)
+            # 遍历相邻节点（根据问题定义）
+            for neighbor in get_neighbors(node):
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+    return result
+```
+
+### 示例：二叉树层序遍历
+```python
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+def level_order(root):
+    if not root:
+        return []
+    result = []
+    queue = deque([root])
+    while queue:
+        level = []
+        for _ in range(len(queue)):
+            node = queue.popleft()
+            level.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        result.append(level)
+    return result
+
+# 测试
+root = TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7))
+print(level_order(root))  # 输出 [[3], [9, 20], [15, 7]]
+```
+
+### 示例：网格最短路径（0 可走，1 障碍）
+```python
+def shortest_path(grid, start, end):
+    rows, cols = len(grid), len(grid[0])
+    directions = [(-1,0), (1,0), (0,-1), (0,1)]  # 上下左右
+    queue = deque([(start[0], start[1], 0)])     # (x, y, steps)
+    visited = set()
+    visited.add((start[0], start[1]))
+    
+    while queue:
+        x, y, steps = queue.popleft()
+        if (x, y) == end:
+            return steps
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < rows and 0 <= ny < cols:
+                if grid[nx][ny] == 0 and (nx, ny) not in visited:
+                    visited.add((nx, ny))
+                    queue.append((nx, ny, steps + 1))
+    return -1  # 不可达
+
+# 测试
+grid = [
+    [0,0,1,0],
+    [0,0,0,0],
+    [1,1,0,1],
+    [0,0,0,0]
+]
+print(shortest_path(grid, (0,0), (3,3)))  # 输出 6
+```
+
+### 基本结构（队列实现）
+```go
+package main
+
+import (
+    "container/list"
+    "fmt"
+)
+
+// 树节点定义
+type TreeNode struct {
+    Val   int
+    Left  *TreeNode
+    Right *TreeNode
+}
+
+// 层序遍历示例
+func levelOrder(root *TreeNode) [][]int {
+    result := [][]int{}
+    if root == nil {
+        return result
+    }
+    queue := list.New()
+    queue.PushBack(root)
+    
+    for queue.Len() > 0 {
+        levelSize := queue.Len()
+        level := make([]int, 0, levelSize)
+        for i := 0; i < levelSize; i++ {
+            node := queue.Remove(queue.Front()).(*TreeNode)
+            level = append(level, node.Val)
+            if node.Left != nil {
+                queue.PushBack(node.Left)
+            }
+            if node.Right != nil {
+                queue.PushBack(node.Right)
+            }
+        }
+        result = append(result, level)
+    }
+    return result
+}
+
+// 测试
+func main() {
+    root := &TreeNode{3, 
+        &TreeNode{9, nil, nil}, 
+        &TreeNode{20, 
+            &TreeNode{15, nil, nil}, 
+            &TreeNode{7, nil, nil},
+        },
+    }
+    fmt.Println(levelOrder(root)) // 输出 [[3] [9 20] [15 7]]
+}
+```
+
+### 示例：网格最短路径
+```go
+type Point struct {
+    x, y, steps int
+}
+
+func shortestPath(grid [][]int, start, end [2]int) int {
+    rows, cols := len(grid), len(grid[0])
+    directions := [][2]int{{-1, 0}, {1, 0}, {0, -1}, {0, 1}}
+    queue := list.New()
+    visited := make(map[[2]int]bool)
+    
+    startX, startY := start[0], start[1]
+    queue.PushBack(Point{startX, startY, 0})
+    visited[[2]int{startX, startY}] = true
+    
+    for queue.Len() > 0 {
+        front := queue.Front()
+        queue.Remove(front)
+        p := front.Value.(Point)
+        if p.x == end[0] && p.y == end[1] {
+            return p.steps
+        }
+        for _, dir := range directions {
+            nx, ny := p.x + dir[0], p.y + dir[1]
+            if nx >= 0 && nx < rows && ny >= 0 && ny < cols {
+                if grid[nx][ny] == 0 && !visited[[2]int{nx, ny}] {
+                    visited[[2]int{nx, ny}] = true
+                    queue.PushBack(Point{nx, ny, p.steps + 1})
+                }
+            }
+        }
+    }
+    return -1
+}
+
+// 测试
+func main() {
+    grid := [][]int{
+        {0,0,1,0},
+        {0,0,0,0},
+        {1,1,0,1},
+        {0,0,0,0},
+    }
+    fmt.Println(shortestPath(grid, [2]int{0,0}, [2]int{3,3})) // 输出 6
+}
+```
+
+### BFS 关键点
+| 特性                | 说明                                                                 |
+|---------------------|--------------------------------------------------------------------|
+| **时间复杂度**       | O(N)，N 为节点数（每个节点访问一次）                                 |
+| **空间复杂度**       | O(N)，最坏情况队列存储所有节点                                       |
+| **适用场景**         | 最短路径（无权图）、层序遍历、拓扑排序、连通块问题                     |
+| **注意事项**         | 1. 确保标记已访问节点；2. 处理空输入；3. 队列初始化正确；4. 边界检查 |
+
+根据具体问题，调整 **节点定义**、**邻居获取方式** 和 **终止条件** 即可适配不同场景。
+
+## 最短路径
+
+### Dijkstra算法（优先队列实现）
+
+```python
+import heapq
+
+def dijkstra(graph, start, n):
+    dist = [float('inf')] * n
+    dist[start] = 0
+    heap = [(0, start)]
+    
+    while heap:
+        d, u = heapq.heappop(heap)
+        if d > dist[u]:
+            continue
+        for v, w in graph[u]:
+            if dist[v] > dist[u] + w:
+                dist[v] = dist[u] + w
+                heapq.heappush(heap, (dist[v], v))
+    return dist
+```
+
+```go
+package main
+
+import (
+    "container/heap"
+)
+
+type Edge struct {
+    node   int
+    weight int
+}
+
+type PriorityQueue []*Edge
+
+func (pq PriorityQueue) Len() int           { return len(pq) }
+func (pq PriorityQueue) Less(i, j int) bool { return pq[i].weight < pq[j].weight }
+func (pq PriorityQueue) Swap(i, j int)      { pq[i], pq[j] = pq[j], pq[i] }
+
+func (pq *PriorityQueue) Push(x interface{}) {
+    *pq = append(*pq, x.(*Edge))
+}
+
+func (pq *PriorityQueue) Pop() interface{} {
+    old := *pq
+    n := len(old)
+    item := old[n-1]
+    *pq = old[0 : n-1]
+    return item
+}
+
+func dijkstra(graph [][]Edge, start, n int) []int {
+    dist := make([]int, n)
+    for i := range dist {
+        dist[i] = 1<<31 - 1 // 初始化为极大值
+    }
+    dist[start] = 0
+    pq := &PriorityQueue{}
+    heap.Push(pq, &Edge{start, 0})
+    
+    for pq.Len() > 0 {
+        edge := heap.Pop(pq).(*Edge)
+        u := edge.node
+        if edge.weight > dist[u] {
+            continue
+        }
+        for _, e := range graph[u] {
+            v := e.node
+            if dist[v] > dist[u] + e.weight {
+                dist[v] = dist[u] + e.weight
+                heap.Push(pq, &Edge{v, dist[v]})
+            }
+        }
+    }
+    return dist
+}
+```
+
+
+## 拓扑排序
 
 ---
 
@@ -1497,13 +1993,155 @@ $`7`$无法表示为两个平方数之和，因为$`7 \equiv 3 \pmod{4}`$
 
 # 链表
 
+## 反转链表
+```python
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def reverse_list(head):
+    prev = None
+    curr = head
+    while curr:
+        next_node = curr.next
+        curr.next = prev
+        prev = curr
+        curr = next_node
+    return prev
+```
+
+```go
+package main
+
+type ListNode struct {
+    Val  int
+    Next *ListNode
+}
+
+func reverseList(head *ListNode) *ListNode {
+    var prev *ListNode
+    curr := head
+    for curr != nil {
+        next := curr.Next
+        curr.Next = prev
+        prev = curr
+        curr = next
+    }
+    return prev
+}
+```
+
 ---
 
 # 二叉树
 
+
+## 前序遍历
+```python
+def preorder(root):
+    res = []
+    def dfs(node):
+        if not node:
+            return
+        res.append(node.val)
+        dfs(node.left)
+        dfs(node.right)
+    dfs(root)
+    return res
+```
+
+```go
+package main
+
+type TreeNode struct {
+    Val   int
+    Left  *TreeNode
+    Right *TreeNode
+}
+
+func preorderTraversal(root *TreeNode) []int {
+    res := []int{}
+    var dfs func(*TreeNode)
+    dfs = func(node *TreeNode) {
+        if node == nil {
+            return
+        }
+        res = append(res, node.Val)
+        dfs(node.Left)
+        dfs(node.Right)
+    }
+    dfs(root)
+    return res
+}
+```
+
+## 中序遍历
+
+## 后序遍历
+
 ---
 
 # 字符串
+
+## KMP算法模板
+```python
+def kmp(s, pattern):
+    # 构建next数组
+    m = len(pattern)
+    next_arr = [0]*m
+    j = 0
+    for i in range(1, m):
+        while j > 0 and pattern[i] != pattern[j]:
+            j = next_arr[j-1]
+        if pattern[i] == pattern[j]:
+            j += 1
+        next_arr[i] = j
+    
+    # 匹配过程
+    j = 0
+    for i in range(len(s)):
+        while j > 0 and s[i] != pattern[j]:
+            j = next_arr[j-1]
+        if s[i] == pattern[j]:
+            j += 1
+        if j == m:
+            return i - m + 1
+    return -1
+```
+
+```go
+package main
+
+func kmp(s, pattern string) int {
+    m := len(pattern)
+    next := make([]int, m)
+    j := 0
+    for i := 1; i < m; i++ {
+        for j > 0 && pattern[i] != pattern[j] {
+            j = next[j-1]
+        }
+        if pattern[i] == pattern[j] {
+            j++
+        }
+        next[i] = j
+    }
+    
+    j = 0
+    for i := 0; i < len(s); i++ {
+        for j > 0 && s[i] != pattern[j] {
+            j = next[j-1]
+        }
+        if s[i] == pattern[j] {
+            j++
+        }
+        if j == m {
+            return i - m + 1
+        }
+    }
+    return -1
+}
+```
 
 ---
 
