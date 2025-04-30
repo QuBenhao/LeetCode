@@ -1108,6 +1108,232 @@ func main() {
 }
 ```
 
+## 动态指针
+
+- 核心概念
+1. **动态指针**：
+   - 每个节点保存左右子节点的**指针**（引用），而非固定数组索引。
+   - **按需创建子节点**：在首次访问时动态分配内存（通过 `push_down` 实现）。
+   - 优点：节省内存，适合处理 `1e18` 级别的稀疏区间操作。
+
+2. **惰性传播 (Lazy Propagation)**：
+   - 延迟对子节点的更新操作，通过 `lazy` 标记记录待处理的任务。
+   - 在访问子节点前通过 `push_down` 方法将标记下推并更新子节点。
+
+
+```python
+class Node:
+    __slots__ = ['left', 'right', 'val', 'lazy']
+    def __init__(self):
+        self.left = None    # 动态指针：左子节点
+        self.right = None   # 动态指针：右子节点
+        self.val = 0        # 当前区间的聚合值（根据场景修改初始值）
+        self.lazy = 0       # 惰性标记（根据场景定义含义）
+
+class DynamicSegmentTree:
+    def __init__(self, start, end):
+        self.root = Node()
+        self.start = start  # 区间左端点
+        self.end = end      # 区间右端点
+
+    def _push_down(self, node, l, r):
+        """动态创建子节点并下推惰性标记"""
+        if node.left is None:
+            node.left = Node()
+        if node.right is None:
+            node.right = Node()
+        if node.lazy != 0:  # 根据场景修改惰性标记处理逻辑
+            mid = (l + r) // 2
+            # 示例：区间增加值（修改此处实现其他操作）
+            node.left.val += node.lazy * (mid - l + 1)
+            node.left.lazy += node.lazy
+            node.right.val += node.lazy * (r - mid)
+            node.right.lazy += node.lazy
+            node.lazy = 0  # 清除标记
+
+    def _update(self, node, l, r, ul, ur, val):
+        """更新区间 [ul, ur]（根据场景修改更新逻辑）"""
+        if ul <= l and r <= ur:
+            # 示例：区间增加值（修改此处实现其他操作）
+            node.val += val * (r - l + 1)
+            node.lazy += val
+            return
+        self._push_down(node, l, r)
+        mid = (l + r) // 2
+        if ul <= mid:
+            self._update(node.left, l, mid, ul, ur, val)
+        if ur > mid:
+            self._update(node.right, mid + 1, r, ul, ur, val)
+        # 聚合子节点结果（根据场景修改聚合逻辑）
+        node.val = node.left.val + node.right.val
+
+    def update_range(self, l, r, val):
+        self._update(self.root, self.start, self.end, l, r, val)
+
+    def _query(self, node, l, r, ql, qr):
+        """查询区间 [ql, qr]（根据场景修改查询逻辑）"""
+        if qr < l or r < ql:
+            return 0  # 根据场景返回初始值（如最大值返回 -inf）
+        if ql <= l and r <= qr:
+            return node.val
+        self._push_down(node, l, r)
+        mid = (l + r) // 2
+        # 聚合子查询结果（根据场景修改合并逻辑）
+        return self._query(node.left, l, mid, ql, qr) + \
+               self._query(node.right, mid + 1, r, ql, qr)
+
+    def query_range(self, l, r):
+        return self._query(self.root, self.start, self.end, l, r)
+```
+
+
+### 动态指针管理注意事项
+1. **内存控制**：
+   - 在 Python 中，未被引用的节点会被自动回收；在 Go 中需手动管理（或依赖 GC）。
+   - 在极端情况下，可添加节点复用池减少内存分配开销。
+2. **递归深度**：
+   - 处理极大区间时可能触发栈溢出，可改用迭代实现或调整递归深度限制。
+3. **标记下推顺序**：
+   - 必须在访问子节点前调用 `push_down`，确保子节点已创建且标记已处理。
+
+
+### 性能优化技巧
+| 技巧                | 适用场景                        | 实现方式                                                                 |
+|---------------------|-------------------------------|------------------------------------------------------------------------|
+| **节点池复用**       | 高频更新/查询操作               | 预分配节点对象池，通过索引管理而非动态创建/销毁                                 |
+| **迭代实现**         | 避免递归栈溢出                  | 用栈或队列模拟递归过程                                                   |
+| **离散化坐标**       | 区间端点稀疏但数量有限           | 将原始坐标映射到紧凑的整数范围，减少动态开点需求                               |
+
+
+## 不同场景下的线段树修改指南
+线段树的核心逻辑在不同场景下需要调整的部分主要集中在 **聚合方式** 和 **惰性标记处理** 上。以下是关键修改点：
+
+| 场景              | 修改点                                                                                     | 示例（区间求和 → 区间最大值）                     |
+|-------------------|------------------------------------------------------------------------------------------|------------------------------------------------|
+| **聚合逻辑**       | 合并子区间结果的方式（如 `sum` → `max`）                                                    | `node.val = max(left.val, right.val)`          |
+| **惰性标记处理**   | 区间更新时的标记传递逻辑（如加减 → 赋值）                                                    | `lazy` 存储待赋值的值而非增量                     |
+| **初始化值**       | 根据聚合逻辑选择初始值（如求和初始化为0，最大值初始化为负无穷）                                  | `self.val = -inf`                              |
+| **区间合并方式**   | 查询时如何合并部分覆盖区间的结果（如求和直接相加，最大值取子区间最大值）                          | `return max(left_query, right_query)`          |
+
+
+## 场景适配示例
+
+- 示例 1：区间最大值 + 区间更新
+```python
+class Node:
+    __slots__ = ["left", "right", "val", "lazy"]  # 优化内存
+
+    def __init__(self):
+        self.left = None
+        self.right = None
+        self.val = 0
+        self.lazy = 0
+
+
+class DynamicSegmentTree:
+    def __init__(self, start, end):
+        self.root = Node()
+        self.start = start  # 区间左端点
+        self.end = end  # 区间右端点
+    
+    def _push_up(self, node):
+        node.val = max(node.left.val, node.right.val)
+
+    def _push_down(self, node, l, r):
+        # 动态创建子节点并下推惰性标记
+        if node.left is None:
+            node.left = Node()
+        if node.right is None:
+            node.right = Node()
+        if node.lazy != 0:
+            # 更新左子节点
+            node.left.val += node.lazy
+            node.left.lazy += node.lazy
+            # 更新右子节点
+            node.right.val += node.lazy
+            node.right.lazy += node.lazy
+            node.lazy = 0
+
+    def _update(self, node, l, r, ul, ur, val):
+        if ul <= l and r <= ur:  # 完全覆盖
+            node.val += val
+            node.lazy += val
+            return
+        self._push_down(node, l, r)
+        mid = (l + r) // 2
+        if ul <= mid:
+            self._update(node.left, l, mid, ul, ur, val)
+        if ur > mid:
+            self._update(node.right, mid + 1, r, ul, ur, val)
+        self._push_up(node)
+
+    def update_range(self, l, r, val):
+        """区间更新 [l, r] 增加 val"""
+        self._update(self.root, self.start, self.end, l, r, val)
+
+    def _query(self, node, l, r, ql, qr):
+        if qr < l or r < ql:
+            return 0
+        if ql <= l and r <= qr:
+            return node.val
+        self._push_down(node, l, r)
+        mid = (l + r) // 2
+        return max(self._query(node.left, l, mid, ql, qr), self._query(
+            node.right, mid + 1, r, ql, qr
+        ))
+
+    def query_range(self, l, r):
+        """查询区间 [l, r] 的和"""
+        return self._query(self.root, self.start, self.end, l, r)
+```
+
+
+- 示例 1：区间最大值 + 区间赋值
+```python
+# 修改点 1：节点初始化
+class Node:
+    def __init__(self):
+        self.val = -float('inf')  # 初始化为负无穷
+        self.lazy = None          # 赋值操作使用 None 表示无标记
+
+# 修改点 2：push_down 逻辑
+def _push_down(self, node, l, r):
+    if node.left is None:
+        node.left = Node()
+    if node.right is None:
+        node.right = Node()
+    if node.lazy is not None:
+        node.left.val = node.lazy  # 直接赋值
+        node.left.lazy = node.lazy
+        node.right.val = node.lazy
+        node.right.lazy = node.lazy
+        node.lazy = None
+
+# 修改点 3：update 逻辑
+def _update(self, node, l, r, ul, ur, val):
+    if ul <= l and r <= ur:
+        node.val = val            # 直接赋值
+        node.lazy = val
+        return
+    # ... 其他部分不变
+```
+
+- 示例 2：区间乘法更新
+```python
+# 修改点：lazy 标记处理
+def _push_down(self, node, l, r):
+    if node.left is None:
+        node.left = Node()
+    if node.right is None:
+        node.right = Node()
+    if node.lazy != 1:  # 乘法初始标记为1
+        node.left.val *= node.lazy
+        node.left.lazy *= node.lazy
+        node.right.val *= node.lazy
+        node.right.lazy *= node.lazy
+        node.lazy = 1
+```
+
 ---
 
 # 数学
