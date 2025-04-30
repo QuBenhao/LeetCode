@@ -15,6 +15,7 @@
         - 学习技巧：按标签分类刷题（如动态规划），总结模板和常见优化方法。
         - [三叶题单](https://github.com/SharingSource/LogicStack-LeetCode/wiki)
     - [算法模板](templates.md)
+    - [Golang常用数据结构](https://github.com/emirpasic/gods)
 
 - **计算机网络**
     - 核心概念：TCP/IP协议栈、HTTP/HTTPS、DNS、WebSocket、TCP三次握手/四次挥手、拥塞控制。
