@@ -24,6 +24,16 @@
 9. [并查集](#并查集)
 10. [树状数组](#树状数组)
 11. [线段树](#线段树)
+    - [常规线段树](#常规线段树)
+    - [动态开点](#动态开点)
+    - [动态指针](#动态指针)
+        - [动态指针管理注意事项](#动态指针管理注意事项)
+        - [性能优化技巧](#性能优化技巧)
+    - [动态开点线段树应用](#动态开点线段树应用)
+        - [区间求和](#区间求和)
+        - [区间最小值](#区间最小值)
+        - [区间最大值](#区间最大值)
+        - [区间更新](#区间更新)
 12. [数学](#数学)
     - [费马平方和定理](#费马平方和定理)
 13. [链表](#链表)
@@ -1205,7 +1215,7 @@ class DynamicSegmentTree:
 | **离散化坐标**       | 区间端点稀疏但数量有限           | 将原始坐标映射到紧凑的整数范围，减少动态开点需求                               |
 
 
-## 不同场景下的线段树修改指南
+## 动态开点线段树应用
 线段树的核心逻辑在不同场景下需要调整的部分主要集中在 **聚合方式** 和 **惰性标记处理** 上。以下是关键修改点：
 
 | 场景              | 修改点                                                                                     | 示例（区间求和 → 区间最大值）                     |
@@ -1216,47 +1226,46 @@ class DynamicSegmentTree:
 | **区间合并方式**   | 查询时如何合并部分覆盖区间的结果（如求和直接相加，最大值取子区间最大值）                          | `return max(left_query, right_query)`          |
 
 
-## 场景适配示例
+### 区间求和
 
-- 示例 1：区间最大值 + 区间更新
+- 场景：求区间内元素的和，支持区间增减操作（如 [l, r] += val）。
+
 ```python
-class Node:
-    __slots__ = ["left", "right", "val", "lazy"]  # 优化内存
-
-    def __init__(self):
-        self.left = None
-        self.right = None
-        self.val = 0
-        self.lazy = 0
-
-
-class DynamicSegmentTree:
-    def __init__(self, start, end):
-        self.root = Node()
-        self.start = start  # 区间左端点
-        self.end = end  # 区间右端点
+class SumSegmentTree:
+    class Node:
+        __slots__ = ['left', 'right', 'val', 'lazy']
+        def __init__(self):
+            self.left = None
+            self.right = None
+            self.val = 0       # 区间和
+            self.lazy = 0      # 延迟增加量
     
-    def _push_up(self, node):
-        node.val = max(node.left.val, node.right.val)
-
+    def __init__(self, start, end):
+        self.root = self.Node()
+        self.start = start
+        self.end = end
+    
     def _push_down(self, node, l, r):
-        # 动态创建子节点并下推惰性标记
         if node.left is None:
-            node.left = Node()
+            node.left = self.Node()
         if node.right is None:
-            node.right = Node()
+            node.right = self.Node()
         if node.lazy != 0:
-            # 更新左子节点
-            node.left.val += node.lazy
+            mid = (l + r) // 2
+            # 更新左子树
+            node.left.val += node.lazy * (mid - l + 1)
             node.left.lazy += node.lazy
-            # 更新右子节点
-            node.right.val += node.lazy
+            # 更新右子树
+            node.right.val += node.lazy * (r - mid)
             node.right.lazy += node.lazy
             node.lazy = 0
-
+    
+    def update_range(self, l, r, val):
+        self._update(self.root, self.start, self.end, l, r, val)
+    
     def _update(self, node, l, r, ul, ur, val):
-        if ul <= l and r <= ur:  # 完全覆盖
-            node.val += val
+        if ul <= l and r <= ur:
+            node.val += val * (r - l + 1)
             node.lazy += val
             return
         self._push_down(node, l, r)
@@ -1265,74 +1274,201 @@ class DynamicSegmentTree:
             self._update(node.left, l, mid, ul, ur, val)
         if ur > mid:
             self._update(node.right, mid + 1, r, ul, ur, val)
-        self._push_up(node)
+        node.val = node.left.val + node.right.val
+    
+    def query_range(self, l, r):
+        return self._query(self.root, self.start, self.end, l, r)
+```
 
+### 区间最小值
+
+- 场景：求区间内的最小值，支持区间赋值操作（如 [l, r] = val）。
+
+```python
+class MinSegmentTree:
+    class Node:
+        __slots__ = ['left', 'right', 'val', 'lazy']
+        def __init__(self):
+            self.left = None
+            self.right = None
+            self.val = float('inf')     # 初始为无穷大
+            self.lazy = None            # 延迟赋值标记
+    
+    def __init__(self, start, end):
+        self.root = self.Node()
+        self.start = start
+        self.end = end
+    
+    def _push_down(self, node, l, r):
+        if node.left is None:
+            node.left = self.Node()
+        if node.right is None:
+            node.right = self.Node()
+        if node.lazy is not None:
+            # 赋值操作覆盖子节点
+            node.left.val = node.lazy
+            node.left.lazy = node.lazy
+            node.right.val = node.lazy
+            node.right.lazy = node.lazy
+            node.lazy = None
+    
     def update_range(self, l, r, val):
-        """区间更新 [l, r] 增加 val"""
         self._update(self.root, self.start, self.end, l, r, val)
-
+    
+    def _update(self, node, l, r, ul, ur, val):
+        if ul <= l and r <= ur:
+            node.val = val     # 直接赋值
+            node.lazy = val
+            return
+        self._push_down(node, l, r)
+        mid = (l + r) // 2
+        if ul <= mid:
+            self._update(node.left, l, mid, ul, ur, val)
+        if ur > mid:
+            self._update(node.right, mid + 1, r, ul, ur, val)
+        node.val = min(node.left.val, node.right.val)  # 合并逻辑
+    
+    def query_range(self, l, r):
+        return self._query(self.root, self.start, self.end, l, r)
+    
     def _query(self, node, l, r, ql, qr):
         if qr < l or r < ql:
-            return 0
+            return float('inf')  # 不影响最小值计算
         if ql <= l and r <= qr:
             return node.val
         self._push_down(node, l, r)
         mid = (l + r) // 2
-        return max(self._query(node.left, l, mid, ql, qr), self._query(
-            node.right, mid + 1, r, ql, qr
-        ))
+        return min(
+            self._query(node.left, l, mid, ql, qr),
+            self._query(node.right, mid + 1, r, ql, qr)
+        )
+```
 
+### 区间最大值
+
+- 场景：求区间内的最大值，支持区间增减操作（如 [l, r] += val）。
+
+```python
+class MaxSegmentTree:
+    class Node:
+        __slots__ = ['left', 'right', 'max_val', 'lazy']
+        def __init__(self):
+            self.left = None
+            self.right = None
+            self.max_val = -float('inf')  # 初始为负无穷
+            self.lazy = 0                # 延迟增加量
+    
+    def __init__(self, start, end):
+        self.root = self.Node()
+        self.start = start
+        self.end = end
+    
+    def _push_down(self, node, l, r):
+        if node.left is None:
+            node.left = self.Node()
+        if node.right is None:
+            node.right = self.Node()
+        if node.lazy != 0:
+            # 传递增量
+            node.left.max_val += node.lazy
+            node.left.lazy += node.lazy
+            node.right.max_val += node.lazy
+            node.right.lazy += node.lazy
+            node.lazy = 0
+    
+    def update_range(self, l, r, val):
+        self._update(self.root, self.start, self.end, l, r, val)
+    
+    def _update(self, node, l, r, ul, ur, val):
+        if ul <= l and r <= ur:
+            node.max_val += val     # 增加最大值
+            node.lazy += val
+            return
+        self._push_down(node, l, r)
+        mid = (l + r) // 2
+        if ul <= mid:
+            self._update(node.left, l, mid, ul, ur, val)
+        if ur > mid:
+            self._update(node.right, mid + 1, r, ul, ur, val)
+        node.max_val = max(node.left.max_val, node.right.max_val)  # 合并逻辑
+    
     def query_range(self, l, r):
-        """查询区间 [l, r] 的和"""
         return self._query(self.root, self.start, self.end, l, r)
+    
+    def _query(self, node, l, r, ql, qr):
+        if qr < l or r < ql:
+            return -float('inf')  # 不影响最大值计算
+        if ql <= l and r <= qr:
+            return node.max_val
+        self._push_down(node, l, r)
+        mid = (l + r) // 2
+        return max(
+            self._query(node.left, l, mid, ql, qr),
+            self._query(node.right, mid + 1, r, ql, qr)
+        )
 ```
 
+### 区间更新
 
-- 示例 1：区间最大值 + 区间赋值
+-场景：区间赋值操作，覆盖之前的修改（如 [l, r] = val）。
+
 ```python
-# 修改点 1：节点初始化
-class Node:
-    def __init__(self):
-        self.val = -float('inf')  # 初始化为负无穷
-        self.lazy = None          # 赋值操作使用 None 表示无标记
-
-# 修改点 2：push_down 逻辑
-def _push_down(self, node, l, r):
-    if node.left is None:
-        node.left = Node()
-    if node.right is None:
-        node.right = Node()
-    if node.lazy is not None:
-        node.left.val = node.lazy  # 直接赋值
-        node.left.lazy = node.lazy
-        node.right.val = node.lazy
-        node.right.lazy = node.lazy
-        node.lazy = None
-
-# 修改点 3：update 逻辑
-def _update(self, node, l, r, ul, ur, val):
-    if ul <= l and r <= ur:
-        node.val = val            # 直接赋值
-        node.lazy = val
-        return
-    # ... 其他部分不变
+class RangeAssignSegmentTree:
+    class Node:
+        __slots__ = ['left', 'right', 'val', 'lazy']
+        def __init__(self):
+            self.left = None
+            self.right = None
+            self.val = 0        # 当前区间的值（全部相同）
+            self.lazy = None    # 延迟赋值标记
+    
+    def __init__(self, start, end):
+        self.root = self.Node()
+        self.start = start
+        self.end = end
+    
+    def _push_down(self, node, l, r):
+        if node.left is None:
+            node.left = self.Node()
+        if node.right is None:
+            node.right = self.Node()
+        if node.lazy is not None:
+            # 传递赋值标记
+            node.left.val = node.lazy
+            node.left.lazy = node.lazy
+            node.right.val = node.lazy
+            node.right.lazy = node.lazy
+            node.lazy = None
+    
+    def update_range(self, l, r, val):
+        self._update(self.root, self.start, self.end, l, r, val)
+    
+    def _update(self, node, l, r, ul, ur, val):
+        if ul <= l and r <= ur:
+            node.val = val
+            node.lazy = val
+            return
+        self._push_down(node, l, r)
+        mid = (l + r) // 2
+        if ul <= mid:
+            self._update(node.left, l, mid, ul, ur, val)
+        if ur > mid:
+            self._update(node.right, mid + 1, r, ul, ur, val)
+    
+    def query_point(self, idx):
+        return self._query(self.root, self.start, self.end, idx)
+    
+    def _query(self, node, l, r, idx):
+        if l == r:
+            return node.val
+        self._push_down(node, l, r)
+        mid = (l + r) // 2
+        if idx <= mid:
+            return self._query(node.left, l, mid, idx)
+        else:
+            return self._query(node.right, mid + 1, r, idx)
 ```
 
-- 示例 2：区间乘法更新
-```python
-# 修改点：lazy 标记处理
-def _push_down(self, node, l, r):
-    if node.left is None:
-        node.left = Node()
-    if node.right is None:
-        node.right = Node()
-    if node.lazy != 1:  # 乘法初始标记为1
-        node.left.val *= node.lazy
-        node.left.lazy *= node.lazy
-        node.right.val *= node.lazy
-        node.right.lazy *= node.lazy
-        node.lazy = 1
-```
 
 ---
 
