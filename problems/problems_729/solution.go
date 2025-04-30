@@ -6,20 +6,98 @@ import (
 	"strings"
 )
 
-type MyCalendar struct {
-    
+type Node struct {
+	left, right *Node
+	val, lazy   int
 }
 
+type DynamicSegmentTree struct {
+	root       *Node
+	start, end int
+}
+
+func NewDynamicSegmentTree(start, end int) *DynamicSegmentTree {
+	return &DynamicSegmentTree{
+		root:  &Node{},
+		start: start,
+		end:   end,
+	}
+}
+
+func (dst *DynamicSegmentTree) pushDown(node *Node, l, r int) {
+	if node.left == nil {
+		node.left = &Node{}
+	}
+	if node.right == nil {
+		node.right = &Node{}
+	}
+	if node.lazy != 0 {
+		mid := (l + r) / 2
+		// 更新左子节点
+		node.left.val += node.lazy * (mid - l + 1)
+		node.left.lazy += node.lazy
+		// 更新右子节点
+		node.right.val += node.lazy * (r - mid)
+		node.right.lazy += node.lazy
+		node.lazy = 0
+	}
+}
+
+func (dst *DynamicSegmentTree) update(node *Node, l, r, ul, ur, val int) {
+	if ul <= l && r <= ur {
+		node.val += val * (r - l + 1)
+		node.lazy += val
+		return
+	}
+	dst.pushDown(node, l, r)
+	mid := (l + r) / 2
+	if ul <= mid {
+		dst.update(node.left, l, mid, ul, ur, val)
+	}
+	if ur > mid {
+		dst.update(node.right, mid+1, r, ul, ur, val)
+	}
+	node.val = node.left.val + node.right.val
+}
+
+func (dst *DynamicSegmentTree) UpdateRange(l, r, val int) {
+	dst.update(dst.root, dst.start, dst.end, l, r, val)
+}
+
+func (dst *DynamicSegmentTree) query(node *Node, l, r, ql, qr int) int {
+	if qr < l || r < ql {
+		return 0
+	}
+	if ql <= l && r <= qr {
+		return node.val
+	}
+	dst.pushDown(node, l, r)
+	mid := (l + r) / 2
+	return dst.query(node.left, l, mid, ql, qr) +
+		dst.query(node.right, mid+1, r, ql, qr)
+}
+
+func (dst *DynamicSegmentTree) QueryRange(l, r int) int {
+	return dst.query(dst.root, dst.start, dst.end, l, r)
+}
+
+type MyCalendar struct {
+	tree DynamicSegmentTree
+}
 
 func Constructor() MyCalendar {
-    
+	return MyCalendar{
+		*NewDynamicSegmentTree(0, 1e9),
+	}
 }
-
 
 func (this *MyCalendar) Book(startTime int, endTime int) bool {
-    
+	if this.tree.QueryRange(startTime, endTime-1) != 0 {
+		return false
+	}
+	this.tree.UpdateRange(startTime, endTime-1, 1)
+	return true
 }
-
 
 /**
  * Your MyCalendar object will be instantiated and called as such:
@@ -52,7 +130,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
