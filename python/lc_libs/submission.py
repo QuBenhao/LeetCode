@@ -310,12 +310,14 @@ async def submit_code(root_path, problem_folder: str, question_id: str, question
             _add_test(root_path, problem_folder, question_id,
                       submit_detail["outputDetail"]["input"], submit_detail["outputDetail"]["expectedOutput"])
 
-    logging.info(f"[{question_id}.{question_slug}]提交结果\n" + SUBMIT_BASIC_RESULT.format(
+    logging.info(SUBMIT_BASIC_RESULT.format(
+        typed_code,
+        question_id,
+        question_slug,
         submit_detail["statusDisplay"],
         submit_detail["passedTestCaseCnt"],
         submit_detail["totalTestCaseCnt"],
         part,
-        typed_code
     ))
     logging.info(f"提交详情: https://leetcode.cn/problems/{question_slug}/submissions/{submit_id}/ [需登录查看]")
     return submit_detail
