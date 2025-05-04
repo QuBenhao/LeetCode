@@ -7,7 +7,17 @@ import (
 )
 
 func maxProduct(n int) int {
-    
+	mx, subMax := 0, 0
+	for ; n > 0; n /= 10 {
+		cur := n % 10
+		if cur > mx {
+			subMax = mx
+			mx = cur
+		} else if cur > subMax {
+			subMax = cur
+		}
+	}
+	return mx * subMax
 }
 
 func Solve(inputJsonValues string) interface{} {
