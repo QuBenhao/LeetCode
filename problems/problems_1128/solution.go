@@ -6,8 +6,14 @@ import (
 	"strings"
 )
 
-func numEquivDominoPairs(dominoes [][]int) int {
-    
+func numEquivDominoPairs(dominoes [][]int) (ans int) {
+	counter := map[int]int{}
+	for _, domino := range dominoes {
+		d := max(domino[0], domino[1])*10 + min(domino[0], domino[1])
+		ans += counter[d]
+		counter[d]++
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
