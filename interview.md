@@ -71,6 +71,7 @@
 - 源码：阅读标准库源码（如`net/http`、`sync`包）。
 - 实战：用Go实现高并发服务（如WebSocket聊天室）。
 - 项目: [Golang面试合集](https://github.com/lifei6671/interview-go)
+- 项目: [Golang算法模板](https://github.com/EndlessCheng/codeforces-go)
 
 ---
 
