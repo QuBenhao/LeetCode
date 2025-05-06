@@ -1,3 +1,14 @@
+package problem857
+
+import (
+	"container/heap"
+	"encoding/json"
+	"log"
+	"math"
+	"sort"
+	"strings"
+)
+
 func mincostToHireWorkers(quality, wage []int, k int) float64 {
 	type pair struct{ q, w int }
 	qw := make([]pair, len(quality))
@@ -25,6 +36,26 @@ func mincostToHireWorkers(quality, wage []int, k int) float64 {
 }
 
 type hp struct{ sort.IntSlice }
+
 func (h hp) Less(i, j int) bool { return h.IntSlice[i] > h.IntSlice[j] } // 最大堆
-func (hp) Push(interface{})     {} // 由于没有用到，可以什么都不写
+func (hp) Push(interface{})     {}                                       // 由于没有用到，可以什么都不写
 func (hp) Pop() (_ interface{}) { return }
+
+func Solve(inputJsonValues string) interface{} {
+	inputValues := strings.Split(inputJsonValues, "\n")
+	var quality []int
+	var wage []int
+	var k int
+
+	if err := json.Unmarshal([]byte(inputValues[0]), &quality); err != nil {
+		log.Fatal(err)
+	}
+	if err := json.Unmarshal([]byte(inputValues[1]), &wage); err != nil {
+		log.Fatal(err)
+	}
+	if err := json.Unmarshal([]byte(inputValues[2]), &k); err != nil {
+		log.Fatal(err)
+	}
+
+	return mincostToHireWorkers(quality, wage, k)
+}
