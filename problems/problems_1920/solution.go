@@ -7,7 +7,22 @@ import (
 )
 
 func buildArray(nums []int) []int {
-    
+	for i, num := range nums {
+		if num < 0 {
+			continue
+		}
+		cur := i
+		for nums[cur] != i {
+			nxt := nums[cur]
+			nums[cur] = ^nums[nxt]
+			cur = nxt
+		}
+		nums[cur] = ^num
+	}
+	for i, num := range nums {
+		nums[i] = ^num
+	}
+	return nums
 }
 
 func Solve(inputJsonValues string) interface{} {
