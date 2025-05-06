@@ -6,8 +6,40 @@ import (
 	"strings"
 )
 
-func numRookCaptures(board [][]byte) int {
-    
+func numRookCaptures(board [][]byte) (ans int) {
+	directions := [][]int{{0, 1}, {1, 0}, {0, -1}, {-1, 0}}
+	m, n := len(board), len(board[0])
+	var x, y int
+	x = -1
+	for i, row := range board {
+		for j, v := range row {
+			if v == 'R' {
+				x = i
+				y = j
+				break
+			}
+		}
+		if x != -1 {
+			break
+		}
+	}
+	for _, d := range directions {
+		curX, curY := x, y
+		for true {
+			nxtX, nxtY := curX+d[0], curY+d[1]
+			if nxtX < 0 || nxtX == m || nxtY < 0 || nxtY == n {
+				break
+			}
+			if board[nxtX][nxtY] == 'B' {
+				break
+			} else if board[nxtX][nxtY] == 'p' {
+				ans++
+				break
+			}
+			curX, curY = nxtX, nxtY
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
