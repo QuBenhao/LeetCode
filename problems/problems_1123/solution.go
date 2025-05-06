@@ -14,7 +14,26 @@ import (
  * }
  */
 func lcaDeepestLeaves(root *TreeNode) *TreeNode {
-    
+	type pair struct {
+		node  *TreeNode
+		depth int
+	}
+	var dfs func(*TreeNode) pair
+	dfs = func(node *TreeNode) pair {
+		if node == nil {
+			return pair{node, 0}
+		}
+		left := dfs(node.Left)
+		right := dfs(node.Right)
+		if left.depth == right.depth {
+			return pair{node, left.depth + 1}
+		}
+		if left.depth < right.depth {
+			return pair{right.node, right.depth + 1}
+		}
+		return pair{left.node, left.depth + 1}
+	}
+	return dfs(root).node
 }
 
 func Solve(inputJsonValues string) interface{} {
