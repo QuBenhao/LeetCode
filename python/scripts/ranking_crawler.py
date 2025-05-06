@@ -2,6 +2,7 @@
 
 import json
 import sys
+import traceback
 
 import requests
 
@@ -14,9 +15,11 @@ GLOBAL = False
 # 二分查找的右端点(可自调)
 RIGHT = 3000
 
+RETRY_COUNT = 3
+
 
 class RankingCrawler:
-    URL = 'https://leetcode.com/graphql' if GLOBAL else 'https://leetcode-cn.com/graphql'
+    URL = 'https://leetcode.com/graphql' if GLOBAL else 'https://leetcode.cn/graphql'
 
     _REQUEST_PAYLOAD_TEMPLATE = {
         "operationName": None,
@@ -50,7 +53,7 @@ r'''{
         l, r = 1, RIGHT
         retry_cnt = 0
         ansRanking = None
-        while l < r:
+        while retry_cnt < RETRY_COUNT and l < r:
             cur_page = (l + r + 1) // 2
             try:
                 payload = RankingCrawler._REQUEST_PAYLOAD_TEMPLATE.copy()
@@ -59,6 +62,7 @@ r'''{
                     headers = {'Content-type': 'application/json'},
                     json = payload).json()
 
+                print(resp)
                 resp = resp['data']['localRanking'] if not GLOBAL else resp['data']['globalRanking']
                 # no more data
                 if len(resp['rankingNodes']) == 0:
@@ -81,6 +85,7 @@ r'''{
                 print('The first contest current rating in page {} is {} .'.format(cur_page, resp['rankingNodes'][0]['currentRating']))
                 retry_cnt = 0
             except:
+                traceback.print_exc()
                 # print(f'Failed to retrieved data of page {cur_page}...retry...{retry_cnt}')
                 retry_cnt += 1
         ansRanking = ansRanking[::-1]
