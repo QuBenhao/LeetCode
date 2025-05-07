@@ -7,29 +7,42 @@ import (
 )
 
 type BrowserHistory struct {
-
+	back    []string
+	forward []string
 }
-
 
 func Constructor(homepage string) BrowserHistory {
-
+	return BrowserHistory{
+		back: []string{homepage},
+	}
 }
 
-
-func (this *BrowserHistory) Visit(url string)  {
-
+func (this *BrowserHistory) Visit(url string) {
+	this.back = append(this.back, url)
+	for len(this.forward) > 0 {
+		this.forward = this.forward[:len(this.forward)-1]
+	}
 }
-
 
 func (this *BrowserHistory) Back(steps int) string {
-
+	n := len(this.back) - 1
+	for i := 0; i < steps && i < n; i++ {
+		elem := this.back[len(this.back)-1]
+		this.back = this.back[:len(this.back)-1]
+		this.forward = append(this.forward, elem)
+	}
+	return this.back[len(this.back)-1]
 }
-
 
 func (this *BrowserHistory) Forward(steps int) string {
-
+	n := len(this.forward)
+	for i := 0; i < steps && i < n; i++ {
+		elem := this.forward[len(this.forward)-1]
+		this.forward = this.forward[:len(this.forward)-1]
+		this.back = append(this.back, elem)
+	}
+	return this.back[len(this.back)-1]
 }
-
 
 /**
  * Your BrowserHistory object will be instantiated and called as such:
@@ -52,7 +65,7 @@ func Solve(input string) interface{} {
 		log.Println(err)
 		return nil
 	}
-	obj :=Constructor(vals[0][0].(string))
+	obj := Constructor(vals[0][0].(string))
 	ans = append(ans, nil)
 	for i := 1; i < len(opts); i++ {
 		var res interface{}
@@ -69,7 +82,6 @@ func Solve(input string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
