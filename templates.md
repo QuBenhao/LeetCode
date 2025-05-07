@@ -108,6 +108,8 @@ func BinarySearch(arr []int, target int) int {
 ### 带重复元素的旋转数组
 
 ```go
+package main
+
 // 这里的二段性是一段满足<target，另一段不满足
 func binarySearch(nums []int, left, right, target int) int {
 	l, r := left, right
@@ -217,7 +219,7 @@ def max_sliding_window(nums, k):
 ```go
 package main
 
-def maxSlidingWindow(nums []int, k int) (ans []int) {
+func maxSlidingWindow(nums []int, k int) (ans []int) {
     q := make([]int, 0)
     for i := range nums {
         if len(q) > 0 && q[0] < i-k+1 {
@@ -401,6 +403,8 @@ def sum_region(matrix, row1, col1, row2, col2):
 ```
 
 ```go
+package main
+
 type NumMatrix struct {
     preSum [][]int
 }
@@ -459,7 +463,7 @@ func kSmallest(nums []int, k int) (ans []int) {
         heap.Push(h, num)
     }
 	for i := 0; i < k; i++ {
-        v := heap.Pop(h)
+        v := heap.Pop(h).(int)
         ans = append(ans, v)
     }
 	return
@@ -497,7 +501,7 @@ func smallestRange(nums [][]int) []int {
 		h[i] = tuple{arr[0], i, 0} // 把每个列表的第一个元素入堆
 		r = max(r, arr[0])
 	}
-	heap.Init(&h)
+	heap.Init(h)
 
 	ansL, ansR := h[0].x, r            // 第一个合法区间的左右端点
 	for h[0].j+1 < len(nums[h[0].i]) { // 堆顶列表有下一个元素
@@ -505,7 +509,7 @@ func smallestRange(nums [][]int) []int {
 		r = max(r, x)               // 更新合法区间的右端点
 		h[0].x = x                  // 替换堆顶
 		h[0].j++
-		heap.Fix(&h, 0)
+		heap.Fix(h, 0)
 		l := h[0].x // 当前合法区间的左端点
 		if r-l < ansR-ansL {
 			ansL, ansR = l, r
@@ -2634,57 +2638,58 @@ def dijkstra(graph, start, n):
 package main
 
 import (
-    "container/heap"
+	"container/heap"
+	"math"
 )
 
-type Edge struct {
-    node   int
-    weight int
+func minTimeToReach(moveTime [][]int) int {
+	n, m := len(moveTime), len(moveTime[0])
+	dist := make([][]int, n)
+	for i := range dist {
+		dist[i] = make([]int, m)
+		for j := range dist[i] {
+			dist[i][j] = math.MaxInt32
+		}
+	}
+	dist[0][0] = 0
+
+	pq := &hp{}
+	heap.Init(pq)
+	heap.Push(pq, tuple{0, 0, 0})
+
+	dirs := []int{-1, 0, 1, 0, -1}
+	for {
+		p := heap.Pop(pq).(tuple)
+		d, i, j := p.dis, p.x, p.y
+
+		if i == n-1 && j == m-1 {
+			return d
+		}
+		if d > dist[i][j] {
+			continue
+		}
+
+		for k := 0; k < 4; k++ {
+			x, y := i+dirs[k], j+dirs[k+1]
+			if x >= 0 && x < n && y >= 0 && y < m {
+				t := max(moveTime[x][y], dist[i][j]) + 1
+				if dist[x][y] > t {
+					dist[x][y] = t
+					heap.Push(pq, tuple{t, x, y})
+				}
+			}
+		}
+	}
 }
 
-type PriorityQueue []*Edge
+type tuple struct{ dis, x, y int }
+type hp []tuple
 
-func (pq PriorityQueue) Len() int           { return len(pq) }
-func (pq PriorityQueue) Less(i, j int) bool { return pq[i].weight < pq[j].weight }
-func (pq PriorityQueue) Swap(i, j int)      { pq[i], pq[j] = pq[j], pq[i] }
-
-func (pq *PriorityQueue) Push(x interface{}) {
-    *pq = append(*pq, x.(*Edge))
-}
-
-func (pq *PriorityQueue) Pop() interface{} {
-    old := *pq
-    n := len(old)
-    item := old[n-1]
-    *pq = old[0 : n-1]
-    return item
-}
-
-func dijkstra(graph [][]Edge, start, n int) []int {
-    dist := make([]int, n)
-    for i := range dist {
-        dist[i] = 1<<31 - 1 // 初始化为极大值
-    }
-    dist[start] = 0
-    pq := &PriorityQueue{}
-    heap.Push(pq, &Edge{start, 0})
-    
-    for pq.Len() > 0 {
-        edge := heap.Pop(pq).(*Edge)
-        u := edge.node
-        if edge.weight > dist[u] {
-            continue
-        }
-        for _, e := range graph[u] {
-            v := e.node
-            if dist[v] > dist[u] + e.weight {
-                dist[v] = dist[u] + e.weight
-                heap.Push(pq, &Edge{v, dist[v]})
-            }
-        }
-    }
-    return dist
-}
+func (h hp) Len() int           { return len(h) }
+func (h hp) Less(i, j int) bool { return h[i].dis < h[j].dis }
+func (h hp) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *hp) Push(v any)        { *h = append(*h, v.(tuple)) }
+func (h *hp) Pop() (v any)      { a := *h; *h, v = a[:len(a)-1], a[len(a)-1]; return }
 ```
 
 
