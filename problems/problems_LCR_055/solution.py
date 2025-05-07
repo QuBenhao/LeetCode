@@ -21,11 +21,22 @@ class Solution(solution.Solution):
 
 class BSTIterator:
     def __init__(self, root: TreeNode):
-        pass
+        self.stack = []
+        while root:
+            self.stack.append(root)
+            root = root.left
 
     def next(self) -> int:
-        pass
+        if not self.stack:
+            return 0
+        node = self.stack.pop()
+        val = node.val
+        node = node.right
+        while node:
+            self.stack.append(node)
+            node = node.left
+        return val
 
     def hasNext(self) -> bool:
-        pass
+        return len(self.stack) > 0
 
