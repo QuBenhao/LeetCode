@@ -1,5 +1,5 @@
 cc_test(
-    name = "test_problem_LCR_055",
+    name = "test_problem_LCR_101",
     size = "small",
     srcs = [
         "//cpp:TestMain.cpp",
