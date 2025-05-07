@@ -23,7 +23,22 @@ import (
  * }
  */
 func isSubPath(head *ListNode, root *TreeNode) bool {
-    
+	var dfs func(*ListNode, *TreeNode) bool
+	dfs = func(ln *ListNode, tn *TreeNode) bool {
+		if ln == nil {
+			return true
+		}
+		if tn == nil {
+			return false
+		}
+		if tn.Val == ln.Val {
+			if dfs(ln.Next, tn.Left) || dfs(ln.Next, tn.Right) {
+				return true
+			}
+		}
+		return ln == head && (dfs(ln, tn.Left) || dfs(ln, tn.Right))
+	}
+	return dfs(head, root)
 }
 
 func Solve(inputJsonValues string) interface{} {
