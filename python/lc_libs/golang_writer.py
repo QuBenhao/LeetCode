@@ -164,6 +164,7 @@ class GolangWriter(LanguageWriter):
                                 )
                     if "construct" in d:
                         constructor = d["construct"]
+                        import_set.update(constructor[1][0])
                 build_body = (
                         "\tvar operators []string\n"
                         + "\tvar opValues [][]interface{}\n"

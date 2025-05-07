@@ -10,6 +10,7 @@ sys.path.append(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 )
 from python import lc_libs
+from python.utils import format_question_id
 from python.constants import LOGGING_FORMAT, DATE_FORMAT
 
 
@@ -127,7 +128,7 @@ def test_solution(args):
                     encoding="utf-8",
             ) as f:
                 try:
-                    f.writelines(obj.write_solution(code["code"], None, test_problem, "problems"))
+                    f.writelines(obj.write_solution(code["code"], None, format_question_id(test_problem), "problems"))
                     logging.info(f"Code snippet for problem {test_problem} in language {lang} written successfully")
                     code_counter[lang] += 1
                 except NotImplementedError as _:

@@ -1,7 +1,10 @@
 package problemLCR_055
 
 import (
-
+	"encoding/json"
+	. "leetCode/golang/models"
+	"log"
+	"strings"
 )
 
 /**
@@ -13,24 +16,19 @@ import (
  * }
  */
 type BSTIterator struct {
-
 }
-
 
 func Constructor(root *TreeNode) BSTIterator {
 
 }
 
-
 func (this *BSTIterator) Next() int {
 
 }
 
-
 func (this *BSTIterator) HasNext() bool {
 
 }
-
 
 /**
  * Your BSTIterator object will be instantiated and called as such:
@@ -66,7 +64,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
