@@ -7,7 +7,12 @@ import (
 )
 
 func replaceElements(arr []int) []int {
-    
+	n := len(arr)
+	maxValue := -1
+	for i := n - 1; i >= 0; i-- {
+		arr[i], maxValue = maxValue, max(maxValue, arr[i])
+	}
+	return arr
 }
 
 func Solve(inputJsonValues string) interface{} {
