@@ -7,7 +7,21 @@ import (
 )
 
 func findBall(grid [][]int) []int {
-    
+	m, n := len(grid), len(grid[0])
+	ans := make([]int, n)
+	for j := range n {
+		curCol := j
+		for i := range m {
+			d := grid[i][curCol]
+			curCol += d
+			if curCol < 0 || curCol == n || grid[i][curCol] != d {
+				curCol = -1
+				break
+			}
+		}
+		ans[j] = curCol
+	}
+	return ans
 }
 
 func Solve(inputJsonValues string) interface{} {

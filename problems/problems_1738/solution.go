@@ -3,25 +3,25 @@ package problem1738
 import (
 	"encoding/json"
 	"log"
+	"slices"
 	"strings"
 )
 
 func kthLargestValue(matrix [][]int, k int) int {
-    m, n := len(matrix), len(matrix[0])
-    a := make([]int, 0, m*n) // 预分配空间
-    colSum := make([]int, n)
-    for _, row := range matrix {
-        s := 0
-        for j, x := range row {
-            colSum[j] ^= x
-            s ^= colSum[j]
-            a = append(a, s)
-        }
-    }
-    slices.Sort(a)
-    return a[len(a)-k]
+	m, n := len(matrix), len(matrix[0])
+	a := make([]int, 0, m*n) // 预分配空间
+	colSum := make([]int, n)
+	for _, row := range matrix {
+		s := 0
+		for j, x := range row {
+			colSum[j] ^= x
+			s ^= colSum[j]
+			a = append(a, s)
+		}
+	}
+	slices.Sort(a)
+	return a[len(a)-k]
 }
-
 
 func Solve(input string) interface{} {
 	values := strings.Split(input, "\n")
