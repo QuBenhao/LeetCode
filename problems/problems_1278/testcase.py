@@ -11,6 +11,7 @@ class Testcase(testcase.Testcase):
 		self.testcases.append(case(Input=['aabbc', 3], Output=0))
 		self.testcases.append(case(Input=['leetcode', 8], Output=0))
 		self.testcases.append(case(Input=["tcymekt",4], Output=2))
+		self.testcases.append(case(Input=["abab",3], Output=1))
 
 	def get_testcases(self):
 		return self.testcases
