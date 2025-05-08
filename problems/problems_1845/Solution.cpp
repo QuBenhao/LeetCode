@@ -1,4 +1,4 @@
-// go:build ignore
+//go:build ignore
 #include "cpp/common/Solution.h"
 #include <queue>
 
