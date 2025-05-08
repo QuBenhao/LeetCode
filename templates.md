@@ -14,6 +14,8 @@
     - [堆](#堆)
         - [优先队列](#优先队列)
     - [链表](#链表)
+        - [反转链表](#反转链表)
+        - [快慢指针](#快慢指针)
     - [二叉树](#二叉树)
         - [前序遍历](#前序遍历)
         - [中序遍历](#中序遍历)
@@ -666,6 +668,39 @@ func reverseList(head *ListNode) *ListNode {
         curr = next
     }
     return prev
+}
+```
+
+### 快慢指针
+
+```python
+class ListNode:
+    def __init__(self, val=0, nxt=None):
+        self.val = val
+        self.next = nxt
+
+def half_head(head: ListNode) -> ListNode:
+    fast, slow = head, head
+    while fast and fast.next:
+        fast = fast.next.next
+        slow = slow.next
+    return slow
+```
+```go
+package main
+
+type ListNode struct {
+    Val  int
+    Next *ListNode
+}
+
+func halfHead(head *ListNode) *ListNode {
+	fast, slow := head, head
+	for fast != nil && fast.Next != nil {
+		fast = fast.Next.Next
+		slow = slow.Next
+	}
+	return slow
 }
 ```
 

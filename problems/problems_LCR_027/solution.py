@@ -16,5 +16,31 @@ class Solution(solution.Solution):
         return self.isPalindrome(head0)
 
     def isPalindrome(self, head: ListNode) -> bool:
-        pass
+        def reserve_list(node: ListNode):
+            prev = None
+            cur = node
+            while cur:
+                nxt = cur.next
+                cur.next = prev
+                prev = cur
+                cur = nxt
+            return prev
 
+
+        fast, slow = head, head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+
+        reversed_head = reserve_list(slow)
+
+        try:
+            cur1, cur2 = head, reversed_head
+            while cur2:
+                if cur1.val != cur2.val:
+                    return False
+                cur1 = cur1.next
+                cur2 = cur2.next
+            return True
+        finally:
+            reserve_list(reversed_head)
