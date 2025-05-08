@@ -3448,21 +3448,6 @@ func subsetsWithDup(nums []int) (ans [][]int) {
      2. 先将两个节点调整到同一深度，再同时向上跳转，直到找到公共祖先。
    - **时间复杂度**：预处理 $`O(n \log n)`$，查询 $`O(\log n)`$。
 
-#### 2. **区间最值查询（RMQ）**
-   - **问题**：多次查询数组某个区间的最小值/最大值。
-   - **倍增实现**：
-     1. 构建稀疏表 `st[k][i]`，表示从 `i` 开始长度为 $`2^k`$ 的区间最值。
-     2. 查询区间 `[L, R]` 时，取最大的 $`k`$ 使得 $`2^k \leq R-L+1`$，比较 `st[k][L]` 和 `st[k][R-2^k+1]`。
-   - **时间复杂度**：预处理 $`O(n \log n)`$，查询 $`O(1)`$。
-
-#### 3. **快速幂**
-   - **问题**：高效计算 $`a^b \mod p`$。
-   - **倍增实现**：
-     1. 将指数 $`b`$ 分解为二进制形式。
-     2. 通过累乘 $`a^{2^k}`$ 快速计算结果。
-   - **时间复杂度**：$`O(\log b)`$。
-
-### **示例：倍增法求最近公共祖先（LCA）**
 ```python
 from typing import List
 
@@ -3580,6 +3565,72 @@ func (t *TreeAncestor) GetLCA(x, y int) int {
         }
     }
     return t.pa[x][0]
+}
+```
+
+#### 2. **区间最值查询（RMQ）**
+   - **问题**：多次查询数组某个区间的最小值/最大值。
+   - **倍增实现**：
+     1. 构建稀疏表 `st[k][i]`，表示从 `i` 开始长度为 $`2^k`$ 的区间最值。
+     2. 查询区间 `[L, R]` 时，取最大的 $`k`$ 使得 $`2^k \leq R-L+1`$，比较 `st[k][L]` 和 `st[k][R-2^k+1]`。
+   - **时间复杂度**：预处理 $`O(n \log n)`$，查询 $`O(1)`$。
+
+#### 3. **快速幂**
+   - **问题**：高效计算 $`a^b \mod p`$。
+   - **倍增实现**：
+     1. 将指数 $`b`$ 分解为二进制形式。
+     2. 通过累乘 $`a^{2^k}`$ 快速计算结果。
+   - **时间复杂度**：$`O(\log b)`$。
+
+快速幂算法用于高效计算大整数幂或幂取模，时间复杂度为 $`O(\log n)`$。
+
+#### **Python 模板**
+```python
+def fast_power(a: int, b: int, mod: int = None) -> int:
+    """
+    计算 a^b 或 (a^b) % mod
+    :param a: 底数
+    :param b: 指数（非负整数）
+    :param mod: 可选模数
+    :return: a^b 或 (a^b) % mod
+    """
+    result = 1
+    a = a % mod if mod else a  # 初始取模（若提供mod）
+    while b > 0:
+        if b % 2 == 1:  # 当前二进制位为1
+            result = result * a
+            if mod: result %= mod
+        a = a * a       # 基数平方
+        if mod: a %= mod
+        b //= 2         # 右移一位
+    return result
+
+# 示例
+print(fast_power(2, 10))          # 输出 1024
+print(fast_power(2, 10, 1000))    # 输出 24 (1024 % 1000)
+```
+
+```go
+package main
+
+import "fmt"
+
+func fastPower(a, b, mod int) int {
+    result := 1
+    a = a % mod // 初始取模（若mod > 0）
+    for b > 0 {
+        if b%2 == 1 { // 当前二进制位为1
+            result = (result * a) % mod
+        }
+        a = (a * a) % mod // 基数平方
+        b /= 2           // 右移一位
+    }
+    return result
+}
+
+func main() {
+    fmt.Println(fastPower(2, 10, 0))    // 输出 1024（mod=0时不取模）
+    fmt.Println(fastPower(2, 10, 1000)) // 输出 24
 }
 ```
 
