@@ -6,8 +6,16 @@ import (
 	"strings"
 )
 
-func countPairs(nums []int, k int) int {
-    
+func countPairs(nums []int, k int) (ans int) {
+	n := len(nums)
+	for i, num := range nums {
+		for j := i + 1; j < n; j++ {
+			if num == nums[j] && (i*j)%k == 0 {
+				ans++
+			}
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
