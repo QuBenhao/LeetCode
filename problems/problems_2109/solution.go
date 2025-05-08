@@ -7,7 +7,16 @@ import (
 )
 
 func addSpaces(s string, spaces []int) string {
-    
+	var bytes []byte
+	j, n := 0, len(spaces)
+	for i := range s {
+		if j < n && spaces[j] == i {
+			bytes = append(bytes, ' ')
+			j++
+		}
+		bytes = append(bytes, s[i])
+	}
+	return string(bytes)
 }
 
 func Solve(inputJsonValues string) interface{} {
