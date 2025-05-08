@@ -3,23 +3,26 @@ package problem2080
 import (
 	"encoding/json"
 	"log"
+	"sort"
 	"strings"
 )
 
 type RangeFreqQuery struct {
-    
+	idxMap map[int][]int
 }
-
 
 func Constructor(arr []int) RangeFreqQuery {
-    
+	idxMap := map[int][]int{}
+	for i, num := range arr {
+		idxMap[num] = append(idxMap[num], i)
+	}
+	return RangeFreqQuery{idxMap}
 }
 
-
-func (this *RangeFreqQuery) Query(left int, right int, value int) int {
-    
+func (rfq *RangeFreqQuery) Query(left int, right int, value int) int {
+	// sort.SearchInts 相当于 python的bisect.bisect_left
+	return sort.SearchInts(rfq.idxMap[value], right+1) - sort.SearchInts(rfq.idxMap[value], left)
 }
-
 
 /**
  * Your RangeFreqQuery object will be instantiated and called as such:
@@ -60,7 +63,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
