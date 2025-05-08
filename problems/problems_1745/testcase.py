@@ -9,6 +9,7 @@ class Testcase(testcase.Testcase):
         self.testcases = []
         self.testcases.append(case(Input="abcbdd", Output=True))
         self.testcases.append(case(Input="bcbddxy", Output=False))
+        self.testcases.append(case(Input="yoldbrnfqvglfbxztwwivkymyamkpqqvcmqgsqfvvnnjhmmojxbbcybpdraxkrxvusfpumqymfximqihsrzeaubfukcbxdmqwjxfkxfvxiuvzylfxbuuszyjnmsrqioroariezxsztamlwqmprpndmwozwfnzpseuhubnryucpwokhtoujujraevvvdnmnjghsmgrgqhzxbyxpftgljkkknhunjrkaudfwhbmpjzpqoyxdhxhdatvnffommwuwvtcmtxdmocqbbewnuulhvqnfivonslpkwzvqviczcpxlnoazloehioimoiwvoqtkoijfjusecfwftouybiydtxdxclkjhlbcnppjgjhxryvbsantbdouproytalcmsgxzpcsxydkyznqqsrhvkjkegccxfrubpzbgucdcspbncqluabxdxeundxlqnzhmjgeeslykjghqneduxfhnsjztihpmmbhyenqcogkeahlezbspfdjxwcorltybcttbicjyokozqwajggpxksgnqahvqxoblbmihmxcjhugwguqvzxoxxtzvjhiyrainydjydmokklvrmhyjezwikaraayvhcxdlpxsckewxynipvfecsxnmyiklwshjfvgbyesflgifekgrbfnulrittoyxuqsgwfaudrdtmliyfzgphvwxhpicwtbumdpmgadxcvhxmrbcav", Output=False))
 
     def get_testcases(self):
         return self.testcases

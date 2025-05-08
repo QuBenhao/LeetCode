@@ -2228,6 +2228,28 @@ $`7`$无法表示为两个平方数之和，因为$`7 \equiv 3 \pmod{4}`$
 
 # 字符串
 
+## 回文串
+
+预处理
+
+```go
+package main
+
+func handle(s string) [][]bool:
+	n := len(s)
+	isPalindrome := make([][]bool, n)
+	for i := range isPalindrome {
+		isPalindrome[i] = make([]bool, n)
+		isPalindrome[i][i] = true
+	}
+	for i := n - 1; i >= 0; i-- {
+		for j := i + 1; j < n; j++ {
+			isPalindrome[i][j] = s[i] == s[j] && (i+2 >= j || isPalindrome[i+1][j-1])
+		}
+	}
+    return isPalindrome
+```
+
 ## KMP算法模板
 ```python
 def kmp(s, pattern):
