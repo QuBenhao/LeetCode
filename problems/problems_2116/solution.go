@@ -7,7 +7,31 @@ import (
 )
 
 func canBeValid(s string, locked string) bool {
-    
+	if len(s)%2 != 0 {
+		return false
+	}
+	mn, mx := 0, 0
+	for i, l := range locked {
+		if l == 0 {
+			mx++
+			mn--
+		} else {
+			if s[i] == '(' {
+				mx++
+				mn++
+			} else {
+				mx--
+				if mx < 0 {
+					return false
+				}
+				mn--
+			}
+		}
+		if mn < 0 {
+			mn = 1
+		}
+	}
+	return mn == 0
 }
 
 func Solve(inputJsonValues string) interface{} {
