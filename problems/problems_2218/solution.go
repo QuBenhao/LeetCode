@@ -19,7 +19,7 @@ func maxValueOfCoins(piles [][]int, k int) int {
 	for i := range dp {
 		dp[i] = make([]int, k+1)
 	}
-	for i := range min(k+1, len(piles[0])) {
+	for i := range min(k, len(piles[0])) + 1 {
 		dp[0][i] = prefixSum[0][i]
 	}
 	s := len(piles[0])
