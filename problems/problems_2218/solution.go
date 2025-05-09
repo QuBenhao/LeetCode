@@ -7,7 +7,31 @@ import (
 )
 
 func maxValueOfCoins(piles [][]int, k int) int {
-    
+	n := len(piles)
+	prefixSum := make([][]int, n)
+	for i, pile := range piles {
+		prefixSum[i] = make([]int, len(pile)+1)
+		for j, p := range pile {
+			prefixSum[i][j+1] = prefixSum[i][j] + p
+		}
+	}
+	dp := make([][]int, n)
+	for i := range dp {
+		dp[i] = make([]int, k+1)
+	}
+	for i := range min(k+1, len(piles[0])) {
+		dp[0][i] = prefixSum[0][i]
+	}
+	s := len(piles[0])
+	for i := 1; i < n; i++ {
+		s += len(piles[i])
+		for j := range min(k, s) + 1 {
+			for pick := range min(j, len(piles[i])) + 1 {
+				dp[i][j] = max(dp[i][j], dp[i-1][j-pick]+prefixSum[i][pick])
+			}
+		}
+	}
+	return dp[n-1][k]
 }
 
 func Solve(inputJsonValues string) interface{} {
