@@ -6,8 +6,18 @@ import (
 	"strings"
 )
 
-func largestGoodInteger(num string) string {
-    
+func largestGoodInteger(num string) (ans string) {
+	for left, right := 0, 0; right < len(num); right++ {
+		if num[left] != num[right] {
+			left = right
+			continue
+		}
+		if right-left == 2 {
+			ans = max(ans, num[left:right+1])
+			left++
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
