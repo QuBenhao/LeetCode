@@ -733,3 +733,12 @@ func f3() (r int) {
 
 ### Golang的GMP理解
 
+[GMP模型](https://go.cyub.vip/gmp/gmp-model/)
+
+[深入理解GMP](https://learnku.com/articles/41728)
+
+G表示Goroutine协程
+M表示OS线程
+P表示Processor 处理器
+
+![GMP模型](https://cdn.learnku.com/uploads/images/202003/11/58489/Ugu3C2WSpM.jpeg!large)
