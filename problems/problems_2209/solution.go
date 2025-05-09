@@ -11,7 +11,7 @@ func minimumWhiteTiles(floor string, numCarpets int, carpetLen int) int {
 	if numCarpets*carpetLen >= n {
 		return 0
 	}
-	dp := make([][]int, numCarpets+1)
+	dp := [2][]int{}
 	for i := range dp {
 		dp[i] = make([]int, n+1)
 	}
@@ -20,10 +20,10 @@ func minimumWhiteTiles(floor string, numCarpets int, carpetLen int) int {
 	}
 	for i := 1; i <= numCarpets; i++ {
 		for j := i * carpetLen; j <= n; j++ {
-			dp[i][j] = min(dp[i][j-1]+dp[0][j]-dp[0][j-1], dp[i-1][j-carpetLen])
+			dp[i%2][j] = min(dp[i%2][j-1]+dp[0][j]-dp[0][j-1], dp[(i+1)%2][j-carpetLen])
 		}
 	}
-	return dp[numCarpets][n]
+	return dp[numCarpets%2][n]
 }
 
 func Solve(inputJsonValues string) interface{} {
