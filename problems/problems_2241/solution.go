@@ -6,25 +6,47 @@ import (
 	"strings"
 )
 
-type ATM struct {
-    
-}
+var banknotes = []int{20, 50, 100, 200, 500}
 
+type ATM struct {
+	banknotesCount []int
+}
 
 func Constructor() ATM {
-    
+	return ATM{
+		banknotesCount: make([]int, len(banknotes)),
+	}
 }
 
-
-func (this *ATM) Deposit(banknotesCount []int)  {
-    
+func (atm *ATM) Deposit(banknotesCount []int) {
+	for i := 0; i < len(banknotesCount); i++ {
+		atm.banknotesCount[i] += banknotesCount[i]
+	}
 }
 
-
-func (this *ATM) Withdraw(amount int) []int {
-    
+func (atm *ATM) Withdraw(amount int) (ans []int) {
+	defer func() {
+		if ans[0] != -1 {
+			for i, v := range ans {
+				atm.banknotesCount[i] -= v
+			}
+		}
+	}()
+	tmp := make([]int, len(banknotes))
+	for i := len(banknotes) - 1; i >= 0; i-- {
+		if atm.banknotesCount[i] > 0 && amount >= banknotes[i] {
+			tmp[i] = min(atm.banknotesCount[i], amount/banknotes[i])
+			amount -= tmp[i] * banknotes[i]
+		}
+	}
+	if amount > 0 {
+		ans = append(ans, -1)
+		return
+	}
+	ans = make([]int, len(banknotes))
+	copy(ans, tmp)
+	return
 }
-
 
 /**
  * Your ATM object will be instantiated and called as such:
@@ -69,7 +91,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
