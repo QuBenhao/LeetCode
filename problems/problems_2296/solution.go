@@ -7,34 +7,40 @@ import (
 )
 
 type TextEditor struct {
-    
+	left, right []byte
 }
-
 
 func Constructor() TextEditor {
-    
+	return TextEditor{}
 }
 
-
-func (this *TextEditor) AddText(text string)  {
-    
+func (textEditor *TextEditor) AddText(text string) {
+	textEditor.left = append(textEditor.left, text...)
 }
 
-
-func (this *TextEditor) DeleteText(k int) int {
-    
+func (textEditor *TextEditor) DeleteText(k int) int {
+	k = min(k, len(textEditor.left))
+	textEditor.left = textEditor.left[:len(textEditor.left)-k]
+	return k
 }
 
-
-func (this *TextEditor) CursorLeft(k int) string {
-    
+func (textEditor *TextEditor) CursorLeft(k int) string {
+	for k > 0 && len(textEditor.left) > 0 {
+		textEditor.right = append(textEditor.right, textEditor.left[len(textEditor.left)-1])
+		textEditor.left = textEditor.left[:len(textEditor.left)-1]
+		k--
+	}
+	return string(textEditor.left[max(0, len(textEditor.left)-10):])
 }
 
-
-func (this *TextEditor) CursorRight(k int) string {
-    
+func (textEditor *TextEditor) CursorRight(k int) string {
+	for k > 0 && len(textEditor.right) > 0 {
+		textEditor.left = append(textEditor.left, textEditor.right[len(textEditor.right)-1])
+		textEditor.right = textEditor.right[:len(textEditor.right)-1]
+		k--
+	}
+	return string(textEditor.left[max(0, len(textEditor.left)-10):])
 }
-
 
 /**
  * Your TextEditor object will be instantiated and called as such:
@@ -77,7 +83,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
