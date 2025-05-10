@@ -3,11 +3,20 @@ package problem2274
 import (
 	"encoding/json"
 	"log"
+	"sort"
 	"strings"
 )
 
-func maxConsecutive(bottom int, top int, special []int) int {
-    
+func maxConsecutive(bottom int, top int, special []int) (ans int) {
+	nums := make([]int, len(special)+2)
+	copy(nums, special)
+	nums[len(nums)-2] = bottom - 1
+	nums[len(nums)-1] = top + 1
+	sort.Ints(nums)
+	for i := 1; i < len(nums); i++ {
+		ans = max(ans, nums[i]-nums[i-1]-1)
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
