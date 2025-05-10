@@ -6,8 +6,16 @@ import (
 	"strings"
 )
 
-func largestCombination(candidates []int) int {
-    
+func largestCombination(candidates []int) (ans int) {
+	bits := make([]int, 32)
+	for _, v := range candidates {
+		for i := 0; v > 0; i++ {
+			bits[i] += v & 1
+			ans = max(ans, bits[i])
+			v >>= 1
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
