@@ -6,8 +6,23 @@ import (
 	"strings"
 )
 
-func minOperations(nums []int) int {
-    
+func minOperations(nums []int) (ans int) {
+	var minStack []int
+	for _, num := range nums {
+		// 左边每个更大的元素都需要一次操作，因为当前为割点
+		for len(minStack) > 0 && num < minStack[len(minStack)-1] {
+			minStack = minStack[:len(minStack)-1]
+			ans++
+		}
+		if len(minStack) > 0 && num == minStack[len(minStack)-1] {
+			continue
+		}
+		minStack = append(minStack, num)
+	}
+	if minStack[0] == 0 {
+		ans--
+	}
+	return ans + len(minStack)
 }
 
 func Solve(inputJsonValues string) interface{} {
