@@ -3810,6 +3810,111 @@ func main() {
 }
 ```
 
+##### 矩阵快速幂
+
+矩阵快速幂是一种高效解决线性递推问题的算法，通过将递推关系转化为矩阵乘法形式，利用快速幂将时间复杂度从 $`O(n)`$ 优化到 $`O(\log n)`$。以下是其核心原理和实现方法：
+
+**通用步骤**
+
+**1. 确定递推阶数**
+
+对于 $`k`$ 阶线性递推（如 $`F(n) = a_1F(n-1) + \dots + a_kF(n-k)`$），构造 $`k \times k`$ 的转移矩阵。
+
+**2. 构造转移矩阵**
+
+- 第 $`i`$ 行表示如何从 $`F(n-i)`$ 推导到 $`F(n-i+1)`$。
+- 例如，斐波那契数列的转移矩阵为：
+$$
+\begin{bmatrix}
+1 & 1 \\
+1 & 0
+\end{bmatrix}
+$$
+
+**3. 初始状态向量**
+
+根据递推的初始条件定义初始向量：
+$$
+\text{初始状态} = 
+\begin{bmatrix}
+F(k-1) \\
+F(k-2) \\
+\vdots \\
+F(0)
+\end{bmatrix}
+$$
+
+**4. 计算矩阵幂**
+
+通过快速幂计算 $`\text{转移矩阵}^{n}`$，再与初始状态相乘得到结果。
+
+```go
+func fib(n int) int {
+    if n == 0 {
+        return 0
+    }
+    // 转移矩阵
+    mat := [][]int{{1, 1}, {1, 0}}
+    // 计算 mat^(n-1)
+    res := matrixPower(mat, n-1)
+    // 初始状态 [F(1), F(0)] = [1, 0]
+    return res[0][0] * 1 + res[0][1] * 0
+}
+```
+
+**应用场景**
+1. **线性递推问题**：如斐波那契数列、爬楼梯问题。
+2. **动态规划优化**：将状态转移方程转化为矩阵形式。
+3. **图论中的路径计数**：邻接矩阵的幂表示路径数。
+
+**推广到 k 阶递推**
+
+对于 $`k`$ 阶递推 $`F(n) = a_1F(n-1) + a_2F(n-2) + \dots + a_kF(n-k)`$，转移矩阵为：
+$$
+\begin{bmatrix}
+a_1 & a_2 & \dots & a_{k-1} & a_k \\
+1 & 0 & \dots & 0 & 0 \\
+0 & 1 & \dots & 0 & 0 \\
+\vdots & \vdots & \ddots & \vdots & \vdots \\
+0 & 0 & \dots & 1 & 0
+\end{bmatrix}
+$$
+初始状态向量为：
+$$
+\begin{bmatrix}
+F(k-1) \\
+F(k-2) \\
+\vdots \\
+F(0)
+\end{bmatrix}
+$$
+
+1. **构造矩阵**：将递推关系转化为矩阵乘法形式。
+2. **快速幂加速**：通过矩阵快速幂将线性递推的时间复杂度优化到对数级。
+3. **通用性强**：适用于任何线性递推关系，只需调整转移矩阵和初始状态。
+
+```python
+from typing import List
+
+
+# 矩阵快速幂
+# a @ b，其中 @ 是矩阵乘法
+def mul(a: List[List[int]], b: List[List[int]], mod: int) -> List[List[int]]:
+    return [[sum(x * y for x, y in zip(row, col)) % mod for col in zip(*b)]
+            for row in a]
+
+
+# a^n @ f0
+def pow_mul(a: List[List[int]], n: int, f0: List[List[int]], mod: int = 1000_000_007) -> List[List[int]]:
+    res = f0
+    while n:
+        if n & 1:
+            res = mul(a, res, mod)
+        a = mul(a, a, mod)
+        n >>= 1
+    return res
+```
+
 ### **优势与局限**
 - **优势**：将线性时间的查询优化到对数时间。
 - **局限**：需要额外的空间存储跳转表（如 $`O(n \log n)`$ 的稀疏表）。
