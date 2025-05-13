@@ -1,5 +1,7 @@
-import solution
+from itertools import pairwise
 from typing import *
+
+import solution
 
 
 class Solution(solution.Solution):
@@ -7,5 +9,8 @@ class Solution(solution.Solution):
         return self.findMinDifference(test_input)
 
     def findMinDifference(self, timePoints: List[str]) -> int:
-        pass
-
+        times = sorted(list(map(lambda x: int(x[:2]) * 60 + int(x[3:]), timePoints)))
+        ans = times[0] + 1440 - times[-1]
+        for a, b in pairwise(times):
+            ans = min(ans, b - a)
+        return ans

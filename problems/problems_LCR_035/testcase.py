@@ -9,6 +9,7 @@ class Testcase(testcase.Testcase):
 		self.testcases = []
 		self.testcases.append(case(Input=['23:59', '00:00'], Output=1))
 		self.testcases.append(case(Input=['00:00', '23:59', '00:00'], Output=0))
+		self.testcases.append(case(Input=["00:00","23:59"], Output=1))
 
 	def get_testcases(self):
 		return self.testcases
