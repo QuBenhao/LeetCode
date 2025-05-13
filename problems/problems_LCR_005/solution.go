@@ -6,8 +6,23 @@ import (
 	"strings"
 )
 
-func maxProduct(words []string) int {
-
+func maxProduct(words []string) (ans int) {
+	wordDict := make(map[int]int, len(words))
+	for _, word := range words {
+		mask := 0
+		for _, c := range word {
+			mask |= 1 << (c - 'a')
+		}
+		wordDict[mask] = max(wordDict[mask], len(word))
+	}
+	for k1, v1 := range wordDict {
+		for k2, v2 := range wordDict {
+			if k1&k2 == 0 {
+				ans = max(ans, v1*v2)
+			}
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
