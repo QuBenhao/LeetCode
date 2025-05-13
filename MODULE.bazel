@@ -17,11 +17,11 @@ new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.
 new_local_repository(
     name = "problems",
     build_file = "//cpp:solution.BUILD",
-    path = "problems/problems_3335/",
+    path = "problems/problems_3337/",
 )
 
 new_local_repository(
     name = "problem0",
-    path = "problems/problems_LCR_005/",
+    path = "problems/problems_LCR_035/",
     build_file = "//cpp:solution.BUILD",
 )
