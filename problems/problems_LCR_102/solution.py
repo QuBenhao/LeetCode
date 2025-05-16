@@ -9,12 +9,19 @@ class Solution(solution.Solution):
         return self.findTargetSumWays(*test_input)
 
     def findTargetSumWays(self, nums: List[int], target: int) -> int:
-        @cache
-        def dfs(i: int, cur_sum: int):
-            if i == len(nums):
-                return cur_sum == target
-            ans = dfs(i + 1, cur_sum + nums[i])
-            ans += dfs(i + 1, cur_sum - nums[i])
-            return ans
+        s = sum(nums) - abs(target)
+        if s < 0 or s % 2 != 0:
+            return 0
 
-        return dfs(0, 0)
+        s //= 2
+        n = len(nums)
+
+        @cache
+        def dfs(i, c):
+            if i == n:
+                return c == 0
+            if c < 0:
+                return dfs(i+1, c)
+            return dfs(i+1, c) + dfs(i+1, c-nums[i])
+
+        return dfs(0, s)
