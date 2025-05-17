@@ -2977,6 +2977,9 @@ func (h *hp) Pop() (v any)      { a := *h; *h, v = a[:len(a)-1], a[len(a)-1]; re
 
 ## 拓扑排序
 
+## 环
+
+
 ---
 
 # 二进制
