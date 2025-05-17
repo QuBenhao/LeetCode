@@ -2979,6 +2979,8 @@ func (h *hp) Pop() (v any)      { a := *h; *h, v = a[:len(a)-1], a[len(a)-1]; re
 
 ## 环
 
+使用并查集
+
 
 ---
 
