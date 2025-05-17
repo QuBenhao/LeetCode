@@ -6,40 +6,64 @@ import (
 	"strings"
 )
 
+type UnionFind struct {
+	parent []int
+	rank   []int
+}
+
+func NewUnionFind(size int) *UnionFind {
+	uf := &UnionFind{
+		parent: make([]int, size),
+		rank:   make([]int, size),
+	}
+	for i := range uf.parent {
+		uf.parent[i] = i
+		uf.rank[i] = 1
+	}
+	return uf
+}
+
+func (uf *UnionFind) Find(x int) int {
+	for uf.parent[x] != x {
+		uf.parent[x] = uf.parent[uf.parent[x]] // 路径压缩
+		x = uf.parent[x]
+	}
+	return x
+}
+
+func (uf *UnionFind) Union(x, y int) bool {
+	rootX := uf.Find(x)
+	rootY := uf.Find(y)
+
+	if rootX == rootY {
+		return false // 已经在同一集合
+	}
+
+	// 按秩合并
+	if uf.rank[rootX] > uf.rank[rootY] {
+		uf.parent[rootY] = rootX
+	} else {
+		uf.parent[rootX] = rootY
+		if uf.rank[rootX] == uf.rank[rootY] {
+			uf.rank[rootY]++
+		}
+	}
+	return true
+}
+
+func (uf *UnionFind) IsConnected(x, y int) bool {
+	return uf.Find(x) == uf.Find(y)
+}
+
 func findRedundantConnection(edges [][]int) []int {
-	graph := make(map[int][]int)
-	degree := make(map[int]int)
+	n := len(edges) + 1
+	uf := NewUnionFind(n)
 	for _, edge := range edges {
-		graph[edge[0]] = append(graph[edge[0]], edge[1])
-		graph[edge[1]] = append(graph[edge[1]], edge[0])
-		degree[edge[0]]++
-		degree[edge[1]]++
-	}
-	n := len(graph)
-	var dequeue []int
-	for k, v := range degree {
-		if v == 1 {
-			dequeue = append(dequeue, k)
+		if !uf.Union(edge[0], edge[1]) {
+			return edge // 找到冗余边
 		}
 	}
-	excluded := make(map[int]any)
-	for len(dequeue) > 0 {
-		node := dequeue[0]
-		dequeue = dequeue[1:]
-		for _, neighbor := range graph[node] {
-			degree[neighbor]--
-			if degree[neighbor] == 1 {
-				dequeue = append(dequeue, neighbor)
-			}
-			excluded[min(node, neighbor)*n+max(node, neighbor)] = nil
-		}
-	}
-	for i := len(edges) - 1; i >= 0; i-- {
-		if _, ok := excluded[min(edges[i][0], edges[i][1])*n+max(edges[i][0], edges[i][1])]; !ok {
-			return edges[i]
-		}
-	}
-	return nil
+	return nil // 如果没有冗余边
 }
 
 func Solve(inputJsonValues string) interface{} {
