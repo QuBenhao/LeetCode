@@ -1,41 +1,37 @@
 # 1931. Painting a Grid With Three Different Colors [Rating: 2170.04]
 
-You are given two integers `m` and `n`. Consider an `m x n` grid where each cell is initially white. You can paint each cell **red**, **green**, or **blue**. All cells **must** be painted.
+<p>You are given two integers <code>m</code> and <code>n</code>. Consider an <code>m x n</code> grid where each cell is initially white. You can paint each cell <strong>red</strong>, <strong>green</strong>, or <strong>blue</strong>. All cells <strong>must</strong> be painted.</p>
 
-Return *the number of ways to color the grid with **no two adjacent cells having the same color***. Since the answer can be very large, return it **modulo**10<sup>9</sup> + 7.
+<p>Return<em> the number of ways to color the grid with <strong>no two adjacent cells having the same color</strong></em>. Since the answer can be very large, return it <strong>modulo</strong> <code>10<sup>9</sup> + 7</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2021/06/22/colorthegrid.png" style="width: 200px; height: 50px;" />
+<pre>
+<strong>Input:</strong> m = 1, n = 1
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> The three possible colorings are shown in the image above.
+</pre>
 
-**Example 1:**
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2021/06/22/copy-of-colorthegrid.png" style="width: 321px; height: 121px;" />
+<pre>
+<strong>Input:</strong> m = 1, n = 2
+<strong>Output:</strong> 6
+<strong>Explanation:</strong> The six possible colorings are shown in the image above.
+</pre>
 
-![img](https://assets.leetcode.com/uploads/2021/06/22/colorthegrid.png)
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: m = 1, n = 1
-Output: 3
-Explanation: The three possible colorings are shown in the image above.
-```
+<pre>
+<strong>Input:</strong> m = 5, n = 5
+<strong>Output:</strong> 580986
+</pre>
 
-**Example 2:**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-![img](https://assets.leetcode.com/uploads/2021/06/22/copy-of-colorthegrid.png)
-
-```
-Input: m = 1, n = 2
-Output: 6
-Explanation: The six possible colorings are shown in the image above.
-```
-
-**Example 3:**
-
-```
-Input: m = 5, n = 5
-Output: 580986
-```
-
- 
-
-**Constraints:**
-
-- `1 <= m <= 5`
-- `1 <= n <= 1000`
+<ul>
+	<li><code>1 &lt;= m &lt;= 5</code></li>
+	<li><code>1 &lt;= n &lt;= 1000</code></li>
+</ul>
