@@ -7,5 +7,7 @@ class Solution(solution.Solution):
         return self.smallestIndex(test_input)
 
     def smallestIndex(self, nums: List[int]) -> int:
-        pass
-
+        for i, num in enumerate(nums):
+            if sum(map(int, str(num))) == i:
+                return i
+        return -1

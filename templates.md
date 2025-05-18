@@ -3636,6 +3636,7 @@ func subsetsWithDup(nums []int) (ans [][]int) {
      1. 预处理每个节点的 $`2^k`$ 级祖先（`up[k][u]`）。
      2. 先将两个节点调整到同一深度，再同时向上跳转，直到找到公共祖先。
    - **时间复杂度**：预处理 $`O(n \log n)`$，查询 $`O(\log n)`$。
+   - **例**: [3553.包含给定路径的最小带权子树 II](problems/problems_3553/problem_zh.md)
 
 ```python
 from typing import List
