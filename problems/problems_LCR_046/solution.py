@@ -1,3 +1,5 @@
+from collections import deque
+
 import solution
 from typing import *
 from python.object_libs import list_to_tree
@@ -17,5 +19,17 @@ class Solution(solution.Solution):
         return self.rightSideView(root0)
 
     def rightSideView(self, root: TreeNode) -> List[int]:
-        pass
-
+        ans = []
+        if not root:
+            return ans
+        q = deque([root])
+        while q:
+            n = len(q)
+            ans.append(q[0].val)
+            for _ in range(n):
+                node = q.popleft()
+                if node.right:
+                    q.append(node.right)
+                if node.left:
+                    q.append(node.left)
+        return ans
