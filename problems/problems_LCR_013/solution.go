@@ -7,19 +7,26 @@ import (
 )
 
 type NumMatrix struct {
-    
+	prefixSum [][]int
 }
-
 
 func Constructor(matrix [][]int) NumMatrix {
-    
+	m, n := len(matrix), len(matrix[0])
+	prefixSum := make([][]int, m+1)
+	for i := range prefixSum {
+		prefixSum[i] = make([]int, n+1)
+	}
+	for i := range m {
+		for j := range n {
+			prefixSum[i+1][j+1] = prefixSum[i][j+1] + prefixSum[i+1][j] - prefixSum[i][j] + matrix[i][j]
+		}
+	}
+	return NumMatrix{prefixSum: prefixSum}
 }
 
-
-func (this *NumMatrix) SumRegion(row1 int, col1 int, row2 int, col2 int) int {
-    
+func (numMatrix *NumMatrix) SumRegion(row1 int, col1 int, row2 int, col2 int) int {
+	return numMatrix.prefixSum[row2+1][col2+1] - numMatrix.prefixSum[row1][col2+1] - numMatrix.prefixSum[row2+1][col1] + numMatrix.prefixSum[row1][col1]
 }
-
 
 /**
  * Your NumMatrix object will be instantiated and called as such:
@@ -40,7 +47,14 @@ func Solve(inputJsonValues string) interface{} {
 		log.Println(err)
 		return nil
 	}
-	obj := Constructor(opValues[0][0].([][]int))
+	matrix := make([][]int, len(opValues[0][0].([]interface{})))
+	for i := range matrix {
+		matrix[i] = make([]int, len(opValues[0][0].([]interface{})[0].([]interface{})))
+		for j := range matrix[i] {
+			matrix[i][j] = int(opValues[0][0].([]interface{})[i].([]interface{})[j].(float64))
+		}
+	}
+	obj := Constructor(matrix)
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
 		var res interface{}
@@ -52,7 +66,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
