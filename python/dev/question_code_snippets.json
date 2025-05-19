@@ -3464,5 +3464,213 @@
                 "code": "# Definition for a binary tree node.\n#\n# defmodule TreeNode do\n#   @type t :: %__MODULE__{\n#           val: integer,\n#           left: TreeNode.t() | nil,\n#           right: TreeNode.t() | nil\n#         }\n#   defstruct val: 0, left: nil, right: nil\n# end\n\ndefmodule BSTIterator do\n  @spec init_(root :: TreeNode.t | nil) :: any\n  def init_(root) do\n\n  end\n\n  @spec next() :: integer\n  def next() do\n\n  end\n\n  @spec has_next() :: boolean\n  def has_next() do\n\n  end\nend\n\n# Your functions will be called as such:\n# BSTIterator.init_(root)\n# param_1 = BSTIterator.next()\n# param_2 = BSTIterator.has_next()\n\n# BSTIterator.init_ will be called before every test case, in which you can do some necessary initializations."
             }
         ]
+    },
+    {
+        "LCR 013": [
+            {
+                "lang": "C++",
+                "langSlug": "cpp",
+                "code": "class NumMatrix {\npublic:\n    NumMatrix(vector<vector<int>>& matrix) {\n        \n    }\n    \n    int sumRegion(int row1, int col1, int row2, int col2) {\n        \n    }\n};\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * NumMatrix* obj = new NumMatrix(matrix);\n * int param_1 = obj->sumRegion(row1,col1,row2,col2);\n */"
+            },
+            {
+                "lang": "Java",
+                "langSlug": "java",
+                "code": "class NumMatrix {\n\n    public NumMatrix(int[][] matrix) {\n        \n    }\n    \n    public int sumRegion(int row1, int col1, int row2, int col2) {\n        \n    }\n}\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * NumMatrix obj = new NumMatrix(matrix);\n * int param_1 = obj.sumRegion(row1,col1,row2,col2);\n */"
+            },
+            {
+                "lang": "Python",
+                "langSlug": "python",
+                "code": "class NumMatrix(object):\n\n    def __init__(self, matrix):\n        \"\"\"\n        :type matrix: List[List[int]]\n        \"\"\"\n        \n\n    def sumRegion(self, row1, col1, row2, col2):\n        \"\"\"\n        :type row1: int\n        :type col1: int\n        :type row2: int\n        :type col2: int\n        :rtype: int\n        \"\"\"\n        \n\n\n# Your NumMatrix object will be instantiated and called as such:\n# obj = NumMatrix(matrix)\n# param_1 = obj.sumRegion(row1,col1,row2,col2)"
+            },
+            {
+                "lang": "Python3",
+                "langSlug": "python3",
+                "code": "class NumMatrix:\n\n    def __init__(self, matrix: List[List[int]]):\n        \n\n    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:\n        \n\n\n# Your NumMatrix object will be instantiated and called as such:\n# obj = NumMatrix(matrix)\n# param_1 = obj.sumRegion(row1,col1,row2,col2)"
+            },
+            {
+                "lang": "C",
+                "langSlug": "c",
+                "code": "\n\n\ntypedef struct {\n    \n} NumMatrix;\n\n\nNumMatrix* numMatrixCreate(int** matrix, int matrixSize, int* matrixColSize) {\n    \n}\n\nint numMatrixSumRegion(NumMatrix* obj, int row1, int col1, int row2, int col2) {\n    \n}\n\nvoid numMatrixFree(NumMatrix* obj) {\n    \n}\n\n/**\n * Your NumMatrix struct will be instantiated and called as such:\n * NumMatrix* obj = numMatrixCreate(matrix, matrixSize, matrixColSize);\n * int param_1 = numMatrixSumRegion(obj, row1, col1, row2, col2);\n \n * numMatrixFree(obj);\n*/"
+            },
+            {
+                "lang": "C#",
+                "langSlug": "csharp",
+                "code": "public class NumMatrix {\n\n    public NumMatrix(int[][] matrix) {\n        \n    }\n    \n    public int SumRegion(int row1, int col1, int row2, int col2) {\n        \n    }\n}\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * NumMatrix obj = new NumMatrix(matrix);\n * int param_1 = obj.SumRegion(row1,col1,row2,col2);\n */"
+            },
+            {
+                "lang": "JavaScript",
+                "langSlug": "javascript",
+                "code": "/**\n * @param {number[][]} matrix\n */\nvar NumMatrix = function(matrix) {\n    \n};\n\n/** \n * @param {number} row1 \n * @param {number} col1 \n * @param {number} row2 \n * @param {number} col2\n * @return {number}\n */\nNumMatrix.prototype.sumRegion = function(row1, col1, row2, col2) {\n    \n};\n\n/** \n * Your NumMatrix object will be instantiated and called as such:\n * var obj = new NumMatrix(matrix)\n * var param_1 = obj.sumRegion(row1,col1,row2,col2)\n */"
+            },
+            {
+                "lang": "TypeScript",
+                "langSlug": "typescript",
+                "code": "class NumMatrix {\n    constructor(matrix: number[][]) {\n        \n    }\n\n    sumRegion(row1: number, col1: number, row2: number, col2: number): number {\n        \n    }\n}\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * var obj = new NumMatrix(matrix)\n * var param_1 = obj.sumRegion(row1,col1,row2,col2)\n */"
+            },
+            {
+                "lang": "PHP",
+                "langSlug": "php",
+                "code": "class NumMatrix {\n    /**\n     * @param Integer[][] $matrix\n     */\n    function __construct($matrix) {\n        \n    }\n  \n    /**\n     * @param Integer $row1\n     * @param Integer $col1\n     * @param Integer $row2\n     * @param Integer $col2\n     * @return Integer\n     */\n    function sumRegion($row1, $col1, $row2, $col2) {\n        \n    }\n}\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * $obj = NumMatrix($matrix);\n * $ret_1 = $obj->sumRegion($row1, $col1, $row2, $col2);\n */"
+            },
+            {
+                "lang": "Swift",
+                "langSlug": "swift",
+                "code": "\nclass NumMatrix {\n\n    init(_ matrix: [[Int]]) {\n        \n    }\n    \n    func sumRegion(_ row1: Int, _ col1: Int, _ row2: Int, _ col2: Int) -> Int {\n        \n    }\n}\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * let obj = NumMatrix(matrix)\n * let ret_1: Int = obj.sumRegion(row1, col1, row2, col2)\n */"
+            },
+            {
+                "lang": "Kotlin",
+                "langSlug": "kotlin",
+                "code": "class NumMatrix(matrix: Array<IntArray>) {\n\n    fun sumRegion(row1: Int, col1: Int, row2: Int, col2: Int): Int {\n        \n    }\n\n}\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * var obj = NumMatrix(matrix)\n * var param_1 = obj.sumRegion(row1,col1,row2,col2)\n */"
+            },
+            {
+                "lang": "Dart",
+                "langSlug": "dart",
+                "code": "class NumMatrix {\n\n  NumMatrix(List<List<int>> matrix) {\n    \n  }\n  \n  int sumRegion(int row1, int col1, int row2, int col2) {\n    \n  }\n}\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * NumMatrix obj = NumMatrix(matrix);\n * int param1 = obj.sumRegion(row1,col1,row2,col2);\n */"
+            },
+            {
+                "lang": "Go",
+                "langSlug": "golang",
+                "code": "type NumMatrix struct {\n    \n}\n\n\nfunc Constructor(matrix [][]int) NumMatrix {\n    \n}\n\n\nfunc (this *NumMatrix) SumRegion(row1 int, col1 int, row2 int, col2 int) int {\n    \n}\n\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * obj := Constructor(matrix);\n * param_1 := obj.SumRegion(row1,col1,row2,col2);\n */"
+            },
+            {
+                "lang": "Ruby",
+                "langSlug": "ruby",
+                "code": "class NumMatrix\n\n=begin\n    :type matrix: Integer[][]\n=end\n    def initialize(matrix)\n        \n    end\n\n\n=begin\n    :type row1: Integer\n    :type col1: Integer\n    :type row2: Integer\n    :type col2: Integer\n    :rtype: Integer\n=end\n    def sum_region(row1, col1, row2, col2)\n        \n    end\n\n\nend\n\n# Your NumMatrix object will be instantiated and called as such:\n# obj = NumMatrix.new(matrix)\n# param_1 = obj.sum_region(row1, col1, row2, col2)"
+            },
+            {
+                "lang": "Scala",
+                "langSlug": "scala",
+                "code": "class NumMatrix(_matrix: Array[Array[Int]]) {\n\n    def sumRegion(row1: Int, col1: Int, row2: Int, col2: Int): Int = {\n        \n    }\n\n}\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * val obj = new NumMatrix(matrix)\n * val param_1 = obj.sumRegion(row1,col1,row2,col2)\n */"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "struct NumMatrix {\n\n}\n\n\n/** \n * `&self` means the method takes an immutable reference.\n * If you need a mutable reference, change it to `&mut self` instead.\n */\nimpl NumMatrix {\n\n    fn new(matrix: Vec<Vec<i32>>) -> Self {\n        \n    }\n    \n    fn sum_region(&self, row1: i32, col1: i32, row2: i32, col2: i32) -> i32 {\n        \n    }\n}\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * let obj = NumMatrix::new(matrix);\n * let ret_1: i32 = obj.sum_region(row1, col1, row2, col2);\n */"
+            },
+            {
+                "lang": "Racket",
+                "langSlug": "racket",
+                "code": "(define num-matrix%\n  (class object%\n    (super-new)\n    \n    ; matrix : (listof (listof exact-integer?))\n    (init-field\n      matrix)\n    \n    ; sum-region : exact-integer? exact-integer? exact-integer? exact-integer? -> exact-integer?\n    (define/public (sum-region row1 col1 row2 col2)\n      )))\n\n;; Your num-matrix% object will be instantiated and called as such:\n;; (define obj (new num-matrix% [matrix matrix]))\n;; (define param_1 (send obj sum-region row1 col1 row2 col2))"
+            },
+            {
+                "lang": "Erlang",
+                "langSlug": "erlang",
+                "code": "-spec num_matrix_init_(Matrix :: [[integer()]]) -> any().\nnum_matrix_init_(Matrix) ->\n  .\n\n-spec num_matrix_sum_region(Row1 :: integer(), Col1 :: integer(), Row2 :: integer(), Col2 :: integer()) -> integer().\nnum_matrix_sum_region(Row1, Col1, Row2, Col2) ->\n  .\n\n\n%% Your functions will be called as such:\n%% num_matrix_init_(Matrix),\n%% Param_1 = num_matrix_sum_region(Row1, Col1, Row2, Col2),\n\n%% num_matrix_init_ will be called before every test case, in which you can do some necessary initializations."
+            },
+            {
+                "lang": "Elixir",
+                "langSlug": "elixir",
+                "code": "defmodule NumMatrix do\n  @spec init_(matrix :: [[integer]]) :: any\n  def init_(matrix) do\n    \n  end\n\n  @spec sum_region(row1 :: integer, col1 :: integer, row2 :: integer, col2 :: integer) :: integer\n  def sum_region(row1, col1, row2, col2) do\n    \n  end\nend\n\n# Your functions will be called as such:\n# NumMatrix.init_(matrix)\n# param_1 = NumMatrix.sum_region(row1, col1, row2, col2)\n\n# NumMatrix.init_ will be called before every test case, in which you can do some necessary initializations."
+            },
+            {
+                "lang": "Cangjie",
+                "langSlug": "cangjie",
+                "code": "class NumMatrix {\n    init(matrix: Array<Array<Int64>>) {\n\n    }\n    \n    func sumRegion(row1: Int64, col1: Int64, row2: Int64, col2: Int64): Int64 {\n\n    }\n}\n\n/**\n * Your NumMatrix object will be instantiated and called as such:\n * let obj: NumMatrix = NumMatrix(matrix)\n * let param_1 = obj.sumRegion(row1,col1,row2,col2)\n */"
+            }
+        ]
+    },
+    {
+        "2353": [
+            {
+                "lang": "C++",
+                "langSlug": "cpp",
+                "code": "class FoodRatings {\npublic:\n    FoodRatings(vector<string>& foods, vector<string>& cuisines, vector<int>& ratings) {\n        \n    }\n    \n    void changeRating(string food, int newRating) {\n        \n    }\n    \n    string highestRated(string cuisine) {\n        \n    }\n};\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * FoodRatings* obj = new FoodRatings(foods, cuisines, ratings);\n * obj->changeRating(food,newRating);\n * string param_2 = obj->highestRated(cuisine);\n */"
+            },
+            {
+                "lang": "Java",
+                "langSlug": "java",
+                "code": "class FoodRatings {\n\n    public FoodRatings(String[] foods, String[] cuisines, int[] ratings) {\n        \n    }\n    \n    public void changeRating(String food, int newRating) {\n        \n    }\n    \n    public String highestRated(String cuisine) {\n        \n    }\n}\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * FoodRatings obj = new FoodRatings(foods, cuisines, ratings);\n * obj.changeRating(food,newRating);\n * String param_2 = obj.highestRated(cuisine);\n */"
+            },
+            {
+                "lang": "Python",
+                "langSlug": "python",
+                "code": "class FoodRatings(object):\n\n    def __init__(self, foods, cuisines, ratings):\n        \"\"\"\n        :type foods: List[str]\n        :type cuisines: List[str]\n        :type ratings: List[int]\n        \"\"\"\n        \n\n    def changeRating(self, food, newRating):\n        \"\"\"\n        :type food: str\n        :type newRating: int\n        :rtype: None\n        \"\"\"\n        \n\n    def highestRated(self, cuisine):\n        \"\"\"\n        :type cuisine: str\n        :rtype: str\n        \"\"\"\n        \n\n\n# Your FoodRatings object will be instantiated and called as such:\n# obj = FoodRatings(foods, cuisines, ratings)\n# obj.changeRating(food,newRating)\n# param_2 = obj.highestRated(cuisine)"
+            },
+            {
+                "lang": "Python3",
+                "langSlug": "python3",
+                "code": "class FoodRatings:\n\n    def __init__(self, foods: List[str], cuisines: List[str], ratings: List[int]):\n        \n\n    def changeRating(self, food: str, newRating: int) -> None:\n        \n\n    def highestRated(self, cuisine: str) -> str:\n        \n\n\n# Your FoodRatings object will be instantiated and called as such:\n# obj = FoodRatings(foods, cuisines, ratings)\n# obj.changeRating(food,newRating)\n# param_2 = obj.highestRated(cuisine)"
+            },
+            {
+                "lang": "C",
+                "langSlug": "c",
+                "code": "\n\n\ntypedef struct {\n    \n} FoodRatings;\n\n\nFoodRatings* foodRatingsCreate(char** foods, int foodsSize, char** cuisines, int cuisinesSize, int* ratings, int ratingsSize) {\n    \n}\n\nvoid foodRatingsChangeRating(FoodRatings* obj, char* food, int newRating) {\n    \n}\n\nchar* foodRatingsHighestRated(FoodRatings* obj, char* cuisine) {\n    \n}\n\nvoid foodRatingsFree(FoodRatings* obj) {\n    \n}\n\n/**\n * Your FoodRatings struct will be instantiated and called as such:\n * FoodRatings* obj = foodRatingsCreate(foods, foodsSize, cuisines, cuisinesSize, ratings, ratingsSize);\n * foodRatingsChangeRating(obj, food, newRating);\n \n * char* param_2 = foodRatingsHighestRated(obj, cuisine);\n \n * foodRatingsFree(obj);\n*/"
+            },
+            {
+                "lang": "C#",
+                "langSlug": "csharp",
+                "code": "public class FoodRatings {\n\n    public FoodRatings(string[] foods, string[] cuisines, int[] ratings) {\n        \n    }\n    \n    public void ChangeRating(string food, int newRating) {\n        \n    }\n    \n    public string HighestRated(string cuisine) {\n        \n    }\n}\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * FoodRatings obj = new FoodRatings(foods, cuisines, ratings);\n * obj.ChangeRating(food,newRating);\n * string param_2 = obj.HighestRated(cuisine);\n */"
+            },
+            {
+                "lang": "JavaScript",
+                "langSlug": "javascript",
+                "code": "/**\n * @param {string[]} foods\n * @param {string[]} cuisines\n * @param {number[]} ratings\n */\nvar FoodRatings = function(foods, cuisines, ratings) {\n    \n};\n\n/** \n * @param {string} food \n * @param {number} newRating\n * @return {void}\n */\nFoodRatings.prototype.changeRating = function(food, newRating) {\n    \n};\n\n/** \n * @param {string} cuisine\n * @return {string}\n */\nFoodRatings.prototype.highestRated = function(cuisine) {\n    \n};\n\n/** \n * Your FoodRatings object will be instantiated and called as such:\n * var obj = new FoodRatings(foods, cuisines, ratings)\n * obj.changeRating(food,newRating)\n * var param_2 = obj.highestRated(cuisine)\n */"
+            },
+            {
+                "lang": "TypeScript",
+                "langSlug": "typescript",
+                "code": "class FoodRatings {\n    constructor(foods: string[], cuisines: string[], ratings: number[]) {\n        \n    }\n\n    changeRating(food: string, newRating: number): void {\n        \n    }\n\n    highestRated(cuisine: string): string {\n        \n    }\n}\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * var obj = new FoodRatings(foods, cuisines, ratings)\n * obj.changeRating(food,newRating)\n * var param_2 = obj.highestRated(cuisine)\n */"
+            },
+            {
+                "lang": "PHP",
+                "langSlug": "php",
+                "code": "class FoodRatings {\n    /**\n     * @param String[] $foods\n     * @param String[] $cuisines\n     * @param Integer[] $ratings\n     */\n    function __construct($foods, $cuisines, $ratings) {\n        \n    }\n  \n    /**\n     * @param String $food\n     * @param Integer $newRating\n     * @return NULL\n     */\n    function changeRating($food, $newRating) {\n        \n    }\n  \n    /**\n     * @param String $cuisine\n     * @return String\n     */\n    function highestRated($cuisine) {\n        \n    }\n}\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * $obj = FoodRatings($foods, $cuisines, $ratings);\n * $obj->changeRating($food, $newRating);\n * $ret_2 = $obj->highestRated($cuisine);\n */"
+            },
+            {
+                "lang": "Swift",
+                "langSlug": "swift",
+                "code": "\nclass FoodRatings {\n\n    init(_ foods: [String], _ cuisines: [String], _ ratings: [Int]) {\n        \n    }\n    \n    func changeRating(_ food: String, _ newRating: Int) {\n        \n    }\n    \n    func highestRated(_ cuisine: String) -> String {\n        \n    }\n}\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * let obj = FoodRatings(foods, cuisines, ratings)\n * obj.changeRating(food, newRating)\n * let ret_2: String = obj.highestRated(cuisine)\n */"
+            },
+            {
+                "lang": "Kotlin",
+                "langSlug": "kotlin",
+                "code": "class FoodRatings(foods: Array<String>, cuisines: Array<String>, ratings: IntArray) {\n\n    fun changeRating(food: String, newRating: Int) {\n        \n    }\n\n    fun highestRated(cuisine: String): String {\n        \n    }\n\n}\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * var obj = FoodRatings(foods, cuisines, ratings)\n * obj.changeRating(food,newRating)\n * var param_2 = obj.highestRated(cuisine)\n */"
+            },
+            {
+                "lang": "Dart",
+                "langSlug": "dart",
+                "code": "class FoodRatings {\n\n  FoodRatings(List<String> foods, List<String> cuisines, List<int> ratings) {\n    \n  }\n  \n  void changeRating(String food, int newRating) {\n    \n  }\n  \n  String highestRated(String cuisine) {\n    \n  }\n}\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * FoodRatings obj = FoodRatings(foods, cuisines, ratings);\n * obj.changeRating(food,newRating);\n * String param2 = obj.highestRated(cuisine);\n */"
+            },
+            {
+                "lang": "Go",
+                "langSlug": "golang",
+                "code": "type FoodRatings struct {\n    \n}\n\n\nfunc Constructor(foods []string, cuisines []string, ratings []int) FoodRatings {\n    \n}\n\n\nfunc (this *FoodRatings) ChangeRating(food string, newRating int)  {\n    \n}\n\n\nfunc (this *FoodRatings) HighestRated(cuisine string) string {\n    \n}\n\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * obj := Constructor(foods, cuisines, ratings);\n * obj.ChangeRating(food,newRating);\n * param_2 := obj.HighestRated(cuisine);\n */"
+            },
+            {
+                "lang": "Ruby",
+                "langSlug": "ruby",
+                "code": "class FoodRatings\n\n=begin\n    :type foods: String[]\n    :type cuisines: String[]\n    :type ratings: Integer[]\n=end\n    def initialize(foods, cuisines, ratings)\n        \n    end\n\n\n=begin\n    :type food: String\n    :type new_rating: Integer\n    :rtype: Void\n=end\n    def change_rating(food, new_rating)\n        \n    end\n\n\n=begin\n    :type cuisine: String\n    :rtype: String\n=end\n    def highest_rated(cuisine)\n        \n    end\n\n\nend\n\n# Your FoodRatings object will be instantiated and called as such:\n# obj = FoodRatings.new(foods, cuisines, ratings)\n# obj.change_rating(food, new_rating)\n# param_2 = obj.highest_rated(cuisine)"
+            },
+            {
+                "lang": "Scala",
+                "langSlug": "scala",
+                "code": "class FoodRatings(_foods: Array[String], _cuisines: Array[String], _ratings: Array[Int]) {\n\n    def changeRating(food: String, newRating: Int): Unit = {\n        \n    }\n\n    def highestRated(cuisine: String): String = {\n        \n    }\n\n}\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * val obj = new FoodRatings(foods, cuisines, ratings)\n * obj.changeRating(food,newRating)\n * val param_2 = obj.highestRated(cuisine)\n */"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "struct FoodRatings {\n\n}\n\n\n/** \n * `&self` means the method takes an immutable reference.\n * If you need a mutable reference, change it to `&mut self` instead.\n */\nimpl FoodRatings {\n\n    fn new(foods: Vec<String>, cuisines: Vec<String>, ratings: Vec<i32>) -> Self {\n        \n    }\n    \n    fn change_rating(&self, food: String, new_rating: i32) {\n        \n    }\n    \n    fn highest_rated(&self, cuisine: String) -> String {\n        \n    }\n}\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * let obj = FoodRatings::new(foods, cuisines, ratings);\n * obj.change_rating(food, newRating);\n * let ret_2: String = obj.highest_rated(cuisine);\n */"
+            },
+            {
+                "lang": "Racket",
+                "langSlug": "racket",
+                "code": "(define food-ratings%\n  (class object%\n    (super-new)\n    \n    ; foods : (listof string?)\n    ; cuisines : (listof string?)\n    ; ratings : (listof exact-integer?)\n    (init-field\n      foods\n      cuisines\n      ratings)\n    \n    ; change-rating : string? exact-integer? -> void?\n    (define/public (change-rating food new-rating)\n      )\n    ; highest-rated : string? -> string?\n    (define/public (highest-rated cuisine)\n      )))\n\n;; Your food-ratings% object will be instantiated and called as such:\n;; (define obj (new food-ratings% [foods foods] [cuisines cuisines] [ratings ratings]))\n;; (send obj change-rating food new-rating)\n;; (define param_2 (send obj highest-rated cuisine))"
+            },
+            {
+                "lang": "Erlang",
+                "langSlug": "erlang",
+                "code": "-spec food_ratings_init_(Foods :: [unicode:unicode_binary()], Cuisines :: [unicode:unicode_binary()], Ratings :: [integer()]) -> any().\nfood_ratings_init_(Foods, Cuisines, Ratings) ->\n  .\n\n-spec food_ratings_change_rating(Food :: unicode:unicode_binary(), NewRating :: integer()) -> any().\nfood_ratings_change_rating(Food, NewRating) ->\n  .\n\n-spec food_ratings_highest_rated(Cuisine :: unicode:unicode_binary()) -> unicode:unicode_binary().\nfood_ratings_highest_rated(Cuisine) ->\n  .\n\n\n%% Your functions will be called as such:\n%% food_ratings_init_(Foods, Cuisines, Ratings),\n%% food_ratings_change_rating(Food, NewRating),\n%% Param_2 = food_ratings_highest_rated(Cuisine),\n\n%% food_ratings_init_ will be called before every test case, in which you can do some necessary initializations."
+            },
+            {
+                "lang": "Elixir",
+                "langSlug": "elixir",
+                "code": "defmodule FoodRatings do\n  @spec init_(foods :: [String.t], cuisines :: [String.t], ratings :: [integer]) :: any\n  def init_(foods, cuisines, ratings) do\n    \n  end\n\n  @spec change_rating(food :: String.t, new_rating :: integer) :: any\n  def change_rating(food, new_rating) do\n    \n  end\n\n  @spec highest_rated(cuisine :: String.t) :: String.t\n  def highest_rated(cuisine) do\n    \n  end\nend\n\n# Your functions will be called as such:\n# FoodRatings.init_(foods, cuisines, ratings)\n# FoodRatings.change_rating(food, new_rating)\n# param_2 = FoodRatings.highest_rated(cuisine)\n\n# FoodRatings.init_ will be called before every test case, in which you can do some necessary initializations."
+            },
+            {
+                "lang": "Cangjie",
+                "langSlug": "cangjie",
+                "code": "class FoodRatings {\n    init(foods: Array<String>, cuisines: Array<String>, ratings: Array<Int64>) {\n\n    }\n    \n    func changeRating(food: String, newRating: Int64): Unit {\n\n    }\n    \n    func highestRated(cuisine: String): String {\n\n    }\n}\n\n/**\n * Your FoodRatings object will be instantiated and called as such:\n * let obj: FoodRatings = FoodRatings(foods, cuisines, ratings)\n * obj.changeRating(food,newRating)\n * let param_2 = obj.highestRated(cuisine)\n */"
+            }
+        ]
     }
 ]

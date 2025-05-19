@@ -443,24 +443,24 @@ class GolangWriter(LanguageWriter):
                 logging.debug("Struct function: %s", tp)
                 imports_libs.add('\t"encoding/json"')
                 imports_libs.add('\t"log"')
-                for _ in vrs:
+                for v in vrs:
                     match tp:
                         case "int":
                             variables.append(f"int(inputValues[{counts}].(float64))")
                         case "[]string":
-                            extra = (f"var arr []string\n\t\t\tif v, ok := inputValues[{count}].([]string); ok {{\n"
-                                     f"\t\t\t\tarr = v\n\t\t\t}} else {{\n"
-                                     f"\t\t\t\tfor _, vi := range inputValues[{count}].([]interface{{}}) {{\n"
-                                     f"\t\t\t\t\tarr = append(arr, vi.(string))\n"
+                            extra += (f"var {v}Arr []string\n\t\t\tif v, ok := inputValues[{counts}].([]string); ok {{\n"
+                                     f"\t\t\t\t{v}Arr = v\n\t\t\t}} else {{\n"
+                                     f"\t\t\t\tfor _, vi := range inputValues[{counts}].([]interface{{}}) {{\n"
+                                     f"\t\t\t\t\t{v}Arr = append({v}Arr, vi.(string))\n"
                                      f"\t\t\t\t}}\n\t\t\t}}\n\t\t\t")
-                            variables.append("arr")
+                            variables.append(f"{v}Arr")
                         case "[]int":
-                            extra = (f"var arr []int\n\t\t\tif v, ok := inputValues[{count}].([]int); ok {{\n"
-                                        f"\t\t\t\tarr = v\n\t\t\t}} else {{\n"
-                                        f"\t\t\t\tfor _, vi := range inputValues[{count}].([]interface{{}}) {{\n"
-                                        f"\t\t\t\t\tarr = append(arr, int(vi.(float64)))\n"
+                            extra += (f"var {v}Arr []int\n\t\t\tif v, ok := inputValues[{counts}].([]int); ok {{\n"
+                                        f"\t\t\t\t{v}Arr = v\n\t\t\t}} else {{\n"
+                                        f"\t\t\t\tfor _, vi := range inputValues[{counts}].([]interface{{}}) {{\n"
+                                        f"\t\t\t\t\t{v}Arr = append({v}Arr, int(vi.(float64)))\n"
                                         f"\t\t\t\t}}\n\t\t\t}}\n\t\t\t")
-                            variables.append("arr")
+                            variables.append(f"{v}Arr")
                         case "*TreeNode" | "TreeNode":
                             imports_libs.add('\t. "leetCode/golang/models"')
                             variables.append(f"InterfaceArrayToTree(inputValues[{counts}].([]interface{{}}))")
