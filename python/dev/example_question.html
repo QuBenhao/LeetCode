@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+
+
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>找到最常见的回答 - 力扣 (LeetCode) 竞赛</title>
+    <meta property="og:title" content="找到最常见的回答 - 力扣 (LeetCode) 竞赛" />
+
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover' name='viewport' />
+
+    <meta name="description" content="备战技术面试？力扣提供海量技术面试资源，帮助你高效提升编程技能，轻松拿下世界 IT 名企 Dream Offer。" />
+
+    <meta name="keywords" content="力扣, 力扣中国, leetcode, lingkou, leetcode中国, leetcode官网, 在线编程, lc, leetcode题解, leetcode答案, 面经, 算法, 面试, 求职, 招聘, 校招, 社招, 内推, 笔试, 面试题, 面试经验, 刷题, leetcode题库, 机器学习, 算法岗, 数据结构, 代码, 互联网, 编程, 开发, 程序员, 工程师, 白板面试, 码农, 程序猿, 领扣, 领扣网, 领扣网络, 领扣中国, BAT, BAT面试, OJ, online judge, coding interview, 技术面试, leetcode中文版, leetcodechina" />
+
+    <meta property="og:image" content="https://static.leetcode.cn/cn-legacy-assets/images/LeetCode_Sharing.png" />
+    <meta property="og:description" content="备战技术面试？力扣提供海量技术面试资源，帮助你高效提升编程技能，轻松拿下世界 IT 名企 Dream Offer。" />
+
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="https://static.leetcode.cn/cn-assets/icons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="60x60" href="https://static.leetcode.cn/cn-assets/icons/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="https://static.leetcode.cn/cn-assets/icons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="https://static.leetcode.cn/cn-assets/icons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="https://static.leetcode.cn/cn-assets/icons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="https://static.leetcode.cn/cn-assets/icons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="https://static.leetcode.cn/cn-assets/icons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="https://static.leetcode.cn/cn-assets/icons/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://static.leetcode.cn/cn-assets/icons/apple-touch-icon-180x180.png" />
+    <link rel="icon" type="image/png" href="https://static.leetcode.cn/cn-assets/icons/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="https://static.leetcode.cn/cn-assets/icons/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="https://static.leetcode.cn/cn-assets/icons/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="https://static.leetcode.cn/cn-assets/icons/favicon-160x160.png" sizes="160x160" />
+    <link rel="icon" type="image/png" href="https://static.leetcode.cn/cn-assets/icons/favicon-192x192.png" sizes="192x192" />
+    <meta name="application-name" content="LeetCode"/>
+    <meta name="msapplication-TileColor" content="#da532c" />
+    <meta name="msapplication-TileImage" content="https://static.leetcode.cn/cn-assets/icons/mstile-144x144.png" />
+
+    <script>
+// avoid running analysis codes for prerender
+if (!/prerender/i.test(navigator.userAgent)) {
+  // 百度统计
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?fa218a3ff7179639febdb15e372f411c";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+
+  // Google Analytics
+  (function() {
+    var script = document.createElement("script");
+    script.src = "https://www.googletagmanager.com/gtag/js?id=UA-131851415-1";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(script, s);
+    script.onload = function() {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-131851415-1');
+    }
+  })();
+}
+</script>
+
+    <link href="https://static.leetcode.cn/cn-legacy-assets/bootstrap/dist/css/bootstrap.min.css?v=3.3.7" rel="stylesheet">
+    <link href="https://static.leetcode.cn/cn-legacy-assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://static.leetcode.cn/cn-legacy-assets/bootstrap-table/dist/bootstrap-table.min.css" rel="stylesheet" />
+
+
+
+    <link rel="stylesheet" href="https://static.leetcode.cn/cn-legacy-assets/CACHE/css/output.f349f0d56f62.css" type="text/css">
+
+
+      <link type="text/css" href="//g.alicdn.com/sd/ncpc/nc.css?t=202505192212" rel="stylesheet"/>
+
+
+
+<link rel="stylesheet" href="https://static.leetcode.cn/cn-legacy-assets/CACHE/css/output.111391214419.css" type="text/css">
+<style>
+  .content-wrapper #base_content {
+    position: static;
+  }
+  .question-content {
+    overflow: auto;
+  }
+  .question-content img{
+    max-width: 100%;
+  }
+</style>
+
+
+  <style>
+    #base_content {
+      margin-top: 20px;
+      z-index: 0;
+      position: relative;
+    }
+  </style>
+  <link rel="stylesheet" href="https://static.leetcode.cn/cn-legacy-assets/CACHE/css/output.2b6c5a5a71a1.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="https://static.leetcode.cn/cn-mono-assets/production/head/styles.8ca6fa18.css" />
+<link rel="stylesheet" type="text/css" href="https://static.leetcode.cn/cn-mono-assets/production/head/noj-components.acdddd1a.css" />
+<link rel="stylesheet" type="text/css" href="https://static.leetcode.cn/cn-mono-assets/production/head/main.5b27db09.css" />
+
+
+    <script src="https://static.leetcode.cn/cn-legacy-assets/CACHE/js/output.6b818f3f25d1.js"></script>
+    <script src="https://static.leetcode.cn/cn-legacy-assets/jquery/dist/jquery.min.js?v=3.3.1"></script>
+    <script src="https://static.leetcode.cn/cn-legacy-assets/jquery.cookie/jquery.cookie.js"></script>
+    <script src="https://static.leetcode.cn/cn-legacy-assets/jquery-sticky/jquery.sticky.js"></script>
+    <script src="https://static.leetcode.cn/cn-legacy-assets/clipboard/dist/clipboard.min.js"></script>
+    <script src="https://static.leetcode.cn/cn-legacy-assets/sweetalert2/dist/sweetalert2.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $('.sticky').sticky({topSpacing:0});
+      });
+
+
+
+
+      window.LeetCodeData = {
+        features: {
+          questionTranslation: true,
+          subscription: true,
+          signUp: true,
+          chinaProblemDiscuss: true,
+          enableSharedWorker: false,
+          enableNewProblemsetBanner: true,
+        },
+        regionInfo: "CN",
+
+
+      userStatus: {
+        isSignedIn: false,
+        optedIn: false,
+        isPremium: false,
+        isAdmin: false,
+        isStaff: false,
+        isTranslator: false,
+        isSuperuser: false,
+        request_region: 'CN',
+        region: '',
+        permissions: [],
+        useTranslation: true,
+        isCompanyUser: false,
+      },
+      chinaURL: "http://leetcode.cn",
+      websocketUrl: "wss://sockets.leetcode.cn",
+      navbar: {
+
+          loginSocial: [{"id": "weibo", "login_url": "/accounts/weibo/login/"}, {"id": "baidu", "login_url": "/accounts/baidu/login/"}, {"id": "github", "login_url": "/accounts/github/login/"}, {"id": "linkedin_oauth2", "login_url": "/accounts/linkedin_oauth2/login/"}, {"id": "weixin", "login_url": "/accounts/weixin/login/"}, {"id": "apple_web", "login_url": "/accounts/apple/login/"}],
+
+        loginNext: undefined,
+        subscription: true,
+        mi: false,
+        miNext: false,
+        contest: true,
+        discuss: true,
+        store: true,
+        book: true,
+        translate: true,
+        identity: "",
+      },
+
+      };
+    </script>
+    <script src="https://static.leetcode.cn/cn-legacy-assets/angular/angular.min.js"></script>
+    <script src="https://static.leetcode.cn/cn-legacy-assets/jquery-ui-dist/jquery-ui.min.js"></script>
+    <script src="https://static.leetcode.cn/cn-legacy-assets/noty/lib/noty.min.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://static.leetcode.cn/cn-legacy-assets/html5shiv/dist/html5shiv.min.js"></script>
+      <script src="https://static.leetcode.cn/cn-legacy-assets/respond.js/dest/respond.min.js"></script>
+    <![endif]-->
+
+
+  <script>
+    $(document).ready(function() {
+      var time_diff = new Date() - new Date(localStorage.getItem('region_switcher_last_close_ts'))
+      if (time_diff > 86400000) {  // 86400000ms == 1day
+        $("#region_switcher").removeClass('hide');
+      }
+    });
+
+    function openNavList() {
+      var menu = $('#nav-menu-btn');
+      var navbar = $('.navbar-collapse');
+      if(!navbar.hasClass('collapsing')) {
+        if(navbar.hasClass('in')) {
+          menu.removeClass('open');
+        } else {
+          menu.addClass('open');
+        }
+      }
+    };
+
+    function closeRegion() {
+      $("#region_switcher").addClass('hide');
+      localStorage.setItem('region_switcher_last_close_ts', new Date());
+    }
+  </script>
+
+    <style>
+      html {
+        font-size: revert;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://static.leetcode.cn/cn-legacy-assets/bootstrap/dist/js/bootstrap.min.js?v=3.3.7"></script>
+    <script src="https://static.leetcode.cn/cn-legacy-assets/bootstrap-table/dist/bootstrap-table.min.js"></script>
+    <script src="https://static.leetcode.cn/cn-legacy-assets/CACHE/js/output.944fae83e009.js"></script>
+
+    <script type="text/javascript" src="https://static.leetcode.cn/cn-assets/webpack_bundles/runtime.94b175c63.js" ></script>
+
+
+      <script type="text/javascript" src="https://static.leetcode.cn/cn-assets/webpack_bundles/common/global.cc1497803.js?v=202505192212"></script>
+
+    <script type="text/javascript" src="https://static.leetcode.cn/cn-assets/webpack_bundles/common/styles/index.979354b23.js" ></script>
+    <script type="text/javascript" src="https://static.leetcode.cn/cn-assets/webpack_bundles/vendor-libs.92747cf8f.js" ></script>
+    <script type="text/javascript" src="https://static.leetcode.cn/cn-assets/webpack_bundles/common-libs.0b58f96bb.js" ></script>
+    <script type="text/javascript" src="https://static.leetcode.cn/cn-assets/webpack_bundles/new-libs.ba5a206db.js" ></script>
+
+
+      <script type="text/javascript" src="https://static.leetcode.cn/cn-assets/webpack_bundles/locales/zh-Hans/index.92dc839e3.js" ></script>
+
+
+
+  <div class="content-wrapper">
+
+
+    <style>
+    #noj-navbar {
+      z-index: 1;
+      position: relative;
+    }
+    #noj-navbar a {
+      color: inherit;
+    }
+    #noj-navbar-placeholder {
+      height: 64px;
+    }
+    .fav-list .list-group-item {
+      z-index: 1;
+    }
+    .ant-dropdown-menu-item > [class*="UserMenuLink"],
+    .ant-dropdown-menu-submenu-title > [class*="UserMenuLink"] {
+      margin: 0 -12px;
+    }
+    .article-reader-app {
+      background: #fafafa;
+    }
+    .playground-base>.row>div:not(.toolbar-bot-base) {
+      padding-top: 55px;
+    }
+    .playground-base.full-screen .row > div {
+      padding-top: 10px;
+    }
+    .playground-base .full-screen-btn {
+      top: 55px;
+    }
+    .site-footer .links a {
+      display: inline-block;
+    }
+    </style>
+    <div id="noj-navbar" data-head-version="1.207.0" data-head-sha="d81bbf33"></div>
+    <div id="noj-navbar-placeholder"></div>
+    <script>
+      var navbar = document.querySelector('#noj-navbar')
+      var placeholder = document.querySelector('#noj-navbar-placeholder')
+      var noNeedExtraPaddingPaths = ['/articles', '/contest', '/explore', '/store', '/playground', '/points']
+      var noNeedExtraPadding = noNeedExtraPaddingPaths.some(function(path) {
+        return location.pathname.startsWith(path)
+      })
+
+      function isMobile() {
+        return !!navigator.userAgent.match(/Android|iPod|iPhone/i);
+      }
+
+      // add .pc-body to control min-width on pc
+      if(!isMobile()){
+        document.body.className += ' pc-body';
+      }
+
+      if (noNeedExtraPadding) {
+        placeholder.style.height = '44px'
+      }
+      var observer = new MutationObserver(function(list, obs) {
+        placeholder.parentNode.removeChild(placeholder)
+        if (isMobile()) {
+          if (!noNeedExtraPadding) {
+            navbar.style.marginBottom = '65px'
+          } else {
+            navbar.style.marginBottom = '45px'
+          }
+          navbar.style.position = 'relative'
+        } else {
+          if (!noNeedExtraPadding) {
+            navbar.style.marginBottom = '20px'
+          }
+        }
+        obs.disconnect()
+      })
+
+      observer.observe(navbar, {
+        childList: true
+      })
+    </script>
+    <div id="base_content">
+
+  <div class="container">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="question-title clearfix">
+
+          <h3>3527. <span>找到最常见的回答</span></h3>
+
+          <div class="pull-right top-buttons">
+            <label class="lang-switcher">
+              <input type="checkbox" />
+              显示英文描述
+            </label>
+            <div class="btn-group right-pad">
+              <a class="btn btn-default" href="/contest/biweekly-contest-155/problems/find-the-most-common-response/submissions/">我的提交</a>
+
+                <a class="btn btn-success" href="/contest/biweekly-contest-155/">返回竞赛</a>
+
+            </div>
+          </div>
+        </div>
+        <div class="row col-md-12">
+
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="contest-question-info pull-right">
+              <ul class="list-group">
+
+                  <li class="list-group-item">
+                    <strong>
+                      通过的用户数
+                    </strong>
+                    <span class="pull-right">906</span>
+                  </li>
+                  <li class="list-group-item">
+                    <strong>
+                      尝试过的用户数
+                    </strong>
+                    <span class="pull-right">978</span>
+                  </li>
+
+                <li class="list-group-item">
+                  <strong>用户总通过次数</strong>
+                  <span class="pull-right">929</span>
+                </li>
+                <li class="list-group-item">
+                  <strong>用户总提交次数</strong>
+                  <span class="pull-right">1465</span>
+                </li>
+                <li class="list-group-item">
+                  <strong>题目难度</strong>
+                  <span class="pull-right label label-Medium round">Medium</span>
+                </li>
+              </ul>
+            </div>
+            <div class="question-content default-content">
+              <p>给你一个二维字符串数组 <code>responses</code>，其中每个 <code>responses[i]</code> 是一个字符串数组，表示第 <code>i</code>&nbsp;天调查的回答结果。</p>
+
+<p>请返回在对每个 <code>responses[i]</code> 中的回答&nbsp;<strong>去重</strong> 后，所有天数中&nbsp;<strong>最常见&nbsp;</strong>的回答。如果有多个回答出现频率相同，则返回&nbsp;<strong><span data-keyword="lexicographically-smaller-string">字典序最小</span>&nbsp;</strong>的那个回答。</p>
+
+<p>&nbsp;</p>
+
+<p><strong class="example">示例 1：</strong></p>
+
+<div class="example-block">
+<p><strong>输入：</strong> <span class="example-io">responses = [["good","ok","good","ok"],["ok","bad","good","ok","ok"],["good"],["bad"]]</span></p>
+
+<p><strong>输出：</strong> <span class="example-io">"good"</span></p>
+
+<p><strong>解释：</strong></p>
+
+<ul>
+	<li>每个列表去重后，得到&nbsp;<code>responses = [["good", "ok"], ["ok", "bad", "good"], ["good"], ["bad"]]</code>。</li>
+	<li><code>"good"</code> 出现了 3 次，<code>"ok"</code> 出现了 2 次，<code>"bad"</code> 也出现了 2 次。</li>
+	<li>返回 <code>"good"</code>，因为它出现的频率最高。</li>
+</ul>
+</div>
+
+<p><strong class="example">示例 2：</strong></p>
+
+<div class="example-block">
+<p><strong>输入：</strong> <span class="example-io">responses = [["good","ok","good"],["ok","bad"],["bad","notsure"],["great","good"]]</span></p>
+
+<p><strong>输出：</strong> <span class="example-io">"bad"</span></p>
+
+<p><strong>解释：</strong></p>
+
+<ul>
+	<li>每个列表去重后，<code>responses = [["good", "ok"], ["ok", "bad"], ["bad", "notsure"], ["great", "good"]]</code>。</li>
+	<li><code>"bad"</code>、<code>"good"</code> 和 <code>"ok"</code> 都出现了 2 次。</li>
+	<li>返回 <code>"bad"</code>，因为它在这些最高频率的词中字典序最小。</li>
+</ul>
+</div>
+
+<p>&nbsp;</p>
+
+<p><strong>提示：</strong></p>
+
+<ul>
+	<li><code>1 &lt;= responses.length &lt;= 1000</code></li>
+	<li><code>1 &lt;= responses[i].length &lt;= 1000</code></li>
+	<li><code>1 &lt;= responses[i][j].length &lt;= 10</code></li>
+	<li><code>responses[i][j]</code> 仅由小写英文字母组成</li>
+</ul>
+
+            </div>
+            <div class="question-content source-content" style="display: none">
+              <p>You are given a 2D string array <code>responses</code> where each <code>responses[i]</code> is an array of strings representing survey responses from the <code>i<sup>th</sup></code> day.</p>
+
+<p>Return the <strong>most common</strong> response across all days after removing <strong>duplicate</strong> responses within each <code>responses[i]</code>. If there is a tie, return the <em><span data-keyword="lexicographically-smaller-string">lexicographically smallest</span></em> response.</p>
+
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">responses = [[&quot;good&quot;,&quot;ok&quot;,&quot;good&quot;,&quot;ok&quot;],[&quot;ok&quot;,&quot;bad&quot;,&quot;good&quot;,&quot;ok&quot;,&quot;ok&quot;],[&quot;good&quot;],[&quot;bad&quot;]]</span></p>
+
+<p><strong>Output:</strong> <span class="example-io">&quot;good&quot;</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>After removing duplicates within each list, <code>responses = [[&quot;good&quot;, &quot;ok&quot;], [&quot;ok&quot;, &quot;bad&quot;, &quot;good&quot;], [&quot;good&quot;], [&quot;bad&quot;]]</code>.</li>
+	<li><code>&quot;good&quot;</code> appears 3 times, <code>&quot;ok&quot;</code> appears 2 times, and <code>&quot;bad&quot;</code> appears 2 times.</li>
+	<li>Return <code>&quot;good&quot;</code> because it has the highest frequency.</li>
+</ul>
+</div>
+
+<p><strong class="example">Example 2:</strong></p>
+
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">responses = [[&quot;good&quot;,&quot;ok&quot;,&quot;good&quot;],[&quot;ok&quot;,&quot;bad&quot;],[&quot;bad&quot;,&quot;notsure&quot;],[&quot;great&quot;,&quot;good&quot;]]</span></p>
+
+<p><strong>Output:</strong> <span class="example-io">&quot;bad&quot;</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>After removing duplicates within each list we have <code>responses = [[&quot;good&quot;, &quot;ok&quot;], [&quot;ok&quot;, &quot;bad&quot;], [&quot;bad&quot;, &quot;notsure&quot;], [&quot;great&quot;, &quot;good&quot;]]</code>.</li>
+	<li><code>&quot;bad&quot;</code>, <code>&quot;good&quot;</code>, and <code>&quot;ok&quot;</code> each occur 2 times.</li>
+	<li>The output is <code>&quot;bad&quot;</code> because it is the lexicographically smallest amongst the words with the highest frequency.</li>
+</ul>
+</div>
+
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= responses.length &lt;= 1000</code></li>
+	<li><code>1 &lt;= responses[i].length &lt;= 1000</code></li>
+	<li><code>1 &lt;= responses[i][j].length &lt;= 10</code></li>
+	<li><code>responses[i][j]</code> consists of only lowercase English letters</li>
+</ul>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="editor-container">
+    <div id="submission-form-app"></div>
+  </div>
+
+    </div>
+
+  </div>
+
+
+  <footer class="site-footer chinese" id="lc-footer">
+    <div class="container">
+      <hr style="margin-top: 20px;margin-bottom: 20px;">
+      <div class="row">
+
+        <div class="col-sm-5 copyright">
+          <a href="https://lingkou.com" target="_blank" style="color:#373737">
+            <span>© 2025 领扣网络（上海）有限公司版权所有</span>
+          </a>
+        </div>
+
+        <div class="text-right col-sm-7">
+          <div class="links">
+            <a href="https://lingkou.com/?utm_source=leetcode-cn" target="_blank">企业服务</a>
+            &nbsp;|&nbsp;
+            <a href="/brand/">品牌介绍</a>
+            &nbsp;|&nbsp;
+            <a href="/about/">关于我们</a>
+            &nbsp;|&nbsp;
+            <a href="https://leetcode.cn/support/new-request/">问题反馈</a>
+            &nbsp;|&nbsp;
+            <a href="/support/">帮助中心</a>
+            &nbsp;|&nbsp;
+
+              <span class="hidden-xs hidden-sm" id="Join_LeetCode">
+                <a href="/jobs/lingkou/">加入我们</a>
+                &nbsp;|&nbsp;
+              </span>
+
+            <a href="/terms-c/">使用条例</a>
+            &nbsp;|&nbsp;
+            <a href="/privacy/">隐私政策</a>
+
+              <span class="region-base">
+
+                  <span class="hidden-xs space"> &nbsp; </span>
+                  <a href="/region/" class="choose-region hidden-xs">
+                    <img src="https://static.leetcode.cn/cn-legacy-assets/images/region/cn.svg"  style="height: 14px"/>
+                    <span>中国</span>
+                  </a>
+
+              </span>
+
+          </div>
+        </div>
+      </div>
+
+        <div class="row chinese-license">
+          <div class="col-sm-6 text-right col-sm-push-6 gongan-beian">
+            <a target="_blank"
+              href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011502007040"
+              style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"
+            >
+              <img class="beian" src="https://static.leetcode.cn/cn-legacy-assets/images/beian.png" style="float:left;"/>
+              <p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px;">
+                沪公网安备 31011502007040号
+              </p>
+            </a>
+          </div>
+
+          <div class="col-sm-6 col-sm-pull-6 icp-beian">
+            <div class="ICP license">
+              <a href="http://beian.miit.gov.cn" target="_blank">
+                <span>沪ICP备17051546号</span>
+              </a>
+              <span class="region-base-xs">&nbsp;
+                <a href="/region/" class="choose-region">
+                  <img src="https://static.leetcode.cn/cn-legacy-assets/images/region/cn.svg" style="height: 10px"/>&nbsp;<span>中国</span>
+                </a>
+              </span>
+            </div>
+            <!--
+            <div class="sgs license">
+              <a href="http://sh.gsxt.gov.cn/notice/notice/view?uuid=Db4Dh06YKFTDP4..0w0NzyaG19T8LNcP&tabPanel=01" target="_blank">
+                <img src="https://static.leetcode.cn/cn-legacy-assets/images/sgs.png" alt="上海工商" height="14" />上海工商
+              </a>
+            </div>
+            -->
+          </div>
+        </div>
+
+    </div>
+  </footer>
+
+  <div class="modal fade simple-modal" id="supportModal" role="dialog">
+    <div class="modal-center">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <span class="text-lg text-300">&nbsp;有什么可以帮到您？</span>
+          </div>
+
+          <div class="modal-body">
+            <div class="row text-center">
+              <div class="col-sm-4">
+                <a
+                  class="support-module btn btn-default"
+                  href="mailto:billing@leetcode.com?subject=Billing%20Issue&body=Name:%0D%0A%0D%0AUsername:%0D%0A%0D%0AMessage:%0D%0A%0D%0A"
+                  target="_blank"
+                >
+                  <i class="fa fa-credit-card text-xl" aria-hidden="true"></i>
+                  <br/><span class="text">账号、账单问题</span>
+                </a>
+              </div>
+              <div class="col-sm-4">
+                <a
+                  class="support-module btn btn-default"
+                  href="mailto:support@leetcode.com?subject=General%20Support&body=Name:%0D%0A%0D%0AUsername:%0D%0A%0D%0AMessage:%0D%0A%0D%0A"
+                  target="_blank"
+                >
+                  <i class="fa fa-life-ring text-xl" aria-hidden="true"></i>
+                  <br/><span class="text">一般支持</span>
+                </a>
+              </div>
+              <div class="col-sm-4">
+                <a
+                  class="support-module btn btn-default"
+                  href="mailto:feedback@leetcode.com?subject=Other%20Inquiries&body=Name:%0D%0A%0D%0AUsername:%0D%0A%0D%0AMessage:%0D%0A%0D%0A"
+                  target="_blank"
+                >
+                  <i class="fa fa-question-circle text-xl" aria-hidden="true"></i>
+                  <br/><span class="text">其他咨询</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script type="text/javascript" src="https://static.leetcode.cn/cn-mono-assets/production/head/runtime~main.989db411.js"></script>
+<script type="text/javascript" src="https://static.leetcode.cn/cn-mono-assets/production/head/styles.8ca6fa18.js"></script>
+<script type="text/javascript" src="https://static.leetcode.cn/cn-mono-assets/production/head/noj-components.acdddd1a.js"></script>
+<script type="text/javascript" src="https://static.leetcode.cn/cn-mono-assets/production/head/noj-modules.45a3a529.js"></script>
+<script type="text/javascript" src="https://static.leetcode.cn/cn-mono-assets/production/head/noj-dls.ca6a87ea.js"></script>
+<script type="text/javascript" src="https://static.leetcode.cn/cn-mono-assets/production/head/noj-track.a4e80453.js"></script>
+<script type="text/javascript" src="https://static.leetcode.cn/cn-mono-assets/production/head/noj-i18n.f3746efb.js"></script>
+<script type="text/javascript" src="https://static.leetcode.cn/cn-mono-assets/production/head/noj-common.f07c851a.js"></script>
+<script type="text/javascript" src="https://static.leetcode.cn/cn-mono-assets/production/head/noj-schema.bf63f421.js"></script>
+<script type="text/javascript" src="https://static.leetcode.cn/cn-mono-assets/production/head/noj-colors.9654078d.js"></script>
+<script type="text/javascript" src="https://static.leetcode.cn/cn-mono-assets/production/head/main.5b27db09.js"></script>
+  <script src="https://static.leetcode.cn/cn-legacy-assets/CACHE/js/output.edac5e1ed923.js"></script>
+
+  <script>
+    (function($, w, d){
+      $(function() {
+        $('#navbar-right img').addClass('img-rounded');
+        setFooterStyles();
+      });
+
+      function setFooterStyles() {
+        var $footer = $('#lc-footer'),
+            height = $footer.outerHeight();
+        if (!$footer.parent().is('body')) return ;
+        $footer.css('margin-top', -height);
+        $('.content-wrapper').css('padding-bottom', height);
+      }
+
+    }(jQuery, window, document));
+    try {
+      ace.config.set("basePath", "https://static.leetcode.cn/cn-legacy-assets/ace-builds/src-noconflict/")
+    } catch(err) {}
+  </script>
+
+
+    <script>
+      (function($, w, d){
+
+        $('#exit-mock-user-btn').click(function() {
+          $.ajax({
+            type: 'POST',
+            url: "/api/exit_mock_user/",
+            data: $('#exit-mock-user-form').serialize(),
+            success: function() {
+              window.location = window.location.href.split("?")[0];
+            }
+          });
+        });
+      }(jQuery, window, document));
+    </script>
+
+<script>
+  var pageData = {
+    questionId: '3707',
+    questionIdHash: '',
+    questionTitleSlug: 'find-the-most-common-response',
+    questionTitle: '找到最常见的回答',
+    questionSourceTitle: 'Find the Most Common Response',
+    questionExampleTestcases: '[[\u0022good\u0022,\u0022ok\u0022,\u0022good\u0022,\u0022ok\u0022],[\u0022ok\u0022,\u0022bad\u0022,\u0022good\u0022,\u0022ok\u0022,\u0022ok\u0022],[\u0022good\u0022],[\u0022bad\u0022]]\u000A[[\u0022good\u0022,\u0022ok\u0022,\u0022good\u0022],[\u0022ok\u0022,\u0022bad\u0022],[\u0022bad\u0022,\u0022notsure\u0022],[\u0022great\u0022,\u0022good\u0022]]',
+    categoryTitle: 'Algorithms',
+    contestTitleSlug: 'biweekly-contest-155',
+    loginUrl: '/accounts/login/?next=/problems/find-the-most-common-response/',
+    isSignedIn: true,
+
+    sessionId: '0',
+    reverseUrl: {
+      latest_submission: '/submissions/latest/',
+      account_login: '/accounts/login/',
+      maintenance: '/maintenance/',
+      profile: '/profile/'
+    },
+    enableRunCode:  true ,
+    enableSubmit: true ,
+    submitUrl: '/contest/api/biweekly-contest-155/problems/find-the-most-common-response/submit/',
+    interpretUrl: '/contest/api/biweekly-contest-155/problems/find-the-most-common-response/interpret_solution/',
+    judgeType: 'large',
+    nextChallengePairs: JSON.parse('null'),
+    codeDefinition: [{'value': 'cpp', 'text': 'C++', 'defaultCode': 'class Solution {\u000Apublic:\u000A    string findCommonResponse(vector\u003Cvector\u003Cstring\u003E\u003E\u0026 responses) {\u000A        \u000A    }\u000A}\u003B' },{'value': 'java', 'text': 'Java', 'defaultCode': 'class Solution {\u000A    public String findCommonResponse(List\u003CList\u003CString\u003E\u003E responses) {\u000A        \u000A    }\u000A}' },{'value': 'python', 'text': 'Python', 'defaultCode': 'class Solution(object):\u000A    def findCommonResponse(self, responses):\u000A        \u0022\u0022\u0022\u000A        :type responses: List[List[str]]\u000A        :rtype: str\u000A        \u0022\u0022\u0022\u000A        ' },{'value': 'python3', 'text': 'Python3', 'defaultCode': 'class Solution:\u000A    def findCommonResponse(self, responses: List[List[str]]) \u002D\u003E str:\u000A        ' },{'value': 'c', 'text': 'C', 'defaultCode': 'char* findCommonResponse(char*** responses, int responsesSize, int* responsesColSize) {\u000A    \u000A}' },{'value': 'csharp', 'text': 'C#', 'defaultCode': 'public class Solution {\u000A    public string FindCommonResponse(IList\u003CIList\u003Cstring\u003E\u003E responses) {\u000A        \u000A    }\u000A}' },{'value': 'javascript', 'text': 'JavaScript', 'defaultCode': '/**\u000A * @param {string[][]} responses\u000A * @return {string}\u000A */\u000Avar findCommonResponse \u003D function(responses) {\u000A    \u000A}\u003B' },{'value': 'typescript', 'text': 'TypeScript', 'defaultCode': 'function findCommonResponse(responses: string[][]): string {\u000A    \u000A}\u003B' },{'value': 'php', 'text': 'PHP', 'defaultCode': 'class Solution {\u000A\u000A    /**\u000A     * @param String[][] $responses\u000A     * @return String\u000A     */\u000A    function findCommonResponse($responses) {\u000A        \u000A    }\u000A}' },{'value': 'swift', 'text': 'Swift', 'defaultCode': 'class Solution {\u000A    func findCommonResponse(_ responses: [[String]]) \u002D\u003E String {\u000A        \u000A    }\u000A}' },{'value': 'kotlin', 'text': 'Kotlin', 'defaultCode': 'class Solution {\u000A    fun findCommonResponse(responses: List\u003CList\u003CString\u003E\u003E): String {\u000A        \u000A    }\u000A}' },{'value': 'dart', 'text': 'Dart', 'defaultCode': 'class Solution {\u000A  String findCommonResponse(List\u003CList\u003CString\u003E\u003E responses) {\u000A    \u000A  }\u000A}' },{'value': 'golang', 'text': 'Go', 'defaultCode': 'func findCommonResponse(responses [][]string) string {\u000A    \u000A}' },{'value': 'ruby', 'text': 'Ruby', 'defaultCode': '# @param {String[][]} responses\u000A# @return {String}\u000Adef find_common_response(responses)\u000A    \u000Aend' },{'value': 'scala', 'text': 'Scala', 'defaultCode': 'object Solution {\u000A    def findCommonResponse(responses: List[List[String]]): String \u003D {\u000A        \u000A    }\u000A}' },{'value': 'rust', 'text': 'Rust', 'defaultCode': 'impl Solution {\u000A    pub fn find_common_response(responses: Vec\u003CVec\u003CString\u003E\u003E) \u002D\u003E String {\u000A        \u000A    }\u000A}' },{'value': 'racket', 'text': 'Racket', 'defaultCode': '(define/contract (find\u002Dcommon\u002Dresponse responses)\u000A  (\u002D\u003E (listof (listof string?)) string?)\u000A  )' },{'value': 'erlang', 'text': 'Erlang', 'defaultCode': '\u002Dspec find_common_response(Responses :: [[unicode:unicode_binary()]]) \u002D\u003E unicode:unicode_binary().\u000Afind_common_response(Responses) \u002D\u003E\u000A  .' },{'value': 'elixir', 'text': 'Elixir', 'defaultCode': 'defmodule Solution do\u000A  @spec find_common_response(responses :: [[String.t]]) :: String.t\u000A  def find_common_response(responses) do\u000A    \u000A  end\u000Aend' },],
+    enableTestMode: false,
+    metaData: JSON.parse('{\u000A  \u0022name\u0022: \u0022findCommonResponse\u0022,\u000A  \u0022params\u0022: [\u000A    {\u000A      \u0022name\u0022: \u0022responses\u0022,\u000A      \u0022type\u0022: \u0022list\u003Clist\u003Cstring\u003E\u003E\u0022\u000A    }\u000A  ],\u000A  \u0022return\u0022: {\u000A    \u0022type\u0022: \u0022string\u0022\u000A  }\u000A}' || '{}'),
+    sampleTestCase: '[[\u0022good\u0022,\u0022ok\u0022,\u0022good\u0022,\u0022ok\u0022],[\u0022ok\u0022,\u0022bad\u0022,\u0022good\u0022,\u0022ok\u0022,\u0022ok\u0022],[\u0022good\u0022],[\u0022bad\u0022]]',
+    judgerAvailable:  true ,
+    envInfo: JSON.parse('{\u0022cpp\u0022:[\u0022C++\u0022,\u0022\u003Cp\u003E\u005Cu7248\u005Cu672c\u005Cuff1a\u003Ccode\u003Eclang 19\u003C\u005C/code\u003E \u005Cu91c7\u005Cu7528\u005Cu6700\u005Cu65b0 C++ 23 \u005Cu6807\u005Cu51c6\u005Cuff0c\u005Cu5e76\u005Cu4f7f\u005Cu7528 GCC 14 \u005Cu63d0\u005Cu4f9b\u005Cu7684 \u003Ccode\u003Elibstdc++\u003C\u005C/code\u003E\u005Cu3002\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu7f16\u005Cu8bd1\u005Cu65f6\u005Cuff0c\u005Cu5c06\u005Cu4f1a\u005Cu91c7\u005Cu7528 \u003Ccode\u003E\u002DO2\u003C\u005C/code\u003E \u005Cu7ea7\u005Cu4f18\u005Cu5316\u005Cuff0c\u005Cu5e76\u005Cu63d0\u005Cu4f9b \u003Ccode\u003E\u002Dgline\u002Dtables\u002Donly\u003C\u005C/code\u003E \u005Cu53c2\u005Cu6570\u005Cu3002\u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/github.com\u005C/google\u005C/sanitizers\u005C/wiki\u005C/AddressSanitizer\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003EAddressSanitizer\u003C\u005C/a\u003E \u005Cu4e5f\u005Cu88ab\u005Cu5f00\u005Cu542f\u005Cu6765\u005Cu68c0\u005Cu6d4b \u003Ccode\u003Eout\u002Dof\u002Dbounds\u003C\u005C/code\u003E \u005Cu548c \u003Ccode\u003Euse\u002Dafter\u002Dfree\u003C\u005C/code\u003E \u005Cu9519\u005Cu8bef\u005Cu3002\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu4e3a\u005Cu4e86\u005Cu4f7f\u005Cu7528\u005Cu65b9\u005Cu4fbf\u005Cuff0c\u005Cu5927\u005Cu90e8\u005Cu5206\u005Cu6807\u005Cu51c6\u005Cu5e93\u005Cu7684\u005Cu5934\u005Cu6587\u005Cu4ef6\u005Cu5df2\u005Cu7ecf\u005Cu88ab\u005Cu81ea\u005Cu52a8\u005Cu5bfc\u005Cu5165\u005Cu3002\u003C\u005C/p\u003E\u0022],\u0022java\u0022:[\u0022Java\u0022,\u0022\u003Cp\u003E\u005Cu7248\u005Cu672c\u005Cuff1a\u003Ccode\u003EOpenJDK 21\u003C\u005C/code\u003E\u005Cu3002\u005Cu4f7f\u005Cu7528\u005Cu7f16\u005Cu8bd1\u005Cu53c2\u005Cu6570 \u003Ccode\u003E\u002D\u002Denable\u002Dpreview \u002D\u002Drelease 21\u003C\u005C/code\u003E\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu4e3a\u005Cu4e86\u005Cu65b9\u005Cu4fbf\u005Cu8d77\u005Cu89c1\u005Cuff0c\u005Cu5927\u005Cu90e8\u005Cu5206\u005Cu6807\u005Cu51c6\u005Cu5e93\u005Cu7684\u005Cu5934\u005Cu6587\u005Cu4ef6\u005Cu5df2\u005Cu88ab\u005Cu5bfc\u005Cu5165\u005Cu3002\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu5305\u005Cu542b Pair \u005Cu7c7b: https:\u005C/\u005C/docs.oracle.com\u005C/javase\u005C/8\u005C/javafx\u005C/api\u005C/javafx\u005C/util\u005C/Pair.html \u003C\u005C/p\u003E\u0022],\u0022python\u0022:[\u0022Python\u0022,\u0022\u003Cp\u003E\u005Cu7248\u005Cu672c\u005Cuff1a \u003Ccode\u003EPython 2.7.18\u003C\u005C/code\u003E\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu4e3a\u005Cu4e86\u005Cu65b9\u005Cu4fbf\u005Cu8d77\u005Cu89c1\u005Cuff0c\u005Cu5927\u005Cu90e8\u005Cu5206\u005Cu5e38\u005Cu7528\u005Cu5e93\u005Cu5df2\u005Cu7ecf\u005Cu88ab\u005Cu81ea\u005Cu52a8 \u005Cu5bfc\u005Cu5165\u005Cuff0c\u005Cu5982\u005Cuff1a\u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/docs.python.org\u005C/2\u005C/library\u005C/array.html\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Earray\u003C\u005C/a\u003E, \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/docs.python.org\u005C/2\u005C/library\u005C/bisect.html\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Ebisect\u003C\u005C/a\u003E, \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/docs.python.org\u005C/2\u005C/library\u005C/collections.html\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Ecollections\u003C\u005C/a\u003E\u005Cu3002\u005Cu5982\u005Cu679c\u005Cu60a8\u005Cu9700\u005Cu8981\u005Cu4f7f\u005Cu7528\u005Cu5176\u005Cu4ed6\u005Cu5e93\u005Cu51fd\u005Cu6570\u005Cuff0c\u005Cu8bf7\u005Cu81ea\u005Cu884c\u005Cu5bfc\u005Cu5165\u005Cu3002\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu6ce8\u005Cu610f Python 2.7 \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/www.python.org\u005C/dev\u005C/peps\u005C/pep\u002D0373\u005C/\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003E\u005Cu5df2\u005Cu4e0d\u005Cu518d\u005Cu7ef4\u005Cu62a4\u003C\u005C/a\u003E\u005Cu3002 \u005Cu5982\u005Cu60f3\u005Cu4f7f\u005Cu7528\u005Cu6700\u005Cu65b0\u005Cu7248\u005Cu7684Python\u005Cuff0c\u005Cu8bf7\u005Cu9009\u005Cu62e9Python 3\u005Cu3002\u003C\u005C/p\u003E\u0022],\u0022c\u0022:[\u0022C\u0022,\u0022\u003Cp\u003E\u005Cu7248\u005Cu672c\u005Cuff1a\u003Ccode\u003EGCC 14\u003C\u005C/code\u003E\u005Cuff0c\u005Cu91c7\u005Cu7528 GNU11 \u005Cu6807\u005Cu51c6\u005Cu3002\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu7f16\u005Cu8bd1\u005Cu65f6\u005Cuff0c\u005Cu5c06\u005Cu4f1a\u005Cu91c7\u005Cu7528 \u003Ccode\u003E\u002DO2\u003C\u005C/code\u003E \u005Cu7ea7\u005Cu4f18\u005Cu5316\u005Cuff0c\u005Cu5e76\u005Cu63d0\u005Cu4f9b \u003Ccode\u003E\u002Dg1\u003C\u005C/code\u003E \u005Cu53c2\u005Cu6570\u005Cu3002 \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/github.com\u005C/google\u005C/sanitizers\u005C/wiki\u005C/AddressSanitizer\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003EAddressSanitizer\u003C\u005C/a\u003E \u005Cu4e5f\u005Cu88ab\u005Cu5f00\u005Cu542f\u005Cu6765\u005Cu68c0\u005Cu6d4b \u003Ccode\u003Eout\u002Dof\u002Dbounds\u003C\u005C/code\u003E \u005Cu548c \u003Ccode\u003Euse\u002Dafter\u002Dfree\u003C\u005C/code\u003E \u005Cu9519\u005Cu8bef\u005Cu3002\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu4e3a\u005Cu4e86\u005Cu4f7f\u005Cu7528\u005Cu65b9\u005Cu4fbf\u005Cuff0c\u005Cu5927\u005Cu90e8\u005Cu5206\u005Cu6807\u005Cu51c6\u005Cu5e93\u005Cu7684\u005Cu5934\u005Cu6587\u005Cu4ef6\u005Cu5df2\u005Cu7ecf\u005Cu88ab\u005Cu81ea\u005Cu52a8\u005Cu5bfc\u005Cu5165\u005Cu3002\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu5982\u005Cu60f3\u005Cu4f7f\u005Cu7528\u005Cu54c8\u005Cu5e0c\u005Cu8868\u005Cu8fd0\u005Cu7b97, \u005Cu60a8\u005Cu53ef\u005Cu4ee5\u005Cu4f7f\u005Cu7528 \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/troydhanson.github.io\u005C/uthash\u005C/\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Euthash\u003C\u005C/a\u003E\u005Cu3002 \u005C\u0022uthash.h\u005C\u0022\u005Cu5df2\u005Cu7ecf\u005Cu9ed8\u005Cu8ba4\u005Cu88ab\u005Cu5bfc\u005Cu5165\u005Cu3002\u005Cu8bf7\u005Cu770b\u005Cu5982\u005Cu4e0b\u005Cu793a\u005Cu4f8b:\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u003Cb\u003E1. \u005Cu5f80\u005Cu54c8\u005Cu5e0c\u005Cu8868\u005Cu4e2d\u005Cu6dfb\u005Cu52a0\u005Cu4e00\u005Cu4e2a\u005Cu5bf9\u005Cu8c61\u005Cuff1a\u003C\u005C/b\u003E\u005Cr\u005Cn\u003Cpre\u003E\u005Cr\u005Cnstruct hash_entry {\u005Cr\u005Cn    int id\u003B            \u005C/* we\u0027ll use this field as the key *\u005C/\u005Cr\u005Cn    char name[10]\u003B\u005Cr\u005Cn    UT_hash_handle hh\u003B \u005C/* makes this structure hashable *\u005C/\u005Cr\u005Cn}\u003B\u005Cr\u005Cn\u005Cr\u005Cnstruct hash_entry *users \u003D NULL\u003B\u005Cr\u005Cn\u005Cr\u005Cnvoid add_user(struct hash_entry *s) {\u005Cr\u005Cn    HASH_ADD_INT(users, id, s)\u003B\u005Cr\u005Cn}\u005Cr\u005Cn\u003C\u005C/pre\u003E\u005Cr\u005Cn\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u003Cb\u003E2. \u005Cu5728\u005Cu54c8\u005Cu5e0c\u005Cu8868\u005Cu4e2d\u005Cu67e5\u005Cu627e\u005Cu4e00\u005Cu4e2a\u005Cu5bf9\u005Cu8c61\u005Cuff1a\u003C\u005C/b\u003E\u005Cr\u005Cn\u003Cpre\u003E\u005Cr\u005Cnstruct hash_entry *find_user(int user_id) {\u005Cr\u005Cn    struct hash_entry *s\u003B\u005Cr\u005Cn    HASH_FIND_INT(users, \u0026user_id, s)\u003B\u005Cr\u005Cn    return s\u003B\u005Cr\u005Cn}\u005Cr\u005Cn\u003C\u005C/pre\u003E\u005Cr\u005Cn\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u003Cb\u003E3. \u005Cu4ece\u005Cu54c8\u005Cu5e0c\u005Cu8868\u005Cu4e2d\u005Cu5220\u005Cu9664\u005Cu4e00\u005Cu4e2a\u005Cu5bf9\u005Cu8c61\u005Cuff1a\u003C\u005C/b\u003E\u005Cr\u005Cn\u003Cpre\u003E\u005Cr\u005Cnvoid delete_user(struct hash_entry *user) {\u005Cr\u005Cn    HASH_DEL(users, user)\u003B  \u005Cr\u005Cn}\u005Cr\u005Cn\u003C\u005C/pre\u003E\u005Cr\u005Cn\u003C\u005C/p\u003E\u0022],\u0022csharp\u0022:[\u0022C#\u0022,\u0022\u003Cp\u003E\u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/learn.microsoft.com\u005C/en\u002Dus\u005C/dotnet\u005C/csharp\u005C/whats\u002Dnew\u005C/csharp\u002D13\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003EC# 13\u003C\u005C/a\u003E \u005Cu8fd0\u005Cu884c\u005Cu5728 .NET 9 \u005Cu4e0a\u003C\u005C/p\u003E\u0022],\u0022javascript\u0022:[\u0022JavaScript\u0022,\u0022\u003Cp\u003E\u005Cu7248\u005Cu672c\u005Cuff1a\u003Ccode\u003ENode.js 22.14.0\u003C\u005C/code\u003E\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu60a8\u005Cu7684\u005Cu4ee3\u005Cu7801\u005Cu5728\u005Cu6267\u005Cu884c\u005Cu65f6\u005Cu5c06\u005Cu5e26\u005Cu4e0a \u003Ccode\u003E\u002D\u002Dharmony\u003C\u005C/code\u003E \u005Cu6807\u005Cu8bb0\u005Cu6765\u005Cu5f00\u005Cu542f \u003Ca href\u003D\u005C\u0022http:\u005C/\u005C/node.green\u005C/\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003E\u005Cu65b0\u005Cu7248ES6\u005Cu7279\u005Cu6027\u003C\u005C/a\u003E\u005Cu3002\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/lodash.com\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Elodash.js\u003C\u005C/a\u003E \u005Cu5e93\u005Cu5df2\u005Cu7ecf\u005Cu9ed8\u005Cu8ba4\u005Cu88ab\u005Cu5305\u005Cu542b\u005Cu3002\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E \u005Cu5982\u005Cu9700\u005Cu4f7f\u005Cu7528\u005Cu961f\u005Cu5217\u005C/\u005Cu4f18\u005Cu5148\u005Cu961f\u005Cu5217\u005Cuff0c\u005Cu60a8\u005Cu53ef\u005Cu4f7f\u005Cu7528 \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/github.com\u005C/datastructures\u002Djs\u005C/priority\u002Dqueue\u005C/tree\u005C/v6.3.2\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003E datastructures\u002Djs\u005C/priority\u002Dqueue@6.3.2\u003C\u005C/a\u003E\u005Cuff0c\u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/github.com\u005C/datastructures\u002Djs\u005C/queue\u005C/tree\u005C/v4.2.3\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003E datastructures\u002Djs\u005C/queue@4.2.3\u003C\u005C/a\u003E \u005Cu4ee5\u005Cu53ca \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/github.com\u005C/datastructures\u002Djs\u005C/deque\u005C/tree\u005C/v1.0.4\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003E datastructures\u002Djs\u005C/deque@1.0.4\u003C\u005C/a\u003E\u005Cu3002\u003C\u005C/p\u003E\u0022],\u0022ruby\u0022:[\u0022Ruby\u0022,\u0022\u003Cp\u003E\u005Cu4f7f\u005Cu7528 \u003Ccode\u003ERuby 3.2\u003C\u005C/code\u003E \u005Cu6267\u005Cu884c\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu4e00\u005Cu4e9b\u005Cu5e38\u005Cu7528\u005Cu7684\u005Cu6570\u005Cu636e\u005Cu7ed3\u005Cu6784\u005Cu5df2\u005Cu5728 Algorithms \u005Cu6a21\u005Cu5757\u005Cu4e2d\u005Cu63d0\u005Cu4f9b\u005Cuff1ahttps:\u005C/\u005C/www.rubydoc.info\u005C/github\u005C/kanwei\u005C/algorithms\u005C/Algorithms\u003C\u005C/p\u003E\u0022],\u0022swift\u0022:[\u0022Swift\u0022,\u0022\u003Cp\u003E\u005Cu7248\u005Cu672c\u005Cuff1a\u003Ccode\u003ESwift 6.0\u003C\u005C/code\u003E\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu60a8\u005Cu53ef\u005Cu4ee5\u005Cu4f7f\u005Cu7528 \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/github.com\u005C/apple\u005C/swift\u002Dalgorithms\u005C/tree\u005C/1.2.0\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Eswift\u002Dalgorithms 1.2.0\u003C\u005C/a\u003E\u005Cuff0c\u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/github.com\u005C/apple\u005C/swift\u002Dcollections\u005C/tree\u005C/1.1.4\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Eswift\u002Dcollections 1.1.4\u003C\u005C/a\u003E \u005Cu548c \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/github.com\u005C/apple\u005C/swift\u002Dnumerics\u005C/tree\u005C/1.0.2\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Eswift\u002Dnumerics 1.0.2\u003C\u005C/a\u003E\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu6211\u005Cu4eec\u005Cu901a\u005Cu5e38\u005Cu4fdd\u005Cu8bc1\u005Cu66f4\u005Cu65b0\u005Cu5230 \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/swift.org\u005C/download\u005C/\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003EApple\u005Cu653e\u005Cu51fa\u005Cu7684\u005Cu6700\u005Cu65b0\u005Cu7248Swift\u003C\u005C/a\u003E\u005Cu3002\u005Cu5982\u005Cu679c\u005Cu60a8\u005Cu53d1\u005Cu73b0Swift\u005Cu4e0d\u005Cu662f\u005Cu6700\u005Cu65b0\u005Cu7248\u005Cu7684\u005Cuff0c\u005Cu8bf7\u005Cu8054\u005Cu7cfb\u005Cu6211\u005Cu4eec\u005Cuff01\u005Cu6211\u005Cu4eec\u005Cu5c06\u005Cu5c3d\u005Cu5feb\u005Cu66f4\u005Cu65b0\u005Cu3002\u003C\u005C/p\u003E\u0022],\u0022golang\u0022:[\u0022Go\u0022,\u0022\u003Cp\u003E\u005Cu7248\u005Cu672c\u005Cuff1a\u003Ccode\u003EGo 1.23\u003C\u005C/code\u003E\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu652f\u005Cu6301 \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/pkg.go.dev\u005C/github.com\u005C/emirpasic\u005C/gods@v1.18.1\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Ehttps:\u005C/\u005C/pkg.go.dev\u005C/github.com\u005C/emirpasic\u005C/gods@v1.18.1\u003C\u005C/a\u003E \u005Cu548c \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/pkg.go.dev\u005C/github.com\u005C/emirpasic\u005C/gods\u005C/v2@v2.0.0\u002Dalpha\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Ehttps:\u005C/\u005C/pkg.go.dev\u005C/github.com\u005C/emirpasic\u005C/gods\u005C/v2@v2.0.0\u002Dalpha\u003C\u005C/a\u003E \u005Cu7b2c\u005Cu4e09\u005Cu65b9\u005Cu5e93\u005Cu3002\u003C\u005C/p\u003E\u0022],\u0022python3\u0022:[\u0022Python3\u0022,\u0022\u003Cp\u003E\u005Cu7248\u005Cu672c\u005Cuff1a\u003Ccode\u003EPython 3.11\u003C\u005C/code\u003E\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu4e3a\u005Cu4e86\u005Cu65b9\u005Cu4fbf\u005Cu8d77\u005Cu89c1\u005Cuff0c\u005Cu5927\u005Cu90e8\u005Cu5206\u005Cu5e38\u005Cu7528\u005Cu5e93\u005Cu5df2\u005Cu7ecf\u005Cu88ab\u005Cu81ea\u005Cu52a8 \u005Cu5bfc\u005Cu5165\u005Cuff0c\u005Cu5982\u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/docs.python.org\u005C/3\u005C/library\u005C/array.html\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Earray\u003C\u005C/a\u003E, \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/docs.python.org\u005C/3\u005C/library\u005C/bisect.html\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Ebisect\u003C\u005C/a\u003E, \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/docs.python.org\u005C/3\u005C/library\u005C/collections.html\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Ecollections\u003C\u005C/a\u003E\u005Cu3002 \u005Cu5982\u005Cu679c\u005Cu60a8\u005Cu9700\u005Cu8981\u005Cu4f7f\u005Cu7528\u005Cu5176\u005Cu4ed6\u005Cu5e93\u005Cu51fd\u005Cu6570\u005Cuff0c\u005Cu8bf7\u005Cu81ea\u005Cu884c\u005Cu5bfc\u005Cu5165\u005Cu3002\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu5982\u005Cu9700\u005Cu4f7f\u005Cu7528 Map\u005C/TreeMap \u005Cu6570\u005Cu636e\u005Cu7ed3\u005Cu6784\u005Cuff0c\u005Cu60a8\u005Cu53ef\u005Cu4f7f\u005Cu7528 \u003Ca href\u003D\u005C\u0022http:\u005C/\u005C/www.grantjenks.com\u005C/docs\u005C/sortedcontainers\u005C/\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Esortedcontainers\u003C\u005C/a\u003E \u005Cu5e93\u005Cu3002\u003C\u005C/p\u003E\u0022],\u0022scala\u0022:[\u0022Scala\u0022,\u0022\u003Cp\u003E\u005Cu7248\u005Cu672c\u005Cuff1a\u003Ccode\u003EScala 3.3.1\u003C\u005C/code\u003E\u003C\u005C/p\u003E\u0022],\u0022kotlin\u0022:[\u0022Kotlin\u0022,\u0022\u003Cp\u003E\u005Cu7248\u005Cu672c\u005Cuff1a\u003Ccode\u003EKotlin 2.1.10\u003C\u005C/code\u003E\u003C\u005C/p\u003E\u0022],\u0022rust\u0022:[\u0022Rust\u0022,\u0022\u003Cp\u003E\u005Cu7248\u005Cu672c\u005Cuff1a\u003Ccode\u003Erust 1.85.0\u003C\u005C/code\u003E\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu652f\u005Cu6301 crates.io \u005Cu7684 \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/crates.io\u005C/crates\u005C/rand\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Erand\u003C\u005C/a\u003E\u005Cu3001\u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/crates.io\u005C/crates\u005C/regex\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Eregex\u003C\u005C/a\u003E \u005Cu548c \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/crates.io\u005C/crates\u005C/itertools\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Eitertools\u003C\u005C/a\u003E\u003C\u005C/p\u003E\u0022],\u0022php\u0022:[\u0022PHP\u0022,\u0022\u003Cp\u003E\u003Ccode\u003EPHP 8.2\u003C\u005C/code\u003E.\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003EWith bcmath module.\u003C\u005C/p\u003E\u0022],\u0022typescript\u0022:[\u0022TypeScript\u0022,\u0022\u003Cp\u003ETypeScript 5.7.3\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003ECompile Options: \u002D\u002DalwaysStrict \u002D\u002DstrictBindCallApply \u002D\u002DstrictFunctionTypes \u002D\u002Dtarget ES2024\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/lodash.com\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Elodash.js\u003C\u005C/a\u003E \u005Cu5e93\u005Cu5df2\u005Cu7ecf\u005Cu9ed8\u005Cu8ba4\u005Cu88ab\u005Cu5305\u005Cu542b\u005Cu3002\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E \u005Cu5982\u005Cu9700\u005Cu4f7f\u005Cu7528\u005Cu961f\u005Cu5217\u005C/\u005Cu4f18\u005Cu5148\u005Cu961f\u005Cu5217\u005Cuff0c\u005Cu60a8\u005Cu53ef\u005Cu4f7f\u005Cu7528 \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/github.com\u005C/datastructures\u002Djs\u005C/priority\u002Dqueue\u005C/tree\u005C/v6.3.2\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003E datastructures\u002Djs\u005C/priority\u002Dqueue@6.3.2\u003C\u005C/a\u003E\u005Cuff0c\u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/github.com\u005C/datastructures\u002Djs\u005C/queue\u005C/tree\u005C/v4.2.3\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003E datastructures\u002Djs\u005C/queue@4.2.3\u003C\u005C/a\u003E \u005Cu4ee5\u005Cu53ca \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/github.com\u005C/datastructures\u002Djs\u005C/deque\u005C/tree\u005C/v1.0.4\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003E datastructures\u002Djs\u005C/deque@1.0.4\u003C\u005C/a\u003E\u005Cu3002\u003C\u005C/p\u003E\u0022],\u0022racket\u0022:[\u0022Racket\u0022,\u0022\u003Cp\u003E\u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/docs.racket\u002Dlang.org\u005C/guide\u005C/performance.html#%28tech._c%29\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003ERacket CS\u003C\u005C/a\u003E v8.15\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu4f7f\u005Cu7528 #lang racket\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu5df2\u005Cu9884\u005Cu5148 (require data\u005C/gvector data\u005C/queue data\u005C/order data\u005C/heap). \u005Cu82e5\u005Cu9700\u005Cu4f7f\u005Cu7528\u005Cu5176\u005Cu5b83\u005Cu6570\u005Cu636e\u005Cu7ed3\u005Cu6784\u005Cuff0c\u005Cu53ef\u005Cu81ea\u005Cu884c require\u005Cu3002\u003C\u005C/p\u003E\u0022],\u0022erlang\u0022:[\u0022Erlang\u0022,\u0022Erlang\u005C/OTP 26\u0022],\u0022elixir\u0022:[\u0022Elixir\u0022,\u0022Elixir 1.17 with Erlang\u005C/OTP 26\u0022],\u0022dart\u0022:[\u0022Dart\u0022,\u0022\u003Cp\u003EDart 3.2\u005Cu3002\u005Cu60a8\u005Cu53ef\u005Cu4ee5\u005Cu4f7f\u005Cu7528 \u003Ca href\u003D\u005C\u0022https:\u005C/\u005C/pub.dev\u005C/packages\u005C/collection\u005C/versions\u005C/1.18.0\u005C\u0022 target\u003D\u005C\u0022_blank\u005C\u0022\u003Ecollection\u003C\u005C/a\u003E \u005Cu5305\u003C\u005C/p\u003E\u005Cr\u005Cn\u005Cr\u005Cn\u003Cp\u003E\u005Cu60a8\u005Cu7684\u005Cu4ee3\u005Cu7801\u005Cu5c06\u005Cu4f1a\u005Cu88ab\u005Cu4e0d\u005Cu7f16\u005Cu8bd1\u005Cu76f4\u005Cu63a5\u005Cu8fd0\u005Cu884c\u003C\u005C/p\u003E\u0022]}'),
+    questionContent: '\u003Cp\u003E给你一个二维字符串数组 \u003Ccode\u003Eresponses\u003C/code\u003E，其中每个 \u003Ccode\u003Eresponses[i]\u003C/code\u003E 是一个字符串数组，表示第 \u003Ccode\u003Ei\u003C/code\u003E\u0026nbsp\u003B天调查的回答结果。\u003C/p\u003E\u000A\u000A\u003Cp\u003E请返回在对每个 \u003Ccode\u003Eresponses[i]\u003C/code\u003E 中的回答\u0026nbsp\u003B\u003Cstrong\u003E去重\u003C/strong\u003E 后，所有天数中\u0026nbsp\u003B\u003Cstrong\u003E最常见\u0026nbsp\u003B\u003C/strong\u003E的回答。如果有多个回答出现频率相同，则返回\u0026nbsp\u003B\u003Cstrong\u003E\u003Cspan data\u002Dkeyword\u003D\u0022lexicographically\u002Dsmaller\u002Dstring\u0022\u003E字典序最小\u003C/span\u003E\u0026nbsp\u003B\u003C/strong\u003E的那个回答。\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u0026nbsp\u003B\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong class\u003D\u0022example\u0022\u003E示例 1：\u003C/strong\u003E\u003C/p\u003E\u000A\u000A\u003Cdiv class\u003D\u0022example\u002Dblock\u0022\u003E\u000A\u003Cp\u003E\u003Cstrong\u003E输入：\u003C/strong\u003E \u003Cspan class\u003D\u0022example\u002Dio\u0022\u003Eresponses \u003D [[\u0022good\u0022,\u0022ok\u0022,\u0022good\u0022,\u0022ok\u0022],[\u0022ok\u0022,\u0022bad\u0022,\u0022good\u0022,\u0022ok\u0022,\u0022ok\u0022],[\u0022good\u0022],[\u0022bad\u0022]]\u003C/span\u003E\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong\u003E输出：\u003C/strong\u003E \u003Cspan class\u003D\u0022example\u002Dio\u0022\u003E\u0022good\u0022\u003C/span\u003E\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong\u003E解释：\u003C/strong\u003E\u003C/p\u003E\u000A\u000A\u003Cul\u003E\u000A\u0009\u003Cli\u003E每个列表去重后，得到\u0026nbsp\u003B\u003Ccode\u003Eresponses \u003D [[\u0022good\u0022, \u0022ok\u0022], [\u0022ok\u0022, \u0022bad\u0022, \u0022good\u0022], [\u0022good\u0022], [\u0022bad\u0022]]\u003C/code\u003E。\u003C/li\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003E\u0022good\u0022\u003C/code\u003E 出现了 3 次，\u003Ccode\u003E\u0022ok\u0022\u003C/code\u003E 出现了 2 次，\u003Ccode\u003E\u0022bad\u0022\u003C/code\u003E 也出现了 2 次。\u003C/li\u003E\u000A\u0009\u003Cli\u003E返回 \u003Ccode\u003E\u0022good\u0022\u003C/code\u003E，因为它出现的频率最高。\u003C/li\u003E\u000A\u003C/ul\u003E\u000A\u003C/div\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong class\u003D\u0022example\u0022\u003E示例 2：\u003C/strong\u003E\u003C/p\u003E\u000A\u000A\u003Cdiv class\u003D\u0022example\u002Dblock\u0022\u003E\u000A\u003Cp\u003E\u003Cstrong\u003E输入：\u003C/strong\u003E \u003Cspan class\u003D\u0022example\u002Dio\u0022\u003Eresponses \u003D [[\u0022good\u0022,\u0022ok\u0022,\u0022good\u0022],[\u0022ok\u0022,\u0022bad\u0022],[\u0022bad\u0022,\u0022notsure\u0022],[\u0022great\u0022,\u0022good\u0022]]\u003C/span\u003E\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong\u003E输出：\u003C/strong\u003E \u003Cspan class\u003D\u0022example\u002Dio\u0022\u003E\u0022bad\u0022\u003C/span\u003E\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong\u003E解释：\u003C/strong\u003E\u003C/p\u003E\u000A\u000A\u003Cul\u003E\u000A\u0009\u003Cli\u003E每个列表去重后，\u003Ccode\u003Eresponses \u003D [[\u0022good\u0022, \u0022ok\u0022], [\u0022ok\u0022, \u0022bad\u0022], [\u0022bad\u0022, \u0022notsure\u0022], [\u0022great\u0022, \u0022good\u0022]]\u003C/code\u003E。\u003C/li\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003E\u0022bad\u0022\u003C/code\u003E、\u003Ccode\u003E\u0022good\u0022\u003C/code\u003E 和 \u003Ccode\u003E\u0022ok\u0022\u003C/code\u003E 都出现了 2 次。\u003C/li\u003E\u000A\u0009\u003Cli\u003E返回 \u003Ccode\u003E\u0022bad\u0022\u003C/code\u003E，因为它在这些最高频率的词中字典序最小。\u003C/li\u003E\u000A\u003C/ul\u003E\u000A\u003C/div\u003E\u000A\u000A\u003Cp\u003E\u0026nbsp\u003B\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong\u003E提示：\u003C/strong\u003E\u003C/p\u003E\u000A\u000A\u003Cul\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003E1 \u0026lt\u003B\u003D responses.length \u0026lt\u003B\u003D 1000\u003C/code\u003E\u003C/li\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003E1 \u0026lt\u003B\u003D responses[i].length \u0026lt\u003B\u003D 1000\u003C/code\u003E\u003C/li\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003E1 \u0026lt\u003B\u003D responses[i][j].length \u0026lt\u003B\u003D 10\u003C/code\u003E\u003C/li\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003Eresponses[i][j]\u003C/code\u003E 仅由小写英文字母组成\u003C/li\u003E\u000A\u003C/ul\u003E\u000A',
+    questionSourceContent: '\u003Cp\u003EYou are given a 2D string array \u003Ccode\u003Eresponses\u003C/code\u003E where each \u003Ccode\u003Eresponses[i]\u003C/code\u003E is an array of strings representing survey responses from the \u003Ccode\u003Ei\u003Csup\u003Eth\u003C/sup\u003E\u003C/code\u003E day.\u003C/p\u003E\u000A\u000A\u003Cp\u003EReturn the \u003Cstrong\u003Emost common\u003C/strong\u003E response across all days after removing \u003Cstrong\u003Eduplicate\u003C/strong\u003E responses within each \u003Ccode\u003Eresponses[i]\u003C/code\u003E. If there is a tie, return the \u003Cem\u003E\u003Cspan data\u002Dkeyword\u003D\u0022lexicographically\u002Dsmaller\u002Dstring\u0022\u003Elexicographically smallest\u003C/span\u003E\u003C/em\u003E response.\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u0026nbsp\u003B\u003C/p\u003E\u000A\u003Cp\u003E\u003Cstrong class\u003D\u0022example\u0022\u003EExample 1:\u003C/strong\u003E\u003C/p\u003E\u000A\u000A\u003Cdiv class\u003D\u0022example\u002Dblock\u0022\u003E\u000A\u003Cp\u003E\u003Cstrong\u003EInput:\u003C/strong\u003E \u003Cspan class\u003D\u0022example\u002Dio\u0022\u003Eresponses \u003D [[\u0026quot\u003Bgood\u0026quot\u003B,\u0026quot\u003Bok\u0026quot\u003B,\u0026quot\u003Bgood\u0026quot\u003B,\u0026quot\u003Bok\u0026quot\u003B],[\u0026quot\u003Bok\u0026quot\u003B,\u0026quot\u003Bbad\u0026quot\u003B,\u0026quot\u003Bgood\u0026quot\u003B,\u0026quot\u003Bok\u0026quot\u003B,\u0026quot\u003Bok\u0026quot\u003B],[\u0026quot\u003Bgood\u0026quot\u003B],[\u0026quot\u003Bbad\u0026quot\u003B]]\u003C/span\u003E\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong\u003EOutput:\u003C/strong\u003E \u003Cspan class\u003D\u0022example\u002Dio\u0022\u003E\u0026quot\u003Bgood\u0026quot\u003B\u003C/span\u003E\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong\u003EExplanation:\u003C/strong\u003E\u003C/p\u003E\u000A\u000A\u003Cul\u003E\u000A\u0009\u003Cli\u003EAfter removing duplicates within each list, \u003Ccode\u003Eresponses \u003D [[\u0026quot\u003Bgood\u0026quot\u003B, \u0026quot\u003Bok\u0026quot\u003B], [\u0026quot\u003Bok\u0026quot\u003B, \u0026quot\u003Bbad\u0026quot\u003B, \u0026quot\u003Bgood\u0026quot\u003B], [\u0026quot\u003Bgood\u0026quot\u003B], [\u0026quot\u003Bbad\u0026quot\u003B]]\u003C/code\u003E.\u003C/li\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003E\u0026quot\u003Bgood\u0026quot\u003B\u003C/code\u003E appears 3 times, \u003Ccode\u003E\u0026quot\u003Bok\u0026quot\u003B\u003C/code\u003E appears 2 times, and \u003Ccode\u003E\u0026quot\u003Bbad\u0026quot\u003B\u003C/code\u003E appears 2 times.\u003C/li\u003E\u000A\u0009\u003Cli\u003EReturn \u003Ccode\u003E\u0026quot\u003Bgood\u0026quot\u003B\u003C/code\u003E because it has the highest frequency.\u003C/li\u003E\u000A\u003C/ul\u003E\u000A\u003C/div\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong class\u003D\u0022example\u0022\u003EExample 2:\u003C/strong\u003E\u003C/p\u003E\u000A\u000A\u003Cdiv class\u003D\u0022example\u002Dblock\u0022\u003E\u000A\u003Cp\u003E\u003Cstrong\u003EInput:\u003C/strong\u003E \u003Cspan class\u003D\u0022example\u002Dio\u0022\u003Eresponses \u003D [[\u0026quot\u003Bgood\u0026quot\u003B,\u0026quot\u003Bok\u0026quot\u003B,\u0026quot\u003Bgood\u0026quot\u003B],[\u0026quot\u003Bok\u0026quot\u003B,\u0026quot\u003Bbad\u0026quot\u003B],[\u0026quot\u003Bbad\u0026quot\u003B,\u0026quot\u003Bnotsure\u0026quot\u003B],[\u0026quot\u003Bgreat\u0026quot\u003B,\u0026quot\u003Bgood\u0026quot\u003B]]\u003C/span\u003E\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong\u003EOutput:\u003C/strong\u003E \u003Cspan class\u003D\u0022example\u002Dio\u0022\u003E\u0026quot\u003Bbad\u0026quot\u003B\u003C/span\u003E\u003C/p\u003E\u000A\u000A\u003Cp\u003E\u003Cstrong\u003EExplanation:\u003C/strong\u003E\u003C/p\u003E\u000A\u000A\u003Cul\u003E\u000A\u0009\u003Cli\u003EAfter removing duplicates within each list we have \u003Ccode\u003Eresponses \u003D [[\u0026quot\u003Bgood\u0026quot\u003B, \u0026quot\u003Bok\u0026quot\u003B], [\u0026quot\u003Bok\u0026quot\u003B, \u0026quot\u003Bbad\u0026quot\u003B], [\u0026quot\u003Bbad\u0026quot\u003B, \u0026quot\u003Bnotsure\u0026quot\u003B], [\u0026quot\u003Bgreat\u0026quot\u003B, \u0026quot\u003Bgood\u0026quot\u003B]]\u003C/code\u003E.\u003C/li\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003E\u0026quot\u003Bbad\u0026quot\u003B\u003C/code\u003E, \u003Ccode\u003E\u0026quot\u003Bgood\u0026quot\u003B\u003C/code\u003E, and \u003Ccode\u003E\u0026quot\u003Bok\u0026quot\u003B\u003C/code\u003E each occur 2 times.\u003C/li\u003E\u000A\u0009\u003Cli\u003EThe output is \u003Ccode\u003E\u0026quot\u003Bbad\u0026quot\u003B\u003C/code\u003E because it is the lexicographically smallest amongst the words with the highest frequency.\u003C/li\u003E\u000A\u003C/ul\u003E\u000A\u003C/div\u003E\u000A\u000A\u003Cp\u003E\u0026nbsp\u003B\u003C/p\u003E\u000A\u003Cp\u003E\u003Cstrong\u003EConstraints:\u003C/strong\u003E\u003C/p\u003E\u000A\u000A\u003Cul\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003E1 \u0026lt\u003B\u003D responses.length \u0026lt\u003B\u003D 1000\u003C/code\u003E\u003C/li\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003E1 \u0026lt\u003B\u003D responses[i].length \u0026lt\u003B\u003D 1000\u003C/code\u003E\u003C/li\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003E1 \u0026lt\u003B\u003D responses[i][j].length \u0026lt\u003B\u003D 10\u003C/code\u003E\u003C/li\u003E\u000A\u0009\u003Cli\u003E\u003Ccode\u003Eresponses[i][j]\u003C/code\u003E consists of only lowercase English letters\u003C/li\u003E\u000A\u003C/ul\u003E\u000A',
+    editorType: '',
+  };
+</script>
+<script src="https://static.leetcode.cn/cn-legacy-assets/angular-nvd3/node_modules/d3/d3.min.js"></script>
+<script src="https://static.leetcode.cn/cn-legacy-assets/CACHE/js/output.ff84375920ec.js"></script>
+
+  <script type="text/javascript" src="https://static.leetcode.cn/cn-assets/webpack_bundles/apps/contest/question_detail.82af9d250.js" ></script>
+
+
+
+      <script>
+var userAgent = window.navigator.userAgent;
+var isLeetCodeWebView = /leetcode/i.test(userAgent);
+var isAndroid = /android/i.test(userAgent);
+var isIOSMobile = /iPhone|iPod/i.test(userAgent);
+
+if(isLeetCodeWebView) {
+    // Home page hotfix
+    if(window.location.pathname.includes("/problemset/")) {
+
+        if(localStorage.getItem("problem-list:itemsPerPage") < 9007199254740991) {
+            localStorage.setItem("problem-list:itemsPerPage", 9007199254740991);
+            localStorage.setItem("problem-list:itemsPerPage-updated-time", new Date().getTime());
+            location.reload();
+        }
+
+        var qTitleSize = 15;
+        var qSubtitleSize = 12;
+
+        var qSidePadding = 16;
+        var qTBPadding = 12;
+        var qRowHeight = 90;
+
+        var applyDarkstyle = ``;
+
+        // Light Color
+        var textColor = "#000";
+        var qRowBGColor = "#fff";
+        var qRowBorderColor = "#fafafa";
+        var qDiffBG = "#f5f5f7";
+
+        // Dark Style
+        var darkstyle = `
+                .question-list-base {
+                    /*background: rgba(0,0,0,0.02);*/
+                }
+            `;
+
+        if(window.location.href.includes("isDark=true")) {
+            applyDarkstyle = darkstyle;
+            // Dark Color
+            textColor = "#fff";
+            qRowBGColor = "#1b1b1d";
+            qRowBorderColor = "#232325";
+            qDiffBG = "#2d2d30";
+        }
+
+
+        var appOnlyStyle = `
+            * {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            .table-responsive.question-list-table {
+                overflow-x: hidden;
+            }
+
+            body, html {
+                background: ${qRowBGColor};
+            }
+
+            .question-status-column,
+            #noj-navbar,
+            .category-group-base,
+            .assess-bar,
+            .question-filter-base,
+            .blog-sidebar,
+            #lc-footer,
+            hr.line.dotted.question-list-hr,
+            .reactable-pagination,
+            .reactable-th-frequency.reactable-header-sortable,
+            .frequency-column,
+            .reactable-th-status.reactable-header-sortable,
+            .tooltip.top.in,
+            .table-responsive.question-list-table thead,
+            .lock__13du {
+                display: none !important;
+            }
+            .question-disabled {
+                pointer-events: none;
+                position: relative;
+                opacity: 0.38;
+            }
+            .question-disabled::after {
+                content: "\\f023";
+                font: normal normal normal 14px/1 FontAwesome;
+                color: #ffa115;
+                font-size: 14px;
+                display: inline-block;
+                margin-left: 10px;
+            }
+            .blog-main,
+            .container {
+                width: 100%;
+            }
+            #base_content {
+                width: 100vw;
+            }
+            .content-wrapper,
+            .table-responsive.question-list-table {
+                padding-bottom: 0 !important;
+                margin-bottom: 0 !important;
+            }
+            table.table-striped {
+                margin-bottom: 0;
+            }
+            .reactable-th-question_id,
+            tbody.reactable-data tr > td:nth-child(2) {
+
+            }
+
+            /* tr row */
+            .question-list-table table tbody.reactable-data tr {
+                display: flex;
+                width: 100vw;
+                position: relative;
+                height: ${qRowHeight}px;
+                padding: ${qTBPadding}px ${qSidePadding}px;
+                background: ${qRowBGColor} !important;
+                border-top: 1px solid ${qRowBorderColor};
+            }
+            .question-list-table table tbody.reactable-data tr:hover {
+                background: ${qRowBGColor} !important;
+            }
+            tbody.reactable-data td {
+
+            }
+
+            /* id */
+            tbody.reactable-data tr > td:nth-child(2) {
+                color: ${textColor};
+                padding-right: 0;
+                padding-left: 0;
+                font-weight: 500;
+                font-size: ${qTitleSize}px;
+                white-space: nowrap;
+            }
+            tbody.reactable-data tr > td:nth-child(2)::after {
+                content: ".";
+                display: inline-block;
+            }
+            /* title */
+            tbody.reactable-data tr > td:nth-child(3) {
+                width: 100%;
+                font-weight: 500;
+                font-size: ${qTitleSize}px;
+            }
+            .question-list-table tbody .question-title {
+                overflow: initial;
+                max-width: none;
+            }
+            .question-list-table tbody .question-title a {
+                color: ${textColor};
+                display: block;
+                height: ${qRowHeight}px;
+                position: relative;
+                transform: translateY(-${qTBPadding + 8}px);
+                padding-top: ${qTBPadding + 8}px;
+                z-index: 1;
+            }
+
+            /* status */
+            .question-status-column {
+                /*
+                position: absolute;
+                bottom: ${qTBPadding}px;
+                left: ${qSidePadding}px;
+                */
+            }
+
+            /* solution */
+            tbody.reactable-data tr > td:nth-child(4) {
+                position: absolute;
+                bottom: ${qTBPadding}px;
+                left: ${qSidePadding}px;
+            }
+            a.solution-link {
+                font-size: ${qSubtitleSize}px;
+            }
+            a.solution-link::before {
+                content: "题解${'\\00a0'}";
+                display: inline-block;
+            }
+
+            /* acc */
+            tbody.reactable-data tr > td:nth-child(5) {
+                position: absolute;
+                bottom: ${qTBPadding}px;
+                right: ${qSidePadding}px;
+                font-size: ${qSubtitleSize}px;
+            }
+            tbody.reactable-data tr > td:nth-child(5)::before {
+                content: "通过率${'\\00a0'}";
+                display: inline-block;
+            }
+
+            /* difficulty */
+            tbody.reactable-data tr > td:nth-child(6) {
+                order: -1;
+                margin-left: -3px;
+            }
+            .question-list-table span.level-hard {
+                color: #fe3e2f;
+            }
+            .question-list-table span.level-medium {
+                color: #fe9500;
+            }
+            .question-list-table span.level-easy {
+                color: #35c759;
+            }
+            span[class*="level-"] {
+                font-size: 12px;
+                border-radius: 5px;
+                background: ${qDiffBG};
+                padding: 2px 5px;
+                white-space: nowrap;
+            }
+            span[class*="level-"]::after {
+
+            }
+        `;
+        var appOnlyHTML = document.createElement("div");
+        appOnlyHTML.innerHTML = `
+            <style>
+            ${appOnlyStyle}
+            ${applyDarkstyle}
+            </style>
+        `;
+        var appInsert = document.querySelector(".content-wrapper");
+        appInsert.insertBefore(appOnlyHTML, document.getElementById("base_content"));
+    }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style>
+/* 暂时下架白色帽子 */
+</style>
+
+
+<style>
+section#app-heading main > h2 {
+  position: relative;
+}
+section#app-heading main > h2::after {
+  display: block;
+  position: absolute;
+  content: "全新 2.2，原生体验、在线编程";
+  top: -24px;
+  left: 0;
+  background: #ec417a;
+  border-radius: 100px;
+  font-size: 16px;
+  padding: 1px 8px;
+  color: #fff;
+  white-space: nowrap;
+  animation: shineApp 1s infinite;
+}
+
+@media (max-width: 839px) {
+  section#app-heading main > h2::after {
+    left: 50%;
+    transform: translateX(-50%) translateY(-5px);
+  }
+}
+</style>
+
+
+
+
+<!-- Nav New Tag-->
+<style>
+a[class*="BaseButtonComponent-AppButton"] {
+  position: relative;
+  overflow: initial;
+}
+
+a[class*="BaseButtonComponent-AppButton"]::after {
+  display: block;
+  position: absolute;
+  content: "新功能";
+  top: -6px;
+  right: -18px;
+  background: #ec417a;
+  border-radius: 100px;
+  font-size: 12px;
+  padding: 0 5px;
+  color: #fff;
+  white-space: nowrap;
+  transform: scale(0.6);
+  animation: shineApp 1s infinite;
+}
+
+@keyframes shineApp {
+  0% {background: #ec417a;}
+  50% {background: #f69f41;}
+  100% {background: #ec417a;}
+}
+</style>
+
+
+
+<style>
+.css-hfz3b8-TimeRemainContainer.edy4jpc3 {
+  color: orange;
+}
+.css-hfz3b8-TimeRemainContainer.edy4jpc3 div {
+  font-weight: bold;
+}
+
+/* LeetBook */
+
+/* 讨论 */
+
+aside > .css-1ciijib-Container > .css-1jbpjnq-layer1-CardContainer.er3nkrt0 {
+  display: none;
+}
+
+[class*="QuestionContent"] [class*="RowWrapper"] .css-1qq99jl-Dot,
+[class*="QuestionContent"] [class*="RowWrapper"] [class*="InfoItem"]:nth-child(4) {
+    display: none;
+}
+
+/* Jobs */
+[class*="NavWrapper"] > [class*="NavContainer"] > ul[class*="NavbarList"] > li[class*="NavbarListItem"]:nth-child(6)::after {
+  display: block;
+  position: absolute;
+  content: "招聘";
+  top: -10px;
+  left: 10px;
+  background: #009af8;
+  border-radius: 100px;
+  font-size: 12px;
+  padding: 0 5px;
+  color: #fff;
+  white-space: nowrap;
+  transform: scale(0.6);
+}
+
+
+/* Circle */
+.dark .css-tzk3f3-layer1-cardStyle-QuestionDetailWrapper,
+.dark .css-198vz0v-layer1-cardStyle-Wrapper,
+.dark .css-flkkl3-layer1-cardStyle-Wrapper,
+.dark .css-1vt9p6e-layer1-cardStyle-AnswerDetailWrapper,
+.dark .css-1pn4im8-layer1-cardStyle-SortingWrapper
+{
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.25);
+}
+
+.css-yz9tnq-StyledLink,
+.css-1jbpjnq-layer1-CardContainer,
+.css-d5jkwy-layer1-RowWrapper-DiscussionRowWrapper.eoy0kve1,
+.css-tzk3f3-layer1-cardStyle-QuestionDetailWrapper,
+.css-198vz0v-layer1-cardStyle-Wrapper,
+.css-flkkl3-layer1-cardStyle-Wrapper,
+.css-1vt9p6e-layer1-cardStyle-AnswerDetailWrapper,
+.css-1pn4im8-layer1-cardStyle-SortingWrapper
+{
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+[class*="NavWrapper"] > [class*="NavContainer"] > ul[class*="NavbarList"] > li[class*="NavbarListItem"]:nth-child(4)::after {
+  display: none;
+  position: absolute;
+  content: "热门";
+  background: #fe9411;
+  top: -10px;
+  left: 10px;
+  border-radius: 100px;
+  font-size: 12px;
+  padding: 0 5px;
+  color: #fff;
+  white-space: nowrap;
+  transform: scale(0.6);
+}
+
+
+
+/* LCCUP Hotfix */
+.css-1xdyuwt-TableContainer-StyledTableContainer,
+.css-1hdvnn3-TableContainer-StyledTableContainer {
+  width: 1240px;
+}
+
+
+[class*="cardStyle-QuestionDetailWrapper"] > [class*="QuestionContent"] > [class*="QuestionTitle"] {
+  margin-bottom: 0;
+}
+[class*="cardStyle-QuestionDetailWrapper"] > [class*="QuestionContent"] > [class*="RowWrapper"]:nth-child(2) {
+  margin-top: 0;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- HOTFIX -->
+<style>
+/* Contest Banner for Mobile Hotfix */
+@media only screen and (max-width: 400px) {
+  .contest-home-base [class*="wrapper"][class*="publicity"] {
+    background-size: 100%;
+    max-height: 200px;
+  }
+}
+
+.css-20btl1-RefillButton.edy4jpc4 {
+  font-weight: bold;
+}
+
+.country-name[data-original-title="中国"] {
+  display: none;
+}
+
+
+.question-list-base .question-list-table .fa.fa-info-circle.title-tooltip[data-placement="top"] {
+  display: none;
+}
+
+</style>
+<script>
+  // Home page hotfix
+  if(window.location.pathname == "/" && false) {
+  var homeOnlyHtml = document.createElement("div");
+  homeOnlyHtml.innerHTML = `
+  <style>
+  #noj-navbar {
+    position: relative;
+    z-index: 10;
+  }
+  @media (min-width: 991px) {
+  #student-banner {
+    display: none;
+  }
+  }
+  #student-banner {
+    width: 100%;
+    text-align: center;
+    margin-top: -20px;
+    background-image: url("https://pic.leetcode-cn.com/62644078c3ecf3426368ade02b44452d554659ff39ecd02eba9ff3c7b50c45d1-banner_mobile_2@2x.png");
+    background-position: 50% 50%;
+    background-size: auto 100%;
+  }
+  #student-banner img {
+    width: 100%;
+    margin: auto;
+    max-width: 550px;
+  }
+  </style>
+  <a  href="/contest/season/2019-fall/" target="_blank">
+  <div id="student-banner">
+  <img src="https://pic.leetcode-cn.com/511cb1a57e8506bb63f080d897e542d759cedd209e15bae81975dc1433ea01c3-banner_mobile@_12x.png"/>
+  </div>
+  </a>
+  `;
+  var homeInsert = document.querySelector(".content-wrapper");
+  homeInsert.insertBefore(homeOnlyHtml, document.getElementById("base_content"));
+  }
+  </script>
+
+
+
+
+
+<style>
+  .content-wrapper #base_content {
+    margin-top: 0;
+  }
+
+  /* Old question description fix */
+  .question-content blockquote {
+    font-size: 14px;
+  }
+  /* Playground fix */
+  .container-fluid.playground-base .editor-base,
+  .container-fluid.playground-base .console-base {
+    margin-top: -44px;
+  }
+
+  .modal-backdrop.fade.in {
+    display: none;
+  }
+
+  .container-fluid.playground-base .full-screen-btn {
+    display: none;
+  }
+
+
+  /*Hide contest discuss*/
+  .btn-default[href*="/contest/"][href*="/discuss/"] {
+    display: none;
+  }
+
+  .global-ranking-base [class*="simple-avatar"] [href*="/leetcode-cn.com/"]::after {
+    content: "🇨🇳";
+    display: block;
+    position: absolute;
+    color: red;
+    top: 9px;
+    right: 18px;
+    font-size: 30px;
+  }
+  [data-original-title*="China"] {
+    opacity: 0;
+    display: none;
+  }
+  td a.ranking-username {
+    display: inline;
+  }
+  .ranking-username[href*="/leetcode-cn.com/"] {
+    position: relative;
+  }
+  .ranking-username[href*="/leetcode-cn.com/"]::after {
+    content: "🇨🇳";
+    display: block;
+    position: absolute;
+    color: red;
+    top: -5px;
+    right: -28px;
+    font-size: 20px;
+  }
+
+  .content-wrapper label.lang-switcher {
+    font-weight: bold;
+    color: black;
+  }
+  #noj-navbar {
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  div[class*="PositionContainer"] {
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+  }
+
+  #noj-navbar [class*="NavWrapper"] {
+    border-bottom: none;
+  }
+  .playground-base .toolbar-base,
+  .playground-base .result .console-header {
+    box-shadow: none;
+  }
+  .playground-base .toolbar-base {
+    border-bottom: solid 1px #eee;
+  }
+
+  .playground-base .row .console-base {
+    border-left: solid 1px #eee;
+  }
+  .playground-base .row .toolbar-bot-base,
+  .playground-base .console-input-base textarea {
+    border-top: solid 1px #eee;
+  }
+  .playground-base .result .output-base pre#output {
+    padding: 0;
+  }
+  @media (max-width: 767px) {
+    .playground-base .playground-title-base {
+      display: none;
+    }
+  }
+  </style>
+  <!-- HOTFIX -->
+
+
+  <!--@START: Nav Highlight Tag -->
+<style>
+  [class*="NavbarListItem"] {
+    position: relative;
+  }
+  [class*="NavbarListItem"] > a {
+    position: relative;
+  }
+  [class*="NavbarListItem"] > a[href="/contest/"]::after{
+    display: none;
+    font-size: 12px;
+    background: #48d59c;
+    position: absolute;
+    top: -10px;
+    left: 2px;
+    font-weight: 500;
+    transform: scale(0.6);
+    content: "力扣杯";
+    color: white;
+    height: 20px;
+    width: 46px;
+    text-align: center;
+    border-radius: 100px;
+    }
+</style>
+<!--@END: Nav Highlight Tag -->
+
+
+
+  <style>
+  #question-detail-app a[href="/problems/two-sum/solution/"] {
+    position: relative;
+  }
+  #question-detail-app a[href="/problems/two-sum/solution/"]::after {
+    content: "new";
+    display: block;
+    color: red;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  </style>
+
+
+
+
+<script>
+  var isContest = window.location.pathname == "/contest/";
+
+  // dynamic script
+  function findContestBanner(selector) {
+    if (document.querySelector(selector) == null) {
+      setTimeout(function() {
+        findContestBanner(selector);
+      }, 100);
+    } else {
+      // Do something
+      /*
+      document.querySelector(selector).onclick = function() {
+        window.open('https://datayi.cn/w/1R37830R','_blank');
+      }; */
+
+      // 合作竞赛 - 竞赛卡片替换链接
+      /* const aElem = document.querySelector('.contest-cards-base .contest-card.new-contest > a')
+      if (aElem) {
+        aElem.href = 'https://leetcode-cn.com/contest/weekly-contest-188/?utm_campaign=weekly_contest_2020_tusimple_188&utm_medium=contest_card&utm_source=contest&gio_link_id=z98jEWyP'
+      } */
+    }
+  }
+
+  findContestBanner("#contest-app .contest-home-base .wrapper__KAWb");
+</script>
+
+
+  <script type="text/javascript">
+  /*
+  $("footer.site-footer .copyright a span").html("© 2018 力扣信息科技（上海）有限公司");
+  $("#Join_LeetCode").html("<a href='/jobs/lingkou/'>关于我们</a>&nbsp;|&nbsp;");
+  if(location.href.includes('/jobs/lingkou/')){
+  function findReplace(selector) {
+      if (document.querySelector(selector) == null) {
+        setTimeout(function() {
+          findReplace(selector);
+        }, 100);
+      } else {
+        document.querySelector(selector).style.display = "none";
+      }
+    }
+    findReplace('.css-1cfs9kq-CompanyInfoWrapper');
+
+
+  function findReplace2(selector) {
+      if (document.querySelector(selector) == null) {
+        setTimeout(function() {
+          findReplace2(selector);
+        }, 100);
+      } else {
+        document.querySelector(selector).innerHTML = "力扣信息科技（上海）有限公司 有一支年轻有为的团队，丰富的职业技术经验和创新型的公司管理模式，聚集了来自全球百强科技公司以及世界著名高校的顶尖人才。我们相信，只有这样一群专业于互联网行业之中的人，才能给我们的用户带来最佳的科技产品。<br><br>力扣（LeetCode）倡导共同创业的工作方式，提供灵活舒适的办公条件，平等自由的工作氛围，在这里你需要做的就是你自己，无须抑制你的智慧和创造能力！";
+      }
+    }
+    findReplace2('.css-1nhvfvj-Summary');
+  }
+  */
+  </script>
+
+
+
+
+
+  <style>
+  /*
+  ul.user-dropdown .nav-user-app .user-info::after {
+    content: "new";
+    color: red;
+    display: block;
+    position: absolute;
+    top: 2px;
+    left: 17px;
+    font-size: 10px;
+  }
+  */
+  </style>
+
+  <!-- discuss.lingkou.com -->
+  <script>
+  if (/discuss.lingkou.com/.test(location.href)) {
+    __runForLingkouDotCom()
+  }
+
+  function __runForLingkouDotCom() {
+    // dynamic style tag
+    var style = document.createElement('style')
+    var content = 'li#discussNav { display: none; }'
+    style.type = 'text/css'
+    style.appendChild(document.createTextNode(content))
+    document.head.appendChild(style)
+
+    // dynamic script
+    function findSocial(selector) {
+      if (document.querySelector(selector) == null) {
+        setTimeout(function() {
+          findSocial(selector);
+        }, 100);
+      } else {
+        document.querySelector(selector).style.display = "none";
+      }
+    }
+    findSocial('.side-block.discuss');
+
+    document.querySelector('.chinese-license .gongan-beian').innerHTML = '<a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011502007802" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;"><img class="beian" src="https://static.leetcode-cn.com/cn-legacy-assets/images/beian.png" style="float:left;"><p style="float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px;">沪公网安备31011502007802号</p></a>';
+
+    document.querySelector('.ICP.license a').innerHTML = '<span>沪ICP备18019787号</span>';
+  }
+  </script>
+
+
+
+
+
+
+
+  <style>
+  #interviewed-div {
+      display: none;
+  }
+  </style>
+  <script>
+    function removeStatsObj() {
+      if (document.querySelector("#interviewed-div") == null) {
+        setTimeout(function() {
+          removeStatsObj();
+        }, 100);
+      } else {
+        $( "#interviewed-div" ).remove();
+      }
+    }
+
+  if(document.getElementById("question-detail-app") !== null) {
+    removeStatsObj();
+  }
+  </script>
+
+  <link rel="stylesheet" type="text/css" href="https://assets.leetcode-cn.com/lccn-resources/lccn.css" media="screen">
+
+
+  <!-- k12 洞 -->
+  <script>
+    function removeWaOutput() {
+      var styleTag = document.createElement('style')
+      document.head.appendChild(styleTag)
+      styleTag.sheet.insertRule('#wa_output { display: none; }')
+      styleTag.sheet.insertRule('#more-details { display: none; }')
+    }
+
+    if (window.location.href.search('k12-') >= 0) {
+      removeWaOutput()
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+  function insertSideBar(selector) {
+    if (document.querySelector(selector) == null) {
+      setTimeout(function() {
+        insertSideBar(selector);
+      }, 100);
+    } else {
+
+      console.log("Found!");
+      var newSideElem = document.createElement('div');
+      newSideElem.innerHTML = `
+  <style>
+  #legal-copyright-info {
+    margin-top: 10px;
+    font-size: 12px;
+    color: grey;
+  }
+
+  #legal-copyright-info a {
+    color: grey;
+  }
+  </style>
+  <div style="text-align: left; margin-top: 50px; margin-left: 20px;" class="hide">
+  <a href="/about" target="_blank"><img src="https://assets.leetcode-cn.com/lccn-resources/leetcode-200x133.jpg" width="90"/></a>
+  <div id="legal-copyright-info">
+  © 2019 力扣&nbsp;&nbsp;|&nbsp;&nbsp;<a href="https://tsm.miit.gov.cn/dxxzsp/" target="_blank">沪B2-20180578</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://www.shjbzx.cn/" target="_blank">上海市互联网违法和不良信息举报中心</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://report.12377.cn:13225/toreportinputNormal_anis.do" target="_blank">中国互联网违法和不良信息举报中心</a>
+  </div>
+  </div>
+  `;
+      document.querySelector(selector).appendChild(newSideElem);
+    }
+  }
+
+  insertSideBar(".side-bar .problem-category");
+  </script>
+
+
+  <script>
+  (function(){
+  var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?2dffe68ece6721ae7c687d98926f7c17":"https://jspassport.ssl.qhimg.com/11.0.1.js?2dffe68ece6721ae7c687d98926f7c17";
+  document.write('<script src="' + src + '" id="sozz"><\/script>');
+  })();
+  </script>
+
+
+
+
+<!--
+<script>
+if(window.location.href.includes("2021-spring/problems/Db3wC1")) {
+
+  var lccup21SpringQ4 = document.createElement("div");
+lccup21SpringQ4.innerHTML = `
+<style>
+.question-content.default-content::after {
+  content: "注意：本题 Java 用户如遇到编译错误问题，可以点击编辑器右上方「还原到默认的代码模版」（倒数第二个按钮）";
+  font-weight: 500;
+  font-size: 15px;
+  color: red;
+ background: rgba(255, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 16px;
+  display: block;
+  margin-bottom: 20px;
+  border: 1px solid red;
+}
+</style>
+  `;
+  var htmlHead = document.querySelector("head");
+  htmlHead.appendChild(lccup21SpringQ4);
+}
+</script>
+-->
+
+
+
+<style>
+[class*="StyledIconPlayground"] ~ [class*="NewTag"] {
+  transform: scale(0.6) translateY(-3px);
+  background: #1484ff;
+}
+</style>
+
+  <!--@START: New Feature Tag -->
+<style>
+#new-ft img {
+  width: 48px;
+}
+#new-ft {
+  transition: all 0.2s;
+  cursor: pointer;
+  position: absolute;
+  z-index: 800;
+  top: -10px;
+  right: 400px;
+}
+#new-ft:hover {
+  top: -5px;
+}
+@media (max-width: 767px) {
+  #new-ft {
+    right: 60px;
+  }
+}
+[class*="NavWrapper"] [class*="NavContainer"]{
+  position: relative;
+}
+</style>
+<!--@END: New Feature Tag -->
+
+<!--@start lc-vscode 竞赛合作 -->
+<script>
+
+if (/contest\/$/.test(location.href)) {
+    var cnt = 0
+    function changeLcvscodeNode() {
+      if (cnt > 3) {
+        return
+      }
+      cnt++
+      var element
+      for (const node of document.querySelectorAll('.title')) {
+        if (node.innerText === '「微爱思扣 以 Code 会友」专场竞赛') {
+          element = node
+        }
+      }
+      if(element) {
+        element.style.maxWidth = '130px'
+      } else {
+        setTimeout(()=>{
+          changeLcvscodeNode()
+        }, 100)
+      }
+    }
+    changeLcvscodeNode()
+  }
+
+  if (/contest\/lc-vscode\/ranking/.test(location.href)) {
+    if (new Date() < new Date('2021/06/19 16:40 +0800')) {
+      __renderLcVscodeAd()
+    }
+  }
+
+  function __renderLcVscodeAd() {
+    var container = document.createElement('div')
+    container.innerHTML = `
+      <a href="https://datayi.cn/w/WoM3eLBR" target="_blank">
+      <img src='https://assets.leetcode-cn.com/contest/lc-vscode/lc-vscode.png' width="100%" />
+      </a>
+`
+    function render() {
+      var parent = document.querySelector('.contest-base .container')
+      if (!parent) {
+        setTimeout(()=>{
+          render()
+        }, 100)
+      } else{
+        parent.appendChild(container)
+      }
+    }
+    render()
+  }
+</script>
+<!--@end lc-vscode 竞赛合作 -->
+
+
+
+      <script type="text/javascript" charset="utf-8" src="//g.alicdn.com/sd/ncpc/nc.js?t=202505192212"></script>
+      <script type="text/javascript" charset="utf-8" src="//g.alicdn.com/sd/nch5/index.js?t=202505192212"></script>
+
+  </body>
+</html>
