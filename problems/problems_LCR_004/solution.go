@@ -6,8 +6,13 @@ import (
 	"strings"
 )
 
-func singleNumber(nums []int) int {
-
+func singleNumber(nums []int) (one int) {
+	two := 0
+	for _, num := range nums {
+		one = one ^ num & ^two
+		two = two ^ num & ^one
+	}
+	return
 }
 
 func Solve(inputJsonValues string) interface{} {
