@@ -79,23 +79,31 @@ func Solve(inputJsonValues string) interface{} {
 		log.Println(err)
 		return nil
 	}
-	var foods []string
-	for _, vi := range opValues[0][0].([]interface{}) {
-		foods = append(foods, vi.(string))
-	}
-	var cuisines []string
-	for _, vi := range opValues[0][1].([]interface{}) {
-		cuisines = append(cuisines, vi.(string))
-	}
-	var arr []int
-	if v, ok := opValues[0][2].([]int); ok {
-		arr = v
+	var foodsArr []string
+	if v, ok := opValues[0][0].([]string); ok {
+		foodsArr = v
 	} else {
-		for _, vi := range opValues[0][2].([]interface{}) {
-			arr = append(arr, int(vi.(float64)))
+		for _, vi := range opValues[0][0].([]interface{}) {
+			foodsArr = append(foodsArr, vi.(string))
 		}
 	}
-	obj := Constructor(foods, cuisines, arr)
+	var cuisinesArr []string
+	if v, ok := opValues[0][1].([]string); ok {
+		cuisinesArr = v
+	} else {
+		for _, vi := range opValues[0][1].([]interface{}) {
+			cuisinesArr = append(cuisinesArr, vi.(string))
+		}
+	}
+	var ratingsArr []int
+	if v, ok := opValues[0][2].([]int); ok {
+		ratingsArr = v
+	} else {
+		for _, vi := range opValues[0][2].([]interface{}) {
+			ratingsArr = append(ratingsArr, int(vi.(float64)))
+		}
+	}
+	obj := Constructor(foodsArr, cuisinesArr, ratingsArr)
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
 		var res interface{}

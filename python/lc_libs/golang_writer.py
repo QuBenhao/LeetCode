@@ -167,8 +167,8 @@ class GolangWriter(LanguageWriter):
                         import_set.update(constructor[1][0])
                 build_body = (
                         "\tvar operators []string\n"
-                        + "\tvar opValues [][]interface{}\n"
-                        + "\tvar ans []interface{}\n"
+                        + "\tvar opValues [][]any\n"
+                        + "\tvar ans []any\n"
                         + "\tif err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {\n"
                         + "\t\tlog.Println(err)\n"
                         + "\t\treturn nil\n"
@@ -186,7 +186,7 @@ class GolangWriter(LanguageWriter):
                 )
                         + "\tans = append(ans, nil)\n"
                         + "\tfor i := 1; i < len(operators); i++ {\n"
-                        + "\t\tvar res interface{}\n"
+                        + "\t\tvar res any\n"
                         + "{}".format("\t\tswitch operators[i] {\n" + func_loop + "\t\tdefault:\n"
                                                                                   "\t\t\tres = nil\n"
                                                                                   "\t\t}\n"
@@ -369,8 +369,8 @@ class GolangWriter(LanguageWriter):
                     import_part = True
                     continue
                 if (
-                        "func Solve(input string) interface{} {" in line
-                        or "func Solve(inputJsonValues string) interface{} {" in line
+                        "func Solve(input string) any {" in line
+                        or "func Solve(inputJsonValues string) any {" in line
                 ):
                     break
                 final_codes.append(line)
@@ -443,27 +443,37 @@ class GolangWriter(LanguageWriter):
                 logging.debug("Struct function: %s", tp)
                 imports_libs.add('\t"encoding/json"')
                 imports_libs.add('\t"log"')
-                for _ in vrs:
+                for v in vrs:
                     match tp:
                         case "int":
                             variables.append(f"int(inputValues[{counts}].(float64))")
                         case "[]string":
-                            extra = (f"var arr []string\n\t\t\tif v, ok := inputValues[{count}].([]string); ok {{\n"
-                                     f"\t\t\t\tarr = v\n\t\t\t}} else {{\n"
-                                     f"\t\t\t\tfor _, vi := range inputValues[{count}].([]interface{{}}) {{\n"
-                                     f"\t\t\t\t\tarr = append(arr, vi.(string))\n"
+                            extra += (f"var {v}Arr []string\n\t\t\tif v, ok := inputValues[{counts}].([]string); ok {{\n"
+                                     f"\t\t\t\t{v}Arr = v\n\t\t\t}} else {{\n"
+                                     f"\t\t\t\tfor _, vi := range inputValues[{counts}].([]any) {{\n"
+                                     f"\t\t\t\t\t{v}Arr = append({v}Arr, vi.(string))\n"
                                      f"\t\t\t\t}}\n\t\t\t}}\n\t\t\t")
-                            variables.append("arr")
+                            variables.append(f"{v}Arr")
                         case "[]int":
-                            extra = (f"var arr []int\n\t\t\tif v, ok := inputValues[{count}].([]int); ok {{\n"
-                                        f"\t\t\t\tarr = v\n\t\t\t}} else {{\n"
-                                        f"\t\t\t\tfor _, vi := range inputValues[{count}].([]interface{{}}) {{\n"
-                                        f"\t\t\t\t\tarr = append(arr, int(vi.(float64)))\n"
+                            extra += (f"var {v}Arr []int\n\t\t\tif v, ok := inputValues[{counts}].([]int); ok {{\n"
+                                        f"\t\t\t\t{v}Arr = v\n\t\t\t}} else {{\n"
+                                        f"\t\t\t\tfor _, vi := range inputValues[{counts}].([]any) {{\n"
+                                        f"\t\t\t\t\t{v}Arr = append({v}Arr, int(vi.(float64)))\n"
                                         f"\t\t\t\t}}\n\t\t\t}}\n\t\t\t")
-                            variables.append("arr")
+                            variables.append(f"{v}Arr")
+                        case "[][]int":
+                            extra += (f"var {v}Arr [][]int\n\t\t\tif v, ok := inputValues[{counts}].([][]int); ok {{\n"
+                                        f"\t\t\t\t{v}Arr = v\n\t\t\t}} else {{\n"
+                                        f"\t\t\t\t{v}Arr = make([][]int, len(inputValues[{counts}].([]any)))\n"
+                                        f"\t\t\t\tfor i := range {v}Arr {{\n"
+                                        f"\t\t\t\t\t{v}Arr[i] = make([]int, len(inputValues[{counts}].([]any)[i].([]any)))\n"
+                                        f"\t\t\t\t\tfor j := range {v}Arr[i] {{\n"
+                                        f"\t\t\t\t\t\t\t\t{v}Arr[i][j] = int(inputValues[{counts}].([]any)[i].([]any)[j].(float64))\n"
+                                        f"\t\t\t\t\t}}\n\t\t\t\t}}\n\t\t\t}}\n\t\t\t")
+                            variables.append(f"{v}Arr")
                         case "*TreeNode" | "TreeNode":
                             imports_libs.add('\t. "leetCode/golang/models"')
-                            variables.append(f"InterfaceArrayToTree(inputValues[{counts}].([]interface{{}}))")
+                            variables.append(f"InterfaceArrayToTree(inputValues[{counts}].([]any))")
                         case _:
                             variables.append(f"inputValues[{counts}].({tp})")
                     counts += 1
@@ -661,7 +671,7 @@ class GolangWriter(LanguageWriter):
                         ):
                             for j, var in enumerate(vrs):
                                 json_parse.append(
-                                    "\tvar arr" + f"{count + j}" + " [][]interface{}\n"
+                                    "\tvar arr" + f"{count + j}" + " [][]any\n"
                                 )
                                 json_parse.append(
                                     f"\tif err := json.Unmarshal([]byte(inputValues[{count + j}]), &"
@@ -770,7 +780,7 @@ class GolangWriter(LanguageWriter):
                                         line_start += 1
                                 end_extra.append(line[line_start:])
                             logging.debug("End extra: %s", end_extra)
-                            end_extra.append(f"func constructor(input interface{{}}) *{pure_type} {{")
+                            end_extra.append(f"func constructor(input any) *{pure_type} {{")
                             end_extra.append("\treturn nil")
                             end_extra.append("}")
                             logging.debug("Vars: %s", vrs)
@@ -779,7 +789,7 @@ class GolangWriter(LanguageWriter):
                                     json_parse.append(f"\t{var} = constructor(inputValues[{count + j}])\n")
                             elif "[]" in tp:
                                 for j, var in enumerate(vrs):
-                                    json_parse.append(f"\tvar {var}_input_array []interface{{}}\n")
+                                    json_parse.append(f"\tvar {var}_input_array []any\n")
                                     json_parse.append(
                                         f"\tif err := json.Unmarshal([]byte(inputValues[{count + j}]), &"
                                         + var
