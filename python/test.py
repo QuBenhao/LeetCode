@@ -11,7 +11,7 @@ from utils import get_default_folder, timeout
 logging.basicConfig(level=logging.INFO, format=constants.LOGGING_FORMAT, datefmt=constants.DATE_FORMAT)
 
 # Question ID that wants to test, modify here as passing arguments
-QUESTION = "3355"
+QUESTION = "3356"
 # QUESTION = "Interview/10_02"
 # QUESTION = "LCP/07"
 # QUESTION = "剑指Offer/52"
