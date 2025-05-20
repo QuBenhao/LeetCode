@@ -1,5 +1,59 @@
 # CHANGELOG
 
+## v9.5.0 (2025-05-20)
+
+### Feature
+
+* feat: golang doubleLinkedListNode
+
+implementation ([`88fbd58`](https://github.com/QuBenhao/LeetCode/commit/88fbd5895e5cba0a0a8915de7c979855b79cdea9))
+
+* feat: implement double-linked-list-with-child python
+
+support LCR 028 &amp;&amp; 430 ([`7a3e138`](https://github.com/QuBenhao/LeetCode/commit/7a3e1386d474d716c1b4bf89825c87514e57e89c))
+
+### Fix
+
+* fix: golang any
+
+replace interface{} with any ([`009a82c`](https://github.com/QuBenhao/LeetCode/commit/009a82c770ddcb45bd75a14f7005f7f8f364779f))
+
+* fix: golang any
+
+use any instead of interface{} ([`9b877bf`](https://github.com/QuBenhao/LeetCode/commit/9b877bf5cd23b4d61c9e9a850aa1b07d25dfefc8))
+
+* fix: golang new submission
+
+Handle both any &amp; interface{} in Solve ([`57b80de`](https://github.com/QuBenhao/LeetCode/commit/57b80de1ddba722f0a23eb494318e9a624769d3d))
+
+### Test
+
+* test: 3355, LCR 028 solution
+
+go ([`fd94385`](https://github.com/QuBenhao/LeetCode/commit/fd9438575c92f0603c2c4c1208c25fccb93b2d1f))
+
+* test: 335, LCR 028 solution
+
+py ([`dfffbf0`](https://github.com/QuBenhao/LeetCode/commit/dfffbf06a52a07a5a7df6b8f4014a78a712decaa))
+
+* test: [20250520] Add (3355 LCR_028) ([`65f3a8a`](https://github.com/QuBenhao/LeetCode/commit/65f3a8a30fe47a1764bc273f3a03def26b73edfe))
+
+* test: 2412 solution
+
+go ([`cec2da2`](https://github.com/QuBenhao/LeetCode/commit/cec2da2af3c9665d394d06c8aa672db5dcf1ef51))
+
+* test: 2412 solution
+
+py ([`8d57b0f`](https://github.com/QuBenhao/LeetCode/commit/8d57b0f0ecc1af121172dc9ec192d65e184a7298))
+
+* test: 2360 solution
+
+go ([`b38bc02`](https://github.com/QuBenhao/LeetCode/commit/b38bc02298c7d94f7847b53075aa01de7333bf14))
+
+* test: LCR 004 solution
+
+go ([`b3f5511`](https://github.com/QuBenhao/LeetCode/commit/b3f55111495aadcd2d689e06dbea1a9d1ff74e30))
+
 ## v9.4.0 (2025-05-19)
 
 ### Feature
