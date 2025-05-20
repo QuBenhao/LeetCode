@@ -371,6 +371,8 @@ class GolangWriter(LanguageWriter):
                 if (
                         "func Solve(input string) any {" in line
                         or "func Solve(inputJsonValues string) any {" in line
+                        or "func Solve(input string) interface{} {" in line
+                        or "func Solve(inputJsonValues string) interface{} {" in line
                 ):
                     break
                 final_codes.append(line)

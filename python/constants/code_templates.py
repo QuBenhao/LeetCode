@@ -33,7 +33,7 @@ import (
 
 {}
 
-func Solve(inputJsonValues string) interface{{}} {{
+func Solve(inputJsonValues string) any {{
 \tinputValues := strings.Split(inputJsonValues, "\\n")
 {}
 {}
@@ -49,7 +49,7 @@ import (
 
 {}
 
-func Solve(inputJsonValues string) interface{{}} {{
+func Solve(inputJsonValues string) any {{
 \tinputValues := strings.Split(inputJsonValues, "\\n")
 {}
 {}

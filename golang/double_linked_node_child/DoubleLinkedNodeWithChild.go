@@ -12,7 +12,7 @@ func IntArrayToDoubleLinkedNode(arr []any) *Node {
 	if len(arr) == 0 {
 		return nil
 	}
-	head := &Node{arr[0].(int), nil, nil, nil}
+	head := &Node{int(arr[0].(float64)), nil, nil, nil}
 	curr := head
 	currHead := head
 	for idx, n := 1, len(arr); idx < n; idx++ {
@@ -29,18 +29,19 @@ func IntArrayToDoubleLinkedNode(arr []any) *Node {
 			idx++
 		}
 		if isChild {
-			curr.Child = &Node{arr[idx].(int), nil, nil, nil}
+			curr.Child = &Node{int(arr[idx].(float64)), nil, nil, nil}
 			curr = curr.Child
 			currHead = curr
 		} else {
-			curr.Next = &Node{arr[idx].(int), curr, nil, nil}
+			curr.Next = &Node{int(arr[idx].(float64)), curr, nil, nil}
 			curr = curr.Next
 		}
 	}
 	return head
 }
 
-func DoubleLinkedNodeToIntArray(head *Node) (ans []any) {
+func DoubleLinkedNodeToIntArray(head *Node) []any {
+	ans := []any{}
 	currHead, curr := head, head
 	var nxt *Node
 	for curr != nil || nxt != nil {
@@ -61,5 +62,5 @@ func DoubleLinkedNodeToIntArray(head *Node) (ans []any) {
 		ans = append(ans, curr.Val)
 		curr = curr.Next
 	}
-	return
+	return ans
 }
