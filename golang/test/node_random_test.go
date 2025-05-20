@@ -3,14 +3,15 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"leetCode/golang/node_random"
 	"log"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRandomNode(t *testing.T) {
-	var input [][]interface{}
+	var input [][]any
 	if err := json.Unmarshal([]byte("[[7,null],[13,0],[11,4],[10,2],[1,0]]"), &input); err != nil {
 		log.Fatal(err)
 	}

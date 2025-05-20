@@ -8,7 +8,7 @@ type Node struct {
 	Random *Node
 }
 
-func IntRandomArrayToNodeArray(nums [][]interface{}) *Node {
+func IntRandomArrayToNodeArray(nums [][]any) *Node {
 	var record []*Node
 	dummy := &Node{}
 	node := dummy
@@ -25,7 +25,7 @@ func IntRandomArrayToNodeArray(nums [][]interface{}) *Node {
 	return dummy.Next
 }
 
-func NodeArrayToIntRandomArray(head *Node) (ans []interface{}) {
+func NodeArrayToIntRandomArray(head *Node) (ans []any) {
 	idxMap := map[*Node]int{}
 	node := head
 	for i := 0; node != nil; i++ {
@@ -36,12 +36,12 @@ func NodeArrayToIntRandomArray(head *Node) (ans []interface{}) {
 	for node != nil {
 		if node.Random != nil {
 			if v, ok := idxMap[node.Random]; ok {
-				ans = append(ans, []interface{}{node.Val, v})
+				ans = append(ans, []any{node.Val, v})
 			} else {
 				log.Fatal("Invalid node with random, check input!")
 			}
 		} else {
-			ans = append(ans, []interface{}{node.Val, nil})
+			ans = append(ans, []any{node.Val, nil})
 		}
 		node = node.Next
 	}

@@ -11,7 +11,7 @@ type TreeNode struct {
 	Right *TreeNode
 }
 
-func InterfaceArrayToTree(input []interface{}) *TreeNode {
+func InterfaceArrayToTree(input []any) *TreeNode {
 	if len(input) == 0 {
 		return nil
 	}
@@ -50,17 +50,17 @@ func InterfaceArrayToTree(input []interface{}) *TreeNode {
 }
 
 func ArrayToTree(input string) *TreeNode {
-	var value interface{}
+	var value any
 	if err := json.Unmarshal([]byte(input), &value); err != nil {
 		log.Fatalf("Unable to process tree input: %s", input)
 		return nil
 	}
-	arr := value.([]interface{})
+	arr := value.([]any)
 	return InterfaceArrayToTree(arr)
 }
 
 func ArrayToTreeArray(input string) []*TreeNode {
-	var value []interface{}
+	var value []any
 	if err := json.Unmarshal([]byte(input), &value); err != nil {
 		log.Fatalf("Unable to process tree input: %s", input)
 		return nil
@@ -70,7 +70,7 @@ func ArrayToTreeArray(input string) []*TreeNode {
 	}
 	var roots []*TreeNode
 	for _, v := range value {
-		arr := v.([]interface{})
+		arr := v.([]any)
 		if len(arr) == 0 {
 			roots = append(roots, nil)
 			continue
@@ -117,12 +117,12 @@ func ArrayToTreeAndTargets(input string, targets ...int) []*TreeNode {
 	for i := 0; i <= targetNums; i++ {
 		ans[i] = nil
 	}
-	var value interface{}
+	var value any
 	if err := json.Unmarshal([]byte(input), &value); err != nil {
 		log.Fatalf("Unable to process tree input: %s", input)
 		return ans
 	}
-	arr := value.([]interface{})
+	arr := value.([]any)
 	if len(arr) == 0 {
 		return ans
 	}
@@ -171,8 +171,8 @@ func ArrayToTreeAndTargets(input string, targets ...int) []*TreeNode {
 	return ans
 }
 
-func TreeToArray(root *TreeNode) []interface{} {
-	var ans []interface{}
+func TreeToArray(root *TreeNode) []any {
+	var ans []any
 	queue := []*TreeNode{root}
 	for len(queue) > 0 {
 		node := queue[0]

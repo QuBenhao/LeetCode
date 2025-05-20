@@ -3,11 +3,13 @@ package test
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/stretchr/testify/assert"
 	"log"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	. "leetCode/golang/tree_next"
 )
-import . "leetCode/golang/tree_next"
 
 func TestTreeNodeNext(t *testing.T) {
 	inputStr := "[1,2,3,4,5,null,7]"
@@ -19,7 +21,7 @@ func TestTreeNodeNext(t *testing.T) {
 	node.Left.Next = node.Right
 	node.Left.Left.Next = node.Left.Right
 	node.Left.Right.Next = node.Right.Right
-	var input []interface{}
+	var input []any
 	if err := json.Unmarshal([]byte("[1, null, 2, 3, null, 4, 5, 7, null]"), &input); err != nil {
 		log.Fatal(err)
 	}

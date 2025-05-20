@@ -13,12 +13,12 @@ type Node struct {
 }
 
 func ArrayToTreeNext(input string) *Node {
-	var value interface{}
+	var value any
 	if err := json.Unmarshal([]byte(input), &value); err != nil {
 		log.Fatalf("Unable to process tree input: %s", input)
 		return nil
 	}
-	arr := value.([]interface{})
+	arr := value.([]any)
 	if len(arr) == 0 {
 		return nil
 	}
@@ -52,8 +52,8 @@ func ArrayToTreeNext(input string) *Node {
 	return root
 }
 
-func TreeNextToArray(root *Node) []interface{} {
-	var ans []interface{}
+func TreeNextToArray(root *Node) []any {
+	var ans []any
 	if root == nil {
 		return ans
 	}

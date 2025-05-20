@@ -32,7 +32,7 @@ func TestTreeTarget(t *testing.T) {
 	assert.Equal(t, 5, node.Right.Right.Val)
 }
 
-func arrToStr(arr []interface{}) string {
+func arrToStr(arr []any) string {
 	res := "["
 	for i, n := 0, len(arr); i < n; i++ {
 		if arr[i] == nil {
