@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+// https://go.googlesource.com/proposal/+/master/design/35112-scaling-the-page-allocator.md
+
 type Allocator struct {
 }
 

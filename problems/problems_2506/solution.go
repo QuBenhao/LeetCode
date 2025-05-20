@@ -6,8 +6,17 @@ import (
 	"strings"
 )
 
-func similarPairs(words []string) int {
-
+func similarPairs(words []string) (ans int) {
+	counter := map[int]int{}
+	for _, word := range words {
+		cur := 0
+		for _, r := range word {
+			cur |= 1 << (r - 'a')
+		}
+		ans += counter[cur]
+		counter[cur]++
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
