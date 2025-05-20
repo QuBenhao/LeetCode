@@ -16,7 +16,7 @@ func mergeAlternately(word1 string, word2 string) string {
 	return string(ans) + word1[m:] + word2[m:]
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var word1 string
 	var word2 string

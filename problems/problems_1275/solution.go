@@ -51,7 +51,7 @@ func tictactoe(moves [][]int) string {
 	return "Pending"
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var moves [][]int
 

@@ -7,10 +7,10 @@ import (
 )
 
 func maximumTripletValue(nums []int) int64 {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

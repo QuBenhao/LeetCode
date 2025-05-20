@@ -17,7 +17,7 @@ func maximumWealth(accounts [][]int) (ans int) {
 	return
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var accounts [][]int
 

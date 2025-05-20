@@ -26,7 +26,7 @@ func minEatingSpeed(piles []int, h int) int {
 	return left
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var piles []int
 	var h int

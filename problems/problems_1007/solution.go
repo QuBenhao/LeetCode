@@ -47,7 +47,7 @@ func minDominoRotations(tops []int, bottoms []int) int {
 	return min(convert(ans1), convert(ans2), convert(ans3), convert(ans4))
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var tops []int
 	var bottoms []int

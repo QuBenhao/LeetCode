@@ -30,11 +30,11 @@ func copyRandomList(head *Node) *Node {
 	return headNew
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var head *Node
 
-	var arr0 [][]interface{}
+	var arr0 [][]any
 	if err := json.Unmarshal([]byte(values[0]), &arr0); err != nil {
 		log.Fatal(err)
 	}

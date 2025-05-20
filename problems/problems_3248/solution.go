@@ -7,10 +7,10 @@ import (
 )
 
 func finalPositionOfSnake(n int, commands []string) int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 	var commands []string

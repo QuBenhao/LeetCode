@@ -28,8 +28,7 @@ func findMaxLength(nums []int) int {
 	return maxLength
 }
 
-
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

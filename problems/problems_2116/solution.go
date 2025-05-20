@@ -34,7 +34,7 @@ func canBeValid(s string, locked string) bool {
 	return mn == 0
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s string
 	var locked string

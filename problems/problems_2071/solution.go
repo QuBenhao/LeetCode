@@ -47,7 +47,7 @@ func maxTaskAssign(tasks []int, workers []int, pills int, strength int) int {
 	return left
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var tasks []int
 	var workers []int

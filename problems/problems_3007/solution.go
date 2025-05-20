@@ -21,7 +21,7 @@ func findMaximumNumber(k int64, x int) int64 {
 	return num - 1
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var k int64
 	var x int

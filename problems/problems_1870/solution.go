@@ -27,7 +27,7 @@ func minSpeedOnTime(dist []int, hour float64) int {
 	return l
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var dist []int
 	var hour float64

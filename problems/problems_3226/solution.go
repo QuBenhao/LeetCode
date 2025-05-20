@@ -14,8 +14,7 @@ func minChanges(n int, k int) int {
 	return bits.OnesCount(uint(n ^ k))
 }
 
-
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 	var k int

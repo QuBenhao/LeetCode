@@ -38,10 +38,10 @@ func mincostToHireWorkers(quality, wage []int, k int) float64 {
 type hp struct{ sort.IntSlice }
 
 func (h hp) Less(i, j int) bool { return h.IntSlice[i] > h.IntSlice[j] } // 最大堆
-func (hp) Push(interface{})     {}                                       // 由于没有用到，可以什么都不写
-func (hp) Pop() (_ interface{}) { return }
+func (hp) Push(any)             {}                                       // 由于没有用到，可以什么都不写
+func (hp) Pop() (_ any)         { return }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var quality []int
 	var wage []int

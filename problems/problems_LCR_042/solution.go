@@ -37,11 +37,11 @@ func (this *RecentCounter) Ping(t int) int {
  * param_1 := obj.Ping(t);
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
-	var opValues [][]interface{}
-	var ans []interface{}
+	var opValues [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
 		log.Println(err)
 		return nil
@@ -53,7 +53,7 @@ func Solve(inputJsonValues string) interface{} {
 	obj := Constructor()
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
-		var res interface{}
+		var res any
 		switch operators[i] {
 		case "ping", "Ping":
 			res = obj.Ping(int(opValues[i][0].(float64)))

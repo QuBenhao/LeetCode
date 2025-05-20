@@ -61,8 +61,7 @@ func helper(a []int, target int) (res int, done bool) {
 	return
 }
 
-
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 

@@ -7,24 +7,19 @@ import (
 )
 
 type NeighborSum struct {
-    
 }
-
 
 func Constructor(grid [][]int) NeighborSum {
-    
-}
 
+}
 
 func (this *NeighborSum) AdjacentSum(value int) int {
-    
-}
 
+}
 
 func (this *NeighborSum) DiagonalSum(value int) int {
-    
-}
 
+}
 
 /**
  * Your NeighborSum object will be instantiated and called as such:
@@ -33,11 +28,11 @@ func (this *NeighborSum) DiagonalSum(value int) int {
  * param_2 := obj.DiagonalSum(value);
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
-	var opValues [][]interface{}
-	var ans []interface{}
+	var opValues [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
 		log.Println(err)
 		return nil
@@ -49,7 +44,7 @@ func Solve(inputJsonValues string) interface{} {
 	obj := Constructor(opValues[0][0].([][]int))
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
-		var res interface{}
+		var res any
 		switch operators[i] {
 		case "adjacentSum", "AdjacentSum":
 			res = obj.AdjacentSum(int(opValues[i][0].(float64)))
@@ -60,7 +55,6 @@ func Solve(inputJsonValues string) interface{} {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }

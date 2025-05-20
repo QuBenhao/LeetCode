@@ -25,7 +25,7 @@ func numTilings(n int) int {
 	return dp[n%2][3] % MOD
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 

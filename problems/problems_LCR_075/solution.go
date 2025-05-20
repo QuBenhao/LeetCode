@@ -30,7 +30,7 @@ func relativeSortArray(arr1 []int, arr2 []int) (ans []int) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var arr1 []int
 	var arr2 []int

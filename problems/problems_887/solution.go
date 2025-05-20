@@ -18,7 +18,7 @@ func superEggDrop(k, n int) int {
 	}
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var k int
 	var n int

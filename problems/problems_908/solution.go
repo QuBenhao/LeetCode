@@ -23,7 +23,7 @@ func smallestRangeI(nums []int, k int) int {
 	return maxVal - minVal - 2*k
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 	var k int

@@ -83,7 +83,7 @@ func canMerge(trees []*TreeNode) *TreeNode {
 	return nil
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var trees []*TreeNode
 

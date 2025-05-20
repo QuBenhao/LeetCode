@@ -7,10 +7,10 @@ import (
 )
 
 func checkTwoChessboards(coordinate1 string, coordinate2 string) bool {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var coordinate1 string
 	var coordinate2 string

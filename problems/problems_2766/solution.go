@@ -8,7 +8,7 @@ import (
 )
 
 func relocateMarbles(nums []int, moveFrom []int, moveTo []int) []int {
-	s := map[int]interface{}{}
+	s := map[int]any{}
 	for _, v := range nums {
 		s[v] = nil
 	}
@@ -25,7 +25,7 @@ func relocateMarbles(nums []int, moveFrom []int, moveTo []int) []int {
 	return res
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 	var moveFrom []int

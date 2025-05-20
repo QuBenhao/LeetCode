@@ -7,10 +7,10 @@ import (
 )
 
 func minimumCost(m int, n int, horizontalCut []int, verticalCut []int) int64 {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var m int
 	var n int

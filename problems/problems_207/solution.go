@@ -35,7 +35,7 @@ func canFinish(numCourses int, prerequisites [][]int) bool {
 	return explored == numCourses
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var numCourses int
 	var prerequisites [][]int

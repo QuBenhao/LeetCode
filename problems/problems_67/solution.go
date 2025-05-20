@@ -47,7 +47,7 @@ func addBinary(a string, b string) string {
 	return string(ans[idx:])
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var a string
 	var b string

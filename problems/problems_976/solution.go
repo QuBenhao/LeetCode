@@ -17,7 +17,7 @@ func largestPerimeter(nums []int) int {
 	return 0
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 

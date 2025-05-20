@@ -27,7 +27,7 @@ func lengthOfLIS(nums []int) int {
 	return len(stack)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

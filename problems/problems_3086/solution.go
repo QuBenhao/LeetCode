@@ -51,8 +51,7 @@ func minimumMoves(nums []int, k, maxChanges int) int64 {
 	return int64(ans + maxChanges*2)
 }
 
-
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 	var k int

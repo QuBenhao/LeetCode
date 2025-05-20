@@ -16,7 +16,7 @@ func minimumOperationsToMakeKPeriodic(word string, k int) int {
 	return n/k - ans
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var word string
 	var k int

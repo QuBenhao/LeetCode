@@ -37,7 +37,7 @@ func maxDivScore(nums []int, divisors []int) (ans int) {
 	return
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 	var divisors []int

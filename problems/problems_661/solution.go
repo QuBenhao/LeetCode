@@ -26,7 +26,7 @@ func imageSmoother(img [][]int) [][]int {
 	return img
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var img [][]int
 

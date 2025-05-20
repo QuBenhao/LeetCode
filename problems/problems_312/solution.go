@@ -29,7 +29,7 @@ func maxCoins(nums []int) int {
 	return dp[0][n+1]
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 

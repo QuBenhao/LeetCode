@@ -33,7 +33,7 @@ func firstMissingPositive(nums []int) int {
 	return n + 1
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 

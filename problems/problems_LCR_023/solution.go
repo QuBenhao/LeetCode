@@ -31,7 +31,7 @@ func getIntersectionNode(headA, headB *ListNode) *ListNode {
 	return nodeA
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var iv, idx1, idx2 int
 	var headA, headB *ListNode

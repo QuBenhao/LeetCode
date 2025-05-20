@@ -20,7 +20,7 @@ func clearDigits(s string) string {
 	return string(st)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s string
 

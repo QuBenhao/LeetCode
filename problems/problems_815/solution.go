@@ -60,7 +60,7 @@ func numBusesToDestination(routes [][]int, source int, target int) int {
 	return ret
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var routes [][]int
 	var source int

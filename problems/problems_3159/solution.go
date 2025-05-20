@@ -7,10 +7,10 @@ import (
 )
 
 func occurrencesOfElement(nums []int, queries []int, x int) []int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 	var queries []int

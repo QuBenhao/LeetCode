@@ -18,7 +18,7 @@ func numRescueBoats(people []int, limit int) (ans int) {
 	return
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var people []int
 	var limit int

@@ -35,7 +35,7 @@ func rightSideView(root *TreeNode) (ans []int) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var root *TreeNode
 

@@ -33,7 +33,7 @@ func knightProbability(n int, k int, row int, column int) float64 {
 	return dp[row][column][k%2]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 	var k int

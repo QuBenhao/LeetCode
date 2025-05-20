@@ -7,10 +7,10 @@ import (
 )
 
 func minValidStrings(words []string, target string) int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var words []string
 	var target string

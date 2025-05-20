@@ -13,7 +13,7 @@ func removeTrailingZeros(num string) string {
 	return num[:idx+1]
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var num string
 

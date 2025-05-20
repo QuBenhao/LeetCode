@@ -14,7 +14,7 @@ func average(salary []int) float64 {
 	return float64(s-mx-mn) / float64(len(salary)-2)
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var salary []int
 

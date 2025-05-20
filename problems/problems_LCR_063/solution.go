@@ -54,7 +54,7 @@ func replaceWords(dictionary []string, sentence string) string {
 	return strings.Join(words, " ")
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var dictionary []string
 	var sentence string

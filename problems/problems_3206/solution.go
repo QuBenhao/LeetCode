@@ -7,10 +7,10 @@ import (
 )
 
 func numberOfAlternatingGroups(colors []int) int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var colors []int
 

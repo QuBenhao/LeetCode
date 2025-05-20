@@ -14,7 +14,7 @@ func distributeCandies(candyType []int) int {
 	return min(len(set), len(candyType)/2)
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var candyType []int
 

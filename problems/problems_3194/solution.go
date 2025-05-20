@@ -17,7 +17,7 @@ func minimumAverage(nums []int) float64 {
 	return float64(ans) / 2
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

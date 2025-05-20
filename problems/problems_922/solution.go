@@ -20,7 +20,7 @@ func sortArrayByParityII(nums []int) []int {
 	return nums
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

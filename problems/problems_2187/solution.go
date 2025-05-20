@@ -32,7 +32,7 @@ func minimumTime(time []int, totalTrips int) int64 {
 	return int64(right) // 最小的 true
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var time []int
 	var totalTrips int

@@ -16,7 +16,7 @@ func detectCapitalUse(word string) bool {
 	return strings.ToLower(word) == word
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var word string
 

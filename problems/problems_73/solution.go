@@ -55,7 +55,7 @@ func setZeroes(matrix [][]int) {
 	}
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var matrix [][]int
 

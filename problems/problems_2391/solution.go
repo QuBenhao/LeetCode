@@ -19,7 +19,7 @@ func garbageCollection(garbage []string, travel []int) int {
 	return ans
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var garbage []string
 	var travel []int

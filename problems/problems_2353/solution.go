@@ -66,11 +66,11 @@ func (h *hp) Pop() any     { a := *h; v := a[len(a)-1]; *h = a[:len(a)-1]; retur
  * param_2 := obj.HighestRated(cuisine);
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
-	var opValues [][]interface{}
-	var ans []interface{}
+	var opValues [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
 		log.Println(err)
 		return nil
@@ -83,7 +83,7 @@ func Solve(inputJsonValues string) interface{} {
 	if v, ok := opValues[0][0].([]string); ok {
 		foodsArr = v
 	} else {
-		for _, vi := range opValues[0][0].([]interface{}) {
+		for _, vi := range opValues[0][0].([]any) {
 			foodsArr = append(foodsArr, vi.(string))
 		}
 	}
@@ -91,7 +91,7 @@ func Solve(inputJsonValues string) interface{} {
 	if v, ok := opValues[0][1].([]string); ok {
 		cuisinesArr = v
 	} else {
-		for _, vi := range opValues[0][1].([]interface{}) {
+		for _, vi := range opValues[0][1].([]any) {
 			cuisinesArr = append(cuisinesArr, vi.(string))
 		}
 	}
@@ -99,14 +99,14 @@ func Solve(inputJsonValues string) interface{} {
 	if v, ok := opValues[0][2].([]int); ok {
 		ratingsArr = v
 	} else {
-		for _, vi := range opValues[0][2].([]interface{}) {
+		for _, vi := range opValues[0][2].([]any) {
 			ratingsArr = append(ratingsArr, int(vi.(float64)))
 		}
 	}
 	obj := Constructor(foodsArr, cuisinesArr, ratingsArr)
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
-		var res interface{}
+		var res any
 		switch operators[i] {
 		case "changeRating", "ChangeRating":
 			res = nil

@@ -10,7 +10,7 @@ func accountBalanceAfterPurchase(purchaseAmount int) int {
 	return 100 - (purchaseAmount+5)/10*10
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var purchaseAmount int
 

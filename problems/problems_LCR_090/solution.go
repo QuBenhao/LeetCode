@@ -21,7 +21,7 @@ func rob(nums []int) (ans int) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

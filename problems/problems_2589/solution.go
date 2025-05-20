@@ -33,7 +33,7 @@ func findMinimumTime(tasks [][]int) int {
 	return st[len(st)-1].s
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var tasks [][]int
 

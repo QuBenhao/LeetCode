@@ -23,7 +23,7 @@ func judgeCircle(moves string) bool {
 	return horizontal == 0 && vertical == 0
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var moves string
 

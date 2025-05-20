@@ -7,10 +7,10 @@ import (
 )
 
 func theMaximumAchievableX(num int, t int) int {
-    return num + t << 1
+	return num + t<<1
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var num int
 	var t int

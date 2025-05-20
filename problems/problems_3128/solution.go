@@ -26,7 +26,7 @@ func numberOfRightTriangles(grid [][]int) (ans int64) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var grid [][]int
 

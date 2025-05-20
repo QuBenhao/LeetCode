@@ -41,8 +41,8 @@ func (mf *MedianFinder) FindMedian() float64 {
 
 type hp struct{ sort.IntSlice }
 
-func (h *hp) Push(v interface{}) { h.IntSlice = append(h.IntSlice, v.(int)) }
-func (h *hp) Pop() interface{} {
+func (h *hp) Push(v any) { h.IntSlice = append(h.IntSlice, v.(int)) }
+func (h *hp) Pop() any {
 	a := h.IntSlice
 	v := a[len(a)-1]
 	h.IntSlice = a[:len(a)-1]
@@ -56,11 +56,11 @@ func (h *hp) Pop() interface{} {
  * param_2 := obj.FindMedian();
  */
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var opts []string
-	var vals [][]interface{}
-	var ans []interface{}
+	var vals [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(values[0]), &opts); err != nil {
 		log.Println(err)
 		return nil
@@ -72,7 +72,7 @@ func Solve(input string) interface{} {
 	obj := Constructor()
 	ans = append(ans, nil)
 	for i := 1; i < len(opts); i++ {
-		var res interface{}
+		var res any
 		switch opts[i] {
 		case "addNum", "AddNum":
 			res = nil

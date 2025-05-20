@@ -42,7 +42,7 @@ func numRookCaptures(board [][]byte) (ans int) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var board [][]byte
 

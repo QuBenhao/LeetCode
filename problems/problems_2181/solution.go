@@ -32,7 +32,7 @@ func mergeNodes(head *ListNode) *ListNode {
 	return dummy.Next
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var head *ListNode
 

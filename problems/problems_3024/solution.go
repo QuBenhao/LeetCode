@@ -22,7 +22,7 @@ func triangleType(nums []int) string {
 	return "scalene"
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

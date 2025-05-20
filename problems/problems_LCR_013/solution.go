@@ -34,7 +34,7 @@ func (numMatrix *NumMatrix) SumRegion(row1 int, col1 int, row2 int, col2 int) in
  * param_1 := obj.SumRegion(row1,col1,row2,col2);
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
 	var opValues [][]any

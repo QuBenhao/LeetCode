@@ -31,7 +31,7 @@ func multiply(num1 string, num2 string) string {
 	return ans
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var num1 string
 	var num2 string

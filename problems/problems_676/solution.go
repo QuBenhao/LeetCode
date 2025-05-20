@@ -76,11 +76,11 @@ func (this *MagicDictionary) Search(searchWord string) bool {
  * param_2 := obj.Search(searchWord);
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
-	var opValues [][]interface{}
-	var ans []interface{}
+	var opValues [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
 		log.Println(err)
 		return nil
@@ -92,14 +92,14 @@ func Solve(inputJsonValues string) interface{} {
 	obj := Constructor()
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
-		var res interface{}
+		var res any
 		switch operators[i] {
 		case "buildDict", "BuildDict":
 			var arr []string
 			if v, ok := opValues[i][0].([]string); ok {
 				arr = v
 			} else {
-				for _, vi := range opValues[i][0].([]interface{}) {
+				for _, vi := range opValues[i][0].([]any) {
 					arr = append(arr, vi.(string))
 				}
 			}

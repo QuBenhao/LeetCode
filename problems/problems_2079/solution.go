@@ -19,7 +19,7 @@ func wateringPlants(plants []int, capacity int) int {
 	return ans
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var plants []int
 	var capacity int

@@ -19,7 +19,7 @@ func countSubarrays(nums []int, k int64) (ans int64) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 	var k int64

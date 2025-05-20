@@ -31,10 +31,10 @@ func (h *IHeap) Less(i, j int) bool {
 	return (*h)[i][0] < (*h)[j][0] || ((*h)[i][0] == (*h)[j][0] && (*h)[i][1] > (*h)[j][1])
 }
 func (h *IHeap) Swap(i, j int) { (*h)[i], (*h)[j] = (*h)[j], (*h)[i] }
-func (h *IHeap) Push(x interface{}) {
+func (h *IHeap) Push(x any) {
 	*h = append(*h, x.([3]int))
 }
-func (h *IHeap) Pop() interface{} {
+func (h *IHeap) Pop() any {
 	old := *h
 	n := len(old)
 	x := old[n-1]
@@ -42,7 +42,7 @@ func (h *IHeap) Pop() interface{} {
 	return x
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums1 []int
 	var nums2 []int

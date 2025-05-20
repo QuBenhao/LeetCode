@@ -20,13 +20,13 @@ func smallestString(s string) string {
 	}
 	right := left
 	for right < len(s) && s[right] != 'a' {
-		ans = append(ans, s[right] - 1)
+		ans = append(ans, s[right]-1)
 		right++
 	}
 	return string(ans) + s[right:]
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var s string
 

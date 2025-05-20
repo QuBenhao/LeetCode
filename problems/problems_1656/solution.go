@@ -33,11 +33,11 @@ func (this *OrderedStream) Insert(idKey int, value string) []string {
  * param_1 := obj.Insert(idKey,value);
  */
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var opts []string
-	var vals [][]interface{}
-	var ans []interface{}
+	var vals [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(values[0]), &opts); err != nil {
 		log.Println(err)
 		return nil
@@ -49,7 +49,7 @@ func Solve(input string) interface{} {
 	obj := Constructor(int(vals[0][0].(float64)))
 	ans = append(ans, nil)
 	for i := 1; i < len(opts); i++ {
-		var res interface{}
+		var res any
 		switch opts[i] {
 		case "insert", "Insert":
 			res = obj.Insert(int(vals[i][0].(float64)), vals[i][1].(string))

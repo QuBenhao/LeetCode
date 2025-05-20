@@ -7,10 +7,10 @@ import (
 )
 
 func validSubstringCount(word1 string, word2 string) int64 {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var word1 string
 	var word2 string

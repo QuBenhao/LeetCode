@@ -21,7 +21,7 @@ func findTheDifference(s string, t string) byte {
 	return 'x'
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var s string
 	var t string

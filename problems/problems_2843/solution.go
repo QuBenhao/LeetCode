@@ -7,10 +7,10 @@ import (
 )
 
 func countSymmetricIntegers(low int, high int) int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var low int
 	var high int

@@ -35,7 +35,7 @@ func minimumRefill(plants []int, capacityA, capacityB int) (ans int) {
 	return
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var plants []int
 	var capacityA int

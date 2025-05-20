@@ -24,7 +24,7 @@ func reverseList(head *ListNode) *ListNode {
 	return newHead
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var head *ListNode
 

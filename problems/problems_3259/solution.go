@@ -16,7 +16,7 @@ func maxEnergyBoost(a, b []int) int64 {
 	return max(f[n+1][0], f[n+1][1])
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var energyDrinkA []int
 	var energyDrinkB []int

@@ -27,7 +27,7 @@ func lemonadeChange(bills []int) bool {
 	return true
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var bills []int
 

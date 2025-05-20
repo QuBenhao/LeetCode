@@ -14,7 +14,7 @@ func countOdds(low int, high int) (ans int) {
 	return
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var low int
 	var high int

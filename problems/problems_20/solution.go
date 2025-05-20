@@ -21,7 +21,7 @@ func isValid(s string) bool {
 	return len(stack) == 0
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s string
 

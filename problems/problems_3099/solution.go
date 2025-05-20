@@ -17,7 +17,7 @@ func sumOfTheDigitsOfHarshadNumber(x int) int {
 	return s
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var x int
 

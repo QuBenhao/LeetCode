@@ -7,7 +7,7 @@ import (
 )
 
 func containsNearbyDuplicate(nums []int, k int) bool {
-	idxMap := map[int]interface{}{}
+	idxMap := map[int]any{}
 	for i, num := range nums {
 		if _, ok := idxMap[num]; ok {
 			return true
@@ -20,7 +20,7 @@ func containsNearbyDuplicate(nums []int, k int) bool {
 	return false
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 	var k int

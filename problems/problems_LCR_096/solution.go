@@ -30,7 +30,7 @@ func isInterleave(s1 string, s2 string, s3 string) bool {
 	return dp[m][n]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s1 string
 	var s2 string

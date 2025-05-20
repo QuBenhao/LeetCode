@@ -7,21 +7,21 @@ import (
 )
 
 func getWinner(arr []int, k int) int {
-    mx, win := arr[0], -1
-    for _, v := range arr {
-        if v > mx {
-            mx = v
-            win = 0
-        }
-        win++
-        if win == k {
-            break
-        }
-    }
-    return mx
+	mx, win := arr[0], -1
+	for _, v := range arr {
+		if v > mx {
+			mx = v
+			win = 0
+		}
+		win++
+		if win == k {
+			break
+		}
+	}
+	return mx
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var arr []int
 	var k int

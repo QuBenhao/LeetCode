@@ -36,7 +36,7 @@ func isSubStr(s1, s2 string) bool {
 	return i == m
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var strs []string
 

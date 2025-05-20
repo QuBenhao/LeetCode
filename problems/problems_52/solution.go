@@ -7,9 +7,9 @@ import (
 )
 
 func totalNQueens(n int) (ans int) {
-	cols := map[int]interface{}{}
-	rowCols := map[int]interface{}{}
-	colRows := map[int]interface{}{}
+	cols := map[int]any{}
+	rowCols := map[int]any{}
+	colRows := map[int]any{}
 
 	var backtrack func()
 	backtrack = func() {
@@ -43,7 +43,7 @@ func totalNQueens(n int) (ans int) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 

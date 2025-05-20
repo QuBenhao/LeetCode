@@ -24,7 +24,7 @@ func longestCommonSubsequence(text1 string, text2 string) int {
 	return dp[m][n]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var text1 string
 	var text2 string

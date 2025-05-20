@@ -37,7 +37,7 @@ func maxmiumScore(cards []int, cnt int) int {
 	return ans
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var cards []int
 	var cnt int

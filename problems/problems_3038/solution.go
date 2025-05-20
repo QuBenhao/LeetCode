@@ -15,7 +15,7 @@ func maxOperations(nums []int) int {
 	return len(nums) / 2
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 

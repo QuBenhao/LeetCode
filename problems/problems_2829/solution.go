@@ -7,10 +7,10 @@ import (
 )
 
 func minimumSum(n int, k int) int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 	var k int

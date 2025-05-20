@@ -7,31 +7,31 @@ import (
 )
 
 type Trie struct {
-	Root map[rune]interface{}
+	Root map[rune]any
 }
 
 func Constructor() Trie {
-	return Trie{Root: map[rune]interface{}{}}
+	return Trie{Root: map[rune]any{}}
 }
 
 func (this *Trie) Insert(word string) {
 	node := this.Root
 	for _, r := range word {
 		if _, ok := node[r]; !ok {
-			node[r] = map[rune]interface{}{}
+			node[r] = map[rune]any{}
 		}
-		node = node[r].(map[rune]interface{})
+		node = node[r].(map[rune]any)
 	}
 	node['#'] = nil
 }
 
-func (this *Trie) serachNode(word string) map[rune]interface{} {
+func (this *Trie) serachNode(word string) map[rune]any {
 	node := this.Root
 	for _, r := range word {
 		if _, ok := node[r]; !ok {
 			return nil
 		}
-		node = node[r].(map[rune]interface{})
+		node = node[r].(map[rune]any)
 	}
 	return node
 }
@@ -57,11 +57,11 @@ func (this *Trie) StartsWith(prefix string) bool {
  * param_3 := obj.StartsWith(prefix);
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
-	var opValues [][]interface{}
-	var ans []interface{}
+	var opValues [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
 		log.Println(err)
 		return nil
@@ -73,7 +73,7 @@ func Solve(inputJsonValues string) interface{} {
 	obj := Constructor()
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
-		var res interface{}
+		var res any
 		switch operators[i] {
 		case "insert", "Insert":
 			res = nil

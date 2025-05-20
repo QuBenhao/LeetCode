@@ -22,7 +22,7 @@ func maximumSubsequenceCount(text string, pattern string) (ans int64) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var text string
 	var pattern string

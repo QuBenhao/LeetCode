@@ -20,7 +20,7 @@ func maxProduct(n int) int {
 	return mx * subMax
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 

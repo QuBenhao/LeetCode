@@ -25,7 +25,7 @@ func longestCycle(edges []int) (ans int) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var edges []int
 

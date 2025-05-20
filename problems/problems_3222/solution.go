@@ -7,10 +7,10 @@ import (
 )
 
 func losingPlayer(x int, y int) string {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var x int
 	var y int

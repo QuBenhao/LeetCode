@@ -25,7 +25,7 @@ func coinChange(coins []int, amount int) int {
 	return dp[amount]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var coins []int
 	var amount int

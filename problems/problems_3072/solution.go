@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"slices"
-	"strings"
 	"sort"
+	"strings"
 )
 
 type fenwick []int
@@ -50,8 +50,7 @@ func resultArray(nums []int) (ans []int) {
 	return append(a, b...)
 }
 
-
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 

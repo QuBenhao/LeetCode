@@ -7,10 +7,10 @@ import (
 )
 
 func rowAndMaximumOnes(mat [][]int) []int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var mat [][]int
 

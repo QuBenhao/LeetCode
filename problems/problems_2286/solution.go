@@ -116,11 +116,11 @@ func (t *BookMyShow) Scatter(k, maxRow int) bool {
  * param_2 := obj.Scatter(k,maxRow);
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
-	var opValues [][]interface{}
-	var ans []interface{}
+	var opValues [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
 		log.Println(err)
 		return nil
@@ -132,7 +132,7 @@ func Solve(inputJsonValues string) interface{} {
 	obj := Constructor(int(opValues[0][0].(float64)), int(opValues[0][1].(float64)))
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
-		var res interface{}
+		var res any
 		switch operators[i] {
 		case "gather", "Gather":
 			res = obj.Gather(int(opValues[i][0].(float64)), int(opValues[i][1].(float64)))

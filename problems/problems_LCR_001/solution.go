@@ -30,7 +30,7 @@ func divide(a int, b int) (ans int) {
 	return -ans
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var a int
 	var b int

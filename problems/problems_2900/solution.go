@@ -23,7 +23,7 @@ func getLongestSubsequence(words []string, groups []int) []string {
 	}
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var words []string
 	var groups []int

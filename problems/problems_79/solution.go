@@ -40,7 +40,7 @@ func exist(board [][]byte, word string) bool {
 	return false
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var board [][]byte
 	var word string

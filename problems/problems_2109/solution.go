@@ -19,7 +19,7 @@ func addSpaces(s string, spaces []int) string {
 	return string(bytes)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s string
 	var spaces []int

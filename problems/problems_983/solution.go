@@ -21,7 +21,7 @@ func mincostTickets(days []int, costs []int) int {
 	return dp[len(days)]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var days []int
 	var costs []int

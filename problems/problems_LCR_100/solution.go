@@ -25,7 +25,7 @@ func minimumTotal(triangle [][]int) int {
 	return ans
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var triangle [][]int
 

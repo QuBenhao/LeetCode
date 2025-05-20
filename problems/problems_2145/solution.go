@@ -17,7 +17,7 @@ func numberOfArrays(differences []int, lower int, upper int) int {
 	return max(0, (upper-mx)-(lower-mn)+1)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var differences []int
 	var lower int

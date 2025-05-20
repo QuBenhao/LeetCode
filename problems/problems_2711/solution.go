@@ -7,10 +7,10 @@ import (
 )
 
 func differenceOfDistinctValues(grid [][]int) [][]int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var grid [][]int
 

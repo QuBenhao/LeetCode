@@ -26,7 +26,7 @@ func minimumWhiteTiles(floor string, numCarpets int, carpetLen int) int {
 	return dp[numCarpets%2][n]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var floor string
 	var numCarpets int

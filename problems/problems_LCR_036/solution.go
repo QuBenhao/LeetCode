@@ -32,7 +32,7 @@ func evalRPN(tokens []string) int {
 	return values[0]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var tokens []string
 

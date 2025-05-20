@@ -29,7 +29,7 @@ func getTargetCopy(original, cloned, target *TreeNode) *TreeNode {
 	return getTargetCopy(original.Right, cloned.Right, target)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var original, cloned, target *TreeNode
 

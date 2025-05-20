@@ -43,7 +43,7 @@ func intersect(nums1 []int, nums2 []int) (ans []int) {
 	// return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums1 []int
 	var nums2 []int

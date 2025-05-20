@@ -85,7 +85,7 @@ func numSimilarGroups(strings []string) (ans int) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var strs []string
 

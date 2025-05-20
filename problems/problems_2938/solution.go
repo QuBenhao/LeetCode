@@ -17,7 +17,7 @@ func minimumSteps(s string) (ans int64) {
 	return
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var s string
 

@@ -32,7 +32,7 @@ func maxSubArray(nums []int) int {
 	return divAndConquer(nums, 0, len(nums)-1)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

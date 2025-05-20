@@ -31,7 +31,7 @@ func getSmallestString(s string, k int) string {
 	return string(ans) + s[idx:]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s string
 	var k int

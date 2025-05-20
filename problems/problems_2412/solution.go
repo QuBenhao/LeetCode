@@ -15,7 +15,7 @@ func minimumMoney(transactions [][]int) int64 {
 	return totalLoss + mx
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var transactions [][]int
 

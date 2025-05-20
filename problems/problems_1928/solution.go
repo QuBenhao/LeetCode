@@ -41,7 +41,7 @@ func minCost(maxTime int, edges [][]int, passingFees []int) int {
 	return ans
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var maxTime int
 	var edges [][]int

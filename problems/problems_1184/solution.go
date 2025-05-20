@@ -18,7 +18,7 @@ func distanceBetweenBusStops(distance []int, start int, destination int) int {
 	return min(clock, clockwise)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var distance []int
 	var start int

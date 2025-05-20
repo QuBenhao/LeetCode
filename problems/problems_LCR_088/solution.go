@@ -15,7 +15,7 @@ func minCostClimbingStairs(cost []int) int {
 	return dp[n]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var cost []int
 

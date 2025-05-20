@@ -20,7 +20,7 @@ func maxHeightOfTriangle(red, blue int) int {
 	return max(f(red, blue), f(blue, red))
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var red int
 	var blue int

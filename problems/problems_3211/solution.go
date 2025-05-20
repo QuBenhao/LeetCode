@@ -25,8 +25,7 @@ func validStrings(n int) (ans []string) {
 	return
 }
 
-
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 

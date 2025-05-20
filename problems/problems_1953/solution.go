@@ -19,7 +19,7 @@ func numberOfWeeks(milestones []int) int64 {
 	return int64(s)
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var milestones []int
 

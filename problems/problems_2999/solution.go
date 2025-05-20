@@ -7,10 +7,10 @@ import (
 )
 
 func numberOfPowerfulInt(start int64, finish int64, limit int, s string) int64 {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var start int64
 	var finish int64

@@ -7,10 +7,10 @@ import (
 )
 
 func countGoodIntegers(n int, k int) int64 {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 	var k int

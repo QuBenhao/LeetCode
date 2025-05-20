@@ -25,7 +25,7 @@ func canMakeSquare(grid [][]byte) bool {
 	return false
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var grid [][]byte
 

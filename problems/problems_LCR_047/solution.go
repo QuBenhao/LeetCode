@@ -25,7 +25,7 @@ func pruneTree(root *TreeNode) *TreeNode {
 	return root
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var root *TreeNode
 

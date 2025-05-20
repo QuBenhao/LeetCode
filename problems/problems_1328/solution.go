@@ -20,7 +20,7 @@ func breakPalindrome(palindrome string) string {
 	return palindrome[:n-1] + "b"
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var palindrome string
 

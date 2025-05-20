@@ -22,7 +22,7 @@ func paintWalls(cost, time []int) int {
 	return f[n]
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var cost []int
 	var time []int

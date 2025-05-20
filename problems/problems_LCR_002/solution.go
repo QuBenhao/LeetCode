@@ -30,7 +30,7 @@ func addBinary(a string, b string) string {
 	return string(result)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var a string
 	var b string

@@ -15,7 +15,7 @@ func maxProfit(prices []int) int {
 	return sell
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var prices []int
 

@@ -42,7 +42,7 @@ func cherryPickup(grid [][]int) int {
 	return max(dfs(n*2-2, n-1, n-1), 0)
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var grid [][]int
 

@@ -26,7 +26,7 @@ func minSubArrayLen(target int, nums []int) int {
 	return ans
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var target int
 	var nums []int

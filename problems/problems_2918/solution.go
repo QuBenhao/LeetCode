@@ -29,7 +29,7 @@ func minSum(nums1 []int, nums2 []int) int64 {
 	return max(s1, s2)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums1 []int
 	var nums2 []int

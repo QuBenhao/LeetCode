@@ -80,7 +80,7 @@ func countCombinations(pieces []string, positions [][]int) (ans int) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var pieces []string
 	var positions [][]int

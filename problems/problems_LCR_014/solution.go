@@ -24,7 +24,7 @@ func checkInclusion(s1 string, s2 string) bool {
 	return false
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s1 string
 	var s2 string

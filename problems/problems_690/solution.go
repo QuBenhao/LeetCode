@@ -23,12 +23,12 @@ func getImportance(employees []*Employee, id int) int {
 	return dfs(id)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var employees []*Employee
 	var id int
 
-	var employees_input_array []interface{}
+	var employees_input_array []any
 	if err := json.Unmarshal([]byte(inputValues[0]), &employees_input_array); err != nil {
 		log.Fatal(err)
 	}
@@ -49,9 +49,9 @@ type Employee struct {
 	Subordinates []int
 }
 
-func constructor(input interface{}) *Employee {
-	arr := input.([]interface{})
-	num_arr := arr[2].([]interface{})
+func constructor(input any) *Employee {
+	arr := input.([]any)
+	num_arr := arr[2].([]any)
 	nums := make([]int, len(num_arr))
 	for i, v := range num_arr {
 		nums[i] = int(v.(float64))

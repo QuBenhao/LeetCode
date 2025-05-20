@@ -25,7 +25,7 @@ func missingRolls(rolls []int, mean int, n int) []int {
 	return ans
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var rolls []int
 	var mean int

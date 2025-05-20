@@ -29,7 +29,7 @@ func distinctNames(ideas []string) (ans int64) {
 	return ans * 2 // 乘 2 放到最后
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var ideas []string
 

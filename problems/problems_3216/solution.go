@@ -16,8 +16,7 @@ func getSmallestString(s string) string {
 	return s
 }
 
-
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s string
 

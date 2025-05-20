@@ -13,7 +13,7 @@ func findLUSlength(a string, b string) int {
 	return -1
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var a string
 	var b string

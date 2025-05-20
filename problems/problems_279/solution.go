@@ -18,7 +18,7 @@ func numSquares(n int) int {
 	return dp[n]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 

@@ -26,7 +26,7 @@ func rankTeams(votes []string) string {
 	return string(sorted)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var votes []string
 

@@ -20,7 +20,7 @@ func maxScore(nums []int, x int) int64 {
 	return ans
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 	var x int

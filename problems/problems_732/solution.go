@@ -101,11 +101,11 @@ func (this *MyCalendarThree) Book(startTime int, endTime int) int {
  * param_1 := obj.Book(startTime,endTime);
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
-	var opValues [][]interface{}
-	var ans []interface{}
+	var opValues [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
 		log.Println(err)
 		return nil
@@ -117,7 +117,7 @@ func Solve(inputJsonValues string) interface{} {
 	obj := Constructor()
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
-		var res interface{}
+		var res any
 		switch operators[i] {
 		case "book", "Book":
 			res = obj.Book(int(opValues[i][0].(float64)), int(opValues[i][1].(float64)))

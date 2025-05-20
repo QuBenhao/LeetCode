@@ -50,11 +50,11 @@ func (this *BSTIterator) HasNext() bool {
  * param_2 := obj.HasNext();
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
-	var opValues [][]interface{}
-	var ans []interface{}
+	var opValues [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
 		log.Println(err)
 		return nil
@@ -63,10 +63,10 @@ func Solve(inputJsonValues string) interface{} {
 		log.Println(err)
 		return nil
 	}
-	obj := Constructor(InterfaceArrayToTree(opValues[0][0].([]interface{})))
+	obj := Constructor(InterfaceArrayToTree(opValues[0][0].([]any)))
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
-		var res interface{}
+		var res any
 		switch operators[i] {
 		case "next", "Next":
 			res = obj.Next()

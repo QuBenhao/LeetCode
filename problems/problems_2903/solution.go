@@ -25,8 +25,7 @@ func findIndices(nums []int, indexDifference, valueDifference int) []int {
 	return []int{-1, -1}
 }
 
-
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 	var indexDifference int

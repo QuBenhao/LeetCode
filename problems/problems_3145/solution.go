@@ -54,7 +54,7 @@ func pow(x, n, mod int) int {
 	return res
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var queries [][]int64
 

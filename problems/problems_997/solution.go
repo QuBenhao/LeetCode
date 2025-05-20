@@ -20,7 +20,7 @@ func findJudge(n int, trust [][]int) int {
 	return -1
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 	var trust [][]int

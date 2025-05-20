@@ -7,13 +7,13 @@ import (
 )
 
 func decodeString(s string) string {
-	var stack [][]interface{}
+	var stack [][]any
 	var res string
 	var times int
 	for i := 0; i < len(s); i++ {
 		c := s[i]
 		if c == '[' {
-			stack = append(stack, []interface{}{times, res})
+			stack = append(stack, []any{times, res})
 			times, res = 0, ""
 		} else if c == ']' {
 			top := stack[len(stack)-1]
@@ -29,7 +29,7 @@ func decodeString(s string) string {
 	return res
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s string
 

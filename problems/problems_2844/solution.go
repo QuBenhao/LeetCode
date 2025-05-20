@@ -27,7 +27,7 @@ func minimumOperations(num string) int {
 	return n
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var num string
 

@@ -8,7 +8,7 @@ import (
 )
 
 func fallingSquares(positions [][]int) []int {
-	points := map[int]interface{}{}
+	points := map[int]any{}
 	for _, pos := range positions {
 		points[pos[0]] = nil
 		points[pos[0]+pos[1]-1] = nil
@@ -42,7 +42,7 @@ func fallingSquares(positions [][]int) []int {
 	return ans
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var positions [][]int
 

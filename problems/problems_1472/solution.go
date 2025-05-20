@@ -52,11 +52,11 @@ func (this *BrowserHistory) Forward(steps int) string {
  * param_3 := obj.Forward(steps);
  */
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var opts []string
-	var vals [][]interface{}
-	var ans []interface{}
+	var vals [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(values[0]), &opts); err != nil {
 		log.Println(err)
 		return nil
@@ -68,7 +68,7 @@ func Solve(input string) interface{} {
 	obj := Constructor(vals[0][0].(string))
 	ans = append(ans, nil)
 	for i := 1; i < len(opts); i++ {
-		var res interface{}
+		var res any
 		switch opts[i] {
 		case "visit", "Visit":
 			res = nil

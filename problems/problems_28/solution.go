@@ -10,7 +10,7 @@ func strStr(haystack string, needle string) int {
 	return strings.Index(haystack, needle)
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var haystack string
 	var needle string

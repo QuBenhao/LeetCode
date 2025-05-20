@@ -7,10 +7,10 @@ import (
 )
 
 func idealArrays(n int, maxValue int) int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 	var maxValue int

@@ -41,7 +41,7 @@ func (h hp) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
 func (hp) Push(any)             {} // 没用到，可以不写
 func (hp) Pop() (_ any)         { return }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums [][]int
 

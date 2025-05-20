@@ -7,10 +7,10 @@ import (
 )
 
 func minimumWeight(edges [][]int, queries [][]int) []int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var edges [][]int
 	var queries [][]int

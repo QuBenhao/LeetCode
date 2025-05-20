@@ -7,10 +7,10 @@ import (
 )
 
 func sortTheStudents(score [][]int, k int) [][]int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var score [][]int
 	var k int

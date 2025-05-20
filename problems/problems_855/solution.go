@@ -577,11 +577,11 @@ func (t *Rbtree) deleteFixup(x *Node) {
  * obj.Leave(p);
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
-	var opValues [][]interface{}
-	var ans []interface{}
+	var opValues [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
 		log.Println(err)
 		return nil
@@ -593,7 +593,7 @@ func Solve(inputJsonValues string) interface{} {
 	obj := Constructor(int(opValues[0][0].(float64)))
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
-		var res interface{}
+		var res any
 		switch operators[i] {
 		case "seat", "Seat":
 			res = obj.Seat()

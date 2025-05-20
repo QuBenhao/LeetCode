@@ -25,7 +25,7 @@ func minOperations(nums []int) (ans int) {
 	return ans + len(minStack)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

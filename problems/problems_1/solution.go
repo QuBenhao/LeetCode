@@ -18,7 +18,7 @@ func twoSum(nums []int, target int) []int {
 	return nil
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 	var target int

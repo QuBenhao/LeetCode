@@ -55,7 +55,7 @@ func accountsMerge(accounts [][]string) [][]string {
 	return res
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var accounts [][]string
 

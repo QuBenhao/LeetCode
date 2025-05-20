@@ -38,11 +38,11 @@ func (this *MyHashMap) Remove(key int) {
  * obj.Remove(key);
  */
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var opts []string
-	var vals [][]interface{}
-	var ans []interface{}
+	var vals [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(values[0]), &opts); err != nil {
 		log.Println(err)
 		return nil
@@ -54,7 +54,7 @@ func Solve(input string) interface{} {
 	obj := Constructor()
 	ans = append(ans, nil)
 	for i := 1; i < len(opts); i++ {
-		var res interface{}
+		var res any
 		switch opts[i] {
 		case "put", "Put":
 			res = nil

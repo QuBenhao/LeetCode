@@ -30,7 +30,7 @@ func kthSmallest(root *TreeNode, k int) int {
 	return nums[k-1]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var root *TreeNode
 	var k int

@@ -24,7 +24,7 @@ func checkMove(board [][]byte, rMove int, cMove int, color byte) bool {
 	return false
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var board [][]byte
 	var rMove int

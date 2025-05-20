@@ -27,7 +27,7 @@ func getGoodIndices(variables [][]int, target int) (ans []int) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var variables [][]int
 	var target int

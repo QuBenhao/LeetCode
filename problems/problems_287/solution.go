@@ -23,7 +23,7 @@ func findDuplicate(nums []int) int {
 	return slow
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

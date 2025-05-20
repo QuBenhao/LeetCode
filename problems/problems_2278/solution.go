@@ -15,7 +15,7 @@ func percentageLetter(s string, letter byte) (ans int) {
 	return ans * 100 / len(s)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s string
 	var letter byte

@@ -50,7 +50,7 @@ func abs(x int) int {
 	return x
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var grid [][]int
 

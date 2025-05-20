@@ -32,8 +32,7 @@ func pathSum(root *TreeNode, targetSum int) int {
 	return dfs(root, map[int]int{0: 1}, 0)
 }
 
-
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var root *TreeNode
 	var targetSum int

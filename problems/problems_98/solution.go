@@ -28,7 +28,7 @@ func isValidBST(root *TreeNode) bool {
 	return dfs(root, math.MinInt, math.MaxInt)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var root *TreeNode
 

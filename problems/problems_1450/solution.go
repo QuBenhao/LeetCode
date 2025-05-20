@@ -15,7 +15,7 @@ func busyStudent(startTime []int, endTime []int, queryTime int) (ans int) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var startTime []int
 	var endTime []int

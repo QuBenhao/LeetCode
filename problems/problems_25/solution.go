@@ -40,7 +40,7 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
 	return node
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var head *ListNode
 	var k int

@@ -39,7 +39,7 @@ func canPartitionKSubsets(nums []int, k int) bool {
 	return dp[allPicked] == 0
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 	var k int

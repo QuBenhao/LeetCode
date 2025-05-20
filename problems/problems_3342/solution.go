@@ -56,10 +56,10 @@ func (q queue) Less(i, j int) bool {
 func (q queue) Swap(i, j int) {
 	q[i], q[j] = q[j], q[i]
 }
-func (q *queue) Push(x interface{}) {
+func (q *queue) Push(x any) {
 	*q = append(*q, x.(tuple))
 }
-func (q *queue) Pop() interface{} {
+func (q *queue) Pop() any {
 	old := *q
 	n := len(old)
 	x := old[n-1]
@@ -67,7 +67,7 @@ func (q *queue) Pop() interface{} {
 	return x
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var moveTime [][]int
 

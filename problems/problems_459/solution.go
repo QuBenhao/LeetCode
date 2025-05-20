@@ -10,7 +10,7 @@ func repeatedSubstringPattern(s string) bool {
 	return strings.Index((s + s)[1:], s) != len(s)-1
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var s string
 

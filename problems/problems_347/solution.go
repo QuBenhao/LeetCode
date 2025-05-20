@@ -39,7 +39,7 @@ func topKFrequent(nums []int, k int) []int {
 	return keys[qSort(0, m-1):]
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 	var k int

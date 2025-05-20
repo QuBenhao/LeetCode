@@ -22,7 +22,7 @@ func sortColors(nums []int) {
 	}
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 

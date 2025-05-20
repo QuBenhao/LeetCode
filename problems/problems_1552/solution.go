@@ -32,7 +32,7 @@ func maxDistance(position []int, m int) int {
 	return left
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var position []int
 	var m int

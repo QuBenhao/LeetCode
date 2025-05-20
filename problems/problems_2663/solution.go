@@ -11,7 +11,7 @@ func smallestBeautifulString(S string, k int) string {
 	s := []byte(S)
 	n := len(s)
 	i := n - 1 // 从最后一个字母开始
-	s[i]++ // 先加一
+	s[i]++     // 先加一
 	for i < n {
 		if s[i] == limit { // 需要进位
 			if i == 0 { // 无法进位
@@ -30,7 +30,7 @@ func smallestBeautifulString(S string, k int) string {
 	return string(s)
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var s string
 	var k int

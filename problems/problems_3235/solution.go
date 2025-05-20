@@ -7,10 +7,10 @@ import (
 )
 
 func canReachCorner(xCorner int, yCorner int, circles [][]int) bool {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var xCorner int
 	var yCorner int

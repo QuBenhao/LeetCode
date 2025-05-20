@@ -31,7 +31,7 @@ func latestTimeCatchTheBus(buses []int, passengers []int, capacity int) (ans int
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var buses []int
 	var passengers []int

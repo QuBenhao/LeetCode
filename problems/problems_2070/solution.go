@@ -28,7 +28,7 @@ func maximumBeauty(items [][]int, queries []int) []int {
 	return ans
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var items [][]int
 	var queries []int

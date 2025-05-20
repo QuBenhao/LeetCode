@@ -30,11 +30,11 @@ func (rfq *RangeFreqQuery) Query(left int, right int, value int) int {
  * param_1 := obj.Query(left,right,value);
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var operators []string
-	var opValues [][]interface{}
-	var ans []interface{}
+	var opValues [][]any
+	var ans []any
 	if err := json.Unmarshal([]byte(inputValues[0]), &operators); err != nil {
 		log.Println(err)
 		return nil
@@ -47,14 +47,14 @@ func Solve(inputJsonValues string) interface{} {
 	if v, ok := opValues[0][0].([]int); ok {
 		arr = v
 	} else {
-		for _, vi := range opValues[0][0].([]interface{}) {
+		for _, vi := range opValues[0][0].([]any) {
 			arr = append(arr, int(vi.(float64)))
 		}
 	}
 	obj := Constructor(arr)
 	ans = append(ans, nil)
 	for i := 1; i < len(operators); i++ {
-		var res interface{}
+		var res any
 		switch operators[i] {
 		case "query", "Query":
 			res = obj.Query(int(opValues[i][0].(float64)), int(opValues[i][1].(float64)), int(opValues[i][2].(float64)))

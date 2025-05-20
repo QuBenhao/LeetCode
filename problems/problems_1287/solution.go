@@ -19,7 +19,7 @@ func findSpecialInteger(arr []int) int {
 	return -1
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var arr []int
 

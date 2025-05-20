@@ -26,7 +26,7 @@ func countTexts(pressedKeys string) int {
 	return dp[n]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var pressedKeys string
 

@@ -23,7 +23,7 @@ func kthLargestValue(matrix [][]int, k int) int {
 	return a[len(a)-k]
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var matrix [][]int
 	var k int

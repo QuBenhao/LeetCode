@@ -25,7 +25,7 @@ func canPartition(nums []int) bool {
 	return dp[s]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

@@ -28,7 +28,7 @@ func isAlienSorted(words []string, order string) bool {
 	return true
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var words []string
 	var order string

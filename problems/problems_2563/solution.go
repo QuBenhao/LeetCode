@@ -23,7 +23,7 @@ func countFairPairs(nums []int, lower int, upper int) (ans int64) {
 	return
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 	var lower int

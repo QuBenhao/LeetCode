@@ -22,7 +22,7 @@ func maxTotalReward(rewardValues []int) int {
 	return f.BitLen() - 1
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var rewardValues []int
 

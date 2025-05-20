@@ -16,7 +16,7 @@ func maxStrength(nums []int) int64 {
 	return mx
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

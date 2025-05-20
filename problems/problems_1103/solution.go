@@ -28,7 +28,7 @@ func distributeCandies(candies int, num_people int) []int {
 	return ans
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var candies int
 	var num_people int

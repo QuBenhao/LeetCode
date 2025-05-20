@@ -25,7 +25,7 @@ func isRobotBounded(instructions string) bool {
 	return (x == 0 && y == 0) || d != 0
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var instructions string
 

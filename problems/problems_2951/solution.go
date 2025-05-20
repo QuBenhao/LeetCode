@@ -7,15 +7,15 @@ import (
 )
 
 func findPeaks(mountain []int) (ans []int) {
-    for i := 1; i < len(mountain) - 1; i++ {
-        if mountain[i] > mountain[i - 1] && mountain[i] > mountain[i + 1] {
-            ans = append(ans, i)
-        }
-    }
-    return
+	for i := 1; i < len(mountain)-1; i++ {
+		if mountain[i] > mountain[i-1] && mountain[i] > mountain[i+1] {
+			ans = append(ans, i)
+		}
+	}
+	return
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var mountain []int
 

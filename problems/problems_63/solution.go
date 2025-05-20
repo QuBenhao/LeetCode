@@ -24,7 +24,7 @@ func uniquePathsWithObstacles(obstacleGrid [][]int) int {
 	return dp[n-1]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var obstacleGrid [][]int
 

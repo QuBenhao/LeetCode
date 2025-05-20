@@ -34,7 +34,7 @@ func maxValueOfCoins(piles [][]int, k int) int {
 	return dp[n-1][k]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var piles [][]int
 	var k int

@@ -88,7 +88,7 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
 	return 0
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var beginWord string
 	var endWord string

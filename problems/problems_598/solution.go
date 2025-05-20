@@ -15,7 +15,7 @@ func maxCount(m int, n int, ops [][]int) int {
 	return minM * minN
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var m int
 	var n int

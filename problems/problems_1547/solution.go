@@ -31,7 +31,7 @@ func minCost(n int, cuts []int) int {
 	return dp[0][m-1]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 	var cuts []int

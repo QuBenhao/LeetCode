@@ -23,7 +23,7 @@ func invertTree(root *TreeNode) *TreeNode {
 	return root
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var root *TreeNode
 

@@ -15,7 +15,7 @@ func replaceElements(arr []int) []int {
 	return arr
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var arr []int
 

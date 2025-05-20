@@ -27,7 +27,7 @@ func discountPrices(sentence string, discount int) string {
 	return strings.Join(ans, " ")
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var sentence string
 	var discount int

@@ -38,7 +38,7 @@ func getKth(lo int, hi int, k int) int {
 	return sorted[k-1]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var lo int
 	var hi int

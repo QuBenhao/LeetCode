@@ -34,7 +34,7 @@ func increasingBST(root *TreeNode) *TreeNode {
 	return head
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var root *TreeNode
 

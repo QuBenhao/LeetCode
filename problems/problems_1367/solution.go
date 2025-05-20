@@ -41,7 +41,7 @@ func isSubPath(head *ListNode, root *TreeNode) bool {
 	return dfs(head, root)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var head *ListNode
 	var root *TreeNode

@@ -27,7 +27,7 @@ func maxProfitAssignment(difficulty []int, profit []int, worker []int) (ans int)
 	return ans
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var difficulty []int
 	var profit []int

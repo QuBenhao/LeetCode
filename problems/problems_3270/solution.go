@@ -7,10 +7,10 @@ import (
 )
 
 func generateKey(num1 int, num2 int, num3 int) int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var num1 int
 	var num2 int

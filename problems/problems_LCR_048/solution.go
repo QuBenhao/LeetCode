@@ -76,7 +76,7 @@ func (this *Codec) deserialize(data string) *TreeNode {
  * ans := deser.deserialize(data);
  */
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	obj := Constructor()
 	root := ArrayToTree(inputValues[0])

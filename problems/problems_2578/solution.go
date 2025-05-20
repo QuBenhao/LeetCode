@@ -27,7 +27,7 @@ func splitNum(num int) int {
 	return a + b
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var num int
 

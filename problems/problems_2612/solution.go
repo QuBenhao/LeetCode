@@ -7,10 +7,10 @@ import (
 )
 
 func minReverseOperations(n int, p int, banned []int, k int) []int {
-    
+
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var n int
 	var p int

@@ -27,7 +27,7 @@ func numDistinct(s string, t string) int {
 	return dp[0][0]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s string
 	var t string

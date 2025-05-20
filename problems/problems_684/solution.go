@@ -32,7 +32,7 @@ func findRedundantConnection(edges [][]int) []int {
 	return nil
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var edges [][]int
 

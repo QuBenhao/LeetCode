@@ -33,7 +33,7 @@ func findMaximumElegance(items [][]int, k int) int64 {
 	return int64(ans)
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var items [][]int
 	var k int

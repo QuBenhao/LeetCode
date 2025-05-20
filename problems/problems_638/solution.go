@@ -41,7 +41,7 @@ func shoppingOffers(price []int, special [][]int, needs []int) int {
 	return dp[columns[n]-1]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var price []int
 	var special [][]int

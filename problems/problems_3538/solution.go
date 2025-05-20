@@ -40,7 +40,7 @@ func minTravelTime(l int, n int, k int, position []int, time []int) int {
 	return dp[k][0][0]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var l int
 	var n int

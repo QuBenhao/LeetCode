@@ -28,7 +28,7 @@ func takeCharacters(s string, k int) int {
 	return len(s) - mx
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s string
 	var k int

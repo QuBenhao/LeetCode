@@ -34,7 +34,7 @@ func specialPerm(nums []int) (ans int) {
 	return ans % 1_000_000_007
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var nums []int
 

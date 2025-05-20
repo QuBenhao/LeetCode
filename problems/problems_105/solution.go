@@ -32,7 +32,7 @@ func buildTree(preorder []int, inorder []int) *TreeNode {
 	return root
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var preorder []int
 	var inorder []int

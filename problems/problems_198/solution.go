@@ -14,7 +14,7 @@ func rob(nums []int) int {
 	return max(dp0, dp1)
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var nums []int
 

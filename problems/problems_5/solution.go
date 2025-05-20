@@ -34,7 +34,7 @@ func longestPalindrome(s string) string {
 	return s[start : end+1]
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var s string
 

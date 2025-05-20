@@ -10,7 +10,7 @@ func toLowerCase(s string) string {
 	return strings.ToLower(s)
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var s string
 

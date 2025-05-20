@@ -18,7 +18,7 @@ func sortList(head *ListNode) *ListNode {
 
 }
 
-func Solve(inputJsonValues string) interface{} {
+func Solve(inputJsonValues string) any {
 	inputValues := strings.Split(inputJsonValues, "\n")
 	var head *ListNode
 

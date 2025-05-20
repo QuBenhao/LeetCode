@@ -24,7 +24,7 @@ func myPow(x float64, n int) float64 {
 	return ans
 }
 
-func Solve(input string) interface{} {
+func Solve(input string) any {
 	values := strings.Split(input, "\n")
 	var x float64
 	var n int
