@@ -3,11 +3,13 @@ package problem2545
 import (
 	"encoding/json"
 	"log"
+	"slices"
 	"strings"
 )
 
 func sortTheStudents(score [][]int, k int) [][]int {
-
+	slices.SortFunc(score, func(a, b []int) int { return b[k] - a[k] })
+	return score
 }
 
 func Solve(inputJsonValues string) any {
