@@ -34,8 +34,9 @@ __user_input_function = """Please select the main function [0-5, default: 0]:
 1. Get problem
 2. Submit
 3. Change test problem
-4. Clean empty java
-5. Clean error rust
+4. Contest
+5. Clean empty java
+6. Clean error rust
 """
 __user_input_get_problem = """Please select the get problem method [0-5, default: 0]:
 0. Back
@@ -337,10 +338,12 @@ def main():
                 case "3":
                     change_problem(languages, problem_folder)
                 case "4":
+                    contest(languages, problem_folder, cookie)
+                case "5":
                     clean_empty_java_main(root_path, problem_folder)
                     print("Done cleaning empty Java files.")
                     print(__separate_line)
-                case "5":
+                case "6":
                     clean_error_rust_main(root_path, problem_folder)
                     print("Done cleaning error Rust files.")
                     print(__separate_line)

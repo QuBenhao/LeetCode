@@ -239,10 +239,7 @@ if __name__ == '__main__':
 
     for i, (it, ot) in enumerate(zip(input_json, output_json)):
         result = getattr(sol, function_name)(*it)
-        if isinstance(result, list):
-            assert sorted(result) == sorted(ot), f"[Testcase#{{i}}] {{it}}: Expected {{ot}}, but got {{result}}"
-        else:
-            assert result == ot, f"[Testcase#{{i}}] {{it}}:Expected {{ot}}, but got {{result}}"
+        assert result == ot, f"[Testcase#{{i}}] {{it}}:Expected {{ot}}, but got {{result}}"
 
     print("All tests passed")
 """
