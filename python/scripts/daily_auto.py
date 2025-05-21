@@ -125,7 +125,7 @@ def process_daily(languages: list[str], problem_folder: str = None):
 
 def process_plans(cookie: str, languages: List[str] = None, problem_folder: str = None):
     if check_cookie_expired(cookie):
-        logging.warning("Cookie might be expired")
+        logging.warning("Cookie may have expired; please check!")
     plans = get_user_study_plans(cookie)
     if plans is None:
         if not send_text_message("The LeetCode in GitHub secrets might be expired, please check!",
