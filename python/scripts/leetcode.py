@@ -55,7 +55,13 @@ __user_input_submit = """Please select the submit method [0-4, default: 0]:
 3. Submit specified problem[All selected languages]
 4. Submit specified problem[Select language]
 """
-__user_input_problem_id = "Enter the problem ID (e.g., 1, LCR 043, 面试题 01.01, etc.): "
+__user_input_problem_id = "Enter the problem ID (e.g. 1, LCR 043, 面试题 01.01, etc.): "
+__user_input_contest = """Please select the contest method [0-2, default: 0]:
+0. Back
+1. List contests
+2. Contest by slug
+"""
+__user_input_contest_id = "Enter the contest ID (e.g. biweekly-contest-155, etc.): "
 __user_input_page = """Total of [{}] elements, please enter [default: 0]:
 0. Back
 {}
@@ -344,72 +350,93 @@ def change_problem(languages, problem_folder):
 
 
 def contest_main(languages, contest_folder, cookie):
-    cur_page = 1
-    while True:
-        contest_page = contest_lib.get_contest_list(cur_page)
-        total, data, has_more = contest_page["total"], contest_page["contests"], contest_page["has_more"]
-        max_page = math.ceil(total / 10)
-        if not data:
-            print("No contests found.")
-            break
-        contest_content = "\n".join(
-            f"{i}. [{datetime.datetime.fromtimestamp(contest['start_time']).strftime('%Y-%m-%d %H:%M:%S')}]"
-            f"{contest['title']}"
-            for i, contest in enumerate(data, start=1))
-        user_input_select = input_until_valid(
-            __user_input_page.format(total, contest_content),
-            __allow_all
-        )
-        pick = None
-        match user_input_select:
-            case "b":
-                cur_page = max(1, cur_page - 1)
-            case "n":
-                cur_page = min(max_page, cur_page + 1)
-            case v if v.isdigit() and 1 <= int(v) <= 10:
-                pick = int(v)
-            case _:
+    def contest_list():
+        cur_page = 1
+        while True:
+            contest_page = contest_lib.get_contest_list(cur_page)
+            total, data, has_more = contest_page["total"], contest_page["contests"], contest_page["has_more"]
+            max_page = math.ceil(total / 10)
+            if not data:
+                print("No contests found.")
                 break
-        print(__separate_line)
-        if not pick:
-            continue
-        contest = data[pick-1]
-        contest_id = contest["title_slug"]
-        contest_questions = contest_lib.get_contest_info(contest_id)
-        p = root_path / contest_folder / contest_id
-        p.mkdir(exist_ok=True)
-        for i, question in enumerate(contest_questions, start=1):
-            question_slug = question["title_slug"]
-            subp = p / str(i)
-            subp.mkdir(exist_ok=True)
-            problem_info = contest_lib.get_contest_problem_info(contest_id, question_slug, ["python3"], cookie)
-            if not problem_info:
-                print(f"Failed to get contest [{contest_id}] problem [{question_slug}]")
-                return
-            with (subp / "problem.md").open("w", encoding="utf-8") as f:
-                f.write(problem_info["en_markdown_content"])
-            with (subp / "problem_zh.md").open("w", encoding="utf-8") as f:
-                f.write(problem_info["cn_markdown_content"])
-            with (subp / "input.json").open("w", encoding="utf-8") as f:
-                json.dump(problem_info["question_example_testcases"], f)
-            with (subp / "output.json").open("w", encoding="utf-8") as f:
-                json.dump(problem_info["question_example_testcases_output"], f)
-            for lang, code in problem_info["language_default_code"].items():
-                cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
-                if not cls:
-                    logging.warning(f"Unsupported language {lang} yet")
-                    continue
-                obj: lc_libs.LanguageWriter = cls()
-                solution_file = obj.solution_file
-                with (subp / solution_file).open("w", encoding="utf-8") as f:
-                    content = obj.write_contest(code, problem_info["question_id"], "")
-                    if not content:
-                        logging.warning(f"Failed to write solution for {lang}")
-                        continue
-                    f.write(content)
-        print(f"Contest [{contest_id}] generated.")
+            contest_content = "\n".join(
+                f"{_i}. [{datetime.datetime.fromtimestamp(c['start_time']).strftime('%Y-%m-%d %H:%M:%S')}]{c['title']}"
+                for _i, c in enumerate(data, start=1))
+            user_input_select = input_until_valid(
+                __user_input_page.format(total, contest_content),
+                __allow_all
+            )
+            pick = None
+            match user_input_select:
+                case "b":
+                    cur_page = max(1, cur_page - 1)
+                case "n":
+                    cur_page = min(max_page, cur_page + 1)
+                case v if v.isdigit() and 1 <= int(v) <= 10:
+                    pick = int(v)
+                case _:
+                    break
+            print(__separate_line)
+            if not pick:
+                continue
+            return data[pick - 1]
+        return None
 
+    user_input_contest = input_until_valid(
+        __user_input_contest,
+        __allow_all
+    )
     print(__separate_line)
+    match user_input_contest:
+        case "1":
+            contest = contest_list()
+            if not contest:
+                return None
+            contest_id = contest["title_slug"]
+        case "2":
+            contest_id = input_until_valid(
+                __user_input_contest_id,
+                __allow_all_not_empty,
+                "Contest ID cannot be empty."
+            )
+        case _:
+            return None
+
+    contest_questions = contest_lib.get_contest_info(contest_id)
+    p = root_path / contest_folder / contest_id
+    p.mkdir(parents=True, exist_ok=True)
+    for i, question in enumerate(contest_questions, start=1):
+        question_slug = question["title_slug"]
+        subp = p / str(i)
+        subp.mkdir(parents=True, exist_ok=True)
+        problem_info = contest_lib.get_contest_problem_info(contest_id, question_slug, ["python3"], cookie)
+        if not problem_info:
+            print(f"Failed to get contest [{contest_id}] problem [{question_slug}]")
+            return None
+        with (subp / "problem.md").open("w", encoding="utf-8") as f:
+            f.write(problem_info["en_markdown_content"])
+        with (subp / "problem_zh.md").open("w", encoding="utf-8") as f:
+            f.write(problem_info["cn_markdown_content"])
+        with (subp / "input.json").open("w", encoding="utf-8") as f:
+            json.dump(problem_info["question_example_testcases"], f)
+        with (subp / "output.json").open("w", encoding="utf-8") as f:
+            json.dump(problem_info["question_example_testcases_output"], f)
+        for lang, code in problem_info["language_default_code"].items():
+            cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+            if not cls:
+                logging.warning(f"Unsupported language {lang} yet")
+                continue
+            obj: lc_libs.LanguageWriter = cls()
+            solution_file = obj.solution_file
+            with (subp / solution_file).open("w", encoding="utf-8") as f:
+                content = obj.write_contest(code, problem_info["question_id"], "")
+                if not content:
+                    logging.warning(f"Failed to write solution for {lang}")
+                    continue
+                f.write(content)
+    print(f"Contest [{contest_id}] generated.")
+    print(__separate_line)
+    return None
 
 
 def main():

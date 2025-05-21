@@ -5,7 +5,6 @@ import re
 from typing import List
 
 from bs4 import BeautifulSoup
-from markdownify import markdownify as md
 
 from python.constants import CONTEST_HISTORY_QUERY, LEET_CODE_BACKEND
 from python.utils import general_request
@@ -62,12 +61,16 @@ def get_contest_problem_info(contest_id: str, question_slug: str, languages: Lis
             return None
         code_info_str = code_info.decode_contents()
         en_title = None
+        cn_title = None
         example_testcases = ""
         sample_test_case = ""
         code_definitions = None
         for line in code_info_str.split("\n"):
             if "questionSourceTitle" in line:
                 en_title = re.search(r"questionSourceTitle: '(.*?)'", line).group(1)
+                continue
+            if "questionTitle" in line:
+                cn_title = line.split("'")[-2]
                 continue
             if "questionExampleTestcases" in line:
                 qet = re.search(r"questionExampleTestcases: '(.*)'", line).group(1)
@@ -104,13 +107,13 @@ def get_contest_problem_info(contest_id: str, question_slug: str, languages: Lis
 
         cn_question_content = soup.find("div", class_="question-content default-content")
         if cn_question_content:
-            cn_markdown_content = f"# {md(title.decode_contents())}\n\n{md(cn_question_content.decode_contents())}"
+            cn_markdown_content = f"# {question_id}. {cn_title}\n\n{cn_question_content.decode_contents()}"
         else:
             logging.warning("No CN content found for %s", question_slug)
             cn_markdown_content = None
         en_question_content = soup.find("div", class_="question-content source-content")
         if en_question_content:
-            en_markdown_content = f"# {question_id}. {en_title}\n\n{md(en_question_content.decode_contents())}"
+            en_markdown_content = f"# {question_id}. {en_title}\n\n{en_question_content.decode_contents()}"
         else:
             logging.warning("No EN content found for %s", question_slug)
             en_markdown_content = None

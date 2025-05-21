@@ -7,4 +7,3 @@ tqdm
 pytz
 sortedcontainers
 numpy
-markdownify
