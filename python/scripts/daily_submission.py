@@ -17,7 +17,7 @@ from python.utils import get_default_folder, send_text_message, check_cookie_exp
 def main(cookie: Optional[str], languages: list[str], problem_folder: str = None, user_slug: str = None):
     try:
         if check_cookie_expired(cookie):
-            logging.warning("LeetCode cookie might expired, please check!")
+            logging.warning("LeetCode cookie may have expired; please check!")
         daily_info = lc_libs.get_daily_question()
         if not daily_info:
             logging.error(f"Unable to get daily question, possibly network issue?")
