@@ -2,14 +2,13 @@ import inspect
 import logging
 import os
 import time
-import traceback
-from typing import Tuple
-from collections import defaultdict, deque
+from typing import Tuple, Optional
+from collections import defaultdict
 from importlib.util import spec_from_file_location, module_from_spec
 
-from python.constants import TESTCASE_TEMPLATE_PYTHON, TESTCASE_TEMPLATE_PYTHON_TESTCASES, SOLUTION_TEMPLATE_PYTHON
+from python.constants import TESTCASE_TEMPLATE_PYTHON, TESTCASE_TEMPLATE_PYTHON_TESTCASES, SOLUTION_TEMPLATE_PYTHON, \
+    CONTEST_TEMPLATE_PYTHON
 from python.lc_libs.language_writer import LanguageWriter
-from python.object_libs.tree import TreeNode
 from python.utils import back_question_id
 
 
@@ -79,6 +78,13 @@ class Python3Writer(LanguageWriter):
             logging.error(f"Failed to write [{problem_id}] python3 solution", exc_info=True)
         logging.warning("Fall back to write python3 backup solution")
         return Python3Writer.__write_solution_python_backup(code_template)
+
+    def write_contest(self, code_default: str, problem_id: str = "", contest_folder: str = "") -> Optional[str]:
+        try:
+            return CONTEST_TEMPLATE_PYTHON.format(code_default)
+        except Exception as _:
+            logging.error(f"Failed to write [{problem_id}] python3 contest", exc_info=True)
+        return None
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:

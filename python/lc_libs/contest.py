@@ -1,13 +1,19 @@
 import ast
 import json
+import logging
+import os
 import re
-import time
+import sys
+from pathlib import Path
+from typing import List
+
 from bs4 import BeautifulSoup
 from markdownify import markdownify as md
 
 import dotenv
 
-from python.constants import CONTEST_HISTORY_QUERY, LEET_CODE_BACKEND
+from python import lc_libs
+from python.constants import CONTEST_HISTORY_QUERY, LEET_CODE_BACKEND, COOKIE
 from python.utils import general_request
 
 
@@ -52,52 +58,107 @@ def get_contest_info(contest_id: str):
     return general_request(url, handle_response, "get")
 
 
-def get_contest_problem_info(contest_id: str, question_slug: str, cookie: str):
-    # url = f"https://leetcode.cn/contest/{contest_id}/problems/{question_slug}/"
-    # resp = requests.get(url, timeout=5, cookies={"LEETCODE_SESSION": cookie})
-    with open("../dev/example_question.html", "r", encoding="utf-8") as f:
-        text = f.read()
-    soup = BeautifulSoup(text, "html.parser")
-    code_info = soup.find("script", string=re.compile("var pageData ="))
-    code_info_str = code_info.decode_contents()
-    en_title = None
-    question_example_testcases = []
-    code_definitions = None
-    for line in code_info_str.split("\n"):
-        if "questionSourceTitle" in line:
-            en_title = re.search(r"questionSourceTitle: '(.*?)'", line).group(1)
-            continue
-        if "questionExampleTestcases" in line:
-            qet = re.search(r"questionExampleTestcases: '(.*)'", line).group(1)
-            decoded_str = qet.encode('latin-1').decode('unicode_escape').split("\n")
-            for s in decoded_str:
-                question_example_testcases.append(json.loads(s))
-            continue
-        if "codeDefinition" in line:
-            code_definitions = line.split(":", 1)[1].rsplit(",", 1)[0]
-            # """ in decoded_str
-            code_definitions = ast.literal_eval(code_definitions)
-            continue
+def get_contest_problem_info(contest_id: str, question_slug: str, languages: List[str], cookie: str):
+    def handle_response(response):
+        logging.debug(response.text)
+        soup = BeautifulSoup(response.text, "html.parser")
+        code_info = soup.find("script", string=re.compile("var pageData ="))
+        if not code_info:
+            logging.warning("Cookie might be expired! Please update the cookie and try again.")
+            return None
+        code_info_str = code_info.decode_contents()
+        en_title = None
+        question_example_testcases = []
+        code_definitions = None
+        for line in code_info_str.split("\n"):
+            if "questionSourceTitle" in line:
+                en_title = re.search(r"questionSourceTitle: '(.*?)'", line).group(1)
+                continue
+            if "questionExampleTestcases" in line:
+                qet = re.search(r"questionExampleTestcases: '(.*)'", line).group(1)
+                decoded_str = qet.encode('latin-1').decode('unicode_escape').split("\n")
+                for s in decoded_str:
+                    question_example_testcases.append(json.loads(s))
+                continue
+            if "codeDefinition" in line:
+                code_definitions = line.split(":", 1)[1].rsplit(",", 1)[0]
+                # """ in decoded_str
+                code_definitions = ast.literal_eval(code_definitions)
+                continue
 
-    print(code_definitions[3].get("defaultCode"))
+        language_default_code = {}
+        for code_definition in code_definitions:
+            if code_definition.get("value") not in languages:
+                continue
+            language_default_code[code_definition.get("value")] = code_definition.get("defaultCode")
 
-    title = soup.find("h3")
-    question_id = title.text.split(".")[0]
+        title = soup.find("h3")
+        question_id = title.text.split(".")[0]
 
-    cn_question_content = soup.find("div", class_="question-content default-content")
-    if cn_question_content:
-        cn_markdown_content = f"# {md(title.decode_contents())}\n\n{md(cn_question_content.decode_contents())}"
-    else:
-        print("No CN content found")
-    en_question_content = soup.find("div", class_="question-content source-content")
-    if en_question_content:
-        en_markdown_content = f"# {question_id}. {en_title}\n\n{md(en_question_content.decode_contents())}"
-    else:
-        print("No EN content found")
+        cn_question_content = soup.find("div", class_="question-content default-content")
+        if cn_question_content:
+            cn_markdown_content = f"# {md(title.decode_contents())}\n\n{md(cn_question_content.decode_contents())}"
+        else:
+            logging.warning("No CN content found for %s", question_slug)
+            cn_markdown_content = None
+        en_question_content = soup.find("div", class_="question-content source-content")
+        if en_question_content:
+            en_markdown_content = f"# {question_id}. {en_title}\n\n{md(en_question_content.decode_contents())}"
+        else:
+            logging.warning("No EN content found for %s", question_slug)
+            en_markdown_content = None
+        outputs = cn_question_content.find_all("span", class_="example-io")
+        example_outputs = []
+        for output in outputs[1::2]:
+            example_outputs.append(json.loads(output.text))
+        return {
+            "question_id": question_id,
+            "title": title.text,
+            "question_slug": question_slug,
+            "en_markdown_content": en_markdown_content,
+            "cn_markdown_content": cn_markdown_content,
+            "question_example_testcases": question_example_testcases,
+            "question_example_testcases_output": example_outputs,
+            "language_default_code": language_default_code
+        }
+
+    url = f"https://leetcode.cn/contest/{contest_id}/problems/{question_slug}/"
+    # with open("../dev/example_question.html", "r", encoding="utf-8") as f:
+    #     text = f.read()
+    return general_request(url, handle_response, "get", cookies={"cookie": cookie})
 
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.DEBUG)
     dotenv.load_dotenv()
-    get_contest_info(contest_id="biweekly-contest-155")
-    time.sleep(5)
-    # get_contest_problem_info(contest_id="biweekly-contest-155", question_slug="find-the-most-common-response", cookie=None)
+    ql = get_contest_info(contest_id="biweekly-contest-155")
+    p = Path("../dev/biweekly-contest-155")
+    p.mkdir(exist_ok=True)
+    for i, question in enumerate(ql, start=1):
+        question_slug = question["title_slug"]
+        subp = p / str(i)
+        subp.mkdir(exist_ok=True)
+        r = get_contest_problem_info(contest_id="biweekly-contest-155", question_slug=question_slug, languages=["python3"], cookie=os.getenv(COOKIE))
+        if not r:
+            sys.exit(1)
+        with (subp/"problem.md" ).open("w", encoding="utf-8") as f:
+            f.write(r["en_markdown_content"])
+        with (subp/"problem_zh.md").open("w", encoding="utf-8") as f:
+            f.write(r["cn_markdown_content"])
+        with (subp/"input.json").open("w", encoding="utf-8") as f:
+            json.dump(r["question_example_testcases"], f, indent=4)
+        with (subp/"output.json").open("w", encoding="utf-8") as f:
+            json.dump(r["question_example_testcases_output"], f, indent=4)
+        for lang, code in r["language_default_code"].items():
+            cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+            if not cls:
+                logging.warning(f"Unsupported language {lang} yet")
+                continue
+            obj: lc_libs.LanguageWriter = cls()
+            solution_file = obj.solution_file
+            with (subp / solution_file).open("w", encoding="utf-8") as f:
+                content = obj.write_contest(code, r["question_id"], "")
+                if not content:
+                    logging.warning(f"Failed to write solution for {lang}")
+                    continue
+                f.write(content)
