@@ -238,7 +238,7 @@ if __name__ == '__main__':
     print(f"Function name: {{function_name}}")
 
     for i, (it, ot) in enumerate(zip(input_json, output_json)):
-        result = getattr(sol, function_name)(it)
+        result = getattr(sol, function_name)(*it)
         if isinstance(result, list):
             assert sorted(result) == sorted(ot), f"[Testcase#{{i}}] {{it}}: Expected {{ot}}, but got {{result}}"
         else:

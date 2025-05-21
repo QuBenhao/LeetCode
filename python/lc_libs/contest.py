@@ -2,8 +2,10 @@ import ast
 import json
 import logging
 import os
+import random
 import re
 import sys
+import time
 from pathlib import Path
 from typing import List
 
@@ -68,7 +70,8 @@ def get_contest_problem_info(contest_id: str, question_slug: str, languages: Lis
             return None
         code_info_str = code_info.decode_contents()
         en_title = None
-        question_example_testcases = []
+        example_testcases = ""
+        sample_test_case = ""
         code_definitions = None
         for line in code_info_str.split("\n"):
             if "questionSourceTitle" in line:
@@ -76,15 +79,27 @@ def get_contest_problem_info(contest_id: str, question_slug: str, languages: Lis
                 continue
             if "questionExampleTestcases" in line:
                 qet = re.search(r"questionExampleTestcases: '(.*)'", line).group(1)
-                decoded_str = qet.encode('latin-1').decode('unicode_escape').split("\n")
-                for s in decoded_str:
-                    question_example_testcases.append(json.loads(s))
+                decoded_str = qet.encode('latin-1').decode('unicode_escape')
+                example_testcases = decoded_str
+                continue
+            if "sampleTestCase" in line:
+                sample_test_case = re.search(r"sampleTestCase: '(.*)'", line).group(1)
+                decoded_str = sample_test_case.encode('latin-1').decode('unicode_escape')
+                sample_test_case = decoded_str
                 continue
             if "codeDefinition" in line:
                 code_definitions = line.split(":", 1)[1].rsplit(",", 1)[0]
                 # """ in decoded_str
                 code_definitions = ast.literal_eval(code_definitions)
                 continue
+        input_vars = sample_test_case.count("\n") + 1
+        question_example_testcases = []
+        splits = example_testcases.split("\n")
+        for inputs in range(0, len(splits), input_vars):
+            cur_inputs = []
+            for i in range(inputs, inputs + input_vars):
+                cur_inputs.append(json.loads(splits[i]))
+            question_example_testcases.append(cur_inputs)
 
         language_default_code = {}
         for code_definition in code_definitions:
@@ -135,6 +150,7 @@ if __name__ == "__main__":
     p = Path("../dev/biweekly-contest-155")
     p.mkdir(exist_ok=True)
     for i, question in enumerate(ql, start=1):
+        time.sleep(random.random()+0.1)
         question_slug = question["title_slug"]
         subp = p / str(i)
         subp.mkdir(exist_ok=True)
@@ -146,9 +162,9 @@ if __name__ == "__main__":
         with (subp/"problem_zh.md").open("w", encoding="utf-8") as f:
             f.write(r["cn_markdown_content"])
         with (subp/"input.json").open("w", encoding="utf-8") as f:
-            json.dump(r["question_example_testcases"], f, indent=4)
+            json.dump(r["question_example_testcases"], f)
         with (subp/"output.json").open("w", encoding="utf-8") as f:
-            json.dump(r["question_example_testcases_output"], f, indent=4)
+            json.dump(r["question_example_testcases_output"], f)
         for lang, code in r["language_default_code"].items():
             cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
             if not cls:
