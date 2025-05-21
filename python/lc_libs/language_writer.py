@@ -30,6 +30,14 @@ class LanguageWriter(abc.ABC):
     ) -> str:
         pass
 
+    def write_contest(
+            self,
+            code_default: str,
+            problem_id: str = "",
+            contest_folder: str = "",
+    ) -> str:
+        pass
+
     def get_solution_code(
             self, root_path, problem_folder: str, problem_id: str
     ) -> Tuple[str, str]:

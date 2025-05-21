@@ -200,3 +200,46 @@ library = {{ path = "../../rust/library", features = ["model"] }}
 name = "solution_{}"
 path = "solution.rs"
 """
+
+CONTEST_TEMPLATE_PYTHON = """# Add all common imports.
+import heapq
+from bisect import *
+from typing import *
+from functools import *
+from itertools import *
+from sortedcontainers import *
+from collections import *
+from heapq import *
+from math import *
+
+# Add all common object libraries.
+from python.object_libs.linked_list import ListNode
+from python.object_libs.tree import TreeNode
+
+############################# USER CODE STARTS HERE #############################
+
+{}
+
+############################### USER CODE ENDS HERE #############################
+
+if __name__ == '__main__':
+    import json
+    
+    with open("input.json", "r") as f:
+        input_json = json.load(f)
+    with open("output.json", "r") as f:
+        output_json = json.load(f)
+    sol = Solution()
+    
+    # find and call the function and pass the input_json as argument, compare the output with output_json
+    function_name = "" # Fill in the function name or find by default attr
+    if not function_name:
+        function_name = [name for name in dir(sol) if not name.startswith("__") and callable(getattr(sol, name))][0]
+    print(f"Function name: {{function_name}}")
+
+    for i, (it, ot) in enumerate(zip(input_json, output_json)):
+        result = getattr(sol, function_name)(*it)
+        assert result == ot, f"[Testcase#{{i}}] {{it}}:Expected {{ot}}, but got {{result}}"
+
+    print("All tests passed")
+"""
