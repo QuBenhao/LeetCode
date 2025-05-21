@@ -733,3 +733,70 @@ $ go build -gcflags="-m" main.go
 1. **`new` 返回指针，`make` 返回实例**。
 2. **`make` 专用于引用类型，确保数据结构可用**。
 3. **内存分配位置由逃逸分析决定**，`make` 创建的底层结构通常逃逸到堆。
+
+### 并发顺序输出1到100的Go实现
+
+这个题目要求我们使用Go语言实现一个程序，在并发环境下顺序输出1到100的数字，同时限制最多只有10个goroutine同时运行。
+
+```go
+package main
+
+/*
+并发顺序输出1到100的Go实现
+
+这个题目要求我们使用Go语言实现一个程序，在并发环境下顺序输出1到100的数字，同时限制最多只有10个goroutine同时运行。
+*/
+
+import "sync"
+
+// Counter 定义一个结构体来保存当前数字和锁
+type Counter struct {
+	current int
+	mu      sync.Mutex
+}
+
+// 定义一个函数来输出数字
+func (c *Counter) printNumber(wg *sync.WaitGroup) {
+	//defer wg.Done() // 在函数结束时通知WaitGroup
+	defer func() {
+		if c.current > 100 {
+			wg.Done()
+		}
+	}()
+
+	// 获取锁
+	c.mu.Lock()
+	defer c.mu.Unlock() // 在函数结束时释放锁
+
+	// 如果当前数字小于等于100，则输出数字并增加当前数字
+	if c.current <= 100 {
+		println(c.current)
+		c.current++
+	}
+}
+
+// 定义一个函数来控制并发输出
+func (c *Counter) run() {
+	var wg sync.WaitGroup
+
+	wg.Add(10) // 设置WaitGroup计数器为10
+	// 创建10个goroutine
+	for i := 0; i < 10; i++ {
+		go func() {
+			for {
+				c.printNumber(&wg)   // 调用打印函数
+				if c.current > 100 { // 如果当前数字大于100，则退出循环
+					break
+				}
+			}
+		}()
+	}
+
+	wg.Wait() // 等待所有goroutine完成
+}
+
+func main() {
+	counter := &Counter{current: 1} // 初始化Counter结构体
+	counter.run()                   // 调用run函数开始输出数字
+}
+```
