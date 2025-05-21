@@ -11,11 +11,13 @@ from daily_auto import write_question
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import python.lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, send_text_message
+from python.utils import get_default_folder, send_text_message, check_cookie_expired
 
 
 def main(cookie: Optional[str], languages: list[str], problem_folder: str = None, user_slug: str = None):
     try:
+        if check_cookie_expired(cookie):
+            logging.warning("LeetCode cookie may have expired; please check!")
         daily_info = lc_libs.get_daily_question()
         if not daily_info:
             logging.error(f"Unable to get daily question, possibly network issue?")

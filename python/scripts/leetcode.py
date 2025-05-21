@@ -18,7 +18,7 @@ from python.constants import constant
 from python.lc_libs import get_daily_question
 import python.lc_libs as lc_libs
 from python.scripts.submit import main as submit_main_async
-from python.utils import back_question_id, format_question_id
+from python.utils import back_question_id, format_question_id, check_cookie_expired
 from python.scripts.daily_auto import main as daily_auto_main
 from python.scripts.get_problem import main as get_problem_main
 from python.scripts.tools import lucky_main, remain_main, clean_empty_java_main, clean_error_rust_main
@@ -93,6 +93,24 @@ def input_pick_array(desc, arr):
 
 
 def configure():
+    def check_and_update_cookie(_cookie: str) -> str:
+        while check_cookie_expired(_cookie):
+            update_cookie = input_until_valid(
+                "Cookie might expired, do you want to update it? [y/n, default: n]: ",
+                __allow_all
+            )
+            if update_cookie == "y":
+                _cookie = input_until_valid(
+                    "Enter your LeetCode cookie: ",
+                    __allow_all
+                )
+                print("Cookie updated.")
+                print(__separate_line)
+            else:
+                print(__separate_line)
+                break
+        return _cookie
+
     print("Setting up the environment...")
     config_select = input_until_valid(__user_input_config, __allow_all)
     print(__separate_line)
@@ -131,6 +149,7 @@ def configure():
             cookie = input_cookie.strip()
         else:
             cookie = os.getenv(constant.COOKIE)
+        cookie = check_and_update_cookie(cookie)
         print(__separate_line)
 
         update_config = input_until_valid(
@@ -145,7 +164,7 @@ def configure():
             print(f"Updated {env_file} with the new configuration.")
         print(__separate_line)
     else:
-        cookie = os.getenv(constant.COOKIE)
+        cookie = check_and_update_cookie(os.getenv(constant.COOKIE))
         problem_folder = os.getenv(constant.PROBLEM_FOLDER, "problems")
         languages = os.getenv(constant.LANGUAGES, "python3").split(",")
         print(f"Languages selected: {', '.join(languages)}")

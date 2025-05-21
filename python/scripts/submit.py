@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from python import lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, back_question_id, format_question_id
+from python.utils import get_default_folder, back_question_id, format_question_id, check_cookie_expired
 
 _LANG_TRANS_MAP = {
     "go": "golang",
@@ -24,6 +24,8 @@ _LANG_TRANS_MAP = {
 
 async def main(root_path, problem_id: str, lang: str, cookie: str,
                problem_folder: str = None, check_solution: bool = False):
+    if check_cookie_expired(cookie):
+        logging.warning("LeetCode cookie might have expired; please check!")
     lang = _LANG_TRANS_MAP.get(lang.lower(), lang)
     load_code = False
     code = ""

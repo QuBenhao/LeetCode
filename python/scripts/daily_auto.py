@@ -14,7 +14,7 @@ from python.lc_libs import (get_daily_question, get_question_desc, get_question_
                             get_question_info, get_question_code, get_question_desc_cn)
 import python.lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, send_text_message
+from python.utils import get_default_folder, send_text_message, check_cookie_expired
 
 
 def write_question(root_path, dir_path, problem_folder: str, question_id: str, question_name: str,
@@ -120,9 +120,12 @@ def process_daily(languages: list[str], problem_folder: str = None):
         except Exception as _:
             logging.error(f"Failed to change daily test for {lang}", exc_info=True)
             continue
+    return None
 
 
 def process_plans(cookie: str, languages: List[str] = None, problem_folder: str = None):
+    if check_cookie_expired(cookie):
+        logging.warning("Cookie may have expired; please check!")
     plans = get_user_study_plans(cookie)
     if plans is None:
         if not send_text_message("The LeetCode in GitHub secrets might be expired, please check!",

@@ -13,7 +13,7 @@ from daily_auto import write_question
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from python.constants import constant
 import python.lc_libs as lc_libs
-from python.utils import get_default_folder, format_question_id
+from python.utils import get_default_folder, format_question_id, check_cookie_expired
 
 PROBLEM_MD = "problem.md"
 PROBLEM_MD_ZH = "problem_zh.md"
@@ -142,6 +142,8 @@ def remain_main(cookie, languages, problem_folder, status="TRIED", category="all
     if not cookie:
         logging.error("Cookie is needed for remaining questions.")
         return 1
+    if check_cookie_expired(cookie):
+        logging.warning("LeetCode cookie may have expired; please check!")
     remains = lc_libs.get_questions_by_status(status, category, True, cookie=cookie)
     if remains is None:
         logging.error("Failed to get remain problems.")
