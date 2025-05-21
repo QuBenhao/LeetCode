@@ -143,7 +143,7 @@ def remain_main(cookie, languages, problem_folder, status="TRIED", category="all
         logging.error("Cookie is needed for remaining questions.")
         return 1
     if check_cookie_expired(cookie):
-        logging.warning("LeetCode cookie might expired, please check!")
+        logging.warning("LeetCode cookie may have expired; please check!")
     remains = lc_libs.get_questions_by_status(status, category, True, cookie=cookie)
     if remains is None:
         logging.error("Failed to get remain problems.")
