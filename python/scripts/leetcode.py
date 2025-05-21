@@ -1,6 +1,8 @@
 import asyncio
+import datetime
 import json
 import logging
+import math
 import os
 import random
 import re
@@ -15,7 +17,7 @@ root_path = file_path.parent.parent.parent
 sys.path.insert(0, root_path.as_posix())
 
 from python.constants import constant
-from python.lc_libs import get_daily_question
+from python.lc_libs import get_daily_question, contest as contest_lib
 import python.lc_libs as lc_libs
 from python.scripts.submit import main as submit_main_async
 from python.utils import back_question_id, format_question_id, check_cookie_expired
@@ -54,6 +56,13 @@ __user_input_submit = """Please select the submit method [0-4, default: 0]:
 4. Submit specified problem[Select language]
 """
 __user_input_problem_id = "Enter the problem ID (e.g., 1, LCR 043, 面试题 01.01, etc.): "
+__user_input_page = """Total of [{}] elements, please enter [default: 0]:
+0. Back
+{}
+
+b. last page
+n. next page
+"""
 
 __supported_languages = ["python3", "java", "golang", "cpp", "typescript", "rust"]
 __user_input_language = f"""Select multiple languages you want to use, separated by comma [0-{len(__supported_languages) - 1}, default: 0]:
@@ -142,6 +151,17 @@ def configure():
         print(f"Problem folder selected: {problem_folder}")
         print(__separate_line)
 
+        input_contest_folder = input_until_valid(
+            "Enter the contest folder path (press enter to use default): ",
+            __allow_all
+        )
+        if input_contest_folder:
+            contest_folder = input_contest_folder
+        else:
+            contest_folder = os.getenv(constant.CONTEST_FOLDER, "contest")
+        print("Contest folder selected: ", contest_folder)
+        print(__separate_line)
+
         input_cookie = input_until_valid(
             "Enter your LeetCode cookie (press enter to use default): ",
             __allow_all
@@ -167,13 +187,15 @@ def configure():
     else:
         cookie = check_and_update_cookie(os.getenv(constant.COOKIE))
         problem_folder = os.getenv(constant.PROBLEM_FOLDER, "problems")
+        contest_folder = os.getenv(constant.CONTEST_FOLDER, "contest")
         languages = os.getenv(constant.LANGUAGES, "python3").split(",")
         print(f"Languages selected: {', '.join(languages)}")
         print(f"Problem folder selected: {problem_folder}")
+        print(f"Contest folder selected: {contest_folder}")
         print(__separate_line)
 
     logging.basicConfig(level=logging.ERROR)
-    return languages, problem_folder, cookie
+    return languages, problem_folder, cookie, contest_folder
 
 
 def get_problem(languages, problem_folder, cookie):
@@ -321,9 +343,78 @@ def change_problem(languages, problem_folder):
     print(__separate_line)
 
 
+def contest_main(languages, contest_folder, cookie):
+    cur_page = 1
+    while True:
+        contest_page = contest_lib.get_contest_list(cur_page)
+        total, data, has_more = contest_page["total"], contest_page["contests"], contest_page["has_more"]
+        max_page = math.ceil(total / 10)
+        if not data:
+            print("No contests found.")
+            break
+        contest_content = "\n".join(
+            f"{i}. [{datetime.datetime.fromtimestamp(contest['start_time']).strftime('%Y-%m-%d %H:%M:%S')}]"
+            f"{contest['title']}"
+            for i, contest in enumerate(data, start=1))
+        user_input_select = input_until_valid(
+            __user_input_page.format(total, contest_content),
+            __allow_all
+        )
+        pick = None
+        match user_input_select:
+            case "b":
+                cur_page = max(1, cur_page - 1)
+            case "n":
+                cur_page = min(max_page, cur_page + 1)
+            case v if v.isdigit() and 1 <= int(v) <= 10:
+                pick = int(v)
+            case _:
+                break
+        print(__separate_line)
+        if not pick:
+            continue
+        contest = data[pick-1]
+        contest_id = contest["title_slug"]
+        contest_questions = contest_lib.get_contest_info(contest_id)
+        p = root_path / contest_folder / contest_id
+        p.mkdir(exist_ok=True)
+        for i, question in enumerate(contest_questions, start=1):
+            question_slug = question["title_slug"]
+            subp = p / str(i)
+            subp.mkdir(exist_ok=True)
+            problem_info = contest_lib.get_contest_problem_info(contest_id, question_slug, ["python3"], cookie)
+            if not problem_info:
+                print(f"Failed to get contest [{contest_id}] problem [{question_slug}]")
+                return
+            with (subp / "problem.md").open("w", encoding="utf-8") as f:
+                f.write(problem_info["en_markdown_content"])
+            with (subp / "problem_zh.md").open("w", encoding="utf-8") as f:
+                f.write(problem_info["cn_markdown_content"])
+            with (subp / "input.json").open("w", encoding="utf-8") as f:
+                json.dump(problem_info["question_example_testcases"], f)
+            with (subp / "output.json").open("w", encoding="utf-8") as f:
+                json.dump(problem_info["question_example_testcases_output"], f)
+            for lang, code in problem_info["language_default_code"].items():
+                cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+                if not cls:
+                    logging.warning(f"Unsupported language {lang} yet")
+                    continue
+                obj: lc_libs.LanguageWriter = cls()
+                solution_file = obj.solution_file
+                with (subp / solution_file).open("w", encoding="utf-8") as f:
+                    content = obj.write_contest(code, problem_info["question_id"], "")
+                    if not content:
+                        logging.warning(f"Failed to write solution for {lang}")
+                        continue
+                    f.write(content)
+        print(f"Contest [{contest_id}] generated.")
+
+    print(__separate_line)
+
+
 def main():
     try:
-        languages, problem_folder, cookie = configure()
+        languages, problem_folder, cookie, contest_folder = configure()
         while True:
             main_function = input_until_valid(
                 __user_input_function,
@@ -338,7 +429,7 @@ def main():
                 case "3":
                     change_problem(languages, problem_folder)
                 case "4":
-                    contest(languages, problem_folder, cookie)
+                    contest_main(languages, contest_folder, cookie)
                 case "5":
                     clean_empty_java_main(root_path, problem_folder)
                     print("Done cleaning empty Java files.")

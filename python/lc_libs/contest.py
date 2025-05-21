@@ -1,21 +1,13 @@
 import ast
 import json
 import logging
-import os
-import random
 import re
-import sys
-import time
-from pathlib import Path
 from typing import List
 
 from bs4 import BeautifulSoup
 from markdownify import markdownify as md
 
-import dotenv
-
-from python import lc_libs
-from python.constants import CONTEST_HISTORY_QUERY, LEET_CODE_BACKEND, COOKIE
+from python.constants import CONTEST_HISTORY_QUERY, LEET_CODE_BACKEND
 from python.utils import general_request
 
 
@@ -138,43 +130,4 @@ def get_contest_problem_info(contest_id: str, question_slug: str, languages: Lis
         }
 
     url = f"https://leetcode.cn/contest/{contest_id}/problems/{question_slug}/"
-    # with open("../dev/example_question.html", "r", encoding="utf-8") as f:
-    #     text = f.read()
     return general_request(url, handle_response, "get", cookies={"cookie": cookie})
-
-
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG)
-    dotenv.load_dotenv()
-    ql = get_contest_info(contest_id="biweekly-contest-155")
-    p = Path("../dev/biweekly-contest-155")
-    p.mkdir(exist_ok=True)
-    for i, question in enumerate(ql, start=1):
-        time.sleep(random.random()+0.1)
-        question_slug = question["title_slug"]
-        subp = p / str(i)
-        subp.mkdir(exist_ok=True)
-        r = get_contest_problem_info(contest_id="biweekly-contest-155", question_slug=question_slug, languages=["python3"], cookie=os.getenv(COOKIE))
-        if not r:
-            sys.exit(1)
-        with (subp/"problem.md" ).open("w", encoding="utf-8") as f:
-            f.write(r["en_markdown_content"])
-        with (subp/"problem_zh.md").open("w", encoding="utf-8") as f:
-            f.write(r["cn_markdown_content"])
-        with (subp/"input.json").open("w", encoding="utf-8") as f:
-            json.dump(r["question_example_testcases"], f)
-        with (subp/"output.json").open("w", encoding="utf-8") as f:
-            json.dump(r["question_example_testcases_output"], f)
-        for lang, code in r["language_default_code"].items():
-            cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
-            if not cls:
-                logging.warning(f"Unsupported language {lang} yet")
-                continue
-            obj: lc_libs.LanguageWriter = cls()
-            solution_file = obj.solution_file
-            with (subp / solution_file).open("w", encoding="utf-8") as f:
-                content = obj.write_contest(code, r["question_id"], "")
-                if not content:
-                    logging.warning(f"Failed to write solution for {lang}")
-                    continue
-                f.write(content)
