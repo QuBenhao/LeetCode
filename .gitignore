@@ -1,5 +1,6 @@
 .name
 .idea/
+.cache/
 __pycache__/
 .env
 python/dev/tmp*
