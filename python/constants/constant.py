@@ -10,3 +10,4 @@ LOGGING_FORMAT = "[%(asctime)s][%(levelname)s][%(name)s][%(filename)s:%(lineno)d
 DATE_FORMAT="%Y-%m-%d %H:%M:%S"
 RATING_URL = "https://zerotrac.github.io/leetcode_problem_rating/data.json"
 RATING_URL_CN = "https://raw.gitmirror.com/zerotrac/leetcode_problem_rating/main/data.json"
+COOKIE_EXPIRY_SECONDS = 30 * 24 * 60 * 60 # 30 days
