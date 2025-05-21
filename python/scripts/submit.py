@@ -25,7 +25,7 @@ _LANG_TRANS_MAP = {
 async def main(root_path, problem_id: str, lang: str, cookie: str,
                problem_folder: str = None, check_solution: bool = False):
     if check_cookie_expired(cookie):
-        logging.warning("LeetCode cookie might expired, please check!")
+        logging.warning("LeetCode cookie might have expired; please check!")
     lang = _LANG_TRANS_MAP.get(lang.lower(), lang)
     load_code = False
     code = ""
