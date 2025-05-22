@@ -407,7 +407,7 @@ def contest_main(languages, contest_folder, cookie):
     p.mkdir(parents=True, exist_ok=True)
     for i, question in enumerate(contest_questions, start=1):
         question_slug = question["title_slug"]
-        subp = p / str(i)
+        subp = p / chr(ord('a') + i - 1)
         subp.mkdir(parents=True, exist_ok=True)
         problem_info = contest_lib.get_contest_problem_info(contest_id, question_slug, ["python3"], cookie)
         if not problem_info:
