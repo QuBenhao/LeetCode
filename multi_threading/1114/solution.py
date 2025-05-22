@@ -37,3 +37,5 @@ if __name__ == "__main__":
     random.shuffle(threads)
     for thread in threads:
         thread.start()
+    for thread in threads:
+        thread.join()
