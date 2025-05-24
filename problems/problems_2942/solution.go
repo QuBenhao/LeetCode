@@ -6,8 +6,13 @@ import (
 	"strings"
 )
 
-func findWordsContaining(words []string, x byte) []int {
-    
+func findWordsContaining(words []string, x byte) (ans []int) {
+	for i, word := range words {
+		if strings.Contains(word, string(x)) {
+			ans = append(ans, i)
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
