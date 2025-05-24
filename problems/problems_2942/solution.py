@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.findWordsContaining(*test_input)
 
     def findWordsContaining(self, words: List[str], x: str) -> List[int]:
-        pass
-
+        return [i for i, word in enumerate(words) if x in word]
