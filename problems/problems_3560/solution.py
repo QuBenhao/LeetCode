@@ -9,9 +9,4 @@ class Solution(solution.Solution):
     def minCuttingCost(self, n: int, m: int, k: int) -> int:
         if n <= k and m <= k:
             return 0
-        if n > k:
-            return k * (n-k)
-        if m > k:
-            return k * (m-k)
-        return 0
-
+        return k * (max(m, n) - k)
