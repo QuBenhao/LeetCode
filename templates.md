@@ -162,6 +162,7 @@ func search(nums []int, target int) bool {
 ## 单调栈
 
 ### 单调栈适用场景
+
 单调栈可以在时间复杂度为$`O(n)`$，求解出某个元素左边或者右边第一个比它大或者小的元素。
 
 单调栈一般用于解决一下几种问题：
@@ -256,6 +257,7 @@ func maxSlidingWindow(nums []int, k int) (ans []int) {
 - 双指针技巧通常用于处理数组或链表问题，如**快慢指针**检测循环、**左右指针**解决有序数组问题等。
 
 ### 示例：移除元素（原地删除）
+
 ```python
 def remove_element(nums, val):
     slow = 0
@@ -282,13 +284,14 @@ func removeElement(nums []int, val int) int {
 ```
 
 ### 示例：有序数组两数之和
+
 ```python
 def two_sum(nums, target):
-    left, right = 0, len(nums)-1
+    left, right = 0, len(nums) - 1
     while left < right:
         s = nums[left] + nums[right]
         if s == target:
-            return [left+1, right+1]
+            return [left + 1, right + 1]
         elif s < target:
             left += 1
         else:
@@ -318,11 +321,12 @@ func twoSum(nums []int, target int) []int {
 ## 排序
 
 ### 快速排序（Python）
+
 ```python
 def quick_sort(arr):
     if len(arr) <= 1:
         return arr
-    pivot = arr[len(arr)//2]
+    pivot = arr[len(arr) // 2]
     left = [x for x in arr if x < pivot]
     middle = [x for x in arr if x == pivot]
     right = [x for x in arr if x > pivot]
@@ -330,6 +334,7 @@ def quick_sort(arr):
 ```
 
 ### 归并排序（Go）
+
 ```go
 package main
 
@@ -401,7 +406,8 @@ func pivotIndex(nums []int) int {
 
 $`prefix\_sum[i][j] = \sum_{k=0}^{i-1} \sum_{l=0}^{j-1} matrix[k][l]`$
 
-$`prefix\_sum[i][j] - prefix\_sum[i][l] - prefix\_sum[k][j] + prefix\_sum[k][l] = \sum_{x=k}^{i-1} \sum_{y=l}^{j-1} matrix[x][y]`$
+$
+`prefix\_sum[i][j] - prefix\_sum[i][l] - prefix\_sum[k][j] + prefix\_sum[k][l] = \sum_{x=k}^{i-1} \sum_{y=l}^{j-1} matrix[x][y]`$
 
 ```python
 def sum_region(matrix, row1, col1, row2, col2):
@@ -644,11 +650,13 @@ func main() {
 ## 链表
 
 ### 反转链表
+
 ```python
 class ListNode:
     def __init__(self, val=0, nxt=None):
         self.val = val
         self.next = nxt
+
 
 def reverse_list(head):
     prev = None
@@ -690,6 +698,7 @@ class ListNode:
         self.val = val
         self.next = nxt
 
+
 def half_head(head: ListNode) -> ListNode:
     fast, slow = head, head
     while fast and fast.next:
@@ -697,6 +706,7 @@ def half_head(head: ListNode) -> ListNode:
         slow = slow.next
     return slow
 ```
+
 ```go
 package main
 
@@ -719,17 +729,19 @@ func halfHead(head *ListNode) *ListNode {
 
 ## 二叉树
 
-
 ### 前序遍历
+
 ```python
 def preorder(root):
     res = []
+
     def dfs(node):
         if not node:
             return
         res.append(node.val)
         dfs(node.left)
         dfs(node.right)
+
     dfs(root)
     return res
 ```
@@ -776,7 +788,6 @@ func preorderTraversal(root *TreeNode) []int {
     5. **黑高一致**：从任意节点到其所有叶子节点的路径中，黑色节点数量相同。
 - [855. 考场就座](./problems/problems_855/solution.go)
 
-
 ```python
 class Node:
     def __init__(self, key, color='RED'):
@@ -785,6 +796,7 @@ class Node:
         self.left = None
         self.right = None
         self.parent = None
+
 
 class RedBlackTree:
     def __init__(self):
@@ -828,7 +840,7 @@ class RedBlackTree:
         while z.parent.color == 'RED':
             if z.parent == z.parent.parent.left:
                 y = z.parent.parent.right  # 叔节点
-                if y.color == 'RED':       # Case 1: 叔节点为红
+                if y.color == 'RED':  # Case 1: 叔节点为红
                     z.parent.color = 'BLACK'
                     y.color = 'BLACK'
                     z.parent.parent.color = 'RED'
@@ -871,6 +883,7 @@ class RedBlackTree:
             y.right = z
         z.color = 'RED'
         self.insert_fixup(z)
+
 
 # 使用示例
 rbt = RedBlackTree()
@@ -1144,6 +1157,7 @@ func (t *RedBlackTree) inOrderHelper(node *Node, result *[]int) {
 ```
 
 #### 关键操作解析
+
 | 操作       | 说明                                         |
 |----------|--------------------------------------------|
 | **左旋**   | 将右子节点提升为父节点，原父节点变为左子节点，保持二叉搜索树性质。          |
@@ -1152,11 +1166,13 @@ func (t *RedBlackTree) inOrderHelper(node *Node, result *[]int) {
 | **删除修复** | 处理双重黑节点问题，通过兄弟节点颜色和子节点分布调整（代码较复杂，未展示完整逻辑）。 |
 
 #### 应用场景
+
 1. **有序映射/集合**：如Java的`TreeMap`、C++的`std::map`。
 2. **数据库索引**：B+树的变种常用于数据库索引，红黑树用于内存数据管理。
 3. **任务调度**：Linux内核的公平调度器（CFS）用红黑树管理进程队列。
 
-通过实现红黑树，可以深入理解自平衡数据结构的设计思想，但实际开发中建议直接使用语言标准库中的有序容器（如Python的`sortedcontainers`或Golang的第三方库）。
+通过实现红黑树，可以深入理解自平衡数据结构的设计思想，但实际开发中建议直接使用语言标准库中的有序容器（如Python的
+`sortedcontainers`或Golang的第三方库）。
 
 ---
 
@@ -1244,6 +1260,7 @@ func (t *TrieNode) StartsWith(prefix string) bool {
 ## 并查集
 
 并查集（Union-Find）是一种数据结构，用于处理一些不交集的合并及查询问题。它支持两种操作：
+
 1. **Find**：查找元素所在的集合。
 2. **Union**：合并两个集合。
 
@@ -1334,7 +1351,6 @@ func (uf *UnionFind) IsConnected(x, y int) bool {
 
 ---
 
-
 ## 树状数组
 
 树状数组（Fenwick Tree）是一种高效处理 **前缀和查询** 和 **单点更新** 的数据结构，时间复杂度为 $`O(\log n)`$。
@@ -1342,7 +1358,6 @@ func (uf *UnionFind) IsConnected(x, y int) bool {
 `子节点t[x]的父节点是t[x+lowbit(x)]`
 
 其中lowbit是求二进制最低位1 (可通过取反，再+1，再&)
-
 
 ```python
 class FenwickTree:
@@ -1369,16 +1384,17 @@ class FenwickTree:
 
     def range_query(self, l: int, r: int) -> int:
         """ 区间查询：a[l] + a[l+1] + ... + a[r] """
-        return self.query(r) - self.query(l-1)
+        return self.query(r) - self.query(l - 1)
+
 
 # 示例
 arr = [1, 3, 5, 7, 9]
 n = len(arr)
 ft = FenwickTree(n)
-for i in range(1, n+1):
-    ft.update(i, arr[i-1])
+for i in range(1, n + 1):
+    ft.update(i, arr[i - 1])
 
-print(ft.query(3))      # 输出9 (1+3+5)
+print(ft.query(3))  # 输出9 (1+3+5)
 print(ft.range_query(2, 4))  # 输出15 (3+5+7)
 ```
 
@@ -1436,18 +1452,19 @@ func main() {
 }
 ```
 
-
 ### **核心原理**
+
 1. **二进制索引**  
    每个节点 `tree[i]` 管理原数组的一段区间，区间长度为 `lowbit(i)`（即 `i` 的二进制中最低位的 `1` 对应的值）。例如：
-   - `lowbit(6) = 2`（`6` 的二进制为 `110`）。
-   - `tree[6]` 管理原数组中 `a[5]` 和 `a[6]` 的和。
+    - `lowbit(6) = 2`（`6` 的二进制为 `110`）。
+    - `tree[6]` 管理原数组中 `a[5]` 和 `a[6]` 的和。
 
-2. **操作逻辑**  
-   - **单点更新**：更新 `a[i]` 时，需更新所有覆盖 `i` 的 `tree` 节点。
-   - **前缀和查询**：通过累加多个 `tree` 节点的值得到前 `i` 项的和。
+2. **操作逻辑**
+    - **单点更新**：更新 `a[i]` 时，需更新所有覆盖 `i` 的 `tree` 节点。
+    - **前缀和查询**：通过累加多个 `tree` 节点的值得到前 `i` 项的和。
 
 ### **关键操作**
+
 | 操作        | 时间复杂度         | 说明                     |
 |-----------|---------------|------------------------|
 | **单点更新**  | $`O(\log n)`$ | 更新所有覆盖当前索引的 `tree` 节点。 |
@@ -1455,11 +1472,13 @@ func main() {
 | **区间查询**  | $`O(\log n)`$ | 通过两次前缀和查询相减得到。         |
 
 ### **应用场景**
+
 1. **动态前缀和**：实时统计前 `k` 个元素的和。
 2. **逆序对计数**：结合离散化处理数组的逆序对问题。
 3. **区间修改**：结合差分数组支持区间增减操作。
 
 ### **复杂度分析**
+
 - **时间复杂度**：所有操作均为 $`O(\log n)`$。
 - **空间复杂度**：$`O(n)`$。
 
@@ -1469,7 +1488,8 @@ func main() {
 
 ## 线段树
 
-线段树是一种二叉树数据结构，用于高效解决**区间查询**（如区间求和、最大值、最小值）和**单点/区间更新**问题。时间复杂度为 O(log n)。
+线段树是一种二叉树数据结构，用于高效解决**区间查询**（如区间求和、最大值、最小值）和**单点/区间更新**问题。时间复杂度为 O(log
+n)。
 
 - 核心思想
     - 结构：每个节点代表一个区间，叶子节点代表单个元素，内部节点合并子区间的信息。
@@ -1494,7 +1514,7 @@ class SegmentTree:
         self.n = len(_data)
         self.tree = [0] * (4 * self.n)  # 预分配4倍空间
         self.build(0, 0, self.n - 1, _data)
-    
+
     def build(self, node, start, end, _data):
         """ 递归构建线段树 """
         if start == end:
@@ -1506,11 +1526,11 @@ class SegmentTree:
             self.build(left_node, start, mid, _data)
             self.build(right_node, mid + 1, end, _data)
             self.tree[node] = self.tree[left_node] + self.tree[right_node]
-    
+
     def update(self, index, value):
         """ 更新元素 """
         self._update(0, 0, self.n - 1, index, value)
-    
+
     def _update(self, node, start, end, index, value):
         if start == end:
             self.tree[node] = value
@@ -1523,11 +1543,11 @@ class SegmentTree:
             else:
                 self._update(right_node, mid + 1, end, index, value)
             self.tree[node] = self.tree[left_node] + self.tree[right_node]
-    
+
     def query_range(self, l, r):
         """ 区间查询 """
         return self._query(0, 0, self.n - 1, l, r)
-    
+
     def _query(self, node, start, end, l, r):
         if r < start or end < l:
             return 0  # 无交集
@@ -1538,11 +1558,12 @@ class SegmentTree:
         right_node = 2 * node + 2
         return self._query(left_node, start, mid, l, r) + self._query(right_node, mid + 1, end, l, r)
 
+
 # 使用示例
 data = [1, 3, 5, 7, 9, 11]
 st = SegmentTree(data)
 print(st.query_range(1, 3))  # 输出 15 (3+5+7)
-st.update(2, 10)             # 更新索引2为10
+st.update(2, 10)  # 更新索引2为10
 print(st.query_range(1, 3))  # 输出 20 (3+10+7)
 ```
 
@@ -1629,7 +1650,6 @@ func main() {
 
 动态开点线段树（惰性建树）适用于区间范围极大（如 $`10^9`$）但实际操作稀疏的场景，通过按需创建节点节省内存。
 
-
 - **动态开点线段树原理**
 
 延迟初始化：仅在访问时创建子节点。
@@ -1638,22 +1658,23 @@ func main() {
 
 节省空间：空间复杂度由操作次数决定，而非数据范围。
 
-
 ```python
 class Node:
     __slots__ = ['left', 'right', 'val', 'lazy']  # 优化内存
+
     def __init__(self):
         self.left = None
         self.right = None
         self.val = 0
         self.lazy = 0  # 惰性标记（用于区间更新）
 
+
 class DynamicSegmentTree:
     def __init__(self, start, end):
         self.root = Node()
         self.start = start  # 区间左端点
-        self.end = end      # 区间右端点
-    
+        self.end = end  # 区间右端点
+
     def _push_down(self, node, l, r):
         # 动态创建子节点并下推惰性标记
         if node.left is None:
@@ -1669,7 +1690,7 @@ class DynamicSegmentTree:
             node.right.val += node.lazy * (r - mid)
             node.right.lazy += node.lazy
             node.lazy = 0
-    
+
     def _update(self, node, l, r, ul, ur, val):
         if ul <= l and r <= ur:  # 完全覆盖
             node.val += val * (r - l + 1)
@@ -1682,11 +1703,11 @@ class DynamicSegmentTree:
         if ur > mid:
             self._update(node.right, mid + 1, r, ul, ur, val)
         node.val = node.left.val + node.right.val
-    
+
     def update_range(self, l, r, val):
         """区间更新 [l, r] 增加 val"""
         self._update(self.root, self.start, self.end, l, r, val)
-    
+
     def _query(self, node, l, r, ql, qr):
         if qr < l or r < ql:
             return 0
@@ -1694,17 +1715,18 @@ class DynamicSegmentTree:
             return node.val
         self._push_down(node, l, r)
         mid = (l + r) // 2
-        return self._query(node.left, l, mid, ql, qr) + \
-               self._query(node.right, mid + 1, r, ql, qr)
-    
+        return self._query(node.left, l, mid, ql, qr) +
+            self._query(node.right, mid + 1, r, ql, qr)
+
     def query_range(self, l, r):
         """查询区间 [l, r] 的和"""
         return self._query(self.root, self.start, self.end, l, r)
 
+
 # 使用示例（假设区间范围为 [0, 1e9]）
-dst = DynamicSegmentTree(0, 10**9)
-dst.update_range(1, 3, 5)      # 区间 [1,3] 增加5
-print(dst.query_range(2, 4))   # 输出 5（仅覆盖到3）
+dst = DynamicSegmentTree(0, 10 ** 9)
+dst.update_range(1, 3, 5)  # 区间 [1,3] 增加5
+print(dst.query_range(2, 4))  # 输出 5（仅覆盖到3）
 ```
 
 ```go
@@ -1797,30 +1819,32 @@ func main() {
 ### 动态指针
 
 - 核心概念
+
 1. **动态指针**：
-   - 每个节点保存左右子节点的**指针**（引用），而非固定数组索引。
-   - **按需创建子节点**：在首次访问时动态分配内存（通过 `push_down` 实现）。
-   - 优点：节省内存，适合处理 `1e18` 级别的稀疏区间操作。
+    - 每个节点保存左右子节点的**指针**（引用），而非固定数组索引。
+    - **按需创建子节点**：在首次访问时动态分配内存（通过 `push_down` 实现）。
+    - 优点：节省内存，适合处理 `1e18` 级别的稀疏区间操作。
 
 2. **惰性传播 (Lazy Propagation)**：
-   - 延迟对子节点的更新操作，通过 `lazy` 标记记录待处理的任务。
-   - 在访问子节点前通过 `push_down` 方法将标记下推并更新子节点。
-
+    - 延迟对子节点的更新操作，通过 `lazy` 标记记录待处理的任务。
+    - 在访问子节点前通过 `push_down` 方法将标记下推并更新子节点。
 
 ```python
 class Node:
     __slots__ = ['left', 'right', 'val', 'lazy']
+
     def __init__(self):
-        self.left = None    # 动态指针：左子节点
-        self.right = None   # 动态指针：右子节点
-        self.val = 0        # 当前区间的聚合值（根据场景修改初始值）
-        self.lazy = 0       # 惰性标记（根据场景定义含义）
+        self.left = None  # 动态指针：左子节点
+        self.right = None  # 动态指针：右子节点
+        self.val = 0  # 当前区间的聚合值（根据场景修改初始值）
+        self.lazy = 0  # 惰性标记（根据场景定义含义）
+
 
 class DynamicSegmentTree:
     def __init__(self, start, end):
         self.root = Node()
         self.start = start  # 区间左端点
-        self.end = end      # 区间右端点
+        self.end = end  # 区间右端点
 
     def _push_down(self, node, l, r):
         """动态创建子节点并下推惰性标记"""
@@ -1865,33 +1889,33 @@ class DynamicSegmentTree:
         self._push_down(node, l, r)
         mid = (l + r) // 2
         # 聚合子查询结果（根据场景修改合并逻辑）
-        return self._query(node.left, l, mid, ql, qr) + \
-               self._query(node.right, mid + 1, r, ql, qr)
+        return self._query(node.left, l, mid, ql, qr) +
+            self._query(node.right, mid + 1, r, ql, qr)
 
     def query_range(self, l, r):
         return self._query(self.root, self.start, self.end, l, r)
 ```
 
-
 #### 动态指针管理注意事项
-1. **内存控制**：
-   - 在 Python 中，未被引用的节点会被自动回收；在 Go 中需手动管理（或依赖 GC）。
-   - 在极端情况下，可添加节点复用池减少内存分配开销。
-2. **递归深度**：
-   - 处理极大区间时可能触发栈溢出，可改用迭代实现或调整递归深度限制。
-3. **标记下推顺序**：
-   - 必须在访问子节点前调用 `push_down`，确保子节点已创建且标记已处理。
 
+1. **内存控制**：
+    - 在 Python 中，未被引用的节点会被自动回收；在 Go 中需手动管理（或依赖 GC）。
+    - 在极端情况下，可添加节点复用池减少内存分配开销。
+2. **递归深度**：
+    - 处理极大区间时可能触发栈溢出，可改用迭代实现或调整递归深度限制。
+3. **标记下推顺序**：
+    - 必须在访问子节点前调用 `push_down`，确保子节点已创建且标记已处理。
 
 #### 性能优化技巧
+
 | 技巧        | 适用场景        | 实现方式                     |
 |-----------|-------------|--------------------------|
 | **节点池复用** | 高频更新/查询操作   | 预分配节点对象池，通过索引管理而非动态创建/销毁 |
 | **迭代实现**  | 避免递归栈溢出     | 用栈或队列模拟递归过程              |
 | **离散化坐标** | 区间端点稀疏但数量有限 | 将原始坐标映射到紧凑的整数范围，减少动态开点需求 |
 
-
 ### 动态开点线段树应用
+
 线段树的核心逻辑在不同场景下需要调整的部分主要集中在 **聚合方式** 和 **惰性标记处理** 上。以下是关键修改点：
 
 | 场景         | 修改点                                  | 示例（区间求和 → 区间最大值）                      |
@@ -1901,7 +1925,6 @@ class DynamicSegmentTree:
 | **初始化值**   | 根据聚合逻辑选择初始值（如求和初始化为0，最大值初始化为负无穷）     | `self.val = -inf`                     |
 | **区间合并方式** | 查询时如何合并部分覆盖区间的结果（如求和直接相加，最大值取子区间最大值） | `return max(left_query, right_query)` |
 
-
 #### 区间求和
 
 - 场景：求区间内元素的和，支持区间增减操作（如 [l, r] += val）。
@@ -1910,17 +1933,18 @@ class DynamicSegmentTree:
 class SumSegmentTree:
     class Node:
         __slots__ = ['left', 'right', 'val', 'lazy']
+
         def __init__(self):
             self.left = None
             self.right = None
-            self.val = 0       # 区间和
-            self.lazy = 0      # 延迟增加量
-    
+            self.val = 0  # 区间和
+            self.lazy = 0  # 延迟增加量
+
     def __init__(self, start, end):
         self.root = self.Node()
         self.start = start
         self.end = end
-    
+
     def _push_down(self, node, l, r):
         if node.left is None:
             node.left = self.Node()
@@ -1935,10 +1959,10 @@ class SumSegmentTree:
             node.right.val += node.lazy * (r - mid)
             node.right.lazy += node.lazy
             node.lazy = 0
-    
+
     def update_range(self, l, r, val):
         self._update(self.root, self.start, self.end, l, r, val)
-    
+
     def _update(self, node, l, r, ul, ur, val):
         if ul <= l and r <= ur:
             node.val += val * (r - l + 1)
@@ -1951,7 +1975,7 @@ class SumSegmentTree:
         if ur > mid:
             self._update(node.right, mid + 1, r, ul, ur, val)
         node.val = node.left.val + node.right.val
-    
+
     def _query(self, node, l, r, ql, qr):
         if qr < l or r < ql:
             return 0  # 无交集
@@ -1959,9 +1983,9 @@ class SumSegmentTree:
             return node.val
         self._push_down(node, l, r)
         mid = (l + r) // 2
-        return self._query(node.left, l, mid, ql, qr) + \
-               self._query(node.right, mid + 1, r, ql, qr)
-    
+        return self._query(node.left, l, mid, ql, qr) +
+            self._query(node.right, mid + 1, r, ql, qr)
+
     def query_range(self, l, r):
         return self._query(self.root, self.start, self.end, l, r)
 ```
@@ -1974,17 +1998,18 @@ class SumSegmentTree:
 class MinSegmentTree:
     class Node:
         __slots__ = ['left', 'right', 'val', 'lazy']
+
         def __init__(self):
             self.left = None
             self.right = None
-            self.val = float('inf')     # 初始为无穷大
-            self.lazy = None            # 延迟赋值标记
-    
+            self.val = float('inf')  # 初始为无穷大
+            self.lazy = None  # 延迟赋值标记
+
     def __init__(self, start, end):
         self.root = self.Node()
         self.start = start
         self.end = end
-    
+
     def _push_down(self, node):
         if node.left is None:
             node.left = self.Node()
@@ -1997,13 +2022,13 @@ class MinSegmentTree:
             node.right.val = node.lazy
             node.right.lazy = node.lazy
             node.lazy = None
-    
+
     def update_range(self, l, r, val):
         self._update(self.root, self.start, self.end, l, r, val)
-    
+
     def _update(self, node, l, r, ul, ur, val):
         if ul <= l and r <= ur:
-            node.val = val     # 直接赋值
+            node.val = val  # 直接赋值
             node.lazy = val
             return
         self._push_down(node)
@@ -2013,10 +2038,10 @@ class MinSegmentTree:
         if ur > mid:
             self._update(node.right, mid + 1, r, ul, ur, val)
         node.val = min(node.left.val, node.right.val)  # 合并逻辑
-    
+
     def query_range(self, l, r):
         return self._query(self.root, self.start, self.end, l, r)
-    
+
     def _query(self, node, l, r, ql, qr):
         if qr < l or r < ql:
             return float('inf')  # 不影响最小值计算
@@ -2038,17 +2063,18 @@ class MinSegmentTree:
 class MaxSegmentTree:
     class Node:
         __slots__ = ['left', 'right', 'max_val', 'lazy']
+
         def __init__(self):
             self.left = None
             self.right = None
             self.max_val = -float('inf')  # 初始为负无穷
-            self.lazy = 0                # 延迟增加量
-    
+            self.lazy = 0  # 延迟增加量
+
     def __init__(self, start, end):
         self.root = self.Node()
         self.start = start
         self.end = end
-    
+
     def _push_down(self, node):
         if node.left is None:
             node.left = self.Node()
@@ -2061,13 +2087,13 @@ class MaxSegmentTree:
             node.right.max_val += node.lazy
             node.right.lazy += node.lazy
             node.lazy = 0
-    
+
     def update_range(self, l, r, val):
         self._update(self.root, self.start, self.end, l, r, val)
-    
+
     def _update(self, node, l, r, ul, ur, val):
         if ul <= l and r <= ur:
-            node.max_val += val     # 增加最大值
+            node.max_val += val  # 增加最大值
             node.lazy += val
             return
         self._push_down(node)
@@ -2077,10 +2103,10 @@ class MaxSegmentTree:
         if ur > mid:
             self._update(node.right, mid + 1, r, ul, ur, val)
         node.max_val = max(node.left.max_val, node.right.max_val)  # 合并逻辑
-    
+
     def query_range(self, l, r):
         return self._query(self.root, self.start, self.end, l, r)
-    
+
     def _query(self, node, l, r, ql, qr):
         if qr < l or r < ql:
             return -float('inf')  # 不影响最大值计算
@@ -2102,17 +2128,18 @@ class MaxSegmentTree:
 class RangeAssignSegmentTree:
     class Node:
         __slots__ = ['left', 'right', 'val', 'lazy']
+
         def __init__(self):
             self.left = None
             self.right = None
-            self.val = 0        # 当前区间的值（全部相同）
-            self.lazy = None    # 延迟赋值标记
-    
+            self.val = 0  # 当前区间的值（全部相同）
+            self.lazy = None  # 延迟赋值标记
+
     def __init__(self, start, end):
         self.root = self.Node()
         self.start = start
         self.end = end
-    
+
     def _push_down(self, node):
         if node.left is None:
             node.left = self.Node()
@@ -2125,10 +2152,10 @@ class RangeAssignSegmentTree:
             node.right.val = node.lazy
             node.right.lazy = node.lazy
             node.lazy = None
-    
+
     def update_range(self, l, r, val):
         self._update(self.root, self.start, self.end, l, r, val)
-    
+
     def _update(self, node, l, r, ul, ur, val):
         if ul <= l and r <= ur:
             node.val = val
@@ -2140,10 +2167,10 @@ class RangeAssignSegmentTree:
             self._update(node.left, l, mid, ul, ur, val)
         if ur > mid:
             self._update(node.right, mid + 1, r, ul, ur, val)
-    
+
     def query_point(self, idx):
         return self._query(self.root, self.start, self.end, idx)
-    
+
     def _query(self, node, l, r, idx):
         if l == r:
             return node.val
@@ -2165,17 +2192,19 @@ class RangeAssignSegmentTree:
 import random
 from typing import Optional
 
+
 class SkipNode:
     def __init__(self, val: int = -1, levels: int = 0):
         self.val = val
         self.next = [None] * levels  # 每层的下一个节点
 
+
 class SkipList:
     def __init__(self, max_level: int = 16, p: float = 0.5):
-        self.max_level = max_level   # 最大层数
-        self.p = p                   # 层数生成概率
+        self.max_level = max_level  # 最大层数
+        self.p = p  # 层数生成概率
         self.head = SkipNode(levels=self.max_level)
-        self.level = 0               # 当前有效层数
+        self.level = 0  # 当前有效层数
 
     def _random_level(self) -> int:
         level = 1
@@ -2222,9 +2251,10 @@ class SkipList:
             if update[i].next[i] != curr:
                 break
             update[i].next[i] = curr.next[i]
-        while self.level > 0 and self.head.next[self.level-1] is None:
+        while self.level > 0 and self.head.next[self.level - 1] is None:
             self.level -= 1
         return True
+
 
 # 使用示例
 sl = SkipList()
@@ -2350,28 +2380,34 @@ func main() {
 ```
 
 ### **跳表（Skip List）核心原理**
-跳表是一种**多层链表结构**，通过建立多级索引实现快速查询（时间复杂度 $`O(\log n)`$），常用于代替平衡树。Redis 的有序集合（Sorted Set）底层即使用跳表。
+
+跳表是一种**多层链表结构**，通过建立多级索引实现快速查询（时间复杂度 $`O(\log n)`$），常用于代替平衡树。Redis 的有序集合（Sorted
+Set）底层即使用跳表。
 
 #### **核心特性**
+
 1. **多层结构**：包含多个层级的链表，底层链表包含所有元素，上层链表作为索引。
 2. **随机层数**：插入节点时，随机生成层数（概率控制，通常为 50%）。
 3. **快速查询**：从高层向低层逐级缩小范围，类似二分查找。
 
 #### **时间复杂度**
-| 操作    | 时间复杂度   |
-|---------|-------------|
-| 查找    | $`O(\log n)`$ |
-| 插入    | $`O(\log n)`$ |
-| 删除    | $`O(\log n)`$ |
+
+| 操作 | 时间复杂度         |
+|----|---------------|
+| 查找 | $`O(\log n)`$ |
+| 插入 | $`O(\log n)`$ |
+| 删除 | $`O(\log n)`$ |
 
 ### **关键操作解析**
-| 操作       | 步骤                                                                 |
-|------------|--------------------------------------------------------------------|
-| **插入**   | 1. 查找插入位置并记录每层的前驱节点；<br>2. 随机生成层数；<br>3. 更新各层指针。 |
-| **删除**   | 1. 查找目标节点并记录每层的前驱节点；<br>2. 更新指针并调整有效层数。           |
-| **查找**   | 从最高层开始，逐层缩小范围，最终在底层定位。                               |
+
+| 操作     | 步骤                                               |
+|--------|--------------------------------------------------|
+| **插入** | 1. 查找插入位置并记录每层的前驱节点；<br>2. 随机生成层数；<br>3. 更新各层指针。 |
+| **删除** | 1. 查找目标节点并记录每层的前驱节点；<br>2. 更新指针并调整有效层数。          |
+| **查找** | 从最高层开始，逐层缩小范围，最终在底层定位。                           |
 
 ### **应用场景**
+
 1. **有序集合**：如 Redis 的 `ZSET`，支持快速范围查询。
 2. **替代平衡树**：实现简单且在高并发环境下性能更好。
 3. **高性能索引**：需要频繁插入、删除和查询的场景。
@@ -2406,12 +2442,14 @@ $`7`$无法表示为两个平方数之和，因为$`7 \equiv 3 \pmod{4}`$
 ### **组合数求和公式**
 
 #### **1. 全部组合数求和**
+
 **公式**：
 $$
 \sum_{k=0}^n \binom{n}{k} = 2^n
 $$
 
 **解释**：
+
 - **二项式定理**：根据二项式展开式，令 $` x = 1 `$：
   $`
   (1 + 1)^n = \sum_{k=0}^n \binom{n}{k} 1^k 1^{n-k} = \sum_{k=0}^n \binom{n}{k}.
@@ -2421,18 +2459,21 @@ $$
 - **组合意义**：从 $` n `$ 个元素中选取任意多个元素（包括选 0 个或全选），总共有 $` 2^n `$ 种方式。
 
 **示例**：
+
 - 当 $` n = 3 `$ 时：
   $`
   \binom{3}{0} + \binom{3}{1} + \binom{3}{2} + \binom{3}{3} = 1 + 3 + 3 + 1 = 8 = 2^3.
   `$
 
 #### **2. 带权组合数求和（每个组合乘以其元素个数）**
+
 **公式**：
 $$
 \sum_{k=0}^n k \binom{n}{k} = n \cdot 2^{n-1}
 $$
 
 **解释**：
+
 - **代数推导**：利用二项式定理的导数：
   $`
   \frac{d}{dx} \left( (1+x)^n \right) = n(1+x)^{n-1} = \sum_{k=0}^n k \binom{n}{k} x^{k-1}.
@@ -2443,16 +2484,19 @@ $$
   `$
 
 - **组合意义**：从 $` n `$ 人中选一个委员会（任意大小），再选一个主席。总共有两种方式：
-  1. 先选主席（$` n `$ 种选择），再从剩余 $` n-1 `$ 人中任意选成员（$` 2^{n-1} `$ 种）。
-  2. 先选 $` k `$ 人（$` \binom{n}{k} `$ 种），再从 $` k `$ 人中选主席（$` k `$ 种），总数为 $` \sum_{k=0}^n k \binom{n}{k} `$。
+    1. 先选主席（$` n `$ 种选择），再从剩余 $` n-1 `$ 人中任意选成员（$` 2^{n-1} `$ 种）。
+    2. 先选 $` k `$ 人（$` \binom{n}{k} `$ 种），再从 $` k `$ 人中选主席（$` k `$ 种），总数为 $
+       ` \sum_{k=0}^n k \binom{n}{k} `$。
 
 **示例**：
+
 - 当 $` n = 4 `$ 时：
   $`
   0\binom{4}{0} + 1\binom{4}{1} + 2\binom{4}{2} + 3\binom{4}{3} + 4\binom{4}{4} = 0 + 4 + 12 + 12 + 4 = 32 = 4 \cdot 2^{3}.
   `$
 
 #### **3. 奇数、偶数组合数的和**
+
 **公式**:
 $$
 \sum_{k=1}^{\lceil (n-1)/2 \rceil} \binom{n}{2k+1} = \sum_{k=0}^{\lceil (n-1)/2 \rceil} \binom{n}{2k} = 2^{n-1}
@@ -2461,6 +2505,7 @@ $$
 由二项式展开可证
 
 ### **其他常见组合数求和公式**
+
 1. **平方和公式**：
    $`
    \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
@@ -2474,12 +2519,13 @@ $$
    **解释**：由二项式定理 $` (1 - 1)^n = 0 `$。
 
 ### **总结**
-| 求和类型                  | 公式                    | 核心推导工具       |
-|---------------------------|-------------------------|--------------------|
-| 全部组合数求和            | $` 2^n `$               | 二项式定理         |
-| 带权组合数求和（元素个数） | $` n \cdot 2^{n-1} `$   | 导数或组合解释     |
-| 平方和                    | $` \binom{2n}{n} `$     | 组合恒等式         |
-| 交替符号和                | $` 0 `$（当 $` n \geq 1 `$） | 二项式定理代入负值 |
+
+| 求和类型          | 公式                        | 核心推导工具    |
+|---------------|---------------------------|-----------|
+| 全部组合数求和       | $` 2^n `$                 | 二项式定理     |
+| 带权组合数求和（元素个数） | $` n \cdot 2^{n-1} `$     | 导数或组合解释   |
+| 平方和           | $` \binom{2n}{n} `$       | 组合恒等式     |
+| 交替符号和         | $` 0 `$（当 $` n \geq 1 `$） | 二项式定理代入负值 |
 
 这些公式在概率论、组合优化和算法分析中有广泛应用，例如动态规划中的状态转移计数。
 
@@ -2510,24 +2556,25 @@ func handle(s string) [][]bool:
 ```
 
 ## KMP算法模板
+
 ```python
 def kmp(s, pattern):
     # 构建next数组
     m = len(pattern)
-    next_arr = [0]*m
+    next_arr = [0] * m
     j = 0
     for i in range(1, m):
         while j > 0 and pattern[i] != pattern[j]:
-            j = next_arr[j-1]
+            j = next_arr[j - 1]
         if pattern[i] == pattern[j]:
             j += 1
         next_arr[i] = j
-    
+
     # 匹配过程
     j = 0
     for i in range(len(s)):
         while j > 0 and s[i] != pattern[j]:
-            j = next_arr[j-1]
+            j = next_arr[j - 1]
         if s[i] == pattern[j]:
             j += 1
         if j == m:
@@ -2583,7 +2630,7 @@ func kmp(s, pattern string) int {
 ```python
 # 稠密图适用（节点编号0~n-1）
 n = 5
-graph = [[0]*n for _ in range(n)]
+graph = [[0] * n for _ in range(n)]
 
 # 添加边（带权重）
 graph[0][1] = 3  # 0→1的边权重为3
@@ -2616,11 +2663,13 @@ func (g *Graph) AddEdge(u, v int) {
 ```
 
 ### 类存图（带权重）
+
 ```python
 class GraphNode:
     def __init__(self, val):
         self.val = val
         self.neighbors = []  # 存储元组(node, weight)
+
 
 # 构建示例
 node0 = GraphNode(0)
@@ -2631,6 +2680,7 @@ node0.neighbors.append((node1, 5))  # 0→1的边权重为5
 ## DFS
 
 ### 模板（Python）
+
 ```python
 def dfs(node, visited):
     if node in visited:
@@ -2642,6 +2692,7 @@ def dfs(node, visited):
 ```
 
 ### 模板（Go）
+
 ```go
 func dfs(node *GraphNode, visited map[*GraphNode]bool) {
     if visited[node] {
@@ -2656,19 +2707,20 @@ func dfs(node *GraphNode, visited map[*GraphNode]bool) {
 ```
 
 ### 示例：岛屿数量
+
 ```python
 def num_islands(grid):
     count = 0
     rows, cols = len(grid), len(grid[0])
-    
+
     def dfs(_i, _j):
         if 0 <= _i < rows and 0 <= _j < cols and grid[_i][_j] == '1':
             grid[_i][_j] = '0'
-            dfs(_i+1, _j)
-            dfs(_i-1, _j)
-            dfs(_i, _j+1)
-            dfs(_i, _j-1)
-    
+            dfs(_i + 1, _j)
+            dfs(_i - 1, _j)
+            dfs(_i, _j + 1)
+            dfs(_i, _j - 1)
+
     for i in range(rows):
         for j in range(cols):
             if grid[i][j] == '1':
@@ -2680,25 +2732,30 @@ def num_islands(grid):
 ## BFS
 
 - 核心思想
+
 1. **队列结构**：用队列（先进先出）管理待访问的节点。
 2. **逐层扩展**：按层处理节点，保证最先找到最短路径。
 3. **避免重复访问**：记录已访问的节点（如哈希表、数组标记）。
 
 ### 基本结构（树/图的层序遍历）
+
 ```python
 from collections import deque
+
 
 def process(node):
     pass
 
+
 def get_neighbors(node):
     return []
 
+
 def bfs(start_node):
     queue = deque([start_node])  # 初始化队列
-    visited = set()              # 记录已访问节点（图可能需要）
-    visited.add(start_node)      # 标记初始节点
-    
+    visited = set()  # 记录已访问节点（图可能需要）
+    visited.add(start_node)  # 标记初始节点
+
     while queue:
         level_size = len(queue)  # 当前层的节点数（层序遍历需要）
         for _ in range(level_size):
@@ -2714,14 +2771,17 @@ def bfs(start_node):
 ```
 
 ### 示例：二叉树层序遍历
+
 ```python
 from collections import deque
+
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right
+
 
 def level_order(root):
     if not root:
@@ -2740,22 +2800,25 @@ def level_order(root):
         result.append(level)
     return result
 
+
 # 测试
 _root = TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7)))
 print(level_order(_root))  # 输出 [[3], [9, 20], [15, 7]]
 ```
 
 ### 示例：网格最短路径（0 可走，1 障碍）
+
 ```python
 from collections import deque
 
+
 def shortest_path(grid, start, end):
     rows, cols = len(grid), len(grid[0])
-    directions = [(-1,0), (1,0), (0,-1), (0,1)]  # 上下左右
-    queue = deque([(start[0], start[1], 0)])     # (x, y, steps)
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # 上下左右
+    queue = deque([(start[0], start[1], 0)])  # (x, y, steps)
     visited = set()
     visited.add((start[0], start[1]))
-    
+
     while queue:
         x, y, steps = queue.popleft()
         if (x, y) == end:
@@ -2768,17 +2831,19 @@ def shortest_path(grid, start, end):
                     queue.append((nx, ny, steps + 1))
     return -1  # 不可达
 
+
 # 测试
 _grid = [
-    [0,0,1,0],
-    [0,0,0,0],
-    [1,1,0,1],
-    [0,0,0,0]
+    [0, 0, 1, 0],
+    [0, 0, 0, 0],
+    [1, 1, 0, 1],
+    [0, 0, 0, 0]
 ]
-print(shortest_path(_grid, (0,0), (3,3)))  # 输出 6
+print(shortest_path(_grid, (0, 0), (3, 3)))  # 输出 6
 ```
 
 ### 基本结构（队列实现）
+
 ```go
 package main
 
@@ -2835,6 +2900,7 @@ func main() {
 ```
 
 ### 示例：网格最短路径
+
 ```go
 type Point struct {
     x, y, steps int
@@ -2883,6 +2949,7 @@ func main() {
 ```
 
 ### BFS 关键点
+
 | 特性        | 说明                                       |
 |-----------|------------------------------------------|
 | **时间复杂度** | O(N)，N 为节点数（每个节点访问一次）                    |
@@ -2900,11 +2967,12 @@ func main() {
 import heapq
 from math import inf
 
+
 def dijkstra(graph, start, n):
     dist: list[int] = [inf] * n
     dist[start] = 0
     heap = [(0, start)]
-    
+
     while heap:
         d, u = heapq.heappop(heap)
         if d > dist[u]:
@@ -2974,8 +3042,105 @@ func (h *hp) Push(v any)        { *h = append(*h, v.(tuple)) }
 func (h *hp) Pop() (v any)      { a := *h; *h, v = a[:len(a)-1], a[len(a)-1]; return }
 ```
 
-
 ## 拓扑排序
+
+```python
+from collections import defaultdict, deque
+def largestPathValue(colors, edges):
+    """
+    :type colors: str
+    :type edges: List[List[int]]
+    :rtype: int
+    """
+    """
+    拓扑排序:
+    在一个有向图中，对所有的节点进行排序，要求没有一个节点指向它前面的节点。
+    先统计所有节点的入度，对于入度为0的节点就可以分离出来，然后把这个节点指向的节点的入度减一。
+    一直做改操作，直到所有的节点都被分离出来。
+    如果最后不存在入度为0的节点，那就说明有环，不存在拓扑排序，也就是很多题目的无解的情况。
+    """
+    n = len(colors)
+    # 每个点的入度
+    degree = [0] * n
+    graph = defaultdict(set)
+    for a, b in edges:
+        degree[b] += 1
+        graph[a].add(b)
+
+    # dp: 到达每个点时，每个颜色的最大值
+    dp = [[0] * 26 for _ in range(n)]
+    # 拓扑排序
+    q = [i for i in range(n) if not degree[i]]
+    count = 0
+    while q:
+        count += 1
+        i = q.pop()
+        # 我们访问到了节点i，加入节点i的颜色
+        dp[i][ord(colors[i]) - ord('a')] += 1
+        for j in graph[i]:
+            degree[j] -= 1
+            # 我们从节点i访问到了节点j,继承i的所有颜色 (如果超过当前值)
+            for c in range(26):
+                dp[j][c] = max(dp[j][c], dp[i][c])
+            if degree[j] == 0:
+                q.append(j)
+    # 拓扑排序有环
+    if count != n:
+        return -1
+    return max(max(dp[i]) for i in range(n))
+
+```
+
+```golang
+package main
+
+import (
+    "container/list"
+)
+
+func largestPathValue(colors string, edges [][]int) (ans int) {
+	n := len(colors)
+	graph := make(map[int][]int)
+	indegree := make([]int, n)
+	for _, edge := range edges {
+		u, v := edge[0], edge[1]
+		graph[u] = append(graph[u], v)
+		indegree[v]++
+	}
+	queue := list.New()
+	for i, degree := range indegree {
+		if degree == 0 {
+			queue.PushBack(i)
+		}
+	}
+	dp := make([][]int, n)
+	for i := range dp {
+		dp[i] = make([]int, 26)
+	}
+	count := 0
+	for queue.Len() > 0 {
+		node := queue.Front()
+		queue.Remove(node)
+		count++
+		u := node.Value.(int)
+		dp[u][colors[u]-'a']++
+		ans = max(ans, dp[u][colors[u]-'a'])
+		for _, v := range graph[u] {
+			for i := range dp[v] {
+				dp[v][i] = max(dp[v][i], dp[u][i])
+			}
+			indegree[v]--
+			if indegree[v] == 0 {
+				queue.PushBack(v)
+			}
+		}
+	}
+	if count < n {
+		return -1 // Cycle detected
+	}
+	return
+}
+```
 
 ## 环
 
@@ -2991,6 +3156,7 @@ func (h *hp) Pop() (v any)      { a := *h; *h, v = a[:len(a)-1], a[len(a)-1]; re
 ## 异或
 
 `xor`运算的性质：
+
 1. $`a \oplus a = 0`$
 2. $`a \oplus 0 = a`$
 3. $`a \oplus b \oplus c = a \oplus c \oplus b`$
@@ -3086,47 +3252,52 @@ func minCut(s string) int {
 数位DP用于解决数字各位相关的计数问题，例如统计区间内满足特定条件的数字数量。其核心是通过动态规划逐位处理数字，利用记忆化技术避免重复计算。
 
 #### **核心思想**
+
 1. **拆解数位**：将数字转换为字符数组，逐位处理。
 2. **状态记录**：记录当前位置、是否受上界限制、前导零状态及其他条件。
 3. **记忆化搜索**：缓存已计算的状态，优化时间复杂度。
 
 ### **通用步骤**
+
 1. **预处理数位**：将数字转换为字符串或数组。
 2. **递归处理每一位**：
-   - **限制条件**：当前位是否受上界限制。
-   - **前导零处理**：标记是否处于前导零状态。
-   - **状态转移**：根据当前位选择更新状态。
+    - **限制条件**：当前位是否受上界限制。
+    - **前导零处理**：标记是否处于前导零状态。
+    - **状态转移**：根据当前位选择更新状态。
 3. **边界处理**：处理完所有位后返回结果。
 
 ### **Python 模板（以统计无重复数字为例）**
+
 ```python
 from functools import lru_cache
 
+
 def count_special_numbers(n: int) -> int:
     s = str(n)
-    
+
     @lru_cache(maxsize=None)
     def dp(pos: int, mask: int, tight: bool, lead: bool) -> int:
         if pos == len(s):
             return 0 if lead else 1
-        
+
         limit = int(s[pos]) if tight else 9
         total = 0
-        
+
         for d in range(0, limit + 1):
             new_tight = tight and (d == limit)
             new_lead = lead and (d == 0)
-            
+
             if new_lead:
                 total += dp(pos + 1, mask, new_tight, new_lead)
             else:
                 if (mask & (1 << d)) == 0:
                     new_mask = mask | (1 << d)
                     total += dp(pos + 1, new_mask, new_tight, new_lead)
-        
+
         return total
-    
+
     return dp(0, 0, True, True)
+
 
 # 示例：统计1到n中无重复数字的数目
 print(count_special_numbers(20))  # 输出19（1-20中除11外都符合）
@@ -3187,19 +3358,19 @@ func countSpecialNumbers(n int) int {
 ```
 
 ### **关键参数解释**
-| 参数    | 说明                                                                 |
-|---------|--------------------------------------------------------------------|
-| `pos`   | 当前处理的数位位置（从高位到低位）。                                      |
-| `mask`  | 状态掩码，记录已使用的数字（例如用位掩码表示）。                             |
-| `tight` | 是否受上界限制（如处理到第`i`位时，前`i-1`位是否与上界相同）。                 |
-| `lead`  | 是否处于前导零状态（前导零不计入已使用数字）。                              |
 
+| 参数      | 说明                                  |
+|---------|-------------------------------------|
+| `pos`   | 当前处理的数位位置（从高位到低位）。                  |
+| `mask`  | 状态掩码，记录已使用的数字（例如用位掩码表示）。            |
+| `tight` | 是否受上界限制（如处理到第`i`位时，前`i-1`位是否与上界相同）。 |
+| `lead`  | 是否处于前导零状态（前导零不计入已使用数字）。             |
 
 ### **适用场景**
+
 1. **无重复数字计数**：如示例所示。
 2. **数位和限制**：统计数位和等于特定值的数字。
 3. **特定模式匹配**：如包含/不包含某些子序列。
-
 
 通过合理设计状态转移和记忆化策略，数位DP能高效解决复杂的数位计数问题。模板可根据具体问题调整状态定义和转移逻辑。
 
@@ -3207,6 +3378,7 @@ func countSpecialNumbers(n int) int {
 
 ```python
 from functools import cache
+
 
 class Solution:
     def numberOfPowerfulInt(self, start: int, finish: int, limit: int, s: str) -> int:
@@ -3297,8 +3469,6 @@ func numberOfPowerfulInt(start, finish int64, limit int, s string) int64 {
 
 - 子序列 + 相邻元素无关：选或不选。代表题目：[494. 目标和（0-1 背包）](problems/problems_494/problem_zh.md)。
 - 子序列 + 相邻元素相关：枚举选哪个。代表题目：[300. 最长递增子序列](problems/problems_300/problem_zh.md)。
-
-
 
 ---
 
@@ -3619,6 +3789,7 @@ func subsetsWithDup(nums []int) (ans [][]int) {
 ```python
 from typing import Optional
 
+
 class Node:
     # 提高访问属性的速度，并节省内存
     __slots__ = 'prev', 'next', 'key', 'value'
@@ -3626,6 +3797,7 @@ class Node:
     def __init__(self, key=0, value=0):
         self.key = key
         self.value = value
+
 
 class LRUCache:
     def __init__(self, capacity: int):
@@ -3728,6 +3900,7 @@ func (c *LRUCache) Put(key, value int) {
 from collections import defaultdict
 from typing import Optional
 
+
 class Node:
     # 提高访问属性的速度，并节省内存
     __slots__ = 'prev', 'next', 'key', 'value', 'freq'
@@ -3735,17 +3908,20 @@ class Node:
     def __init__(self, key=0, val=0):
         self.key = key
         self.value = val
-        self.freq = 1  #  新书只读了一次
+        self.freq = 1  # 新书只读了一次
+
 
 class LFUCache:
     def __init__(self, capacity: int):
         self.capacity = capacity
         self.key_to_node = {}
+
         def new_list() -> Node:
             dummy = Node()  # 哨兵节点
             dummy.prev = dummy
             dummy.next = dummy
             return dummy
+
         self.freq_to_dummy = defaultdict(new_list)
         self.min_freq = 0
 
@@ -3798,31 +3974,38 @@ class LFUCache:
 
 ## 倍增
 
-倍增（Doubling）是一种**预处理数据并利用二进制思想优化查询效率**的算法技术。其核心思想是通过构建一个**跳转表**（如稀疏表，Sparse Table），使得每次查询或操作的时间复杂度从线性降低到对数级别（如 $`O(\log n)`$。以下是其核心要点和应用场景：
+倍增（Doubling）是一种**预处理数据并利用二进制思想优化查询效率**的算法技术。其核心思想是通过构建一个**跳转表**（如稀疏表，Sparse
+Table），使得每次查询或操作的时间复杂度从线性降低到对数级别（如 $`O(\log n)`$。以下是其核心要点和应用场景：
 
 ### **倍增的核心原理**
+
 1. **二进制分解**  
-   将问题分解为多个**按指数递增的步长**（如 $`2^0, 2^1, 2^2, \dots`$）来处理。例如，跳转表中存储从每个位置出发，经过 $`2^k`$ 步后的结果。
-   
+   将问题分解为多个**按指数递增的步长**（如 $`2^0, 2^1, 2^2, \dots`$）来处理。例如，跳转表中存储从每个位置出发，经过 $`2^k`$
+   步后的结果。
+
 2. **预处理跳转表**  
    构建一个二维数组 `dp[k][i]`，表示从位置 `i` 出发，跳转 $`2^k`$ 步后的目标位置或计算结果。例如：
-   - `dp[0][i]` 表示跳转 1 步（$`2^0 = 1`$）后的结果。
-   - `dp[k][i] = dp[k-1][ dp[k-1][i] ]`，即通过递归方式构建跳转表。
+    - `dp[0][i]` 表示跳转 1 步（$`2^0 = 1`$）后的结果。
+    - `dp[k][i] = dp[k-1][ dp[k-1][i] ]`，即通过递归方式构建跳转表。
 
 3. **快速查询**  
-   将目标步长分解为二进制形式，按位累加跳转步长。例如，跳转 13 步（二进制 `1101`）时，分解为 $`8 + 4 + 1`$ 步，依次跳转 $`2^3, 2^2, 2^0`$ 步。
+   将目标步长分解为二进制形式，按位累加跳转步长。例如，跳转 13 步（二进制 `1101`）时，分解为 $`8 + 4 + 1`$ 步，依次跳转 $
+   `2^3, 2^2, 2^0`$ 步。
 
 ### **典型应用场景**
+
 #### 1. **最近公共祖先（LCA）**
-   - **问题**：在树中快速找到两个节点的最近公共祖先。
-   - **倍增实现**：
-     1. 预处理每个节点的 $`2^k`$ 级祖先（`up[k][u]`）。
-     2. 先将两个节点调整到同一深度，再同时向上跳转，直到找到公共祖先。
-   - **时间复杂度**：预处理 $`O(n \log n)`$，查询 $`O(\log n)`$。
-   - **例**: [3553.包含给定路径的最小带权子树 II](problems/problems_3553/problem_zh.md)
+
+- **问题**：在树中快速找到两个节点的最近公共祖先。
+- **倍增实现**：
+    1. 预处理每个节点的 $`2^k`$ 级祖先（`up[k][u]`）。
+    2. 先将两个节点调整到同一深度，再同时向上跳转，直到找到公共祖先。
+- **时间复杂度**：预处理 $`O(n \log n)`$，查询 $`O(\log n)`$。
+- **例**: [3553.包含给定路径的最小带权子树 II](problems/problems_3553/problem_zh.md)
 
 ```python
 from typing import List
+
 
 class TreeAncestor:
     def __init__(self, edges: List[List[int]]):
@@ -3835,12 +4018,14 @@ class TreeAncestor:
 
         depth = [0] * n
         pa = [[-1] * m for _ in range(n)]
+
         def dfs(x: int, fa: int) -> None:
             pa[x][0] = fa
             for y in g[x]:
                 if y != fa:
                     depth[y] = depth[x] + 1
                     dfs(y, x)
+
         dfs(0, -1)
 
         for i in range(m - 1):
@@ -3870,6 +4055,7 @@ class TreeAncestor:
                 x, y = px, py  # 同时往上跳 2**i 步
         return self.pa[x][0]
 ```
+
 ```go
 pacakge main
 
@@ -3942,22 +4128,25 @@ func (t *TreeAncestor) GetLCA(x, y int) int {
 ```
 
 #### 2. **区间最值查询（RMQ）**
-   - **问题**：多次查询数组某个区间的最小值/最大值。
-   - **倍增实现**：
-     1. 构建稀疏表 `st[k][i]`，表示从 `i` 开始长度为 $`2^k`$ 的区间最值。
-     2. 查询区间 `[L, R]` 时，取最大的 $`k`$ 使得 $`2^k \leq R-L+1`$，比较 `st[k][L]` 和 `st[k][R-2^k+1]`。
-   - **时间复杂度**：预处理 $`O(n \log n)`$，查询 $`O(1)`$。
+
+- **问题**：多次查询数组某个区间的最小值/最大值。
+- **倍增实现**：
+    1. 构建稀疏表 `st[k][i]`，表示从 `i` 开始长度为 $`2^k`$ 的区间最值。
+    2. 查询区间 `[L, R]` 时，取最大的 $`k`$ 使得 $`2^k \leq R-L+1`$，比较 `st[k][L]` 和 `st[k][R-2^k+1]`。
+- **时间复杂度**：预处理 $`O(n \log n)`$，查询 $`O(1)`$。
 
 #### 3. **快速幂**
-   - **问题**：高效计算 $`a^b \mod p`$。
-   - **倍增实现**：
-     1. 将指数 $`b`$ 分解为二进制形式。
-     2. 通过累乘 $`a^{2^k}`$ 快速计算结果。
-   - **时间复杂度**：$`O(\log b)`$。
+
+- **问题**：高效计算 $`a^b \mod p`$。
+- **倍增实现**：
+    1. 将指数 $`b`$ 分解为二进制形式。
+    2. 通过累乘 $`a^{2^k}`$ 快速计算结果。
+- **时间复杂度**：$`O(\log b)`$。
 
 快速幂算法用于高效计算大整数幂或幂取模，时间复杂度为 $`O(\log n)`$。
 
 #### **Python 模板**
+
 ```python
 def fast_power(a: int, b: int, mod: int = None) -> int:
     """
@@ -3973,14 +4162,15 @@ def fast_power(a: int, b: int, mod: int = None) -> int:
         if b % 2 == 1:  # 当前二进制位为1
             result = result * a
             if mod: result %= mod
-        a = a * a       # 基数平方
+        a = a * a  # 基数平方
         if mod: a %= mod
-        b //= 2         # 右移一位
+        b //= 2  # 右移一位
     return result
 
+
 # 示例
-print(fast_power(2, 10))          # 输出 1024
-print(fast_power(2, 10, 1000))    # 输出 24 (1024 % 1000)
+print(fast_power(2, 10))  # 输出 1024
+print(fast_power(2, 10, 1000))  # 输出 24 (1024 % 1000)
 ```
 
 ```go
@@ -4009,7 +4199,8 @@ func main() {
 
 ##### 矩阵快速幂
 
-矩阵快速幂是一种高效解决线性递推问题的算法，通过将递推关系转化为矩阵乘法形式，利用快速幂将时间复杂度从 $`O(n)`$ 优化到 $`O(\log n)`$。以下是其核心原理和实现方法：
+矩阵快速幂是一种高效解决线性递推问题的算法，通过将递推关系转化为矩阵乘法形式，利用快速幂将时间复杂度从 $`O(n)`$ 优化到 $
+`O(\log n)`$。以下是其核心原理和实现方法：
 
 **通用步骤**
 
@@ -4021,18 +4212,18 @@ func main() {
 
 - 第 $`i`$ 行表示如何从 $`F(n-i)`$ 推导到 $`F(n-i+1)`$。
 - 例如，斐波那契数列的转移矩阵为：
-$$
-\begin{bmatrix}
-1 & 1 \\
-1 & 0
-\end{bmatrix}
-$$
+  $$
+  \begin{bmatrix}
+  1 & 1 \\
+  1 & 0
+  \end{bmatrix}
+  $$
 
 **3. 初始状态向量**
 
 根据递推的初始条件定义初始向量：
 $$
-\text{初始状态} = 
+\text{初始状态} =
 \begin{bmatrix}
 F(k-1) \\
 F(k-2) \\
@@ -4060,6 +4251,7 @@ func fib(n int) int {
 ```
 
 **应用场景**
+
 1. **线性递推问题**：如斐波那契数列、爬楼梯问题。
 2. **动态规划优化**：将状态转移方程转化为矩阵形式。
 3. **图论中的路径计数**：邻接矩阵的幂表示路径数。
@@ -4113,6 +4305,7 @@ def pow_mul(a: List[List[int]], n: int, f0: List[List[int]], mod: int = 1000_000
 ```
 
 ### **优势与局限**
+
 - **优势**：将线性时间的查询优化到对数时间。
 - **局限**：需要额外的空间存储跳转表（如 $`O(n \log n)`$ 的稀疏表）。
 - **适用场景**：适用于**静态数据**（预处理后数据不变）的多次查询问题。
