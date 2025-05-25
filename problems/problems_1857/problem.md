@@ -1,42 +1,42 @@
 # 1857. Largest Color Value in a Directed Graph [Rating: 2312.99]
 
-There is a **directed graph** of `n` colored nodes and `m` edges. The nodes are numbered from `0` to `n - 1`.
+<p>There is a <strong>directed graph</strong> of <code>n</code> colored nodes and <code>m</code> edges. The nodes are numbered from <code>0</code> to <code>n - 1</code>.</p>
 
-You are given a string `colors` where `colors[i]` is a lowercase English letter representing the **color** of the `ith` node in this graph (**0-indexed**). You are also given a 2D array `edges` where `edges[j] = [aj, bj]` indicates that there is a **directed edge** from node `aj` to node `bj`.
+<p>You are given a string <code>colors</code> where <code>colors[i]</code> is a lowercase English letter representing the <strong>color</strong> of the <code>i<sup>th</sup></code> node in this graph (<strong>0-indexed</strong>). You are also given a 2D array <code>edges</code> where <code>edges[j] = [a<sub>j</sub>, b<sub>j</sub>]</code> indicates that there is a <strong>directed edge</strong> from node <code>a<sub>j</sub></code> to node <code>b<sub>j</sub></code>.</p>
 
-A valid **path** in the graph is a sequence of nodes `x1 -> x2 -> x3 -> ... -> xk` such that there is a directed edge from `xi` to `xi+1` for every `1 <= i < k`. The **color value** of the path is the number of nodes that are colored the **most frequently** occurring color along that path.
+<p>A valid <strong>path</strong> in the graph is a sequence of nodes <code>x<sub>1</sub> -&gt; x<sub>2</sub> -&gt; x<sub>3</sub> -&gt; ... -&gt; x<sub>k</sub></code> such that there is a directed edge from <code>x<sub>i</sub></code> to <code>x<sub>i+1</sub></code> for every <code>1 &lt;= i &lt; k</code>. The <strong>color value</strong> of the path is the number of nodes that are colored the <strong>most frequently</strong> occurring color along that path.</p>
 
-Return *the **largest color value** of any valid path in the given graph, or* `-1` *if the graph contains a cycle*.
+<p>Return <em>the <strong>largest color value</strong> of any valid path in the given graph, or </em><code>-1</code><em> if the graph contains a cycle</em>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<p><img alt="" src="https://assets.leetcode.com/uploads/2021/04/21/leet1.png" style="width: 400px; height: 182px;" /></p>
 
-![img](https://assets.leetcode.com/uploads/2021/04/21/leet1.png)
+<pre>
+<strong>Input:</strong> colors = &quot;abaca&quot;, edges = [[0,1],[0,2],[2,3],[3,4]]
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> The path 0 -&gt; 2 -&gt; 3 -&gt; 4 contains 3 nodes that are colored <code>&quot;a&quot; (red in the above image)</code>.
+</pre>
 
-```
-Input: colors = "abaca", edges = [[0,1],[0,2],[2,3],[3,4]]
-Output: 3
-Explanation: The path 0 -> 2 -> 3 -> 4 contains 3 nodes that are colored "a" (red in the above image).
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<p><img alt="" src="https://assets.leetcode.com/uploads/2021/04/21/leet2.png" style="width: 85px; height: 85px;" /></p>
 
-![img](https://assets.leetcode.com/uploads/2021/04/21/leet2.png)
+<pre>
+<strong>Input:</strong> colors = &quot;a&quot;, edges = [[0,0]]
+<strong>Output:</strong> -1
+<strong>Explanation:</strong> There is a cycle from 0 to 0.
+</pre>
 
-```
-Input: colors = "a", edges = [[0,0]]
-Output: -1
-Explanation: There is a cycle from 0 to 0.
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `n == colors.length`
-- `m == edges.length`
-- 1 <= n <= 10<sup>5</sup>
-- 0 <= m <= 10<sup>5</sup>
-- `colors` consists of lowercase English letters.
-- `0 <= aj, bj < n`
+<ul>
+	<li><code>n == colors.length</code></li>
+	<li><code>m == edges.length</code></li>
+	<li><code>1 &lt;= n &lt;= 10<sup>5</sup></code></li>
+	<li><code>0 &lt;= m &lt;= 10<sup>5</sup></code></li>
+	<li><code>colors</code> consists of lowercase English letters.</li>
+	<li><code>0 &lt;= a<sub>j</sub>, b<sub>j</sub>&nbsp;&lt; n</code></li>
+</ul>

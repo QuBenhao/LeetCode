@@ -12,8 +12,8 @@
 <p><img alt="" src="https://assets.leetcode.com/uploads/2020/09/14/sort_list_1.jpg" style="width: 302px; " /></p>
 
 <pre>
-<b>输入：</b>head = [4,2,1,3]
-<b>输出：</b>[1,2,3,4]
+<strong>输入：</strong>head = [4,2,1,3]
+<strong>输出：</strong>[1,2,3,4]
 </pre>
 
 <p><strong>示例 2：</strong></p>
@@ -21,15 +21,15 @@
 <p><img alt="" src="https://assets.leetcode.com/uploads/2020/09/14/sort_list_2.jpg" style="width: 402px; " /></p>
 
 <pre>
-<b>输入：</b>head = [-1,5,3,4,0]
-<b>输出：</b>[-1,0,3,4,5]
+<strong>输入：</strong>head = [-1,5,3,4,0]
+<strong>输出：</strong>[-1,0,3,4,5]
 </pre>
 
 <p><strong>示例 3：</strong></p>
 
 <pre>
-<b>输入：</b>head = []
-<b>输出：</b>[]
+<strong>输入：</strong>head = []
+<strong>输出：</strong>[]
 </pre>
 
 <p>&nbsp;</p>
