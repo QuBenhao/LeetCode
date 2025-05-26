@@ -7,7 +7,18 @@ import (
 )
 
 func twoSum(numbers []int, target int) []int {
-
+	left, right := 0, len(numbers)-1
+	for left < right {
+		cur := numbers[left] + numbers[right]
+		if cur == target {
+			break
+		} else if cur < target {
+			left++
+		} else {
+			right--
+		}
+	}
+	return []int{left, right}
 }
 
 func Solve(inputJsonValues string) any {

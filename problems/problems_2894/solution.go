@@ -7,7 +7,8 @@ import (
 )
 
 func differenceOfSums(n int, m int) int {
-    
+	d := n / m
+	return n*(n+1)/2 - m*d*(d+1)
 }
 
 func Solve(inputJsonValues string) any {

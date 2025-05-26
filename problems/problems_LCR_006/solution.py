@@ -7,5 +7,13 @@ class Solution(solution.Solution):
         return self.twoSum(*test_input)
 
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        pass
-
+        left, right = 0, len(numbers) - 1
+        while left < right:
+            cur = numbers[left] + numbers[right]
+            if cur == target:
+                break
+            elif cur < target:
+                left += 1
+            else:
+                right -= 1
+        return [left, right]

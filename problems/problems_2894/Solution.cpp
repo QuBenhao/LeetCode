@@ -8,7 +8,8 @@ using json = nlohmann::json;
 class Solution {
 public:
     int differenceOfSums(int n, int m) {
-        
+        int d = n / m;
+        return n * (n + 1) / 2 - m * d * (d + 1);
     }
 };
 
