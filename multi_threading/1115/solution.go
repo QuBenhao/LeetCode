@@ -4,15 +4,14 @@ import "sync"
 
 type FooBar struct {
 	n  int
-	fl *sync.Mutex
-	bl *sync.Mutex
+	fl sync.Mutex
+	bl sync.Mutex
 }
 
 func NewFooBar(n int) *FooBar {
-	fl := &sync.Mutex{}
-	bl := &sync.Mutex{}
-	bl.Lock()
-	return &FooBar{n, fl, bl}
+	obj := &FooBar{n: n}
+	obj.bl.Lock()
+	return obj
 }
 
 func (fb *FooBar) Foo(printFoo func()) {

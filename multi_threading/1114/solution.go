@@ -7,16 +7,15 @@ import (
 )
 
 type Foo struct {
-	muFirst  *sync.Mutex
-	muSecond *sync.Mutex
+	muFirst  sync.Mutex
+	muSecond sync.Mutex
 }
 
 func Constructor() *Foo {
-	muFirst := sync.Mutex{}
-	muSecond := sync.Mutex{}
-	muFirst.Lock()
-	muSecond.Lock()
-	return &Foo{&muFirst, &muSecond}
+	obj := &Foo{}
+	obj.muFirst.Lock()
+	obj.muSecond.Lock()
+	return obj
 }
 
 func (f *Foo) first(printFirst func()) {

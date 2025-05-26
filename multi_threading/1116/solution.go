@@ -4,18 +4,16 @@ import "sync"
 
 type ZeroEvenOdd struct {
 	n        int
-	zeroLock *sync.Mutex
-	evenLock *sync.Mutex
-	oddLock  *sync.Mutex
+	zeroLock sync.Mutex
+	evenLock sync.Mutex
+	oddLock  sync.Mutex
 }
 
 func NewZeroEvenOdd(n int) *ZeroEvenOdd {
-	zeroLock := &sync.Mutex{}
-	evenLock := &sync.Mutex{}
-	oddLock := &sync.Mutex{}
-	oddLock.Lock()
-	evenLock.Lock()
-	return &ZeroEvenOdd{n, zeroLock, evenLock, oddLock}
+	obj := &ZeroEvenOdd{n: n}
+	obj.oddLock.Lock()
+	obj.evenLock.Lock()
+	return obj
 }
 
 func (z *ZeroEvenOdd) Zero(printNumber func(int)) {
