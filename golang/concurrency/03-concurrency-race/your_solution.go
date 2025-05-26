@@ -1,5 +1,8 @@
 package main
 
+type MySolution struct{}
+
+// Solve
 /**
 3. 并发资源竞争
 场景：实现一个线程安全的计数器，启动 1000 个协程同时对计数器进行 +1 操作。
@@ -9,7 +12,6 @@ package main
 比较 sync.Mutex 与 atomic 两种实现方式的性能差异
 附加：实现一个读写分离的计数器（读多写少场景）
 */
-
-func main() {
+func (s *MySolution) Solve(numProcessors int) {
 
 }

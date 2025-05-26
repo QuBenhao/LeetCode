@@ -1,5 +1,8 @@
 package main
 
+type MySolution struct{}
+
+// Solve
 /**
 2. 生产者-消费者模型
 场景： 创建 3 个生产者协程和 2 个消费者协程：
@@ -12,7 +15,6 @@ package main
 避免 channel 泄漏
 消费者打印需要显示消费者编号
 */
-
-func main() {
+func (s *MySolution) Solve(timeout int, producers int, consumers int) {
 
 }
