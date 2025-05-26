@@ -12,6 +12,6 @@ type MySolution struct{}
 模拟 20 个请求以随机间隔（0-1秒）到达
 输出显示每个请求的开始/结束时间和处理耗时
 */
-func (s *MySolution) Solve(rateLimit int) {
+func (s *MySolution) Solve(rateLimit, requests int) {
 
 }
