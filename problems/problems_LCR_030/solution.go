@@ -3,37 +3,51 @@ package problemLCR_030
 import (
 	"encoding/json"
 	"log"
+	"math/rand/v2"
 	"strings"
 )
 
 type RandomizedSet struct {
-
+	vals   []int
+	valMap map[int]int
 }
-
 
 /** Initialize your data structure here. */
 func Constructor() RandomizedSet {
-
+	return RandomizedSet{
+		vals:   []int{},
+		valMap: make(map[int]int),
+	}
 }
-
 
 /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
-func (this *RandomizedSet) Insert(val int) bool {
-
+func (rs *RandomizedSet) Insert(val int) bool {
+	if _, exists := rs.valMap[val]; exists {
+		return false // Value already exists in the set
+	}
+	rs.vals = append(rs.vals, val)
+	rs.valMap[val] = len(rs.vals) - 1 // Store the index of the value
+	return true
 }
-
 
 /** Removes a value from the set. Returns true if the set contained the specified element. */
-func (this *RandomizedSet) Remove(val int) bool {
-
+func (rs *RandomizedSet) Remove(val int) bool {
+	if _, exists := rs.valMap[val]; !exists {
+		return false
+	}
+	index := rs.valMap[val]
+	n := len(rs.vals) - 1
+	rs.vals[index], rs.vals[n] = rs.vals[n], rs.vals[index] // Swap with the last element
+	rs.valMap[rs.vals[index]] = index                       // Update the index of the swapped element
+	delete(rs.valMap, val)                                  // Remove the value from the map
+	rs.vals = rs.vals[:n]                                   // Remove the last element
+	return true
 }
-
 
 /** Get a random element from the set. */
-func (this *RandomizedSet) GetRandom() int {
-
+func (rs *RandomizedSet) GetRandom() int {
+	return rs.vals[rand.IntN(len(rs.vals))]
 }
-
 
 /**
  * Your RandomizedSet object will be instantiated and called as such:
@@ -72,7 +86,6 @@ func Solve(inputJsonValues string) any {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }

@@ -1,3 +1,5 @@
+import random
+
 import solution
 from typing import *
 from python.object_libs import call_method
@@ -15,23 +17,36 @@ class RandomizedSet:
         """
         Initialize your data structure here.
         """
-        pass
+        self.arr = []
+        self.val_to_index = {}
 
     def insert(self, val: int) -> bool:
         """
         Inserts a value to the set. Returns true if the set did not already contain the specified element.
         """
-        pass
+        if val in self.val_to_index:
+            return False
+        self.val_to_index[val] = len(self.arr)
+        self.arr.append(val)
+        return True
 
     def remove(self, val: int) -> bool:
         """
         Removes a value from the set. Returns true if the set contained the specified element.
         """
-        pass
+        if val not in self.val_to_index:
+            return False
+        index = self.val_to_index[val]
+        n = len(self.arr) - 1
+        self.arr[index], self.arr[n] = self.arr[n], self.arr[index]
+        self.val_to_index[self.arr[index]] = index
+        self.arr.pop()
+        del self.val_to_index[val]
+        return True
 
     def getRandom(self) -> int:
         """
         Get a random element from the set.
         """
-        pass
-
+        idx = random.randint(0, len(self.arr) - 1)
+        return self.arr[idx]
