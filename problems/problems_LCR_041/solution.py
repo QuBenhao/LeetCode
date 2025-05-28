@@ -1,3 +1,5 @@
+from collections import deque
+
 import solution
 from typing import *
 from python.object_libs import call_method
@@ -15,8 +17,13 @@ class MovingAverage:
         """
         Initialize your data structure here.
         """
-        pass
+        self.s = 0
+        self.size = size
+        self.window = deque(maxlen=size)
 
     def next(self, val: int) -> float:
-        pass
-
+        if len(self.window) == self.size:
+            self.s -= self.window.popleft()
+        self.s += val
+        self.window.append(val)
+        return self.s / len(self.window)
