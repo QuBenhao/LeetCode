@@ -1,26 +1,37 @@
 package problemLCR_041
 
 import (
+	"container/list"
 	"encoding/json"
 	"log"
 	"strings"
 )
 
 type MovingAverage struct {
-
+	size   int
+	window list.List
+	sum    float64
 }
-
 
 /** Initialize your data structure here. */
 func Constructor(size int) MovingAverage {
-
+	return MovingAverage{
+		size:   size,
+		window: list.List{},
+		sum:    0.0,
+	}
 }
 
-
-func (this *MovingAverage) Next(val int) float64 {
-
+func (ma *MovingAverage) Next(val int) float64 {
+	if ma.window.Len() == ma.size {
+		front := ma.window.Front()
+		ma.sum -= float64(front.Value.(int))
+		ma.window.Remove(front)
+	}
+	ma.sum += float64(val)
+	ma.window.PushBack(val)
+	return ma.sum / float64(ma.window.Len())
 }
-
 
 /**
  * Your MovingAverage object will be instantiated and called as such:
@@ -53,7 +64,6 @@ func Solve(inputJsonValues string) any {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
