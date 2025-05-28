@@ -17,6 +17,8 @@ public class Solution extends BaseSolution {
             int u = edge[0], v = edge[1];
             List<Integer> lu = map.getOrDefault(u, new ArrayList<>());
             List<Integer> lv = map.getOrDefault(v, new ArrayList<>());
+            map.put(u, lu);
+            map.put(v, lv);
             lu.add(v);
             lv.add(u);
         }
