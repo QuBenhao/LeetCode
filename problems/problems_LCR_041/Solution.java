@@ -1,19 +1,35 @@
 package problems.problems_LCR_041;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
+
 import com.alibaba.fastjson.JSON;
-import java.util.*;
+
 import qubhjava.BaseSolution;
 
 
 class MovingAverage {
 
+	private final int size;
+	private final Queue<Integer> window;
+	private long s;
+
     /** Initialize your data structure here. */
     public MovingAverage(int size) {
-
+		this.size = size;
+		window = new LinkedList<>();
+		s = 0L;
     }
     
     public double next(int val) {
-
+		if (window.size() == size) {
+			s -= window.poll();
+		}
+		s += val;
+		window.add(val);
+		return (double)s / window.size();
     }
 }
 
