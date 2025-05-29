@@ -1,19 +1,31 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
 
+#include <queue>
 
 using namespace std;
 using json = nlohmann::json;
 
 class MovingAverage {
+    int size;
+    int64_t sum = 0;
+    queue<int> q;
 public:
     /** Initialize your data structure here. */
     MovingAverage(int size) {
-
+        this->size = size;
+        this->q = queue<int>();
+        this->sum = 0;
     }
     
     double next(int val) {
-
+        if (q.size() == size) {
+            sum -= q.front();
+            q.pop();
+        }
+        q.push(val);
+        sum += val;
+        return static_cast<double>(sum) / q.size();
     }
 };
 
