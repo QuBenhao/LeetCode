@@ -1348,6 +1348,41 @@ func (uf *UnionFind) IsConnected(x, y int) bool {
     return uf.Find(x) == uf.Find(y)
 }
 ```
+```c++
+class UnionFind {
+    vector<int> fa;
+    vector<int> size;
+public:
+    int cc;
+    UnionFind(int n): fa(n), size(n, 1), cc(n) {
+        for (int i = 0; i < n; i++) {
+            fa[i] = i;
+        }
+    }
+
+    int find(int x) {
+        if (fa[x] != x) {
+            fa[x] = find(fa[x]);
+        }
+        return fa[x];
+    }
+
+    bool merge(int x, int y) {
+        int px = find(x), py = find(y);
+        if (px == py) {
+            return false;
+        }
+        fa[px] = py;
+        size[py] += size[px];
+        cc--;
+        return true;
+    }
+
+    int get_size(int x) {
+        return size[find(x)];
+    }
+};
+```
 
 ---
 
@@ -1450,6 +1485,48 @@ func main() {
     fmt.Println(ft.Query(3))       // 输出9
     fmt.Println(ft.RangeQuery(2, 4)) // 输出15
 }
+```
+
+```c++
+// 根据题目用 FenwickTree<int> t(n) 或者 FenwickTree<long long> t(n) 初始化
+template<typename T>
+class FenwickTree {
+    vector<T> tree;
+
+public:
+    // 使用下标 1 到 n
+    FenwickTree(int n) : tree(n + 1) {}
+
+    // a[i] 增加 val
+    // 1 <= i <= n
+    // 时间复杂度 O(log n)
+    void update(int i, T val) {
+        for (; i < tree.size(); i += i & -i) {
+            tree[i] += val;
+        }
+    }
+
+    // 求前缀和 a[1] + ... + a[i]
+    // 1 <= i <= n
+    // 时间复杂度 O(log n)
+    T pre(int i) const {
+        T res = 0;
+        for (; i > 0; i &= i - 1) {
+            res += tree[i];
+        }
+        return res;
+    }
+
+    // 求区间和 a[l] + ... + a[r]
+    // 1 <= l <= r <= n
+    // 时间复杂度 O(log n)
+    T query(int l, int r) const {
+        if (r < l) {
+            return 0;
+        }
+        return pre(r) - pre(l - 1);
+    }
+};
 ```
 
 ### **核心原理**
