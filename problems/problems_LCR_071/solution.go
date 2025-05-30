@@ -3,23 +3,36 @@ package problemLCR_071
 import (
 	"encoding/json"
 	"log"
+	"math/rand"
 	"strings"
 )
 
 type Solution struct {
-
+	Prefix []int
 }
-
 
 func Constructor(w []int) Solution {
-
+	n := len(w)
+	prefix := make([]int, n+1)
+	for i, v := range w {
+		prefix[i+1] = prefix[i] + v
+	}
+	return Solution{prefix}
 }
 
-
-func (this *Solution) PickIndex() int {
-
+func (sol *Solution) PickIndex() int {
+	v := rand.Intn(sol.Prefix[len(sol.Prefix)-1]) + 1
+	left, right := 1, len(sol.Prefix)-1
+	for left < right {
+		mid := ((right - left) >> 1) + left
+		if sol.Prefix[mid] < v {
+			left = mid + 1
+		} else {
+			right = mid
+		}
+	}
+	return left - 1
 }
-
 
 /**
  * Your Solution object will be instantiated and called as such:
@@ -60,7 +73,6 @@ func Solve(inputJsonValues string) any {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }
