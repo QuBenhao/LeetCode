@@ -2,6 +2,8 @@
 #include "cpp/common/Solution.h"
 #include "cpp/models/TreeNode.h"
 
+#include <stack>
+
 using namespace std;
 using json = nlohmann::json;
 
