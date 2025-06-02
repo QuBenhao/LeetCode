@@ -7,23 +7,21 @@ using json = nlohmann::json;
 
 class Solution {
 public:
-  int largestRectangleArea(vector<int> &heights) {
-    stack<int> st;
-    int n = static_cast<int>(heights.size());
-    st.push(-1);
-    heights.push_back(0);
-    int ans = 0;
-    for (int i = 0; i <= n; i++) {
-      while (st.top() != -1 && heights[st.top()] > heights[i]) {
-        int h = heights[st.top()];
-        st.pop();
-        int w = i - st.top() - 1;
-        ans = max(ans, h * w);
-      }
-      st.push(i);
+    int largestRectangleArea(vector<int>& heights) {
+        stack<int> st;
+        int ans = 0;
+        int n = heights.size();
+        for (int i = 0; i <= n; i++) {
+            while (!st.empty() && (i == n || heights[st.top()] > heights[i])) {
+                int idx = st.top();
+                st.pop();
+                int left = st.empty() ? -1 : st.top();
+                ans = max(ans, (i - left -1) * heights[idx]);
+            }
+            st.push(i);
+        }
+        return ans;
     }
-    return ans;
-  }
 };
 
 json leetcode::qubh::Solve(string input_json_values) {
