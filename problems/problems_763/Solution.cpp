@@ -8,20 +8,21 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<int> partitionLabels(string s) {
-        vector<int> last(26, 0);
-        for (size_t i = 0; i < s.size(); i++) {
-            last[s[i] - 'a'] = i;
+        int n = s.length();
+        int index[26];
+        for (int i = 0; i < n; i++) {
+            int idx = s[i] - 'a';
+            index[idx] = i;
         }
-        vector<int> res;
-        size_t start = 0, end = 0;
-        for (size_t i = 0; i < s.size(); i++) {
-            end = max(end, static_cast<size_t>(last[s[i] - 'a']));
+        vector<int> ans;
+        for (int i = 0, start = 0, end = 0; i < n; i++) {
+            end = max(end, index[s[i] - 'a']);
             if (i == end) {
-                res.push_back(end - start + 1);
-                start = end + 1;
+                ans.push_back(end-start+1);
+                start = end+1;
             }
         }
-        return res;
+        return ans;
     }
 };
 

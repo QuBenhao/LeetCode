@@ -1,6 +1,7 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
 #include <vector>
+#include <algorithm>
 
 
 using namespace std;
@@ -9,24 +10,16 @@ using json = nlohmann::json;
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-		vector<int> stack;
-		for (int num : nums) {
-			if (stack.empty() || num > stack.back()) {
-				stack.push_back(num);
-			} else {
-				int left = 0, right = static_cast<int>(stack.size()) - 1;
-				while (left < right) {
-					int mid = left + (right - left) / 2;
-					if (stack[mid] < num) {
-						left = mid + 1;
-					} else {
-						right = mid;
-					}
-				}
-				stack[right] = num;
-			}
-		}
-		return static_cast<int>(stack.size());
+        vector<int> dp;
+        for (auto num: nums) {
+            auto it = lower_bound(dp.begin(), dp.end(), num);
+            if (it == dp.end()) {
+                dp.push_back(num);
+            } else {
+                *it = num;
+            }
+        }
+        return dp.size();
     }
 };
 
