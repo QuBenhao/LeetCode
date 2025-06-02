@@ -8,41 +8,31 @@ using namespace std;
 using json = nlohmann::json;
 
 class MedianFinder {
-private:
-  priority_queue<int> max_heap;
-  priority_queue<int, vector<int>, greater<int>> min_heap;
-
+    priority_queue<int> left; // 最大堆
+    priority_queue<int, vector<int>, greater<>> right; // 最小堆
 public:
-  MedianFinder() {
-    max_heap = priority_queue<int>();
-    min_heap = priority_queue<int, vector<int>, greater<int>>();
-  }
+    MedianFinder() {
 
-  void addNum(int num) {
-    if (min_heap.size() == max_heap.size()) {
-      if (min_heap.empty() || num <= min_heap.top()) {
-        max_heap.push(num);
-      } else {
-        max_heap.push(min_heap.top());
-        min_heap.pop();
-        min_heap.push(num);
-      }
-    } else {
-      if (num >= max_heap.top()) {
-        min_heap.push(num);
-      } else {
-        min_heap.push(max_heap.top());
-        max_heap.pop();
-        max_heap.push(num);
-      }
     }
-  }
 
-  double findMedian() {
-    return min_heap.size() == max_heap.size()
-               ? static_cast<double>(min_heap.top() + max_heap.top()) / 2.0
-               : max_heap.top();
-  }
+    void addNum(int num) {
+        if (left.size() == right.size()) { // 两边一样多，先加入右边，再把右边最小值给左边
+            right.push(num);
+            left.push(right.top());
+            right.pop();
+        } else { // 左边更多，加入左边后，将左边最大给右边（保持两边数量一致）
+            left.push(num);
+            right.push(left.top());
+            left.pop();
+        }
+    }
+
+    double findMedian() {
+        if (left.size() == right.size()) {
+            return (left.top() + right.top()) / 2.0;
+        }
+        return left.top();
+    }
 };
 
 /**

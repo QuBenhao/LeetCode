@@ -6,17 +6,17 @@ using json = nlohmann::json;
 
 class Solution {
 public:
-  int jump(vector<int> &nums) {
-    int ans = 0;
-    for (size_t cur = 0, nxt = 0, n = nums.size(); nxt + 1 < n; ans++) {
-      size_t tmp = nxt;
-      for (size_t i = cur; i <= tmp; i++) {
-        nxt = max(nxt, i + nums[i]);
-      }
-      cur = tmp + 1;
+    int jump(vector<int>& nums) {
+        int n = nums.size(), steps = 0;
+        for (int left = 0, right = 0; right < n-1; steps++) { // right: 当前能走到的最远坐标
+            int tmp = right;
+            for (int c = left; c <= tmp; c++) {
+                right = max(right, c+nums[c]);
+            }
+            left = tmp + 1; // 跳跃一次, 上次在[left, tmp], 下次在[tmp+1, right]
+        }
+        return steps;
     }
-    return ans;
-  }
 };
 
 json leetcode::qubh::Solve(string input_json_values) {

@@ -498,7 +498,7 @@ func merge(left, right []int) []int {
 - **稳定性**：不稳定
 ```cpp
 int partition(vector<int>& arr, int low, int high) {
-    int pivot = arr[high];
+    int pivot = arr[random() % (high - low + 1) + low];
     int i = low - 1;
     for (int j = low; j < high; j++) {
         if (arr[j] < pivot) 
