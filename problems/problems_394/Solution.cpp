@@ -11,35 +11,40 @@ using json = nlohmann::json;
 class Solution {
 public:
     string decodeString(string s) {
-        stack<int> num_stack;
-        stack<string> str_stack;
+        stack<string> st;
+        stack<int> mul;
+        stringstream ans;
         stringstream ss;
-        int times = 0;
+        int cur = 0;
         for (auto c: s) {
-            if (c == '[') {
-                num_stack.push(times);
-                times = 0;
-                str_stack.push(ss.str());
+            if (c >= '0' && c <= '9') {
+                cur = cur * 10 + (c - '0');
+            } else if (c == '[') {
+                mul.push(cur);
+                cur = 0;
+                st.emplace(ss.str());
                 ss.str("");
             } else if (c == ']') {
-                auto t = num_stack.top();
-                auto last_str = str_stack.top();
-                num_stack.pop();
-                str_stack.pop();
+                int m = mul.top();
+                mul.pop();
                 stringstream tmp;
-                tmp << last_str;
-                for (int i = 0; i < t; i++) {
+                for (int i = 0; i < m; i++) {
                     tmp << ss.str();
                 }
                 ss.str("");
-                ss << tmp.str();
-            } else if (c >= '0' && c <= '9') {
-                times = times * 10 + c - '0';
+                if (st.empty()) {
+                    ans << tmp.str();
+                } else {
+                    ss << st.top();
+                    st.pop();
+                    ss << tmp.str();
+                }
             } else {
                 ss << c;
             }
         }
-        return ss.str();
+        ans << ss.str();
+        return ans.str();
     }
 };
 
