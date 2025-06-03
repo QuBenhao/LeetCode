@@ -1,29 +1,30 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
-#include <deque>
+
+#include <algorithm>
 
 using namespace std;
 using json = nlohmann::json;
 
 class Solution {
 public:
-  void nextPermutation(vector<int> &nums) {
-    int n = static_cast<int>(nums.size());
-    int idx = n - 1;
-    while (idx > 0 && nums[idx - 1] >= nums[idx]) {
-      idx--;
+    void nextPermutation(vector<int>& nums) {
+        int n = nums.size();
+        int i;
+        for (i = n - 2; i >= 0; i--) {
+            if (nums[i] < nums[i+1]) {
+                break;
+            }
+        }
+        // for (int l = i + 1, r = n - 1; l < r; l++, r--) {
+        //     swap(nums[l], nums[r]);
+        // }
+        reverse(nums.begin()+i+1, nums.end());
+        if (i >= 0) {
+            auto it = upper_bound(nums.begin() + i + 1, nums.end(), nums[i]);
+            iter_swap(nums.begin()+i, it);
+        }
     }
-    if (idx == 0) {
-      reverse(nums.begin(), nums.end());
-      return;
-    }
-    int i = n - 1;
-    while (i >= idx && nums[i] <= nums[idx - 1]) {
-      i--;
-    }
-    swap(nums[i], nums[idx - 1]);
-    reverse(nums.begin() + idx, nums.end());
-  }
 };
 
 json leetcode::qubh::Solve(string input_json_values) {

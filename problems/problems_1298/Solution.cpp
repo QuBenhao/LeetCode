@@ -1,5 +1,7 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <unordered_set>
+#include <queue>
 
 
 using namespace std;
@@ -8,7 +10,38 @@ using json = nlohmann::json;
 class Solution {
 public:
     int maxCandies(vector<int>& status, vector<int>& candies, vector<vector<int>>& keys, vector<vector<int>>& containedBoxes, vector<int>& initialBoxes) {
-        
+        int ans = 0;
+        queue<int> q; // 可以使用的箱子
+        unordered_set<int> wait; // 有箱子, 但暂时没钥匙
+        for (auto b: initialBoxes) {
+            if (status[b] == 1) {
+                q.push(b);
+            } else {
+                wait.insert(b);
+            }
+        }
+        unordered_set<int> ks;
+        while (!q.empty()) {
+            int box = q.front();
+            q.pop();
+            for (auto k: keys[box]) {
+                auto it = wait.find(k);
+                if (it != wait.end()) { // 先遇到了箱子, 后拿到的钥匙
+                    q.push(*it);
+                    wait.erase(it);
+                }
+                ks.insert(k);
+            }
+            ans += candies[box];
+            for (auto b: containedBoxes[box]) {
+                if (status[b] == 1 || ks.find(b) != ks.end()) { // 先拿到了钥匙, 后遇到了箱子
+                    q.push(b);
+                } else {
+                    wait.insert(b);
+                }
+            }
+        }
+        return ans;
     }
 };
 
