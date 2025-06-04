@@ -185,9 +185,9 @@ def configure():
         )
         if update_config == "y":
             with env_file.open("w") as f:
-                f.write(f"{constant.COOKIE}={cookie}\n")
-                f.write(f"{constant.PROBLEM_FOLDER}={problem_folder}\n")
-                f.write(f"{constant.LANGUAGES}={','.join(languages)}\n")
+                f.write(f"{constant.COOKIE}=\"{cookie}\"\n")
+                f.write(f"{constant.PROBLEM_FOLDER}=\"{problem_folder}\"\n")
+                f.write(f"{constant.LANGUAGES}=\"{','.join(languages)}\"\n")
             print(f"Updated {env_file} with the new configuration.")
         print(__separate_line)
     else:
