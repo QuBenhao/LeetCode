@@ -7,5 +7,7 @@ class Solution(solution.Solution):
         return self.answerString(*test_input)
 
     def answerString(self, word: str, numFriends: int) -> str:
-        pass
-
+        if numFriends == 1:
+            return word
+        n = len(word)
+        return max(word[i:i+n-numFriends+1] for i in range(n))
