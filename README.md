@@ -445,7 +445,11 @@ and tasks.json under `.vscode`
       "command": "bazel",
       "args": [
         "test",
-        "--cxxopt=-std=c++20",
+        "--cxxopt=-std=c++23",
+        "--cxxopt=-O2",
+        "--cxxopt=-fsanitize=address",
+        "--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=1",
+        "--linkopt=-fsanitize=address",
         "--test_timeout=3",
         "--test_output=all",
         "//cpp:solution_test"
@@ -457,7 +461,11 @@ and tasks.json under `.vscode`
       "command": "bazel",
       "args": [
         "test",
-        "--cxxopt=-std=c++20",
+        "--cxxopt=-std=c++23",
+        "--cxxopt=-O2",
+        "--cxxopt=-fsanitize=address",
+        "--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=1",
+        "--linkopt=-fsanitize=address",
         "--test_timeout=10",
         "--test_output=all",
         "//cpp/tests:all"
