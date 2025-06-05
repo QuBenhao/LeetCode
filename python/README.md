@@ -15,3 +15,12 @@ or if you want to run more than one questions,
 ```shell
 python3 python/tests.py
 ```
+
+## EXTRA
+
+If you are using vscode and python root gets wrong,
+add this line into your .env
+
+```env
+PYTHONPATH=.
+```
