@@ -7,5 +7,15 @@ class Solution(solution.Solution):
         return self.robotWithString(test_input)
 
     def robotWithString(self, s: str) -> str:
-        pass
+        n = len(s)
+        suf = ['z'] * (n+1)
+        for i in range(n - 1, -1, -1):
+            suf[i] = min(suf[i + 1], s[i])
 
+        ans = []
+        st = []
+        for i, c in enumerate(s):
+            st.append(c)
+            while st and st[-1] <= suf[i+1]:
+                ans.append(st.pop())
+        return ''.join(ans)
