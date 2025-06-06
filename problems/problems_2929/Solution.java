@@ -6,8 +6,13 @@ import qubhjava.BaseSolution;
 
 
 public class Solution extends BaseSolution {
+    private long combination2(int n) {
+        return n > 1 ? (long) n * (n - 1) / 2 : 0;
+    }
+
     public long distributeCandies(int n, int limit) {
-        
+        return combination2(n+2) - 3 * combination2(n - limit + 1) 
+               + 3 * combination2(n - 2 * limit) - combination2(n - 3 * limit - 1);
     }
 
     @Override

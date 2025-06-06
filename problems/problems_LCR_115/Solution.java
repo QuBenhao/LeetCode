@@ -7,7 +7,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public boolean sequenceReconstruction(int[] nums, int[][] sequences) {
-
+        return false;
     }
 
     @Override
