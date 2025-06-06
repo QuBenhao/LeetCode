@@ -7,7 +7,23 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public boolean sequenceReconstruction(int[] nums, int[][] sequences) {
-        return false;
+        Set<Integer> set = new HashSet<>();
+        for (int[] seq: sequences) {
+            for (int i = 0; i < seq.length - 1; i++) {
+                set.add(hash(seq[i], seq[i + 1]));
+            }
+        }
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (!set.contains(hash(nums[i], nums[i + 1]))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private int hash(int prev, int next) {
+        // 10^4 最多14位
+        return prev << 14 | next;
     }
 
     @Override
