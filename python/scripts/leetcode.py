@@ -8,6 +8,7 @@ import random
 import re
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 from pathlib import Path
 from dotenv import load_dotenv
@@ -17,12 +18,13 @@ root_path = file_path.parent.parent.parent
 sys.path.insert(0, root_path.as_posix())
 
 from python.constants import constant
-from python.lc_libs import get_daily_question, contest as contest_lib
+from python.lc_libs import get_daily_question, query_my_favorites, batch_add_questions_to_favorite, \
+    query_favorite_questions, contest as contest_lib
 import python.lc_libs as lc_libs
 from python.scripts.submit import main as submit_main_async
 from python.utils import back_question_id, format_question_id, check_cookie_expired
 from python.scripts.daily_auto import main as daily_auto_main
-from python.scripts.get_problem import main as get_problem_main
+from python.scripts.get_problem import main as get_problem_main, get_question_slug_by_id
 from python.scripts.tools import lucky_main, remain_main, clean_empty_java_main, clean_error_rust_main
 
 __separate_line = "-" * 50
@@ -39,6 +41,7 @@ __user_input_function = """Please select the main function [0-5, default: 0]:
 4. Contest
 5. Clean empty java
 6. Clean error rust
+7. Favorite management
 """
 __user_input_get_problem = """Please select the get problem method [0-5, default: 0]:
 0. Back
@@ -68,6 +71,11 @@ __user_input_page = """Total of [{}] elements, please enter [default: 0]:
 
 b. last page
 n. next page
+"""
+__user_input_favorite_method = """Please select the favorite method [0-2, default: 0]:
+0. Back
+1. List problems in the favorite
+2. Add problems to the favorite
 """
 
 __supported_languages = ["python3", "java", "golang", "cpp", "typescript", "rust"]
@@ -439,6 +447,124 @@ def contest_main(languages, contest_folder, cookie):
     return None
 
 
+def favorite_main(languages, problem_folder, cookie):
+    def favorite_list():
+        while True:
+            my_favorites = query_my_favorites(cookie)
+            total, data, has_more = my_favorites["total"], my_favorites["favorites"], my_favorites["has_more"]
+            if not data:
+                print("No favorites found.")
+                break
+            content = "\n".join(
+                [f"{_i}. {f['name']}" for _i, f in enumerate(data, start=1)],
+            )
+            user_input_select = input_until_valid(
+                __user_input_page.format(total, content),
+                __allow_all
+            )
+            pick = None
+            match user_input_select:
+                case v if v.isdigit() and 1 <= int(v) <= 10:
+                    pick = int(v)
+                case _:
+                    break
+            print(__separate_line)
+            if not pick:
+                continue
+            return data[pick - 1]
+        return None
+
+    def question_list(favorite_slug):
+        cur_page = 1
+        page_size = 20
+        while True:
+            _questions = query_favorite_questions(favorite_slug, cookie, limit=page_size, skip=(cur_page-1)*page_size)
+            total, data, has_more = _questions["total"], _questions["questions"], _questions["has_more"]
+            max_page = math.ceil(total / page_size)
+            if not data:
+                print("No questions found in this favorite.")
+                break
+            content = "\n".join(
+                [f"{_i}. [{q['question_frontend_id']}] {q['translated_title']}" for _i, q in enumerate(data, start=1)],
+            )
+            user_input_select = input_until_valid(
+                __user_input_page.format(total, content),
+                __allow_all
+            )
+            pick = None
+            match user_input_select:
+                case "b":
+                    cur_page = max(1, cur_page - 1)
+                case "n":
+                    cur_page = min(max_page, cur_page + 1)
+                case v if v.isdigit() and 1 <= int(v) <= 10:
+                    pick = int(v)
+                case _:
+                    break
+            print(__separate_line)
+            if not pick:
+                continue
+            return data[pick - 1]
+        return None
+
+    if check_cookie_expired(cookie):
+        print("Cookie expired, please update it to continue.")
+        return
+    while True:
+        favorite = favorite_list()
+        if not favorite:
+            return
+        slug = favorite["slug"]
+        while True:
+            favorite_method = input_until_valid(
+                __user_input_favorite_method,
+                __allow_all
+            )
+            print(__separate_line)
+            match favorite_method:
+                case "1":
+                    question = question_list(slug)
+                    if not question:
+                        break
+                    code = get_problem_main(problem_slug=question["title_slug"], cookie=cookie, replace_problem_id=True,
+                                     languages=languages, problem_folder=problem_folder)
+                    if code == 0:
+                        print(f"Problem [{question['question_frontend_id']}]"
+                              f" {question['translated_title']} fetched successfully.")
+                    else:
+                        print(f"Failed to fetch the problem [{question['question_frontend_id']}]"
+                              f" {question['translated_title']}.")
+                case "2":
+                    input_questions = input_until_valid(
+                        "Enter the problem ids to add to favorite, separated by comma: ",
+                        __allow_all_not_empty,
+                        "Problem ids cannot be empty."
+                    )
+                    question_ids = [q.strip() for q in input_questions.split(",")]
+                    if not question_ids:
+                        print("No questions to add.")
+                        continue
+                    with ThreadPoolExecutor() as executor:
+                        slugs = list(executor.map(get_question_slug_by_id, question_ids))
+
+                    questions = []
+                    for question_id, question_slug in zip(question_ids, slugs):
+                        if not question_slug:
+                            print(f"Invalid question ID: {question_id}. Skipping.")
+                            continue
+                        questions.append(question_slug)
+                    if not questions:
+                        print("No valid questions to add.")
+                        continue
+                    result = batch_add_questions_to_favorite(slug, questions, cookie)
+                    if result.get("status") == "success":
+                        print(f"Added {len(questions)} questions to favorite [{favorite['name']}] successfully.")
+                    else:
+                        print(f"Failed to add questions to favorite [{favorite['name']}]: {result.get('message')}")
+                case _:
+                    break
+
+
 def main():
     try:
         languages, problem_folder, cookie, contest_folder = configure()
@@ -464,6 +590,9 @@ def main():
                 case "6":
                     clean_error_rust_main(root_path, problem_folder)
                     print("Done cleaning error Rust files.")
+                    print(__separate_line)
+                case "7":
+                    favorite_main(languages, problem_folder, cookie)
                     print(__separate_line)
                 case _:
                     print("Exiting...")

@@ -144,6 +144,24 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
     logging.info(f"Add question: [{problem_id}]{problem_slug}")
 
 
+def get_question_slug_by_id(
+        problem_id: str,
+        problem_category: Optional[str] = None,
+        cookie: Optional[str] = None) -> Optional[str]:
+    questions = get_questions_by_key_word(problem_id, problem_category) if problem_category \
+        else get_questions_by_key_word(problem_id)
+    if not questions:
+        logging.error(f"Unable to find any questions with problem_id {problem_id}")
+        return None
+    for question in questions:
+        if question["paidOnly"] and not cookie:
+            continue
+        if question["frontendQuestionId"] == problem_id:
+            return question["titleSlug"]
+    logging.error(f"Unable to find any questions with problem_id {problem_id}, possible questions: {questions}")
+    return None
+
+
 def main(origin_problem_id: Optional[str] = None, problem_slug: Optional[str] = None,
          problem_category: Optional[str] = None, force: bool = False, cookie: Optional[str] = None,
          fetch_all: bool = False, premium_only: bool = False, replace_problem_id: bool = False,
@@ -153,20 +171,8 @@ def main(origin_problem_id: Optional[str] = None, problem_slug: Optional[str] = 
             logging.critical("Requires at least one of problem_id or problem_slug to fetch in single mode.")
             return 1
         if not problem_slug:
-            questions = get_questions_by_key_word(origin_problem_id, problem_category) if problem_category \
-                else get_questions_by_key_word(origin_problem_id)
-            if not questions:
-                logging.error(f"Unable to find any questions with problem_id {origin_problem_id}")
-                return 1
-            for question in questions:
-                if question["paidOnly"] and not cookie:
-                    continue
-                if question["frontendQuestionId"] == origin_problem_id:
-                    problem_slug = question["titleSlug"]
-                    break
+            problem_slug = get_question_slug_by_id(origin_problem_id, problem_category, cookie)
             if not problem_slug:
-                logging.error(f"Unable to find any questions with problem_id {origin_problem_id}"
-                              f", possible questions: {questions}")
                 return 1
         question_info = get_question_info(problem_slug, cookie)
         if not question_info:

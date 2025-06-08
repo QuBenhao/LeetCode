@@ -15,3 +15,4 @@ from .rust_writer import RustWriter
 from .study_plan import get_user_study_plans, get_user_study_plan_progress
 from .rating import get_rating
 from .answers import get_answer_san_ye
+from .favorite import query_my_favorites, batch_add_questions_to_favorite, query_favorite_questions
