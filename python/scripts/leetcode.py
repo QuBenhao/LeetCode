@@ -480,7 +480,7 @@ def favorite_main(languages, problem_folder, cookie):
         while True:
             _questions = query_favorite_questions(favorite_slug, cookie, limit=page_size, skip=(cur_page-1)*page_size)
             total, data, has_more = _questions["total"], _questions["questions"], _questions["has_more"]
-            max_page = math.ceil(total / 10)
+            max_page = math.ceil(total / page_size)
             if not data:
                 print("No questions found in this favorite.")
                 break
