@@ -17,7 +17,8 @@ root_path = file_path.parent.parent.parent
 sys.path.insert(0, root_path.as_posix())
 
 from python.constants import constant
-from python.lc_libs import get_daily_question, contest as contest_lib
+from python.lc_libs import get_daily_question, query_my_favorites, batch_add_questions_to_favorite, \
+    contest as contest_lib
 import python.lc_libs as lc_libs
 from python.scripts.submit import main as submit_main_async
 from python.utils import back_question_id, format_question_id, check_cookie_expired
@@ -39,6 +40,7 @@ __user_input_function = """Please select the main function [0-5, default: 0]:
 4. Contest
 5. Clean empty java
 6. Clean error rust
+7. Favorite management
 """
 __user_input_get_problem = """Please select the get problem method [0-5, default: 0]:
 0. Back
