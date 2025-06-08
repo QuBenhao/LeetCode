@@ -1,2 +1,2 @@
-["\"abcdf\"\n\"dacbe\"", "\"abceded\"\n\"baecfef\"", "\"abcdef\"\n\"fedabc\""]
-[4, 4, 2]
+["\"abcdf\"\n\"dacbe\"", "\"abceded\"\n\"baecfef\"", "\"abcdef\"\n\"fedabc\"", "\"abc\"\n\"bca\""]
+[4, 4, 2, 2]
