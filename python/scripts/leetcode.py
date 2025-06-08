@@ -8,6 +8,7 @@ import random
 import re
 import sys
 import time
+from concurrent.futures import ThreadPoolExecutor
 
 from pathlib import Path
 from dotenv import load_dotenv
@@ -475,9 +476,10 @@ def favorite_main(languages, problem_folder, cookie):
 
     def question_list(favorite_slug):
         cur_page = 1
+        page_size = 20
         while True:
-            questions = query_favorite_questions(favorite_slug, cookie, limit=20, skip=(cur_page-1)*20)
-            total, data, has_more = questions["total"], questions["questions"], questions["has_more"]
+            _questions = query_favorite_questions(favorite_slug, cookie, limit=page_size, skip=(cur_page-1)*page_size)
+            total, data, has_more = _questions["total"], _questions["questions"], _questions["has_more"]
             max_page = math.ceil(total / 10)
             if not data:
                 print("No questions found in this favorite.")
@@ -542,9 +544,11 @@ def favorite_main(languages, problem_folder, cookie):
                     if not question_ids:
                         print("No questions to add.")
                         continue
+                    with ThreadPoolExecutor() as executor:
+                        slugs = list(executor.map(get_question_slug_by_id, question_ids))
+
                     questions = []
-                    for question_id in question_ids:
-                        question_slug = get_question_slug_by_id(question_id)
+                    for question_id, question_slug in zip(question_ids, slugs):
                         if not question_slug:
                             print(f"Invalid question ID: {question_id}. Skipping.")
                             continue

@@ -158,8 +158,7 @@ def get_question_slug_by_id(
             continue
         if question["frontendQuestionId"] == problem_id:
             return question["titleSlug"]
-    logging.error(f"Unable to find any questions with problem_id {problem_id}"
-                  f", possible questions: {questions}")
+    logging.error(f"Unable to find any questions with problem_id {problem_id}, possible questions: {questions}")
     return None
 
 
@@ -172,8 +171,8 @@ def main(origin_problem_id: Optional[str] = None, problem_slug: Optional[str] = 
             logging.critical("Requires at least one of problem_id or problem_slug to fetch in single mode.")
             return 1
         if not problem_slug:
-            question_slug = get_question_slug_by_id(origin_problem_id, problem_category, cookie)
-            if not question_slug:
+            problem_slug = get_question_slug_by_id(origin_problem_id, problem_category, cookie)
+            if not problem_slug:
                 return 1
         question_info = get_question_info(problem_slug, cookie)
         if not question_info:
