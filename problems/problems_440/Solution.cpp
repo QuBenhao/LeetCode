@@ -6,9 +6,23 @@ using namespace std;
 using json = nlohmann::json;
 
 class Solution {
+    int dfs(long n, long l, long r) {
+        return l <= n ? min(r, n) - l + 1 + dfs(n, l * 10, r * 10 + 9) : 0;
+    }
 public:
     int findKthNumber(int n, int k) {
-        
+        int cur = 1;
+        while (k > 1) {
+            int count = dfs(n, cur, cur);
+            if (count < k) {
+                k -= count;
+                ++cur;
+            } else {
+                cur *= 10;
+                --k;
+            }
+        }
+        return cur;
     }
 };
 
