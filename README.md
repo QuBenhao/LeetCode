@@ -46,6 +46,7 @@ COOKIE="***[cookie from LeetCode graphql]"
 LANGUAGES="python3,golang,java,cpp,typescript,rust"
 USER="himymben"
 LOG_LEVEL="info"
+PYTHONPATH=.
 ```
 
 install python3.12 requirements:
