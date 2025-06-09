@@ -7,7 +7,22 @@ import (
 )
 
 func maxDifference(s string) int {
-    
+	maxOdd, minEven := 0, len(s)
+	counts := make([]int, 26)
+	for _, c := range s {
+		counts[c-'a']++
+	}
+	for _, v := range counts {
+		if v == 0 {
+			continue
+		}
+		if v%2 == 1 {
+			maxOdd = max(maxOdd, v)
+		} else {
+			minEven = min(minEven, v)
+		}
+	}
+	return maxOdd - minEven
 }
 
 func Solve(inputJsonValues string) any {

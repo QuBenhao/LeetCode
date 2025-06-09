@@ -8,7 +8,22 @@ using json = nlohmann::json;
 class Solution {
 public:
     int maxDifference(string s) {
-        
+        array<int, 26> counts;
+        for (auto c: s) {
+            counts[c - 'a']++;
+        }
+        int maxOdd = 0, minEven = s.length();
+        for (auto v: counts) {
+            if (v == 0) {
+                continue;
+            }
+            if (v % 2 == 1) {
+                maxOdd = max(maxOdd, v);
+            } else {
+                minEven = min(minEven, v);
+            }
+        }
+        return maxOdd - minEven;
     }
 };
 
