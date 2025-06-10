@@ -1,16 +1,10 @@
-import ast
 import json
 import logging
-from os import environ
-import os
-import re
 from typing import List
-from pathlib import Path
 
 from bs4 import BeautifulSoup
-from dotenv import load_dotenv
 
-from python.constants import CONTEST_HISTORY_QUERY, LEET_CODE_BACKEND, constant
+from python.constants import CONTEST_HISTORY_QUERY, LEET_CODE_BACKEND
 from python.lc_libs import extract_outputs_from_md
 from python.utils import general_request
 from python.utils.str_util import decode_unicode_string
