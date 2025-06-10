@@ -16,7 +16,7 @@ json_path = os.path.join(root, f"daily-{folder}.json")
 with open(json_path) as f:
     data_json = json.load(f)
     daily = data_json.get("daily", "1")
-    plans = data_json.get("plans", "[]")
+    plans = data_json.get("plans", [])
 print(folder)
 print(daily)
 print(",".join(plans))
