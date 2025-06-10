@@ -413,35 +413,72 @@ def contest_main(languages, contest_folder, cookie):
     contest_questions = contest_lib.get_contest_info(contest_id)
     p = root_path / contest_folder / contest_id
     p.mkdir(parents=True, exist_ok=True)
-    for i, question in enumerate(contest_questions, start=1):
-        question_slug = question["title_slug"]
-        subp = p / chr(ord('a') + i - 1)
+
+    def process_question_worker(question_idx_data_tuple):
+        question_idx, question_data = question_idx_data_tuple
+        question_slug = question_data["title_slug"]
+        
+        subp = p / chr(ord('a') + question_idx - 1)
         subp.mkdir(parents=True, exist_ok=True)
+
+        # Fetch problem info - this is network I/O bound
+        # The original code specifically requests "python3" default code.
+        # If you intend to use the `languages` variable from contest_main, replace ["python3"] with `languages`.
         problem_info = contest_lib.get_contest_problem_info(contest_id, question_slug, ["python3"], cookie)
+        
         if not problem_info:
-            print(f"Failed to get contest [{contest_id}] problem [{question_slug}]")
-            return None
-        with (subp / "problem.md").open("w", encoding="utf-8") as f:
-            f.write(problem_info["en_markdown_content"])
-        with (subp / "problem_zh.md").open("w", encoding="utf-8") as f:
-            f.write(problem_info["cn_markdown_content"])
-        with (subp / "input.json").open("w", encoding="utf-8") as f:
-            json.dump(problem_info["question_example_testcases"], f)
-        with (subp / "output.json").open("w", encoding="utf-8") as f:
-            json.dump(problem_info["question_example_testcases_output"], f)
-        for lang, code in problem_info["language_default_code"].items():
-            cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
-            if not cls:
-                logging.warning(f"Unsupported language {lang} yet")
-                continue
-            obj: lc_libs.LanguageWriter = cls()
-            solution_file = obj.solution_file
-            with (subp / solution_file).open("w", encoding="utf-8") as f:
-                content = obj.write_contest(code, problem_info["question_id"], "")
-                if not content:
-                    logging.warning(f"Failed to write solution for {lang}")
+            logging.error(f"Failed to get contest [{contest_id}] problem [{question_slug}]")
+            return False
+
+        try:
+            # File I/O operations
+            with (subp / "problem.md").open("w", encoding="utf-8") as f:
+                f.write(problem_info["en_markdown_content"])
+            with (subp / "problem_zh.md").open("w", encoding="utf-8") as f:
+                f.write(problem_info["cn_markdown_content"])
+            with (subp / "input.json").open("w", encoding="utf-8") as f:
+                json.dump(problem_info["question_example_testcases"], f)
+            with (subp / "output.json").open("w", encoding="utf-8") as f:
+                json.dump(problem_info["question_example_testcases_output"], f)
+            
+            for lang, code_content in problem_info["language_default_code"].items():
+                cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+                if not cls:
+                    logging.warning(f"Unsupported language {lang} for question {question_slug}")
                     continue
-                f.write(content)
+                obj: lc_libs.LanguageWriter = cls()
+                solution_file = obj.solution_file
+                with (subp / solution_file).open("w", encoding="utf-8") as f:
+                    generated_code = obj.write_contest(code_content, problem_info["question_id"], "")
+                    if not generated_code:
+                        logging.warning(f"Failed to write solution for {lang} for question {question_slug}")
+                        continue
+                    f.write(generated_code)
+            logging.info(f"Successfully processed question {question_slug}")
+            return True
+        except Exception as e:
+            logging.error(f"Error writing files for question {question_slug}: {e}")
+            return False
+
+    # Use ThreadPoolExecutor to process questions in parallel
+    # Adjust max_workers as needed; for a few contest questions, len(contest_questions) is reasonable.
+    # If contest_questions is empty, max_workers should be at least 1.
+    num_workers = max(1, len(contest_questions)) 
+    with ThreadPoolExecutor(max_workers=num_workers) as executor:
+        # Prepare arguments for each task - a list of (index, question_data) tuples
+        tasks_data = list(enumerate(contest_questions, start=1))
+        
+        # Using executor.map for simplicity as it handles submitting all tasks
+        # and collecting results in order (though order of results isn't critical here).
+        # list() ensures all tasks are started and waited for.
+        results = list(executor.map(process_question_worker, tasks_data))
+        
+        for result in results:
+            if not result:
+                print("Some questions failed to process. Check the logs for details.")
+                p.rmdir()  # Clean up the directory if any question fails
+                return None
+
     print(f"Contest [{contest_id}] generated.")
     print(__separate_line)
     return None
