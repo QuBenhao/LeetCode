@@ -76,13 +76,10 @@ def get_contest_problem_info(contest_id: str, question_slug: str, languages: Lis
         question_example_testcases = []
         for example_testcase_str in example_testcase_list:
             lt = example_testcase_str.split("\n")
-            if len (lt) == 1:
-                question_example_testcases.append(json.loads(lt[0]))
-            else:
-                cur = []
-                for part in lt:
-                    cur.append(json.loads(part))
-                question_example_testcases.append(cur)
+            cur = []
+            for part in lt:
+                cur.append(json.loads(part))
+            question_example_testcases.append(cur)
 
         example_outputs = extract_outputs_from_md(en_markdown_content)
 
