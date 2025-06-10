@@ -1,3 +1,6 @@
+import re
+
+
 def format_question_id(question_id: str) -> str:
     if not question_id:
         return question_id
@@ -27,3 +30,15 @@ def back_question_id(question_id: str) -> str:
     if "Interview" in question_id:
         question_id = question_id.replace("Interview", "面试题")
     return question_id
+
+
+
+def decode_unicode_string(s: str) -> str:
+    # Use re.sub to find all occurrences of r'\uXXXX' 
+    # and replace them with the corresponding Unicode character. 
+    # Chinese characters and other text will remain unchanged.
+    s_decoded = re.sub(r'\\u([0-9a-fA-F]{4})', lambda m: chr(int(m.group(1), 16)), s)
+        
+    # The comment "s is js encoded, decode it" implies that tmp.md contains
+    # literal \uXXXX sequences, which this approach handles.
+    return s_decoded.replace("\\n", "\n").replace("\\t", "\t")
