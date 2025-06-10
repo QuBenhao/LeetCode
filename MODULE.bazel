@@ -14,14 +14,19 @@ bazel_dep(name = "nlohmann_json", version = "3.12.0")
 
 new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
 
-new_local_repository(
-    name = "problems",
-    build_file = "//cpp:solution.BUILD",
-    path = "problems/problems_3442/",
-)
+# new_local_repository(
+#     name = "problems",
+#     build_file = "//cpp:solution.BUILD",
+#     path = "problems/problems_3442/",
+# )
 
 new_local_repository(
     name = "problem0",
     path = "problems/problems_LCR_115/",
     build_file = "//cpp:solution.BUILD",
 )
+
+non_module_dependencies = use_extension("//:extensions.bzl", "non_module_dependencies")
+use_repo(non_module_dependencies, "problems")
+# use_repo(non_module_dependencies, "problem0")
+# use_repo(non_module_dependencies, "problem1")
