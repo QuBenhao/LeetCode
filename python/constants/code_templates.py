@@ -225,9 +225,11 @@ from python.object_libs.tree import TreeNode
 if __name__ == '__main__':
     import json
     
-    with open("input.json", "r") as f:
+    root_path = Path(__file__).parent
+
+    with (root_path / "input.json").open("r") as f:
         input_json = json.load(f)
-    with open("output.json", "r") as f:
+    with (root_path / "output.json").open("r") as f:
         output_json = json.load(f)
     sol = Solution()
     
