@@ -48,7 +48,7 @@ jobs:
       continue-on-error: true
       uses: actions/setup-go@v5
       with:
-        go-version: '1.22'
+        go-version: '1.24'
 
     - name: Set up JDK
       continue-on-error: true
@@ -95,8 +95,8 @@ jobs:
         bazelrc: |
           build --color=yes
           build --show_timestamps
-          build --cxxopt=-std=c++20
-          test --cxxopt=-std=c++20
+          build --cxxopt=-std=c++23
+          test --cxxopt=-std=c++23
 
     - name: Run script
       env:
