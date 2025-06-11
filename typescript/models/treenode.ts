@@ -15,7 +15,7 @@ function JSONArrayToTreeNode(jsonArray: any): TreeNode | null {
 }
 
 function JsonArrayToTreeNodeWithTargets(jsonArray: any, ...targets: number[]): Array<TreeNode | null> {
-    const ans: Array<TreeNode | null> = Array.from({length: targets.length + 1}, () => null);
+    const ans: Array<TreeNode | null> = Array.from({length: targets.length + 1}, (): any => null);
     if (jsonArray == null || jsonArray.length === 0 || jsonArray[0] == null) {
         return ans;
     }

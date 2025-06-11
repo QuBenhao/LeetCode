@@ -1,27 +1,67 @@
 package qubhjava.test;
 
 
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.TestFactory;
-import org.junit.jupiter.api.Timeout;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import qubhjava.BaseSolution;
-import problems.problems_239.Solution;
-import qubhjava.Testcase;
-
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
+import org.junit.jupiter.api.Timeout;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.util.Strings;
+
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
+
+import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.DotenvException;
+import qubhjava.BaseSolution;
+import qubhjava.Testcase;
 
 @Timeout(10)
 public class ProblemsTest {
 
     private static final Logger log = LoggerFactory.getLogger(ProblemsTest.class);
-	private static final String[][] PROBLEMS = {{"LCR_115", "problems"}};
+	private static String[][] PROBLEMS;
+
+    static {
+        List<String> problemsList = new ArrayList<>();
+        String problemFolder = null;
+        try {
+            Dotenv dotenv = Dotenv.load();
+            problemFolder = dotenv.get("PROBLEM_FOLDER", "");
+        } catch (DotenvException e) {
+            log.error("Error load .env file", e);
+        }
+        if (Strings.isNullOrEmpty(problemFolder)) {
+            problemFolder = "problems";
+        }
+        try {
+            // read json daily-{problemFolder}.json
+            FileInputStream fis = new FileInputStream(String.format("daily-%s.json", problemFolder));
+            byte[] bytes = fis.readAllBytes();
+            String content = new String(bytes);
+            JSONObject jsonObject = JSONObject.parseObject(content);
+            JSONArray problemsArray = jsonObject.getJSONArray("plans");
+            PROBLEMS = new String[problemsArray.size()/2][2];
+            for (int i = 0; i < problemsArray.size(); i+=2) {
+                PROBLEMS[i/2][0] = problemsArray.getString(i);
+                PROBLEMS[i/2][1] = problemsArray.getString(i + 1);
+                log.info("Loaded problem {} in folder {}", problemsArray.getString(i), problemsArray.getString(i + 1));
+            }
+            log.info("Loaded {} problems for plans", problemsArray.size()/2);
+        } catch (IOException e) {
+            log.error("Error reading daily-{problemFolder}.json", e);
+        } catch (JSONException e) {
+            log.error("Error parsing JSON from daily-{problemFolder}.json", e);
+        }
+    }
 
     @TestFactory
     @SuppressWarnings("unchecked")

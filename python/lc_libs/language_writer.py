@@ -5,6 +5,10 @@ import os
 import subprocess
 from typing import Tuple, Optional, List
 
+from dotenv import load_dotenv
+
+from python.constants import constant
+
 
 class LanguageWriter(abc.ABC):
 
@@ -14,12 +18,47 @@ class LanguageWriter(abc.ABC):
         self.test_file = ""
         self.lang_env_commands = []
         self.test_commands = []
+    
+    @staticmethod
+    def _dump_json(data: dict, file_path: str):
+        """Helper method to dump a dictionary to a JSON file."""
+        with open(file_path, "w", encoding="utf-8") as f:
+            # dump each key-value pair in a single line
+            f.write("{\n")
+            items = list(data.items())
+            for i, (key, value) in enumerate(items):
+                if i == len(items) - 1:
+                    f.write(f'    "{key}": {json.dumps(value, ensure_ascii=False)}\n')
+                else:
+                    f.write(f'    "{key}": {json.dumps(value, ensure_ascii=False)},\n')
+            f.write("}\n")
 
     def change_test(self, root_path, problem_folder: str, question_id: str):
-        pass
+        daily_path = os.path.join(root_path, f"daily-{problem_folder}.json")
+        json_content = {}
+        if os.path.exists(daily_path):
+            with open(daily_path, "r", encoding="utf-8") as f:
+                json_content = json.loads(f.read())
+        json_content["daily"] = question_id
+        LanguageWriter._dump_json(json_content, daily_path)
 
     def change_tests(self, root_path, problem_ids_folders: list):
-        pass
+        if not problem_ids_folders:
+            return
+        try:
+            load_dotenv(f"{root_path}/.env")
+            folder = os.getenv(constant.PROBLEM_FOLDER, "problems")
+        except Exception:
+            folder = "problems"
+        daily_path = os.path.join(root_path, f"daily-{folder}.json")
+        json_content = {}
+        if os.path.exists(daily_path):
+            with open(daily_path, "r", encoding="utf-8") as f:
+                json_content = json.loads(f.read())
+        json_content["plan"] = [
+            item for sublist in problem_ids_folders for item in sublist
+        ]
+        LanguageWriter._dump_json(json_content, daily_path)
 
     def write_solution(
             self,

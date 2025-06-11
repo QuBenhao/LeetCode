@@ -6,7 +6,29 @@ var _ = require('lodash-contrib');
 const vm = require('node:vm');
 import {CompareResults} from "./common";
 
-const PROBLEM_ID: string = "3445";
+const envContent: string = fs.readFileSync('.env', 'utf-8');
+
+// get PROBLEM_FOLDER from .env file
+var problemFolder: string = "problems";
+for (const line of envContent.split('\n')) {
+    if (line.startsWith("PROBLEM_FOLDER=")) {
+        problemFolder = line.split('=')[1].trim();
+        break;
+    }
+}
+
+// open daily-${problemFolder}.json
+const dailyFilePath: string = `daily-${problemFolder}.json`;
+let dailyFileContent: string = '';
+if (fs.existsSync(dailyFilePath)) {
+    dailyFileContent = fs.readFileSync(dailyFilePath, 'utf-8');
+} else {
+    console.log(`File ${dailyFilePath} not found, using default problems...`);
+    dailyFileContent = fs.readFileSync('daily-problems.json', 'utf-8');
+}
+// parse daily-${problemFolder}.json
+const dailyProblems: any = JSON.parse(dailyFileContent);
+const PROBLEM_ID: string = dailyProblems.daily;
 
 describe("TestMain===" + PROBLEM_ID, () => {
     dotenv.config();
