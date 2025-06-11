@@ -47,10 +47,22 @@ def create_cc_tests(fname, file_group):
         ],
     )
 
-def generate_cc_tests():
-    for subdir in native.glob(["problems/**/Solution.cpp"]):
+def generate_cc_tests(enabled = False):
+    if not enabled:
+        return
+    for subdir in native.glob(["*/**/Solution.cpp"]):
         sub_dir_name = subdir.split("/")[1]
         dir_name = subdir.split("/Solution.cpp")[0]
         test_name = "test_" + sub_dir_name.replace("/", "_")
         add_files(fname = sub_dir_name, path = dir_name)
         create_cc_tests(fname = test_name, file_group = sub_dir_name)
+
+def gen_plans(plans):
+    # split plans by comma
+    for i, plan in enumerate(plans):
+        fname = "problem%s" % i
+        path = "%s/%s_%s" % ("problems", "problems", plan)
+        test_name = "test_%s_%s" % ("problems", plan)
+        add_files(fname = fname, path = path)
+        create_cc_tests(fname = fname, file_group = fname)
+

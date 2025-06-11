@@ -18,12 +18,15 @@ bazel_dep(name = "nlohmann_json", version = "3.12.0")
 load_daily_question = use_extension("//:extensions.bzl", "load_daily_question")
 use_repo(load_daily_question, "problems")
 
-new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
-new_local_repository(
-    name = "problem0",
-    path = "problems/problems_LCR_115/",
-    build_file = "//cpp:solution.BUILD",
-)
+daily_plans = use_repo_rule("//:extensions.bzl", "daily_plans")
+daily_plans(name = "plans")
+
+# new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
+# new_local_repository(
+#     name = "problem0",
+#     path = "problems/problems_LCR_115/",
+#     build_file = "//cpp:solution.BUILD",
+# )
 
 # use_repo(load_daily_question, "problem0")
 # use_repo(load_daily_question, "problem1")
