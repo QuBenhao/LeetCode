@@ -13,67 +13,12 @@ class CppWriter(LanguageWriter):
         super().__init__()
         self.solution_file = "Solution.cpp"
         self.main_folder = ""
-        self.test_file = "MODULE.bazel"
-        self.tests_files = ["MODULE.bazel", "cpp/tests/BUILD"]
         self.lang_env_commands = [["bazel", "version"]]
         self.test_commands = [
-            ["bazel", "test", "--cxxopt=-std=c++20", "//cpp:solution_test"]
+            ["bazel", "test", "--cxxopt=-std=c++23", "--cxxopt=-O2", "--cxxopt=-fsanitize=address",
+             "--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=1", "--linkopt=-fsanitize=address",
+             "--test_timeout=10","//cpp:solution_test"]
         ]
-
-    def change_test(self, root_path, problem_folder: str, question_id: str):
-        test_file_path = os.path.join(root_path, self.test_file)
-        with open(test_file_path, "r", encoding="utf-8") as f:
-            content = f.read()
-        with open(test_file_path, "w", encoding="utf-8") as f:
-            is_problem = False
-            lines = content.split("\n")
-            for line_idx, line in enumerate(lines):
-                if 'name = "problems",' in line:
-                    is_problem = True
-                elif is_problem and 'path = "' in line:
-                    f.write(
-                        '    path = "{}/{}_{}/",\n'.format(
-                            problem_folder, problem_folder, question_id
-                        )
-                    )
-                    is_problem = False
-                    continue
-                if line_idx < len(lines) - 1 or line:
-                    f.write(line + "\n")
-
-    def change_tests(self, root_path, problem_ids_folders: list):
-        test_file_path0 = os.path.join(root_path, self.tests_files[0])
-        with open(test_file_path0, "r", encoding="utf-8") as f:
-            content = f.read()
-        with open(test_file_path0, "w", encoding="utf-8") as f:
-            lines = content.split("\n")
-            ans = []
-            idx = 0
-            while idx < len(lines):
-                if "new_local_repository(" in lines[idx]:
-                    if 'name = "problems",' in lines[idx + 1]:
-                        ans.extend(lines[idx: idx + 5])
-                    idx += 5
-                    while idx < len(lines) and lines[idx].strip() == "":
-                        idx += 1
-                    continue
-                ans.append(lines[idx])
-                idx += 1
-            ans.append("")
-            for i, (problem_id, problem_folder) in enumerate(problem_ids_folders):
-                ans.append("new_local_repository(")
-                ans.append(f'    name = "problem{i}",')
-                ans.append(
-                    f'    path = "{problem_folder}/{problem_folder}_{problem_id}/",'
-                )
-                ans.append('    build_file = "//cpp:solution.BUILD",')
-                ans.append(")")
-                ans.append("")
-            f.write("\n".join(ans))
-        test_file_path1 = os.path.join(root_path, self.tests_files[1])
-        with open(test_file_path1, "w", encoding="utf-8") as f:
-            for i, (problem_id, _) in enumerate(problem_ids_folders):
-                f.write(TESTCASE_TEMPLATE_CPP.format(problem_id, i, i, i) + "\n")
 
     def write_solution(
             self,

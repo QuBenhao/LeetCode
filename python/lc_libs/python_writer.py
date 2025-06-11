@@ -18,35 +18,8 @@ class Python3Writer(LanguageWriter):
         super().__init__()
         self.solution_file = "solution.py"
         self.main_folder = "python"
-        self.test_file = "test.py"
-        self.tests_file = "tests.py"
         self.lang_env_commands = [["python", "--version"]]
         self.test_commands = [["python", os.path.join(self.main_folder, self.test_file)]]
-
-    def change_test(self, root_path, problem_folder: str, question_id: str):
-        file_path = os.path.join(root_path, self.main_folder, self.test_file)
-        with open(file_path, "r", encoding="utf-8") as f:
-            content = f.read()
-        with open(file_path, "w", encoding="utf-8") as f:
-            lines = content.split("\n")
-            for line_idx, line in enumerate(lines):
-                if line.startswith("QUESTION = "):
-                    f.write(f'QUESTION = "{question_id}"\n')
-                    continue
-                if line_idx < len(lines) - 1 or line:
-                    f.write(line + "\n")
-
-    def change_tests(self, root_path, problem_ids_folders: list):
-        file_path = os.path.join(root_path, self.main_folder, self.tests_file)
-        with open(file_path, "r", encoding="utf-8") as f:
-            content = f.read()
-        with open(file_path, "w", encoding="utf-8") as f:
-            lines = content.split("\n")
-            for line_idx, line in enumerate(lines):
-                if line.startswith("QUESTIONS ="):
-                    line = "QUESTIONS = {}".format(problem_ids_folders)
-                if line_idx < len(lines) - 1 or line:
-                    f.write(line + "\n")
 
     def write_solution(self, code_template: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:

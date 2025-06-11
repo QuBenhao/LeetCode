@@ -12,8 +12,6 @@ class TypescriptWriter(LanguageWriter):
         super().__init__()
         self.solution_file = "solution.ts"
         self.main_folder = "typescript"
-        self.test_file = "test.ts"
-        self.tests_file = "problems.test.ts"
         self._LIST_NODE_PATH = "\"../../typescript/models/listnode\";"
         self._TREE_NODE_PATH = "\"../../typescript/models/treenode\";"
         self._NODE_NEXT_PATH = "\"../../typescript/models/node.next\";"
@@ -23,36 +21,6 @@ class TypescriptWriter(LanguageWriter):
         self.test_commands = [["npm", "test", "--alwaysStrict", "--strictBindCallApply",
                                "--strictFunctionTypes", "--target ES202",
                                str(os.path.join(self.main_folder, self.test_file))]]
-
-    def change_test(self, root_path, problem_folder: str, question_id: str):
-        test_file_path = os.path.join(root_path, self.main_folder, self.test_file)
-        with open(test_file_path, 'r', encoding="utf-8") as f:
-            content = f.read()
-        with open(test_file_path, 'w', encoding="utf-8") as f:
-            lines = content.split("\n")
-            for line_idx, line in enumerate(lines):
-                if "const PROBLEM_ID: string = \"" in line:
-                    f.write(line.split("\"")[0] + f"\"{question_id}\";\n")
-                    continue
-                elif ("let problemFolder: string = (process.env.PROBLEM_FOLDER && process.env.PROBLEM_FOLDER.length > "
-                      "0) ? process.env.PROBLEM_FOLDER : \"") in line:
-                    f.write(line.split("\"")[0] + f"\"{problem_folder}\";\n")
-                    continue
-                if line_idx < len(lines) - 1 or line:
-                    f.write(line + "\n")
-
-    def change_tests(self, root_path, problem_ids_folders: list):
-        tests_file_path = os.path.join(root_path, self.main_folder, self.tests_file)
-        with open(tests_file_path, 'r', encoding="utf-8") as f:
-            content = f.read()
-        with open(tests_file_path, 'w', encoding="utf-8") as f:
-            lines = content.split("\n")
-            for line_idx, line in enumerate(lines):
-                if "const PROBLEMS: string[][] = " in line:
-                    f.write("const PROBLEMS: string[][] = {};\n".format(str(problem_ids_folders)))
-                    continue
-                if line_idx < len(lines) - 1 or line:
-                    f.write(line + "\n")
 
     def write_solution(self, code_default: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:
