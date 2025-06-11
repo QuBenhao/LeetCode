@@ -534,7 +534,7 @@ def favorite_main(languages, problem_folder, cookie):
                     cur_page = max(1, cur_page - 1)
                 case "n":
                     cur_page = min(max_page, cur_page + 1)
-                case v if v.isdigit() and 1 <= int(v) <= 10:
+                case v if v.isdigit() and 1 <= int(v) <= page_size:
                     pick = int(v)
                 case _:
                     break
