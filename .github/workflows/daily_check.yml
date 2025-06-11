@@ -33,6 +33,7 @@ jobs:
           data
           ${{ secrets.PROBLEM_FOLDER || 'problems' }}
           ${{ secrets.PREMIUM_FOLDER || 'premiums' }}
+          daily-${{ secrets.PROBLEM_FOLDER || 'problems' }}.json
 
     - name: Set up Python environment
       uses: actions/setup-python@v2
