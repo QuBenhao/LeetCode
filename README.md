@@ -49,7 +49,7 @@ LOG_LEVEL="info"
 PYTHONPATH=.
 ```
 
-install python3.12 requirements:
+install python3.12 or higher requirements:
 
 ```shell
 pip install -r python/requirements.txt
@@ -469,7 +469,7 @@ and tasks.json under `.vscode`
         "--linkopt=-fsanitize=address",
         "--test_timeout=10",
         "--test_output=all",
-        "//cpp/tests:all"
+        "//:all"
       ],
       "type": "shell"
     },
@@ -525,7 +525,6 @@ directories:
 derive_targets_from_directories: false
 targets:
   //cpp:solution_test
-  //cpp/tests:all
   //:all
 ```
 
