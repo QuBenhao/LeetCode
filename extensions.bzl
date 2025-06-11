@@ -18,6 +18,7 @@ def _load_daily_question_impl(ctx):
         fail("Expected three lines in output, got: %s" % s)
     folder = splits[0]
     daily_problem = splits[1]
+    print("Loading daily problem: %s/%s" % (folder, daily_problem))
     new_local_repository(
         name = "problems",
         build_file = "//cpp:solution.BUILD",

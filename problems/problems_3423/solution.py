@@ -1,5 +1,6 @@
 import solution
 from typing import *
+from itertools import pairwise
 
 
 class Solution(solution.Solution):
@@ -7,5 +8,7 @@ class Solution(solution.Solution):
         return self.maxAdjacentDistance(test_input)
 
     def maxAdjacentDistance(self, nums: List[int]) -> int:
-        pass
-
+        ans = abs(nums[0] - nums[-1])
+        for a, b in pairwise(nums):
+            ans = max(ans, abs(a - b))
+        return ans
