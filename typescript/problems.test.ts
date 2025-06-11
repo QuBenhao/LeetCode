@@ -5,9 +5,33 @@ var _ = require('lodash-contrib');
 const vm = require('node:vm');
 import {CompareResults} from "./common";
 
-const PROBLEMS: string[][] = [['LCR_115', 'problems']];
+const envContent: string = fs.readFileSync('.env', 'utf-8');
 
-for (const [problemId, problemFolder] of PROBLEMS) {
+// get PROBLEM_FOLDER from .env file
+var problemFolder: string = "problems";
+for (const line of envContent.split('\n')) {
+    if (line.startsWith("PROBLEM_FOLDER=")) {
+        problemFolder = line.split('=')[1].trim();
+        break;
+    }
+}
+
+// open daily-${problemFolder}.json
+const dailyFilePath: string = `daily-${problemFolder}.json`;
+let dailyFileContent: string = '';
+if (fs.existsSync(dailyFilePath)) {
+    dailyFileContent = fs.readFileSync(dailyFilePath, 'utf-8');
+} else {
+    console.log(`File ${dailyFilePath} not found, using default problems...`);
+    dailyFileContent = fs.readFileSync('daily-problems.json', 'utf-8');
+}
+// parse daily-${problemFolder}.json
+const dailyProblems: any = JSON.parse(dailyFileContent);
+const plans = dailyProblems.plans || [];
+
+for (let i: number = 0; i < plans.length; i += 2) {
+    const problemId: string = plans[i];
+    const problemFolder: string = plans[i + 1];
     describe(`Test for problem ${problemId}`, () => {
         let inputJson: any;
         let outputJson: any;
