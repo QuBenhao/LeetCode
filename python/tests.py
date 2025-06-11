@@ -30,19 +30,17 @@ class Test(unittest.TestCase):
             daily_json = json.loads(json_file.read())
         plans = daily_json.get("plans", None)
 
-        logging.info(f"Testing problems: {list(zip(*plans))[0]}")
+        logging.info(f"Testing problems: {plans[0::2]}")
 
-        for q, folder in plans:
+        for i in range(0, len(plans), 2):
+            q, folder = plans[i], plans[i + 1]
             with self.subTest(f"Testing problem: {q}", question=q):
-                if not problem_folder:
-                    problem_path = os.path.join(root_path, folder, f"{folder}_{q}")
-                else:
-                    problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{q}")
+                problem_path = root_path / folder / f"{folder}_{q}"
                 if not os.path.exists(problem_path):
                     logging.warning("[QUESTION: {}] not found under problem folder: {}".format(q, problem_path))
                     tmp_folder = get_default_folder(paid_only=True)
-                    problem_path = os.path.join(root_path, tmp_folder, f"{tmp_folder}_{q}")
-                self.assertTrue(os.path.exists(problem_path), msg="Please set up the problem env first!")
+                    problem_path = root_path / tmp_folder / f"{tmp_folder}_{q}"
+                self.assertTrue(problem_path.exists(), msg="Please set up the problem env first!")
 
                 solution_spec = spec_from_file_location("module.name", f"{problem_path}/solution.py")
                 solution = module_from_spec(solution_spec)
