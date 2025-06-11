@@ -1,5 +1,7 @@
 import logging
-import os.path
+import json
+import os
+from pathlib import Path
 import sys
 import unittest
 from importlib.util import spec_from_file_location, module_from_spec
@@ -10,32 +12,32 @@ from utils import get_default_folder, timeout
 
 logging.basicConfig(level=logging.INFO, format=constants.LOGGING_FORMAT, datefmt=constants.DATE_FORMAT)
 
-# Question ID that wants to test, modify here as passing arguments
-QUESTION = "3442"
-# QUESTION = "Interview/10_02"
-# QUESTION = "LCP/07"
-# QUESTION = "剑指Offer/52"
-
-
 class Test(unittest.TestCase):
     def test(self):
         @timeout()
         def exec_solution(sol, ipt):
             return sol.solve(test_input=ipt)
 
-        logging.info(f"Testing problem: {QUESTION}")
-
         load_dotenv()
-        root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        root_path = Path(__file__).parent.parent.resolve()
         problem_folder = os.getenv(constants.PROBLEM_FOLDER, None)
         if not problem_folder:
             problem_folder = get_default_folder()
-        problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{QUESTION}")
-        if not os.path.exists(problem_path):
-            logging.warning("[QUESTION: {}] not found under problem folder: {}".format(QUESTION, problem_folder))
+        
+        json_file = root_path / f"daily-{problem_folder}.json"
+        with json_file.open("r", encoding="utf-8") as json_file:
+            daily_json = json.loads(json_file.read())
+        question = daily_json.get("daily", None)
+        if not question:
+            self.fail(f"Daily problem not found for folder: {problem_folder}, please check daily-{problem_folder}.json")
+        logging.info(f"Testing problem: {question}")
+
+        problem_path = root_path / problem_folder / f"{problem_folder}_{question}"
+        if not problem_path.exists():
+            logging.warning("[QUESTION: {}] not found under problem folder: {}".format(question, problem_folder))
             problem_folder = get_default_folder(paid_only=True)
-            problem_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{QUESTION}")
-        self.assertTrue(os.path.exists(problem_path), msg="Please set up the problem env first!")
+            problem_path = root_path / problem_folder / f"{problem_folder}_{question}"
+        self.assertTrue(problem_path.exists(), msg="Please set up the problem env first!")
 
         solution_spec = spec_from_file_location("module.name", f"{problem_path}/solution.py")
         solution = module_from_spec(solution_spec)
@@ -48,7 +50,7 @@ class Test(unittest.TestCase):
         testcase_obj = testcase.Testcase()
 
         if not testcase_obj.get_testcases():
-            self.fail(f"No testcases found in [{QUESTION}] testcase.py")
+            self.fail(f"No testcases found in [{question}] testcase.py")
 
         for test in testcase_obj.get_testcases():
             with self.subTest(f"testcase: {test}", testcase=test):

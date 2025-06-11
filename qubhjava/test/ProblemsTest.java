@@ -49,14 +49,13 @@ public class ProblemsTest {
             String content = new String(bytes);
             JSONObject jsonObject = JSONObject.parseObject(content);
             JSONArray problemsArray = jsonObject.getJSONArray("plans");
-            PROBLEMS = new String[problemsArray.size()][2];
-            for (int i = 0; i < problemsArray.size(); i++) {
-                String problemId = problemsArray.getString(i);
-                PROBLEMS[i][0] = problemId;
-                PROBLEMS[i][1] = problemFolder;
-                log.info("Loaded problem: {} in folder: {}", problemId, problemFolder);
+            PROBLEMS = new String[problemsArray.size()/2][2];
+            for (int i = 0; i < problemsArray.size(); i+=2) {
+                PROBLEMS[i/2][0] = problemsArray.getString(i);
+                PROBLEMS[i/2][1] = problemsArray.getString(i + 1);
+                log.info("Loaded problem {} in folder {}", problemsArray.getString(i), problemsArray.getString(i + 1));
             }
-            log.info("Loaded {} problems for plans", problemsArray.size());
+            log.info("Loaded {} problems for plans", problemsArray.size()/2);
         } catch (IOException e) {
             log.error("Error reading daily-{problemFolder}.json", e);
         } catch (JSONException e) {

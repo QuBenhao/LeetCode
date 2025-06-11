@@ -116,8 +116,10 @@
                                 // 3. 构建源目录列表
                                 def sources = [] as Set
                                 sources.add(new File(project.basedir, "${baseDir}/${baseDir}_${config.daily}/").absolutePath)
-                                config.plans.each { plan ->
-                                    sources.add(new File(project.basedir, "${baseDir}/${baseDir}_${plan}/").absolutePath)
+                                for (int i = 0; i < config.plans.size(); i += 2) {
+                                    def problem = config.plans[i]
+                                    def folder = config.plans[i + 1]
+                                    sources.add(new File(project.basedir, "${folder}/${folder}_${problem}/").absolutePath)
                                 }
 
                                 println "==> 添加动态源目录:"

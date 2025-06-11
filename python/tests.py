@@ -1,5 +1,7 @@
+import json
 import logging
-import os.path
+import os
+from pathlib import Path
 import sys
 import unittest
 from importlib.util import spec_from_file_location, module_from_spec
@@ -10,9 +12,6 @@ from utils import get_default_folder, timeout
 
 logging.basicConfig(level=logging.INFO, format=constants.LOGGING_FORMAT, datefmt=constants.DATE_FORMAT)
 
-# Question ID that wants to test, modify here as passing arguments
-QUESTIONS = [['LCR_115', 'problems']]
-
 
 class Test(unittest.TestCase):
     def test(self):
@@ -21,12 +20,19 @@ class Test(unittest.TestCase):
             return sol.solve(test_input=ipt)
 
         load_dotenv()
-        root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        root_path = Path(__file__).parent.parent.resolve()
         problem_folder = os.getenv(constants.PROBLEM_FOLDER, None)
+        if not problem_folder:
+            problem_folder = get_default_folder()
+        
+        json_file = root_path / f"daily-{problem_folder}.json"
+        with json_file.open("r", encoding="utf-8") as json_file:
+            daily_json = json.loads(json_file.read())
+        plans = daily_json.get("plans", None)
 
-        logging.info(f"Testing problems: {list(zip(*QUESTIONS))[0]}")
+        logging.info(f"Testing problems: {list(zip(*plans))[0]}")
 
-        for q, folder in QUESTIONS:
+        for q, folder in plans:
             with self.subTest(f"Testing problem: {q}", question=q):
                 if not problem_folder:
                     problem_path = os.path.join(root_path, folder, f"{folder}_{q}")

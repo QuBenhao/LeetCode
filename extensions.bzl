@@ -18,18 +18,11 @@ def _load_daily_question_impl(ctx):
         fail("Expected three lines in output, got: %s" % s)
     folder = splits[0]
     daily_problem = splits[1]
-    plans = splits[2].split(",")
     new_local_repository(
         name = "problems",
         build_file = "//cpp:solution.BUILD",
         path = _format_path(folder, daily_problem),
     )
-    for i, plan in enumerate(plans):
-        new_local_repository(
-            name = "problem%s" % i,
-            build_file = "//cpp:solution.BUILD",
-            path = _format_path(folder, plan),
-        )
 
 load_daily_question = module_extension(
     implementation = _load_daily_question_impl,
@@ -45,13 +38,11 @@ def _impl(rctx):
     splits = s.splitlines()
     if len(splits) != 3:
         fail("Expected three lines in output, got: %s" % s)
-    folder = splits[0]
     plans = splits[2]
     rctx.file("BUILD", "exports_files([\"plans.bzl\"])\nvisibility = [\"//visibility:public\"]\n")
     rctx.file("plans.bzl", """\
 PLANS = %s
-FOLDER = "%s"
-""" % ("[" + ",".join(['"%s"' % p for p in plans.split(",")]) + "]", folder))
+""" % ("[" + ",".join(['"%s"' % p for p in plans.split(",")]) + "]"))
 
 
 daily_plans = repository_rule(

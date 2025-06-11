@@ -57,10 +57,12 @@ def generate_cc_tests(enabled = False):
         add_files(fname = sub_dir_name, path = dir_name)
         create_cc_tests(fname = test_name, file_group = sub_dir_name)
 
-def gen_plans(folder, plans):
+def gen_plans(plans):
     # split plans by comma
-    for i, plan in enumerate(plans):
-        fname = "problem%s" % i
+    for i in range(0, len(plans), 2):
+        fname = "problem%s" % (i//2)
+        plan = plans[i]
+        folder = plans[i+1]
         path = "%s/%s_%s" % (folder, folder, plan)
         test_name = "test_%s_%s" % (folder, plan)
         add_files(fname = fname, path = path)
