@@ -20,13 +20,3 @@ use_repo(load_daily_question, "problems")
 
 daily_plans = use_repo_rule("//:extensions.bzl", "daily_plans")
 daily_plans(name = "plans")
-
-# new_local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "new_local_repository")
-# new_local_repository(
-#     name = "problem0",
-#     path = "problems/problems_LCR_115/",
-#     build_file = "//cpp:solution.BUILD",
-# )
-
-# use_repo(load_daily_question, "problem0")
-# use_repo(load_daily_question, "problem1")
