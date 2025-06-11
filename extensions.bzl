@@ -36,10 +36,22 @@ load_daily_question = module_extension(
 )
 
 def _impl(rctx):
+    script = rctx.path(Label("//:get_daily_path.py"))
+    root = rctx.path(Label("//:MODULE.bazel")).dirname
+    result = rctx.execute([rctx.which("python3"), script, root])
+    if result.return_code != 0:
+        fail("Failed to get daily problem path: %s" % result.stderr)
+    s = result.stdout.strip()
+    splits = s.splitlines()
+    if len(splits) != 3:
+        fail("Expected three lines in output, got: %s" % s)
+    folder = splits[0]
+    plans = splits[2]
     rctx.file("BUILD", "exports_files([\"plans.bzl\"])\nvisibility = [\"//visibility:public\"]\n")
     rctx.file("plans.bzl", """\
-PLANS = 1,3
-""")
+PLANS = %s
+FOLDER = "%s"
+""" % ("[" + ",".join(['"%s"' % p for p in plans.split(",")]) + "]", folder))
 
 
 daily_plans = repository_rule(
