@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>LeetCode.qubhjava</groupId>
     <artifactId>qubhjava</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
@@ -68,6 +68,105 @@
     </dependencies>
     <build>
         <plugins>
+
+            <!-- Groovy脚本执行器 -->
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>4.2.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                        <version>3.0.25</version>
+                        <type>pom</type>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <id>parse-config</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                          <scripts>
+                                <script><![CDATA[
+                                import groovy.json.JsonSlurper
+                                import java.nio.file.*
+
+                                // 1. 读取.env文件
+                                def envFile = new File("${project.basedir}/.env")
+                                def baseDir = "problems"
+                                if (envFile.exists()) {
+                                    envFile.eachLine { line ->
+                                        if (line.startsWith("PROBLEMS_FOLDER=")) {
+                                            baseDir = line.split("=")[1].trim()
+                                        }
+                                    }
+                                }
+
+                                // 2. 读取config.json
+                                def configFile = new File("${project.basedir}/daily-${baseDir}.json")
+                                if (!configFile.exists()) {
+                                    throw new RuntimeException("Config file not found: ${configFile.absolutePath}")
+                                }
+                                def config = new JsonSlurper().parse(configFile)
+
+                                // 3. 构建源目录列表
+                                def sources = [] as Set
+                                sources.add(new File(project.basedir, "${baseDir}/${baseDir}_${config.daily}/").absolutePath)
+                                config.plans.each { plan ->
+                                    sources.add(new File(project.basedir, "${baseDir}/${baseDir}_${plan}/").absolutePath)
+                                }
+
+                                println "==> 添加动态源目录:"
+                                sources.each { println "  - $it" }
+
+                                // 4. 设置Maven属性
+                                sources.eachWithIndex { source, index ->
+                                    project.properties["dynamic.source${index + 1}"] = source
+                                }
+                                // 5. 补全10个
+                                (sources.size()..9).each { index ->
+                                    project.properties["dynamic.source${index + 1}"] = "qubhjava"
+                                }
+                                ]]></script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 添加动态源目录插件 -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.6.1</version>
+                <executions>
+                    <execution>
+                        <id>add-problem-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${dynamic.source1}</source>
+                                <source>${dynamic.source2}</source>
+                                <source>${dynamic.source3}</source>
+                                <source>${dynamic.source4}</source>
+                                <source>${dynamic.source5}</source>
+                                <source>${dynamic.source6}</source>
+                                <source>${dynamic.source7}</source>
+                                <source>${dynamic.source8}</source>
+                                <source>${dynamic.source9}</source>
+                                <source>${dynamic.source10}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -92,7 +191,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <sourceDirectory>.</sourceDirectory>
+        <sourceDirectory>qubhjava</sourceDirectory>
         <testSourceDirectory>qubhjava/test</testSourceDirectory>
     </build>
 </project>
