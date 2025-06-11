@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## v10.0.1 (2025-06-11)
+
+### Fix
+
+* fix: get_solution_code
+
+now py, c++, go &amp; java should get problem id from daily json ([`c38ea7f`](https://github.com/QuBenhao/LeetCode/commit/c38ea7f13b42cde86a4d70854f29eaa171f1484b))
+
+* fix: necessary dependency
+
+daily_check workflow requirements ([`5188807`](https://github.com/QuBenhao/LeetCode/commit/51888071920f56960be985904018900632ca4e71))
+
+### Refactor
+
+* refactor: allow c++23
+
+workflow update ([`9b06c0b`](https://github.com/QuBenhao/LeetCode/commit/9b06c0bf6f09ac6ec7b5fa2d5a25960607b7b334))
+
+### Test
+
+* test: 792 solution
+
+c++, go, java ([`c394bc8`](https://github.com/QuBenhao/LeetCode/commit/c394bc80d5bcee0d7db06133b49aef32761abbab))
+
+### Unknown
+
+* doc: update doc ([`e6dd04f`](https://github.com/QuBenhao/LeetCode/commit/e6dd04fdc0143faaf3770291178e2252dfcb4149))
+
 ## v10.0.0 (2025-06-11)
 
 ### Breaking
