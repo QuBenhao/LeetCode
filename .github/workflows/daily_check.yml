@@ -34,6 +34,10 @@ jobs:
           ${{ secrets.PROBLEM_FOLDER || 'problems' }}
           ${{ secrets.PREMIUM_FOLDER || 'premiums' }}
           daily-${{ secrets.PROBLEM_FOLDER || 'problems' }}.json
+          BUILD
+          extensions.bzl
+          solutions.bzl
+          get_daily_path.py
 
     - name: Set up Python environment
       uses: actions/setup-python@v2
