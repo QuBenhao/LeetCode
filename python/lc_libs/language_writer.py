@@ -59,6 +59,16 @@ class LanguageWriter(abc.ABC):
             item for sublist in problem_ids_folders for item in sublist
         ]
         LanguageWriter._dump_json(json_content, daily_path)
+    
+    def get_test_problem_id(self, root_path, problem_folder: str) -> Optional[str]:
+        """Get the problem ID from the test file."""
+        with open(f"{root_path}/daily-{problem_folder}.json", "r", encoding="utf-8") as f:
+            json_content = json.loads(f.read())
+        if "daily" in json_content:
+            return json_content["daily"]
+        if "plan" in json_content and json_content["plan"]:
+            return json_content["plan"][0]
+        return None
 
     def write_solution(
             self,

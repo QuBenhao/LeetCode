@@ -61,12 +61,7 @@ class Python3Writer(LanguageWriter):
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:
-            with open(os.path.join(root_path, self.main_folder, self.test_file), "r", encoding="utf-8") as f:
-                lines = f.readlines()
-                for line in lines:
-                    if line.strip().startswith("QUESTION ="):
-                        problem_id = line.split("=")[-1].strip().replace('"', '')
-                        break
+            problem_id = self.get_test_problem_id(root_path, problem_folder)
         if not problem_id:
             return "", problem_id
         file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "solution.py")

@@ -12,6 +12,7 @@ class TypescriptWriter(LanguageWriter):
         super().__init__()
         self.solution_file = "solution.ts"
         self.main_folder = "typescript"
+        self.test_file = "test.ts"
         self._LIST_NODE_PATH = "\"../../typescript/models/listnode\";"
         self._TREE_NODE_PATH = "\"../../typescript/models/treenode\";"
         self._NODE_NEXT_PATH = "\"../../typescript/models/node.next\";"
@@ -144,12 +145,7 @@ class TypescriptWriter(LanguageWriter):
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:
-            with open(os.path.join(root_path, "typescript", "test.ts"), 'r', encoding="utf-8") as f:
-                lines = f.read().split("\n")
-                for line in lines:
-                    if "const PROBLEM_ID: string = \"" in line:
-                        problem_id = line.split('"')[1]
-                        break
+            problem_id = self.get_test_problem_id(root_path, problem_folder)
         if not problem_id:
             return "", problem_id
         file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "solution.ts")

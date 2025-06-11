@@ -118,12 +118,7 @@ class JavaWriter(LanguageWriter):
 
     def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:
-            with open(os.path.join(root_path, self.main_folder, self.test_file), 'r', encoding="utf-8") as f:
-                lines = f.read().split("\n")
-                for line in lines:
-                    if "private static final String PROBLEM_ID = \"" in line:
-                        problem_id = line.split('"')[1]
-                        break
+            problem_id = self.get_test_problem_id(root_path, problem_folder)
         if not problem_id:
             return "", problem_id
         file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", self.solution_file)
