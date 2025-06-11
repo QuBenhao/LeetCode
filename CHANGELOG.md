@@ -1,5 +1,61 @@
 # CHANGELOG
 
+## v10.0.0 (2025-06-11)
+
+### Breaking
+
+* feat!: 157 daily problem design (#158)
+
+* feat: bazel cpp dynamic
+
+dynamic load daily
+
+* fix: daily
+
+* feat: cpp bazel plans
+
+loaded from daily json
+
+* feat: cpp bazel plans
+
+daily plans
+
+* feat: java dynamic problem
+
+load from daily
+
+* feat: add problems folder
+
+folder after plan problem
+
+* feat: python dynamic load
+
+* feat: typescript dynamic load
+
+* refactor: update README instructions for daily and plans in multiple languages
+
+* feat: clean up test file handling in language writers
+
+* feat: update workflow
+
+* test: [20250611] Add (3445)
+
+---------
+
+Co-authored-by: GitHub Action &lt;action@github.com&gt; ([`98351ab`](https://github.com/QuBenhao/LeetCode/commit/98351abcc537eb38f90b25e798064df4b1ec416f))
+
+### Test
+
+* test: 3445 solution
+
+c++, go, java ([`ad2c53d`](https://github.com/QuBenhao/LeetCode/commit/ad2c53d4c4f0b14c763f264a91611f4645c8b07d))
+
+* test: 3445 solution
+
+py ([`6deb184`](https://github.com/QuBenhao/LeetCode/commit/6deb184396515bb0d926b01f01af41cfec2c3c11))
+
+* test: [20250611] Add (3445) ([`e76129d`](https://github.com/QuBenhao/LeetCode/commit/e76129d6ea562d47323f22ef276ed7ee82914025))
+
 ## v9.8.0 (2025-06-10)
 
 ### Feature
