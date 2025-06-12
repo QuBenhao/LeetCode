@@ -56,7 +56,7 @@ json leetcode::qubh::Solve(string input_json_values) {
 	Solution solution;
 	std::vector<std::vector<int>> lists_arrays = json::parse(inputArray.at(0));
 	auto lists = vector<ListNode*>(lists_arrays.size());
-	for (int i = 0; i < lists.size(); i++) {
+	for (size_t i = 0; i < lists.size(); ++i) {
 		lists[i] = IntArrayToListNode(lists_arrays[i]);
 	}
 	ListNode *res_ptr = solution.mergeKLists(lists);

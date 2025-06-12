@@ -29,7 +29,7 @@ ListNode *IntArrayToListNodeCycle(std::vector<int> &arr, int pos) {
     ListNode dummy = ListNode();
     ListNode *p = &dummy;
     ListNode *cycle = nullptr;
-    for (int i = 0; i < static_cast<int>(arr.size()); i++) {
+    for (size_t i = 0; i < arr.size(); ++i) {
         p->next = new ListNode(arr[i]);
         p = p->next;
         if (i == pos) {
