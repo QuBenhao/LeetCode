@@ -1,5 +1,41 @@
 # CHANGELOG
 
+## v10.1.0 (2025-06-12)
+
+### Feature
+
+* feat: cpp memory improve (#160)
+
+* fix: c++ memory leaks
+
+prevent memory leaks and improve memory management in ListNode and Node classes
+
+* fix: c++ ListNode free
+
+improve memory management in ListNode handling and prevent leaks
+
+* fix: c++ tree memory
+
+update daily problem ID and enhance memory management in solutions
+
+* test: LCR_055 cpp memory
+
+delete root
+
+* test: add dev problem 2
+
+dev problem 2
+
+* feat: cpp node neightbor
+
+implement graph cloning and memory management functions ([`340904a`](https://github.com/QuBenhao/LeetCode/commit/340904a506bc591acda97dd10bfc489b660cbd6e))
+
+### Test
+
+* test: 3574 solution
+
+py, c++, go ([`b647870`](https://github.com/QuBenhao/LeetCode/commit/b64787041b5213966c3711e645a71c6ffd75b37c))
+
 ## v10.0.2 (2025-06-12)
 
 ### Fix
@@ -99,22 +135,6 @@ folder after plan problem
 ---------
 
 Co-authored-by: GitHub Action &lt;action@github.com&gt; ([`98351ab`](https://github.com/QuBenhao/LeetCode/commit/98351abcc537eb38f90b25e798064df4b1ec416f))
-
-### Test
-
-* test: 3445 solution
-
-c++, go, java ([`ad2c53d`](https://github.com/QuBenhao/LeetCode/commit/ad2c53d4c4f0b14c763f264a91611f4645c8b07d))
-
-* test: 3445 solution
-
-py ([`6deb184`](https://github.com/QuBenhao/LeetCode/commit/6deb184396515bb0d926b01f01af41cfec2c3c11))
-
-* test: [20250611] Add (3445) ([`e76129d`](https://github.com/QuBenhao/LeetCode/commit/e76129d6ea562d47323f22ef276ed7ee82914025))
-
-## v9.8.0 (2025-06-10)
-
-### Breaking
 
 * feat: leetcode script
 
@@ -2783,6 +2803,16 @@ query param load from str ([`576737d`](https://github.com/QuBenhao/LeetCode/comm
 go.sum uploaded ([`064618d`](https://github.com/QuBenhao/LeetCode/commit/064618d550530aefd4c12eeb3a8d7d3e328cf9f0))
 
 ### Test
+
+* test: 3445 solution
+
+c++, go, java ([`ad2c53d`](https://github.com/QuBenhao/LeetCode/commit/ad2c53d4c4f0b14c763f264a91611f4645c8b07d))
+
+* test: 3445 solution
+
+py ([`6deb184`](https://github.com/QuBenhao/LeetCode/commit/6deb184396515bb0d926b01f01af41cfec2c3c11))
+
+* test: [20250611] Add (3445) ([`e76129d`](https://github.com/QuBenhao/LeetCode/commit/e76129d6ea562d47323f22ef276ed7ee82914025))
 
 * test: 3442 solution
 
