@@ -1,4 +1,4 @@
-from math import gcd
+from math import gcd, inf
 
 import solution
 from typing import *
@@ -9,24 +9,21 @@ class Solution(solution.Solution):
         return self.maxGCDScore(*test_input)
 
     def maxGCDScore(self, nums: List[int], k: int) -> int:
-        n = len(nums)
-        dp = [dict() for _ in range(n)]
         ans = 0
-        for i in range(n):
-            dp[i][nums[i]] = (1, 0) # (length, used)
-            ans = max(ans, nums[i])
-            if k > 0:
-                dp[i][nums[i] * 2] = (1, 1)
-                ans = max(ans, nums[i] * 2)
-            if i > 0:
-                for g, (l, u) in dp[i-1].items():
-                    ng = gcd(g, nums[i])
-                    if ng not in dp[i] or dp[i][ng][0] < l + 1 or (dp[i][ng][0] == l + 1 and dp[i][ng][1] > u):
-                        dp[i][ng] = (l + 1, u)
-                        ans = max(ans, (l+1)*ng)
-                    if u < k:
-                        ng2 = gcd(g, nums[i] * 2)
-                        if ng2 not in dp[i] or dp[i][ng2][0] < l + 1 or (dp[i][ng2][0] == l + 1 and dp[i][ng2][1] > u + 1):
-                            dp[i][ng2] = (l + 1, u + 1)
-                            ans = max(ans, (l + 1) * ng2)
+        for i in range(len(nums)):
+            # 因子中2的个数最少的及其数量
+            lb_min = inf
+            used = g = 0
+            for j in range(i, -1, -1):
+                cur = nums[j]
+                lb = cur & -cur
+                if lb < lb_min:
+                    lb_min = lb
+                    used = 1 # 每个元素最多乘2一次, 木桶效应
+                elif lb == lb_min:
+                    used += 1
+                g = gcd(g, cur)
+                new_g = g * 2 if used <= k else g
+                if (t := new_g * (i - j + 1)) > ans:
+                    ans = t
         return ans
