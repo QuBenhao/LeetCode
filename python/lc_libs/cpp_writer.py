@@ -74,7 +74,7 @@ class CppWriter(LanguageWriter):
             for i, f in enumerate(functions):
                 name = f.get("name", "")
                 if name and name[0].isupper() and f.get("ret_type", "") == "":
-                    cur = f"auto obj{i} = make_shared<{name}>("
+                    cur = f"auto obj{i} = make_unique<{name}>("
                     variables = (
                         [[" ".join(sp.strip().split(" ")[:-1]), sp.strip().split(" ")[-1]]
                          for sp in f.get("args", "").split(",")]
@@ -113,7 +113,7 @@ class CppWriter(LanguageWriter):
                     )
                     class_and_functions[-1].append((func_name, ret_type, variables))
             process_variables.append("vector<json> ans = {nullptr};")
-            process_variables.append("for (size_t i = 1; i < op_values.size(); i++) {")
+            process_variables.append("for (size_t i = 1; i < op_values.size(); ++i) {")
             list_methods = []
             for class_methods in class_and_functions:
                 i = class_methods[1]
@@ -134,10 +134,14 @@ class CppWriter(LanguageWriter):
                         if '#include "cpp/models/TreeNode.h"' not in include_libs:
                             include_libs.append('#include "cpp/models/TreeNode.h"')
                         list_methods.append(
-                            "\t\tans.push_back(TreeNodeToJsonArray(obj{}->{}({})));".format(
+                            "\t\tTreeNode *tmp = obj{}->{}({});".format(
                                 i, func_name, ", ".join(tmp_vars)
                             )
                         )
+                        list_methods.append(
+                            "\t\tans.push_back(TreeNodeToJsonArray(tmp));"
+                        )
+                        list_methods.append("\t\tdelete tmp;")
                     else:
                         list_methods.append(
                             "\t\tans.push_back(obj{}->{}({}));".format(
@@ -292,7 +296,7 @@ class CppWriter(LanguageWriter):
                         f"auto {variable[-1]} = {rt}({variable[-1]}_arrays.size());"
                     )
                     process_variables.append(
-                        "for (int i = 0; i < " + variable[-1] + ".size(); i++) {"
+                        "for (size_t i = 0; i < " + variable[-1] + ".size(); ++i) {"
                     )
                     process_variables.append(
                         "\t"
@@ -390,7 +394,7 @@ class CppWriter(LanguageWriter):
                         f"auto {variable[-1]} = {rt}({variable[-1]}_str.size());"
                     )
                     process_variables.append(
-                        "for (int i = 0; i < " + variable[-1] + ".size(); i++) {"
+                        "for (size_t i = 0; i < " + variable[-1] + ".size(); ++i) {"
                     )
                     process_variables.append(
                         f"\t{variable[-1]}[i] = {variable[-1]}_str[i][0];"
@@ -408,12 +412,12 @@ class CppWriter(LanguageWriter):
                         f" vector<char>({variable[-1]}_str[0].size()));"
                     )
                     process_variables.append(
-                        "for (int i = 0; i < " + variable[-1] + ".size(); i++) {"
+                        "for (size_t i = 0; i < " + variable[-1] + ".size(); ++i) {"
                     )
                     process_variables.append(
-                        "\tfor (int j = 0; j < "
+                        "\tfor (size_t j = 0; j < "
                         + variable[-1]
-                        + "[i].size(); j++) {"
+                        + "[i].size(); ++j) {"
                     )
                     process_variables.append(
                         f"\t\t{variable[-1]}[i][j] = {variable[-1]}_str[i][j][0];"
@@ -498,47 +502,63 @@ class CppWriter(LanguageWriter):
             logging.debug(f"Process variables: {process_variables}")
             if any("IntArrayToListNodeCycle" in pv for pv in process_variables):
                 return_part.append(
-                    "\tListNode *res = solution.{}({});".format(
+                    "\tListNode *res_ptr = solution.{}({});".format(
                         func_name, ", ".join([v[-1] for v in variables])
                     )
                 )
-                return_part.append("return res ? res->val : nullptr;")
+                return_part.append("json final_ans = res_ptr ? res_ptr->val : nullptr;")
+                return_part.append("delete res_ptr;")
+                return_part.append("return final_ans;")
             else:
                 if '#include "cpp/models/ListNode.h"' not in include_libs:
                     include_libs.append('#include "cpp/models/ListNode.h"')
                 return_part.append(
-                    "\treturn ListNodeToIntArray(solution.{}({}));".format(
-                        func_name, ", ".join([v[-1] for v in variables])
-                    )
+                    "\tListNode *res_ptr = solution.{}({});".format(
+                        func_name, ", ".join([v[-1] for v in variables]))
                 )
+                return_part.append("json final_ans = ListNodeToIntArray(res_ptr);")
+                return_part.append("delete res_ptr;")
+                return_part.append("return final_ans;")
         elif "TreeNode" in ret_type:
             if '#include "cpp/models/TreeNode.h"' not in include_libs:
                 include_libs.append('#include "cpp/models/TreeNode.h"')
             return_part.append(
-                "\treturn TreeNodeToJsonArray(solution.{}({}));".format(
+                "\tTreeNode *res_ptr = solution.{}({});".format(
                     func_name, ", ".join([v[-1] for v in variables])
                 )
             )
+            return_part.append("json final_ans = TreeNodeToJsonArray(res_ptr);")
+            return_part.append("delete res_ptr;")
+            return_part.append("return final_ans;")
         elif "Node" in ret_type:
             if ("Node* left;" in code_default and "Node* right;" in code_default
                     and "Node* next;" in code_default):
                 return_part.append(
-                    "\treturn TreeNodeNextToJsonArray(solution.{}({}));".format(
+                    "\tNode *res_ptr = solution.{}({});".format(
                         func_name, ", ".join([v[-1] for v in variables])
                     )
                 )
+                return_part.append("json final_ans = TreeNodeNextToJsonArray(res_ptr);")
+                return_part.append("delete res_ptr;")
+                return_part.append("return final_ans;")
             elif "vector<Node*> neighbors;" in code_default:
                 return_part.append(
-                    "\treturn NodeNeighborsToJsonArray(solution.{}({}));".format(
+                    "\tNode *res_ptr = solution.{}({});".format(
                         func_name, ", ".join([v[-1] for v in variables])
                     )
                 )
+                return_part.append("json final_ans = NodeNeighborsToJsonArray(res_ptr);")
+                return_part.append("delete res_ptr;")
+                return_part.append("return final_ans;")
             elif "Node* random;" in code_default:
                 return_part.append(
-                    "\treturn NodeRandomToJsonArray(solution.{}({}));".format(
+                    "\tNode *res_ptr = solution.{}({});".format(
                         func_name, ", ".join([v[-1] for v in variables])
                     )
                 )
+                return_part.append("json final_ans = NodeRandomToJsonArray(res_ptr);")
+                return_part.append("delete res_ptr;")
+                return_part.append("return final_ans;")
             else:
                 logging.debug(f"Unhandled Node Type return: {ret_type}, code: [{code_default}]")
                 return_part.append(

@@ -64,5 +64,9 @@ json leetcode::qubh::Solve(string input_json_values) {
 
   Solution solution;
   Node *head = JsonArrayToNodeRandom(json::parse(inputArray.at(0)));
-  return NodeRandomToJsonArray(solution.copyRandomList(head));
+  Node *copyHead = solution.copyRandomList(head);
+  json res = NodeRandomToJsonArray(copyHead);
+  delete head; // Clean up the original list to avoid memory leaks
+  delete copyHead; // Clean up the copied list to avoid memory leaks
+  return res;
 }

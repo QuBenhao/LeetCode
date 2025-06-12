@@ -5,11 +5,11 @@
 #include "NodeNeighbors.h"
 #include <unordered_set>
 
-Node *JsonArrayToNodeNeighbors(vector<vector<int>> arr) {
+Node *JsonArrayToNodeNeighbors(vector<vector<int>>& arr) {
     if (arr.empty()) {
         return nullptr;
     }
-    vector<Node *> nodes = vector<Node *>(arr.size() + 1);
+    vector<Node *> nodes = vector<Node *>(arr.size() + 1, nullptr);
     for (size_t i = 1; i <= arr.size(); i++) {
         nodes[i] = new Node(static_cast<int>(i));
     }

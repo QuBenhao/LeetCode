@@ -23,6 +23,10 @@ public:
         next = nullptr;
         random = nullptr;
     }
+
+    ~Node() {
+        delete next; // Automatically delete the next node to avoid memory leaks
+    }
 };
 
 Node* JsonArrayToNodeRandom(json arr);

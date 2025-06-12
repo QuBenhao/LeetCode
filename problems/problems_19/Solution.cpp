@@ -23,13 +23,20 @@ public:
 			fast = fast->next;
 		}
 		if (fast == nullptr) {
-			return head->next;
+			ListNode *temp = head;
+			head = head->next; // Remove the first node
+			temp->next = nullptr; // Disconnect the removed node
+			delete temp; // Free the memory of the removed node
+			return head;
 		}
 		while (fast->next != nullptr) {
 			slow = slow->next;
 			fast = fast->next;
 		}
+		ListNode *temp = slow->next; // Node to be removed
 		slow->next = slow->next->next;
+		temp->next = nullptr; // Disconnect the removed node
+		delete temp; // Free the memory of the removed node
 		return head;
     }
 };
@@ -48,5 +55,8 @@ json leetcode::qubh::Solve(string input_json_values) {
 	std::vector<int> head_array = json::parse(inputArray.at(0));
 	ListNode *head = IntArrayToListNode(head_array);
 	int n = json::parse(inputArray.at(1));
-	return ListNodeToIntArray(solution.removeNthFromEnd(head, n));
+	ListNode *res_ptr = solution.removeNthFromEnd(head, n);
+	json final_ans = ListNodeToIntArray(res_ptr);
+	delete res_ptr;
+	return final_ans;
 }

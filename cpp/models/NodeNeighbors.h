@@ -32,9 +32,15 @@ public:
         val = _val;
         neighbors = std::move(_neighbors);
     }
+
+    ~Node() {
+        for (auto neighbor : neighbors) {
+            delete neighbor; // Automatically delete the neighbors to avoid memory leaks
+        }
+    }
 };
 
-Node *JsonArrayToNodeNeighbors(vector<vector<int>> arr);
+Node *JsonArrayToNodeNeighbors(vector<vector<int>>& arr);
 vector<vector<int>> NodeNeighborsToJsonArray(Node *root);
 
 #endif //LEETCODE_NODENEIGHBORS_H
