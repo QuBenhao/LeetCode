@@ -8,53 +8,56 @@ from collections import deque
 from python.lc_libs.language_writer import LanguageWriter
 
 
-def common_memory_free_code(return_part: list, include_libs: list, var_name: str, commmented: str = ""):
-    return_part.append(f"{commmented}delete {var_name};")
+def common_memory_free_code(return_part: list, include_libs: list, var_name: str, commented: str = ""):
+    return_part.append(f"{commented}delete {var_name};")
 
 
-def list_memory_free_code(return_part: list, include_libs: list, var_name: str, commmented: str = ""):
+def list_memory_free_code(return_part: list, include_libs: list, var_name: str, commented: str = ""):
     include_libs.append("#include <vector>")
-    return_part.append(f"{commmented}for (auto ptr : {var_name}) {{")
-    return_part.append(f"{commmented}\tdelete ptr;")
-    return_part.append(f"{commmented}}}")
+    return_part.append(f"{commented}for (auto ptr : {var_name}) {{")
+    return_part.append(f"{commented}\tdelete ptr;")
+    return_part.append(f"{commented}}}")
     return_part.append(f"{var_name}.clear(); // Clear the vector to prevent memory leak")
 
 
-def cycle_memory_free_code(return_part: list, include_libs: list, var_name: str, commmented: str = ""):
+def cycle_memory_free_code(return_part: list, include_libs: list, var_name: str, commented: str = ""):
     include_libs.append("#include <unordered_set>")
-    return_part.append(f"{commmented}std::unordered_set<ListNode*> visited_nodes;")
-    return_part.append(f"{commmented}ListNode *temp = {var_name};")
-    return_part.append(f"{commmented}while (temp != nullptr) {{")
-    return_part.append(f"{commmented}\tvisited_nodes.insert(temp);")
-    return_part.append(f"{commmented}\tif (visited_nodes.find(temp->next) != visited_nodes.end()) {{")
-    return_part.append(f"{commmented}\t\ttemp->next = nullptr; // Break the cycle")
-    return_part.append(f"{commmented}\t\tbreak;")
-    return_part.append(f"{commmented}\t}}")
-    return_part.append(f"{commmented}\ttemp = temp->next;")
-    return_part.append(f"{commmented}}}")
-    return_part.append(f"{commmented}delete {var_name}; // Delete the head node to prevent memory leak")
+    return_part.append(f"{commented}std::unordered_set<ListNode*> visited_nodes;")
+    return_part.append(f"{commented}ListNode *temp = {var_name};")
+    return_part.append(f"{commented}while (temp != nullptr) {{")
+    return_part.append(f"{commented}\tvisited_nodes.insert(temp);")
+    return_part.append(f"{commented}\tif (visited_nodes.find(temp->next) != visited_nodes.end()) {{")
+    return_part.append(f"{commented}\t\ttemp->next = nullptr; // Break the cycle")
+    return_part.append(f"{commented}\t\tbreak;")
+    return_part.append(f"{commented}\t}}")
+    return_part.append(f"{commented}\ttemp = temp->next;")
+    return_part.append(f"{commented}}}")
+    return_part.append(f"{commented}delete {var_name}; // Delete the head node to prevent memory leak")
 
-def intersection_memory_free_code(return_part: list, include_libs: list, var_names: list[str], commmented: str = ""):
+def intersection_memory_free_code(return_part: list, include_libs: list, var_names: list[str], commented: str = ""):
     include_libs.append("#include <unordered_set>")
-    return_part.append(f"{commmented}std::unordered_set<ListNode*> visited_nodes;")
-    return_part.append(f"{commmented}ListNode *temp = nullptr, *prev;")
+    return_part.append(f"{commented}std::unordered_set<ListNode*> visited_nodes;")
+    return_part.append(f"{commented}ListNode *temp = nullptr, *prev;")
     for var_name in var_names:
-        return_part.append(f"{commmented}temp = {var_name};")
-        return_part.append(f"{commmented}prev = nullptr;")
-        return_part.append(f"{commmented}while (temp != nullptr) {{")
-        return_part.append(f"{commmented}\tif (visited_nodes.find(temp) != visited_nodes.end()) {{")
-        return_part.append(f"{commmented}\t\tif (prev != nullptr) {{")
-        return_part.append(f"{commmented}\t\t\tprev->next = nullptr; // Break the cycle")
-        return_part.append(f"{commmented}\t\t}}")
-        return_part.append(f"{commmented}\t\tbreak;")
-        return_part.append(f"{commmented}\t}}")
-        return_part.append(f"{commmented}\tvisited_nodes.insert(temp);")
-        return_part.append(f"{commmented}\tprev = temp;")
-        return_part.append(f"{commmented}\ttemp = temp->next;")
-        return_part.append(f"{commmented}}}")
-        return_part.append(f"{commmented}if (prev != nullptr) {{")
-        return_part.append(f"{commmented}\tdelete {var_name}; // Delete the last node to prevent memory leak")
-        return_part.append(f"{commmented}}}")
+        return_part.append(f"{commented}temp = {var_name};")
+        return_part.append(f"{commented}prev = nullptr;")
+        return_part.append(f"{commented}while (temp != nullptr) {{")
+        return_part.append(f"{commented}\tif (visited_nodes.find(temp) != visited_nodes.end()) {{")
+        return_part.append(f"{commented}\t\tif (prev != nullptr) {{")
+        return_part.append(f"{commented}\t\t\tprev->next = nullptr; // Break the cycle")
+        return_part.append(f"{commented}\t\t}}")
+        return_part.append(f"{commented}\t\tbreak;")
+        return_part.append(f"{commented}\t}}")
+        return_part.append(f"{commented}\tvisited_nodes.insert(temp);")
+        return_part.append(f"{commented}\tprev = temp;")
+        return_part.append(f"{commented}\ttemp = temp->next;")
+        return_part.append(f"{commented}}}")
+        return_part.append(f"{commented}if (prev != nullptr) {{")
+        return_part.append(f"{commented}\tdelete {var_name}; // Delete the last node to prevent memory leak")
+        return_part.append(f"{commented}}}")
+
+def node_neighbors_memory_free_code(return_part: list, include_libs: list, var_name: str, commented: str = ""):
+    return_part.append(f"{commented}DeleteGraph({var_name}); // Delete the graph to prevent memory leak")
 
 class CppWriter(LanguageWriter):
     def __init__(self) -> None:
@@ -517,7 +520,7 @@ class CppWriter(LanguageWriter):
                                                  f" json::parse(inputArray.at({i}));")
                         process_variables.append(f"{rt}* {variable[-1]} ="
                                                  f" JsonArrayToNodeNeighbors({variable[-1]}_arrays);")
-                        memory_to_free.append((common_memory_free_code, variable[-1]))
+                        memory_to_free.append((node_neighbors_memory_free_code, variable[-1]))
                     elif "Node* random;" in code_default:
                         include_libs.append('#include "cpp/models/NodeRandom.h"')
                         process_variables.append(
@@ -634,8 +637,8 @@ class CppWriter(LanguageWriter):
                 )
                 return_part.append("json final_ans = NodeNeighborsToJsonArray(res_ptr);")
                 for func, m in memory_to_free:
-                    func(return_part, include_libs, m, "// ")
-                common_memory_free_code(return_part, include_libs, "res_ptr")
+                    func(return_part, include_libs, m)
+                node_neighbors_memory_free_code(return_part, include_libs, "res_ptr")
                 return_part.append("return final_ans;")
             elif "Node* random;" in code_default:
                 return_part.append(
