@@ -44,21 +44,26 @@ public:
 };
 
 json leetcode::qubh::Solve(string input_json_values) {
-  vector<string> inputArray;
-  size_t pos = input_json_values.find('\n');
-  while (pos != string::npos) {
-    inputArray.push_back(input_json_values.substr(0, pos));
-    input_json_values = input_json_values.substr(pos + 1);
-    pos = input_json_values.find('\n');
-  }
-  inputArray.push_back(input_json_values);
+	vector<string> inputArray;
+	size_t pos = input_json_values.find('\n');
+	while (pos != string::npos) {
+		inputArray.push_back(input_json_values.substr(0, pos));
+		input_json_values = input_json_values.substr(pos + 1);
+		pos = input_json_values.find('\n');
+	}
+	inputArray.push_back(input_json_values);
 
-  Solution solution;
-  vector<Employee *> employees;
-  vector<json> employees_input = json::parse(inputArray.at(0));
-  for (json ipt : employees_input) {
-    employees.emplace_back(employee_from_input(ipt));
-  }
-  int id = json::parse(inputArray.at(1));
-  return solution.getImportance(employees, id);
+	Solution solution;
+	vector<Employee*> employees;
+	vector<json> employees_input = json::parse(inputArray.at(0));
+	for (json ipt: employees_input) {
+		employees.emplace_back(employee_from_input(ipt));
+	}
+	int id = json::parse(inputArray.at(1));
+	json final_ans = solution.getImportance(employees, id);
+	for (auto ptr : employees) {
+		delete ptr;
+	}
+	employees.clear(); // Clear the vector to prevent memory leak
+	return final_ans;
 }

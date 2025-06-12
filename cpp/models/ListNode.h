@@ -23,9 +23,9 @@ struct ListNode {
     }
 };
 
-ListNode *IntArrayToListNode(std::vector<int> &arr);
+ListNode *IntArrayToListNode(const std::vector<int> &arr);
 
-std::vector<int> &ListNodeToIntArray(ListNode *head);
+std::vector<int> ListNodeToIntArray(ListNode *head);
 
 ListNode *IntArrayToListNodeCycle(std::vector<int> &arr, int pos);
 

@@ -23,6 +23,12 @@ public:
 
     Node(int _val, Node* _left, Node* _right, Node* _next)
         : val(_val), left(_left), right(_right), next(_next) {}
+    
+    ~Node() {
+        delete left;
+        delete right;
+        // next is not deleted here because it may point to another Node in the same tree
+    }
 };
 
 Node *JsonArrayToTreeNodeNext(json arr);

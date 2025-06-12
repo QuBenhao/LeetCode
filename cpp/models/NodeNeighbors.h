@@ -34,7 +34,8 @@ public:
     }
 };
 
-Node *JsonArrayToNodeNeighbors(vector<vector<int>> arr);
+Node *JsonArrayToNodeNeighbors(const vector<vector<int>>& arr);
 vector<vector<int>> NodeNeighborsToJsonArray(Node *root);
+void DeleteGraph(Node* root);
 
 #endif //LEETCODE_NODENEIGHBORS_H

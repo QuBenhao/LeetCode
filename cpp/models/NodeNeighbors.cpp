@@ -4,12 +4,13 @@
 
 #include "NodeNeighbors.h"
 #include <unordered_set>
+#include <queue>
 
-Node *JsonArrayToNodeNeighbors(vector<vector<int>> arr) {
+Node *JsonArrayToNodeNeighbors(const vector<vector<int>>& arr) {
     if (arr.empty()) {
         return nullptr;
     }
-    vector<Node *> nodes = vector<Node *>(arr.size() + 1);
+    vector<Node *> nodes = vector<Node *>(arr.size() + 1, nullptr);
     for (size_t i = 1; i <= arr.size(); i++) {
         nodes[i] = new Node(static_cast<int>(i));
     }
@@ -52,4 +53,23 @@ vector<vector<int>> NodeNeighborsToJsonArray(Node *root) {
     visited.insert(root->val);
     dfs(root, ans, visited);
     return ans;
+}
+
+void DeleteGraph(Node* root) {
+    if (!root) return;
+    std::unordered_set<Node*> visited;
+    std::queue<Node*> q;
+    q.push(root);
+    visited.insert(root);
+    while (!q.empty()) {
+        Node* node = q.front();
+        q.pop();
+        for (Node* neighbor : node->neighbors) {
+            if (neighbor && !visited.count(neighbor)) {
+                visited.insert(neighbor);
+                q.push(neighbor);
+            }
+        }
+        delete node;
+    }
 }

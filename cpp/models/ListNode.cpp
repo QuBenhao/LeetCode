@@ -4,28 +4,32 @@
 
 #include "ListNode.h"
 
-ListNode *IntArrayToListNode(std::vector<int> &arr) {
-    auto dummy = new ListNode(), p = dummy;
+ListNode *IntArrayToListNode(const std::vector<int> &arr) {
+    ListNode dummy = ListNode();
+    ListNode *p = &dummy;
     for (auto val : arr) {
         p->next = new ListNode(val);
         p = p->next;
     }
-    return dummy->next;
+    p = dummy.next;
+    dummy.next = nullptr; // Prevent memory leak
+    return p;
 }
 
-std::vector<int> &ListNodeToIntArray(ListNode *head) {
-    auto *arr = new std::vector<int>();
+std::vector<int> ListNodeToIntArray(ListNode *head) {
+    auto arr = std::vector<int>();
     while (head != nullptr) {
-        arr->push_back(head->val);
+        arr.push_back(head->val);
         head = head->next;
     }
-    return *arr;
+    return arr;
 }
 
 ListNode *IntArrayToListNodeCycle(std::vector<int> &arr, int pos) {
-    auto dummy = new ListNode(), p = dummy;
+    ListNode dummy = ListNode();
+    ListNode *p = &dummy;
     ListNode *cycle = nullptr;
-    for (int i = 0; i < static_cast<int>(arr.size()); i++) {
+    for (size_t i = 0; i < arr.size(); ++i) {
         p->next = new ListNode(arr[i]);
         p = p->next;
         if (i == pos) {
@@ -33,7 +37,9 @@ ListNode *IntArrayToListNodeCycle(std::vector<int> &arr, int pos) {
         }
     }
     p->next = cycle;
-    return dummy->next;
+    p = dummy.next;
+    dummy.next = nullptr; // Prevent memory leak
+    return p;
 }
 
 std::tuple<ListNode *, ListNode *>

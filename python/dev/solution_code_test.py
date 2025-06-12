@@ -123,7 +123,7 @@ def test_solution(args):
             solution_file: str = obj.solution_file
             tmp_sol = solution_file.split(".")
             with open(
-                    f"{cur_path}/tmp_{tmp_sol[0]}{code_counter[lang]}.{tmp_sol[1]}",
+                    f"{cur_path}/tmp_{tmp_sol[0]}{test_problem.replace(' ', '_')}.{tmp_sol[1]}",
                     "w",
                     encoding="utf-8",
             ) as f:

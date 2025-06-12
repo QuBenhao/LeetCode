@@ -2,6 +2,8 @@
 #include "cpp/common/Solution.h"
 #include "cpp/models/ListNode.h"
 
+#include <unordered_set>
+
 using namespace std;
 using json = nlohmann::json;
 
@@ -51,11 +53,25 @@ json leetcode::qubh::Solve(string input_json_values) {
 
 	Solution solution;
 	std::vector<int> head_array = json::parse(inputArray.at(0));
-    int position = json::parse(inputArray.at(1));
-    ListNode* head = IntArrayToListNodeCycle(head_array, position);
-    auto res = solution.detectCycle(head);
-    if (res == nullptr) {
-        return nullptr;
+	int position = json::parse(inputArray.at(1));
+	ListNode* head = IntArrayToListNodeCycle(head_array, position);
+	ListNode *res_ptr = solution.detectCycle(head);
+	if (res_ptr == nullptr) {
+        delete head; // Delete the head node to prevent memory leak
+        return nullptr; // No cycle detected
     }
-    return res->val;
+    json final_ans = res_ptr->val; // Return the value of the node where the cycle begins
+	std::unordered_set<ListNode*> visited_nodes;
+	ListNode *temp = head;
+	while (temp != nullptr) {
+		visited_nodes.insert(temp);
+		if (visited_nodes.contains(temp->next)) {
+			temp->next = nullptr; // Break the cycle
+			break;
+		}
+		temp = temp->next;
+	}
+	delete head; // Delete the head node to prevent memory leak
+	// delete res_ptr;
+	return final_ans;
 }

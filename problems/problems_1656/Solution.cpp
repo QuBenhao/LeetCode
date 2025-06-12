@@ -34,7 +34,7 @@ json leetcode::qubh::Solve(string input_json_values) {
 
 	vector<string> operators = json::parse(inputArray[0]);
 	vector<vector<json>> op_values = json::parse(inputArray[1]);
-	auto obj0 = make_shared<OrderedStream>(op_values[0][0]);
+	auto obj0 = make_unique<OrderedStream>(op_values[0][0]);
 	vector<json> ans = {nullptr};
 	for (size_t i = 1; i < op_values.size(); i++) {
 		if (operators[i] == "insert") {

@@ -58,6 +58,17 @@ public:
     tail->prev = head;
   }
 
+  ~LRUCache() {
+    DLinkedNode *current = head;
+    while (current != tail) {
+      DLinkedNode *nextNode = current->next;
+      delete current;
+      current = nextNode;
+    }
+    delete tail;
+    cache.clear();
+  }
+
   int get(int key) {
     if (!cache.count(key)) {
       return -1;
@@ -93,30 +104,30 @@ public:
  */
 
 json leetcode::qubh::Solve(string input_json_values) {
-  vector<string> inputArray;
-  size_t pos = input_json_values.find('\n');
-  while (pos != string::npos) {
-    inputArray.push_back(input_json_values.substr(0, pos));
-    input_json_values = input_json_values.substr(pos + 1);
-    pos = input_json_values.find('\n');
-  }
-  inputArray.push_back(input_json_values);
+	vector<string> inputArray;
+	size_t pos = input_json_values.find('\n');
+	while (pos != string::npos) {
+		inputArray.push_back(input_json_values.substr(0, pos));
+		input_json_values = input_json_values.substr(pos + 1);
+		pos = input_json_values.find('\n');
+	}
+	inputArray.push_back(input_json_values);
 
-  vector<string> operators = json::parse(inputArray[0]);
-  vector<vector<json>> op_values = json::parse(inputArray[1]);
-  auto obj0 = make_shared<LRUCache>(op_values[0][0]);
-  vector<json> ans = {nullptr};
-  for (size_t i = 1; i < op_values.size(); i++) {
-    if (operators[i] == "get") {
-      ans.push_back(obj0->get(op_values[i][0]));
-      continue;
-    }
-    if (operators[i] == "put") {
-      obj0->put(op_values[i][0], op_values[i][1]);
-      ans.push_back(nullptr);
-      continue;
-    }
-    ans.push_back(nullptr);
-  }
-  return ans;
+	vector<string> operators = json::parse(inputArray[0]);
+	vector<vector<json>> op_values = json::parse(inputArray[1]);
+	auto obj0 = make_unique<LRUCache>(op_values[0][0]);
+	vector<json> ans = {nullptr};
+	for (size_t i = 1; i < op_values.size(); ++i) {
+		if (operators[i] == "get") {
+			ans.push_back(obj0->get(op_values[i][0]));
+			continue;
+		}
+		if (operators[i] == "put") {
+			obj0->put(op_values[i][0], op_values[i][1]);
+			ans.push_back(nullptr);
+			continue;
+		}
+		ans.push_back(nullptr);
+	}
+	return ans;
 }

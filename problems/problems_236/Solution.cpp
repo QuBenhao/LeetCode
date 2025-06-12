@@ -45,5 +45,9 @@ json leetcode::qubh::Solve(string input_json_values) {
 	int q_val = json::parse(inputArray.at(2));
 	auto nodes = JsonArrayToTreeNodeWithTargets(root_array, {p_val, q_val});
 	TreeNode *root = nodes[0], *p = nodes[1], *q = nodes[2];
-	return TreeNodeToJsonArray(solution.lowestCommonAncestor(root, p, q));
+	TreeNode *res_ptr = solution.lowestCommonAncestor(root, p, q);
+	json final_ans = TreeNodeToJsonArray(res_ptr);
+	delete root;
+	// delete res_ptr;
+	return final_ans;
 }
