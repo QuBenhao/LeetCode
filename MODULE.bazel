@@ -1,4 +1,4 @@
-module(name = "cpp")
+module(name = "leetcode")
 
 # Hedron's Compile Commands Extractor for Bazel
 # https://github.com/hedronvision/bazel-compile-commands-extractor
@@ -14,9 +14,5 @@ git_override(
 bazel_dep(name = "googletest", version = "1.17.0")
 bazel_dep(name = "nlohmann_json", version = "3.12.0")
 
-
-load_daily_question = use_extension("//:extensions.bzl", "load_daily_question")
-use_repo(load_daily_question, "problems")
-
-daily_plans = use_repo_rule("//:extensions.bzl", "daily_plans")
-daily_plans(name = "plans")
+daily = use_repo_rule("//:extensions.bzl", "daily")
+daily(name = "daily")

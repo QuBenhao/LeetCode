@@ -443,35 +443,21 @@ and tasks.json under `.vscode`
     },
     {
       "label": "cpp-test",
-      "command": "bazel",
+      "type": "shell",
+      "command": "sh",
       "args": [
-        "test",
-        "--cxxopt=-std=c++23",
-        "--cxxopt=-O2",
-        "--cxxopt=-fsanitize=address",
-        "--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=1",
-        "--linkopt=-fsanitize=address",
-        "--test_timeout=3",
-        "--test_output=all",
-        "//cpp:solution_test"
-      ],
-      "type": "shell"
+        "-c",
+        "bazel fetch --force daily && bazel test --cxxopt=-std=c++23 --cxxopt=-O2 --cxxopt=-fsanitize=address --cxxopt=-D_GLIBCXX_USE_CXX11_ABI=1 --linkopt=-fsanitize=address --test_timeout=3 --test_output=all //:daily_test"
+      ]
     },
     {
       "label": "cpp-tests",
-      "command": "bazel",
+      "type": "shell",
+      "command": "sh",
       "args": [
-        "test",
-        "--cxxopt=-std=c++23",
-        "--cxxopt=-O2",
-        "--cxxopt=-fsanitize=address",
-        "--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=1",
-        "--linkopt=-fsanitize=address",
-        "--test_timeout=10",
-        "--test_output=all",
-        "//:all"
-      ],
-      "type": "shell"
+        "-c",
+        "bazel fetch --force daily && bazel test --cxxopt=-std=c++23 --cxxopt=-O2 --cxxopt=-fsanitize=address --cxxopt=-D_GLIBCXX_USE_CXX11_ABI=1 --linkopt=-fsanitize=address --test_timeout=10 --test_output=all $(bazel query \"filter(\\\"plan_*\\\", kind(cc_test, //...))\")"
+      ]
     },
     {
       "label": "java-test",
