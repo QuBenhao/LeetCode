@@ -12,6 +12,14 @@ def common_memory_free_code(return_part: list, include_libs: list, var_name: str
     return_part.append(f"{commmented}delete {var_name};")
 
 
+def list_memory_free_code(return_part: list, include_libs: list, var_name: str, commmented: str = ""):
+    include_libs.append("#include <vector>")
+    return_part.append(f"{commmented}for (auto ptr : {var_name}) {{")
+    return_part.append(f"{commmented}\tdelete ptr;")
+    return_part.append(f"{commmented}}}")
+    return_part.append(f"{var_name}.clear(); // Clear the vector to prevent memory leak")
+
+
 def cycle_memory_free_code(return_part: list, include_libs: list, var_name: str, commmented: str = ""):
     include_libs.append("#include <unordered_set>")
     return_part.append(f"{commmented}std::unordered_set<ListNode*> visited_nodes;")
@@ -26,6 +34,27 @@ def cycle_memory_free_code(return_part: list, include_libs: list, var_name: str,
     return_part.append(f"{commmented}}}")
     return_part.append(f"{commmented}delete {var_name}; // Delete the head node to prevent memory leak")
 
+def intersection_memory_free_code(return_part: list, include_libs: list, var_names: list[str], commmented: str = ""):
+    include_libs.append("#include <unordered_set>")
+    return_part.append(f"{commmented}std::unordered_set<ListNode*> visited_nodes;")
+    return_part.append(f"{commmented}ListNode *temp = nullptr, *prev;")
+    for var_name in var_names:
+        return_part.append(f"{commmented}temp = {var_name};")
+        return_part.append(f"{commmented}prev = nullptr;")
+        return_part.append(f"{commmented}while (temp != nullptr) {{")
+        return_part.append(f"{commmented}\tif (visited_nodes.find(temp) != visited_nodes.end()) {{")
+        return_part.append(f"{commmented}\t\tif (prev != nullptr) {{")
+        return_part.append(f"{commmented}\t\t\tprev->next = nullptr; // Break the cycle")
+        return_part.append(f"{commmented}\t\t}}")
+        return_part.append(f"{commmented}\t\tbreak;")
+        return_part.append(f"{commmented}\t}}")
+        return_part.append(f"{commmented}\tvisited_nodes.insert(temp);")
+        return_part.append(f"{commmented}\tprev = temp;")
+        return_part.append(f"{commmented}\ttemp = temp->next;")
+        return_part.append(f"{commmented}}}")
+        return_part.append(f"{commmented}if (prev != nullptr) {{")
+        return_part.append(f"{commmented}\tdelete {var_name}; // Delete the last node to prevent memory leak")
+        return_part.append(f"{commmented}}}")
 
 class CppWriter(LanguageWriter):
     def __init__(self) -> None:
@@ -114,7 +143,19 @@ class CppWriter(LanguageWriter):
                             case "TreeNode":
                                 if '#include "cpp/models/TreeNode.h"' not in include_libs:
                                     include_libs.append('#include "cpp/models/TreeNode.h"')
-                                tmp_vars.append(f"JsonArrayToTreeNode(op_values[{i}][{j}])")
+                                process_variables.append(
+                                    f"TreeNode *{var_nm} = JsonArrayToTreeNode(op_values[{i}][{j}]);"
+                                )
+                                tmp_vars.append(var_nm)
+                                memory_to_free.append((common_memory_free_code, var_nm))
+                            case "ListNode":
+                                if '#include "cpp/models/ListNode.h"' not in include_libs:
+                                    include_libs.append('#include "cpp/models/ListNode.h"')
+                                process_variables.append(
+                                    f"ListNode *{var_nm} = IntArrayToListNode(op_values[{i}][{j}].get<vector<int>>());"
+                                )
+                                tmp_vars.append(var_nm)
+                                memory_to_free.append((common_memory_free_code, var_nm))
                             case _:
                                 logging.debug("Unhandled variable type: %s", rt)
                                 tmp_vars.append(f"op_values[{i}][{j}]")
@@ -154,14 +195,10 @@ class CppWriter(LanguageWriter):
                         if '#include "cpp/models/TreeNode.h"' not in include_libs:
                             include_libs.append('#include "cpp/models/TreeNode.h"')
                         list_methods.append(
-                            "\t\tTreeNode *tmp = obj{}->{}({});".format(
+                            "\t\tans.push_back(TreeNodeToJsonArray(obj{}->{}({})));".format(
                                 i, func_name, ", ".join(tmp_vars)
                             )
                         )
-                        list_methods.append(
-                            "\t\tans.push_back(TreeNodeToJsonArray(tmp));"
-                        )
-                        list_methods.append("\t\tdelete tmp;")
                     else:
                         list_methods.append(
                             "\t\tans.push_back(obj{}->{}({}));".format(
@@ -173,7 +210,13 @@ class CppWriter(LanguageWriter):
             process_variables.extend(list_methods)
             process_variables.append("\tans.push_back(nullptr);")
             process_variables.append("}")
-            return_part = ["\treturn ans;"]
+            if memory_to_free:
+                memory_to_free[0][0](return_part, include_libs, memory_to_free[0][1], "\t")
+                for func, m in memory_to_free[1:]:
+                    func(return_part, include_libs, m)
+                return_part.append("return ans;")
+            else:
+                return_part = ["\treturn ans;"]
         return SOLUTION_TEMPLATE_CPP.format(
             "\n".join(include_libs),
             code,
@@ -286,8 +329,7 @@ class CppWriter(LanguageWriter):
                                 f"auto tp = IntArrayToIntersectionListNode(iv, {variables[0][1]}_array, {variables[1][1]}_array, skip_a, skip_b);")
                             process_variables.append(f"ListNode *{variables[0][1]} = get<0>(tp);")
                             process_variables.append(f"ListNode *{variables[1][1]} = get<1>(tp);")
-                            memory_to_free.append((common_memory_free_code, variables[0][1]))
-                            memory_to_free.append((common_memory_free_code, variables[1][1]))
+                            memory_to_free.append((intersection_memory_free_code, [variables[0][1], variables[1][1]]))
                             i += 5
                             continue
                         elif len(variables) != len(testcases[0]):
@@ -510,8 +552,12 @@ class CppWriter(LanguageWriter):
                                 process_variables.append(f"for (json ipt: {variable[-1]}_input) {{")
                                 process_variables.append(f"\t{variable[-1]}.emplace_back({class_name.lower()}_from_input(ipt));")
                                 process_variables.append("}")
+                                if "*" in rt:
+                                    memory_to_free.append((list_memory_free_code, variable[-1]))
                             else:
                                 process_variables.append(f"{variable[-1]} = {class_name.lower()}_from_input(inputArray.at({i}))")
+                                if "*" in rt:
+                                    memory_to_free.append((common_memory_free_code, variable[-1]))
                     if not found_defination:
                         process_variables.append(
                             rt

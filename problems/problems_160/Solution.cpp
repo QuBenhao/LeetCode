@@ -45,5 +45,42 @@ json leetcode::qubh::Solve(string input_json_values) {
 	auto tp = IntArrayToIntersectionListNode(iv, headA_array, headB_array, skip_a, skip_b);
 	ListNode *headA = get<0>(tp);
 	ListNode *headB = get<1>(tp);
-	return ListNodeToIntArray(solution.getIntersectionNode(headA, headB));
+	ListNode *res_ptr = solution.getIntersectionNode(headA, headB);
+	json final_ans = ListNodeToIntArray(res_ptr);
+	std::unordered_set<ListNode*> visited_nodes;
+	ListNode *temp = nullptr, *prev = nullptr;
+	temp = headA;
+	prev = nullptr;
+	while (temp != nullptr) {
+		if (visited_nodes.find(temp) != visited_nodes.end()) {
+			if (prev != nullptr) {
+				prev->next = nullptr; // Break the cycle
+			}
+			break;
+		}
+		visited_nodes.insert(temp);
+		prev = temp;
+		temp = temp->next;
+	}
+	if (prev != nullptr) {
+		delete headA; // Delete the last node to prevent memory leak
+	}
+	temp = headB;
+	prev = nullptr;
+	while (temp != nullptr) {
+		if (visited_nodes.find(temp) != visited_nodes.end()) {
+			if (prev != nullptr) {
+				prev->next = nullptr; // Break the cycle
+			}
+			break;
+		}
+		visited_nodes.insert(temp);
+		prev = temp;
+		temp = temp->next;
+	}
+	if (prev != nullptr) {
+		delete headB; // Delete the last node to prevent memory leak
+	}
+	// delete res_ptr;
+	return final_ans;
 }

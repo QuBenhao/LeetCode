@@ -46,5 +46,10 @@ json leetcode::qubh::Solve(string input_json_values) {
 	TreeNode *original = nodes[0];
 	TreeNode *target = nodes[1];
 	TreeNode *cloned = JsonArrayToTreeNode(original_array);
-	return TreeNodeToJsonArray(solution.getTargetCopy(original, cloned, target));
+	TreeNode *res_ptr = solution.getTargetCopy(original, cloned, target);
+	json final_ans = TreeNodeToJsonArray(res_ptr);
+	delete original;
+	delete cloned;
+	// delete res_ptr;
+	return final_ans;
 }

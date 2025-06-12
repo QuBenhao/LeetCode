@@ -86,7 +86,8 @@ json leetcode::qubh::Solve(string input_json_values) {
 
 	vector<string> operators = json::parse(inputArray[0]);
 	vector<vector<json>> op_values = json::parse(inputArray[1]);
-	auto obj0 = make_unique<CBTInserter>(JsonArrayToTreeNode(op_values[0][0]));
+	TreeNode *root = JsonArrayToTreeNode(op_values[0][0]);
+	auto obj0 = make_unique<CBTInserter>(root);
 	vector<json> ans = {nullptr};
 	for (size_t i = 1; i < op_values.size(); ++i) {
 		if (operators[i] == "insert") {
@@ -94,12 +95,11 @@ json leetcode::qubh::Solve(string input_json_values) {
 			continue;
 		}
 		if (operators[i] == "get_root") {
-			TreeNode *tmp = obj0->get_root();
-			ans.push_back(TreeNodeToJsonArray(tmp));
-			delete tmp;
+			ans.push_back(TreeNodeToJsonArray(obj0->get_root()));
 			continue;
 		}
 		ans.push_back(nullptr);
 	}
+	delete root;
 	return ans;
 }
