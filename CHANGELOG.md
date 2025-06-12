@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## v10.0.2 (2025-06-12)
+
+### Fix
+
+* fix: bazel cache issue &amp; daily
+
+update daily problem handling and test generation in BUILD and solutions ([`c506b4b`](https://github.com/QuBenhao/LeetCode/commit/c506b4bd60d94ebaf970d1b6d2a54e1ba9cb4ca6))
+
+* fix: update page size limit in input handling
+
+limit ([`28c5869`](https://github.com/QuBenhao/LeetCode/commit/28c58698d48c2e96ad5cbd738ecea406670e5359))
+
+### Test
+
+* test: 2767 solution
+
+py, c++, go, java ([`1be5b70`](https://github.com/QuBenhao/LeetCode/commit/1be5b70ae3ef91da1c6474bfe7b4424931d0021f))
+
+* test: 3423 solution
+
+py, c++, go, java ([`241565b`](https://github.com/QuBenhao/LeetCode/commit/241565b15a08a053fe142256e3fefe4e2f06c765))
+
+* test: [20250612] Add (3423) ([`bda75a0`](https://github.com/QuBenhao/LeetCode/commit/bda75a0003ce232d65e50ebde4a0dd591b8dd4d4))
+
+* test: 792 solution
+
+py ([`5a6f52f`](https://github.com/QuBenhao/LeetCode/commit/5a6f52f536a6d0f85166b6b81cedad7880b0b26b))
+
 ## v10.0.1 (2025-06-11)
 
 ### Fix
@@ -85,60 +113,6 @@ py ([`6deb184`](https://github.com/QuBenhao/LeetCode/commit/6deb184396515bb0d926
 * test: [20250611] Add (3445) ([`e76129d`](https://github.com/QuBenhao/LeetCode/commit/e76129d6ea562d47323f22ef276ed7ee82914025))
 
 ## v9.8.0 (2025-06-10)
-
-### Feature
-
-* feat: optimize contest question processing with parallel execution
-
-multi-thread ([`ab559eb`](https://github.com/QuBenhao/LeetCode/commit/ab559ebbe6e45a777b20b298fd3374b660ae764f))
-
-### Refactor
-
-* refactor: update contest problem info extraction (#156)
-
-* refactor: update contest problem info extraction and improve unicode decoding
-
-new contest fit
-
-* fix: clean import
-
-* fix: code template
-
-contest py input path
-
-* fix: code review ([`8b1deeb`](https://github.com/QuBenhao/LeetCode/commit/8b1deeb550cc5a3a1a5664192a75a02610ad4574))
-
-### Test
-
-* test: 3442 solution
-
-py, c++, go, java ([`2e1fbe3`](https://github.com/QuBenhao/LeetCode/commit/2e1fbe3b583e9b187af03306055c01c03dc0cee6))
-
-* test: [20250610] Add (3442) ([`eb99d1c`](https://github.com/QuBenhao/LeetCode/commit/eb99d1c45ee5a357d91750e1b502a457113fa04f))
-
-* test: 1298 solution
-
-py, go ([`8f3d984`](https://github.com/QuBenhao/LeetCode/commit/8f3d984616bea0669aa55a8a1f754fe3bcbaac82))
-
-* test: 3196 solution
-
-py, c++, go, java ([`8761f80`](https://github.com/QuBenhao/LeetCode/commit/8761f80ec12f69f97ec220df5d428819b2c5b1d5))
-
-* test: 440 solution
-
-py, c++, go, java ([`a98c10f`](https://github.com/QuBenhao/LeetCode/commit/a98c10f35c6ccd3769de45d0ab622d54b9bf9344))
-
-* test: [20250609] Add (440) ([`73e2ebf`](https://github.com/QuBenhao/LeetCode/commit/73e2ebfeb9e86051d96f6b35d1419fc5b0ee9509))
-
-* test: 3578, 3579 solution
-
-go ([`2895b65`](https://github.com/QuBenhao/LeetCode/commit/2895b657ecb8547b8e809abe61144f237c23e700))
-
-* test: 3578, 3579 solution
-
-c++ ([`76b7791`](https://github.com/QuBenhao/LeetCode/commit/76b7791e812ede446a82466604e91f0caf89fa2a))
-
-## v9.7.0 (2025-06-08)
 
 ### Breaking
 
@@ -271,6 +245,10 @@ latest ([`050396a`](https://github.com/QuBenhao/LeetCode/commit/050396aef9132d82
 README.md ([`77f8ea7`](https://github.com/QuBenhao/LeetCode/commit/77f8ea7df735d30f865ca5fa7fd51a8c506a0eb3))
 
 ### Feature
+
+* feat: optimize contest question processing with parallel execution
+
+multi-thread ([`ab559eb`](https://github.com/QuBenhao/LeetCode/commit/ab559ebbe6e45a777b20b298fd3374b660ae764f))
 
 * feat: favorite (#154)
 
@@ -2646,6 +2624,20 @@ fix case with space and output with space ([`96434b2`](https://github.com/QuBenh
 
 ### Refactor
 
+* refactor: update contest problem info extraction (#156)
+
+* refactor: update contest problem info extraction and improve unicode decoding
+
+new contest fit
+
+* fix: clean import
+
+* fix: code template
+
+contest py input path
+
+* fix: code review ([`8b1deeb`](https://github.com/QuBenhao/LeetCode/commit/8b1deeb550cc5a3a1a5664192a75a02610ad4574))
+
 * refactor: spider arguments
 
 add argparse for command line interface in spider script ([`27d6c2e`](https://github.com/QuBenhao/LeetCode/commit/27d6c2e3ee2a35baf02d198c348950975d1554e4))
@@ -2791,6 +2783,34 @@ query param load from str ([`576737d`](https://github.com/QuBenhao/LeetCode/comm
 go.sum uploaded ([`064618d`](https://github.com/QuBenhao/LeetCode/commit/064618d550530aefd4c12eeb3a8d7d3e328cf9f0))
 
 ### Test
+
+* test: 3442 solution
+
+py, c++, go, java ([`2e1fbe3`](https://github.com/QuBenhao/LeetCode/commit/2e1fbe3b583e9b187af03306055c01c03dc0cee6))
+
+* test: [20250610] Add (3442) ([`eb99d1c`](https://github.com/QuBenhao/LeetCode/commit/eb99d1c45ee5a357d91750e1b502a457113fa04f))
+
+* test: 1298 solution
+
+py, go ([`8f3d984`](https://github.com/QuBenhao/LeetCode/commit/8f3d984616bea0669aa55a8a1f754fe3bcbaac82))
+
+* test: 3196 solution
+
+py, c++, go, java ([`8761f80`](https://github.com/QuBenhao/LeetCode/commit/8761f80ec12f69f97ec220df5d428819b2c5b1d5))
+
+* test: 440 solution
+
+py, c++, go, java ([`a98c10f`](https://github.com/QuBenhao/LeetCode/commit/a98c10f35c6ccd3769de45d0ab622d54b9bf9344))
+
+* test: [20250609] Add (440) ([`73e2ebf`](https://github.com/QuBenhao/LeetCode/commit/73e2ebfeb9e86051d96f6b35d1419fc5b0ee9509))
+
+* test: 3578, 3579 solution
+
+go ([`2895b65`](https://github.com/QuBenhao/LeetCode/commit/2895b657ecb8547b8e809abe61144f237c23e700))
+
+* test: 3578, 3579 solution
+
+c++ ([`76b7791`](https://github.com/QuBenhao/LeetCode/commit/76b7791e812ede446a82466604e91f0caf89fa2a))
 
 * test: 2707 solution
 
