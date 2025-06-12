@@ -231,8 +231,10 @@ def get_problem(languages, problem_folder, cookie):
                     __user_input_problem_id, __allow_all_not_empty, "Problem ID cannot be empty."
                 )
                 problem_id = back_question_id(input_problem_id)
-                exit_code = get_problem_main(problem_id, cookie=cookie, replace_problem_id=True,
-                                             languages=languages, problem_folder=problem_folder)
+                exit_code = get_problem_main(
+                    problem_id, force=True, cookie=cookie, replace_problem_id=True, skip_language=True,
+                    languages=languages, problem_folder=problem_folder
+                )
                 if exit_code == 0:
                     print(f"Problem [{problem_id}] fetched successfully.")
                 else:
@@ -273,8 +275,10 @@ def get_problem(languages, problem_folder, cookie):
                 if pick_problem is None:
                     continue
                 problem_id = problems[pick_problem]
-                exit_code = get_problem_main(problem_id, cookie=cookie, replace_problem_id=True,
-                                             languages=languages, problem_folder=problem_folder)
+                exit_code = get_problem_main(
+                    problem_id, force=True, cookie=cookie, replace_problem_id=True, skip_language=True,
+                    languages=languages, problem_folder=problem_folder
+                )
                 if exit_code == 0:
                     print(f"Problem [{problem_id}] fetched successfully.")
                 else:
@@ -417,7 +421,7 @@ def contest_main(languages, contest_folder, cookie):
     def process_question_worker(question_idx_data_tuple):
         question_idx, question_data = question_idx_data_tuple
         question_slug = question_data["title_slug"]
-        
+
         subp = p / chr(ord('a') + question_idx - 1)
         subp.mkdir(parents=True, exist_ok=True)
 
@@ -425,7 +429,7 @@ def contest_main(languages, contest_folder, cookie):
         # The original code specifically requests "python3" default code.
         # If you intend to use the `languages` variable from contest_main, replace ["python3"] with `languages`.
         problem_info = contest_lib.get_contest_problem_info(contest_id, question_slug, ["python3"], cookie)
-        
+
         if not problem_info:
             logging.error(f"Failed to get contest [{contest_id}] problem [{question_slug}]")
             return False
@@ -440,7 +444,7 @@ def contest_main(languages, contest_folder, cookie):
                 json.dump(problem_info["question_example_testcases"], f)
             with (subp / "output.json").open("w", encoding="utf-8") as f:
                 json.dump(problem_info["question_example_testcases_output"], f)
-            
+
             for lang, code_content in problem_info["language_default_code"].items():
                 cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
                 if not cls:
@@ -463,16 +467,16 @@ def contest_main(languages, contest_folder, cookie):
     # Use ThreadPoolExecutor to process questions in parallel
     # Adjust max_workers as needed; for a few contest questions, len(contest_questions) is reasonable.
     # If contest_questions is empty, max_workers should be at least 1.
-    num_workers = max(1, len(contest_questions)) 
+    num_workers = max(1, len(contest_questions))
     with ThreadPoolExecutor(max_workers=num_workers) as executor:
         # Prepare arguments for each task - a list of (index, question_data) tuples
         tasks_data = list(enumerate(contest_questions, start=1))
-        
+
         # Using executor.map for simplicity as it handles submitting all tasks
         # and collecting results in order (though order of results isn't critical here).
         # list() ensures all tasks are started and waited for.
         results = list(executor.map(process_question_worker, tasks_data))
-        
+
         for result in results:
             if not result:
                 print("Some questions failed to process. Check the logs for details.")
@@ -515,7 +519,8 @@ def favorite_main(languages, problem_folder, cookie):
         cur_page = 1
         page_size = 20
         while True:
-            _questions = query_favorite_questions(favorite_slug, cookie, limit=page_size, skip=(cur_page-1)*page_size)
+            _questions = query_favorite_questions(favorite_slug, cookie, limit=page_size,
+                                                  skip=(cur_page - 1) * page_size)
             total, data, has_more = _questions["total"], _questions["questions"], _questions["has_more"]
             max_page = math.ceil(total / page_size)
             if not data:
@@ -563,8 +568,10 @@ def favorite_main(languages, problem_folder, cookie):
                     question = question_list(slug)
                     if not question:
                         break
-                    code = get_problem_main(problem_slug=question["title_slug"], cookie=cookie, replace_problem_id=True,
-                                     languages=languages, problem_folder=problem_folder)
+                    code = get_problem_main(
+                        problem_slug=question["title_slug"], force=True, cookie=cookie, replace_problem_id=True,
+                        skip_language=True, languages=languages, problem_folder=problem_folder
+                    )
                     if code == 0:
                         print(f"Problem [{question['question_frontend_id']}]"
                               f" {question['translated_title']} fetched successfully.")
