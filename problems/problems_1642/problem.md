@@ -1,52 +1,52 @@
 # 1642. Furthest Building You Can Reach [Rating: 1962.20]
 
-You are given an integer array `heights` representing the heights of buildings, some `bricks`, and some `ladders`.
+<p>You are given an integer array <code>heights</code> representing the heights of buildings, some <code>bricks</code>, and some <code>ladders</code>.</p>
 
-You start your journey from building `0` and move to the next building by possibly using bricks or ladders.
+<p>You start your journey from building <code>0</code> and move to the next building by possibly using bricks or ladders.</p>
 
-While moving from building `i` to building `i+1` (**0-indexed**),
+<p>While moving from building <code>i</code> to building <code>i+1</code> (<strong>0-indexed</strong>),</p>
 
-- If the current building's height is **greater than or equal** to the next building's height, you do **not** need a ladder or bricks.
-- If the current building's height is **less than** the next building's height, you can either use **one ladder** or `(h[i+1] - h[i])` **bricks**.
+<ul>
+	<li>If the current building&#39;s height is <strong>greater than or equal</strong> to the next building&#39;s height, you do <strong>not</strong> need a ladder or bricks.</li>
+	<li>If the current building&#39;s height is <b>less than</b> the next building&#39;s height, you can either use <strong>one ladder</strong> or <code>(h[i+1] - h[i])</code> <strong>bricks</strong>.</li>
+</ul>
 
-*Return the furthest building index (0-indexed) you can reach if you use the given ladders and bricks optimally.*
+<p><em>Return the furthest building index (0-indexed) you can reach if you use the given ladders and bricks optimally.</em></p>
 
- 
-
-**Example 1:**
-
-![img](https://assets.leetcode.com/uploads/2020/10/27/q4.gif)
-
-```
-Input: heights = [4,2,7,6,9,14,12], bricks = 5, ladders = 1
-Output: 4
-Explanation: Starting at building 0, you can follow these steps:
-- Go to building 1 without using ladders nor bricks since 4 >= 2.
-- Go to building 2 using 5 bricks. You must use either bricks or ladders because 2 < 7.
-- Go to building 3 without using ladders nor bricks since 7 >= 6.
-- Go to building 4 using your only ladder. You must use either bricks or ladders because 6 < 9.
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/10/27/q4.gif" style="width: 562px; height: 561px;" />
+<pre>
+<strong>Input:</strong> heights = [4,2,7,6,9,14,12], bricks = 5, ladders = 1
+<strong>Output:</strong> 4
+<strong>Explanation:</strong> Starting at building 0, you can follow these steps:
+- Go to building 1 without using ladders nor bricks since 4 &gt;= 2.
+- Go to building 2 using 5 bricks. You must use either bricks or ladders because 2 &lt; 7.
+- Go to building 3 without using ladders nor bricks since 7 &gt;= 6.
+- Go to building 4 using your only ladder. You must use either bricks or ladders because 6 &lt; 9.
 It is impossible to go beyond building 4 because you do not have any more bricks or ladders.
-```
+</pre>
 
-**Example 2:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: heights = [4,12,2,7,3,18,20,3,19], bricks = 10, ladders = 2
-Output: 7
-```
+<pre>
+<strong>Input:</strong> heights = [4,12,2,7,3,18,20,3,19], bricks = 10, ladders = 2
+<strong>Output:</strong> 7
+</pre>
 
-**Example 3:**
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: heights = [14,3,19,3], bricks = 17, ladders = 0
-Output: 3
-```
+<pre>
+<strong>Input:</strong> heights = [14,3,19,3], bricks = 17, ladders = 0
+<strong>Output:</strong> 3
+</pre>
 
- 
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Constraints:**
-
-- 1 <= heights.length <= 10<sup>5</sup>
-- 1 <= heights[i] <= 10<sup>6</sup>
-- 0 <= bricks <= 10<sup>9</sup>
-- `0 <= ladders <= heights.length`
+<ul>
+	<li><code>1 &lt;= heights.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= heights[i] &lt;= 10<sup>6</sup></code></li>
+	<li><code>0 &lt;= bricks &lt;= 10<sup>9</sup></code></li>
+	<li><code>0 &lt;= ladders &lt;= heights.length</code></li>
+</ul>
