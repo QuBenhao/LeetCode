@@ -349,6 +349,7 @@ members = [
 	"problems/problems_3445",
 	"problems/problems_3423",
 	"problems/problems_2616",
+	"problems/problems_2566",
 ]
 
 [package]
@@ -720,3 +721,4 @@ solution_3442 = { path = "problems/problems_3442", features = ["solution_3442"] 
 solution_3445 = { path = "problems/problems_3445", features = ["solution_3445"] }
 solution_3423 = { path = "problems/problems_3423", features = ["solution_3423"] }
 solution_2616 = { path = "problems/problems_2616", features = ["solution_2616"] }
+solution_2566 = { path = "problems/problems_2566", features = ["solution_2566"] }
