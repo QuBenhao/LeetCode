@@ -224,6 +224,7 @@ from python.object_libs.tree import TreeNode
 
 if __name__ == '__main__':
     import json
+    from pathlib import Path
     
     root_path = Path(__file__).parent
 
