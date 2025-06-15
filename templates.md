@@ -4562,6 +4562,187 @@ func (t *TreeAncestor) FindDistance(x, d int) int {
 }
 ```
 
+```c++
+class TreeAncestor {
+  int n;
+  int m;
+  vector<int> depth;
+  void dfs(int node, int parent,
+           const unordered_map<int, vector<array<int, 2>>> &graph) {
+    pa[node][0] = parent;
+
+    auto it = graph.find(node);
+    if (it == graph.end()) {
+      return;
+    }
+    for (const auto &[child, weight] : it->second) {
+      if (child == parent)
+        continue;
+      depth[child] = depth[node] + 1;
+      distance[child] = distance[node] + weight;
+      dfs(child, node, graph);
+    }
+  }
+
+public:
+  vector<vector<int>> pa;
+  vector<uint64_t> distance;
+
+  explicit TreeAncestor(const vector<vector<int>> &edges)
+      : n(edges.size() + 1), m(32 - __builtin_clz(n)), depth(n, 0),
+        pa(n, vector<int>(m, -1)), distance(n, 0) {
+    unordered_map<int, vector<array<int, 2>>> graph(n);
+    for (const auto &edge : edges) {
+      int u = edge[0], v = edge[1], w = edge[2];
+      graph[u].push_back({v, w});
+      graph[v].push_back({u, w});
+    }
+
+    dfs(0, -1, graph);
+    for (int j = 1; j < m; ++j) {
+      for (int i = 0; i < n; ++i) {
+        if (pa[i][j - 1] != -1) {
+          pa[i][j] = pa[pa[i][j - 1]][j - 1];
+        }
+      }
+    }
+  }
+
+  ~TreeAncestor() = default;
+
+  int getKthAncestor(int node, int k) {
+    for (; k > 0 && node != -1; k &= k - 1) {
+      node = pa[node][31 - __builtin_clz(k & -k)];
+    }
+    return node;
+  }
+
+  int getLCA(int u, int v) {
+    if (depth[u] > depth[v])
+      swap(u, v);
+    int diff = depth[v] - depth[u];
+    v = getKthAncestor(v, diff);
+    if (u == v)
+      return u;
+    for (int j = m - 1; j >= 0; --j) {
+      if (pa[u][j] != pa[v][j]) {
+        u = pa[u][j];
+        v = pa[v][j];
+      }
+    }
+    return pa[u][0];
+  }
+
+  int getDistance(int u, int v) {
+    int lca = getLCA(u, v);
+    return distance[u] + distance[v] - 2 * distance[lca];
+  }
+
+  int findDistance(int u, uint64_t d) {
+    d = distance[u] - d;
+    for (int j = m - 1; j >= 0; --j) {
+      int p = pa[u][j];
+      if (p != -1 && distance[p] >= d) {
+        u = p;
+      }
+    }
+    return u;
+  }
+};
+```
+
+```java
+class TreeAncestor {
+    public final int[][] pa;
+    private final int[] depth;
+    public final long[] distance;
+    private final int m;
+
+    private void dfs(int node, int parent, Map<Integer, Integer>[] graph) {
+        pa[node][0] = parent;
+        if (graph[node] == null) {
+            return;
+        }
+        // graph foreach
+        for (Map.Entry<Integer, Integer> entry : graph[node].entrySet()) {
+            int c = entry.getKey(), w = entry.getValue();
+            if (c == parent) continue;
+            depth[c] = depth[node] + 1;
+            distance[c] = distance[node] + w;
+            dfs(c, node, graph);
+        }
+    }
+    public TreeAncestor(int[][] edges) {
+        int n = edges.length + 1;
+        m = 32 - Integer.numberOfLeadingZeros(n);
+
+        pa = new int[n][m];
+        depth = new int[n];
+        Arrays.fill(depth, 0);
+        distance = new long[n];
+        Arrays.fill(distance, 0);
+
+        Map<Integer, Integer>[] graph = new Map[n];
+        for (int[] edge : edges) {
+            int u = edge[0], v = edge[1], w = edge[2];
+            graph[u] = graph[u] == null ? new HashMap<>() : graph[u];
+            graph[u].put(v, w);
+            graph[v] = graph[v] == null ? new HashMap<>() : graph[v];
+            graph[v].put(u, w);
+        }
+
+        dfs(0, -1, graph);
+
+        for (int j = 1; j < m; j++) {
+            for (int i = 0; i < n; i++) {
+                if (pa[i][j - 1] != -1) {
+                    pa[i][j] = pa[pa[i][j - 1]][j - 1];
+                } else {
+                    pa[i][j] = -1;
+                }
+            }
+        }
+    }
+
+    public int getKthAncestor(int node, int k) {
+        for (; node != -1 && k > 0; k &= k - 1) {
+            node = pa[node][Integer.numberOfTrailingZeros(k&-k)];
+        }
+        return node;
+    }
+
+    public int getLCA(int u, int v) {
+        if (depth[u] > depth[v]) {
+            int tmp = u;
+            u = v;
+            v = tmp;
+        }
+        v = getKthAncestor(v, depth[v] - depth[u]);
+        if (v == u) {
+            return u;
+        }
+        for (int j = m - 1; j >= 0; j--) {
+            if (pa[u][j] != pa[v][j]) {
+                u = pa[u][j];
+                v = pa[v][j];
+            }
+        }
+        return pa[u][0];
+    }
+
+    public int findDistance(int u, long d) {
+        d = distance[u] - d;
+        for (int j = m-1; j >= 0; --j) {
+            int p = pa[u][j];
+            if (p != -1 && distance[p] >= d) {
+                u = p;
+            }
+        }
+        return u;
+    }
+}
+```
+
 #### 2. **区间最值查询（RMQ）**
 
 - **问题**：多次查询数组某个区间的最小值/最大值。
