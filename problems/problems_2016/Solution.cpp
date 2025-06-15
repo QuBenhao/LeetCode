@@ -8,7 +8,15 @@ using json = nlohmann::json;
 class Solution {
 public:
     int maximumDifference(vector<int>& nums) {
-        
+      int ans = -1;
+      int minVal = nums[0];
+      for (auto num: nums) {
+        if (num > minVal) {
+          ans = max(ans, num - minVal);
+        }
+        minVal = min(minVal, num);
+      }
+      return ans;
     }
 };
 

@@ -7,7 +7,15 @@ import (
 )
 
 func maximumDifference(nums []int) int {
-    
+    ans := -1
+    mn := nums[0]
+    for _, num := range nums {
+        if num > mn {
+            ans = max(ans, num-mn)
+        }
+        mn = min(mn, num)
+    }
+    return ans
 }
 
 func Solve(inputJsonValues string) any {
