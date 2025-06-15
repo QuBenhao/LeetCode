@@ -13,16 +13,16 @@ public class Solution extends BaseSolution {
         for (int[] row: mat) {
             List<Integer> st = new ArrayList<>();
             int[] prev = new int[n];
+            int preSum = 0;
             for (int j = 0; j < n; ++j) {
                 heights[j] = row[j] == 0 ? 0 : heights[j] + 1;
                 while (!st.isEmpty() && heights[st.getLast()] >= heights[j]) {
-                    st.removeLast();
+                    preSum -= prev[st.removeLast()];
                 }
                 prev[j] = heights[j] * (st.isEmpty() ? j + 1 : j - st.getLast());
+                preSum += prev[j];
                 st.add(j);
-                for (int k: st) {
-                    ans += prev[k];
-                }
+                ans += preSum;
             }
         }
         return ans;

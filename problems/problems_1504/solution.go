@@ -12,6 +12,7 @@ func numSubmat(mat [][]int) (ans int) {
 	for _, row := range mat {
 		var st []int
 		prev := make([]int, n)
+		preSum := 0
 		for j, v := range row {
 			if v == 0 {
 				heights[j] = 0
@@ -19,6 +20,7 @@ func numSubmat(mat [][]int) (ans int) {
 				heights[j]++
 			}
 			for len(st) > 0 && heights[st[len(st)-1]] >= heights[j] {
+				preSum -= prev[st[len(st)-1]]
 				st = st[:len(st)-1]
 			}
 			if len(st) == 0 {
@@ -26,10 +28,9 @@ func numSubmat(mat [][]int) (ans int) {
 			} else {
 				prev[j] = heights[j] * (j - st[len(st)-1])
 			}
+			preSum += prev[j]
 			st = append(st, j)
-			for _, k := range st {
-				ans += prev[k]
-			}
+			ans += preSum
 		}
 	}
 	return

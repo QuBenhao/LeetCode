@@ -16,6 +16,7 @@ public:
     for (auto &row : mat) {
       vector<int> st;
       vector<int> prev(n, 0);
+      int pre_sum = 0;
       for (int j = 0; j < n; ++j) {
         if (row[j] == 0) {
           heights[j] = 0;
@@ -23,13 +24,13 @@ public:
           heights[j]++;
         }
         while (!st.empty() && heights[st.back()] >= heights[j]) {
+          pre_sum -= prev[st.back()];
           st.pop_back();
         }
         prev[j] = heights[j] * (st.empty() ? j + 1 : j - st.back());
+        pre_sum += prev[j];
         st.push_back(j);
-        for (auto k : st) {
-          ans += prev[k];
-        }
+        ans += pre_sum;
       }
     }
     return ans;
