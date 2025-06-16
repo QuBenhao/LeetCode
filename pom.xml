@@ -96,7 +96,7 @@
                                 import java.nio.file.*
 
                                 // 1. 读取.env文件
-                                def envFile = new File("${project.basedir}/.env")
+                                def envFile = Paths.get(project.basedir.toString(), ".env").toFile()
                                 def baseDir = "problems"
                                 if (envFile.exists()) {
                                     envFile.eachLine { line ->
@@ -107,7 +107,7 @@
                                 }
 
                                 // 2. 读取config.json
-                                def configFile = new File("${project.basedir}/daily-${baseDir}.json")
+                                def configFile = Paths.get(project.basedir.toString(), "daily-${baseDir}.json").toFile()
                                 if (!configFile.exists()) {
                                     throw new RuntimeException("Config file not found: ${configFile.absolutePath}")
                                 }
@@ -115,11 +115,11 @@
 
                                 // 3. 构建源目录列表
                                 def sources = [] as Set
-                                sources.add(new File(project.basedir, "${baseDir}/${baseDir}_${config.daily}/").absolutePath)
+                                sources.add(Paths.get(project.basedir.toString(), baseDir, "${baseDir}_${config.daily}").toFile().absolutePath)
                                 for (int i = 0; i < config.plans.size(); i += 2) {
                                     def problem = config.plans[i]
                                     def folder = config.plans[i + 1]
-                                    sources.add(new File(project.basedir, "${folder}/${folder}_${problem}/").absolutePath)
+                                    sources.add(Paths.get(project.basedir.toString(), folder, "${folder}_${problem}").toFile().absolutePath)
                                 }
 
                                 println "==> 添加动态源目录:"
