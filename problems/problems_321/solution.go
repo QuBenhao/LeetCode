@@ -15,9 +15,7 @@ func pickArr(nums []int, length int) (ans []int) {
 		}
 		ans = append(ans, num)
 	}
-	for range drop {
-		ans = ans[:len(ans)-1]
-	}
+	ans = ans[:length]
 	return
 }
 
