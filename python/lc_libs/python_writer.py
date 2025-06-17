@@ -72,6 +72,8 @@ class Python3Writer(LanguageWriter):
             content = f.read()
             skip_solution = "from python.object_libs import " in content and " call_method" in content
             idx = content.find("def solve(self, test_input=None):")
+            if idx == -1:
+                idx = content.find("def solve(self, test_input):")
             idx = content.find("return ", idx)
             idx = content.find("\n", idx) + 1
             while idx < len(content) and content[idx] == "\n":
