@@ -32,7 +32,7 @@ ListNode *IntArrayToListNodeCycle(std::vector<int> &arr, int pos) {
     for (size_t i = 0; i < arr.size(); ++i) {
         p->next = new ListNode(arr[i]);
         p = p->next;
-        if (i == pos) {
+        if (static_cast<int>(i) == pos) {
             cycle = p;
         }
     }

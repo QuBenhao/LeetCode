@@ -5,12 +5,13 @@ class Solution(solution.Solution):
     def solve(self, test_input):
         return self.soupServings(test_input)
 
-    def soupServings(self, N):
+    def soupServings(self, N: int) -> float:
         """
         :type N: int
         :rtype: float
         """
-        if N > 4800:
+        N = (N + 24) // 25  # Convert N to the number of 25 ml servings
+        if N >= 178:
             return 1
 
         def f(a,b):
@@ -23,7 +24,7 @@ class Solution(solution.Solution):
                 return 1
             if b <= 0:
                 return 0
-            self.memo[(a,b)] = 0.25 * (f(a-100,b) + f(a-75,b-25) + f(a-50,b-50) + f(a-25,b-75))
+            self.memo[(a,b)] = 0.25 * (f(a-4,b) + f(a-3,b-1) + f(a-2,b-2) + f(a-1,b-3))
             return self.memo[(a,b)]
 
         self.memo = {}
