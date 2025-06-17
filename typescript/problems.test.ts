@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as ts from "typescript";
+import * as path from "path"; // <-- Add this import
 
 var _ = require('lodash-contrib');
 const vm = require('node:vm');
@@ -39,12 +40,12 @@ for (let i: number = 0; i < plans.length; i += 2) {
         let nodeClass: String = null;
 
         beforeAll(async () => {
-            let testCasePath = `${problemFolder}/${problemFolder}_${problemId}/testcase`;
-            let solPath: string = `${problemFolder}/${problemFolder}_${problemId}/solution.ts`;
+            let testCasePath: string = path.join(problemFolder, `${problemFolder}_${problemId}`, 'testcase');
+            let solPath: string = path.join(problemFolder, `${problemFolder}_${problemId}`, 'solution.ts');
             if (!fs.existsSync(testCasePath)) {
                 console.log(`Problem in ${problemFolder} not found, try premiums...`);
-                testCasePath = `premiums/premiums_${problemId}/testcase`;
-                solPath = `premiums/premiums_${problemId}/solution.ts`;
+                testCasePath = path.join('premiums', `premiums_${problemId}`, 'testcase');
+                solPath = path.join('premiums', `premiums_${problemId}`, 'solution.ts');
             }
             const fileContent: string = fs.readFileSync(testCasePath, "utf-8");
             const splits: string[] = fileContent.split("\n");

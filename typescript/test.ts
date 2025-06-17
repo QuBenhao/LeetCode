@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as dotenv from 'dotenv'
 import * as ts from "typescript";
+import * as path from "path"; // <-- Add this import
 
 var _ = require('lodash-contrib');
 const vm = require('node:vm');
@@ -33,12 +34,12 @@ const PROBLEM_ID: string = dailyProblems.daily;
 describe("TestMain===" + PROBLEM_ID, () => {
     dotenv.config();
     let problemFolder: string = (process.env.PROBLEM_FOLDER && process.env.PROBLEM_FOLDER.length > 0) ? process.env.PROBLEM_FOLDER : "problems";
-    let testCasePath: string = `${problemFolder}/${problemFolder}_${PROBLEM_ID}/testcase`;
-    let solPath: string = `${problemFolder}/${problemFolder}_${PROBLEM_ID}/solution.ts`;
+    let testCasePath: string = path.join(problemFolder, `${problemFolder}_${PROBLEM_ID}`, 'testcase');
+    let solPath: string = path.join(problemFolder, `${problemFolder}_${PROBLEM_ID}`, 'solution.ts');
     if (!fs.existsSync(testCasePath)) {
         console.log(`Problem in ${problemFolder} not found, try premiums...`);
-        testCasePath = `premiums/premiums_${PROBLEM_ID}/testcase`
-        solPath = `premiums/premiums_${PROBLEM_ID}/solution.ts`;
+        testCasePath = path.join('premiums', `premiums_${PROBLEM_ID}`, 'testcase');
+        solPath = path.join('premiums', `premiums_${PROBLEM_ID}`, 'solution.ts');
     }
     const testcaseFileContent: string = fs.readFileSync(testCasePath, "utf-8");
     const splits: string[] = testcaseFileContent.split("\n");
