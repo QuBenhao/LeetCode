@@ -1,5 +1,41 @@
 # CHANGELOG
 
+## v10.1.2 (2025-06-17)
+
+### Fix
+
+* fix: maven problem folder and bazel plans
+
+should be PROBLEM_FOLDER. bazel should handle empty plans ([`a28bd3a`](https://github.com/QuBenhao/LeetCode/commit/a28bd3a91edd062b5a8da421e6dc1a6d50a60d84))
+
+* fix: handle old python
+
+submit old python code with test_input not having =None ([`2d593ea`](https://github.com/QuBenhao/LeetCode/commit/2d593ea0cc25abdbcbcf9076daf2545283db48fd))
+
+* fix: use path.join for file paths in tests
+
+ts path remove &#39;/&#39; ([`9ceb2ea`](https://github.com/QuBenhao/LeetCode/commit/9ceb2ea3b152715da42246ae09becf3ac98d054e))
+
+### Test
+
+* test: 813 solution
+
+py ([`dffb5c8`](https://github.com/QuBenhao/LeetCode/commit/dffb5c8cf67d38afd67bcf098e102198a0f7fec7))
+
+* test: 808 solution
+
+py, c++, java, go ([`ad89ad7`](https://github.com/QuBenhao/LeetCode/commit/ad89ad7d0a4db892f0b4654c58c9f1fd6cab1139))
+
+* test: add 808, 813
+
+add py, c++, go, java problems ([`d85887a`](https://github.com/QuBenhao/LeetCode/commit/d85887a153259e333279d3ea51df803845590afb))
+
+* test: 3405 solution
+
+py, c++, go, java ([`15f6fe5`](https://github.com/QuBenhao/LeetCode/commit/15f6fe5d69a20bb8ced0c28068c8e6df7f9724bf))
+
+* test: [20250617] Add (3405) ([`1c381e6`](https://github.com/QuBenhao/LeetCode/commit/1c381e61bb0180b7c31bfc6568d13e8273bfd8e1))
+
 ## v10.1.1 (2025-06-16)
 
 ### Fix
@@ -191,34 +227,6 @@ implement graph cloning and memory management functions ([`340904a`](https://git
 py, c++, go ([`b647870`](https://github.com/QuBenhao/LeetCode/commit/b64787041b5213966c3711e645a71c6ffd75b37c))
 
 ## v10.0.2 (2025-06-12)
-
-### Fix
-
-* fix: bazel cache issue &amp; daily
-
-update daily problem handling and test generation in BUILD and solutions ([`c506b4b`](https://github.com/QuBenhao/LeetCode/commit/c506b4bd60d94ebaf970d1b6d2a54e1ba9cb4ca6))
-
-* fix: update page size limit in input handling
-
-limit ([`28c5869`](https://github.com/QuBenhao/LeetCode/commit/28c58698d48c2e96ad5cbd738ecea406670e5359))
-
-### Test
-
-* test: 2767 solution
-
-py, c++, go, java ([`1be5b70`](https://github.com/QuBenhao/LeetCode/commit/1be5b70ae3ef91da1c6474bfe7b4424931d0021f))
-
-* test: 3423 solution
-
-py, c++, go, java ([`241565b`](https://github.com/QuBenhao/LeetCode/commit/241565b15a08a053fe142256e3fefe4e2f06c765))
-
-* test: [20250612] Add (3423) ([`bda75a0`](https://github.com/QuBenhao/LeetCode/commit/bda75a0003ce232d65e50ebde4a0dd591b8dd4d4))
-
-* test: 792 solution
-
-py ([`5a6f52f`](https://github.com/QuBenhao/LeetCode/commit/5a6f52f536a6d0f85166b6b81cedad7880b0b26b))
-
-## v10.0.1 (2025-06-11)
 
 ### Breaking
 
@@ -1381,6 +1389,14 @@ The code refactors the way TreeNodes are converted to arrays and vice versa in G
 Generate linkedList from int array or the opposite, as well as basic test for linkedList ([`72fde28`](https://github.com/QuBenhao/LeetCode/commit/72fde2896de1d2cac24ed03d5aaac71a7d8dcf55))
 
 ### Fix
+
+* fix: bazel cache issue &amp; daily
+
+update daily problem handling and test generation in BUILD and solutions ([`c506b4b`](https://github.com/QuBenhao/LeetCode/commit/c506b4bd60d94ebaf970d1b6d2a54e1ba9cb4ca6))
+
+* fix: update page size limit in input handling
+
+limit ([`28c5869`](https://github.com/QuBenhao/LeetCode/commit/28c58698d48c2e96ad5cbd738ecea406670e5359))
 
 * fix: get_solution_code
 
@@ -2941,6 +2957,20 @@ query param load from str ([`576737d`](https://github.com/QuBenhao/LeetCode/comm
 go.sum uploaded ([`064618d`](https://github.com/QuBenhao/LeetCode/commit/064618d550530aefd4c12eeb3a8d7d3e328cf9f0))
 
 ### Test
+
+* test: 2767 solution
+
+py, c++, go, java ([`1be5b70`](https://github.com/QuBenhao/LeetCode/commit/1be5b70ae3ef91da1c6474bfe7b4424931d0021f))
+
+* test: 3423 solution
+
+py, c++, go, java ([`241565b`](https://github.com/QuBenhao/LeetCode/commit/241565b15a08a053fe142256e3fefe4e2f06c765))
+
+* test: [20250612] Add (3423) ([`bda75a0`](https://github.com/QuBenhao/LeetCode/commit/bda75a0003ce232d65e50ebde4a0dd591b8dd4d4))
+
+* test: 792 solution
+
+py ([`5a6f52f`](https://github.com/QuBenhao/LeetCode/commit/5a6f52f536a6d0f85166b6b81cedad7880b0b26b))
 
 * test: 792 solution
 
