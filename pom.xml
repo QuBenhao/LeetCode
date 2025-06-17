@@ -100,10 +100,14 @@
                                 def baseDir = "problems"
                                 if (envFile.exists()) {
                                     envFile.eachLine { line ->
-                                        if (line.startsWith("PROBLEMS_FOLDER=")) {
+                                        if (line.startsWith("PROBLEM_FOLDER=")) {
                                             baseDir = line.split("=")[1].trim()
+                                            baseDir = baseDir.replaceAll('"', '')
                                         }
                                     }
+                                    println "Using base directory from .env file: ${baseDir}"
+                                } else {
+                                    println "Error: ${envFile.absolutePath} not found, using default base directory: ${baseDir}"
                                 }
 
                                 // 2. 读取config.json
@@ -116,13 +120,18 @@
                                 // 3. 构建源目录列表
                                 def sources = [] as Set
                                 sources.add(Paths.get(project.basedir.toString(), baseDir, "${baseDir}_${config.daily}").toFile().absolutePath)
-                                for (int i = 0; i < config.plans.size(); i += 2) {
-                                    def problem = config.plans[i]
-                                    def folder = config.plans[i + 1]
-                                    sources.add(Paths.get(project.basedir.toString(), folder, "${folder}_${problem}").toFile().absolutePath)
+                                // config.plans might be null or empty, handle it gracefully
+                                if (config.plans == null || config.plans.isEmpty()) {
+                                    println "Warning: No plans found in config, using only daily source."
+                                } else {
+                                    for (int i = 0; i < config.plans.size(); i += 2) {
+                                        def problem = config.plans[i]
+                                        def folder = config.plans[i + 1]
+                                        sources.add(Paths.get(project.basedir.toString(), folder, "${folder}_${problem}").toFile().absolutePath)
+                                    }
                                 }
 
-                                println "==> 添加动态源目录:"
+                                println "==> Add dynamic source roots:"
                                 sources.each { println "  - $it" }
 
                                 // 4. 设置Maven属性
