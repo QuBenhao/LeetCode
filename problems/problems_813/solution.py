@@ -13,11 +13,13 @@ class Solution(solution.Solution):
         prefix_sum = list(accumulate(nums, initial=0))
 
         @cache
-        def dfs(l: int, r: int, remain: int) -> float:
+        def dfs(r: int, remain: int) -> float:
             if remain == 1:
-                return (prefix_sum[r] - prefix_sum[l - 1]) / (r - l + 1)
+                return (prefix_sum[r] - prefix_sum[0]) / r
             ans = -inf
-            for i in range(l, r + 2 - remain): # r - (i + 1) + 1 >= remain - 1  ==> i <= r + 1 - remain
-                ans = max(ans, (prefix_sum[i] - prefix_sum[l - 1]) / (i - l + 1) + dfs(i + 1, r, remain - 1))
+            for i in range(remain - 1, r):
+                # [i, r) is the last segment
+                ans = max(ans, (prefix_sum[r] - prefix_sum[i]) / (r - i) + dfs(i, remain - 1))
             return ans
-        return dfs(1, len(nums), k)
+
+        return dfs(len(nums), k)
