@@ -7,7 +7,16 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int partitionArray(int[] nums, int k) {
-        
+        Arrays.sort(nums);
+        int cur = nums[0];
+        int ans = 1;
+        for (int num: nums) {
+            if (num - cur > k) {
+                cur = num;
+                ans++;
+            }
+        }
+        return ans;
     }
 
     @Override
