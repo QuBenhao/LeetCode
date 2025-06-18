@@ -7,5 +7,11 @@ class Solution(solution.Solution):
         return self.partitionArray(*test_input)
 
     def partitionArray(self, nums: List[int], k: int) -> int:
-        pass
-
+        nums.sort()
+        ans = 1
+        cur = nums[0]
+        for num in nums:
+            if num - cur > k:
+                ans += 1
+                cur = num
+        return ans
