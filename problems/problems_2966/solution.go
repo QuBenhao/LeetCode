@@ -3,11 +3,19 @@ package problem2966
 import (
 	"encoding/json"
 	"log"
+	"sort"
 	"strings"
 )
 
-func divideArray(nums []int, k int) [][]int {
-    
+func divideArray(nums []int, k int) (ans [][]int) {
+	sort.Ints(nums)
+	for i := 0; i < len(nums); i += 3 {
+		if nums[i+2]-nums[i] > k {
+			return [][]int{}
+		}
+		ans = append(ans, nums[i:i+3])
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
