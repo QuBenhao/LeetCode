@@ -18,7 +18,8 @@ using json = nlohmann::json;
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        ListNode* dummy = new ListNode(), *node = dummy;
+        ListNode dummy = ListNode();
+		ListNode *node = &dummy;
         while (list1 != nullptr or list2 != nullptr) {
             if (list2 != nullptr && (list1 == nullptr || list1->val > list2->val)) {
                 node->next = new ListNode(list2->val);
@@ -29,25 +30,31 @@ public:
             }
             node = node->next;
         }
-        return dummy->next;
+		ListNode *res = dummy.next;
+		dummy.next = nullptr; // Disconnect the dummy node
+        return res;
     }
 };
 
-json leetcode::qubh::Solve(string input)
-{
+json leetcode::qubh::Solve(string input_json_values) {
 	vector<string> inputArray;
-	size_t pos = input.find('\n');
+	size_t pos = input_json_values.find('\n');
 	while (pos != string::npos) {
-		inputArray.push_back(input.substr(0, pos));
-		input = input.substr(pos + 1);
-		pos = input.find('\n');
+		inputArray.push_back(input_json_values.substr(0, pos));
+		input_json_values = input_json_values.substr(pos + 1);
+		pos = input_json_values.find('\n');
 	}
-	inputArray.push_back(input);
+	inputArray.push_back(input_json_values);
 
 	Solution solution;
 	std::vector<int> list1_array = json::parse(inputArray.at(0));
 	ListNode *list1 = IntArrayToListNode(list1_array);
 	std::vector<int> list2_array = json::parse(inputArray.at(1));
 	ListNode *list2 = IntArrayToListNode(list2_array);
-	return ListNodeToIntArray(solution.mergeTwoLists(list1, list2));
+	ListNode *res_ptr = solution.mergeTwoLists(list1, list2);
+	json final_ans = ListNodeToIntArray(res_ptr);
+	delete list1;
+	delete list2;
+	delete res_ptr;
+	return final_ans;
 }
