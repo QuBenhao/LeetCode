@@ -44,18 +44,22 @@ public:
 };
 
 json leetcode::qubh::Solve(string input_json_values) {
-  vector<string> inputArray;
-  size_t pos = input_json_values.find('\n');
-  while (pos != string::npos) {
-    inputArray.push_back(input_json_values.substr(0, pos));
-    input_json_values = input_json_values.substr(pos + 1);
-    pos = input_json_values.find('\n');
-  }
-  inputArray.push_back(input_json_values);
+	vector<string> inputArray;
+	size_t pos = input_json_values.find('\n');
+	while (pos != string::npos) {
+		inputArray.push_back(input_json_values.substr(0, pos));
+		input_json_values = input_json_values.substr(pos + 1);
+		pos = input_json_values.find('\n');
+	}
+	inputArray.push_back(input_json_values);
 
-  Solution solution;
-  std::vector<int> head_array = json::parse(inputArray.at(0));
-  ListNode *head = IntArrayToListNode(head_array);
-  int k = json::parse(inputArray.at(1));
-  return ListNodeToIntArray(solution.reverseKGroup(head, k));
+	Solution solution;
+	std::vector<int> head_array = json::parse(inputArray.at(0));
+	ListNode *head = IntArrayToListNode(head_array);
+	int k = json::parse(inputArray.at(1));
+	ListNode *res_ptr = solution.reverseKGroup(head, k);
+	json final_ans = ListNodeToIntArray(res_ptr);
+	// delete head;
+	delete res_ptr;
+	return final_ans;
 }

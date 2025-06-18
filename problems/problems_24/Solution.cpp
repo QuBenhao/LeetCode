@@ -18,8 +18,8 @@ using json = nlohmann::json;
 class Solution {
 public:
     ListNode* swapPairs(ListNode* head) {
-		ListNode* dummy = new ListNode(0, head);
-		ListNode* pre = dummy, *cur = head;
+		ListNode dummy = ListNode(0, head);
+		ListNode* pre = &dummy, *cur = head;
 		while (cur != nullptr && cur->next != nullptr) {
 			ListNode* next = cur->next;
 			pre->next = next;
@@ -28,7 +28,9 @@ public:
 			pre = cur;
 			cur = cur->next;
 		}
-		return dummy->next;
+		cur = dummy.next;
+		dummy.next = nullptr; // Disconnect the dummy node
+		return cur; // Return the new head of the list
     }
 };
 
@@ -45,5 +47,9 @@ json leetcode::qubh::Solve(string input_json_values) {
 	Solution solution;
 	std::vector<int> head_array = json::parse(inputArray.at(0));
 	ListNode *head = IntArrayToListNode(head_array);
-	return ListNodeToIntArray(solution.swapPairs(head));
+	ListNode *res_ptr = solution.swapPairs(head);
+	json final_ans = ListNodeToIntArray(res_ptr);
+	// delete head;
+	delete res_ptr;
+	return final_ans;
 }
