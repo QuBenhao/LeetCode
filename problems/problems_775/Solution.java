@@ -8,7 +8,7 @@ import qubhjava.BaseSolution;
 public class Solution extends BaseSolution {
     public boolean isIdealPermutation(int[] nums) {
         int n = nums.length;
-        for (int i = 0; i < nums.length; i++) {
+        for (int i = 0; i < n; i++) {
             // Check if the absolute difference between the current index and the value at that index is greater than 1
             if (Math.abs(i - nums[i]) > 1) {
                 return false; // If it is, then it's not an ideal permutation
