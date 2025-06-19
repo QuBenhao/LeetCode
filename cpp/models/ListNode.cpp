@@ -17,7 +17,7 @@ ListNode *IntArrayToListNode(const std::vector<int> &arr) {
 }
 
 std::vector<int> ListNodeToIntArray(ListNode *head) {
-    auto arr = std::vector<int>();
+    std::vector<int> arr;
     while (head != nullptr) {
         arr.push_back(head->val);
         head = head->next;
@@ -25,7 +25,7 @@ std::vector<int> ListNodeToIntArray(ListNode *head) {
     return arr;
 }
 
-ListNode *IntArrayToListNodeCycle(std::vector<int> &arr, int pos) {
+ListNode *IntArrayToListNodeCycle(const std::vector<int> &arr, int pos) {
     ListNode dummy = ListNode();
     ListNode *p = &dummy;
     ListNode *cycle = nullptr;
@@ -43,7 +43,7 @@ ListNode *IntArrayToListNodeCycle(std::vector<int> &arr, int pos) {
 }
 
 std::tuple<ListNode *, ListNode *>
-IntArrayToIntersectionListNode(int iv, std::vector<int> &arr1, std::vector<int> &arr2, int idx_a, int idx_b) {
+IntArrayToIntersectionListNode(int iv, const std::vector<int> &arr1, const std::vector<int> &arr2, int idx_a, int idx_b) {
     auto headA = IntArrayToListNode(arr1);
     if (iv == 0 || idx_a == static_cast<int>(arr1.size()) || idx_b == static_cast<int>(arr2.size())) {
         return {headA, IntArrayToListNode(arr2)};

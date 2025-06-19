@@ -34,7 +34,7 @@ vector<TreeNode *> JsonArrayToTreeNodeWithTargets(json arr, vector<int> targets)
     if (arr.empty()) {
         return {targets.size() + 1, nullptr};
     }
-    vector<TreeNode *> ans = vector<TreeNode *>(targets.size() + 1);
+    vector<TreeNode *> ans{targets.size() + 1};
     auto root = new TreeNode(arr[0]);
     int isLeft = true;
     std::queue<TreeNode *> q;
@@ -79,7 +79,7 @@ std::vector<TreeNode*> JsonArrayToTreeNodeArray(json arr) {
     if (arr.empty()) {
         return {};
     }
-    auto ans = std::vector<TreeNode*>(arr.size(), nullptr);
+    std::vector<TreeNode*> ans{arr.size(), nullptr};
     for (auto i = 0; i < static_cast<int>(arr.size()); i++) {
         ans[i] = JsonArrayToTreeNode(arr[i]);
     }
