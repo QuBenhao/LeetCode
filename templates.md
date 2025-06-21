@@ -2119,8 +2119,7 @@ class DynamicSegmentTree:
             return node.val
         self._push_down(node, l, r)
         mid = (l + r) // 2
-        return self._query(node.left, l, mid, ql, qr) +
-            self._query(node.right, mid + 1, r, ql, qr)
+        return self._query(node.left, l, mid, ql, qr) + self._query(node.right, mid + 1, r, ql, qr)
 
     def query_range(self, l, r):
         """查询区间 [l, r] 的和"""
@@ -2293,8 +2292,7 @@ class DynamicSegmentTree:
         self._push_down(node, l, r)
         mid = (l + r) // 2
         # 聚合子查询结果（根据场景修改合并逻辑）
-        return self._query(node.left, l, mid, ql, qr) +
-            self._query(node.right, mid + 1, r, ql, qr)
+        return self._query(node.left, l, mid, ql, qr) + self._query(node.right, mid + 1, r, ql, qr)
 
     def query_range(self, l, r):
         return self._query(self.root, self.start, self.end, l, r)
@@ -2387,8 +2385,7 @@ class SumSegmentTree:
             return node.val
         self._push_down(node, l, r)
         mid = (l + r) // 2
-        return self._query(node.left, l, mid, ql, qr) +
-            self._query(node.right, mid + 1, r, ql, qr)
+        return self._query(node.left, l, mid, ql, qr) + self._query(node.right, mid + 1, r, ql, qr)
 
     def query_range(self, l, r):
         return self._query(self.root, self.start, self.end, l, r)
