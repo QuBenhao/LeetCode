@@ -53,7 +53,7 @@ Language: Cpp
 #   LS_Cpp03 (in configuration: Cpp03) Use C++03-compatible syntax.
 #   LS_Cpp11 (in configuration: Cpp11) Use features of C++11 (e.g. A<A<int>> instead of A<A<int> >).
 #   LS_Auto (in configuration: Auto) Automatic detection based on the input.
-Standard: Cpp20
+Standard: Cpp23
 
 # Pointer and reference alignment style. Possible values: Left, Right, Middle.
 PointerAlignment: Left
