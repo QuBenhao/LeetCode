@@ -1,17 +1,19 @@
-//go:build ignore
+// go:build ignore
 #include "cpp/common/Solution.h"
 
 using namespace std;
 using json = nlohmann::json;
 
-template <typename ForwardIters1, typename ForwardIters2>
+template <typename ForwardIters1, typename ForwardIters2,
+          typename Compare = std::equal_to<>  // 默认使用标准相等比较
+          >
 bool areEqual(ForwardIters1 begin1, ForwardIters1 end1, ForwardIters2 begin2,
-              ForwardIters2 end2) {
+              ForwardIters2 end2, Compare comp = Compare()) {
   auto it1 = begin1, it2 = begin2;
   auto inner_it1 = it1->begin(), inner_it2 = it2->begin();
   while (it1 != end1 && it2 != end2) {
     while (inner_it1 != it1->end() && inner_it2 != it2->end()) {
-      if (*inner_it1 != *inner_it2) {
+      if (!comp(*inner_it1, *inner_it2)) {
         return false;
       }
       ++inner_it1;
