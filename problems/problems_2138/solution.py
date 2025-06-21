@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.divideString(*test_input)
 
     def divideString(self, s: str, k: int, fill: str) -> List[str]:
-        pass
-
+        return [s[i:i + k] if i + k <= n else s[i:i + k] + fill * (i + k - n) for i in range(0, n, k)] if (n := len(s)) else []

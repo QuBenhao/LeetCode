@@ -6,8 +6,16 @@ import (
 	"strings"
 )
 
-func divideString(s string, k int, fill byte) []string {
-    
+func divideString(s string, k int, fill byte) (ans []string) {
+	n := len(s)
+	for i := 0; i < n; i += k {
+		if i+k <= n {
+			ans = append(ans, s[i:i+k])
+		} else {
+			ans = append(ans, s[i:]+strings.Repeat(string(fill), i+k-n))
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {

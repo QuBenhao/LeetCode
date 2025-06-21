@@ -7,7 +7,16 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public String[] divideString(String s, int k, char fill) {
-        
+        int n = s.length();
+        String[] result = new String[(n + k - 1) / k];
+        for (int i = 0; i < n; i += k) {
+            if (i + k <= n) {
+                result[i / k] = s.substring(i, i + k);
+            } else {
+                result[i / k] = s.substring(i) + String.valueOf(fill).repeat(i + k - n);
+            }
+        }
+        return result;
     }
 
     @Override
