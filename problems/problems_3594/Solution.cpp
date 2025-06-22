@@ -12,7 +12,17 @@ public:
       int total_mask = 1 << n;
 			int init_mask = total_mask - 1;
 			vector<vector<int>> graph(total_mask);
-			// for (int i = 1; )
+			for (int i = 1; i < total_mask; ++i) {
+				vector<int> bits;
+				int bit_count = 0;
+				for (int j = 0; j < n; ++j) {
+					if (i & (1 << j)) {
+						bits.push_back(j);
+						++bit_count;
+					}
+				}
+				
+			}
 			return -1.0;
     }
 };

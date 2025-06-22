@@ -15,9 +15,9 @@ public:
       graph[v].push_back(u);
     }
 
-    auto dfs = [&graph](this auto &&dfs, int node, int parent) {
-      int cur_sum = 0, cur_cost = 0;
-      int max_count = 0, other_count = 0;
+    auto dfs = [&graph, &cost](this auto &&dfs, int node, int parent) -> pair<int64_t, int> {
+      int64_t cur_sum = 0;
+      int cur_cost = 0, max_count = 0, other_count = 0;
       for (auto child : graph[node]) {
         if (child == parent)
           continue;
@@ -33,6 +33,7 @@ public:
           ++other_count;
         }
       }
+      cur_sum += cost[node];
       cur_cost += other_count;
       return make_pair(cur_sum, cur_cost);
     };
