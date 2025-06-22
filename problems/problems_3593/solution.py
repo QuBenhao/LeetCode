@@ -1,7 +1,6 @@
-from collections import defaultdict
+from typing import *
 
 import solution
-from typing import *
 
 
 class Solution(solution.Solution):
