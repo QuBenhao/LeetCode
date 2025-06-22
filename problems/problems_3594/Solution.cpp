@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <vector>
 
 
 using namespace std;
@@ -8,7 +9,11 @@ using json = nlohmann::json;
 class Solution {
 public:
     double minTime(int n, int k, int m, vector<int>& time, vector<double>& mul) {
-        
+      int total_mask = 1 << n;
+			int init_mask = total_mask - 1;
+			vector<vector<int>> graph(total_mask);
+			// for (int i = 1; )
+			return -1.0;
     }
 };
 
