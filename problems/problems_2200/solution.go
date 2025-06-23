@@ -6,8 +6,24 @@ import (
 	"strings"
 )
 
-func findKDistantIndices(nums []int, key int, k int) []int {
-    
+func findKDistantIndices(nums []int, key int, k int) (ans []int) {
+	last := -1
+	n := len(nums)
+	for i, num := range nums {
+		if num != key {
+			continue
+		}
+		last = max(last+1, i-k)
+		end := min(i+k, n-1)
+		for j := last; j <= end; j++ {
+			ans = append(ans, j)
+		}
+		last = end
+		if last >= n-1 {
+			break
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
