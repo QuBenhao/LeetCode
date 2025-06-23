@@ -1,48 +1,34 @@
 # 1704. Determine if String Halves Are Alike [Rating: 1207.72]
 
-You are given a string `s` of even length. Split this string into two halves of equal lengths, and let `a` be the first half and `b` be the second half.
+<p>You are given a string <code>s</code> of even length. Split this string into two halves of equal lengths, and let <code>a</code> be the first half and <code>b</code> be the second half.</p>
 
-Two strings are **alike** if they have the same number of vowels (`'a'`, `'e'`, `'i'`, `'o'`, `'u'`, `'A'`, `'E'`, `'I'`, `'O'`, `'U'`). Notice that `s` contains uppercase and lowercase letters.
+<p>Two strings are <strong>alike</strong> if they have the same number of vowels (<code>&#39;a&#39;</code>, <code>&#39;e&#39;</code>, <code>&#39;i&#39;</code>, <code>&#39;o&#39;</code>, <code>&#39;u&#39;</code>, <code>&#39;A&#39;</code>, <code>&#39;E&#39;</code>, <code>&#39;I&#39;</code>, <code>&#39;O&#39;</code>, <code>&#39;U&#39;</code>). Notice that <code>s</code> contains uppercase and lowercase letters.</p>
 
-Return `true` *if* `a` *and* `b` *are **alike***. Otherwise, return `false`.
+<p>Return <code>true</code><em> if </em><code>a</code><em> and </em><code>b</code><em> are <strong>alike</strong></em>. Otherwise, return <code>false</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> s = &quot;book&quot;
+<strong>Output:</strong> true
+<strong>Explanation:</strong> a = &quot;b<u>o</u>&quot; and b = &quot;<u>o</u>k&quot;. a has 1 vowel and b has 1 vowel. Therefore, they are alike.
+</pre>
 
-```
-Input: s = "book"
-Output: true
-Explanation: a = "bo" and b = "ok". a has 1 vowel and b has 1 vowel. Therefore, they are alike.
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
-
-```
-Input: s = "textbook"
-Output: false
-Explanation: a = "text" and b = "book". a has 1 vowel whereas b has 2. Therefore, they are not alike.
+<pre>
+<strong>Input:</strong> s = &quot;textbook&quot;
+<strong>Output:</strong> false
+<strong>Explanation:</strong> a = &quot;t<u>e</u>xt&quot; and b = &quot;b<u>oo</u>k&quot;. a has 1 vowel whereas b has 2. Therefore, they are not alike.
 Notice that the vowel o is counted twice.
-```
+</pre>
 
-**Example 3:**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-```
-Input: s = "MerryChristmas"
-Output: false
-```
-
-**Example 4:**
-
-```
-Input: s = "AbCdEfGh"
-Output: true
-```
-
- 
-
-**Constraints:**
-
-- `2 <= s.length <= 1000`
-- `s.length` is even.
-- `s` consists of **uppercase and lowercase** letters.
+<ul>
+	<li><code>2 &lt;= s.length &lt;= 1000</code></li>
+	<li><code>s.length</code> is even.</li>
+	<li><code>s</code> consists of <strong>uppercase and lowercase</strong> letters.</li>
+</ul>
