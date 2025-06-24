@@ -29,14 +29,16 @@ FetchContent_MakeAvailable(googletest)
 # 启用测试
 enable_testing()
 
+configure_file(${CMAKE_SOURCE_DIR}/.env ${CMAKE_BINARY_DIR}/.env COPYONLY)
+file(READ "${CMAKE_BINARY_DIR}/.env" ENV_CONTENT)
 # 读取问题配置
-file(READ "${CMAKE_SOURCE_DIR}/.env" ENV_CONTENT)
 string(REGEX MATCH "PROBLEM_FOLDER=\"([^\"]+)\"" _ ${ENV_CONTENT})
 set(PROBLEM_FOLDER "${CMAKE_MATCH_1}")
 
 # 读取每日问题JSON
 set(DAILY_JSON "${CMAKE_SOURCE_DIR}/daily-${PROBLEM_FOLDER}.json")
-file(READ "${DAILY_JSON}" DAILY_JSON_CONTENT)
+configure_file(${DAILY_JSON} "${CMAKE_BINARY_DIR}/daily-${PROBLEM_FOLDER}.json" COPYONLY)
+file(READ "${CMAKE_BINARY_DIR}/daily-${PROBLEM_FOLDER}.json" DAILY_JSON_CONTENT)
 
 # 解析JSON内容
 # 提取daily问题ID
@@ -67,17 +69,31 @@ target_link_libraries(common_solution INTERFACE
         nlohmann_json::nlohmann_json
 )
 
+file(GLOB MODELS_SRC
+        "${CMAKE_SOURCE_DIR}/cpp/models/*.cpp"
+        "${CMAKE_SOURCE_DIR}/cpp/models/*.h"
+)
+add_library(models STATIC
+        ${MODELS_SRC}
+)
+target_include_directories(models PUBLIC
+        ${CMAKE_SOURCE_DIR}/cpp/models
+)
+target_link_libraries(models PUBLIC
+        nlohmann_json::nlohmann_json
+)
+
+
 add_definitions(-DBUILD_CMAKE=1)
 
 # 1. 添加每日问题
 if(DAILY_ID AND NOT "${DAILY_ID}" STREQUAL "")
     # 清理ID中的特殊字符
     string(REGEX REPLACE "[^a-zA-Z0-9]" "_" CLEAN_ID ${DAILY_ID})
-    set(TARGET_NAME "daily_${CLEAN_ID}")
+    set(TARGET_NAME "daily")
 
     set(SOLUTION_SRC "${CMAKE_SOURCE_DIR}/${PROBLEM_FOLDER}/${PROBLEM_FOLDER}_${DAILY_ID}/Solution.cpp")
-    set(TESTCASE_DIR "${CMAKE_SOURCE_DIR}/${PROBLEM_FOLDER}/${PROBLEM_FOLDER}_${DAILY_ID}/testcase")
-    set(TESTCASE_FILE "${TESTCASE_DIR}/testcase")  # 假设测试用例文件名为 "testcase"
+    set(TESTCASE_FILE "${CMAKE_SOURCE_DIR}/${PROBLEM_FOLDER}/${PROBLEM_FOLDER}_${DAILY_ID}/testcase")
 
     if(EXISTS ${SOLUTION_SRC})
         # 创建可执行文件
@@ -90,13 +106,14 @@ if(DAILY_ID AND NOT "${DAILY_ID}" STREQUAL "")
         target_link_libraries(${TARGET_NAME}
                 PRIVATE
                 common_solution
+                models
                 GTest::gtest_main
                 GTest::gmock  # 添加GMock支持
         )
 
         # 添加测试目标
         add_test(NAME ${TARGET_NAME}
-                COMMAND ${TARGET_NAME} ${TESTCASE_FILE} --gtest_color=yes
+                COMMAND ${TARGET_NAME} ${TESTCASE_FILE} --gtest_color=yes -std=c++23 -O2 -gline-tables-only -fsanitize=address -stdlib=libstdc++
         )
 
         # 设置测试属性
@@ -133,8 +150,7 @@ while(INDEX LESS PLANS_LENGTH)
     set(TARGET_NAME "plan_${FOLDER}_${CLEAN_ID}")
 
     set(SOLUTION_SRC "${CMAKE_SOURCE_DIR}/${FOLDER}/${FOLDER}_${QID}/Solution.cpp")
-    set(TESTCASE_DIR "${CMAKE_SOURCE_DIR}/${FOLDER}/${FOLDER}_${QID}/testcase")
-    set(TESTCASE_FILE "${TESTCASE_DIR}/testcase")  # 假设测试用例文件名为 "testcase"
+    set(TESTCASE_FILE "${CMAKE_SOURCE_DIR}/${FOLDER}/${FOLDER}_${QID}/testcase")
 
     if(EXISTS ${SOLUTION_SRC})
         # 创建可执行文件
@@ -147,6 +163,7 @@ while(INDEX LESS PLANS_LENGTH)
         target_link_libraries(${TARGET_NAME}
                 PRIVATE
                 common_solution
+                models
                 GTest::gtest_main
                 GTest::gmock  # 添加GMock支持
         )
