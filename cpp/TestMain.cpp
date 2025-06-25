@@ -10,7 +10,11 @@
 
 #include "TestMain.h"
 #include "cpp/common/Solution.h"
+#ifndef BUILD_CMAKE
 #include "tools/cpp/runfiles/runfiles.h"
+#else
+#include <cstdlib> // 用于 getenv
+#endif
 
 using std::cerr;
 using std::cout;
@@ -22,12 +26,15 @@ using std::string;
 using std::stringstream;
 using std::vector;
 using json = nlohmann::json;
+#ifndef BUILD_CMAKE
 using bazel::tools::cpp::runfiles::Runfiles;
+#endif
 
 namespace LeetCode {
 namespace qubh {
 
 vector<TestCase> LoadTestCases(const string &path) {
+#ifndef BUILD_CMAKE
   string error;
   unique_ptr<Runfiles> runfiles(
       Runfiles::Create("LeetCode Solution Test", &error));
@@ -38,6 +45,9 @@ vector<TestCase> LoadTestCases(const string &path) {
   }
 
   string filePath = runfiles->Rlocation(path);
+#else
+  string filePath = path;
+#endif
   ifstream fileStream(filePath);
   if (!fileStream) {
     throw runtime_error("Could not open file: " + filePath);
@@ -141,15 +151,35 @@ void RegisterMyTests(const vector<TestCase> &values) {
 }  // namespace LeetCode
 
 int main(int argc, char **argv) {
-  try {
-    // Run the tests.
-    vector<LeetCode::qubh::TestCase> testcases =
-        LeetCode::qubh::LoadTestCases(argv[1]);
-    testing::InitGoogleTest(&argc, argv);
-    LeetCode::qubh::RegisterMyTests(testcases);
-    return RUN_ALL_TESTS();
-  } catch (const exception &e) {
-    cerr << e.what() << endl;
-    return 1;
-  }
+    try {
+        // 检查是否提供了测试用例路径
+        string testcasePath;
+        if (argc >= 2) {
+            testcasePath = argv[1];
+        } else {
+            // 尝试从环境变量获取路径
+            const char* env_path = std::getenv("TESTCASE_FILE");
+            if (env_path) {
+                testcasePath = env_path;
+            } else {
+                cerr << "Error: Testcase path not provided and TESTCASE_FILE environment variable not set." << endl;
+                cerr << "Usage: " << argv[0] << " <testcase_path>" << endl;
+                return 1;
+            }
+        }
+
+        cout << "Loading testcases from: " << testcasePath << endl;
+
+        // 加载测试用例
+        vector<LeetCode::qubh::TestCase> testcases =
+                LeetCode::qubh::LoadTestCases(testcasePath);
+
+        // 初始化并运行测试
+        testing::InitGoogleTest(&argc, argv);
+        LeetCode::qubh::RegisterMyTests(testcases);
+        return RUN_ALL_TESTS();
+    } catch (const std::exception &e) {
+        cerr << "Error: " << e.what() << endl;
+        return 1;
+    }
 }
