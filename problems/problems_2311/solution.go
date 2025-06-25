@@ -7,7 +7,15 @@ import (
 )
 
 func longestSubsequence(s string, k int) int {
-    
+	ans := strings.Count(s, "0")
+	n, cur := len(s), 0
+	for i := range min(n, 31) {
+		if s[n-1-i] == '1' && (cur|(1<<i)) <= k {
+			cur |= (1 << i)
+			ans++
+		}
+	}
+	return ans
 }
 
 func Solve(inputJsonValues string) any {

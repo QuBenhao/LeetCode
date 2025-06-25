@@ -7,7 +7,20 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int longestSubsequence(String s, int k) {
-        
+        int ans = 0;
+        int n = s.length(), cur = 0;
+        for (int i = n - 1; i >= 0; --i) {
+            if (s.charAt(i) == '0') {
+                ++ans;
+            } else if (n - 1 - i < 31) {
+                int bit = 1 << (n - 1 - i);
+                if (cur + bit <= k) {
+                    cur += bit;
+                    ++ans;
+                }
+            }
+        }
+        return ans;
     }
 
     @Override
