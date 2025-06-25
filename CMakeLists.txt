@@ -6,15 +6,11 @@ if (APPLE)
     # macOS 上使用 libc++ 而不是已弃用的 libstdc++
     add_compile_options(-stdlib=libc++)
     add_link_options(-stdlib=libc++)
-else ()
-    add_compile_options(-stdlib=libstdc++)
-    add_link_options(-stdlib=libstdc++)
 endif ()
 
 # 启用地址消毒器
 add_compile_options(
         -O2
-        -gline-tables-only
         -fsanitize=address
         -fno-omit-frame-pointer
 )
