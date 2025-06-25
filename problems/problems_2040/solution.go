@@ -4,24 +4,13 @@ import (
 	"encoding/json"
 	"log"
 	"math"
+	"sort"
 	"strings"
 )
 
 func kthSmallestProduct(nums1 []int, nums2 []int, k int64) int64 {
 	m, n := int64(len(nums1)), int64(len(nums2))
-	bisectLeft := func(arr []int, target int) int64 {
-		left, right := int64(0), int64(len(arr))
-		for left < right {
-			mid := left + (right-left)/2
-			if arr[mid] < target {
-				left = mid + 1
-			} else {
-				right = mid
-			}
-		}
-		return left
-	}
-	zero1, zero2 := bisectLeft(nums1, 0), bisectLeft(nums2, 0)
+	zero1, zero2 := int64(sort.SearchInts(nums1, 0)), int64(sort.SearchInts(nums2, 0))
 	left, right := int64(math.MaxInt64), int64(math.MinInt64)
 	for _, v := range []int64{int64(nums1[0]) * int64(nums2[0]), int64(nums1[m-1]) * int64(nums2[n-1]),
 		int64(nums1[0]) * int64(nums2[n-1]), int64(nums1[m-1]) * int64(nums2[0])} {

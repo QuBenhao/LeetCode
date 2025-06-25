@@ -6,8 +6,32 @@ import qubhjava.BaseSolution;
 
 
 public class Solution extends BaseSolution {
+    private boolean check(int n, int index, int maxSum, long x) {
+        long leftSum = 0, rightSum = 0;
+        if (x > index) {
+            leftSum = (x - 1 + x - index) * index / 2;
+        } else {
+            leftSum = (x - 1 + 1) * (x - 1) / 2 + (index - x + 1);
+        }
+        if (x > n - index - 1) {
+            rightSum = (x - 1 + x - (n - index - 1)) * (n - index - 1) / 2;
+        } else {
+            rightSum = (x - 1 + 1) * (x - 1) / 2 + (n - index - 1 - x + 1);
+        }
+        return leftSum + rightSum <= maxSum - x;
+    }
+
     public int maxValue(int n, int index, int maxSum) {
-        
+        int left = 1, right = maxSum - n + 1;
+        while (left < right) {
+            int mid = left + (right - left + 1) / 2;
+            if (check(n, index, maxSum, mid)) {
+                left = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return left;
     }
 
     @Override
