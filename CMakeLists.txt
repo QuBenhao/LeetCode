@@ -1,6 +1,27 @@
 cmake_minimum_required(VERSION 3.14)  # FetchContent需要3.11+
 project(LeetCode)
 
+# 设置全局编译和链接选项
+if (APPLE)
+    # macOS 上使用 libc++ 而不是已弃用的 libstdc++
+    add_compile_options(-stdlib=libc++)
+    add_link_options(-stdlib=libc++)
+else ()
+    add_compile_options(-stdlib=libstdc++)
+    add_link_options(-stdlib=libstdc++)
+endif ()
+
+# 启用地址消毒器
+add_compile_options(
+        -O2
+        -gline-tables-only
+        -fsanitize=address
+        -fno-omit-frame-pointer
+)
+add_link_options(
+        -fsanitize=address
+)
+
 # 设置C++标准
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -52,10 +73,10 @@ set(PLANS_LIST "")
 math(EXPR MAX_INDEX "${PLANS_LENGTH} - 1")
 
 # 使用正确的范围循环
-foreach(INDEX RANGE 0 ${MAX_INDEX})
+foreach (INDEX RANGE 0 ${MAX_INDEX})
     string(JSON ELEMENT GET "${DAILY_JSON_CONTENT}" plans ${INDEX})
     list(APPEND PLANS_LIST "${ELEMENT}")
-endforeach()
+endforeach ()
 
 # 创建测试目标列表
 set(TEST_TARGETS)
@@ -83,11 +104,15 @@ target_link_libraries(models PUBLIC
         nlohmann_json::nlohmann_json
 )
 
-
-add_definitions(-DBUILD_CMAKE=1)
+target_compile_definitions(common_solution INTERFACE
+        -DBUILD_CMAKE=1
+)
+target_compile_definitions(models PUBLIC
+        -DBUILD_CMAKE=1
+)
 
 # 1. 添加每日问题
-if(DAILY_ID AND NOT "${DAILY_ID}" STREQUAL "")
+if (DAILY_ID AND NOT "${DAILY_ID}" STREQUAL "")
     # 清理ID中的特殊字符
     string(REGEX REPLACE "[^a-zA-Z0-9]" "_" CLEAN_ID ${DAILY_ID})
     set(TARGET_NAME "daily")
@@ -95,7 +120,7 @@ if(DAILY_ID AND NOT "${DAILY_ID}" STREQUAL "")
     set(SOLUTION_SRC "${CMAKE_SOURCE_DIR}/${PROBLEM_FOLDER}/${PROBLEM_FOLDER}_${DAILY_ID}/Solution.cpp")
     set(TESTCASE_FILE "${CMAKE_SOURCE_DIR}/${PROBLEM_FOLDER}/${PROBLEM_FOLDER}_${DAILY_ID}/testcase")
 
-    if(EXISTS ${SOLUTION_SRC})
+    if (EXISTS ${SOLUTION_SRC})
         # 创建可执行文件
         add_executable(${TARGET_NAME}
                 ${SOLUTION_SRC}
@@ -113,24 +138,25 @@ if(DAILY_ID AND NOT "${DAILY_ID}" STREQUAL "")
 
         # 添加测试目标
         add_test(NAME ${TARGET_NAME}
-                COMMAND ${TARGET_NAME} ${TESTCASE_FILE} --gtest_color=yes -std=c++23 -O2 -gline-tables-only -fsanitize=address -stdlib=libstdc++
+                COMMAND ${TARGET_NAME} ${TESTCASE_FILE} --gtest_color=yes
         )
 
         # 设置测试属性
         set_tests_properties(${TARGET_NAME} PROPERTIES
                 LABELS "leetcode;daily"
+                TIMEOUT 3
         )
 
         list(APPEND TEST_TARGETS ${TARGET_NAME})
-    else()
+    else ()
         message(WARNING "Daily problem source not found: ${SOLUTION_SRC}")
-    endif()
-endif()
+    endif ()
+endif ()
 
 # 2. 添加计划问题
 set(SEEN_IDS "")  # 跟踪已处理的问题ID避免重复
 set(INDEX 0)
-while(INDEX LESS PLANS_LENGTH)
+while (INDEX LESS PLANS_LENGTH)
     # 获取问题ID
     list(GET PLANS_LIST ${INDEX} QID)
     math(EXPR INDEX "${INDEX} + 1")
@@ -140,9 +166,9 @@ while(INDEX LESS PLANS_LENGTH)
     math(EXPR INDEX "${INDEX} + 1")
 
     # 跳过已处理的问题ID
-    if(QID IN_LIST SEEN_IDS)
+    if (QID IN_LIST SEEN_IDS)
         continue()
-    endif()
+    endif ()
     list(APPEND SEEN_IDS ${QID})
 
     # 清理ID中的特殊字符
@@ -152,7 +178,7 @@ while(INDEX LESS PLANS_LENGTH)
     set(SOLUTION_SRC "${CMAKE_SOURCE_DIR}/${FOLDER}/${FOLDER}_${QID}/Solution.cpp")
     set(TESTCASE_FILE "${CMAKE_SOURCE_DIR}/${FOLDER}/${FOLDER}_${QID}/testcase")
 
-    if(EXISTS ${SOLUTION_SRC})
+    if (EXISTS ${SOLUTION_SRC})
         # 创建可执行文件
         add_executable(${TARGET_NAME}
                 ${SOLUTION_SRC}
@@ -176,13 +202,14 @@ while(INDEX LESS PLANS_LENGTH)
         # 设置测试属性
         set_tests_properties(${TARGET_NAME} PROPERTIES
                 LABELS "leetcode;plan"
+                TIMEOUT 3
         )
 
         list(APPEND TEST_TARGETS ${TARGET_NAME})
-    else()
+    else ()
         message(WARNING "Plan problem source not found: ${SOLUTION_SRC}")
-    endif()
-endwhile()
+    endif ()
+endwhile ()
 
 # 添加汇总目标
 add_custom_target(run_all_tests
