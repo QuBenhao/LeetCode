@@ -7,7 +7,19 @@ import (
 )
 
 func champagneTower(poured int, query_row int, query_glass int) float64 {
-    
+	dp := []float64{float64(poured)}
+	for i := 1; i <= query_row; i++ {
+		next_dp := make([]float64, i+1)
+		for j := 0; j < i; j++ {
+			if dp[j] > 1 {
+				excess := (dp[j] - 1) / 2
+				next_dp[j] += excess
+				next_dp[j+1] += excess
+			}
+		}
+		dp = next_dp
+	}
+	return min(1.0, dp[query_glass])
 }
 
 func Solve(inputJsonValues string) any {
