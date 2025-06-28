@@ -1,0 +1,2 @@
+["\"leet\"\n3\n\"e\"\n1", "\"leetcode\"\n4\n\"e\"\n2", "\"bb\"\n2\n\"b\"\n2", "\"aaabbbcccddd\"\n3\n\"b\"\n2", "\"mmmxmxymmm\"\n8\n\"m\"\n4"]
+["eet", "ecde", "bb", "abb", "mmmmxmmm"]
