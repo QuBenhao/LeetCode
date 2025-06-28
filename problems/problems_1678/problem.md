@@ -1,40 +1,40 @@
 # 1678. Goal Parser Interpretation [Rating: 1221.99]
 
-You own a **Goal Parser** that can interpret a string `command`. The `command` consists of an alphabet of `"G"`, `"()"` and/or `"(al)"` in some order. The Goal Parser will interpret `"G"` as the string `"G"`, `"()"` as the string `"o"`, and `"(al)"` as the string `"al"`. The interpreted strings are then concatenated in the original order.
+<p>You own a <strong>Goal Parser</strong> that can interpret a string <code>command</code>. The <code>command</code> consists of an alphabet of <code>&quot;G&quot;</code>, <code>&quot;()&quot;</code> and/or <code>&quot;(al)&quot;</code> in some order. The Goal Parser will interpret <code>&quot;G&quot;</code> as the string <code>&quot;G&quot;</code>, <code>&quot;()&quot;</code> as the string <code>&quot;o&quot;</code>, and <code>&quot;(al)&quot;</code> as the string <code>&quot;al&quot;</code>. The interpreted strings are then concatenated in the original order.</p>
 
-Given the string `command`, return *the **Goal Parser**'s interpretation of* `command`.
+<p>Given the string <code>command</code>, return <em>the <strong>Goal Parser</strong>&#39;s interpretation of </em><code>command</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> command = &quot;G()(al)&quot;
+<strong>Output:</strong> &quot;Goal&quot;
+<strong>Explanation:</strong>&nbsp;The Goal Parser interprets the command as follows:
+G -&gt; G
+() -&gt; o
+(al) -&gt; al
+The final concatenated result is &quot;Goal&quot;.
+</pre>
 
-```
-Input: command = "G()(al)"
-Output: "Goal"
-Explanation: The Goal Parser interprets the command as follows:
-G -> G
-() -> o
-(al) -> al
-The final concatenated result is "Goal".
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> command = &quot;G()()()()(al)&quot;
+<strong>Output:</strong> &quot;Gooooal&quot;
+</pre>
 
-```
-Input: command = "G()()()()(al)"
-Output: "Gooooal"
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
+<pre>
+<strong>Input:</strong> command = &quot;(al)G(al)()()G&quot;
+<strong>Output:</strong> &quot;alGalooG&quot;
+</pre>
 
-```
-Input: command = "(al)G(al)()()G"
-Output: "alGalooG"
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `1 <= command.length <= 100`
-- `command` consists of `"G"`, `"()"`, and/or `"(al)"` in some order.
+<ul>
+	<li><code>1 &lt;= command.length &lt;= 100</code></li>
+	<li><code>command</code> consists of <code>&quot;G&quot;</code>, <code>&quot;()&quot;</code>, and/or <code>&quot;(al)&quot;</code> in some order.</li>
+</ul>
