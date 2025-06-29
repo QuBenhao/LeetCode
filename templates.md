@@ -1588,12 +1588,14 @@ package main
 type UnionFind struct {
     parent []int
     rank   []int
+	cc int
 }
 
 func NewUnionFind(size int) *UnionFind {
     uf := &UnionFind{
         parent: make([]int, size),
         rank:   make([]int, size),
+		cc: size,
     }
     for i := range uf.parent {
         uf.parent[i] = i
@@ -1627,6 +1629,7 @@ func (uf *UnionFind) Union(x, y int) bool {
             uf.rank[rootY]++
         }
     }
+	uf.cc-- // 合并后集合数减少
     return true
 }
 
