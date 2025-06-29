@@ -1553,6 +1553,7 @@ class UnionFind:
     def __init__(self, size):
         self.parent = list(range(size))
         self.rank = [1] * size
+        self.size = size
 
     def find(self, x):
         while self.parent[x] != x:
@@ -1574,6 +1575,7 @@ class UnionFind:
             self.parent[root_x] = root_y
             if self.rank[root_x] == self.rank[root_y]:
                 self.rank[root_y] += 1
+        self.size -= 1
         return True
 
     def is_connected(self, x, y):
