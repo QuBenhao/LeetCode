@@ -6,8 +6,14 @@ import (
 	"strings"
 )
 
-func possibleStringCount(word string) int {
-    
+func possibleStringCount(word string) (ans int) {
+	ans++
+	for i := range len(word) - 1 {
+		if word[i] == word[i+1] {
+			ans++
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {

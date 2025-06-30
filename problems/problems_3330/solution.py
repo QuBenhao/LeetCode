@@ -1,3 +1,5 @@
+from itertools import pairwise
+
 import solution
 from typing import *
 
@@ -7,5 +9,4 @@ class Solution(solution.Solution):
         return self.possibleStringCount(test_input)
 
     def possibleStringCount(self, word: str) -> int:
-        pass
-
+        return 1 + sum(a == b for a, b in pairwise(word))
