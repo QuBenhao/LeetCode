@@ -16,8 +16,8 @@ class RustWriter(LanguageWriter):
         self.solution_file = "solution.rs"
         self.main_folder = "rust"
         self.test_executor_folder = "test_executor"
-        self.test_file = "tests/test.rs"
-        self.tests_file = "tests/solutions_test.rs"
+        self.test_file = "tests/solutions_test.rs"
+        self.tests_file = "tests/test.rs"
         self.cargo_file = "Cargo.toml"
         self.lang_env_commands = [["rustc", "--version"], ["cargo", "--version"]]
         self.test_commands = [["cargo", "test", "--test", "solution_test"]]
@@ -29,11 +29,8 @@ class RustWriter(LanguageWriter):
         with open(test_file_path, "w", encoding="utf-8") as f:
             lines = content.split("\n")
             for line_idx, line in enumerate(lines):
-                if "const PROBLEM_FOLDER: &str = \"" in line:
-                    f.write(f'const PROBLEM_FOLDER: &str = "{problem_folder}";\n')
-                    continue
-                if "const PROBLEM_ID: &str = \"" in line:
-                    f.write(f'const PROBLEM_ID: &str = "{question_id}";\n')
+                if "const PROBLEMS: [[&str; 2]; 1] = " in line:
+                    f.write(f'const PROBLEMS: [[&str; 2]; 1] = [["{problem_folder}", "{question_id}"]];\n')
                     continue
                 if " as solution;" in line:
                     f.write(f"\tuse solution_{question_id} as solution;\n")
@@ -57,15 +54,13 @@ class RustWriter(LanguageWriter):
 
     def get_test_problem_id(self, root_path, problem_folder: str) -> Optional[str]:
         """Get the problem ID from the test file."""
-        test_file_path = os.path.join(
-            root_path, self.main_folder, self.test_file
-        )
+        test_file_path = os.path.join(root_path, self.main_folder, self.test_executor_folder, self.test_file)
         with open(test_file_path, "r", encoding="utf-8") as f:
             content = f.read()
         lines = content.split("\n")
         for line in lines:
-            if "const PROBLEM_ID: &str = \"" in line and f'"{problem_folder}"' in line:
-                return line.split("\"")[2]
+            if "const PROBLEMS: [[&str; 2]; 1] = " in line and f'"{problem_folder}"' in line:
+                return line.split("\"")[3]
         return None
 
     def write_solution(

@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import subprocess
+from pathlib import Path
 from typing import Tuple, Optional, List
 
 from dotenv import load_dotenv
@@ -62,7 +63,8 @@ class LanguageWriter(abc.ABC):
     
     def get_test_problem_id(self, root_path, problem_folder: str) -> Optional[str]:
         """Get the problem ID from the test file."""
-        with open(f"{root_path}/daily-{problem_folder}.json", "r", encoding="utf-8") as f:
+        data_path = Path(root_path) / f"daily-{problem_folder}.json"
+        with data_path.open("r", encoding="utf-8") as f:
             json_content = json.loads(f.read())
         if "daily" in json_content:
             return json_content["daily"]
