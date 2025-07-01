@@ -2,7 +2,7 @@ import logging
 import os
 import re
 from collections import deque
-from typing import Tuple, List, Dict, Any
+from typing import Tuple, List, Dict, Any, Optional
 
 from python.constants import CARGO_TOML_TEMPLATE_SOLUTION, SOLUTION_TEMPLATE_RUST, \
     SOLUTIONS_TEMPLATE_RUST
@@ -54,6 +54,19 @@ class RustWriter(LanguageWriter):
                              for i, (problem_id, _) in enumerate(problem_ids_folders)]),
                 "\n\t\t\t\t".join([f"{i} => solution{i}::solve," for i in range(len(problem_ids_folders))]),
             ))
+
+    def get_test_problem_id(self, root_path, problem_folder: str) -> Optional[str]:
+        """Get the problem ID from the test file."""
+        test_file_path = os.path.join(
+            root_path, self.main_folder, self.test_file
+        )
+        with open(test_file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        lines = content.split("\n")
+        for line in lines:
+            if "const PROBLEM_ID: &str = \"" in line and f'"{problem_folder}"' in line:
+                return line.split("\"")[2]
+        return None
 
     def write_solution(
             self,

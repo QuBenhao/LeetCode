@@ -1,7 +1,7 @@
 import logging
 import os.path
 from collections import deque
-from typing import Tuple, List
+from typing import Tuple, List, Optional
 
 from python.constants import (
     SOLUTION_TEMPLATE_GOLANG,
@@ -56,6 +56,22 @@ class GolangWriter(LanguageWriter):
                     ),
                 )
             )
+
+    def get_test_problem_id(self, root_path, problem_folder: str) -> Optional[str]:
+        """Get the problem ID from the test file."""
+        test_file_path = os.path.join(
+            root_path, self.main_folder, self.test_file
+        )
+        with open(test_file_path, "r", encoding="utf-8") as f:
+            content = f.read()
+        lines = content.split("\n")
+        for line in lines:
+            if (
+                    'TestEach(t, "' in line
+                    and f'", "{problem_folder}", problem.Solve)' in line
+            ):
+                return line.split('"')[1]
+        return None
 
     def write_solution(
             self,

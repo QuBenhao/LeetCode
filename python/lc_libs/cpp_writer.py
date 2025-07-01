@@ -66,9 +66,10 @@ class CppWriter(LanguageWriter):
         self.main_folder = ""
         self.lang_env_commands = [["bazel", "version"]]
         self.test_commands = [
+            ["bazel", "fetch", "--force", "daily"],
             ["bazel", "test", "--cxxopt=-std=c++23", "--cxxopt=-O2", "--cxxopt=-fsanitize=address",
              "--cxxopt=-D_GLIBCXX_USE_CXX11_ABI=1", "--linkopt=-fsanitize=address",
-             "--test_timeout=10","//cpp:solution_test"]
+             "--test_timeout=10","//:daily_test"]
         ]
 
     def write_solution(

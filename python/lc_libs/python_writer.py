@@ -19,6 +19,7 @@ class Python3Writer(LanguageWriter):
         self.solution_file = "solution.py"
         self.main_folder = "python"
         self.lang_env_commands = [["python", "--version"]]
+        self.test_file = "test.py"
         self.test_commands = [["python", os.path.join(self.main_folder, self.test_file)]]
 
     def write_solution(self, code_template: str, code: str = None, problem_id: str = "",

@@ -153,17 +153,14 @@ class LanguageWriter(abc.ABC):
     ) -> bool:
         exec_res = False
         if self.env_check():
-            test_file_path = os.path.join(
-                root_path, self.main_folder, self.test_file
-            )
-            with open(test_file_path, "r", encoding="utf-8") as f:
-                content = f.read()
+            before = self.get_test_problem_id(root_path, problem_folder)
             try:
-                self.change_test(root_path, problem_folder, problem_id)
+                if before != problem_id:
+                    self.change_test(root_path, problem_folder, problem_id)
                 exec_res = self.execute_code(root_path)
             finally:
-                with open(test_file_path, "w", encoding="utf-8") as f:
-                    f.write(content)
+                if before != problem_id:
+                    self.change_test(root_path, problem_folder, before)
         if not write or exec_res:
             return exec_res
         with open(
