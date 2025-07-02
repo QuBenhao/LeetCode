@@ -25,6 +25,7 @@ class QuestionTest(unittest.TestCase):
             else:
                 self.assertEqual(problem_id, obj.get_test_problem_id(root_path, problem_folder),
                                  f"{language} problem id mismatch: {obj.get_test_problem_id(root_path, problem_folder)}")
+            self.assertTrue(obj.env_check(), "Environment check failed for " + language)
 
 if __name__ == '__main__':
     unittest.main()
