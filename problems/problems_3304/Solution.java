@@ -7,7 +7,12 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public char kthCharacter(int k) {
-        
+        int count = 0;
+        while (k > 1) {
+            k -= 1 << (31 - Integer.numberOfLeadingZeros(k - 1));
+            count++;
+        }
+        return (char) ('a' + count % 26);
     }
 
     @Override
