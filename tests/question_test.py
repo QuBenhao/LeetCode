@@ -4,9 +4,11 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from python.constants import PROBLEM_FOLDER
 from python import lc_libs
+from python.constants import PROBLEM_FOLDER
 from python.utils import get_default_folder
+
+LANGUAGES = ["python3", "cpp", "java", "typescript", "golang", "rust"]
 
 
 class QuestionTest(unittest.TestCase):
@@ -15,7 +17,7 @@ class QuestionTest(unittest.TestCase):
         load_dotenv(root_path / ".env")
         problem_folder = getenv(PROBLEM_FOLDER, get_default_folder())
         problem_id = None
-        for language in ["python3", "cpp", "java", "typescript", "golang", "rust"]:
+        for language in LANGUAGES:
             cls = getattr(lc_libs, f"{language.capitalize()}Writer", None)
             self.assertIsNotNone(cls, f"Language {language} Writer not found")
             obj: lc_libs.LanguageWriter = cls()
