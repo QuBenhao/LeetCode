@@ -1,12 +1,13 @@
 import logging
 import os
 import sys
+from pathlib import Path
 from typing import Optional
 
 from dotenv import load_dotenv
 from pypushdeer import PushDeer
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(Path(__file__).parent.parent.parent.as_posix())
 from python.constants import constant
 
 

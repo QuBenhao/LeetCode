@@ -1,7 +1,7 @@
 import inspect
 import logging
-import os
 import time
+from pathlib import Path
 from typing import Tuple, Optional
 from collections import defaultdict
 from importlib.util import spec_from_file_location, module_from_spec
@@ -20,7 +20,7 @@ class Python3Writer(LanguageWriter):
         self.main_folder = "python"
         self.lang_env_commands = [["python", "--version"]]
         self.test_file = "test.py"
-        self.test_commands = [["python", os.path.join(self.main_folder, self.test_file)]]
+        self.test_commands = [["python", str(Path(self.main_folder) / self.test_file)]]
 
     def write_solution(self, code_template: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:
@@ -60,16 +60,16 @@ class Python3Writer(LanguageWriter):
             logging.error(f"Failed to write [{problem_id}] python3 contest", exc_info=True)
         return None
 
-    def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
+    def get_solution_code(self, root_path: Path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:
             problem_id = self.get_test_problem_id(root_path, problem_folder)
         if not problem_id:
             return "", problem_id
-        file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "solution.py")
-        if not os.path.exists(file_path):
+        file_path = root_path / problem_folder / f"{problem_folder}_{problem_id}" / self.solution_file
+        if not file_path.exists():
             return "", problem_id
         final_codes = []
-        with open(file_path, "r", encoding="utf-8") as f:
+        with file_path.open("r", encoding="utf-8") as f:
             content = f.read()
             skip_solution = "from python.object_libs import " in content and " call_method" in content
             idx = content.find("def solve(self, test_input=None):")
@@ -214,13 +214,13 @@ class Python3Writer(LanguageWriter):
                 rest.append(sp * " " + "pass")
                 rest.append("")
             idx += 1
-        tmp_filename = "tmp-{}.py".format(time.time())
+        tmp_filename = Path("tmp-{}.py".format(time.time()))
         try:
-            with open(tmp_filename, "w", encoding="utf-8") as f:
+            with tmp_filename.open("w", encoding="utf-8") as f:
                 f.writelines("from typing import *\n\n")
                 f.writelines("\n".join(class_defines) + "\n\n")
                 f.writelines("\n".join(rest))
-            cs_map, include_solution = Python3Writer.__get_code_class(tmp_filename)
+            cs_map, include_solution = Python3Writer.__get_code_class(str(tmp_filename))
             if include_solution:
                 for i, line in enumerate(rest):
                     if "class Solution" in line:
@@ -244,8 +244,7 @@ class Python3Writer(LanguageWriter):
                         last_space = len(line) - len(line.lstrip())
             rest = simply
         finally:
-            if os.path.exists(tmp_filename):
-                os.remove(tmp_filename)
+            tmp_filename.unlink(missing_ok=True)
         return cs_map, class_defines, rest
 
     @staticmethod

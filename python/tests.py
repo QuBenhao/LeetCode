@@ -36,18 +36,18 @@ class Test(unittest.TestCase):
             q, folder = plans[i], plans[i + 1]
             with self.subTest(f"Testing problem: {q}", question=q):
                 problem_path = root_path / folder / f"{folder}_{q}"
-                if not os.path.exists(problem_path):
+                if not problem_path.exists():
                     logging.warning("[QUESTION: {}] not found under problem folder: {}".format(q, problem_path))
                     tmp_folder = get_default_folder(paid_only=True)
                     problem_path = root_path / tmp_folder / f"{tmp_folder}_{q}"
                 self.assertTrue(problem_path.exists(), msg="Please set up the problem env first!")
 
-                solution_spec = spec_from_file_location("module.name", f"{problem_path}/solution.py")
+                solution_spec = spec_from_file_location("module.name", str(problem_path / "solution.py"))
                 solution = module_from_spec(solution_spec)
                 solution_spec.loader.exec_module(solution)
                 solution_obj = solution.Solution()
 
-                testcase_spec = spec_from_file_location("module.name", f"{problem_path}/testcase.py")
+                testcase_spec = spec_from_file_location("module.name", str(problem_path / "testcase.py"))
                 testcase = module_from_spec(testcase_spec)
                 testcase_spec.loader.exec_module(testcase)
                 testcase_obj = testcase.Testcase()

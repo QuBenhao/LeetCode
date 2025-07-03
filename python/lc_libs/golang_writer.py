@@ -1,6 +1,6 @@
 import logging
-import os.path
 from collections import deque
+from pathlib import Path
 from typing import Tuple, List, Optional
 
 from python.constants import (
@@ -25,13 +25,13 @@ class GolangWriter(LanguageWriter):
             [
                 "go",
                 "test",
-                str(os.path.join(self.main_folder, self.test_file)),
-                str(os.path.join(self.main_folder, self.basic_package_file)),
+                str(Path(self.main_folder) / self.test_file),
+                str(Path(self.main_folder) / self.basic_package_file),
             ]
         ]
 
-    def change_test(self, root_path, problem_folder: str, question_id: str):
-        with open(os.path.join(root_path, self.main_folder, self.test_file), "w") as f:
+    def change_test(self, root_path: Path, problem_folder: str, question_id: str):
+        with (root_path / self.main_folder / self.test_file).open("w", encoding="utf-8") as f:
             f.write(
                 TESTCASE_TEMPLATE_GOLANG.format(
                     f'problem "leetCode/{problem_folder}/{problem_folder}_{question_id}"',
@@ -40,10 +40,10 @@ class GolangWriter(LanguageWriter):
                 )
             )
 
-    def change_tests(self, root_path, problem_ids_folders: list):
+    def change_tests(self, root_path: Path, problem_ids_folders: list):
         pifs = problem_ids_folders.copy()
         pifs.sort(key=lambda x: f"{x[1]}_{x[0]}")
-        with open(os.path.join(root_path, self.main_folder, self.tests_file), "w") as f:
+        with (root_path / self.main_folder / self.tests_file).open("w", encoding="utf-8") as f:
             f.write(
                 TESTCASE_TEMPLATE_GOLANG.format(
                     "\n\t".join(
@@ -57,12 +57,10 @@ class GolangWriter(LanguageWriter):
                 )
             )
 
-    def get_test_problem_id(self, root_path, problem_folder: str) -> Optional[str]:
+    def get_test_problem_id(self, root_path: Path, problem_folder: str) -> Optional[str]:
         """Get the problem ID from the test file."""
-        test_file_path = os.path.join(
-            root_path, self.main_folder, self.test_file
-        )
-        with open(test_file_path, "r", encoding="utf-8") as f:
+        test_file_path = root_path / self.main_folder / self.test_file
+        with test_file_path.open("r", encoding="utf-8") as f:
             content = f.read()
         lines = content.split("\n")
         for line in lines:
@@ -347,14 +345,10 @@ class GolangWriter(LanguageWriter):
         )
 
     def get_solution_code(
-            self, root_path, problem_folder: str, problem_id: str
+            self, root_path: Path, problem_folder: str, problem_id: str
     ) -> Tuple[str, str]:
         if not problem_id:
-            with open(
-                    os.path.join(root_path, "golang", "solution_test.go"),
-                    "r",
-                    encoding="utf-8",
-            ) as f:
+            with (root_path / self.main_folder / self.test_file).open("r", encoding="utf-8") as f:
                 lines = f.read().split("\n")
                 for line in lines:
                     if (
@@ -365,13 +359,11 @@ class GolangWriter(LanguageWriter):
                         break
         if not problem_id:
             return "", problem_id
-        file_path = os.path.join(
-            root_path, problem_folder, f"{problem_folder}_{problem_id}", "solution.go"
-        )
-        if not os.path.exists(file_path):
+        file_path = root_path / problem_folder / f"{problem_folder}_{problem_id}" / self.solution_file
+        if not file_path.exists():
             return "", problem_id
         final_codes = deque([])
-        with open(file_path, "r", encoding="utf-8") as f:
+        with file_path.open("r", encoding="utf-8") as f:
             lines = f.read().split("\n")
             import_part = False
             for line in lines:

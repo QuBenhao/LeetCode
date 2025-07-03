@@ -1,7 +1,7 @@
 import logging
-import os.path
 from collections import deque, defaultdict
 import re
+from pathlib import Path
 from typing import List, Optional, Tuple
 
 from python.constants import SOLUTION_TEMPLATE_JAVA
@@ -116,16 +116,16 @@ class JavaWriter(LanguageWriter):
             "\n\n" + "\n".join(end_extra) if end_extra else "",
         )
 
-    def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
+    def get_solution_code(self, root_path: Path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:
             problem_id = self.get_test_problem_id(root_path, problem_folder)
         if not problem_id:
             return "", problem_id
-        file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", self.solution_file)
-        if not os.path.exists(file_path):
+        file_path = root_path / problem_folder / f"{problem_folder}_{problem_id}" / self.solution_file
+        if not file_path.exists():
             return "", problem_id
         final_codes = deque([])
-        with open(file_path, 'r', encoding="utf-8") as f:
+        with file_path.open('r', encoding="utf-8") as f:
             content = f.read()
             solution_class_idx = content.find("public class Solution extends BaseSolution {")
             logging.debug("solution_class_idx: %s", solution_class_idx)

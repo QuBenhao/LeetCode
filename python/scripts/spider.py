@@ -1,11 +1,9 @@
 import argparse
-import re
 import json
+import re
 import sys
-import time
 import traceback
 from datetime import datetime, timedelta
-
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -67,12 +65,11 @@ def extract_holidays():
     return year, holidays, workdays
 
 
-def save_holidays_to_json(year, holidays, workdays, file_path):
+def save_holidays_to_json(year, holidays, workdays, file_path: Path):
     # Create the directory if it doesn't exist
-    fp = Path(file_path)
-    fp.parent.mkdir(parents=True, exist_ok=True)
-    if fp.exists():
-        with Path.open(fp, 'r', encoding='utf-8') as f:
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+    if file_path.exists():
+        with file_path.open('r', encoding='utf-8') as f:
             data = json.load(f)
     else:
         data = {}
@@ -82,13 +79,14 @@ def save_holidays_to_json(year, holidays, workdays, file_path):
     }
 
     # Save the holidays to a JSON file
-    with Path.open(file_path, 'w', encoding='utf-8') as f:
+    with file_path.open('w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
 
 
 def holiday_main(args):
     result = extract_holidays()
-    file_path = "../../data/holiday.json"
+    # file_path = "../../data/holiday.json"
+    file_path = Path(__file__).parent.parent / "data" / "holidays.json"
     save_holidays_to_json(*result, file_path)
 
 

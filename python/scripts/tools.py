@@ -5,6 +5,7 @@ import random
 import re
 import subprocess
 import sys
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -56,7 +57,7 @@ def back_fill_ratings(args):
                 f.write("\n".join(lines))
             logging.debug("Rating back filled for CN problem id: %s", problem_id)
 
-    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    root_path = Path(__file__).parent.parent.parent
     try:
         load_dotenv()
     except Exception as _:
@@ -65,10 +66,10 @@ def back_fill_ratings(args):
     logging.info("Processing Problem folder: %s", problem_folder)
     if args.problem_id:
         question_id = format_question_id(args.problem_id)
-        process_each(os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}"), question_id)
+        process_each((root_path / problem_folder / f"{problem_folder}_{question_id}").resolve(), question_id)
         return
 
-    for root, dirs, files in os.walk(str(os.path.join(root_path, problem_folder))):
+    for root, dirs, files in os.walk(str(root_path / problem_folder)):
         if dirs:
             for d in list(dirs):
                 if not d.startswith(f"{problem_folder}_"):
@@ -86,10 +87,10 @@ def lucky_main(languages, problem_folder, category="algorithms"):
         if question.get("paidOnly", False):
             logging.warning("Paid problem: %s", question_id)
             return False
-        dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
-        if not os.path.exists(dir_path):
+        dir_path = root_path / problem_folder / f"{problem_folder}_{question_id}"
+        if not dir_path.exists():
             logging.info("Found: %s", question_id)
-            os.makedirs(dir_path, exist_ok=True)
+            dir_path.mkdir(parents=True, exist_ok=True)
             success_languages = write_question(root_path, dir_path, problem_folder,
                                                question_id, question["title"], question["titleSlug"], langs)
             logging.debug("Success languages: %s", success_languages)
@@ -110,7 +111,7 @@ def lucky_main(languages, problem_folder, category="algorithms"):
         logging.error(f"No question found for number: {number}")
         return 1
     central = min(number, 49)
-    rpath = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    rpath = Path(__file__).parent.parent.parent
     left = right = central
     while left >= 0 or right < len(questions):
         if right < len(questions):
