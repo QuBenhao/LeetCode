@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.kthCharacter(*test_input)
 
     def kthCharacter(self, k: int, operations: List[int]) -> str:
-        pass
-
+        count = 0
+        while k > 1:
+            idx = (k - 1).bit_length() - 1
+            if operations[idx]:
+                count += 1
+            k -= 1 << idx
+        return chr(ord('a') + count % 26)

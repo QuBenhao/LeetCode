@@ -3595,13 +3595,13 @@ func largestPathValue(colors string, edges [][]int) (ans int) {
 ### 取最高位
 
 ```c++
-unsigned int highBit(unsigned int n) {
+int highBit(unsigned int n) {
     n |= n >> 1;
     n |= n >> 2;
     n |= n >> 4;
     n |= n >> 8;
     n |= n >> 16;
-    return (n + 1) >> 1;
+    return 31 - __builtin_clz((n + 1) >> 1);
 }
 ```
 
