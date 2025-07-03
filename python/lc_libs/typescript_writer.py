@@ -1,4 +1,5 @@
 import logging
+import os
 from collections import defaultdict, deque
 from pathlib import Path
 from typing import Optional, Tuple, List
@@ -18,8 +19,9 @@ class TypescriptWriter(LanguageWriter):
         self._NODE_NEXT_PATH = "\"../../typescript/models/node.next\";"
         self._NODE_NEIGHBORS_PATH = "\"../../typescript/models/node.neighbors\";"
         self._NODE_RANDOM_PATH = "\"../../typescript/models/node.random\";"
-        self.lang_env_commands = [["npm", "--version"]]
-        self.test_commands = [["npm", "test", "--alwaysStrict", "--strictBindCallApply",
+        npm_exec = "npm.cmd" if os.name == "nt" else "npm"
+        self.lang_env_commands = [[npm_exec, "--version"]]
+        self.test_commands = [[npm_exec, "test", "--alwaysStrict", "--strictBindCallApply",
                                "--strictFunctionTypes", "--target ES202",
                                str(Path(self.main_folder) / self.test_file)]]
 

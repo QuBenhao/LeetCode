@@ -1,4 +1,5 @@
 import logging
+import os
 from collections import deque, defaultdict
 import re
 from pathlib import Path
@@ -13,8 +14,9 @@ class JavaWriter(LanguageWriter):
         super().__init__()
         self.solution_file = "Solution.java"
         self.main_folder = "qubhjava/test"
-        self.lang_env_commands = [["mvn", "-v"]]
-        self.test_commands = [["mvn", "test", "-Dtest=qubhjava.test.TestMain"]]
+        mvn_exec = "mvn.cmd" if os.name == "nt" else "mvn"
+        self.lang_env_commands = [[mvn_exec, "-v"]]
+        self.test_commands = [[mvn_exec, "test", "-Dtest=qubhjava.test.TestMain"]]
 
     def write_solution(self, code_default: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:

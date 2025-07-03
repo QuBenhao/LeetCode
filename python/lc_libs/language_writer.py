@@ -97,18 +97,19 @@ class LanguageWriter(abc.ABC):
     def env_check(self) -> bool:
         if not self.lang_env_commands:
             return False
+        env = os.environ.copy()  # Inherit shell environment
         for cmd in self.lang_env_commands:
-            env_check = subprocess.run(cmd, capture_output=True, timeout=60)
+            env_check = subprocess.run(cmd, capture_output=True, timeout=60, env=env)
             if env_check.returncode == 0:
                 logging.info(f"[{cmd}] env ok")
-                logging.debug(f"[{cmd}] output: {env_check.stdout.decode('utf-8')}")
+                logging.debug(f"[{cmd}] output: {env_check.stdout.decode('utf-8', errors='replace')}")
             else:
                 logging.warning(
                     "Execute language env [{}]\n"
                     "output: {}, err: {}".format(
                         " ".join(cmd),
-                        env_check.stdout.decode("utf-8"),
-                        env_check.stderr.decode("utf-8"),
+                        env_check.stdout.decode("utf-8", errors="replace"),
+                        env_check.stderr.decode("utf-8", errors="replace"),
                     )
                 )
                 return False
