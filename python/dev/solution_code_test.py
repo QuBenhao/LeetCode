@@ -146,8 +146,9 @@ def test_submit(args):
     else:
         languages = ["python3", "golang", "java", "cpp", "typescript", "rust"]
     cur_path = Path(__file__).parent
-    root_path = cur_path.parent
+    root_path = cur_path.parent.parent
     problem_path = root_path / "problems" / f"problems_{args.problem}"
+    logging.info(problem_path)
     if not problem_path.exists():
         logging.debug(f"Problem not found in problems folder, checking in premiums folder")
         # problem_path = problem_path.replace("problems", "premiums")
