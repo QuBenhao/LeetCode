@@ -4,10 +4,11 @@ import logging
 import os
 import sys
 import traceback
+from pathlib import Path
 
 from dotenv import load_dotenv
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(Path(__file__).parent.parent.parent.as_posix())
 from python import lc_libs as lc_libs
 from python.constants import constant
 from python.utils import get_default_folder, back_question_id, format_question_id, check_cookie_expired
@@ -22,7 +23,7 @@ _LANG_TRANS_MAP = {
 }
 
 
-async def main(root_path, problem_id: str, lang: str, cookie: str,
+async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
                problem_folder: str = None, check_solution: bool = False):
     if check_cookie_expired(cookie):
         logging.warning("LeetCode cookie might have expired; please check!")
@@ -108,8 +109,8 @@ async def main(root_path, problem_id: str, lang: str, cookie: str,
 
 
 if __name__ == '__main__':
-    rp = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    sys.path.insert(0, os.path.join(rp, "python"))
+    rp = Path(__file__).parent.parent.parent
+    sys.path.insert(0,str(rp / "python"))
     parser = argparse.ArgumentParser()
     parser.add_argument("-id", required=False, type=str, help="The id of question to submit.", default="")
     parser.add_argument("-solution", required=False, action="store_true", help="Check SanYe solution.")

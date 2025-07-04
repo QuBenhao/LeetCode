@@ -1,9 +1,9 @@
 import json
 import logging
-import os
 import random
 import time
 from collections import defaultdict
+from pathlib import Path
 
 import requests
 from tqdm import tqdm
@@ -146,7 +146,7 @@ def get_submission_detail(submit_id: str, cookie: str, handle_fun=None):
                            cookies={"cookie": cookie})
 
 
-def _add_test(root_path, problem_folder: str, question_id: str, code_input: str, expected_output: str):
+def _add_test(root_path: Path, problem_folder: str, question_id: str, code_input: str, expected_output: str):
     need_add_test = True
     code_input_py = code_input.replace("null", "None").replace("true", "True").replace("false", "False")
     expected_output_py = expected_output.replace("null", "None").replace("true", "True").replace("false", "False")
@@ -154,8 +154,8 @@ def _add_test(root_path, problem_folder: str, question_id: str, code_input: str,
         code_input_py = code_input_py.replace("\n", ",")
         code_input_py = f"[{code_input_py}]"
 
-    file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}", "testcase.py")
-    with open(file_path, 'r', encoding='utf-8') as f:
+    file_path = root_path / problem_folder / f"{problem_folder}_{question_id}" / "testcase.py"
+    with file_path.open('r', encoding='utf-8') as f:
         content = f.read().split("\n")
         idx = 0
         while idx < len(content):
@@ -190,13 +190,13 @@ def _add_test(root_path, problem_folder: str, question_id: str, code_input: str,
                 content.insert(i - 1 if i else 0,
                                new_test_case)
                 break
-        with open(file_path, 'w', encoding='utf-8') as f:
+        with file_path.open('w', encoding='utf-8') as f:
             f.write("\n".join(content))
 
     need_add_test = True
-    file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}", "testcase")
-    if os.path.exists(file_path):
-        with open(file_path, 'r', encoding='utf-8') as f:
+    file_path = root_path / problem_folder / f"{problem_folder}_{question_id}" / "testcase"
+    if file_path.exists():
+        with file_path.open('r', encoding='utf-8') as f:
             content = f.read().split("\n")
             code_input = code_input.replace("\n", "\\n").replace("\"", "\\\"")
             if f"\"{code_input}\"".replace(" ", "") in content[0].replace(" ", "") \
@@ -205,11 +205,11 @@ def _add_test(root_path, problem_folder: str, question_id: str, code_input: str,
         if need_add_test:
             new_content = "\n".join([content[0][:-1] + ", \"{}\"]".format(code_input),
                                      content[1][:-1] + f", {expected_output}]"])
-            with open(file_path, 'w', encoding="utf-8") as f:
+            with file_path.open('w', encoding="utf-8") as f:
                 f.write(new_content)
 
 
-async def submit_code(root_path, problem_folder: str, question_id: str, question_slug: str, cookie: str, lang: str,
+async def submit_code(root_path: Path, problem_folder: str, question_id: str, question_slug: str, cookie: str, lang: str,
                       leetcode_question_id: str, typed_code: str, study_plan_slug: str = None) -> dict | None:
     def handle_submit_response(response: requests.Response):
         if not response.text or response.status_code != 200:

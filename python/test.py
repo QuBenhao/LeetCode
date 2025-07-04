@@ -39,12 +39,12 @@ class Test(unittest.TestCase):
             problem_path = root_path / problem_folder / f"{problem_folder}_{question}"
         self.assertTrue(problem_path.exists(), msg="Please set up the problem env first!")
 
-        solution_spec = spec_from_file_location("module.name", f"{problem_path}/solution.py")
+        solution_spec = spec_from_file_location("module.name", str(problem_path / "solution.py"))
         solution = module_from_spec(solution_spec)
         solution_spec.loader.exec_module(solution)
         solution_obj = solution.Solution()
 
-        testcase_spec = spec_from_file_location("module.name", f"{problem_path}/testcase.py")
+        testcase_spec = spec_from_file_location("module.name", str(problem_path / "testcase.py"))
         testcase = module_from_spec(testcase_spec)
         testcase_spec.loader.exec_module(testcase)
         testcase_obj = testcase.Testcase()

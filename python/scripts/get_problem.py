@@ -1,5 +1,4 @@
 import argparse
-import json
 import logging
 import os
 import random
@@ -8,12 +7,13 @@ import shutil
 import sys
 import time
 import traceback
+from pathlib import Path
 from typing import Optional
-from tqdm import tqdm
 
 from dotenv import load_dotenv
+from tqdm import tqdm
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(Path(__file__).parent.parent.parent.as_posix())
 from python.constants import constant
 from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, \
     get_question_testcases, extract_outputs_from_md, get_question_code, \
@@ -23,17 +23,17 @@ from python.utils import get_default_folder, back_question_id, format_question_i
 
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False,
-                   skip_language: bool = False):
-    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}")
-    if os.path.exists(dir_path):
+                   skip_language: bool = False) -> tuple[Optional[Path], Optional[Path]]:
+    root_path = Path(__file__).parent.parent.parent
+    dir_path = root_path / problem_folder / f"{problem_folder}_{problem_id}"
+    if dir_path.exists():
         if not force:
             logging.warning(f"Already exists problem [{problem_id}]{problem_slug}")
             return None, None
         if skip_language:
             return root_path, dir_path
         shutil.rmtree(dir_path)
-    os.makedirs(dir_path, exist_ok=True)
+    dir_path.mkdir(parents=True, exist_ok=True)
     return root_path, dir_path
 
 
@@ -53,19 +53,19 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         desc = ""
         is_chinese = True
     else:
-        with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
+        with (dir_path / "problem.md").open("w", encoding="utf-8") as f:
             f.write(Python3Writer.write_problem_md(problem_id, problem_title, desc, rating=question_rating))
     cn_result = get_question_desc_cn(problem_slug, cookie=cookie)
     if cn_result is not None:
         cn_desc, cn_title = cn_result
         if is_chinese:
             desc = cn_desc
-        with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
+        with (dir_path / "problem_zh.md").open("w", encoding="utf-8") as f:
             f.write(Python3Writer.write_problem_md(problem_id, cn_title, cn_desc, True, rating=question_rating))
     code_maps = get_question_code(problem_slug, lang_slugs=languages, cookie=cookie)
     if code_maps is None:
         logging.warning(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}")
-        shutil.rmtree(dir_path)
+        shutil.rmtree(str(dir_path))
         return
     outputs = extract_outputs_from_md(desc, is_chinese)
     logging.info(f"Load question_id: {problem_id}, test cases outputs: {outputs}")
@@ -87,11 +87,13 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
             logging.warning(f"Unable to fetch question testcases with origin, [{problem_id}]{problem_slug}")
             return
         logging.info(f"Load question_id from origin question: {slug}, test cases outputs: {testcases}")
-    if not os.path.exists(f"{dir_path}/testcase.py"):
-        with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
+    testcase_py = dir_path / "testcase.py"
+    if not testcase_py.exists():
+        with testcase_py.open("w", encoding="utf-8") as f:
             f.write(Python3Writer.write_testcase(testcases, outputs))
-    if not os.path.exists(f"{dir_path}/testcase"):
-        with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
+    testcase_path = dir_path / "testcase"
+    if not testcase_path.exists():
+        with testcase_path.open("w", encoding="utf-8") as f:
             f.writelines([testcase_str, "\n",
                           str(outputs).replace("None", "null")
                          .replace("True", "true").replace("False", "false")
@@ -104,10 +106,10 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
                 continue
             obj: lc_libs.LanguageWriter = cls()
             solution_file = obj.solution_file
-            file_path = os.path.join(dir_path, solution_file)
-            if skip_language and solution_file and os.path.exists(file_path):
+            file_path = dir_path / solution_file
+            if skip_language and solution_file and file_path.exists():
                 continue
-            with open(file_path, "w", encoding="utf-8") as f:
+            with file_path.open("w", encoding="utf-8") as f:
                 f.write(obj.write_solution(val, None, problem_id, problem_folder))
             if isinstance(obj, lc_libs.RustWriter):
                 obj.write_cargo_toml(root_path, dir_path, problem_folder, problem_id)
@@ -126,20 +128,20 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
     if desc is None:
         logging.warning(f"Unable to fetch question content, [{problem_id}]{problem_slug}")
         return
-    with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
+    with (dir_path / "problem.md").open("w", encoding="utf-8") as f:
         f.write(Python3Writer.write_problem_md(problem_id, problem_title, desc))
     code = get_question_code(problem_slug, ["mysql"], cookie=cookie)["mysql"]
     if code is None:
         logging.warning(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}")
-        shutil.rmtree(dir_path)
+        shutil.rmtree(str(dir_path))
         return
-    with open(f"{dir_path}/solution.sql", "w", encoding="utf-8") as f:
+    with (dir_path / "solution.sql").open("w", encoding="utf-8") as f:
         f.writelines(code)
     testcases, _ = get_question_testcases(problem_slug, "mysql")
     if testcases is None:
         logging.warning(f"Unable to fetch question testcases, [{problem_id}]{problem_slug}")
         return
-    with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
+    with (dir_path / "testcase").open("w", encoding="utf-8") as f:
         f.writelines("\n".join(testcases))
     logging.info(f"Add question: [{problem_id}]{problem_slug}")
 
@@ -190,7 +192,7 @@ def main(origin_problem_id: Optional[str] = None, problem_slug: Optional[str] = 
             process_single_algorithm_problem(tmp, problem_id, problem_slug, problem_title, cookie, force,
                                              skip_language, languages=languages)
             if replace_problem_id:
-                root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+                root_path = Path(__file__).parent.parent.parent
                 for lang in languages:
                     cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
                     if not cls:

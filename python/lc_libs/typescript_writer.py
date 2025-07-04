@@ -1,6 +1,7 @@
 import logging
-import os.path
+import os
 from collections import defaultdict, deque
+from pathlib import Path
 from typing import Optional, Tuple, List
 
 from python.constants import SOLUTION_TEMPLATE_TYPESCRIPT
@@ -18,10 +19,11 @@ class TypescriptWriter(LanguageWriter):
         self._NODE_NEXT_PATH = "\"../../typescript/models/node.next\";"
         self._NODE_NEIGHBORS_PATH = "\"../../typescript/models/node.neighbors\";"
         self._NODE_RANDOM_PATH = "\"../../typescript/models/node.random\";"
-        self.lang_env_commands = [["npm", "--version"]]
-        self.test_commands = [["npm", "test", "--alwaysStrict", "--strictBindCallApply",
+        npm_exec = "npm.cmd" if os.name == "nt" else "npm"
+        self.lang_env_commands = [[npm_exec, "--version"]]
+        self.test_commands = [[npm_exec, "test", "--alwaysStrict", "--strictBindCallApply",
                                "--strictFunctionTypes", "--target ES202",
-                               str(os.path.join(self.main_folder, self.test_file))]]
+                               str(Path(self.main_folder) / self.test_file)]]
 
     def write_solution(self, code_default: str, code: str = None, problem_id: str = "",
                        problem_folder: str = "") -> str:
@@ -143,16 +145,16 @@ class TypescriptWriter(LanguageWriter):
             "\n\n" + "\n".join(end_extra) if end_extra else ""
         )
 
-    def get_solution_code(self, root_path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
+    def get_solution_code(self, root_path: Path, problem_folder: str, problem_id: str) -> Tuple[str, str]:
         if not problem_id:
             problem_id = self.get_test_problem_id(root_path, problem_folder)
         if not problem_id:
             return "", problem_id
-        file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{problem_id}", "solution.ts")
-        if not os.path.exists(file_path):
+        file_path = root_path / problem_folder / f"{problem_folder}_{problem_id}" / self.solution_file
+        if not file_path.exists():
             return "", problem_id
         final_codes = deque([])
-        with open(file_path, 'r', encoding="utf-8") as f:
+        with file_path.open('r', encoding="utf-8") as f:
             lines = f.read().split("\n")
             for line in lines:
                 strip_line = line.strip()

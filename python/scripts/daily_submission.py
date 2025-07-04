@@ -2,13 +2,14 @@ import logging
 import os
 import sys
 import traceback
+from pathlib import Path
 from typing import Optional
 
 from dotenv import load_dotenv
 
 from daily_auto import write_question
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(Path(__file__).parent.parent.parent.as_posix())
 import python.lc_libs as lc_libs
 from python.constants import constant
 from python.utils import get_default_folder, send_text_message, check_cookie_expired
@@ -44,8 +45,8 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
                 logging.error(f"User not exist: {user_slug}")
                 return 1
             submit_dict = lc_libs.check_accepted_submission(user_slug)
-        root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        sys.path.insert(0, os.path.join(root_path, "python"))
+        root_path = Path(__file__).parent.parent.parent
+        sys.path.insert(0, str(root_path / "python"))
         for question_id, submits in submit_dict.items():
             cache = set()
             info = None
@@ -56,15 +57,15 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
             else:
                 info = lc_libs.get_question_info(submits[0][1], cookie)
                 tmp_problem_folder = get_default_folder(paid_only=info.get("isPaidOnly", False))
-            dir_path = os.path.join(root_path, tmp_problem_folder, f"{tmp_problem_folder}_{question_id}")
-            if question_id == daily_question and not os.path.exists(dir_path):
-                os.makedirs(dir_path, exist_ok=True)
+            dir_path = root_path / tmp_problem_folder / f"{tmp_problem_folder}_{question_id}"
+            if question_id == daily_question and not dir_path.exists():
+                dir_path.mkdir(parents=True, exist_ok=True)
                 write_question(root_path, dir_path, tmp_problem_folder, daily_question, daily_info['questionNameEn'],
                                daily_info['questionSlug'], list(languages), cookie)
-            elif not os.path.exists(dir_path):
+            elif dir_path.exists():
                 if not info:
                     info = lc_libs.get_question_info(submits[0][1], cookie)
-                os.makedirs(dir_path, exist_ok=True)
+                dir_path.mkdir(parents=True, exist_ok=True)
                 write_question(root_path, dir_path, tmp_problem_folder, question_id, info["title"],
                                submits[0][1], list(languages), cookie)
             default_code = lc_libs.get_question_code(submits[0][1], lang_slugs=languages, cookie=cookie)

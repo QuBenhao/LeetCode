@@ -1,14 +1,12 @@
 import logging
 import sys
-import os
 import json
 import argparse
+from pathlib import Path
 
 from collections import defaultdict, Counter
 
-sys.path.append(
-    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-)
+sys.path.append(Path(__file__).parent.parent.parent.as_posix())
 from python import lc_libs
 from python.utils import format_question_id
 from python.constants import LOGGING_FORMAT, DATE_FORMAT
@@ -41,8 +39,8 @@ def test_print_origin(args):
     problem_id = args.problem
     if not language or not problem_id:
         raise ValueError("Language and problem are required")
-    cur_path = os.path.dirname(os.path.abspath(__file__))
-    with open(f"{cur_path}/question_code_snippets.json", "r", encoding="utf-8") as f:
+    cur_path = Path(__file__).parent
+    with (cur_path / "question_code_snippets.json").open("r", encoding="utf-8") as f:
         data = json.load(f)
         for problem in data:
             for k, v in problem.items():
@@ -74,10 +72,11 @@ def test_add_question_code(args):
     code_list = lc_libs.get_question_code_origin(problem_slug, args.cookie)
     if not code_list:
         raise ValueError(f"Unable to find code snippets for problem_id {args.problem} problem {problem_slug}")
-    cur_path = os.path.dirname(os.path.abspath(__file__))
-    with open(f"{cur_path}/question_code_snippets.json", "r", encoding="utf-8") as f:
+    cur_path = Path(__file__).parent
+    snippets_path = cur_path / "question_code_snippets.json"
+    with snippets_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
-    with open(f"{cur_path}/question_code_snippets.json", "w", encoding="utf-8") as f:
+    with snippets_path.open("w", encoding="utf-8") as f:
         idx = -1
         for i, problem in enumerate(data):
             if args.problem in problem.keys():
@@ -99,8 +98,9 @@ def test_solution(args):
     if args.lang:
         languages = set(args.lang.split(","))
     problems = defaultdict(list)
-    cur_path = os.path.dirname(os.path.abspath(__file__))
-    with open(f"{cur_path}/question_code_snippets.json", "r", encoding="utf-8") as f:
+    cur_path = Path(__file__).parent
+    snippets_path = cur_path / "question_code_snippets.json"
+    with snippets_path.open("r", encoding="utf-8") as f:
         data = json.load(f)
         for problem in data:
             for k, v in problem.items():
@@ -122,11 +122,8 @@ def test_solution(args):
             obj: lc_libs.LanguageWriter = cls()
             solution_file: str = obj.solution_file
             tmp_sol = solution_file.split(".")
-            with open(
-                    f"{cur_path}/tmp_{tmp_sol[0]}{test_problem.replace(' ', '_')}.{tmp_sol[1]}",
-                    "w",
-                    encoding="utf-8",
-            ) as f:
+            tmp_sol_path = cur_path / f"tmp_{tmp_sol[0]}{test_problem.replace(' ', '_')}.{tmp_sol[1]}"
+            with tmp_sol_path.open("w", encoding="utf-8") as f:
                 try:
                     f.writelines(obj.write_solution(code["code"], None, format_question_id(test_problem), "problems"))
                     logging.info(f"Code snippet for problem {test_problem} in language {lang} written successfully")
@@ -148,13 +145,15 @@ def test_submit(args):
         languages = args.lang.split(",")
     else:
         languages = ["python3", "golang", "java", "cpp", "typescript", "rust"]
-    cur_path = os.path.dirname(os.path.abspath(__file__))
-    root_path = os.path.dirname(os.path.dirname(cur_path))
-    problem_path = f"{root_path}/problems/problems_{args.problem}/"
-    if not os.path.exists(problem_path):
+    cur_path = Path(__file__).parent
+    root_path = cur_path.parent.parent
+    problem_path = root_path / "problems" / f"problems_{args.problem}"
+    logging.info(problem_path)
+    if not problem_path.exists():
         logging.debug(f"Problem not found in problems folder, checking in premiums folder")
-        problem_path = problem_path.replace("problems", "premiums")
-        if not os.path.exists(problem_path):
+        # problem_path = problem_path.replace("problems", "premiums")
+        problem_path = root_path / "premiums" / f"premiums_{args.problem}"
+        if not problem_path.exists():
             raise FileNotFoundError(
                 f"Problem file not found, check problem: {args.problem}"
             )
@@ -169,16 +168,13 @@ def test_submit(args):
         solution_file: str = obj.solution_file
         if not solution_file:
             continue
-        if not os.path.exists(f"{problem_path}/{solution_file}"):
+        if not (problem_path / solution_file).exists():
             logging.warning(f"Solution file not found for {lang} in {problem_path}")
             continue
         code, _ = obj.get_solution_code(root_path, problem_folder, args.problem)
         tmp_sol = solution_file.split(".")
-        with open(
-                f"{cur_path}/tmp_submit_{tmp_sol[0]}.{tmp_sol[1]}",
-                "w",
-                encoding="utf-8",
-        ) as f:
+        tmp_path = cur_path / f"tmp_{tmp_sol[0]}{args.problem.replace(' ', '_')}.{tmp_sol[1]}"
+        with tmp_path.open("w", encoding="utf-8") as f:
             f.write(code)
         logging.debug(code)
 

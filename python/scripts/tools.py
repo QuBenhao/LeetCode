@@ -5,12 +5,13 @@ import random
 import re
 import subprocess
 import sys
+from pathlib import Path
 
 from dotenv import load_dotenv
 
 from daily_auto import write_question
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(Path(__file__).parent.parent.parent.as_posix())
 from python.constants import constant
 import python.lc_libs as lc_libs
 from python.utils import get_default_folder, format_question_id, check_cookie_expired
@@ -20,16 +21,16 @@ PROBLEM_MD_ZH = "problem_zh.md"
 
 
 def back_fill_ratings(args):
-    def process_each(dir_path, problem_id: str):
-        if not os.path.isdir(dir_path):
+    def process_each(dir_path: Path, problem_id: str):
+        if not dir_path.is_dir():
             return
         rating = lc_libs.get_rating(problem_id)
         if not rating:
             logging.debug("Rating not found for problem id: %s", problem_id)
             return
-        problem_file_path = os.path.join(dir_path, PROBLEM_MD)
-        if os.path.exists(problem_file_path):
-            with open(problem_file_path, "r") as f:
+        problem_file_path = dir_path / PROBLEM_MD
+        if problem_file_path.exists():
+            with problem_file_path.open("r", encoding="utf-8") as f:
                 lines = f.read().split("\n")
             if not lines:
                 logging.warning("Empty file: %s", problem_file_path)
@@ -37,12 +38,12 @@ def back_fill_ratings(args):
                 if " [Rating" in lines[0]:
                     lines[0] = lines[0].split(" [Rating")[0]
                 lines[0] += " [Rating: {:.2f}]".format(rating)
-                with open(problem_file_path, "w") as f:
+                with problem_file_path.open("w", encoding="utf-8") as f:
                     f.write("\n".join(lines))
                 logging.info("Rating back filled for problem id: %s", problem_id)
-        problem_file_path_zh = os.path.join(dir_path, PROBLEM_MD_ZH)
-        if os.path.exists(problem_file_path_zh):
-            with open(problem_file_path_zh, "r") as f:
+        problem_file_path_zh = dir_path / PROBLEM_MD_ZH
+        if problem_file_path_zh.exists():
+            with problem_file_path_zh.open("r", encoding="utf-8") as f:
                 lines = f.read().split("\n")
             if not lines:
                 logging.warning("Empty file: %s", problem_file_path_zh)
@@ -52,11 +53,11 @@ def back_fill_ratings(args):
             if " [难度分" in lines[0]:
                 lines[0] = lines[0].split(" [难度分")[0]
             lines[0] += " [难度分: {:.2f}]".format(rating)
-            with open(problem_file_path_zh, "w") as f:
+            with problem_file_path_zh.open("w", encoding="utf-8") as f:
                 f.write("\n".join(lines))
             logging.debug("Rating back filled for CN problem id: %s", problem_id)
 
-    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    root_path = Path(__file__).parent.parent.parent
     try:
         load_dotenv()
     except Exception as _:
@@ -65,10 +66,10 @@ def back_fill_ratings(args):
     logging.info("Processing Problem folder: %s", problem_folder)
     if args.problem_id:
         question_id = format_question_id(args.problem_id)
-        process_each(os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}"), question_id)
+        process_each((root_path / problem_folder / f"{problem_folder}_{question_id}").resolve(), question_id)
         return
 
-    for root, dirs, files in os.walk(str(os.path.join(root_path, problem_folder))):
+    for root, dirs, files in os.walk(str(root_path / problem_folder)):
         if dirs:
             for d in list(dirs):
                 if not d.startswith(f"{problem_folder}_"):
@@ -76,20 +77,20 @@ def back_fill_ratings(args):
                     logging.debug("Skip folder: %s", d)
         for file in files:
             if file == PROBLEM_MD or file == PROBLEM_MD_ZH:
-                process_each(root, os.path.basename(root).split(f"{problem_folder}_")[-1])
+                process_each(Path(root), os.path.basename(root).split(f"{problem_folder}_")[-1])
                 break
 
 
 def lucky_main(languages, problem_folder, category="algorithms"):
-    def process_problem(root_path, question: dict, langs) -> bool:
+    def process_problem(root_path: Path, question: dict, langs) -> bool:
         question_id = format_question_id(question["frontendQuestionId"])
         if question.get("paidOnly", False):
             logging.warning("Paid problem: %s", question_id)
             return False
-        dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
-        if not os.path.exists(dir_path):
+        dir_path = root_path / problem_folder / f"{problem_folder}_{question_id}"
+        if not dir_path.exists():
             logging.info("Found: %s", question_id)
-            os.makedirs(dir_path, exist_ok=True)
+            dir_path.mkdir(parents=True, exist_ok=True)
             success_languages = write_question(root_path, dir_path, problem_folder,
                                                question_id, question["title"], question["titleSlug"], langs)
             logging.debug("Success languages: %s", success_languages)
@@ -110,7 +111,7 @@ def lucky_main(languages, problem_folder, category="algorithms"):
         logging.error(f"No question found for number: {number}")
         return 1
     central = min(number, 49)
-    rpath = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    rpath = Path(__file__).parent.parent.parent
     left = right = central
     while left >= 0 or right < len(questions):
         if right < len(questions):
@@ -155,12 +156,12 @@ def remain_main(cookie, languages, problem_folder, status="TRIED", category="all
     pick = random.choice(remains)
     question_id = format_question_id(pick["frontendQuestionId"])
     logging.info("Pick problem: [%s].%s", pick["frontendQuestionId"], pick["title"])
-    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    dir_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{question_id}")
-    if os.path.exists(dir_path):
+    root_path = Path(__file__).parent.parent.parent
+    dir_path = root_path / problem_folder / f"{problem_folder}_{question_id}"
+    if dir_path.exists():
         logging.warning("Folder already exists: %s", dir_path)
         return 1
-    os.makedirs(dir_path, exist_ok=True)
+    dir_path.mkdir(parents=True, exist_ok=True)
     results = write_question(root_path, dir_path, problem_folder, question_id,
                              pick["title"], pick["titleSlug"], languages)
     logging.info("Problem created: %s", question_id)
@@ -179,13 +180,13 @@ def remain(args):
     remain_main(cookie, langs, problem_folder, args.status, args.category)
 
 
-def clean_empty_java_main(root_path, problem_folder, daily: bool = False):
+def clean_empty_java_main(root_path: Path, problem_folder, daily: bool = False):
     question_id = None
     if daily:
         question_id = lc_libs.get_daily_question()["questionId"]
 
     total_remove = 0
-    for root, dirs, files in os.walk(str(os.path.join(root_path, problem_folder))):
+    for root, dirs, files in os.walk(str(root_path / problem_folder)):
         if dirs:
             for d in list(dirs):
                 if not d.startswith(f"{problem_folder}_"):
@@ -194,26 +195,27 @@ def clean_empty_java_main(root_path, problem_folder, daily: bool = False):
         for file in files:
             if not file.endswith(".java"):
                 continue
+            file_path = Path(root, file)
             if daily and root.endswith(f"{problem_folder}/{problem_folder}_{question_id}"):
-                logging.info("Keep daily java file: %s", os.path.join(root, file))
+                logging.info("Keep daily java file: %s", file_path)
                 continue
-            with open(os.path.join(root, file), "r") as f:
+            with file_path.open("r", encoding="utf-8") as f:
                 content = f.read()
                 if content.count("return ") > 1:
                     continue
-                logging.info("Remove empty java file: %s, %s", os.path.join(root, file), content)
+                logging.info("Remove empty java file: %s, %s", file_path, content)
                 total_remove += 1
-                os.remove(os.path.join(root, file))
+                file_path.unlink()
     logging.info("Removed %d empty java files", total_remove)
 
 
 def clean_empty_java(args):
-    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    root_path = Path(__file__).parent.parent.parent
     problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     clean_empty_java_main(root_path, problem_folder, args.daily)
 
 
-def clean_error_rust_main(root_path, problem_folder, daily: bool = False):
+def clean_error_rust_main(root_path: Path, problem_folder, daily: bool = False):
     def remove_rust_file(_problem_id: str):
         nonlocal explored, total_remove, all_removed_problems, question_id, cur_error
         if _problem_id in explored:
@@ -223,11 +225,11 @@ def clean_error_rust_main(root_path, problem_folder, daily: bool = False):
             logging.info("Keep daily rust error file: %s", _problem_id)
             return
         cur_error += 1
-        file_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{_problem_id}", "solution.rs")
-        cargo_path = os.path.join(root_path, problem_folder, f"{problem_folder}_{_problem_id}", "Cargo.toml")
-        if os.path.exists(file_path):
-            os.remove(file_path)
-            os.remove(cargo_path)
+        file_path = root_path / problem_folder / f"{problem_folder}_{_problem_id}" / "solution.rs"
+        cargo_path = root_path / problem_folder / f"{problem_folder}_{_problem_id}" / "Cargo.toml"
+        if file_path.exists():
+            file_path.unlink()
+            cargo_path.unlink()
             all_removed_problems.add(_problem_id)
             logging.info("Remove error rust file: %s", file_path)
             total_remove += 1
@@ -270,7 +272,8 @@ def clean_error_rust_main(root_path, problem_folder, daily: bool = False):
             logging.debug("Cargo test error: %s", line)
         if cur_error == 0:
             break
-        with open(os.path.join(root_path, "Cargo.toml"), "r") as f:
+        cargo_path = root_path / "Cargo.toml"
+        with cargo_path.open("r", encoding="utf-8") as f:
             lines = f.read().split("\n")
         new_lines = []
         for line in lines:
@@ -278,7 +281,7 @@ def clean_error_rust_main(root_path, problem_folder, daily: bool = False):
             if problem_id_match and problem_id_match.group(1) in all_removed_problems:
                 continue
             new_lines.append(line)
-        with open(os.path.join(root_path, "Cargo.toml"), "w") as f:
+        with cargo_path.open("w", encoding="utf-8") as f:
             f.write("\n".join(new_lines))
     if not total_remove:
         logging.info("No error rust files found.")
@@ -287,9 +290,9 @@ def clean_error_rust_main(root_path, problem_folder, daily: bool = False):
     logging.info("Removed %d error rust files", total_remove)
 
 def clean_error_rust(args):
-    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    root_path = Path(__file__).parent.parent.parent
     problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
-    if not os.path.exists(os.path.join(root_path, problem_folder)):
+    if not (root_path / problem_folder).exists():
         logging.error("Problem folder not found: %s", problem_folder)
         return
     clean_error_rust_main(root_path, problem_folder, args.daily)

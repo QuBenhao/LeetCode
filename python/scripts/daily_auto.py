@@ -4,6 +4,7 @@ import sys
 import traceback
 import logging
 from collections import defaultdict
+from pathlib import Path
 from typing import Optional, List
 
 from dotenv import load_dotenv
@@ -25,7 +26,7 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
     question_rating = lc_libs.get_rating(question_id)
     if cn_result is not None and cn_result[0] is not None:
         cn_desc, cn_title = cn_result
-        with open(f"{dir_path}/problem_zh.md", "w", encoding="utf-8") as f:
+        with (dir_path / "problem_zh.md").open("w", encoding="utf-8") as f:
             f.write(Python3Writer.write_problem_md(question_id, cn_title, cn_desc, True, rating=question_rating))
     if desc is not None:
         is_chinese = False
@@ -33,7 +34,7 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
             desc = cn_desc if cn_desc else ""
             is_chinese = True
         else:
-            with open(f"{dir_path}/problem.md", "w", encoding="utf-8") as f:
+            with (dir_path / "problem.md").open("w", encoding="utf-8") as f:
                 f.write(Python3Writer.write_problem_md(question_id, question_name, desc, rating=question_rating))
         testcases, testcase_str = get_question_testcases(slug)
         if not testcases:
@@ -52,11 +53,11 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
         if testcases:
             outputs = extract_outputs_from_md(desc, is_chinese)
             logging.debug(f"Parse question_id: {question_id}, teat cases outputs: {outputs}")
-            if (not languages or "python3" in languages) and not os.path.exists(f"{dir_path}/testcase.py"):
-                with open(f"{dir_path}/testcase.py", "w", encoding="utf-8") as f:
+            if (not languages or "python3" in languages) and not (dir_path / "testcase.py").exists():
+                with (dir_path / "testcase.py").open("w", encoding="utf-8") as f:
                     f.write(Python3Writer.write_testcase(testcases, outputs))
-            if not os.path.exists(f"{dir_path}/testcase"):
-                with open(f"{dir_path}/testcase", "w", encoding="utf-8") as f:
+            if not (dir_path / "testcase").exists():
+                with (dir_path / "testcase").open("w", encoding="utf-8") as f:
                     f.writelines([testcase_str, "\n",
                                   str(outputs).replace("None", "null")
                                  .replace("True", "true").replace("False", "false")
@@ -76,12 +77,12 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
                 continue
             obj: lc_libs.LanguageWriter = cls()
             solution_file = obj.solution_file
-            solution_file_path = os.path.join(dir_path, solution_file)
-            if os.path.exists(solution_file_path):
+            solution_file_path = dir_path / solution_file
+            if solution_file_path.exists():
                 logging.debug(f"Solution file [{solution_file}] already exists, skip")
                 success_languages.append(language)
                 continue
-            with open(solution_file_path, "w", encoding="utf-8") as f:
+            with solution_file_path.open("w", encoding="utf-8") as f:
                 f.write(obj.write_solution(code, None, question_id, problem_folder))
             if isinstance(obj, lc_libs.RustWriter):
                 obj.write_cargo_toml(root_path, dir_path, problem_folder, question_id)
@@ -97,13 +98,13 @@ def process_daily(languages: list[str], problem_folder: str = None):
     daily_info = get_daily_question()
     if not daily_info:
         return 1
-    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    root_path = Path(__file__).parent.parent.parent
     question_id = daily_info['questionId']
     tmp = get_default_folder(paid_only=daily_info['paidOnly']) if not problem_folder else problem_folder
-    dir_path = os.path.join(root_path, tmp, f"{tmp}_{question_id}")
+    dir_path = root_path / tmp / f"{tmp}_{question_id}"
     logging.info("Daily: {}, id: {}".format(daily_info['questionNameEn'], question_id))
-    if not os.path.exists(dir_path):
-        os.makedirs(dir_path, exist_ok=True)
+    if not dir_path.exists():
+        dir_path.mkdir(exist_ok=True, parents=True)
     else:
         logging.warning("Already solved {} before".format(daily_info['questionId']))
     success_languages = write_question(root_path, dir_path, tmp, question_id,
@@ -133,7 +134,7 @@ def process_plans(cookie: str, languages: List[str] = None, problem_folder: str 
             logging.error("Unable to send PushDeer notification!")
         logging.error("The LeetCode cookie might be expired, unable to check study plans!")
         return
-    root_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    root_path = Path(__file__).parent.parent.parent
     success_languages = defaultdict(list)
     for slug in plans:
         plan_prog = get_user_study_plan_progress(slug, cookie)
@@ -146,9 +147,9 @@ def process_plans(cookie: str, languages: List[str] = None, problem_folder: str 
             question_id = info["questionFrontendId"]
             paid_only = info.get("isPaidOnly", False)
             tmp_folder = problem_folder if problem_folder else get_default_folder(paid_only=paid_only)
-            dir_path = os.path.join(root_path, tmp_folder, f"{tmp_folder}_{question_id}")
-            if not os.path.exists(dir_path):
-                os.makedirs(dir_path, exist_ok=True)
+            dir_path = root_path / tmp_folder / f"{tmp_folder}_{question_id}"
+            if not dir_path.exists():
+                dir_path.mkdir(exist_ok=True, parents=True)
             suc_langs = write_question(root_path, dir_path, tmp_folder, question_id, info["title"],
                                        question_slug, languages, cookie)
             for lang in suc_langs:
@@ -182,8 +183,8 @@ def main(problem_folder: str = None, cookie: Optional[str] = None, languages: li
 
 
 if __name__ == '__main__':
-    rp = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    sys.path.insert(0, os.path.join(rp, "python"))
+    rp = Path(__file__).parent.parent.parent.resolve()
+    sys.path.insert(0, str(rp / "python"))
     try:
         load_dotenv()
     except Exception as e:
