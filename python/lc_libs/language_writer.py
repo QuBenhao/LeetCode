@@ -127,7 +127,7 @@ class LanguageWriter(abc.ABC):
                     logging.info("Execute [{}] success".format(" ".join(cmd)))
                     logging.debug(
                         "Execute [{}] output: {}".format(
-                            " ".join(cmd), execute_res.stdout.decode("utf-8")
+                            " ".join(cmd), execute_res.stdout.decode("utf-8", errors="replace")
                         )
                     )
                     continue
@@ -135,8 +135,8 @@ class LanguageWriter(abc.ABC):
                     "Execute failed, command: [{}],"
                     " error: {}, output: {}".format(
                         " ".join(cmd),
-                        execute_res.stderr.decode("utf-8"),
-                        execute_res.stdout.decode("utf-8"),
+                        execute_res.stderr.decode("utf-8", errors="replace"),
+                        execute_res.stdout.decode("utf-8", errors="replace"),
                     )
                 )
             except subprocess.TimeoutExpired as _:
