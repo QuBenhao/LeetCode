@@ -7,24 +7,39 @@ import (
 )
 
 type FindSumPairs struct {
-    
+	map1  map[int]int
+	map2  map[int]int
+	nums2 []int
 }
-
 
 func Constructor(nums1 []int, nums2 []int) FindSumPairs {
-    
+	map1 := make(map[int]int)
+	map2 := make(map[int]int)
+	for _, num := range nums1 {
+		map1[num]++
+	}
+	for _, num := range nums2 {
+		map2[num]++
+	}
+	return FindSumPairs{
+		map1:  map1,
+		map2:  map2,
+		nums2: nums2,
+	}
 }
 
-
-func (this *FindSumPairs) Add(index int, val int)  {
-    
+func (fsp *FindSumPairs) Add(index int, val int) {
+	fsp.map2[fsp.nums2[index]]--
+	fsp.nums2[index] += val
+	fsp.map2[fsp.nums2[index]]++
 }
 
-
-func (this *FindSumPairs) Count(tot int) int {
-    
+func (fsp *FindSumPairs) Count(tot int) (count int) {
+	for num1, freq1 := range fsp.map1 {
+		count += fsp.map2[tot-num1] * freq1
+	}
+	return
 }
-
 
 /**
  * Your FindSumPairs object will be instantiated and called as such:
@@ -77,7 +92,6 @@ func Solve(inputJsonValues string) any {
 		}
 		ans = append(ans, res)
 	}
-
 
 	return ans
 }

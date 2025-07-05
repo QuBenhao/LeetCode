@@ -7,16 +7,34 @@ import qubhjava.BaseSolution;
 
 class FindSumPairs {
 
+	private final Map<Integer, Integer> nums1_map = new HashMap<>();
+	private final Map<Integer, Integer> nums2_map = new HashMap<>();
+	private final int[] nums2;
+
     public FindSumPairs(int[] nums1, int[] nums2) {
-        
+        this.nums2 = nums2;
+        for (int num : nums1) {
+            nums1_map.put(num, nums1_map.getOrDefault(num, 0) + 1);
+        }
+        for (int num : nums2) {
+            nums2_map.put(num, nums2_map.getOrDefault(num, 0) + 1);
+        }
     }
     
     public void add(int index, int val) {
-        
+        nums2_map.put(nums2[index], nums2_map.getOrDefault(nums2[index], 0) - 1);
+        nums2[index] += val;
+        nums2_map.put(nums2[index], nums2_map.getOrDefault(nums2[index], 0) + 1);
     }
     
     public int count(int tot) {
-        
+        int count = 0;
+        for (Map.Entry<Integer, Integer> entry : nums1_map.entrySet()) {
+            int num1 = entry.getKey();
+            int freq1 = entry.getValue();
+            count += nums2_map.getOrDefault(tot - num1, 0) * freq1;
+        }
+        return count;
     }
 }
 
