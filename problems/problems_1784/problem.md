@@ -1,29 +1,27 @@
 # 1784. Check if Binary String Has at Most One Segment of Ones [Rating: 1206.12]
 
-Given a binary string `s` **without leading zeros**, return `true` *if* `s` *contains **at most one contiguous segment of ones***. Otherwise, return `false`.
+<p>Given a binary string <code>s</code> <strong>​​​​​without leading zeros</strong>, return <code>true</code>​​​ <em>if </em><code>s</code><em> contains <strong>at most one contiguous segment of ones</strong></em>. Otherwise, return <code>false</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> s = &quot;1001&quot;
+<strong>Output:</strong> false
+<strong>Explanation: </strong>The ones do not form a contiguous segment.
+</pre>
 
-```
-Input: s = "1001"
-Output: false
-Explanation: The ones do not form a contiguous segment.
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> s = &quot;110&quot;
+<strong>Output:</strong> true</pre>
 
-```
-Input: s = "110"
-Output: true
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `1 <= s.length <= 100`
-- `s[i]` is either `'0'` or `'1'`.
-- `s[0]` is `'1'`.
-
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 100</code></li>
+	<li><code>s[i]</code>​​​​ is either <code>&#39;0&#39;</code> or <code>&#39;1&#39;</code>.</li>
+	<li><code>s[0]</code> is&nbsp;<code>&#39;1&#39;</code>.</li>
+</ul>
