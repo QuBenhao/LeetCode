@@ -7,7 +7,19 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int findLucky(int[] arr) {
-        
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int num : arr) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+        int ans = -1;
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            int key = entry.getKey();
+            int value = entry.getValue();
+            if (key == value) {
+                ans = Math.max(ans, key);
+            }
+        }
+        return ans;
     }
 
     @Override
