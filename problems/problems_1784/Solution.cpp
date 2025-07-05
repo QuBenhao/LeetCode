@@ -6,7 +6,7 @@ using json = nlohmann::json;
 
 class Solution {
 public:
-  bool checkOnesSegment(string s) {
+  bool checkOnesSegment(const string& s) {
     int count = 0;
     bool appear = false;
     for (char c : s) {
