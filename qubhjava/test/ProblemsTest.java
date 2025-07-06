@@ -68,6 +68,7 @@ public class ProblemsTest {
     Collection<DynamicTest> test() throws IOException, ClassNotFoundException, InstantiationException,
             IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         List<DynamicTest> tests = new ArrayList<>();
+        int testcaseIdx = 1;
         for (String[] problems : PROBLEMS) {
             log.info("Starting TestMain, test problem: {}", problems[0]);
             Testcase[] testcases = Common.loadTestcases(log, problems[0], problems[1]);
@@ -80,6 +81,7 @@ public class ProblemsTest {
             BaseSolution baseSolution = dynamicClass.getDeclaredConstructor().newInstance();
             int idx = 0;
             for (Testcase testcase : testcases) {
+                log.info("Add [{}] Testcase {}", problems[0], testcaseIdx++);
                 tests.add(Common.addTest(baseSolution, testcase, problems[0], idx++));
             }
         }
