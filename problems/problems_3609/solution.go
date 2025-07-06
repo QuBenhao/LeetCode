@@ -6,8 +6,35 @@ import (
 	"strings"
 )
 
-func minMoves(sx int, sy int, tx int, ty int) int {
-    
+func minMoves(sx int, sy int, tx int, ty int) (ans int) {
+	if sx == tx && sy == ty {
+		return 0
+	}
+	if sx > tx || sy > ty {
+		return -1
+	}
+	if tx == ty {
+		if sx == 0 {
+			sx, sy, tx, ty = sy, sx, ty, tx
+		}
+		ans = minMoves(sx, sy, tx, 0)
+	} else {
+		if tx < ty {
+			sx, sy, tx, ty = sy, sx, ty, tx
+		}
+		if tx > ty*2 {
+			if tx&1 == 1 {
+				return -1
+			}
+			ans = minMoves(sx, sy, tx/2, ty)
+		} else {
+			ans = minMoves(sx, sy, tx-ty, ty)
+		}
+	}
+	if ans != -1 {
+		ans++
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
