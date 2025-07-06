@@ -6,8 +6,22 @@ import qubhjava.BaseSolution;
 
 
 public class Solution extends BaseSolution {
+    private static final String HEX36 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
     public String concatHex36(int n) {
-        
+        int x = n * n;
+        int y = x * n;
+        StringBuilder sb = new StringBuilder();
+        while (y > 0) {
+            sb.append(HEX36.charAt(y % 36));
+            y /= 36;
+        }
+        while (x > 0) {
+            sb.append(HEX36.charAt(x % 16));
+            x /= 16;
+        }
+        sb.reverse();
+        return sb.toString();
     }
 
     @Override
