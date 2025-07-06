@@ -56,7 +56,7 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
     for question in questions:
         if question["paidOnly"] and not cookie:
             continue
-        if question["frontendQuestionId"] == origin_problem_id:
+        if question["questionFrontendId"] == origin_problem_id:
             problem_slug = question["titleSlug"]
             break
     if not problem_slug:

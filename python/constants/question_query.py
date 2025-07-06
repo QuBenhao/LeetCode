@@ -70,42 +70,37 @@ query consolePanelConfig($titleSlug: String!) {
 """
 
 QUESTION_KEYWORDS_QUERY = """
-query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $filters: QuestionListFilterInput) {
-  problemsetQuestionList(
-    categorySlug: $categorySlug
-    limit: $limit
-    skip: $skip
+query problemsetQuestionListV2($filters: QuestionFilterInput, $limit: Int, $searchKeyword: String, $skip: Int, $sortBy: QuestionSortByInput, $categorySlug: String) {
+  problemsetQuestionListV2(
     filters: $filters
+    limit: $limit
+    searchKeyword: $searchKeyword
+    skip: $skip
+    sortBy: $sortBy
+    categorySlug: $categorySlug
   ) {
-    hasMore
-    total
     questions {
-      acRate
-      difficulty
-      freqBar
-      frontendQuestionId
-      isFavor
-      paidOnly
-      solutionNum
-      status
-      title
-      titleCn
+      id
       titleSlug
+      title
+      translatedTitle
+      questionFrontendId
+      paidOnly
+      difficulty
       topicTags {
         name
-        nameTranslated
-        id
         slug
+        nameTranslated
       }
-      extra {
-        hasVideoSolution
-        topCompanyTags {
-          imgUrl
-          slug
-          numSubscribed
-        }
-      }
+      status
+      isInMyFavorites
+      frequency
+      acRate
+      contestPoint
     }
+    totalLength
+    finishedLength
+    hasMore
   }
 }
 """

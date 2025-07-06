@@ -204,22 +204,60 @@ def get_questions_by_key_word(keyword: Optional[str],
         ans = []
         page_size, page_no = 100, 0
         while True:
-            filters = dict()
-            if keyword:
-                filters["searchKeywords"] = keyword
+            filters = {
+                "filterCombineType": "ALL",
+                "statusFilter": {
+                    "questionStatuses": [],
+                    "operator": "IS"
+                },
+                "difficultyFilter": {
+                    "difficulties": [],
+                    "operator": "IS"
+                },
+                "languageFilter": {
+                    "languageSlugs": [],
+                    "operator": "IS"
+                },
+                "topicFilter": {
+                    "topicSlugs": [],
+                    "operator": "IS"
+                },
+                "acceptanceFilter": {},
+                "frequencyFilter": {},
+                "frontendIdFilter": {},
+                "lastSubmittedFilter": {},
+                "publishedFilter": {},
+                "companyFilter": {
+                    "companySlugs": [],
+                    "operator": "IS"
+                },
+                "positionFilter": {
+                    "positionSlugs": [],
+                    "operator": "IS"
+                },
+                "contestPointFilter": {
+                    "contestPoints": [],
+                    "operator": "IS"
+                },
+                "premiumFilter": {
+                    "premiumStatus": [],
+                    "operator": "IS"
+                }
+            }
             if premium_only:
-                filters["premiumOnly"] = premium_only
+                filters["premiumFilter"]["premiumStatus"].append("PREMIUM")
             result = requests.post("https://leetcode.cn/graphql",
                                    json={"query": QUESTION_KEYWORDS_QUERY,
                                          "variables": {
+                                             "searchKeyword": keyword if keyword else "",
                                              "categorySlug": category if category in CATEGORY_SLUG
                                              else "all-code-essentials",
                                              "skip": page_no * page_size, "limit": page_size,
                                              "filters": filters
                                          },
-                                         "operationName": "problemsetQuestionList"},
+                                         "operationName": "problemsetQuestionListV2"},
                                    cookies={'cookie': cookie} if cookie else None)
-            res_dict = json.loads(result.text)["data"]["problemsetQuestionList"]
+            res_dict = json.loads(result.text)["data"]["problemsetQuestionListV2"]
             ans.extend(res_dict["questions"])
             if not res_dict["hasMore"] or not fetch_all:
                 break

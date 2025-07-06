@@ -64,7 +64,7 @@ def test_add_question_code(args):
     for question in questions:
         if question["paidOnly"] and not args.cookie:
             continue
-        if question["frontendQuestionId"] == args.problem:
+        if question["questionFrontendId"] == args.problem:
             problem_slug = question["titleSlug"]
             break
     if problem_slug is None:

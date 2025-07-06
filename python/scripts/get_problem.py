@@ -158,7 +158,7 @@ def get_question_slug_by_id(
     for question in questions:
         if question["paidOnly"] and not cookie:
             continue
-        if question["frontendQuestionId"] == problem_id:
+        if question["questionFrontendId"] == problem_id:
             return question["titleSlug"]
     logging.error(f"Unable to find any questions with problem_id {problem_id}, possible questions: {questions}")
     return None
@@ -217,7 +217,7 @@ def main(origin_problem_id: Optional[str] = None, problem_slug: Optional[str] = 
         for question in tqdm(questions):
             question_info = get_question_info(question["titleSlug"], cookie)
             pc = question_info["categoryTitle"]
-            question_id = format_question_id(question["frontendQuestionId"])
+            question_id = format_question_id(question["questionFrontendId"])
             paid_only = premium_only or question_info["isPaidOnly"]
             try:
                 if str.lower(pc) == "database":
@@ -232,7 +232,7 @@ def main(origin_problem_id: Optional[str] = None, problem_slug: Optional[str] = 
                     time.sleep(random.randint(3, 6))
             except Exception as _:
                 logging.error("Exception caught in problem: [{}]{}".format(
-                    question["frontendQuestionId"], question["titleSlug"]), exc_info=True)
+                    question["questionFrontendId"], question["titleSlug"]), exc_info=True)
                 return 1
     return 0
 
