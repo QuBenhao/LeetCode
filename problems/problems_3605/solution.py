@@ -35,7 +35,7 @@ class Solution(solution.Solution):
                         change += 1
                         if change > maxC:
                             return False
-                        i = j - 1
+                        i = max(i - k - 1, j - 1)
                         break
                 else:
                     i -= 1
