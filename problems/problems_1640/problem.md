@@ -1,56 +1,42 @@
 # 1640. Check Array Formation Through Concatenation [Rating: 1524.32]
 
-You are given an array of **distinct** integers `arr` and an array of integer arrays `pieces`, where the integers in `pieces` are **distinct**. Your goal is to form `arr` by concatenating the arrays in `pieces` **in any order**. However, you are **not** allowed to reorder the integers in each array `pieces[i]`.
+<p>You are given an array of <strong>distinct</strong> integers <code>arr</code> and an array of integer arrays <code>pieces</code>, where the integers in <code>pieces</code> are <strong>distinct</strong>. Your goal is to form <code>arr</code> by concatenating the arrays in <code>pieces</code> <strong>in any order</strong>. However, you are <strong>not</strong> allowed to reorder the integers in each array <code>pieces[i]</code>.</p>
 
-Return `true` *if it is possible* *to form the array* `arr` *from* `pieces`. Otherwise, return `false`.
+<p>Return <code>true</code> <em>if it is possible </em><em>to form the array </em><code>arr</code><em> from </em><code>pieces</code>. Otherwise, return <code>false</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> arr = [15,88], pieces = [[88],[15]]
+<strong>Output:</strong> true
+<strong>Explanation:</strong> Concatenate [15] then [88]
+</pre>
 
-```
-Input: arr = [85], pieces = [[85]]
-Output: true
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> arr = [49,18,16], pieces = [[16,18,49]]
+<strong>Output:</strong> false
+<strong>Explanation:</strong> Even though the numbers match, we cannot reorder pieces[0].
+</pre>
 
-```
-Input: arr = [15,88], pieces = [[88],[15]]
-Output: true
-Explanation: Concatenate [15] then [88]
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
+<pre>
+<strong>Input:</strong> arr = [91,4,64,78], pieces = [[78],[4,64],[91]]
+<strong>Output:</strong> true
+<strong>Explanation:</strong> Concatenate [91] then [4,64] then [78]
+</pre>
 
-```
-Input: arr = [49,18,16], pieces = [[16,18,49]]
-Output: false
-Explanation: Even though the numbers match, we cannot reorder pieces[0].
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 4:**
-
-```
-Input: arr = [91,4,64,78], pieces = [[78],[4,64],[91]]
-Output: true
-Explanation: Concatenate [91] then [4,64] then [78]
-```
-
-**Example 5:**
-
-```
-Input: arr = [1,3,5,7], pieces = [[2,4,6,8]]
-Output: false
-```
-
- 
-
-**Constraints:**
-
-- `1 <= pieces.length <= arr.length <= 100`
-- `sum(pieces[i].length) == arr.length`
-- `1 <= pieces[i].length <= arr.length`
-- `1 <= arr[i], pieces[i][j] <= 100`
-- The integers in `arr` are **distinct**.
-- The integers in `pieces` are **distinct** (i.e., If we flatten pieces in a 1D array, all the integers in this array are distinct).
+<ul>
+	<li><code>1 &lt;= pieces.length &lt;= arr.length &lt;= 100</code></li>
+	<li><code>sum(pieces[i].length) == arr.length</code></li>
+	<li><code>1 &lt;= pieces[i].length &lt;= arr.length</code></li>
+	<li><code>1 &lt;= arr[i], pieces[i][j] &lt;= 100</code></li>
+	<li>The integers in <code>arr</code> are <strong>distinct</strong>.</li>
+	<li>The integers in <code>pieces</code> are <strong>distinct</strong> (i.e., If we flatten pieces in a 1D array, all the integers in this array are distinct).</li>
+</ul>
