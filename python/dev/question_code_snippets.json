@@ -3776,5 +3776,109 @@
                 "code": "/**\n * Definition for singly-linked list.\n * public class ListNode {\n *     public var val: Int64\n *     public var next: ?ListNode\n *     public init() {\n *         val = 0\n *         next = None\n *     }\n *     public init(val: Int64) {\n *         this.val = val\n *         next = None\n *     }\n * }\n */\n\nclass Solution {\n    func addTwoNumbers(l1: ?ListNode, l2: ?ListNode): ?ListNode {\n\n    }\n}"
             }
         ]
+    },
+    {
+        "3606": [
+            {
+                "lang": "C++",
+                "langSlug": "cpp",
+                "code": "class Solution {\npublic:\n    vector<string> validateCoupons(vector<string>& code, vector<string>& businessLine, vector<bool>& isActive) {\n        \n    }\n};"
+            },
+            {
+                "lang": "Java",
+                "langSlug": "java",
+                "code": "class Solution {\n    public List<String> validateCoupons(String[] code, String[] businessLine, boolean[] isActive) {\n        \n    }\n}"
+            },
+            {
+                "lang": "Python",
+                "langSlug": "python",
+                "code": "class Solution(object):\n    def validateCoupons(self, code, businessLine, isActive):\n        \"\"\"\n        :type code: List[str]\n        :type businessLine: List[str]\n        :type isActive: List[bool]\n        :rtype: List[str]\n        \"\"\"\n        "
+            },
+            {
+                "lang": "Python3",
+                "langSlug": "python3",
+                "code": "class Solution:\n    def validateCoupons(self, code: List[str], businessLine: List[str], isActive: List[bool]) -> List[str]:\n        "
+            },
+            {
+                "lang": "C",
+                "langSlug": "c",
+                "code": "/**\n * Note: The returned array must be malloced, assume caller calls free().\n */\nchar** validateCoupons(char** code, int codeSize, char** businessLine, int businessLineSize, bool* isActive, int isActiveSize, int* returnSize) {\n    \n}"
+            },
+            {
+                "lang": "C#",
+                "langSlug": "csharp",
+                "code": "public class Solution {\n    public IList<string> ValidateCoupons(string[] code, string[] businessLine, bool[] isActive) {\n        \n    }\n}"
+            },
+            {
+                "lang": "JavaScript",
+                "langSlug": "javascript",
+                "code": "/**\n * @param {string[]} code\n * @param {string[]} businessLine\n * @param {boolean[]} isActive\n * @return {string[]}\n */\nvar validateCoupons = function(code, businessLine, isActive) {\n    \n};"
+            },
+            {
+                "lang": "TypeScript",
+                "langSlug": "typescript",
+                "code": "function validateCoupons(code: string[], businessLine: string[], isActive: boolean[]): string[] {\n    \n};"
+            },
+            {
+                "lang": "PHP",
+                "langSlug": "php",
+                "code": "class Solution {\n\n    /**\n     * @param String[] $code\n     * @param String[] $businessLine\n     * @param Boolean[] $isActive\n     * @return String[]\n     */\n    function validateCoupons($code, $businessLine, $isActive) {\n        \n    }\n}"
+            },
+            {
+                "lang": "Swift",
+                "langSlug": "swift",
+                "code": "class Solution {\n    func validateCoupons(_ code: [String], _ businessLine: [String], _ isActive: [Bool]) -> [String] {\n        \n    }\n}"
+            },
+            {
+                "lang": "Kotlin",
+                "langSlug": "kotlin",
+                "code": "class Solution {\n    fun validateCoupons(code: Array<String>, businessLine: Array<String>, isActive: BooleanArray): List<String> {\n        \n    }\n}"
+            },
+            {
+                "lang": "Dart",
+                "langSlug": "dart",
+                "code": "class Solution {\n  List<String> validateCoupons(List<String> code, List<String> businessLine, List<bool> isActive) {\n    \n  }\n}"
+            },
+            {
+                "lang": "Go",
+                "langSlug": "golang",
+                "code": "func validateCoupons(code []string, businessLine []string, isActive []bool) []string {\n    \n}"
+            },
+            {
+                "lang": "Ruby",
+                "langSlug": "ruby",
+                "code": "# @param {String[]} code\n# @param {String[]} business_line\n# @param {Boolean[]} is_active\n# @return {String[]}\ndef validate_coupons(code, business_line, is_active)\n    \nend"
+            },
+            {
+                "lang": "Scala",
+                "langSlug": "scala",
+                "code": "object Solution {\n    def validateCoupons(code: Array[String], businessLine: Array[String], isActive: Array[Boolean]): List[String] = {\n        \n    }\n}"
+            },
+            {
+                "lang": "Rust",
+                "langSlug": "rust",
+                "code": "impl Solution {\n    pub fn validate_coupons(code: Vec<String>, business_line: Vec<String>, is_active: Vec<bool>) -> Vec<String> {\n        \n    }\n}"
+            },
+            {
+                "lang": "Racket",
+                "langSlug": "racket",
+                "code": "(define/contract (validate-coupons code businessLine isActive)\n  (-> (listof string?) (listof string?) (listof boolean?) (listof string?))\n  )"
+            },
+            {
+                "lang": "Erlang",
+                "langSlug": "erlang",
+                "code": "-spec validate_coupons(Code :: [unicode:unicode_binary()], BusinessLine :: [unicode:unicode_binary()], IsActive :: [boolean()]) -> [unicode:unicode_binary()].\nvalidate_coupons(Code, BusinessLine, IsActive) ->\n  ."
+            },
+            {
+                "lang": "Elixir",
+                "langSlug": "elixir",
+                "code": "defmodule Solution do\n  @spec validate_coupons(code :: [String.t], business_line :: [String.t], is_active :: [boolean]) :: [String.t]\n  def validate_coupons(code, business_line, is_active) do\n    \n  end\nend"
+            },
+            {
+                "lang": "Cangjie",
+                "langSlug": "cangjie",
+                "code": "class Solution {\n    func validateCoupons(code: Array<String>, businessLine: Array<String>, isActive: Array<Bool>): ArrayList<String> {\n\n    }\n}"
+            }
+        ]
     }
 ]

@@ -168,6 +168,8 @@ class JavaWriter(LanguageWriter):
                 return f"{rt_type} {variable_name} = Float.parseFloat({input_name});"
             case "double":
                 return f"{rt_type} {variable_name} = Double.parseDouble({input_name});"
+            case "double[]":
+                return f"{rt_type} {variable_name} = jsonArrayToDoubleArray({input_name});"
             case "long":
                 return f"{rt_type} {variable_name} = Long.parseLong({input_name});"
             case "int[]":
@@ -180,6 +182,8 @@ class JavaWriter(LanguageWriter):
                 return f"{rt_type} {variable_name} = jsonArrayToString2DArray({input_name});"
             case "int[][]":
                 return f"{rt_type} {variable_name} = jsonArrayToInt2DArray({input_name});"
+            case "boolean[]":
+                return f"{rt_type} {variable_name} = jsonArrayToBooleanArray({input_name});"
             case "List<Integer>":
                 return f"{rt_type} {variable_name} = jsonArrayToIntList({input_name});"
             case "List<List<Integer>>":
