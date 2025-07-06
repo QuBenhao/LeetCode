@@ -1,0 +1,2 @@
+["[\"SAVE20\",\"\",\"PHARMA5\",\"SAVE@20\"]\n[\"restaurant\",\"grocery\",\"pharmacy\",\"restaurant\"]\n[true,true,true,true]", "[\"GROCERY15\",\"ELECTRONICS_50\",\"DISCOUNT10\"]\n[\"grocery\",\"electronics\",\"invalid\"]\n[false,true,true]"]
+[["PHARMA5", "SAVE20"], ["ELECTRONICS_50"]]
