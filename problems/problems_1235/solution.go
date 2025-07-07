@@ -8,21 +8,6 @@ import (
 	"strings"
 )
 
-func Solve(input string) int {
-	arrays := strings.Split(input, "\n")
-	arr1, arr2, arr3 := make([]int, 0), make([]int, 0), make([]int, 0)
-	if err := json.Unmarshal([]byte(arrays[0]), &arr1); err != nil {
-		log.Fatal(err)
-	}
-	if err := json.Unmarshal([]byte(arrays[1]), &arr2); err != nil {
-		log.Fatal(err)
-	}
-	if err := json.Unmarshal([]byte(arrays[2]), &arr3); err != nil {
-		log.Fatal(err)
-	}
-	return jobScheduling(arr1, arr2, arr3)
-}
-
 func jobScheduling(startTime, endTime, profit []int) int {
 	n := len(startTime)
 	type job struct{ start, end, profit int }
@@ -39,4 +24,19 @@ func jobScheduling(startTime, endTime, profit []int) int {
 		f[i+1] = max(f[i], f[j]+job.profit)
 	}
 	return f[n]
+}
+
+func Solve(input string) any {
+	arrays := strings.Split(input, "\n")
+	arr1, arr2, arr3 := make([]int, 0), make([]int, 0), make([]int, 0)
+	if err := json.Unmarshal([]byte(arrays[0]), &arr1); err != nil {
+		log.Fatal(err)
+	}
+	if err := json.Unmarshal([]byte(arrays[1]), &arr2); err != nil {
+		log.Fatal(err)
+	}
+	if err := json.Unmarshal([]byte(arrays[2]), &arr3); err != nil {
+		log.Fatal(err)
+	}
+	return jobScheduling(arr1, arr2, arr3)
 }
