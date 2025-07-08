@@ -367,7 +367,6 @@ class GolangWriter(LanguageWriter):
             lines = f.read().split("\n")
             import_part = False
             for line in lines:
-                logging.info(line)
                 if line.startswith("package problem"):
                     continue
                 if import_part:
