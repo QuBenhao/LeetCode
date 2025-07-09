@@ -6,8 +6,27 @@ import (
 	"strings"
 )
 
-func maxFreeTime(eventTime int, k int, startTime []int, endTime []int) int {
-    
+func maxFreeTime(eventTime int, k int, startTime []int, endTime []int) (ans int) {
+	n := len(startTime)
+	getDistance := func(idx int) int {
+		if idx == 0 {
+			return startTime[0]
+		}
+		if idx == n {
+			return eventTime - endTime[n-1]
+		}
+		return startTime[idx] - endTime[idx-1]
+	}
+	cur := 0
+	for i := range k + 1 {
+		cur += getDistance(i)
+	}
+	ans = cur
+	for i := k + 1; i <= n; i++ {
+		cur += getDistance(i) - getDistance(i-k-1)
+		ans = max(ans, cur)
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
