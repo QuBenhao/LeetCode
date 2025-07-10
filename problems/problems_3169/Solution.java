@@ -7,7 +7,16 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int countDays(int days, int[][] meetings) {
-        
+        Arrays.sort(meetings, Comparator.comparingInt(a -> a[0]));
+        int ans = 0;
+        int cur = 0;
+        for (int[] meeting : meetings) {
+            if (meeting[0] > cur) {
+                ans += meeting[0] - cur - 1;
+            }
+            cur = Math.max(cur, meeting[1]);
+        }
+        return ans + days - cur;
     }
 
     @Override
