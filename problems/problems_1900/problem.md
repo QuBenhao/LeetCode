@@ -1,29 +1,32 @@
 # 1900. The Earliest and Latest Rounds Where Players Compete [Rating: 2454.77]
 
-There is a tournament where `n` players are participating. The players are standing in a single row and are numbered from `1` to `n` based on their **initial**standing position (player `1` is the first player in the row, player `2` is the second player in the row, etc.).
+<p>There is a tournament where <code>n</code> players are participating. The players are standing in a single row and are numbered from <code>1</code> to <code>n</code> based on their <strong>initial</strong> standing position (player <code>1</code> is the first player in the row, player <code>2</code> is the second player in the row, etc.).</p>
 
-The tournament consists of multiple rounds (starting from round number `1`). In each round, the `ith` player from the front of the row competes against the `ith` player from the end of the row, and the winner advances to the next round. When the number of players is odd for the current round, the player in the middle automatically advances to the next round.
+<p>The tournament consists of multiple rounds (starting from round number <code>1</code>). In each round, the <code>i<sup>th</sup></code> player from the front of the row competes against the <code>i<sup>th</sup></code> player from the end of the row, and the winner advances to the next round. When the number of players is odd for the current round, the player in the middle automatically advances to the next round.</p>
 
-- For example, if the row consists of players `1, 2, 4, 6, 7`
+<ul>
+	<li>For example, if the row consists of players <code>1, 2, 4, 6, 7</code>
+	<ul>
+		<li>Player <code>1</code> competes against player <code>7</code>.</li>
+		<li>Player <code>2</code> competes against player <code>6</code>.</li>
+		<li>Player <code>4</code> automatically advances to the next round.</li>
+	</ul>
+	</li>
+</ul>
 
-  - Player `1` competes against player `7`.
-  - Player `2` competes against player `6`.
-  - Player `4` automatically advances to the next round.
+<p>After each round is over, the winners are lined back up in the row based on the <strong>original ordering</strong> assigned to them initially (ascending order).</p>
 
-After each round is over, the winners are lined back up in the row based on the **original ordering** assigned to them initially (ascending order).
+<p>The players numbered <code>firstPlayer</code> and <code>secondPlayer</code> are the best in the tournament. They can win against any other player before they compete against each other. If any two other players compete against each other, either of them might win, and thus you may <strong>choose</strong> the outcome of this round.</p>
 
-The players numbered `firstPlayer` and `secondPlayer` are the best in the tournament. They can win against any other player before they compete against each other. If any two other players compete against each other, either of them might win, and thus you may **choose** the outcome of this round.
+<p>Given the integers <code>n</code>, <code>firstPlayer</code>, and <code>secondPlayer</code>, return <em>an integer array containing two values, the <strong>earliest</strong> possible round number and the&nbsp;<strong>latest</strong> possible round number in which these two players will compete against each other, respectively</em>.</p>
 
-Given the integers `n`, `firstPlayer`, and `secondPlayer`, return *an integer array containing two values, the **earliest** possible round number and the **latest** possible round number in which these two players will compete against each other, respectively*.
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
- 
-
-**Example 1:**
-
-```
-Input: n = 11, firstPlayer = 2, secondPlayer = 4
-Output: [3,4]
-Explanation:
+<pre>
+<strong>Input:</strong> n = 11, firstPlayer = 2, secondPlayer = 4
+<strong>Output:</strong> [3,4]
+<strong>Explanation:</strong>
 One possible scenario which leads to the earliest round number:
 First round: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
 Second round: 2, 3, 4, 5, 6, 11
@@ -33,20 +36,21 @@ First round: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11
 Second round: 1, 2, 3, 4, 5, 6
 Third round: 1, 2, 4
 Fourth round: 2, 4
-```
+</pre>
 
-**Example 2:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: n = 5, firstPlayer = 1, secondPlayer = 5
-Output: [1,1]
-Explanation: The players numbered 1 and 5 compete in the first round.
+<pre>
+<strong>Input:</strong> n = 5, firstPlayer = 1, secondPlayer = 5
+<strong>Output:</strong> [1,1]
+<strong>Explanation:</strong> The players numbered 1 and 5 compete in the first round.
 There is no way to make them compete in any other round.
-```
+</pre>
 
- 
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Constraints:**
-
-- `2 <= n <= 28`
-- `1 <= firstPlayer < secondPlayer <= n`
+<ul>
+	<li><code>2 &lt;= n &lt;= 28</code></li>
+	<li><code>1 &lt;= firstPlayer &lt; secondPlayer &lt;= n</code></li>
+</ul>
