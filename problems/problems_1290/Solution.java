@@ -17,7 +17,12 @@ import qubhjava.models.ListNode;
 
 public class Solution extends BaseSolution {
     public int getDecimalValue(ListNode head) {
-        
+        int ans = 0;
+        for (ListNode node = head; node != null; node = node.next) {
+            ans <<= 1;
+            ans |= node.val;
+        }
+        return ans;
     }
 
     @Override

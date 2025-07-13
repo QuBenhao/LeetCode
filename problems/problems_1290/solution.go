@@ -14,8 +14,12 @@ import (
  *     Next *ListNode
  * }
  */
-func getDecimalValue(head *ListNode) int {
-    
+func getDecimalValue(head *ListNode) (ans int) {
+	for node := head; node != nil; node = node.Next {
+		ans <<= 1
+		ans |= node.Val
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
