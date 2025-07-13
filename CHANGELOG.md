@@ -1,5 +1,149 @@
 # CHANGELOG
 
+## v10.4.0 (2025-07-13)
+
+### Documentation
+
+* docs: templates.md
+
+add reverse thinking ([`d7f50b2`](https://github.com/QuBenhao/LeetCode/commit/d7f50b268b6af3b9bae6f421571d1866148e08c5))
+
+* docs: templates.md
+
+add log trick gcd ([`f327325`](https://github.com/QuBenhao/LeetCode/commit/f32732540f08110997fdaaa4ac84f1ec1bb94710))
+
+### Feature
+
+* feat: get problems by contest
+
+add contest selection and fetching functionality ([`67e1590`](https://github.com/QuBenhao/LeetCode/commit/67e159013280d40854f1bc19718025575a38aa0c))
+
+### Fix
+
+* fix: java plans output
+
+add testcase idxes and problems output ([`24f2c7e`](https://github.com/QuBenhao/LeetCode/commit/24f2c7ee881429b0c2632b1ec1ca8be283cc5301))
+
+* fix: JavaWriter boolean[]
+
+add boolean[] handler ([`ecd0b02`](https://github.com/QuBenhao/LeetCode/commit/ecd0b02cd75b43bc4e57728908357b4a148d8364))
+
+### Test
+
+* test: 3612, 3613, 3614, 3615 solution
+
+py, c++, go, java ([`1484369`](https://github.com/QuBenhao/LeetCode/commit/14843699b66f7e45be562a8033d9c8068d2d169e))
+
+* test: 2410 solution
+
+py, c++, go, java ([`726cc52`](https://github.com/QuBenhao/LeetCode/commit/726cc529bcb175e50cae76e6ad4a4f059e427f0d))
+
+* test: [20250713] Add (2410) ([`72e7b07`](https://github.com/QuBenhao/LeetCode/commit/72e7b077d84f685d8850be36470dd2c57b49b4a9))
+
+* test: 1592 solution
+
+py, c++, go, java ([`1dbd44d`](https://github.com/QuBenhao/LeetCode/commit/1dbd44dc561382e033232e16ad03d94120322faf))
+
+* test: 1900 solution
+
+py, c++, go, java ([`ec20135`](https://github.com/QuBenhao/LeetCode/commit/ec20135a6f12e2d38c7d5135f1c618d31d10f381))
+
+* test: 667 solution
+
+py, c++, go, java ([`c215365`](https://github.com/QuBenhao/LeetCode/commit/c215365fc1b4d2754ceeda9bd88347848cddca55))
+
+* test: [20250712] Add (1900) ([`4560d6c`](https://github.com/QuBenhao/LeetCode/commit/4560d6c01b72bfe942fc36b3e883757ae6e3f114))
+
+* test: 3169 solution
+
+py, c++, go, java ([`5fffed5`](https://github.com/QuBenhao/LeetCode/commit/5fffed5d59576afc5fd3c0ab9194819c20bc2d6b))
+
+* test: [20250711] Add (3169) ([`83f336f`](https://github.com/QuBenhao/LeetCode/commit/83f336fd97b145d0696c06758807e73f277ac30a))
+
+* test: 672 solution
+
+py, c++, go, java ([`0d5c0fc`](https://github.com/QuBenhao/LeetCode/commit/0d5c0fc0c5327ca36bcdecd706b1ac2019ebcbfa))
+
+* test: 3440 solution
+
+py, c++, go, java ([`b9f4acd`](https://github.com/QuBenhao/LeetCode/commit/b9f4acdf052552b34e870b46f36bf6245abc701d))
+
+* test: [20250710] Add (3440) ([`83405d1`](https://github.com/QuBenhao/LeetCode/commit/83405d1c0aedf82ea7f475ad734d519c37d35630))
+
+* test: 670 solution
+
+py, c++, go, java ([`9949c58`](https://github.com/QuBenhao/LeetCode/commit/9949c5800f2d5b32265cfc6cebc7d5292e0d380d))
+
+* test: 3439 solution
+
+py, c++, go, java ([`c32b579`](https://github.com/QuBenhao/LeetCode/commit/c32b5792fee0d67294d232aae590c0d778e73f99))
+
+* test: [20250709] Add (3439) ([`9af072d`](https://github.com/QuBenhao/LeetCode/commit/9af072d1da04e556ba09319fa62173a2c6857fc9))
+
+* test: 777 solution
+
+py, c++, go, java ([`4580c6b`](https://github.com/QuBenhao/LeetCode/commit/4580c6b6c05b2017cd6eeb66a0ca9fdb7eda762a))
+
+* test: 788 solution
+
+py, c++, go, java ([`bfc06d2`](https://github.com/QuBenhao/LeetCode/commit/bfc06d225beb75fb5294bfa5098a42ca4d80b3ba))
+
+* test: 1235 solution
+
+py, c++, go, java ([`5f8bb77`](https://github.com/QuBenhao/LeetCode/commit/5f8bb77f4b259080cdc5acf3f640915edf070922))
+
+* test: 1751 solution
+
+py, c++, go, java ([`6034e41`](https://github.com/QuBenhao/LeetCode/commit/6034e41495db21a543f07e0a9c5bc755e081de9a))
+
+* test: [20250708] Add (1751) ([`e3d8696`](https://github.com/QuBenhao/LeetCode/commit/e3d8696723148de64395e4da27c8508ffe0cae56))
+
+* test: 1353 solution
+
+py, c++, go, java ([`8e2d582`](https://github.com/QuBenhao/LeetCode/commit/8e2d58261e4a796551f3a766cda2c2fff995b3ca))
+
+* test: [20250707] Add (1353) ([`4d66d31`](https://github.com/QuBenhao/LeetCode/commit/4d66d31b7a4127115b46ed5ef6a05d4d42f164fe))
+
+* test: codeforces contest/2119/A
+
+c++ ([`e97afd4`](https://github.com/QuBenhao/LeetCode/commit/e97afd4eab073ca12af834411481342de85aca3c))
+
+* test: 1640 solution
+
+py, c++, go, java ([`65d8f8b`](https://github.com/QuBenhao/LeetCode/commit/65d8f8b27803872de762d5d66a59f239b33554cd))
+
+* test: 3602, 3603, 3604, 3605, 3606, 3607, 3608, 3609 solution
+
+java ([`3694b4b`](https://github.com/QuBenhao/LeetCode/commit/3694b4ba7599dc3d7cbb5d3e8dae7471d6f54887))
+
+* test: 3602, 3603, 3604, 3605, 3606, 3607, 3608, 3609 solution
+
+go ([`bd7878b`](https://github.com/QuBenhao/LeetCode/commit/bd7878baf0760d0728e97f3703d021696d86fdeb))
+
+* test: 3606, 3607, 3608, 3609 solution
+
+c++ ([`63dfe2e`](https://github.com/QuBenhao/LeetCode/commit/63dfe2ea6df5fc9ec1626d8d883a0f4b616ed381))
+
+* test: 3606, 3607, 3608, 3609 solution
+
+py ([`0e719bf`](https://github.com/QuBenhao/LeetCode/commit/0e719bf70fde3059065e33b0bd38354da4785740))
+
+* test: 3606, 3607, 3608, 3609
+
+add contest ([`f531bd6`](https://github.com/QuBenhao/LeetCode/commit/f531bd6c4aa605286e8b9e2fd1dc31f13c3247ef))
+
+* test: 3606, 3607, 3608, 3609
+
+add contest ([`597415f`](https://github.com/QuBenhao/LeetCode/commit/597415f80779920b8ca01b5773ae4308914dc6ce))
+
+* test: 3602, 3603, 3604, 3605 solution
+
+c++ ([`1d1800b`](https://github.com/QuBenhao/LeetCode/commit/1d1800b23e9351a932669ba599fe15d6bdb7428f))
+
+* test: 3602, 3603, 3604, 3605 solution
+
+py ([`ba6a172`](https://github.com/QuBenhao/LeetCode/commit/ba6a17200c4dc0da41babd2e4abe8682c7811efb))
+
 ## v10.3.1 (2025-07-06)
 
 ### Fix
