@@ -50,6 +50,7 @@ __user_input_get_problem = """Please select the get problem method [0-5, default
 3. Random
 4. Random remain [Problems that submitted but not accepted yet]
 5. Category
+6. Contest
 """
 __user_input_submit = """Please select the submit method [0-4, default: 0]:
 0. Back
@@ -72,6 +73,13 @@ __user_input_page = """Total of [{}] elements, please enter [default: 0]:
 b. last page
 n. next page
 """
+__user_input_contest_type = """Please select the contest type [0-2, default: 0]:
+0. Back
+1. Weekly contest
+2. Biweekly contest
+"""
+__user_input_contest_id_num = """Enter the contest ID number (e.g. 1, 2, etc.): """
+
 __user_input_favorite_method = """Please select the favorite method [0-2, default: 0]:
 0. Back
 1. List problems in the favorite
@@ -85,6 +93,7 @@ __user_input_language = f"""Select multiple languages you want to use, separated
 
 __allow_all = lambda x: True
 __allow_all_not_empty = lambda x: bool(x.strip())
+__allow_number = lambda x: bool(re.match(r"^\d+$", x))
 
 
 def input_until_valid(prompt, check_func, error_msg=None):
@@ -283,6 +292,40 @@ def get_problem(languages, problem_folder, cookie):
                     print(f"Problem [{problem_id}] fetched successfully.")
                 else:
                     print(f"Failed to fetch the problem. Check {problem_id} is correct?")
+            case "6":
+                contest_type = input_until_valid(
+                    __user_input_contest_type,
+                    lambda x: x in ["0", "1", "2"],
+                    "Invalid input, please enter 1 for weekly contest, 2 for biweekly contest, or 0 to go back."
+                )
+                print(__separate_line)
+                contest_id = input_until_valid(
+                    __user_input_contest_id_num,
+                    __allow_number,
+                    "Invalid input, please enter a number."
+                )
+                print(__separate_line)
+                if contest_type == "0":
+                    return
+                elif contest_type == "1":
+                    contest_id = f"weekly-contest-{contest_id}"
+                elif contest_type == "2":
+                    contest_id = f"biweekly-contest-{contest_id}"
+                else:
+                    print("Invalid contest type, please try again.")
+                    continue
+                contest_questions = contest_lib.get_contest_info(contest_id)
+                results = []
+                with ThreadPoolExecutor(max_workers=max(1, len(contest_questions))) as executor:
+                    for question_data in contest_questions:
+                        results.append(
+                            executor.submit(get_problem_main, problem_slug=question_data["title_slug"], force=True,
+                                            cookie=cookie, skip_language=True,
+                                            languages=languages, problem_folder=problem_folder))
+                for future in results:
+                    exit_code = future.result()
+                    if exit_code != 0:
+                        print("Failed to fetch a contest problem. Please check the contest ID and try again.")
             case _:
                 return
 
