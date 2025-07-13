@@ -7,7 +7,19 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int matchPlayersAndTrainers(int[] players, int[] trainers) {
-        
+        Arrays.sort(players);
+        Arrays.sort(trainers);
+        int i = 0, m = players.length;
+        int ans = 0;
+        for (int train: trainers) {
+            if (players[i] <= train) {
+                ++ans;
+                if (++i == m) {
+                    return m;
+                }
+            }
+        }
+        return ans;
     }
 
     @Override

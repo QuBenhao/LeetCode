@@ -3,11 +3,24 @@ package problem2410
 import (
 	"encoding/json"
 	"log"
+	"sort"
 	"strings"
 )
 
-func matchPlayersAndTrainers(players []int, trainers []int) int {
-    
+func matchPlayersAndTrainers(players []int, trainers []int) (ans int) {
+	sort.Ints(players)
+	sort.Ints(trainers)
+	i, m := 0, len(players)
+	for _, train := range trainers {
+		if players[i] <= train {
+			ans++
+			i++
+			if i == m {
+				break
+			}
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
