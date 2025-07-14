@@ -7,5 +7,14 @@ class Solution(solution.Solution):
         return self.isValid(test_input)
 
     def isValid(self, word: str) -> bool:
-        pass
-
+        if len(word) < 3:
+            return False
+        has_vowel, has_consonant = False, False
+        for c in word:
+            if not c.isalnum():
+                return False
+            if c.lower() in "aeiou":
+                has_vowel = True
+            elif c.isalpha():
+                has_consonant = True
+        return has_vowel and has_consonant
