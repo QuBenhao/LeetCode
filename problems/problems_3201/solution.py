@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.maximumLength(test_input)
 
     def maximumLength(self, nums: List[int]) -> int:
-        pass
-
+        dp = [0] * 4
+        for num in nums:
+            cur = num % 2
+            for i in range(4):
+                if (i >> (dp[i] % 2)) & 1 == cur:
+                    dp[i] += 1
+        return max(dp)
