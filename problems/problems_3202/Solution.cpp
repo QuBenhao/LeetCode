@@ -7,8 +7,17 @@ using json = nlohmann::json;
 
 class Solution {
 public:
-    int maximumLength(vector<int>& nums, int k) {
-        
+    int maximumLength(const vector<int>& nums, int k) {
+      vector<vector<int>> dp(k, vector<int>(k));
+			int ans = 0;
+			for (int num: nums) {
+				num %= k;
+				for (int i = 0; i < k; ++i) {
+					dp[num][i] = dp[i][num] + 1;
+					ans = max(ans, dp[num][i]);
+				}
+			}
+			return ans;
     }
 };
 

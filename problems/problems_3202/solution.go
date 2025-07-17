@@ -6,8 +6,16 @@ import (
 	"strings"
 )
 
-func maximumLength(nums []int, k int) int {
-    
+func maximumLength(nums []int, k int) (ans int) {
+	for val := range k {
+		dp := make([]int, k)
+		for _, num := range nums {
+			num %= k
+			dp[num] = dp[(k+val-num)%k] + 1
+			ans = max(ans, dp[num])
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
