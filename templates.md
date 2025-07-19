@@ -2956,6 +2956,17 @@ def primes(n):
         p += 1
     return [p for p in range(2, n + 1) if is_prime[p]]
 ```
+```cpp
+#define MAXN ((int) 1e5)
+bool flag[MAXN + 5], inited = false;
+void init() {
+    if (inited) return;
+    inited = true;
+    flag[0] = flag[1] = true;
+    // 筛法求质数
+    for (int i = 2; i * i <= MAXN; i++) if (!flag[i]) for (int j = i * 2; j <= MAXN; j += i) flag[j] = true;
+}
+```
 
 ### 求N以内每个数的不同质因子个数
 

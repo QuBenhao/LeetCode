@@ -13,15 +13,6 @@ class Solution(solution.Solution):
             return 1
 
         length = n.bit_length()
-        possible_nums = set()
-        for i in range(2, length + 1):
-            if DEPTH[i] + 1 == k:
-                possible_nums.add(i)
-        if k == 1:
-            possible_nums.add(1)
-
-        if not possible_nums:
-            return 0
 
         @lru_cache(None)
         def dfs(pos, limit, nums):
@@ -37,10 +28,11 @@ class Solution(solution.Solution):
             return ans
 
         res = 0
-        for p in possible_nums:
-            res += dfs(0, True, p)
-            if p == 1:
-                res -= 1
+        for i in range(2, length + 1):
+            if DEPTH[i] + 1 == k:
+                res += dfs(0, True, i)
+        if k == 1:
+            res += dfs(0, True, 1) - 1
         return res
 
 
