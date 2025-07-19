@@ -23,7 +23,7 @@ def general_request(url: str, func=None, request_method: str = "post",
             time.sleep((4 - depth) * 3)
             return general_request(url, func, request_method, params, data, json, depth - 1, **kwargs)
         if resp.status_code == 403:
-            logging.warning(f"{url} Access denied!")
+            logging.warning(f"{url} Access denied! msg: {resp.text}")
             time.sleep(1)
             return None
         logging.debug(f"Response code[{resp.status_code}] msg: {resp.text}")

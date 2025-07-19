@@ -256,7 +256,14 @@ def get_questions_by_key_word(keyword: Optional[str],
                                              "filters": filters
                                          },
                                          "operationName": "problemsetQuestionListV2"},
-                                   cookies={'cookie': cookie} if cookie else None)
+                                   cookies={'cookie': cookie} if cookie else None,
+                                   headers= {
+                                       "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
+                                   })
+            if result.status_code != 200:
+                logging.error(f"Failed to fetch questions by keyword: {keyword}, "
+                              f"status code: {result.status_code}, response: {result.text}")
+                return None
             res_dict = json.loads(result.text)["data"]["problemsetQuestionListV2"]
             ans.extend(res_dict["questions"])
             if not res_dict["hasMore"] or not fetch_all:
