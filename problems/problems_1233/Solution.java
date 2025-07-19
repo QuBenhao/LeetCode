@@ -7,7 +7,16 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public List<String> removeSubfolders(String[] folder) {
-        
+        List<String> result = new ArrayList<>();
+        Arrays.sort(folder);
+        String last = "#";
+        for (String f : folder) {
+            if (!f.startsWith(last)) {
+                result.add(f);
+                last = f + "/";
+            }
+        }
+        return result;
     }
 
     @Override
