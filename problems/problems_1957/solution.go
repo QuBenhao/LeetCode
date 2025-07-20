@@ -7,7 +7,14 @@ import (
 )
 
 func makeFancyString(s string) string {
-    
+	var ans strings.Builder
+	for i := 0; i < len(s); i++ {
+		if i > 1 && s[i] == s[i-1] && s[i] == s[i-2] {
+			continue
+		}
+		ans.WriteByte(s[i])
+	}
+	return ans.String()
 }
 
 func Solve(inputJsonValues string) any {

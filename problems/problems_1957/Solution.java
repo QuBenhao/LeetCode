@@ -7,7 +7,14 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public String makeFancyString(String s) {
-        
+        StringBuilder ans = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            if (i > 1 && s.charAt(i) == s.charAt(i - 1) && s.charAt(i) == s.charAt(i - 2)) {
+                continue;
+            }
+            ans.append(s.charAt(i));
+        }
+        return ans.toString();
     }
 
     @Override
