@@ -6,8 +6,20 @@ import qubhjava.BaseSolution;
 
 
 public class Solution extends BaseSolution {
+    private static final int MOD = 1_000_000_007;
     public int countTrapezoids(int[][] points) {
-        
+        Map<Integer, Integer> counts = new HashMap<>();
+        for (int[] point: points) {
+            counts.put(point[1], counts.getOrDefault(point[1], 0) + 1);
+        }
+        int ans = 0;
+        int s = 0;
+        for (int v: counts.values()) {
+            int total = Math.toIntExact((long) v * (v - 1) / 2 % MOD);
+            ans = (Math.toIntExact((long)total * s % MOD) + ans) % MOD;
+            s = (s + total) % MOD;
+        }
+        return ans;
     }
 
     @Override

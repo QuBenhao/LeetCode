@@ -1864,6 +1864,40 @@ public:
 };
 ```
 
+```java
+class FenwickTree {
+        private final int[] tree;
+        private final int n;
+        
+        public  FenwickTree(int n) {
+            this.n = n;
+            this.tree = new int[n + 1];
+        }
+        
+        private int lowbit(int x) {
+            return x & -x;
+        }
+        
+        public void update(int index, int value) {
+            for (; index <= n; index += lowbit(index)) {
+                tree[index] += value;
+            }
+        }
+        
+        public int query(int index) {
+            int sum = 0;
+            for (; index > 0; index -= lowbit(index)) {
+                sum += tree[index];
+            }
+            return sum;
+        }
+        
+        public int query(int left, int right) {
+            return query(right) - query(left - 1);
+        }
+}
+```
+
 ### **核心原理**
 
 1. **二进制索引**  

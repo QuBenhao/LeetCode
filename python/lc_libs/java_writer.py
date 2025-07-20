@@ -174,6 +174,8 @@ class JavaWriter(LanguageWriter):
                 return f"{rt_type} {variable_name} = Long.parseLong({input_name});"
             case "int[]":
                 return f"{rt_type} {variable_name} = jsonArrayToIntArray({input_name});"
+            case "long[]":
+                return f"{rt_type} {variable_name} = jsonArrayToLongArray({input_name});"
             case "String":
                 return f"{rt_type} {variable_name} = jsonStringToString({input_name});"
             case "String[]":
@@ -182,6 +184,8 @@ class JavaWriter(LanguageWriter):
                 return f"{rt_type} {variable_name} = jsonArrayToString2DArray({input_name});"
             case "int[][]":
                 return f"{rt_type} {variable_name} = jsonArrayToInt2DArray({input_name});"
+            case "long[][]":
+                return f"{rt_type} {variable_name} = jsonArrayToLong2DArray({input_name});"
             case "boolean[]":
                 return f"{rt_type} {variable_name} = jsonArrayToBooleanArray({input_name});"
             case "List<Integer>":
