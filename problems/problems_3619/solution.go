@@ -33,6 +33,7 @@ func countIslands(grid [][]int, k int) (ans int) {
 			if visited[i][j] || grid[i][j] == 0 {
 				continue
 			}
+			visited[i][j] = true
 			if dfs(i, j) == 0 {
 				ans++
 			}
