@@ -7,7 +7,13 @@ import (
 )
 
 func checkDivisibility(n int) bool {
-    
+	s, m := 0, 1
+	for num := n; num > 0; num /= 10 {
+		d := num % 10
+		s += d
+		m *= d
+	}
+	return n%(m+s) == 0
 }
 
 func Solve(inputJsonValues string) any {
