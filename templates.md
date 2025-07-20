@@ -2967,6 +2967,21 @@ void init() {
     for (int i = 2; i * i <= MAXN; i++) if (!flag[i]) for (int j = i * 2; j <= MAXN; j += i) flag[j] = true;
 }
 ```
+```java
+    private static final int MAX_N = 100000;
+    private static final boolean[] FLAG = new boolean[MAX_N + 1];
+    static {
+        FLAG[0] = true;
+        FLAG[1] = true;
+        for (int i = 2; i * i <= MAX_N; i++) {
+            if (!FLAG[i]) {
+                for (int j = i * 2; j <= MAX_N; j += i) {
+                    FLAG[j] = true;
+                }
+            }
+        }
+    }
+```
 
 ### 求N以内每个数的不同质因子个数
 

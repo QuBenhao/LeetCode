@@ -1,4 +1,4 @@
-package problem100728
+package problem3624
 
 import (
 	"encoding/json"
