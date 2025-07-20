@@ -43,7 +43,7 @@ public:
           continue;
         for (const auto &[v, cost] : graph[u]) {
           if (cost < min_cost)
-            continue;
+            break;
           int64_t new_dist = dist + cost;
           if (new_dist > k || new_dist >= distance[v])
             continue;

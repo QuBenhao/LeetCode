@@ -4,38 +4,77 @@
 using namespace std;
 using json = nlohmann::json;
 
+class UnionFind {
+  vector<int> fa;
+  vector<int> size;
+
+public:
+  int cc;
+  explicit UnionFind(int n) : fa(n), size(n, 1), cc(n) {
+    for (int i = 0; i < n; i++) {
+      fa[i] = i;
+    }
+  }
+
+  int find(int x) {
+    if (fa[x] != x) {
+      fa[x] = find(fa[x]);
+    }
+    return fa[x];
+  }
+
+  bool merge(int x, int y) {
+    int px = find(x), py = find(y);
+    if (px == py) {
+      return false;
+    }
+    if (px < py) {
+      swap(px, py);
+    }
+    fa[px] = py;
+    size[py] += size[px];
+    cc--;
+    return true;
+  }
+
+  int get_size(int x) { return size[find(x)]; }
+};
+
 class Solution {
 public:
   int countIslands(const vector<vector<int>> &grid, int k) {
     int ans = 0;
     int m = grid.size(), n = grid[0].size();
-    vector<vector<bool>> visited(m, vector<bool>(n, false));
-    const vector<pair<int, int>> directions{{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
 
-    auto dfs = [&](this auto &&dfs, int x, int y) -> int {
-      int cur = grid[x][y] % k;
-      for (const auto &[dx, dy] : directions) {
-        int nx = x + dx, ny = y + dy;
-        if (nx < 0 || nx >= m || ny < 0 || ny >= n || visited[nx][ny] ||
-            grid[nx][ny] == 0) {
-          continue;
-        }
-        visited[nx][ny] = true;
-        cur = (cur + dfs(nx, ny)) % k;
-      }
-      return cur;
-    };
+    UnionFind uf(m * n);
+    auto idxTrans = [n](int x, int y) { return x * n + y; };
 
     for (int i = 0; i < m; ++i) {
       for (int j = 0; j < n; ++j) {
-        if (grid[i][j] == 0 || visited[i][j]) {
+        if (grid[i][j] == 0) {
           continue;
         }
-        visited[i][j] = true;
-        int cur = dfs(i, j);
-        if (cur == 0) {
-          ++ans;
+        if (i > 0 && grid[i - 1][j] != 0) {
+          uf.merge(idxTrans(i - 1, j), idxTrans(i, j));
         }
+        if (j > 0 && grid[i][j - 1] != 0) {
+          uf.merge(idxTrans(i, j - 1), idxTrans(i, j));
+        }
+      }
+    }
+    unordered_map<int, int> mp;
+    for (int i = 0; i < m; ++i) {
+      for (int j = 0; j < n; ++j) {
+        if (grid[i][j] == 0) {
+          continue;
+        }
+        int root = uf.find(idxTrans(i, j));
+        mp[root] = (mp[root] + grid[i][j]) % k;
+      }
+    }
+    for (const auto &[_, val] : mp) {
+      if (val == 0) {
+        ++ans;
       }
     }
     return ans;
