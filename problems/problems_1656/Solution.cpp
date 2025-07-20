@@ -1,19 +1,29 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
 
-
 using namespace std;
 using json = nlohmann::json;
 
 class OrderedStream {
+  vector<string> stream;
+  int ptr;
+
 public:
-    OrderedStream(int n) {
-        
+  explicit OrderedStream(int n) : stream(n, ""), ptr(0) {}
+
+  vector<string> insert(int idKey, const string &value) {
+    --idKey;
+    stream[idKey] = value;
+    if (ptr < idKey) {
+      return {};
     }
-    
-    vector<string> insert(int idKey, string value) {
-        
+    vector<string> result;
+    while (ptr < stream.size() && !stream[ptr].empty()) {
+      result.push_back(stream[ptr]);
+      ptr++;
     }
+    return result;
+  }
 };
 
 /**
@@ -23,25 +33,25 @@ public:
  */
 
 json leetcode::qubh::Solve(string input_json_values) {
-	vector<string> inputArray;
-	size_t pos = input_json_values.find('\n');
-	while (pos != string::npos) {
-		inputArray.push_back(input_json_values.substr(0, pos));
-		input_json_values = input_json_values.substr(pos + 1);
-		pos = input_json_values.find('\n');
-	}
-	inputArray.push_back(input_json_values);
+  vector<string> inputArray;
+  size_t pos = input_json_values.find('\n');
+  while (pos != string::npos) {
+    inputArray.push_back(input_json_values.substr(0, pos));
+    input_json_values = input_json_values.substr(pos + 1);
+    pos = input_json_values.find('\n');
+  }
+  inputArray.push_back(input_json_values);
 
-	vector<string> operators = json::parse(inputArray[0]);
-	vector<vector<json>> op_values = json::parse(inputArray[1]);
-	auto obj0 = make_unique<OrderedStream>(op_values[0][0]);
-	vector<json> ans = {nullptr};
-	for (size_t i = 1; i < op_values.size(); i++) {
-		if (operators[i] == "insert") {
-			ans.push_back(obj0->insert(op_values[i][0], op_values[i][1]));
-			continue;
-		}
-		ans.push_back(nullptr);
-	}
-	return ans;
+  vector<string> operators = json::parse(inputArray[0]);
+  vector<vector<json>> op_values = json::parse(inputArray[1]);
+  auto obj0 = make_unique<OrderedStream>(op_values[0][0]);
+  vector<json> ans = {nullptr};
+  for (size_t i = 1; i < op_values.size(); i++) {
+    if (operators[i] == "insert") {
+      ans.push_back(obj0->insert(op_values[i][0], op_values[i][1]));
+      continue;
+    }
+    ans.push_back(nullptr);
+  }
+  return ans;
 }
