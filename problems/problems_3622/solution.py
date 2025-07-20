@@ -7,5 +7,12 @@ class Solution(solution.Solution):
         return self.checkDivisibility(test_input)
 
     def checkDivisibility(self, n: int) -> bool:
-        pass
+        s, m = 0, 1
+        num = n
+        while num:
+            d = num % 10
+            s += d
+            m *= d
+            num //= 10
+        return n % (s + m) == 0
 

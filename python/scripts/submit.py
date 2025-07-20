@@ -24,7 +24,7 @@ _LANG_TRANS_MAP = {
 
 
 async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
-               problem_folder: str = None, check_solution: bool = False):
+               problem_folder: str = None, check_solution: bool = False, problem_slug: str = None):
     if check_cookie_expired(cookie):
         logging.warning("LeetCode cookie might have expired; please check!")
     lang = _LANG_TRANS_MAP.get(lang.lower(), lang)
@@ -46,24 +46,24 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
             logging.error(f"Unable to get problem_id: {problem_id}, check input or environments folder")
             return
         load_code = True
-    origin_problem_id = back_question_id(problem_id)
-    questions = lc_libs.get_questions_by_key_word(origin_problem_id)
-    if not questions:
-        logging.error(f"Unable to find any questions with LeetCode problem_id {origin_problem_id},"
-                      f"check the input problem_id or contact the author")
-        return
-    problem_slug = None
-    for question in questions:
-        if question["paidOnly"] and not cookie:
-            continue
-        if question["questionFrontendId"] == origin_problem_id:
-            problem_slug = question["titleSlug"]
-            break
     if not problem_slug:
-        logging.warning(
-            f"Unable to find any questions with problem_id {origin_problem_id}, possible questions:\n"
-            + "\n".join(v for v in questions))
-        return
+        origin_problem_id = back_question_id(problem_id)
+        questions = lc_libs.get_questions_by_key_word(origin_problem_id)
+        if not questions:
+            logging.error(f"Unable to find any questions with LeetCode problem_id {origin_problem_id},"
+                          f"check the input problem_id or contact the author")
+            return
+        for question in questions:
+            if question["paidOnly"] and not cookie:
+                continue
+            if question["questionFrontendId"] == origin_problem_id:
+                problem_slug = question["titleSlug"]
+                break
+        if not problem_slug:
+            logging.warning(
+                f"Unable to find any questions with problem_id {origin_problem_id}, possible questions:\n"
+                + "\n".join(v for v in questions))
+            return
     problem_info = lc_libs.get_question_info(problem_slug, cookie)
     if not problem_info:
         logging.warning(f"Unable to get problem info, possibly network issue, slug: {problem_slug}")
@@ -110,9 +110,12 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
 
 if __name__ == '__main__':
     rp = Path(__file__).parent.parent.parent
-    sys.path.insert(0,str(rp / "python"))
+    sys.path.insert(0, str(rp / "python"))
     parser = argparse.ArgumentParser()
     parser.add_argument("-id", required=False, type=str, help="The id of question to submit.", default="")
+    parser.add_argument("-slug", required=False, type=str,
+                        help="The slug of question to submit. "
+                             "Usually useful when problem id not update to the latest in leetcode.", default="")
     parser.add_argument("-solution", required=False, action="store_true", help="Check SanYe solution.")
     parser.add_argument("lang", choices=list(_LANG_TRANS_MAP.keys()) +
                                         ["java"] + list(_LANG_TRANS_MAP.values()))
@@ -123,6 +126,7 @@ if __name__ == '__main__':
         print(f"Load Env exception, {e}")
         traceback.print_exc()
     question_id = args.id
+    slug = args.slug
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, None)
     log_level = os.getenv(constant.LOG_LEVEL, "INFO")
@@ -137,5 +141,6 @@ if __name__ == '__main__':
         asyncio.set_event_loop(loop)
     else:
         loop = asyncio.get_event_loop()
-    loop.run_until_complete(main(rp, format_question_id(question_id), args.lang, cke, pf, args.solution))
+    loop.run_until_complete(main(rp, format_question_id(question_id),
+                                 args.lang, cke, pf, args.solution, problem_slug=slug))
     sys.exit(0)
