@@ -7,7 +7,19 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int maximumUniqueSubarray(int[] nums) {
-        
+        int ans = 0, cur = 0, left = 0;
+        Set<Integer> seen = new HashSet<>();
+        for (int num: nums) {
+            while (seen.contains(num)) {
+                seen.remove(nums[left]);
+                cur -= nums[left];
+                left++;
+            }
+            seen.add(num);
+            cur += num;
+            ans = Math.max(ans, cur);
+        }
+        return ans;
     }
 
     @Override
