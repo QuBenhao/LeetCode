@@ -10,19 +10,14 @@ class Solution(solution.Solution):
         :type nums: List[int]
         :rtype: int
         """
-        n = len(nums)
-        vals = []
-        res = 0
-        last = 0
-        for i in range(n):
-            if nums[i] in vals:
-                temp = vals.index(nums[i])
-                for j in range(temp):
-                    last -= vals.pop(0)
-                vals.pop(0)
-                res = max(res,last)
-            else:
-                last += nums[i]
-                res = max(res,last)
-            vals.append(nums[i])
-        return res
+        ans = cur = left = 0
+        seen = set()
+        for num in nums:
+            while num in seen:
+                cur -= nums[left]
+                seen.remove(nums[left])
+                left += 1
+            cur += num
+            ans = max(ans, cur)
+            seen.add(num)
+        return ans
