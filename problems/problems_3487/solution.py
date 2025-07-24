@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.maxSum(test_input)
 
     def maxSum(self, nums: List[int]) -> int:
-        pass
-
+        return sum(s) if (s := set(num for num in nums if num > 0)) else max(nums)
