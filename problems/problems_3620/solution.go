@@ -50,7 +50,7 @@ func findMaxPathScore(edges [][]int, online []bool, k int64) int {
 		return false
 	}
 
-	left := 0
+	left := -1
 	for left < right {
 		mid := (left + right + 1) / 2
 		if helper(mid) {
@@ -59,10 +59,7 @@ func findMaxPathScore(edges [][]int, online []bool, k int64) int {
 			right = mid - 1
 		}
 	}
-	if left > 0 {
-		return left
-	}
-	return -1
+	return left
 }
 
 type Pair struct {

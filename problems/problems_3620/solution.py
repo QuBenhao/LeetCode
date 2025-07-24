@@ -40,11 +40,11 @@ class Solution(solution.Solution):
                     heapq.heappush(pq, (new_cost, neigh))
             return False
 
-        left = 0
+        left = -1
         while left < right:
             mid = (left + right + 1) // 2
             if helper(mid):
                 left = mid
             else:
                 right = mid - 1
-        return left if left > 0 else -1
+        return left

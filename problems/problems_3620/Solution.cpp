@@ -54,7 +54,7 @@ public:
       return false;
     };
 
-    int left = 0;
+    int left = -1;
     while (left < right) {
       int mid = left + (right - left + 1) / 2;
       if (helper(mid)) {
@@ -63,7 +63,7 @@ public:
         right = mid - 1;
       }
     }
-    return left > 0 ? left : -1;
+    return left;
   }
 };
 

@@ -52,7 +52,7 @@ public class Solution extends BaseSolution {
                 right = Math.max(right, c);
             }
         }
-        for (int left = 0; left < right; ) {
+        for (int left = -1; left < right; ) {
             int mid = (left + right + 1) / 2;
             if (canReach(graph, n, mid, k)) {
                 left = mid; // mid is feasible
@@ -60,7 +60,7 @@ public class Solution extends BaseSolution {
                 right = mid - 1; // mid is not feasible
             }
         }
-        return right > 0 ? right : -1; // If no path found, return -1
+        return right;
     }
 
     @Override
