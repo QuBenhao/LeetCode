@@ -3033,6 +3033,18 @@ def count_distinct_prime_factors(n):
     return count
 ```
 
+### 质因数分解
+
+```python
+# 预处理每个数的质因子列表
+mx = 1000001
+PRIME_FACTORS = [[] for _ in range(mx)]
+for i in range(2, mx):
+    if not PRIME_FACTORS[i]:  # i 是质数
+        for j in range(i, mx, i):  # i 的倍数有质因子 i
+            PRIME_FACTORS[j].append(i)
+```
+
 ## 几何
 
 ### 平行四边形
