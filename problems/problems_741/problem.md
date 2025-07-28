@@ -1,4 +1,4 @@
-# 741. Cherry Pickup
+# 741. Cherry Pickup 
 
 <p>You are given an <code>n x n</code> <code>grid</code> representing a field of cherries, each cell is one of three possible integers.</p>
 
