@@ -7,7 +7,18 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int longestSubarray(int[] nums) {
-        
+        int ans = 0, cur = 0, max = 0;
+        for (int num : nums) {
+            if (num > max) {
+                ans = cur = 1;
+                max = num;
+            } else if (num == max) {
+                ans = Math.max(++cur, ans);
+            } else {
+                cur = 0;
+            }
+        }
+        return ans;
     }
 
     @Override
