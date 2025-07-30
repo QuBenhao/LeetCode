@@ -7,7 +7,11 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public boolean doesValidArrayExist(int[] derived) {
-        
+        int a = 0;
+        for (int d : derived) {
+            a ^= d;
+        }
+        return a == 0;
     }
 
     @Override

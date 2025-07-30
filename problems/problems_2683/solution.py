@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.doesValidArrayExist(test_input)
 
     def doesValidArrayExist(self, derived: List[int]) -> bool:
-        pass
-
+        return sum(derived) % 2 == 0

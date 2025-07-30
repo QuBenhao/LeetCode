@@ -7,7 +7,11 @@ import (
 )
 
 func doesValidArrayExist(derived []int) bool {
-    
+	a := 0
+	for _, d := range derived {
+		a ^= d
+	}
+	return a == 0
 }
 
 func Solve(inputJsonValues string) any {
