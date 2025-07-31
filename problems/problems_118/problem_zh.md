@@ -1,4 +1,4 @@
-# 118. 杨辉三角
+# 118. 杨辉三角 
 
 <p>给定一个非负整数 <em><code>numRows</code>，</em>生成「杨辉三角」的前 <em><code>numRows</code> </em>行。</p>
 

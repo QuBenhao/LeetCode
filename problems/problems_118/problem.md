@@ -1,4 +1,4 @@
-# 118. Pascal's Triangle
+# 118. Pascal's Triangle 
 
 <p>Given an integer <code>numRows</code>, return the first numRows of <strong>Pascal&#39;s triangle</strong>.</p>
 
