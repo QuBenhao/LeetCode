@@ -9,7 +9,8 @@ class Robot {
 	private static final String[] DIRS = {"East", "North", "West", "South"};
 	private final int m, n, total;
 	private int loc;
-	private boolean moved;
+	private boolean moved, cached;
+	private int x, y, dir;
 
     public Robot(int width, int height) {
         this.m = width;
@@ -23,31 +24,51 @@ class Robot {
         num %= total;
         loc = (loc + num) % total;
         moved = true;
+		cached = false;
     }
     
     public int[] getPos() {
-        int[] mv = move();
-		return new int[]{mv[0], mv[1]};
+        move();
+		return new int[]{x, y};
     }
     
     public String getDir() {
-        return DIRS[move()[2]];
+		move();
+        return DIRS[dir];
     }
 
-	private int[] move() {
+	private void move() {
+		if (cached) {
+			return;
+		}
+		cached = true;
 		if (!moved) {
-			return new int[]{0, 0, 0};
+			x = 0;
+			y = 0;
+			dir = 0;
+			return;
 		}
 		if (loc < m) {
-			return new int[]{loc, 0, loc == 0 ? 3 : 0};
+			x = loc;
+			y = 0;
+			dir = loc == 0 ? 3 : 0; // East
+			return;
 		}
 		if (loc < m + n - 1) {
-			return new int[]{m - 1, loc - m + 1, 1};
+			x = m - 1;
+			y = loc - m + 1;
+			dir = 1; // North
+			return;
 		}
 		if (loc < 2 * m + n - 2) {
-			return new int[]{m - 1 - (loc - m - n + 2), n - 1, 2};
+			x = m - 1 - (loc - m - n + 2);
+			y = n - 1;
+			dir = 2; // West
+			return;
 		}
-		return new int[]{0, total - loc, 3};
+		x = 0;
+		y = total - loc;
+		dir = 3; // South
 	}
 }
 
