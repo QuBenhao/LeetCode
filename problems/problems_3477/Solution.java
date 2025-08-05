@@ -7,7 +7,22 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int numOfUnplacedFruits(int[] fruits, int[] baskets) {
-        
+        int n = fruits.length;
+        int ans = 0;
+        for (int fruit: fruits) {
+            boolean placed = false;
+            for (int i = 0; i < n; i++) {
+                if (baskets[i] >= fruit) {
+                    baskets[i] = 0;
+                    placed = true;
+                    break;
+                }
+            }
+            if (!placed) {
+                ans++;
+            }
+        }
+        return ans;
     }
 
     @Override

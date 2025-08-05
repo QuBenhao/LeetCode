@@ -6,8 +6,21 @@ import (
 	"strings"
 )
 
-func numOfUnplacedFruits(fruits []int, baskets []int) int {
-    
+func numOfUnplacedFruits(fruits []int, baskets []int) (ans int) {
+	for _, fruit := range fruits {
+		placed := false
+		for i, basket := range baskets {
+			if basket >= fruit {
+				baskets[i] = 0
+				placed = true
+				break
+			}
+		}
+		if !placed {
+			ans++
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
