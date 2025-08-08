@@ -1,50 +1,39 @@
-# 231. Power of Two
+# 231. Power of Two 
 
-Given an integer `n`, return *`true` if it is a power of two. Otherwise, return `false`*.
+<p>Given an integer <code>n</code>, return <em><code>true</code> if it is a power of two. Otherwise, return <code>false</code></em>.</p>
 
-An integer `n` is a power of two, if there exists an integer `x` such that n == 2<sup>x</sup>.
+<p>An integer <code>n</code> is a power of two, if there exists an integer <code>x</code> such that <code>n == 2<sup>x</sup></code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> n = 1
+<strong>Output:</strong> true
+<strong>Explanation: </strong>2<sup>0</sup> = 1
+</pre>
 
-```
-Input: n = 1
-Output: true
-Explanation: 20 = 1
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> n = 16
+<strong>Output:</strong> true
+<strong>Explanation: </strong>2<sup>4</sup> = 16
+</pre>
 
-```
-Input: n = 16
-Output: true
-Explanation: 24 = 16
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
+<pre>
+<strong>Input:</strong> n = 3
+<strong>Output:</strong> false
+</pre>
 
-```
-Input: n = 3
-Output: false
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 4:**
+<ul>
+	<li><code>-2<sup>31</sup> &lt;= n &lt;= 2<sup>31</sup> - 1</code></li>
+</ul>
 
-```
-Input: n = 4
-Output: true
-```
-
-**Example 5:**
-
-```
-Input: n = 5
-Output: false
-```
-
- 
-
-**Constraints:**
-
-- -2<sup>31</sup> <= n <= 2<sup>31</sup> - 1
+<p>&nbsp;</p>
+<strong>Follow up:</strong> Could you solve it without loops/recursion?
