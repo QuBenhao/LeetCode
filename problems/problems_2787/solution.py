@@ -7,5 +7,14 @@ class Solution(solution.Solution):
         return self.numberOfWays(*test_input)
 
     def numberOfWays(self, n: int, x: int) -> int:
-        pass
+        dp = [0] * (n + 1)
+        dp[0] = 1
+        for i in range(1, n + 1):
+            v = i ** x
+            if v > n:
+                break
+            for j in range(n, v - 1, -1):
+                dp[j] = (dp[j] + dp[j - v]) % MOD
+        return dp[n]
 
+MOD = 10**9 + 7
