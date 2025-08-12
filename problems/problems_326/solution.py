@@ -7,5 +7,8 @@ class Solution(solution.Solution):
         return self.isPowerOfThree(test_input)
 
     def isPowerOfThree(self, n: int) -> bool:
-        pass
-
+        if n <= 0:
+            return False
+        while not n % 3:
+            n //= 3
+        return n == 1
