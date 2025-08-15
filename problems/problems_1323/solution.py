@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.maximum69Number(test_input)
 
     def maximum69Number (self, num: int) -> int:
-        pass
+        return int(s.replace('6', '9', 1)) if '6' in (s := str(num)) else num
 
