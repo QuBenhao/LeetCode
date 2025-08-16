@@ -7,7 +7,20 @@ import (
 )
 
 func new21Game(n int, k int, maxPts int) float64 {
-    
+	dp := make([]float64, n+1)
+	var s float64
+	for i := n; i >= 0; i-- {
+		if i >= k {
+			dp[i] = 1
+		} else {
+			dp[i] = s / float64(maxPts)
+		}
+		s += dp[i]
+		if i+maxPts <= n {
+			s -= dp[i+maxPts]
+		}
+	}
+	return dp[0]
 }
 
 func Solve(inputJsonValues string) any {

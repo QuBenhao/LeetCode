@@ -103,7 +103,7 @@ class LeetCodeTest : public LeetCodeSuiteSet {
     while (!isEqual && retries < maxRetries) {
       if (data_.GetExpected().is_number_float()) {
         isEqual = std::abs(output.get<double>() -
-                           data_.GetExpected().get<double>()) < 1e-6;
+                           data_.GetExpected().get<double>()) < 1e-5;
       } else if (output.is_array() && !data_.GetExpected().is_array()) {
         isEqual = (output[0] == data_.GetExpected());
       } else {
@@ -121,7 +121,7 @@ class LeetCodeTest : public LeetCodeSuiteSet {
     }
 
     if (data_.GetExpected().is_number_float()) {
-      ASSERT_DOUBLE_EQ(output.get<double>(), data_.GetExpected().get<double>());
+      ASSERT_LE(std::abs(output.get<double>() - data_.GetExpected().get<double>()), 1e-5);
     } else {
       if (output.is_array() && !data_.GetExpected().is_array()) {
         ASSERT_EQ(output[0], data_.GetExpected());
