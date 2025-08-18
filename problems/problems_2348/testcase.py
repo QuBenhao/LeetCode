@@ -1,0 +1,15 @@
+from collections import namedtuple
+import testcase
+
+case = namedtuple("Testcase", ["Input", "Output"])
+
+
+class Testcase(testcase.Testcase):
+	def __init__(self):
+		self.testcases = []
+		self.testcases.append(case(Input=[1, 3, 0, 0, 2, 0, 0, 4], Output=6))
+		self.testcases.append(case(Input=[0, 0, 0, 2, 0, 0], Output=9))
+		self.testcases.append(case(Input=[2, 10, 2019], Output=0))
+
+	def get_testcases(self):
+		return self.testcases
