@@ -190,3 +190,15 @@ func TreeToArray(root *TreeNode) []any {
 	}
 	return ans
 }
+
+func TreeArrayToArray(roots []*TreeNode) []any {
+	var ans []any
+	for _, root := range roots {
+		if root == nil {
+			ans = append(ans, nil)
+		} else {
+			ans = append(ans, TreeToArray(root))
+		}
+	}
+	return ans
+}

@@ -94,4 +94,28 @@ public class TreeNode {
         }
         return jsonArray;
     }
+
+    public static JSONArray TreeNodeListToJsonArray(List<TreeNode> nodes) {
+        JSONArray jsonArray = new JSONArray();
+        for (TreeNode node : nodes) {
+            if (node == null) {
+                jsonArray.add(null);
+            } else {
+                jsonArray.add(TreeNodeToArray(node));
+            }
+        }
+        return jsonArray;
+    }
+
+    public static JSONArray TreeNodeArrayToJsonArray(TreeNode[] nodes) {
+        JSONArray jsonArray = new JSONArray();
+        for (TreeNode node : nodes) {
+            if (node == null) {
+                jsonArray.add(null);
+            } else {
+                jsonArray.add(TreeNodeToArray(node));
+            }
+        }
+        return jsonArray;
+    }
 }

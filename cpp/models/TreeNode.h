@@ -29,5 +29,6 @@ TreeNode *JsonArrayToTreeNode(json arr);
 vector<TreeNode *> JsonArrayToTreeNodeWithTargets(json arr, vector<int> targets);
 vector<TreeNode *> JsonArrayToTreeNodeArray(json arr);
 json TreeNodeToJsonArray(TreeNode *root);
+json TreeNodeArrayToJsonArray(const vector<TreeNode *> &roots);
 
 #endif  // CPP_MODELS_TREENODE_H_

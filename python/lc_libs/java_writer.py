@@ -342,7 +342,12 @@ class JavaWriter(LanguageWriter):
                 return_part = "ListNode.LinkedListToIntArray({}({}))".format(return_func, ", ".join(variables))
         elif "TreeNode" in return_type:
             additional_import.add("import qubhjava.models.TreeNode;")
-            return_part = "TreeNode.TreeNodeToArray({}({}))".format(return_func, ", ".join(variables))
+            if return_type == "List<TreeNode>":
+                return_part = "TreeNode.TreeNodeListToJsonArray({}({}))".format(return_func, ", ".join(variables))
+            elif return_type == "TreeNode[]":
+                return_part = "TreeNode.TreeNodeArrayToJsonArray({}({}))".format(return_func, ", ".join(variables))
+            else:
+                return_part = "TreeNode.TreeNodeToArray({}({}))".format(return_func, ", ".join(variables))
         elif return_type == "void":
             parse_input.append("{}({});".format(return_func, ", ".join(variables)))
             logging.debug("Void return type, function: {}, variables: {}".format(return_func, variables))

@@ -106,3 +106,11 @@ json TreeNodeToJsonArray(TreeNode *root) {
     }
     return ans;
 }
+
+json TreeNodeArrayToJsonArray(const vector<TreeNode *> &roots) {
+    json ans = json::array();
+    for (const auto &root : roots) {
+        ans.push_back(TreeNodeToJsonArray(root));
+    }
+    return ans;
+}

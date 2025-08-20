@@ -593,27 +593,50 @@ class CppWriter(LanguageWriter):
             else:
                 if '#include "cpp/models/ListNode.h"' not in include_libs:
                     include_libs.append('#include "cpp/models/ListNode.h"')
-                return_part.append(
-                    "\tListNode *res_ptr = solution.{}({});".format(
-                        func_name, ", ".join([v[-1] for v in variables]))
-                )
-                return_part.append("json final_ans = ListNodeToIntArray(res_ptr);")
-                for func, m in memory_to_free:
-                    func(return_part, include_libs, m, "// ")
-                common_memory_free_code(return_part, include_libs, "res_ptr")
+                if "vector<ListNode*>" in ret_type:
+                    return_part.append(
+                        "\tvector<ListNode*> res_ptr_list = solution.{}({});".format(
+                            func_name, ", ".join([v[-1] for v in variables])
+                        )
+                    )
+                    return_part.append("json final_ans = ListNodesToIntArrays(res_ptr_list);")
+                    for func, m in memory_to_free:
+                        func(return_part, include_libs, m, "// ")
+                    list_memory_free_code(return_part, include_libs, "res_ptr_list")
+                else:
+                    return_part.append(
+                        "\tListNode *res_ptr = solution.{}({});".format(
+                            func_name, ", ".join([v[-1] for v in variables]))
+                    )
+                    return_part.append("json final_ans = ListNodeToIntArray(res_ptr);")
+                    for func, m in memory_to_free:
+                        func(return_part, include_libs, m, "// ")
+                    common_memory_free_code(return_part, include_libs, "res_ptr")
                 return_part.append("return final_ans;")
         elif "TreeNode" in ret_type:
             if '#include "cpp/models/TreeNode.h"' not in include_libs:
                 include_libs.append('#include "cpp/models/TreeNode.h"')
-            return_part.append(
-                "\tTreeNode *res_ptr = solution.{}({});".format(
-                    func_name, ", ".join([v[-1] for v in variables])
+            logging.debug("Return type: %s", ret_type)
+            if ret_type == "vector<TreeNode*>":
+                return_part.append(
+                    "\tvector<TreeNode*> res_ptr_list = solution.{}({});".format(
+                        func_name, ", ".join([v[-1] for v in variables])
+                    )
                 )
-            )
-            return_part.append("json final_ans = TreeNodeToJsonArray(res_ptr);")
-            for func, m in memory_to_free:
-                func(return_part, include_libs, m, "// ")
-            common_memory_free_code(return_part, include_libs, "res_ptr")
+                return_part.append("json final_ans = TreeNodeArrayToJsonArray(res_ptr_list);")
+                for func, m in memory_to_free:
+                    func(return_part, include_libs, m, "// ")
+                list_memory_free_code(return_part, include_libs, "res_ptr_list")
+            else:
+                return_part.append(
+                    "\tTreeNode *res_ptr = solution.{}({});".format(
+                        func_name, ", ".join([v[-1] for v in variables])
+                    )
+                )
+                return_part.append("json final_ans = TreeNodeToJsonArray(res_ptr);")
+                for func, m in memory_to_free:
+                    func(return_part, include_libs, m, "// ")
+                common_memory_free_code(return_part, include_libs, "res_ptr")
             return_part.append("return final_ans;")
         elif "Node" in ret_type:
             if ("Node* left;" in code_default and "Node* right;" in code_default

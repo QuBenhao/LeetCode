@@ -236,6 +236,7 @@ class GolangWriter(LanguageWriter):
                 or rts[0] == "*TreeNode"
                 or rts[0] == "*ListNode"
                 or rts[0] == "*Node"
+                or rts[0] == "[]*TreeNode"
         ):
             return_func_var = "{}({})".format(
                 func_names[0], ", ".join(list(zip(*its))[3])
@@ -245,6 +246,9 @@ class GolangWriter(LanguageWriter):
                 case "*TreeNode":
                     import_set.add('\t. "leetCode/golang/models"')
                     return_line = f"TreeToArray({return_func_var})"
+                case "[]*TreeNode":
+                    import_set.add('\t. "leetCode/golang/models"')
+                    return_line = f"TreeArrayToArray({return_func_var})"
                 case "*ListNode":
                     if "IntArrayToLinkedListCycle" in "".join(list(zip(*its))[2]):
                         logging.debug(return_func_var)
