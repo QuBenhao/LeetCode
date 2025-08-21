@@ -1,33 +1,35 @@
 # 946. Validate Stack Sequences [Rating: 1461.92]
 
-Given two sequences `pushed` and `popped` **with distinct values**, return `true` if and only if this could have been the result of a sequence of push and pop operations on an initially empty stack.
+<p>Given two integer arrays <code>pushed</code> and <code>popped</code> each with distinct values, return <code>true</code><em> if this could have been the result of a sequence of push and pop operations on an initially empty stack, or </em><code>false</code><em> otherwise.</em></p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> pushed = [1,2,3,4,5], popped = [4,5,3,2,1]
+<strong>Output:</strong> true
+<strong>Explanation:</strong> We might do the following sequence:
+push(1), push(2), push(3), push(4),
+pop() -&gt; 4,
+push(5),
+pop() -&gt; 5, pop() -&gt; 3, pop() -&gt; 2, pop() -&gt; 1
+</pre>
 
-```
-Input: pushed = [1,2,3,4,5], popped = [4,5,3,2,1]
-Output: true
-Explanation: We might do the following sequence:
-push(1), push(2), push(3), push(4), pop() -> 4,
-push(5), pop() -> 5, pop() -> 3, pop() -> 2, pop() -> 1
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> pushed = [1,2,3,4,5], popped = [4,3,5,1,2]
+<strong>Output:</strong> false
+<strong>Explanation:</strong> 1 cannot be popped before 2.
+</pre>
 
-```
-Input: pushed = [1,2,3,4,5], popped = [4,3,5,1,2]
-Output: false
-Explanation: 1 cannot be popped before 2.
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `0 <= pushed.length == popped.length <= 1000`
-- `0 <= pushed[i], popped[i] < 1000`
-- `pushed` is a permutation of `popped`.
-- `pushed` and `popped` have distinct values.
-
+<ul>
+	<li><code>1 &lt;= pushed.length &lt;= 1000</code></li>
+	<li><code>0 &lt;= pushed[i] &lt;= 1000</code></li>
+	<li>All the elements of <code>pushed</code> are <strong>unique</strong>.</li>
+	<li><code>popped.length == pushed.length</code></li>
+	<li><code>popped</code> is a permutation of <code>pushed</code>.</li>
+</ul>
