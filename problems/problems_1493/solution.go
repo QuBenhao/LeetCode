@@ -6,8 +6,29 @@ import (
 	"strings"
 )
 
-func longestSubarray(nums []int) int {
-    
+func longestSubarray(nums []int) (ans int) {
+	allOne := true
+	for _, num := range nums {
+		if num != 1 {
+			allOne = false
+			break
+		}
+	}
+	n := len(nums)
+	if allOne {
+		return n - 1
+	}
+	last, cur := 0, 0
+	for i := range n + 1 {
+		if i == n || nums[i] != 1 {
+			ans = max(ans, last+cur)
+			last = cur
+			cur = 0
+		} else {
+			cur++
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
