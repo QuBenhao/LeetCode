@@ -6,8 +6,18 @@ import (
 	"strings"
 )
 
-func areaOfMaxDiagonal(dimensions [][]int) int {
-    
+func areaOfMaxDiagonal(dimensions [][]int) (ans int) {
+	maxLength := 0
+	for _, dimension := range dimensions {
+		a, b := dimension[0], dimension[1]
+		if length := a*a + b*b; length > maxLength {
+			maxLength = length
+			ans = a * b
+		} else if length == maxLength {
+			ans = max(ans, a*b)
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
