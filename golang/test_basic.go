@@ -193,6 +193,7 @@ func checkSolve(ast *assert.Assertions, testcase TestCase, pkg func(inputJsonVal
 
 func TestEach(t *testing.T, problemId string, problemFolder string, pkg func(inputJsonValues string) any) {
 	ast := assert.New(t)
+	t.Attr("problemId", problemId)
 	tests := processTestcase(fmt.Sprintf(TestcaseFolderFmt, problemFolder, problemFolder, problemId))
 	for j, testcase := range tests {
 		t.Run(fmt.Sprintf("%s/Testcase#%d", problemId, j), func(t *testing.T) {
