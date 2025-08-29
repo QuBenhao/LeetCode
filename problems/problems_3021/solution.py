@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.flowerGame(*test_input)
 
     def flowerGame(self, n: int, m: int) -> int:
-        pass
-
+        return (n // 2) * ((m + 1) // 2) + ((n + 1) // 2) * (m // 2)
