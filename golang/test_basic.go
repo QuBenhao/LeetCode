@@ -98,8 +98,7 @@ func compareGeneral(ast *assert.Assertions, want any, resp any) bool {
 		}
 	} else if stringArray, stringArrayOk := reflect.TypeAssert[[]string](respValue); stringArrayOk {
 		if v, ok := want.([]string); ok {
-			ast.Equal(v, stringArray)
-			return false
+			return ast.Equal(v, stringArray)
 		}
 		if !ast.Equalf(len(want.([]any)), len(stringArray),
 			"Expected: [%v], actual: [%v]", want, resp) {
