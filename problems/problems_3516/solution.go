@@ -7,7 +7,21 @@ import (
 )
 
 func findClosest(x int, y int, z int) int {
-    
+	d1, d2 := abs(x-z), abs(y-z)
+	if d := d1 - d2; d == 0 {
+		return 0
+	} else if d < 0 {
+		return 1
+	} else {
+		return 2
+	}
+}
+
+func abs(a int) int {
+	if a < 0 {
+		return -a
+	}
+	return a
 }
 
 func Solve(inputJsonValues string) any {

@@ -7,7 +7,8 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int findClosest(int x, int y, int z) {
-        
+        int d1 = Math.abs(x - z), d2 = Math.abs(y - z);
+        return d1 == d2 ? 0 : (d1 < d2 ? 1 : 2);
     }
 
     @Override
