@@ -7,7 +7,17 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int makeTheIntegerZero(int num1, int num2) {
-        
+        long x = num1;
+        for (int k = 1;; ++k) {
+            x -= num2;
+            if (k > x) {
+                break;
+            }
+            if (Long.bitCount(x) <= k) {
+                return k;
+            }
+        }
+        return -1;
     }
 
     @Override

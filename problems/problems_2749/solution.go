@@ -3,11 +3,23 @@ package problem2749
 import (
 	"encoding/json"
 	"log"
+	"math/bits"
 	"strings"
 )
 
 func makeTheIntegerZero(num1 int, num2 int) int {
-    
+	var x int64
+	x = int64(num1)
+	for k := 1; ; k++ {
+		x -= int64(num2)
+		if int64(k) > x {
+			break
+		}
+		if bits.OnesCount64(uint64(x)) <= k {
+			return k
+		}
+	}
+	return -1
 }
 
 func Solve(inputJsonValues string) any {
