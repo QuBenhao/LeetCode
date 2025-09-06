@@ -7,5 +7,8 @@ class Solution(solution.Solution):
         return self.sumZero(test_input)
 
     def sumZero(self, n: int) -> List[int]:
-        pass
-
+        ans = [0] * n
+        for i in range(n // 2):
+            ans[i * 2] = -(i + 1)
+            ans[i * 2 + 1] = i + 1
+        return ans

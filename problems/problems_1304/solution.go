@@ -7,7 +7,12 @@ import (
 )
 
 func sumZero(n int) []int {
-    
+	ans := make([]int, n)
+	for i := range n / 2 {
+		ans[i*2] = -i - 1
+		ans[i*2+1] = i + 1
+	}
+	return ans
 }
 
 func Solve(inputJsonValues string) any {
