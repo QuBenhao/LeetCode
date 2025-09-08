@@ -7,7 +7,20 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int[] getNoZeroIntegers(int n) {
-        
+        int a = 0;
+        int base = 1;
+        int x = n;
+        while (x > 1) {
+            int d = x % 10;
+            x /= 10;
+            if (d <= 1) {
+                x -= 1;
+                d += 10;
+            }
+            a += d / 2 * base;
+            base *= 10;
+        }
+        return new int[]{a, n - a};
     }
 
     @Override
