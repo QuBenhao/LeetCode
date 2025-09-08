@@ -1,11 +1,12 @@
 package golang
 
 import (
-	"encoding/json"
+	"encoding/json/v2"
 	"fmt"
 	"log"
 	"os"
 	"path"
+	"reflect"
 	"runtime"
 	"strings"
 	"testing"
@@ -14,6 +15,7 @@ import (
 )
 
 const TestcaseFolderFmt = "%s/%s_%s/testcase"
+const RunTimes = 10000
 
 type TestCase struct {
 	input string
@@ -48,106 +50,104 @@ func processTestcase(problemPath string) (tests []TestCase) {
 }
 
 func compareGeneral(ast *assert.Assertions, want any, resp any) bool {
-	switch resp.(type) {
-	case int:
-		return ast.Equal(int(want.(float64)), resp.(int))
-	case int64:
-		return ast.Equal(int64(want.(float64)), resp.(int64))
-	case float64:
-		return ast.InDelta(want, resp, 1e-5)
-	case byte:
-		return ast.Equalf(want.(string)[0], resp, "Expected: [%s], actual: [%s]", want, string(resp.(byte)))
-	case [][]int:
+	respValue := reflect.ValueOf(resp)
+	if num, ok := reflect.TypeAssert[int](respValue); ok {
+		return ast.Equal(int(want.(float64)), num)
+	}
+	if num, ok := reflect.TypeAssert[int64](respValue); ok {
+		return ast.Equal(int64(want.(float64)), num)
+	}
+	if num, ok := reflect.TypeAssert[float64](respValue); ok {
+		return ast.InDelta(want, num, 1e-5)
+	}
+	if bytes, ok := reflect.TypeAssert[byte](respValue); ok {
+		return ast.Equalf(want.(string)[0], bytes, "Expected: [%s], actual: [%s]", want, string(bytes))
+	}
+	if num2DArray, num2DArrayOk := reflect.TypeAssert[[][]int](respValue); num2DArrayOk {
 		wantArray := want.([]any)
-		respIntArray := resp.([][]int)
-		if !ast.Equalf(len(wantArray), len(respIntArray), "Expected: [%v], actual: [%v]", want, resp) {
+		if !ast.Equalf(len(wantArray), len(num2DArray), "Expected: [%v], actual: [%v]", want, resp) {
 			return false
 		}
-		for i := 0; i < len(respIntArray); i++ {
-			if !ast.Equalf(len(wantArray[i].([]any)), len(respIntArray[i]),
+		for i := 0; i < len(num2DArray); i++ {
+			if !ast.Equalf(len(wantArray[i].([]any)), len(num2DArray[i]),
 				"Expected: [%v], actual: [%v]", want, resp) {
 				return false
 			}
-			for j := 0; j < len(respIntArray[i]); j++ {
-				if !ast.Equalf(int(wantArray[i].([]any)[j].(float64)), respIntArray[i][j],
+			for j := 0; j < len(num2DArray[i]); j++ {
+				if !ast.Equalf(int(wantArray[i].([]any)[j].(float64)), num2DArray[i][j],
 					"Expected: [%v], actual: [%v]", want, resp) {
 					return false
 				}
 			}
 		}
-	case []int:
+	} else if numArray, numArrayOk := reflect.TypeAssert[[]int](respValue); numArrayOk {
 		if _, ok := want.([]any); !ok {
-			return ast.Equal(int(want.(float64)), resp.([]int)[0], "Expected: [%v], actual: [%v]", want, resp)
+			return ast.Equal(int(want.(float64)), numArray[0], "Expected: [%v], actual: [%v]", want, resp)
 		}
 		if want == nil {
 			return ast.Nil(resp, "Expected: [%v], actual: [%v]", want, resp)
 		}
 		wantArray := want.([]any)
-		respIntArray := resp.([]int)
-		if !ast.Equalf(len(wantArray), len(respIntArray), "Expected: [%v], actual: [%v]", want, resp) {
+		if !ast.Equalf(len(wantArray), len(numArray), "Expected: [%v], actual: [%v]", want, resp) {
 			return false
 		}
-		for j := 0; j < len(respIntArray); j++ {
-			if !ast.Equalf(int(wantArray[j].(float64)), respIntArray[j], "Expected: [%v], actual: [%v]", want, resp) {
+		for j := 0; j < len(numArray); j++ {
+			if !ast.Equalf(int(wantArray[j].(float64)), numArray[j], "Expected: [%v], actual: [%v]", want, resp) {
 				return false
 			}
 		}
-	case []string:
+	} else if stringArray, stringArrayOk := reflect.TypeAssert[[]string](respValue); stringArrayOk {
 		if v, ok := want.([]string); ok {
-			ast.Equal(v, resp)
-			return false
+			return ast.Equal(v, stringArray)
 		}
-		if !ast.Equalf(len(want.([]any)), len(resp.([]string)),
+		if !ast.Equalf(len(want.([]any)), len(stringArray),
 			"Expected: [%v], actual: [%v]", want, resp) {
 			return false
 		}
-		for i := 0; i < len(resp.([]string)); i++ {
-			if !ast.Equalf(want.([]any)[i], resp.([]string)[i],
+		for i := 0; i < len(stringArray); i++ {
+			if !ast.Equalf(want.([]any)[i], stringArray[i],
 				"Expected: [%v], actual: [%v]", want, resp) {
 				return false
 			}
 		}
-	case [][]string:
+	} else if string2DArray, string2DArrayOk := reflect.TypeAssert[[][]string](respValue); string2DArrayOk {
 		wantArray := want.([]any)
-		respStrArray := resp.([][]string)
-		if !ast.Equalf(len(wantArray), len(respStrArray), "Expected: [%v], actual: [%v]", want, resp) {
+		if !ast.Equalf(len(wantArray), len(string2DArray), "Expected: [%v], actual: [%v]", want, resp) {
 			return false
 		}
 
-		for i := 0; i < len(respStrArray); i++ {
-			if !ast.Equalf(len(wantArray[i].([]any)), len(respStrArray[i]),
+		for i := 0; i < len(string2DArray); i++ {
+			if !ast.Equalf(len(wantArray[i].([]any)), len(string2DArray[i]),
 				"Expected: [%v], actual: [%v]", want, resp) {
 				return false
 			}
-			for j := 0; j < len(respStrArray[i]); j++ {
-				if !ast.Equalf(len(wantArray[i].([]any)[j].(string)), len(respStrArray[i][j]),
+			for j := 0; j < len(string2DArray[i]); j++ {
+				if !ast.Equalf(len(wantArray[i].([]any)[j].(string)), len(string2DArray[i][j]),
 					"Expected: [%v], actual: [%v]", want, resp) {
 					return false
 				}
-				if !ast.Equalf(wantArray[i].([]any)[j], respStrArray[i][j],
+				if !ast.Equalf(wantArray[i].([]any)[j], string2DArray[i][j],
 					"Expected: [%v], actual: [%v]", want, resp) {
 					return false
 				}
 			}
 		}
-	case []bool:
+	} else if boolArray, boolArrayOk := reflect.TypeAssert[[]bool](respValue); boolArrayOk {
 		wantArray := want.([]any)
-		respBoolArray := resp.([]bool)
-		if !ast.Equalf(len(wantArray), len(respBoolArray), "Expected: [%v], actual: [%v]", want, resp) {
+		if !ast.Equalf(len(wantArray), len(boolArray), "Expected: [%v], actual: [%v]", want, resp) {
 			return false
 		}
-		for i := 0; i < len(respBoolArray); i++ {
-			if !ast.Equalf(wantArray[i], respBoolArray[i], "Expected: [%v], actual: [%v]", want, resp) {
+		for i := 0; i < len(boolArray); i++ {
+			if !ast.Equalf(wantArray[i], boolArray[i], "Expected: [%v], actual: [%v]", want, resp) {
 				return false
 			}
 		}
-	case []any:
+	} else if respArray, anyArrayOk := reflect.TypeAssert[[]any](respValue); anyArrayOk {
 		defer func() {
 			if recover() != nil {
 				ast.ElementsMatch(want, resp)
 			}
 		}()
-		respArray := resp.([]any)
 		if _, ok := want.([]any); !ok {
 			return ast.Equal(int(want.(float64)), respArray[0], "Expected: [%v], actual: [%v]", want, resp)
 		}
@@ -168,7 +168,7 @@ func compareGeneral(ast *assert.Assertions, want any, resp any) bool {
 		} else {
 			return false
 		}
-	default:
+	} else {
 		return ast.Equal(want, resp)
 	}
 	return true
@@ -179,7 +179,7 @@ func checkSolve(ast *assert.Assertions, testcase TestCase, pkg func(inputJsonVal
 	if !compareGeneral(ast, testcase.want, gotResp) {
 		secondResp := pkg(testcase.input)
 		if fmt.Sprintf("%v", gotResp) != fmt.Sprintf("%v", secondResp) {
-			for i := 0; i < 10000; i++ {
+			for range RunTimes {
 				if compareGeneral(ast, testcase.want, secondResp) {
 					return true
 				}
@@ -193,11 +193,11 @@ func checkSolve(ast *assert.Assertions, testcase TestCase, pkg func(inputJsonVal
 
 func TestEach(t *testing.T, problemId string, problemFolder string, pkg func(inputJsonValues string) any) {
 	ast := assert.New(t)
+	t.Attr("problemId", problemId)
 	tests := processTestcase(fmt.Sprintf(TestcaseFolderFmt, problemFolder, problemFolder, problemId))
 	for j, testcase := range tests {
 		t.Run(fmt.Sprintf("%s/Testcase#%d", problemId, j), func(t *testing.T) {
-			fmt.Printf("Input: %v\n", testcase.input)
-			fmt.Printf("Expected: %v\n", testcase.want)
+			fmt.Printf("Input: %v\nExpected: %v\n", testcase.input, testcase.want)
 			if !checkSolve(ast, testcase, pkg) {
 				t.FailNow()
 			}
