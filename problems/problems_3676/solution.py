@@ -17,8 +17,8 @@ class Solution(solution.Solution):
             if st:
                 left_greater[i] = nums[st[-1]]
             st.append(i)
-        ans = set()
+        ans = 0
         for l, r in zip(left_greater, right_greater):
             if l != -1 and r != -1:
-                ans.add((l, r))
-        return len(ans)
+                ans += 1
+        return ans
