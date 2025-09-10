@@ -7,5 +7,13 @@ class Solution(solution.Solution):
         return self.sortVowels(test_input)
 
     def sortVowels(self, s: str) -> str:
-        pass
+        vowels = sorted(filter(lambda c: c in VOWELS, s), key=lambda c: ord(c))
+        ans = list(s)
+        idx = 0
+        for i, c in enumerate(ans):
+            if c in VOWELS:
+                ans[i] = vowels[idx]
+                idx += 1
+        return "".join(ans)
 
+VOWELS = "AEIOUaeiou"
