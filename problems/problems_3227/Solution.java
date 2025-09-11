@@ -6,8 +6,14 @@ import qubhjava.BaseSolution;
 
 
 public class Solution extends BaseSolution {
+    private  static final String VOWELS = "aeiou";
     public boolean doesAliceWin(String s) {
-        
+        for (int i = 0; i < s.length(); ++i) {
+            if (VOWELS.indexOf(s.charAt(i)) >= 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -7,7 +7,7 @@ import (
 )
 
 func doesAliceWin(s string) bool {
-    
+	return strings.ContainsAny(s, "aeiou")
 }
 
 func Solve(inputJsonValues string) any {

@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.doesAliceWin(test_input)
 
     def doesAliceWin(self, s: str) -> bool:
-        pass
-
+        return any(c in "aeiou" for c in s)
