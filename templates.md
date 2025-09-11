@@ -3044,6 +3044,58 @@ for i in range(2, mx):
         for j in range(i, mx, i):  # i 的倍数有质因子 i
             PRIME_FACTORS[j].append(i)
 ```
+```c++
+constexpr int MAX_N = 100000;
+array<vector<int>, MAX_N + 1> PRIMES;
+
+bool inited = false;
+static void init() {
+  if (inited) {
+    return;
+  }
+  for (int i = 2; i <= MAX_N; ++i) {
+    if (PRIMES[i].empty()) {
+      for (int j = i; j <= MAX_N; j += i) {
+        PRIMES[j].push_back(i);
+      }
+    }
+  }
+}
+```
+```golang
+const MAX_N = 100000
+
+var PRIMES [][]int
+
+func init() {
+	PRIMES = make([][]int, MAX_N+1)
+	for i := 2; i <= MAX_N; i++ {
+		if len(PRIMES[i]) == 0 {
+			for j := i; j <= MAX_N; j += i {
+				PRIMES[j] = append(PRIMES[j], i)
+			}
+		}
+	}
+}
+```
+```java
+public class Solution {
+    private static final int MAX_N = 100000;
+    private static List<Integer>[] PRIMES = new List[MAX_N + 1];
+    static {
+        for (int i = 0; i <= MAX_N; ++i) {
+            PRIMES[i] = new ArrayList<>();
+        }
+        for (int i = 2; i <= MAX_N; ++i) {
+            if (PRIMES[i].isEmpty()) {
+                for (int j = i; j <= MAX_N; j += i) {
+                    PRIMES[j].add(i);
+                }
+            }
+        }
+    }
+}
+```
 
 ## 几何
 
