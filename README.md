@@ -8,7 +8,7 @@ Debugging LeetCode locally, Automatic daily problems generator, submit solutions
 
 - [How to start](#how-to-start)
 -  [Interview](interview.md)
-    * [Templates](templates.md) 
+    * [Templates](templates/README.md) 
 - [Supported Languages](#supported-languages)
     * [Python3](#python3)
     * [Golang](#golang)
