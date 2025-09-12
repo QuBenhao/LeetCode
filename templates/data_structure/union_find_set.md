@@ -47,90 +47,98 @@ class UnionFind:
 package main
 
 type UnionFind struct {
-    parent []int
-    rank   []int
-	cc int
+	parent []int
+	rank   []int
+	size   []int
+	cc     int
 }
 
-func NewUnionFind(size int) *UnionFind {
-    uf := &UnionFind{
-        parent: make([]int, size),
-        rank:   make([]int, size),
-		cc: size,
-    }
-    for i := range uf.parent {
-        uf.parent[i] = i
-        uf.rank[i] = 1
-    }
-    return uf
+func NewUnionFind(n int) *UnionFind {
+	uf := &UnionFind{
+		parent: make([]int, n),
+		rank:   make([]int, n),
+		size:   make([]int, n),
+		cc:     n,
+	}
+	for i := range uf.parent {
+		uf.parent[i] = i
+		uf.rank[i] = 1
+		uf.size[i] = 1
+	}
+	return uf
 }
 
 func (uf *UnionFind) Find(x int) int {
-    for uf.parent[x] != x {
-        uf.parent[x] = uf.parent[uf.parent[x]] // 路径压缩
-        x = uf.parent[x]
-    }
-    return x
+	for uf.parent[x] != x {
+		uf.parent[x] = uf.parent[uf.parent[x]] // 路径压缩
+		x = uf.parent[x]
+	}
+	return x
 }
 
 func (uf *UnionFind) Union(x, y int) bool {
-    rootX := uf.Find(x)
-    rootY := uf.Find(y)
-    
-    if rootX == rootY {
-        return false // 已经在同一集合
-    }
-    
-    // 按秩合并
-    if uf.rank[rootX] > uf.rank[rootY] {
-        uf.parent[rootY] = rootX
-    } else {
-        uf.parent[rootX] = rootY
-        if uf.rank[rootX] == uf.rank[rootY] {
-            uf.rank[rootY]++
-        }
-    }
+	rootX := uf.Find(x)
+	rootY := uf.Find(y)
+
+	if rootX == rootY {
+		return false // 已经在同一集合
+	}
+
+	// 按秩合并
+	if uf.rank[rootX] > uf.rank[rootY] {
+		uf.parent[rootY] = rootX
+		uf.size[rootX] += uf.size[rootY]
+	} else {
+		uf.parent[rootX] = rootY
+		if uf.rank[rootX] == uf.rank[rootY] {
+			uf.rank[rootY]++
+		}
+		uf.size[rootY] += uf.size[rootX]
+	}
 	uf.cc-- // 合并后集合数减少
-    return true
+	return true
 }
 
 func (uf *UnionFind) IsConnected(x, y int) bool {
-    return uf.Find(x) == uf.Find(y)
+	return uf.Find(x) == uf.Find(y)
+}
+
+func (uf *UnionFind) GetSize(x int) int {
+	return uf.size[uf.Find(x)]
 }
 ```
 ```c++
 class UnionFind {
-    vector<int> fa;
-    vector<int> size;
+  vector<int> fa;
+  vector<int> size;
+
 public:
-    int cc;
-    UnionFind(int n): fa(n), size(n, 1), cc(n) {
-        for (int i = 0; i < n; i++) {
-            fa[i] = i;
-        }
+  int cc;
+  explicit UnionFind(int n) : fa(n), size(n, 1), cc(n) {
+    for (int i = 0; i < n; i++) {
+      fa[i] = i;
     }
+  }
 
-    int find(int x) {
-        if (fa[x] != x) {
-            fa[x] = find(fa[x]);
-        }
-        return fa[x];
+  int find(int x) {
+    if (fa[x] != x) {
+      fa[x] = find(fa[x]);
     }
+    return fa[x];
+  }
 
-    bool merge(int x, int y) {
-        int px = find(x), py = find(y);
-        if (px == py) {
-            return false;
-        }
-        fa[px] = py;
-        size[py] += size[px];
-        cc--;
-        return true;
+  bool merge(int x, int y) {
+    int px = find(x), py = find(y);
+    if (px == py) {
+      return false;
     }
+    fa[px] = py;
+    size[py] += size[px];
+    cc--;
+    return true;
+  }
 
-    int get_size(int x) {
-        return size[find(x)];
-    }
+  int get_size(int x) { return size[find(x)]; }
 };
 ```
 ```java
@@ -175,6 +183,10 @@ class UnionFind {
 
     public int getCount() {
         return count;
+    }
+
+    public int getSize(int x) {
+        return size[find(x)];
     }
 }
 ```
