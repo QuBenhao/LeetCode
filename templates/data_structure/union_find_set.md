@@ -7,18 +7,19 @@
 
 ```python
 class UnionFind:
-    def __init__(self, size):
-        self.parent = list(range(size))
-        self.rank = [1] * size
-        self.size = size
+    def __init__(self, n: int):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+        self.size = [1] * n
+        self.cc = n
 
-    def find(self, x):
+    def find(self, x: int) -> int:
         while self.parent[x] != x:
             self.parent[x] = self.parent[self.parent[x]]  # 路径压缩
             x = self.parent[x]
         return x
 
-    def union(self, x, y):
+    def union(self, x: int, y: int) -> bool:
         root_x = self.find(x)
         root_y = self.find(y)
 
@@ -28,15 +29,18 @@ class UnionFind:
         # 按秩合并
         if self.rank[root_x] > self.rank[root_y]:
             self.parent[root_y] = root_x
+            self.size[root_x] += self.size[root_y]
         else:
             self.parent[root_x] = root_y
             if self.rank[root_x] == self.rank[root_y]:
                 self.rank[root_y] += 1
-        self.size -= 1
+            self.size[root_y] += self.size[root_x]
+        self.cc -= 1
         return True
 
-    def is_connected(self, x, y):
+    def is_connected(self, x:int, y:int) -> bool:
         return self.find(x) == self.find(y)
+
 ```
 
 ```go
