@@ -13,8 +13,6 @@ class Solution(solution.Solution):
         def point_to_idx(x, y):
             return x * n + y
 
-
-
         n = len(grid)
         uf = UnionFind(n * n)
         for i, row in enumerate(grid):
