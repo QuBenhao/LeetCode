@@ -1,4 +1,4 @@
-# 3541. 找到频率最高的元音和辅音 
+# 3541. 找到频率最高的元音和辅音 [难度分: 1238.88]
 
 <p>给你一个由小写英文字母（<code>'a'</code> 到 <code>'z'</code>）组成的字符串 <code>s</code>。你的任务是找出出现频率&nbsp;<strong>最高&nbsp;</strong>的元音（<code>'a'</code>、<code>'e'</code>、<code>'i'</code>、<code>'o'</code>、<code>'u'</code> 中的一个）和出现频率<strong>最高</strong>的辅音（除元音以外的所有字母），并返回这两个频率之和。</p>
 
