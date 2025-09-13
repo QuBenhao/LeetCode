@@ -25,3 +25,28 @@ func singleNumber(nums []int) int {
     return ans
 }
 ```
+
+## 线性基求最大异或子集
+
+```python
+def find_maximum_xor(arr):
+    if not arr:
+        return 0
+    base = [0] * 32
+    
+    for x in arr:
+        for i in range(31, -1, -1):
+            if (x >> i) & 1:
+                if base[i]:
+                    x ^= base[i]
+                else:
+                    base[i] = x
+                    break
+    
+    res = 0
+    for i in range(31, -1, -1):
+        if base[i] != 0 and (res >> i) & 1 == 0:
+            res ^= base[i]
+            
+    return res
+```
