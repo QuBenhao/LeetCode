@@ -6,8 +6,13 @@ import (
 	"strings"
 )
 
-func canBeTypedWords(text string, brokenLetters string) int {
-    
+func canBeTypedWords(text string, brokenLetters string) (ans int) {
+	for _, t := range strings.Split(text, " ") {
+		if !strings.ContainsAny(t, brokenLetters) {
+			ans++
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
