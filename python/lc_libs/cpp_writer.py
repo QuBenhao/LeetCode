@@ -248,6 +248,11 @@ class CppWriter(LanguageWriter):
             final_codes.extend(content[start_index:end_index].strip().split("\n"))
         while final_codes and final_codes[0].strip() == "":
             final_codes.popleft()
+        # special libs
+        if "#include <ranges>" in content:
+            # or " ranges::" in content or "std::ranges::" in content:
+            final_codes.appendleft("#include <ranges>\n")
+            logging.debug("Add special lib: <ranges>")
         return "\n".join(final_codes), problem_id
 
     @staticmethod
