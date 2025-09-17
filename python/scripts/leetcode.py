@@ -399,7 +399,7 @@ def change_problem(languages, problem_folder):
             print(f"{lang} not support.")
             continue
         obj: lc_libs.LanguageWriter = cls()
-        obj.change_test(root_path, problem_folder, problem_id)
+        obj.change_test(root_path, problem_folder, format_question_id(problem_id))
         print(f"Successfully change {lang} test to {problem_id}")
     print(__separate_line)
 
