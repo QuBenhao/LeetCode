@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.numWaterBottles(*test_input)
 
     def numWaterBottles(self, numBottles: int, numExchange: int) -> int:
-        pass
-
+        return numBottles + (numBottles - 1) // (numExchange - 1)
