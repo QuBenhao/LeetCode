@@ -3,11 +3,16 @@ package problem3147
 import (
 	"encoding/json"
 	"log"
+	"slices"
 	"strings"
 )
 
 func maximumEnergy(energy []int, k int) int {
-    
+	n := len(energy)
+	for i := n - k - 1; i >= 0; i-- {
+		energy[i] += energy[i+k]
+	}
+	return slices.Max(energy)
 }
 
 func Solve(inputJsonValues string) any {

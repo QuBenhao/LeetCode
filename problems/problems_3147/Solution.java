@@ -7,7 +7,10 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int maximumEnergy(int[] energy, int k) {
-        
+        for (int i = energy.length - k - 1; i >= 0; --i) {
+            energy[i] += energy[i + k];
+        }
+        return Arrays.stream(energy).max().getAsInt();
     }
 
     @Override
