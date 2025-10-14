@@ -7,5 +7,12 @@ class Solution(solution.Solution):
         return self.removeAnagrams(test_input)
 
     def removeAnagrams(self, words: List[str]) -> List[str]:
-        pass
-
+        last = None
+        ans = []
+        for w in words:
+            st = "".join(sorted(w))
+            if st == last:
+                continue
+            last = st
+            ans.append(w)
+        return ans
