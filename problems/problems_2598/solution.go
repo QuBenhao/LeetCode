@@ -7,7 +7,17 @@ import (
 )
 
 func findSmallestInteger(nums []int, value int) int {
-    
+	counts := make([]int, value)
+	for _, num := range nums {
+		counts[(num%value+value)%value]++
+	}
+	ansM, ans := counts[0], 0
+	for i, v := range counts {
+		if v < ansM {
+			ansM, ans = v, i
+		}
+	}
+	return value*ansM + ans
 }
 
 func Solve(inputJsonValues string) any {

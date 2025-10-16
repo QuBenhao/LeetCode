@@ -7,5 +7,8 @@ class Solution(solution.Solution):
         return self.findSmallestInteger(*test_input)
 
     def findSmallestInteger(self, nums: List[int], value: int) -> int:
-        pass
-
+        counts = [0] * value
+        for num in nums:
+            counts[num % value] += 1
+        m = min(counts)
+        return m * value + counts.index(m)

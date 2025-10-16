@@ -7,7 +7,18 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int findSmallestInteger(int[] nums, int value) {
-        
+        int[] counts = new int[value];
+        for (int num: nums) {
+            ++counts[(num % value + value) % value];
+        }
+        int ans = 0, ansM = counts[0];
+        for (int i = 0; i < value; ++i) {
+            if (counts[i] < ansM) {
+                ansM = counts[i];
+                ans = i;
+            }
+        }
+        return ansM * value + ans;
     }
 
     @Override
