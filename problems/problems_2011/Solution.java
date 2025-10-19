@@ -7,7 +7,11 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int finalValueAfterOperations(String[] operations) {
-        
+        int ans = 0;
+        for (String op: operations) {
+            ans += op.charAt(1) == '+' ? 1 : -1;
+        }
+        return ans;
     }
 
     @Override

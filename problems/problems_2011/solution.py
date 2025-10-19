@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.finalValueAfterOperations(test_input)
 
     def finalValueAfterOperations(self, operations: List[str]) -> int:
-        pass
-
+        return sum(1 if operation[1] == "+" else -1 for operation in operations)
