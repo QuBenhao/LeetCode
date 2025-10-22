@@ -1,0 +1,69 @@
+# 3461. 判断操作后字符串中的数字是否相等 I [难度分: 1189.37]
+
+<p>给你一个由数字组成的字符串 <code>s</code>&nbsp;。重复执行以下操作，直到字符串恰好包含&nbsp;<strong>两个&nbsp;</strong>数字：</p>
+
+<ul>
+	<li>从第一个数字开始，对于 <code>s</code> 中的每一对连续数字，计算这两个数字的和&nbsp;<strong>模&nbsp;</strong>10。</li>
+	<li>用计算得到的新数字依次替换 <code>s</code>&nbsp;的每一个字符，并保持原本的顺序。</li>
+</ul>
+
+<p>如果 <code>s</code>&nbsp;最后剩下的两个数字 <strong>相同</strong> ，返回 <code>true</code>&nbsp;。否则，返回 <code>false</code>。</p>
+
+<p>&nbsp;</p>
+
+<p><strong class="example">示例 1：</strong></p>
+
+<div class="example-block">
+<p><strong>输入：</strong> <span class="example-io">s = "3902"</span></p>
+
+<p><strong>输出：</strong> <span class="example-io">true</span></p>
+
+<p><strong>解释：</strong></p>
+
+<ul>
+	<li>一开始，<code>s = "3902"</code></li>
+	<li>第一次操作：
+	<ul>
+		<li><code>(s[0] + s[1]) % 10 = (3 + 9) % 10 = 2</code></li>
+		<li><code>(s[1] + s[2]) % 10 = (9 + 0) % 10 = 9</code></li>
+		<li><code>(s[2] + s[3]) % 10 = (0 + 2) % 10 = 2</code></li>
+		<li><code>s</code> 变为 <code>"292"</code></li>
+	</ul>
+	</li>
+	<li>第二次操作：
+	<ul>
+		<li><code>(s[0] + s[1]) % 10 = (2 + 9) % 10 = 1</code></li>
+		<li><code>(s[1] + s[2]) % 10 = (9 + 2) % 10 = 1</code></li>
+		<li><code>s</code> 变为 <code>"11"</code></li>
+	</ul>
+	</li>
+	<li>由于 <code>"11"</code> 中的数字相同，输出为 <code>true</code>。</li>
+</ul>
+</div>
+
+<p><strong class="example">示例 2：</strong></p>
+
+<div class="example-block">
+<p><strong>输入：</strong> <span class="example-io">s = "34789"</span></p>
+
+<p><strong>输出：</strong> <span class="example-io">false</span></p>
+
+<p><strong>解释：</strong></p>
+
+<ul>
+	<li>一开始，<code>s = "34789"</code>。</li>
+	<li>第一次操作后，<code>s = "7157"</code>。</li>
+	<li>第二次操作后，<code>s = "862"</code>。</li>
+	<li>第三次操作后，<code>s = "48"</code>。</li>
+	<li>由于 <code>'4' != '8'</code>，输出为 <code>false</code>。</li>
+</ul>
+
+<p>&nbsp;</p>
+</div>
+
+<p><strong>提示：</strong></p>
+
+<ul>
+	<li><code>3 &lt;= s.length &lt;= 100</code></li>
+	<li><code>s</code> 仅由数字组成。</li>
+</ul>
