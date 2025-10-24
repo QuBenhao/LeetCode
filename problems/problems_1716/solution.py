@@ -10,14 +10,6 @@ class Solution(solution.Solution):
         :type n: int
         :rtype: int
         """
-        days = total = start = last = 0
-        while days < n:
-            if days % 7 == 0:
-                start += 1
-                total += start
-                last = start
-            else:
-                last += 1
-                total += last
-            days += 1
-        return total
+        d, r = divmod(n, 7)
+        # 1 + 2 + ... + 7 = 28
+        return d * 28 + 7 * d * (d - 1) // 2 + (d + 1 + d + r) * r // 2

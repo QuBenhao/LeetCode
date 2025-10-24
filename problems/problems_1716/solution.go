@@ -7,7 +7,8 @@ import (
 )
 
 func totalMoney(n int) int {
-    
+	d, r := n/7, n%7
+	return 28*d + (d-1)*d*7/2 + r*(d+1+d+r)/2
 }
 
 func Solve(inputJsonValues string) any {
