@@ -12,14 +12,30 @@ class Solution(solution.Solution):
 
 class Bank:
     def __init__(self, balance: List[int]):
-        pass
+        self.balance = balance
+
+    def check_account(self, account: int, money: int = None) -> bool:
+        if account > len(self.balance) or account <= 0:
+            return False
+        if money is None:
+            return True
+        return money <= self.balance[account - 1]
 
     def transfer(self, account1: int, account2: int, money: int) -> bool:
-        pass
+        if self.check_account(account1, money) and self.check_account(account2):
+            self.balance[account1 - 1] -= money
+            self.balance[account2 - 1] += money
+            return True
+        return False
 
     def deposit(self, account: int, money: int) -> bool:
-        pass
+        if self.check_account(account):
+            self.balance[account - 1] += money
+            return True
+        return False
 
     def withdraw(self, account: int, money: int) -> bool:
-        pass
-
+        if self.check_account(account, money):
+            self.balance[account - 1] -= money
+            return True
+        return False
