@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.smallestNumber(test_input)
 
     def smallestNumber(self, n: int) -> int:
-        pass
-
+        return (1 << n.bit_length()) - 1 if n & (n + 1) != 0 else n

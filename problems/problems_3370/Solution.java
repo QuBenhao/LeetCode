@@ -7,7 +7,8 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int smallestNumber(int n) {
-        
+        int bitLength = 32 - Integer.numberOfLeadingZeros(n);
+        return (1 << bitLength) - 1;
     }
 
     @Override

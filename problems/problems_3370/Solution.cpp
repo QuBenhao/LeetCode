@@ -1,5 +1,6 @@
 //go:build ignore
 #include "cpp/common/Solution.h"
+#include <bit>
 
 
 using namespace std;
@@ -8,7 +9,7 @@ using json = nlohmann::json;
 class Solution {
 public:
     int smallestNumber(int n) {
-        
+      return (1 << bit_width((uint32_t)n)) - 1;
     }
 };
 
