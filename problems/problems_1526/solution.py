@@ -1,3 +1,5 @@
+from itertools import pairwise
+
 import solution
 from typing import *
 
@@ -7,5 +9,7 @@ class Solution(solution.Solution):
         return self.minNumberOperations(test_input)
 
     def minNumberOperations(self, target: List[int]) -> int:
-        pass
-
+        ans = target[0]
+        for a, b in pairwise(target):
+            ans += max(0, b - a)
+        return ans
