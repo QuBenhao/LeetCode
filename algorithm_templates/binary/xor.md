@@ -5,6 +5,20 @@
 1. $`a \oplus a = 0`$
 2. $`a \oplus 0 = a`$
 3. $`a \oplus b \oplus c = a \oplus c \oplus b`$
+4. 1到n的连续异或结果, 根据n%4分类。(0 -> n, 1 -> 1, 2 -> n + 1, 3 -> 0)
+
+```python3
+def xor_range(n):
+    y = 0
+    match n % 4:
+        case 0:
+            y ^= n
+        case 1:
+            y ^= 1
+        case 2:
+            y ^= n + 1
+    return y
+```
 
 ```python3
 def single_number(nums):
