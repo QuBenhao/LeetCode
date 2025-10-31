@@ -15,7 +15,21 @@ import (
  * }
  */
 func modifiedList(nums []int, head *ListNode) *ListNode {
-    
+	s := map[int]bool{}
+	for _, num := range nums {
+		s[num] = true
+	}
+	dummy := ListNode{Val: -1, Next: head}
+	prev, curr := &dummy, head
+	for curr != nil {
+		if s[curr.Val] {
+			prev.Next = curr.Next
+		} else {
+			prev = curr
+		}
+		curr = curr.Next
+	}
+	return dummy.Next
 }
 
 func Solve(inputJsonValues string) any {
