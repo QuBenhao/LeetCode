@@ -6,8 +6,19 @@ import (
 	"strings"
 )
 
-func minCost(colors string, neededTime []int) int {
-    
+func minCost(colors string, neededTime []int) (ans int) {
+	n := len(colors)
+	for i, j := 0, 0; i < n-1; i = j {
+		for j = i + 1; j < n && colors[j] == colors[i]; j++ {
+			if neededTime[i] < neededTime[j] {
+				ans += neededTime[i]
+				i = j
+			} else {
+				ans += neededTime[j]
+			}
+		}
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
