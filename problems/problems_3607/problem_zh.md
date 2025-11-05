@@ -1,4 +1,4 @@
-# 3607. 电网维护 
+# 3607. 电网维护 [难度分: 1699.68]
 
 <p data-end="401" data-start="120">给你一个整数 <code data-end="194" data-start="191">c</code>，表示 <code data-end="211" data-start="208">c</code> 个电站，每个电站有一个唯一标识符 <code>id</code>，从 1 到 <code>c</code>&nbsp;编号。</p>
 

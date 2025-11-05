@@ -1,4 +1,4 @@
-# 3607. Power Grid Maintenance 
+# 3607. Power Grid Maintenance [Rating: 1699.68]
 
 <p data-end="401" data-start="120">You are given an integer <code data-end="194" data-start="191">c</code> representing <code data-end="211" data-start="208">c</code> power stations, each with a unique identifier <code>id</code> from 1 to <code>c</code> (1‑based indexing).</p>
 
