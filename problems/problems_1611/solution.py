@@ -7,5 +7,7 @@ class Solution(solution.Solution):
         return self.minimumOneBitOperations(test_input)
 
     def minimumOneBitOperations(self, n: int) -> int:
-        pass
-
+        if n == 0:
+            return 0
+        k = n.bit_length()
+        return (1 << k) - 1 - self.minimumOneBitOperations(n - (1 << (k - 1)))
