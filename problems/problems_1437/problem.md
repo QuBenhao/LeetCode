@@ -1,47 +1,29 @@
 # 1437. Check If All 1's Are at Least Length K Places Away [Rating: 1193.27]
 
-Given an array `nums` of 0s and 1s and an integer `k`, return `True` if all 1's are at least `k` places away from each other, otherwise return `False`.
+<p>Given an binary array <code>nums</code> and an integer <code>k</code>, return <code>true</code><em> if all </em><code>1</code><em>&#39;s are at least </em><code>k</code><em> places away from each other, otherwise return </em><code>false</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/04/15/sample_1_1791.png" style="width: 428px; height: 181px;" />
+<pre>
+<strong>Input:</strong> nums = [1,0,0,0,1,0,0,1], k = 2
+<strong>Output:</strong> true
+<strong>Explanation:</strong> Each of the 1s are at least 2 places away from each other.
+</pre>
 
-**Example 1:**
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/04/15/sample_2_1791.png" style="width: 320px; height: 173px;" />
+<pre>
+<strong>Input:</strong> nums = [1,0,0,1,0,1], k = 2
+<strong>Output:</strong> false
+<strong>Explanation:</strong> The second 1 and third 1 are only one apart from each other.
+</pre>
 
-**![img](https://assets.leetcode.com/uploads/2020/04/15/sample_1_1791.png)**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-```
-Input: nums = [1,0,0,0,1,0,0,1], k = 2
-Output: true
-Explanation: Each of the 1s are at least 2 places away from each other.
-```
-
-**Example 2:**
-
-**![img](https://assets.leetcode.com/uploads/2020/04/15/sample_2_1791.png)**
-
-```
-Input: nums = [1,0,0,1,0,1], k = 2
-Output: false
-Explanation: The second 1 and third 1 are only one apart from each other.
-```
-
-**Example 3:**
-
-```
-Input: nums = [1,1,1,1,1], k = 0
-Output: true
-```
-
-**Example 4:**
-
-```
-Input: nums = [0,1,0,1], k = 1
-Output: true
-```
-
- 
-
-**Constraints:**
-
-- 1 <= nums.length <= 10<sup>5</sup>
-- `0 <= k <= nums.length`
-- `nums[i]` is `0` or `1`
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>0 &lt;= k &lt;= nums.length</code></li>
+	<li><code>nums[i]</code> is <code>0</code> or <code>1</code></li>
+</ul>
