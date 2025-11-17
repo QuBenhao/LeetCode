@@ -7,5 +7,11 @@ class Solution(solution.Solution):
         return self.isOneBitCharacter(test_input)
 
     def isOneBitCharacter(self, bits: List[int]) -> bool:
-        pass
-
+        n = len(bits)
+        idx = 0
+        while idx < n - 1:
+            if bits[idx] == 0:
+                idx += 1
+            else:
+                idx += 2
+        return idx == n - 1
