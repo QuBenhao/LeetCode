@@ -7,5 +7,7 @@ class Solution(solution.Solution):
         return self.findFinalValue(*test_input)
 
     def findFinalValue(self, nums: List[int], original: int) -> int:
-        pass
-
+        s = set(nums)
+        while original in s:
+            original *= 2
+        return original
