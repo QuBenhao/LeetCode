@@ -1,51 +1,53 @@
 # 1930. Unique Length-3 Palindromic Subsequences [Rating: 1533.34]
 
-Given a string `s`, return *the number of **unique palindromes of length three**that are a **subsequence** of* `s`.
+<p>Given a string <code>s</code>, return <em>the number of <strong>unique palindromes of length three</strong> that are a <strong>subsequence</strong> of </em><code>s</code>.</p>
 
-Note that even if there are multiple ways to obtain the same subsequence, it is still only counted **once**.
+<p>Note that even if there are multiple ways to obtain the same subsequence, it is still only counted <strong>once</strong>.</p>
 
-A **palindrome** is a string that reads the same forwards and backwards.
+<p>A <strong>palindrome</strong> is a string that reads the same forwards and backwards.</p>
 
-A **subsequence** of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+<p>A <strong>subsequence</strong> of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.</p>
 
-- For example, `"ace"` is a subsequence of `"abcde"`.
+<ul>
+	<li>For example, <code>&quot;ace&quot;</code> is a subsequence of <code>&quot;<u>a</u>b<u>c</u>d<u>e</u>&quot;</code>.</li>
+</ul>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> s = &quot;aabca&quot;
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> The 3 palindromic subsequences of length 3 are:
+- &quot;aba&quot; (subsequence of &quot;<u>a</u>a<u>b</u>c<u>a</u>&quot;)
+- &quot;aaa&quot; (subsequence of &quot;<u>aa</u>bc<u>a</u>&quot;)
+- &quot;aca&quot; (subsequence of &quot;<u>a</u>ab<u>ca</u>&quot;)
+</pre>
 
-```
-Input: s = "aabca"
-Output: 3
-Explanation: The 3 palindromic subsequences of length 3 are:
-- "aba" (subsequence of "aabca")
-- "aaa" (subsequence of "aabca")
-- "aca" (subsequence of "aabca")
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> s = &quot;adc&quot;
+<strong>Output:</strong> 0
+<strong>Explanation:</strong> There are no palindromic subsequences of length 3 in &quot;adc&quot;.
+</pre>
 
-```
-Input: s = "adc"
-Output: 0
-Explanation: There are no palindromic subsequences of length 3 in "adc".
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
+<pre>
+<strong>Input:</strong> s = &quot;bbcbaba&quot;
+<strong>Output:</strong> 4
+<strong>Explanation:</strong> The 4 palindromic subsequences of length 3 are:
+- &quot;bbb&quot; (subsequence of &quot;<u>bb</u>c<u>b</u>aba&quot;)
+- &quot;bcb&quot; (subsequence of &quot;<u>b</u>b<u>cb</u>aba&quot;)
+- &quot;bab&quot; (subsequence of &quot;<u>b</u>bcb<u>ab</u>a&quot;)
+- &quot;aba&quot; (subsequence of &quot;bbcb<u>aba</u>&quot;)
+</pre>
 
-```
-Input: s = "bbcbaba"
-Output: 4
-Explanation: The 4 palindromic subsequences of length 3 are:
-- "bbb" (subsequence of "bbcbaba")
-- "bcb" (subsequence of "bbcbaba")
-- "bab" (subsequence of "bbcbaba")
-- "aba" (subsequence of "bbcbaba")
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- 3 <= s.length <= 10<sup>5</sup>
-- `s` consists of only lowercase English letters.
+<ul>
+	<li><code>3 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> consists of only lowercase English letters.</li>
+</ul>
