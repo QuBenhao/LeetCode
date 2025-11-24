@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.prefixesDivBy5(test_input)
 
     def prefixesDivBy5(self, nums: List[int]) -> List[bool]:
-        pass
-
+        n = len(nums)
+        ans = [False] * n
+        cur = 0
+        for i in range(n):
+            cur = (cur * 2 + nums[i]) % 5
+            ans[i] = cur == 0
+        return ans
