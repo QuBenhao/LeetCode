@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.minOperations(*test_input)
 
     def minOperations(self, nums: List[int], k: int) -> int:
-        pass
-
+        return sum(nums) % k
