@@ -1,4 +1,4 @@
-# 3623. Count Number of Trapezoids I 
+# 3623. Count Number of Trapezoids I [Rating: 1579.76]
 
 <p data-end="189" data-start="146">You are given a 2D integer array <code>points</code>, where <code>points[i] = [x<sub>i</sub>, y<sub>i</sub>]</code> represents the coordinates of the <code>i<sup>th</sup></code> point on the Cartesian plane.</p>
 

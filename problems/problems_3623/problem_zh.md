@@ -1,4 +1,4 @@
-# 3623. 统计梯形的数目 I 
+# 3623. 统计梯形的数目 I [难度分: 1579.76]
 
 <p data-end="189" data-start="146">给你一个二维整数数组 <code>points</code>，其中 <code>points[i] = [x<sub>i</sub>, y<sub>i</sub>]</code> 表示第 <code>i</code> 个点在笛卡尔平面上的坐标。</p>
 
