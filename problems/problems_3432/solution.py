@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.countPartitions(test_input)
 
     def countPartitions(self, nums: List[int]) -> int:
-        pass
-
+        s = sum(nums)
+        return len(nums) - 1 if s % 2 == 0 else 0
