@@ -1,30 +1,29 @@
 # 1925. Count Square Sum Triples [Rating: 1323.82]
 
-A **square triple** `(a,b,c)` is a triple where `a`, `b`, and `c` are **integers** and a<sup>2</sup>+ b<sup>2</sup> = c<sup>2</sup>.
+<p>A <strong>square triple</strong> <code>(a,b,c)</code> is a triple where <code>a</code>, <code>b</code>, and <code>c</code> are <strong>integers</strong> and <code>a<sup>2</sup> + b<sup>2</sup> = c<sup>2</sup></code>.</p>
 
-Given an integer `n`, return *the number of **square triples** such that* `1 <= a, b, c <= n`.
+<p>Given an integer <code>n</code>, return <em>the number of <strong>square triples</strong> such that </em><code>1 &lt;= a, b, c &lt;= n</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> n = 5
+<strong>Output:</strong> 2
+<strong>Explanation</strong>: The square triples are (3,4,5) and (4,3,5).
+</pre>
 
-```
-Input: n = 5
-Output: 2
-Explanation: The square triples are (3,4,5) and (4,3,5).
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> n = 10
+<strong>Output:</strong> 4
+<strong>Explanation</strong>: The square triples are (3,4,5), (4,3,5), (6,8,10), and (8,6,10).
+</pre>
 
-```
-Input: n = 10
-Output: 4
-Explanation: The square triples are (3,4,5), (4,3,5), (6,8,10), and (8,6,10).
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `1 <= n <= 250`
-
+<ul>
+	<li><code>1 &lt;= n &lt;= 250</code></li>
+</ul>
