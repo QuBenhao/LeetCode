@@ -1,4 +1,4 @@
-# 3583. Count Special Triplets 
+# 3583. Count Special Triplets [Rating: 1509.68]
 
 <p>You are given an integer array <code>nums</code>.</p>
 
