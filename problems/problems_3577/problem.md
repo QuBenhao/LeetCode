@@ -1,4 +1,4 @@
-# 3577. Count the Number of Computer Unlocking Permutations 
+# 3577. Count the Number of Computer Unlocking Permutations [Rating: 1749.73]
 
 <p>You are given an array <code>complexity</code> of length <code>n</code>.</p>
 
@@ -11,13 +11,11 @@
 	<li>To decrypt the password for computer <code>i</code>, you must have already unlocked a computer <code>j</code> such that <code>j &lt; i</code> and <code>complexity[j] &lt; complexity[i]</code>.</li>
 </ul>
 
-<p>Find the number of permutations of <code>[0, 1, 2, ..., (n - 1)]</code> that represent a valid order in which the computers can be unlocked, starting from computer 0 as the only initially unlocked one.</p>
+<p>Find the number of <span data-keyword="permutation-array">permutations</span> of <code>[0, 1, 2, ..., (n - 1)]</code> that represent a valid order in which the computers can be unlocked, starting from computer 0 as the only initially unlocked one.</p>
 
 <p>Since the answer may be large, return it <strong>modulo</strong> 10<sup>9</sup> + 7.</p>
 
 <p><strong>Note</strong> that the password for the computer <strong>with label</strong> 0 is decrypted, and <em>not</em> the computer with the first position in the permutation.</p>
-
-<p>A <strong>permutation</strong> is a rearrangement of all the elements of an array.</p>
 
 <p>&nbsp;</p>
 <p><strong class="example">Example 1:</strong></p>
