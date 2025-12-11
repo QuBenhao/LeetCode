@@ -6,7 +6,6 @@
 
 <ol>
 	<li><strong>消息事件（Message Event）：</strong><code>["MESSAGE", "timestamp<sub>i</sub>", "mentions_string<sub>i</sub>"]</code>
-
 	<ul>
 		<li>事件表示在&nbsp;<code>timestamp<sub>i</sub></code>&nbsp;时，一组用户被消息提及。</li>
 		<li><code>mentions_string<sub>i</sub></code>&nbsp;字符串包含下述标识符之一：
