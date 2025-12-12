@@ -1,4 +1,4 @@
-# 3606. 优惠券校验器 
+# 3606. 优惠券校验器 [难度分: 1312.36]
 
 <p>给你三个长度为 <code>n</code> 的数组，分别描述 <code>n</code> 个优惠券的属性：<code>code</code>、<code>businessLine</code> 和 <code>isActive</code>。其中，第 <code>i</code> 个优惠券具有以下属性：</p>
 

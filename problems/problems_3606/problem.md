@@ -1,4 +1,4 @@
-# 3606. Coupon Code Validator 
+# 3606. Coupon Code Validator [Rating: 1312.36]
 
 <p>You are given three arrays of length <code>n</code> that describe the properties of <code>n</code> coupons: <code>code</code>, <code>businessLine</code>, and <code>isActive</code>. The <code>i<sup>th</sup> </code>coupon has:</p>
 
