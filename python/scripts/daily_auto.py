@@ -192,6 +192,8 @@ if __name__ == '__main__':
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, None)
+    if not pf:
+        pf = get_default_folder()
     log_level = os.getenv(constant.LOG_LEVEL, "INFO")
     logging.basicConfig(level=log_level.upper(), format=constant.LOGGING_FORMAT, datefmt=constant.DATE_FORMAT)
     try:
