@@ -7,5 +7,9 @@ class Solution(solution.Solution):
         return self.waysToStep(test_input)
 
     def waysToStep(self, n: int) -> int:
-        pass
+        dp = [1, 2, 4, 0]
+        for i in range(3, n):
+            dp[i % 4] = ((dp[(i + 1) % 4] + dp[(i + 2) % 4]) % MOD + dp[(i + 3) % 4]) % MOD
+        return dp[(n - 1) % 4]
 
+MOD = 10 ** 9 + 7
