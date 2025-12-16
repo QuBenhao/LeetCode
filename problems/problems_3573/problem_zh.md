@@ -1,4 +1,4 @@
-# 3573. 买卖股票的最佳时机 V 
+# 3573. 买卖股票的最佳时机 V [难度分: 1777.13]
 
 <p>给你一个整数数组 <code>prices</code>，其中 <code>prices[i]</code> 是第 <code>i</code> 天股票的价格（美元），以及一个整数 <code>k</code>。</p>
 

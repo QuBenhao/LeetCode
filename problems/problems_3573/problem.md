@@ -1,4 +1,4 @@
-# 3573. Best Time to Buy and Sell Stock V 
+# 3573. Best Time to Buy and Sell Stock V [Rating: 1777.13]
 
 <p>You are given an integer array <code>prices</code> where <code>prices[i]</code> is the price of a stock in dollars on the <code>i<sup>th</sup></code> day, and an integer <code>k</code>.</p>
 

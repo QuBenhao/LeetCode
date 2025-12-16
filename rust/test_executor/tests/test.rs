@@ -1,15 +1,21 @@
-const PROBLEM_FOLDER: &str = "problems";
-const PROBLEM_ID: &str = "1";
+const PROBLEMS: [[&str; 2]; 1] = [["problems", "Interview_08__01"]];
 
 #[cfg(test)]
 mod test {
-	use solution_1 as solution;
-    use test_executor::run_test::run_test;
+	use test_executor::run_test::run_test;
+	use crate::PROBLEMS;
 
-    use crate::{PROBLEM_FOLDER, PROBLEM_ID};
+	use solution_Interview_08__01 as solution0;
 
-    #[test]
-    fn test_solution() {
-        run_test(PROBLEM_ID, PROBLEM_FOLDER, solution::solve);
-    }
+	#[test]
+	fn test_solutions() {
+		for (i, problem) in PROBLEMS.iter().enumerate() {
+			let (folder, id) = (problem[0], problem[1]);
+			println!("Testing problem {}", id);
+			run_test(id, folder, match i {
+				0 => solution0::solve,
+				_ => panic!("Unknown solution"),
+			});
+		}
+	}
 }
