@@ -56,7 +56,7 @@ class LanguageWriter(abc.ABC):
         if daily_path.exists():
             with daily_path.open("r", encoding="utf-8") as f:
                 json_content = json.loads(f.read())
-        json_content["plan"] = [
+        json_content["plans"] = [
             item for sublist in problem_ids_folders for item in sublist
         ]
         LanguageWriter._dump_json(json_content, daily_path)
@@ -68,8 +68,8 @@ class LanguageWriter(abc.ABC):
             json_content = json.loads(f.read())
         if "daily" in json_content:
             return json_content["daily"]
-        if "plan" in json_content and json_content["plan"]:
-            return json_content["plan"][0]
+        if "plans" in json_content and json_content["plans"]:
+            return json_content["plans"][0]
         return None
 
     def write_solution(
