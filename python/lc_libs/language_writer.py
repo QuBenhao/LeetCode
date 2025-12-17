@@ -49,6 +49,8 @@ class LanguageWriter(abc.ABC):
         try:
             load_dotenv(str(root_path / ".env"))
             folder = os.getenv(constant.PROBLEM_FOLDER, "problems")
+            if not folder:
+                folder = problem_ids_folders[0][1]
         except Exception:
             folder = "problems"
         daily_path = root_path / f"daily-{folder}.json"
