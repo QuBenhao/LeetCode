@@ -7,5 +7,7 @@ class Solution(solution.Solution):
         return self.swapNumbers(test_input)
 
     def swapNumbers(self, numbers: List[int]) -> List[int]:
-        pass
-
+        numbers[0] ^= numbers[1]
+        numbers[1] ^= numbers[0]
+        numbers[0] ^= numbers[1]
+        return numbers
