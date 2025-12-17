@@ -1,4 +1,4 @@
-# 3652. Best Time to Buy and Sell Stock using Strategy 
+# 3652. Best Time to Buy and Sell Stock using Strategy [Rating: 1556.78]
 
 <p>You are given two integer arrays <code>prices</code> and <code>strategy</code>, where:</p>
 
