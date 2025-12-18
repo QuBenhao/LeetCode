@@ -1,3 +1,4 @@
+from collections import Counter
 import solution
 from typing import *
 from python.object_libs import call_method
@@ -12,8 +13,7 @@ class Solution(solution.Solution):
 
 class WordsFrequency:
     def __init__(self, book: List[str]):
-        pass
+        self.counter = Counter(book)
 
     def get(self, word: str) -> int:
-        pass
-
+        return self.counter.get(word, 0)
