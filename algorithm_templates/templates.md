@@ -29,6 +29,7 @@
     - [最高位](binary/highest_bit.md)
     - [最低位](binary/lowbit.md)
     - [异或](binary/xor.md)
+    - [子集枚举](binary/submask.md)
 - [动态规划](dynamic_programming)
     - [回文串切割](dynamic_programming/palindrome.md)
     - [数位DP](dynamic_programming/digital.md)
