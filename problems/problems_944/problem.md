@@ -1,46 +1,65 @@
 # 944. Delete Columns to Make Sorted [Rating: 1396.49]
 
-We are given an array `A` of `N` lowercase letter strings, all of the same length.
+<p>You are given an array of <code>n</code> strings <code>strs</code>, all of the same length.</p>
 
-Now, we may choose any set of deletion indices, and for each string, we delete all the characters in those indices.
+<p>The strings can be arranged such that there is one on each line, making a grid.</p>
 
-For example, if we have an array `A = ["abcdef","uvwxyz"]` and deletion indices `{0, 2, 3}`, then the final array after deletions is `["bef", "vyz"]`, and the remaining columns of `A` are `["b","v"]`, `["e","y"]`, and `["f","z"]`. (Formally, the `c`-th column is `[A[0][c], A[1][c], ..., A[A.length-1][c]]`).
+<ul>
+	<li>For example, <code>strs = [&quot;abc&quot;, &quot;bce&quot;, &quot;cae&quot;]</code> can be arranged as follows:</li>
+</ul>
 
-Suppose we chose a set of deletion indices `D` such that after deletions, each remaining column in A is in **non-decreasing** sorted order.
+<pre>
+abc
+bce
+cae
+</pre>
 
-Return the minimum possible value of `D.length`.
+<p>You want to <strong>delete</strong> the columns that are <strong>not sorted lexicographically</strong>. In the above example (<strong>0-indexed</strong>), columns 0 (<code>&#39;a&#39;</code>, <code>&#39;b&#39;</code>, <code>&#39;c&#39;</code>) and 2 (<code>&#39;c&#39;</code>, <code>&#39;e&#39;</code>, <code>&#39;e&#39;</code>) are sorted, while column 1 (<code>&#39;b&#39;</code>, <code>&#39;c&#39;</code>, <code>&#39;a&#39;</code>) is not, so you would delete column 1.</p>
 
- 
+<p>Return <em>the number of columns that you will delete</em>.</p>
 
-**Example 1:**
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-```
-Input: A = ["cba","daf","ghi"]
-Output: 1
-Explanation: 
-After choosing D = {1}, each column ["c","d","g"] and ["a","f","i"] are in non-decreasing sorted order.
-If we chose D = {}, then a column ["b","a","h"] would not be in non-decreasing sorted order.
-```
+<pre>
+<strong>Input:</strong> strs = [&quot;cba&quot;,&quot;daf&quot;,&quot;ghi&quot;]
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> The grid looks as follows:
+  cba
+  daf
+  ghi
+Columns 0 and 2 are sorted, but column 1 is not, so you only need to delete 1 column.
+</pre>
 
-**Example 2:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: A = ["a","b"]
-Output: 0
-Explanation: D = {}
-```
+<pre>
+<strong>Input:</strong> strs = [&quot;a&quot;,&quot;b&quot;]
+<strong>Output:</strong> 0
+<strong>Explanation:</strong> The grid looks as follows:
+  a
+  b
+Column 0 is the only column and is sorted, so you will not delete any columns.
+</pre>
 
-**Example 3:**
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: A = ["zyx","wvu","tsr"]
-Output: 3
-Explanation: D = {0, 1, 2}
-```
+<pre>
+<strong>Input:</strong> strs = [&quot;zyx&quot;,&quot;wvu&quot;,&quot;tsr&quot;]
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> The grid looks as follows:
+  zyx
+  wvu
+  tsr
+All 3 columns are not sorted, so you will delete all 3.
+</pre>
 
- 
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Constraints:**
-
-- `1 <= A.length <= 100`
-- `1 <= A[i].length <= 1000`
+<ul>
+	<li><code>n == strs.length</code></li>
+	<li><code>1 &lt;= n &lt;= 100</code></li>
+	<li><code>1 &lt;= strs[i].length &lt;= 1000</code></li>
+	<li><code>strs[i]</code> consists of lowercase English letters.</li>
+</ul>
