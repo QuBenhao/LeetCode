@@ -20,6 +20,19 @@ Table），使得每次查询或操作的时间复杂度从线性降低到对数
 
 ## **典型应用场景**
 
+### 快速幂
+```c++
+int fast_pow(int64_t base, int64_t exp, int64_t mod) {
+  int64_t res = 1;
+  while (exp) {
+    if (exp & 1) res = (1LL * res * base) % mod;
+    base = (1LL * base * base) % mod;
+    exp >>= 1;
+  }
+  return static_cast<int>(res);
+}
+```
+
 ### 最近公共祖先
 
 - **问题**：在树中快速找到两个节点的最近公共祖先。
