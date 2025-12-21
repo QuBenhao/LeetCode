@@ -17,5 +17,14 @@ class Solution(solution.Solution):
         return linked_list_to_list(res)
 
     def removeDuplicateNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        pass
-
+        s = set()
+        dummy = ListNode(next=head)
+        prev, curr = dummy, head
+        while curr:
+            if curr.val in s:
+                prev.next = curr.next
+            else:
+                prev = curr
+            s.add(curr.val)
+            curr = curr.next
+        return dummy.next

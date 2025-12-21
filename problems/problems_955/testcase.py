@@ -10,6 +10,7 @@ class Testcase(testcase.Testcase):
 		self.testcases.append(case(Input=['ca', 'bb', 'ac'], Output=1))
 		self.testcases.append(case(Input=['xc', 'yb', 'za'], Output=0))
 		self.testcases.append(case(Input=['zyx', 'wvu', 'tsr'], Output=3))
+		self.testcases.append(case(Input=["xga","xfb","yfa"], Output=1))
 
 	def get_testcases(self):
 		return self.testcases
