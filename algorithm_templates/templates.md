@@ -53,3 +53,7 @@
     - [倍增](others/doubling.md)
     - [log trick](others/log-trick.md)
     - [正难则反](others/reverse.md)
+
+## max(ceil(cnt/2), max_c)
+
+结论: 最多的数 和 总数的一半向上取整 的最大值
