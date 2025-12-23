@@ -48,13 +48,16 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
         load_code = True
     if not problem_slug:
         origin_problem_id = back_question_id(problem_id)
-        questions = lc_libs.get_questions_by_key_word(origin_problem_id)
+        if not cookie:
+            logging.error("Cookie is required to get problem!")
+            return
+        questions = lc_libs.get_questions_by_key_word(origin_problem_id, cookie)
         if not questions:
             logging.error(f"Unable to find any questions with LeetCode problem_id {origin_problem_id},"
                           f"check the input problem_id or contact the author")
             return
         for question in questions:
-            if question["paidOnly"] and not cookie:
+            if not cookie:
                 continue
             if question["questionFrontendId"] == origin_problem_id:
                 problem_slug = question["titleSlug"]

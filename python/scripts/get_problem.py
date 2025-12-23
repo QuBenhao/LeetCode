@@ -148,16 +148,14 @@ def process_single_database_problem(problem_folder: str, problem_id: str, proble
 
 def get_question_slug_by_id(
         problem_id: str,
-        problem_category: Optional[str] = None,
-        cookie: Optional[str] = None) -> Optional[str]:
-    questions = get_questions_by_key_word(problem_id, problem_category) if problem_category \
-        else get_questions_by_key_word(problem_id)
+        cookie: str,
+        problem_category: Optional[str] = None) -> Optional[str]:
+    questions = get_questions_by_key_word(problem_id, cookie, problem_category) if problem_category \
+        else get_questions_by_key_word(problem_id, cookie)
     if not questions:
         logging.error(f"Unable to find any questions with problem_id {problem_id}")
         return None
     for question in questions:
-        if question["paidOnly"] and not cookie:
-            continue
         if question["questionFrontendId"] == problem_id:
             return question["titleSlug"]
     logging.error(f"Unable to find any questions with problem_id {problem_id}, possible questions: {questions}")
@@ -173,7 +171,7 @@ def main(origin_problem_id: Optional[str] = None, problem_slug: Optional[str] = 
             logging.critical("Requires at least one of problem_id or problem_slug to fetch in single mode.")
             return 1
         if not problem_slug:
-            problem_slug = get_question_slug_by_id(origin_problem_id, problem_category, cookie)
+            problem_slug = get_question_slug_by_id(origin_problem_id, cookie, problem_category)
             if not problem_slug:
                 return 1
         question_info = get_question_info(problem_slug, cookie)
@@ -200,16 +198,16 @@ def main(origin_problem_id: Optional[str] = None, problem_slug: Optional[str] = 
                     obj: lc_libs.LanguageWriter = cls()
                     obj.change_test(root_path, tmp, problem_id)
     else:
-        if premium_only and not cookie:
-            logging.error("Premium problems requires privileged cookie to keep going.")
+        if not cookie:
+            logging.error("Problems requires cookie to keep going.")
             return 1
         keyword = None
         if origin_problem_id:
             keyword = origin_problem_id
         if problem_slug:
             keyword = problem_slug
-        questions = get_questions_by_key_word(keyword, problem_category, fetch_all, premium_only) if problem_category \
-            else get_questions_by_key_word(keyword, fetch_all=fetch_all, premium_only=premium_only)
+        questions = get_questions_by_key_word(keyword, cookie, problem_category, fetch_all, premium_only) if problem_category \
+            else get_questions_by_key_word(keyword, cookie, fetch_all=fetch_all, premium_only=premium_only)
         if not questions:
             logging.error(f"Unable to find any questions with keyword: [{keyword}],"
                           f" fetch_all: [{fetch_all}], premium_only: {premium_only}")

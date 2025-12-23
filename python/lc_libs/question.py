@@ -196,11 +196,10 @@ def get_question_testcases(slug: str, lang_slug: str = "python3") -> tuple[Optio
     return res
 
 
-def get_questions_by_key_word(keyword: Optional[str],
+def get_questions_by_key_word(keyword: Optional[str], cookie: str,
                               category: str = "all-code-essentials",
                               fetch_all: bool = False,
-                              premium_only: bool = False,
-                              cookie: Optional[str] = None) -> Optional[list]:
+                              premium_only: bool = False) -> Optional[list]:
     try:
         ans = []
         page_size, page_no = 100, 0

@@ -28,7 +28,7 @@ def get_args():
     po = subparsers.add_parser("print_origin", help="Print origin code snippets")
     po.set_defaults(func=test_print_origin)
     aqc = subparsers.add_parser("add_question_code", help="Add question code snippets")
-    aqc.add_argument("-c", "--cookie", type=str, help="Cookie for premium questions", default=None)
+    aqc.add_argument("-c", "--cookie", type=str, help="Cookie for premium questions", required=True)
     aqc.set_defaults(func=test_add_question_code)
 
     return parser.parse_args()
@@ -57,13 +57,13 @@ def test_print_origin(args):
 def test_add_question_code(args):
     if not args.problem:
         raise ValueError("Problem id is required")
-    questions = lc_libs.get_questions_by_key_word(args.problem, "algorithms")
+    if not args.cookie:
+        raise ValueError("Cookie is required")
+    questions = lc_libs.get_questions_by_key_word(args.problem, args.cookie, "algorithms")
     if not questions:
         raise ValueError(f"Unable to find any questions with problem_id {args.problem}")
     problem_slug = None
     for question in questions:
-        if question["paidOnly"] and not args.cookie:
-            continue
         if question["questionFrontendId"] == args.problem:
             problem_slug = question["titleSlug"]
             break

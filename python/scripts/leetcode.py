@@ -632,7 +632,7 @@ def favorite_main(languages, problem_folder, cookie):
                         print("No questions to add.")
                         continue
                     with ThreadPoolExecutor() as executor:
-                        slugs = list(executor.map(get_question_slug_by_id, question_ids))
+                        slugs = list(executor.map(get_question_slug_by_id, question_ids, [cookie] * len(question_ids)))
 
                     questions = []
                     for question_id, question_slug in zip(question_ids, slugs):
