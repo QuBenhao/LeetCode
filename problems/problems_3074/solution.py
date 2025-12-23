@@ -1,3 +1,6 @@
+from bisect import bisect_left
+from itertools import accumulate
+
 import solution
 from typing import *
 
@@ -7,5 +10,6 @@ class Solution(solution.Solution):
         return self.minimumBoxes(*test_input)
 
     def minimumBoxes(self, apple: List[int], capacity: List[int]) -> int:
-        pass
-
+        capacity.sort(reverse=True)
+        prefix_sum = [0] + list(accumulate(capacity))
+        return bisect_left(prefix_sum, sum(apple))
