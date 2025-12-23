@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <array>
 #include <algorithm>
 
 using namespace std;
