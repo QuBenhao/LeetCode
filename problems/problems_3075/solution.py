@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.maximumHappinessSum(*test_input)
 
     def maximumHappinessSum(self, happiness: List[int], k: int) -> int:
-        pass
-
+        happiness.sort(reverse=True)
+        ans = 0
+        for i in range(k):
+            if happiness[i] <= i:
+                break
+            ans += happiness[i] - i
+        return ans

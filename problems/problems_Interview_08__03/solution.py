@@ -7,5 +7,9 @@ class Solution(solution.Solution):
         return self.findMagicIndex(test_input)
 
     def findMagicIndex(self, nums: List[int]) -> int:
-        pass
-
+        i = 0
+        while i < len(nums):
+            if nums[i] == i:
+                return i
+            i = max(nums[i], i + 1)
+        return -1
