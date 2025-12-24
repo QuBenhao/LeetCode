@@ -41,7 +41,7 @@ def create_cc_tests(fname, file_group):
 
 def generate_cc_tests():
     for subdir in native.glob(["*/**/Solution.cpp"]):
-        if subdir.startswith("codeforces/") or subdir.startswith("openjudge/") or subdir.startswith("luogu/"):
+        if subdir.startswith("acoier/"):
             continue
         sub_dir_name = subdir.split("/")[1]
         dir_name = subdir.split("/Solution.cpp")[0]
