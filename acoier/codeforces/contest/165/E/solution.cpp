@@ -3,12 +3,8 @@
 //
 #include <iostream>
 
-#ifdef ONLINE_JUDGE
-    // 在线评测系统通常使用GCC
-    #include <bits/stdc++.h>
-#else
-    #include <iosfwd>
-#endif
+// 在线评测系统通常使用GCC
+#include <bits/stdc++.h>
 using namespace std;
 
 const int MAX_A = 4e6 + 10;
