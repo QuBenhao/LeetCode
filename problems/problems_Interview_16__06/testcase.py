@@ -7,7 +7,7 @@ case = namedtuple("Testcase", ["Input", "Output"])
 class Testcase(testcase.Testcase):
 	def __init__(self):
 		self.testcases = []
-		self.testcases.append(case(Input=[[0], [2147483647]], Output=None))
+		self.testcases.append(case(Input=[[0], [2147483647]], Output=2147483647))
 
 	def get_testcases(self):
 		return self.testcases
