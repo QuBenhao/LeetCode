@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.missingNumber(test_input)
 
     def missingNumber(self, nums: List[int]) -> int:
-        pass
+        return (n := len(nums)) * (n + 1) // 2 - sum(nums)
 
