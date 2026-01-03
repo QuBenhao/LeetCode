@@ -6,7 +6,7 @@
 using namespace std;
 using ll = long long;
 
-// state，从右上角开始走出当前斜线的路径，长度必然是n+m-1
+// state，从右上角开始走出当前斜线的路径，长度必然是n+m, 只需讨论到长度n+m-1是因为最后一步一定是往左下角
 // 假设要往左走，即列变小，该位为1; 否则是往下走, 即行变大，该位为0
 // 初始在左上角，所以是后m位为1,前n位为0
 // 最终在右下角，即后n位为0,前m位为1
@@ -21,7 +21,7 @@ int min_max(const int st, const int turn) {
     int res = turn == 0 ? INT_MIN : INT_MAX;
     // 右上角
     int y = m, x = 0;
-    for (int i = 0; i < n + m && y >= 0 && x < n; ++i) {
+    for (int i = 0; i < n + m - 1; ++i) {
         if (st >> i & 1) {
             --y;
         } else {
