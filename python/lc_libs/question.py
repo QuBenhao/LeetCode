@@ -264,6 +264,9 @@ def get_questions_by_key_word(keyword: Optional[str], cookie: str,
                 logging.error(f"Failed to fetch questions by keyword: {keyword}, "
                               f"status code: {result.status_code}, response: {result.text}")
                 return None
+            if json.loads(result.text)["data"] is None:
+                logging.error(f'cookie可能过期, 影响通过id查找题目, 错误信息: {json.loads(result.text)["errors"][0]["message"]}')
+                return None
             res_dict = json.loads(result.text)["data"]["problemsetQuestionListV2"]
             ans.extend(res_dict["questions"])
             if not res_dict["hasMore"] or not fetch_all:
