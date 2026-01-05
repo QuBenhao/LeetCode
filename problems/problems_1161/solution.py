@@ -1,3 +1,6 @@
+from collections import deque
+from math import inf
+
 import solution
 from typing import *
 from python.object_libs import list_to_tree
@@ -17,5 +20,20 @@ class Solution(solution.Solution):
         return self.maxLevelSum(root0)
 
     def maxLevelSum(self, root: Optional[TreeNode]) -> int:
-        pass
-
+        q = deque([root])
+        ans, ans_x = -inf, 0
+        cur = 1
+        while q:
+            sz = len(q)
+            s = 0
+            for _ in range(sz):
+                node = q.popleft()
+                s += node.val
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            if s > ans:
+                ans, ans_x = s, cur
+            cur += 1
+        return ans_x
