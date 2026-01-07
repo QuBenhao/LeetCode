@@ -17,5 +17,20 @@ class Solution(solution.Solution):
         return self.maxProduct(root0)
 
     def maxProduct(self, root: Optional[TreeNode]) -> int:
-        pass
+        vals = set()
+        def dfs(node):
+            if node is None:
+                return 0
+            ans = node.val
+            ans += dfs(node.left)
+            ans += dfs(node.right)
+            vals.add(ans)
+            return ans
 
+        res = 0
+        total_sum = dfs(root)
+        for val in vals:
+            res = max(res, val * (total_sum - val))
+        return res % MOD
+
+MOD = 10**9 + 7
