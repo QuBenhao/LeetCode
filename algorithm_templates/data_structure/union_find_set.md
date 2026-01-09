@@ -190,3 +190,41 @@ class UnionFind {
     }
 }
 ```
+
+## 模板
+
+### 普通
+```c++
+struct DSU {
+    vector<size_t> pa;
+
+    explicit DSU(size_t n) : pa(n) { iota(pa.begin(), pa.end(), 0); }
+
+    size_t find(size_t x);
+    void unite(size_t x, size_t y);
+};
+
+size_t DSU::find(size_t x) { return pa[x] == x ? x : pa[x] = find(pa[x]); }
+void DSU::unite(size_t x, size_t y) { pa[find(x)] = find(y); }
+```
+
+### 按节点数合并
+```c++
+struct DSU {
+    vector<size_t> pa, size;
+
+    explicit DSU(size_t n) : pa(n), size(n, 1) { iota(pa.begin(), pa.end(), 0); }
+
+    size_t find(size_t x);
+    void unite(size_t x, size_t y);
+};
+
+size_t DSU::find(size_t x) { return pa[x] == x ? x : pa[x] = find(pa[x]); }
+void DSU::unite(size_t x, size_t y) {
+    x = find(x); y = find(y);
+    if (x == y) return;
+    if (size[x] < size[y]) swap(x, y);
+    pa[y] = x;
+    size[x] += size[y];
+} 
+```
