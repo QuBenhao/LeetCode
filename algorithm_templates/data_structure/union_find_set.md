@@ -228,3 +228,36 @@ void DSU::unite(size_t x, size_t y) {
     size[x] += size[y];
 } 
 ```
+
+### 带删除
+```c++
+struct DSU {
+  size_t id;
+  std::vector<size_t> pa, size;
+
+  // 注意这里的m实际上是总操作数，给出足够多的空间用来重新连接
+  explicit DSU(size_t size_, size_t m)
+      : id(size_ * 2), pa(size_ * 2 + m), size(size_ * 2 + m, 1) {
+    // size 的前半段其实没有使用，只是为了让下标计算更简单
+    std::iota(pa.begin(), pa.begin() + size_,
+              size_);  // 令 i 指向虚点 i + size_
+    std::iota(pa.begin() + size_, pa.end(), size_);  // 所有虚点指向它自身
+  }
+
+  size_t find(size_t x) { return pa[x] == x ? x : pa[x] = find(pa[x]); }
+
+  void unite(size_t x, size_t y) {
+    x = find(x), y = find(y);
+    if (x == y) return;
+    if (size[x] < size[y]) std::swap(x, y);
+    pa[y] = x;
+    size[x] += size[y];
+  }
+
+  void erase(size_t x) {
+    size_t y = find(x);
+    --size[y];
+    pa[x] = id++;
+  }
+};
+```
