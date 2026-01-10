@@ -1,37 +1,25 @@
 DAILY_QUERY = """
-query questionOfToday {
+    query questionOfTodayV2 {
   todayRecord {
     date
     userStatus
     question {
-      questionId
-      frontendQuestionId: questionFrontendId
-      difficulty
-      title
-      titleCn: translatedTitle
+      id: questionId
       titleSlug
+      title
+      translatedTitle
+      questionFrontendId
       paidOnly: isPaidOnly
-      freqBar
-      isFavor
-      acRate
-      status
-      solutionNum
-      hasVideoSolution
+      difficulty
       topicTags {
         name
+        slug
         nameTranslated: translatedName
-        id
       }
-      extra {
-        topCompanyTags {
-          imgUrl
-          slug
-          numSubscribed
-        }
-      }
-    }
-    lastSubmission {
-      id
+      status
+      isInMyFavorites: isFavor
+      acRate
+      frequency: freqBar
     }
   }
 }

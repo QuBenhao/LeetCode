@@ -11,9 +11,9 @@ def get_daily_question() -> Optional[Dict]:
         daily_question = res_dict['data']['todayRecord'][0]
         return {
             'date': daily_question['date'],
-            'questionId': format_question_id(daily_question['question']['frontendQuestionId']),
+            'questionId': format_question_id(daily_question['question']['questionFrontendId']),
             'questionNameEn': daily_question['question']['title'],
-            'questionName': daily_question['question']['titleCn'],
+            'questionName': daily_question['question']['translatedTitle'],
             'questionSlug': daily_question['question']['titleSlug'],
             "paidOnly": daily_question['question']['paidOnly'],
         }
