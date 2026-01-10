@@ -122,13 +122,18 @@ if __name__ == '__main__':
     parser.add_argument("-solution", required=False, action="store_true", help="Check SanYe solution.")
     parser.add_argument("lang", choices=list(_LANG_TRANS_MAP.keys()) +
                                         ["java"] + list(_LANG_TRANS_MAP.values()))
+    parser.add_argument("-d", "--daily", required=False, action="store_true",
+                        help="To daily submission.")
     args = parser.parse_args()
     try:
         load_dotenv()
     except Exception as e:
         print(f"Load Env exception, {e}")
         traceback.print_exc()
-    question_id = args.id
+    if args.daily:
+        question_id = lc_libs.get_daily_question()["questionId"]
+    else:
+        question_id = args.id
     slug = args.slug
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, None)
