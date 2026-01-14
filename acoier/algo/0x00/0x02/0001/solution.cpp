@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/14.
-// 例题:  递归实现指数型枚举 acwing 92
+// 例题:  递归实现指数型枚举 acwing92
 //
 
 #include <bits/stdc++.h>
