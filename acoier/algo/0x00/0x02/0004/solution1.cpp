@@ -56,13 +56,13 @@ void dfs(const int r, const int s) {
         // 非第一行，必须把上一行全部填为1
         int dis = 0;
         uint8_t track = 0;
+        const uint8_t diff = MASK ^ MATRIX[r - 1];
         for (int j = 0; j < N; ++j) {
-            if (MATRIX[r - 1] >> (N - 1 - j) & 1) {
-                continue;
+            if (diff >> j & 1) {
+                ProcessPoint(r, N - 1 - j);
+                track |= 1 << (N - 1 - j);
+                ++dis;
             }
-            ++dis;
-            ProcessPoint(r, j);
-            track |= 1 << j;
         }
         dfs(r + 1, s + dis);
         // 复原
