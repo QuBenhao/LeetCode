@@ -13,6 +13,7 @@ uint8_t MATRIX[N];
 constexpr uint8_t MASK = (1 << N) - 1;
 constexpr int STEP = 6;
 constexpr int DIR[4][2]{{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+int TRANS[1 << N];
 
 int ans;
 
@@ -39,42 +40,43 @@ void dfs(const int r, const int s) {
         for (uint8_t i = 0; i <= MASK; ++i) {
             // 第一行，步数肯定够
             int dis = 0;
-            for (int j = 0; j < N; ++j) {
-                if (i >> j & 1) {
-                    ProcessPoint(0, j);
-                    ++dis;
-                }
+            for (int x = i; x; ) {
+                int lb = lowbit(x);
+                ProcessPoint(0, TRANS[lb]);
+                ++dis;
+                x -= lb;
             }
             dfs(r + 1, s + dis);
-            for (int j = 0; j < N; ++j) {
-                if (i >> j & 1) {
-                    ProcessPoint(0, j);
-                }
+            for (int x = i; x; ) {
+                int lb = lowbit(x);
+                ProcessPoint(0, TRANS[lb]);
+                x -= lb;
             }
         }
     } else {
         // 非第一行，必须把上一行全部填为1
         int dis = 0;
-        uint8_t track = 0;
         const uint8_t diff = MASK ^ MATRIX[r - 1];
-        for (int j = 0; j < N; ++j) {
-            if (diff >> j & 1) {
-                ProcessPoint(r, N - 1 - j);
-                track |= 1 << (N - 1 - j);
-                ++dis;
-            }
+        for (int x = diff; x; ) {
+            int lb = lowbit(x);
+            ProcessPoint(r, N - 1 - TRANS[lb]);
+            ++dis;
+            x -= lb;
         }
         dfs(r + 1, s + dis);
         // 复原
-        for (int j = 0; j < N; ++j) {
-            if (track >> j & 1) {
-                ProcessPoint(r, j);
-            }
+        for (int x = diff; x; ) {
+            int lb = lowbit(x);
+            ProcessPoint(r, N - 1 - TRANS[lb]);
+            x -= lb;
         }
     }
 }
 
 int main() {
+    for (int i = 0; i < N; ++i) {
+        TRANS[1 << i] = i;
+    }
     int T;
     cin >> T;
     std::string line;
