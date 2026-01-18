@@ -49,7 +49,7 @@ LOG_LEVEL="info"
 PYTHONPATH=.
 ```
 
-install python3.12 or higher requirements:
+install python3.14 or higher requirements:
 
 ```shell
 pip install -r python/requirements.txt
