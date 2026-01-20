@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.minBitwiseArray(test_input)
 
     def minBitwiseArray(self, nums: List[int]) -> List[int]:
-        pass
-
+        ans = [-1] * len(nums)
+        for i, num in enumerate(nums):
+            if not (num & 1):
+                continue
+            v = ((num + 1) & -(num + 1)) - 1
+            ans[i] = (num - v) | v >> 1
+        return ans
