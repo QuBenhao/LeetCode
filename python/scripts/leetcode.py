@@ -559,6 +559,12 @@ def favorite_main(languages, problem_folder, cookie):
         return None
 
     def question_list(favorite_slug):
+        def question_to_str(q):
+            difficulty = constant.DIFFICULTY_TRANSLATE_MAP.get(q["difficulty"], "未知")
+            status = constant.STATUS_TRANSLATE_MAP.get(q["status"], "x")
+            paid_only = " {会员}" if q["paid_only"] else ""
+            return f"{status} [{q['question_frontend_id']}] {q['translated_title']} ({difficulty}){paid_only}"
+
         cur_page = 1
         page_size = 20
         while True:
@@ -570,7 +576,7 @@ def favorite_main(languages, problem_folder, cookie):
                 print("No questions found in this favorite.")
                 break
             content = "\n".join(
-                [f"{_i}. [{q['question_frontend_id']}] {q['translated_title']}" for _i, q in enumerate(data, start=1)],
+                [f"{_i}. {question_to_str(q)}" for _i, q in enumerate(data, start=1)],
             )
             user_input_select = input_until_valid(
                 __user_input_page.format(total, content),

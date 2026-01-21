@@ -12,3 +12,7 @@ RATING_URL = "https://zerotrac.github.io/leetcode_problem_rating/data.json"
 RATING_URL_CN = "https://raw.gitmirror.com/zerotrac/leetcode_problem_rating/main/data.json"
 CONTEST_FOLDER = "CONTEST_FOLDER"
 COOKIE_EXPIRY_SECONDS = 30 * 24 * 60 * 60 # 30 days
+
+# 一些枚举翻译
+DIFFICULTY_TRANSLATE_MAP = {"EASY": "简单", "MEDIUM": "中等", "HARD": "困难"}
+STATUS_TRANSLATE_MAP = {"TO_DO": " ", "ATTEMPTED": "❓", "SOLVED": "✅"}

@@ -70,6 +70,8 @@ def query_favorite_questions(favorite_slug: str, cookie: str, limit: int = 100, 
                     "difficulty": question.get("difficulty"),
                     "id": question.get("id"),
                     "question_frontend_id": question.get("questionFrontendId"),
+                    "paid_only": question.get("paidOnly"),
+                    "status": question.get("status"),
                 }
                 for question in questions
             ],
