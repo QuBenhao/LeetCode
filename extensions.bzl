@@ -21,7 +21,6 @@ DAILY_PROBLEM = "%s"
 PLANS = %s
 """ % (folder, daily_problem, "[" + ",".join(['"%s"' % p for p in plans.split(",")]) + "]"))
 
-
 daily = repository_rule(
     implementation = _impl,
 )

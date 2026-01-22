@@ -19,11 +19,11 @@ BasedOnStyle: Google
 
 # TabWidth (unsigned)
 # The number of columns used for tab stops.
-TabWidth: 2
+TabWidth: 4
 
 # IndentWidth (unsigned)
 # The number of columns to use for indentation.
-IndentWidth: 2
+IndentWidth: 4
 
 # UseTab (UseTabStyle)
 # The way to use tab characters in the resulting file.

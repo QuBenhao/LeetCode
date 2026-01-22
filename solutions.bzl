@@ -1,5 +1,7 @@
 # solutions.bzl
 
+load("@rules_cc//cc:cc_test.bzl", "cc_test")
+
 def add_files(fname, path):
     native.filegroup(
         name = fname,
@@ -15,14 +17,14 @@ def add_files(fname, path):
     )
 
 def create_cc_tests(fname, file_group):
-    native.cc_test(
+    cc_test(
         name = fname + "_test",
         size = "small",
         srcs = [
             "//:{}".format(file_group),
             "//cpp:TestMain.cpp",
             "//cpp:TestMain.h",
-            "//cpp/common:Solution.h"
+            "//cpp/common:Solution.h",
         ],
         args = [
             "$(rlocationpath //:{})".format(file_group + "_testcase"),
@@ -56,9 +58,9 @@ def gen_daily(folder, problem, plans):
     add_files(fname = fname, path = path)
     create_cc_tests(fname = fname, file_group = fname)
     for i in range(0, len(plans), 2):
-        fname = "problem%s" % (i//2)
+        fname = "problem%s" % (i // 2)
         plan = plans[i]
-        f = plans[i+1]
+        f = plans[i + 1]
         path = "%s/%s_%s" % (f, f, plan)
         test_name = "plan_%s_%s" % (f, plan)
         add_files(fname = fname, path = path)
