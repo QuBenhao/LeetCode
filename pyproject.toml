@@ -1,6 +1,6 @@
 [project]
 name = "leetcode"
-version = "10.9.3"  # Set this to the last released version or "0.0.0" for new projects
+version = "10.5.0"  # Set this to the last released version or "0.0.0" for new projects
 description = "LeetCode solutions run locally by benhao"
 
 [tool.semantic_release]
@@ -13,7 +13,7 @@ commit_parser = "conventional"
 logging_use_named_masks = false
 major_on_zero = true
 allow_zero_version = false
-repo_dir = "/Users/qubenhao/code/LeetCode"
+repo_dir = ""
 no_git_verify = false
 tag_format = "v{version}"
 add_partial_tags = false
