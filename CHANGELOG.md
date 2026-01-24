@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v10.9.5 (2026-01-24)
+
+### Bug Fixes
+
+- CHANGELOG
+  ([`e0f53ea`](https://github.com/QuBenhao/LeetCode/commit/e0f53ea7c955dab9a9b27d3860a388326e4e54ec))
+
+### Testing
+
+- Try
+  ([`dd3b682`](https://github.com/QuBenhao/LeetCode/commit/dd3b6822686938f558228a9eea7afc0b58bff1dc))
+
+
 ## Unreleased
 
 ### Testing
