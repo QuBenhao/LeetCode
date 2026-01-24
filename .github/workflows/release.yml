@@ -26,24 +26,23 @@ jobs:
       - name: Python Semantic Release
         # Adjust tag with desired version if applicable. Version shorthand
         # is NOT available, e.g. vX or vX.X will not work.
-        uses: python-semantic-release/python-semantic-release@v9.21.1
+        uses: python-semantic-release/python-semantic-release@v10.5.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           changelog: true
 
-      - name: Keep only last 20 tags
+      - name: Cleanup old pre-release tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git fetch --tags
 
-          # 获取所有标签，按时间倒序排列
-          # tail -n +21 意思是：从第21行开始输出（即跳过前20个最新的）
-          tags_to_delete=$(git for-each-ref --sort=-taggerdate --format '%(refname:short)' refs/tags | tail -n +21)
+          # 筛选出所有带连字符 '-' 的标签 (通常是 v1.0.0-beta.1 这类)
+          # 并排除掉最新的 5 个，防止正在发布的被删掉
+          tags_to_delete=$(git for-each-ref --sort=-taggerdate --format '%(refname:short)' refs/tags | grep "-" | tail -n +6)
 
           for tag in $tags_to_delete; do
-            echo "Deleting old tag: $tag"
-            # 加上 || true 防止某个标签删除失败导致整个流程中断
+            echo "Deleting pre-release tag: $tag"
             git push origin --delete $tag || true
             git tag -d $tag || true
           done
