@@ -14,7 +14,20 @@ git_override(
 )
 
 bazel_dep(name = "googletest", version = "1.17.0")
+# 2025.9.19的提交解决了rules_cc的问题, 但1.17.0版本没有; 日后合入主线的话可以更新版本去掉这段
+git_override(
+    module_name = "googletest",
+    remote = "https://github.com/google/googletest.git",
+    commit = "85087857ad10bd407cd6ed2f52f7ea9752db621f"
+)
+
 bazel_dep(name = "nlohmann_json", version = "3.12.0")
+# 找了个最新的可以work的commit(2026.1.2); 日后合入主线的话可以更新版本去掉这段
+git_override(
+    module_name = "nlohmann_json",
+    remote = "https://github.com/nlohmann/json.git",
+    commit = "515d994acbac04e0efa41db21e0d16591f6f97c9"
+)
 
 daily = use_repo_rule("//:extensions.bzl", "daily")
 daily(name = "daily")
