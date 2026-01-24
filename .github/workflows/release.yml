@@ -9,6 +9,7 @@ on:
 
 jobs:
   release:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     concurrency:
       group: release
@@ -30,38 +31,21 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           changelog: true
 
-      - name: Cleanup old tags and releases
+      - name: Keep only last 20 tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Fetch all tags
           git fetch --tags
 
-          # Get the list of tags sorted by date
-          tags=$(git for-each-ref --sort=-taggerdate --format '%(refname:short)' refs/tags)
+          # 获取所有标签，按时间倒序排列
+          # tail -n +21 意思是：从第21行开始输出（即跳过前20个最新的）
+          tags_to_delete=$(git for-each-ref --sort=-taggerdate --format '%(refname:short)' refs/tags | tail -n +21)
 
-          # Get the current date in seconds since epoch
-          current_date=$(date +%s)
-
-          # Initialize counters
-          count=0
-          max_count=3
-          max_days=7
-
-          for tag in $tags; do
-            # Get the tag date in seconds since epoch
-            tag_date=$(git log -1 --format=%at $tag)
-
-            # Calculate the age of the tag in days
-            age_days=$(( (current_date - tag_date) / 86400 ))
-
-            if [ $age_days -le $max_days ] && [ $count -lt $max_count ]; then
-              count=$((count + 1))
-            else
-              # Delete the tag locally and remotely
-              git tag -d $tag
-              git push origin :refs/tags/$tag
-            fi
+          for tag in $tags_to_delete; do
+            echo "Deleting old tag: $tag"
+            # 加上 || true 防止某个标签删除失败导致整个流程中断
+            git push origin --delete $tag || true
+            git tag -d $tag || true
           done
 
       - name: Delete Draft Releases
