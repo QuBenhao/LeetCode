@@ -1,0 +1,19 @@
+[tool.semantic_release]
+version_variable = [
+    "setup.py:__version__",       # 如果你是python项目，指定版本号位置
+    "src/__init__.py:__version__" # 或者这里
+]
+# 如果你不是 Python 项目，或者不想管理代码里的版本号，只想要 Tag 和 Changelog，
+# 可以不写 version_variable，但要确保下面的配置存在。
+
+version_toml = [
+    "pyproject.toml:project.version" # 如果你用 pyproject 管理版本
+]
+
+# 强制指定 Changelog 行为
+changelog_file = "CHANGELOG.md"
+commit_message = "chore(release): {version} [skip ci]"
+
+[tool.semantic_release.changelog]
+exclude_commit_patterns = []
+mode = "update"  # 确保是更新模式
