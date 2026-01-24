@@ -26,7 +26,7 @@ jobs:
       - name: Python Semantic Release
         # Adjust tag with desired version if applicable. Version shorthand
         # is NOT available, e.g. vX or vX.X will not work.
-        uses: python-semantic-release/python-semantic-release@v10.5.3
+        uses: python-semantic-release/python-semantic-release@v9.21.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           changelog: true
