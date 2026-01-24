@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.minimumDifference(*test_input)
 
     def minimumDifference(self, nums: List[int], k: int) -> int:
-        pass
-
+        nums.sort()
+        return min(nums[i] - nums[i - k + 1] for i in range(k - 1, len(nums)))
