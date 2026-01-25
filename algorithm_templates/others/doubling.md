@@ -170,6 +170,9 @@ class TreeAncestor:
             if px != py:
                 x, y = px, py  # 同时往上跳 2**i 步
         return self.pa[x][0]
+
+    def get_dis(self, x: int, y: int) -> int:
+        return self.depth[x] + self.depth[y] - self.depth[self.get_lca(x, y)] * 2
 ```
 
 ```go
