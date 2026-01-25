@@ -10,6 +10,7 @@ class Solution(solution.Solution):
         return self.nthSmallest(*test_input)
 
     def nthSmallest(self, n: int, k: int) -> int:
+        ## 解法一
         # last = 0
         # for i in range(k - 1, 50):
         #     # 二进制第i位, 共有i + 1位可以填1, 从中选k个的取法
@@ -21,18 +22,30 @@ class Solution(solution.Solution):
         #     last = cur
         # return 0
 
+        ## 解法二
+        # ans = 0
+        # while n > 0:
+        #     # idx 对应 二进制 第idx-1位
+        #     idx = bisect_left(COMBINATIONS[k], n)
+        #     if COMBINATIONS[k][idx] > n:
+        #         ans |= 1 << (idx - 1)
+        #         idx -= 1
+        #     else:
+        #         ans |= sum(1 << j for j in range(idx - 1, idx - 1 - k, -1))
+        #     n -= COMBINATIONS[k][idx]
+        #     k -= 1
+        # return ans
+
+        ## 解法三
         ans = 0
-        while n > 0:
-            # idx 对应 二进制 第idx-1位
-            idx = bisect_left(COMBINATIONS[k], n)
-            if COMBINATIONS[k][idx] > n:
-                ans |= 1 << (idx - 1)
-                idx -= 1
-            else:
-                ans |= sum(1 << j for j in range(idx - 1, idx - 1 - k, -1))
-            n -= COMBINATIONS[k][idx]
-            k -= 1
+        for i in range(49, -1, -1):
+            # 假如当前不选1, 剩下的位够不够选出n个? 不够的话必选
+            if COMBINATIONS[k][i] < n:
+                ans |= 1 << i
+                n -= COMBINATIONS[k][i]
+                k -= 1
         return ans
+
 
 COMBINATIONS = [[0] * 51 for _ in range(51)]
 for _i in range(51):
