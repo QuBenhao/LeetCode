@@ -65,7 +65,7 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
         if not problem_slug:
             logging.warning(
                 f"Unable to find any questions with problem_id {origin_problem_id}, possible questions:\n"
-                + "\n".join(v for v in questions))
+                + "\n".join(v["questionFrontendId"] for v in questions))
             return
     problem_info = lc_libs.get_question_info(problem_slug, cookie)
     if not problem_info:
