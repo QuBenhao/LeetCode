@@ -8,10 +8,4 @@ class Solution(solution.Solution):
 
     def constructTransformedArray(self, nums: List[int]) -> List[int]:
         n = len(nums)
-        result = [0] * n
-        for i in range(n):
-            if nums[i] != 0:
-                result[i] = nums[(i + nums[i] % n) % n]
-            else:
-                result[i] = 0
-        return result
+        return [nums[(i + nums[i]) % n] if nums[i] != 0 else 0 for i in range(n)]
