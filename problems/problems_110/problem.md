@@ -1,40 +1,33 @@
-# 110. Balanced Binary Tree
-Given a binary tree, determine if it is height-balanced.
+# 110. Balanced Binary Tree 
 
-For this problem, a height-balanced binary tree is defined as:
+<p>Given a binary tree, determine if it is <span data-keyword="height-balanced"><strong>height-balanced</strong></span>.</p>
 
-> a binary tree in which the left and right subtrees of *every* node differ in height by no more than 1.
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/10/06/balance_1.jpg" style="width: 342px; height: 221px;" />
+<pre>
+<strong>Input:</strong> root = [3,9,20,null,null,15,7]
+<strong>Output:</strong> true
+</pre>
 
- 
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/10/06/balance_2.jpg" style="width: 452px; height: 301px;" />
+<pre>
+<strong>Input:</strong> root = [1,2,2,3,3,null,null,4,4]
+<strong>Output:</strong> false
+</pre>
 
-**Example 1:**
+<p><strong class="example">Example 3:</strong></p>
 
-![img](https://assets.leetcode.com/uploads/2020/10/06/balance_1.jpg)
+<pre>
+<strong>Input:</strong> root = []
+<strong>Output:</strong> true
+</pre>
 
-```
-Input: root = [3,9,20,null,null,15,7]
-Output: true
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 2:**
-
-![img](https://assets.leetcode.com/uploads/2020/10/06/balance_2.jpg)
-
-```
-Input: root = [1,2,2,3,3,null,null,4,4]
-Output: false
-```
-
-**Example 3:**
-
-```
-Input: root = []
-Output: true
-```
-
- 
-
-**Constraints:**
-
-- The number of nodes in the tree is in the range `[0, 5000]`.
-- `-104 <= Node.val <= 104`
+<ul>
+	<li>The number of nodes in the tree is in the range <code>[0, 5000]</code>.</li>
+	<li><code>-10<sup>4</sup> &lt;= Node.val &lt;= 10<sup>4</sup></code></li>
+</ul>
