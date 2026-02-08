@@ -1,2 +1,2 @@
-["[3,9,20,null,null,15,7]", "[1,2,2,3,3,null,null,4,4]", "[]"]
-[true, false, true]
+["[3,9,20,null,null,15,7]", "[1,2,2,3,3,null,null,4,4]", "[]", "[1,2,3,4,5,6,null,8]"]
+[true, false, true, true]
