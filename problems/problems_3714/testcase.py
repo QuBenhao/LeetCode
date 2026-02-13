@@ -10,6 +10,7 @@ class Testcase(testcase.Testcase):
 		self.testcases.append(case(Input="abbac", Output=4))
 		self.testcases.append(case(Input="aabcc", Output=3))
 		self.testcases.append(case(Input="aba", Output=2))
+		self.testcases.append(case(Input="bcbc", Output=4))
 
 	def get_testcases(self):
 		return self.testcases
