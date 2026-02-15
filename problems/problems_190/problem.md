@@ -1,37 +1,69 @@
-# 190. Reverse Bits
+# 190. Reverse Bits 
 
-Reverse bits of a given 32 bits unsigned integer.
+<p>Reverse bits of a given 32 bits signed integer.</p>
 
-**Note:**
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-- Note that in some languages such as Java, there is no unsigned integer type. In this case, both input and output will be given as a signed integer type. They should not affect your implementation, as the integer's internal binary representation is the same, whether it is signed or unsigned.
-- In Java, the compiler represents the signed integers using [2's complement notation](https://en.wikipedia.org/wiki/Two's_complement). Therefore, in **Example 2** above, the input represents the signed integer `-3` and the output represents the signed integer `-1073741825`.
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">n = 43261596</span></p>
 
-**Follow up**:
+<p><strong>Output:</strong> <span class="example-io">964176192</span></p>
 
-If this function is called many times, how would you optimize it?
+<p><strong>Explanation:</strong></p>
 
- 
+<table>
+	<tbody>
+		<tr>
+			<th>Integer</th>
+			<th>Binary</th>
+		</tr>
+		<tr>
+			<td>43261596</td>
+			<td>00000010100101000001111010011100</td>
+		</tr>
+		<tr>
+			<td>964176192</td>
+			<td>00111001011110000010100101000000</td>
+		</tr>
+	</tbody>
+</table>
+</div>
 
-**Example 1:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: n = 00000010100101000001111010011100
-Output:    964176192 (00111001011110000010100101000000)
-Explanation: The input binary string 00000010100101000001111010011100 represents the unsigned integer 43261596, so return 964176192 which its binary representation is 00111001011110000010100101000000.
-```
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">n = 2147483644</span></p>
 
-**Example 2:**
+<p><strong>Output:</strong> <span class="example-io">1073741822</span></p>
 
-```
-Input: n = 11111111111111111111111111111101
-Output:   3221225471 (10111111111111111111111111111111)
-Explanation: The input binary string 11111111111111111111111111111101 represents the unsigned integer 4294967293, so return 3221225471 which its binary representation is 10111111111111111111111111111111.
-```
+<p><strong>Explanation:</strong></p>
 
- 
+<table>
+	<tbody>
+		<tr>
+			<th>Integer</th>
+			<th>Binary</th>
+		</tr>
+		<tr>
+			<td>2147483644</td>
+			<td>01111111111111111111111111111100</td>
+		</tr>
+		<tr>
+			<td>1073741822</td>
+			<td>00111111111111111111111111111110</td>
+		</tr>
+	</tbody>
+</table>
+</div>
 
-**Constraints:**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-- The input must be a **binary string** of length `32`
+<ul>
+	<li><code>0 &lt;= n &lt;= 2<sup>31</sup> - 2</code></li>
+	<li><code>n</code> is even.</li>
+</ul>
 
+<p>&nbsp;</p>
+<p><strong>Follow up:</strong> If this function is called many times, how would you optimize it?</p>
