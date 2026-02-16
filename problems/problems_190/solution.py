@@ -8,5 +8,10 @@ class Solution(solution.Solution):
     # @param n, an integer
     # @return an integer
     def reverseBits(self, n):
-        x = str(bin(n))[2:]
-        return int(x[::-1] + "0" * (32 - len(x)), 2)
+        ans = 0
+        while n:
+            low_bit: int = n & -n
+            length = low_bit.bit_length()
+            ans |= 1 << (32 - length)
+            n -= low_bit
+        return ans
