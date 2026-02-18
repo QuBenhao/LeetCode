@@ -7,5 +7,12 @@ class Solution(solution.Solution):
         return self.hasAlternatingBits(test_input)
 
     def hasAlternatingBits(self, n: int) -> bool:
-        pass
+        # l = n.bit_length()
+        # for i in range(l):
+        #     if ((i & 1) != (l & 1)) != ((n >> i & 1) == 1):
+        #         return False
+        # return True
 
+        # 交替特性 10101 1010
+        # 异或得 11111
+        return (x := n ^ (n >> 1)) & (x + 1) == 0
