@@ -222,17 +222,33 @@ def get_questions_by_key_word(keyword: Optional[str], cookie: str,
                     "topicSlugs": [],
                     "operator": "IS"
                 },
-                "acceptanceFilter": {},
+                "acceptanceFilter": {
+                    # "rangeLeft": 20,
+                    # "rangeRight": 50
+                },
                 "frequencyFilter": {},
-                "frontendIdFilter": {},
-                "lastSubmittedFilter": {},
-                "publishedFilter": {},
+                "frontendIdFilter": {
+                    # "rangeLeft": 1,
+                    # "rangeRight": 5000
+                },
+                "lastSubmittedFilter": {
+                    # "startFrom": 1769875200,
+                    # "endAt": 1771689600
+                },
+                "publishedFilter": {
+                    # "startFrom": 1769875200,
+                    # "endAt": 1771689600
+                },
                 "companyFilter": {
                     "companySlugs": [],
                     "operator": "IS"
                 },
                 "positionFilter": {
                     "positionSlugs": [],
+                    "operator": "IS"
+                },
+                "positionLevelFilter": {
+                    "positionLevelSlugs": [],
                     "operator": "IS"
                 },
                 "contestPointFilter": {
@@ -246,6 +262,9 @@ def get_questions_by_key_word(keyword: Optional[str], cookie: str,
             }
             if premium_only:
                 filters["premiumFilter"]["premiumStatus"].append("PREMIUM")
+            if keyword and keyword.isnumeric():
+                filters["frontendIdFilter"]["rangeLeft"] = int(keyword)
+                filters["frontendIdFilter"]["rangeRight"] = int(keyword)
             result = requests.post("https://leetcode.cn/graphql",
                                    json={"query": QUESTION_KEYWORDS_QUERY,
                                          "variables": {
