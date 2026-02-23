@@ -21,8 +21,7 @@ class Solution(solution.Solution):
             return 0
 
         def dfs(node: TreeNode, cur: int) -> int:
-            cur <<= 1
-            cur += node.val
+            cur = cur << 1 | node.val
             if not node.left and not node.right:
                 return cur
             ans = 0
