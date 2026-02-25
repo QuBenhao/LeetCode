@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.sortByBits(test_input)
 
     def sortByBits(self, arr: List[int]) -> List[int]:
-        pass
-
+        return list(sorted(arr, key=lambda x: (x.bit_count(), x)))
