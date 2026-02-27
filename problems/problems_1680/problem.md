@@ -1,38 +1,38 @@
 # 1680. Concatenation of Consecutive Binary Numbers [Rating: 1629.54]
 
-Given an integer `n`, return *the **decimal value** of the binary string formed by concatenating the binary representations of* `1` *to* `n` *in order, **modulo*** `109 + 7`.
+<p>Given an integer <code>n</code>, return <em>the <strong>decimal value</strong> of the binary string formed by concatenating the binary representations of </em><code>1</code><em> to </em><code>n</code><em> in order, <strong>modulo </strong></em><code>10<sup>9 </sup>+ 7</code>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> n = 1
+<strong>Output:</strong> 1
+<strong>Explanation: </strong>&quot;1&quot; in binary corresponds to the decimal value 1. 
+</pre>
 
-```
-Input: n = 1
-Output: 1
-Explanation: "1" in binary corresponds to the decimal value 1. 
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> n = 3
+<strong>Output:</strong> 27
+<strong>Explanation: </strong>In binary, 1, 2, and 3 corresponds to &quot;1&quot;, &quot;10&quot;, and &quot;11&quot;.
+After concatenating them, we have &quot;11011&quot;, which corresponds to the decimal value 27.
+</pre>
 
-```
-Input: n = 3
-Output: 27
-Explanation: In binary, 1, 2, and 3 corresponds to "1", "10", and "11".
-After concatenating them, we have "11011", which corresponds to the decimal value 27.
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
-
-```
-Input: n = 12
-Output: 505379714
-Explanation: The concatenation results in "1101110010111011110001001101010111100".
+<pre>
+<strong>Input:</strong> n = 12
+<strong>Output:</strong> 505379714
+<strong>Explanation</strong>: The concatenation results in &quot;1101110010111011110001001101010111100&quot;.
 The decimal value of that is 118505380540.
-After modulo 109 + 7, the result is 505379714.
-```
+After modulo 10<sup>9</sup> + 7, the result is 505379714.
+</pre>
 
- 
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Constraints:**
-
-- `1 <= n <= 105`
+<ul>
+	<li><code>1 &lt;= n &lt;= 10<sup>5</sup></code></li>
+</ul>
