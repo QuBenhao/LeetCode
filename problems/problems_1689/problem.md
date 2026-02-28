@@ -1,37 +1,37 @@
 # 1689. Partitioning Into Minimum Number Of Deci-Binary Numbers [Rating: 1355.38]
 
-A decimal number is called **deci-binary** if each of its digits is either `0` or `1` without any leading zeros. For example, `101` and `1100` are **deci-binary**, while `112` and `3001` are not.
+<p>A decimal number is called <strong>deci-binary</strong> if each of its digits is either <code>0</code> or <code>1</code> without any leading zeros. For example, <code>101</code> and <code>1100</code> are <strong>deci-binary</strong>, while <code>112</code> and <code>3001</code> are not.</p>
 
-Given a string `n` that represents a positive decimal integer, return *the **minimum** number of positive **deci-binary** numbers needed so that they sum up to* `n`*.*
+<p>Given a string <code>n</code> that represents a positive decimal integer, return <em>the <strong>minimum</strong> number of positive <strong>deci-binary</strong> numbers needed so that they sum up to </em><code>n</code><em>.</em></p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> n = &quot;32&quot;
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> 10 + 11 + 11 = 32
+</pre>
 
-```
-Input: n = "32"
-Output: 3
-Explanation: 10 + 11 + 11 = 32
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> n = &quot;82734&quot;
+<strong>Output:</strong> 8
+</pre>
 
-```
-Input: n = "82734"
-Output: 8
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
+<pre>
+<strong>Input:</strong> n = &quot;27346209830709182346&quot;
+<strong>Output:</strong> 9
+</pre>
 
-```
-Input: n = "27346209830709182346"
-Output: 9
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `1 <= n.length <= 105`
-- `n` consists of only digits.
-- `n` does not contain any leading zeros and represents a positive integer.
+<ul>
+	<li><code>1 &lt;= n.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>n</code> consists of only digits.</li>
+	<li><code>n</code> does not contain any leading zeros and represents a positive integer.</li>
+</ul>
