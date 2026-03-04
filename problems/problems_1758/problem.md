@@ -1,41 +1,40 @@
 # 1758. Minimum Changes To Make Alternating Binary String [Rating: 1353.63]
 
-You are given a string `s` consisting only of the characters `'0'` and `'1'`. In one operation, you can change any `'0'` to `'1'` or vice versa.
+<p>You are given a string <code>s</code> consisting only of the characters <code>&#39;0&#39;</code> and <code>&#39;1&#39;</code>. In one operation, you can change any <code>&#39;0&#39;</code> to <code>&#39;1&#39;</code> or vice versa.</p>
 
-The string is called alternating if no two adjacent characters are equal. For example, the string `"010"` is alternating, while the string `"0100"` is not.
+<p>The string is called alternating if no two adjacent characters are equal. For example, the string <code>&quot;010&quot;</code> is alternating, while the string <code>&quot;0100&quot;</code> is not.</p>
 
-Return *the **minimum** number of operations needed to make* `s` *alternating*.
+<p>Return <em>the <strong>minimum</strong> number of operations needed to make</em> <code>s</code> <em>alternating</em>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> s = &quot;0100&quot;
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> If you change the last character to &#39;1&#39;, s will be &quot;0101&quot;, which is alternating.
+</pre>
 
-```
-Input: s = "0100"
-Output: 1
-Explanation: If you change the last character to '1', s will be "0101", which is alternating.
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> s = &quot;10&quot;
+<strong>Output:</strong> 0
+<strong>Explanation:</strong> s is already alternating.
+</pre>
 
-```
-Input: s = "10"
-Output: 0
-Explanation: s is already alternating.
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
+<pre>
+<strong>Input:</strong> s = &quot;1111&quot;
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> You need two operations to reach &quot;0101&quot; or &quot;1010&quot;.
+</pre>
 
-```
-Input: s = "1111"
-Output: 2
-Explanation: You need two operations to reach "0101" or "1010".
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- 1 <= s.length <= 10<sup>4</sup>
-- `s[i]` is either `'0'` or `'1'`.
-
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>4</sup></code></li>
+	<li><code>s[i]</code> is either <code>&#39;0&#39;</code> or <code>&#39;1&#39;</code>.</li>
+</ul>
