@@ -1,46 +1,50 @@
 # 1888. Minimum Number of Flips to Make the Binary String Alternating [Rating: 2005.59]
 
-You are given a binary string `s`. You are allowed to perform two types of operations on the string in any sequence:
+<p>You are given a binary string <code>s</code>. You are allowed to perform two types of operations on the string in any sequence:</p>
 
-- **Type-1: Remove** the character at the start of the string `s` and **append**it to the end of the string.
-- **Type-2: Pick** any character in `s` and **flip** its value, i.e., if its value is `'0'` it becomes `'1'` and vice-versa.
+<ul>
+	<li><strong>Type-1: Remove</strong> the character at the start of the string <code>s</code> and <strong>append</strong> it to the end of the string.</li>
+	<li><strong>Type-2: Pick</strong> any character in <code>s</code> and <strong>flip</strong> its value, i.e., if its value is <code>&#39;0&#39;</code> it becomes <code>&#39;1&#39;</code> and vice-versa.</li>
+</ul>
 
-Return *the **minimum** number of **type-2** operations you need to perform* *such that* `s` *becomes **alternating**.*
+<p>Return <em>the <strong>minimum</strong> number of <strong>type-2</strong> operations you need to perform</em> <em>such that </em><code>s</code> <em>becomes <strong>alternating</strong>.</em></p>
 
-The string is called **alternating** if no two adjacent characters are equal.
+<p>The string is called <strong>alternating</strong> if no two adjacent characters are equal.</p>
 
-- For example, the strings `"010"` and `"1010"` are alternating, while the string `"0100"` is not.
+<ul>
+	<li>For example, the strings <code>&quot;010&quot;</code> and <code>&quot;1010&quot;</code> are alternating, while the string <code>&quot;0100&quot;</code> is not.</li>
+</ul>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> s = &quot;111000&quot;
+<strong>Output:</strong> 2
+<strong>Explanation</strong>: Use the first operation two times to make s = &quot;100011&quot;.
+Then, use the second operation on the third and sixth elements to make s = &quot;10<u>1</u>01<u>0</u>&quot;.
+</pre>
 
-```
-Input: s = "111000"
-Output: 2
-Explanation: Use the first operation two times to make s = "100011".
-Then, use the second operation on the third and sixth elements to make s = "101010".
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> s = &quot;010&quot;
+<strong>Output:</strong> 0
+<strong>Explanation</strong>: The string is already alternating.
+</pre>
 
-```
-Input: s = "010"
-Output: 0
-Explanation: The string is already alternating.
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
+<pre>
+<strong>Input:</strong> s = &quot;1110&quot;
+<strong>Output:</strong> 1
+<strong>Explanation</strong>: Use the second operation on the second element to make s = &quot;1<u>0</u>10&quot;.
+</pre>
 
-```
-Input: s = "1110"
-Output: 1
-Explanation: Use the second operation on the second element to make s = "1010".
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- 1 <= s.length <= 10<sup>5</sup>
-- `s[i]` is either `'0'` or `'1'`.
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s[i]</code> is either <code>&#39;0&#39;</code> or <code>&#39;1&#39;</code>.</li>
+</ul>
