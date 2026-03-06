@@ -1,3 +1,4 @@
+from math import inf
 import solution
 
 
@@ -11,28 +12,18 @@ class Solution(solution.Solution):
         :rtype: int
         """
         n = len(s)
-        pre01 = [0] * n
-        pre10 = [0] * n
+        pre01 = [0] * (n + 1)
+        pre10 = [0] * (n + 1)
         for i,c in enumerate(s):
-            if c == '1':
-                if i % 2 == 0:
-                    pre01[i] = pre01[i-1] + 1
-                    pre10[i] = pre10[i-1]
-                else:
-                    pre10[i] += pre10[i-1] + 1
-                    pre01[i] = pre01[i-1]
+            if ord(c) & 1 == i & 1:
+                pre10[i + 1] += pre10[i] + 1
+                pre01[i + 1] = pre01[i]
             else:
-                if i % 2 == 0:
-                    pre10[i] += pre10[i-1] + 1
-                    pre01[i] = pre01[i-1]
-                else:
-                    pre01[i] = pre01[i-1] + 1
-                    pre10[i] = pre10[i-1]
-        pre01 = [0] + pre01
-        pre10 = [0] + pre10
+                pre01[i + 1] = pre01[i] + 1
+                pre10[i + 1] = pre10[i]
         if n % 2 == 0:
             return min(pre01[-1],pre10[-1])
-        ans = float("inf")
+        ans = inf
         for i in range(n):
             # 把前面i个放到最后
             # 前面要10101，后面要010
