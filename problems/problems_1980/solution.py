@@ -7,5 +7,8 @@ class Solution(solution.Solution):
         return self.findDifferentBinaryString(test_input)
 
     def findDifferentBinaryString(self, nums: List[str]) -> str:
-        pass
-
+        n = len(nums)
+        ans = [''] * n
+        for i, num in enumerate(nums):
+            ans[i] = '1' if num[i] == '0' else '0'
+        return ''.join(ans)
