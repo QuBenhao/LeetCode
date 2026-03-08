@@ -8,8 +8,6 @@ class Solution(solution.Solution):
         return self.numberOfStableArrays(*test_input)
 
     def numberOfStableArrays(self, zero: int, one: int, limit: int) -> int:
-        mod = 10 ** 9 + 7
-
         @cache
         def dfs(z, o, cur):
             """
@@ -26,10 +24,12 @@ class Solution(solution.Solution):
             if cur == 0:
                 # 容斥原理
                 # we can fill zero or one, but when we fill too many zeros, we should minus exceed limit zeros case
-                return (dfs(z - 1, o, 0) + dfs(z - 1, o, 1) - (dfs(z - limit - 1, o, 1) if z > limit else 0)) % mod
+                return (dfs(z - 1, o, 0) + dfs(z - 1, o, 1) - (dfs(z - limit - 1, o, 1) if z > limit else 0)) % MOD
             # we can fill zero or one, but when we fill too many ones, we should minus exceed limit ones case
-            return (dfs(z, o - 1, 0) + dfs(z, o - 1, 1) - (dfs(z, o - limit - 1, 0) if o > limit else 0)) % mod
+            return (dfs(z, o - 1, 0) + dfs(z, o - 1, 1) - (dfs(z, o - limit - 1, 0) if o > limit else 0)) % MOD
 
-        res = (dfs(zero, one, 0) + dfs(zero, one, 1)) % mod
+        res = (dfs(zero, one, 0) + dfs(zero, one, 1)) % MOD
         dfs.cache_clear()
         return res
+
+MOD = 10 ** 9 + 7
