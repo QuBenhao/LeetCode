@@ -27,13 +27,21 @@ from python.scripts.daily_auto import main as daily_auto_main
 from python.scripts.get_problem import main as get_problem_main, get_question_slug_by_id
 from python.scripts.tools import lucky_main, remain_main, clean_empty_java_main, clean_error_rust_main
 
+# Optional: browser_cookie3 for auto-detecting LeetCode cookie
+try:
+    import browser_cookie3
+    HAS_BROWSER_COOKIE = True
+except ImportError:
+    HAS_BROWSER_COOKIE = False
+
 __separate_line = "-" * 50
 
-__user_input_config = """Please select the configuration [0-1, default: 0]:
+__user_input_config = """Please select the configuration [0-2, default: 0]:
 0. Load default config from .env
 1. Custom config
+2. Re-initialize (auto-detect browser cookie)
 """
-__user_input_function = """Please select the main function [0-5, default: 0]:
+__user_input_function = """Please select the main function [0-7, default: 0]:
 0. Exit
 1. Get problem
 2. Submit
@@ -43,7 +51,7 @@ __user_input_function = """Please select the main function [0-5, default: 0]:
 6. Clean error rust
 7. Favorite management
 """
-__user_input_get_problem = """Please select the get problem method [0-5, default: 0]:
+__user_input_get_problem = """Please select the get problem method [0-6, default: 0]:
 0. Back
 1. Daily auto
 2. Specified problem ID
@@ -125,35 +133,206 @@ def input_pick_array(desc, arr):
         return None
 
 
-def configure():
-    def check_and_update_cookie(_cookie: str) -> str:
-        while check_cookie_expired(_cookie):
-            update_cookie = input_until_valid(
-                "Cookie might expired, do you want to update it? [y/n, default: n]: ",
+def get_browser_cookie():
+    """Auto-detect LeetCode CN cookie from browser"""
+    if not HAS_BROWSER_COOKIE:
+        return None
+    
+    browsers = [
+        ('Chrome', browser_cookie3.chrome),
+        ('Edge', browser_cookie3.edge),
+        ('Firefox', browser_cookie3.firefox),
+        ('Chromium', browser_cookie3.chromium),
+    ]
+    
+    for browser_name, browser_func in browsers:
+        try:
+            cj = browser_func(domain_name='leetcode.cn')
+            cookies = list(cj)
+            if cookies:
+                cookie_parts = [f"{c.name}={c.value}" for c in cookies]
+                return "; ".join(cookie_parts), browser_name, len(cookies)
+        except Exception:
+            continue
+    
+    return None
+
+
+def check_and_update_cookie(_cookie: str, auto_detect: bool = True) -> str:
+    """Check cookie validity and prompt for update if needed"""
+    while check_cookie_expired(_cookie):
+        print("⚠️  Cookie might be expired or invalid.")
+        
+        # Try auto-detect from browser
+        if auto_detect and HAS_BROWSER_COOKIE:
+            auto_detect_choice = input_until_valid(
+                "Do you want to auto-detect cookie from browser? [y/n, default: y]: ",
                 __allow_all
             )
-            if update_cookie == "y":
-                _cookie = input_until_valid(
-                    "Enter your LeetCode cookie: ",
-                    __allow_all
-                )
-                print("Cookie updated.")
-                print(__separate_line)
-            else:
-                print(__separate_line)
-                break
-        return _cookie
+            if auto_detect_choice != "n":
+                print("🔍 Detecting browser cookie...")
+                result = get_browser_cookie()
+                if result:
+                    cookie, browser_name, cookie_count = result
+                    print(f"✓ Found {cookie_count} LeetCode cookies from {browser_name}")
+                    # Verify the new cookie
+                    if not check_cookie_expired(cookie):
+                        print("✓ Cookie verified successfully!")
+                        return cookie
+                    else:
+                        print("✗ Auto-detected cookie is also invalid.")
+                        print("  Please make sure you have logged in to leetcode.cn in your browser.")
+                else:
+                    print("✗ No LeetCode cookie found in browsers.")
+                    print("  Please make sure you have logged in to leetcode.cn in your browser.")
+        
+        # Manual input
+        update_cookie = input_until_valid(
+            "Do you want to manually enter cookie? [y/n, default: n]: ",
+            __allow_all
+        )
+        if update_cookie == "y":
+            _cookie = input_until_valid(
+                "Enter your LeetCode cookie: ",
+                __allow_all_not_empty,
+                "Cookie cannot be empty."
+            )
+            print("Cookie updated.")
+        else:
+            print("Continuing with existing cookie...")
+            break
+        print(__separate_line)
+    return _cookie
 
-    print("Setting up the environment...")
-    config_select = input_until_valid(__user_input_config, __allow_all)
-    print(__separate_line)
+
+def initialize_env():
+    """Interactive environment initialization wizard"""
+    print("\n" + "=" * 50)
+    print("🚀 LeetCode Environment Initialization")
+    print("=" * 50)
+    
     env_file = root_path / ".env"
+    
+    # Step 1: Auto-detect browser cookie
+    print("\n[1/4] Detecting browser cookie...")
+    cookie = None
+    if HAS_BROWSER_COOKIE:
+        result = get_browser_cookie()
+        if result:
+            cookie, browser_name, cookie_count = result
+            print(f"✓ Found {cookie_count} LeetCode cookies from {browser_name}")
+        else:
+            print("✗ No LeetCode cookie found in browsers.")
+            print("  Please make sure you have logged in to leetcode.cn")
+    else:
+        print("✗ browser_cookie3 not installed.")
+        print("  Install with: pip install browser-cookie3")
+    
+    if not cookie:
+        cookie = input_until_valid(
+            "Enter your LeetCode cookie manually: ",
+            __allow_all_not_empty,
+            "Cookie cannot be empty."
+        )
+    print(__separate_line)
+    
+    # Step 2: Select languages
+    print("\n[2/4] Select programming languages")
+    pick_languages = input_until_valid(
+        __user_input_language,
+        lambda x: re.match(r"^[0-5](,[0-5])*$", x),
+        "Invalid input, please enter a comma-separated list of numbers from 0 to 5."
+    )
+    languages = list(set(__supported_languages[int(idx)] for idx in pick_languages.split(",")))
+    print(f"✓ Languages selected: {', '.join(languages)}")
+    print(__separate_line)
+    
+    # Step 3: Set problem folder
+    print("\n[3/4] Configure directories")
+    input_problem_folder = input_until_valid(
+        "Enter the problem folder path (press enter for 'problems'): ",
+        __allow_all
+    )
+    problem_folder = input_problem_folder if input_problem_folder else "problems"
+    print(f"✓ Problem folder: {problem_folder}")
+    
+    input_contest_folder = input_until_valid(
+        "Enter the contest folder path (press enter for 'contest'): ",
+        __allow_all
+    )
+    contest_folder = input_contest_folder if input_contest_folder else "contest"
+    print(f"✓ Contest folder: {contest_folder}")
+    print(__separate_line)
+    
+    # Step 4: Optional notification
+    print("\n[4/4] Optional: Configure notifications")
+    push_key = input_until_valid(
+        "Enter PushDeer key for notifications (press enter to skip): ",
+        __allow_all
+    )
+    if push_key:
+        print("✓ PushDeer key configured")
+    else:
+        print("✓ Skipped notification setup")
+    print(__separate_line)
+    
+    # Verify cookie
+    print("\n🔍 Verifying cookie...")
+    if check_cookie_expired(cookie):
+        print("⚠️  Warning: Cookie appears to be invalid.")
+        print("   You may need to refresh your browser login.")
+    else:
+        print("✓ Cookie verified successfully!")
+    print(__separate_line)
+    
+    # Save to .env
+    save_config = input_until_valid(
+        "Save configuration to .env file? [y/n, default: y]: ",
+        __allow_all
+    )
+    if save_config != "n":
+        with env_file.open("w") as f:
+            f.write(f'{constant.COOKIE}="{cookie}"\n')
+            f.write(f'{constant.PROBLEM_FOLDER}="{problem_folder}"\n')
+            f.write(f'{constant.CONTEST_FOLDER}="{contest_folder}"\n')
+            f.write(f'{constant.LANGUAGES}="{",".join(languages)}"\n')
+            if push_key:
+                f.write(f'{constant.PUSH_KEY}="{push_key}"\n')
+            f.write('PYTHONPATH=.\n')
+        print(f"✓ Configuration saved to {env_file}")
+    
+    print("\n" + "=" * 50)
+    print("✅ Initialization complete!")
+    print("=" * 50 + "\n")
+    
+    return languages, problem_folder, cookie, contest_folder
 
+
+def configure():
+    """Main configuration function"""
+    env_file = root_path / ".env"
+    
+    # Check if .env exists
+    if not env_file.exists():
+        print("No .env file found. Starting initialization wizard...")
+        return initialize_env()
+    
+    # Load existing .env
     try:
         load_dotenv(dotenv_path=env_file.as_posix())
     except Exception:
         pass
+    
+    print("Setting up the environment...")
+    config_select = input_until_valid(__user_input_config, __allow_all)
+    print(__separate_line)
+    
+    if config_select == "2":
+        # Re-initialize
+        return initialize_env()
+    
     if config_select == "1":
+        # Custom config
         pick_languages = input_until_valid(
             __user_input_language,
             lambda x: re.match(r"^[0-5](,[0-5])*$", x),
@@ -167,10 +346,7 @@ def configure():
             "Enter the problem folder path (press enter to use default): ",
             __allow_all
         )
-        if input_problem_folder:
-            problem_folder = input_problem_folder
-        else:
-            problem_folder = os.getenv(constant.PROBLEM_FOLDER, "problems")
+        problem_folder = input_problem_folder if input_problem_folder else os.getenv(constant.PROBLEM_FOLDER, "problems")
         print(f"Problem folder selected: {problem_folder}")
         print(__separate_line)
 
@@ -178,21 +354,34 @@ def configure():
             "Enter the contest folder path (press enter to use default): ",
             __allow_all
         )
-        if input_contest_folder:
-            contest_folder = input_contest_folder
-        else:
-            contest_folder = os.getenv(constant.CONTEST_FOLDER, "contest")
+        contest_folder = input_contest_folder if input_contest_folder else os.getenv(constant.CONTEST_FOLDER, "contest")
         print("Contest folder selected: ", contest_folder)
         print(__separate_line)
 
-        input_cookie = input_until_valid(
-            "Enter your LeetCode cookie (press enter to use default): ",
-            __allow_all
-        )
-        if input_cookie:
-            cookie = input_cookie.strip()
-        else:
-            cookie = os.getenv(constant.COOKIE)
+        # Try auto-detect cookie first
+        cookie = None
+        if HAS_BROWSER_COOKIE:
+            auto_detect = input_until_valid(
+                "Auto-detect cookie from browser? [y/n, default: y]: ",
+                __allow_all
+            )
+            if auto_detect != "n":
+                print("Detecting browser cookie...")
+                result = get_browser_cookie()
+                if result:
+                    cookie, browser_name, cookie_count = result
+                    print(f"✓ Found {cookie_count} LeetCode cookies from {browser_name}")
+                else:
+                    print("No cookie found in browsers.")
+                print(__separate_line)
+        
+        if not cookie:
+            input_cookie = input_until_valid(
+                "Enter your LeetCode cookie (press enter to use default): ",
+                __allow_all
+            )
+            cookie = input_cookie.strip() if input_cookie else os.getenv(constant.COOKIE)
+        
         cookie = check_and_update_cookie(cookie)
         print(__separate_line)
 
@@ -202,12 +391,14 @@ def configure():
         )
         if update_config == "y":
             with env_file.open("w") as f:
-                f.write(f"{constant.COOKIE}=\"{cookie}\"\n")
-                f.write(f"{constant.PROBLEM_FOLDER}=\"{problem_folder}\"\n")
-                f.write(f"{constant.LANGUAGES}=\"{','.join(languages)}\"\n")
+                f.write(f'{constant.COOKIE}="{cookie}"\n')
+                f.write(f'{constant.PROBLEM_FOLDER}="{problem_folder}"\n')
+                f.write(f'{constant.CONTEST_FOLDER}="{contest_folder}"\n')
+                f.write(f'{constant.LANGUAGES}="{",".join(languages)}"\n')
             print(f"Updated {env_file} with the new configuration.")
         print(__separate_line)
     else:
+        # Load from .env
         cookie = check_and_update_cookie(os.getenv(constant.COOKIE))
         problem_folder = os.getenv(constant.PROBLEM_FOLDER, "problems")
         contest_folder = os.getenv(constant.CONTEST_FOLDER, "contest")
@@ -468,9 +659,6 @@ def contest_main(languages, contest_folder, cookie):
         subp = p / chr(ord('a') + question_idx - 1)
         subp.mkdir(parents=True, exist_ok=True)
 
-        # Fetch problem info - this is network I/O bound
-        # The original code specifically requests "python3" default code.
-        # If you intend to use the `languages` variable from contest_main, replace ["python3"] with `languages`.
         problem_info = contest_lib.get_contest_problem_info(contest_id, question_slug, ["python3"], cookie)
 
         if not problem_info:
@@ -478,7 +666,6 @@ def contest_main(languages, contest_folder, cookie):
             return False
 
         try:
-            # File I/O operations
             with (subp / "problem.md").open("w", encoding="utf-8") as f:
                 f.write(problem_info["en_markdown_content"])
             with (subp / "problem_zh.md").open("w", encoding="utf-8") as f:
@@ -507,23 +694,15 @@ def contest_main(languages, contest_folder, cookie):
             logging.error(f"Error writing files for question {question_slug}: {e}")
             return False
 
-    # Use ThreadPoolExecutor to process questions in parallel
-    # Adjust max_workers as needed; for a few contest questions, len(contest_questions) is reasonable.
-    # If contest_questions is empty, max_workers should be at least 1.
     num_workers = max(1, len(contest_questions))
     with ThreadPoolExecutor(max_workers=num_workers) as executor:
-        # Prepare arguments for each task - a list of (index, question_data) tuples
         tasks_data = list(enumerate(contest_questions, start=1))
-
-        # Using executor.map for simplicity as it handles submitting all tasks
-        # and collecting results in order (though order of results isn't critical here).
-        # list() ensures all tasks are started and waited for.
         results = list(executor.map(process_question_worker, tasks_data))
 
         for result in results:
             if not result:
                 print("Some questions failed to process. Check the logs for details.")
-                p.rmdir()  # Clean up the directory if any question fails
+                p.rmdir()
                 return None
 
     print(f"Contest [{contest_id}] generated.")
