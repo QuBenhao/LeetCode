@@ -75,25 +75,22 @@ def convert_to_evaluable_str(s: str) -> str:
 def safe_literal_eval(s: str):
     """
     Safely evaluate a string to a Python object using ast.literal_eval.
-    Falls back to eval for complex expressions that literal_eval cannot handle,
-    but only for strings that match expected patterns (lists, dicts, primitives).
+    Does NOT fall back to eval - literal_eval only accepts literals.
+
+    Args:
+        s: String to evaluate (must be a valid Python literal)
+
+    Returns:
+        The evaluated Python object
+
+    Raises:
+        ValueError: If the string cannot be safely evaluated
     """
     try:
         return ast.literal_eval(s)
-    except (ValueError, SyntaxError):
-        # literal_eval cannot handle some valid Python expressions
-        # For LeetCode test cases, we need to handle these edge cases
-        # Only use eval as a fallback for known safe patterns
-        if s and (s.startswith('[') or s.startswith('{') or s.startswith('(') or
-                  s in ('True', 'False', 'None') or
-                  s.replace('.', '', 1).replace('-', '', 1).isdigit() or
-                  (s.startswith('"') and s.endswith('"')) or
-                  (s.startswith("'") and s.endswith("'"))):
-            try:
-                return eval(s)
-            except Exception:
-                pass
-        raise
+    except (ValueError, SyntaxError) as e:
+        logging.warning(f"Cannot safely evaluate expression: {s[:100]}...: {e}")
+        raise ValueError(f"Unsafe or invalid expression: {s[:100]}...")
 
 
 def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:

@@ -3,6 +3,7 @@ Browser cookie detection for LeetCode CLI
 Automatically detects LeetCode CN cookies from installed browsers.
 """
 
+import sqlite3
 import sys
 from pathlib import Path
 from typing import Optional, Tuple
@@ -42,7 +43,8 @@ def get_browser_cookie() -> Optional[Tuple[str, str, int]]:
             if cookies:
                 cookie_parts = [f"{c.name}={c.value}" for c in cookies]
                 return "; ".join(cookie_parts), browser_name, len(cookies)
-        except Exception:
+        except (PermissionError, FileNotFoundError, sqlite3.OperationalError) as e:
+            # Browser may not be installed, cookie database locked, or permission denied
             continue
 
     return None
@@ -65,7 +67,8 @@ def read_cookie_from_file() -> Optional[str]:
                 # Delete temp file after reading
                 cookie_file.unlink()
                 return cookie
-        except Exception:
+        except (PermissionError, FileNotFoundError, UnicodeDecodeError) as e:
+            # File may be locked, deleted by another process, or encoding issue
             pass
 
     # Hint user about file input option

@@ -3,10 +3,11 @@ Internationalization (i18n) support for LeetCode CLI
 Supports Chinese (zh) and English (en) languages.
 """
 
+import contextvars
 from typing import Dict, Any
 
-# Current language setting
-_LANG = "zh"  # Default to Chinese
+# Current language setting using ContextVar for thread/coroutine safety
+_LANG = contextvars.ContextVar('lang', default='zh')
 
 # Internationalization strings
 I18N: Dict[str, Dict[str, str]] = {
@@ -239,16 +240,15 @@ I18N: Dict[str, Dict[str, str]] = {
 
 def set_language(lang: str) -> None:
     """Set the current language for translations."""
-    global _LANG
     if lang in I18N:
-        _LANG = lang
+        _LANG.set(lang)
     else:
         raise ValueError(f"Unsupported language: {lang}. Supported: {list(I18N.keys())}")
 
 
 def get_language() -> str:
     """Get the current language setting."""
-    return _LANG
+    return _LANG.get()
 
 
 def t(key: str, **kwargs: Any) -> str:
@@ -262,7 +262,7 @@ def t(key: str, **kwargs: Any) -> str:
     Returns:
         The translated and formatted string
     """
-    lang_dict = I18N.get(_LANG, I18N["zh"])
+    lang_dict = I18N.get(_LANG.get(), I18N["zh"])
     text = lang_dict.get(key, I18N["zh"].get(key, key))
     if kwargs:
         return text.format(**kwargs)
