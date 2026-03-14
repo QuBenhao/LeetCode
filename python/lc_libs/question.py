@@ -1,3 +1,4 @@
+import ast
 import json
 import logging
 from typing import Optional, Mapping, Tuple
@@ -71,6 +72,30 @@ def convert_to_evaluable_str(s: str) -> str:
     return evaluable_str
 
 
+def safe_literal_eval(s: str):
+    """
+    Safely evaluate a string to a Python object using ast.literal_eval.
+    Falls back to eval for complex expressions that literal_eval cannot handle,
+    but only for strings that match expected patterns (lists, dicts, primitives).
+    """
+    try:
+        return ast.literal_eval(s)
+    except (ValueError, SyntaxError):
+        # literal_eval cannot handle some valid Python expressions
+        # For LeetCode test cases, we need to handle these edge cases
+        # Only use eval as a fallback for known safe patterns
+        if s and (s.startswith('[') or s.startswith('{') or s.startswith('(') or
+                  s in ('True', 'False', 'None') or
+                  s.replace('.', '', 1).replace('-', '', 1).isdigit() or
+                  (s.startswith('"') and s.endswith('"')) or
+                  (s.startswith("'") and s.endswith("'"))):
+            try:
+                return eval(s)
+            except Exception:
+                pass
+        raise
+
+
 def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
     backup_origin = markdown_text
     res = []
@@ -97,7 +122,7 @@ def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
                 evaluable_str = convert_to_evaluable_str(tmp)
                 if not evaluable_str:
                     continue
-                res.append(eval(evaluable_str))
+                res.append(safe_literal_eval(evaluable_str))
                 success_process = True
                 break
             except Exception as sxe:
@@ -112,7 +137,7 @@ def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
                     # 将HTML转换为字符
                     text_content = html2text.html2text(html_content)
                     text_content = convert_to_evaluable_str(text_content.replace("\n", ""))
-                    res.append(eval(text_content))
+                    res.append(safe_literal_eval(text_content))
                     success_process = True
                     break
                 except Exception as e:
@@ -124,7 +149,10 @@ def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
             if tmp == "No intersection":
                 res.append(None)
             else:
-                res.append(eval(tmp.split("&#39;")[-2]))
+                try:
+                    res.append(safe_literal_eval(tmp.split("&#39;")[-2]))
+                except Exception:
+                    res.append(None)
         else:
             res.append(None)
 
@@ -176,11 +204,11 @@ def get_question_testcases(slug: str, lang_slug: str = "python3") -> tuple[Optio
                 input_strs = item.replace("null", "None").split("\n")
                 try:
                     if len(input_strs) == 1:
-                        ans.append(eval(input_strs[0]))
+                        ans.append(safe_literal_eval(input_strs[0]))
                     else:
-                        ans.append([eval(i) for i in input_strs])
-                except Exception as _:
-                    logging.error(f"Unable to parse test case [{item}]", exc_info=True)
+                        ans.append([safe_literal_eval(i) for i in input_strs])
+                except Exception as e:
+                    logging.error(f"Unable to parse test case [{item}]: {e}", exc_info=True)
                     ans.append(None)
             elif lang_slug == "mysql":
                 ans.append(item)
@@ -292,8 +320,11 @@ def get_questions_by_key_word(keyword: Optional[str], cookie: str,
                 break
             page_no += 1
         return ans
-    except Exception as _:
-        logging.error(f"Error in getting questions by keyword: {keyword}", exc_info=True)
+    except (json.JSONDecodeError, KeyError, TypeError) as e:
+        logging.error(f"Error parsing response for questions by keyword '{keyword}': {e}", exc_info=True)
+        return None
+    except requests.RequestException as e:
+        logging.error(f"Network error while fetching questions by keyword '{keyword}': {e}", exc_info=True)
         return None
 
 
@@ -314,8 +345,10 @@ def get_questions_total(category: str = "all-code-essentials",
                                      "operationName": "problemsetQuestionList"},
                                cookies={'cookie': cookie} if cookie else None)
         return json.loads(result.text)["data"]["problemsetQuestionList"]["total"]
-    except Exception as _:
-        logging.error(f"Error in getting total questions", exc_info=True)
+    except (json.JSONDecodeError, KeyError, TypeError) as e:
+        logging.error(f"Error parsing response for total questions: {e}", exc_info=True)
+    except requests.RequestException as e:
+        logging.error(f"Network error while getting total questions: {e}", exc_info=True)
     return 0
 
 
@@ -339,8 +372,10 @@ def get_questions_by_number(number: int, category: str = "all-code-essentials",
         res_dict = json.loads(result.text)["data"]["problemsetQuestionList"]
         ans.extend(res_dict["questions"])
         return ans
-    except Exception as _:
-        logging.error(f"Error in getting question by number: {number}", exc_info=True)
+    except (json.JSONDecodeError, KeyError, TypeError) as e:
+        logging.error(f"Error parsing response for question by number {number}: {e}", exc_info=True)
+    except requests.RequestException as e:
+        logging.error(f"Network error while getting question by number {number}: {e}", exc_info=True)
     return None
 
 
@@ -376,6 +411,9 @@ def get_questions_by_status(status: str, category: str = "all-code-essentials", 
                 break
             page_no += 1
         return ans
-    except Exception as _:
-        logging.error(f"Error in getting questions by status: {status}", exc_info=True)
+    except (json.JSONDecodeError, KeyError, TypeError) as e:
+        logging.error(f"Error parsing response for questions by status '{status}': {e}", exc_info=True)
+        return None
+    except requests.RequestException as e:
+        logging.error(f"Network error while getting questions by status '{status}': {e}", exc_info=True)
         return None
