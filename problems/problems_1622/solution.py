@@ -12,17 +12,23 @@ class Solution(solution.Solution):
 
 class Fancy:
     def __init__(self):
-        pass
+        self.mul = 1
+        self.add = 0
+        self.arr = []
 
     def append(self, val: int) -> None:
-        pass
+        self.arr.append((val - self.add) * pow(self.mul, -1, MOD) % MOD)
 
     def addAll(self, inc: int) -> None:
-        pass
+        self.add = (self.add + inc) % MOD
 
     def multAll(self, m: int) -> None:
-        pass
+        self.mul = (self.mul * m) % MOD
+        self.add = (self.add * m) % MOD
 
     def getIndex(self, idx: int) -> int:
-        pass
+        if idx >= len(self.arr):
+            return -1
+        return (self.mul * self.arr[idx] % MOD + self.add) % MOD
 
+MOD = 10 ** 9 + 7
