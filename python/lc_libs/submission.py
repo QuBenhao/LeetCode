@@ -4,6 +4,7 @@ import random
 import time
 from collections import defaultdict
 from pathlib import Path
+from typing import Optional, Dict, Set, List, Tuple, Any, Callable
 
 import requests
 from tqdm import tqdm
@@ -14,10 +15,29 @@ from python.constants import (LEET_CODE_BACKEND, RECENT_SUBMISSIONS_QUERY, RECEN
                               TESTCASE_TEMPLATE_PYTHON_TESTCASES)
 from python.utils import general_request, get_china_daily_time, format_question_id
 
+# Retry configuration
+DEFAULT_MAX_RETRIES = 100
+DEFAULT_INITIAL_DELAY = 0.2  # seconds
+DEFAULT_MAX_DELAY = 2.0  # seconds
+DEFAULT_BACKOFF_FACTOR = 1.5
 
-def check_submission(user_slug: str, question_frontend_ids: set[str],
-                     min_timestamp=None,
-                     max_timestamp=None):
+
+def check_submission(user_slug: str,
+                     question_frontend_ids: Set[str],
+                     min_timestamp: Optional[int] = None,
+                     max_timestamp: Optional[int] = None) -> Dict[str, int]:
+    """
+    Check submission status for given questions.
+
+    Args:
+        user_slug: User's slug identifier
+        question_frontend_ids: Set of question frontend IDs to check
+        min_timestamp: Minimum timestamp for submissions (default: today 00:00 CST)
+        max_timestamp: Maximum timestamp for submissions
+
+    Returns:
+        Dictionary mapping question IDs to submission timestamps
+    """
     def handle_response(response: requests.Response):
         result_dict = json.loads(response.text)['data']['recentSubmitted']
         if result_dict:
@@ -32,7 +52,7 @@ def check_submission(user_slug: str, question_frontend_ids: set[str],
 
     if min_timestamp is None:
         min_timestamp = get_china_daily_time()
-    ans = dict()
+    ans: Dict[str, int] = {}
     general_request(LEET_CODE_BACKEND,
                     handle_response,
                     json={"operationName": "recentSubmissions", "variables": {"userSlug": user_slug},
@@ -41,7 +61,20 @@ def check_submission(user_slug: str, question_frontend_ids: set[str],
     return ans
 
 
-def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=None):
+def check_accepted_submission(user_slug: str,
+                              min_timestamp: Optional[int] = None,
+                              max_timestamp: Optional[int] = None) -> Dict[str, List[Tuple[str, str, str]]]:
+    """
+    Check accepted submissions for a user.
+
+    Args:
+        user_slug: User's slug identifier
+        min_timestamp: Minimum timestamp for submissions
+        max_timestamp: Maximum timestamp for submissions
+
+    Returns:
+        Dictionary mapping question IDs to list of (submission_id, title_slug, language) tuples
+    """
     def handle_response(response: requests.Response):
         result_dict = json.loads(response.text)['data']['recentACSubmissions']
         if result_dict:
@@ -56,16 +89,29 @@ def check_accepted_submission(user_slug: str, min_timestamp=None, max_timestamp=
 
     if min_timestamp is None:
         min_timestamp = get_china_daily_time()
-    ans = defaultdict(list)
+    ans: Dict[str, List[Tuple[str, str, str]]] = defaultdict(list)
     general_request('https://leetcode.cn/graphql/noj-go/', handle_response,
                     json={"query": RECENT_AC_SUBMISSIONS_QUERY,
                           "variables": {"userSlug": user_slug},
                           "operationName": "recentAcSubmissions"})
-    return ans
+    return dict(ans)
 
 
-def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp=None):
-    def handle_response(response: requests.Response):
+def check_accepted_submission_all(cookie: str,
+                                  min_timestamp: Optional[int] = None,
+                                  max_timestamp: Optional[int] = None) -> Dict[str, List[Tuple[str, str, str]]]:
+    """
+    Check all accepted submissions using cookie authentication.
+
+    Args:
+        cookie: LeetCode authentication cookie
+        min_timestamp: Minimum timestamp for submissions
+        max_timestamp: Maximum timestamp for submissions
+
+    Returns:
+        Dictionary mapping question IDs to list of (submission_id, title_slug, language) tuples
+    """
+    def handle_response(response: requests.Response) -> List[dict]:
         result_dict = json.loads(response.text)['data']['userProfileQuestions']
         return result_dict['questions'] if result_dict else []
 
@@ -112,11 +158,24 @@ def check_accepted_submission_all(cookie: str, min_timestamp=None, max_timestamp
                               "query": PROGRESS_SUBMISSIONS_QUERY},
                         cookies={"cookie": cookie})
 
-    return ans
+    return dict(ans)
 
 
-def get_submission_detail(submit_id: str, cookie: str, handle_fun=None):
-    def handle_response(response: requests.Response):
+def get_submission_detail(submit_id: str,
+                          cookie: str,
+                          handle_fun: Optional[Callable] = None) -> Optional[Dict[str, Any]]:
+    """
+    Get detailed information about a submission.
+
+    Args:
+        submit_id: Submission ID
+        cookie: LeetCode authentication cookie
+        handle_fun: Optional custom response handler
+
+    Returns:
+        Dictionary with submission details, or None on failure
+    """
+    def handle_response(response: requests.Response) -> Optional[Dict[str, Any]]:
         if not response.text:
             return None
         result_dict = json.loads(response.text)["data"]["submissionDetail"]
@@ -146,7 +205,21 @@ def get_submission_detail(submit_id: str, cookie: str, handle_fun=None):
                            cookies={"cookie": cookie})
 
 
-def _add_test(root_path: Path, problem_folder: str, question_id: str, code_input: str, expected_output: str):
+def _add_test(root_path: Path,
+              problem_folder: str,
+              question_id: str,
+              code_input: str,
+              expected_output: str) -> None:
+    """
+    Add a test case to the problem's test file.
+
+    Args:
+        root_path: Root path of the project
+        problem_folder: Folder containing the problem
+        question_id: Question ID
+        code_input: Input for the test case
+        expected_output: Expected output for the test case
+    """
     need_add_test = True
     code_input_py = code_input.replace("null", "None").replace("true", "True").replace("false", "False")
     expected_output_py = expected_output.replace("null", "None").replace("true", "True").replace("false", "False")
@@ -210,7 +283,32 @@ def _add_test(root_path: Path, problem_folder: str, question_id: str, code_input
 
 
 async def submit_code(root_path: Path, problem_folder: str, question_id: str, question_slug: str, cookie: str, lang: str,
-                      leetcode_question_id: str, typed_code: str, study_plan_slug: str = None) -> dict | None:
+                      leetcode_question_id: str, typed_code: str, study_plan_slug: str = None,
+                      max_retries: int = DEFAULT_MAX_RETRIES,
+                      initial_delay: float = DEFAULT_INITIAL_DELAY,
+                      max_delay: float = DEFAULT_MAX_DELAY,
+                      backoff_factor: float = DEFAULT_BACKOFF_FACTOR) -> Optional[dict]:
+    """
+    Submit code to LeetCode and wait for result.
+
+    Args:
+        root_path: Root path of the project
+        problem_folder: Folder containing the problem
+        question_id: Question ID (e.g., "1")
+        question_slug: Question slug (e.g., "two-sum")
+        cookie: LeetCode cookie for authentication
+        lang: Programming language (e.g., "python3")
+        leetcode_question_id: LeetCode internal question ID
+        typed_code: Code to submit
+        study_plan_slug: Optional study plan slug
+        max_retries: Maximum number of retry attempts (default: 100)
+        initial_delay: Initial delay between retries in seconds (default: 0.2)
+        max_delay: Maximum delay between retries in seconds (default: 2.0)
+        backoff_factor: Multiplier for exponential backoff (default: 1.5)
+
+    Returns:
+        Dictionary with submission details, or None on failure
+    """
     def handle_submit_response(response: requests.Response):
         if not response.text or response.status_code != 200:
             logging.error(f"Submit code error, status_code: {response.status_code}, text: {response.text}")
@@ -275,8 +373,14 @@ async def submit_code(root_path: Path, problem_folder: str, question_id: str, qu
                }
     if csrf_token:
         headers["X-Csrftoken"] = csrf_token
-    for _ in tqdm(range(100), desc="Waiting for submit result"):
-        time.sleep(random.randint(200, 300) / 1000)
+
+    # Exponential backoff retry with configurable parameters
+    current_delay = initial_delay
+    for attempt in tqdm(range(max_retries), desc="Waiting for submit result"):
+        # Add jitter to avoid thundering herd problem
+        jitter = random.uniform(0.8, 1.2)
+        time.sleep(current_delay * jitter)
+
         if general_request(f"https://leetcode.cn/submissions/detail/{submit_id}/check/",
                            handle_submit_check_response,
                            cookies={"cookie": cookie},
@@ -284,6 +388,9 @@ async def submit_code(root_path: Path, problem_folder: str, question_id: str, qu
                            ):
             submit_success = True
             break
+
+        # Apply exponential backoff with cap
+        current_delay = min(current_delay * backoff_factor, max_delay)
     if not submit_success:
         logging.error(f"[{question_id}.{question_slug}]提交成功,但检查结果失败,"
                       f"请手动检查: https://leetcode.cn/problems/{question_slug}/submissions/{submit_id}/")
