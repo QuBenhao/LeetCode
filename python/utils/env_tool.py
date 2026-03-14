@@ -1,3 +1,5 @@
+import base64
+import json
 import re
 import time
 from typing import Optional
@@ -12,28 +14,50 @@ def get_default_folder(problem_category: str = None, paid_only: bool = False):
 
 def check_cookie_expired(cookie: Optional[str]) -> bool:
     """
-    Checks if a cookie has expired based on timestamps found within it.
+    Checks if a LeetCode cookie has expired by examining the LEETCODE_SESSION JWT.
 
     Parameters:
-        cookie (str): The cookie string to check. It is expected to contain one or more
-        Unix timestamps in seconds (e.g., '1747799908') embedded within the string.
+        cookie (str): The cookie string to check. Should contain LEETCODE_SESSION.
 
     Returns:
-        bool: True if the cookie is expired or if no valid timestamps are found;
-        False otherwise.
-
-    Edge Cases:
-        - If the cookie string is empty or does not contain any valid timestamps,
-          the function will return True (indicating the cookie is expired).
-        - Malformed cookies with non-numeric or invalid timestamp formats are ignored.
+        bool: True if the cookie is expired or invalid; False otherwise.
     """
     if not cookie:
         return True
-    # re find all timestamp like '1747799908' in cookie
-    timestamp_pattern = r"(?<!\d)[\s,=]*([1-9]\d{9})[\s,=]*(?!\d)"
-    match = re.findall(timestamp_pattern, cookie)
-    if not match:
+
+    # 查找 LEETCODE_SESSION
+    session_match = re.search(r'LEETCODE_SESSION=([^;]+)', cookie)
+    if not session_match:
         return True
-    max_timestamp = max(match)
-    # check if the timestamp is less than 30 days
-    return time.time() - int(max_timestamp) >= COOKIE_EXPIRY_SECONDS
+
+    session_token = session_match.group(1)
+
+    try:
+        # JWT 格式: header.payload.signature
+        parts = session_token.split('.')
+        if len(parts) != 3:
+            return True
+
+        # 解码 payload (第二部分)
+        payload = parts[1]
+        # 补齐 base64 padding
+        payload += '=' * (4 - len(payload) % 4)
+        decoded = base64.urlsafe_b64decode(payload)
+        payload_data = json.loads(decoded)
+
+        # 检查过期时间字段 (exp 或 expired_time_)
+        exp = payload_data.get('exp') or payload_data.get('expired_time_')
+        if not exp:
+            return True
+
+        # exp 是过期时间，如果当前时间大于 exp，则已过期
+        return time.time() > exp
+
+    except Exception:
+        # 如果解析失败，回退到旧逻辑检查其他时间戳
+        timestamp_pattern = r"(?<!\d)[\s,=]*([1-9]\d{9})[\s,=]*(?!\d)"
+        match = re.findall(timestamp_pattern, cookie)
+        if not match:
+            return True
+        max_timestamp = max(match)
+        return time.time() - int(max_timestamp) >= COOKIE_EXPIRY_SECONDS
