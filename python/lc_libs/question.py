@@ -331,9 +331,9 @@ def get_questions_by_key_word(keyword: Optional[str], cookie: str,
 def get_questions_total(category: str = "all-code-essentials",
                         skip_premiums: bool = True, cookie: Optional[str] = None) -> int:
     try:
-        filters = dict()
+        filters = {"filterCombineType": "ALL"}
         if skip_premiums:
-            filters["premiumOnly"] = False
+            filters["premiumFilter"] = {"premiumStatus": "NOT_PREMIUM"}
         result = requests.post("https://leetcode.cn/graphql",
                                json={"query": QUESTION_KEYWORDS_QUERY,
                                      "variables": {
@@ -342,9 +342,9 @@ def get_questions_total(category: str = "all-code-essentials",
                                          "skip": 0, "limit": 1,
                                          "filters": filters,
                                      },
-                                     "operationName": "problemsetQuestionList"},
+                                     "operationName": "problemsetQuestionListV2"},
                                cookies={'cookie': cookie} if cookie else None)
-        return json.loads(result.text)["data"]["problemsetQuestionList"]["total"]
+        return json.loads(result.text)["data"]["problemsetQuestionListV2"]["totalLength"]
     except (json.JSONDecodeError, KeyError, TypeError) as e:
         logging.error(f"Error parsing response for total questions: {e}", exc_info=True)
     except requests.RequestException as e:
@@ -356,9 +356,9 @@ def get_questions_by_number(number: int, category: str = "all-code-essentials",
                             skip_premiums: bool = True, cookie: Optional[str] = None) -> Optional[list]:
     try:
         ans = []
-        filters = dict()
+        filters = {"filterCombineType": "ALL"}
         if skip_premiums:
-            filters["premiumOnly"] = False
+            filters["premiumFilter"] = {"premiumStatus": "NOT_PREMIUM"}
         result = requests.post("https://leetcode.cn/graphql",
                                json={"query": QUESTION_KEYWORDS_QUERY,
                                      "variables": {
@@ -367,9 +367,9 @@ def get_questions_by_number(number: int, category: str = "all-code-essentials",
                                          "skip": max(0, number - 50), "limit": 100,
                                          "filters": filters
                                      },
-                                     "operationName": "problemsetQuestionList"},
+                                     "operationName": "problemsetQuestionListV2"},
                                cookies={'cookie': cookie} if cookie else None)
-        res_dict = json.loads(result.text)["data"]["problemsetQuestionList"]
+        res_dict = json.loads(result.text)["data"]["problemsetQuestionListV2"]
         ans.extend(res_dict["questions"])
         return ans
     except (json.JSONDecodeError, KeyError, TypeError) as e:
@@ -381,17 +381,23 @@ def get_questions_by_number(number: int, category: str = "all-code-essentials",
 
 def get_questions_by_status(status: str, category: str = "all-code-essentials", skip_premiums: bool = False,
                             skip_lcp: bool = True, cookie: Optional[str] = None) -> Optional[list]:
-    if status not in {"NOT_STARTED", "TRIED", "AC"}:
+    # Map old status values to new API format
+    status_map = {
+        "NOT_STARTED": "TO_DO",
+        "TRIED": "ATTEMPTED",
+        "AC": "SOLVED"
+    }
+    if status not in status_map:
         logging.warning(f"Unsupported question status: {status}")
         return None
     try:
         ans = []
         page_size, page_no = 100, 0
         while True:
-            filters = dict()
+            filters = {"filterCombineType": "ALL"}
             if skip_premiums:
-                filters["premiumOnly"] = False
-            filters["status"] = status
+                filters["premiumFilter"] = {"premiumStatus": "NOT_PREMIUM"}
+            filters["statusFilter"] = {"questionStatuses": [status_map[status]]}
             result = requests.post("https://leetcode.cn/graphql",
                                    json={"query": QUESTION_KEYWORDS_QUERY,
                                          "variables": {
@@ -400,12 +406,12 @@ def get_questions_by_status(status: str, category: str = "all-code-essentials", 
                                              "skip": page_no * page_size, "limit": page_size,
                                              "filters": filters,
                                          },
-                                         "operationName": "problemsetQuestionList"},
+                                         "operationName": "problemsetQuestionListV2"},
                                    cookies={'cookie': cookie} if cookie else None)
-            res_dict = json.loads(result.text)["data"]["problemsetQuestionList"]
+            res_dict = json.loads(result.text)["data"]["problemsetQuestionListV2"]
             logging.debug(res_dict["questions"])
             ans.extend(
-                filterfalse(lambda x: skip_lcp and x["frontendQuestionId"].startswith("LCP "),
+                filterfalse(lambda x: skip_lcp and x["questionFrontendId"].startswith("LCP "),
                             res_dict["questions"]))
             if not res_dict["hasMore"]:
                 break

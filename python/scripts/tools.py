@@ -82,7 +82,7 @@ def back_fill_ratings(args):
 
 def lucky_main(languages, problem_folder, category="algorithms"):
     def process_problem(root_path: Path, question: dict, langs) -> bool:
-        question_id = format_question_id(question["frontendQuestionId"])
+        question_id = format_question_id(question["questionFrontendId"])
         if question.get("paidOnly", False):
             logging.warning("Paid problem: %s", question_id)
             return False
@@ -153,8 +153,8 @@ def remain_main(cookie, languages, problem_folder, status="TRIED", category="all
         return 1
     logging.info("Remain problems: %d", len(remains))
     pick = random.choice(remains)
-    question_id = format_question_id(pick["frontendQuestionId"])
-    logging.info("Pick problem: [%s].%s", pick["frontendQuestionId"], pick["title"])
+    question_id = format_question_id(pick["questionFrontendId"])
+    logging.info("Pick problem: [%s].%s", pick["questionFrontendId"], pick["title"])
     root_path = Path(__file__).parent.parent.parent
     dir_path = root_path / problem_folder / f"{problem_folder}_{question_id}"
     if dir_path.exists():
