@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v10.12.2 (2026-03-14)
+
+### Bug Fixes
+
+- Improve cookie expiry check by parsing JWT payload
+  ([`f4c5961`](https://github.com/QuBenhao/LeetCode/commit/f4c59612312dac3912c79916bcd493d69854a525))
+
+
 ## v10.12.1 (2026-03-14)
 
 ### Bug Fixes
