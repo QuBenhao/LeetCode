@@ -1,3 +1,14 @@
+#!/usr/bin/env python3
+"""
+LeetCode 工具集 - 主入口
+支持交互式初始化、浏览器 Cookie 自动检测、多语言界面
+
+使用方法：
+  python leetcode.py           # 默认中文界面
+  python leetcode.py --en      # 英文界面
+  python leetcode.py --init    # 强制进入初始化向导
+"""
+
 import asyncio
 import datetime
 import json
@@ -8,6 +19,7 @@ import random
 import re
 import sys
 import time
+import argparse
 from concurrent.futures import ThreadPoolExecutor
 
 from pathlib import Path
@@ -34,70 +46,249 @@ try:
 except ImportError:
     HAS_BROWSER_COOKIE = False
 
+# ============================================================================
+# 国际化支持 / Internationalization
+# ============================================================================
+
+LANG = "zh"  # 默认中文
+
+I18N = {
+    "zh": {
+        # 分隔线
+        "sep": "-" * 50,
+        
+        # 初始化向导
+        "init_title": "🚀 LeetCode 环境初始化向导",
+        "init_step1": "[1/4] 检测浏览器 Cookie...",
+        "init_found_cookie": "✓ 从 {browser} 找到 {count} 个 LeetCode Cookie",
+        "init_no_cookie": "✗ 未在浏览器中找到 LeetCode Cookie",
+        "init_no_cookie_hint": "  请确保你已在浏览器中登录 leetcode.cn",
+        "init_browser_not_installed": "✗ 未安装 browser_cookie3",
+        "init_browser_install_hint": "  安装命令: pip install browser-cookie3",
+        "init_enter_cookie": "请手动输入 LeetCode Cookie: ",
+        "init_cookie_empty": "Cookie 不能为空",
+        
+        "init_step2": "[2/4] 选择编程语言",
+        "init_select_lang": "选择要使用的编程语言，用逗号分隔 [0-5, 默认: 0]:\n{options}",
+        "init_lang_selected": "✓ 已选择语言: {langs}",
+        "init_lang_invalid": "输入无效，请输入 0-5 的数字，用逗号分隔",
+        
+        "init_step3": "[3/4] 配置目录",
+        "init_problem_folder": "题目目录路径 (回车使用默认 'problems'): ",
+        "init_contest_folder": "比赛目录路径 (回车使用默认 'contest'): ",
+        "init_folder_selected": "✓ 题目目录: {folder}",
+        
+        "init_step4": "[4/4] 可选：配置通知",
+        "init_push_key": "PushDeer 推送 Key (回车跳过): ",
+        "init_notify_configured": "✓ 已配置 PushDeer 通知",
+        "init_notify_skipped": "✓ 已跳过通知配置",
+        
+        "init_verifying": "🔍 验证 Cookie...",
+        "init_cookie_valid": "✓ Cookie 验证成功！",
+        "init_cookie_invalid": "⚠️  Cookie 无效，可能需要刷新浏览器登录",
+        
+        "init_save_config": "保存配置到 .env 文件? [y/n, 默认: y]: ",
+        "init_saved": "✓ 配置已保存到 {path}",
+        "init_done": "✅ 初始化完成！",
+        
+        # 配置选择
+        "config_title": "设置环境...",
+        "config_select": "请选择配置方式 [0-2, 默认: 0]:\n0. 从 .env 加载默认配置\n1. 自定义配置\n2. 重新初始化 (自动检测浏览器 Cookie)\n",
+        "config_auto_detect": "自动检测浏览器 Cookie? [y/n, 默认: y]: ",
+        "config_detecting": "正在检测浏览器 Cookie...",
+        "config_no_browser_cookie": "浏览器中未找到 Cookie",
+        "config_enter_cookie": "输入 LeetCode Cookie (回车使用默认): ",
+        "config_cookie_updated": "Cookie 已更新",
+        "config_update_env": "更新 .env 文件? [y/n, 默认: n]: ",
+        "config_env_updated": "已更新 {path}",
+        
+        # Cookie 验证
+        "cookie_expired": "⚠️  Cookie 可能已过期或无效",
+        "cookie_auto_detect": "是否自动从浏览器检测 Cookie? [y/n, 默认: y]: ",
+        "cookie_detecting": "🔍 正在检测浏览器 Cookie...",
+        "cookie_detected": "✓ 从 {browser} 找到 {count} 个 LeetCode Cookie",
+        "cookie_verified": "✓ Cookie 验证成功！",
+        "cookie_auto_invalid": "✗ 自动检测的 Cookie 也无效",
+        "cookie_manual": "是否手动输入 Cookie? [y/n, 默认: n]: ",
+        "cookie_continue": "继续使用现有 Cookie...",
+        
+        # 主菜单
+        "main_menu": "请选择功能 [0-7, 默认: 0]:\n0. 退出\n1. 获取题目\n2. 提交代码\n3. 切换测试题目\n4. 比赛\n5. 清理空 Java 文件\n6. 清理错误 Rust 文件\n7. 收藏夹管理\n",
+        "main_exit": "正在退出...",
+        "main_bye": "再见！",
+        
+        # 获取题目
+        "get_menu": "请选择获取题目方式 [0-6, 默认: 0]:\n0. 返回\n1. 每日自动\n2. 指定题目 ID\n3. 随机\n4. 随机未通过\n5. 分类\n6. 比赛\n",
+        "get_problem_id": "输入题目 ID (如: 1, LCR 043, 面试题 01.01 等): ",
+        "get_problem_id_empty": "题目 ID 不能为空",
+        "get_success": "题目 [{id}] 获取成功",
+        "get_failed": "获取题目失败，请检查题目 ID: {id}",
+        "get_daily_success": "每日自动获取完成",
+        "get_daily_failed": "每日自动获取失败",
+        "get_random_success": "随机题目获取成功",
+        "get_random_failed": "随机题目获取失败，请重试",
+        "get_remain_failed": "获取随机未通过题目失败，Cookie 可能无效或没有未通过的题目",
+        
+        # 提交
+        "submit_menu": "请选择提交方式 [0-4, 默认: 0]:\n0. 返回\n1. 每日提交 [所有语言]\n2. 每日提交 [选择语言]\n3. 指定题目提交 [所有语言]\n4. 指定题目提交 [选择语言]\n",
+        "submit_starting": "开始提交，请稍候...",
+        "submit_in_lang": "正在提交 {lang}...",
+        "submit_done": "提交完成",
+        "submit_daily_failed": "无法获取每日题目，可能是网络问题",
+        
+        # 比赛
+        "contest_menu": "请选择比赛方式 [0-2, 默认: 0]:\n0. 返回\n1. 列出比赛\n2. 按 slug 查找\n",
+        "contest_type_menu": "请选择比赛类型 [0-2, 默认: 0]:\n0. 返回\n1. 周赛\n2. 双周赛\n",
+        "contest_id_num": "输入比赛编号 (如: 1, 2 等): ",
+        "contest_id": "输入比赛 ID (如: biweekly-contest-155 等): ",
+        "contest_id_empty": "比赛 ID 不能为空",
+        "contest_invalid_type": "无效的比赛类型，请重试",
+        "contest_no_contests": "未找到比赛",
+        "contest_generated": "比赛 [{id}] 已生成",
+        "contest_page": "共 [{total}] 项，请选择 [默认: 0]:\n0. 返回\n{content}\n\nb. 上一页\nn. 下一页\n",
+        
+        # 收藏夹
+        "fav_menu": "请选择收藏夹操作 [0-2, 默认: 0]:\n0. 返回\n1. 查看收藏夹中的题目\n2. 添加题目到收藏夹\n",
+        "fav_no_favorites": "未找到收藏夹",
+        "fav_no_questions": "收藏夹中没有题目",
+        "fav_add_ids": "输入要添加的题目 ID，用逗号分隔: ",
+        "fav_ids_empty": "题目 ID 不能为空",
+        "fav_add_success": "成功添加 {count} 道题目到收藏夹 [{name}]",
+        "fav_add_failed": "添加题目到收藏夹 [{name}] 失败: {msg}",
+        "fav_expired": "Cookie 已过期，请更新后继续",
+        
+        # 其他
+        "tags_not_found": "标签文件未找到，请联系作者",
+        "tag_selected": "已选择标签: {tag} [{translations}]",
+        "tag_no_problems": "该标签下没有题目",
+        "change_test_success": "已将 {lang} 测试切换到 {id}",
+        "clean_done": "清理完成",
+        "lang_not_support": "{lang} 不支持",
+    },
+    "en": {
+        # Separator
+        "sep": "-" * 50,
+        
+        # Initialization wizard
+        "init_title": "🚀 LeetCode Environment Initialization",
+        "init_step1": "[1/4] Detecting browser cookie...",
+        "init_found_cookie": "✓ Found {count} LeetCode cookies from {browser}",
+        "init_no_cookie": "✗ No LeetCode cookie found in browsers",
+        "init_no_cookie_hint": "  Please make sure you have logged in to leetcode.cn",
+        "init_browser_not_installed": "✗ browser_cookie3 not installed",
+        "init_browser_install_hint": "  Install with: pip install browser-cookie3",
+        "init_enter_cookie": "Enter LeetCode Cookie manually: ",
+        "init_cookie_empty": "Cookie cannot be empty",
+        
+        "init_step2": "[2/4] Select programming languages",
+        "init_select_lang": "Select languages, separated by comma [0-5, default: 0]:\n{options}",
+        "init_lang_selected": "✓ Languages selected: {langs}",
+        "init_lang_invalid": "Invalid input, please enter numbers 0-5 separated by comma",
+        
+        "init_step3": "[3/4] Configure directories",
+        "init_problem_folder": "Problem folder path (press enter for 'problems'): ",
+        "init_contest_folder": "Contest folder path (press enter for 'contest'): ",
+        "init_folder_selected": "✓ Problem folder: {folder}",
+        
+        "init_step4": "[4/4] Optional: Configure notifications",
+        "init_push_key": "PushDeer key for notifications (press enter to skip): ",
+        "init_notify_configured": "✓ PushDeer notification configured",
+        "init_notify_skipped": "✓ Skipped notification setup",
+        
+        "init_verifying": "🔍 Verifying cookie...",
+        "init_cookie_valid": "✓ Cookie verified successfully!",
+        "init_cookie_invalid": "⚠️  Cookie is invalid, you may need to refresh browser login",
+        
+        "init_save_config": "Save configuration to .env file? [y/n, default: y]: ",
+        "init_saved": "✓ Configuration saved to {path}",
+        "init_done": "✅ Initialization complete!",
+        
+        # Config selection
+        "config_title": "Setting up the environment...",
+        "config_select": "Please select the configuration [0-2, default: 0]:\n0. Load default config from .env\n1. Custom config\n2. Re-initialize (auto-detect browser cookie)\n",
+        "config_auto_detect": "Auto-detect cookie from browser? [y/n, default: y]: ",
+        "config_detecting": "Detecting browser cookie...",
+        "config_no_browser_cookie": "No cookie found in browsers",
+        "config_enter_cookie": "Enter your LeetCode cookie (press enter to use default): ",
+        "config_cookie_updated": "Cookie updated",
+        "config_update_env": "Update .env file? [y/n, default: n]: ",
+        "config_env_updated": "Updated {path}",
+        
+        # Cookie validation
+        "cookie_expired": "⚠️  Cookie might be expired or invalid",
+        "cookie_auto_detect": "Auto-detect cookie from browser? [y/n, default: y]: ",
+        "cookie_detecting": "🔍 Detecting browser cookie...",
+        "cookie_detected": "✓ Found {count} LeetCode cookies from {browser}",
+        "cookie_verified": "✓ Cookie verified successfully!",
+        "cookie_auto_invalid": "✗ Auto-detected cookie is also invalid",
+        "cookie_manual": "Manually enter cookie? [y/n, default: n]: ",
+        "cookie_continue": "Continuing with existing cookie...",
+        
+        # Main menu
+        "main_menu": "Please select the main function [0-7, default: 0]:\n0. Exit\n1. Get problem\n2. Submit\n3. Change test problem\n4. Contest\n5. Clean empty java\n6. Clean error rust\n7. Favorite management\n",
+        "main_exit": "Exiting...",
+        "main_bye": "Bye!",
+        
+        # Get problem
+        "get_menu": "Please select the get problem method [0-6, default: 0]:\n0. Back\n1. Daily auto\n2. Specified problem ID\n3. Random\n4. Random remain\n5. Category\n6. Contest\n",
+        "get_problem_id": "Enter the problem ID (e.g. 1, LCR 043, 面试题 01.01, etc.): ",
+        "get_problem_id_empty": "Problem ID cannot be empty",
+        "get_success": "Problem [{id}] fetched successfully",
+        "get_failed": "Failed to fetch the problem. Make sure the problem ID is correct: {id}",
+        "get_daily_success": "Daily auto completed successfully",
+        "get_daily_failed": "Daily auto failed",
+        "get_random_success": "Random problem fetched successfully",
+        "get_random_failed": "Failed to fetch a random problem. Please try again",
+        "get_remain_failed": "Failed to fetch random remaining problem. Cookie may be invalid or no remaining problems",
+        
+        # Submit
+        "submit_menu": "Please select the submit method [0-4, default: 0]:\n0. Back\n1. Daily submit[All selected languages]\n2. Daily submit[Select language]\n3. Submit specified problem[All selected languages]\n4. Submit specified problem[Select language]\n",
+        "submit_starting": "Starting submission, please wait...",
+        "submit_in_lang": "Submitting in {lang}...",
+        "submit_done": "Submission completed",
+        "submit_daily_failed": "Unable to get daily question, possibly network issue",
+        
+        # Contest
+        "contest_menu": "Please select the contest method [0-2, default: 0]:\n0. Back\n1. List contests\n2. Contest by slug\n",
+        "contest_type_menu": "Please select the contest type [0-2, default: 0]:\n0. Back\n1. Weekly contest\n2. Biweekly contest\n",
+        "contest_id_num": "Enter the contest ID number (e.g. 1, 2, etc.): ",
+        "contest_id": "Enter the contest ID (e.g. biweekly-contest-155, etc.): ",
+        "contest_id_empty": "Contest ID cannot be empty",
+        "contest_invalid_type": "Invalid contest type, please try again",
+        "contest_no_contests": "No contests found",
+        "contest_generated": "Contest [{id}] generated",
+        "contest_page": "Total of [{total}] elements, please select [default: 0]:\n0. Back\n{content}\n\nb. last page\nn. next page\n",
+        
+        # Favorite
+        "fav_menu": "Please select the favorite method [0-2, default: 0]:\n0. Back\n1. List problems in the favorite\n2. Add problems to the favorite\n",
+        "fav_no_favorites": "No favorites found",
+        "fav_no_questions": "No questions found in this favorite",
+        "fav_add_ids": "Enter the problem ids to add to favorite, separated by comma: ",
+        "fav_ids_empty": "Problem ids cannot be empty",
+        "fav_add_success": "Added {count} questions to favorite [{name}] successfully",
+        "fav_add_failed": "Failed to add questions to favorite [{name}]: {msg}",
+        "fav_expired": "Cookie expired, please update it to continue",
+        
+        # Others
+        "tags_not_found": "Tags file not found. Please contact the author",
+        "tag_selected": "Selected tag: {tag} [{translations}]",
+        "tag_no_problems": "No problems found for this tag",
+        "change_test_success": "Successfully change {lang} test to {id}",
+        "clean_done": "Done",
+        "lang_not_support": "{lang} not support",
+    }
+}
+
+def t(key, **kwargs):
+    """翻译函数 / Translation function"""
+    text = I18N.get(LANG, I18N["zh"]).get(key, I18N["zh"].get(key, key))
+    if kwargs:
+        return text.format(**kwargs)
+    return text
+
 __separate_line = "-" * 50
 
-__user_input_config = """Please select the configuration [0-2, default: 0]:
-0. Load default config from .env
-1. Custom config
-2. Re-initialize (auto-detect browser cookie)
-"""
-__user_input_function = """Please select the main function [0-7, default: 0]:
-0. Exit
-1. Get problem
-2. Submit
-3. Change test problem
-4. Contest
-5. Clean empty java
-6. Clean error rust
-7. Favorite management
-"""
-__user_input_get_problem = """Please select the get problem method [0-6, default: 0]:
-0. Back
-1. Daily auto
-2. Specified problem ID
-3. Random
-4. Random remain [Problems that submitted but not accepted yet]
-5. Category
-6. Contest
-"""
-__user_input_submit = """Please select the submit method [0-4, default: 0]:
-0. Back
-1. Daily submit[All selected languages]
-2. Daily submit[Select language]
-3. Submit specified problem[All selected languages]
-4. Submit specified problem[Select language]
-"""
-__user_input_problem_id = "Enter the problem ID (e.g. 1, LCR 043, 面试题 01.01, etc.): "
-__user_input_contest = """Please select the contest method [0-2, default: 0]:
-0. Back
-1. List contests
-2. Contest by slug
-"""
-__user_input_contest_id = "Enter the contest ID (e.g. biweekly-contest-155, etc.): "
-__user_input_page = """Total of [{}] elements, please enter [default: 0]:
-0. Back
-{}
-
-b. last page
-n. next page
-"""
-__user_input_contest_type = """Please select the contest type [0-2, default: 0]:
-0. Back
-1. Weekly contest
-2. Biweekly contest
-"""
-__user_input_contest_id_num = """Enter the contest ID number (e.g. 1, 2, etc.): """
-
-__user_input_favorite_method = """Please select the favorite method [0-2, default: 0]:
-0. Back
-1. List problems in the favorite
-2. Add problems to the favorite
-"""
-
 __supported_languages = ["python3", "java", "golang", "cpp", "typescript", "rust"]
-__user_input_language = f"""Select multiple languages you want to use, separated by comma [0-{len(__supported_languages) - 1}, default: 0]:
-{"\n".join(f"{idx}. {lang}" for idx, lang in enumerate(__supported_languages))}
-"""
 
 __allow_all = lambda x: True
 __allow_all_not_empty = lambda x: bool(x.strip())
@@ -106,12 +297,16 @@ __allow_number = lambda x: bool(re.match(r"^\d+$", x))
 
 def input_until_valid(prompt, check_func, error_msg=None):
     while True:
-        user_input = input(prompt)
-        if check_func(user_input):
-            return user_input
-        elif error_msg:
-            print(error_msg)
-        print(__separate_line)
+        try:
+            user_input = input(prompt)
+            if check_func(user_input):
+                return user_input
+            elif error_msg:
+                print(error_msg)
+            print(__separate_line)
+        except EOFError:
+            # 处理管道输入结束
+            sys.exit(0)
 
 
 def input_pick_array(desc, arr):
@@ -158,48 +353,74 @@ def get_browser_cookie():
     return None
 
 
+def read_cookie_from_file():
+    """从文件读取 Cookie (解决终端输入长度限制)"""
+    # 尝试从临时文件读取
+    cookie_file = root_path / ".cookie_tmp"
+    if cookie_file.exists():
+        try:
+            cookie = cookie_file.read_text(encoding='utf-8').strip()
+            if cookie:
+                print(f"✓ 从 .cookie_tmp 读取到 Cookie")
+                return cookie
+        except Exception:
+            pass
+    
+    # 提示用户可以从文件输入
+    print("\n💡 提示: Cookie 较长时，可以保存到 .cookie_tmp 文件，脚本会自动读取")
+    print("   或者使用管道输入: cat cookie.txt | python leetcode.py")
+    return None
+
+
 def check_and_update_cookie(_cookie: str, auto_detect: bool = True) -> str:
     """Check cookie validity and prompt for update if needed"""
     while check_cookie_expired(_cookie):
-        print("⚠️  Cookie might be expired or invalid.")
+        print(t("cookie_expired"))
         
         # Try auto-detect from browser
         if auto_detect and HAS_BROWSER_COOKIE:
             auto_detect_choice = input_until_valid(
-                "Do you want to auto-detect cookie from browser? [y/n, default: y]: ",
+                t("cookie_auto_detect"),
                 __allow_all
             )
             if auto_detect_choice != "n":
-                print("🔍 Detecting browser cookie...")
+                print(t("cookie_detecting"))
                 result = get_browser_cookie()
                 if result:
                     cookie, browser_name, cookie_count = result
-                    print(f"✓ Found {cookie_count} LeetCode cookies from {browser_name}")
+                    print(t("cookie_detected", browser=browser_name, count=cookie_count))
                     # Verify the new cookie
                     if not check_cookie_expired(cookie):
-                        print("✓ Cookie verified successfully!")
+                        print(t("cookie_verified"))
                         return cookie
                     else:
-                        print("✗ Auto-detected cookie is also invalid.")
-                        print("  Please make sure you have logged in to leetcode.cn in your browser.")
+                        print(t("cookie_auto_invalid"))
+                        print(t("init_no_cookie_hint"))
                 else:
-                    print("✗ No LeetCode cookie found in browsers.")
-                    print("  Please make sure you have logged in to leetcode.cn in your browser.")
+                    print(t("init_no_cookie"))
+                    print(t("init_no_cookie_hint"))
+        
+        # Try reading from file
+        file_cookie = read_cookie_from_file()
+        if file_cookie and not check_cookie_expired(file_cookie):
+            print(t("cookie_verified"))
+            return file_cookie
         
         # Manual input
         update_cookie = input_until_valid(
-            "Do you want to manually enter cookie? [y/n, default: n]: ",
+            t("cookie_manual"),
             __allow_all
         )
         if update_cookie == "y":
+            print("\n💡 Cookie 较长时，建议保存到 .cookie_tmp 文件后重试")
             _cookie = input_until_valid(
-                "Enter your LeetCode cookie: ",
+                t("init_enter_cookie"),
                 __allow_all_not_empty,
-                "Cookie cannot be empty."
+                t("init_cookie_empty")
             )
-            print("Cookie updated.")
+            print(t("config_cookie_updated"))
         else:
-            print("Continuing with existing cookie...")
+            print(t("cookie_continue"))
             break
         print(__separate_line)
     return _cookie
@@ -208,86 +429,89 @@ def check_and_update_cookie(_cookie: str, auto_detect: bool = True) -> str:
 def initialize_env():
     """Interactive environment initialization wizard"""
     print("\n" + "=" * 50)
-    print("🚀 LeetCode Environment Initialization")
+    print(t("init_title"))
     print("=" * 50)
     
     env_file = root_path / ".env"
     
     # Step 1: Auto-detect browser cookie
-    print("\n[1/4] Detecting browser cookie...")
+    print(f"\n{t('init_step1')}")
     cookie = None
     if HAS_BROWSER_COOKIE:
         result = get_browser_cookie()
         if result:
             cookie, browser_name, cookie_count = result
-            print(f"✓ Found {cookie_count} LeetCode cookies from {browser_name}")
+            print(t("init_found_cookie", browser=browser_name, count=cookie_count))
         else:
-            print("✗ No LeetCode cookie found in browsers.")
-            print("  Please make sure you have logged in to leetcode.cn")
+            print(t("init_no_cookie"))
+            print(t("init_no_cookie_hint"))
     else:
-        print("✗ browser_cookie3 not installed.")
-        print("  Install with: pip install browser-cookie3")
+        print(t("init_browser_not_installed"))
+        print(t("init_browser_install_hint"))
     
     if not cookie:
-        cookie = input_until_valid(
-            "Enter your LeetCode cookie manually: ",
-            __allow_all_not_empty,
-            "Cookie cannot be empty."
-        )
+        # 尝试从文件读取
+        cookie = read_cookie_from_file()
+        if not cookie:
+            cookie = input_until_valid(
+                t("init_enter_cookie"),
+                __allow_all_not_empty,
+                t("init_cookie_empty")
+            )
     print(__separate_line)
     
     # Step 2: Select languages
-    print("\n[2/4] Select programming languages")
+    print(f"\n{t('init_step2')}")
+    lang_options = "\n".join(f"{idx}. {lang}" for idx, lang in enumerate(__supported_languages))
     pick_languages = input_until_valid(
-        __user_input_language,
+        t("init_select_lang", options=lang_options),
         lambda x: re.match(r"^[0-5](,[0-5])*$", x),
-        "Invalid input, please enter a comma-separated list of numbers from 0 to 5."
+        t("init_lang_invalid")
     )
     languages = list(set(__supported_languages[int(idx)] for idx in pick_languages.split(",")))
-    print(f"✓ Languages selected: {', '.join(languages)}")
+    print(t("init_lang_selected", langs=", ".join(languages)))
     print(__separate_line)
     
     # Step 3: Set problem folder
-    print("\n[3/4] Configure directories")
+    print(f"\n{t('init_step3')}")
     input_problem_folder = input_until_valid(
-        "Enter the problem folder path (press enter for 'problems'): ",
+        t("init_problem_folder"),
         __allow_all
     )
     problem_folder = input_problem_folder if input_problem_folder else "problems"
-    print(f"✓ Problem folder: {problem_folder}")
+    print(t("init_folder_selected", folder=problem_folder))
     
     input_contest_folder = input_until_valid(
-        "Enter the contest folder path (press enter for 'contest'): ",
+        t("init_contest_folder"),
         __allow_all
     )
     contest_folder = input_contest_folder if input_contest_folder else "contest"
-    print(f"✓ Contest folder: {contest_folder}")
+    print(t("init_folder_selected", folder=contest_folder))
     print(__separate_line)
     
     # Step 4: Optional notification
-    print("\n[4/4] Optional: Configure notifications")
+    print(f"\n{t('init_step4')}")
     push_key = input_until_valid(
-        "Enter PushDeer key for notifications (press enter to skip): ",
+        t("init_push_key"),
         __allow_all
     )
     if push_key:
-        print("✓ PushDeer key configured")
+        print(t("init_notify_configured"))
     else:
-        print("✓ Skipped notification setup")
+        print(t("init_notify_skipped"))
     print(__separate_line)
     
     # Verify cookie
-    print("\n🔍 Verifying cookie...")
+    print(f"\n{t('init_verifying')}")
     if check_cookie_expired(cookie):
-        print("⚠️  Warning: Cookie appears to be invalid.")
-        print("   You may need to refresh your browser login.")
+        print(t("init_cookie_invalid"))
     else:
-        print("✓ Cookie verified successfully!")
+        print(t("init_cookie_valid"))
     print(__separate_line)
     
     # Save to .env
     save_config = input_until_valid(
-        "Save configuration to .env file? [y/n, default: y]: ",
+        t("init_save_config"),
         __allow_all
     )
     if save_config != "n":
@@ -299,10 +523,10 @@ def initialize_env():
             if push_key:
                 f.write(f'{constant.PUSH_KEY}="{push_key}"\n')
             f.write('PYTHONPATH=.\n')
-        print(f"✓ Configuration saved to {env_file}")
+        print(t("init_saved", path=env_file))
     
     print("\n" + "=" * 50)
-    print("✅ Initialization complete!")
+    print(t("init_done"))
     print("=" * 50 + "\n")
     
     return languages, problem_folder, cookie, contest_folder
@@ -314,7 +538,7 @@ def configure():
     
     # Check if .env exists
     if not env_file.exists():
-        print("No .env file found. Starting initialization wizard...")
+        print(t("init_no_cookie_hint").replace("请确保你已在浏览器中登录 leetcode.cn", "未找到 .env 文件，启动初始化向导..."))
         return initialize_env()
     
     # Load existing .env
@@ -323,8 +547,8 @@ def configure():
     except Exception:
         pass
     
-    print("Setting up the environment...")
-    config_select = input_until_valid(__user_input_config, __allow_all)
+    print(t("config_title"))
+    config_select = input_until_valid(t("config_select"), __allow_all)
     print(__separate_line)
     
     if config_select == "2":
@@ -333,60 +557,64 @@ def configure():
     
     if config_select == "1":
         # Custom config
+        lang_options = "\n".join(f"{idx}. {lang}" for idx, lang in enumerate(__supported_languages))
         pick_languages = input_until_valid(
-            __user_input_language,
+            t("init_select_lang", options=lang_options),
             lambda x: re.match(r"^[0-5](,[0-5])*$", x),
-            "Invalid input, please enter a comma-separated list of numbers from 0 to 5."
+            t("init_lang_invalid")
         )
         languages = list(set(__supported_languages[int(idx)] for idx in pick_languages.split(",")))
-        print(f"Languages selected: {', '.join(languages)}")
+        print(t("init_lang_selected", langs=", ".join(languages)))
         print(__separate_line)
 
         input_problem_folder = input_until_valid(
-            "Enter the problem folder path (press enter to use default): ",
+            t("init_problem_folder"),
             __allow_all
         )
         problem_folder = input_problem_folder if input_problem_folder else os.getenv(constant.PROBLEM_FOLDER, "problems")
-        print(f"Problem folder selected: {problem_folder}")
+        print(t("init_folder_selected", folder=problem_folder))
         print(__separate_line)
 
         input_contest_folder = input_until_valid(
-            "Enter the contest folder path (press enter to use default): ",
+            t("init_contest_folder"),
             __allow_all
         )
         contest_folder = input_contest_folder if input_contest_folder else os.getenv(constant.CONTEST_FOLDER, "contest")
-        print("Contest folder selected: ", contest_folder)
+        print(t("init_folder_selected", folder=contest_folder))
         print(__separate_line)
 
         # Try auto-detect cookie first
         cookie = None
         if HAS_BROWSER_COOKIE:
             auto_detect = input_until_valid(
-                "Auto-detect cookie from browser? [y/n, default: y]: ",
+                t("config_auto_detect"),
                 __allow_all
             )
             if auto_detect != "n":
-                print("Detecting browser cookie...")
+                print(t("config_detecting"))
                 result = get_browser_cookie()
                 if result:
                     cookie, browser_name, cookie_count = result
-                    print(f"✓ Found {cookie_count} LeetCode cookies from {browser_name}")
+                    print(t("init_found_cookie", browser=browser_name, count=cookie_count))
                 else:
-                    print("No cookie found in browsers.")
+                    print(t("config_no_browser_cookie"))
                 print(__separate_line)
         
         if not cookie:
-            input_cookie = input_until_valid(
-                "Enter your LeetCode cookie (press enter to use default): ",
-                __allow_all
-            )
-            cookie = input_cookie.strip() if input_cookie else os.getenv(constant.COOKIE)
+            # 尝试从文件读取
+            cookie = read_cookie_from_file()
+            if not cookie:
+                input_cookie = input_until_valid(
+                    t("config_enter_cookie"),
+                    __allow_all
+                )
+                cookie = input_cookie.strip() if input_cookie else os.getenv(constant.COOKIE)
         
         cookie = check_and_update_cookie(cookie)
         print(__separate_line)
 
         update_config = input_until_valid(
-            "Do you want to update the .env file with this configuration? [y/n, default: n]: ",
+            t("config_update_env"),
             __allow_all
         )
         if update_config == "y":
@@ -395,7 +623,7 @@ def configure():
                 f.write(f'{constant.PROBLEM_FOLDER}="{problem_folder}"\n')
                 f.write(f'{constant.CONTEST_FOLDER}="{contest_folder}"\n')
                 f.write(f'{constant.LANGUAGES}="{",".join(languages)}"\n')
-            print(f"Updated {env_file} with the new configuration.")
+            print(t("config_env_updated", path=env_file))
         print(__separate_line)
     else:
         # Load from .env
@@ -403,9 +631,9 @@ def configure():
         problem_folder = os.getenv(constant.PROBLEM_FOLDER, "problems")
         contest_folder = os.getenv(constant.CONTEST_FOLDER, "contest")
         languages = os.getenv(constant.LANGUAGES, "python3").split(",")
-        print(f"Languages selected: {', '.join(languages)}")
-        print(f"Problem folder selected: {problem_folder}")
-        print(f"Contest folder selected: {contest_folder}")
+        print(t("init_lang_selected", langs=", ".join(languages)))
+        print(t("init_folder_selected", folder=problem_folder))
+        print(t("init_folder_selected", folder=contest_folder))
         print(__separate_line)
 
     logging.basicConfig(level=logging.ERROR)
@@ -415,7 +643,7 @@ def configure():
 def get_problem(languages, problem_folder, cookie):
     while True:
         get_problem_method = input_until_valid(
-            __user_input_get_problem,
+            t("get_menu"),
             __allow_all
         )
         print(__separate_line)
@@ -423,12 +651,12 @@ def get_problem(languages, problem_folder, cookie):
             case "1":
                 exit_code = daily_auto_main(problem_folder, cookie, languages)
                 if exit_code == 0:
-                    print("Daily auto completed successfully.")
+                    print(t("get_daily_success"))
                 else:
-                    print("Daily auto failed.")
+                    print(t("get_daily_failed"))
             case "2":
                 input_problem_id = input_until_valid(
-                    __user_input_problem_id, __allow_all_not_empty, "Problem ID cannot be empty."
+                    t("get_problem_id"), __allow_all_not_empty, t("get_problem_id_empty")
                 )
                 problem_id = back_question_id(input_problem_id)
                 exit_code = get_problem_main(
@@ -436,26 +664,25 @@ def get_problem(languages, problem_folder, cookie):
                     languages=languages, problem_folder=problem_folder
                 )
                 if exit_code == 0:
-                    print(f"Problem [{problem_id}] fetched successfully.")
+                    print(t("get_success", id=problem_id))
                 else:
-                    print(f"Failed to fetch the problem. Make sure the problem ID is correct: {problem_id}")
+                    print(t("get_failed", id=problem_id))
             case "3":
                 exit_code = lucky_main(languages, problem_folder)
                 if exit_code == 0:
-                    print("Random problem fetched successfully.")
+                    print(t("get_random_success"))
                 else:
-                    print("Failed to fetch a random problem. Please try again.")
+                    print(t("get_random_failed"))
             case "4":
                 exit_code = remain_main(cookie, languages, problem_folder)
                 if exit_code == 0:
-                    print("Random remaining problem fetched successfully.")
+                    print(t("get_random_success"))
                 else:
-                    print("Failed to fetch a random remaining problem."
-                          "Cookie may be invalid, or no remaining problems.")
+                    print(t("get_remain_failed"))
             case "5":
                 tags = root_path / "data" / "tags.json"
                 if not tags.exists():
-                    print("Tags file not found. Please contact the author.")
+                    print(t("tags_not_found"))
                     continue
                 with tags.open("r", encoding="utf-8") as f:
                     json_tags = json.load(f)
@@ -465,11 +692,11 @@ def get_problem(languages, problem_folder, cookie):
                     continue
                 tag = tags[pick_tag]
                 tag_data = json_tags[tag]
-                print(f"Selected tag: {tag} [{','.join(tag_data.get('translations', []))}]")
+                print(t("tag_selected", tag=tag, translations=",".join(tag_data.get('translations', []))))
                 print(__separate_line)
                 problems = tag_data.get("problems", [])
                 if not problems:
-                    print("No problems found for this tag.")
+                    print(t("tag_no_problems"))
                     continue
                 pick_problem = input_pick_array("problem", problems)
                 if pick_problem is None:
@@ -480,20 +707,20 @@ def get_problem(languages, problem_folder, cookie):
                     languages=languages, problem_folder=problem_folder
                 )
                 if exit_code == 0:
-                    print(f"Problem [{problem_id}] fetched successfully.")
+                    print(t("get_success", id=problem_id))
                 else:
-                    print(f"Failed to fetch the problem. Check {problem_id} is correct?")
+                    print(t("get_failed", id=problem_id))
             case "6":
                 contest_type = input_until_valid(
-                    __user_input_contest_type,
+                    t("contest_type_menu"),
                     lambda x: x in ["0", "1", "2"],
-                    "Invalid input, please enter 1 for weekly contest, 2 for biweekly contest, or 0 to go back."
+                    t("contest_invalid_type")
                 )
                 print(__separate_line)
                 contest_id = input_until_valid(
-                    __user_input_contest_id_num,
+                    t("contest_id_num"),
                     __allow_number,
-                    "Invalid input, please enter a number."
+                    t("contest_id_empty")
                 )
                 print(__separate_line)
                 if contest_type == "0":
@@ -503,7 +730,7 @@ def get_problem(languages, problem_folder, cookie):
                 elif contest_type == "2":
                     contest_id = f"biweekly-contest-{contest_id}"
                 else:
-                    print("Invalid contest type, please try again.")
+                    print(t("contest_invalid_type"))
                     continue
                 contest_questions = contest_lib.get_contest_info(contest_id)
                 results = []
@@ -516,7 +743,7 @@ def get_problem(languages, problem_folder, cookie):
                 for future in results:
                     exit_code = future.result()
                     if exit_code != 0:
-                        print("Failed to fetch a contest problem. Please check the contest ID and try again.")
+                        print(t("get_failed", id="contest problem"))
             case _:
                 return
 
@@ -524,15 +751,16 @@ def get_problem(languages, problem_folder, cookie):
 def submit(languages, problem_folder, cookie):
     while True:
         submit_method = input_until_valid(
-            __user_input_submit,
+            t("submit_menu"),
             __allow_all
         )
         print(__separate_line)
         if submit_method == "2" or submit_method == "4":
+            lang_options = "\n".join(f"{idx}. {lang}" for idx, lang in enumerate(__supported_languages))
             language_select = input_until_valid(
-                __user_input_language,
+                t("init_select_lang", options=lang_options),
                 lambda x: re.match(r"^[0-5](,[0-5])*$", x),
-                "Invalid input, please enter a comma-separated list of numbers from 0 to 5."
+                t("init_lang_invalid")
             )
             languages = list(set(__supported_languages[int(idx)] for idx in language_select.split(",")))
             print(__separate_line)
@@ -540,12 +768,12 @@ def submit(languages, problem_folder, cookie):
             case "1" | "2":
                 daily_info = get_daily_question()
                 if not daily_info:
-                    print(f"Unable to get daily question, possibly network issue?")
+                    print(t("submit_daily_failed"))
                     continue
                 problem_id = daily_info['questionId']
             case "3" | "4":
                 input_problem_id = input_until_valid(
-                    __user_input_problem_id, __allow_all_not_empty, "Problem ID cannot be empty."
+                    t("get_problem_id"), __allow_all_not_empty, t("get_problem_id_empty")
                 )
                 problem_id = back_question_id(input_problem_id)
             case _:
@@ -555,10 +783,10 @@ def submit(languages, problem_folder, cookie):
         except RuntimeError:
             loop = asyncio.new_event_loop()
             asyncio.set_event_loop(loop)
-        print("Starting submission, please wait...")
+        print(t("submit_starting"))
         logging.basicConfig(level=logging.INFO, force=True)
         for i, lang in enumerate(languages):
-            print(f"Submitting in {lang}...")
+            print(t("submit_in_lang", lang=lang))
             loop.run_until_complete(
                 submit_main_async(
                     root_path,
@@ -575,23 +803,23 @@ def submit(languages, problem_folder, cookie):
         loop.close()
         logging.basicConfig(level=logging.ERROR, force=True)
         time.sleep(1)
-        print("Submission completed.")
+        print(t("submit_done"))
         print(__separate_line)
 
 
 def change_problem(languages, problem_folder):
     input_problem_id = input_until_valid(
-        __user_input_problem_id, __allow_all_not_empty, "Problem ID cannot be empty."
+        t("get_problem_id"), __allow_all_not_empty, t("get_problem_id_empty")
     )
     problem_id = back_question_id(input_problem_id)
     for lang in languages:
         cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
         if not cls:
-            print(f"{lang} not support.")
+            print(t("lang_not_support", lang=lang))
             continue
         obj: lc_libs.LanguageWriter = cls()
         obj.change_test(root_path, problem_folder, format_question_id(problem_id))
-        print(f"Successfully change {lang} test to {problem_id}")
+        print(t("change_test_success", lang=lang, id=problem_id))
     print(__separate_line)
 
 
@@ -603,13 +831,13 @@ def contest_main(languages, contest_folder, cookie):
             total, data, has_more = contest_page["total"], contest_page["contests"], contest_page["has_more"]
             max_page = math.ceil(total / 10)
             if not data:
-                print("No contests found.")
+                print(t("contest_no_contests"))
                 break
             contest_content = "\n".join(
                 f"{_i}. [{datetime.datetime.fromtimestamp(c['start_time']).strftime('%Y-%m-%d %H:%M:%S')}]{c['title']}"
                 for _i, c in enumerate(data, start=1))
             user_input_select = input_until_valid(
-                __user_input_page.format(total, contest_content),
+                t("contest_page", total=total, content=contest_content),
                 __allow_all
             )
             pick = None
@@ -629,7 +857,7 @@ def contest_main(languages, contest_folder, cookie):
         return None
 
     user_input_contest = input_until_valid(
-        __user_input_contest,
+        t("contest_menu"),
         __allow_all
     )
     print(__separate_line)
@@ -641,9 +869,9 @@ def contest_main(languages, contest_folder, cookie):
             contest_id = contest["title_slug"]
         case "2":
             contest_id = input_until_valid(
-                __user_input_contest_id,
+                t("contest_id"),
                 __allow_all_not_empty,
-                "Contest ID cannot be empty."
+                t("contest_id_empty")
             )
         case _:
             return None
@@ -701,11 +929,11 @@ def contest_main(languages, contest_folder, cookie):
 
         for result in results:
             if not result:
-                print("Some questions failed to process. Check the logs for details.")
+                print(t("get_failed", id="contest question"))
                 p.rmdir()
                 return None
 
-    print(f"Contest [{contest_id}] generated.")
+    print(t("contest_generated", id=contest_id))
     print(__separate_line)
     return None
 
@@ -716,13 +944,13 @@ def favorite_main(languages, problem_folder, cookie):
             my_favorites = query_my_favorites(cookie)
             total, data, has_more = my_favorites["total"], my_favorites["favorites"], my_favorites["has_more"]
             if not data:
-                print("No favorites found.")
+                print(t("fav_no_favorites"))
                 break
             content = "\n".join(
                 [f"{_i}. {f['name']}" for _i, f in enumerate(data, start=1)],
             )
             user_input_select = input_until_valid(
-                __user_input_page.format(total, content),
+                t("contest_page", total=total, content=content),
                 __allow_all
             )
             pick = None
@@ -752,13 +980,13 @@ def favorite_main(languages, problem_folder, cookie):
             total, data, has_more = _questions["total"], _questions["questions"], _questions["has_more"]
             max_page = math.ceil(total / page_size)
             if not data:
-                print("No questions found in this favorite.")
+                print(t("fav_no_questions"))
                 break
             content = "\n".join(
                 [f"{_i}. {question_to_str(q)}" for _i, q in enumerate(data, start=1)],
             )
             user_input_select = input_until_valid(
-                __user_input_page.format(total, content),
+                t("contest_page", total=total, content=content),
                 __allow_all
             )
             pick = None
@@ -778,7 +1006,7 @@ def favorite_main(languages, problem_folder, cookie):
         return None
 
     if check_cookie_expired(cookie):
-        print("Cookie expired, please update it to continue.")
+        print(t("fav_expired"))
         return
     while True:
         favorite = favorite_list()
@@ -787,7 +1015,7 @@ def favorite_main(languages, problem_folder, cookie):
         slug = favorite["slug"]
         while True:
             favorite_method = input_until_valid(
-                __user_input_favorite_method,
+                t("fav_menu"),
                 __allow_all
             )
             print(__separate_line)
@@ -801,20 +1029,18 @@ def favorite_main(languages, problem_folder, cookie):
                         skip_language=True, languages=languages, problem_folder=problem_folder
                     )
                     if code == 0:
-                        print(f"Problem [{question['question_frontend_id']}]"
-                              f" {question['translated_title']} fetched successfully.")
+                        print(t("get_success", id=f"{question['question_frontend_id']} {question['translated_title']}"))
                     else:
-                        print(f"Failed to fetch the problem [{question['question_frontend_id']}]"
-                              f" {question['translated_title']}.")
+                        print(t("get_failed", id=f"{question['question_frontend_id']} {question['translated_title']}"))
                 case "2":
                     input_questions = input_until_valid(
-                        "Enter the problem ids to add to favorite, separated by comma: ",
+                        t("fav_add_ids"),
                         __allow_all_not_empty,
-                        "Problem ids cannot be empty."
+                        t("fav_ids_empty")
                     )
                     question_ids = [q.strip() for q in input_questions.split(",")]
                     if not question_ids:
-                        print("No questions to add.")
+                        print(t("fav_ids_empty"))
                         continue
                     with ThreadPoolExecutor() as executor:
                         slugs = list(executor.map(get_question_slug_by_id, question_ids, [cookie] * len(question_ids)))
@@ -826,23 +1052,39 @@ def favorite_main(languages, problem_folder, cookie):
                             continue
                         questions.append(question_slug)
                     if not questions:
-                        print("No valid questions to add.")
+                        print(t("fav_ids_empty"))
                         continue
                     result = batch_add_questions_to_favorite(slug, questions, cookie)
                     if result.get("status") == "success":
-                        print(f"Added {len(questions)} questions to favorite [{favorite['name']}] successfully.")
+                        print(t("fav_add_success", count=len(questions), name=favorite['name']))
                     else:
-                        print(f"Failed to add questions to favorite [{favorite['name']}]: {result.get('message')}")
+                        print(t("fav_add_failed", name=favorite['name'], msg=result.get('message')))
                 case _:
                     break
 
 
 def main():
+    global LANG
+    
+    # 解析命令行参数
+    parser = argparse.ArgumentParser(description="LeetCode 工具集")
+    parser.add_argument('--en', action='store_true', help='Use English interface')
+    parser.add_argument('--init', action='store_true', help='Force initialization wizard')
+    args = parser.parse_args()
+    
+    # 设置语言
+    if args.en:
+        LANG = "en"
+    
     try:
-        languages, problem_folder, cookie, contest_folder = configure()
+        if args.init:
+            languages, problem_folder, cookie, contest_folder = initialize_env()
+        else:
+            languages, problem_folder, cookie, contest_folder = configure()
+        
         while True:
             main_function = input_until_valid(
-                __user_input_function,
+                t("main_menu"),
                 __allow_all
             )
             print(__separate_line)
@@ -857,20 +1099,20 @@ def main():
                     contest_main(languages, contest_folder, cookie)
                 case "5":
                     clean_empty_java_main(root_path, problem_folder)
-                    print("Done cleaning empty Java files.")
+                    print(t("clean_done"))
                     print(__separate_line)
                 case "6":
                     clean_error_rust_main(root_path, problem_folder)
-                    print("Done cleaning error Rust files.")
+                    print(t("clean_done"))
                     print(__separate_line)
                 case "7":
                     favorite_main(languages, problem_folder, cookie)
                     print(__separate_line)
                 case _:
-                    print("Exiting...")
+                    print(t("main_exit"))
                     break
     except KeyboardInterrupt:
-        print("\nBye!")
+        print(f"\n{t('main_bye')}")
 
 
 if __name__ == '__main__':
