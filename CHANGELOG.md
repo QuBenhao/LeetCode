@@ -2,6 +2,22 @@
 
 <!-- version list -->
 
+## v10.12.0 (2026-03-14)
+
+### Bug Fixes
+
+- 清理 .cookie_tmp 临时文件 + 修复提示换行问题
+  ([`7ebf850`](https://github.com/QuBenhao/LeetCode/commit/7ebf850d7a6880287aaf8efe4a62a58c4b6a049c))
+
+### Features
+
+- 升级 leetcode.py 支持交互式初始化和浏览器 Cookie 自动检测
+  ([`40b8dc7`](https://github.com/QuBenhao/LeetCode/commit/40b8dc759ea6b15fa75bea6208853e29d4b3d809))
+
+- 添加中文界面支持 + 解决 Cookie 超长输入问题
+  ([`c907e71`](https://github.com/QuBenhao/LeetCode/commit/c907e7187075752e1a176519078148a0847adf2f))
+
+
 ## v10.11.0 (2026-03-14)
 
 ### Bug Fixes
