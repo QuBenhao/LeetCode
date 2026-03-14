@@ -2,6 +2,28 @@
 
 <!-- version list -->
 
+## v10.12.1 (2026-03-14)
+
+### Bug Fixes
+
+- Address code review issues from PR #179
+  ([`b04a4ab`](https://github.com/QuBenhao/LeetCode/commit/b04a4abcfb3151313098bf82b8103cdd6925937e))
+
+- Requirements.txt
+  ([`cfb09fd`](https://github.com/QuBenhao/LeetCode/commit/cfb09fdfe5dd38667eadfacfbb9fcc250833de7d))
+
+- Update problem query
+  ([`1e1f13c`](https://github.com/QuBenhao/LeetCode/commit/1e1f13cbddcce24c37a8ab4a0efe00de2cf81832))
+
+### Refactoring
+
+- Improve code quality and safety
+  ([`2f8bf51`](https://github.com/QuBenhao/LeetCode/commit/2f8bf512a7f7dac779c53e1565ebdb6cbce77e4f))
+
+- Modularize leetcode.py main entry
+  ([`e306f2c`](https://github.com/QuBenhao/LeetCode/commit/e306f2c4df5a2bbc9373f10cc683225d09b07119))
+
+
 ## v10.12.0 (2026-03-14)
 
 ### Bug Fixes
