@@ -69,7 +69,7 @@ I18N = {
         "init_cookie_empty": "Cookie 不能为空",
         
         "init_step2": "[2/4] 选择编程语言",
-        "init_select_lang": "选择要使用的编程语言，用逗号分隔 [0-5, 默认: 0]:\n{options}",
+        "init_select_lang": "选择要使用的编程语言，用逗号分隔 [0-5, 默认: 0]:\n{options}\n",
         "init_lang_selected": "✓ 已选择语言: {langs}",
         "init_lang_invalid": "输入无效，请输入 0-5 的数字，用逗号分隔",
         
@@ -181,7 +181,7 @@ I18N = {
         "init_cookie_empty": "Cookie cannot be empty",
         
         "init_step2": "[2/4] Select programming languages",
-        "init_select_lang": "Select languages, separated by comma [0-5, default: 0]:\n{options}",
+        "init_select_lang": "Select languages, separated by comma [0-5, default: 0]:\n{options}\n",
         "init_lang_selected": "✓ Languages selected: {langs}",
         "init_lang_invalid": "Invalid input, please enter numbers 0-5 separated by comma",
         
@@ -362,6 +362,8 @@ def read_cookie_from_file():
             cookie = cookie_file.read_text(encoding='utf-8').strip()
             if cookie:
                 print(f"✓ 从 .cookie_tmp 读取到 Cookie")
+                # 读取后删除临时文件
+                cookie_file.unlink()
                 return cookie
         except Exception:
             pass
