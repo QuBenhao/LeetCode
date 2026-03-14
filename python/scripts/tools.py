@@ -9,9 +9,8 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-from daily_auto import write_question
-
 sys.path.append(Path(__file__).parent.parent.parent.as_posix())
+from python.scripts.daily_auto import write_question
 from python.constants import constant
 import python.lc_libs as lc_libs
 from python.utils import get_default_folder, format_question_id, check_cookie_expired
