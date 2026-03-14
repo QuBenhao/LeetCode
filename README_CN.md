@@ -83,12 +83,6 @@ Languages selected: python3, golang
 
 自动从浏览器获取 LeetCode CN Cookie，支持更新 GitHub Secrets 或本地 .env 文件。
 
-## 安装依赖
-
-```bash
-pip install browser-cookie3 PyGithub
-```
-
 ## 使用方法
 
 ```bash
@@ -122,11 +116,12 @@ python python/scripts/leetcode_cookie_updater.py --repo QuBenhao/LeetCode --gith
 如果要更新 GitHub Secrets，需要创建具有以下权限的 Token：
 - `repo` (完整仓库访问)
 - `workflow` (更新 GitHub Actions)
+- `secret` (更新GitHub仓库的Secret)
 
 创建步骤：
 1. 访问 https://github.com/settings/tokens
 2. 点击 "Generate new token (classic)"
-3. 勾选 `repo` 和 `workflow` 权限
+3. 勾选 `repo` 和 `workflow` 和 `secret` 权限
 4. 生成并保存 Token
 
 ## 定时任务
@@ -228,7 +223,3 @@ LANGUAGES="golang,java"
 1. [Benhao Demo](https://github.com/BenhaoQu/LeetCode/tree/demo_master) (Python3)
 2. [SilentSliver Demo](https://github.com/SilentSliver/LeetCode/) (Java)
 3. [LazyKindMan Demo](https://github.com/lazyKindMan/LeetCode) (Golang)
-
-# 题目列表
-
-题目列表请查看英文版 [README.md](README.md) 的 Problems 部分。
