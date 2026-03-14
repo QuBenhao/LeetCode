@@ -8,3 +8,5 @@ pytz
 sortedcontainers
 numpy
 beautifulsoup4
+browser-cookie3
+PyGithub
