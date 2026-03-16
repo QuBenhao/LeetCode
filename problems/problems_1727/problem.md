@@ -1,54 +1,42 @@
 # 1727. Largest Submatrix With Rearrangements [Rating: 1926.71]
 
-You are given a binary matrix `matrix` of size `m x n`, and you are allowed to rearrange the **columns** of the `matrix` in any order.
+<p>You are given a binary matrix <code>matrix</code> of size <code>m x n</code>, and you are allowed to rearrange the <strong>columns</strong> of the <code>matrix</code> in any order.</p>
 
-Return *the area of the largest submatrix within* `matrix` *where **every** element of the submatrix is* `1` *after reordering the columns optimally.*
+<p>Return <em>the area of the largest submatrix within </em><code>matrix</code><em> where <strong>every</strong> element of the submatrix is </em><code>1</code><em> after reordering the columns optimally.</em></p>
 
- 
-
-**Example 1:**
-
-**![img](https://assets.leetcode.com/uploads/2020/12/29/screenshot-2020-12-30-at-40536-pm.png)**
-
-```
-Input: matrix = [[0,0,1],[1,1,1],[1,0,1]]
-Output: 4
-Explanation: You can rearrange the columns as shown above.
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/12/29/screenshot-2020-12-30-at-40536-pm.png" style="width: 500px; height: 240px;" />
+<pre>
+<strong>Input:</strong> matrix = [[0,0,1],[1,1,1],[1,0,1]]
+<strong>Output:</strong> 4
+<strong>Explanation:</strong> You can rearrange the columns as shown above.
 The largest submatrix of 1s, in bold, has an area of 4.
-```
+</pre>
 
-**Example 2:**
-
-![img](https://assets.leetcode.com/uploads/2020/12/29/screenshot-2020-12-30-at-40852-pm.png)
-
-```
-Input: matrix = [[1,0,1,0,1]]
-Output: 3
-Explanation: You can rearrange the columns as shown above.
+<p><strong class="example">Example 2:</strong></p>
+<img alt="" src="https://assets.leetcode.com/uploads/2020/12/29/screenshot-2020-12-30-at-40852-pm.png" style="width: 500px; height: 62px;" />
+<pre>
+<strong>Input:</strong> matrix = [[1,0,1,0,1]]
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> You can rearrange the columns as shown above.
 The largest submatrix of 1s, in bold, has an area of 3.
-```
+</pre>
 
-**Example 3:**
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: matrix = [[1,1,0],[1,0,1]]
-Output: 2
-Explanation: Notice that you must rearrange entire columns, and there is no way to make a submatrix of 1s larger than an area of 2.
-```
+<pre>
+<strong>Input:</strong> matrix = [[1,1,0],[1,0,1]]
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> Notice that you must rearrange entire columns, and there is no way to make a submatrix of 1s larger than an area of 2.
+</pre>
 
-**Example 4:**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-```
-Input: matrix = [[0,0],[0,0]]
-Output: 0
-Explanation: As there are no 1s, no submatrix of 1s can be formed and the area is 0.
-```
-
- 
-
-**Constraints:**
-
-- `m == matrix.length`
-- `n == matrix[i].length`
-- 1 <= m * n <= 10<sup>5</sup>
-- `matrix[i][j]` is `0` or `1`.
+<ul>
+	<li><code>m == matrix.length</code></li>
+	<li><code>n == matrix[i].length</code></li>
+	<li><code>1 &lt;= m * n &lt;= 10<sup>5</sup></code></li>
+	<li><code>matrix[i][j]</code> is either <code>0</code> or <code>1</code>.</li>
+</ul>
