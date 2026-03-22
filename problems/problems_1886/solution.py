@@ -11,19 +11,8 @@ class Solution(solution.Solution):
         :type target: List[List[int]]
         :rtype: bool
         """
-        def rotate(matrix):
-            m, n = len(matrix), len(matrix[0])
-            new = [[0] * m for _ in range(n)]
-            for i in range(m):
-                for j in range(n):
-                    new[j][m - 1 - i] = matrix[i][j]
-            return new
-
-        if mat == target:
-            return True
-
-        for i in range(3):
-            mat = rotate(mat)
+        for _ in range(4):
             if mat == target:
                 return True
+            mat = [list(row) for row in zip(*mat[::-1])]
         return False
