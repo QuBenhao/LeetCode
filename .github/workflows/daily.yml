@@ -1,1 +1,104 @@
-bmFtZTogTGVldENvZGUgRGFpbHkgUHJvYmxlbXMKCm9uOgogIHdvcmtmbG93X2Rpc3BhdGNoOiAjIG1hbnVhbGx5IHRyaWdnZXIKICBzY2hlZHVsZToKICAgIC0gY3JvbjogJzAgMTYgKiAqIConICAjIHJ1biBldmVyeSBkYXkgYXQgbWlkbmlnaHQKCmpvYnM6CiAgc2NyYXBlOgoKICAgIHJ1bnMtb246IHVidW50dS1sYXRlc3QKCiAgICBzdGVwczoKICAgIC0gbmFtZTogQ2hlY2tvdXQgY29kZQogICAgICB1c2VzOiBhY3Rpb25zL2NoZWNrb3V0QHY0CiAgICAgIHdpdGg6CiAgICAgICAgc3BhcnNlLWNoZWNrb3V0OiB8CiAgICAgICAgICAuZ2l0aHViCiAgICAgICAgICBjcHAKICAgICAgICAgIGdvbGFuZwogICAgICAgICAgcHl0aG9uCiAgICAgICAgICBxdWJoamF2YQogICAgICAgICAgdHlwZXNjcmlwdAogICAgICAgICAgcnVzdAogICAgICAgICAgZ28ubW9kCiAgICAgICAgICBnby5zdW0KICAgICAgICAgIHBvbS54bWwKICAgICAgICAgIE1PRFVMRS5iYXplbAogICAgICAgICAgdHNjb25maWcuanNvbgogICAgICAgICAgcGFja2FnZS5qc29uCiAgICAgICAgICBqZXN0LmNvbmZpZy50cwogICAgICAgICAgQ2FyZ28udG9tbAogICAgICAgICAgZGF0YQogICAgICAgICAgJHt7IHNlY3JldHMuUFJPQkxRRV9GT0xERVIgfHwgJ3Byb2JsZW1zJyB9fQogICAgICAgICAgJHt7IHNlY3JldHMuUFJFTUlVTV9GT0xERVIgfHwgJ3ByZW1pdW1zJyB9fQogICAgICAgICAgZGFpbHktJHt7IHNlY3JldHMuUFJPQkxNRV9GT0xERVIgfHwgJ3Byb2JsZW1zJyB9fS5qc29uCgogICAgLSBuYW1lOiBTZXQgdXAgUHl0aG9uIGVudmlyb25tZW50CiAgICAgIHVzZXM6IGFjdGlvbnMvc2V0dXAtcHl0aG9uQHYyCiAgICAgIHdpdGg6CiAgICAgICAgcHl0aG9uLXZlcnNpb246ICczLjE0JwoKICAgIC0gbmFtZTogSW5zdGFsbCBkZXBlbmRlbmNpZXMKICAgICAgcnVuOiB8CiAgICAgICAgcHl0aG9uIC1tIHBpcCBpbnN0YWxsIC0tdXBncmFkZSBwaXAKICAgICAgICBwaXAgaW5zdGFsbCAtciBweXRob24vcmVxdWlyZW1lbnRzLnR4dAoKICAgIC0gbmFtZTogUnVuIHNjcmlwdAogICAgICBpZDogc2NyaXB0CiAgICAgIGVudjoKICAgICAgICBDT09LSUU6ICR7eyBzZWNyZXRzLkNPT0tJRSB9fQogICAgICAgIFBVU0hfU0VSVkVSOiAke3sgc2VjcmV0cy5QVVNIX1NFUlZFUiB9fQogICAgICAgIFBVU0hfS0VZOiAke3sgc2VjcmV0cy5QVVNIX0tFWSB8fCAnJyB9fQogICAgICAgIFBST0JMRU1fRk9MREVSOiAke3sgc2VjcmV0cy5QUk9CTEVNX0ZPTERFUiB8fCAnJyB9fQogICAgICAgIExBTkdVQUdFUzogJHt7c2VjcmV0cy5MQU5HVUFHRVMgfHwgJ3B5dGhvbjMnfX0KICAgICAgICBMT0dfTEVWRUw6ICR7e3NlY3JldHMuTE9HX0xFVkVMIHx8ICdJTkZPJ319CiAgICAgIHJ1bjogfAogICAgICAgIHNldCArZQogICAgICAgIHB5dGhvbiBweXRob24vc2NyaXB0cy9kYWlseV9hdXRvLnB5ID4gL3RtcC9tc2cgMj4mMQogICAgICAgIHN0YXR1cz0kPwogICAgICAgIGNhdCAvdG1wL21zZwogICAgICAgIGVjaG8gIlFVRVNUSU9OX0lEUz0kKGdyZXAgJ0FkZCBxdWVzdGlvbjonIC90bXAvbXNnIHwgY3V0IC1kICdbJyAtZiA2IHwgY3V0IC1kICddJyAtZiAxIHwgdHIgJ1xuJyAnICcgfCBzZWQgJ3MvICQvJykiID4+ICRHSVRIVUJfRU5WCiAgICAgICAgZWNobyAicXVlc3Rpb24gbGluZXM6ICQoZ3JlcCAnQWRkIHF1ZXN0aW9uOicgL3RtcC9tc2cpIgogICAgICAgIGVjaG8gInF1ZXN0aW9uIGlkczogJChncmVwICdBZGQgcXVlc3Rpb246JyAvdG1wL21zZyB8IGN1dCAtZCAnWycgLWYgNiB8IGN1dCAtZCAnXScgLWYgMSkiCiAgICAgICAgZXhpdCAkc3RhdHVzCgogICAgLSBuYW1lOiBDb21taXQgZmlsZXMKICAgICAgcnVuOiB8CiAgICAgICAgZ2l0IGNvbmZpZyAtLWxvY2FsIHVzZXIuZW1haWwgImFjdGlvbkBnaXRodWIuY29tIgogICAgICAgIGdpdCBjb25maWcgLS1sb2NhbCB1c2VyLm5hbWUgIkdpdEh1YiBBY3Rpb24iCiAgICAgICAgZ2l0IGFkZCAuCiAgICAgICAgaWYgZ2l0IGRpZmYgLS1zdGFnZWQgLS1xdWlldDsgdGhlbgogICAgICAgICAgZWNobyAiTm8gY2hhbmdlcyB0byBjb21taXQiCiAgICAgICAgICBleGl0IDAKICAgICAgICBmaQogICAgICAgIGNhdCAvdG1wL21zZwogICAgICAgIGVjaG8gInF1ZXN0aW9uX2lkczogJHt7IGVudi5RVUVTVElPTl9JRFMgfX0iCiAgICAgICAgZ2l0IGNvbW1pdCAtbSAidGVzdDogWyQoVFo9QXNpYS9TaGFuZ2hhaSBkYXRlICslWSVtJWQpXSBBZGQgKCR7eyBlbnYuUVVFU1RJT05fSURTIH19KSIKCiAgICAtIG5hbWU6IFB1c2ggY2hhbmdlcwogICAgICBydW46IHwKICAgICAgICBpZiBnaXQgbG9nIG9yaWdpbi8ke3sgZ2l0aHViLnJlZl9uYW1lIH19Li5IRUFEIC0tb25saW5lIHwgcmVhZDsgdGhlbgogICAgICAgICAgZ2l0IHB1c2gKICAgICAgICBlbHNlCiAgICAgICAgICBlY2hvICJObyBjaGFuZ2VzIHRvIHB1c2giCiAgICAgICAgZmkKICAgICAgZW52OgogICAgICAgIEdJVEhVQl9UT0tFTjogJHt7IHNlY3JldHMuR0lUSFVCX1RPS0VOIH19CgogICAgLSBuYW1lOiBEZWxldGUgd29ya2Zsb3cgcnVucwogICAgICB1c2VzOiBHaXRCTUwvZGVsZXRlLXdvcmtmbG93LXJ1bnNAbWFpbgogICAgICB3aXRoOgogICAgICAgIHJldGFpbl9kYXlzOiAzCiAgICAgICAga2VlcF9taW5pbXVtX3J1bnM6IDEKICAgICAgICB0b2tlbjogJHt7IHNlY3JldHMuR0lUSFVCX1RPS0VOIH19CiAgICAgICAgcmVwb3NpdG9yeTogJHt7IGdpdGh1Yi5yZXBvc2l0b3J5IH19CgogICAgLSBuYW1lOiBDbGVhbiB1cCBPbGQgcmVsZWFzZXMKICAgICAgdXNlczogZGV2LWRycHJhc2FkL2RlbGV0ZS1vbGRlci1yZWxlYXNlc0B2MC4yLjAKICAgICAgd2l0aDoKICAgICAgICBrZWVwX2xhdGVzdDogMwogICAgICAgIGRlbGV0ZV90YWdzOiB0cnVlCiAgICAgIGVudjoKICAgICAgICBHSVRIVUJfVE9LRU46ICR7eyBzZWNyZXRzLkdJVEhVQl9UT0tFTiB9fQo=
+name: LeetCode Daily Problems
+
+on:
+  workflow_dispatch: # manually trigger
+  schedule:
+    - cron: '0 16 * * *'  # run every day at midnight
+
+jobs:
+  scrape:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          .github
+          cpp
+          golang
+          python
+          qubhjava
+          typescript
+          rust
+          go.mod
+          go.sum
+          pom.xml
+          MODULE.bazel
+          tsconfig.json
+          package.json
+          jest.config.ts
+          Cargo.toml
+          data
+          ${{ secrets.PROBLEM_FOLDER || 'problems' }}
+          ${{ secrets.PREMIUM_FOLDER || 'premiums' }}
+          daily-${{ secrets.PROBLEM_FOLDER || 'problems' }}.json
+
+    - name: Set up Python environment
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.14'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r python/requirements.txt
+
+    - name: Run script
+      id: script
+      env:
+        COOKIE: ${{ secrets.COOKIE }}
+        PUSH_SERVER: ${{ secrets.PUSH_SERVER }}
+        PUSH_KEY: ${{ secrets.PUSH_KEY || '' }}
+        PROBLEM_FOLDER: ${{ secrets.PROBLEM_FOLDER || '' }}
+        LANGUAGES: ${{secrets.LANGUAGES || 'python3'}}
+        LOG_LEVEL: ${{secrets.LOG_LEVEL || 'INFO'}}
+      run: |
+        set +e
+        python python/scripts/daily_auto.py > /tmp/msg 2>&1
+        status=$?
+        cat /tmp/msg
+        echo "QUESTION_IDS=$(grep 'Add question:' /tmp/msg | cut -d '[' -f 6 | cut -d ']' -f 1 | tr '\n' ' ' | sed 's/ $//')" >> $GITHUB_ENV
+        echo "question lines: $(grep 'Add question:' /tmp/msg)"
+        echo "question ids: $(grep 'Add question:' /tmp/msg | cut -d '[' -f 6 | cut -d ']' -f 1)"
+        exit $status
+
+    - name: Commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+          exit 0
+        fi
+        cat /tmp/msg
+        echo "question_ids: ${{ env.QUESTION_IDS }}"
+        git commit -m "test: [$(TZ=Asia/Shanghai date +%Y%m%d)] Add (${{ env.QUESTION_IDS }})"
+
+    - name: Push changes
+      run: |
+        if git log origin/${{ github.ref_name }}..HEAD --oneline | read; then
+          git push
+        else
+          echo "No changes to push"
+        fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Delete workflow runs
+      uses: GitRML/delete-workflow-runs@main
+      with:
+        retain_days: 3
+        keep_minimum_runs: 1
+        token: ${{ secrets.GITHUB_TOKEN }}
+        repository: ${{ github.repository }}
+
+    - name: Clean up Old releases
+      uses: dev-drprasad/delete-older-releases@v0.2.0
+      with:
+        keep_latest: 3
+        delete_tags: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
