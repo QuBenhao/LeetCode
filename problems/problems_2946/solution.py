@@ -7,5 +7,9 @@ class Solution(solution.Solution):
         return self.areSimilar(*test_input)
 
     def areSimilar(self, mat: List[List[int]], k: int) -> bool:
-        pass
-
+        n = len(mat[0])
+        for i, row in enumerate(mat):
+            for j in range(n):
+                if row[(j + (k if i % 2 == 0 else -k)) % n] != row[j]:
+                    return False
+        return True
