@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.canBeEqual(*test_input)
 
     def canBeEqual(self, s1: str, s2: str) -> bool:
-        pass
-
+        from collections import Counter
+        return Counter(s1[::2]) == Counter(s2[::2]) and Counter(s1[1::2]) == Counter(s2[1::2])
