@@ -53,6 +53,12 @@ bin/
 
 # rust
 Cargo.lock
+Cargo.toml.full
+Cargo.toml.minimal
+rust/build/
+
+# claude code local files
+.claude/
 
 # cmake
 cmake-*/
