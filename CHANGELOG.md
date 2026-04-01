@@ -2,6 +2,137 @@
 
 <!-- version list -->
 
+## v10.13.0 (2026-04-01)
+
+### Bug Fixes
+
+- Rollback
+  ([`96e8871`](https://github.com/QuBenhao/LeetCode/commit/96e88718fcabec7265517c6d37a37b8c7279cc71))
+
+- 修复 GitHub Actions 问题
+  ([`3291f95`](https://github.com/QuBenhao/LeetCode/commit/3291f9591f4f22ebc76e8f490e6274cfe6763059))
+
+- 修复题号提取逻辑 - grep -oE 正确匹配 [题号]
+  ([`609464b`](https://github.com/QuBenhao/LeetCode/commit/609464b437a70830eb31cbfeb184919a918177fc))
+
+- 恢复 -f 6 提取题号，之前错误改成 -f 2
+  ([`eb1bbe5`](https://github.com/QuBenhao/LeetCode/commit/eb1bbe5b374b155c02566bd648499a7dfc77dbcf))
+
+- 正确恢复 daily.yml 文件内容
+  ([`48fb54a`](https://github.com/QuBenhao/LeetCode/commit/48fb54a4113297fc50513a26afa81732418631f9))
+
+### Documentation
+
+- Add CLAUDE.md for Claude Code guidance
+  ([`94aeb66`](https://github.com/QuBenhao/LeetCode/commit/94aeb666b16690082c47e0294002914f0e6ad6dd))
+
+### Features
+
+- 2839 solution using Counter
+  ([`47dade4`](https://github.com/QuBenhao/LeetCode/commit/47dade4dca6aeebe01963fe3fd082d22c963cf5b))
+
+### Testing
+
+- 1594 solution
+  ([`84ca5e4`](https://github.com/QuBenhao/LeetCode/commit/84ca5e472dff47c88bf78429cfa70348b56a255c))
+
+- 1622 solution
+  ([`432b1ab`](https://github.com/QuBenhao/LeetCode/commit/432b1ab360b12aad815fe382b24441381b026aa0))
+
+- 1886 solution
+  ([`4aff33a`](https://github.com/QuBenhao/LeetCode/commit/4aff33aff87fb5827d98e00f3653a4c99e337258))
+
+- 2573 solution
+  ([`7844d66`](https://github.com/QuBenhao/LeetCode/commit/7844d66f84d572d897ef068046f8f31b1a5c8e7e))
+
+- 2751 solution
+  ([`212d02a`](https://github.com/QuBenhao/LeetCode/commit/212d02a1b964c70af588d33cab8af51fef463a32))
+
+- 2840 solution
+  ([`b350f6a`](https://github.com/QuBenhao/LeetCode/commit/b350f6a5e773fa7074e2efe8e2ed6888969b9bd3))
+
+- 2906 solution
+  ([`acb0a98`](https://github.com/QuBenhao/LeetCode/commit/acb0a98ab85285ac30de46216b000b6e995dd727))
+
+- 2946 solution
+  ([`72e1b0e`](https://github.com/QuBenhao/LeetCode/commit/72e1b0ebaa345627a9a4c0955e9798ecc414909b))
+
+- 3070 solution
+  ([`ab801dd`](https://github.com/QuBenhao/LeetCode/commit/ab801dd5ddfe7376277c3fcc4c714497ef70bcb8))
+
+- 3212 solution
+  ([`e2e928d`](https://github.com/QuBenhao/LeetCode/commit/e2e928dafa12a295e9c3f9e76f4da79ca85bb19e))
+
+- 3474 solution
+  ([`c021ea8`](https://github.com/QuBenhao/LeetCode/commit/c021ea8f6eb9451261525e3b3f57be24fc7ea804))
+
+- 3546 solution
+  ([`db21036`](https://github.com/QuBenhao/LeetCode/commit/db210363f9415b4e97dcdaf4460562ea41ae74eb))
+
+- 3548 solution
+  ([`7e3112e`](https://github.com/QuBenhao/LeetCode/commit/7e3112e656dca7748b176f8dc6703ceb643e31a9))
+
+- 3567 solution
+  ([`e4a5705`](https://github.com/QuBenhao/LeetCode/commit/e4a57058c3ecd66578b047923f3a8af7eb85f6e2))
+
+- 3643 solution
+  ([`d3f6354`](https://github.com/QuBenhao/LeetCode/commit/d3f6354e5f9b2de1c243b436ae891b52f84075dc))
+
+- [20260315] Add (1622)
+  ([`bf6b196`](https://github.com/QuBenhao/LeetCode/commit/bf6b196b2bec72191103cf2089c1a018d6144695))
+
+- [20260316] Add (1878)
+  ([`cde7128`](https://github.com/QuBenhao/LeetCode/commit/cde71283cac0af9f67b8b999feebecdadd95be85))
+
+- [20260317] Add (1727)
+  ([`1e82f0a`](https://github.com/QuBenhao/LeetCode/commit/1e82f0a12f50c98314d5f148bb21ec7428483704))
+
+- [20260318] Add (3070)
+  ([`42e9185`](https://github.com/QuBenhao/LeetCode/commit/42e918592a6a7e1d5a336178a1f97376ef85404f))
+
+- [20260319] Add (3212)
+  ([`f1ecfd1`](https://github.com/QuBenhao/LeetCode/commit/f1ecfd1c4d9cd58331cfe48be21bcfbd54394dc7))
+
+- [20260320] Add (3567)
+  ([`cd32cb0`](https://github.com/QuBenhao/LeetCode/commit/cd32cb0c20e8d8da08b0808bf85f63f282cd7184))
+
+- [20260321] Add (3643)
+  ([`aba2235`](https://github.com/QuBenhao/LeetCode/commit/aba223587d96104fee8790f61c19eaa76419c5ee))
+
+- [20260322] Add (1886)
+  ([`1a561cd`](https://github.com/QuBenhao/LeetCode/commit/1a561cd5d53ff4ce430f93b1db33a1930a9d9ce3))
+
+- [20260323] Add (1594)
+  ([`3f10caa`](https://github.com/QuBenhao/LeetCode/commit/3f10caa77ddd4522f7d8108ad97500e6010104a3))
+
+- [20260324] Add (2906)
+  ([`1219235`](https://github.com/QuBenhao/LeetCode/commit/1219235314f4f4331780aa6be72f21408cebe111))
+
+- [20260325] Add (3546)
+  ([`1078b11`](https://github.com/QuBenhao/LeetCode/commit/1078b11b276aa8bc1beb7be3e80578d0d286b33c))
+
+- [20260326] Add ()
+  ([`73b7f79`](https://github.com/QuBenhao/LeetCode/commit/73b7f795ccfcc3aa039d9c57e6241184432c731c))
+
+- [20260327] Add (2026-03-26 16:29:52)
+  ([`24ca06c`](https://github.com/QuBenhao/LeetCode/commit/24ca06c0904f39cee8da0e832cb94255b4968054))
+
+- [20260328] Add (2573)
+  ([`e6eafc4`](https://github.com/QuBenhao/LeetCode/commit/e6eafc48d1e5c984836a9ae384f3f35edb638909))
+
+- [20260329] Add (2839)
+  ([`09f2d3b`](https://github.com/QuBenhao/LeetCode/commit/09f2d3be1fde3f4aa1906e134a16b69de641d1cb))
+
+- [20260330] Add (2840)
+  ([`c10e306`](https://github.com/QuBenhao/LeetCode/commit/c10e3065404d1ce6951ec7d6a7f47daf695950f5))
+
+- [20260331] Add (3474)
+  ([`0b6cb61`](https://github.com/QuBenhao/LeetCode/commit/0b6cb61f9eb2848fb8486421fe12be4b92619ee5))
+
+- [20260401] Add (2751)
+  ([`bd765bc`](https://github.com/QuBenhao/LeetCode/commit/bd765bc1ad603bc6be4a261ae4e24220d2a1f0f0))
+
+
 ## v10.12.2 (2026-03-14)
 
 ### Bug Fixes
