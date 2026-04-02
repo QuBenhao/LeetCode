@@ -2,6 +2,25 @@
 
 <!-- version list -->
 
+## v10.14.0 (2026-04-02)
+
+### Features
+
+- Enhance HTTP retry mechanism with SSL error support
+  ([`1aa2b78`](https://github.com/QuBenhao/LeetCode/commit/1aa2b78b68c86978858df0f00ef5b93395af37cc))
+
+### Testing
+
+- 3418 solution
+  ([`f274d3c`](https://github.com/QuBenhao/LeetCode/commit/f274d3c24b2e66319b6198db70b94360892e8d19))
+
+- [20260402] Add (3418)
+  ([`fdba594`](https://github.com/QuBenhao/LeetCode/commit/fdba5948444f7cd4f4b6457805045be5abbdee2b))
+
+- [20260403] Add (3661)
+  ([`1356087`](https://github.com/QuBenhao/LeetCode/commit/135608703a87655ee3000ae41b01e4caa711d152))
+
+
 ## v10.13.0 (2026-04-01)
 
 ### Bug Fixes
