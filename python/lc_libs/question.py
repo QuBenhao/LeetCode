@@ -5,7 +5,6 @@ from typing import Optional, Mapping, Tuple
 
 import html2text
 import markdown
-import requests
 from itertools import filterfalse
 
 from python.constants import (LEET_CODE_BACKEND, QUESTION_INFO_QUERY, QUESTION_DESC_QUERY, QUESTION_DESC_CN_QUERY,
@@ -225,72 +224,78 @@ def get_questions_by_key_word(keyword: Optional[str], cookie: str,
                               category: str = "all-code-essentials",
                               fetch_all: bool = False,
                               premium_only: bool = False) -> Optional[list]:
-    try:
-        ans = []
-        page_size, page_no = 100, 0
-        while True:
-            filters = {
-                "filterCombineType": "ALL",
-                "statusFilter": {
-                    "questionStatuses": [],
-                    "operator": "IS"
-                },
-                "difficultyFilter": {
-                    "difficulties": [],
-                    "operator": "IS"
-                },
-                "languageFilter": {
-                    "languageSlugs": [],
-                    "operator": "IS"
-                },
-                "topicFilter": {
-                    "topicSlugs": [],
-                    "operator": "IS"
-                },
-                "acceptanceFilter": {
-                    # "rangeLeft": 20,
-                    # "rangeRight": 50
-                },
-                "frequencyFilter": {},
-                "frontendIdFilter": {
-                    # "rangeLeft": 1,
-                    # "rangeRight": 5000
-                },
-                "lastSubmittedFilter": {
-                    # "startFrom": 1769875200,
-                    # "endAt": 1771689600
-                },
-                "publishedFilter": {
-                    # "startFrom": 1769875200,
-                    # "endAt": 1771689600
-                },
-                "companyFilter": {
-                    "companySlugs": [],
-                    "operator": "IS"
-                },
-                "positionFilter": {
-                    "positionSlugs": [],
-                    "operator": "IS"
-                },
-                "positionLevelFilter": {
-                    "positionLevelSlugs": [],
-                    "operator": "IS"
-                },
-                "contestPointFilter": {
-                    "contestPoints": [],
-                    "operator": "IS"
-                },
-                "premiumFilter": {
-                    "premiumStatus": [],
-                    "operator": "IS"
-                }
+    def handle_response(response):
+        data = json.loads(response.text)
+        if data["data"] is None:
+            logging.error(f'cookie可能过期, 影响通过id查找题目, 错误信息: {data["errors"][0]["message"]}')
+            return None
+        return data["data"]["problemsetQuestionListV2"]
+
+    ans = []
+    page_size, page_no = 100, 0
+    while True:
+        filters = {
+            "filterCombineType": "ALL",
+            "statusFilter": {
+                "questionStatuses": [],
+                "operator": "IS"
+            },
+            "difficultyFilter": {
+                "difficulties": [],
+                "operator": "IS"
+            },
+            "languageFilter": {
+                "languageSlugs": [],
+                "operator": "IS"
+            },
+            "topicFilter": {
+                "topicSlugs": [],
+                "operator": "IS"
+            },
+            "acceptanceFilter": {
+                # "rangeLeft": 20,
+                # "rangeRight": 50
+            },
+            "frequencyFilter": {},
+            "frontendIdFilter": {
+                # "rangeLeft": 1,
+                # "rangeRight": 5000
+            },
+            "lastSubmittedFilter": {
+                # "startFrom": 1769875200,
+                # "endAt": 1771689600
+            },
+            "publishedFilter": {
+                # "startFrom": 1769875200,
+                # "endAt": 1771689600
+            },
+            "companyFilter": {
+                "companySlugs": [],
+                "operator": "IS"
+            },
+            "positionFilter": {
+                "positionSlugs": [],
+                "operator": "IS"
+            },
+            "positionLevelFilter": {
+                "positionLevelSlugs": [],
+                "operator": "IS"
+            },
+            "contestPointFilter": {
+                "contestPoints": [],
+                "operator": "IS"
+            },
+            "premiumFilter": {
+                "premiumStatus": [],
+                "operator": "IS"
             }
-            if premium_only:
-                filters["premiumFilter"]["premiumStatus"].append("PREMIUM")
-            if keyword and keyword.isnumeric():
-                filters["frontendIdFilter"]["rangeLeft"] = int(keyword)
-                filters["frontendIdFilter"]["rangeRight"] = int(keyword)
-            result = requests.post("https://leetcode.cn/graphql",
+        }
+        if premium_only:
+            filters["premiumFilter"]["premiumStatus"].append("PREMIUM")
+        if keyword and keyword.isnumeric():
+            filters["frontendIdFilter"]["rangeLeft"] = int(keyword)
+            filters["frontendIdFilter"]["rangeRight"] = int(keyword)
+        res_dict = general_request("https://leetcode.cn/graphql", handle_response,
                                    json={"query": QUESTION_KEYWORDS_QUERY,
                                          "variables": {
                                              "searchKeyword": keyword if keyword else "",
@@ -301,83 +306,68 @@ def get_questions_by_key_word(keyword: Optional[str], cookie: str,
                                          },
                                          "operationName": "problemsetQuestionListV2"},
                                    cookies={'cookie': cookie} if cookie else None,
-                                   headers= {
+                                   headers={
                                        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
                                    })
-            if result.status_code != 200:
-                logging.error(f"Failed to fetch questions by keyword: {keyword}, "
-                              f"status code: {result.status_code}, response: {result.text}")
-                return None
-            if json.loads(result.text)["data"] is None:
-                logging.error(f'cookie可能过期, 影响通过id查找题目, 错误信息: {json.loads(result.text)["errors"][0]["message"]}')
-                return None
-            res_dict = json.loads(result.text)["data"]["problemsetQuestionListV2"]
-            ans.extend(res_dict["questions"])
-            if not res_dict["hasMore"] or not fetch_all:
-                break
-            page_no += 1
-        return ans
-    except (json.JSONDecodeError, KeyError, TypeError) as e:
-        logging.error(f"Error parsing response for questions by keyword '{keyword}': {e}", exc_info=True)
-        return None
-    except requests.RequestException as e:
-        logging.error(f"Network error while fetching questions by keyword '{keyword}': {e}", exc_info=True)
-        return None
+        if res_dict is None:
+            return None
+        ans.extend(res_dict["questions"])
+        if not res_dict["hasMore"] or not fetch_all:
+            break
+        page_no += 1
+    return ans
 
 
 def get_questions_total(category: str = "all-code-essentials",
                         skip_premiums: bool = True, cookie: Optional[str] = None) -> int:
-    try:
-        filters = {"filterCombineType": "ALL"}
-        if skip_premiums:
-            filters["premiumFilter"] = {"premiumStatus": "NOT_PREMIUM"}
-        result = requests.post("https://leetcode.cn/graphql",
-                               json={"query": QUESTION_KEYWORDS_QUERY,
-                                     "variables": {
-                                         "categorySlug": category if category in CATEGORY_SLUG
-                                         else "all-code-essentials",
-                                         "skip": 0, "limit": 1,
-                                         "filters": filters,
-                                     },
-                                     "operationName": "problemsetQuestionListV2"},
-                               cookies={'cookie': cookie} if cookie else None)
-        return json.loads(result.text)["data"]["problemsetQuestionListV2"]["totalLength"]
-    except (json.JSONDecodeError, KeyError, TypeError) as e:
-        logging.error(f"Error parsing response for total questions: {e}", exc_info=True)
-    except requests.RequestException as e:
-        logging.error(f"Network error while getting total questions: {e}", exc_info=True)
-    return 0
+    def handle_response(response):
+        data = json.loads(response.text)
+        return data["data"]["problemsetQuestionListV2"]["totalLength"]
+
+    filters = {"filterCombineType": "ALL"}
+    if skip_premiums:
+        filters["premiumFilter"] = {"premiumStatus": "NOT_PREMIUM"}
+    result = general_request("https://leetcode.cn/graphql", handle_response,
+                             json={"query": QUESTION_KEYWORDS_QUERY,
+                                   "variables": {
+                                       "categorySlug": category if category in CATEGORY_SLUG
+                                       else "all-code-essentials",
+                                       "skip": 0, "limit": 1,
+                                       "filters": filters,
+                                   },
+                                   "operationName": "problemsetQuestionListV2"},
+                             cookies={'cookie': cookie} if cookie else None)
+    return result if result else 0
 
 
 def get_questions_by_number(number: int, category: str = "all-code-essentials",
                             skip_premiums: bool = True, cookie: Optional[str] = None) -> Optional[list]:
-    try:
-        ans = []
-        filters = {"filterCombineType": "ALL"}
-        if skip_premiums:
-            filters["premiumFilter"] = {"premiumStatus": "NOT_PREMIUM"}
-        result = requests.post("https://leetcode.cn/graphql",
-                               json={"query": QUESTION_KEYWORDS_QUERY,
-                                     "variables": {
-                                         "categorySlug": category if category in CATEGORY_SLUG
-                                         else "all-code-essentials",
-                                         "skip": max(0, number - 50), "limit": 100,
-                                         "filters": filters
-                                     },
-                                     "operationName": "problemsetQuestionListV2"},
-                               cookies={'cookie': cookie} if cookie else None)
-        res_dict = json.loads(result.text)["data"]["problemsetQuestionListV2"]
-        ans.extend(res_dict["questions"])
-        return ans
-    except (json.JSONDecodeError, KeyError, TypeError) as e:
-        logging.error(f"Error parsing response for question by number {number}: {e}", exc_info=True)
-    except requests.RequestException as e:
-        logging.error(f"Network error while getting question by number {number}: {e}", exc_info=True)
-    return None
+    def handle_response(response):
+        data = json.loads(response.text)
+        return data["data"]["problemsetQuestionListV2"]["questions"]
+
+    filters = {"filterCombineType": "ALL"}
+    if skip_premiums:
+        filters["premiumFilter"] = {"premiumStatus": "NOT_PREMIUM"}
+    result = general_request("https://leetcode.cn/graphql", handle_response,
+                             json={"query": QUESTION_KEYWORDS_QUERY,
+                                   "variables": {
+                                       "categorySlug": category if category in CATEGORY_SLUG
+                                       else "all-code-essentials",
+                                       "skip": max(0, number - 50), "limit": 100,
+                                       "filters": filters
+                                   },
+                                   "operationName": "problemsetQuestionListV2"},
+                             cookies={'cookie': cookie} if cookie else None)
+    return result  # result is already the questions list from handle_response
 
 
 def get_questions_by_status(status: str, category: str = "all-code-essentials", skip_premiums: bool = False,
                             skip_lcp: bool = True, cookie: Optional[str] = None) -> Optional[list]:
+    def handle_response(response):
+        data = json.loads(response.text)
+        return data["data"]["problemsetQuestionListV2"]
+
     # Map old status values to new API format
     status_map = {
         "NOT_STARTED": "TO_DO",
@@ -387,15 +377,15 @@ def get_questions_by_status(status: str, category: str = "all-code-essentials", 
     if status not in status_map:
         logging.warning(f"Unsupported question status: {status}")
         return None
-    try:
-        ans = []
-        page_size, page_no = 100, 0
-        while True:
-            filters = {"filterCombineType": "ALL"}
-            if skip_premiums:
-                filters["premiumFilter"] = {"premiumStatus": "NOT_PREMIUM"}
-            filters["statusFilter"] = {"questionStatuses": [status_map[status]]}
-            result = requests.post("https://leetcode.cn/graphql",
+
+    ans = []
+    page_size, page_no = 100, 0
+    while True:
+        filters = {"filterCombineType": "ALL"}
+        if skip_premiums:
+            filters["premiumFilter"] = {"premiumStatus": "NOT_PREMIUM"}
+        filters["statusFilter"] = {"questionStatuses": [status_map[status]]}
+        res_dict = general_request("https://leetcode.cn/graphql", handle_response,
                                    json={"query": QUESTION_KEYWORDS_QUERY,
                                          "variables": {
                                              "categorySlug": category if category in CATEGORY_SLUG
@@ -405,18 +395,13 @@ def get_questions_by_status(status: str, category: str = "all-code-essentials", 
                                          },
                                          "operationName": "problemsetQuestionListV2"},
                                    cookies={'cookie': cookie} if cookie else None)
-            res_dict = json.loads(result.text)["data"]["problemsetQuestionListV2"]
-            logging.debug(res_dict["questions"])
-            ans.extend(
-                filterfalse(lambda x: skip_lcp and x["questionFrontendId"].startswith("LCP "),
-                            res_dict["questions"]))
-            if not res_dict["hasMore"]:
-                break
-            page_no += 1
-        return ans
-    except (json.JSONDecodeError, KeyError, TypeError) as e:
-        logging.error(f"Error parsing response for questions by status '{status}': {e}", exc_info=True)
-        return None
-    except requests.RequestException as e:
-        logging.error(f"Network error while getting questions by status '{status}': {e}", exc_info=True)
-        return None
+        if res_dict is None:
+            return None
+        logging.debug(res_dict["questions"])
+        ans.extend(
+            filterfalse(lambda x: skip_lcp and x["questionFrontendId"].startswith("LCP "),
+                        res_dict["questions"]))
+        if not res_dict["hasMore"]:
+            break
+        page_no += 1
+    return ans

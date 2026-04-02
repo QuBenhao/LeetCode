@@ -4,6 +4,35 @@ from typing import Optional, List
 import base64
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+# Retry configuration
+DEFAULT_MAX_RETRIES = 3
+DEFAULT_BACKOFF_FACTOR = 1.0
+DEFAULT_RETRY_STATUS_CODES = [429, 500, 502, 503, 504]
+
+
+def create_session_with_retry(max_retries: int = DEFAULT_MAX_RETRIES,
+                              backoff_factor: float = DEFAULT_BACKOFF_FACTOR,
+                              status_codes: List[int] = None) -> requests.Session:
+    """Create a requests Session with automatic retry on failures."""
+    session = requests.Session()
+    retry_strategy = Retry(
+        total=max_retries,
+        backoff_factor=backoff_factor,
+        status_forcelist=status_codes or DEFAULT_RETRY_STATUS_CODES,
+        allowed_methods=["HEAD", "GET", "PUT", "DELETE", "OPTIONS", "TRACE", "POST"],
+        raise_on_status=False,
+    )
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+    return session
+
+
+# Shared session with built-in retry for connection-level errors
+_shared_session = create_session_with_retry()
 
 
 def general_request(url: str, func=None, request_method: str = "post",
@@ -11,11 +40,11 @@ def general_request(url: str, func=None, request_method: str = "post",
     try:
         match request_method:
             case "get":
-                resp = requests.get(url, params=params, timeout=30, **kwargs)
+                resp = _shared_session.get(url, params=params, timeout=30, **kwargs)
             case "put":
-                resp = requests.put(url, data=data, timeout=30, **kwargs)
+                resp = _shared_session.put(url, data=data, timeout=30, **kwargs)
             case _:
-                resp = requests.post(url, data=data, json=json, timeout=30, **kwargs)
+                resp = _shared_session.post(url, data=data, json=json, timeout=30, **kwargs)
         if resp.status_code == 200:
             return func(resp) if func else resp
         if resp.status_code == 429 and depth > 0:
@@ -34,6 +63,15 @@ def general_request(url: str, func=None, request_method: str = "post",
             return general_request(url, func, request_method, params, data, json, depth - 1, **kwargs)
         else:
             logging.error(f"{url} Connection timeout!", exc_info=True)
+    except (requests.exceptions.SSLError, requests.exceptions.ConnectionError) as e:
+        # Retry on SSL errors and connection errors
+        if depth > 0:
+            wait_time = (4 - depth) * 2
+            logging.warning(f"{url} SSL/Connection error: {e}, retrying in {wait_time}s...")
+            time.sleep(wait_time)
+            return general_request(url, func, request_method, params, data, json, depth - 1, **kwargs)
+        else:
+            logging.error(f"{url} SSL/Connection error after retries!", exc_info=True)
     except Exception as _:
         logging.error(f"Request error: {url}, params: {params}, data: {data}, json: {json}", exc_info=True)
     return None
