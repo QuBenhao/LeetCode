@@ -17,13 +17,28 @@ This is a LeetCode solutions repository with multi-language support. Each proble
 
 ## Development Commands
 
+### Environment Setup
+
+Create a `.env` file at repository root with:
+```env
+PYTHONPATH=.
+PROBLEM_FOLDER="problems"
+```
+
+Without `PYTHONPATH=.`, Python imports will fail with `ModuleNotFoundError: No module named 'python'`.
+
+### Install Dependencies
+```bash
+pip install -r python/requirements.txt
+```
+
 ### Run Tests
 ```bash
 # Single problem test (reads "daily" field from daily-{folder}.json)
-python python/test.py
+PYTHONPATH=. python python/test.py
 
 # Multiple problems test (reads "plans" field from daily-{folder}.json)
-python python/tests.py
+PYTHONPATH=. python python/tests.py
 ```
 
 The JSON config file is `daily-{folder}.json` at repository root, where `{folder}` matches `PROBLEM_FOLDER` in `.env` (defaults to `problems` → `daily-problems.json`).
@@ -39,23 +54,25 @@ The `plans` array alternates between problem IDs and folder names.
 
 ### Main CLI Tool (fetch problems, submit solutions)
 ```bash
-python python/scripts/leetcode.py
+PYTHONPATH=. python python/scripts/leetcode.py
 ```
 
-### Install Dependencies
-```bash
-pip install -r python/requirements.txt
-```
+Interactive menu with options: Get Problem, Submit, Change Test, Contest, Clean, Favorites.
 
-### Environment Setup
+### Utility Scripts
 
-Create a `.env` file at repository root with:
-```env
-PYTHONPATH=.
-PROBLEM_FOLDER="problems"
-```
+All scripts require `PYTHONPATH=.` and read config from `.env` / `daily-{folder}.json`.
 
-Without `PYTHONPATH=.`, Python imports will fail with `ModuleNotFoundError: No module named 'python'`.
+| Script | Purpose | Key Args |
+|--------|---------|----------|
+| `get_problem.py` | Fetch problem by ID/slug | `-id PROBLEM_ID`, `-slug SLUG`, `-f` (force overwrite) |
+| `daily_auto.py` | Auto-generate daily problem + study plans | No args |
+| `submit.py` | Submit solution to LeetCode | `LANG -id=ID` (LANG required: py/go/java/cpp/ts/rs) |
+| `daily_submission.py` | Fetch accepted submissions from LeetCode | No args |
+| `tools.py` | Backfill ratings, random/remain problems | `rating`, `lucky`, `remain` subcommands |
+| `leetcode_cookie_updater.py` | Auto-update Cookie from browser | `--repo REPO`, `--env PATH` |
+| `spider.py` | Extract holidays/problems from HTML | `holiday`, `problems` subcommands |
+| `ranking_crawler.py` | Crawl LeetCode ranking stats | No args |
 
 ## Solution Template
 
@@ -93,14 +110,14 @@ class Testcase(testcase.Testcase):
 
 All languages read from `daily-{folder}.json` config file **except Go and Rust** (see notes below).
 
-| Language | Single Problem | Multiple Problems |
-|----------|---------------|-------------------|
-| Python | `python python/test.py` | `python python/tests.py` |
-| Go | `go test -tags=goexperiment.jsonv2 golang/solution_test.go golang/test_basic.go -test.timeout 3s` | `go test -tags=goexperiment.jsonv2 golang/problems_test.go golang/test_basic.go -test.timeout 10s` |
-| Java | `mvn test -Dtest="qubhjava.test.TestMain"` | `mvn test -Dtest="qubhjava.test.ProblemsTest"` |
+| Language | Single Problem                                                                                           | Multiple Problems                                                                                                 |
+|----------|----------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------|
+| Python | `PYTHONPATH=. python python/test.py`                                                                     | `PYTHONPATH=. python python/tests.py`                                                                             |
+| Go | `go test -tags=goexperiment.jsonv2 golang/solution_test.go golang/test_basic.go -test.timeout 3s`        | `go test -tags=goexperiment.jsonv2 golang/problems_test.go golang/test_basic.go -test.timeout 10s`                |
+| Java | `mvn test -Dtest="qubhjava.test.TestMain"`                                                               | `mvn test -Dtest="qubhjava.test.ProblemsTest"`                                                                    |
 | TypeScript | `npm test --alwaysStrict --strictBindCallApply --strictFunctionTypes --target ES2022 typescript/test.ts` | `npm test --alwaysStrict --strictBindCallApply --strictFunctionTypes --target ES2022 typescript/problems.test.ts` |
-| C++ | `bazel test //:daily_test --cxxopt=-std=c++23 --cxxopt=-O2 --test_output=all` | `bazel test $(bazel query 'filter("plan_*", kind(cc_test, //...))') --cxxopt=-std=c++23 --test_output=all` |
-| Rust | `cargo test --test solution_test` | `cargo test --test solutions_test` |
+| C++ | `bazel test //:daily_test --cxxopt=-std=c++23 --cxxopt=-O2 --test_output=all`                            | `bazel test $(bazel query 'filter("plan_*", kind(cc_test, //...))') --cxxopt=-std=c++23 --test_output=all`        |
+| Rust | `cargo test --test solution_test`                                                                        | `cargo test --test solutions_test`                                                                                |
 
 ### Language-Specific Notes
 
@@ -116,7 +133,7 @@ All languages read from `daily-{folder}.json` config file **except Go and Rust**
 
 **Rust:**
 - Test configuration requires dynamic setup (like Java):
-  1. Run `python rust/cargo_setup.py` to generate minimal `Cargo.toml`
+  1. Run `PYTHONPATH=. python rust/cargo_setup.py` to generate minimal `Cargo.toml`
   2. Run `cargo test --test solution_test`
   3. Restore with `cp Cargo.toml.full Cargo.toml` when done
 - The script reads `daily-{folder}.json` and only compiles configured problems
