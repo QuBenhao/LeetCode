@@ -177,37 +177,20 @@ This creates a `link.json` file in the target problem folder:
 
 The test framework automatically resolves links and uses the linked solution.
 
-### Auto-Detect Similar Problems
+### Auto-Link Similar Problems
 
-Use the similarity checker to find and link duplicate problems:
+Auto-linking is controlled by the `AUTO_LINK_SIMILAR` environment variable:
 
-```bash
-# Check if a problem has similar existing problems
-PYTHONPATH=. python python/scripts/similarity_checker.py -i 3741
+| Setting | Behavior |
+|---------|----------|
+| `AUTO_LINK_SIMILAR=false` (default) | No auto-linking |
+| `AUTO_LINK_SIMILAR=true` | Auto-detect and link similar problems |
 
-# Check recent 10 problems for duplicates
-PYTHONPATH=. python python/scripts/similarity_checker.py --recent 10
-
-# Auto-link similar problems
-PYTHONPATH=. python python/scripts/similarity_checker.py --recent 5 --auto-link
-```
-
-The similarity checker compares:
+When enabled, the system compares:
 - Problem descriptions (normalized, ignoring constraints)
 - Method signatures (method name, parameters, return type)
 - Title similarity (ignoring version numbers like I, II, III)
 
-If only constraints differ (e.g., `n <= 100` vs `n <= 10^5`), problems are considered similar with high confidence.
+If a similar problem is found (≥70% similarity), only `link.json` is created instead of solution files.
 
-### GitHub Actions Auto-Link
-
-In GitHub Actions, auto-link is controlled by the `AUTO_LINK_SIMILAR` secret:
-
-| Secret | Value | Behavior |
-|--------|-------|----------|
-| `AUTO_LINK_SIMILAR` | `false` (default) | No auto-linking |
-| `AUTO_LINK_SIMILAR` | `true` | Auto-link similar problems in daily workflow |
-
-The auto-link checks the most recent 3 problems for duplicates. To enable:
-1. Go to repository Settings → Secrets and variables → Actions
-2. Add a new secret: `AUTO_LINK_SIMILAR` = `true`
+For GitHub Actions, set `AUTO_LINK_SIMILAR` secret to `true` in repository settings.

@@ -14,30 +14,48 @@ def get_default_folder(problem_category: str = None, paid_only: bool = False):
     return "problems" if not paid_only else "premiums"
 
 
-def resolve_link(problem_path: Path) -> Tuple[Path, Optional[dict]]:
+def resolve_link(problem_path: Path, visited: set = None, original_link_info: dict = None) -> Tuple[Path, Optional[dict]]:
     """
     Resolve problem link if link.json exists.
 
     Args:
         problem_path: Path to the problem directory
+        visited: Set of visited problem IDs (for circular link detection)
+        original_link_info: The first link info encountered (for returning to caller)
 
     Returns:
         Tuple of (resolved_path, link_info) where:
         - resolved_path: The actual problem path to use for solution
-        - link_info: The link configuration dict if linked, None otherwise
+        - link_info: The first link configuration dict encountered, None if not linked
+
+    Raises:
+        ValueError: If circular link detected
+        FileNotFoundError: If linked problem not found
     """
+    if visited is None:
+        visited = set()
+
     link_file = problem_path / "link.json"
     if not link_file.exists():
-        return problem_path, None
+        return problem_path, original_link_info
+
+    problem_id = problem_path.name.split("_")[-1]
+    if problem_id in visited:
+        raise ValueError(f"Circular link detected involving problem {problem_id}")
+    visited.add(problem_id)
 
     with link_file.open("r", encoding="utf-8") as f:
         link_info = json.load(f)
+
+    # Store the first link info encountered
+    if original_link_info is None:
+        original_link_info = link_info
 
     link_to = link_info.get("link_to")
     link_folder = link_info.get("link_folder", "problems")
 
     if not link_to:
-        return problem_path, None
+        return problem_path, original_link_info
 
     # Resolve the linked problem path
     root_path = problem_path.parent.parent
@@ -46,7 +64,8 @@ def resolve_link(problem_path: Path) -> Tuple[Path, Optional[dict]]:
     if not linked_path.exists():
         raise FileNotFoundError(f"Linked problem not found: {linked_path}")
 
-    return linked_path, link_info
+    # Recursively resolve if the linked problem also has a link
+    return resolve_link(linked_path, visited, original_link_info)
 
 
 def create_link(target_problem: str, source_problem: str, reason: str = None,
@@ -63,12 +82,28 @@ def create_link(target_problem: str, source_problem: str, reason: str = None,
 
     Returns:
         Path to the created link.json file
+
+    Raises:
+        FileNotFoundError: If target or source problem directory not found
+        ValueError: If source problem already has a link (would create chain)
     """
     root_path = Path(__file__).parent.parent.parent
     target_path = root_path / target_folder / f"{target_folder}_{target_problem}"
+    source_path = root_path / source_folder / f"{source_folder}_{source_problem}"
 
     if not target_path.exists():
         raise FileNotFoundError(f"Target problem directory not found: {target_path}")
+
+    if not source_path.exists():
+        raise FileNotFoundError(f"Source problem directory not found: {source_path}")
+
+    # Prevent linking to a linked problem (would create chain)
+    source_link_file = source_path / "link.json"
+    if source_link_file.exists():
+        raise ValueError(
+            f"Source problem {source_problem} is already linked. "
+            "Linking to a linked problem is not allowed to prevent chains."
+        )
 
     link_info = {
         "link_to": source_problem,
@@ -80,6 +115,7 @@ def create_link(target_problem: str, source_problem: str, reason: str = None,
     link_file = target_path / "link.json"
     with link_file.open("w", encoding="utf-8") as f:
         json.dump(link_info, f, indent=2, ensure_ascii=False)
+        f.write("\n")  # Add trailing newline per POSIX standards
 
     return link_file
 

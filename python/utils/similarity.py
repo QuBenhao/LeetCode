@@ -5,12 +5,16 @@ Used to find and link duplicate/similar problems.
 
 import json
 import logging
+import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, List, Tuple, Dict
 
 from python.utils import create_link
+
+# Configurable similarity threshold (0.0 to 1.0)
+SIMILARITY_THRESHOLD = float(os.getenv("SIMILARITY_THRESHOLD", "0.7"))
 
 
 @dataclass
@@ -210,7 +214,7 @@ def compare_problems(p1: ProblemInfo, p2: ProblemInfo) -> Tuple[bool, float, str
     weighted_score = sum(s[1] * s[2] for s in scores) / total_weight if total_weight > 0 else 0
 
     # Determine if similar
-    is_similar = weighted_score >= 0.7  # 70% threshold
+    is_similar = weighted_score >= SIMILARITY_THRESHOLD
 
     # Generate reason
     reasons = []
