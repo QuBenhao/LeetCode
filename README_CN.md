@@ -49,6 +49,31 @@ LOG_LEVEL="info"
 PYTHONPATH=.
 ```
 
+### 自动链接相似题目
+
+当两道题目解法相同但数据范围不同时（例如 `n <= 100` vs `n <= 10^5`），可以启用自动链接功能避免重复代码：
+
+```text
+AUTO_LINK_SIMILAR="true"  # 设置为 "true" 启用（默认关闭）
+```
+
+启用后，系统会通过比较以下内容检测相似题目：
+- 题目描述（归一化处理）
+- 方法签名（方法名、参数、返回类型）
+- 标题相似度
+
+如果发现相似题目，只创建 `link.json` 而不创建解答文件：
+
+```json
+{
+  "link_to": "3740",
+  "link_folder": "problems",
+  "reason": "Auto-detected: description matches, method_name matches, signature matches, different constraints"
+}
+```
+
+对于 GitHub Actions，在仓库设置中添加 `AUTO_LINK_SIMILAR` secret 并设为 `true`。
+
 安装 python3.14 或更高版本的要求：
 
 ```shell
