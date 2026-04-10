@@ -23,6 +23,7 @@ Create a `.env` file at repository root with:
 ```env
 PYTHONPATH=.
 PROBLEM_FOLDER="problems"
+AUTO_LINK_SIMILAR="false"  # Set to "true" to enable auto-linking similar problems
 ```
 
 Without `PYTHONPATH=.`, Python imports will fail with `ModuleNotFoundError: No module named 'python'`.
@@ -152,3 +153,61 @@ All languages read from `daily-{folder}.json` config file **except Go and Rust**
 - Base classes `Solution` and `Testcase` in `python/solution.py` and `python/testcase.py` define abstract `solve()` and `get_testcases()` methods
 - Test runner dynamically imports `solution.py` and `testcase.py` from problem folders using `importlib`
 - Language writers in `python/lc_libs/` handle multi-language solution generation and submission
+
+## Problem Linking
+
+When two problems have identical or nearly identical solutions (e.g., same problem with different constraints), use the link feature to avoid duplicate code:
+
+```bash
+# Create a link from problem 3741 to problem 3740
+PYTHONPATH=. python python/scripts/link_problem.py -t 3741 -s 3740 -r "Same problem, different constraints (n <= 10^5 vs n <= 100)"
+
+# Create link and delete existing solution files (including Cargo.toml)
+PYTHONPATH=. python python/scripts/link_problem.py -t 3741 -s 3740 -r "reason" -d
+```
+
+This creates a `link.json` file in the target problem folder:
+```json
+{
+  "link_to": "3740",
+  "link_folder": "problems",
+  "reason": "Same problem, different constraints (n <= 10^5 vs n <= 100)"
+}
+```
+
+The test framework automatically resolves links and uses the linked solution.
+
+### Auto-Detect Similar Problems
+
+Use the similarity checker to find and link duplicate problems:
+
+```bash
+# Check if a problem has similar existing problems
+PYTHONPATH=. python python/scripts/similarity_checker.py -i 3741
+
+# Check recent 10 problems for duplicates
+PYTHONPATH=. python python/scripts/similarity_checker.py --recent 10
+
+# Auto-link similar problems
+PYTHONPATH=. python python/scripts/similarity_checker.py --recent 5 --auto-link
+```
+
+The similarity checker compares:
+- Problem descriptions (normalized, ignoring constraints)
+- Method signatures (method name, parameters, return type)
+- Title similarity (ignoring version numbers like I, II, III)
+
+If only constraints differ (e.g., `n <= 100` vs `n <= 10^5`), problems are considered similar with high confidence.
+
+### GitHub Actions Auto-Link
+
+In GitHub Actions, auto-link is controlled by the `AUTO_LINK_SIMILAR` secret:
+
+| Secret | Value | Behavior |
+|--------|-------|----------|
+| `AUTO_LINK_SIMILAR` | `false` (default) | No auto-linking |
+| `AUTO_LINK_SIMILAR` | `true` | Auto-link similar problems in daily workflow |
+
+The auto-link checks the most recent 3 problems for duplicates. To enable:
+1. Go to repository Settings → Secrets and variables → Actions
+2. Add a new secret: `AUTO_LINK_SIMILAR` = `true`

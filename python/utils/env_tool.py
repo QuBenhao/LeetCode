@@ -2,7 +2,8 @@ import base64
 import json
 import re
 import time
-from typing import Optional
+from pathlib import Path
+from typing import Optional, Tuple
 
 from python.constants import COOKIE_EXPIRY_SECONDS
 
@@ -11,6 +12,76 @@ def get_default_folder(problem_category: str = None, paid_only: bool = False):
     if problem_category == "database":
         return "mysql"
     return "problems" if not paid_only else "premiums"
+
+
+def resolve_link(problem_path: Path) -> Tuple[Path, Optional[dict]]:
+    """
+    Resolve problem link if link.json exists.
+
+    Args:
+        problem_path: Path to the problem directory
+
+    Returns:
+        Tuple of (resolved_path, link_info) where:
+        - resolved_path: The actual problem path to use for solution
+        - link_info: The link configuration dict if linked, None otherwise
+    """
+    link_file = problem_path / "link.json"
+    if not link_file.exists():
+        return problem_path, None
+
+    with link_file.open("r", encoding="utf-8") as f:
+        link_info = json.load(f)
+
+    link_to = link_info.get("link_to")
+    link_folder = link_info.get("link_folder", "problems")
+
+    if not link_to:
+        return problem_path, None
+
+    # Resolve the linked problem path
+    root_path = problem_path.parent.parent
+    linked_path = root_path / link_folder / f"{link_folder}_{link_to}"
+
+    if not linked_path.exists():
+        raise FileNotFoundError(f"Linked problem not found: {linked_path}")
+
+    return linked_path, link_info
+
+
+def create_link(target_problem: str, source_problem: str, reason: str = None,
+                source_folder: str = "problems", target_folder: str = "problems") -> Path:
+    """
+    Create a link.json file for a problem.
+
+    Args:
+        target_problem: The problem ID to create link for (e.g., "3741")
+        source_problem: The problem ID to link to (e.g., "3740")
+        reason: Optional reason for the link
+        source_folder: Folder of the source problem (default: "problems")
+        target_folder: Folder of the target problem (default: "problems")
+
+    Returns:
+        Path to the created link.json file
+    """
+    root_path = Path(__file__).parent.parent.parent
+    target_path = root_path / target_folder / f"{target_folder}_{target_problem}"
+
+    if not target_path.exists():
+        raise FileNotFoundError(f"Target problem directory not found: {target_path}")
+
+    link_info = {
+        "link_to": source_problem,
+        "link_folder": source_folder,
+    }
+    if reason:
+        link_info["reason"] = reason
+
+    link_file = target_path / "link.json"
+    with link_file.open("w", encoding="utf-8") as f:
+        json.dump(link_info, f, indent=2, ensure_ascii=False)
+
+    return link_file
 
 def check_cookie_expired(cookie: Optional[str]) -> bool:
     """

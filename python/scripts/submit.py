@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 sys.path.append(Path(__file__).parent.parent.parent.as_posix())
 from python import lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, back_question_id, format_question_id, check_cookie_expired
+from python.utils import get_default_folder, back_question_id, format_question_id, check_cookie_expired, resolve_link
 
 _LANG_TRANS_MAP = {
     "go": "golang",
@@ -46,6 +46,17 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
             logging.error(f"Unable to get problem_id: {problem_id}, check input or environments folder")
             return
         load_code = True
+
+    # Resolve link if exists
+    problem_path = root_path / problem_folder / f"{problem_folder}_{problem_id}"
+    if problem_path.exists():
+        solution_path, link_info = resolve_link(problem_path)
+        if link_info:
+            linked_problem_id = link_info["link_to"]
+            logging.info(f"Problem {problem_id} is linked to {linked_problem_id}: {link_info.get('reason', 'No reason provided')}")
+            problem_id = linked_problem_id
+            problem_path = solution_path
+
     if not problem_slug:
         origin_problem_id = back_question_id(problem_id)
         if not cookie:

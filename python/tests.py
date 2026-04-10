@@ -8,7 +8,7 @@ from importlib.util import spec_from_file_location, module_from_spec
 
 import constants
 from dotenv import load_dotenv
-from utils import get_default_folder, timeout
+from utils import get_default_folder, timeout, resolve_link
 
 logging.basicConfig(level=logging.INFO, format=constants.LOGGING_FORMAT, datefmt=constants.DATE_FORMAT)
 
@@ -24,7 +24,7 @@ class Test(unittest.TestCase):
         problem_folder = os.getenv(constants.PROBLEM_FOLDER, None)
         if not problem_folder:
             problem_folder = get_default_folder()
-        
+
         json_file = root_path / f"daily-{problem_folder}.json"
         with json_file.open("r", encoding="utf-8") as json_file:
             daily_json = json.loads(json_file.read())
@@ -42,7 +42,12 @@ class Test(unittest.TestCase):
                     problem_path = root_path / tmp_folder / f"{tmp_folder}_{q}"
                 self.assertTrue(problem_path.exists(), msg="Please set up the problem env first!")
 
-                solution_spec = spec_from_file_location("module.name", str(problem_path / "solution.py"))
+                # Resolve link if exists
+                solution_path, link_info = resolve_link(problem_path)
+                if link_info:
+                    logging.info(f"Problem {q} is linked to {link_info['link_to']}: {link_info.get('reason', 'No reason provided')}")
+
+                solution_spec = spec_from_file_location("module.name", str(solution_path / "solution.py"))
                 solution = module_from_spec(solution_spec)
                 solution_spec.loader.exec_module(solution)
                 solution_obj = solution.Solution()

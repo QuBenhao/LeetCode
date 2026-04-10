@@ -45,7 +45,7 @@ from python.lc_libs import get_daily_question, query_my_favorites, batch_add_que
     query_favorite_questions, contest as contest_lib
 import python.lc_libs as lc_libs
 from python.scripts.submit import main as submit_main_async
-from python.utils import back_question_id, format_question_id, check_cookie_expired
+from python.utils import back_question_id, format_question_id, check_cookie_expired, create_link
 from python.scripts.daily_auto import main as daily_auto_main
 from python.scripts.get_problem import main as get_problem_main, get_question_slug_by_id
 from python.scripts.tools import lucky_main, remain_main, clean_empty_java_main, clean_error_rust_main
@@ -725,6 +725,53 @@ def favorite_main(languages, problem_folder, cookie):
                     break
 
 
+def link_problems(problem_folder):
+    """Link two problems with identical solutions"""
+    target_id = input_until_valid(
+        t("link_target_id"), allow_all_not_empty, t("get_problem_id_empty")
+    )
+    target_id = back_question_id(target_id)
+
+    source_id = input_until_valid(
+        t("link_source_id"), allow_all_not_empty, t("get_problem_id_empty")
+    )
+    source_id = back_question_id(source_id)
+
+    reason = input_until_valid(
+        t("link_reason"), allow_all
+    )
+
+    delete_solution = input_until_valid(
+        t("link_delete_solution"), allow_all
+    )
+
+    print(SEPARATE_LINE)
+
+    try:
+        link_file = create_link(
+            target_problem=target_id,
+            source_problem=source_id,
+            reason=reason if reason else None,
+            source_folder=problem_folder,
+            target_folder=problem_folder
+        )
+        print(t("link_success", target=target_id, source=source_id))
+
+        if delete_solution == "y":
+            target_path = root_path / problem_folder / f"{problem_folder}_{target_id}"
+            solution_files = ["solution.py", "solution.go", "Solution.java", "Solution.cpp", "solution.rs", "solution.ts", "Cargo.toml"]
+            for sol_file in solution_files:
+                file_path = target_path / sol_file
+                if file_path.exists():
+                    file_path.unlink()
+                    print(f"Deleted: {sol_file}")
+
+    except Exception as e:
+        print(t("link_failed", msg=str(e)))
+
+    print(SEPARATE_LINE)
+
+
 # ============================================================================
 # Main Entry Point
 # ============================================================================
@@ -773,6 +820,8 @@ def main():
                 case "7":
                     favorite_main(languages, problem_folder, cookie)
                     print(SEPARATE_LINE)
+                case "8":
+                    link_problems(problem_folder)
                 case _:
                     print(t("main_exit"))
                     break
