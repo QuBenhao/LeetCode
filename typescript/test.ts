@@ -31,22 +31,42 @@ if (fs.existsSync(dailyFilePath)) {
 const dailyProblems: any = JSON.parse(dailyFileContent);
 const PROBLEM_ID: string = dailyProblems.daily;
 
-// Resolve link if exists
-function resolveLink(problemPath: string): { resolvedPath: string; linkInfo: any } {
-    const linkPath = path.join(problemPath, 'link.json');
-    if (!fs.existsSync(linkPath)) {
-        return { resolvedPath: problemPath, linkInfo: null };
+// Resolve link if exists (with cycle detection)
+function resolveLink(problemPath: string, problemId: string): { resolvedPath: string; linkInfo: any } {
+    const visited = new Set<string>();
+    visited.add(problemId);
+    let currentPath = problemPath;
+    let currentId = problemId;
+    let linkInfo: any = null;
+
+    while (true) {
+        const linkPath = path.join(currentPath, 'link.json');
+        if (!fs.existsSync(linkPath)) {
+            break;
+        }
+
+        const linkContent = fs.readFileSync(linkPath, 'utf-8');
+        const currentLinkInfo = JSON.parse(linkContent);
+        const linkTo = currentLinkInfo.link_to;
+        const linkFolder = currentLinkInfo.link_folder || 'problems';
+
+        if (visited.has(linkTo)) {
+            console.error(`Circular link detected involving problem ${linkTo}`);
+            break;
+        }
+        visited.add(linkTo);
+
+        console.log(`Problem ${currentId} is linked to ${linkTo}: ${currentLinkInfo.reason || 'No reason provided'}`);
+
+        if (!linkInfo) {
+            linkInfo = currentLinkInfo;
+        }
+
+        currentId = linkTo;
+        currentPath = path.join(linkFolder, `${linkFolder}_${linkTo}`);
     }
 
-    const linkContent = fs.readFileSync(linkPath, 'utf-8');
-    const linkInfo = JSON.parse(linkContent);
-    const linkTo = linkInfo.link_to;
-    const linkFolder = linkInfo.link_folder || 'problems';
-
-    console.log(`Problem ${PROBLEM_ID} is linked to ${linkTo}: ${linkInfo.reason || 'No reason provided'}`);
-
-    const resolvedPath = path.join(linkFolder, `${linkFolder}_${linkTo}`);
-    return { resolvedPath, linkInfo };
+    return { resolvedPath: currentPath, linkInfo };
 }
 
 describe("TestMain===" + PROBLEM_ID, () => {
@@ -58,7 +78,7 @@ describe("TestMain===" + PROBLEM_ID, () => {
 
     // Resolve link if exists
     if (fs.existsSync(problemPath)) {
-        const { resolvedPath, linkInfo } = resolveLink(problemPath);
+        const { resolvedPath, linkInfo } = resolveLink(problemPath, PROBLEM_ID);
         if (linkInfo) {
             solPath = path.join(resolvedPath, 'solution.ts');
         }

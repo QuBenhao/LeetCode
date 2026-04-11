@@ -62,22 +62,37 @@ public class TestMain {
         }
         PROBLEM_ID = problemId;
 
-        // Resolve link if exists
+        // Resolve link if exists (with cycle detection)
         String resolvedProblemId = problemId;
-        try {
-            Path linkPath = Paths.get(problemFolder, String.format("%s_%s", problemFolder, problemId), "link.json");
-            if (Files.exists(linkPath)) {
+        String resolvedFolder = problemFolder;
+        java.util.Set<String> visited = new java.util.HashSet<>();
+        visited.add(problemId);
+
+        while (true) {
+            try {
+                Path linkPath = Paths.get(resolvedFolder, String.format("%s_%s", resolvedFolder, resolvedProblemId), "link.json");
+                if (!Files.exists(linkPath)) {
+                    break;
+                }
                 String linkContent = new String(Files.readAllBytes(linkPath));
                 JSONObject linkJson = JSONObject.parseObject(linkContent);
                 String linkTo = linkJson.getString("link_to");
+                String linkFolder = linkJson.containsKey("link_folder") ? linkJson.getString("link_folder") : resolvedFolder;
                 String reason = linkJson.getString("reason");
-                if (!Strings.isNullOrEmpty(linkTo)) {
-                    resolvedProblemId = linkTo;
-                    log.info("Problem {} is linked to {}: {}", problemId, linkTo, reason != null ? reason : "No reason provided");
+
+                if (visited.contains(linkTo)) {
+                    log.error("Circular link detected involving problem {}", linkTo);
+                    break;
                 }
+                visited.add(linkTo);
+
+                log.info("Problem {} is linked to {}: {}", resolvedProblemId, linkTo, reason != null ? reason : "No reason provided");
+                resolvedProblemId = linkTo;
+                resolvedFolder = linkFolder;
+            } catch (IOException e) {
+                log.error("Error reading link.json", e);
+                break;
             }
-        } catch (IOException e) {
-            log.error("Error reading link.json", e);
         }
         RESOLVED_PROBLEM_ID = resolvedProblemId;
 
