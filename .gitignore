@@ -62,3 +62,5 @@ rust/build/
 
 # cmake
 cmake-*/
+# Local Maven wrapper (personal Java version)
+mvnw25

@@ -2,11 +2,23 @@
 
 load("@rules_cc//cc:cc_test.bzl", "cc_test")
 
-def add_files(fname, path):
+def _get_resolved_path(path, link_mappings):
+    """Get the resolved path for a problem, following links if necessary."""
+    folder_name = path.rsplit("/", 1)[-1] if "/" in path else path
+    if folder_name in link_mappings:
+        linked_folder = link_mappings[folder_name]
+        parent = path.rsplit("/", 1)[0] if "/" in path else ""
+        return parent + "/" + linked_folder if parent else linked_folder
+    return path
+
+def add_files(fname, path, link_mappings = {}):
+    # Resolve link if necessary
+    resolved_path = _get_resolved_path(path, link_mappings)
+
     native.filegroup(
         name = fname,
         srcs = native.glob([
-            "{}/*.cpp".format(path),
+            "{}/*.cpp".format(resolved_path),
         ]),
     )
     native.filegroup(
@@ -41,21 +53,21 @@ def create_cc_tests(fname, file_group):
         stamp = 1,
     )
 
-def generate_cc_tests():
+def generate_cc_tests(link_mappings = {}):
     for subdir in native.glob(["*/**/Solution.cpp"]):
         if subdir.startswith("acoier/"):
             continue
         sub_dir_name = subdir.split("/")[1]
         dir_name = subdir.split("/Solution.cpp")[0]
         test_name = sub_dir_name.replace("/", "_")
-        add_files(fname = sub_dir_name, path = dir_name)
+        add_files(fname = sub_dir_name, path = dir_name, link_mappings = link_mappings)
         create_cc_tests(fname = test_name, file_group = sub_dir_name)
 
-def gen_daily(folder, problem, plans):
+def gen_daily(folder, problem, plans, link_mappings = {}):
     # split plans by comma
     fname = "daily"
     path = "%s/%s_%s" % (folder, folder, problem)
-    add_files(fname = fname, path = path)
+    add_files(fname = fname, path = path, link_mappings = link_mappings)
     create_cc_tests(fname = fname, file_group = fname)
     for i in range(0, len(plans), 2):
         fname = "problem%s" % (i // 2)
@@ -63,5 +75,5 @@ def gen_daily(folder, problem, plans):
         f = plans[i + 1]
         path = "%s/%s_%s" % (f, f, plan)
         test_name = "plan_%s_%s" % (f, plan)
-        add_files(fname = fname, path = path)
+        add_files(fname = fname, path = path, link_mappings = link_mappings)
         create_cc_tests(fname = test_name, file_group = fname)

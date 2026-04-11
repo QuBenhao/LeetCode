@@ -47,15 +47,18 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
             return
         load_code = True
 
-    # Resolve link if exists
+    # Resolve link if exists (only for code, not for problem ID)
+    solution_problem_id = problem_id
+    solution_folder = problem_folder
     problem_path = root_path / problem_folder / f"{problem_folder}_{problem_id}"
     if problem_path.exists():
         solution_path, link_info = resolve_link(problem_path)
         if link_info:
             linked_problem_id = link_info["link_to"]
-            logging.info(f"Problem {problem_id} is linked to {linked_problem_id}: {link_info.get('reason', 'No reason provided')}")
-            problem_id = linked_problem_id
-            problem_path = solution_path
+            linked_folder = link_info.get("link_folder", problem_folder)
+            logging.info(f"Problem {problem_id} uses solution from {linked_problem_id}: {link_info.get('reason', 'No reason provided')}")
+            solution_problem_id = linked_problem_id
+            solution_folder = linked_folder
 
     if not problem_slug:
         origin_problem_id = back_question_id(problem_id)
@@ -86,7 +89,7 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
     if not problem_folder:
         problem_folder = get_default_folder(paid_only=is_paid_only)
     if not load_code:
-        code, _ = obj.get_solution_code(root_path, problem_folder, problem_id)
+        code, _ = obj.get_solution_code(root_path, solution_folder, solution_problem_id)
         if not code:
             logging.error(f"No solution for problem [{problem_id}.{problem_slug}] yet!")
             return

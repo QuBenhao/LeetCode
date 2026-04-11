@@ -20,6 +20,9 @@ import com.alibaba.fastjson.JSONObject;
 import qubhjava.BaseSolution;
 import java.io.FileInputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 @Timeout(10)
@@ -27,6 +30,7 @@ public class TestMain {
 
     private static final Logger log = LoggerFactory.getLogger(TestMain.class);
     private static final String PROBLEM_ID, PROBLEM_FOLDER;
+    private static final String RESOLVED_PROBLEM_ID;  // Problem ID after resolving link
 
     static {
         String problemId = null;
@@ -57,7 +61,27 @@ public class TestMain {
             throw new RuntimeException("Problem ID is not set in daily-{problemFolder}.json");
         }
         PROBLEM_ID = problemId;
-        log.info("Problem ID: {}, Problem Folder: {}", PROBLEM_ID, PROBLEM_FOLDER);
+
+        // Resolve link if exists
+        String resolvedProblemId = problemId;
+        try {
+            Path linkPath = Paths.get(problemFolder, String.format("%s_%s", problemFolder, problemId), "link.json");
+            if (Files.exists(linkPath)) {
+                String linkContent = new String(Files.readAllBytes(linkPath));
+                JSONObject linkJson = JSONObject.parseObject(linkContent);
+                String linkTo = linkJson.getString("link_to");
+                String reason = linkJson.getString("reason");
+                if (!Strings.isNullOrEmpty(linkTo)) {
+                    resolvedProblemId = linkTo;
+                    log.info("Problem {} is linked to {}: {}", problemId, linkTo, reason != null ? reason : "No reason provided");
+                }
+            }
+        } catch (IOException e) {
+            log.error("Error reading link.json", e);
+        }
+        RESOLVED_PROBLEM_ID = resolvedProblemId;
+
+        log.info("Problem ID: {}, Problem Folder: {}, Resolved Problem ID: {}", PROBLEM_ID, PROBLEM_FOLDER, RESOLVED_PROBLEM_ID);
     }
 
     @TestFactory
@@ -70,7 +94,7 @@ public class TestMain {
             log.error("Load Testcases error");
             return tests;
         }
-        Class<BaseSolution> dynamicClass = (Class<BaseSolution>)Class.forName(String.format("%s.%s_%s.Solution", PROBLEM_FOLDER, PROBLEM_FOLDER, PROBLEM_ID));
+        Class<BaseSolution> dynamicClass = (Class<BaseSolution>)Class.forName(String.format("%s.%s_%s.Solution", PROBLEM_FOLDER, PROBLEM_FOLDER, RESOLVED_PROBLEM_ID));
         BaseSolution baseSolution = dynamicClass.getDeclaredConstructor().newInstance();
         int idx = 0;
         for (Testcase testcase : testcases) {

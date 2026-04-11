@@ -31,11 +31,39 @@ if (fs.existsSync(dailyFilePath)) {
 const dailyProblems: any = JSON.parse(dailyFileContent);
 const PROBLEM_ID: string = dailyProblems.daily;
 
+// Resolve link if exists
+function resolveLink(problemPath: string): { resolvedPath: string; linkInfo: any } {
+    const linkPath = path.join(problemPath, 'link.json');
+    if (!fs.existsSync(linkPath)) {
+        return { resolvedPath: problemPath, linkInfo: null };
+    }
+
+    const linkContent = fs.readFileSync(linkPath, 'utf-8');
+    const linkInfo = JSON.parse(linkContent);
+    const linkTo = linkInfo.link_to;
+    const linkFolder = linkInfo.link_folder || 'problems';
+
+    console.log(`Problem ${PROBLEM_ID} is linked to ${linkTo}: ${linkInfo.reason || 'No reason provided'}`);
+
+    const resolvedPath = path.join(linkFolder, `${linkFolder}_${linkTo}`);
+    return { resolvedPath, linkInfo };
+}
+
 describe("TestMain===" + PROBLEM_ID, () => {
     dotenv.config();
     let problemFolder: string = (process.env.PROBLEM_FOLDER && process.env.PROBLEM_FOLDER.length > 0) ? process.env.PROBLEM_FOLDER : "problems";
-    let testCasePath: string = path.join(problemFolder, `${problemFolder}_${PROBLEM_ID}`, 'testcase');
-    let solPath: string = path.join(problemFolder, `${problemFolder}_${PROBLEM_ID}`, 'solution.ts');
+    let problemPath: string = path.join(problemFolder, `${problemFolder}_${PROBLEM_ID}`);
+    let testCasePath: string = path.join(problemPath, 'testcase');
+    let solPath: string = path.join(problemPath, 'solution.ts');
+
+    // Resolve link if exists
+    if (fs.existsSync(problemPath)) {
+        const { resolvedPath, linkInfo } = resolveLink(problemPath);
+        if (linkInfo) {
+            solPath = path.join(resolvedPath, 'solution.ts');
+        }
+    }
+
     if (!fs.existsSync(testCasePath)) {
         console.log(`Problem in ${problemFolder} not found, try premiums...`);
         testCasePath = path.join('premiums', `premiums_${PROBLEM_ID}`, 'testcase');
