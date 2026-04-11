@@ -2,6 +2,77 @@
 
 <!-- version list -->
 
+## v11.0.0 (2026-04-11)
+
+### Bug Fixes
+
+- Address code review issues for PR #183 ([#183](https://github.com/QuBenhao/LeetCode/pull/183),
+  [`75abe4c`](https://github.com/QuBenhao/LeetCode/commit/75abe4c55fa8cda3c5d991c6d227bc61926a4707))
+
+- Remove review doc ([#183](https://github.com/QuBenhao/LeetCode/pull/183),
+  [`75abe4c`](https://github.com/QuBenhao/LeetCode/commit/75abe4c55fa8cda3c5d991c6d227bc61926a4707))
+
+### Documentation
+
+- Update CLAUDE.md with PYTHONPATH and utility scripts
+  ([`1160b04`](https://github.com/QuBenhao/LeetCode/commit/1160b040c777905ec08c3101dafe86359399e313))
+
+- Update README_CN.md with problem linking feature
+  ([#183](https://github.com/QuBenhao/LeetCode/pull/183),
+  [`75abe4c`](https://github.com/QuBenhao/LeetCode/commit/75abe4c55fa8cda3c5d991c6d227bc61926a4707))
+
+### Features
+
+- Add link resolution for multi-language submit and testing
+  ([#183](https://github.com/QuBenhao/LeetCode/pull/183),
+  [`75abe4c`](https://github.com/QuBenhao/LeetCode/commit/75abe4c55fa8cda3c5d991c6d227bc61926a4707))
+
+- Add problem linking feature for duplicate problems
+  ([#183](https://github.com/QuBenhao/LeetCode/pull/183),
+  [`75abe4c`](https://github.com/QuBenhao/LeetCode/commit/75abe4c55fa8cda3c5d991c6d227bc61926a4707))
+
+### Testing
+
+- 2087 solution
+  ([`b83f76b`](https://github.com/QuBenhao/LeetCode/commit/b83f76bcccbd53c2e7a3f29a4a26c3c1d6a5f4d3))
+
+- 3655 solution
+  ([`64df0a5`](https://github.com/QuBenhao/LeetCode/commit/64df0a5a7b678601d4063b2d4b3d80e2776c33e9))
+
+- 3661 solution
+  ([`eaecf90`](https://github.com/QuBenhao/LeetCode/commit/eaecf900352f840102b1f9c409d82ec62345e5b1))
+
+- 3740 solution
+  ([`695bff8`](https://github.com/QuBenhao/LeetCode/commit/695bff840b465a5f710aa275b5515d4ffc3ec265))
+
+- 874 solution
+  ([`aed5492`](https://github.com/QuBenhao/LeetCode/commit/aed5492d9f8702d74e295a7f34c8230b30f567be))
+
+- [20260404] Add (2087)
+  ([`0186816`](https://github.com/QuBenhao/LeetCode/commit/01868164d6f033afebac98ee6176666a604c9397))
+
+- [20260405] Add (657)
+  ([`95268fe`](https://github.com/QuBenhao/LeetCode/commit/95268fee88103c6465d05ce3da8c9e42f590cab4))
+
+- [20260406] Add (874)
+  ([`4c6b82a`](https://github.com/QuBenhao/LeetCode/commit/4c6b82a9296409c860802d1b800c09663efdb818))
+
+- [20260407] Add (2069)
+  ([`f0d086b`](https://github.com/QuBenhao/LeetCode/commit/f0d086bd40b3a61bae5f7064bdddcd46507f68ab))
+
+- [20260408] Add (3653)
+  ([`4778f5a`](https://github.com/QuBenhao/LeetCode/commit/4778f5af80369fe8a3261034c111445ab77f1a28))
+
+- [20260409] Add (3655)
+  ([`b0cbacf`](https://github.com/QuBenhao/LeetCode/commit/b0cbacfe21564678a8674a5042cdacf4250a5696))
+
+- [20260410] Add (3740)
+  ([`25f3bcb`](https://github.com/QuBenhao/LeetCode/commit/25f3bcbdcdaebfaa07cc57dae32a69862d2dfb7a))
+
+- [20260411] Add (3741)
+  ([`3ebeaf0`](https://github.com/QuBenhao/LeetCode/commit/3ebeaf00e5c93d6247734c19bd6ab384e5a72578))
+
+
 ## v10.14.0 (2026-04-02)
 
 ### Features
