@@ -71,7 +71,7 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_continue": "继续使用现有 Cookie...",
 
         # Main menu
-        "main_menu": "请选择功能 [0-7, 默认: 0]:\n0. 退出\n1. 获取题目\n2. 提交代码\n3. 切换测试题目\n4. 比赛\n5. 清理空 Java 文件\n6. 清理错误 Rust 文件\n7. 收藏夹管理\n",
+        "main_menu": "请选择功能 [0-8, 默认: 0]:\n0. 退出\n1. 获取题目\n2. 提交代码\n3. 切换测试题目\n4. 比赛\n5. 清理空 Java 文件\n6. 清理错误 Rust 文件\n7. 收藏夹管理\n8. 创建题目链接\n",
         "main_exit": "正在退出...",
         "main_bye": "再见！",
 
@@ -122,6 +122,14 @@ I18N: Dict[str, Dict[str, str]] = {
         "change_test_success": "已将 {lang} 测试切换到 {id}",
         "clean_done": "清理完成",
         "lang_not_support": "{lang} 不支持",
+
+        # Link problems
+        "link_target_id": "输入目标题目 ID (创建链接的题目): ",
+        "link_source_id": "输入源题目 ID (链接指向的题目): ",
+        "link_reason": "输入链接原因 (可选，回车跳过): ",
+        "link_delete_solution": "是否删除目标题目的解答文件? [y/n, 默认: n]: ",
+        "link_success": "题目 {target} 已链接到 {source}",
+        "link_failed": "创建链接失败: {msg}",
     },
     "en": {
         # Separator
@@ -183,7 +191,7 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_continue": "Continuing with existing cookie...",
 
         # Main menu
-        "main_menu": "Please select the main function [0-7, default: 0]:\n0. Exit\n1. Get problem\n2. Submit\n3. Change test problem\n4. Contest\n5. Clean empty java\n6. Clean error rust\n7. Favorite management\n",
+        "main_menu": "Please select the main function [0-8, default: 0]:\n0. Exit\n1. Get problem\n2. Submit\n3. Change test problem\n4. Contest\n5. Clean empty java\n6. Clean error rust\n7. Favorite management\n8. Link problems\n",
         "main_exit": "Exiting...",
         "main_bye": "Bye!",
 
@@ -234,6 +242,14 @@ I18N: Dict[str, Dict[str, str]] = {
         "change_test_success": "Successfully change {lang} test to {id}",
         "clean_done": "Done",
         "lang_not_support": "{lang} not support",
+
+        # Link problems
+        "link_target_id": "Enter target problem ID (the problem to create link for): ",
+        "link_source_id": "Enter source problem ID (the problem to link to): ",
+        "link_reason": "Enter link reason (optional, press enter to skip): ",
+        "link_delete_solution": "Delete solution files in target problem? [y/n, default: n]: ",
+        "link_success": "Problem {target} is now linked to {source}",
+        "link_failed": "Failed to create link: {msg}",
     }
 }
 

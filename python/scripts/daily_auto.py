@@ -5,7 +5,7 @@ import traceback
 import logging
 from collections import defaultdict
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional, List, Tuple
 
 from dotenv import load_dotenv
 
@@ -15,11 +15,32 @@ from python.lc_libs import (get_daily_question, get_question_desc, get_question_
                             get_question_info, get_question_code, get_question_desc_cn)
 import python.lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, send_text_message, check_cookie_expired
+from python.utils import (get_default_folder, send_text_message, check_cookie_expired,
+                          find_similar_existing_problem, extract_method_from_template, create_link)
 
 
 def write_question(root_path, dir_path, problem_folder: str, question_id: str, question_name: str,
-                   slug: str, languages: List[str] = None, cookie: str = None) -> List[str]:
+                   slug: str, languages: List[str] = None, cookie: str = None,
+                   auto_link: bool = False) -> Tuple[List[str], bool]:
+    """
+    Write question files to the problem directory.
+
+    Args:
+        root_path: Repository root path
+        dir_path: Problem directory path
+        problem_folder: Problem folder name
+        question_id: Question ID
+        question_name: Question name
+        slug: Question slug
+        languages: List of languages to generate solutions for
+        cookie: LeetCode cookie
+        auto_link: Whether to auto-link similar problems
+
+    Returns:
+        Tuple of (success_languages, is_linked) where:
+        - success_languages: List of languages that were successfully written
+        - is_linked: True if the problem was linked to an existing similar problem
+    """
     desc = get_question_desc(slug, cookie)
     cn_result = get_question_desc_cn(slug, cookie)
     cn_desc = None
@@ -62,11 +83,35 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
                                   str(outputs).replace("None", "null")
                                  .replace("True", "true").replace("False", "false")
                                  .replace("'", "\"")])
+
+    # Check for similar existing problem before writing solutions
+    if auto_link and languages:
+        code_map = get_question_code(slug, lang_slugs=["python3"], cookie=cookie)
+        if code_map and "python3" in code_map:
+            method_name, method_signature = extract_method_from_template(code_map["python3"])
+            similar = find_similar_existing_problem(
+                root_path, problem_folder, question_id,
+                question_name, desc or "", method_name, method_signature
+            )
+            if similar:
+                similar_id, score, reason = similar
+                logging.info(f"Found similar problem {similar_id} for {question_id} (score: {score:.2f}, reason: {reason})")
+                create_link(
+                    target_problem=question_id,
+                    source_problem=similar_id,
+                    reason=f"Auto-detected: {reason}",
+                    source_folder=problem_folder,
+                    target_folder=problem_folder
+                )
+                logging.info(f"Auto-linked {question_id} -> {similar_id}")
+                logging.info(f"Add question: [{question_id}]{slug} (linked to {similar_id})")
+                return [], True
+
     if not languages:
-        return []
+        return [], False
     code_map = get_question_code(slug, lang_slugs=languages, cookie=cookie)
     if code_map is None:
-        return []
+        return [], False
     success_languages = []
     for language in languages:
         try:
@@ -91,10 +136,10 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
             logging.error(f"Failed to write [{question_id}] {language}solution", exc_info=True)
             continue
     logging.info(f"Add question: [{question_id}]{slug}")
-    return success_languages
+    return success_languages, False
 
 
-def process_daily(languages: list[str], problem_folder: str = None):
+def process_daily(languages: list[str], problem_folder: str = None, cookie: str = None, auto_link: bool = False):
     daily_info = get_daily_question()
     if not daily_info:
         return 1
@@ -107,24 +152,29 @@ def process_daily(languages: list[str], problem_folder: str = None):
         dir_path.mkdir(exist_ok=True, parents=True)
     else:
         logging.warning("Already solved {} before".format(daily_info['questionId']))
-    success_languages = write_question(root_path, dir_path, tmp, question_id,
-                                       daily_info['questionNameEn'], daily_info['questionSlug'], languages)
-    logging.debug(f"Success languages: {success_languages}")
-    for lang in success_languages:
-        try:
-            cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
-            if not cls:
-                logging.warning(f"{lang} Language Writer not supported yet")
+    success_languages, is_linked = write_question(
+        root_path, dir_path, tmp, question_id,
+        daily_info['questionNameEn'], daily_info['questionSlug'], languages, cookie, auto_link
+    )
+    logging.debug(f"Success languages: {success_languages}, linked: {is_linked}")
+
+    # Only change test if not linked
+    if not is_linked:
+        for lang in success_languages:
+            try:
+                cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
+                if not cls:
+                    logging.warning(f"{lang} Language Writer not supported yet")
+                    continue
+                obj: lc_libs.LanguageWriter = cls()
+                obj.change_test(root_path, tmp, question_id)
+            except Exception as _:
+                logging.error(f"Failed to change daily test for {lang}", exc_info=True)
                 continue
-            obj: lc_libs.LanguageWriter = cls()
-            obj.change_test(root_path, tmp, question_id)
-        except Exception as _:
-            logging.error(f"Failed to change daily test for {lang}", exc_info=True)
-            continue
     return None
 
 
-def process_plans(cookie: str, languages: List[str] = None, problem_folder: str = None):
+def process_plans(cookie: str, languages: List[str] = None, problem_folder: str = None, auto_link: bool = False):
     if check_cookie_expired(cookie):
         logging.warning("Cookie may have expired; please check!")
     plans = get_user_study_plans(cookie)
@@ -150,10 +200,13 @@ def process_plans(cookie: str, languages: List[str] = None, problem_folder: str 
             dir_path = root_path / tmp_folder / f"{tmp_folder}_{question_id}"
             if not dir_path.exists():
                 dir_path.mkdir(exist_ok=True, parents=True)
-            suc_langs = write_question(root_path, dir_path, tmp_folder, question_id, info["title"],
-                                       question_slug, languages, cookie)
-            for lang in suc_langs:
-                success_languages[lang].append([question_id, tmp_folder])
+            suc_langs, is_linked = write_question(
+                root_path, dir_path, tmp_folder, question_id, info["title"],
+                question_slug, languages, cookie, auto_link
+            )
+            if not is_linked:
+                for lang in suc_langs:
+                    success_languages[lang].append([question_id, tmp_folder])
     logging.debug(f"Success languages: {success_languages}")
     if success_languages:
         for lang, problem_ids in success_languages.items():
@@ -171,11 +224,13 @@ def process_plans(cookie: str, languages: List[str] = None, problem_folder: str 
         logging.info("No recommended questions in the study plan today!")
 
 
-def main(problem_folder: str = None, cookie: Optional[str] = None, languages: list[str] = None):
+def main(problem_folder: str = None, cookie: Optional[str] = None, languages: list[str] = None,
+         auto_link: bool = False):
+    root_path = Path(__file__).parent.parent.parent
     try:
-        process_daily(languages, problem_folder)
+        process_daily(languages, problem_folder, cookie, auto_link)
         if cookie is not None and len(cookie) > 0:
-            process_plans(cookie, languages, problem_folder)
+            process_plans(cookie, languages, problem_folder, auto_link)
     except Exception as _:
         logging.error("Failed to process daily and plans", exc_info=True)
         return 1
@@ -204,5 +259,9 @@ if __name__ == '__main__':
     except Exception as ex:
         logging.debug("Failed to get languages from env, use default python3", exc_info=True)
         langs = ["python3"]
-    exec_res = main(pf, cke, langs)
+
+    # Auto-link similar problems (disabled by default)
+    auto_link = os.getenv("AUTO_LINK_SIMILAR", "false").lower() in ("true", "1", "yes")
+
+    exec_res = main(pf, cke, langs, auto_link)
     sys.exit(exec_res)

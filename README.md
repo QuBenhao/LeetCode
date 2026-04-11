@@ -50,6 +50,31 @@ LOG_LEVEL="info"
 PYTHONPATH=.
 ```
 
+### Auto-Link Similar Problems
+
+When two problems have identical solutions but different constraints (e.g., `n <= 100` vs `n <= 10^5`), enable auto-linking to avoid duplicate code:
+
+```text
+AUTO_LINK_SIMILAR="true"  # Set to "true" to enable (disabled by default)
+```
+
+When enabled, similar problems are detected by comparing:
+- Problem descriptions (normalized)
+- Method signatures (method name, parameters, return type)
+- Title similarity
+
+If a similar problem is found, only `link.json` is created instead of solution files:
+
+```json
+{
+  "link_to": "3740",
+  "link_folder": "problems",
+  "reason": "Auto-detected: description matches, method_name matches, signature matches, different constraints"
+}
+```
+
+For GitHub Actions, set `AUTO_LINK_SIMILAR` secret to `true` in repository settings.
+
 install python3.14 or higher requirements:
 
 ```shell

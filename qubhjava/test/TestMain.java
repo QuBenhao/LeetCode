@@ -20,6 +20,9 @@ import com.alibaba.fastjson.JSONObject;
 import qubhjava.BaseSolution;
 import java.io.FileInputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 
 @Timeout(10)
@@ -27,6 +30,7 @@ public class TestMain {
 
     private static final Logger log = LoggerFactory.getLogger(TestMain.class);
     private static final String PROBLEM_ID, PROBLEM_FOLDER;
+    private static final String RESOLVED_PROBLEM_ID;  // Problem ID after resolving link
 
     static {
         String problemId = null;
@@ -57,7 +61,42 @@ public class TestMain {
             throw new RuntimeException("Problem ID is not set in daily-{problemFolder}.json");
         }
         PROBLEM_ID = problemId;
-        log.info("Problem ID: {}, Problem Folder: {}", PROBLEM_ID, PROBLEM_FOLDER);
+
+        // Resolve link if exists (with cycle detection)
+        String resolvedProblemId = problemId;
+        String resolvedFolder = problemFolder;
+        java.util.Set<String> visited = new java.util.HashSet<>();
+        visited.add(problemId);
+
+        while (true) {
+            try {
+                Path linkPath = Paths.get(resolvedFolder, String.format("%s_%s", resolvedFolder, resolvedProblemId), "link.json");
+                if (!Files.exists(linkPath)) {
+                    break;
+                }
+                String linkContent = new String(Files.readAllBytes(linkPath));
+                JSONObject linkJson = JSONObject.parseObject(linkContent);
+                String linkTo = linkJson.getString("link_to");
+                String linkFolder = linkJson.containsKey("link_folder") ? linkJson.getString("link_folder") : resolvedFolder;
+                String reason = linkJson.getString("reason");
+
+                if (visited.contains(linkTo)) {
+                    log.error("Circular link detected involving problem {}", linkTo);
+                    break;
+                }
+                visited.add(linkTo);
+
+                log.info("Problem {} is linked to {}: {}", resolvedProblemId, linkTo, reason != null ? reason : "No reason provided");
+                resolvedProblemId = linkTo;
+                resolvedFolder = linkFolder;
+            } catch (IOException e) {
+                log.error("Error reading link.json", e);
+                break;
+            }
+        }
+        RESOLVED_PROBLEM_ID = resolvedProblemId;
+
+        log.info("Problem ID: {}, Problem Folder: {}, Resolved Problem ID: {}", PROBLEM_ID, PROBLEM_FOLDER, RESOLVED_PROBLEM_ID);
     }
 
     @TestFactory
@@ -70,7 +109,7 @@ public class TestMain {
             log.error("Load Testcases error");
             return tests;
         }
-        Class<BaseSolution> dynamicClass = (Class<BaseSolution>)Class.forName(String.format("%s.%s_%s.Solution", PROBLEM_FOLDER, PROBLEM_FOLDER, PROBLEM_ID));
+        Class<BaseSolution> dynamicClass = (Class<BaseSolution>)Class.forName(String.format("%s.%s_%s.Solution", PROBLEM_FOLDER, PROBLEM_FOLDER, RESOLVED_PROBLEM_ID));
         BaseSolution baseSolution = dynamicClass.getDeclaredConstructor().newInstance();
         int idx = 0;
         for (Testcase testcase : testcases) {

@@ -363,7 +363,18 @@ class GolangWriter(LanguageWriter):
                         break
         if not problem_id:
             return "", problem_id
-        file_path = root_path / problem_folder / f"{problem_folder}_{problem_id}" / self.solution_file
+
+        # Resolve link if exists
+        problem_path = root_path / problem_folder / f"{problem_folder}_{problem_id}"
+        resolved_path, link_info = LanguageWriter._resolve_link(problem_path)
+        if link_info:
+            linked_id = resolved_path.name.split("_")[-1]
+            linked_folder = resolved_path.parent.name
+            logging.info(f"Problem {problem_id} uses solution from {linked_id}: {link_info.get('reason', 'No reason provided')}")
+            problem_folder = linked_folder
+            problem_id = linked_id
+
+        file_path = resolved_path / self.solution_file
         if not file_path.exists():
             return "", problem_id
         final_codes = deque([])

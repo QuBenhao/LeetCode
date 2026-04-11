@@ -54,6 +54,7 @@ jobs:
         PROBLEM_FOLDER: ${{ secrets.PROBLEM_FOLDER || '' }}
         LANGUAGES: ${{secrets.LANGUAGES || 'python3'}}
         LOG_LEVEL: ${{secrets.LOG_LEVEL || 'INFO'}}
+        AUTO_LINK_SIMILAR: ${{ secrets.AUTO_LINK_SIMILAR || 'false' }}
       run: |
         set +e
         python python/scripts/daily_auto.py > /tmp/msg 2>&1

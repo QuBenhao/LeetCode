@@ -4,7 +4,19 @@ pub struct Solution;
 
 impl Solution {
     pub fn minimum_distance(nums: Vec<i32>) -> i32 {
-        
+        use std::collections::HashMap;
+        let mut ans = i32::MAX;
+        let mut record: HashMap<i32, Vec<usize>> = HashMap::new();
+        for (k, &num) in nums.iter().enumerate() {
+            record.entry(num).or_insert_with(Vec::new).push(k);
+            if let Some(indices) = record.get(&num) {
+                if indices.len() > 2 {
+                    let i = indices[indices.len() - 3];
+                    ans = ans.min(((k - i) * 2) as i32);
+                }
+            }
+        }
+        if ans == i32::MAX { -1 } else { ans }
     }
 }
 

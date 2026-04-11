@@ -8,7 +8,16 @@ using json = nlohmann::json;
 class Solution {
 public:
     int minimumDistance(vector<int>& nums) {
-        
+        int ans = INT_MAX;
+        unordered_map<int, vector<int>> record;
+        for (int k = 0; k < nums.size(); k++) {
+            record[nums[k]].push_back(k);
+            if (record[nums[k]].size() > 2) {
+                int i = record[nums[k]][record[nums[k]].size() - 3];
+                ans = min(ans, (k - i) * 2);
+            }
+        }
+        return ans == INT_MAX ? -1 : ans;
     }
 };
 

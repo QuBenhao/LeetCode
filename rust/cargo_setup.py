@@ -14,6 +14,33 @@ import json
 import shutil
 from pathlib import Path
 
+def resolve_link(problem_path: Path, visited: set = None) -> Path:
+    """
+    Resolve problem link if link.json exists.
+    Returns the actual problem path to use for solution.
+    """
+    if visited is None:
+        visited = set()
+
+    link_file = problem_path / "link.json"
+    if not link_file.exists():
+        return problem_path
+
+    problem_id = problem_path.name.split("_")[-1]
+    if problem_id in visited:
+        raise ValueError(f"Circular link detected involving problem {problem_id}")
+    visited.add(problem_id)
+
+    with link_file.open("r", encoding="utf-8") as f:
+        link_info = json.load(f)
+
+    link_to = link_info["link_to"]
+    link_folder = link_info.get("link_folder", "problems")
+    base_path = problem_path.parent / f"{link_folder}_{link_to}"
+
+    print(f"Problem {problem_id} is linked to {link_to}: {link_info.get('reason', 'No reason provided')}")
+    return resolve_link(base_path, visited)
+
 def get_config():
     """Read problem configuration from .env and daily-{folder}.json"""
     root = Path(__file__).parent.parent
@@ -33,19 +60,31 @@ def get_config():
     daily = config.get("daily", "")
     plans = config.get("plans", [])
     
-    # Collect problem IDs to compile
+    # Collect problem IDs to compile (resolve links first)
     problem_ids = []
     seen = set()
-    if daily and daily not in seen:
-        problem_ids.append(daily)
-        seen.add(daily)
+
+    def add_problem(pid):
+        if pid in seen:
+            return
+        seen.add(pid)
+        # Resolve link if exists
+        problem_path = root / "problems" / f"{problem_folder}_{pid}"
+        resolved_path = resolve_link(problem_path)
+        # Use the resolved problem ID for compilation
+        resolved_id = resolved_path.name.split("_")[-1]
+        resolved_folder = resolved_path.parent.name
+        if resolved_id not in seen:
+            problem_ids.append((resolved_id, resolved_folder))
+            seen.add(resolved_id)
+
+    if daily:
+        add_problem(daily)
     if plans:
         for i in range(0, len(plans), 2):
             pid = plans[i]
-            if pid not in seen:
-                problem_ids.append(pid)
-                seen.add(pid)
-    
+            add_problem(pid)
+
     return problem_ids, problem_folder
 
 def normalize_id(pid: str) -> str:
@@ -57,21 +96,21 @@ def generate_cargo_toml(problem_ids: list, problem_folder: str):
     root = Path(__file__).parent.parent
     cargo_path = root / "Cargo.toml"
     backup_path = root / "Cargo.toml.full"
-    
+
     # Backup original if not exists
     if not backup_path.exists():
         shutil.copy(cargo_path, backup_path)
         print(f"Backed up: {backup_path}")
-    
+
     # Generate workspace members
     workspace_members = [
         '"rust/library"',
         '"rust/test_executor"',
     ]
-    for pid in problem_ids:
-        folder_name = f"{problem_folder}_{pid}"
+    for resolved_id, resolved_folder in problem_ids:
+        folder_name = f"{resolved_folder}_{resolved_id}"
         workspace_members.append(f'"problems/{folder_name}"')
-    
+
     features_def = []
     features_default = []
     dependencies = [
@@ -81,10 +120,10 @@ def generate_cargo_toml(problem_ids: list, problem_folder: str):
         'assert_float_eq = "1"',
         'test_executor = { path = "rust/test_executor", features = ["run_test"] }',
     ]
-    
-    for pid in problem_ids:
-        safe_id = normalize_id(pid)
-        folder_name = f"{problem_folder}_{pid}"
+
+    for resolved_id, resolved_folder in problem_ids:
+        safe_id = normalize_id(resolved_id)
+        folder_name = f"{resolved_folder}_{resolved_id}"
         dependencies.append(
             f'solution_{safe_id} = {{ path = "problems/{folder_name}", features = ["solution_{safe_id}"] }}'
         )
@@ -131,16 +170,17 @@ default = [{', '.join(features_default)}]
 def update_test_file(problem_ids: list, problem_folder: str):
     """Update test.rs to test only the configured problems"""
     root = Path(__file__).parent.parent
-    
+
     if len(problem_ids) == 0:
         return None
-    
-    problems_array = ", ".join(f'["{problem_folder}", "{pid}"]' for pid in problem_ids)
-    imports = chr(10).join(f"\tuse solution_{normalize_id(pid)} as solution{i};" 
-                          for i, pid in enumerate(problem_ids))
-    match_cases = chr(10).join(f'\t\t\t\t{i} => solution{i}::solve,' 
+
+    # problem_ids is now list of (resolved_id, resolved_folder) tuples
+    problems_array = ", ".join(f'["{folder}", "{pid}"]' for pid, folder in problem_ids)
+    imports = chr(10).join(f"\tuse solution_{normalize_id(pid)} as solution{i};"
+                          for i, (pid, folder) in enumerate(problem_ids))
+    match_cases = chr(10).join(f'\t\t\t\t{i} => solution{i}::solve,'
                                for i in range(len(problem_ids)))
-    
+
     test_content = f'''const PROBLEMS: [[&str; 2]; {len(problem_ids)}] = [{problems_array}];
 
 #[cfg(test)]
@@ -163,7 +203,7 @@ mod test {{
 \t}}
 }}
 '''
-    
+
     test_path = root / "rust/test_executor/tests/test.rs"
     test_path.write_text(test_content)
     return test_path

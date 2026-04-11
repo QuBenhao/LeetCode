@@ -4,7 +4,7 @@ import logging
 import os
 import subprocess
 from pathlib import Path
-from typing import Tuple, Optional, List
+from typing import Tuple, Optional, List, Dict
 
 from dotenv import load_dotenv
 
@@ -19,6 +19,38 @@ class LanguageWriter(abc.ABC):
         self.test_file = ""
         self.lang_env_commands = []
         self.test_commands = []
+
+    @staticmethod
+    def _resolve_link(problem_path: Path, visited: set = None, original_link_info: dict = None) -> Tuple[Path, Optional[dict]]:
+        """
+        Resolve problem link if link.json exists.
+        Returns (resolved_path, link_info) tuple.
+        """
+        if visited is None:
+            visited = set()
+
+        link_file = problem_path / "link.json"
+        if not link_file.exists():
+            return problem_path, original_link_info
+
+        problem_id = problem_path.name.split("_")[-1]
+        if problem_id in visited:
+            raise ValueError(f"Circular link detected involving problem {problem_id}")
+        visited.add(problem_id)
+
+        with link_file.open("r", encoding="utf-8") as f:
+            link_info = json.load(f)
+
+        if original_link_info is None:
+            original_link_info = link_info
+
+        link_to = link_info.get("link_to", "")
+        link_folder = link_info.get("link_folder", "problems")
+        if not link_to:
+            return problem_path, original_link_info
+
+        base_path = problem_path.parent / f"{link_folder}_{link_to}"
+        return LanguageWriter._resolve_link(base_path, visited, original_link_info)
 
     @staticmethod
     def _dump_json(data: dict, file_path: Path):

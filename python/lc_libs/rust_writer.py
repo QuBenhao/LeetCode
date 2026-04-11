@@ -182,7 +182,15 @@ class RustWriter(LanguageWriter):
             problem_id = self.get_test_problem_id(root_path, problem_folder)
         if not problem_id:
             return "", problem_id
-        file_path = root_path / problem_folder / f"{problem_folder}_{problem_id}" / self.solution_file
+
+        # Resolve link if exists
+        problem_path = root_path / problem_folder / f"{problem_folder}_{problem_id}"
+        resolved_path, link_info = LanguageWriter._resolve_link(problem_path)
+        if link_info:
+            linked_id = resolved_path.name.split("_")[-1]
+            logging.info(f"Problem {problem_id} uses solution from {linked_id}: {link_info.get('reason', 'No reason provided')}")
+
+        file_path = resolved_path / self.solution_file
         if not file_path.exists():
             return "", problem_id
         final_codes = deque([])

@@ -1,12 +1,28 @@
 package golang
 
 import (
-	"leetCode/problems/problems_Interview_02__03"
-	"leetCode/problems/problems_Interview_17__04"
-	"testing"
-)
+	"testing)
 
-func TestSolutions(t *testing.T) {
-	TestEach(t, "Interview_02__03", "problems", problemInterview_02__03.Solve)
-	TestEach(t, "Interview_17__04", "problems", problemInterview_17__04.Solve)
+	problem0 "leetCode/problems/problems_3740"
+	problem1 "leetCode/problems/problems_3833"
+	problem2 "leetCode/problems/problems_3834"
+	problem3 "leetCode/problems/problems_3835"
+	problem4 "leetCode/problems/problems_3836"
+
+func TestProblems(t *testing.T) {
+	t.Run("problems_3741", func(t *testing.T) {
+		TestEach(t, "3741", "problems", problem0.Solve)
+	})
+	t.Run("problems_3833", func(t *testing.T) {
+		TestEach(t, "3833", "problems", problem1.Solve)
+	})
+	t.Run("problems_3834", func(t *testing.T) {
+		TestEach(t, "3834", "problems", problem2.Solve)
+	})
+	t.Run("problems_3835", func(t *testing.T) {
+		TestEach(t, "3835", "problems", problem3.Solve)
+	})
+	t.Run("problems_3836", func(t *testing.T) {
+		TestEach(t, "3836", "problems", problem4.Solve)
+	})
 }

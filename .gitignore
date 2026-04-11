@@ -62,3 +62,9 @@ rust/build/
 
 # cmake
 cmake-*/
+
+# Auto-generated link mappings
+link_mappings.bzl
+
+# Local Maven wrapper (personal Java version)
+mvnw25

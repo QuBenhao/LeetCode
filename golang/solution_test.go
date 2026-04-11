@@ -1,7 +1,7 @@
 package golang
 
 import (
-	problem "leetCode/problems/problems_3741"
+	problem "leetCode/problems/problems_3740"
 	"testing"
 )
 
