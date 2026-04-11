@@ -19,7 +19,7 @@ from python.lc_libs import get_question_info, get_questions_by_key_word, get_que
     get_question_testcases, extract_outputs_from_md, get_question_code, \
     get_question_desc_cn, Python3Writer
 import python.lc_libs as lc_libs
-from python.utils import get_default_folder, back_question_id, format_question_id
+from python.utils import get_default_folder, back_question_id, format_question_id, create_link, extract_main_site_reference
 
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False,
@@ -39,7 +39,7 @@ def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, forc
 
 def process_single_algorithm_problem(problem_folder: str, problem_id: str, problem_slug: str,
                                      problem_title: str, cookie: str, force: bool = False, skip_language: bool = False,
-                                     languages=None):
+                                     languages=None, auto_link: bool = False):
     root_path, dir_path = __check_path__(problem_folder, problem_id, problem_slug, force, skip_language)
     if not dir_path:
         return
@@ -56,12 +56,34 @@ def process_single_algorithm_problem(problem_folder: str, problem_id: str, probl
         with (dir_path / "problem.md").open("w", encoding="utf-8") as f:
             f.write(Python3Writer.write_problem_md(problem_id, problem_title, desc, rating=question_rating))
     cn_result = get_question_desc_cn(problem_slug, cookie=cookie)
+    cn_desc = None
     if cn_result is not None:
         cn_desc, cn_title = cn_result
         if is_chinese:
             desc = cn_desc
         with (dir_path / "problem_zh.md").open("w", encoding="utf-8") as f:
             f.write(Python3Writer.write_problem_md(problem_id, cn_title, cn_desc, True, rating=question_rating))
+
+    # Check for explicit main site reference in problem description (only if auto_link enabled)
+    if auto_link:
+        full_desc = (desc or "") + (cn_desc or "")
+        main_site_id = extract_main_site_reference(full_desc)
+        if main_site_id:
+            # Check if the referenced problem exists
+            ref_problem_path = root_path / problem_folder / f"{problem_folder}_{main_site_id}"
+            if ref_problem_path.exists():
+                logging.info(f"Found explicit reference: {problem_id} -> {main_site_id} (主站{main_site_id}题相同)")
+                create_link(
+                    target_problem=problem_id,
+                    source_problem=main_site_id,
+                    reason=f"LCR题目，对应主站 {main_site_id} 题",
+                    source_folder=problem_folder,
+                    target_folder=problem_folder
+                )
+                logging.info(f"Linked {problem_id} -> {main_site_id}")
+                logging.info(f"Add question: [{back_question_id(problem_id)}]{problem_slug} (linked to {main_site_id})")
+                return
+
     code_maps = get_question_code(problem_slug, lang_slugs=languages, cookie=cookie)
     if code_maps is None:
         logging.warning(f"Unable to fetch question template code, [{problem_id}]{problem_slug}, desc: {desc}")
@@ -165,7 +187,8 @@ def get_question_slug_by_id(
 def main(origin_problem_id: Optional[str] = None, problem_slug: Optional[str] = None,
          problem_category: Optional[str] = None, force: bool = False, cookie: Optional[str] = None,
          fetch_all: bool = False, premium_only: bool = False, replace_problem_id: bool = False,
-         skip_language: bool = False, languages: list[str] = None, problem_folder: str = None):
+         skip_language: bool = False, languages: list[str] = None, problem_folder: str = None,
+         auto_link: bool = False):
     if not fetch_all:
         if not origin_problem_id and not problem_slug:
             logging.critical("Requires at least one of problem_id or problem_slug to fetch in single mode.")
@@ -188,7 +211,7 @@ def main(origin_problem_id: Optional[str] = None, problem_slug: Optional[str] = 
         else:
             tmp = get_default_folder(pc, paid_only=paid_only) if not problem_folder else problem_folder
             process_single_algorithm_problem(tmp, problem_id, problem_slug, problem_title, cookie, force,
-                                             skip_language, languages=languages)
+                                             skip_language, languages=languages, auto_link=auto_link)
             if replace_problem_id:
                 root_path = Path(__file__).parent.parent.parent
                 for lang in languages:
@@ -271,7 +294,9 @@ if __name__ == '__main__':
     else:
         logging.basicConfig(level=log_level.upper(), format=constant.LOGGING_FORMAT, datefmt=constant.DATE_FORMAT)
     langs = os.getenv(constant.LANGUAGES, "python3").split(",")
+    # Auto-link similar problems (disabled by default)
+    auto_link = os.getenv("AUTO_LINK_SIMILAR", "false").lower() in ("true", "1", "yes")
     main(back_question_id(args.problem_id), args.problem_slug, args.problem_category,
          args.force, cke, args.fetch_all, args.premium_only, args.change_problem_id,
-         args.skip_language, langs, problem_folder=pf)
+         args.skip_language, langs, problem_folder=pf, auto_link=auto_link)
     sys.exit()

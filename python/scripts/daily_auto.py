@@ -16,7 +16,8 @@ from python.lc_libs import (get_daily_question, get_question_desc, get_question_
 import python.lc_libs as lc_libs
 from python.constants import constant
 from python.utils import (get_default_folder, send_text_message, check_cookie_expired,
-                          find_similar_existing_problem, extract_method_from_template, create_link)
+                          find_similar_existing_problem, extract_method_from_template, create_link,
+                          extract_main_site_reference)
 
 
 def write_question(root_path, dir_path, problem_folder: str, question_id: str, question_name: str,
@@ -84,8 +85,30 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
                                  .replace("True", "true").replace("False", "false")
                                  .replace("'", "\"")])
 
-    # Check for similar existing problem before writing solutions
-    if auto_link and languages:
+    # Check for explicit main site reference in problem description (only if auto_link enabled)
+    if auto_link:
+        full_desc = (desc or "") + (cn_desc or "")
+        main_site_id = extract_main_site_reference(full_desc)
+        if main_site_id:
+            # Check if the referenced problem exists
+            ref_problem_path = root_path / problem_folder / f"{problem_folder}_{main_site_id}"
+            if ref_problem_path.exists():
+                logging.info(f"Found explicit reference: {question_id} -> {main_site_id} (主站{main_site_id}题相同)")
+                create_link(
+                    target_problem=question_id,
+                    source_problem=main_site_id,
+                    reason=f"LCR题目，对应主站 {main_site_id} 题",
+                    source_folder=problem_folder,
+                    target_folder=problem_folder
+                )
+                logging.info(f"Linked {question_id} -> {main_site_id}")
+                logging.info(f"Add question: [{question_id}]{slug} (linked to {main_site_id})")
+                return [], True
+            else:
+                logging.debug(f"Main site reference {main_site_id} not found in repo, skip linking")
+
+        # Check for similar existing problem before writing solutions
+        if languages:
         code_map = get_question_code(slug, lang_slugs=["python3"], cookie=cookie)
         if code_map and "python3" in code_map:
             method_name, method_signature = extract_method_from_template(code_map["python3"])

@@ -28,6 +28,34 @@ class ProblemInfo:
     constraints: Optional[str] = None
 
 
+# Pattern to match "本题与主站 xxx 题相同" or similar references
+# Examples:
+# - "注意：本题与主站 29 题相同"
+# - "注意：本题与主站 1991 题相同"
+# - "注意：本题与主站 29&nbsp;题相同" (&nbsp; instead of space)
+MAIN_SITE_SAME_PATTERN = re.compile(r"注意[：:]\s*本题与主站\s*(\d+)(?:&nbsp;|\s*)题相同")
+
+
+def extract_main_site_reference(description: str) -> Optional[str]:
+    """
+    Extract the main site problem ID from a problem description that indicates
+    it's the same as a main site problem.
+
+    Args:
+        description: Problem description (HTML or plain text)
+
+    Returns:
+        Main site problem ID if found, None otherwise
+    """
+    if not description:
+        return None
+
+    match = MAIN_SITE_SAME_PATTERN.search(description)
+    if match:
+        return match.group(1)
+    return None
+
+
 def extract_description(problem_md_path: Path) -> Tuple[str, str, str]:
     """
     Extract title, description, and constraints from problem.md
