@@ -11,28 +11,28 @@ from dotenv import load_dotenv
 from python.constants import constant
 
 
-# Type detection constants
-TREE_NODE_TYPES: Set[str] = {
+# Type detection constants (immutable)
+TREE_NODE_TYPES: frozenset[str] = frozenset({
     "TreeNode", "*TreeNode", "TreeNode*", "TreeNode | null",
     "Option<Rc<RefCell<TreeNode>>>", "Option<Box<TreeNode>>",
     "List[TreeNode]", "[]*TreeNode", "vector<TreeNode*>",
     "TreeNode[]", "Array<TreeNode | null>", "Vec<Option<Rc<RefCell<TreeNode>>>>",
-}
+})
 
-LIST_NODE_TYPES: Set[str] = {
+LIST_NODE_TYPES: frozenset[str] = frozenset({
     "ListNode", "*ListNode", "ListNode*", "ListNode | null",
     "Option<Box<ListNode>>", "Option<Rc<RefCell<ListNode>>>",
     "List[ListNode]", "[]*ListNode", "vector<ListNode*>",
     "ListNode[]", "Array<ListNode | null>", "Vec<Option<Box<ListNode>>>",
-}
+})
 
-# Node subtypes based on structure
-NODE_NEXT_TYPES: Set[str] = {"Node", "*Node", "Node | null", "_Node | null",
-                              "Option<Rc<RefCell<Node>>>"}  # left, right, next
-NODE_NEIGHBORS_TYPES: Set[str] = {"Node", "*Node", "Node | null", "_Node | null",
-                                   "Option<Rc<RefCell<Node>>>"}  # neighbors
-NODE_RANDOM_TYPES: Set[str] = {"Node", "*Node", "Node | null", "_Node | null",
-                                "Option<Rc<RefCell<Node>>>"}  # next, random
+# Node subtypes based on structure (immutable)
+NODE_NEXT_TYPES: frozenset[str] = frozenset({"Node", "*Node", "Node | null", "_Node | null",
+                              "Option<Rc<RefCell<Node>>>"})  # left, right, next
+NODE_NEIGHBORS_TYPES: frozenset[str] = frozenset({"Node", "*Node", "Node | null", "_Node | null",
+                                   "Option<Rc<RefCell<Node>>>"})  # neighbors
+NODE_RANDOM_TYPES: frozenset[str] = frozenset({"Node", "*Node", "Node | null", "_Node | null",
+                                "Option<Rc<RefCell<Node>>>"})  # next, random
 
 
 class LanguageWriter(abc.ABC):

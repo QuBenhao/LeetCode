@@ -8,7 +8,7 @@ from importlib.util import spec_from_file_location, module_from_spec
 
 from dotenv import load_dotenv
 import constants
-from utils import get_default_folder, timeout, resolve_link, assert_result, run_with_retry_on_random
+from python.utils import get_default_folder, timeout, resolve_link, assert_result, run_with_retry_on_random
 
 logging.basicConfig(level=logging.INFO, format=constants.LOGGING_FORMAT, datefmt=constants.DATE_FORMAT)
 

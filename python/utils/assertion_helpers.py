@@ -87,11 +87,17 @@ def _assert_scalar_result(
         test_case.assertEqual(expected, result, msg=msg_prefix)
 
 
+# Default max attempts for random output retry logic
+# This value provides enough attempts (0.01% probability of missing a 1% chance)
+# while keeping runtime reasonable
+DEFAULT_MAX_RETRY_ATTEMPTS = 10002
+
+
 def run_with_retry_on_random(
     solution_obj: Any,
     test_input: Any,
     expected: Any,
-    max_attempts: int = 10002,
+    max_attempts: int = DEFAULT_MAX_RETRY_ATTEMPTS,
 ) -> Tuple[Any, bool]:
     """Run solution with retry for random output scenarios.
 
@@ -122,10 +128,22 @@ def run_with_retry_on_random(
     return result, False
 
 
-def _compare_values(expected: List[Any], result: List[Any]) -> None:
-    """Compare values, raising AssertionError if not equal."""
+def _compare_values(expected: List[Any], result: List[Any], delta: float = 0.00001) -> None:
+    """Compare values, raising AssertionError if not equal.
+
+    Handles float comparison with delta tolerance for floating point precision.
+
+    Args:
+        expected: Expected values
+        result: Actual values
+        delta: Tolerance for float comparison
+    """
     if len(expected) != len(result):
         raise AssertionError(f"Length mismatch: {len(expected)} vs {len(result)}")
     for e, r in zip(expected, result):
-        if e != r:
+        # Handle float comparison with delta
+        if isinstance(e, float) and isinstance(r, float):
+            if abs(e - r) > delta:
+                raise AssertionError(f"Float value mismatch: {e} vs {r} (delta={delta})")
+        elif e != r:
             raise AssertionError(f"Value mismatch: {e} vs {r}")

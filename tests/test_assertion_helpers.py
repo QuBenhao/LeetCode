@@ -7,6 +7,7 @@ from python.utils.assertion_helpers import (
     assert_result,
     run_with_retry_on_random,
     _compare_values,
+    DEFAULT_MAX_RETRY_ATTEMPTS,
 )
 
 
@@ -142,6 +143,15 @@ class TestRunWithRetry:
         assert success is True
         assert result == [1, 2, 3]
 
+    def test_default_max_attempts_constant(self):
+        """Test that DEFAULT_MAX_RETRY_ATTEMPTS is defined and reasonable."""
+        # Should be a positive integer
+        assert isinstance(DEFAULT_MAX_RETRY_ATTEMPTS, int)
+        assert DEFAULT_MAX_RETRY_ATTEMPTS > 0
+        # Should be large enough for random probability cases
+        # (0.01% probability of missing a 1% chance)
+        assert DEFAULT_MAX_RETRY_ATTEMPTS >= 1000
+
 
 @pytest.mark.unit
 class TestCompareValues:
@@ -160,3 +170,28 @@ class TestCompareValues:
         """Test comparison of different length lists."""
         with pytest.raises(AssertionError):
             _compare_values([1, 2, 3], [1, 2])
+
+    def test_float_with_delta(self):
+        """Test float comparison uses delta tolerance."""
+        # 0.1 + 0.2 = 0.30000000000000004 in floating point
+        _compare_values([0.1 + 0.2], [0.3])
+
+    def test_float_exact_match(self):
+        """Test exact float match."""
+        _compare_values([3.14159], [3.14159])
+
+    def test_float_outside_delta(self):
+        """Test float comparison fails when outside delta."""
+        with pytest.raises(AssertionError, match="Float value mismatch"):
+            _compare_values([1.0], [2.0])
+
+    def test_float_custom_delta(self):
+        """Test float comparison with custom delta."""
+        # Default delta is 0.00001, but we use larger values
+        _compare_values([1.0, 1.1], [1.0, 1.1], delta=0.5)  # Should pass
+        with pytest.raises(AssertionError):
+            _compare_values([1.0], [2.0], delta=0.5)
+
+    def test_mixed_types(self):
+        """Test comparison with mixed int and float."""
+        _compare_values([1, 2.0, 3], [1, 2.0, 3])
