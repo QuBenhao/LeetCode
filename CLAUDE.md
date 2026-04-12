@@ -6,14 +6,41 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a LeetCode solutions repository with multi-language support. Each problem has a dedicated folder with solutions in Python, Go, Java, C++, TypeScript, and Rust.
 
+## Usage Modes
+
+### Primary Mode: Algorithm Practice (Daily)
+
+The main workflow is solving the daily LeetCode problem. In this mode:
+
+- Act as an **algorithm mentor** - provide guidance, suggestions, and optimization strategies
+- Discuss algorithmic improvements, trade-offs between approaches
+- Share language-specific idioms and optimizations (e.g., Python's `bisect`, Go's `slices`, C++'s `std::lower_bound`)
+- Review solutions for correctness, efficiency, and code quality
+- **Primary language**: Read from `.env` file's `LANGUAGES` field (e.g., `LANGUAGES="python3"`, `LANGUAGES="go,java"`). First language is the primary one.
+- **Use modern syntax**: Use the latest language features (Python 3.12+, Go 1.21+, C++23, etc.) when applicable
+- This mode typically runs at least once daily
+
+### Secondary Mode: Architecture & Development (Local Only)
+
+When iterating on project infrastructure, build systems, or architecture:
+
+- Act as a **software architect/engineer**
+- Changes should remain **local only** - not pushed to remote
+- Only the repository owner modifies architecture; other users just consume the project
+- Focus on: build tooling, test infrastructure, new language support, CI/CD
+
+**Note:** The `.claude/` memory files (`memory/`) are for local AI context only and should NOT be pushed to remote - they help AI understand project context but aren't part of the codebase.
+
 ## Project Structure
 
 - `problems/problems_N/` - Solution folder for LeetCode problem N
   - `solution.py` - Python solution
-  - `testcase.py` - Test cases
+  - `testcase.py` - Test cases (Python class format)
+  - `testcase` - Test cases (JSON format: `[inputs_str, outputs]`)
   - `solution.go`, `Solution.java`, `Solution.cpp`, `solution.rs`, `solution.ts` - Other language implementations
+  - `link.json` - Link to another problem with identical solution (see Problem Linking section)
 - `python/` - Base classes (`Solution`, `Testcase`) and CLI tools
-- `algorithm_templates/` - Algorithm templates and patterns
+- `algorithm_templates/` - Algorithm templates (binary search, sliding window, DP, graph algorithms, etc.)
 
 ## Development Commands
 
@@ -74,6 +101,7 @@ All scripts require `PYTHONPATH=.` and read config from `.env` / `daily-{folder}
 | `leetcode_cookie_updater.py` | Auto-update Cookie from browser | `--repo REPO`, `--env PATH` |
 | `spider.py` | Extract holidays/problems from HTML | `holiday`, `problems` subcommands |
 | `ranking_crawler.py` | Crawl LeetCode ranking stats | No args |
+| `batch_link_lcr.py` | Batch link LCR problems to main site | No args |
 
 ## Solution Template
 
@@ -117,7 +145,7 @@ All languages read from `daily-{folder}.json` config file **except Go and Rust**
 | Go | `go test -tags=goexperiment.jsonv2 golang/solution_test.go golang/test_basic.go -test.timeout 3s`        | `go test -tags=goexperiment.jsonv2 golang/problems_test.go golang/test_basic.go -test.timeout 10s`                |
 | Java | `mvn test -Dtest="qubhjava.test.TestMain"`                                                               | `mvn test -Dtest="qubhjava.test.ProblemsTest"`                                                                    |
 | TypeScript | `npm test --alwaysStrict --strictBindCallApply --strictFunctionTypes --target ES2022 typescript/test.ts` | `npm test --alwaysStrict --strictBindCallApply --strictFunctionTypes --target ES2022 typescript/problems.test.ts` |
-| C++ | `bazel test //:daily_test --cxxopt=-std=c++23 --cxxopt=-O2 --test_output=all`                            | `bazel test $(bazel query 'filter("plan_*", kind(cc_test, //...))') --cxxopt=-std=c++23 --test_output=all`        |
+| C++ | `bazel test //:daily_test --cxxopt=-std=c++23 --cxxopt=-O2 --test_output=all` | `bazel test $(bazel query 'filter("plan_*", kind(cc_test, //...))') --cxxopt=-std=c++23 --test_output=all` |
 | Rust | `cargo test --test solution_test`                                                                        | `cargo test --test solutions_test`                                                                                |
 
 ### Language-Specific Notes
@@ -141,6 +169,9 @@ All languages read from `daily-{folder}.json` config file **except Go and Rust**
 
 **TypeScript:**
 - Requires `npm install` first to get `jest`
+
+**C++:**
+- Optional AddressSanitizer for memory debugging: add `--cxxopt=-fsanitize=address --linkopt=-fsanitize=address` to bazel commands
 
 **Environment Dependencies:**
 - Java: Maven (`mvn`)
