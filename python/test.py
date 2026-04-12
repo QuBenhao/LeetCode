@@ -8,7 +8,7 @@ from importlib.util import spec_from_file_location, module_from_spec
 
 from dotenv import load_dotenv
 import constants
-from utils import get_default_folder, timeout, resolve_link
+from utils import get_default_folder, timeout, resolve_link, assert_result, run_with_retry_on_random
 
 logging.basicConfig(level=logging.INFO, format=constants.LOGGING_FORMAT, datefmt=constants.DATE_FORMAT)
 
@@ -64,49 +64,22 @@ class Test(unittest.TestCase):
                     result = exec_solution(solution_obj, i)
                 except TimeoutError as _:
                     self.fail("Solution timeout in 3s, input: {}".format(i))
-                if o is not None:
-                    self.assertIsNotNone(result, f"input = {i}, No solution")
                 try:
-                    if o and isinstance(o, list):
-                        if isinstance(o[0], float):
-                            for v1, v2 in zip(o, result):
-                                self.assertAlmostEqual(v1, v2, msg=f"input = {i}", delta=0.00001)
-                        elif all(x is not None for x in o) and (
-                                isinstance(o[0], list) or isinstance(o[0], set)) and not any(None in x for x in o):
-                            self.assertListEqual(sorted(sorted(item) for item in o),
-                                                 sorted(sorted(item) for item in result), msg=f"input = {i}")
-                        else:
-                            self.assertListEqual(o, result, msg=f"input = {i}")
-                    elif result and isinstance(result, list):
-                        self.assertEqual(o, result[0], msg=f"input = {i}")
-                    else:
-                        if isinstance(o, float):
-                            self.assertAlmostEqual(o, result, msg=f"input = {i}", delta=0.00001)
-                        elif isinstance(o, set) and result and not isinstance(result, set):
-                            self.assertIn(result, o, msg=f"input = {i}")
-                        else:
-                            self.assertEqual(o, result, msg=f"input = {i}")
+                    assert_result(self, o, result, problem_id=question, input_value=i)
                 except AssertionError as ae:
                     last = result
                     result = solution_obj.solve(test_input=i)
                     if last != result:
-                        loop_times = 10000
-                        for idx in range(loop_times):
-                            try:
-                                if isinstance(o, list):
-                                    self.assertListEqual(o, result)
-                                else:
-                                    self.assertEqual(o, result)
-                                logging.info(f"Meet expect output in {idx + 2} loop: {result}")
-                                break
-                            except AssertionError as _:
-                                result = solution_obj.solve(test_input=i)
-                        if isinstance(o, list):
-                            self.assertListEqual(o, result, msg=f"input={i}, "
-                                                                f"Random case not happened in {loop_times + 2} times!")
+                        result, success = run_with_retry_on_random(solution_obj, i, o)
+                        if success:
+                            logging.info(f"Meet expect output after retry: {result}")
                         else:
-                            self.assertEqual(o, result, msg=f"input={i}, "
-                                                            f"Random case not happened in {loop_times + 2} times!")
+                            if isinstance(o, list):
+                                self.assertListEqual(o, result,
+                                                     msg=f"input={i}, Random case not happened!")
+                            else:
+                                self.assertEqual(o, result,
+                                                 msg=f"input={i}, Random case not happened!")
                     else:
                         raise ae
 

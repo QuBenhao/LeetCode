@@ -1,7 +1,7 @@
 import logging
 from collections import deque
 from pathlib import Path
-from typing import Tuple, List, Optional
+from typing import Tuple, List, Optional, Set
 
 from python.constants import (
     SOLUTION_TEMPLATE_GOLANG,
@@ -9,6 +9,26 @@ from python.constants import (
     TESTCASE_TEMPLATE_GOLANG,
 )
 from python.lc_libs.language_writer import LanguageWriter
+
+
+# Helper functions for Go code generation
+def _add_json_imports(imports_libs: Set[str]) -> None:
+    """Add standard JSON imports for Go."""
+    imports_libs.add('\t"encoding/json"')
+    imports_libs.add('\t"log"')
+
+
+def _add_models_import(imports_libs: Set[str]) -> None:
+    """Add LeetCode models import for Go."""
+    imports_libs.add('\t. "leetCode/golang/models"')
+
+
+def _gen_json_unmarshal(var_name: str, input_idx: int) -> str:
+    """Generate Go JSON unmarshal code."""
+    return (
+        f"\tif err := json.Unmarshal([]byte(inputValues[{input_idx}]), &{var_name});"
+        f" err != nil {{\n\t\tlog.Fatal(err)\n\t}}\n"
+    )
 
 
 class GolangWriter(LanguageWriter):

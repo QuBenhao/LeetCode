@@ -4,11 +4,35 @@ import logging
 import os
 import subprocess
 from pathlib import Path
-from typing import Tuple, Optional, List, Dict
+from typing import Tuple, Optional, List, Dict, Set
 
 from dotenv import load_dotenv
 
 from python.constants import constant
+
+
+# Type detection constants
+TREE_NODE_TYPES: Set[str] = {
+    "TreeNode", "*TreeNode", "TreeNode*", "TreeNode | null",
+    "Option<Rc<RefCell<TreeNode>>>", "Option<Box<TreeNode>>",
+    "List[TreeNode]", "[]*TreeNode", "vector<TreeNode*>",
+    "TreeNode[]", "Array<TreeNode | null>", "Vec<Option<Rc<RefCell<TreeNode>>>>",
+}
+
+LIST_NODE_TYPES: Set[str] = {
+    "ListNode", "*ListNode", "ListNode*", "ListNode | null",
+    "Option<Box<ListNode>>", "Option<Rc<RefCell<ListNode>>>",
+    "List[ListNode]", "[]*ListNode", "vector<ListNode*>",
+    "ListNode[]", "Array<ListNode | null>", "Vec<Option<Box<ListNode>>>",
+}
+
+# Node subtypes based on structure
+NODE_NEXT_TYPES: Set[str] = {"Node", "*Node", "Node | null", "_Node | null",
+                              "Option<Rc<RefCell<Node>>>"}  # left, right, next
+NODE_NEIGHBORS_TYPES: Set[str] = {"Node", "*Node", "Node | null", "_Node | null",
+                                   "Option<Rc<RefCell<Node>>>"}  # neighbors
+NODE_RANDOM_TYPES: Set[str] = {"Node", "*Node", "Node | null", "_Node | null",
+                                "Option<Rc<RefCell<Node>>>"}  # next, random
 
 
 class LanguageWriter(abc.ABC):
@@ -225,3 +249,117 @@ class LanguageWriter(abc.ABC):
                     cur.append(json.loads(ipt))
                 testcases.append(cur)
         return testcases
+
+    # ==================== Type Detection Helpers ====================
+
+    @staticmethod
+    def is_tree_node(type_str: str) -> bool:
+        """Check if the type string represents a TreeNode type."""
+        if not type_str:
+            return False
+        type_str = type_str.strip()
+        # Direct match
+        if type_str in TREE_NODE_TYPES:
+            return True
+        # Partial match for complex types
+        return "TreeNode" in type_str
+
+    @staticmethod
+    def is_list_node(type_str: str) -> bool:
+        """Check if the type string represents a ListNode type."""
+        if not type_str:
+            return False
+        type_str = type_str.strip()
+        if type_str in LIST_NODE_TYPES:
+            return True
+        return "ListNode" in type_str
+
+    @staticmethod
+    def is_node_type(type_str: str) -> bool:
+        """Check if the type string represents a Node type (not TreeNode/ListNode)."""
+        if not type_str:
+            return False
+        type_str = type_str.strip()
+        # Must contain "Node" but not "TreeNode" or "ListNode"
+        if "Node" not in type_str:
+            return False
+        if "TreeNode" in type_str or "ListNode" in type_str:
+            return False
+        return True
+
+    @staticmethod
+    def is_node_next(code_default: str) -> bool:
+        """Check if Node has left, right, next structure (binary tree with next pointer)."""
+        return ("left" in code_default and "right" in code_default and "next" in code_default and
+                LanguageWriter.is_node_type_from_code(code_default, "next"))
+
+    @staticmethod
+    def is_node_neighbors(code_default: str) -> bool:
+        """Check if Node has neighbors structure (graph node)."""
+        return "neighbors" in code_default and LanguageWriter.is_node_type_from_code(code_default, "neighbors")
+
+    @staticmethod
+    def is_node_random(code_default: str) -> bool:
+        """Check if Node has random pointer structure (linked list with random pointer)."""
+        return ("next" in code_default and "random" in code_default and
+                not ("left" in code_default and "right" in code_default) and
+                LanguageWriter.is_node_type_from_code(code_default, "random"))
+
+    @staticmethod
+    def is_node_type_from_code(code_default: str, field: str) -> bool:
+        """Helper to detect Node type from code definition."""
+        # Check for common Node definition patterns
+        patterns = [
+            f"// Definition for a Node",
+            f"class Node {{",
+            f"struct Node {{",
+            f"type Node struct",
+            f"interface Node",
+        ]
+        for pattern in patterns:
+            if pattern in code_default:
+                return True
+        return False
+
+    @staticmethod
+    def is_list_type(type_str: str) -> bool:
+        """Check if the type represents a list/array of something."""
+        if not type_str:
+            return False
+        type_str = type_str.strip()
+        list_indicators = ["[]", "List[", "vector<", "Vec<", "Array<", "[]*"]
+        return any(indicator in type_str for indicator in list_indicators)
+
+    @staticmethod
+    def is_modify_in_place(code_template: str) -> bool:
+        """Check if the problem modifies input in place (no return value)."""
+        return "Do not return anything" in code_template
+
+    @staticmethod
+    def is_cycle_linked_list(testcases: Optional[List], param_count: int) -> bool:
+        """Check if testcases indicate a cycle linked list problem.
+
+        Pattern: first param is list, second param is int (position)
+        """
+        if not testcases or not testcases[0]:
+            return False
+        first_testcase = testcases[0]
+        return (len(first_testcase) == param_count + 1 and
+                isinstance(first_testcase[0], list) and
+                isinstance(first_testcase[1], int))
+
+    @staticmethod
+    def is_intersection_linked_list(testcases: Optional[List]) -> bool:
+        """Check if testcases indicate an intersection linked list problem.
+
+        Pattern: [int, list, list, int, int]
+        """
+        if not testcases or not testcases[0]:
+            return False
+        first_testcase = testcases[0]
+        return (len(first_testcase) == 5 and
+                isinstance(first_testcase[0], int) and
+                isinstance(first_testcase[1], list) and
+                isinstance(first_testcase[2], list) and
+                isinstance(first_testcase[3], int) and
+                isinstance(first_testcase[4], int))
