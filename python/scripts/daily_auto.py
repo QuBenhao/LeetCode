@@ -109,26 +109,26 @@ def write_question(root_path, dir_path, problem_folder: str, question_id: str, q
 
         # Check for similar existing problem before writing solutions
         if languages:
-        code_map = get_question_code(slug, lang_slugs=["python3"], cookie=cookie)
-        if code_map and "python3" in code_map:
-            method_name, method_signature = extract_method_from_template(code_map["python3"])
-            similar = find_similar_existing_problem(
-                root_path, problem_folder, question_id,
-                question_name, desc or "", method_name, method_signature
-            )
-            if similar:
-                similar_id, score, reason = similar
-                logging.info(f"Found similar problem {similar_id} for {question_id} (score: {score:.2f}, reason: {reason})")
-                create_link(
-                    target_problem=question_id,
-                    source_problem=similar_id,
-                    reason=f"Auto-detected: {reason}",
-                    source_folder=problem_folder,
-                    target_folder=problem_folder
+            code_map = get_question_code(slug, lang_slugs=["python3"], cookie=cookie)
+            if code_map and "python3" in code_map:
+                method_name, method_signature = extract_method_from_template(code_map["python3"])
+                similar = find_similar_existing_problem(
+                    root_path, problem_folder, question_id,
+                    question_name, desc or "", method_name, method_signature
                 )
-                logging.info(f"Auto-linked {question_id} -> {similar_id}")
-                logging.info(f"Add question: [{question_id}]{slug} (linked to {similar_id})")
-                return [], True
+                if similar:
+                    similar_id, score, reason = similar
+                    logging.info(f"Found similar problem {similar_id} for {question_id} (score: {score:.2f}, reason: {reason})")
+                    create_link(
+                        target_problem=question_id,
+                        source_problem=similar_id,
+                        reason=f"Auto-detected: {reason}",
+                        source_folder=problem_folder,
+                        target_folder=problem_folder
+                    )
+                    logging.info(f"Auto-linked {question_id} -> {similar_id}")
+                    logging.info(f"Add question: [{question_id}]{slug} (linked to {similar_id})")
+                    return [], True
 
     if not languages:
         return [], False
