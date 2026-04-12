@@ -2,6 +2,27 @@
 
 <!-- version list -->
 
+## v11.1.0 (2026-04-12)
+
+### Bug Fixes
+
+- 修复 IndentationError 缩进错误
+  ([`f0b1b71`](https://github.com/QuBenhao/LeetCode/commit/f0b1b71ff3cfa3a244b35ce74245d68540fa8869))
+
+### Features
+
+- Add auto-link for LCR problems with explicit main site references
+  ([`88f9b0e`](https://github.com/QuBenhao/LeetCode/commit/88f9b0e4ad16ee82075692c5e2c2f05f37a65324))
+
+### Testing
+
+- 1320 solution
+  ([`9eb9b49`](https://github.com/QuBenhao/LeetCode/commit/9eb9b4988d0f63a4fadd0871f659688a3e7267ec))
+
+- [20260412] Add (1320)
+  ([`da78bb2`](https://github.com/QuBenhao/LeetCode/commit/da78bb2f9b2e1042e06dc29d3edb505ac5f4ff54))
+
+
 ## v11.0.0 (2026-04-11)
 
 ### Bug Fixes
