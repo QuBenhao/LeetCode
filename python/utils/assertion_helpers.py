@@ -34,9 +34,9 @@ def assert_result(
     if expected is not None:
         test_case.assertIsNotNone(result, f"{msg_prefix}, No solution")
 
-    if expected and isinstance(expected, list):
+    if isinstance(expected, list):
         _assert_list_result(test_case, expected, result, msg_prefix)
-    elif result and isinstance(result, list):
+    elif isinstance(result, list) and expected is not None:
         test_case.assertEqual(expected, result[0], msg=msg_prefix)
     else:
         _assert_scalar_result(test_case, expected, result, msg_prefix)
@@ -63,11 +63,15 @@ def _assert_list_result(
         and not any(None in x for x in expected)
     ):
         # Nested list/set - compare sorted
-        test_case.assertListEqual(
-            sorted(sorted(item) for item in expected),
-            sorted(sorted(item) for item in result),
-            msg=msg_prefix,
-        )
+        try:
+            test_case.assertListEqual(
+                sorted(sorted(item) for item in expected),
+                sorted(sorted(item) for item in result),
+                msg=msg_prefix,
+            )
+        except TypeError:
+            # Fallback for mixed types that can't be sorted
+            test_case.assertListEqual(expected, result, msg=msg_prefix)
     else:
         test_case.assertListEqual(expected, result, msg=msg_prefix)
 

@@ -6,9 +6,7 @@ from python.lc_libs.language_writer import (
     LanguageWriter,
     TREE_NODE_TYPES,
     LIST_NODE_TYPES,
-    NODE_NEXT_TYPES,
-    NODE_NEIGHBORS_TYPES,
-    NODE_RANDOM_TYPES,
+    NODE_TYPES,
 )
 
 
@@ -271,6 +269,4 @@ class TestTypeConstants:
         """Verify type constants are frozenset (immutable)."""
         assert isinstance(TREE_NODE_TYPES, frozenset)
         assert isinstance(LIST_NODE_TYPES, frozenset)
-        assert isinstance(NODE_NEXT_TYPES, frozenset)
-        assert isinstance(NODE_NEIGHBORS_TYPES, frozenset)
-        assert isinstance(NODE_RANDOM_TYPES, frozenset)
+        assert isinstance(NODE_TYPES, frozenset)

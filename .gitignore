@@ -59,6 +59,7 @@ rust/build/
 
 # claude code local files
 .claude/
+.workbuddy/
 
 # cmake
 cmake-*/
@@ -72,3 +73,6 @@ mvnw25
 /memory/project_usage_modes.md
 /memory/user_profile.md
 /.coverage
+
+# C++ compile commands (auto-generated, contains local paths)
+compile_commands.json

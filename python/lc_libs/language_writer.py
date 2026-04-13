@@ -26,13 +26,12 @@ LIST_NODE_TYPES: frozenset[str] = frozenset({
     "ListNode[]", "Array<ListNode | null>", "Vec<Option<Box<ListNode>>>",
 })
 
-# Node subtypes based on structure (immutable)
-NODE_NEXT_TYPES: frozenset[str] = frozenset({"Node", "*Node", "Node | null", "_Node | null",
-                              "Option<Rc<RefCell<Node>>>"})  # left, right, next
-NODE_NEIGHBORS_TYPES: frozenset[str] = frozenset({"Node", "*Node", "Node | null", "_Node | null",
-                                   "Option<Rc<RefCell<Node>>>"})  # neighbors
-NODE_RANDOM_TYPES: frozenset[str] = frozenset({"Node", "*Node", "Node | null", "_Node | null",
-                                "Option<Rc<RefCell<Node>>>"})  # next, random
+# Node type (immutable) - used for all Node subtypes (next, neighbors, random)
+# Note: The distinction between subtypes is determined by code content (fields),
+# not by type strings, so a single constant suffices.
+NODE_TYPES: frozenset[str] = frozenset({
+    "Node", "*Node", "Node | null", "_Node | null", "Option<Rc<RefCell<Node>>>"
+})
 
 
 class LanguageWriter(abc.ABC):
