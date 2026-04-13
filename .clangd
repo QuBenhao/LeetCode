@@ -1,2 +1,18 @@
 CompileFlags:
-  Add: [-std=c++23]
+  Add:
+    - "-std=c++23"
+    - "-Icpp"
+    - "-Icpp/common"
+    - "-Icpp/models"
+    - "-I."
+    - "-Wno-unused-variable"
+    - "-Wno-unused-parameter"
+    - "-D_GLIBCXX_USE_CXX11_ABI=1"
+
+Diagnostics:
+  Suppress:
+    - "no member named"
+    - "use of undeclared identifier"
+    - "unknown type name"
+    - "cannot find"
+    - "file not found"
