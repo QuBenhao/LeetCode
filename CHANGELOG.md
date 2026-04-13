@@ -2,6 +2,49 @@
 
 <!-- version list -->
 
+## v11.1.1 (2026-04-13)
+
+### Bug Fixes
+
+- Address code review issues from PR #184 ([#184](https://github.com/QuBenhao/LeetCode/pull/184),
+  [`1d69660`](https://github.com/QuBenhao/LeetCode/commit/1d69660ad7423fb83dc4b66d38495ac8ce68c4bf))
+
+- Address code review issues in PR #184 ([#184](https://github.com/QuBenhao/LeetCode/pull/184),
+  [`1d69660`](https://github.com/QuBenhao/LeetCode/commit/1d69660ad7423fb83dc4b66d38495ac8ce68c4bf))
+
+### Documentation
+
+- Update CLAUDE.md with usage modes and language preferences
+  ([`35b6c0a`](https://github.com/QuBenhao/LeetCode/commit/35b6c0a25edd3440ee777d383dee20735e3aa799))
+
+### Refactoring
+
+- Consolidate test infrastructure and add comprehensive test suite
+  ([#184](https://github.com/QuBenhao/LeetCode/pull/184),
+  [`1d69660`](https://github.com/QuBenhao/LeetCode/commit/1d69660ad7423fb83dc4b66d38495ac8ce68c4bf))
+
+### Testing
+
+- 2463 solution ([#184](https://github.com/QuBenhao/LeetCode/pull/184),
+  [`1d69660`](https://github.com/QuBenhao/LeetCode/commit/1d69660ad7423fb83dc4b66d38495ac8ce68c4bf))
+
+- [20260413] Add (1848)
+  ([`08b02f5`](https://github.com/QuBenhao/LeetCode/commit/08b02f5ae056b5a3e91a57aac12355601ec92f64))
+
+- [20260414] Add (2463)
+  ([`1ecc80c`](https://github.com/QuBenhao/LeetCode/commit/1ecc80c09a30499431e4936df672b490591ee2a7))
+
+- Add custom PROBLEM_FOLDER tests for all languages
+  ([#184](https://github.com/QuBenhao/LeetCode/pull/184),
+  [`1d69660`](https://github.com/QuBenhao/LeetCode/commit/1d69660ad7423fb83dc4b66d38495ac8ce68c4bf))
+
+- Add ignore ([#184](https://github.com/QuBenhao/LeetCode/pull/184),
+  [`1d69660`](https://github.com/QuBenhao/LeetCode/commit/1d69660ad7423fb83dc4b66d38495ac8ce68c4bf))
+
+- Add ignore
+  ([`4f47f9e`](https://github.com/QuBenhao/LeetCode/commit/4f47f9e3a9db7064c3e8ae77420cbdbef0a5ed7d))
+
+
 ## v11.1.0 (2026-04-12)
 
 ### Bug Fixes
