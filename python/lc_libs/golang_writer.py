@@ -67,12 +67,12 @@ class GolangWriter(LanguageWriter):
             f.write(
                 TESTCASE_TEMPLATE_GOLANG.format(
                     "\n\t".join(
-                        f'"leetCode/{pf}/{pf}_{pid}"' for pid, pf in pifs
+                        f'problem{i} "leetCode/{pf}/{pf}_{pid}"' for i, (pid, pf) in enumerate(pifs)
                     ),
-                    "TestSolutions",
+                    "TestProblems",
                     "\n\t".join(
-                        f'TestEach(t, "{pid}", "{pf}", problem{pid}.Solve)'
-                        for pid, pf in problem_ids_folders
+                        f't.Run("problems_{pid}", func(t *testing.T) {{\n\t\tTestEach(t, "{pid}", "{pf}", problem{i}.Solve)\n\t}})'
+                        for i, (pid, pf) in enumerate(pifs)
                     ),
                 )
             )
@@ -377,7 +377,7 @@ class GolangWriter(LanguageWriter):
                 for line in lines:
                     if (
                             'TestEach(t, "' in line
-                            and '", "problems", problem.Solve)' in line
+                            and f', "{problem_folder}", problem.Solve)' in line
                     ):
                         problem_id = line.split('"')[1]
                         break

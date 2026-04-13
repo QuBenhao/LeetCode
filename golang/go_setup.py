@@ -81,12 +81,14 @@ def generate_solution_test(problem_ids: list, default_folder: str):
     daily_id, daily_folder = problem_ids[0]
 
     # Resolve link to get the solution path
-    problem_path = root / daily_folder / f"{daily_folder}_{daily_id}"
+    # All problems are stored under "problems/" directory with prefix in the folder name
+    problem_path = root / "problems" / f"{daily_folder}_{daily_id}"
     resolved_path, link_info = resolve_link(problem_path)
 
     # Get resolved problem ID and folder for the solution import
     resolved_id = resolved_path.name.split("_")[-1]
-    resolved_folder = resolved_path.parent.name
+    # Extract folder prefix from the resolved path name (e.g., "problems" from "problems_1848")
+    resolved_folder = resolved_path.name.rsplit("_", 1)[0]
 
     # Log link info if applicable
     if link_info:
@@ -123,11 +125,13 @@ def generate_problems_test(problem_ids: list, root: Path, golang_path: Path):
     test_cases = []
 
     for idx, (pid, folder) in enumerate(problem_ids):
-        problem_path = root / folder / f"{folder}_{pid}"
+        # All problems are stored under "problems/" directory with prefix in the folder name
+        problem_path = root / "problems" / f"{folder}_{pid}"
         resolved_path, link_info = resolve_link(problem_path)
 
         resolved_id = resolved_path.name.split("_")[-1]
-        resolved_folder = resolved_path.parent.name
+        # Extract folder prefix from the resolved path name (e.g., "problems" from "problems_1848")
+        resolved_folder = resolved_path.name.rsplit("_", 1)[0]
 
         if link_info:
             print(f"Problem {pid} uses solution from {resolved_id}: {link_info.get('reason', 'No reason provided')}")

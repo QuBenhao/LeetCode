@@ -36,6 +36,7 @@ def resolve_link(problem_path: Path, visited: set = None) -> Path:
 
     link_to = link_info["link_to"]
     link_folder = link_info.get("link_folder", "problems")
+    # problem folders are named like "problems_1848" directly under root
     base_path = problem_path.parent / f"{link_folder}_{link_to}"
 
     print(f"Problem {problem_id} is linked to {link_to}: {link_info.get('reason', 'No reason provided')}")
@@ -67,16 +68,18 @@ def get_config():
     def add_problem(pid):
         if pid in seen:
             return
-        seen.add(pid)
-        # Resolve link if exists
+        # Resolve link first before marking as seen
         problem_path = root / "problems" / f"{problem_folder}_{pid}"
         resolved_path = resolve_link(problem_path)
         # Use the resolved problem ID for compilation
         resolved_id = resolved_path.name.split("_")[-1]
-        resolved_folder = resolved_path.parent.name
-        if resolved_id not in seen:
-            problem_ids.append((resolved_id, resolved_folder))
-            seen.add(resolved_id)
+        # Extract folder prefix from the resolved path name (e.g., "problems" from "problems_1848")
+        resolved_folder = resolved_path.name.rsplit("_", 1)[0]
+        if resolved_id in seen:
+            return
+        seen.add(pid)
+        seen.add(resolved_id)
+        problem_ids.append((resolved_id, resolved_folder))
 
     if daily:
         add_problem(daily)
