@@ -1,0 +1,2 @@
+["[\"hello\",\"i\",\"am\",\"leetcode\",\"hello\"]\n\"hello\"\n1", "[\"a\",\"b\",\"leetcode\"]\n\"leetcode\"\n0", "[\"i\",\"eat\",\"leetcode\"]\n\"ate\"\n0"]
+[1, 1, -1]
