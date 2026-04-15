@@ -71,7 +71,7 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_continue": "继续使用现有 Cookie...",
 
         # Main menu
-        "main_menu": "请选择功能 [0-8, 默认: 0]:\n0. 退出\n1. 获取题目\n2. 提交代码\n3. 切换测试题目\n4. 比赛\n5. 清理空 Java 文件\n6. 清理错误 Rust 文件\n7. 收藏夹管理\n8. 创建题目链接\n",
+        "main_menu": "请选择功能 [0-9, 默认: 0]:\n0. 退出\n1. 获取题目\n2. 提交代码\n3. 切换测试题目\n4. 比赛\n5. 清理空 Java 文件\n6. 清理错误 Rust 文件\n7. 收藏夹管理\n8. 创建题目链接\n9. 拉取题解\n",
         "main_exit": "正在退出...",
         "main_bye": "再见！",
 
@@ -130,6 +130,16 @@ I18N: Dict[str, Dict[str, str]] = {
         "link_delete_solution": "是否删除目标题目的解答文件? [y/n, 默认: n]: ",
         "link_success": "题目 {target} 已链接到 {source}",
         "link_failed": "创建链接失败: {msg}",
+
+        # Fetch solution articles
+        "fetch_menu": "请选择拉取方式 [0-3, 默认: 0]:\n0. 返回\n1. 检查所有已解题目 (dry-run)\n2. 拉取所有题解\n3. 拉取指定题目题解\n",
+        "fetch_problem_id": "输入题目 ID (回车跳过): ",
+        "fetch_force": "是否覆盖已存在的 solution.md? [y/n, 默认: n]: ",
+        "fetch_delay": "请求间隔秒数 (回车使用默认 1.0): ",
+        "fetch_no_cookie": "未设置 COOKIE，无法拉取题解",
+        "fetch_no_user": "未设置 USER 环境变量",
+        "fetch_running": "正在拉取题解...",
+        "fetch_done": "拉取完成",
     },
     "en": {
         # Separator
@@ -191,7 +201,7 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_continue": "Continuing with existing cookie...",
 
         # Main menu
-        "main_menu": "Please select the main function [0-8, default: 0]:\n0. Exit\n1. Get problem\n2. Submit\n3. Change test problem\n4. Contest\n5. Clean empty java\n6. Clean error rust\n7. Favorite management\n8. Link problems\n",
+        "main_menu": "Please select the main function [0-9, default: 0]:\n0. Exit\n1. Get problem\n2. Submit\n3. Change test problem\n4. Contest\n5. Clean empty java\n6. Clean error rust\n7. Favorite management\n8. Link problems\n9. Fetch solution articles\n",
         "main_exit": "Exiting...",
         "main_bye": "Bye!",
 
@@ -250,6 +260,16 @@ I18N: Dict[str, Dict[str, str]] = {
         "link_delete_solution": "Delete solution files in target problem? [y/n, default: n]: ",
         "link_success": "Problem {target} is now linked to {source}",
         "link_failed": "Failed to create link: {msg}",
+
+        # Fetch solution articles
+        "fetch_menu": "Please select the fetch method [0-3, default: 0]:\n0. Back\n1. Check all solved problems (dry-run)\n2. Fetch all solution articles\n3. Fetch specified problem solution\n",
+        "fetch_problem_id": "Enter problem ID (press enter to skip): ",
+        "fetch_force": "Overwrite existing solution.md? [y/n, default: n]: ",
+        "fetch_delay": "Request delay in seconds (press enter for default 1.0): ",
+        "fetch_no_cookie": "COOKIE not set, unable to fetch solutions",
+        "fetch_no_user": "USER environment variable not set",
+        "fetch_running": "Fetching solution articles...",
+        "fetch_done": "Fetch completed",
     }
 }
 
