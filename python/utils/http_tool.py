@@ -55,7 +55,7 @@ def general_request(url: str, func=None, request_method: str = "post",
             logging.warning(f"{url} Access denied! msg: {resp.text}")
             time.sleep(1)
             return None
-        logging.debug(f"Response code[{resp.status_code}] msg: {resp.text}")
+        logging.warning(f"Request failed: {url} status={resp.status_code} msg={resp.text[:500]}")
     except requests.ConnectTimeout:
         if depth > 0:
             time.sleep((4 - depth) * 2)

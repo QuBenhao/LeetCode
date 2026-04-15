@@ -14,6 +14,10 @@ def get_my_solution_list(question_slug: str, user_slug: str, cookie: str) -> Lis
     """获取当前用户在指定题目下的题解列表"""
     def handle_response(response):
         data = json.loads(response.text)
+        if data.get("errors"):
+            import logging
+            logging.warning(f"GraphQL errors in get_my_solution_list: {data['errors']}")
+            return []
         if data.get("data") and data["data"].get("questionSolutionMyArticles"):
             return data["data"]["questionSolutionMyArticles"]["edges"]
         return []
@@ -49,21 +53,46 @@ def get_my_solution_list(question_slug: str, user_slug: str, cookie: str) -> Lis
     return filtered
 
 
-def get_solution_content(solution_slug: str, cookie: str) -> Optional[Dict]:
-    """获取题解的详细内容"""
+def get_solution_content(solution_slug: str, cookie: str, max_retries: int = 3) -> Optional[Dict]:
+    """获取题解的详细内容，支持重试"""
     def handle_response(response):
         data = json.loads(response.text)
+        if data.get("errors"):
+            import logging
+            logging.warning(f"GraphQL errors in get_solution_content: {data['errors']}")
+            return None
         if data.get("data") and data["data"].get("solutionArticle"):
             return data["data"]["solutionArticle"]
         return None
 
-    return general_request(
-        LEET_CODE_BACKEND,
-        handle_response,
-        json={
-            "query": SOLUTION_ARTICLE_QUERY,
-            "variables": {"slug": solution_slug},
-            "operationName": "solutionArticleQuery"
-        },
-        cookies={'cookie': cookie}
-    )
+    for attempt in range(max_retries):
+        result = general_request(
+            LEET_CODE_BACKEND,
+            handle_response,
+            json={
+                "query": SOLUTION_ARTICLE_QUERY,
+                "variables": {"slug": solution_slug},
+                "operationName": "solutionArticleQuery"
+            },
+            cookies={'cookie': cookie}
+        )
+
+        if result:
+            # 检查 content 是否为空
+            content = result.get("content", "")
+            if content and content.strip():
+                return result
+            else:
+                import logging
+                import time
+                logging.warning(f"Empty content for {solution_slug}, attempt {attempt + 1}/{max_retries}")
+                if attempt < max_retries - 1:
+                    time.sleep(2 * (attempt + 1))  # 递增等待时间
+        else:
+            import logging
+            import time
+            logging.warning(f"Failed to get solution content for {solution_slug}, attempt {attempt + 1}/{max_retries}")
+            if attempt < max_retries - 1:
+                time.sleep(2 * (attempt + 1))
+
+    return None

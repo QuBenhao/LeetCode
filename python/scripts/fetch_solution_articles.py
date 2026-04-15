@@ -253,6 +253,13 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
             stats["error"] += 1
             continue
 
+        # 检查 content 是否为空
+        content_text = solution_content.get("content", "")
+        if not content_text or not content_text.strip():
+            logger.warning(f"[{pid}] 题解内容为空: {sol_slug}")
+            stats["error"] += 1
+            continue
+
         # 生成并保存 solution.md
         md_content = generate_solution_md(solution_content, question_info)
         problem_dir.mkdir(parents=True, exist_ok=True)
@@ -263,9 +270,9 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
         logger.info(f"[{pid}] {question_title}: 已保存题解 '{solution_content.get('title')}'")
         stats["downloaded"] += 1
 
-        # 避免请求过快，增加随机抖动
-        jitter = random.uniform(0, 0.3)
-        time.sleep(delay + jitter)
+        # 避免请求过快，随机间隔 (delay * 0.8 ~ delay * 1.5)
+        jitter = random.uniform(0.8, 1.5)
+        time.sleep(delay * jitter)
 
     # 打印统计
     logger.info("=" * 50)
