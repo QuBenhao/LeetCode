@@ -802,7 +802,7 @@ def fetch_solutions(cookie, problem_folder):
                 force = force_input.lower() == "y"
 
                 delay_input = input_until_valid(t("fetch_delay"), allow_all)
-                delay = float(delay_input) if delay_input else 1.0
+                delay = float(delay_input) if delay_input else 3.0
 
                 print(SEPARATE_LINE)
                 print(t("fetch_running"))

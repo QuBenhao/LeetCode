@@ -4,12 +4,19 @@ LeetCode 题解拉取工具
 从 LeetCode 拉取用户发布的题解，保存到本地 problem 目录
 
 使用方法:
-  PYTHONPATH=. python python/scripts/fetch_solution_articles.py [--dry-run] [--force] [--problem-id ID]
+  PYTHONPATH=. python python/scripts/fetch_solution_articles.py [--dry-run] [--force] [--problem-id ID] [--delay DELAY]
 
 环境变量:
   LEETCODE_USER: LeetCode 用户名 (slug)
   PROBLEM_FOLDER: 题目文件夹名 (默认 problems)
   COOKIE: LeetCode Cookie (获取题解内容需要)
+
+参数:
+  --dry-run: 只检查不保存
+  --force: 强制覆盖已存在的 solution.md
+  --problem-id ID: 指定题目ID
+  --delay DELAY: 请求间隔秒数 (默认 3.0，避免限流)
+  --verbose, -v: 详细输出
 """
 
 import argparse
@@ -292,7 +299,7 @@ def cli_main():
     parser.add_argument("--dry-run", action="store_true", help="只检查不保存")
     parser.add_argument("--force", action="store_true", help="强制覆盖已存在的 solution.md")
     parser.add_argument("--problem-id", type=str, help="指定题目ID (可选)")
-    parser.add_argument("--delay", type=float, default=1.0, help="请求间隔秒数 (默认1.0)")
+    parser.add_argument("--delay", type=float, default=3.0, help="请求间隔秒数 (默认3.0，避免限流)")
     parser.add_argument("--verbose", "-v", action="store_true", help="详细输出")
     args = parser.parse_args()
 
