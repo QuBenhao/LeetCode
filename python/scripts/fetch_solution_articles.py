@@ -158,6 +158,7 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
     # 设置模块日志级别
     log_level = logging.DEBUG if verbose else logging.INFO
     logger.setLevel(log_level)
+    logger.propagate = False  # 阻止向上传播到 root logger，避免重复输出
     # 确保有 handler 输出到控制台
     if not logger.handlers:
         handler = logging.StreamHandler()
