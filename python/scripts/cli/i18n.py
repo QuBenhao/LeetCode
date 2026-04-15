@@ -137,7 +137,7 @@ I18N: Dict[str, Dict[str, str]] = {
         "fetch_force": "是否覆盖已存在的 solution.md? [y/n, 默认: n]: ",
         "fetch_delay": "请求间隔秒数 (回车使用默认 1.0): ",
         "fetch_no_cookie": "未设置 COOKIE，无法拉取题解",
-        "fetch_no_user": "未设置 USER 环境变量",
+        "fetch_no_user": "未设置 LEETCODE_USER 环境变量",
         "fetch_running": "正在拉取题解...",
         "fetch_done": "拉取完成",
     },
@@ -267,7 +267,7 @@ I18N: Dict[str, Dict[str, str]] = {
         "fetch_force": "Overwrite existing solution.md? [y/n, default: n]: ",
         "fetch_delay": "Request delay in seconds (press enter for default 1.0): ",
         "fetch_no_cookie": "COOKIE not set, unable to fetch solutions",
-        "fetch_no_user": "USER environment variable not set",
+        "fetch_no_user": "LEETCODE_USER environment variable not set",
         "fetch_running": "Fetching solution articles...",
         "fetch_done": "Fetch completed",
     }

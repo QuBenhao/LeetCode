@@ -33,7 +33,7 @@
 # 快速开始
 
 克隆仓库后，添加 .env 文件来指定题目和解决方案的位置（本地）。
-对于远程 GitHub Action，需要添加 `COOKIE`（LeetCode cookie）、`PUSH_KEY`（PushDeer 通知）、`PROBLEM_FOLDER`（题目存放位置）、`USER`（LeetCode 个人主页 uri）、`LOG_LEVEL`（日志级别）。
+对于远程 GitHub Action，需要添加 `COOKIE`（LeetCode cookie）、`PUSH_KEY`（PushDeer 通知）、`PROBLEM_FOLDER`（题目存放位置）、`LEETCODE_USER`（LeetCode 个人主页 uri）、`LOG_LEVEL`（日志级别）。
 
 **注意：** 如果需要使用 python3 以外的语言，在 .env 中添加 `LANGUAGES="python3,golang"` 等
 
@@ -44,7 +44,7 @@ PROBLEM_FOLDER="problems"
 PUSH_KEY="***[PushDeer 的 key]"
 COOKIE="***[LeetCode graphql 的 cookie]"
 LANGUAGES="python3,golang,java,cpp,typescript,rust"
-USER="himymben"
+LEETCODE_USER="himymben"
 LOG_LEVEL="info"
 PYTHONPATH=.
 ```

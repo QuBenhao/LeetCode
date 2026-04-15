@@ -23,7 +23,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv, set_key
 
 # Setup paths
 file_path = Path(__file__)
@@ -148,14 +148,14 @@ def initialize_env():
         allow_all
     )
     if save_config != "n":
-        with env_file.open("w") as f:
-            f.write(f'{constant.COOKIE}="{cookie}"\n')
-            f.write(f'{constant.PROBLEM_FOLDER}="{problem_folder}"\n')
-            f.write(f'{constant.CONTEST_FOLDER}="{contest_folder}"\n')
-            f.write(f'{constant.LANGUAGES}="{",".join(languages)}"\n')
-            if push_key:
-                f.write(f'{constant.PUSH_KEY}="{push_key}"\n')
-            f.write('PYTHONPATH=.\n')
+        env_file.touch()  # Ensure file exists
+        set_key(env_file.as_posix(), constant.COOKIE, cookie)
+        set_key(env_file.as_posix(), constant.PROBLEM_FOLDER, problem_folder)
+        set_key(env_file.as_posix(), constant.CONTEST_FOLDER, contest_folder)
+        set_key(env_file.as_posix(), constant.LANGUAGES, ",".join(languages))
+        if push_key:
+            set_key(env_file.as_posix(), constant.PUSH_KEY, push_key)
+        set_key(env_file.as_posix(), "PYTHONPATH", ".")
         print(t("init_saved", path=env_file))
 
     print("\n" + "=" * 50)
@@ -775,7 +775,7 @@ def link_problems(problem_folder):
 
 def fetch_solutions(cookie, problem_folder):
     """拉取用户发布的题解"""
-    user_slug = os.getenv("USER", "")
+    user_slug = os.getenv("LEETCODE_USER", "")
     if not user_slug:
         print(t("fetch_no_user"))
         return
