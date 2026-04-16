@@ -2,6 +2,28 @@
 
 <!-- version list -->
 
+## v11.2.0 (2026-04-16)
+
+### Features
+
+- Add solution article fetcher tool ([#185](https://github.com/QuBenhao/LeetCode/pull/185),
+  [`cb22ea7`](https://github.com/QuBenhao/LeetCode/commit/cb22ea7106e210e621b9e38e976a59146c93d96d))
+
+### Testing
+
+- 2515 solution
+  ([`de13d8b`](https://github.com/QuBenhao/LeetCode/commit/de13d8bcd6537ff244d6c65c1b364b0583cbad37))
+
+- 3488 solution
+  ([`ad6bd02`](https://github.com/QuBenhao/LeetCode/commit/ad6bd02f190b387d80d7b3098ba869c6c4261b75))
+
+- [20260415] Add (2515)
+  ([`2651f92`](https://github.com/QuBenhao/LeetCode/commit/2651f921b8a25061e6b35217400512bcf72e86c8))
+
+- [20260416] Add (3488)
+  ([`c0d5ff3`](https://github.com/QuBenhao/LeetCode/commit/c0d5ff39c30af84619f31727703b915babebb0b1))
+
+
 ## v11.1.1 (2026-04-13)
 
 ### Bug Fixes
