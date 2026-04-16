@@ -23,7 +23,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv, set_key
 
 # Setup paths
 file_path = Path(__file__)
@@ -49,6 +49,7 @@ from python.utils import back_question_id, format_question_id, check_cookie_expi
 from python.scripts.daily_auto import main as daily_auto_main
 from python.scripts.get_problem import main as get_problem_main, get_question_slug_by_id
 from python.scripts.tools import lucky_main, remain_main, clean_empty_java_main, clean_error_rust_main
+from python.scripts.fetch_solution_articles import main as fetch_solution_main
 
 # Constants
 SEPARATE_LINE = "-" * 50
@@ -147,14 +148,14 @@ def initialize_env():
         allow_all
     )
     if save_config != "n":
-        with env_file.open("w") as f:
-            f.write(f'{constant.COOKIE}="{cookie}"\n')
-            f.write(f'{constant.PROBLEM_FOLDER}="{problem_folder}"\n')
-            f.write(f'{constant.CONTEST_FOLDER}="{contest_folder}"\n')
-            f.write(f'{constant.LANGUAGES}="{",".join(languages)}"\n')
-            if push_key:
-                f.write(f'{constant.PUSH_KEY}="{push_key}"\n')
-            f.write('PYTHONPATH=.\n')
+        env_file.touch()  # Ensure file exists
+        set_key(env_file.as_posix(), constant.COOKIE, cookie)
+        set_key(env_file.as_posix(), constant.PROBLEM_FOLDER, problem_folder)
+        set_key(env_file.as_posix(), constant.CONTEST_FOLDER, contest_folder)
+        set_key(env_file.as_posix(), constant.LANGUAGES, ",".join(languages))
+        if push_key:
+            set_key(env_file.as_posix(), constant.PUSH_KEY, push_key)
+        set_key(env_file.as_posix(), "PYTHONPATH", ".")
         print(t("init_saved", path=env_file))
 
     print("\n" + "=" * 50)
@@ -772,6 +773,74 @@ def link_problems(problem_folder):
     print(SEPARATE_LINE)
 
 
+def fetch_solutions(cookie, problem_folder):
+    """拉取用户发布的题解"""
+    user_slug = os.getenv("LEETCODE_USER", "")
+    if not user_slug:
+        print(t("fetch_no_user"))
+        return
+
+    while True:
+        fetch_method = input_until_valid(
+            t("fetch_menu"),
+            allow_all
+        )
+        print(SEPARATE_LINE)
+        match fetch_method:
+            case "1":
+                # Dry run - 检查所有已解题目
+                fetch_solution_main(
+                    dry_run=True,
+                    user_slug=user_slug,
+                    problem_folder=problem_folder,
+                    cookie=cookie
+                )
+                print(SEPARATE_LINE)
+            case "2":
+                # 拉取所有题解
+                force_input = input_until_valid(t("fetch_force"), allow_all)
+                force = force_input.lower() == "y"
+
+                delay_input = input_until_valid(t("fetch_delay"), allow_all)
+                delay = float(delay_input) if delay_input else 3.0
+
+                print(SEPARATE_LINE)
+                print(t("fetch_running"))
+                fetch_solution_main(
+                    dry_run=False,
+                    force=force,
+                    delay=delay,
+                    user_slug=user_slug,
+                    problem_folder=problem_folder,
+                    cookie=cookie
+                )
+                print(t("fetch_done"))
+                print(SEPARATE_LINE)
+            case "3":
+                # 拉取指定题目题解
+                problem_id_input = input_until_valid(t("fetch_problem_id"), allow_all)
+                if not problem_id_input:
+                    continue
+
+                force_input = input_until_valid(t("fetch_force"), allow_all)
+                force = force_input.lower() == "y"
+
+                print(SEPARATE_LINE)
+                print(t("fetch_running"))
+                fetch_solution_main(
+                    dry_run=False,
+                    force=force,
+                    problem_id=problem_id_input,
+                    user_slug=user_slug,
+                    problem_folder=problem_folder,
+                    cookie=cookie
+                )
+                print(t("fetch_done"))
+                print(SEPARATE_LINE)
+            case _:
+                return
+
+
 # ============================================================================
 # Main Entry Point
 # ============================================================================
@@ -822,6 +891,8 @@ def main():
                     print(SEPARATE_LINE)
                 case "8":
                     link_problems(problem_folder)
+                case "9":
+                    fetch_solutions(cookie, problem_folder)
                 case _:
                     print(t("main_exit"))
                     break

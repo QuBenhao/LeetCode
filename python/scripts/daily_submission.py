@@ -117,7 +117,7 @@ if __name__ == '__main__':
         traceback.print_exc()
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, None)
-    ur = os.getenv(constant.USER, None)
+    ur = os.getenv(constant.LEETCODE_USER, None)
     log_level = os.getenv(constant.LOG_LEVEL, "INFO")
     logging.basicConfig(level=log_level.upper(), format=constant.LOGGING_FORMAT, datefmt=constant.DATE_FORMAT)
     try:
