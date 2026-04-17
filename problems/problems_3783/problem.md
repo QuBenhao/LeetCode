@@ -1,4 +1,4 @@
-# 3783. Mirror Distance of an Integer 
+# 3783. Mirror Distance of an Integer [Rating: 1170.79]
 
 <p>You are given an integer <code>n</code>.</p>
 
