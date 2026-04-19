@@ -71,8 +71,10 @@ def initialize_env():
     # Step 1: Auto-detect browser cookie
     print(f"\n{t('init_step1')}")
     cookie = None
+    max_retries = 3
+    retry_count = 0
     if HAS_BROWSER_COOKIE:
-        while True:
+        while retry_count < max_retries:
             result = get_browser_cookie()
             if result:
                 cookie, browser_name, cookie_count = result
@@ -84,6 +86,11 @@ def initialize_env():
                     print(t("cookie_auto_expired_hint"))
                     retry = input_until_valid(t("init_retry_login"), allow_all)
                     if retry != "n":
+                        retry_count += 1
+                        if retry_count >= max_retries:
+                            print(t("init_max_retries"))
+                            cookie = None
+                            break
                         print(t("init_waiting_login"))
                         input()  # Wait for user to press Enter after logging in
                         continue
@@ -114,8 +121,8 @@ def initialize_env():
     if env_file.exists():
         try:
             load_dotenv(dotenv_path=env_file.as_posix())
-        except Exception:
-            pass
+        except Exception as e:
+            print(t("init_load_failed", error=e))
     existing_languages = os.getenv(constant.LANGUAGES, "python3").split(",")
     existing_problem_folder = os.getenv(constant.PROBLEM_FOLDER, "problems")
     existing_contest_folder = os.getenv(constant.CONTEST_FOLDER, "contest")

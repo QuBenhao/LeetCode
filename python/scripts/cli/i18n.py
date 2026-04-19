@@ -46,8 +46,10 @@ I18N: Dict[str, Dict[str, str]] = {
         "init_cookie_invalid": "⚠️  浏览器中的 Cookie 已过期",
         "init_retry_login": "是否在浏览器中重新登录后重试? [y/n, 默认: y]: ",
         "init_waiting_login": "请在浏览器中登录 leetcode.cn，完成后按回车继续...",
+        "init_max_retries": "⚠️  已达最大重试次数，请稍后再试",
         "init_skip_config": "跳过剩余配置步骤，使用现有配置 ({config})? [y/n, 默认: y]: ",
         "init_skip_confirmed": "✓ 使用现有配置",
+        "init_load_failed": "⚠️  加载现有配置失败: {error}",
 
         "init_save_config": "保存配置到 .env 文件? [y/n, 默认: y]: ",
         "init_saved": "✓ 配置已保存到 {path}",
@@ -183,8 +185,10 @@ I18N: Dict[str, Dict[str, str]] = {
         "init_cookie_invalid": "⚠️  Browser cookie has expired",
         "init_retry_login": "Re-login in browser and retry? [y/n, default: y]: ",
         "init_waiting_login": "Please login to leetcode.cn in your browser, then press Enter to continue...",
+        "init_max_retries": "⚠️  Max retries reached, please try again later",
         "init_skip_config": "Skip remaining config, use current settings ({config})? [y/n, default: y]: ",
         "init_skip_confirmed": "✓ Using current configuration",
+        "init_load_failed": "⚠️  Failed to load existing configuration: {error}",
 
         "init_save_config": "Save configuration to .env file? [y/n, default: y]: ",
         "init_saved": "✓ Configuration saved to {path}",
