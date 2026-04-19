@@ -2,6 +2,34 @@
 
 <!-- version list -->
 
+## v11.3.0 (2026-04-19)
+
+### Bug Fixes
+
+- Address code review feedback ([#186](https://github.com/QuBenhao/LeetCode/pull/186),
+  [`0c3a034`](https://github.com/QuBenhao/LeetCode/commit/0c3a034e2ab1fc7917b7d674f1d0d0c0f932c699))
+
+### Features
+
+- Improve cookie expired detection and initialization UX
+  ([#186](https://github.com/QuBenhao/LeetCode/pull/186),
+  [`0c3a034`](https://github.com/QuBenhao/LeetCode/commit/0c3a034e2ab1fc7917b7d674f1d0d0c0f932c699))
+
+### Testing
+
+- 3761 solution
+  ([`ba5c980`](https://github.com/QuBenhao/LeetCode/commit/ba5c98025a524bd504a8861da29eeb42fce426f6))
+
+- [20260417] Add (3761)
+  ([`8a8a93c`](https://github.com/QuBenhao/LeetCode/commit/8a8a93c086c46261f72fe5a485fdb5cc0aa8b3c1))
+
+- [20260418] Add (3783)
+  ([`66f79d9`](https://github.com/QuBenhao/LeetCode/commit/66f79d9464b03d9acb6208f5f0a39ef7ff6a9f12))
+
+- [20260419] Add (1855)
+  ([`7d2b327`](https://github.com/QuBenhao/LeetCode/commit/7d2b327f2d00132ee1eb603e089ec88fbdbae720))
+
+
 ## v11.2.0 (2026-04-16)
 
 ### Features
