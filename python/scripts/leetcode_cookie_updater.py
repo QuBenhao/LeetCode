@@ -34,12 +34,17 @@ import logging
 from datetime import datetime
 from pathlib import Path
 
+# Setup path for importing project modules
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+
 try:
     import browser_cookie3
 except ImportError as e:
     print(f"缺少依赖：{e}")
     print("请运行：pip install browser-cookie3")
     sys.exit(1)
+
+from python.utils import check_cookie_expired
 
 
 def setup_logging(level: str = "INFO"):
@@ -57,7 +62,7 @@ def setup_logging(level: str = "INFO"):
 def get_leetcode_cn_cookie(logger: logging.Logger) -> str | None:
     """从浏览器获取 LeetCode CN 的 Cookie"""
     cookie_parts = []
-    
+
     # 尝试多种浏览器
     browsers = [
         ('Chrome', browser_cookie3.chrome),
@@ -65,7 +70,7 @@ def get_leetcode_cn_cookie(logger: logging.Logger) -> str | None:
         ('Firefox', browser_cookie3.firefox),
         ('Chromium', browser_cookie3.chromium),
     ]
-    
+
     for browser_name, browser_func in browsers:
         try:
             logger.debug(f"尝试从 {browser_name} 获取 cookie...")
@@ -80,12 +85,21 @@ def get_leetcode_cn_cookie(logger: logging.Logger) -> str | None:
         except Exception as e:
             logger.debug(f"{browser_name} 失败: {type(e).__name__}: {e}")
             continue
-    
+
     if not cookie_parts:
-        logger.error("未找到 LeetCode CN Cookie，请确保已在浏览器中登录 leetcode.cn")
+        logger.error("未在浏览器中找到 LeetCode CN Cookie")
+        logger.error("请先在浏览器中访问 leetcode.cn 并登录")
         return None
-    
-    return "; ".join(cookie_parts)
+
+    cookie = "; ".join(cookie_parts)
+
+    # Check if cookie is expired
+    if check_cookie_expired(cookie):
+        logger.error("浏览器中的 LeetCode Cookie 已过期")
+        logger.error("请先在浏览器中重新登录 leetcode.cn")
+        return None
+
+    return cookie
 
 
 def update_github_secret(cookie: str, repo_name: str, github_token: str, logger: logging.Logger) -> bool:
