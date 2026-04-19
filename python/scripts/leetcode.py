@@ -72,13 +72,30 @@ def initialize_env():
     print(f"\n{t('init_step1')}")
     cookie = None
     if HAS_BROWSER_COOKIE:
-        result = get_browser_cookie()
-        if result:
-            cookie, browser_name, cookie_count = result
-            print(t("init_found_cookie", browser=browser_name, count=cookie_count))
-        else:
-            print(t("init_no_cookie"))
-            print(t("init_no_cookie_hint"))
+        while True:
+            result = get_browser_cookie()
+            if result:
+                cookie, browser_name, cookie_count = result
+                print(t("init_found_cookie", browser=browser_name, count=cookie_count))
+                # Verify cookie immediately
+                print(t("init_verifying"))
+                if check_cookie_expired(cookie):
+                    print(t("init_cookie_invalid"))
+                    print(t("cookie_auto_expired_hint"))
+                    retry = input_until_valid(t("init_retry_login"), allow_all)
+                    if retry != "n":
+                        print(t("init_waiting_login"))
+                        input()  # Wait for user to press Enter after logging in
+                        continue
+                    else:
+                        cookie = None
+                else:
+                    print(t("init_cookie_valid"))
+                break
+            else:
+                print(t("init_no_cookie"))
+                print(t("cookie_no_browser_hint"))
+                break
     else:
         print(t("init_browser_not_installed"))
         print(t("init_browser_install_hint"))
@@ -92,6 +109,51 @@ def initialize_env():
                 t("init_cookie_empty")
             )
     print(SEPARATE_LINE)
+
+    # Load existing config or use defaults
+    if env_file.exists():
+        try:
+            load_dotenv(dotenv_path=env_file.as_posix())
+        except Exception:
+            pass
+    existing_languages = os.getenv(constant.LANGUAGES, "python3").split(",")
+    existing_problem_folder = os.getenv(constant.PROBLEM_FOLDER, "problems")
+    existing_contest_folder = os.getenv(constant.CONTEST_FOLDER, "contest")
+    existing_config_str = f"{','.join(existing_languages)}, {existing_problem_folder}, {existing_contest_folder}"
+
+    skip_config = input_until_valid(
+        t("init_skip_config", config=existing_config_str),
+        allow_all
+    )
+    if skip_config.lower() != "n":
+        languages = existing_languages
+        problem_folder = existing_problem_folder
+        contest_folder = existing_contest_folder
+        print(t("init_skip_confirmed"))
+        print(SEPARATE_LINE)
+
+        # Save to .env
+        save_config = input_until_valid(
+            t("init_save_config"),
+            allow_all
+        )
+        if save_config != "n":
+            env_file.touch()  # Ensure file exists
+            set_key(env_file.as_posix(), constant.COOKIE, cookie)
+            set_key(env_file.as_posix(), constant.PROBLEM_FOLDER, problem_folder)
+            set_key(env_file.as_posix(), constant.CONTEST_FOLDER, contest_folder)
+            set_key(env_file.as_posix(), constant.LANGUAGES, ",".join(languages))
+            set_key(env_file.as_posix(), "PYTHONPATH", ".")
+            print(t("init_saved", path=env_file))
+
+            print("\n" + "=" * 50)
+            print(t("init_done"))
+            print("=" * 50 + "\n")
+        else:
+            print(t("init_not_saved"))
+        print(SEPARATE_LINE)
+
+        return languages, problem_folder, cookie, contest_folder
 
     # Step 2: Select languages
     print(f"\n{t('init_step2')}")
@@ -134,14 +196,6 @@ def initialize_env():
         print(t("init_notify_skipped"))
     print(SEPARATE_LINE)
 
-    # Verify cookie
-    print(f"\n{t('init_verifying')}")
-    if check_cookie_expired(cookie):
-        print(t("init_cookie_invalid"))
-    else:
-        print(t("init_cookie_valid"))
-    print(SEPARATE_LINE)
-
     # Save to .env
     save_config = input_until_valid(
         t("init_save_config"),
@@ -158,9 +212,12 @@ def initialize_env():
         set_key(env_file.as_posix(), "PYTHONPATH", ".")
         print(t("init_saved", path=env_file))
 
-    print("\n" + "=" * 50)
-    print(t("init_done"))
-    print("=" * 50 + "\n")
+        print("\n" + "=" * 50)
+        print(t("init_done"))
+        print("=" * 50 + "\n")
+    else:
+        print(t("init_not_saved"))
+    print(SEPARATE_LINE)
 
     return languages, problem_folder, cookie, contest_folder
 

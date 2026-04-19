@@ -46,10 +46,10 @@ def check_and_update_cookie(_cookie: str, auto_detect: bool = True) -> str:
                         return cookie
                     else:
                         print(t("cookie_auto_invalid"))
-                        print(t("init_no_cookie_hint"))
+                        print(t("cookie_auto_expired_hint"))
                 else:
                     print(t("init_no_cookie"))
-                    print(t("init_no_cookie_hint"))
+                    print(t("cookie_no_browser_hint"))
 
         # Try reading from file
         file_cookie = read_cookie_from_file()

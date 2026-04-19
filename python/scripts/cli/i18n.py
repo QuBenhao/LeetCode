@@ -43,10 +43,15 @@ I18N: Dict[str, Dict[str, str]] = {
 
         "init_verifying": "🔍 验证 Cookie...",
         "init_cookie_valid": "✓ Cookie 验证成功！",
-        "init_cookie_invalid": "⚠️  Cookie 无效，可能需要刷新浏览器登录",
+        "init_cookie_invalid": "⚠️  浏览器中的 Cookie 已过期",
+        "init_retry_login": "是否在浏览器中重新登录后重试? [y/n, 默认: y]: ",
+        "init_waiting_login": "请在浏览器中登录 leetcode.cn，完成后按回车继续...",
+        "init_skip_config": "跳过剩余配置步骤，使用现有配置 ({config})? [y/n, 默认: y]: ",
+        "init_skip_confirmed": "✓ 使用现有配置",
 
         "init_save_config": "保存配置到 .env 文件? [y/n, 默认: y]: ",
         "init_saved": "✓ 配置已保存到 {path}",
+        "init_not_saved": "⚠️  配置未保存，下次启动需重新初始化",
         "init_done": "✅ 初始化完成！",
 
         # Config selection
@@ -67,6 +72,8 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_detected": "✓ 从 {browser} 找到 {count} 个 LeetCode Cookie",
         "cookie_verified": "✓ Cookie 验证成功！",
         "cookie_auto_invalid": "✗ 自动检测的 Cookie 也无效",
+        "cookie_auto_expired_hint": "  浏览器中的 Cookie 已过期，请先在浏览器中重新登录 leetcode.cn",
+        "cookie_no_browser_hint": "  浏览器中未找到 LeetCode Cookie，请先在浏览器中登录 leetcode.cn",
         "cookie_manual": "是否手动输入 Cookie? [y/n, 默认: n]: ",
         "cookie_continue": "继续使用现有 Cookie...",
 
@@ -173,10 +180,15 @@ I18N: Dict[str, Dict[str, str]] = {
 
         "init_verifying": "🔍 Verifying cookie...",
         "init_cookie_valid": "✓ Cookie verified successfully!",
-        "init_cookie_invalid": "⚠️  Cookie is invalid, you may need to refresh browser login",
+        "init_cookie_invalid": "⚠️  Browser cookie has expired",
+        "init_retry_login": "Re-login in browser and retry? [y/n, default: y]: ",
+        "init_waiting_login": "Please login to leetcode.cn in your browser, then press Enter to continue...",
+        "init_skip_config": "Skip remaining config, use current settings ({config})? [y/n, default: y]: ",
+        "init_skip_confirmed": "✓ Using current configuration",
 
         "init_save_config": "Save configuration to .env file? [y/n, default: y]: ",
         "init_saved": "✓ Configuration saved to {path}",
+        "init_not_saved": "⚠️  Configuration not saved, you'll need to re-initialize next time",
         "init_done": "✅ Initialization complete!",
 
         # Config selection
@@ -197,6 +209,8 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_detected": "✓ Found {count} LeetCode cookies from {browser}",
         "cookie_verified": "✓ Cookie verified successfully!",
         "cookie_auto_invalid": "✗ Auto-detected cookie is also invalid",
+        "cookie_auto_expired_hint": "  Browser cookie has expired, please re-login to leetcode.cn in your browser",
+        "cookie_no_browser_hint": "  No LeetCode cookie found in browser, please login to leetcode.cn in your browser first",
         "cookie_manual": "Manually enter cookie? [y/n, default: n]: ",
         "cookie_continue": "Continuing with existing cookie...",
 
