@@ -57,8 +57,8 @@ class Test(unittest.TestCase):
         if not testcase_obj.get_testcases():
             self.fail(f"No testcases found in [{question}] testcase.py")
 
-        for test in testcase_obj.get_testcases():
-            with self.subTest(f"testcase: {test}", testcase=test):
+        for idx, test in enumerate(testcase_obj.get_testcases(), 1):
+            with self.subTest(f"[{question}] case {idx}/{len(testcase_obj.get_testcases())}", testcase=test):
                 i, o = test
                 try:
                     result = exec_solution(solution_obj, i)

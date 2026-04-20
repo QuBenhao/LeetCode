@@ -1,3 +1,5 @@
+from collections import defaultdict, Counter
+
 import solution
 
 
@@ -12,67 +14,48 @@ class Solution(solution.Solution):
         :type allowedSwaps: List[List[int]]
         :rtype: int
         """
-        import collections
+        n = len(source)
+        uf = UnionFind(n)
+        for x, y in allowedSwaps:
+            uf.union(x, y)
+        groups = defaultdict(lambda: Counter())
+        for i in range(n):
+            root = uf.find(i)
+            groups[root][source[i]] += 1
+            groups[root][target[i]] -= 1
+        return sum(v for counter in groups.values() for v in counter.values() if v > 0)
 
-        def diff(so, ta):
-            count = 0
-            for i in range(len(so)):
-                if so[i] != ta[i]:
-                    count += 1
-            return count
+class UnionFind:
+    def __init__(self, n: int):
+        self.parent = list(range(n))
+        self.rank = [1] * n
+        self.size = [1] * n
+        self.cc = n
 
-        def helper(indexes, so, ta):
-            s_d = collections.defaultdict(int)
-            t_d = collections.defaultdict(int)
-            for i in set(indexes):
-                s_d[so[i]] += 1
-                t_d[ta[i]] += 1
-            count = 0
-            for k in t_d:
-                if k not in s_d:
-                    count += t_d[k]
-                else:
-                    count += max(t_d[k] - s_d[k], 0)
-            # print(t_d,s_d,count)
-            return count
+    def find(self, x: int) -> int:
+        while self.parent[x] != x:
+            self.parent[x] = self.parent[self.parent[x]]  # 路径压缩
+            x = self.parent[x]
+        return x
 
-        states = set()
-        actions = collections.defaultdict(set)
-        for a, b in allowedSwaps:
-            states.add(a)
-            states.add(b)
-            actions[a].add(b)
-            actions[b].add(a)
+    def union(self, x: int, y: int) -> bool:
+        root_x = self.find(x)
+        root_y = self.find(y)
 
-        group = []
-        explored = set()
-        curr = list(states)
-        while curr:
-            s = curr.pop(0)
-            frontier = [s]
-            res = set()
-            while frontier:
-                n_ = []
-                for s in frontier:
-                    explored.add(s)
-                    res.add(s)
-                    for n in actions[s]:
-                        if n not in explored:
-                            n_.append(n)
-                frontier = n_
-            for r in res:
-                if r in curr:
-                    curr.remove(r)
-            group.append(res)
-        # print(group)
-        if not group:
-            return diff(source, target)
+        if root_x == root_y:
+            return False  # 已经在同一集合
+
+        # 按秩合并
+        if self.rank[root_x] > self.rank[root_y]:
+            self.parent[root_y] = root_x
+            self.size[root_x] += self.size[root_y]
         else:
-            ans = 0
-            for g in group:
-                ans += helper(g, source, target)
-            for i in range(len(source)):
-                if i not in explored:
-                    if source[i] != target[i]:
-                        ans += 1
-            return ans
+            self.parent[root_x] = root_y
+            if self.rank[root_x] == self.rank[root_y]:
+                self.rank[root_y] += 1
+            self.size[root_y] += self.size[root_x]
+        self.cc -= 1
+        return True
+
+    def is_connected(self, x:int, y:int) -> bool:
+        return self.find(x) == self.find(y)

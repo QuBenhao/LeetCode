@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
 
         for i in range(0, len(plans), 2):
             q, folder = plans[i], plans[i + 1]
-            with self.subTest(f"Testing problem: {q}", question=q):
+            with self.subTest(f"[{q}]", question=q):
                 problem_path = root_path / folder / f"{folder}_{q}"
                 if not problem_path.exists():
                     logging.warning("[QUESTION: {}] not found under problem folder: {}".format(q, problem_path))
@@ -59,8 +59,9 @@ class Test(unittest.TestCase):
                 if not testcase_obj.get_testcases():
                     self.fail(f"No testcases found in [{q}] testcase.py")
 
-                for test in testcase_obj.get_testcases():
-                    with self.subTest(f"testcase: {test}", testcase=test):
+                total = len(testcase_obj.get_testcases())
+                for idx, test in enumerate(testcase_obj.get_testcases(), 1):
+                    with self.subTest(f"[{q}] case {idx}/{total}", testcase=test):
                         ipt, expected = test
                         logging.info("Testing problem: {}, input: {}".format(q, ipt))
                         try:
