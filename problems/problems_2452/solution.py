@@ -7,5 +7,7 @@ class Solution(solution.Solution):
         return self.twoEditWords(*test_input)
 
     def twoEditWords(self, queries: List[str], dictionary: List[str]) -> List[str]:
-        pass
+        def distance(a, b):
+            return sum(i != j for i, j in zip(a, b))
 
+        return [word for word in queries if any(distance(word, wd) <= 2 for wd in dictionary)]
