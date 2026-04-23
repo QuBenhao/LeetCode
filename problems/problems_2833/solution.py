@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.furthestDistanceFromOrigin(test_input)
 
     def furthestDistanceFromOrigin(self, moves: str) -> int:
-        pass
-
+        return abs((l := moves.count('L')) - (r :=  moves.count('R'))) + len(moves) - l - r
