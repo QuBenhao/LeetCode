@@ -78,7 +78,7 @@ def get_answer_endlesscheng(problem_slug: str, cookie: str) -> Optional[Dict]:
     return get_solution_by_author(problem_slug, "endlesscheng", cookie)
 
 
-def get_answer_articles(problem_slug: str, cookie: str, first: int = 5) -> List[Dict]:
+def get_answer_articles(problem_slug: str, cookie: str, first: int = 5, skip: int = 0) -> Dict:
     """
     获取指定题目的社区热门题解列表
 
@@ -86,12 +86,15 @@ def get_answer_articles(problem_slug: str, cookie: str, first: int = 5) -> List[
         problem_slug: 题目 slug
         cookie: LeetCode Cookie
         first: 返回数量，默认 5
+        skip: 跳过数量，默认 0（用于分页）
 
     Returns:
-        题解列表，每个元素含 slug, title, author, upvoteCount, hitCount, summary 等
+        字典，包含:
+        - total: 总数
+        - articles: 题解列表，每个元素含 slug, title, author, upvoteCount, hitCount, summary 等
     """
     if not cookie:
         logging.warning("Cookie is empty, cannot fetch solution articles")
-        return []
+        return {"total": 0, "articles": []}
     from python.lc_libs.solution_article import get_solution_articles
-    return get_solution_articles(problem_slug, cookie, first=first)
+    return get_solution_articles(problem_slug, cookie, first=first, skip=skip)
