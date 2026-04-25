@@ -115,10 +115,9 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
         result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang,
                                            lc_question_id, code)
     # 展示热门题解列表
-    logging.info(f"题解列表: https://leetcode.cn/problems/{problem_slug}/solutions/")
     try:
-        result = lc_libs.get_answer_articles(problem_slug, cookie, first=5)
-        articles = result.get("articles", [])
+        articles_result = lc_libs.get_answer_articles(problem_slug, cookie, first=5)
+        articles = articles_result.get("articles", [])
         if articles:
             logging.info("热门题解:")
             for i, article in enumerate(articles, 1):
@@ -127,7 +126,11 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
                 author_name = profile.get("realName", "") or author_info.get("username", "Unknown")
                 title = article.get("title", "")[:40]
                 upvote = article.get("upvoteCount", 0)
+                uuid = article.get("uuid", "")
+                solution_link = f"https://leetcode.cn/problems/{problem_slug}/solutions/{uuid}/" if uuid else ""
                 logging.info(f"  {i}. {title}{'...' if len(article.get('title', '')) > 40 else ''} | {author_name} | 👍{upvote}")
+                if solution_link:
+                    logging.info(f"     🔗 {solution_link}")
         else:
             logging.info("未找到社区题解")
     except Exception as e:
