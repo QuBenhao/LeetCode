@@ -17,14 +17,10 @@ class Solution(solution.Solution):
             for j in range(n):
                 idx = to_idx(i, j)
                 # 只检查右边和下边，避免重复
-                if j < n - 1 and grid[i][j] == grid[i][j + 1]:
-                    nxt = to_idx(i, j + 1)
-                    if not uf.union(idx, nxt):
-                        return True
-                if i < m - 1 and grid[i][j] == grid[i + 1][j]:
-                    nxt = to_idx(i + 1, j)
-                    if not uf.union(idx, nxt):
-                        return True
+                if j < n - 1 and grid[i][j] == grid[i][j + 1] and not uf.union(idx, idx + 1):
+                    return True
+                if i < m - 1 and grid[i][j] == grid[i + 1][j] and not uf.union(idx, idx + n):
+                    return True
         return False
 
 
