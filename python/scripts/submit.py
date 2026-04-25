@@ -117,7 +117,8 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
     # 展示热门题解列表
     logging.info(f"题解列表: https://leetcode.cn/problems/{problem_slug}/solutions/")
     try:
-        articles = lc_libs.get_answer_articles(problem_slug, cookie, first=5)
+        result = lc_libs.get_answer_articles(problem_slug, cookie, first=5)
+        articles = result.get("articles", [])
         if articles:
             logging.info("热门题解:")
             for i, article in enumerate(articles, 1):
