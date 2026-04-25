@@ -71,6 +71,9 @@ def get_answer_endlesscheng(problem_slug: str, cookie: str) -> Optional[Dict]:
     Returns:
         题解内容字典（含 title, content, author 等），未找到返回 None
     """
+    if not cookie:
+        logging.warning("Cookie is empty, cannot fetch endlesscheng solution")
+        return None
     from python.lc_libs.solution_article import get_solution_by_author
     return get_solution_by_author(problem_slug, "endlesscheng", cookie)
 
@@ -87,5 +90,8 @@ def get_answer_articles(problem_slug: str, cookie: str, first: int = 5) -> List[
     Returns:
         题解列表，每个元素含 slug, title, author, upvoteCount, hitCount, summary 等
     """
+    if not cookie:
+        logging.warning("Cookie is empty, cannot fetch solution articles")
+        return []
     from python.lc_libs.solution_article import get_solution_articles
     return get_solution_articles(problem_slug, cookie, first=first)

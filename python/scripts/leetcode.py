@@ -865,11 +865,13 @@ def _save_solution(article_content: dict, problem_folder: str, problem_id: str):
     """保存题解到本地文件"""
     problem_dir = root_path / problem_folder / f"{problem_folder}_{back_question_id(problem_id)}"
     if not problem_dir.exists():
-        print(t("solution_save_failed"))
+        print(f"{t('solution_save_failed')} - 目录不存在: {problem_dir}")
         return
     author_info = article_content.get("author", {})
     profile = author_info.get("profile", {})
     author_slug = profile.get("userSlug", "unknown") if profile else "unknown"
+    # Sanitize author_slug: only allow alphanumeric, underscore, dash
+    author_slug = re.sub(r"[^a-zA-Z0-9_-]", "", author_slug) or "unknown"
     save_path = problem_dir / f"solution_{author_slug}.md"
     author_name = profile.get("realName", "") or author_info.get("username", "")
     title = article_content.get("title", "")
@@ -900,11 +902,11 @@ def _browse_community_solutions(cookie: str, problem_folder: str):
         print(t("solution_no_articles"))
         return
 
-    print(t("solution_list_header"))
-    _display_articles(articles)
-    print(SEPARATE_LINE)
-
     while True:
+        print(t("solution_list_header"))
+        _display_articles(articles)
+        print(SEPARATE_LINE)
+
         select = input_until_valid(t("solution_select_view"), allow_all)
         if not select.isdigit() or int(select) == 0:
             return

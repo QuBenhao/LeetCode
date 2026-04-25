@@ -3,7 +3,9 @@ LeetCode 题解文章相关 API
 """
 
 import json
+import logging
 import re
+import time
 from typing import Optional, List, Dict
 
 from python.constants.constant import LEET_CODE_BACKEND
@@ -39,7 +41,6 @@ def get_solution_by_url(url: str, cookie: str) -> Optional[Dict]:
     """
     slug = extract_solution_slug_from_url(url)
     if not slug:
-        import logging
         logging.warning(f"无法从 URL 提取 slug: {url}")
         return None
     return get_solution_content(slug, cookie)
@@ -50,7 +51,6 @@ def get_my_solution_list(question_slug: str, user_slug: str, cookie: str) -> Lis
     def handle_response(response):
         data = json.loads(response.text)
         if data.get("errors"):
-            import logging
             logging.warning(f"GraphQL errors in get_my_solution_list: {data['errors']}")
             return []
         if data.get("data") and data["data"].get("questionSolutionMyArticles"):
@@ -93,7 +93,6 @@ def get_solution_content(solution_slug: str, cookie: str, max_retries: int = 3) 
     def handle_response(response):
         data = json.loads(response.text)
         if data.get("errors"):
-            import logging
             logging.warning(f"GraphQL errors in get_solution_content: {data['errors']}")
             return None
         if data.get("data") and data["data"].get("solutionArticle"):
@@ -118,14 +117,10 @@ def get_solution_content(solution_slug: str, cookie: str, max_retries: int = 3) 
             if content and content.strip():
                 return result
             else:
-                import logging
-                import time
                 logging.warning(f"Empty content for {solution_slug}, attempt {attempt + 1}/{max_retries}")
                 if attempt < max_retries - 1:
                     time.sleep(2 * (attempt + 1))  # 递增等待时间
         else:
-            import logging
-            import time
             logging.warning(f"Failed to get solution content for {solution_slug}, attempt {attempt + 1}/{max_retries}")
             if attempt < max_retries - 1:
                 time.sleep(2 * (attempt + 1))
@@ -141,22 +136,29 @@ def get_solution_articles(question_slug: str, cookie: str, author_slug: str = No
     Args:
         question_slug: 题目的 slug，如 'maximize-the-distance-between-points-on-a-square'
         cookie: LeetCode Cookie
-        author_slug: 可选，指定作者的 slug，如 'endlesscheng'
+        author_slug: 可选，指定作者的 slug，如 'endlesscheng'（使用 userInput 服务端过滤）
         first: 返回数量，默认 15
         order_by: 排序方式，默认 'DEFAULT'，可选 'MOST_POPULAR'
 
     Returns:
         题解列表，每个元素包含 slug, title, author, upvoteCount, summary 等
     """
+    if not cookie:
+        logging.warning("Cookie is empty, cannot fetch solution articles")
+        return []
+
     def handle_response(response):
         data = json.loads(response.text)
         if data.get("errors"):
-            import logging
             logging.warning(f"GraphQL errors in get_solution_articles: {data['errors']}")
             return []
         if data.get("data") and data["data"].get("questionSolutionArticles"):
             return data["data"]["questionSolutionArticles"]["edges"]
         return []
+
+    # 当指定 author_slug 时，增大 first 并使用 userInput 服务端过滤
+    actual_first = first if not author_slug else min(first * 3, 50)
+    user_input = author_slug if author_slug else ""
 
     result = general_request(
         LEET_CODE_BACKEND,
@@ -166,9 +168,9 @@ def get_solution_articles(question_slug: str, cookie: str, author_slug: str = No
             "variables": {
                 "questionSlug": question_slug,
                 "skip": 0,
-                "first": first,
+                "first": actual_first,
                 "orderBy": order_by,
-                "userInput": "",
+                "userInput": user_input,
                 "tagSlugs": []
             },
             "operationName": "questionTopicsList"
@@ -184,7 +186,7 @@ def get_solution_articles(question_slug: str, cookie: str, author_slug: str = No
     for edge in result:
         node = edge.get("node", {})
         if author_slug:
-            # 按作者筛选
+            # 服务端已通过 userInput 过滤，客户端再做精确匹配
             author = node.get("author", {})
             profile = author.get("profile", {})
             node_author_slug = profile.get("userSlug", "") if profile else ""

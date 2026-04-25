@@ -116,18 +116,21 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
                                            lc_question_id, code)
     # 展示热门题解列表
     logging.info(f"题解列表: https://leetcode.cn/problems/{problem_slug}/solutions/")
-    articles = lc_libs.get_answer_articles(problem_slug, cookie, first=5)
-    if articles:
-        logging.info("热门题解:")
-        for i, article in enumerate(articles, 1):
-            author_info = article.get("author", {})
-            profile = author_info.get("profile", {})
-            author_name = profile.get("realName", "") or author_info.get("username", "Unknown")
-            title = article.get("title", "")[:40]
-            upvote = article.get("upvoteCount", 0)
-            logging.info(f"  {i}. {title}{'...' if len(article.get('title', '')) > 40 else ''} | {author_name} | 👍{upvote}")
-    else:
-        logging.info("未找到社区题解")
+    try:
+        articles = lc_libs.get_answer_articles(problem_slug, cookie, first=5)
+        if articles:
+            logging.info("热门题解:")
+            for i, article in enumerate(articles, 1):
+                author_info = article.get("author", {})
+                profile = author_info.get("profile", {})
+                author_name = profile.get("realName", "") or author_info.get("username", "Unknown")
+                title = article.get("title", "")[:40]
+                upvote = article.get("upvoteCount", 0)
+                logging.info(f"  {i}. {title}{'...' if len(article.get('title', '')) > 40 else ''} | {author_name} | 👍{upvote}")
+        else:
+            logging.info("未找到社区题解")
+    except Exception as e:
+        logging.warning(f"获取题解失败: {e}")
     # 三叶题解链接（备用）
     san_ye_solution = lc_libs.get_answer_san_ye(problem_id, problem_slug)
     if san_ye_solution:
