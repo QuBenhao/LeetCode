@@ -1,7 +1,7 @@
 import itertools
 import logging
 import urllib.parse
-from typing import Optional, List
+from typing import Optional, List, Dict
 
 from python.utils.http_tool import github_iterate_repo, github_get_file_content
 from python.utils.str_util import back_question_id
@@ -58,3 +58,34 @@ def get_answer_san_ye(problem_id: str, problem_slug: Optional[str] = None) -> Op
             return BASE_URL + urllib.parse.quote(file)
         logging.debug(f"Solution not found for problem id: {problem_id} and problem slug: {problem_slug}")
     return None
+
+
+def get_answer_endlesscheng(problem_slug: str, cookie: str) -> Optional[Dict]:
+    """
+    获取 endlesscheng (灵茶山艾府) 在指定题目下的题解
+
+    Args:
+        problem_slug: 题目 slug
+        cookie: LeetCode Cookie
+
+    Returns:
+        题解内容字典（含 title, content, author 等），未找到返回 None
+    """
+    from python.lc_libs.solution_article import get_solution_by_author
+    return get_solution_by_author(problem_slug, "endlesscheng", cookie)
+
+
+def get_answer_articles(problem_slug: str, cookie: str, first: int = 5) -> List[Dict]:
+    """
+    获取指定题目的社区热门题解列表
+
+    Args:
+        problem_slug: 题目 slug
+        cookie: LeetCode Cookie
+        first: 返回数量，默认 5
+
+    Returns:
+        题解列表，每个元素含 slug, title, author, upvoteCount, hitCount, summary 等
+    """
+    from python.lc_libs.solution_article import get_solution_articles
+    return get_solution_articles(problem_slug, cookie, first=first)

@@ -80,7 +80,7 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_continue": "继续使用现有 Cookie...",
 
         # Main menu
-        "main_menu": "请选择功能 [0-9, 默认: 0]:\n0. 退出\n1. 获取题目\n2. 提交代码\n3. 切换测试题目\n4. 比赛\n5. 清理空 Java 文件\n6. 清理错误 Rust 文件\n7. 收藏夹管理\n8. 创建题目链接\n9. 拉取题解\n",
+        "main_menu": "请选择功能 [0-9, 默认: 0]:\n0. 退出\n1. 获取题目\n2. 提交代码\n3. 切换测试题目\n4. 比赛\n5. 清理空 Java 文件\n6. 清理错误 Rust 文件\n7. 收藏夹管理\n8. 创建题目链接\n9. 题解中心\n",
         "main_exit": "正在退出...",
         "main_bye": "再见！",
 
@@ -149,6 +149,21 @@ I18N: Dict[str, Dict[str, str]] = {
         "fetch_no_user": "未设置 LEETCODE_USER 环境变量",
         "fetch_running": "正在拉取题解...",
         "fetch_done": "拉取完成",
+
+        # Solution center
+        "solution_menu": "题解中心 [0-3, 默认: 0]:\n0. 返回\n1. 拉取我的题解\n2. 浏览社区题解\n3. 查看指定作者题解\n",
+        "solution_enter_problem_id": "输入题目 ID: ",
+        "solution_problem_id_empty": "题目 ID 不能为空",
+        "solution_no_articles": "未找到题解",
+        "solution_list_header": "社区题解:",
+        "solution_select_view": "选择编号查看详情 (0 返回): ",
+        "solution_save": "是否保存题解到本地? [y/n, 默认: n]: ",
+        "solution_saved": "题解已保存到 {path}",
+        "solution_save_failed": "题解保存失败",
+        "solution_enter_author": "输入作者 slug (如 endlesscheng, 回车使用默认 endlesscheng): ",
+        "solution_author_not_found": "未找到该作者的题解",
+        "solution_fetching": "正在获取题解...",
+        "solution_loading_detail": "正在加载题解详情...",
     },
     "en": {
         # Separator
@@ -219,7 +234,7 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_continue": "Continuing with existing cookie...",
 
         # Main menu
-        "main_menu": "Please select the main function [0-9, default: 0]:\n0. Exit\n1. Get problem\n2. Submit\n3. Change test problem\n4. Contest\n5. Clean empty java\n6. Clean error rust\n7. Favorite management\n8. Link problems\n9. Fetch solution articles\n",
+        "main_menu": "Please select the main function [0-9, default: 0]:\n0. Exit\n1. Get problem\n2. Submit\n3. Change test problem\n4. Contest\n5. Clean empty java\n6. Clean error rust\n7. Favorite management\n8. Link problems\n9. Solution Center\n",
         "main_exit": "Exiting...",
         "main_bye": "Bye!",
 
@@ -288,6 +303,21 @@ I18N: Dict[str, Dict[str, str]] = {
         "fetch_no_user": "LEETCODE_USER environment variable not set",
         "fetch_running": "Fetching solution articles...",
         "fetch_done": "Fetch completed",
+
+        # Solution center
+        "solution_menu": "Solution Center [0-3, default: 0]:\n0. Back\n1. Fetch my solutions\n2. Browse community solutions\n3. View solutions by author\n",
+        "solution_enter_problem_id": "Enter problem ID: ",
+        "solution_problem_id_empty": "Problem ID cannot be empty",
+        "solution_no_articles": "No solutions found",
+        "solution_list_header": "Community solutions:",
+        "solution_select_view": "Select number to view detail (0 to go back): ",
+        "solution_save": "Save solution to local file? [y/n, default: n]: ",
+        "solution_saved": "Solution saved to {path}",
+        "solution_save_failed": "Failed to save solution",
+        "solution_enter_author": "Enter author slug (e.g. endlesscheng, press enter for default endlesscheng): ",
+        "solution_author_not_found": "No solution found for this author",
+        "solution_fetching": "Fetching solutions...",
+        "solution_loading_detail": "Loading solution detail...",
     }
 }
 

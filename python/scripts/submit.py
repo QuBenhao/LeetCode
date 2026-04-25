@@ -24,7 +24,7 @@ _LANG_TRANS_MAP = {
 
 
 async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
-               problem_folder: str = None, check_solution: bool = False, problem_slug: str = None):
+               problem_folder: str = None, problem_slug: str = None):
     if check_cookie_expired(cookie):
         logging.warning("LeetCode cookie might have expired; please check!")
     lang = _LANG_TRANS_MAP.get(lang.lower(), lang)
@@ -114,14 +114,24 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
     if not exists:
         result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang,
                                            lc_question_id, code)
-    logging.info(f"题解查看: https://leetcode.cn/problems/{problem_slug}/solutions/")
-    logging.info(f"外网查看: https://leetcode.com/problems/{problem_slug}/solutions/")
-    if check_solution:
-        san_ye_solution = lc_libs.get_answer_san_ye(problem_id, problem_slug)
-        if san_ye_solution:
-            logging.info(f"参考题解: {san_ye_solution}")
-        else:
-            logging.warning(f"未找到参考题解")
+    # 展示热门题解列表
+    logging.info(f"题解列表: https://leetcode.cn/problems/{problem_slug}/solutions/")
+    articles = lc_libs.get_answer_articles(problem_slug, cookie, first=5)
+    if articles:
+        logging.info("热门题解:")
+        for i, article in enumerate(articles, 1):
+            author_info = article.get("author", {})
+            profile = author_info.get("profile", {})
+            author_name = profile.get("realName", "") or author_info.get("username", "Unknown")
+            title = article.get("title", "")[:40]
+            upvote = article.get("upvoteCount", 0)
+            logging.info(f"  {i}. {title}{'...' if len(article.get('title', '')) > 40 else ''} | {author_name} | 👍{upvote}")
+    else:
+        logging.info("未找到社区题解")
+    # 三叶题解链接（备用）
+    san_ye_solution = lc_libs.get_answer_san_ye(problem_id, problem_slug)
+    if san_ye_solution:
+        logging.info(f"三叶题解: {san_ye_solution}")
     return result
 
 
@@ -133,7 +143,6 @@ if __name__ == '__main__':
     parser.add_argument("-slug", required=False, type=str,
                         help="The slug of question to submit. "
                              "Usually useful when problem id not update to the latest in leetcode.", default="")
-    parser.add_argument("-solution", required=False, action="store_true", help="Check SanYe solution.")
     parser.add_argument("lang", choices=list(_LANG_TRANS_MAP.keys()) +
                                         ["java"] + list(_LANG_TRANS_MAP.values()))
     parser.add_argument("-d", "--daily", required=False, action="store_true",
@@ -164,5 +173,5 @@ if __name__ == '__main__':
     else:
         loop = asyncio.get_event_loop()
     loop.run_until_complete(main(rp, format_question_id(question_id),
-                                 args.lang, cke, pf, args.solution, problem_slug=slug))
+                                 args.lang, cke, pf, problem_slug=slug))
     sys.exit(0)
