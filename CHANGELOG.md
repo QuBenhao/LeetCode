@@ -2,6 +2,58 @@
 
 <!-- version list -->
 
+## v11.4.0 (2026-04-25)
+
+### Bug Fixes
+
+- Address PR #187 review comments ([#187](https://github.com/QuBenhao/LeetCode/pull/187),
+  [`2706cb2`](https://github.com/QuBenhao/LeetCode/commit/2706cb2d00b70d82abfaef78076c7328878d65df))
+
+### Features
+
+- Add solution center with community article browsing
+  ([#187](https://github.com/QuBenhao/LeetCode/pull/187),
+  [`2706cb2`](https://github.com/QuBenhao/LeetCode/commit/2706cb2d00b70d82abfaef78076c7328878d65df))
+
+### Testing
+
+- 1722 solution
+  ([`b0eb24f`](https://github.com/QuBenhao/LeetCode/commit/b0eb24f5668fd5e4236eaa79542f7629a7860624))
+
+- 2078 solution
+  ([`df14240`](https://github.com/QuBenhao/LeetCode/commit/df14240f220b272c830b6889ce65ab3d71bf5a98))
+
+- 2452 solution
+  ([`835a4eb`](https://github.com/QuBenhao/LeetCode/commit/835a4ebf971b15651f3b0f6dcc7f10baf8a1d148))
+
+- 2615 solution
+  ([`21ac0fe`](https://github.com/QuBenhao/LeetCode/commit/21ac0fe4c4536ac816163f398c56681e7188b1de))
+
+- 2833 solution
+  ([`7a87a7c`](https://github.com/QuBenhao/LeetCode/commit/7a87a7c6172a80c9f6573475bfdb244a981f5ce3))
+
+- 3464 solution
+  ([`392fd52`](https://github.com/QuBenhao/LeetCode/commit/392fd526f3b248581478df3770ac7afc43f6b0d7))
+
+- [20260420] Add (2078)
+  ([`acc555f`](https://github.com/QuBenhao/LeetCode/commit/acc555f2d79785ed9bc94af9541d6ace6161b385))
+
+- [20260421] Add (1722)
+  ([`81fc2f2`](https://github.com/QuBenhao/LeetCode/commit/81fc2f2085c7a0f1c633ea83fa93b00fe9564623))
+
+- [20260422] Add (2452)
+  ([`1fac631`](https://github.com/QuBenhao/LeetCode/commit/1fac63187c463da1dcb32cc09930f9c6fcc0c703))
+
+- [20260423] Add (2615)
+  ([`6e9d4c8`](https://github.com/QuBenhao/LeetCode/commit/6e9d4c8f5b1166e920eaffb0173c5f92a1407603))
+
+- [20260424] Add (2833)
+  ([`6960dea`](https://github.com/QuBenhao/LeetCode/commit/6960dea86c60083cb4a678517a52a28149fb8212))
+
+- [20260425] Add (3464)
+  ([`4a9b092`](https://github.com/QuBenhao/LeetCode/commit/4a9b0927efe6a5d800b02105bf7de70f9d620640))
+
+
 ## v11.3.0 (2026-04-19)
 
 ### Bug Fixes
