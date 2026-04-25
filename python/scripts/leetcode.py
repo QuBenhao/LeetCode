@@ -837,70 +837,187 @@ def link_problems(problem_folder):
     print(SEPARATE_LINE)
 
 
-def fetch_solutions(cookie, problem_folder):
-    """拉取用户发布的题解"""
-    user_slug = os.getenv("LEETCODE_USER", "")
-    if not user_slug:
-        print(t("fetch_no_user"))
+def _get_problem_slug_from_id(problem_id: str, cookie: str) -> Optional[str]:
+    """通过题目 ID 获取 problem_slug"""
+    origin_problem_id = back_question_id(problem_id)
+    questions = lc_libs.get_questions_by_key_word(origin_problem_id, cookie)
+    if not questions:
+        return None
+    for question in questions:
+        if question["questionFrontendId"] == origin_problem_id:
+            return question["titleSlug"]
+    return None
+
+
+def _display_articles(articles: list):
+    """展示题解列表"""
+    for i, article in enumerate(articles, 1):
+        author_info = article.get("author", {})
+        profile = author_info.get("profile", {})
+        author_name = profile.get("realName", "") or author_info.get("username", "?")
+        title = article.get("title", "")
+        upvote = article.get("upvoteCount", 0)
+        display_title = title[:45] + "..." if len(title) > 45 else title
+        print(f"  {i}. {display_title} | {author_name} | 👍{upvote}")
+
+
+def _save_solution(article_content: dict, problem_folder: str, problem_id: str):
+    """保存题解到本地文件"""
+    problem_dir = root_path / problem_folder / f"{problem_folder}_{back_question_id(problem_id)}"
+    if not problem_dir.exists():
+        print(f"{t('solution_save_failed')} - 目录不存在: {problem_dir}")
+        return
+    author_info = article_content.get("author", {})
+    profile = author_info.get("profile", {})
+    author_slug = profile.get("userSlug", "unknown") if profile else "unknown"
+    # Sanitize author_slug: only allow alphanumeric, underscore, dash
+    author_slug = re.sub(r"[^a-zA-Z0-9_-]", "", author_slug) or "unknown"
+    save_path = problem_dir / f"solution_{author_slug}.md"
+    author_name = profile.get("realName", "") or author_info.get("username", "")
+    title = article_content.get("title", "")
+    content = article_content.get("content", "")
+    upvote = article_content.get("upvoteCount", 0)
+    md = f"# {title}\n\n> Author: {author_name}\n> Upvotes: {upvote}\n\n---\n\n{content}"
+    with open(save_path, "w", encoding="utf-8") as f:
+        f.write(md)
+    print(t("solution_saved", path=save_path))
+
+
+def _browse_community_solutions(cookie: str, problem_folder: str):
+    """浏览社区题解"""
+    problem_id_input = input_until_valid(t("solution_enter_problem_id"), allow_all_not_empty,
+                                          t("solution_problem_id_empty"))
+    print(SEPARATE_LINE)
+    if not problem_id_input:
+        return
+
+    problem_slug = _get_problem_slug_from_id(problem_id_input, cookie)
+    if not problem_slug:
+        print(t("solution_no_articles"))
+        return
+
+    print(t("solution_fetching"))
+    articles = lc_libs.get_answer_articles(problem_slug, cookie, first=10)
+    if not articles:
+        print(t("solution_no_articles"))
         return
 
     while True:
-        fetch_method = input_until_valid(
-            t("fetch_menu"),
-            allow_all
-        )
+        print(t("solution_list_header"))
+        _display_articles(articles)
         print(SEPARATE_LINE)
-        match fetch_method:
+
+        select = input_until_valid(t("solution_select_view"), allow_all)
+        if not select.isdigit() or int(select) == 0:
+            return
+        idx = int(select) - 1
+        if idx < 0 or idx >= len(articles):
+            print(t("solution_no_articles"))
+            continue
+
+        article = articles[idx]
+        slug = article.get("slug")
+        if not slug:
+            continue
+
+        print(t("solution_loading_detail"))
+        from python.lc_libs.solution_article import get_solution_content
+        detail = get_solution_content(slug, cookie)
+        if detail:
+            content = detail.get("content", "")
+            print(content[:2000] + ("..." if len(content) > 2000 else ""))
+            save_input = input_until_valid(t("solution_save"), allow_all)
+            if save_input.lower() == "y":
+                _save_solution(detail, problem_folder, problem_id_input)
+        else:
+            print(t("solution_no_articles"))
+        print(SEPARATE_LINE)
+
+
+def _view_author_solutions(cookie: str, problem_folder: str):
+    """查看指定作者题解"""
+    author_input = input_until_valid(t("solution_enter_author"), allow_all)
+    author_slug = author_input.strip() if author_input.strip() else "endlesscheng"
+    print(SEPARATE_LINE)
+
+    problem_id_input = input_until_valid(t("solution_enter_problem_id"), allow_all_not_empty,
+                                          t("solution_problem_id_empty"))
+    if not problem_id_input:
+        return
+
+    problem_slug = _get_problem_slug_from_id(problem_id_input, cookie)
+    if not problem_slug:
+        print(t("solution_no_articles"))
+        return
+
+    print(t("solution_fetching"))
+    from python.lc_libs.solution_article import get_solution_by_author
+    detail = get_solution_by_author(problem_slug, author_slug, cookie)
+    if not detail:
+        print(t("solution_author_not_found"))
+        return
+
+    author_info = detail.get("author", {})
+    profile = author_info.get("profile", {})
+    author_name = profile.get("realName", "") or author_info.get("username", "?")
+    title = detail.get("title", "")
+    upvote = detail.get("upvoteCount", 0)
+    print(f"  {title} | {author_name} | 👍{upvote}")
+    print(SEPARATE_LINE)
+
+    save_input = input_until_valid(t("solution_save"), allow_all)
+    if save_input.lower() == "y":
+        _save_solution(detail, problem_folder, problem_id_input)
+    print(SEPARATE_LINE)
+
+
+def solution_center(cookie, problem_folder):
+    """题解中心"""
+    while True:
+        method = input_until_valid(t("solution_menu"), allow_all)
+        print(SEPARATE_LINE)
+        match method:
             case "1":
-                # Dry run - 检查所有已解题目
-                fetch_solution_main(
-                    dry_run=True,
-                    user_slug=user_slug,
-                    problem_folder=problem_folder,
-                    cookie=cookie
-                )
+                # 拉取我的题解
+                user_slug = os.getenv("LEETCODE_USER", "")
+                if not user_slug:
+                    print(t("fetch_no_user"))
+                    print(SEPARATE_LINE)
+                    continue
+                fetch_method = input_until_valid(t("fetch_menu"), allow_all)
+                print(SEPARATE_LINE)
+                match fetch_method:
+                    case "1":
+                        fetch_solution_main(dry_run=True, user_slug=user_slug,
+                                            problem_folder=problem_folder, cookie=cookie)
+                    case "2":
+                        force_input = input_until_valid(t("fetch_force"), allow_all)
+                        force = force_input.lower() == "y"
+                        delay_input = input_until_valid(t("fetch_delay"), allow_all)
+                        delay = float(delay_input) if delay_input else 3.0
+                        print(SEPARATE_LINE)
+                        print(t("fetch_running"))
+                        fetch_solution_main(dry_run=False, force=force, delay=delay,
+                                            user_slug=user_slug, problem_folder=problem_folder, cookie=cookie)
+                        print(t("fetch_done"))
+                    case "3":
+                        pid_input = input_until_valid(t("fetch_problem_id"), allow_all)
+                        if not pid_input:
+                            continue
+                        force_input = input_until_valid(t("fetch_force"), allow_all)
+                        force = force_input.lower() == "y"
+                        print(SEPARATE_LINE)
+                        print(t("fetch_running"))
+                        fetch_solution_main(dry_run=False, force=force, problem_id=pid_input,
+                                            user_slug=user_slug, problem_folder=problem_folder, cookie=cookie)
+                        print(t("fetch_done"))
+                    case _:
+                        pass
                 print(SEPARATE_LINE)
             case "2":
-                # 拉取所有题解
-                force_input = input_until_valid(t("fetch_force"), allow_all)
-                force = force_input.lower() == "y"
-
-                delay_input = input_until_valid(t("fetch_delay"), allow_all)
-                delay = float(delay_input) if delay_input else 3.0
-
-                print(SEPARATE_LINE)
-                print(t("fetch_running"))
-                fetch_solution_main(
-                    dry_run=False,
-                    force=force,
-                    delay=delay,
-                    user_slug=user_slug,
-                    problem_folder=problem_folder,
-                    cookie=cookie
-                )
-                print(t("fetch_done"))
-                print(SEPARATE_LINE)
+                _browse_community_solutions(cookie, problem_folder)
             case "3":
-                # 拉取指定题目题解
-                problem_id_input = input_until_valid(t("fetch_problem_id"), allow_all)
-                if not problem_id_input:
-                    continue
-
-                force_input = input_until_valid(t("fetch_force"), allow_all)
-                force = force_input.lower() == "y"
-
-                print(SEPARATE_LINE)
-                print(t("fetch_running"))
-                fetch_solution_main(
-                    dry_run=False,
-                    force=force,
-                    problem_id=problem_id_input,
-                    user_slug=user_slug,
-                    problem_folder=problem_folder,
-                    cookie=cookie
-                )
-                print(t("fetch_done"))
-                print(SEPARATE_LINE)
+                _view_author_solutions(cookie, problem_folder)
             case _:
                 return
 
@@ -956,7 +1073,7 @@ def main():
                 case "8":
                     link_problems(problem_folder)
                 case "9":
-                    fetch_solutions(cookie, problem_folder)
+                    solution_center(cookie, problem_folder)
                 case _:
                     print(t("main_exit"))
                     break

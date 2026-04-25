@@ -56,3 +56,42 @@ query solutionArticleQuery($slug: String!) {
   }
 }
 """
+
+QUESTION_SOLUTION_ARTICLES_QUERY = """
+query questionTopicsList($questionSlug: String!, $skip: Int, $first: Int, $orderBy: SolutionArticleOrderBy, $userInput: String, $tagSlugs: [String!]) {
+  questionSolutionArticles(
+    questionSlug: $questionSlug
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    userInput: $userInput
+    tagSlugs: $tagSlugs
+  ) {
+    totalNum
+    edges {
+      node {
+        uuid
+        title
+        slug
+        status
+        createdAt
+        author {
+          username
+          profile {
+            userSlug
+            realName
+          }
+        }
+        tags {
+          name
+          slug
+        }
+        upvoteCount
+        summary
+        hitCount
+        isMostPopular
+      }
+    }
+  }
+}
+"""
