@@ -849,16 +849,84 @@ def _get_problem_slug_from_id(problem_id: str, cookie: str) -> Optional[str]:
     return None
 
 
-def _display_articles(articles: list):
-    """展示题解列表"""
-    for i, article in enumerate(articles, 1):
-        author_info = article.get("author", {})
-        profile = author_info.get("profile", {})
-        author_name = profile.get("realName", "") or author_info.get("username", "?")
-        title = article.get("title", "")
-        upvote = article.get("upvoteCount", 0)
-        display_title = title[:45] + "..." if len(title) > 45 else title
-        print(f"  {i}. {display_title} | {author_name} | 👍{upvote}")
+def _display_width(s: str) -> int:
+    """计算字符串在终端的显示宽度（中文等宽字符占两列）"""
+    import unicodedata
+    return sum(2 if unicodedata.east_asian_width(c) in ('W', 'F') else 1 for c in s)
+
+
+def _pad_to_width(s: str, width: int) -> str:
+    """将字符串填充到指定显示宽度"""
+    current_width = _display_width(s)
+    if current_width >= width:
+        return s
+    return s + ' ' * (width - current_width)
+
+
+def _display_solution_detail(title: str, author_name: str, upvote: int,
+                              content: str, solution_link: str) -> bool:
+    """
+    展示题解详情（边界框 + 分页器）
+
+    Returns:
+        True 如果用户选择保存，False 否则
+    """
+    # 边界框展示元信息（固定宽度 50）
+    box_width = 50
+    content_width = box_width - 4  # 去掉 "│ " 和 " │"
+
+    print(f"\n┌{'─' * (box_width - 2)}┐")
+
+    # 标题行（截断并填充）
+    title_display = title[:content_width - 2] if _display_width(title) > content_width - 2 else title
+    print(f"│ 📄 {_pad_to_width(title_display, content_width - 2)}│")
+
+    # 作者行
+    author_display = author_name[:content_width - 2] if _display_width(author_name) > content_width - 2 else author_name
+    print(f"│ 👤 {_pad_to_width(author_display, content_width - 2)}│")
+
+    # 点赞行
+    upvote_str = str(upvote)
+    print(f"│ 👍 {_pad_to_width(upvote_str, content_width - 2)}│")
+
+    # 链接行（如果有）
+    if solution_link:
+        link_display = solution_link[:content_width - 2] if len(solution_link) > content_width - 2 else solution_link
+        print(f"│ 🔗 {_pad_to_width(link_display, content_width - 2)}│")
+
+    print(f"└{'─' * (box_width - 2)}┘")
+
+    # 使用分页器展示内容
+    if content:
+        import subprocess
+        import tempfile
+        tmp_path = None
+        try:
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as f:
+                f.write(f"# {title}\n\n")
+                f.write(f"> Author: {author_name} | Upvotes: {upvote}\n\n")
+                f.write(content)
+                tmp_path = f.name
+
+            # 使用列表形式避免 shell 注入
+            import shlex
+            pager_cmd = shlex.split(os.environ.get('PAGER', 'less -R'))
+            subprocess.run(pager_cmd + [tmp_path])
+        except Exception:
+            # 如果分页器失败，直接打印前 100 行
+            print("\n" + SEPARATE_LINE)
+            lines = content.split('\n')
+            for line in lines[:100]:
+                print(line)
+            if len(lines) > 100:
+                print(f"\n... (共 {len(lines)} 行，已截断)")
+            print(SEPARATE_LINE)
+        finally:
+            if tmp_path and os.path.exists(tmp_path):
+                os.unlink(tmp_path)
+
+    save_input = input_until_valid(t("solution_save"), allow_all)
+    return save_input.lower() == "y"
 
 
 def _save_solution(article_content: dict, problem_folder: str, problem_id: str):
@@ -884,7 +952,7 @@ def _save_solution(article_content: dict, problem_folder: str, problem_id: str):
 
 
 def _browse_community_solutions(cookie: str, problem_folder: str):
-    """浏览社区题解"""
+    """浏览社区题解（支持分页）"""
     problem_id_input = input_until_valid(t("solution_enter_problem_id"), allow_all_not_empty,
                                           t("solution_problem_id_empty"))
     print(SEPARATE_LINE)
@@ -896,27 +964,69 @@ def _browse_community_solutions(cookie: str, problem_folder: str):
         print(t("solution_no_articles"))
         return
 
-    print(t("solution_fetching"))
-    articles = lc_libs.get_answer_articles(problem_slug, cookie, first=10)
-    if not articles:
-        print(t("solution_no_articles"))
-        return
+    page_size = 10
+    cur_page = 1
 
     while True:
-        print(t("solution_list_header"))
-        _display_articles(articles)
-        print(SEPARATE_LINE)
+        print(t("solution_fetching"))
+        result = lc_libs.get_answer_articles(problem_slug, cookie, first=page_size, skip=(cur_page - 1) * page_size)
+        total = result.get("total", 0)
+        articles = result.get("articles", [])
 
-        select = input_until_valid(t("solution_select_view"), allow_all)
-        if not select.isdigit() or int(select) == 0:
-            return
-        idx = int(select) - 1
-        if idx < 0 or idx >= len(articles):
+        if not articles:
             print(t("solution_no_articles"))
+            return
+
+        max_page = math.ceil(total / page_size)
+        # 构建题解列表展示
+        lines = []
+        for i, article in enumerate(articles, 1):
+            title = article.get("title", "")
+            author_info = article.get("author", {})
+            profile = author_info.get("profile", {})
+            author_name = profile.get("realName", "") or author_info.get("username", "?")
+            upvote = article.get("upvoteCount", 0)
+            uuid = article.get("uuid", "")
+            solution_link = f"https://leetcode.cn/problems/{problem_slug}/solutions/{uuid}/" if uuid else ""
+            lines.append(f"  {i}. {title}")
+            lines.append(f"     👤{author_name} | 👍{upvote}")
+            if solution_link:
+                lines.append(f"     🔗 {solution_link}")
+        content = "\n".join(lines)
+
+        select = input_until_valid(
+            t("solution_page", total=total, page=cur_page, max_page=max_page, content=content),
+            allow_all
+        )
+
+        pick = None
+        match select:
+            case "" | "0":
+                # 回车或 0 返回
+                return
+            case "b":
+                if cur_page == 1:
+                    print(t("solution_first_page"))
+                else:
+                    cur_page = max(1, cur_page - 1)
+            case "n":
+                if cur_page == max_page:
+                    print(t("solution_last_page"))
+                else:
+                    cur_page = min(max_page, cur_page + 1)
+            case v if v.isdigit() and 1 <= int(v) <= len(articles):
+                pick = int(v)
+            case _:
+                # 其他无效输入，继续显示当前页
+                continue
+
+        print(SEPARATE_LINE)
+        if not pick:
             continue
 
-        article = articles[idx]
+        article = articles[pick - 1]
         slug = article.get("slug")
+        uuid = article.get("uuid", "")
         if not slug:
             continue
 
@@ -924,10 +1034,15 @@ def _browse_community_solutions(cookie: str, problem_folder: str):
         from python.lc_libs.solution_article import get_solution_content
         detail = get_solution_content(slug, cookie)
         if detail:
+            title = detail.get("title", "")
+            author_info = detail.get("author", {})
+            profile = author_info.get("profile", {})
+            author_name = profile.get("realName", "") or author_info.get("username", "?")
+            upvote = detail.get("upvoteCount", 0)
             content = detail.get("content", "")
-            print(content[:2000] + ("..." if len(content) > 2000 else ""))
-            save_input = input_until_valid(t("solution_save"), allow_all)
-            if save_input.lower() == "y":
+            solution_link = f"https://leetcode.cn/problems/{problem_slug}/solutions/{uuid}/" if uuid else ""
+
+            if _display_solution_detail(title, author_name, upvote, content, solution_link):
                 _save_solution(detail, problem_folder, problem_id_input)
         else:
             print(t("solution_no_articles"))
@@ -962,11 +1077,11 @@ def _view_author_solutions(cookie: str, problem_folder: str):
     author_name = profile.get("realName", "") or author_info.get("username", "?")
     title = detail.get("title", "")
     upvote = detail.get("upvoteCount", 0)
-    print(f"  {title} | {author_name} | 👍{upvote}")
-    print(SEPARATE_LINE)
+    uuid = detail.get("uuid", "")
+    content = detail.get("content", "")
+    solution_link = f"https://leetcode.cn/problems/{problem_slug}/solutions/{uuid}/" if uuid else ""
 
-    save_input = input_until_valid(t("solution_save"), allow_all)
-    if save_input.lower() == "y":
+    if _display_solution_detail(title, author_name, upvote, content, solution_link):
         _save_solution(detail, problem_folder, problem_id_input)
     print(SEPARATE_LINE)
 

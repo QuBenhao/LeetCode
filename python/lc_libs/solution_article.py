@@ -129,7 +129,7 @@ def get_solution_content(solution_slug: str, cookie: str, max_retries: int = 3) 
 
 
 def get_solution_articles(question_slug: str, cookie: str, author_slug: str = None,
-                          first: int = 15, order_by: str = "DEFAULT") -> List[Dict]:
+                          first: int = 15, skip: int = 0, order_by: str = "DEFAULT") -> Dict:
     """
     获取指定题目下的题解列表
 
@@ -138,23 +138,30 @@ def get_solution_articles(question_slug: str, cookie: str, author_slug: str = No
         cookie: LeetCode Cookie
         author_slug: 可选，指定作者的 slug，如 'endlesscheng'（使用 userInput 服务端过滤）
         first: 返回数量，默认 15
+        skip: 跳过数量，默认 0（用于分页）
         order_by: 排序方式，默认 'DEFAULT'，可选 'MOST_POPULAR'
 
     Returns:
-        题解列表，每个元素包含 slug, title, author, upvoteCount, summary 等
+        字典，包含:
+        - total: 总数
+        - articles: 题解列表，每个元素包含 slug, title, author, upvoteCount, summary 等
     """
     if not cookie:
         logging.warning("Cookie is empty, cannot fetch solution articles")
-        return []
+        return {"total": 0, "articles": []}
 
     def handle_response(response):
         data = json.loads(response.text)
         if data.get("errors"):
             logging.warning(f"GraphQL errors in get_solution_articles: {data['errors']}")
-            return []
+            return None
         if data.get("data") and data["data"].get("questionSolutionArticles"):
-            return data["data"]["questionSolutionArticles"]["edges"]
-        return []
+            result_data = data["data"]["questionSolutionArticles"]
+            return {
+                "total": result_data.get("totalNum", 0),
+                "edges": result_data.get("edges", [])
+            }
+        return None
 
     # 当指定 author_slug 时，增大 first 并使用 userInput 服务端过滤
     actual_first = first if not author_slug else min(first * 3, 50)
@@ -167,7 +174,7 @@ def get_solution_articles(question_slug: str, cookie: str, author_slug: str = No
             "query": QUESTION_SOLUTION_ARTICLES_QUERY,
             "variables": {
                 "questionSlug": question_slug,
-                "skip": 0,
+                "skip": skip,
                 "first": actual_first,
                 "orderBy": order_by,
                 "userInput": user_input,
@@ -179,11 +186,11 @@ def get_solution_articles(question_slug: str, cookie: str, author_slug: str = No
     )
 
     if not result:
-        return []
+        return {"total": 0, "articles": []}
 
     # 提取 node 数据
     articles = []
-    for edge in result:
+    for edge in result.get("edges", []):
         node = edge.get("node", {})
         if author_slug:
             # 服务端已通过 userInput 过滤，客户端再做精确匹配
@@ -194,7 +201,9 @@ def get_solution_articles(question_slug: str, cookie: str, author_slug: str = No
                 continue
         articles.append(node)
 
-    return articles
+    # 当有 author 过滤时，total 使用过滤后的实际数量
+    actual_total = len(articles) if author_slug else result.get("total", 0)
+    return {"total": actual_total, "articles": articles}
 
 
 def get_solution_by_author(question_slug: str, author_slug: str, cookie: str) -> Optional[Dict]:
@@ -209,7 +218,8 @@ def get_solution_by_author(question_slug: str, author_slug: str, cookie: str) ->
     Returns:
         题解内容字典，包含 title, content, author 等；如果没有找到返回 None
     """
-    articles = get_solution_articles(question_slug, cookie, author_slug=author_slug)
+    result = get_solution_articles(question_slug, cookie, author_slug=author_slug)
+    articles = result.get("articles", [])
     if not articles:
         return None
 
