@@ -135,10 +135,6 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
             logging.info("未找到社区题解")
     except Exception as e:
         logging.warning(f"获取题解失败: {e}")
-    # 三叶题解链接（备用）
-    san_ye_solution = lc_libs.get_answer_san_ye(problem_id, problem_slug)
-    if san_ye_solution:
-        logging.info(f"三叶题解: {san_ye_solution}")
     return result
 
 
