@@ -849,6 +849,86 @@ def _get_problem_slug_from_id(problem_id: str, cookie: str) -> Optional[str]:
     return None
 
 
+def _display_width(s: str) -> int:
+    """计算字符串在终端的显示宽度（中文等宽字符占两列）"""
+    import unicodedata
+    return sum(2 if unicodedata.east_asian_width(c) in ('W', 'F') else 1 for c in s)
+
+
+def _pad_to_width(s: str, width: int) -> str:
+    """将字符串填充到指定显示宽度"""
+    current_width = _display_width(s)
+    if current_width >= width:
+        return s
+    return s + ' ' * (width - current_width)
+
+
+def _display_solution_detail(title: str, author_name: str, upvote: int,
+                              content: str, solution_link: str) -> bool:
+    """
+    展示题解详情（边界框 + 分页器）
+
+    Returns:
+        True 如果用户选择保存，False 否则
+    """
+    # 边界框展示元信息（固定宽度 50）
+    box_width = 50
+    content_width = box_width - 4  # 去掉 "│ " 和 " │"
+
+    print(f"\n┌{'─' * (box_width - 2)}┐")
+
+    # 标题行（截断并填充）
+    title_display = title[:content_width - 2] if _display_width(title) > content_width - 2 else title
+    print(f"│ 📄 {_pad_to_width(title_display, content_width - 2)}│")
+
+    # 作者行
+    author_display = author_name[:content_width - 2] if _display_width(author_name) > content_width - 2 else author_name
+    print(f"│ 👤 {_pad_to_width(author_display, content_width - 2)}│")
+
+    # 点赞行
+    upvote_str = str(upvote)
+    print(f"│ 👍 {_pad_to_width(upvote_str, content_width - 2)}│")
+
+    # 链接行（如果有）
+    if solution_link:
+        link_display = solution_link[:content_width - 2] if len(solution_link) > content_width - 2 else solution_link
+        print(f"│ 🔗 {_pad_to_width(link_display, content_width - 2)}│")
+
+    print(f"└{'─' * (box_width - 2)}┘")
+
+    # 使用分页器展示内容
+    if content:
+        import subprocess
+        import tempfile
+        tmp_path = None
+        try:
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as f:
+                f.write(f"# {title}\n\n")
+                f.write(f"> Author: {author_name} | Upvotes: {upvote}\n\n")
+                f.write(content)
+                tmp_path = f.name
+
+            # 使用列表形式避免 shell 注入
+            import shlex
+            pager_cmd = shlex.split(os.environ.get('PAGER', 'less -R'))
+            subprocess.run(pager_cmd + [tmp_path])
+        except Exception:
+            # 如果分页器失败，直接打印前 100 行
+            print("\n" + SEPARATE_LINE)
+            lines = content.split('\n')
+            for line in lines[:100]:
+                print(line)
+            if len(lines) > 100:
+                print(f"\n... (共 {len(lines)} 行，已截断)")
+            print(SEPARATE_LINE)
+        finally:
+            if tmp_path and os.path.exists(tmp_path):
+                os.unlink(tmp_path)
+
+    save_input = input_until_valid(t("solution_save"), allow_all)
+    return save_input.lower() == "y"
+
+
 def _save_solution(article_content: dict, problem_folder: str, problem_id: str):
     """保存题解到本地文件"""
     problem_dir = root_path / problem_folder / f"{problem_folder}_{back_question_id(problem_id)}"
@@ -925,9 +1005,15 @@ def _browse_community_solutions(cookie: str, problem_folder: str):
                 # 回车或 0 返回
                 return
             case "b":
-                cur_page = max(1, cur_page - 1)
+                if cur_page == 1:
+                    print(t("solution_first_page"))
+                else:
+                    cur_page = max(1, cur_page - 1)
             case "n":
-                cur_page = min(max_page, cur_page + 1)
+                if cur_page == max_page:
+                    print(t("solution_last_page"))
+                else:
+                    cur_page = min(max_page, cur_page + 1)
             case v if v.isdigit() and 1 <= int(v) <= len(articles):
                 pick = int(v)
             case _:
@@ -956,43 +1042,7 @@ def _browse_community_solutions(cookie: str, problem_folder: str):
             content = detail.get("content", "")
             solution_link = f"https://leetcode.cn/problems/{problem_slug}/solutions/{uuid}/" if uuid else ""
 
-            # 展示题解预览
-            print(f"\n┌{'─' * 48}┐")
-            print(f"│ 📄 {title[:42]}{' ' * (44 - min(len(title), 44))}│")
-            print(f"│ 👤 {author_name[:42]}{' ' * (44 - min(len(author_name), 44))}│")
-            print(f"│ 👍 {upvote:<42}│")
-            if solution_link:
-                print(f"│ 🔗 {solution_link[:42]}{' ' * (44 - min(len(solution_link), 44))}│")
-            print(f"└{'─' * 48}┘")
-
-            # 使用分页器展示内容
-            if content:
-                import subprocess
-                import tempfile
-                try:
-                    # 写入临时文件
-                    with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as f:
-                        f.write(f"# {title}\n\n")
-                        f.write(f"> Author: {author_name} | Upvotes: {upvote}\n\n")
-                        f.write(content)
-                        tmp_path = f.name
-
-                    # 使用 less 或系统默认分页器
-                    pager = os.environ.get('PAGER', 'less -R')
-                    subprocess.run(f"{pager} '{tmp_path}'", shell=True, check=True)
-                    os.unlink(tmp_path)
-                except Exception:
-                    # 如果分页器失败，直接打印前 100 行
-                    print("\n" + SEPARATE_LINE)
-                    lines = content.split('\n')
-                    for line in lines[:100]:
-                        print(line)
-                    if len(lines) > 100:
-                        print(f"\n... (共 {len(lines)} 行，已截断)")
-                    print(SEPARATE_LINE)
-
-            save_input = input_until_valid(t("solution_save"), allow_all)
-            if save_input.lower() == "y":
+            if _display_solution_detail(title, author_name, upvote, content, solution_link):
                 _save_solution(detail, problem_folder, problem_id_input)
         else:
             print(t("solution_no_articles"))
@@ -1031,40 +1081,7 @@ def _view_author_solutions(cookie: str, problem_folder: str):
     content = detail.get("content", "")
     solution_link = f"https://leetcode.cn/problems/{problem_slug}/solutions/{uuid}/" if uuid else ""
 
-    # 展示题解预览
-    print(f"\n┌{'─' * 48}┐")
-    print(f"│ 📄 {title[:42]}{' ' * (44 - min(len(title), 44))}│")
-    print(f"│ 👤 {author_name[:42]}{' ' * (44 - min(len(author_name), 44))}│")
-    print(f"│ 👍 {upvote:<42}│")
-    if solution_link:
-        print(f"│ 🔗 {solution_link[:42]}{' ' * (44 - min(len(solution_link), 44))}│")
-    print(f"└{'─' * 48}┘")
-
-    # 使用分页器展示内容
-    if content:
-        import subprocess
-        import tempfile
-        try:
-            with tempfile.NamedTemporaryFile(mode='w', suffix='.md', delete=False, encoding='utf-8') as f:
-                f.write(f"# {title}\n\n")
-                f.write(f"> Author: {author_name} | Upvotes: {upvote}\n\n")
-                f.write(content)
-                tmp_path = f.name
-
-            pager = os.environ.get('PAGER', 'less -R')
-            subprocess.run(f"{pager} '{tmp_path}'", shell=True, check=True)
-            os.unlink(tmp_path)
-        except Exception:
-            print("\n" + SEPARATE_LINE)
-            lines = content.split('\n')
-            for line in lines[:100]:
-                print(line)
-            if len(lines) > 100:
-                print(f"\n... (共 {len(lines)} 行，已截断)")
-            print(SEPARATE_LINE)
-
-    save_input = input_until_valid(t("solution_save"), allow_all)
-    if save_input.lower() == "y":
+    if _display_solution_detail(title, author_name, upvote, content, solution_link):
         _save_solution(detail, problem_folder, problem_id_input)
     print(SEPARATE_LINE)
 

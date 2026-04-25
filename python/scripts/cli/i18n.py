@@ -165,6 +165,8 @@ I18N: Dict[str, Dict[str, str]] = {
         "solution_fetching": "正在获取题解...",
         "solution_loading_detail": "正在加载题解详情...",
         "solution_page": "📖 共 [{total}] 条题解 (第 {page}/{max_page} 页)\n{content}\nb.上一页 | n.下一页 | 编号查看详情 | 回车返回\n",
+        "solution_first_page": "已是第一页",
+        "solution_last_page": "已是最后一页",
     },
     "en": {
         # Separator
@@ -320,6 +322,8 @@ I18N: Dict[str, Dict[str, str]] = {
         "solution_fetching": "Fetching solutions...",
         "solution_loading_detail": "Loading solution detail...",
         "solution_page": "📖 Total [{total}] solutions (page {page}/{max_page})\n{content}\nb.Previous | n.Next | Number to view | Enter to go back\n",
+        "solution_first_page": "Already on first page",
+        "solution_last_page": "Already on last page",
     }
 }
 

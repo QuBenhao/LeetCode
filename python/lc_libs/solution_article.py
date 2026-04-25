@@ -201,7 +201,9 @@ def get_solution_articles(question_slug: str, cookie: str, author_slug: str = No
                 continue
         articles.append(node)
 
-    return {"total": result.get("total", 0), "articles": articles}
+    # 当有 author 过滤时，total 使用过滤后的实际数量
+    actual_total = len(articles) if author_slug else result.get("total", 0)
+    return {"total": actual_total, "articles": articles}
 
 
 def get_solution_by_author(question_slug: str, author_slug: str, cookie: str) -> Optional[Dict]:
