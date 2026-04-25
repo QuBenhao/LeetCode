@@ -2,6 +2,24 @@
 
 <!-- version list -->
 
+## v11.5.0 (2026-04-25)
+
+### Bug Fixes
+
+- Address code review feedback for solution pagination
+  ([#188](https://github.com/QuBenhao/LeetCode/pull/188),
+  [`7c06b75`](https://github.com/QuBenhao/LeetCode/commit/7c06b753912967390b3c84c492e8ed7e05da98fc))
+
+### Features
+
+- Add pagination and improve display for community solutions
+  ([#188](https://github.com/QuBenhao/LeetCode/pull/188),
+  [`7c06b75`](https://github.com/QuBenhao/LeetCode/commit/7c06b753912967390b3c84c492e8ed7e05da98fc))
+
+- 社区题解分页与展示优化 ([#188](https://github.com/QuBenhao/LeetCode/pull/188),
+  [`7c06b75`](https://github.com/QuBenhao/LeetCode/commit/7c06b753912967390b3c84c492e8ed7e05da98fc))
+
+
 ## v11.4.0 (2026-04-25)
 
 ### Bug Fixes
