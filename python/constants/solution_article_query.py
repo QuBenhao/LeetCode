@@ -90,6 +90,9 @@ query questionTopicsList($questionSlug: String!, $skip: Int, $first: Int, $order
         summary
         hitCount
         isMostPopular
+        topic {
+          id
+        }
       }
     }
   }

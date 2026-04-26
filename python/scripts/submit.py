@@ -126,8 +126,9 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
                 author_name = profile.get("realName", "") or author_info.get("username", "Unknown")
                 title = article.get("title", "")[:40]
                 upvote = article.get("upvoteCount", 0)
-                uuid = article.get("uuid", "")
-                solution_link = f"https://leetcode.cn/problems/{problem_slug}/solutions/{uuid}/" if uuid else ""
+                topic_id = article.get("topic", {}).get("id", "")
+                article_slug = article.get("slug", "")
+                solution_link = f"https://leetcode.cn/problems/{problem_slug}/solutions/{topic_id}/{article_slug}/" if topic_id and article_slug else ""
                 logging.info(f"  {i}. {title}{'...' if len(article.get('title', '')) > 40 else ''} | {author_name} | 👍{upvote}")
                 if solution_link:
                     logging.info(f"     🔗 {solution_link}")

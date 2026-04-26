@@ -986,8 +986,9 @@ def _browse_community_solutions(cookie: str, problem_folder: str):
             profile = author_info.get("profile", {})
             author_name = profile.get("realName", "") or author_info.get("username", "?")
             upvote = article.get("upvoteCount", 0)
-            uuid = article.get("uuid", "")
-            solution_link = f"https://leetcode.cn/problems/{problem_slug}/solutions/{uuid}/" if uuid else ""
+            topic_id = article.get("topic", {}).get("id", "")
+            article_slug = article.get("slug", "")
+            solution_link = f"https://leetcode.cn/problems/{problem_slug}/solutions/{topic_id}/{article_slug}/" if topic_id and article_slug else ""
             lines.append(f"  {i}. {title}")
             lines.append(f"     👤{author_name} | 👍{upvote}")
             if solution_link:
