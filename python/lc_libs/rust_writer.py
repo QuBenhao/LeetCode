@@ -74,7 +74,7 @@ class RustWriter(LanguageWriter):
         if not RustWriter.is_snake_case(f"{problem_folder}_{problem_id}"):
             add_title = f"#![allow(non_snake_case)]\n"
         code = code or code_default
-        if "object will be instantiated and called as such:" in code:
+        if "object will be instantiated and called as such:" in code and "impl Solution" not in code:
             struct_map = RustWriter._parse_rust_structs(code_default)
             solve_part = RustWriter._generate_solve_function(struct_map)
             return SOLUTION_TEMPLATE_RUST.format(add_title, "\n".join([]), "",
