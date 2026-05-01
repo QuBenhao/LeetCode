@@ -80,9 +80,14 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_continue": "继续使用现有 Cookie...",
 
         # Main menu
-        "main_menu": "请选择功能 [0-9, 默认: 0]:\n0. 退出\n1. 获取题目\n2. 提交代码\n3. 切换测试题目\n4. 比赛\n5. 清理空 Java 文件\n6. 清理错误 Rust 文件\n7. 收藏夹管理\n8. 创建题目链接\n9. 题解中心\n",
+        "main_menu": "请选择功能 [0-10, 默认: 0]:\n0. 退出\n1. 获取题目\n2. 提交代码\n3. 切换测试题目\n4. 比赛\n5. 清理空 Java 文件\n6. 清理错误 Rust 文件\n7. 收藏夹管理\n8. 创建题目链接\n9. 题解中心\n10. 仓库健康检查\n",
         "main_exit": "正在退出...",
         "main_bye": "再见！",
+        "health_running": "正在检查生成题目目录: {folder}",
+        "health_fix_header": "可自动修复的问题:",
+        "health_fix_select": "选择要修复的项目 [例如: 1,2；a 全部；默认跳过]: ",
+        "health_fix_confirm": "确认执行修复 [{fix}]? [y/n, 默认: n]: ",
+        "health_fix_skipped": "已跳过",
 
         # Get problem
         "get_menu": "请选择获取题目方式 [0-6, 默认: 0]:\n0. 返回\n1. 每日自动\n2. 指定题目 ID\n3. 随机\n4. 随机未通过\n5. 分类\n6. 比赛\n",
@@ -237,9 +242,14 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_continue": "Continuing with existing cookie...",
 
         # Main menu
-        "main_menu": "Please select the main function [0-9, default: 0]:\n0. Exit\n1. Get problem\n2. Submit\n3. Change test problem\n4. Contest\n5. Clean empty java\n6. Clean error rust\n7. Favorite management\n8. Link problems\n9. Solution Center\n",
+        "main_menu": "Please select the main function [0-10, default: 0]:\n0. Exit\n1. Get problem\n2. Submit\n3. Change test problem\n4. Contest\n5. Clean empty java\n6. Clean error rust\n7. Favorite management\n8. Link problems\n9. Solution Center\n10. Repository health\n",
         "main_exit": "Exiting...",
         "main_bye": "Bye!",
+        "health_running": "Checking generated problem folder: {folder}",
+        "health_fix_header": "Available automatic fixes:",
+        "health_fix_select": "Select fixes to apply [e.g. 1,2; a for all; default skips]: ",
+        "health_fix_confirm": "Apply fix [{fix}]? [y/n, default: n]: ",
+        "health_fix_skipped": "Skipped",
 
         # Get problem
         "get_menu": "Please select the get problem method [0-6, default: 0]:\n0. Back\n1. Daily auto\n2. Specified problem ID\n3. Random\n4. Random remain\n5. Category\n6. Contest\n",
