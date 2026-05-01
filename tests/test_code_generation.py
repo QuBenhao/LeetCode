@@ -28,6 +28,15 @@ LANG_SLUG_TO_CLASS = {
 # Languages that are fully supported
 SUPPORTED_LANGUAGES = ["python3", "cpp", "java", "typescript", "golang", "rust"]
 
+# These cases are intentionally sourced from python/dev/question_code_snippets.json.
+# Keep them aligned with that fixture so targeted codegen tests do not silently skip.
+DEV_SNIPPET_CASES = {
+    "simple": "1",
+    "list_node": "23",
+    "tree_node": "919",
+    "design": "1656",
+}
+
 
 def get_writer(lang_slug: str) -> Optional[lc_libs.LanguageWriter]:
     """Get the Writer instance for a language slug."""
@@ -38,6 +47,14 @@ def get_writer(lang_slug: str) -> Optional[lc_libs.LanguageWriter]:
     if not cls:
         return None
     return cls()
+
+
+def get_problem_snippets(question_snippets: List[Dict[str, Any]], problem_id: str) -> List[Dict[str, Any]]:
+    """Return snippet records for a problem that must exist in the dev fixture."""
+    for item in question_snippets:
+        if problem_id in item:
+            return item[problem_id]
+    raise AssertionError(f"Problem {problem_id} not found in python/dev/question_code_snippets.json")
 
 
 class TestCodeGeneration:
@@ -68,17 +85,8 @@ class TestCodeGeneration:
     @pytest.mark.codegen
     def test_generate_simple_two_sum(self, question_snippets: List[Dict[str, Any]], temp_dir: Path):
         """Test code generation for Two Sum problem (simple function signature)."""
-        problem_id = "1"
-        problem_data = None
-
-        # Find Two Sum in snippets
-        for item in question_snippets:
-            if problem_id in item:
-                problem_data = item[problem_id]
-                break
-
-        if problem_data is None:
-            pytest.skip(f"Problem {problem_id} not found in snippets")
+        problem_id = DEV_SNIPPET_CASES["simple"]
+        problem_data = get_problem_snippets(question_snippets, problem_id)
 
         for code_snippet in problem_data:
             lang_slug = code_snippet.get("langSlug", "")
@@ -105,17 +113,8 @@ class TestCodeGeneration:
     @pytest.mark.codegen
     def test_generate_tree_node_problem(self, question_snippets: List[Dict[str, Any]], temp_dir: Path):
         """Test code generation for a TreeNode problem."""
-        # Problem 226: Invert Binary Tree
-        problem_id = "226"
-        problem_data = None
-
-        for item in question_snippets:
-            if problem_id in item:
-                problem_data = item[problem_id]
-                break
-
-        if problem_data is None:
-            pytest.skip(f"Problem {problem_id} not found in snippets")
+        problem_id = DEV_SNIPPET_CASES["tree_node"]
+        problem_data = get_problem_snippets(question_snippets, problem_id)
 
         for code_snippet in problem_data:
             lang_slug = code_snippet.get("langSlug", "")
@@ -143,17 +142,8 @@ class TestCodeGeneration:
     @pytest.mark.codegen
     def test_generate_list_node_problem(self, question_snippets: List[Dict[str, Any]], temp_dir: Path):
         """Test code generation for a ListNode problem."""
-        # Problem 206: Reverse Linked List
-        problem_id = "206"
-        problem_data = None
-
-        for item in question_snippets:
-            if problem_id in item:
-                problem_data = item[problem_id]
-                break
-
-        if problem_data is None:
-            pytest.skip(f"Problem {problem_id} not found in snippets")
+        problem_id = DEV_SNIPPET_CASES["list_node"]
+        problem_data = get_problem_snippets(question_snippets, problem_id)
 
         for code_snippet in problem_data:
             lang_slug = code_snippet.get("langSlug", "")
@@ -179,18 +169,43 @@ class TestCodeGeneration:
                 pytest.skip(f"Language {lang_slug} not fully implemented: {e}")
 
     @pytest.mark.codegen
-    @pytest.mark.slow
-    def test_generate_all_snippets(self, question_snippets: List[Dict[str, Any]]):
-        """Test code generation for all problems in snippets.
+    def test_generate_design_problem(self, question_snippets: List[Dict[str, Any]], temp_dir: Path):
+        """Test code generation for a class/design problem from the dev snippets."""
+        problem_id = DEV_SNIPPET_CASES["design"]
+        problem_data = get_problem_snippets(question_snippets, problem_id)
 
-        This is a comprehensive test that validates all code snippets.
-        Marked as slow, run with: pytest -m slow
-        """
+        for code_snippet in problem_data:
+            lang_slug = code_snippet.get("langSlug", "")
+            if lang_slug not in SUPPORTED_LANGUAGES:
+                continue
+
+            writer = get_writer(lang_slug)
+            if writer is None:
+                continue
+
+            try:
+                generated = writer.write_solution(
+                    code_snippet["code"],
+                    None,
+                    format_question_id(problem_id),
+                    "problems"
+                )
+                assert generated, f"Generated code should not be empty for {lang_slug}"
+                assert "orderedstream" in generated.lower() and "insert" in generated, \
+                    f"Generated code should preserve design/class structure for {lang_slug}"
+            except NotImplementedError as e:
+                pytest.skip(f"Language {lang_slug} not fully implemented: {e}")
+
+    @pytest.mark.codegen
+    def test_generate_all_snippets(self, question_snippets: List[Dict[str, Any]]):
+        """Test code generation for all supported snippets in python/dev."""
         errors = []
         generated_count = {}
+        problems_seen = set()
 
         for item in question_snippets:
             for problem_id, code_list in item.items():
+                problems_seen.add(problem_id)
                 for code_snippet in code_list:
                     lang_slug = code_snippet.get("langSlug", "")
                     if lang_slug not in SUPPORTED_LANGUAGES:
@@ -214,14 +229,12 @@ class TestCodeGeneration:
                     except Exception as e:
                         errors.append(f"Problem {problem_id} ({lang_slug}): {type(e).__name__}: {e}")
 
-        # Log summary
         print(f"\nCode generation summary: {generated_count}")
 
-        # Allow some errors but report them
+        assert problems_seen, "No problems found in python/dev/question_code_snippets.json"
+        assert generated_count, "No supported snippets generated from python/dev/question_code_snippets.json"
         if errors:
-            error_rate = len(errors) / max(sum(generated_count.values()), 1)
-            if error_rate > 0.1:  # More than 10% failure rate
-                pytest.fail(f"Too many code generation failures:\n" + "\n".join(errors[:10]))
+            pytest.fail("Code generation failures:\n" + "\n".join(errors[:20]))
 
 
 class TestWriterEnvironment:

@@ -288,6 +288,52 @@ def clean_error_rust_main(root_path: Path, problem_folder, daily: bool = False):
 
     logging.info("Removed %d error rust files", total_remove)
 
+
+def sync_rust_cargo_main(root_path: Path, problem_folder: str) -> dict[str, list[str]]:
+    """Sync root Cargo.toml with Rust solution packages under a problem folder."""
+    cargo_path = root_path / "Cargo.toml"
+    if not cargo_path.exists():
+        raise FileNotFoundError(f"Cargo.toml not found: {cargo_path}")
+
+    problem_root = root_path / problem_folder
+    if not problem_root.exists():
+        raise FileNotFoundError(f"Problem folder not found: {problem_root}")
+
+    content = cargo_path.read_text(encoding="utf-8")
+    rust_problem_ids = []
+    for problem_path in sorted(problem_root.iterdir()):
+        if not problem_path.is_dir() or not problem_path.name.startswith(f"{problem_folder}_"):
+            continue
+        if not (problem_path / "solution.rs").exists() or not (problem_path / "Cargo.toml").exists():
+            continue
+        problem_id = problem_path.name.removeprefix(f"{problem_folder}_")
+        member_path = f"{problem_folder}/{problem_folder}_{problem_id}"
+        dependency_path = f'path = "{member_path}"'
+        if f'"{member_path}"' not in content or dependency_path not in content:
+            rust_problem_ids.append(problem_id)
+
+    if rust_problem_ids:
+        lc_libs.RustWriter.cargo_add_problems(cargo_path, [[problem_id, problem_folder] for problem_id in rust_problem_ids])
+
+    removed_paths = []
+    content = cargo_path.read_text(encoding="utf-8")
+    new_lines = []
+    for line in content.split("\n"):
+        path_match = re.search(rf'"({re.escape(problem_folder)}/{re.escape(problem_folder)}_[^"]+)"', line)
+        if path_match and not (root_path / path_match.group(1)).exists():
+            removed_paths.append(path_match.group(1))
+            continue
+        new_lines.append(line)
+    cargo_path.write_text("\n".join(new_lines), encoding="utf-8")
+
+    result = {
+        "added": rust_problem_ids,
+        "removed": sorted(set(removed_paths)),
+    }
+    logging.info("Synced Cargo.toml: added=%s removed=%s", result["added"], result["removed"])
+    return result
+
+
 def clean_error_rust(args):
     root_path = Path(__file__).parent.parent.parent
     problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
@@ -320,6 +366,11 @@ if __name__ == '__main__':
     clean_rust = sub_parser.add_parser("clean_rust", help="Clean error rust files")
     clean_rust.set_defaults(func=clean_error_rust)
     clean_rust.add_argument("-d", "--daily", action="store_true", help="Keep daily rust error files")
+    sync_cargo = sub_parser.add_parser("sync_rust_cargo", help="Sync root Cargo.toml with Rust solution packages")
+    sync_cargo.set_defaults(func=lambda _: sync_rust_cargo_main(
+        Path(__file__).parent.parent.parent,
+        os.getenv(constant.PROBLEM_FOLDER, get_default_folder()),
+    ))
     arguments = parser.parse_args()
     arguments.func(arguments)
     sys.exit()
