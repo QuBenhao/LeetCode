@@ -7,5 +7,4 @@ class Solution(solution.Solution):
         return self.rotateString(*test_input)
 
     def rotateString(self, s: str, goal: str) -> bool:
-        pass
-
+        return len(s) == len(goal) and goal in s + s
