@@ -46,6 +46,18 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
             logging.error(f"Unable to get problem_id: {problem_id}, check input or environments folder")
             return
         load_code = True
+        # Check if this is the daily problem (only when not explicitly specified via -id/-slug)
+        try:
+            daily_info = lc_libs.get_daily_question()
+            if daily_info:
+                daily_id = daily_info.get("questionId", "")
+                if daily_id and format_question_id(daily_id) != problem_id:
+                    logging.warning(
+                        f"⚠️  当前提交的题目 [{problem_id}] 不是今日每日一题 [{daily_id}]！"
+                        f"请确认是否在正确的分支上提交。"
+                    )
+        except Exception as e:
+            logging.warning(f"无法检查每日一题状态: {e}")
 
     # Resolve link if exists (only for code, not for problem ID)
     solution_problem_id = problem_id
