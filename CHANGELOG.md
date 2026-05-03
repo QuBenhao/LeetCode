@@ -2,6 +2,85 @@
 
 <!-- version list -->
 
+## v11.6.0 (2026-05-03)
+
+### Bug Fixes
+
+- Adapt submit.py to new get_answer_articles return type
+  ([`43badfe`](https://github.com/QuBenhao/LeetCode/commit/43badfe2d7313a81620b3022fb5f3520eb65c332))
+
+- 题解链接bug
+  ([`6e6c3ad`](https://github.com/QuBenhao/LeetCode/commit/6e6c3ad2a1d83674a3d315b5785adaeefc0d1fb3))
+
+### Features
+
+- Add repository health check feature ([#189](https://github.com/QuBenhao/LeetCode/pull/189),
+  [`637bde5`](https://github.com/QuBenhao/LeetCode/commit/637bde5186b72b0beae9de0945e1fb7ec69b3cdb))
+
+- Add solution links to post-submission article list
+  ([`783a782`](https://github.com/QuBenhao/LeetCode/commit/783a7826a50806523c8486328f566246f3f7ddaf))
+
+- Improve codegen testing and add verify target
+  ([#189](https://github.com/QuBenhao/LeetCode/pull/189),
+  [`637bde5`](https://github.com/QuBenhao/LeetCode/commit/637bde5186b72b0beae9de0945e1fb7ec69b3cdb))
+
+- Warning for daily problem
+  ([`0446304`](https://github.com/QuBenhao/LeetCode/commit/044630433ae80200e4dd4a5c39c2c00a32030713))
+
+### Testing
+
+- 1391 solution
+  ([`7356bf6`](https://github.com/QuBenhao/LeetCode/commit/7356bf6c0b96c124676c3f38a1de55f1ff15dd37))
+
+- 1559 solution
+  ([`e05cb43`](https://github.com/QuBenhao/LeetCode/commit/e05cb4382f14c4d5adefcc22d6dd8203e0118bee))
+
+- 1559 solution
+  ([`877cc91`](https://github.com/QuBenhao/LeetCode/commit/877cc913ab62b65bb10f0b3988d2aa35766da94f))
+
+- 2033 solution
+  ([`a464915`](https://github.com/QuBenhao/LeetCode/commit/a464915699b2edf95cc87f3abb54d6eef6c64740))
+
+- 3225 solution
+  ([`d00b47e`](https://github.com/QuBenhao/LeetCode/commit/d00b47efefc2a759af172bd37c50063cefb445e3))
+
+- 3742 solution
+  ([`9ad2a71`](https://github.com/QuBenhao/LeetCode/commit/9ad2a71ca8c2842868356299bb177956da8734c3))
+
+- 396 solution
+  ([`5279dc3`](https://github.com/QuBenhao/LeetCode/commit/5279dc3610d7a03ea7686bbd608cda492390890f))
+
+- 796 solution
+  ([`9162404`](https://github.com/QuBenhao/LeetCode/commit/9162404bc7bbddef4a9faf390da5a3774aa6d7f5))
+
+- [20260426] Add (1559)
+  ([`3613b49`](https://github.com/QuBenhao/LeetCode/commit/3613b4938fa376025feccd2c815c35e06d7a547a))
+
+- [20260427] Add (1391)
+  ([`8e1c5d4`](https://github.com/QuBenhao/LeetCode/commit/8e1c5d449b5494c93693349ce4a0a1f3fc21a472))
+
+- [20260428] Add (2033)
+  ([`9f945d1`](https://github.com/QuBenhao/LeetCode/commit/9f945d1b81e61d6bb9730744137b5ac9a5f1b2f9))
+
+- [20260429] Add (3225)
+  ([`f544d1c`](https://github.com/QuBenhao/LeetCode/commit/f544d1cece5d3f7b03704bbaa8385d84497a3853))
+
+- [20260430] Add (3742)
+  ([`00ae2c3`](https://github.com/QuBenhao/LeetCode/commit/00ae2c3821608ef6a4bc309eb3882b66732a8e43))
+
+- [20260501] Add (396)
+  ([`85ed312`](https://github.com/QuBenhao/LeetCode/commit/85ed3127cc15c9310ea6d8b0009bd908176ca51f))
+
+- [20260502] Add (788)
+  ([`40ae31c`](https://github.com/QuBenhao/LeetCode/commit/40ae31c6b982ea4ce106e8097dae8ccdc37de851))
+
+- [20260503] Add (796)
+  ([`388df87`](https://github.com/QuBenhao/LeetCode/commit/388df8786d7900ed70ce6631e159d6ca6ed24bf7))
+
+- [20260504] Add (48)
+  ([`06f4453`](https://github.com/QuBenhao/LeetCode/commit/06f4453c3d14cdeb549ea3bc6d0f001d35d675f3))
+
+
 ## v11.5.0 (2026-04-25)
 
 ### Bug Fixes
