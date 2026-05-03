@@ -317,11 +317,28 @@ def sync_rust_cargo_main(root_path: Path, problem_folder: str) -> dict[str, list
 
     removed_paths = []
     content = cargo_path.read_text(encoding="utf-8")
+
+    def replace_stale_path(match: re.Match) -> str:
+        """Replace stale path with empty string, preserving surrounding context."""
+        matched_path = match.group(1)
+        if not (root_path / matched_path).exists():
+            removed_paths.append(matched_path)
+            return ""
+        return match.group(0)
+
+    # Use regex substitution to remove only the stale path, not the entire line
+    pattern = rf'"({re.escape(problem_folder)}/{re.escape(problem_folder)}_[^"]+)"'
+    new_content = re.sub(pattern, replace_stale_path, content)
+
+    # Clean up resulting empty lines and trailing commas in members array
     new_lines = []
-    for line in content.split("\n"):
-        path_match = re.search(rf'"({re.escape(problem_folder)}/{re.escape(problem_folder)}_[^"]+)"', line)
-        if path_match and not (root_path / path_match.group(1)).exists():
-            removed_paths.append(path_match.group(1))
+    for line in new_content.split("\n"):
+        # Remove lines that become empty or contain only whitespace/comma after substitution
+        stripped = line.strip()
+        if stripped in ("", ","):
+            continue
+        # Handle lines with trailing comma after path removal (e.g., "\t\t," -> skip)
+        if stripped.endswith(",") and stripped[:-1].strip() == "":
             continue
         new_lines.append(line)
     cargo_path.write_text("\n".join(new_lines), encoding="utf-8")
