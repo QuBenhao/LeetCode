@@ -1,16 +1,20 @@
 # Makefile for LeetCode project
 
-.PHONY: test test-unit test-integration test-codegen test-coverage clean help
+.PHONY: verify health test test-unit test-integration test-codegen test-coverage test-typescript-smoke test-go-libs clean help
 
 # Default target
 help:
 	@echo "Available targets:"
+	@echo "  verify            - Run the practical local verification suite"
+	@echo "  health            - Check generated problem folder health"
 	@echo "  test              - Run all tests"
 	@echo "  test-unit         - Run unit tests only"
 	@echo "  test-integration  - Run integration tests (requires language runtimes)"
 	@echo "  test-codegen      - Run code generation tests"
 	@echo "  test-coverage     - Run tests with coverage report"
 	@echo "  test-parallel     - Run tests in parallel"
+	@echo "  test-typescript-smoke - Run stable TypeScript smoke tests"
+	@echo "  test-go-libs      - Run stable Go helper package tests"
 	@echo "  test-daily        - Run daily problem test (current problem)"
 	@echo "  test-problems     - Run multiple problems test"
 	@echo "  clean             - Clean up temporary files"
@@ -19,6 +23,16 @@ help:
 	@echo "  test-snippets     - Test code generation for all snippets"
 	@echo "  add-snippet       - Add a problem to snippets (use PROBLEM=id)"
 	@echo "  print-snippet     - Print original snippet (use PROBLEM=id LANG=lang)"
+
+# Run the practical local verification suite
+verify:
+	PYTHONPATH=. pytest tests/ -m "(unit or codegen) and not slow" -v
+	npm test -- --runTestsByPath typescript/debug.test.ts
+	go test ./golang/models ./golang/node_random ./golang/node_neighbours ./golang/tree_next ./golang/double_linked_node_child
+
+# Check generated problem folder health
+health:
+	PYTHONPATH=. python python/scripts/leetcode.py --health
 
 # Run all unit tests
 test-unit:
@@ -43,6 +57,14 @@ test-coverage:
 # Run tests in parallel
 test-parallel:
 	PYTHONPATH=. pytest tests/ -v -n auto
+
+# Run stable TypeScript smoke tests
+test-typescript-smoke:
+	npm test -- --runTestsByPath typescript/debug.test.ts
+
+# Run stable Go helper package tests
+test-go-libs:
+	go test ./golang/models ./golang/node_random ./golang/node_neighbours ./golang/tree_next ./golang/double_linked_node_child
 
 # Run daily problem test
 test-daily:

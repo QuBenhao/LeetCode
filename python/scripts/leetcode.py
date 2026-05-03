@@ -50,6 +50,7 @@ from python.scripts.daily_auto import main as daily_auto_main
 from python.scripts.get_problem import main as get_problem_main, get_question_slug_by_id
 from python.scripts.tools import lucky_main, remain_main, clean_empty_java_main, clean_error_rust_main
 from python.scripts.fetch_solution_articles import main as fetch_solution_main
+from python.scripts.repository_health import scan_repository, format_report, build_fix_suggestions, apply_fix
 
 # Constants
 SEPARATE_LINE = "-" * 50
@@ -837,6 +838,40 @@ def link_problems(problem_folder):
     print(SEPARATE_LINE)
 
 
+def repository_health(problem_folder: str):
+    """Run generated problem repository health checks."""
+    print(t("health_running", folder=problem_folder))
+    report = scan_repository(root_path, [problem_folder])
+    print(format_report(report, root_path))
+    fixes = build_fix_suggestions(report, root_path)
+    if fixes:
+        print()
+        print(t("health_fix_header"))
+        for idx, fix in enumerate(fixes, start=1):
+            print(f"{idx}. {fix.display(root_path)}")
+        selection = input_until_valid(t("health_fix_select"), allow_all)
+        selected_indices: list[int] = []
+        if selection.lower() == "a":
+            selected_indices = list(range(len(fixes)))
+        else:
+            for part in selection.split(","):
+                part = part.strip()
+                if part.isdigit() and 1 <= int(part) <= len(fixes):
+                    selected_indices.append(int(part) - 1)
+        for idx in dict.fromkeys(selected_indices):
+            fix = fixes[idx]
+            confirm = input_until_valid(t("health_fix_confirm", fix=fix.display(root_path)), allow_all)
+            if confirm.lower() != "y":
+                print(t("health_fix_skipped"))
+                continue
+            print(apply_fix(fix))
+        if selected_indices:
+            print()
+            report = scan_repository(root_path, [problem_folder])
+            print(format_report(report, root_path))
+    print(SEPARATE_LINE)
+
+
 def _get_problem_slug_from_id(problem_id: str, cookie: str) -> Optional[str]:
     """通过题目 ID 获取 problem_slug"""
     origin_problem_id = back_question_id(problem_id)
@@ -1148,11 +1183,23 @@ def main():
     parser = argparse.ArgumentParser(description="LeetCode 工具集")
     parser.add_argument('--en', action='store_true', help='Use English interface')
     parser.add_argument('--init', action='store_true', help='Force initialization wizard')
+    parser.add_argument('--health', action='store_true', help='Run repository health checks and exit')
+    parser.add_argument('--health-folder', default=None, help='Problem folder to scan for --health')
     args = parser.parse_args()
 
     # Set language
     if args.en:
         set_language("en")
+
+    if args.health:
+        try:
+            load_dotenv()
+        except Exception:
+            logging.debug("Failed to load .env for health check", exc_info=True)
+        health_folder = args.health_folder or os.getenv(constant.PROBLEM_FOLDER, "problems")
+        report = scan_repository(root_path, [health_folder])
+        print(format_report(report, root_path))
+        return 0 if report.ok else 1
 
     try:
         if args.init:
@@ -1190,13 +1237,15 @@ def main():
                     link_problems(problem_folder)
                 case "9":
                     solution_center(cookie, problem_folder)
+                case "10":
+                    repository_health(problem_folder)
                 case _:
                     print(t("main_exit"))
-                    break
+                    return 0
     except KeyboardInterrupt:
         print(f"\n{t('main_bye')}")
+        return 130
 
 
 if __name__ == '__main__':
-    main()
-    sys.exit()
+    sys.exit(main())

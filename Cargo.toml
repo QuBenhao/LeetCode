@@ -419,7 +419,6 @@ members = [
 	"problems/problems_Interview_16__02",
 	"problems/problems_944",
 	"problems/problems_Interview_08__02",
-	"problems/problems_Interview_16__03",
 	"problems/problems_955",
 	"problems/problems_Interview_02__01",
 	"problems/problems_Interview_10__01",
@@ -547,6 +546,15 @@ members = [
 	"problems/problems_3225",
 	"problems/problems_3742",
 	"problems/problems_396",
+	"problems/problems_3655",
+	"problems/problems_2069",
+	"problems/problems_3653",
+	"problems/problems_3661",
+	"problems/problems_3740",
+	"problems/problems_874",
+	"problems/problems_2087",
+	"problems/problems_3418",
+	"problems/problems_657",
 	"problems/problems_788",
 	"problems/problems_796",
 ]
@@ -990,7 +998,6 @@ solution_2092 = { path = "problems/problems_2092", features = ["solution_2092"] 
 solution_Interview_16__02 = { path = "problems/problems_Interview_16__02", features = ["solution_Interview_16__02"] }
 solution_944 = { path = "problems/problems_944", features = ["solution_944"] }
 solution_Interview_08__02 = { path = "problems/problems_Interview_08__02", features = ["solution_Interview_08__02"] }
-solution_Interview_16__03 = { path = "problems/problems_Interview_16__03", features = ["solution_Interview_16__03"] }
 solution_955 = { path = "problems/problems_955", features = ["solution_955"] }
 solution_Interview_02__01 = { path = "problems/problems_Interview_02__01", features = ["solution_Interview_02__01"] }
 solution_Interview_10__01 = { path = "problems/problems_Interview_10__01", features = ["solution_Interview_10__01"] }
@@ -1118,5 +1125,14 @@ solution_2033 = { path = "problems/problems_2033", features = ["solution_2033"] 
 solution_3225 = { path = "problems/problems_3225", features = ["solution_3225"] }
 solution_3742 = { path = "problems/problems_3742", features = ["solution_3742"] }
 solution_396 = { path = "problems/problems_396", features = ["solution_396"] }
+solution_3655 = { path = "problems/problems_3655", features = ["solution_3655"] }
+solution_2069 = { path = "problems/problems_2069", features = ["solution_2069"] }
+solution_3653 = { path = "problems/problems_3653", features = ["solution_3653"] }
+solution_3661 = { path = "problems/problems_3661", features = ["solution_3661"] }
+solution_3740 = { path = "problems/problems_3740", features = ["solution_3740"] }
+solution_874 = { path = "problems/problems_874", features = ["solution_874"] }
+solution_2087 = { path = "problems/problems_2087", features = ["solution_2087"] }
+solution_3418 = { path = "problems/problems_3418", features = ["solution_3418"] }
+solution_657 = { path = "problems/problems_657", features = ["solution_657"] }
 solution_788 = { path = "problems/problems_788", features = ["solution_788"] }
 solution_796 = { path = "problems/problems_796", features = ["solution_796"] }
