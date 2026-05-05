@@ -31,6 +31,19 @@ Pytest discovers `test_*.py` and `*_test.py` under `tests/`; test classes start 
 
 Recent commits use short prefixes such as `test:` and `fix:`; examples include `test: 3742 solution`, `test: [20260430] Add (3742)`, and `fix: 题解链接bug`. Keep messages scoped to one change. Pull requests should summarize changed problems or tooling, list test commands run, mention required environment variables, and link related issues when applicable.
 
+## Solution Style Preferences
+
+- Python solutions favor concise, trick-oriented approaches — avoid boilerplate.
+- Prefer math/insight over brute force when possible.
+- Keep solution files focused: one clean approach, not multiple explorations.
+
+## Done Means
+
+- Solution passes the problem's test cases (local runner or LeetCode submit).
+- No leftover debug prints or commented-out code in the solution file.
+- If adding tooling: `make verify` passes, relevant `make test-*` target passes.
+- Changed files are summarized.
+
 ## Security & Configuration Tips
 
 Do not commit `.env`, LeetCode cookies, PushDeer keys, or other secrets. Required local values include `COOKIE`, `PROBLEM_FOLDER`, `LANGUAGES`, `LEETCODE_USER`, and `PYTHONPATH=.`; see `README.md` for an example configuration.
