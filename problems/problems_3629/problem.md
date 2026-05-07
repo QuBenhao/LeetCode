@@ -1,4 +1,4 @@
-# 3629. Minimum Jumps to Reach End via Prime Teleportation 
+# 3629. Minimum Jumps to Reach End via Prime Teleportation [Rating: 2139.31]
 
 <p>You are given an integer array <code>nums</code> of length <code>n</code>.</p>
 
