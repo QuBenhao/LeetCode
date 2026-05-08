@@ -1,4 +1,4 @@
-# [Python] 逐层旋转
+# [Python] 逐层旋转 - 方向数组法
 
 > Author: Benhao
 > Date: 2021-06-27
@@ -8,52 +8,44 @@
 ---
 
 ### 解题思路
-每层旋转的循环是根据该层的元素个数的 (k%len),旋转len次不变
+
+矩阵由多层同心方环组成，每层独立旋转。逆时针旋转 `k` 次，等价于将元素数组左移 `k % len` 位。
+
+**优化思路**：用**方向数组**统一生成坐标，避免4个独立循环。
+
+方向数组 `dirs = [(0,1), (1,0), (0,-1), (-1,0)]` 分别对应右、下、左、上四个方向，配合各边长度循环，一气呵成生成所有坐标。这种模式在网格题（DFS/BFS/螺旋矩阵）中都能复用。
 
 ### 代码
 
-```python3
+```python3 []
 class Solution:
     def rotateGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
-        def nums(x, y, lm, ln):
-            ans = []
-            for j in range(y, y + ln):
-                ans.append(grid[x][j])
-            for i in range(x + 1, x + lm):
-                ans.append(grid[i][y + ln - 1])
-            for j in range(y + ln - 2, y - 1, -1):
-                ans.append(grid[x + lm - 1][j])
-            for i in range(x + lm - 2, x, -1):
-                ans.append(grid[i][y])
-            return ans
-
-        # 当前层的长宽
         m, n = len(grid), len(grid[0])
-        # 当前层的左上角坐标
-        x = y = 0
-        d = dict()
-        while m and n:
-            # 该层的所有元素
-            val = nums(x, y, m, n)
-            temp = k % len(val)
-            # 该层旋转后的顺序
-            val = val[temp:] + val[:temp]
-            idx = 0
-            for j in range(y, y + n):
-                grid[x][j] = val[idx]
-                idx += 1
-            for i in range(x + 1, x + m):
-                grid[i][y + n - 1] = val[idx]
-                idx += 1
-            for j in range(y + n - 2, y - 1, -1):
-                grid[x + m - 1][j] = val[idx]
-                idx += 1
-            for i in range(x + m - 2, x, -1):
-                grid[i][y] = val[idx]
-                idx += 1
-            x += 1
-            y += 1
-            m -= 2
-            n -= 2
+        # 方向：右、下、左、上（逆时针）
+        dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+
+        for layer in range(min(m, n) // 2):
+            top, left = layer, layer
+            bottom, right = m - 1 - layer, n - 1 - layer
+            # 各边长度
+            lengths = [right - left, bottom - top, right - left, bottom - top]
+
+            # 生成该层坐标（逆时针顺序）
+            coords = []
+            i, j = top, left
+            for (di, dj), length in zip(dirs, lengths):
+                for _ in range(length):
+                    coords.append((i, j))
+                    i += di
+                    j += dj
+
+            # 提取、旋转、写回
+            vals = [grid[r][c] for r, c in coords]
+            shift = k % len(vals)
+            vals = vals[shift:] + vals[:shift]
+
+            for (r, c), v in zip(coords, vals):
+                grid[r][c] = v
+
         return grid
 ```
