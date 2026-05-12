@@ -1,48 +1,47 @@
 # 1674. Minimum Moves to Make Array Complementary [Rating: 2333.24]
 
-You are given an integer array `nums` of **even** length `n` and an integer `limit`. In one move, you can replace any integer from `nums` with another integer between `1` and `limit`, inclusive.
+<p>You are given an integer array <code>nums</code> of <strong>even</strong> length <code>n</code> and an integer <code>limit</code>. In one move, you can replace any integer from <code>nums</code> with another integer between <code>1</code> and <code>limit</code>, inclusive.</p>
 
-The array `nums` is **complementary** if for all indices `i` (**0-indexed**), `nums[i] + nums[n - 1 - i]` equals the same number. For example, the array `[1,2,3,4]` is complementary because for all indices `i`, `nums[i] + nums[n - 1 - i] = 5`.
+<p>The array <code>nums</code> is <strong>complementary</strong> if for all indices <code>i</code> (<strong>0-indexed</strong>), <code>nums[i] + nums[n - 1 - i]</code> equals the same number. For example, the array <code>[1,2,3,4]</code> is complementary because for all indices <code>i</code>, <code>nums[i] + nums[n - 1 - i] = 5</code>.</p>
 
-Return the ***minimum*** *number of moves required to make* `nums` ***complementary***.
+<p>Return the <em><strong>minimum</strong> number of moves required to make </em><code>nums</code><em> <strong>complementary</strong></em>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
-
-```
-Input: nums = [1,2,4,3], limit = 4
-Output: 1
-Explanation: In 1 move, you can change nums to [1,2,2,3] (underlined elements are changed).
+<pre>
+<strong>Input:</strong> nums = [1,2,4,3], limit = 4
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> In 1 move, you can change nums to [1,2,<u>2</u>,3] (underlined elements are changed).
 nums[0] + nums[3] = 1 + 3 = 4.
 nums[1] + nums[2] = 2 + 2 = 4.
 nums[2] + nums[1] = 2 + 2 = 4.
 nums[3] + nums[0] = 3 + 1 = 4.
 Therefore, nums[i] + nums[n-1-i] = 4 for every i, so nums is complementary.
-```
+</pre>
 
-**Example 2:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: nums = [1,2,2,1], limit = 2
-Output: 2
-Explanation: In 2 moves, you can change nums to [2,2,2,2]. You cannot change any number to 3 since 3 > limit.
-```
+<pre>
+<strong>Input:</strong> nums = [1,2,2,1], limit = 2
+<strong>Output:</strong> 2
+<strong>Explanation:</strong> In 2 moves, you can change nums to [<u>2</u>,2,2,<u>2</u>]. You cannot change any number to 3 since 3 &gt; limit.
+</pre>
 
-**Example 3:**
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: nums = [1,2,1,2], limit = 2
-Output: 0
-Explanation: nums is already complementary.
-```
+<pre>
+<strong>Input:</strong> nums = [1,2,1,2], limit = 2
+<strong>Output:</strong> 0
+<strong>Explanation:</strong> nums is already complementary.
+</pre>
 
- 
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Constraints:**
-
-- `n == nums.length`
-- 2 <= n <= 10<sup>5</sup>
-- 1 <= nums[i] <= limit <= 10<sup>5</sup>
-- `n` is even.
-
+<ul>
+	<li><code>n == nums.length</code></li>
+	<li><code>2 &lt;= n&nbsp;&lt;=&nbsp;10<sup>5</sup></code></li>
+	<li><code>1 &lt;= nums[i]&nbsp;&lt;= limit &lt;=&nbsp;10<sup>5</sup></code></li>
+	<li><code>n</code> is even.</li>
+</ul>
