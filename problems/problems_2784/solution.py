@@ -7,5 +7,12 @@ class Solution(solution.Solution):
         return self.isGood(test_input)
 
     def isGood(self, nums: List[int]) -> bool:
-        pass
-
+        n = len(nums) - 1
+        counts = [0] * (n + 1)
+        for num in nums:
+            if num > n:
+                return False
+            counts[num] += 1
+            if counts[num] > (2 if num == n else 1):
+                return False
+        return True
