@@ -181,19 +181,20 @@ def process_daily(languages: list[str], problem_folder: str = None, cookie: str 
     )
     logging.debug(f"Success languages: {success_languages}, linked: {is_linked}")
 
-    # Only change test if not linked
-    if not is_linked:
-        for lang in success_languages:
-            try:
-                cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
-                if not cls:
-                    logging.warning(f"{lang} Language Writer not supported yet")
-                    continue
+    # Always update daily field in daily-*.json
+    if success_languages or is_linked:
+        try:
+            # Use first language or default python3 to update daily field
+            lang_to_use = languages[0] if languages else "python3"
+            cls = getattr(lc_libs, f"{lang_to_use.capitalize()}Writer", None)
+            if cls:
                 obj: lc_libs.LanguageWriter = cls()
                 obj.change_test(root_path, tmp, question_id)
-            except Exception as _:
-                logging.error(f"Failed to change daily test for {lang}", exc_info=True)
-                continue
+        except Exception as _:
+            logging.error(f"Failed to update daily json for daily problem", exc_info=True)
+
+    # Note: change_test only updates daily-*.json, no need to call it again per language
+    # The test execution happens separately via test.py
     return None
 
 

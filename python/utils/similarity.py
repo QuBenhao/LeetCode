@@ -35,6 +35,24 @@ class ProblemInfo:
 # - "注意：本题与主站 29&nbsp;题相同" (&nbsp; instead of space)
 MAIN_SITE_SAME_PATTERN = re.compile(r"注意[：:]\s*本题与主站\s*(\d+)(?:&nbsp;|\s*)题相同")
 
+# Pattern to match "similar to X but Y" - indicates related but DIFFERENT problems
+# Examples:
+# - "This problem is similar to Find Minimum in Rotated Sorted Array, but nums may contain duplicates"
+# - "This problem is similar to Problem 154, but..."
+# - "similar to [title], but"
+SIMILAR_BUT_DIFFERENT_PATTERN = re.compile(
+    r"(?:this\s+problem\s+is\s+)?similar\s+to\s+(?:problem\s+)?([^,]+?),\s*but",
+    re.IGNORECASE
+)
+
+# Chinese pattern for "similar but different"
+# Examples:
+# - "本题与主站 153 题类似，但可能包含重复元素"
+SIMILAR_BUT_DIFFERENT_CN_PATTERN = re.compile(
+    r"本题与主站\s*(\d+)(?:&nbsp;|\s*)题类似[，,]",
+    re.IGNORECASE
+)
+
 
 def extract_main_site_reference(description: str) -> Optional[str]:
     """
@@ -53,6 +71,39 @@ def extract_main_site_reference(description: str) -> Optional[str]:
     match = MAIN_SITE_SAME_PATTERN.search(description)
     if match:
         return match.group(1)
+    return None
+
+
+def extract_similar_but_different_reference(description: str) -> Optional[Tuple[str, str]]:
+    """
+    Extract reference from "similar to X but Y" pattern in description.
+    This indicates the problem is related to but DIFFERENT from the referenced problem.
+
+    Args:
+        description: Problem description (HTML or plain text)
+
+    Returns:
+        Tuple of (reference_type, reference_value) if found, None otherwise.
+        reference_type is either 'id' or 'title'
+    """
+    if not description:
+        return None
+
+    # Check Chinese pattern first
+    match_cn = SIMILAR_BUT_DIFFERENT_CN_PATTERN.search(description)
+    if match_cn:
+        return ('id', match_cn.group(1))
+
+    # Check English pattern
+    match_en = SIMILAR_BUT_DIFFERENT_PATTERN.search(description)
+    if match_en:
+        ref = match_en.group(1).strip()
+        # Check if reference is a number (problem ID)
+        if ref.isdigit():
+            return ('id', ref)
+        # Otherwise it's a title
+        return ('title', ref)
+
     return None
 
 
@@ -344,6 +395,22 @@ def find_similar_existing_problem(root_path: Path, problem_folder: str, problem_
     if not problems_dir.exists():
         return None
 
+    # Check if description contains "similar to X but Y" pattern
+    # This indicates the problem is related but DIFFERENT, should not be auto-linked
+    similar_but_different_ref = extract_similar_but_different_reference(description)
+    excluded_ids = set()
+    excluded_titles = set()
+
+    if similar_but_different_ref:
+        ref_type, ref_value = similar_but_different_ref
+        if ref_type == 'id':
+            excluded_ids.add(ref_value)
+            logging.info(f"Problem {problem_id} references problem {ref_value} as 'similar but different', excluding from auto-link")
+        else:
+            # Normalize title for comparison
+            excluded_titles.add(normalize_text(ref_value))
+            logging.info(f"Problem {problem_id} references '{ref_value}' as 'similar but different', excluding from auto-link")
+
     new_info = ProblemInfo(
         problem_id=problem_id,
         title=title,
@@ -367,9 +434,25 @@ def find_similar_existing_problem(root_path: Path, problem_folder: str, problem_
         if existing_id == problem_id:
             continue
 
+        # Skip if this problem ID is excluded due to "similar but different" reference
+        if existing_id in excluded_ids:
+            logging.debug(f"Skipping {existing_id} - excluded by 'similar but different' reference")
+            continue
+
         existing_info = load_problem_info(problem_dir)
         if not existing_info:
             continue
+
+        # Skip if this problem's title matches excluded titles
+        if excluded_titles:
+            existing_title_normalized = normalize_text(existing_info.title)
+            # Remove Roman numerals for comparison
+            existing_title_clean = re.sub(r'\b[IVX]+\b|\b\d+\b', '', existing_title_normalized).strip()
+            for excluded_title in excluded_titles:
+                excluded_clean = re.sub(r'\b[IVX]+\b|\b\d+\b', '', excluded_title).strip()
+                if existing_title_clean == excluded_clean:
+                    logging.debug(f"Skipping {existing_id} - title matches excluded '{excluded_title}'")
+                    continue
 
         is_similar, score, reason = compare_problems(new_info, existing_info)
 
