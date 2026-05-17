@@ -223,6 +223,236 @@ LANGUAGES="golang,java"
 
 运行脚本获取题目、运行测试并提交你的解决方案。
 
+如果遇到如下问题，
+![get_problem.png](docs/get_problem.png)
+它会添加题目并修改你使用语言的测试文件：
+![new_problem.png](docs/new_problem.png)
+![changed_golang.png](docs/changed_golang.png)
+
+在 VsCode 中，
+在 `.vscode` 下添加 launch.json
+
+```json5
+{
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Typescript Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "typescript-test",
+    },
+    {
+      "name": "Typescript Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "typescript-tests",
+    },
+    {
+      "name": "Python Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "python-test",
+    },
+    {
+      "name": "Python Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "python-tests",
+    },
+    {
+      "name": "Golang Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "golang-test",
+    },
+    {
+      "name": "Golang Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "golang-tests",
+    },
+    {
+      "name": "C++ Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "cpp-test",
+    },
+    {
+      "name": "C++ Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "cpp-tests",
+    },
+    {
+      "name": "Java Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "java-test",
+    },
+    {
+      "name": "Java Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "java-tests",
+    },
+    {
+      "name": "Rust Test",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "rust-test",
+    },
+    {
+      "name": "Rust Tests",
+      "type": "node",
+      "request": "launch",
+      "preLaunchTask": "rust-tests",
+    }
+  ]
+}
+```
+
+在 `.vscode` 下添加 tasks.json
+
+```json5
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "typescript-test",
+      "command": "npm",
+      "args": [
+        "test",
+        "--alwaysStric",
+        "--strictBindCallApply",
+        "--strictFunctionTypes",
+        "--target",
+        "ES2022",
+        "typescript/test.ts"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "typescript-tests",
+      "command": "npm",
+      "args": [
+        "test",
+        "--alwaysStric",
+        "--strictBindCallApply",
+        "--strictFunctionTypes",
+        "--target",
+        "ES2022",
+        "typescript/problems.test.ts"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "python-test",
+      "command": "python",
+      "args": [
+        "python/test.py"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "python-tests",
+      "command": "python",
+      "args": [
+        "python/tests.py"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "golang-test",
+      "command": "go",
+      "args": [
+        "test",
+        "-tags=goexperiment.jsonv2",
+        "golang/solution_test.go",
+        "golang/test_basic.go",
+        "-test.timeout",
+        "3s",
+        "-v"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "golang-tests",
+      "command": "go",
+      "args": [
+        "test",
+        "-tags=goexperiment.jsonv2",
+        "golang/problems_test.go",
+        "golang/test_basic.go",
+        "-test.timeout",
+        "10s",
+        "-v"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "cpp-test",
+      "type": "shell",
+      "command": "sh",
+      "args": [
+        "-c",
+        "bazel fetch --force daily && bazel test --cxxopt=-std=c++23 --cxxopt=-O2 --cxxopt=-fsanitize=address --cxxopt=-D_GLIBCXX_USE_CXX11_ABI=1 --linkopt=-fsanitize=address --test_timeout=3 --test_output=all //:daily_test"
+      ]
+    },
+    {
+      "label": "cpp-tests",
+      "type": "shell",
+      "command": "sh",
+      "args": [
+        "-c",
+        "bazel fetch --force daily && bazel test --cxxopt=-std=c++23 --cxxopt=-O2 --cxxopt=-fsanitize=address --cxxopt=-D_GLIBCXX_USE_CXX11_ABI=1 --linkopt=-fsanitize=address --test_timeout=10 --test_output=all $(bazel query \"filter(\\\"plan_*\\\", kind(cc_test, //...))\")"
+      ]
+    },
+    {
+      "label": "java-test",
+      "command": "mvn",
+      "args": [
+        "test",
+        "-Dtest=\"qubhjava.test.TestMain\""
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "java-tests",
+      "command": "mvn",
+      "args": [
+        "test",
+        "-Dtest=\"qubhjava.test.ProblemsTest\""
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "rust-test",
+      "command": "cargo",
+      "args": [
+        "test",
+        "--test",
+        "solution_test"
+      ],
+      "type": "shell"
+    },
+    {
+      "label": "rust-tests",
+      "command": "cargo",
+      "args": [
+        "test",
+        "--test",
+        "solutions_test"
+      ],
+      "type": "shell"
+    }
+  ]
+}
+```
+
 ## GitHub
 
 配置 [GitHub Action Secrets](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic)
