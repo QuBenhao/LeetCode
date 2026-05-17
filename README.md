@@ -509,10 +509,12 @@ and tasks.json under `.vscode`
       "command": "go",
       "args": [
         "test",
+        "-tags=goexperiment.jsonv2",
         "golang/solution_test.go",
         "golang/test_basic.go",
         "-test.timeout",
-        "3s"
+        "3s",
+        "-v"
       ],
       "type": "shell"
     },
@@ -521,10 +523,12 @@ and tasks.json under `.vscode`
       "command": "go",
       "args": [
         "test",
+        "-tags=goexperiment.jsonv2",
         "golang/problems_test.go",
         "golang/test_basic.go",
         "-test.timeout",
-        "10s"
+        "10s",
+        "-v"
       ],
       "type": "shell"
     },
