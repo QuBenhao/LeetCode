@@ -50,7 +50,7 @@ def get_config():
     if env_file.exists():
         for line in env_file.read_text().splitlines():
             if line.startswith("PROBLEM_FOLDER="):
-                problem_folder = line.split("=")[1].strip().strip('"')
+                problem_folder = line.split("=")[1].strip().strip('"').strip("'")
                 break
 
     # Read config JSON
@@ -142,12 +142,14 @@ def generate_problems_test(problem_ids: list, root: Path, golang_path: Path):
 \t\tTestEach(t, "{pid}", "{folder}", problem{idx}.Solve)
 \t}})'''.format(folder=folder, pid=pid, idx=idx))
 
-    test_content = '''package golang
+    test_content = '''//go:build goexperiment.jsonv2
+
+package golang
 
 import (
-\t"testing)
-
 {imports}
+	"testing"
+)
 
 func TestProblems(t *testing.T) {{
 {test_cases}
