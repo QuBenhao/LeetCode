@@ -1,10 +1,10 @@
 package golang
 
 import (
-	problem "leetCode/problems/problems_153"
+	problem "leetCode/problems/problems_1345"
 	"testing"
 )
 
 func TestSolution(t *testing.T) {
-	TestEach(t, "153", "problems", problem.Solve)
+	TestEach(t, "1345", "problems", problem.Solve)
 }
