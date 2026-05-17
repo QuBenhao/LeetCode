@@ -1,60 +1,48 @@
 # 1345. Jump Game IV [Rating: 1809.82]
 
-Given an array of integers `arr`, you are initially positioned at the first index of the array.
+<p>Given an array of&nbsp;integers <code>arr</code>, you are initially positioned at the first index of the array.</p>
 
-In one step you can jump from index `i` to index:
+<p>In one step you can jump from index <code>i</code> to index:</p>
 
-- `i + 1` where: `i + 1 < arr.length`.
-- `i - 1` where: `i - 1 >= 0`.
-- `j` where: `arr[i] == arr[j]` and `i != j`.
+<ul>
+	<li><code>i + 1</code> where:&nbsp;<code>i + 1 &lt; arr.length</code>.</li>
+	<li><code>i - 1</code> where:&nbsp;<code>i - 1 &gt;= 0</code>.</li>
+	<li><code>j</code> where: <code>arr[i] == arr[j]</code> and <code>i != j</code>.</li>
+</ul>
 
-Return *the minimum number of steps* to reach the **last index** of the array.
+<p>Return <em>the minimum number of steps</em> to reach the <strong>last index</strong> of the array.</p>
 
-Notice that you can not jump outside of the array at any time.
+<p>Notice that you can not jump outside of the array at any time.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> arr = [100,-23,-23,404,100,23,23,23,3,404]
+<strong>Output:</strong> 3
+<strong>Explanation:</strong> You need three jumps from index 0 --&gt; 4 --&gt; 3 --&gt; 9. Note that index 9 is the last index of the array.
+</pre>
 
-```
-Input: arr = [100,-23,-23,404,100,23,23,23,3,404]
-Output: 3
-Explanation: You need three jumps from index 0 --> 4 --> 3 --> 9. Note that index 9 is the last index of the array.
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> arr = [7]
+<strong>Output:</strong> 0
+<strong>Explanation:</strong> Start index is the last index. You do not need to jump.
+</pre>
 
-```
-Input: arr = [7]
-Output: 0
-Explanation: Start index is the last index. You don't need to jump.
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
+<pre>
+<strong>Input:</strong> arr = [7,6,9,6,9,6,9,7]
+<strong>Output:</strong> 1
+<strong>Explanation:</strong> You can jump directly from index 0 to index 7 which is last index of the array.
+</pre>
 
-```
-Input: arr = [7,6,9,6,9,6,9,7]
-Output: 1
-Explanation: You can jump directly from index 0 to index 7 which is last index of the array.
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 4:**
-
-```
-Input: arr = [6,1,9]
-Output: 2
-```
-
-**Example 5:**
-
-```
-Input: arr = [11,22,7,7,7,7,7,7,7,22,13]
-Output: 3
-```
-
- 
-
-**Constraints:**
-
-- `1 <= arr.length <= 5 * 10^4`
-- `-10^8 <= arr[i] <= 10^8`
+<ul>
+	<li><code>1 &lt;= arr.length &lt;= 5 * 10<sup>4</sup></code></li>
+	<li><code>-10<sup>8</sup> &lt;= arr[i] &lt;= 10<sup>8</sup></code></li>
+</ul>
