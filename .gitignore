@@ -60,6 +60,7 @@ rust/build/
 # claude code local files
 .claude/
 .workbuddy/
+CLAUDE.local.md
 
 # cmake
 cmake-*/

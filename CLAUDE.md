@@ -2,6 +2,23 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Local Configuration
+
+This repository supports a local configuration file for personalized settings:
+
+- **`CLAUDE.local.md`** - User-specific configuration (gitignored, won't affect other users)
+- Create this file to customize behavior without modifying shared config
+
+Example `CLAUDE.local.md`:
+```markdown
+## Daily Problem Strategy
+
+- If `solution.py` exists → use Go (`solution.go`)
+- Otherwise → use primary language from `.env`
+```
+
+Claude Code automatically reads `CLAUDE.local.md` if it exists.
+
 ## Repository Overview
 
 This is a LeetCode solutions repository with multi-language support. Each problem has a dedicated folder with solutions in Python, Go, Java, C++, TypeScript, and Rust.
