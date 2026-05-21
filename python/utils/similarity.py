@@ -26,6 +26,7 @@ class ProblemInfo:
     method_name: Optional[str] = None
     method_signature: Optional[str] = None
     constraints: Optional[str] = None
+    return_type: Optional[str] = None  # Extracted from testcase or signature
 
 
 # Pattern to match "本题与主站 xxx 题相同" or similar references
@@ -186,6 +187,65 @@ def extract_method_info(solution_py_path: Path) -> Tuple[Optional[str], Optional
     return None, None
 
 
+def extract_return_type_from_testcase(testcase_path: Path) -> Optional[str]:
+    """
+    Extract return type from testcase file by analyzing output values.
+
+    Note: This function infers types from values, but cannot distinguish
+    between int and bool when outputs are [0, 1]. In such cases, returns
+    'int' and relies on solution.py type annotations for accurate detection.
+
+    Args:
+        testcase_path: Path to testcase file (JSON format)
+
+    Returns:
+        Inferred return type: 'int', 'bool', 'str', 'float', 'List', 'Dict', 'Any'
+    """
+    if not testcase_path.exists():
+        return None
+
+    try:
+        with testcase_path.open("r", encoding="utf-8") as f:
+            content = f.read().strip()
+
+        # testcase format: line 1 is inputs, line 2 is outputs
+        lines = content.split("\n")
+        if len(lines) < 2:
+            return None
+
+        outputs_str = lines[1].strip()
+
+        # Parse outputs as JSON array
+        outputs = json.loads(outputs_str)
+        if not outputs:
+            return None
+
+        # Sample first few outputs to determine type
+        sample = outputs[0]
+
+        if isinstance(sample, bool):
+            # Python's json loads true/false as Python bool
+            return "bool"
+        elif isinstance(sample, int):
+            # Don't auto-detect bool from [0, 1] - can be misleading
+            # (e.g., minCut returns 0 or 1 cuts, but it's int not bool)
+            return "int"
+        elif isinstance(sample, float):
+            return "float"
+        elif isinstance(sample, str):
+            return "str"
+        elif isinstance(sample, list):
+            return "List"
+        elif isinstance(sample, dict):
+            return "Dict"
+        else:
+            return "Any"
+
+    except (json.JSONDecodeError, IndexError, TypeError) as e:
+        logging.debug(f"Failed to parse testcase {testcase_path}: {e}")
+        return None
+
+
 def normalize_text(text: str) -> str:
     """Normalize text for comparison by removing numbers, whitespace variations, etc."""
     if not text:
@@ -262,7 +322,19 @@ def compare_problems(p1: ProblemInfo, p2: ProblemInfo) -> Tuple[bool, float, str
             desc_similarity = overlap / union if union > 0 else 0
             scores.append(("description", desc_similarity, 0.5))  # 50% weight
 
-    # 2. Compare method signatures
+    # 2. Compare return types (CRITICAL: must match for valid linking)
+    # Use return_type from testcase (most reliable), fallback to signature
+    ret_type1 = p1.return_type
+    ret_type2 = p2.return_type
+
+    if ret_type1 and ret_type2:
+        # CRITICAL: Return types must match for valid linking
+        # Different return types = fundamentally different solutions
+        if ret_type1 != ret_type2:
+            logging.debug(f"Return types differ: {ret_type1} vs {ret_type2}")
+            return False, 0.0, f"return types differ ({ret_type1} vs {ret_type2})"
+
+    # 3. Compare method signatures
     if p1.method_name and p2.method_name:
         if p1.method_name == p2.method_name:
             scores.append(("method_name", 1.0, 0.3))  # 30% weight for matching method name
@@ -338,13 +410,24 @@ def load_problem_info(problem_path: Path) -> Optional[ProblemInfo]:
     solution_py = problem_path / "solution.py"
     method_name, method_signature = extract_method_info(solution_py)
 
+    # Get return type from testcase (most reliable source)
+    testcase_path = problem_path / "testcase"
+    return_type = extract_return_type_from_testcase(testcase_path)
+
+    # Fallback: extract return type from signature if testcase not available
+    if return_type is None and method_signature:
+        ret_match = re.search(r'->\s*(\w+(?:\[[^\]]+\])?)', method_signature)
+        if ret_match:
+            return_type = ret_match.group(1)
+
     return ProblemInfo(
         problem_id=problem_id,
         title=title,
         description=description,
         method_name=method_name,
         method_signature=method_signature,
-        constraints=constraints
+        constraints=constraints,
+        return_type=return_type
     )
 
 
