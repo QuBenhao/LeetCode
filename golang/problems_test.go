@@ -3,7 +3,7 @@
 package golang
 
 import (
-	problem0 "leetCode/problems/problems_3740"
+	problem0 "leetCode/problems/problems_1752"
 	problem1 "leetCode/problems/problems_3833"
 	problem2 "leetCode/problems/problems_3834"
 	problem3 "leetCode/problems/problems_3835"
@@ -12,8 +12,8 @@ import (
 )
 
 func TestProblems(t *testing.T) {
-	t.Run("problems_3740", func(t *testing.T) {
-		TestEach(t, "3740", "problems", problem0.Solve)
+	t.Run("problems_1752", func(t *testing.T) {
+		TestEach(t, "1752", "problems", problem0.Solve)
 	})
 	t.Run("problems_3833", func(t *testing.T) {
 		TestEach(t, "3833", "problems", problem1.Solve)

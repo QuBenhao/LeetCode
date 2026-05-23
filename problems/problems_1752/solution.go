@@ -7,7 +7,16 @@ import (
 )
 
 func check(nums []int) bool {
-    
+	n, decr := len(nums), false
+	for i := range nums {
+		if nums[i] > nums[(i+1)%n] {
+			if decr {
+				return false
+			}
+			decr = true
+		}
+	}
+	return true
 }
 
 func Solve(inputJsonValues string) any {

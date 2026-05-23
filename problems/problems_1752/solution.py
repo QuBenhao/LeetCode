@@ -1,3 +1,5 @@
+from itertools import pairwise
+
 import solution
 
 
@@ -10,8 +12,10 @@ class Solution(solution.Solution):
         :type nums: List[int]
         :rtype: bool
         """
-        count = 0
-        for i in range(len(nums)):
-            if nums[i-1] > nums[i]:
-                count += 1
-        return count <= 1
+        decr = nums[-1] > nums[0]
+        for a, b in pairwise(nums):
+            if a > b:
+                if decr:
+                    return False
+                decr = True
+        return True
