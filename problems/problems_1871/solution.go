@@ -7,7 +7,20 @@ import (
 )
 
 func canReach(s string, minJump int, maxJump int) bool {
-    
+	n := len(s)
+	reachable := make([]bool, n)
+	reachable[0] = true
+	cnt := 0
+	for i := 1; i < n; i++ {
+		if i-minJump >= 0 && reachable[i-minJump] {
+			cnt++
+		}
+		if i-maxJump-1 >= 0 && reachable[i-maxJump-1] {
+			cnt--
+		}
+		reachable[i] = cnt > 0 && s[i] == '0'
+	}
+	return reachable[n-1]
 }
 
 func Solve(inputJsonValues string) any {
