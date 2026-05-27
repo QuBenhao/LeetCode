@@ -46,6 +46,74 @@ SIMILAR_BUT_DIFFERENT_PATTERN = re.compile(
     re.IGNORECASE
 )
 
+# Roman numeral pattern for detecting series problems (I, II, III, IV, V, etc.)
+# Match both uppercase and lowercase (normalized text is lowercase)
+ROMAN_NUMERAL_PATTERN = re.compile(r'\b([IVXivx]+)\b$')
+
+# Valid Roman numerals for series detection (both cases)
+VALID_ROMAN_SERIES = {'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X',
+                      'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX',
+                      'i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x'}
+
+
+def is_series_problem(title1: str, title2: str) -> bool:
+    """
+    Check if two problems are part of a series (e.g., "Problem I" vs "Problem II").
+
+    Series problems often have similar titles and signatures but different logic.
+    They should NOT be auto-linked because the differences are usually significant.
+
+    Args:
+        title1: First problem title
+        title2: Second problem title
+
+    Returns:
+        True if they appear to be series problems with different Roman numerals
+    """
+    # Normalize and extract Roman numerals from titles
+    t1_normalized = normalize_text(title1)
+    t2_normalized = normalize_text(title2)
+
+    # Find Roman numerals at the end of titles
+    match1 = ROMAN_NUMERAL_PATTERN.search(t1_normalized)
+    match2 = ROMAN_NUMERAL_PATTERN.search(t2_normalized)
+
+    # Case 1: Both titles have Roman numerals at the end
+    if match1 and match2:
+        roman1 = match1.group(1)
+        roman2 = match2.group(1)
+
+        # Only consider valid series Roman numerals
+        if roman1 in VALID_ROMAN_SERIES and roman2 in VALID_ROMAN_SERIES:
+            # Check if the rest of the title is the same
+            rest1 = t1_normalized[:match1.start()].strip()
+            rest2 = t2_normalized[:match2.start()].strip()
+
+            if rest1 and rest2 and rest1 == rest2:
+                # Different Roman numerals but same base title = series problem
+                return roman1 != roman2
+
+    # Case 2: One title has Roman numeral, the other doesn't (e.g., "Jump Game" vs "Jump Game II")
+    if (match1 and not match2) or (match2 and not match1):
+        # Extract the base title from the one with Roman numeral
+        if match1:
+            roman1 = match1.group(1)
+            if roman1 in VALID_ROMAN_SERIES:
+                rest1 = t1_normalized[:match1.start()].strip()
+                # Check if the other title matches the base title
+                if rest1 and rest1 == t2_normalized.strip():
+                    return True
+        if match2:
+            roman2 = match2.group(1)
+            if roman2 in VALID_ROMAN_SERIES:
+                rest2 = t2_normalized[:match2.start()].strip()
+                # Check if the other title matches the base title
+                if rest2 and rest2 == t1_normalized.strip():
+                    return True
+
+    return False
+
+
 # Chinese pattern for "similar but different"
 # Examples:
 # - "本题与主站 153 题类似，但可能包含重复元素"
@@ -306,6 +374,13 @@ def compare_problems(p1: ProblemInfo, p2: ProblemInfo) -> Tuple[bool, float, str
     Returns:
         Tuple of (is_similar, similarity_score, reason)
     """
+    # CRITICAL: Check for series problems first (I, II, III, etc.)
+    # Series problems often have similar titles/signatures but different logic
+    # They should NOT be auto-linked
+    if is_series_problem(p1.title, p2.title):
+        logging.debug(f"Series problem detected: '{p1.title}' vs '{p2.title}' - skipping auto-link")
+        return False, 0.0, "series problem (different Roman numeral versions)"
+
     scores = []
 
     # 1. Compare normalized descriptions

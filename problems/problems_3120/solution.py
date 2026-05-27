@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.numberOfSpecialChars(test_input)
 
     def numberOfSpecialChars(self, word: str) -> int:
-        pass
-
+        check = [0] * 26
+        for c in word:
+            if c.isupper():
+                check[ord(c) - ord('A')] |= 2
+            else:
+                check[ord(c) - ord('a')] |= 1
+        return check.count(3)
