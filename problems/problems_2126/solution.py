@@ -7,5 +7,8 @@ class Solution(solution.Solution):
         return self.asteroidsDestroyed(*test_input)
 
     def asteroidsDestroyed(self, mass: int, asteroids: List[int]) -> bool:
-        pass
-
+        for a in sorted(asteroids):
+            if a > mass:
+                return False
+            mass += a
+        return True
