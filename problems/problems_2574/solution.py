@@ -7,5 +7,10 @@ class Solution(solution.Solution):
         return self.leftRightDifference(test_input)
 
     def leftRightDifference(self, nums: List[int]) -> List[int]:
-        pass
-
+        s = sum(nums)
+        pre = 0
+        ans = []
+        for num in nums:
+            ans.append(abs(s - 2 * pre - num))
+            pre += num
+        return ans
