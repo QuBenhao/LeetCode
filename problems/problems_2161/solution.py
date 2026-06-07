@@ -7,5 +7,13 @@ class Solution(solution.Solution):
         return self.pivotArray(*test_input)
 
     def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
-        pass
+        less, equal, greater = [], [], []
+        for x in nums:
+            if x < pivot:
+                less.append(x)
+            elif x > pivot:
+                greater.append(x)
+            else:
+                equal.append(x)
+        return less + equal + greater
 
