@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.maxTotalValue(*test_input)
 
     def maxTotalValue(self, nums: List[int], k: int) -> int:
-        pass
+        return k * (max(nums) - min(nums))
 
