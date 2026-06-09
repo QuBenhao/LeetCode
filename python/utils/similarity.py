@@ -328,7 +328,11 @@ def normalize_text(text: str) -> str:
     # Remove inline code
     text = re.sub(r'`[^`]+`', '', text)
 
-    # Remove numbers (data ranges, etc.)
+    # Remove numbers with following dot (e.g., "3689. Title" -> ". Title")
+    # This pattern matches digits followed by a dot, which is common in problem titles
+    text = re.sub(r'\b\d+\.\s*', '', text)
+
+    # Remove remaining standalone numbers (data ranges, etc.)
     text = re.sub(r'\b\d+\b', '', text)
 
     # Remove extra whitespace
