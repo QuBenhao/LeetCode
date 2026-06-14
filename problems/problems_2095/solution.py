@@ -17,5 +17,9 @@ class Solution(solution.Solution):
         return linked_list_to_list(res)
 
     def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        pass
-
+        dummy = ListNode(next=head)
+        prev, slow, fast = dummy, head, head
+        while fast and fast.next:
+            prev, slow, fast = slow, slow.next, fast.next.next
+        prev.next = prev.next.next
+        return dummy.next
