@@ -1,4 +1,4 @@
-# 3612. Process String with Special Operations I 
+# 3612. Process String with Special Operations I [Rating: 1185.97]
 
 <p>You are given a string <code>s</code> consisting of lowercase English letters and the special characters: <code>*</code>, <code>#</code>, and <code>%</code>.</p>
 
