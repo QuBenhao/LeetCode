@@ -3,11 +3,20 @@ package problem1833
 import (
 	"encoding/json"
 	"log"
+	"sort"
 	"strings"
 )
 
-func maxIceCream(costs []int, coins int) int {
-    
+func maxIceCream(costs []int, coins int) (ans int) {
+	sort.Ints(costs)
+	for _, cost := range costs {
+		if coins < cost {
+			return
+		}
+		ans++
+		coins -= cost
+	}
+	return
 }
 
 func Solve(inputJsonValues string) any {
