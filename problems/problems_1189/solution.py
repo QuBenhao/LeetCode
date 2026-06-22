@@ -1,5 +1,6 @@
 import solution
 from typing import *
+from collections import Counter
 
 
 class Solution(solution.Solution):
@@ -7,5 +8,5 @@ class Solution(solution.Solution):
         return self.maxNumberOfBalloons(test_input)
 
     def maxNumberOfBalloons(self, text: str) -> int:
-        pass
-
+        count = Counter(text)
+        return min(count["b"], count["a"], count["l"] // 2, count["o"] // 2, count["n"])
