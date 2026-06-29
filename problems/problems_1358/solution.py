@@ -7,5 +7,11 @@ class Solution(solution.Solution):
         return self.numberOfSubstrings(test_input)
 
     def numberOfSubstrings(self, s: str) -> int:
-        pass
-
+        n = len(s)
+        dp = [n] * 3
+        ans = 0
+        for i, c in enumerate(s):
+            dp[ord(c) - ord('a')] = i
+            if max(dp) < n:
+                ans += min(dp) + 1
+        return ans
