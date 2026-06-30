@@ -6,6 +6,8 @@ import traceback
 
 import requests
 
+from python.utils.http_tool import _shared_session
+
 # 力扣目前勋章的配置
 RATING = 1600
 GUARDIAN = 0.05
@@ -58,9 +60,9 @@ r'''{
             try:
                 payload = RankingCrawler._REQUEST_PAYLOAD_TEMPLATE.copy()
                 payload['query'] = payload['query'].replace('page: 1', 'page: {}'.format(cur_page))
-                resp = requests.post(RankingCrawler.URL,
+                resp = _shared_session.post(RankingCrawler.URL,
                     headers = {'Content-type': 'application/json'},
-                    json = payload).json()
+                    json = payload, timeout=30).json()
 
                 print(resp)
                 resp = resp['data']['localRanking'] if not GLOBAL else resp['data']['globalRanking']

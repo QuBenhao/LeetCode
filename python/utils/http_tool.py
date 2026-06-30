@@ -12,6 +12,9 @@ DEFAULT_MAX_RETRIES = 3
 DEFAULT_BACKOFF_FACTOR = 1.0
 DEFAULT_RETRY_STATUS_CODES = [429, 500, 502, 503, 504]
 
+# Retry depth for application-level retries (429, timeouts, connection errors)
+MAX_RETRY_DEPTH = 3
+
 
 def create_session_with_retry(max_retries: int = DEFAULT_MAX_RETRIES,
                               backoff_factor: float = DEFAULT_BACKOFF_FACTOR,
@@ -36,45 +39,54 @@ _shared_session = create_session_with_retry()
 
 
 def general_request(url: str, func=None, request_method: str = "post",
-                    params=None, data=None, json=None, depth=3, **kwargs):
-    try:
-        match request_method:
-            case "get":
-                resp = _shared_session.get(url, params=params, timeout=30, **kwargs)
-            case "put":
-                resp = _shared_session.put(url, data=data, timeout=30, **kwargs)
-            case _:
-                resp = _shared_session.post(url, data=data, json=json, timeout=30, **kwargs)
-        if resp.status_code == 200:
-            return func(resp) if func else resp
-        if resp.status_code == 429 and depth > 0:
-            logging.warning(f"{url} Too many requests, please try again later!")
-            time.sleep((4 - depth) * 3)
-            return general_request(url, func, request_method, params, data, json, depth - 1, **kwargs)
-        if resp.status_code == 403:
-            logging.warning(f"{url} Access denied! msg: {resp.text}")
-            time.sleep(1)
+                    params=None, data=None, json=None, depth=MAX_RETRY_DEPTH, **kwargs):
+    """Send an HTTP request with application-level retry logic.
+
+    Uses iterative retry (not recursive) to avoid stack buildup on failures.
+    """
+    remaining = depth
+    while True:
+        try:
+            match request_method:
+                case "get":
+                    resp = _shared_session.get(url, params=params, timeout=30, **kwargs)
+                case "put":
+                    resp = _shared_session.put(url, data=data, timeout=30, **kwargs)
+                case _:
+                    resp = _shared_session.post(url, data=data, json=json, timeout=30, **kwargs)
+            if resp.status_code == 200:
+                return func(resp) if func else resp
+            if resp.status_code == 429 and remaining > 0:
+                logging.warning(f"{url} Too many requests, please try again later!")
+                time.sleep((4 - remaining) * 3)
+                remaining -= 1
+                continue
+            if resp.status_code == 403:
+                logging.warning(f"{url} Access denied! msg: {resp.text}")
+                time.sleep(1)
+                return None
+            logging.warning(f"Request failed: {url} status={resp.status_code} msg={resp.text[:500]}")
             return None
-        logging.warning(f"Request failed: {url} status={resp.status_code} msg={resp.text[:500]}")
-    except requests.ConnectTimeout:
-        if depth > 0:
-            time.sleep((4 - depth) * 2)
-            logging.warning(f"{url} Connection timeout!")
-            return general_request(url, func, request_method, params, data, json, depth - 1, **kwargs)
-        else:
+        except requests.ConnectTimeout:
+            if remaining > 0:
+                time.sleep((4 - remaining) * 2)
+                logging.warning(f"{url} Connection timeout!")
+                remaining -= 1
+                continue
             logging.error(f"{url} Connection timeout!", exc_info=True)
-    except (requests.exceptions.SSLError, requests.exceptions.ConnectionError) as e:
-        # Retry on SSL errors and connection errors
-        if depth > 0:
-            wait_time = (4 - depth) * 2
-            logging.warning(f"{url} SSL/Connection error: {e}, retrying in {wait_time}s...")
-            time.sleep(wait_time)
-            return general_request(url, func, request_method, params, data, json, depth - 1, **kwargs)
-        else:
+            return None
+        except (requests.exceptions.SSLError, requests.exceptions.ConnectionError) as e:
+            if remaining > 0:
+                wait_time = (4 - remaining) * 2
+                logging.warning(f"{url} SSL/Connection error: {e}, retrying in {wait_time}s...")
+                time.sleep(wait_time)
+                remaining -= 1
+                continue
             logging.error(f"{url} SSL/Connection error after retries!", exc_info=True)
-    except Exception as _:
-        logging.error(f"Request error: {url}, params: {params}, data: {data}, json: {json}", exc_info=True)
-    return None
+            return None
+        except Exception:
+            logging.error(f"Request error: {url}, params: {params}, data: {data}, json: {json}", exc_info=True)
+            return None
 
 
 def github_iterate_repo(owner: str, repo: str, branch: str = "master", folder_path: str = "") -> List[str]:
@@ -99,12 +111,12 @@ def github_iterate_repo(owner: str, repo: str, branch: str = "master", folder_pa
             elif item['type'] == 'blob':
                 files.append(path)
         return files
-    except requests.exceptions.RequestException as _:
+    except requests.exceptions.RequestException:
         if response and response.status_code == 403 and "API rate limit exceeded" in response.text:
             logging.warning("API rate limit exceeded. Maximum 60 requests per hour. You can change ip or wait 1 hour.")
         else:
             logging.debug(f"Error accessing the GitHub API", exc_info=True)
-    except Exception as _:
+    except Exception:
         logging.error(f"An error occurred while iterating the GitHub repository", exc_info=True)
     return []
 

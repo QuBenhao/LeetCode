@@ -4,6 +4,7 @@ import logging
 import os
 import sys
 import traceback
+import warnings
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -152,6 +153,11 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
 
 
 if __name__ == '__main__':
+    warnings.warn(
+        "submit.py is deprecated. Use 'python python/scripts/leetcode.py' instead.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
     rp = Path(__file__).parent.parent.parent
     sys.path.insert(0, str(rp / "python"))
     parser = argparse.ArgumentParser()

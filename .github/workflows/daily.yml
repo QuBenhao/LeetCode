@@ -36,7 +36,7 @@ jobs:
           daily-${{ secrets.PROBLEM_FOLDER || 'problems' }}.json
 
     - name: Set up Python environment
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: '3.14'
 

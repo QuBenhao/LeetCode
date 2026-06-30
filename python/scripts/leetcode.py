@@ -18,6 +18,7 @@ import math
 import os
 import random
 import re
+import subprocess
 import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -665,79 +666,85 @@ def contest_main(languages, contest_folder, cookie):
 # Favorite Management
 # ============================================================================
 
+def _favorite_question_to_str(q):
+    """Format a favorite question for display."""
+    difficulty = constant.DIFFICULTY_TRANSLATE_MAP.get(q["difficulty"], "未知")
+    status = constant.STATUS_TRANSLATE_MAP.get(q["status"], "x")
+    paid_only = " {会员}" if q["paid_only"] else ""
+    return f"{status} [{q['question_frontend_id']}] {q['translated_title']} ({difficulty}){paid_only}"
+
+
+def _favorite_list(cookie):
+    """Browse favorite list and return selected favorite."""
+    while True:
+        my_favorites = query_my_favorites(cookie)
+        total, data, has_more = my_favorites["total"], my_favorites["favorites"], my_favorites["has_more"]
+        if not data:
+            print(t("fav_no_favorites"))
+            break
+        content = "\n".join(
+            [f"{_i}. {f['name']}" for _i, f in enumerate(data, start=1)],
+        )
+        user_input_select = input_until_valid(
+            t("contest_page", total=total, content=content),
+            allow_all
+        )
+        pick = None
+        match user_input_select:
+            case v if v.isdigit() and 1 <= int(v) <= 10:
+                pick = int(v)
+            case _:
+                break
+        print(SEPARATE_LINE)
+        if not pick:
+            continue
+        return data[pick - 1]
+    return None
+
+
+def _favorite_question_list(favorite_slug, cookie):
+    """Browse questions in a favorite and return selected question."""
+    cur_page = 1
+    page_size = 20
+    while True:
+        _questions = query_favorite_questions(favorite_slug, cookie, limit=page_size,
+                                              skip=(cur_page - 1) * page_size)
+        total, data, has_more = _questions["total"], _questions["questions"], _questions["has_more"]
+        max_page = math.ceil(total / page_size)
+        if not data:
+            print(t("fav_no_questions"))
+            break
+        content = "\n".join(
+            [f"{_i}. {_favorite_question_to_str(q)}" for _i, q in enumerate(data, start=1)],
+        )
+        user_input_select = input_until_valid(
+            t("contest_page", total=total, content=content),
+            allow_all
+        )
+        pick = None
+        match user_input_select:
+            case "b":
+                cur_page = max(1, cur_page - 1)
+            case "n":
+                cur_page = min(max_page, cur_page + 1)
+            case v if v.isdigit() and 1 <= int(v) <= page_size:
+                pick = int(v)
+            case _:
+                break
+        print(SEPARATE_LINE)
+        if not pick:
+            continue
+        return data[pick - 1]
+    return None
+
+
 def favorite_main(languages, problem_folder, cookie):
     """Favorite menu handler"""
-    def favorite_list():
-        while True:
-            my_favorites = query_my_favorites(cookie)
-            total, data, has_more = my_favorites["total"], my_favorites["favorites"], my_favorites["has_more"]
-            if not data:
-                print(t("fav_no_favorites"))
-                break
-            content = "\n".join(
-                [f"{_i}. {f['name']}" for _i, f in enumerate(data, start=1)],
-            )
-            user_input_select = input_until_valid(
-                t("contest_page", total=total, content=content),
-                allow_all
-            )
-            pick = None
-            match user_input_select:
-                case v if v.isdigit() and 1 <= int(v) <= 10:
-                    pick = int(v)
-                case _:
-                    break
-            print(SEPARATE_LINE)
-            if not pick:
-                continue
-            return data[pick - 1]
-        return None
-
-    def question_list(favorite_slug):
-        def question_to_str(q):
-            difficulty = constant.DIFFICULTY_TRANSLATE_MAP.get(q["difficulty"], "未知")
-            status = constant.STATUS_TRANSLATE_MAP.get(q["status"], "x")
-            paid_only = " {会员}" if q["paid_only"] else ""
-            return f"{status} [{q['question_frontend_id']}] {q['translated_title']} ({difficulty}){paid_only}"
-
-        cur_page = 1
-        page_size = 20
-        while True:
-            _questions = query_favorite_questions(favorite_slug, cookie, limit=page_size,
-                                                  skip=(cur_page - 1) * page_size)
-            total, data, has_more = _questions["total"], _questions["questions"], _questions["has_more"]
-            max_page = math.ceil(total / page_size)
-            if not data:
-                print(t("fav_no_questions"))
-                break
-            content = "\n".join(
-                [f"{_i}. {question_to_str(q)}" for _i, q in enumerate(data, start=1)],
-            )
-            user_input_select = input_until_valid(
-                t("contest_page", total=total, content=content),
-                allow_all
-            )
-            pick = None
-            match user_input_select:
-                case "b":
-                    cur_page = max(1, cur_page - 1)
-                case "n":
-                    cur_page = min(max_page, cur_page + 1)
-                case v if v.isdigit() and 1 <= int(v) <= page_size:
-                    pick = int(v)
-                case _:
-                    break
-            print(SEPARATE_LINE)
-            if not pick:
-                continue
-            return data[pick - 1]
-        return None
-
     if check_cookie_expired(cookie):
         print(t("fav_expired"))
         return
     while True:
-        favorite = favorite_list()
+        favorite = _favorite_list(cookie)
         if not favorite:
             return
         slug = favorite["slug"]
@@ -749,7 +756,7 @@ def favorite_main(languages, problem_folder, cookie):
             print(SEPARATE_LINE)
             match favorite_method:
                 case "1":
-                    question = question_list(slug)
+                    question = _favorite_question_list(slug, cookie)
                     if not question:
                         break
                     code = get_problem_main(
@@ -933,7 +940,6 @@ def _display_solution_detail(title: str, author_name: str, upvote: int,
 
     # 使用分页器展示内容
     if content:
-        import subprocess
         import tempfile
         tmp_path = None
         try:

@@ -74,6 +74,11 @@ mvnw25
 /memory/project_usage_modes.md
 /memory/user_profile.md
 /.coverage
+htmlcov/
+
+# virtualenv
+.venv/
+venv/
 
 # C++ compile commands (auto-generated, contains local paths)
 compile_commands.json
