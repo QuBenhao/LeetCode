@@ -51,6 +51,7 @@ from python.scripts.fetch_solution_articles import main as fetch_solution_main
 from python.scripts.repository_health import scan_repository, format_report, build_fix_suggestions, apply_fix
 
 # Constants
+root_path = Path(__file__).resolve().parents[2]
 SEPARATE_LINE = "-" * 50
 SUPPORTED_LANGUAGES = ["python3", "java", "golang", "cpp", "typescript", "rust"]
 
