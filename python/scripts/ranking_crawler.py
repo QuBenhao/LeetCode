@@ -86,7 +86,7 @@ r'''{
 
                 print('The first contest current rating in page {} is {} .'.format(cur_page, resp['rankingNodes'][0]['currentRating']))
                 retry_cnt = 0
-            except:
+            except Exception:
                 traceback.print_exc()
                 # print(f'Failed to retrieved data of page {cur_page}...retry...{retry_cnt}')
                 retry_cnt += 1

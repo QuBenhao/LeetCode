@@ -9,49 +9,18 @@ Usage:
     go test -tags=goexperiment.jsonv2 golang/solution_test.go golang/test_basic.go -test.timeout 3s -v
 """
 import json
+import sys
 from pathlib import Path
 
-def resolve_link(problem_path: Path, visited: set = None, original_link_info: dict = None) -> tuple:
-    """
-    Resolve problem link if link.json exists.
-    Returns (resolved_path, link_info) tuple.
-    """
-    if visited is None:
-        visited = set()
-
-    link_file = problem_path / "link.json"
-    if not link_file.exists():
-        return problem_path, original_link_info
-
-    problem_id = problem_path.name.split("_")[-1]
-    if problem_id in visited:
-        raise ValueError(f"Circular link detected involving problem {problem_id}")
-    visited.add(problem_id)
-
-    with link_file.open("r", encoding="utf-8") as f:
-        link_info = json.load(f)
-
-    if original_link_info is None:
-        original_link_info = link_info
-
-    link_to = link_info["link_to"]
-    link_folder = link_info.get("link_folder", "problems")
-    base_path = problem_path.parent / f"{link_folder}_{link_to}"
-
-    return resolve_link(base_path, visited, original_link_info)
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from python.utils import resolve_link, init_env
 
 def get_config():
     """Read problem configuration from .env and daily-{folder}.json"""
     root = Path(__file__).parent.parent
-
-    # Read .env for PROBLEM_FOLDER
-    env_file = root / ".env"
-    problem_folder = "problems"
-    if env_file.exists():
-        for line in env_file.read_text().splitlines():
-            if line.startswith("PROBLEM_FOLDER="):
-                problem_folder = line.split("=")[1].strip().strip('"').strip("'")
-                break
+    import os
+    init_env()
+    problem_folder = os.getenv("PROBLEM_FOLDER", "problems")
 
     # Read config JSON
     config_file = root / f"daily-{problem_folder}.json"

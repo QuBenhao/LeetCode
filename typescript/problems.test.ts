@@ -1,21 +1,13 @@
 import * as fs from 'fs';
 import * as ts from "typescript";
-import * as path from "path"; // <-- Add this import
+import * as path from "path";
+import {getProblemFolder} from "./env";
 
 var _ = require('lodash-contrib');
 const vm = require('node:vm');
 import {CompareResults} from "./common";
 
-const envContent: string = fs.readFileSync('.env', 'utf-8');
-
-// get PROBLEM_FOLDER from .env file
-var problemFolder: string = "problems";
-for (const line of envContent.split('\n')) {
-    if (line.startsWith("PROBLEM_FOLDER=")) {
-        problemFolder = line.split('=')[1].trim();
-        break;
-    }
-}
+const problemFolder = getProblemFolder();
 
 // open daily-${problemFolder}.json
 const dailyFilePath: string = `daily-${problemFolder}.json`;

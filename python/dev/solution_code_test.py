@@ -6,7 +6,7 @@ from pathlib import Path
 
 from collections import defaultdict, Counter
 
-sys.path.append(Path(__file__).parent.parent.parent.as_posix())
+from python._path import setup as _setup_path; _setup_path()
 from python import lc_libs
 from python.utils import format_question_id
 from python.constants import LOGGING_FORMAT, DATE_FORMAT

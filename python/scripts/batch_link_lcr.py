@@ -9,20 +9,19 @@ This script extracts these mappings and creates links.
 """
 
 import logging
-import re
-import sys
 from pathlib import Path
 
-sys.path.append(Path(__file__).parent.parent.parent.as_posix())
+from python._path import setup as _setup_path; _setup_path()
 
 from python.utils import create_link
+from python.utils.similarity import MAIN_SITE_SAME_PATTERN as MAIN_SITE_PATTERN
 
 # Pattern to match the main site problem reference
 # Examples:
 # - "注意：本题与主站 29 题相同"
 # - "注意：本题与主站 1991 题相同"
 # - "注意：本题与主站 29&nbsp;题相同" (&nbsp; instead of space)
-MAIN_SITE_PATTERN = re.compile(r"注意：本题与主站\s*(\d+)(?:&nbsp;|\s*)题相同")
+# Main site pattern imported from python.utils.similarity
 
 
 def extract_main_site_problem(problem_md_path: Path) -> str | None:

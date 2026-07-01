@@ -5,7 +5,6 @@ from pathlib import Path
 
 import pytz
 import datetime
-import sys
 import time
 
 
@@ -69,44 +68,25 @@ def is_chinese_holiday(dt: datetime.datetime) -> bool:
 
 
 def timeout(second: int = 3):
+    """Decorator that enforces a timeout on the decorated function.
+
+    Uses ThreadPoolExecutor so it works on all platforms (macOS, Linux, Windows)
+    and doesn't interfere with signal handlers.
+    """
+    from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
+
     def timeout_decorator(func):
         @functools.wraps(func)
         def wrapper_timer(*args, **kwargs):
-
-            if sys.platform == "darwin" or sys.platform == "linux":
-                import signal
-
-                def handle_timeout(sig, frame):
-                    raise TimeoutError('function [%s] timeout [%s seconds] exceeded! ' % (func.__name__, second))
-
-                signal.signal(signal.SIGALRM, handle_timeout)
-                signal.alarm(second)
-                result = func(*args, **kwargs)
-            else:
-                from threading import Thread
-
-                res = [TimeoutError('function [%s] timeout [%s seconds] exceeded! ' % (func.__name__, second))]
-
-                def new_func():
-                    try:
-                        res[0] = func(*args, **kwargs)
-                    except Exception as e:
-                        res[0] = e
-
-                t = Thread(target=new_func)
-                t.daemon = True
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(func, *args, **kwargs)
                 try:
-                    t.start()
-                    t.join(second)
-                except Exception as e:
-                    logging.error('error starting thread', exc_info=True)
-                    raise e
-                ret = res[0]
-                if isinstance(ret, BaseException):
-                    raise ret
-                return ret
-            return result
-
+                    return future.result(timeout=second)
+                except FuturesTimeoutError:
+                    raise TimeoutError(
+                        'function [%s] timeout [%s seconds] exceeded! '
+                        % (func.__name__, second)
+                    )
         return wrapper_timer
 
     return timeout_decorator

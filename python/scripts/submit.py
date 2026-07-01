@@ -3,15 +3,12 @@ import asyncio
 import logging
 import os
 import sys
-import traceback
 from pathlib import Path
 
-from dotenv import load_dotenv
-
-sys.path.append(Path(__file__).parent.parent.parent.as_posix())
+from python._path import setup as _setup_path; _setup_path()
 from python import lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, back_question_id, format_question_id, check_cookie_expired, resolve_link
+from python.utils import get_default_folder, back_question_id, format_question_id, check_cookie_expired, resolve_link, init_env
 
 _LANG_TRANS_MAP = {
     "go": "golang",
@@ -152,8 +149,6 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
 
 
 if __name__ == '__main__':
-    rp = Path(__file__).parent.parent.parent
-    sys.path.insert(0, str(rp / "python"))
     parser = argparse.ArgumentParser()
     parser.add_argument("-id", required=False, type=str, help="The id of question to submit.", default="")
     parser.add_argument("-slug", required=False, type=str,
@@ -164,11 +159,7 @@ if __name__ == '__main__':
     parser.add_argument("-d", "--daily", required=False, action="store_true",
                         help="To daily submission.")
     args = parser.parse_args()
-    try:
-        load_dotenv()
-    except Exception as e:
-        print(f"Load Env exception, {e}")
-        traceback.print_exc()
+    init_env()
     if args.daily:
         question_id = lc_libs.get_daily_question()["questionId"]
     else:

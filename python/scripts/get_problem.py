@@ -6,20 +6,18 @@ import re
 import shutil
 import sys
 import time
-import traceback
 from pathlib import Path
 from typing import Optional
 
-from dotenv import load_dotenv
 from tqdm import tqdm
 
-sys.path.append(Path(__file__).parent.parent.parent.as_posix())
+from python._path import setup as _setup_path; _setup_path()
 from python.constants import constant
 from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, \
     get_question_testcases, extract_outputs_from_md, get_question_code, \
     get_question_desc_cn, Python3Writer
 import python.lc_libs as lc_libs
-from python.utils import get_default_folder, back_question_id, format_question_id, create_link, extract_main_site_reference
+from python.utils import get_default_folder, back_question_id, format_question_id, create_link, extract_main_site_reference, init_env
 
 
 def __check_path__(problem_folder: str, problem_id: str, problem_slug: str, force: bool = False,
@@ -279,12 +277,7 @@ if __name__ == '__main__':
     parser.add_argument("-sl", "--skip_language", required=False, action="store_true",
                         help="Skip exist language files in the problem.")
     args = parser.parse_args()
-
-    try:
-        load_dotenv()
-    except Exception as e:
-        print(f"Load Env exception, {e}")
-        traceback.print_exc()
+    init_env()
     cke = os.getenv(constant.COOKIE)
     pf = os.getenv(constant.PROBLEM_FOLDER, None)
     log_level = os.getenv(constant.LOG_LEVEL, "INFO")

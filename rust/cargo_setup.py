@@ -12,48 +12,18 @@ To restore full Cargo.toml: cp Cargo.toml.full Cargo.toml
 """
 import json
 import shutil
+import sys
 from pathlib import Path
 
-def resolve_link(problem_path: Path, visited: set = None) -> Path:
-    """
-    Resolve problem link if link.json exists.
-    Returns the actual problem path to use for solution.
-    """
-    if visited is None:
-        visited = set()
-
-    link_file = problem_path / "link.json"
-    if not link_file.exists():
-        return problem_path
-
-    problem_id = problem_path.name.split("_")[-1]
-    if problem_id in visited:
-        raise ValueError(f"Circular link detected involving problem {problem_id}")
-    visited.add(problem_id)
-
-    with link_file.open("r", encoding="utf-8") as f:
-        link_info = json.load(f)
-
-    link_to = link_info["link_to"]
-    link_folder = link_info.get("link_folder", "problems")
-    # problem folders are named like "problems_1848" directly under root
-    base_path = problem_path.parent / f"{link_folder}_{link_to}"
-
-    print(f"Problem {problem_id} is linked to {link_to}: {link_info.get('reason', 'No reason provided')}")
-    return resolve_link(base_path, visited)
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from python.utils import resolve_link, init_env
 
 def get_config():
     """Read problem configuration from .env and daily-{folder}.json"""
     root = Path(__file__).parent.parent
-    
-    # Read .env for PROBLEM_FOLDER
-    env_file = root / ".env"
-    problem_folder = "problems"
-    if env_file.exists():
-        for line in env_file.read_text().splitlines():
-            if line.startswith("PROBLEM_FOLDER="):
-                problem_folder = line.split("=")[1].strip().strip('"')
-                break
+    import os
+    init_env()
+    problem_folder = os.getenv("PROBLEM_FOLDER", "problems")
     
     # Read config JSON
     config_file = root / f"daily-{problem_folder}.json"
@@ -70,7 +40,9 @@ def get_config():
             return
         # Resolve link first before marking as seen
         problem_path = root / "problems" / f"{problem_folder}_{pid}"
-        resolved_path = resolve_link(problem_path)
+        resolved_path, link_info = resolve_link(problem_path)
+        if link_info:
+            print(f"Problem {pid} is linked to {link_info['link_to']}: {link_info.get('reason', 'No reason provided')}")
         # Use the resolved problem ID for compilation
         resolved_id = resolved_path.name.split("_")[-1]
         # Extract folder prefix from the resolved path name (e.g., "problems" from "problems_1848")

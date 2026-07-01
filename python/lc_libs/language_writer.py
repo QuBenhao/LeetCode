@@ -6,8 +6,6 @@ import subprocess
 from pathlib import Path
 from typing import Tuple, Optional, List, Dict, Set
 
-from dotenv import load_dotenv
-
 from python.constants import constant
 
 
@@ -101,13 +99,8 @@ class LanguageWriter(abc.ABC):
     def change_tests(self, root_path: Path, problem_ids_folders: list):
         if not problem_ids_folders:
             return
-        try:
-            load_dotenv(str(root_path / ".env"))
-            folder = os.getenv(constant.PROBLEM_FOLDER, "problems")
-            if not folder:
-                folder = problem_ids_folders[0][1]
-        except Exception:
-            folder = "problems"
+        # Use the folder from the first entry; all entries share the same folder
+        folder = problem_ids_folders[0][1] if problem_ids_folders[0][1] else "problems"
         daily_path = root_path / f"daily-{folder}.json"
         json_content = {}
         if daily_path.exists():

@@ -26,10 +26,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv, set_key
 
-# Setup paths
-file_path = Path(__file__)
-root_path = file_path.parent.parent.parent
-sys.path.insert(0, root_path.as_posix())
+from python._path import setup as _setup_path; _setup_path()
 
 # Import CLI modules
 from python.scripts.cli import (

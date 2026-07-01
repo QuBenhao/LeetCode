@@ -9,7 +9,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-sys.path.append(Path(__file__).parent.parent.parent.as_posix())
+from python._path import setup as _setup_path; _setup_path()
 from python.scripts.daily_auto import write_question
 from python.constants import constant
 import python.lc_libs as lc_libs
@@ -57,10 +57,6 @@ def back_fill_ratings(args):
             logging.debug("Rating back filled for CN problem id: %s", problem_id)
 
     root_path = Path(__file__).parent.parent.parent
-    try:
-        load_dotenv()
-    except Exception as _:
-        logging.error("Load Env exception", exc_info=True)
     problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     logging.info("Processing Problem folder: %s", problem_folder)
     if args.problem_id:
@@ -129,10 +125,6 @@ def lucky_main(languages, problem_folder, category="algorithms"):
 
 
 def lucky(args):
-    try:
-        load_dotenv()
-    except Exception as _:
-        logging.error("Load Env exception", exc_info=True)
     languages = os.getenv(constant.LANGUAGES, "python3").split(",")
     problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     lucky_main(languages, problem_folder, args.category)
@@ -169,10 +161,6 @@ def remain_main(cookie, languages, problem_folder, status="TRIED", category="all
 
 
 def remain(args):
-    try:
-        load_dotenv()
-    except Exception as _:
-        logging.error("Load Env exception", exc_info=True)
     problem_folder = os.getenv(constant.PROBLEM_FOLDER, get_default_folder())
     langs = os.getenv(constant.LANGUAGES, "python3").split(",")
     cookie = os.getenv(constant.COOKIE)
@@ -362,6 +350,7 @@ def clean_error_rust(args):
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format=constant.LOGGING_FORMAT, datefmt=constant.DATE_FORMAT)
+    load_dotenv()
     parser = argparse.ArgumentParser()
     sub_parser = parser.add_subparsers()
     bfr = sub_parser.add_parser("rating", help="Back fill ratings")

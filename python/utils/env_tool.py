@@ -1,9 +1,19 @@
 import base64
 import json
+import logging
 import re
 import time
 from pathlib import Path
 from typing import Optional, Tuple
+
+
+def init_env():
+    """Load .env file once at script entry point. Idempotent and safe."""
+    from dotenv import load_dotenv
+    try:
+        load_dotenv()
+    except Exception as e:
+        print(f"Load Env exception, {e}")
 
 from python.constants import COOKIE_EXPIRY_SECONDS
 

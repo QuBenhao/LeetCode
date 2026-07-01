@@ -1,27 +1,20 @@
 import logging
 import os
-import sys
-from pathlib import Path
 from typing import Optional
 
-from dotenv import load_dotenv
 from pypushdeer import PushDeer
 
-sys.path.append(Path(__file__).parent.parent.parent.as_posix())
+from python._path import setup as _setup_path; _setup_path()
 from python.constants import constant
 
 
 def send_text_message(msg: str, description: Optional[str] = None, server: Optional[str] = None,
                       push_key: Optional[str] = None) -> bool:
     try:
-        try:
-            load_dotenv()
-            if not server:
-                server = os.getenv(constant.PUSH_SERVER)
-            if not push_key:
-                push_key = os.getenv(constant.PUSH_KEY)
-        except Exception as e:
-            logging.error(f"Load Env exception, {e}")
+        if not server:
+            server = os.getenv(constant.PUSH_SERVER)
+        if not push_key:
+            push_key = os.getenv(constant.PUSH_KEY)
         push_deer = PushDeer(pushkey=push_key)
         res = push_deer.send_text(msg, desp=description, server=server)
         return res

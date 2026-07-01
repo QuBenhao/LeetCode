@@ -9,7 +9,7 @@ from typing import Optional, List, Tuple
 
 from dotenv import load_dotenv
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+from python._path import setup as _setup_path; _setup_path()
 from python.lc_libs import (get_daily_question, get_question_desc, get_question_testcases, Python3Writer,
                             extract_outputs_from_md, get_user_study_plans, get_user_study_plan_progress,
                             get_question_info, get_question_code, get_question_desc_cn)
@@ -277,7 +277,6 @@ def main(problem_folder: str = None, cookie: Optional[str] = None, languages: li
 
 if __name__ == '__main__':
     rp = Path(__file__).parent.parent.parent.resolve()
-    sys.path.insert(0, str(rp / "python"))
     try:
         load_dotenv()
     except Exception as e:

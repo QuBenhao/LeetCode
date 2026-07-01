@@ -34,8 +34,7 @@ import logging
 from datetime import datetime
 from pathlib import Path
 
-# Setup path for importing project modules
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+from python._path import setup as _setup_path; _setup_path()
 
 try:
     import browser_cookie3

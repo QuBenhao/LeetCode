@@ -34,11 +34,7 @@ from dotenv import load_dotenv
 # 使用模块级 logger，避免污染 root logger
 logger = logging.getLogger(__name__)
 
-# Setup paths
-file_path = Path(__file__)
-root_path = file_path.parent.parent.parent
-sys.path.insert(0, str(root_path))
-
+from python._path import setup as _setup_path; _setup_path()
 from python.utils.str_util import back_question_id, format_question_id
 from python.lc_libs.question import get_questions_by_key_word
 from python.lc_libs.solution_article import get_my_solution_list, get_solution_content

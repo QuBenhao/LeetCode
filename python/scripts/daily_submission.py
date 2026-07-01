@@ -7,9 +7,8 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
-from daily_auto import write_question
-
-sys.path.append(Path(__file__).parent.parent.parent.as_posix())
+from python._path import setup as _setup_path; _setup_path()
+from python.scripts.daily_auto import write_question
 import python.lc_libs as lc_libs
 from python.constants import constant
 from python.utils import get_default_folder, send_text_message, check_cookie_expired
@@ -46,7 +45,6 @@ def main(cookie: Optional[str], languages: list[str], problem_folder: str = None
                 return 1
             submit_dict = lc_libs.check_accepted_submission(user_slug)
         root_path = Path(__file__).parent.parent.parent
-        sys.path.insert(0, str(root_path / "python"))
         for question_id, submits in submit_dict.items():
             cache = set()
             info = None

@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import * as dotenv from 'dotenv'
+import {getProblemFolder} from "./env";
 
 var _ = require('lodash-contrib');
 
@@ -9,8 +9,7 @@ import {Solve} from "../problems/problems_138/solution";
 // import {Solve} from "../premiums/premiums_1056/solution";
 
 describe("TestMain===" + PROBLEM_ID, () => {
-    dotenv.config();
-    let problemFolder: string = (process.env.PROBLEM_FOLDER && process.env.PROBLEM_FOLDER.length > 0) ? process.env.PROBLEM_FOLDER : "problems";
+    const problemFolder = getProblemFolder();
     let testCasePath: string = `${problemFolder}/${problemFolder}_${PROBLEM_ID}/testcase`;
     if (!fs.existsSync(testCasePath)) {
         console.log(`Problem in ${problemFolder} not found, try premiums...`);
