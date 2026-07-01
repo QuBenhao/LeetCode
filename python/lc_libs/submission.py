@@ -328,6 +328,14 @@ async def submit_code(root_path: Path, problem_folder: str, question_id: str, qu
             logging.error(f"Failed to get submit result, status_code: {response.status_code}, text: {response.text}")
             return None
         result_dict = json.loads(response.text)["data"]["submissionDetail"]
+        passed_cnt = result_dict.get("passedTestCaseCnt", 0)
+        total_cnt = result_dict.get("totalTestCaseCnt", 0)
+        # LeetCode API may return 0 for both fields on Accepted submissions;
+        # derive from testInfo if available.
+        if not total_cnt and result_dict.get("testInfo"):
+            total_cnt = len(result_dict["testInfo"])
+            if result_dict["statusDisplay"] == "Accepted":
+                passed_cnt = total_cnt
         return {
             "statusDisplay": result_dict["statusDisplay"],
             "outputDetail": result_dict["outputDetail"],
@@ -336,8 +344,8 @@ async def submit_code(root_path: Path, problem_folder: str, question_id: str, qu
             "memoryPercentile": result_dict["memoryPercentile"],
             "runtimeDisplay": result_dict["runtimeDisplay"],
             "runtimePercentile": result_dict["runtimePercentile"],
-            "passedTestCaseCnt": result_dict["passedTestCaseCnt"],
-            "totalTestCaseCnt": result_dict["totalTestCaseCnt"],
+            "passedTestCaseCnt": passed_cnt,
+            "totalTestCaseCnt": total_cnt,
             "code": result_dict["code"],
             "lang": result_dict["lang"],
             "timestamp": result_dict["timestamp"],
