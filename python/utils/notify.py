@@ -4,7 +4,7 @@ from typing import Optional
 
 from pypushdeer import PushDeer
 
-from python._path import setup as _setup_path; _setup_path()
+import sys; from pathlib import Path; _root = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(_root))
 from python.constants import constant
 
 

@@ -7,7 +7,7 @@ from typing import Optional
 
 from dotenv import load_dotenv
 
-from python._path import setup as _setup_path; _setup_path()
+import sys; from pathlib import Path; _root = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(_root))
 from python.scripts.daily_auto import write_question
 import python.lc_libs as lc_libs
 from python.constants import constant

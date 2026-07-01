@@ -34,7 +34,7 @@ import logging
 from datetime import datetime
 from pathlib import Path
 
-from python._path import setup as _setup_path; _setup_path()
+import sys; from pathlib import Path; _root = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(_root))
 
 try:
     import browser_cookie3

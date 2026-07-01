@@ -11,7 +11,7 @@ This script extracts these mappings and creates links.
 import logging
 from pathlib import Path
 
-from python._path import setup as _setup_path; _setup_path()
+import sys; from pathlib import Path; _root = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(_root))
 
 from python.utils import create_link
 from python.utils.similarity import MAIN_SITE_SAME_PATTERN as MAIN_SITE_PATTERN

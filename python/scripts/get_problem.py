@@ -11,7 +11,7 @@ from typing import Optional
 
 from tqdm import tqdm
 
-from python._path import setup as _setup_path; _setup_path()
+import sys; from pathlib import Path; _root = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(_root))
 from python.constants import constant
 from python.lc_libs import get_question_info, get_questions_by_key_word, get_question_desc, \
     get_question_testcases, extract_outputs_from_md, get_question_code, \

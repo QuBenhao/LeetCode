@@ -9,7 +9,7 @@ from typing import Optional, List, Tuple
 
 from dotenv import load_dotenv
 
-from python._path import setup as _setup_path; _setup_path()
+import sys; from pathlib import Path; _root = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(_root))
 from python.lc_libs import (get_daily_question, get_question_desc, get_question_testcases, Python3Writer,
                             extract_outputs_from_md, get_user_study_plans, get_user_study_plan_progress,
                             get_question_info, get_question_code, get_question_desc_cn)

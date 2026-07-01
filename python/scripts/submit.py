@@ -5,7 +5,11 @@ import os
 import sys
 from pathlib import Path
 
-from python._path import setup as _setup_path; _setup_path()
+# Bootstrap: add project root to sys.path before importing python.*
+_root = Path(__file__).resolve().parents[2]
+if str(_root) not in sys.path:
+    sys.path.insert(0, str(_root))
+
 from python import lc_libs as lc_libs
 from python.constants import constant
 from python.utils import get_default_folder, back_question_id, format_question_id, check_cookie_expired, resolve_link, init_env
@@ -149,6 +153,7 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
 
 
 if __name__ == '__main__':
+    rp = Path(__file__).parent.parent.parent
     parser = argparse.ArgumentParser()
     parser.add_argument("-id", required=False, type=str, help="The id of question to submit.", default="")
     parser.add_argument("-slug", required=False, type=str,

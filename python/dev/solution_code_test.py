@@ -6,7 +6,7 @@ from pathlib import Path
 
 from collections import defaultdict, Counter
 
-from python._path import setup as _setup_path; _setup_path()
+import sys; from pathlib import Path; _root = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(_root))
 from python import lc_libs
 from python.utils import format_question_id
 from python.constants import LOGGING_FORMAT, DATE_FORMAT
