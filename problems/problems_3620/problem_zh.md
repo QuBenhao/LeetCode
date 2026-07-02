@@ -1,4 +1,4 @@
-# 3620. 恢复网络路径 
+# 3620. 恢复网络路径 [难度分: 1998.04]
 
 <p>给你一个包含 <code>n</code> 个节点（编号从 0 到 <code>n - 1</code>）的有向无环图。图由长度为 <code>m</code> 的二维数组 <code>edges</code> 表示，其中 <code>edges[i] = [u<sub>i</sub>, v<sub>i</sub>, cost<sub>i</sub>]</code> 表示从节点 <code>u<sub>i</sub></code> 到节点 <code>v<sub>i</sub></code> 的单向通信，恢复成本为 <code>cost<sub>i</sub></code>。</p>
 
