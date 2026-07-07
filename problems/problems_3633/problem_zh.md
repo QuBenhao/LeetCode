@@ -92,7 +92,7 @@
 	</li>
 </ul>
 
-<p data-end="1640" data-is-last-node="" data-is-only-node="" data-start="1591">方案 A 提供了最早的结束时间 14。<strong>​​​​​​​</strong></p>
+<p data-end="1640" data-is-last-node="" data-is-only-node="" data-start="1591">方案 A 提供了最早的结束时间 14。<strong></strong></p>
 </div>
 
 <p>&nbsp;</p>

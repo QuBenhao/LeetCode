@@ -37,7 +37,7 @@
 	<li>We need a subset of size <code>m = 3</code>. Choose indices <code>[0, 1, 3]</code>.</li>
 	<li>Increase <code>nums[0] = 1</code> to 4 using 3 operations, increase <code>nums[1] = 2</code> to 4 using 2 operations, and keep <code>nums[3] = 4</code>.</li>
 	<li>The total number of operations used is 5, which is not greater than <code>k = 7</code>.</li>
-	<li>The three chosen values become <code>[4, 4, 4]</code>, and their bitwise AND is 4, which is the maximum possible.​​​​​​​</li>
+	<li>The three chosen values become <code>[4, 4, 4]</code>, and their bitwise AND is 4, which is the maximum possible.</li>
 </ul>
 </div>
 

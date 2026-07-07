@@ -28,7 +28,7 @@ Rotate: &quot;5323&quot;
 Add:    &quot;5222&quot;
 Add:    &quot;5121&quot;
 Rotate: &quot;2151&quot;
-Add:    &quot;2050&quot;​​​​​
+Add:    &quot;2050&quot;
 There is no way to obtain a string that is lexicographically smaller than &quot;2050&quot;.
 </pre>
 
@@ -40,8 +40,8 @@ There is no way to obtain a string that is lexicographically smaller than &quot;
 <strong>Explanation:</strong> We can apply the following operations:
 Start:  &quot;74&quot;
 Rotate: &quot;47&quot;
-​​​​​​​Add:    &quot;42&quot;
-​​​​​​​Rotate: &quot;24&quot;​​​​​​​​​​​​
+Add:    &quot;42&quot;
+Rotate: &quot;24&quot;
 There is no way to obtain a string that is lexicographically smaller than &quot;24&quot;.
 </pre>
 

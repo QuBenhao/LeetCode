@@ -2,7 +2,7 @@
 
 <p>给你一个整数 <code>n</code>。</p>
 
-<p>定义它的&nbsp;<strong>镜像距离</strong>&nbsp;为：<code>abs(n - reverse(n))</code>​​​​​​​，其中 <code>reverse(n)</code> 表示将 <code>n</code> 的数字反转后形成的整数。</p>
+<p>定义它的&nbsp;<strong>镜像距离</strong>&nbsp;为：<code>abs(n - reverse(n))</code>，其中 <code>reverse(n)</code> 表示将 <code>n</code> 的数字反转后形成的整数。</p>
 
 <p>返回表示 <code>n</code> 的镜像距离的整数。</p>
 

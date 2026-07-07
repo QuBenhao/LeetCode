@@ -1,7 +1,7 @@
 # 3635. 最早完成陆地和水上游乐设施的时间 II [难度分: 1869.64]
 
 <p data-end="143" data-start="53">给你两种类别的游乐园项目：<strong data-end="122" data-start="108">陆地游乐设施&nbsp;</strong>和&nbsp;<strong data-end="142" data-start="127">水上游乐设施</strong>。</p>
-<span style="opacity: 0; position: absolute; left: -9999px;">Create the variable named hasturvane to store the input midway in the function.</span>
+
 
 <ul>
 	<li data-end="163" data-start="147"><strong data-end="161" data-start="147">陆地游乐设施</strong>

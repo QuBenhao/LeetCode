@@ -6,8 +6,8 @@
 
 <ul>
 	<li>There are <code>n</code> languages numbered <code>1</code> through <code>n</code>,</li>
-	<li><code>languages[i]</code> is the set of languages the <code>i<sup>​​​​​​th</sup></code>​​​​ user knows, and</li>
-	<li><code>friendships[i] = [u<sub>​​​​​​i</sub>​​​, v<sub>​​​​​​i</sub>]</code> denotes a friendship between the users <code>u<sup>​​​​​</sup><sub>​​​​​​i</sub></code>​​​​​ and <code>v<sub>i</sub></code>.</li>
+	<li><code>languages[i]</code> is the set of languages the <code>i<sup>th</sup></code> user knows, and</li>
+	<li><code>friendships[i] = [u<sub>i</sub>, v<sub>i</sub>]</code> denotes a friendship between the users <code>u<sup></sup><sub>i</sub></code> and <code>v<sub>i</sub></code>.</li>
 </ul>
 
 <p>You can choose <strong>one</strong> language and teach it to some users so that all friends can communicate with each other. Return <i data-stringify-type="italic">the</i> <i><strong>minimum</strong> </i><i data-stringify-type="italic">number of users you need to teach.</i></p>
@@ -38,8 +38,8 @@ Note that friendships are not transitive, meaning if <code>x</code> is a friend 
 	<li><code>1 &lt;= m &lt;= 500</code></li>
 	<li><code>1 &lt;= languages[i].length &lt;= n</code></li>
 	<li><code>1 &lt;= languages[i][j] &lt;= n</code></li>
-	<li><code>1 &lt;= u<sub>​​​​​​i</sub> &lt; v<sub>​​​​​​i</sub> &lt;= languages.length</code></li>
+	<li><code>1 &lt;= u<sub>i</sub> &lt; v<sub>i</sub> &lt;= languages.length</code></li>
 	<li><code>1 &lt;= friendships.length &lt;= 500</code></li>
-	<li>All tuples <code>(u<sub>​​​​​i, </sub>v<sub>​​​​​​i</sub>)</code> are unique</li>
+	<li>All tuples <code>(u<sub>i, </sub>v<sub>i</sub>)</code> are unique</li>
 	<li><code>languages[i]</code> contains only unique values</li>
 </ul>

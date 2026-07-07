@@ -28,7 +28,7 @@
 		<li><code>s</code> becomes <code>&quot;)fad#cb@e(&quot;</code></li>
 	</ul>
 	</li>
-	<li>​​​​​​​The special characters in the string are <code>[&#39;)&#39;, &#39;#&#39;, &#39;@&#39;, &#39;(&#39;]</code>:
+	<li>The special characters in the string are <code>[&#39;)&#39;, &#39;#&#39;, &#39;@&#39;, &#39;(&#39;]</code>:
 	<ul>
 		<li>Reversing them gives <code>[&#39;(&#39;, &#39;@&#39;, &#39;#&#39;, &#39;)&#39;]</code></li>
 		<li><code>s</code> becomes <code><span class="example-io">&quot;</span>(fad@cb#e)<span class="example-io">&quot;</span></code></li>

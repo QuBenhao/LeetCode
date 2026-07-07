@@ -18,7 +18,7 @@
 
 <p>&nbsp;</p>
 
-<p><strong>提示：</strong>​​​​​​</p>
+<p><strong>提示：</strong></p>
 
 <ul>
 	<li><code>1 &lt;= intervals.length &lt;= 1000</code></li>

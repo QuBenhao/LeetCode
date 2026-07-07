@@ -57,7 +57,7 @@
 <p><strong>Constraints:</strong></p>
 
 <ul>
-	<li><code>1 &lt;= s.length &lt;= 10<sup>​​​​​​​5</sup></code></li>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
 	<li><code>s[i]</code> is either <code>&#39;0&#39;</code> or <code>&#39;1&#39;</code>.</li>
 	<li><code>1 &lt;= k &lt;= s.length</code></li>
 </ul>

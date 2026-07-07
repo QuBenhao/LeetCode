@@ -17,7 +17,7 @@
 
 <p><strong>输出:</strong> <span class="example-io">2</span></p>
 
-<p><strong>解释:</strong>​​​​​​​</p>
+<p><strong>解释:</strong></p>
 
 <ul>
 	<li>前缀 <code>"a"</code> 有 1 个不同字符，且长度模 3 为 1，因此它是一个残差前缀。</li>
@@ -35,7 +35,7 @@
 
 <p><strong>输出:</strong> <span class="example-io">1</span></p>
 
-<p><strong>解释:</strong>​​​​​​​</p>
+<p><strong>解释:</strong></p>
 
 <ul>
 	<li>前缀 <code>"d"</code> 有 1 个不同字符，且长度模 3 为 1，因此它是一个残差前缀。</li>

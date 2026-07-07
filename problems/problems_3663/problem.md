@@ -33,5 +33,5 @@ The <strong>frequency</strong> of a digit <code>x</code> is the number of times 
 <p><strong>Constraints:</strong></p>
 
 <ul>
-	<li><code>1 &lt;= n &lt;= 2<sup>31</sup>​​​​​​​ - 1</code></li>
+	<li><code>1 &lt;= n &lt;= 2<sup>31</sup> - 1</code></li>
 </ul>

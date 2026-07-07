@@ -32,7 +32,7 @@
 
 <ul>
 	<li><code>[4, 5, 4]</code></li>
-	<li><code>[5, 4, 5]</code>​​​​​​​</li>
+	<li><code>[5, 4, 5]</code></li>
 </ul>
 </div>
 

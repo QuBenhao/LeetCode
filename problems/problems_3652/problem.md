@@ -68,7 +68,7 @@
 	</tbody>
 </table>
 
-<p>Thus, the maximum possible profit is 10, which is achieved by modifying the subarray <code>[0, 1]</code>​​​​​​​.</p>
+<p>Thus, the maximum possible profit is 10, which is achieved by modifying the subarray <code>[0, 1]</code>.</p>
 </div>
 
 <p><strong class="example">Example 2:</strong></p>

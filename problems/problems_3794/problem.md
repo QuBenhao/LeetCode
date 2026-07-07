@@ -12,7 +12,7 @@
 
 <p><strong>Output:</strong> <span class="example-io">&quot;bacd&quot;</span></p>
 
-<p><strong>Explanation:</strong>​​​​​​​</p>
+<p><strong>Explanation:</strong></p>
 
 <p>The first <code>k = 2</code> characters <code>&quot;ab&quot;</code> are reversed to <code>&quot;ba&quot;</code>. The final resulting string is <code>&quot;bacd&quot;</code>.</p>
 </div>

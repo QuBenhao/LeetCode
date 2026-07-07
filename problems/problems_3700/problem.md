@@ -45,7 +45,7 @@
 
 <p><strong>Explanation:</strong></p>
 
-<p>​​​​​​​There are 10 valid ZigZag arrays of length <code>n = 3</code> using values in the range <code>[1, 3]</code>:</p>
+<p>There are 10 valid ZigZag arrays of length <code>n = 3</code> using values in the range <code>[1, 3]</code>:</p>
 
 <ul>
 	<li><code>[1, 2, 1]</code>, <code>[1, 3, 1]</code>, <code>[1, 3, 2]</code></li>
@@ -61,5 +61,5 @@
 
 <ul>
 	<li><code>3 &lt;= n &lt;= 10<sup>9</sup></code></li>
-	<li><code>1 &lt;= l &lt; r &lt;= 75</code>​​​​​​​</li>
+	<li><code>1 &lt;= l &lt; r &lt;= 75</code></li>
 </ul>

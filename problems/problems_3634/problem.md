@@ -4,7 +4,7 @@
 
 <p>An array is considered <strong>balanced</strong> if the value of its <strong>maximum</strong> element is <strong>at most</strong> <code>k</code> times the <strong>minimum</strong> element.</p>
 
-<p>You may remove <strong>any</strong> number of elements from <code>nums</code>​​​​​​​ without making it <strong>empty</strong>.</p>
+<p>You may remove <strong>any</strong> number of elements from <code>nums</code> without making it <strong>empty</strong>.</p>
 
 <p>Return the <strong>minimum</strong> number of elements to remove so that the remaining array is balanced.</p>
 

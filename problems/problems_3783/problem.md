@@ -2,9 +2,9 @@
 
 <p>You are given an integer <code>n</code>.</p>
 
-<p>Define its <strong>mirror distance</strong> as: <code>abs(n - reverse(n))</code>​​​​​​​ where <code>reverse(n)</code> is the integer formed by reversing the digits of <code>n</code>.</p>
+<p>Define its <strong>mirror distance</strong> as: <code>abs(n - reverse(n))</code> where <code>reverse(n)</code> is the integer formed by reversing the digits of <code>n</code>.</p>
 
-<p>Return an integer denoting the mirror distance of <code>n</code>​​​​​​​.</p>
+<p>Return an integer denoting the mirror distance of <code>n</code>.</p>
 
 <p><code>abs(x)</code> denotes the absolute value of <code>x</code>.</p>
 

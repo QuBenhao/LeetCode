@@ -35,7 +35,7 @@
 
 <p><strong>Output:</strong> <span class="example-io">9</span></p>
 
-<p><strong>Explanation:</strong>​​​​​​​</p>
+<p><strong>Explanation:</strong></p>
 
 <ul>
 	<li data-end="181" data-start="145">Plan A (land ride 0 &rarr; water ride 0):
@@ -74,7 +74,7 @@
 
 <p><strong>Output:</strong> <span class="example-io">14</span></p>
 
-<p><strong>Explanation:</strong>​​​​​​​</p>
+<p><strong>Explanation:</strong></p>
 
 <ul data-end="1589" data-start="1086">
 	<li data-end="1124" data-start="1088">Plan A (water ride 0 &rarr; land ride 0):
@@ -91,7 +91,7 @@
 	</li>
 </ul>
 
-<p data-end="1640" data-is-last-node="" data-is-only-node="" data-start="1591">Plan A provides the earliest finish time of 14.<strong>​​​​​​​</strong></p>
+<p data-end="1640" data-is-last-node="" data-is-only-node="" data-start="1591">Plan A provides the earliest finish time of 14.<strong></strong></p>
 </div>
 
 <p>&nbsp;</p>

@@ -30,7 +30,7 @@ The <strong>average</strong> of an array is defined as the sum of all its elemen
 <p><strong>Explanation:</strong></p>
 
 <ul>
-	<li>​​​​​​​The average of <code>nums</code> is <code>(-1 + 1 + 2) / 3 = 2 / 3 = 0.667</code>.</li>
+	<li>The average of <code>nums</code> is <code>(-1 + 1 + 2) / 3 = 2 / 3 = 0.667</code>.</li>
 	<li>The smallest absent positive integer greater than 0.667 is 3.</li>
 </ul>
 </div>
@@ -55,5 +55,5 @@ The <strong>average</strong> of an array is defined as the sum of all its elemen
 
 <ul>
 	<li><code>1 &lt;= nums.length &lt;= 100</code></li>
-	<li><code>-100 &lt;= nums[i] &lt;= 100</code>​​​​​​​</li>
+	<li><code>-100 &lt;= nums[i] &lt;= 100</code></li>
 </ul>

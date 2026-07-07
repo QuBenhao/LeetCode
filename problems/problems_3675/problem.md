@@ -41,7 +41,7 @@
 <p><strong>Explanation:</strong></p>
 
 <ul>
-	<li>The string <code>&quot;a&quot;</code> only consists of <code>&#39;a&#39;</code>​​​​​​​ characters. Thus, the answer is 0.</li>
+	<li>The string <code>&quot;a&quot;</code> only consists of <code>&#39;a&#39;</code> characters. Thus, the answer is 0.</li>
 </ul>
 </div>
 

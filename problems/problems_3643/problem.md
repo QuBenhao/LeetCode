@@ -22,7 +22,7 @@
 </div>
 
 <p><strong class="example">Example 2:</strong></p>
-<img alt="" src="https://assets.leetcode.com/uploads/2025/07/20/gridexm2drawio.png" style="width: 350px; height: 68px;" />​​​​​​​
+<img alt="" src="https://assets.leetcode.com/uploads/2025/07/20/gridexm2drawio.png" style="width: 350px; height: 68px;" />
 <div class="example-block">
 <p><strong>Input:</strong> <span class="example-io">grid = [[3,4,2,3],[2,3,4,2]], x = 0, y = 2, k = 2</span></p>
 

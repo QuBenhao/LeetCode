@@ -1,6 +1,6 @@
 # 1914. 循环轮转矩阵 [难度分: 1766.25]
 
-<p>给你一个大小为 <code>m x n</code> 的整数矩阵 <code>grid</code>​​​ ，其中 <code>m</code> 和 <code>n</code> 都是 <strong>偶数</strong> ；另给你一个整数 <code>k</code> 。</p>
+<p>给你一个大小为 <code>m x n</code> 的整数矩阵 <code>grid</code> ，其中 <code>m</code> 和 <code>n</code> 都是 <strong>偶数</strong> ；另给你一个整数 <code>k</code> 。</p>
 
 <p>矩阵由若干层组成，如下图所示，每种颜色代表一层：</p>
 

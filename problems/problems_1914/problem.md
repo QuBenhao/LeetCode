@@ -1,6 +1,6 @@
 # 1914. Cyclically Rotating a Grid [Rating: 1766.25]
 
-<p>You are given an <code>m x n</code> integer matrix <code>grid</code>​​​, where <code>m</code> and <code>n</code> are both <strong>even</strong> integers, and an integer <code>k</code>.</p>
+<p>You are given an <code>m x n</code> integer matrix <code>grid</code>, where <code>m</code> and <code>n</code> are both <strong>even</strong> integers, and an integer <code>k</code>.</p>
 
 <p>The matrix is composed of several layers, which is shown in the below image, where each color is its own layer:</p>
 

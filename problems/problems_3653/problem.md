@@ -45,7 +45,7 @@
 <ul>
 	<li data-end="350" data-start="230">The first query <code data-end="257" data-start="246">[1, 4, 2, 3]</code> multiplies the elements at indices 1 and 3 by 3, transforming the array to <code data-end="347" data-start="333">[2, 9, 1, 15, 4]</code>.</li>
 	<li data-end="466" data-start="353">The second query <code data-end="381" data-start="370">[0, 2, 1, 2]</code> multiplies the elements at indices 0, 1, and 2 by 2, resulting in <code data-end="463" data-start="448">[4, 18, 2, 15, 4]</code>.</li>
-	<li data-end="532" data-is-last-node="" data-start="469">Finally, the XOR of all elements is <code data-end="531" data-start="505">4 ^ 18 ^ 2 ^ 15 ^ 4 = 31</code>.​​​​​​​<strong>​​​​​​​</strong></li>
+	<li data-end="532" data-is-last-node="" data-start="469">Finally, the XOR of all elements is <code data-end="531" data-start="505">4 ^ 18 ^ 2 ^ 15 ^ 4 = 31</code>.<strong></strong></li>
 </ul>
 </div>
 

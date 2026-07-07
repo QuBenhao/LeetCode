@@ -50,7 +50,7 @@
 
 <p><strong>Output:</strong> <span class="example-io">&quot;g&quot;</span></p>
 
-<p><strong>Explanation:​​​​​​​</strong></p>
+<p><strong>Explanation:</strong></p>
 
 <p>The weight of <code>&quot;abcd&quot;</code> is <code>7 + 5 + 3 + 4 = 19</code>. The result modulo 26 is <code>19 % 26 = 19</code>, which maps to <code>&#39;g&#39;</code>.</p>
 

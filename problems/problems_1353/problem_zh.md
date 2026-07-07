@@ -31,7 +31,7 @@
 
 <p>&nbsp;</p>
 
-<p><strong>提示：</strong>​​​​​​</p>
+<p><strong>提示：</strong></p>
 
 <ul>
 	<li><code>1 &lt;= events.length &lt;= 10<sup>5</sup></code></li>

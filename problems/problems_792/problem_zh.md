@@ -35,4 +35,4 @@
 	<li><code>1 &lt;= words[i].length &lt;= 50</code></li>
 	<li><code>words[i]</code>和 <font color="#c7254e" face="Menlo, Monaco, Consolas, Courier New, monospace"><span style="font-size: 12.6px; background-color: rgb(249, 242, 244);">s</span></font>&nbsp;都只由小写字母组成。</li>
 </ul>
-<span style="display:block"><span style="height:0px"><span style="position:absolute">​​​​</span></span></span>
+</span>

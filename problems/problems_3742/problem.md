@@ -9,7 +9,7 @@
 <ul>
 	<li>0: adds 0 to your score and costs 0.</li>
 	<li>1: adds 1 to your score and costs 1.</li>
-	<li>2: adds 2 to your score and costs 1. ​​​​​​​</li>
+	<li>2: adds 2 to your score and costs 1. </li>
 </ul>
 
 <p>Return the <strong>maximum</strong> score achievable without exceeding a total cost of <code>k</code>, or -1 if no valid path exists.</p>
@@ -24,7 +24,7 @@
 
 <p><strong>Output:</strong> <span class="example-io">2</span></p>
 
-<p><strong>Explanation:</strong>​​​​​​​</p>
+<p><strong>Explanation:</strong></p>
 
 <p>The optimal path is:</p>
 
@@ -81,7 +81,7 @@
 
 <p><strong>Explanation:</strong></p>
 
-<p>There is no path that reaches cell <code>(1, 1)</code>​​​​​​​ without exceeding cost k. Thus, the answer is -1.</p>
+<p>There is no path that reaches cell <code>(1, 1)</code> without exceeding cost k. Thus, the answer is -1.</p>
 </div>
 
 <p>&nbsp;</p>
@@ -89,7 +89,7 @@
 
 <ul>
 	<li><code>1 &lt;= m, n &lt;= 200</code></li>
-	<li><code>0 &lt;= k &lt;= 10<sup>3</sup>​​​​​​​</code></li>
-	<li><code><sup>​​​​​​​</sup>grid[0][0] == 0</code></li>
+	<li><code>0 &lt;= k &lt;= 10<sup>3</sup></code></li>
+	<li><code><sup></sup>grid[0][0] == 0</code></li>
 	<li><code>0 &lt;= grid[i][j] &lt;= 2</code></li>
 </ul>

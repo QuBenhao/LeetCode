@@ -4,7 +4,7 @@
 
 <p>In a laboratory, <code>n</code> wizards must brew <code>m</code> potions <em>in order</em>. Each potion has a mana capacity <code>mana[j]</code> and <strong>must</strong> pass through <strong>all</strong> the wizards sequentially to be brewed properly. The time taken by the <code>i<sup>th</sup></code> wizard on the <code>j<sup>th</sup></code> potion is <code>time<sub>ij</sub> = skill[i] * mana[j]</code>.</p>
 
-<p>Since the brewing process is delicate, a potion <strong>must</strong> be passed to the next wizard immediately after the current wizard completes their work. This means the timing must be <em>synchronized</em> so that each wizard begins working on a potion <strong>exactly</strong> when it arrives. ​</p>
+<p>Since the brewing process is delicate, a potion <strong>must</strong> be passed to the next wizard immediately after the current wizard completes their work. This means the timing must be <em>synchronized</em> so that each wizard begins working on a potion <strong>exactly</strong> when it arrives. </p>
 
 <p>Return the <strong>minimum</strong> amount of time required for the potions to be brewed properly.</p>
 

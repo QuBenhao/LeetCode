@@ -20,7 +20,7 @@
 <strong>Input:</strong> milestones = [1,2,3]
 <strong>Output:</strong> 6
 <strong>Explanation:</strong> One possible scenario is:
-​​​​- During the 1<sup>st</sup> week, you will work on a milestone of project 0.
+- During the 1<sup>st</sup> week, you will work on a milestone of project 0.
 - During the 2<sup>nd</sup> week, you will work on a milestone of project 2.
 - During the 3<sup>rd</sup> week, you will work on a milestone of project 1.
 - During the 4<sup>th</sup> week, you will work on a milestone of project 2.

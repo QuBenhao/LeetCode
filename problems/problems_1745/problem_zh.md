@@ -28,5 +28,5 @@
 
 <ul>
 	<li><code>3 <= s.length <= 2000</code></li>
-	<li><code>s</code>​​​​​​ 只包含小写英文字母。</li>
+	<li><code>s</code> 只包含小写英文字母。</li>
 </ul>

@@ -36,5 +36,5 @@
 <ul>
 	<li><code>3 &lt;= equation.length &lt;= 1000</code></li>
 	<li><code>equation</code>&nbsp;只有一个&nbsp;<code>'='</code>.&nbsp;</li>
-	<li>方程由绝对值在&nbsp;<code>[0, 100]</code>&nbsp; 范围内且无任何前导零的整数和变量 <code>'x'</code>&nbsp;组成。<span style="display:block"><span style="height:0px"><span style="position:absolute">​​​</span></span></span></li>
+	<li>方程由绝对值在&nbsp;<code>[0, 100]</code>&nbsp; 范围内且无任何前导零的整数和变量 <code>'x'</code>&nbsp;组成。</span></li>
 </ul>

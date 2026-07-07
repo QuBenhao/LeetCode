@@ -70,9 +70,7 @@ font-size: 0.85rem;
 </table>
 </div>
 
-<div id="gtx-trans" style="position: absolute; left: 107px; top: 238.5px;">
-<div class="gtx-trans-icon">&nbsp;</div>
-</div>
+
 
 <p>&nbsp;</p>
 <p><strong>Constraints:</strong></p>

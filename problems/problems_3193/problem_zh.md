@@ -76,9 +76,7 @@
 </ul>
 </div>
 
-<div id="gtx-trans" style="position: absolute; left: 198px; top: 756px;">
-<div class="gtx-trans-icon">&nbsp;</div>
-</div>
+
 
 <p>&nbsp;</p>
 

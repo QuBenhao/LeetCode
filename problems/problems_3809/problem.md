@@ -2,7 +2,7 @@
 
 <p>You are given a 2D integer array <code>towers</code>, where <code>towers[i] = [x<sub>i</sub>, y<sub>i</sub>, q<sub>i</sub>]</code> represents the coordinates <code>(x<sub>i</sub>, y<sub>i</sub>)</code> and quality factor <code>q<sub>i</sub></code> of the <code>i<sup>th</sup></code> tower.</p>
 
-<p>You are also given an integer array <code>center = [cx, cy​​​​​​​]</code> representing your location, and an integer <code>radius</code>.</p>
+<p>You are also given an integer array <code>center = [cx, cy]</code> representing your location, and an integer <code>radius</code>.</p>
 
 <p>A tower is <strong>reachable</strong> if its <strong>Manhattan distance</strong> from <code>center</code> is <strong>less than or equal</strong> to <code>radius</code>.</p>
 
@@ -79,6 +79,6 @@ The <strong>Manhattan Distance</strong> between two cells <code>(x<sub>i</sub>, 
 	<li><code>1 &lt;= towers.length &lt;= 10<sup>5</sup></code></li>
 	<li><code>towers[i] = [x<sub>i</sub>, y<sub>i</sub>, q<sub>i</sub>]</code></li>
 	<li><code>center = [cx, cy]</code></li>
-	<li><code>0 &lt;= x<sub>i</sub>, y<sub>i</sub>, q<sub>i</sub>, cx, cy &lt;= 10<sup>5</sup></code>​​​​​​​</li>
+	<li><code>0 &lt;= x<sub>i</sub>, y<sub>i</sub>, q<sub>i</sub>, cx, cy &lt;= 10<sup>5</sup></code></li>
 	<li><code>0 &lt;= radius &lt;= 10<sup>5</sup></code></li>
 </ul>

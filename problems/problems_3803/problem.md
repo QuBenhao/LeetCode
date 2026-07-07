@@ -14,7 +14,7 @@ A <strong>prefix</strong> of a string is a <strong>non-empty substring</strong> 
 
 <p><strong>Output:</strong> <span class="example-io">2</span></p>
 
-<p><strong>Explanation:</strong>​​​​​​​</p>
+<p><strong>Explanation:</strong></p>
 
 <ul>
 	<li>Prefix <code>&quot;a&quot;</code> has 1 distinct character and length modulo 3 is 1, so it is a residue.</li>

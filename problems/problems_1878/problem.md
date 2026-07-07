@@ -1,8 +1,8 @@
 # 1878. Get Biggest Three Rhombus Sums in a Grid [Rating: 1897.55]
 
-<p>You are given an <code>m x n</code> integer matrix <code>grid</code>​​​.</p>
+<p>You are given an <code>m x n</code> integer matrix <code>grid</code>.</p>
 
-<p>A <strong>rhombus sum</strong> is the sum of the elements that form <strong>the</strong> <strong>border</strong> of a regular rhombus shape in <code>grid</code>​​​. The rhombus must have the shape of a square rotated 45 degrees with each of the corners centered in a grid cell. Below is an image of four valid rhombus shapes with the corresponding colored cells that should be included in each <strong>rhombus sum</strong>:</p>
+<p>A <strong>rhombus sum</strong> is the sum of the elements that form <strong>the</strong> <strong>border</strong> of a regular rhombus shape in <code>grid</code>. The rhombus must have the shape of a square rotated 45 degrees with each of the corners centered in a grid cell. Below is an image of four valid rhombus shapes with the corresponding colored cells that should be included in each <strong>rhombus sum</strong>:</p>
 <img alt="" src="https://assets.leetcode.com/uploads/2021/04/23/pc73-q4-desc-2.png" style="width: 385px; height: 385px;" />
 <p>Note that the rhombus can have an area of 0, which is depicted by the purple rhombus in the bottom right corner.</p>
 

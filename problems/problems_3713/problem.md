@@ -28,7 +28,7 @@
 
 <p><strong>Explanation:</strong></p>
 
-<p>The longest balanced substring is <code>&quot;zabc&quot;</code> because the distinct characters <code>&#39;z&#39;</code>, <code>&#39;a&#39;</code>, <code>&#39;b&#39;</code>, and <code>&#39;c&#39;</code> each appear exactly 1 time.​​​​​​​</p>
+<p>The longest balanced substring is <code>&quot;zabc&quot;</code> because the distinct characters <code>&#39;z&#39;</code>, <code>&#39;a&#39;</code>, <code>&#39;b&#39;</code>, and <code>&#39;c&#39;</code> each appear exactly 1 time.</p>
 </div>
 
 <p><strong class="example">Example 3:</strong></p>
@@ -40,7 +40,7 @@
 
 <p><strong>Explanation:</strong></p>
 
-<p><strong>​​​​​​​</strong>One of the longest balanced substrings is <code>&quot;ab&quot;</code> because both distinct characters <code>&#39;a&#39;</code> and <code>&#39;b&#39;</code> each appear exactly 1 time. Another longest balanced substring is <code>&quot;ba&quot;</code>.</p>
+<p><strong></strong>One of the longest balanced substrings is <code>&quot;ab&quot;</code> because both distinct characters <code>&#39;a&#39;</code> and <code>&#39;b&#39;</code> each appear exactly 1 time. Another longest balanced substring is <code>&quot;ba&quot;</code>.</p>
 </div>
 
 <p>&nbsp;</p>

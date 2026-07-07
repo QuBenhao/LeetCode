@@ -12,7 +12,7 @@
 
 <p>You must make a <strong>move</strong> for every piece on the board simultaneously. A <strong>move combination</strong> consists of all the <strong>moves</strong> performed on all the given pieces. Every second, each piece will instantaneously travel <strong>one square</strong> towards their destination if they are not already at it. All pieces start traveling at the <code>0<sup>th</sup></code> second. A move combination is <strong>invalid</strong> if, at a given time, <strong>two or more</strong> pieces occupy the same square.</p>
 
-<p>Return <em>the number of <strong>valid</strong> move combinations</em>​​​​​.</p>
+<p>Return <em>the number of <strong>valid</strong> move combinations</em>.</p>
 
 <p><strong>Notes:</strong></p>
 

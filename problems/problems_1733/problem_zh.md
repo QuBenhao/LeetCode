@@ -7,7 +7,7 @@
 <ul>
 	<li>总共有 <code>n</code> 种语言，编号从 <code>1</code> 到 <code>n</code> 。</li>
 	<li><code>languages[i]</code> 是第 <code>i</code> 位用户掌握的语言集合。</li>
-	<li><code>friendships[i] = [u<sub>​​​​​​i</sub>​​​, v<sub>​​​​​​i</sub>]</code> 表示 <code>u<sup>​​​​​</sup><sub>​​​​​​i</sub></code>​​​​​ 和 <code>v<sub>i</sub></code> 为好友关系。</li>
+	<li><code>friendships[i] = [u<sub>i</sub>, v<sub>i</sub>]</code> 表示 <code>u<sup></sup><sub>i</sub></code> 和 <code>v<sub>i</sub></code> 为好友关系。</li>
 </ul>
 
 <p>你可以选择 <strong>一门</strong> 语言并教会一些用户，使得所有好友之间都可以相互沟通。请返回你 <strong>最少</strong> 需要教会多少名用户。</p>
@@ -41,8 +41,8 @@
 	<li><code>1 <= m <= 500</code></li>
 	<li><code>1 <= languages[i].length <= n</code></li>
 	<li><code>1 <= languages[i][j] <= n</code></li>
-	<li><code>1 <= u<sub>​​​​​​i</sub> < v<sub>​​​​​​i</sub> <= languages.length</code></li>
+	<li><code>1 <= u<sub>i</sub> < v<sub>i</sub> <= languages.length</code></li>
 	<li><code>1 <= friendships.length <= 500</code></li>
-	<li>所有的好友关系 <code>(u<sub>​​​​​i, </sub>v<sub>​​​​​​i</sub>)</code> 都是唯一的。</li>
+	<li>所有的好友关系 <code>(u<sub>i, </sub>v<sub>i</sub>)</code> 都是唯一的。</li>
 	<li><code>languages[i]</code> 中包含的值互不相同。</li>
 </ul>
