@@ -7,5 +7,13 @@ class Solution(solution.Solution):
         return self.sumAndMultiply(test_input)
 
     def sumAndMultiply(self, n: int) -> int:
-        pass
+        x = s = 0
+        pw = 1
+        while n:
+            n, d = divmod(n, 10)
+            if d:
+                x += d * pw
+                s += d
+                pw *= 10
+        return x * s
 
