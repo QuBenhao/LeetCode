@@ -1,5 +1,6 @@
 import inspect
 import logging
+import re
 import time
 from pathlib import Path
 from typing import Tuple, Optional
@@ -10,6 +11,74 @@ from python.constants import TESTCASE_TEMPLATE_PYTHON, TESTCASE_TEMPLATE_PYTHON_
     CONTEST_TEMPLATE_PYTHON
 from python.lc_libs.language_writer import LanguageWriter
 from python.utils import back_question_id
+
+# Strip LeetCode's anti-AI injections and browser-translate-plugin noise from
+# problem descriptions.
+#   1) Hidden anti-AI spans, matched by genuinely-invisible CSS features
+#      (opacity:0 / visibility:hidden / display:none / height:0px). The injected
+#      variable-name text varies per problem, so match by feature, not fixed strings.
+#      Do NOT match `position:absolute` / `left:NNNpx` alone: that also catches
+#      VISIBLE browser-extension overlays like Google Translate's `gtx-trans`
+#      (style="position:absolute;left:107px"), which is not an injection and whose
+#      removal would mangle the surrounding tags.
+#   2) Browser translate-plugin noise: `<div id="gtx-trans">` / `gtx-trans-icon`
+#      injected by the Google Translate extension when scraping rendered pages.
+#   3) Zero-width / invisible Unicode watermarks (U+200B etc.) scattered in text.
+_INVIS_RE = re.compile(
+    r'<(\w+)\b[^>]*style="[^"]*(?:opacity\s*:\s*0|visibility\s*:\s*hidden|'
+    r'display\s*:\s*none|height\s*:\s*0px)[^"]*"[^>]*>',
+    re.IGNORECASE)
+_GTX_RE = re.compile(
+    r'<div\b[^>]*\bid="gtx-trans"[^>]*>|<div\b[^>]*class="[^"]*gtx-trans-icon[^"]*"[^>]*>',
+    re.IGNORECASE)
+
+# Zero-width / invisible characters used as anti-AI watermarks. None belong in a normal
+# problem description (non-printable, no semantic value), so dropping them is safe.
+_ZERO_WIDTH_CHARS = ''.join([
+    '\u200b',  # ZERO WIDTH SPACE
+    '\u200c',  # ZERO WIDTH NON-JOINER
+    '\u200d',  # ZERO WIDTH JOINER
+    '\u2060',  # WORD JOINER
+    '\ufeff',  # BOM / ZERO WIDTH NO-BREAK SPACE
+    '\u200e',  # LEFT-TO-RIGHT MARK
+    '\u200f',  # RIGHT-TO-LEFT MARK
+    '\u180e',  # MONGOLIAN FREE VARIATION SELECTOR
+])
+_ZERO_WIDTH_TRANS = str.maketrans('', '', _ZERO_WIDTH_CHARS)
+
+
+def _delete_element(text: str, start: int) -> str:
+    # Delete the whole element (including nested children) starting at `start`,
+    # so the tag tree stays balanced.
+    m = re.match(r'<(\w+)\b[^>]*>', text[start:])
+    if not m:
+        return text
+    i = start + m.end()
+    depth = 1
+    pat = re.compile(r'</?(\w+)\b[^>]*/?>')
+    for mm in pat.finditer(text, i):
+        tok = mm.group(0)
+        if tok.startswith('</'):
+            depth -= 1
+            if depth == 0:
+                return text[:start] + text[mm.end():]
+        elif not tok.rstrip().endswith('/>'):
+            depth += 1
+    return text
+
+
+def _strip_hidden(desc: str) -> str:
+    # Remove whole elements (not just the opening tag) so tags stay balanced.
+    # Guard with `prev` so a malformed/unclosed element (where _delete_element
+    # makes no progress) cannot spin the loop forever.
+    prev = None
+    while prev != desc:
+        prev = desc
+        m = _INVIS_RE.search(desc) or _GTX_RE.search(desc)
+        if not m:
+            break
+        desc = _delete_element(desc, m.start())
+    return desc.translate(_ZERO_WIDTH_TRANS)
 
 
 class Python3Writer(LanguageWriter):
@@ -96,6 +165,7 @@ class Python3Writer(LanguageWriter):
     @staticmethod
     def write_problem_md(question_id: str, question_name: str, desc: str, cn: bool = False,
                          rating: float = None) -> str:
+        desc = _strip_hidden(desc)
         check = False
         formated = []
         for line in desc.split("\n"):
