@@ -7,5 +7,5 @@ class Solution(solution.Solution):
         return self.arrayRankTransform(test_input)
 
     def arrayRankTransform(self, arr: List[int]) -> List[int]:
-        pass
-
+        rank = {v: i for i, v in enumerate(sorted(set(arr)), 1)}
+        return [rank[v] for v in arr]
