@@ -35,7 +35,10 @@ from python.scripts.cli import (
     get_browser_cookie, read_cookie_from_file, HAS_BROWSER_COOKIE,
     check_and_update_cookie,
 )
-from python.scripts.cli.input_utils import allow_all, allow_all_not_empty, allow_number
+from python.scripts.cli.input_utils import (
+    allow_all, allow_all_not_empty, allow_number,
+    allow_lang_selection, allow_optional_choice,
+)
 
 # Import LeetCode libraries
 from python.constants import constant
@@ -167,9 +170,11 @@ def initialize_env():
     lang_options = "\n".join(f"{idx}. {lang}" for idx, lang in enumerate(SUPPORTED_LANGUAGES))
     pick_languages = input_until_valid(
         t("init_select_lang", options=lang_options),
-        lambda x: re.match(r"^[0-5](,[0-5])*$", x),
+        allow_lang_selection,
         t("init_lang_invalid")
     )
+    if not pick_languages:
+        pick_languages = "0"
     languages = list(set(SUPPORTED_LANGUAGES[int(idx)] for idx in pick_languages.split(",")))
     print(t("init_lang_selected", langs=", ".join(languages)))
     print(SEPARATE_LINE)
@@ -257,9 +262,11 @@ def configure():
         lang_options = "\n".join(f"{idx}. {lang}" for idx, lang in enumerate(SUPPORTED_LANGUAGES))
         pick_languages = input_until_valid(
             t("init_select_lang", options=lang_options),
-            lambda x: re.match(r"^[0-5](,[0-5])*$", x),
+            allow_lang_selection,
             t("init_lang_invalid")
         )
+        if not pick_languages:
+            pick_languages = "0"
         languages = list(set(SUPPORTED_LANGUAGES[int(idx)] for idx in pick_languages.split(",")))
         print(t("init_lang_selected", langs=", ".join(languages)))
         print(SEPARATE_LINE)
@@ -426,11 +433,11 @@ def _handle_contest_problem(languages, problem_folder, cookie):
     """Handle contest-based problem fetching"""
     contest_type = input_until_valid(
         t("contest_type_menu"),
-        lambda x: x in ["0", "1", "2"],
+        allow_optional_choice({"0", "1", "2"}),
         t("contest_invalid_type")
     )
     print(SEPARATE_LINE)
-    if contest_type == "0":
+    if not contest_type or contest_type == "0":
         return
     contest_id = input_until_valid(
         t("contest_id_num"),
@@ -492,9 +499,11 @@ def submit(languages, problem_folder, cookie):
             lang_options = "\n".join(f"{idx}. {lang}" for idx, lang in enumerate(SUPPORTED_LANGUAGES))
             language_select = input_until_valid(
                 t("init_select_lang", options=lang_options),
-                lambda x: re.match(r"^[0-5](,[0-5])*$", x),
+                allow_lang_selection,
                 t("init_lang_invalid")
             )
+            if not language_select:
+                language_select = "0"
             languages = list(set(SUPPORTED_LANGUAGES[int(idx)] for idx in language_select.split(",")))
             print(SEPARATE_LINE)
         match submit_method:
