@@ -6,9 +6,31 @@ using namespace std;
 using json = nlohmann::json;
 
 class Solution {
+    static int gcd(int a, int b) {
+        while (b) {
+            int t = a % b;
+            a = b;
+            b = t;
+        }
+        return a;
+    }
 public:
     long long gcdSum(vector<int>& nums) {
-        
+        int n = nums.size();
+        vector<int> pg(n);
+        int mx = 0;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] > mx) mx = nums[i];
+            pg[i] = gcd(nums[i], mx);
+        }
+        sort(pg.begin(), pg.end());
+        long long ans = 0;
+        int i = 0, j = n - 1;
+        while (i < j) {
+            ans += gcd(pg[i], pg[j]);
+            i++; j--;
+        }
+        return ans;
     }
 };
 
