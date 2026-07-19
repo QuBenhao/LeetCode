@@ -13,7 +13,6 @@ class Testcase(testcase.Testcase):
 		self.testcases.append(case(Input=["z","z"], Output="z"))
 		self.testcases.append(case(Input=["ab","adc"], Output="abcd"))
 		self.testcases.append(case(Input=["abc","ab"], Output="abc"))
-		self.testcases.append(case(Input=["z","z"], Output="z"))
 
 	def get_testcases(self):
 		return self.testcases

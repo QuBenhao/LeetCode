@@ -12,7 +12,6 @@ class Testcase(testcase.Testcase):
 		self.testcases.append(case(Input=["RXXL","XLRX"], Output=False))
 		self.testcases.append(case(Input=["RLX","XLR"], Output=False))
 		self.testcases.append(case(Input=["RXR","XXR"], Output=False))
-		self.testcases.append(case(Input=["RXR","XXR"], Output=False))
 
 	def get_testcases(self):
 		return self.testcases

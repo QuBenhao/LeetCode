@@ -11,7 +11,6 @@ class Testcase(testcase.Testcase):
             ["FreqStack", "push", "push", "push", "push", "push", "push", "pop", "pop", "pop", "pop"],
             [[], [5], [7], [5], [7], [4], [5], [], [], [], []]),
             Output=[None, None, None, None, None, None, None, 5, 7, 5, 4]))
-        self.testcases.append(case(Input=(
         ["FreqStack", "push", "push", "push", "push", "push", "push", "pop", "push", "pop", "push", "pop", "push",
          "pop", "push", "pop", "pop", "pop", "pop", "pop", "pop"],
         [[], [4], [0], [9], [3], [4], [2], [], [6], [], [1], [], [1], [], [4], [], [], [], [], [], []]),
