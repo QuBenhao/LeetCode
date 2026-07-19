@@ -230,20 +230,20 @@ def _add_test(root_path: Path,
     file_path = root_path / problem_folder / f"{problem_folder}_{question_id}" / "testcase.py"
     with file_path.open('r', encoding='utf-8') as f:
         content = f.read().split("\n")
-        idx = 0
-        while idx < len(content):
-            line = content[idx]
+        # Each testcase is a single line:
+        #   self.testcases.append(case(Input=<ipt>, Output=<opt>))
+        # Compare per line; do NOT merge consecutive lines (that garbles ipt/opt
+        # and defeats dedup, causing duplicate testcases to be appended).
+        for line in content:
             if "self.testcases.append(case(Input=" not in line:
-                idx += 1
                 continue
-            cur = [line]
-            while idx < len(content) and (
-                    "self.testcases.append(case(Input=" in content[idx] or "def get_testcases(self):" in content[idx]):
-                cur.append(content[idx])
-                idx += 1
-            final_line = "".join(cur)
-            splits = final_line.split(", Output=")
-            ipt, opt = splits[0].split("=")[-1].strip(), splits[-1].strip()[:-2]
+            splits = line.split(", Output=")
+            if len(splits) < 2:
+                continue
+            ipt = splits[0].split("Input=", 1)[-1].strip()
+            opt = splits[-1].strip()
+            if opt.endswith("))"):
+                opt = opt[:-2]
             if (ipt.replace(" ", "") == code_input_py.replace(" ", "") or
                 ipt.replace(" ", "").replace("'", "\"") == code_input_py.replace(" ", "")) and \
                     opt.replace(" ", "") == expected_output_py.replace(" ", ""):
