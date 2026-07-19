@@ -7,5 +7,14 @@ class Solution(solution.Solution):
         return self.smallestSubsequence(test_input)
 
     def smallestSubsequence(self, s: str) -> str:
-        pass
+        stack = []
+        explored = set()
+        last_idx = {c: i for i, c in enumerate(s)}
 
+        for i, c in enumerate(s):
+            if c not in explored:
+                while stack and c < stack[-1] and i < last_idx[stack[-1]]:
+                    explored.remove(stack.pop())
+                stack.append(c)
+                explored.add(c)
+        return ''.join(stack)
