@@ -14,14 +14,11 @@ from pathlib import Path
 import sys; from pathlib import Path; _root = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(_root))
 
 from python.utils import create_link
-from python.utils.similarity import MAIN_SITE_SAME_PATTERN as MAIN_SITE_PATTERN
+from python.utils.similarity import extract_main_site_reference
 
-# Pattern to match the main site problem reference
-# Examples:
-# - "注意：本题与主站 29 题相同"
-# - "注意：本题与主站 1991 题相同"
-# - "注意：本题与主站 29&nbsp;题相同" (&nbsp; instead of space)
-# Main site pattern imported from python.utils.similarity
+# Main site problem reference is extracted via extract_main_site_reference,
+# which handles multiple phrasings ("本题与主站 N 题相同", "该题与 N 相同",
+# "This question is the same as N", etc.).
 
 
 def extract_main_site_problem(problem_md_path: Path) -> str | None:
@@ -30,10 +27,7 @@ def extract_main_site_problem(problem_md_path: Path) -> str | None:
         return None
 
     content = problem_md_path.read_text(encoding="utf-8")
-    match = MAIN_SITE_PATTERN.search(content)
-    if match:
-        return match.group(1)
-    return None
+    return extract_main_site_reference(content)
 
 
 def check_problem_exists(problem_id: str, folder: str = "problems") -> bool:

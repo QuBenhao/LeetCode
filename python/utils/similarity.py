@@ -30,11 +30,20 @@ class ProblemInfo:
 
 
 # Pattern to match "本题与主站 xxx 题相同" or similar references
-# Examples:
+# Examples (multiple phrasings LeetCode uses for "identical to main-site problem"):
 # - "注意：本题与主站 29 题相同"
 # - "注意：本题与主站 1991 题相同"
 # - "注意：本题与主站 29&nbsp;题相同" (&nbsp; instead of space)
-MAIN_SITE_SAME_PATTERN = re.compile(r"注意[：:]\s*本题与主站\s*(\d+)(?:&nbsp;|\s*)题相同")
+# - "注意：该题与 316 <a ...>...</a> 相同"  (1081 / Remove Duplicate Letters style)
+# - "This question is the same as 316: ..."   (English phrasing)
+# NOTE: 必须包含「相同 / same as」语义，不能只匹配「与 N」——否则会把
+#       「与 N 相似 / 类似」(similar-but-different) 误判为同一题。
+MAIN_SITE_SAME_PATTERNS = [
+    re.compile(r"注意[：:]\s*本题与主站\s*(\d+)(?:&nbsp;|\s*)题相同"),
+    re.compile(r"该题与\s*(\d+).*?相同"),     # 注意：该题与 316 相同（中间可能有 HTML 链接）
+    re.compile(r"此题与\s*(\d+).*?相同"),     # 注意：此题与 316 相同
+    re.compile(r"same as\s*(?:problem\s+)?(\d+)", re.IGNORECASE),  # This question is the same as 316
+]
 
 # Pattern to match "similar to X but Y" - indicates related but DIFFERENT problems
 # Examples:
@@ -137,9 +146,10 @@ def extract_main_site_reference(description: str) -> Optional[str]:
     if not description:
         return None
 
-    match = MAIN_SITE_SAME_PATTERN.search(description)
-    if match:
-        return match.group(1)
+    for pattern in MAIN_SITE_SAME_PATTERNS:
+        match = pattern.search(description)
+        if match:
+            return match.group(1)
     return None
 
 
