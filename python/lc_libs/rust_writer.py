@@ -192,7 +192,13 @@ class RustWriter(LanguageWriter):
 
         file_path = resolved_path / self.solution_file
         if not file_path.exists():
-            return "", problem_id
+            # Linked problem may not have a solution in this language; fall back
+            # to the current problem's own file so linking never regresses a language.
+            own_file = problem_path / self.solution_file
+            if own_file.exists():
+                file_path = own_file
+            else:
+                return "", problem_id
         final_codes = deque([])
         with file_path.open('r', encoding="utf-8") as f:
             content = f.read()

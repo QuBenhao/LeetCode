@@ -12,7 +12,7 @@ if str(_root) not in sys.path:
 
 from python import lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, back_question_id, format_question_id, check_cookie_expired, resolve_link, init_env
+from python.utils import get_default_folder, back_question_id, format_question_id, check_cookie_expired, resolve_link, init_env, adapt_linked_solution_code
 
 _LANG_TRANS_MAP = {
     "go": "golang",
@@ -106,6 +106,14 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
         if not code:
             logging.error(f"No solution for problem [{problem_id}.{problem_slug}] yet!")
             return
+        # If this problem is linked to another with a different method name
+        # (e.g. 1081 smallestSubsequence vs 316 removeDuplicateLetters), LeetCode
+        # expects the current problem's method name. Rewrite the linked solution.
+        if link_info and problem_id != solution_problem_id:
+            code = adapt_linked_solution_code(
+                root_path, problem_folder, problem_id,
+                solution_folder, solution_problem_id, lang, code, obj.solution_file
+            )
     lc_question_id = problem_info["questionId"]
     plans = lc_libs.get_user_study_plans(cookie)
     if plans is None:

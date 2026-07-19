@@ -129,6 +129,91 @@ def create_link(target_problem: str, source_problem: str, reason: str = None,
 
     return link_file
 
+
+# Maps normalized language names (as used by daily_auto / submit) to the
+# regex that extracts the LeetCode method name from a generated solution file.
+# The harness wrapper (solve/Solve/main) is excluded — we want the real
+# LeetCode entry method (e.g. smallestSubsequence / removeDuplicateLetters).
+_METHOD_NAME_PATTERNS = {
+    "python3": r"def\s+(\w+)\(self",
+    "py": r"def\s+(\w+)\(self",
+    "cpp": r"class\s+Solution\s*\{.*?public:\s*[\w\s\*]*?(\w+)\s*\(",
+    "c++": r"class\s+Solution\s*\{.*?public:\s*[\w\s\*]*?(\w+)\s*\(",
+    "golang": r"func\s+(\w+)\(s\b",
+    "go": r"func\s+(\w+)\(s\b",
+    "java": r"public\s+\w+\s+(\w+)\(String\s+s\)",
+    "typescript": r"function\s+(\w+)\(s:\s*string\)",
+    "ts": r"function\s+(\w+)\(s:\s*string\)",
+    "rust": r"pub\s+fn\s+(\w+)\(s:\s*String\)",
+}
+_WRAPPER_METHODS = {"solve", "Solve", "main"}
+
+
+def extract_solution_method_name(solution_file, lang: str) -> Optional[str]:
+    """Extract the LeetCode method name from a generated solution file.
+
+    Returns None if the file is missing or the language is unsupported.
+    The harness wrapper (solve/Solve/main) is never returned.
+    """
+    path = Path(solution_file) if not isinstance(solution_file, Path) else solution_file
+    if not path.exists():
+        return None
+    pattern = _METHOD_NAME_PATTERNS.get(lang)
+    if not pattern:
+        return None
+    try:
+        text = path.read_text(encoding="utf-8")
+    except Exception:
+        return None
+    # A solution file may contain a harness wrapper (solve/Solve/main) before the
+    # real LeetCode method. Skip wrappers and return the first real method name.
+    for match in re.finditer(pattern, text, re.S):
+        name = match.group(1)
+        if name not in _WRAPPER_METHODS:
+            return name
+    return None
+
+
+def rename_solution_method(code: str, lang: str, old_name: str, new_name: str) -> str:
+    """Rename a solution method (definition + self/recursive calls) in submitted code.
+
+    Uses word-boundary matching so substrings of other identifiers are untouched.
+    No-op when old/new are missing or identical.
+    """
+    if not code or not old_name or not new_name or old_name == new_name:
+        return code
+    return re.sub(r"\b" + re.escape(old_name) + r"\b", new_name, code)
+
+
+def adapt_linked_solution_code(root_path: Path, problem_folder: str, problem_id: str,
+                               solution_folder: str, solution_problem_id: str,
+                               lang: str, code: str, solution_file: str) -> str:
+    """Adapt submitted code when a problem is linked to another with a different method name.
+
+    When submitting problem `problem_id` whose solution resolves to `solution_problem_id`
+    (via link.json), LeetCode expects `problem_id`'s own method name. If the two methods
+    differ (e.g. 1081 `smallestSubsequence` vs 316 `removeDuplicateLetters`), rewrite the
+    linked solution's method name to the current problem's.
+
+    Method names are taken from each problem's local solution file; no network needed.
+    If the current problem has no own solution file, the linked code is returned unchanged
+    (assumes method names match, which holds for auto-detected same-method links).
+    """
+    if not code or not solution_file or problem_id == solution_problem_id:
+        return code
+    target_file = root_path / problem_folder / f"{problem_folder}_{problem_id}" / solution_file
+    linked_file = root_path / solution_folder / f"{solution_folder}_{solution_problem_id}" / solution_file
+    new_name = extract_solution_method_name(target_file, lang)
+    old_name = extract_solution_method_name(linked_file, lang)
+    if new_name and old_name and new_name != old_name:
+        logging.info(
+            f"Linked method name differs ({old_name} from {solution_problem_id} "
+            f"-> {new_name} for {problem_id}); renaming for submission"
+        )
+        return rename_solution_method(code, lang, old_name, new_name)
+    return code
+
+
 def check_cookie_expired(cookie: Optional[str]) -> bool:
     """
     Checks if a LeetCode cookie has expired by examining the LEETCODE_SESSION JWT.
