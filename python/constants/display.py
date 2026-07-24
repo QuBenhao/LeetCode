@@ -1,9 +1,9 @@
 SUBMIT_BASIC_RESULT = """代码:
-{}
+{code}
 
-[{}.{}]提交结果
-{} {}/{}个通过的测试用例
-{}
+[{qid}.{slug}]提交结果
+{status} {testcases}
+{detail}
 """
 
 SUBMIT_SUCCESS_RESULT = """执行用时: {} 击败{}%

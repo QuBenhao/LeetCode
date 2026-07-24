@@ -336,6 +336,11 @@ async def submit_code(root_path: Path, problem_folder: str, question_id: str, qu
             total_cnt = len(result_dict["testInfo"])
             if result_dict["statusDisplay"] == "Accepted":
                 passed_cnt = total_cnt
+        # If still 0/0 but Accepted, API didn't return testcase counts.
+        # Use a sentinel to avoid misleading "0/0" display.
+        if result_dict["statusDisplay"] == "Accepted" and not total_cnt:
+            total_cnt = -1  # sentinel: display "全部通过" instead of "0/0"
+            passed_cnt = -1
         return {
             "statusDisplay": result_dict["statusDisplay"],
             "outputDetail": result_dict["outputDetail"],
@@ -425,14 +430,20 @@ async def submit_code(root_path: Path, problem_folder: str, question_id: str, qu
             _add_test(root_path, problem_folder, question_id,
                       submit_detail["outputDetail"]["input"], submit_detail["outputDetail"]["expectedOutput"])
 
+    if submit_detail["passedTestCaseCnt"] == -1:
+        testcase_str = "全部通过"
+    else:
+        testcase_str = "{}/{}个通过的测试用例".format(
+            submit_detail["passedTestCaseCnt"],
+            submit_detail["totalTestCaseCnt"],
+        )
     logging.info(SUBMIT_BASIC_RESULT.format(
-        typed_code,
-        question_id,
-        question_slug,
-        submit_detail["statusDisplay"],
-        submit_detail["passedTestCaseCnt"],
-        submit_detail["totalTestCaseCnt"],
-        part,
+        code=typed_code,
+        qid=question_id,
+        slug=question_slug,
+        status=submit_detail["statusDisplay"],
+        testcases=testcase_str,
+        detail=part,
     ))
     logging.info(f"提交详情: https://leetcode.cn/problems/{question_slug}/submissions/{submit_id}/ [需登录查看]")
     return submit_detail
