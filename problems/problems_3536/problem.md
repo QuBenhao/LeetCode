@@ -1,4 +1,4 @@
-# 3536. Maximum Product of Two Digits 
+# 3536. Maximum Product of Two Digits [Rating: 1199.23]
 
 <p>You are given a positive integer <code>n</code>.</p>
 
