@@ -4,7 +4,20 @@ pub struct Solution;
 
 impl Solution {
     pub fn max_product(n: i32) -> i32 {
-        
+        let mut mx = 0;
+        let mut sub = 0;
+        let mut n = n;
+        while n > 0 {
+            let cur = n % 10;
+            n /= 10;
+            if cur > mx {
+                sub = mx;
+                mx = cur;
+            } else if cur > sub {
+                sub = cur;
+            }
+        }
+        mx * sub
     }
 }
 

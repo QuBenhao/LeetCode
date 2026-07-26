@@ -8,7 +8,18 @@ using json = nlohmann::json;
 class Solution {
 public:
     int maxProduct(int n) {
-        
+        int mx = 0, sub = 0;
+        while (n) {
+            int cur = n % 10;
+            n /= 10;
+            if (cur > mx) {
+                sub = mx;
+                mx = cur;
+            } else if (cur > sub) {
+                sub = cur;
+            }
+        }
+        return mx * sub;
     }
 };
 
