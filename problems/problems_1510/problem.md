@@ -1,59 +1,40 @@
 # 1510. Stone Game IV [Rating: 1786.93]
 
-Alice and Bob take turns playing a game, with Alice starting first.
+<p>Alice and Bob take turns playing a game, with Alice starting first.</p>
 
-Initially, there are `n` stones in a pile. On each player's turn, that player makes a *move* consisting of removing **any** non-zero **square number** of stones in the pile.
+<p>Initially, there are <code>n</code> stones in a pile. On each player&#39;s turn, that player makes a <em>move</em> consisting of removing <strong>any</strong> non-zero <strong>square number</strong> of stones in the pile.</p>
 
-Also, if a player cannot make a move, he/she loses the game.
+<p>Also, if a player cannot make a move, he/she loses the game.</p>
 
-Given a positive integer `n`. Return `True` if and only if Alice wins the game otherwise return `False`, assuming both players play optimally.
+<p>Given a positive integer <code>n</code>, return <code>true</code> if and only if Alice wins the game otherwise return <code>false</code>, assuming both players play optimally.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
+<pre>
+<strong>Input:</strong> n = 1
+<strong>Output:</strong> true
+<strong>Explanation: </strong>Alice can remove 1 stone winning the game because Bob doesn&#39;t have any moves.</pre>
 
-```
-Input: n = 1
-Output: true
-Explanation: Alice can remove 1 stone winning the game because Bob doesn't have any moves.
-```
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 2:**
+<pre>
+<strong>Input:</strong> n = 2
+<strong>Output:</strong> false
+<strong>Explanation: </strong>Alice can only remove 1 stone, after that Bob removes the last one winning the game (2 -&gt; 1 -&gt; 0).
+</pre>
 
-```
-Input: n = 2
-Output: false
-Explanation: Alice can only remove 1 stone, after that Bob removes the last one winning the game (2 -> 1 -> 0).
-```
+<p><strong class="example">Example 3:</strong></p>
 
-**Example 3:**
+<pre>
+<strong>Input:</strong> n = 4
+<strong>Output:</strong> true
+<strong>Explanation:</strong> n is already a perfect square, Alice can win with one move, removing 4 stones (4 -&gt; 0).
+</pre>
 
-```
-Input: n = 4
-Output: true
-Explanation: n is already a perfect square, Alice can win with one move, removing 4 stones (4 -> 0).
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Example 4:**
-
-```
-Input: n = 7
-Output: false
-Explanation: Alice can't win the game if Bob plays optimally.
-If Alice starts removing 4 stones, Bob will remove 1 stone then Alice should remove only 1 stone and finally Bob removes the last one (7 -> 3 -> 2 -> 1 -> 0). 
-If Alice starts removing 1 stone, Bob will remove 4 stones then Alice only can remove 1 stone and finally Bob removes the last one (7 -> 6 -> 2 -> 1 -> 0).
-```
-
-**Example 5:**
-
-```
-Input: n = 17
-Output: false
-Explanation: Alice can't win the game if Bob plays optimally.
-```
-
- 
-
-**Constraints:**
-
-- 1 <= n <= 10<sup>5</sup>
+<ul>
+	<li><code>1 &lt;= n &lt;= 10<sup>5</sup></code></li>
+</ul>
