@@ -1,4 +1,4 @@
-# 3622. Check Divisibility by Digit Sum and Product 
+# 3622. Check Divisibility by Digit Sum and Product [Rating: 1148.94]
 
 <p>You are given a positive integer <code>n</code>. Determine whether <code>n</code> is divisible by the <strong>sum </strong>of the following two values:</p>
 
