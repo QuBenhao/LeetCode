@@ -1,56 +1,60 @@
 # 1927. Sum Game [Rating: 2004.53]
 
-Alice and Bob take turns playing a game, with **Alice** **starting first**.
+<p>Alice and Bob take turns playing a game, with <strong>Alice</strong><strong>&nbsp;starting first</strong>.</p>
 
-You are given a string `num` of **even length** consisting of digits and `'?'`characters. On each turn, a player will do the following if there is still at least one `'?'` in `num`:
+<p>You are given a string <code>num</code> of <strong>even length</strong> consisting of digits and <code>&#39;?&#39;</code> characters. On each turn, a player will do the following if there is still at least one <code>&#39;?&#39;</code> in <code>num</code>:</p>
 
-1. Choose an index `i` where `num[i] == '?'`.
-2. Replace `num[i]` with any digit between `'0'` and `'9'`.
+<ol>
+	<li>Choose an index <code>i</code> where <code>num[i] == &#39;?&#39;</code>.</li>
+	<li>Replace <code>num[i]</code> with any digit between <code>&#39;0&#39;</code> and <code>&#39;9&#39;</code>.</li>
+</ol>
 
-The game ends when there are no more `'?'` characters in `num`.
+<p>The game ends when there are no more <code>&#39;?&#39;</code> characters in <code>num</code>.</p>
 
-For Bob to win, the sum of the digits in the first half of `num` must be **equal** to the sum of the digits in the second half. For Alice to win, the sums must **not be equal**.
+<p>For Bob&nbsp;to win, the sum of the digits in the first half of <code>num</code> must be <strong>equal</strong> to the sum of the digits in the second half. For Alice&nbsp;to win, the sums must <strong>not be equal</strong>.</p>
 
-- For example, if the game ended with `num = "243801"`, then Bob wins because `2+4+3 = 8+0+1`. If the game ended with `num = "243803"`, then Alice wins because `2+4+3 != 8+0+3`.
+<ul>
+	<li>For example, if the game ended with <code>num = &quot;243801&quot;</code>, then Bob&nbsp;wins because <code>2+4+3 = 8+0+1</code>. If the game ended with <code>num = &quot;243803&quot;</code>, then Alice&nbsp;wins because <code>2+4+3 != 8+0+3</code>.</li>
+</ul>
 
-Assuming Alice and Bob play **optimally**, return `true` *if Alice will win and* `false` *if Bob will win*.
+<p>Assuming Alice and Bob play <strong>optimally</strong>, return <code>true</code> <em>if Alice will win and </em><code>false</code> <em>if Bob will win</em>.</p>
 
- 
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-**Example 1:**
-
-```
-Input: num = "5023"
-Output: false
-Explanation: There are no moves to be made.
+<pre>
+<strong>Input:</strong> num = &quot;5023&quot;
+<strong>Output:</strong> false
+<strong>Explanation:</strong> There are no moves to be made.
 The sum of the first half is equal to the sum of the second half: 5 + 0 = 2 + 3.
-```
+</pre>
 
-**Example 2:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: num = "25??"
-Output: true
-Explanation: Alice can replace one of the '?'s with '9' and it will be impossible for Bob to make the sums equal.
-```
+<pre>
+<strong>Input:</strong> num = &quot;25??&quot;
+<strong>Output:</strong> true
+<strong>Explanation: </strong>Alice can replace one of the &#39;?&#39;s with &#39;9&#39; and it will be impossible for Bob to make the sums equal.
+</pre>
 
-**Example 3:**
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: num = "?3295???"
-Output: false
-Explanation: It can be proven that Bob will always win. One possible outcome is:
-- Alice replaces the first '?' with '9'. num = "93295???".
-- Bob replaces one of the '?' in the right half with '9'. num = "932959??".
-- Alice replaces one of the '?' in the right half with '2'. num = "9329592?".
-- Bob replaces the last '?' in the right half with '7'. num = "93295927".
+<pre>
+<strong>Input:</strong> num = &quot;?3295???&quot;
+<strong>Output:</strong> false
+<strong>Explanation:</strong> It can be proven that Bob will always win. One possible outcome is:
+- Alice replaces the first &#39;?&#39; with &#39;9&#39;. num = &quot;93295???&quot;.
+- Bob replaces one of the &#39;?&#39; in the right half with &#39;9&#39;. num = &quot;932959??&quot;.
+- Alice replaces one of the &#39;?&#39; in the right half with &#39;2&#39;. num = &quot;9329592?&quot;.
+- Bob replaces the last &#39;?&#39; in the right half with &#39;7&#39;. num = &quot;93295927&quot;.
 Bob wins because 9 + 3 + 2 + 9 = 5 + 9 + 2 + 7.
-```
+</pre>
 
- 
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-**Constraints:**
-
-- 2 <= num.length <= 10<sup>5</sup>
-- `num.length` is **even**.
-- `num` consists of only digits and `'?'`.
+<ul>
+	<li><code>2 &lt;= num.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>num.length</code> is <strong>even</strong>.</li>
+	<li><code>num</code> consists of only digits and <code>&#39;?&#39;</code>.</li>
+</ul>
