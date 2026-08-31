@@ -16,5 +16,20 @@ class Solution(solution.Solution):
         return self.nodesBetweenCriticalPoints(head0)
 
     def nodesBetweenCriticalPoints(self, head: Optional[ListNode]) -> List[int]:
-        pass
+        # 三指针滑窗：first/prev 记录第一个和上一个临界点的下标（下标从 1 起）
+        # 最小距离必来自相邻两个临界点，最大距离必来自首尾两个临界点
+        first = prev = 0
+        mn = 10 ** 9
+        a, b, c = head, head.next, head.next.next
+        i = 2
+        while c:
+            if (b.val - a.val) * (b.val - c.val) > 0:  # 同号 => 极大值或极小值
+                if prev:
+                    mn = min(mn, i - prev)
+                else:
+                    first = i
+                prev = i
+            a, b, c = b, c, c.next
+            i += 1
+        return [mn, prev - first] if mn < 10 ** 9 else [-1, -1]
 

@@ -20,7 +20,31 @@ pub struct Solution;
 // }
 impl Solution {
     pub fn nodes_between_critical_points(head: Option<Box<ListNode>>) -> Vec<i32> {
-        
+        // 最小距离来自相邻临界点，最大距离来自首尾临界点
+        let (mut first, mut prev, mut mn) = (0, 0, i32::MAX);
+        let mut a = head.as_ref().unwrap();
+        let mut b = a.next.as_ref().unwrap();
+        let mut c = b.next.as_ref();
+        let mut i = 2;
+        while let Some(cv) = c {
+            if b.val > a.val && b.val > cv.val || b.val < a.val && b.val < cv.val {
+                if prev > 0 {
+                    mn = mn.min(i - prev);
+                } else {
+                    first = i;
+                }
+                prev = i;
+            }
+            a = b;
+            b = cv;
+            c = cv.next.as_ref();
+            i += 1;
+        }
+        if mn == i32::MAX {
+            vec![-1, -1]
+        } else {
+            vec![mn, prev - first]
+        }
     }
 }
 

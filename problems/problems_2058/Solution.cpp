@@ -18,7 +18,18 @@ using json = nlohmann::json;
 class Solution {
 public:
     vector<int> nodesBetweenCriticalPoints(ListNode* head) {
-        
+        // 最小距离来自相邻临界点，最大距离来自首尾临界点
+        int first = 0, prev = 0, mn = INT_MAX;
+        ListNode *a = head, *b = head->next, *c = head->next->next;
+        for (int i = 2; c; ++i) {
+            if (b->val > a->val && b->val > c->val || b->val < a->val && b->val < c->val) {
+                if (prev) mn = min(mn, i - prev);
+                else first = i;
+                prev = i;
+            }
+            a = b, b = c, c = c->next;
+        }
+        return mn == INT_MAX ? vector<int>{-1, -1} : vector<int>{mn, prev - first};
     }
 };
 
