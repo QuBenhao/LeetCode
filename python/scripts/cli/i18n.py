@@ -78,6 +78,15 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_no_browser_hint": "  浏览器中未找到 LeetCode Cookie，请先在浏览器中登录 leetcode.cn",
         "cookie_manual": "是否手动输入 Cookie? [y/n, 默认: n]: ",
         "cookie_continue": "继续使用现有 Cookie...",
+        "cookie_account_multi": "⚠️  检测到多个账号的 Cookie，请选择要使用的账号:\n{options}\n",
+        "cookie_account_option": "{index}. {user}（{browser}，{count} 个 Cookies，{state}）",
+        "cookie_account_manual": "0. 手动输入 Cookie",
+        "cookie_account_pick": "请选择账号 [0-{max}, 回车默认: 1]: ",
+        "cookie_account_invalid": "输入无效，请输入 0-{max} 的数字",
+        "cookie_account_expired": "已过期",
+        "cookie_account_valid": "有效",
+        "cookie_account_unknown": "未知账号",
+        "cookie_account_auto": "✓ 已按 .env 的 LEETCODE_USER 自动选用账号: {user}",
 
         # Main menu
         "main_menu": "请选择功能 [0-10, 默认: 0]:\n0. 退出\n1. 获取题目\n2. 提交代码\n3. 切换测试题目\n4. 比赛\n5. 清理空 Java 文件\n6. 清理错误 Rust 文件\n7. 收藏夹管理\n8. 创建题目链接\n9. 题解中心\n10. 仓库健康检查\n",
@@ -240,6 +249,15 @@ I18N: Dict[str, Dict[str, str]] = {
         "cookie_no_browser_hint": "  No LeetCode cookie found in browser, please login to leetcode.cn in your browser first",
         "cookie_manual": "Manually enter cookie? [y/n, default: n]: ",
         "cookie_continue": "Continuing with existing cookie...",
+        "cookie_account_multi": "⚠️  Cookies for multiple accounts found, please choose the account to use:\n{options}\n",
+        "cookie_account_option": "{index}. {user} ({browser}, {count} cookies, {state})",
+        "cookie_account_manual": "0. Enter a cookie manually",
+        "cookie_account_pick": "Choose an account [0-{max}, enter for default: 1]: ",
+        "cookie_account_invalid": "Invalid input, please enter a number between 0 and {max}",
+        "cookie_account_expired": "expired",
+        "cookie_account_valid": "valid",
+        "cookie_account_unknown": "unknown account",
+        "cookie_account_auto": "✓ Account auto-selected from .env LEETCODE_USER: {user}",
 
         # Main menu
         "main_menu": "Please select the main function [0-10, default: 0]:\n0. Exit\n1. Get problem\n2. Submit\n3. Change test problem\n4. Contest\n5. Clean empty java\n6. Clean error rust\n7. Favorite management\n8. Link problems\n9. Solution Center\n10. Repository health\n",

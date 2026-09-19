@@ -33,7 +33,8 @@ import sys; from pathlib import Path; _root = Path(__file__).resolve().parents[2
 from python.scripts.cli import (
     t, set_language, get_language,
     input_until_valid, input_pick_array,
-    get_browser_cookie, read_cookie_from_file, HAS_BROWSER_COOKIE,
+    list_browser_cookies, read_cookie_from_file, HAS_BROWSER_COOKIE,
+    select_browser_cookie, candidate_label,
     check_and_update_cookie,
 )
 from python.scripts.cli.input_utils import (
@@ -79,34 +80,37 @@ def initialize_env():
     retry_count = 0
     if HAS_BROWSER_COOKIE:
         while retry_count < max_retries:
-            result = get_browser_cookie()
-            if result:
-                cookie, browser_name, cookie_count = result
-                print(t("init_found_cookie", browser=browser_name, count=cookie_count))
-                # Verify cookie immediately
-                print(t("init_verifying"))
-                if check_cookie_expired(cookie):
-                    print(t("init_cookie_invalid"))
-                    print(t("cookie_auto_expired_hint"))
-                    retry = input_until_valid(t("init_retry_login"), allow_all)
-                    if retry != "n":
-                        retry_count += 1
-                        if retry_count >= max_retries:
-                            print(t("init_max_retries"))
-                            cookie = None
-                            break
-                        print(t("init_waiting_login"))
-                        input()  # Wait for user to press Enter after logging in
-                        continue
-                    else:
-                        cookie = None
-                else:
-                    print(t("init_cookie_valid"))
-                break
-            else:
+            candidates = list_browser_cookies()
+            if not candidates:
                 print(t("init_no_cookie"))
                 print(t("cookie_no_browser_hint"))
                 break
+            # Only prompts when candidates hold different accounts
+            picked = select_browser_cookie(candidates)
+            if not picked:
+                break  # user prefers to enter the cookie manually
+            cookie, cookie_count = picked[0], picked[2]
+            print(t("init_found_cookie", browser=candidate_label(picked), count=cookie_count))
+            # Verify cookie immediately
+            print(t("init_verifying"))
+            if check_cookie_expired(cookie):
+                print(t("init_cookie_invalid"))
+                print(t("cookie_auto_expired_hint"))
+                retry = input_until_valid(t("init_retry_login"), allow_all)
+                if retry != "n":
+                    retry_count += 1
+                    if retry_count >= max_retries:
+                        print(t("init_max_retries"))
+                        cookie = None
+                        break
+                    print(t("init_waiting_login"))
+                    input()  # Wait for user to press Enter after logging in
+                    continue
+                else:
+                    cookie = None
+            else:
+                print(t("init_cookie_valid"))
+            break
     else:
         print(t("init_browser_not_installed"))
         print(t("init_browser_install_hint"))
@@ -297,10 +301,10 @@ def configure():
             )
             if auto_detect != "n":
                 print(t("config_detecting"))
-                result = get_browser_cookie()
-                if result:
-                    cookie, browser_name, cookie_count = result
-                    print(t("init_found_cookie", browser=browser_name, count=cookie_count))
+                picked = select_browser_cookie(list_browser_cookies())
+                if picked:
+                    cookie = picked[0]
+                    print(t("init_found_cookie", browser=candidate_label(picked), count=picked[2]))
                 else:
                     print(t("config_no_browser_cookie"))
                 print(SEPARATE_LINE)

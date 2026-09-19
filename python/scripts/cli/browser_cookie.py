@@ -100,19 +100,43 @@ def _probe(browser_func, **kwargs) -> Optional[Tuple[str, int]]:
         return None
 
 
-def get_browser_cookie() -> Optional[Tuple[str, str, int]]:
-    """
-    Auto-detect LeetCode CN cookie from browser.
+def _collect_candidates(browser_name: str, browser_func, chromium_family: bool,
+                        platform: str) -> List[Tuple[str, str, int]]:
+    """Every candidate store of one browser: its default store, then each profile."""
+    candidates = []
+    found = _probe(browser_func)
+    if found:
+        candidates.append((found[0], browser_name, found[1]))
 
-    Tries Chrome / Edge / Firefox / Chromium in order. For Chromium-family
-    browsers it also sweeps every profile, since browser_cookie3 itself
-    only looks at the Default profile.
+    if not chromium_family:
+        return candidates
+    user_data = _CHROMIUM_USER_DATA[browser_name].get(platform)
+    if not user_data:
+        return candidates
+
+    for cookie_file in _profile_cookie_files(user_data):
+        found = _probe(browser_func, cookie_file=cookie_file)
+        if found:
+            profile = _profile_label(cookie_file)
+            label = browser_name if profile == 'Default' else f"{browser_name} ({profile})"
+            candidates.append((found[0], label, found[1]))
+
+    return candidates
+
+
+def list_browser_cookies() -> List[Tuple[str, str, int]]:
+    """
+    All LeetCode CN cookie candidates found on this machine.
+
+    Browsers are tried in order (Chrome, Edge, Firefox, Chromium); Chromium-family
+    browsers contribute one candidate per profile that holds leetcode.cn cookies.
+    Duplicate stores (the same session read twice) are collapsed.
 
     Returns:
-        Tuple of (cookie_string, browser_name, cookie_count) or None if not found
+        List of (cookie_string, browser_label, cookie_count), possibly empty
     """
     if not HAS_BROWSER_COOKIE:
-        return None
+        return []
 
     plan = [
         ('Chrome', browser_cookie3.chrome, True),
@@ -122,24 +146,28 @@ def get_browser_cookie() -> Optional[Tuple[str, str, int]]:
     ]
     platform = _platform_key()
 
+    candidates, seen = [], set()
     for browser_name, browser_func, chromium_family in plan:
-        found = _probe(browser_func)
-        if found:
-            return found[0], browser_name, found[1]
+        for candidate in _collect_candidates(browser_name, browser_func, chromium_family, platform):
+            if candidate[0] not in seen:
+                seen.add(candidate[0])
+                candidates.append(candidate)
+    return candidates
 
-        if not chromium_family:
-            continue
-        user_data = _CHROMIUM_USER_DATA[browser_name].get(platform)
-        if not user_data:
-            continue
-        for cookie_file in _profile_cookie_files(user_data):
-            found = _probe(browser_func, cookie_file=cookie_file)
-            if found:
-                profile = _profile_label(cookie_file)
-                label = browser_name if profile == 'Default' else f"{browser_name} ({profile})"
-                return found[0], label, found[1]
 
-    return None
+def get_browser_cookie() -> Optional[Tuple[str, str, int]]:
+    """
+    Auto-detect LeetCode CN cookie from browser.
+
+    Convenience wrapper around list_browser_cookies() for callers that do not
+    care which account the cookie belongs to; use list_browser_cookies() plus
+    select_browser_cookie() when the account matters.
+
+    Returns:
+        Tuple of (cookie_string, browser_name, cookie_count) or None if not found
+    """
+    candidates = list_browser_cookies()
+    return candidates[0] if candidates else None
 
 
 def read_cookie_from_file() -> Optional[str]:
