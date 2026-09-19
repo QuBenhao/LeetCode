@@ -43,7 +43,8 @@ def get_browser_cookie() -> Optional[Tuple[str, str, int]]:
             if cookies:
                 cookie_parts = [f"{c.name}={c.value}" for c in cookies]
                 return "; ".join(cookie_parts), browser_name, len(cookies)
-        except (PermissionError, FileNotFoundError, sqlite3.OperationalError) as e:
+        except (PermissionError, FileNotFoundError, sqlite3.OperationalError,
+                browser_cookie3.BrowserCookieError) as e:
             # Browser may not be installed, cookie database locked, or permission denied
             continue
 
