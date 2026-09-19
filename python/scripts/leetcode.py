@@ -23,6 +23,7 @@ import sys
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from typing import *
 
 from dotenv import load_dotenv, set_key
 
