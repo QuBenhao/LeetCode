@@ -7,5 +7,7 @@ class Solution(solution.Solution):
         return self.reverseDegree(test_input)
 
     def reverseDegree(self, s: str) -> int:
-        pass
-
+        ans = 0
+        for i, c in enumerate(s, start=1):
+            ans += i * (ord('z') - ord(c) + 1)
+        return ans
