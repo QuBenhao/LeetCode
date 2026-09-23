@@ -1,4 +1,4 @@
-# 100668. Smallest Index With Digit Sum Equal to Index 
+# 3550. Smallest Index With Digit Sum Equal to Index [Rating: 1200.19]
 
 <p>You are given an integer array <code>nums</code>.</p>
 
