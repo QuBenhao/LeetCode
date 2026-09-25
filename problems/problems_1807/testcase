@@ -1,0 +1,2 @@
+["\"(name)is(age)yearsold\"\n[[\"name\",\"bob\"],[\"age\",\"two\"]]", "\"hi(name)\"\n[[\"a\",\"b\"]]", "\"(a)(a)(a)aaa\"\n[[\"a\",\"yes\"]]"]
+["bobistwoyearsold", "hi?", "yesyesyesaaa"]
