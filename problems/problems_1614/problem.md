@@ -1,57 +1,45 @@
 # 1614. Maximum Nesting Depth of the Parentheses [Rating: 1322.83]
 
-A string is a **valid parentheses string** (denoted **VPS**) if it meets one of the following:
+<p>Given a <strong>valid parentheses string</strong> <code>s</code>, return the <strong>nesting depth</strong> of<em> </em><code>s</code>. The nesting depth is the <strong>maximum</strong> number of nested parentheses.</p>
 
-- It is an empty string `""`, or a single character not equal to `"("` or `")"`,
-- It can be written as `AB` (`A` concatenated with `B`), where `A` and `B` are **VPS**'s, or
-- It can be written as `(A)`, where `A` is a **VPS**.
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-We can similarly define the **nesting depth** `depth(S)` of any VPS `S` as follows:
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">s = &quot;(1+(2*3)+((8)/4))+1&quot;</span></p>
 
-- `depth("") = 0`
-- `depth(C) = 0`, where `C` is a string with a single character not equal to `"("` or `")"`.
-- `depth(A + B) = max(depth(A), depth(B))`, where `A` and `B` are **VPS**'s.
-- `depth("(" + A + ")") = 1 + depth(A)`, where `A` is a **VPS**.
+<p><strong>Output:</strong> <span class="example-io">3</span></p>
 
-For example, `""`, `"()()"`, and `"()(()())"` are **VPS**'s (with nesting depths 0, 1, and 2), and `")("` and `"(()"` are not **VPS**'s.
+<p><strong>Explanation:</strong></p>
 
-Given a **VPS** represented as string `s`, return *the **nesting depth** of* `s`.
+<p>Digit 8 is inside of 3 nested parentheses in the string.</p>
+</div>
 
- 
+<p><strong class="example">Example 2:</strong></p>
 
-**Example 1:**
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">s = &quot;(1)+((2))+(((3)))&quot;</span></p>
 
-```
-Input: s = "(1+(2*3)+((8)/4))+1"
-Output: 3
-Explanation: Digit 8 is inside of 3 nested parentheses in the string.
-```
+<p><strong>Output:</strong> <span class="example-io">3</span></p>
 
-**Example 2:**
+<p><strong>Explanation:</strong></p>
 
-```
-Input: s = "(1)+((2))+(((3)))"
-Output: 3
-```
+<p>Digit 3 is inside of 3 nested parentheses in the string.</p>
+</div>
 
-**Example 3:**
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: s = "1+(2*3)/(2-1)"
-Output: 1
-```
+<div class="example-block">
+<p><strong>Input:</strong> <span class="example-io">s = &quot;()(())((()()))&quot;</span></p>
 
-**Example 4:**
+<p><strong>Output:</strong> <span class="example-io">3</span></p>
+</div>
 
-```
-Input: s = "1"
-Output: 0
-```
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
- 
-
-**Constraints:**
-
-- `1 <= s.length <= 100`
-- `s` consists of digits `0-9` and characters `'+'`, `'-'`, `'*'`, `'/'`, `'('`, and `')'`.
-- It is guaranteed that parentheses expression `s` is a **VPS**.
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 100</code></li>
+	<li><code>s</code> consists of digits <code>0-9</code> and characters <code>&#39;+&#39;</code>, <code>&#39;-&#39;</code>, <code>&#39;*&#39;</code>, <code>&#39;/&#39;</code>, <code>&#39;(&#39;</code>, and <code>&#39;)&#39;</code>.</li>
+	<li>It is guaranteed that parentheses expression <code>s</code> is a VPS.</li>
+</ul>
