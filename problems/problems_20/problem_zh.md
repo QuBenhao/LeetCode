@@ -1,4 +1,4 @@
-# 20. 有效的括号
+# 20. 有效的括号 
 
 <p>给定一个只包括 <code>'('</code>，<code>')'</code>，<code>'{'</code>，<code>'}'</code>，<code>'['</code>，<code>']'</code>&nbsp;的字符串 <code>s</code> ，判断字符串是否有效。</p>
 
@@ -12,26 +12,45 @@
 
 <p>&nbsp;</p>
 
-<p><strong>示例 1：</strong></p>
+<p><strong class="example">示例 1：</strong></p>
 
-<pre>
-<strong>输入：</strong>s = "()"
-<strong>输出：</strong>true
-</pre>
+<div class="example-block">
+<p><span class="example-io"><b>输入：</b>s = "()"</span></p>
 
-<p><strong>示例&nbsp;2：</strong></p>
+<p><span class="example-io"><b>输出：</b>true</span></p>
+</div>
 
-<pre>
-<strong>输入：</strong>s = "()[]{}"
-<strong>输出：</strong>true
-</pre>
+<p><strong class="example">示例 2：</strong></p>
 
-<p><strong>示例&nbsp;3：</strong></p>
+<div class="example-block">
+<p><span class="example-io"><b>输入：</b>s = "()[]{}"</span></p>
 
-<pre>
-<strong>输入：</strong>s = "(]"
-<strong>输出：</strong>false
-</pre>
+<p><span class="example-io"><b>输出：</b>true</span></p>
+</div>
+
+<p><strong class="example">示例 3：</strong></p>
+
+<div class="example-block">
+<p><span class="example-io"><b>输入：</b>s = "(]"</span></p>
+
+<p><span class="example-io"><b>输出：</b>false</span></p>
+</div>
+
+<p><strong class="example">示例 4：</strong></p>
+
+<div class="example-block">
+<p><span class="example-io"><b>输入：</b>s = "([])"</span></p>
+
+<p><span class="example-io"><b>输出：</b>true</span></p>
+</div>
+
+<p><strong class="example">示例 5：</strong></p>
+
+<div class="example-block">
+<p><span class="example-io"><b>输入：</b>s = "([)]"</span></p>
+
+<p><span class="example-io"><b>输出：</b>false</span></p>
+</div>
 
 <p>&nbsp;</p>
 
