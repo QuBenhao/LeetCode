@@ -1,44 +1,42 @@
 # 856. Score of Parentheses [Rating: 1562.72]
 
-Given a balanced parentheses string `S`, compute the score of the string based on the following rule:
+<p>Given a balanced parentheses string <code>s</code>, return <em>the <strong>score</strong> of the string</em>.</p>
 
-- `()` has score 1
-- `AB` has score `A + B`, where A and B are balanced parentheses strings.
-- `(A)` has score `2 * A`, where A is a balanced parentheses string.
+<p>The <strong>score</strong> of a balanced parentheses string is based on the following rule:</p>
 
- 
+<ul>
+	<li><code>&quot;()&quot;</code> has score <code>1</code>.</li>
+	<li><code>AB</code> has score <code>A + B</code>, where <code>A</code> and <code>B</code> are balanced parentheses strings.</li>
+	<li><code>(A)</code> has score <code>2 * A</code>, where <code>A</code> is a balanced parentheses string.</li>
+</ul>
 
-**Example 1:**
+<p>&nbsp;</p>
+<p><strong class="example">Example 1:</strong></p>
 
-```
-Input: "()"
-Output: 1
-```
+<pre>
+<strong>Input:</strong> s = &quot;()&quot;
+<strong>Output:</strong> 1
+</pre>
 
-**Example 2:**
+<p><strong class="example">Example 2:</strong></p>
 
-```
-Input: "(())"
-Output: 2
-```
+<pre>
+<strong>Input:</strong> s = &quot;(())&quot;
+<strong>Output:</strong> 2
+</pre>
 
-**Example 3:**
+<p><strong class="example">Example 3:</strong></p>
 
-```
-Input: "()()"
-Output: 2
-```
+<pre>
+<strong>Input:</strong> s = &quot;()()&quot;
+<strong>Output:</strong> 2
+</pre>
 
-**Example 4:**
+<p>&nbsp;</p>
+<p><strong>Constraints:</strong></p>
 
-```
-Input: "(()(()))"
-Output: 6
-```
-
- 
-
-**Note:**
-
-1. `S` is a balanced parentheses string, containing only `(` and `)`.
-2. `2 <= S.length <= 50`
+<ul>
+	<li><code>2 &lt;= s.length &lt;= 50</code></li>
+	<li><code>s</code> consists of only <code>&#39;(&#39;</code> and <code>&#39;)&#39;</code>.</li>
+	<li><code>s</code> is a balanced parentheses string.</li>
+</ul>
