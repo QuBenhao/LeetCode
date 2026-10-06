@@ -28,3 +28,18 @@ Use short prefixes: `test:`, `fix:`, `feat:`. Keep scoped to one change.
 
 ## Security
 Do not commit `.env`, LeetCode cookies, PushDeer keys. Required env vars: `COOKIE`, `PROBLEM_FOLDER`, `LANGUAGES`, `LEETCODE_USER`, `PYTHONPATH=.`.
+
+Use `agent-preferences.json` for non-secret language and folder preferences.
+Never read `.env`, its copies, browser cookies, or credential stores for those
+values. Keep credentials out of agent instructions, terminal output, and test
+fixtures. Authenticated fetch/submission and cookie refresh belong in the
+owner's separate terminal, without sending credential output to an agent.
+
+Start Claude Code at the repository root so `.claude/settings.json` loads.
+It denies `.env` reads and edits, including nested copies, and requires shell
+sandboxing without unsandboxed retries. The settings are intended for current
+Claude Code on macOS or Linux/WSL2; unsupported sandbox environments fail closed.
+`claude doctor` checks configuration errors, and `/status` and `/sandbox` show
+the loaded configuration. Do not override these protections for a failing tool.
+Git ignores are not access controls, and these Claude settings do not configure
+other agents. Review their filesystem permissions separately.

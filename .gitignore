@@ -3,6 +3,7 @@
 .cache/
 __pycache__/
 .env
+.env.*
 python/dev/tmp*
 .run*/
 *.iml
@@ -57,8 +58,9 @@ Cargo.toml.full
 Cargo.toml.minimal
 rust/build/
 
-# claude code local files
-.claude/
+# Keep shared access controls; exclude local context and session settings.
+.claude/*
+!.claude/settings.json
 .workbuddy/
 CLAUDE.local.md
 

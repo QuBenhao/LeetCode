@@ -1,0 +1,5 @@
+{
+  "languages": ["python3", "golang", "cpp"],
+  "problem_folder": "problems",
+  "contest_folder": "contest"
+}

@@ -52,32 +52,32 @@ file(READ "${CMAKE_BINARY_DIR}/.env" ENV_CONTENT)
 string(REGEX MATCH "PROBLEM_FOLDER=\"([^\"]+)\"" _ ${ENV_CONTENT})
 set(PROBLEM_FOLDER "${CMAKE_MATCH_1}")
 
-# 读取每日问题JSON
+# Read the daily problem JSON
 set(DAILY_JSON "${CMAKE_SOURCE_DIR}/daily-${PROBLEM_FOLDER}.json")
 configure_file(${DAILY_JSON} "${CMAKE_BINARY_DIR}/daily-${PROBLEM_FOLDER}.json" COPYONLY)
 file(READ "${CMAKE_BINARY_DIR}/daily-${PROBLEM_FOLDER}.json" DAILY_JSON_CONTENT)
 
-# 解析JSON内容
-# 提取daily问题ID
+# Parse the JSON content
+# Extract the daily problem ID
 string(JSON DAILY_ID GET "${DAILY_JSON_CONTENT}" daily)
 
-# 提取plans数组
+# Extract the plans array
 string(JSON PLANS_LENGTH LENGTH "${DAILY_JSON_CONTENT}" plans)
 set(PLANS_LIST "")
 
-# 正确计算最大索引
+# Calculate the last valid index
 math(EXPR MAX_INDEX "${PLANS_LENGTH} - 1")
 
-# 使用正确的范围循环
+# Iterate over the valid index range
 foreach (INDEX RANGE 0 ${MAX_INDEX})
     string(JSON ELEMENT GET "${DAILY_JSON_CONTENT}" plans ${INDEX})
     list(APPEND PLANS_LIST "${ELEMENT}")
 endforeach ()
 
-# 创建测试目标列表
+# Create the test target list
 set(TEST_TARGETS)
 
-# 添加公共解决方案库
+# Add the shared solution library
 add_library(common_solution INTERFACE)
 target_include_directories(common_solution INTERFACE
         "${CMAKE_SOURCE_DIR}"
@@ -107,9 +107,9 @@ target_compile_definitions(models PUBLIC
         -DBUILD_CMAKE=1
 )
 
-# 1. 添加每日问题
+# 1. Add the daily problem
 if (DAILY_ID AND NOT "${DAILY_ID}" STREQUAL "")
-    # 清理ID中的特殊字符
+    # Normalize special characters in the ID
     string(REGEX REPLACE "[^a-zA-Z0-9]" "_" CLEAN_ID ${DAILY_ID})
     set(TARGET_NAME "daily")
 
@@ -117,27 +117,27 @@ if (DAILY_ID AND NOT "${DAILY_ID}" STREQUAL "")
     set(TESTCASE_FILE "${CMAKE_SOURCE_DIR}/${PROBLEM_FOLDER}/${PROBLEM_FOLDER}_${DAILY_ID}/testcase")
 
     if (EXISTS ${SOLUTION_SRC})
-        # 创建可执行文件
+        # Create the executable
         add_executable(${TARGET_NAME}
                 ${SOLUTION_SRC}
                 "${CMAKE_SOURCE_DIR}/cpp/TestMain.cpp"
         )
 
-        # 链接依赖项 - 添加GMock支持
+        # Link dependencies, including GMock
         target_link_libraries(${TARGET_NAME}
                 PRIVATE
                 common_solution
                 models
                 GTest::gtest_main
-                GTest::gmock  # 添加GMock支持
+                GTest::gmock  # Enable GMock support
         )
 
-        # 添加测试目标
+        # Add the test target
         add_test(NAME ${TARGET_NAME}
                 COMMAND ${TARGET_NAME} ${TESTCASE_FILE} --gtest_color=yes
         )
 
-        # 设置测试属性
+        # Set test properties
         set_tests_properties(${TARGET_NAME} PROPERTIES
                 LABELS "leetcode;daily"
                 TIMEOUT 3
@@ -149,25 +149,25 @@ if (DAILY_ID AND NOT "${DAILY_ID}" STREQUAL "")
     endif ()
 endif ()
 
-# 2. 添加计划问题
-set(SEEN_IDS "")  # 跟踪已处理的问题ID避免重复
+# 2. Add planned problems
+set(SEEN_IDS "")  # Track processed problem IDs to avoid duplicates
 set(INDEX 0)
 while (INDEX LESS PLANS_LENGTH)
-    # 获取问题ID
+    # Read the problem ID
     list(GET PLANS_LIST ${INDEX} QID)
     math(EXPR INDEX "${INDEX} + 1")
 
-    # 获取文件夹
+    # Read the folder
     list(GET PLANS_LIST ${INDEX} FOLDER)
     math(EXPR INDEX "${INDEX} + 1")
 
-    # 跳过已处理的问题ID
+    # Skip problem IDs already processed
     if (QID IN_LIST SEEN_IDS)
         continue()
     endif ()
     list(APPEND SEEN_IDS ${QID})
 
-    # 清理ID中的特殊字符
+    # Normalize special characters in the ID
     string(REGEX REPLACE "[^a-zA-Z0-9]" "_" CLEAN_ID ${QID})
     set(TARGET_NAME "plan_${FOLDER}_${CLEAN_ID}")
 
@@ -175,27 +175,27 @@ while (INDEX LESS PLANS_LENGTH)
     set(TESTCASE_FILE "${CMAKE_SOURCE_DIR}/${FOLDER}/${FOLDER}_${QID}/testcase")
 
     if (EXISTS ${SOLUTION_SRC})
-        # 创建可执行文件
+        # Create the executable
         add_executable(${TARGET_NAME}
                 ${SOLUTION_SRC}
                 "${CMAKE_SOURCE_DIR}/cpp/TestMain.cpp"
         )
 
-        # 链接依赖项 - 添加GMock支持
+        # Link dependencies, including GMock
         target_link_libraries(${TARGET_NAME}
                 PRIVATE
                 common_solution
                 models
                 GTest::gtest_main
-                GTest::gmock  # 添加GMock支持
+                GTest::gmock  # Enable GMock support
         )
 
-        # 添加测试目标
+        # Add the test target
         add_test(NAME ${TARGET_NAME}
                 COMMAND ${TARGET_NAME} ${TESTCASE_FILE} --gtest_color=yes
         )
 
-        # 设置测试属性
+        # Set test properties
         set_tests_properties(${TARGET_NAME} PROPERTIES
                 LABELS "leetcode;plan"
                 TIMEOUT 3
@@ -207,14 +207,14 @@ while (INDEX LESS PLANS_LENGTH)
     endif ()
 endwhile ()
 
-# 添加汇总目标
+# Add the aggregate target
 add_custom_target(run_all_tests
         COMMAND ctest --output-on-failure
         DEPENDS ${TEST_TARGETS}
         COMMENT "Running all LeetCode tests"
 )
 
-# 打印配置摘要
+# Print the configuration summary
 message(STATUS "Configured LeetCode project")
 message(STATUS "  Problem folder: ${PROBLEM_FOLDER}")
 message(STATUS "  Daily problem: ${DAILY_ID}")

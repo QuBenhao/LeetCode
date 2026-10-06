@@ -14,10 +14,15 @@ Example `CLAUDE.local.md`:
 ## Daily Problem Strategy
 
 - If `solution.py` exists → use Go (`solution.go`)
-- Otherwise → use primary language from `.env`
+- Otherwise → use the first language in `agent-preferences.json`
 ```
 
-Claude Code automatically reads `CLAUDE.local.md` if it exists.
+Claude Code automatically reads `CLAUDE.local.md` if it exists. Keep it free of
+credentials: Git exclusion does not prevent agent reads.
+
+Use `agent-preferences.json` for non-secret language and folder preferences.
+Never read `.env` or its copies to discover these values; they can contain login
+cookies. See the Security section in `AGENTS.md` for the enforced access boundary.
 
 ## Repository Overview
 
@@ -33,7 +38,7 @@ The main workflow is solving the daily LeetCode problem. In this mode:
 - Discuss algorithmic improvements, trade-offs between approaches
 - Share language-specific idioms and optimizations (e.g., Python's `bisect`, Go's `slices`, C++'s `std::lower_bound`)
 - Review solutions for correctness, efficiency, and code quality
-- **Primary language**: Read from `.env` file's `LANGUAGES` field (e.g., `LANGUAGES="python3"`, `LANGUAGES="go,java"`). First language is the primary one.
+- **Primary language**: Read `languages` in `agent-preferences.json`. The first entry is primary; an explicit user request takes precedence. This file is for agent preferences, not authentication or CLI environment loading.
 - **Use modern syntax**: Use the latest language features (Python 3.12+, Go 1.21+, C++23, etc.) when applicable
 - This mode typically runs at least once daily
 
@@ -63,7 +68,9 @@ When iterating on project infrastructure, build systems, or architecture:
 
 ### Environment Setup
 
-Create a `.env` file at repository root with:
+The owner configures `.env` in a separate terminal. Agents use
+`agent-preferences.json` and must not open or modify `.env`. Non-secret CLI
+settings include:
 ```env
 PYTHONPATH=.
 PROBLEM_FOLDER="problems"
@@ -86,7 +93,9 @@ PYTHONPATH=. python python/test.py
 PYTHONPATH=. python python/tests.py
 ```
 
-The JSON config file is `daily-{folder}.json` at repository root, where `{folder}` matches `PROBLEM_FOLDER` in `.env` (defaults to `problems` → `daily-problems.json`).
+The JSON config file is `daily-{folder}.json` at repository root. Agents use
+`problem_folder` in `agent-preferences.json` (normally `problems` →
+`daily-problems.json`); the owner keeps the CLI's `PROBLEM_FOLDER` consistent.
 
 Example config:
 ```json
@@ -107,6 +116,10 @@ Interactive menu with options: Get Problem, Submit, Change Test, Contest, Clean,
 ### Utility Scripts
 
 All scripts require `PYTHONPATH=.` and read config from `.env` / `daily-{folder}.json`.
+Scripts that need the private `.env`, including authenticated fetch, submission,
+and cookie updates, are owner-run operations outside the agent session. Do not
+disable the sandbox, expose a cookie in an argument, or copy `.env` elsewhere to
+make a blocked command work.
 
 | Script | Purpose | Key Args |
 |--------|---------|----------|
