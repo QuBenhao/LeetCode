@@ -13,9 +13,9 @@ class Solution(solution.Solution):
             if num:
                 pre += num
             elif pre * 2 == s:
-                # 往两边出发均可
+                # Either starting direction works
                 ans += 2
             elif abs(pre * 2 - s) == 1:
-                # 往多一个的方向出发
+                # Start toward the side whose total is larger by one
                 ans += 1
         return ans

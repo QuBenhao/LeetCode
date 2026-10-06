@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
 > Swap to the last available position if left pointer's value is the val to be removed.
 
-# 解题方法
+# Approach
 
 > If the left pointer's value should not be removed, keep moving it to the right. Otherwise, swap its value with the last available position and make the total length minus one. Keep doing so until the left pointer meets the right pointer.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

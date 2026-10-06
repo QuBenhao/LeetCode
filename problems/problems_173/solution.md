@@ -1,4 +1,4 @@
-# [Python] 栈
+# [Python] Stack
 
 > Author: Benhao
 > Date: 2021-03-27
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-每次只存储当前到其最左的左叶子节点到栈中，这样pop的顺序就是在子节点优于父节点。
-而pop以后，将被pop的节点的右节点（如果有）作为一个相当于小的树的根节点来压入栈中。
+### Approach
+At each step, push only the path from the current node to its leftmost leaf onto the stack, so nodes are popped before their parents.
+After popping a node, treat its right child, if any, as the root of a smaller tree and push its path onto the stack.
 
-### 代码
+### Code
 
 ```python
 # Definition for a binary tree node.

@@ -1,4 +1,4 @@
-# [Python/Go/C] 模拟
+# [Python/Go/C] Simulation
 
 > Author: Benhao
 > Date: 2024-02-24
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 持续更新可以走到的最远距离
+> Keep updating the farthest reachable distance.
 
-# 解题方法
+# Approach
 
-> 如果这个最远距离没到终点就是False，否则就是True
+> If the farthest distance falls short of the endpoint, return False; otherwise, return True.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

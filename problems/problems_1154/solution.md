@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-kfqb
 > date: 2021-12-20
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/day-of-the-year/solutions/AQJS8Z/pythonjavajavascriptgo-mo-ni-by-himymben-kfqb/
 
 ---
-### 解题思路
-考察了一下计算闰年的规则
+### Approach
+This tests the rules for calculating leap years.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:
@@ -64,7 +64,7 @@ func dayOfYear(date string) int {
 }
 ```
 
-记录一些不需要记的时间模块用法
+Some time-module usage notes that need not be memorized
 ```python3 []
 class Solution:
     def dayOfYear(self, date: str) -> int:

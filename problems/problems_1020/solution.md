@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 多源BFS or DFS
+# [Python/Java/JavaScript/Go] Multi-source BFS or DFS
 
 > slug: pythonjavajavascriptgo-duo-yuan-bfs-by-h-by6l
 > date: 2022-02-12
@@ -7,31 +7,31 @@
 > url: https://leetcode.cn/problems/number-of-enclaves/solutions/vMKqf2/pythonjavajavascriptgo-duo-yuan-bfs-by-h-by6l/
 
 ---
-### 解题思路
-从四条外边的陆地出发的BFS。默写一下多源BFS即可
+### Approach
+Run BFS from land cells on all four boundaries. This is a standard multi-source BFS.
 
-### 代码
-多源BFS
+### Code
+Multi-source BFS
 ```Python3 []
 class Solution:
     def numEnclaves(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
         queue = deque()
         for i in range(m):
-            # 第一列
+            # First column
             if grid[i][0]:
                 queue.append((i, 0))
                 grid[i][0] = 0
-            # 最后一列
+            # Last column
             if grid[i][n - 1]:
                 queue.append((i, n - 1))
                 grid[i][n - 1] = 0
         for j in range(n):
-            # 第一行
+            # First row
             if grid[0][j]:
                 queue.append((0, j))
                 grid[0][j] = 0
-            # 最后一行
+            # Last row
             if grid[m - 1][j]:
                 queue.append((m - 1, j))
                 grid[m - 1][j] = 0

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 记忆化递归 or 拓扑bfs
+# [Python/Java/JavaScript/Go] Memoized recursion or topological BFS
 
 > slug: pythonjavajavascriptgo-ji-yi-hua-di-gui-eod8m
 > date: 2021-12-14
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/loud-and-rich/solutions/7JaxWq/pythonjavajavascriptgo-ji-yi-hua-di-gui-eod8m/
 
 ---
-### 解题思路
-根据大小关系建图，每个人可以连接所有比自己有钱的人，这样搜每个人就可以搜索出所有比他有钱的人，然后返回在这些人里最安静的那个人作为这个人的答案。
-记忆化可以避免重复搜索同样的人，实现 优化。
+### Approach
+Build a graph from the wealth comparisons, connecting each person to people richer than them. Searching from a person finds everyone richer than them; return the quietest of these people as that person's answer.
+Memoization avoids searching the same person repeatedly and improves efficiency.
 
-### 代码
+### Code
 
 ```Python3
 class Solution:
@@ -144,7 +144,7 @@ func loudAndRich(richer [][]int, quiet []int) []int {
     return ans
 }
 ```
-这题可以从最有钱的人开始，也就是入度为0的点进行拓扑排序，这样每次遍历过的人都是比当前有钱的，我们只需要比较当前和之前的答案即可知道当前的答案了。
+We can also topologically sort from the richest people, the nodes with indegree 0. Each predecessor processed is richer than the current person, so comparing their answers with the current person's answer gives the result.
 ```Python3 []
 class Solution:
     def loudAndRich(self, richer: List[List[int]], quiet: List[int]) -> List[int]:

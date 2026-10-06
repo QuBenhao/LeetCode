@@ -13,7 +13,7 @@ import {IntArrayToLinkedList,ListNode} from "../../typescript/models/listnode";
  */
 
 function nodesBetweenCriticalPoints(head: ListNode | null): number[] {
-    // 最小距离来自相邻临界点，最大距离来自首尾临界点
+    // The minimum distance is between adjacent critical points; the maximum is between the first and last
     let first = 0, prev = 0, mn = Number.MAX_SAFE_INTEGER;
     let a = head!, b = head!.next!, c = head!.next!.next;
     for (let i = 2; c; ++i) {

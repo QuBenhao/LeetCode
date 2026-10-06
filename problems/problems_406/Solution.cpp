@@ -8,21 +8,21 @@ template <typename T> class FenwickTree {
   vector<T> tree;
 
 public:
-  // 使用下标 1 到 n
+  // Use indices 1 through n
   explicit FenwickTree(int n) : tree(n + 1) {}
 
-  // a[i] 增加 val
+  // Increase a[i] by val
   // 1 <= i <= n
-  // 时间复杂度 O(log n)
+  // Time complexity O(log n)
   void update(int i, T val) {
     for (; i < tree.size(); i += i & -i) {
       tree[i] += val;
     }
   }
 
-  // 求前缀和 a[1] + ... + a[i]
+  // Compute the prefix sum a[1] + ... + a[i]
   // 1 <= i <= n
-  // 时间复杂度 O(log n)
+  // Time complexity O(log n)
   T pre(int i) const {
     T res = 0;
     for (; i > 0; i &= i - 1) {
@@ -31,9 +31,9 @@ public:
     return res;
   }
 
-  // 求区间和 a[l] + ... + a[r]
+  // Compute the range sum a[l] + ... + a[r]
   // 1 <= l <= r <= n
-  // 时间复杂度 O(log n)
+  // Time complexity O(log n)
   T query(int l, int r) const {
     if (r < l) {
       return 0;

@@ -1,4 +1,4 @@
-# [Python] 双指针滑动
+# [Python] Sliding with two pointers
 
 > Author: Benhao
 > Date: 2021-12-21
@@ -7,7 +7,7 @@
 
 ---
 
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Go/C++/Java] 排序贪心
+# [Python/Go/C++/Java] Sorting and a greedy approach
 
 > Author: Benhao
 > Date: 2024-04-09
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 按右端点从小到大排序，尽量往右端射箭，如果当前在区间内，不用再为当前区间射箭
+> Sort by right endpoint in ascending order and shoot as far right as possible. If the current shot falls within an interval, no additional shot is needed for it.
 
-# 解题方法
+# Approach
 
-> 贪心统计至少需要的箭
+> Greedily count the minimum required arrows
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n * log_n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

@@ -12,19 +12,19 @@ class Solution(solution.Solution):
             return d == 1 or d == 25
 
         """
-        消除相邻的字符后, 原来两侧的变成相邻。类似回文串
+        After adjacent characters are removed, the characters on either side become adjacent. This is similar to a palindrome.
         """
 
         n = len(s)
         can_be_empty = [[False] * n for _ in range(n)]
         for i in range(n - 2, -1, -1):
-            can_be_empty[i + 1][i] = True  # 空串
+            can_be_empty[i + 1][i] = True  # Empty string
             for j in range(i + 1, n):
-                # 性质 2: 相邻字符消除后，原本不相邻的字符会变成相邻，可以继续消除。[类似回文串]
+                # Property 2: removing adjacent characters makes previously separated characters adjacent, allowing further removals. [Similar to a palindrome]
                 if is_consecutive(s[i], s[j]) and can_be_empty[i + 1][j - 1]:
                     can_be_empty[i][j] = True
                     continue
-                # 性质 3: 设子串 A=B+C，如果子串 B 和 C 可以完全消除，那么子串 A 可以完全消除。
+                # Property 3: for substring A=B+C, if both B and C can be completely removed, then A can also be completely removed.
                 for k in range(i + 1, j - 1):
                     if can_be_empty[i][k] and can_be_empty[k + 1][j]:
                         can_be_empty[i][j] = True

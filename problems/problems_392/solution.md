@@ -1,4 +1,4 @@
-# [Python/Go] 双指针
+# [Python/Go] Two pointers
 
 > slug: pythongo-shuang-zhi-zhen-by-himymben-7gus
 > date: 2022-02-24
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/is-subsequence/solutions/Y5swky/pythongo-shuang-zhi-zhen-by-himymben-7gus/
 
 ---
-### 解题思路
-记录s中的被匹配到的位置，看看最后能否覆盖整个字符串。
+### Approach
+Track how much of s has been matched and check whether the entire string is covered.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

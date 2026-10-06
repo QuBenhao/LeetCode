@@ -1,4 +1,4 @@
-# [Python3] 统计自己减自己的转置即可
+# [Python3] Count each number minus its digit reversal
 
 > Author: Benhao
 > Date: 2021-04-03
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
+### Approach
 nums[i] - rev(nums[i]) = nums[j] - rev(nums[j])
-所以只要统计每个数减去自己的转置的个数，用n个里面取2个的公式计算结果即可
+Count occurrences of each number minus its reversal, then use the formula for choosing two from n.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

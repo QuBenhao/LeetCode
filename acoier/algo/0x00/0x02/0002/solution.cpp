@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/14.
-// 例题: 递归实现组合型枚举 acwing93
+// Example: 递归实现组合型枚举 acwing93
 //
 
 #include <bits/stdc++.h>
@@ -16,15 +16,15 @@ void dfs(const int cur, int remain, vector<int>& path) {
         cout << endl;
         return;
     }
-    // 可选
+    // The current element can be selected
     path.push_back(cur);
     dfs(cur + 1, remain - 1, path);
     path.pop_back();
     if (n - cur + 1 == remain) {
-        // 不可不选
+        // The current element cannot be skipped
         return;
     }
-    // 可以不选
+    // The current element can be skipped
     dfs(cur + 1, remain, path);
 }
 

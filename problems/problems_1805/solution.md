@@ -1,4 +1,4 @@
-# [Python] 集合统计整数
+# [Python] Count distinct integers with a set
 
 > Author: Benhao
 > Date: 2021-03-28
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-此处撰写解题思路
+### Approach
+Write the solution approach here
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

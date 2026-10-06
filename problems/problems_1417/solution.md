@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-by-himymben-nrem
 > date: 2022-08-10
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/reformat-the-string/solutions/IryBBA/pythonjavatypescriptgo-by-himymben-nrem/
 
 ---
-### 解题思路
-先将原字符串分为字母和数字统计，然后根据题目要求返回答案
+### Approach
+Separate the original string into letters and digits, count them, and construct the answer as required.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -21,7 +21,7 @@ class Solution:
                 digits.append(c)
             else:
                 alphas.append(c)
-            # 以下几种判断方式都可以
+            # Any of the following checks works
             #if 2 * max(len(digits), len(alphas)) > n + 1:
             #if min(len(alphas), len(digits)) + n - i < max(len(alphas), len(digits)):
             if abs(len(digits) - len(alphas)) + i > n:

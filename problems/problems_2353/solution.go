@@ -33,7 +33,7 @@ func Constructor(foods []string, cuisines []string, ratings []int) FoodRatings {
 
 func (fr *FoodRatings) ChangeRating(food string, newRating int) {
 	p := fr.foodMap[food]
-	// 直接添加新数据，后面查询时再删除旧的
+	// Add the new data directly and remove stale entries during later queries
 	heap.Push(fr.cuisineMap[p.s], pair{newRating, food})
 	p.rating = newRating
 	fr.foodMap[food] = p
@@ -41,7 +41,7 @@ func (fr *FoodRatings) ChangeRating(food string, newRating int) {
 
 func (fr *FoodRatings) HighestRated(cuisine string) string {
 	h := fr.cuisineMap[cuisine]
-	// 懒删除
+	// Lazy deletion
 	for h.Len() > 0 && (*h)[0].rating != fr.foodMap[(*h)[0].s].rating {
 		heap.Pop(h)
 	}

@@ -1,4 +1,4 @@
-# 模拟
+# Simulation
 
 > slug: mo-ni-by-himymben-rasj
 > date: 2025-06-23
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-all-k-distant-indices-in-an-array/solutions/0MQhpg/mo-ni-by-himymben-rasj/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

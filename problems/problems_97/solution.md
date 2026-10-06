@@ -1,4 +1,4 @@
-# [Python] 记忆化搜索
+# [Python] Memoized search
 
 > Author: Benhao
 > Date: 2024-03-22
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 一开始以为将两个序列按序排就好，双指针往后走完。后面一想不对，s1和s2可以是一样的字符，但后面跟的不一样的字符，每次选谁是对后面有影响的。所以采用记忆化搜索，在做出选择后根据后面的结果判断当前的选择是否正确
+> At first, it seemed enough to merge the two sequences in order by advancing two pointers to the end. But s1 and s2 can have the same current character followed by different characters, so the choice affects later steps. Use memoized search: after making a choice, use the result of the remaining search to determine whether it was valid.
 
-# 解题方法
+# Approach
 
-> 记忆化搜索
+> Memoized search
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(m + n)$
 
-空间复杂度:
+Space complexity:
 > $O(m + n)$
 
 

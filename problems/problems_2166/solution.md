@@ -1,4 +1,4 @@
-# [Python] 二进制模拟
+# [Python] Binary simulation
 
 > slug: python-er-jin-zhi-mo-ni-by-himymben-gw1a
 > date: 2022-02-06
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/design-bitset/solutions/tdDjNH/python-er-jin-zhi-mo-ni-by-himymben-gw1a/
 
 ---
-### 解题思路
-用二进制模拟题目的操作
+### Approach
+Use binary representations to simulate the operations.
 
-### 代码
+### Code
 
 ```python3
 class Bitset:

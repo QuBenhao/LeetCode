@@ -13,15 +13,15 @@ class Solution(solution.Solution):
             row, row2 = a[i], a[-1 - i]
             for j in range(n // 2):
                 cnt1 = row[j] + row[-1 - j] + row2[j] + row2[-1 - j]
-                ans += min(cnt1, 4 - cnt1)  # 全为 1 或全为 0
+                ans += min(cnt1, 4 - cnt1)  # All ones or all zeros
 
         if m % 2 and n % 2:
-            # 正中间的数必须是 0
+            # The central element must be 0
             ans += a[m // 2][n // 2]
 
         diff = cnt1 = 0
         if m % 2:
-            # 统计正中间这一排
+            # Count the middle row
             row = a[m // 2]
             for j in range(n // 2):
                 if row[j] != row[-1 - j]:
@@ -29,7 +29,7 @@ class Solution(solution.Solution):
                 else:
                     cnt1 += row[j] * 2
         if n % 2:
-            # 统计正中间这一列
+            # Count the middle column
             for i in range(m // 2):
                 if a[i][n // 2] != a[-1 - i][n // 2]:
                     diff += 1

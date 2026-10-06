@@ -11,7 +11,7 @@ class Solution(solution.Solution):
         @cache
         def dfs(s: int, i: int) -> int:
             if s == 0:
-                return 1  # 找到一个特别排列
+                return 1  # Found a special permutation
             res = 0
             pre = nums[i]
             for j, x in enumerate(nums):

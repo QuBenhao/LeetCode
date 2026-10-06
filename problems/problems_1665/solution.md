@@ -1,4 +1,4 @@
-# [Python] 二分查找 or 贪心
+# [Python] Binary search or greedy
 
 > Author: Benhao
 > Date: 2021-05-28
@@ -7,23 +7,23 @@
 
 ---
 
-### 解题思路
-首先所有tasks里面的`cost`都是要被减掉的，那么答案至少是这些`cost`的和。
-要使得总和尽可能地小，那么最终`minimum`和`cost`的差距要尽可能地小，所以想到根据两者之差排序。
-然后发现好像不用二分查找，直接贪心就可以了。
+### Approach
+Every task's `cost` must be spent, so the answer is at least the sum of all `cost` values.
+To minimize the total, the final gap between `minimum` and `cost` should be as small as possible, suggesting sorting by their difference.
+It turns out binary search is unnecessary; a greedy approach works directly.
 
-**贪心的证明:**
-先紧着差距小的来。这样res的更新总是当前所需的最小值。
-dp[i]代表取到i位置时需要的最小值。
-显然dp[i+1]最少也是要dp[i]+actual的，而i+1又对当前位置至少要取到有限制，
-故: 
+**Greedy proof:**
+Process smaller gaps first. Each update to res then gives the minimum currently required.
+dp[i] represents the minimum needed through position i.
+dp[i+1] must be at least dp[i]+actual, while task i+1 also imposes its own minimum requirement.
+Thus:
 ```Python3
 dp[i+1] = max(dp[i] + actual, minimum)
 ```
 
-详细贪心的证明见[这里](https://leetcode.cn/problems/minimum-initial-energy-to-finish-tasks/solution/wan-cheng-suo-you-ren-wu-de-zui-shao-chu-shi-neng-/)，写的很好。
+See [this explanation](https://leetcode.cn/problems/minimum-initial-energy-to-finish-tasks/solution/wan-cheng-suo-you-ren-wu-de-zui-shao-chu-shi-neng-/) for a detailed, well-written greedy proof.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

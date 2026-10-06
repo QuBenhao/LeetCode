@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 递归
+# [Python/Java/TypeScript/Go] Recursion
 
 > Author: Benhao
 > Date: 2022-08-07
@@ -7,28 +7,28 @@
 
 ---
 
-### 解题思路
-参考了[大佬的题解](https://leetcode.cn/problems/special-binary-string/solution/zhuan-huan-wei-gua-hao-zi-fu-chuan-jiu-hen-rong-yi/)，
-将1看成左括号，0看成右括号，实际上是一道有效的括号问题。
-最终要让前面左括号尽可能多。
+### Approach
+Inspired by [this excellent solution](https://leetcode.cn/problems/special-binary-string/solution/zhuan-huan-wei-gua-hao-zi-fu-chuan-jiu-hen-rong-yi/),
+Treat 1 as an opening parenthesis and 0 as a closing parenthesis; this is essentially a valid-parentheses problem.
+The goal is to place as many opening parentheses as possible at the front.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def makeLargestSpecial(self, s: str) -> str:
-        # cur: 前缀和统计, last: 上一个特殊序列的结尾
+        # cur: prefix sum; last: the end of the previous special sequence
         cur = last = 0
-        # 所有可选的子特殊序列
+        # All available special subsequences
         candidates = []
         for i, c in enumerate(s):
             cur += 1 if c == '1' else -1
-            # 出现特殊序列, 一定是以1开头以0结尾
+            # A special sequence must start with 1 and end with 0
             if not cur:
-                # 先将当前特殊序列排成最大, 首尾最终仍是1和0不可动，所以递归去掉头尾
+                # Maximize the current special sequence first; its fixed endpoints remain 1 and 0, so recurse on the interior
                 candidates.append('1' + self.makeLargestSpecial(s[last + 1:i]) + '0')
                 last = i + 1
-        # 所有特殊子序列可以无限次交换，因此从大到小依次排列拼接即可
+        # Special subsequences can be swapped any number of times, so sort them in descending order and concatenate
         return "".join(sorted(candidates, reverse=True))
 ```
 ```Java []

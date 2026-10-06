@@ -1,4 +1,4 @@
-# [Python] 辅助栈
+# [Python] Auxiliary stack
 
 > Author: Benhao
 > Date: 2024-03-16
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 用辅助栈记录当前元素进栈时的最小元素是什么，方便之后取
+> Use an auxiliary stack to record the minimum when each element is pushed, making it easy to retrieve later.
 
-# 解题方法
+# Approach
 
-> 辅助栈
+> Auxiliary stack
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(1)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

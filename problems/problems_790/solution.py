@@ -8,7 +8,7 @@ class Solution(solution.Solution):
 
     def numTilings(self, n: int) -> int:
         mod = 10**9 + 7
-        # dp[i][j], i代表第i列, j代表第i列的状态 0: 空 1: 上面填了 2: 下面填了 3: 上下都填了
+        # dp[i][j]: i is the column; j is its state: 0: empty, 1: top filled, 2: bottom filled, 3: both filled
         dp = [[0] * 4 for _ in range(2)]
         dp[1][0] = dp[1][3] = 1
         for i in range(2, n + 1):

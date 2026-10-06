@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > slug: python-mo-ni-by-himymben-4ocn
 > date: 2022-03-06
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/append-k-integers-with-minimal-sum/solutions/Aguts3/python-mo-ni-by-himymben-4ocn/
 
 ---
-### 解题思路
-排序后，从小到大见缝插针，直接使用等差数列求和公式计算。
+### Approach
+After sorting, fill gaps from smallest to largest and compute each sum directly with the arithmetic-series formula.
 
-更简洁的解法为统计所有的和并增加k的个数，最后用一次等差数列求和计算减去和
+A shorter solution accumulates the sum of encountered values while increasing k, then applies the arithmetic-series formula once and subtracts that accumulated sum.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

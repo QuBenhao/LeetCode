@@ -1,4 +1,4 @@
-# [Python] 标准的二分查找
+# [Python] Standard binary search
 
 > Author: Benhao
 > Date: 2021-06-13
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-代码即思路
+### Approach
+The code explains the approach.
 
-### 代码
+### Code
 
 ```python3
 # The isBadVersion API is already defined for you.

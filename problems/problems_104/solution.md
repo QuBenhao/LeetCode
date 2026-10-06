@@ -1,4 +1,4 @@
-# [Python] 递归
+# [Python] Recursion
 
 > Author: Benhao
 > Date: 2024-03-01
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 树的递归即可
+> Recurse through the tree.
 
-# 解题方法
+# Approach
 
-> 左子树深度和右子树深度更大的一个加上自身深度
+> Take the greater of the left and right subtree depths, then add the depth contributed by the current node.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

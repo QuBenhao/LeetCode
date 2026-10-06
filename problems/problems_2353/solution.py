@@ -20,15 +20,15 @@ class FoodRatings:
         self.cuisine_map = defaultdict(SortedList)  # sortedcontainers
         for food, cuisine, rating in zip(foods, cuisines, ratings):
             self.food_map[food] = [rating, cuisine]
-            # 取负号，保证 rating 相同时，字典序更小的 food 排在前面
+            # Negate the rating so equal ratings put the lexicographically smaller food first
             self.cuisine_map[cuisine].add((-rating, food))
 
     def changeRating(self, food: str, newRating: int) -> None:
         rating, cuisine = self.food_map[food]
         sl = self.cuisine_map[cuisine]
-        sl.discard((-rating, food))  # 移除旧数据
-        sl.add((-newRating, food))  # 添加新数据
-        self.food_map[food][0] = newRating  # 更新 food 的 rating
+        sl.discard((-rating, food))  # Remove the old data
+        sl.add((-newRating, food))  # Add the new data
+        self.food_map[food][0] = newRating  # Update food's rating
 
     def highestRated(self, cuisine: str) -> str:
         return self.cuisine_map[cuisine][0][1]

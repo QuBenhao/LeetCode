@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 拓扑 + BFS
+# [Python/Java/JavaScript/Go] Topological sort + BFS
 
 > slug: pythonjavajavascriptgo-by-himymben-akh6
 > date: 2022-04-05
@@ -7,29 +7,29 @@
 > url: https://leetcode.cn/problems/minimum-height-trees/solutions/I1r5I6/pythonjavajavascriptgo-by-himymben-akh6/
 
 ---
-### 解题思路
-1. 入度为1的意义
-入度为1的点基本不会作为最终答案【除了只有两个点的情况】，
-因为与它相连的点（入度为1所以只有这一个点）到其他点的距离，永远比它到这些点的距离小1，以相连点为根会比入度为1的点为根最小高度更小（小于等于）。
-我们刨去所有入度为1的点以后，整个图有了一个新的入度，又同样有了新的一些入度为1的点，重复上面的讨论。
+### Approach
+1. The meaning of degree 1
+A node of degree 1 generally cannot be an answer, except when there are only two nodes.
+Its sole neighbor is always one step closer to every other node. Rooting the tree at that neighbor therefore gives a smaller (or equal) minimum height than rooting it at the degree-1 node.
+After removing all degree-1 nodes, the graph has updated degrees and new degree-1 nodes. Repeat the same reasoning.
 
-2. 为什么答案的点最多有两个
-反证法：
-假设有三个点a、b、c作为根有最小生成树，最小高度树为h。
-存在点d到a的距离为h，那么b、c只能在d到a的路径上，否则d到b或c的距离会大于h，那么d到b、c的点是不足h的，
-所以必须同样存在点e到b的距离为h，a、c只能在e到b的路径上。
-于是我们有了这样一个概念:
+2. Why there can be at most two answer nodes
+Proof by contradiction:
+Suppose three roots a, b, and c produce minimum-height trees of height h.
+There is a node d at distance h from a. Both b and c must lie on the path from d to a; otherwise, their distance from d would exceed h. Their distances from d are therefore less than h.
+Likewise, there must be a node e at distance h from b, with a and c lying on the path from e to b.
+This gives the following configuration:
 a --- b --- d
 b --- a --- e
-很明显只有这样构造:
-e --- a --- b --- d才能满足a在be的路径上，b在ad的路径上。
-那么此时c要在ad的路径上，又要在be的路径上，于是:
+Clearly, the only possible arrangement is:
+e --- a --- b --- d, so that a lies on the path be and b lies on the path ad.
+Now c must lie on both the path ad and the path be. Therefore:
 e --- a - c - b ---- d
-我们发现什么，c到d的距离不足h，到e的距离也不足h。
-还需要一个到c距离为h的点，这个点还要满足a、b到它的距离不大于h。
-无论这个点在哪里，都不能保证这个距离。
+The distance from c to d is less than h, and so is the distance from c to e.
+We still need a node at distance h from c whose distances to both a and b are at most h.
+No location for that node can satisfy these distance requirements.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

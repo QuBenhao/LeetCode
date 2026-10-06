@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 模拟
+# [Python/Java/JavaScript] Simulation
 
 > slug: pythonjavajavascript-mo-ni-by-himymben-rfow
 > date: 2021-10-03
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/license-key-formatting/solutions/EXYKB2/pythonjavajavascript-mo-ni-by-himymben-rfow/
 
 ---
-### 解题思路
-我们可以将s的所有'-'去掉，然后从后往前k个k个取，最后再反向；
-也可以根据去掉后的数量求出每组数的长度，然后正序构造。
+### Approach
+Remove all '-' characters from s, take groups of k from the end, and reverse the result.
+Alternatively, use the remaining length to determine each group's size and construct the result in forward order.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

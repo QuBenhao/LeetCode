@@ -1,4 +1,4 @@
-# [Python] 找前后相同的位置
+# [Python] Find matching characters on both sides
 
 > Author: Benhao
 > Date: 2021-07-11
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-我们找到前后两个'a'，中间的字符就可以构成一个答案。
-故记录上一个'a'的index，记录中间的元素数。
-单独统计'a'的个数，如果超过2个，答案数+1。
+### Approach
+Between two occurrences of 'a', each distinct middle character can form an answer.
+Record the previous index of 'a' and count intervening characters.
+Count 'a' separately; if it occurs more than twice, add 1 to the answer.
 
-以上'a'为任意字符
+Here, 'a' represents any character.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

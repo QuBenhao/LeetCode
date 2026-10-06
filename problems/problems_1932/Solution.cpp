@@ -21,9 +21,9 @@ using json = nlohmann::json;
 class Solution {
 public:
     TreeNode* canMerge(vector<TreeNode*>& trees) {
-        // 存储所有叶节点值的哈希集合
+        // Hash set of all leaf values
         unordered_set<int> leaves;
-        // 存储 (根节点值, 树) 键值对的哈希映射
+        // Hash map from root values to trees
         unordered_map<int, TreeNode*> candidates;
         for (TreeNode* tree: trees) {
             if (tree->left) {
@@ -35,43 +35,43 @@ public:
             candidates[tree->val] = tree;
         }
 
-        // 存储中序遍历上一个遍历到的值，便于检查严格单调性
+        // Previous inorder value, used to check strict increase
         int prev = 0;
 
-        // 中序遍历，返回值表示是否有严格单调性
+        // Inorder traversal; return whether values are strictly increasing
         function<bool(TreeNode*)> dfs = [&](TreeNode* tree) {
             if (!tree) {
                 return true;
             }
 
-            // 如果遍历到叶节点，并且存在可以合并的树，那么就进行合并
+            // Merge when a leaf has a matching tree available
             if (!tree->left && !tree->right && candidates.count(tree->val)) {
                 tree->left = candidates[tree->val]->left;
                 tree->right = candidates[tree->val]->right;
-                // 合并完成后，将树从哈希映射中移除，以便于在遍历结束后判断是否所有树都被遍历过
+                // Remove the merged tree from the map so we can later check that every tree was visited
                 candidates.erase(tree->val);
             }
 
-            // 先遍历左子树
+            // Traverse the left subtree first
             if (!dfs(tree->left)) {
                 return false;
             }
-            // 再遍历当前节点
+            // Then visit the current node
             if (tree->val <= prev) {
                 return false;
             };
             prev = tree->val;
-            // 最后遍历右子树
+            // Finally traverse the right subtree
             return dfs(tree->right);
         };
 
         for (TreeNode* tree: trees) {
-            // 寻找合并完成后的树的根节点
+            // Find the root of the merged tree
             if (!leaves.count(tree->val)) {
-                // 将其从哈希映射中移除
+                // Remove it from the hash map
                 candidates.erase(tree->val);
-                // 从根节点开始进行遍历
-                // 如果中序遍历有严格单调性，并且所有树的根节点都被遍历到，说明可以构造二叉搜索树
+                // Traverse from the root
+                // A strictly increasing inorder traversal that visits every tree root forms a valid BST
                 return (dfs(tree) && candidates.empty()) ? tree : nullptr;
             }
         }

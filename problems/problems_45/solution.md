@@ -1,4 +1,4 @@
-# [Python/Go/C] 动态更新最远距离
+# [Python/Go/C] Dynamically update the farthest distance
 
 > Author: Benhao
 > Date: 2024-02-25
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 既然题目保证可以到达终点，只是统计最小的跳跃次数，其实就是55跳跃游戏的最少更新次数。怎样减少更新次数呢？每次更新最远距离后，在下一个区间内找下一个最远距离，算一次更新即可。
+> Since the problem guarantees the endpoint is reachable and asks only for the minimum number of jumps, this is the minimum number of updates in problem 55, Jump Game. To reduce updates, after finding the farthest reachable distance, find the next farthest distance within the next interval and count that as one update.
 
-# 解题方法
+# Approach
 
-> 遍历更新最远距离，统计最小更新次数
+> Traverse and update the farthest distance, counting the minimum number of updates.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

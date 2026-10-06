@@ -12,9 +12,9 @@ class Solution(solution.Solution):
     def checkOverlap(self, radius: int, xCenter: int, yCenter: int, x1: int, y1: int, x2: int, y2: int) -> bool:
         def foot_on_line(p, a, b):
             """
-            求点 p 到直线 AB 的垂足。
-            返回: (垂足坐标, t)
-            t 在 [0,1] 内表示垂足在线段 AB 上。
+            Find the perpendicular projection of point p onto line AB.
+            Return: (projection coordinates, t)
+            If t is in [0,1], the projection lies on segment AB.
             """
             ax, ay = a
             bx, by = b
@@ -25,7 +25,7 @@ class Solution(solution.Solution):
 
             ab2 = abx * abx + aby * aby
 
-            # A、B 重合，无法确定直线
+            # A and B coincide, so they do not define a line
             if ab2 == 0:
                 return a, 0.0
 
@@ -36,10 +36,10 @@ class Solution(solution.Solution):
 
         def foot_on_segment(p, a, b):
             """
-            求点 p 到线段 AB 的最近点。
-            如果垂足在线段内，就是垂足；
-            如果垂足在线段外，则返回端点 A 或 B。
-            返回: (最近点坐标, 距离, t)
+            Find the closest point on segment AB to point p.
+            If the perpendicular projection lies on the segment, use it;
+            otherwise, return endpoint A or B.
+            Return: (closest point coordinates, distance, t)
             """
             foot, t = foot_on_line(p, a, b)
 

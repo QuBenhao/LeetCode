@@ -17,7 +17,7 @@ import qubhjava.models.ListNode;
 
 public class Solution extends BaseSolution {
     public int[] nodesBetweenCriticalPoints(ListNode head) {
-        // 最小距离来自相邻临界点，最大距离来自首尾临界点
+        // The minimum distance is between adjacent critical points; the maximum is between the first and last
         int first = 0, prev = 0, mn = Integer.MAX_VALUE;
         ListNode a = head, b = head.next, c = head.next.next;
         for (int i = 2; c != null; ++i) {

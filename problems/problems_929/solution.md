@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-mo-ni-by-himymben-clem
 > date: 2022-06-04
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/unique-email-addresses/solutions/vBHiCA/pythonjavatypescriptgo-mo-ni-by-himymben-clem/
 
 ---
-### 解题思路
-将简化后的地址加入哈希表中统计即可
+### Approach
+Add the normalized addresses to a hash table and count them
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

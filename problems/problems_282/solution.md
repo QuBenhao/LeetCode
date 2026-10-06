@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] dfs回溯
+# [Python/Java/JavaScript] DFS backtracking
 
 > Author: Benhao
 > Date: 2021-10-16
@@ -7,16 +7,16 @@
 
 ---
 
-### 解题思路
-抱歉家人们，今天在公司加班儿，调代码状态不太好。一开始以为每个数字间都要加加减乘除，写了半天...
+### Approach
+Sorry, everyone; I worked overtime today and was not in a good state for debugging. At first I thought every pair of digits needed an addition, subtraction, multiplication, or division sign, and spent ages on that...
 
 `+ - * ""`
-每个字符与字符实际上有四种连接方式，加减乘和拼接(就是*10再加当前数，特殊情况是不能以0作为开头拼接)。
-我们在每个位置遍历尝试不同的连接方式，并记录 上一次运算等待被加入结果、当前数字、当前累计的值和当前路径，
-在全部连接结束后，统计累计值和目标值是否相同，如果相同就将路径计入答案。
-始终进行回溯去尝试其他方案，在同一个路径数组中拼接，不需要复制额外空间。
+There are actually four ways to connect adjacent characters: addition, subtraction, multiplication, and concatenation (multiply by 10 and add the current digit, except that a concatenated number cannot start with 0).
+At each position, try each connection and record the previous operation awaiting inclusion in the result, the current number, the accumulated value, and the current path.
+After connecting all characters, compare the accumulated value with the target and add the path to the answer if they match.
+Backtrack to try other possibilities, reusing the same path array without allocating extra copies.
 
-### 代码
+### Code
 
 ```Python3 []
 ops = ["*", "+", "", "-"]

@@ -11,25 +11,25 @@ class Solution(solution.Solution):
         :rtype: int
         """
         # n = len(nums)
-        # # 上一个差值
+        # # Previous difference
         # last = None
-        # # 上一个差值相同的长度
+        # # Length of the preceding run of equal differences
         # last_len = ans = 0
         # for i in range(1, n):
-        #     # 相等，差值相同长度加一
+        #     # Equal difference: extend the run by one
         #     if nums[i] - nums[i-1] == last:
         #         last_len += 1
-        #     # 否则差值相同长度仅有刚刚这俩的差
+        #     # Otherwise, the run contains only the difference between these two values
         #     else:
         #         last_len = 1
-        #     # 从头到尾一共能构成len-1种
+        #     # This contributes len-1 possibilities ending here
         #     ans += last_len - 1
         #     last = nums[i] - nums[i-1]
         # return ans
 
         n = len(nums)
         l = r = ans = 0
-        # l = n-2 剩余长度不足以再构成一个等差数列
+        # At l = n-2, too few values remain to form another arithmetic sequence
         while l < n - 2:
             d = nums[l + 1] - nums[l]
             while r < n - 1 and nums[r + 1] - nums[r] == d:

@@ -1,4 +1,4 @@
-# [Python] 三叶姐姐教得好
+# [Python] A great explanation from 三叶姐姐
 
 > Author: Benhao
 > Date: 2021-05-29
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-见[三叶姐姐的363题解](https://leetcode.cn/problems/max-sum-of-rectangle-no-larger-than-k/solution/gong-shui-san-xie-you-hua-mei-ju-de-ji-b-dh8s/)
+### Approach
+See [三叶姐姐's solution to problem 363](https://leetcode.cn/problems/max-sum-of-rectangle-no-larger-than-k/solution/gong-shui-san-xie-you-hua-mei-ju-de-ji-b-dh8s/).
 
-### 代码
+### Code
 
 ```python3
 class Solution:

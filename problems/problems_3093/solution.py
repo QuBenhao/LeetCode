@@ -17,15 +17,15 @@ class Solution(solution.Solution):
                 root.min_len = len_s
                 root.best_index = i
 
-            # 把 s[::-1] 插入字典树
+            # Insert s[::-1] into the trie
             cur = root
             for ch in reversed(s):
                 c = ord(ch) - ord_a
                 if cur.son[c] is None:
                     cur.son[c] = Node()
                 cur = cur.son[c]
-                # 维护 cur 子树中的最短字符串的长度及其下标
-                # 由于我们是按照 i 从小到大的顺序遍历，字符串长度相同时不更新 best_index
+                # Track the length and index of the shortest string in the subtree rooted at cur
+                # Since i is visited in ascending order, do not update best_index when string lengths are equal
                 if len_s < cur.min_len:
                     cur.min_len = len_s
                     cur.best_index = i
@@ -38,7 +38,7 @@ class Solution(solution.Solution):
                 if cur.son[c] is None:
                     break
                 cur = cur.son[c]
-            # 退出循环时，cur 即最长公共前缀（的对应节点），cur.best_index 是前缀为 cur 的最短字符串的下标
+            # On loop exit, cur is the node for the longest common prefix; cur.best_index is the index of the shortest string with prefix cur
             ans.append(cur.best_index)
         return ans
 
@@ -47,4 +47,4 @@ class Node:
 
     def __init__(self):
         self.son = [None] * 26
-        self.min_len = inf  # 子树中的最短字符串的长度
+        self.min_len = inf  # Length of the shortest string in the subtree

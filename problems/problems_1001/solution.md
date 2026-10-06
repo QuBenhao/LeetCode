@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 简单模拟
+# [Python/Java/JavaScript/Go] Simple simulation
 
 > slug: pythonjavajavascriptgo-jian-dan-mo-ni-by-hd3j
 > date: 2022-02-07
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/grid-illumination/solutions/ZeyXWU/pythonjavajavascriptgo-jian-dan-mo-ni-by-hd3j/
 
 ---
-### 解题思路
-维护四个计数和点的集合。
+### Approach
+Maintain four counters and a set of points.
 
-四个计数分别为：行计数、列计数、左对角线计数、右对角线计数（国际象棋皇后能威慑到的所有格子）
-这样我们只需要知道查询点在任意计数上是否大于0，就知道它是不是被照亮了。
-再根据点的集合删除点，删除点的时候同样更新各个计数情况即可
+The four counters track rows, columns, and the two diagonal directions (all the cells a chess queen can attack).
+A queried point is illuminated if any of its corresponding counts is greater than 0.
+Then remove points from the set, updating all four counters whenever a point is removed.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

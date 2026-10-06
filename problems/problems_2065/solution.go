@@ -18,7 +18,7 @@ func maximalPathQuality(values []int, edges [][]int, maxTime int) (ans int) {
 		g[y] = append(g[y], edge{x, t})
 	}
 
-	// Dijkstra 算法
+	// Dijkstra's algorithm
 	dis := make([]int, n)
 	for i := 1; i < n; i++ {
 		dis[i] = math.MaxInt
@@ -28,14 +28,14 @@ func maximalPathQuality(values []int, edges [][]int, maxTime int) (ans int) {
 		p := heap.Pop(&h).(pair)
 		dx := p.dis
 		x := p.x
-		if dx > dis[x] { // x 之前出堆过
+		if dx > dis[x] { // x was already popped from the heap
 			continue
 		}
 		for _, e := range g[x] {
 			y := e.to
 			newDis := dx + e.time
 			if newDis < dis[y] {
-				dis[y] = newDis // 更新 x 的邻居的最短路
+				dis[y] = newDis // Update the shortest distances to x's neighbors
 				heap.Push(&h, pair{newDis, y})
 			}
 		}
@@ -47,11 +47,11 @@ func maximalPathQuality(values []int, edges [][]int, maxTime int) (ans int) {
 	dfs = func(x, sumTime, sumValue int) {
 		if x == 0 {
 			ans = max(ans, sumValue)
-			// 注意这里没有 return，还可以继续走
+			// Do not return here; the walk can continue
 		}
 		for _, e := range g[x] {
 			y, t := e.to, e.time
-			// 相比方法一，这里多了 dis[y]
+			// Compared with method 1, this also includes dis[y]
 			if sumTime+t+dis[y] > maxTime {
 				continue
 			}
@@ -59,9 +59,9 @@ func maximalPathQuality(values []int, edges [][]int, maxTime int) (ans int) {
 				dfs(y, sumTime+t, sumValue)
 			} else {
 				vis[y] = true
-				// 每个节点的价值至多算入价值总和中一次
+				// Count each node's value at most once in the total
 				dfs(y, sumTime+t, sumValue+values[y])
-				vis[y] = false // 恢复现场
+				vis[y] = false // Restore the previous state
 			}
 		}
 	}

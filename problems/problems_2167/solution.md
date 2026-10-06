@@ -1,4 +1,4 @@
-# [Python] 前缀后缀思想的动态规划
+# [Python] Dynamic programming with prefixes and suffixes
 
 > slug: python-qian-zhui-hou-zhui-si-xiang-de-do-rz7v
 > date: 2022-02-06
@@ -7,16 +7,16 @@
 > url: https://leetcode.cn/problems/minimum-time-to-remove-all-cars-containing-illegal-goods/solutions/J0SM0I/python-qian-zhui-hou-zhui-si-xiang-de-do-rz7v/
 
 ---
-### 解题思路
-学习的[灵老师的题解](https://leetcode.cn/problems/minimum-time-to-remove-all-cars-containing-illegal-goods/solution/qian-hou-zhui-fen-jie-dp-by-endlesscheng-6u1b/)，比赛时没有想到做这样的转移处理。
+### Approach
+I learned from [灵老师's solution](https://leetcode.cn/problems/minimum-time-to-remove-all-cars-containing-illegal-goods/solution/qian-hou-zhui-fen-jie-dp-by-endlesscheng-6u1b/); I did not think of this state transition during the contest.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def minimumTime(self, s: str) -> int:
         n, cur, ans = len(s), 0, inf
-        # cur: 从左边删到i的最小代价, dp: 从右边删到i的最小代价
+        # cur: minimum cost to remove through i from the left; dp: minimum cost to remove through i from the right
         dp = [0] * (n + 1)
         for i in range(n - 1, -1, -1):
             if s[i] == '0':
@@ -30,7 +30,7 @@ class Solution:
         return min(ans, cur)
 ```
 
-优化参考[@megurine](/u/megurine/)，讨论从左删即可，默认右边删到了当前位置
+For the optimization, see [@megurine](/u/megurine/). Only consider removals from the left, assuming the right side has already been removed up to the current position.
 ```python3
 class Solution:
     def minimumTime(self, s: str) -> int:

@@ -1,4 +1,4 @@
-# [Python/Java] 容斥原理 时间o(n) 空间o(1)
+# [Python/Java] Inclusion-exclusion: o(n) time, o(1) space
 
 > Author: Benhao
 > Date: 2021-08-28
@@ -7,44 +7,44 @@
 
 ---
 
-### 解题思路
-首先把问题转化成，每个数存在在多少个奇数子数组中，也就是每个数重复了多少次。很容易发现第一个数，重复的次数由总长决定。奇数的子数组有多少个呢，正好是`(length + 1) // 2`。
-那么前一个数和后一个数是否存在依赖关系呢？
-观察到，第一个数组成长度3、5、7等长度的子数组的时候，始终带着第二个数，但长度为1的时候没有第二个数出现。
-同样的，从第二个数往后面组成的子数组和第一个数没有关系。
-也就是说，第二个数出现了`第一个数出现的次数`，但是少了`第一个数出现、第二个数没出现的次数`。而且第二个数还比第一个数多了`第二个数出现、第一个数没出现的次数`。
-上一个数出现的次数可以记录。
-那么上一个数出现，当前的数没出现有多少次呢？正好是一个递归思想,数组从0到i-1构成多少个包含i-1的子数组，就又是长度计算的。
-而当前的数出现，上一个数没出现，又正好是i到n-1构成多少个包含i的子数组，同样是长度计算的。
+### Approach
+Reframe the problem as counting the odd-length subarrays containing each number: how many times does each number contribute? For the first number, this depends on the total length; it appears in exactly `(length + 1) // 2` odd-length subarrays.
+Can the count for one number be derived from the previous number's count?
+Every subarray of length 3, 5, 7, and so on containing the first number also contains the second, but the length-1 subarray does not.
+Likewise, subarrays starting at the second number do not contain the first.
+The second number's count equals `the first number's count`, minus `the count containing the first but not the second`, plus `the count containing the second but not the first`.
+We can keep track of the previous number's count.
+How many subarrays contain the previous number but not the current one? Apply the same idea recursively: count odd-length subarrays within 0 through i-1 that contain i-1, using the interval length.
+Similarly, subarrays containing the current number but not the previous one lie within i through n-1 and contain i; their count also follows from the interval length.
 
-于是我们知道以下信息:
-> 第一位出现(n+1)//2次
-> 当前位比上一位多 (n - i + 1) // 2 - (i + 1) // 2
-> 首尾对应位置出现次数相同(对称性)
+This gives the following facts:
+> The first position appears (n+1)//2 times.
+> The current position appears (n - i + 1) // 2 - (i + 1) // 2 more times than the previous one.
+> Positions mirrored across the array have equal counts by symmetry.
 
-另外，不用双指针按这个规律从头遍历到尾也不是不行哈。
+You can also apply this recurrence from start to finish without using two pointers.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def sumOddLengthSubarrays(self, arr: List[int]) -> int:
-        # 长度为n的数组，第一位出现在多少个奇数长度的子数组？
+        # How many odd-length subarrays of an array of length n contain the first position?
         # 1, 3, 5, ..., length-1/length
         # (length + 1)//2
         n = len(arr)
         l, r, ans, times = 0, n - 1, 0, (n+1) // 2
         while l <= r:
-            # 对称性，前后对称位置出现的次数一样
+            # By symmetry, mirrored positions have equal counts
             if l < r:
                 ans += times * (arr[l] + arr[r])
             else:
                 ans += times * arr[l]
             l += 1
             r -= 1
-            # 下一个数比前一个数多了后一个数构成的不带前一个数的奇数子数组的个数
+            # Add odd-length subarrays containing the next number but not the previous one
             times += (n - l + 1) // 2 
-            # 下一个数比前一个数少了前一个数构成的不带后一个数的奇数子数组的个数
+            # Subtract odd-length subarrays containing the previous number but not the next one
             times -= (l + 1) // 2
         return ans
 ```

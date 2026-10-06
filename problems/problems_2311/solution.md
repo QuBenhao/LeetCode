@@ -1,4 +1,4 @@
-# 贪心
+# Greedy
 
 > slug: tan-xin-by-himymben-8zke
 > date: 2025-06-25
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/longest-binary-subsequence-less-than-or-equal-to-k/solutions/eJie7Q/tan-xin-by-himymben-8zke/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

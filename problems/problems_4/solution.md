@@ -1,4 +1,4 @@
-# [Rust] 二分
+# [Rust] Binary search
 
 > Author: Benhao
 > Date: 2024-09-04

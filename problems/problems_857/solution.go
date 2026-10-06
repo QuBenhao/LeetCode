@@ -15,7 +15,7 @@ func mincostToHireWorkers(quality, wage []int, k int) float64 {
 	for i, q := range quality {
 		qw[i] = pair{q, wage[i]}
 	}
-	sort.Slice(qw, func(i, j int) bool { a, b := qw[i], qw[j]; return a.w*b.q < b.w*a.q }) // 按照 r 值排序
+	sort.Slice(qw, func(i, j int) bool { a, b := qw[i], qw[j]; return a.w*b.q < b.w*a.q }) // Sort by r
 	h := hp{make([]int, k)}
 	sumQ := 0
 	for i, p := range qw[:k] {
@@ -23,12 +23,12 @@ func mincostToHireWorkers(quality, wage []int, k int) float64 {
 		sumQ += p.q
 	}
 	heap.Init(&h)
-	ans := float64(sumQ*qw[k-1].w) / float64(qw[k-1].q) // 选 r 值最小的 k 名工人组成当前的最优解
+	ans := float64(sumQ*qw[k-1].w) / float64(qw[k-1].q) // Choose the k workers with the smallest r values as the current optimum
 	for _, p := range qw[k:] {
-		if p.q < h.IntSlice[0] { // sumQ 可以变小，从而可能得到更优的答案
+		if p.q < h.IntSlice[0] { // sumQ can decrease, potentially improving the answer
 			sumQ -= h.IntSlice[0] - p.q
 			h.IntSlice[0] = p.q
-			heap.Fix(&h, 0) // 更新堆顶
+			heap.Fix(&h, 0) // Update the heap top
 			ans = math.Min(ans, float64(sumQ*p.w)/float64(p.q))
 		}
 	}
@@ -37,8 +37,8 @@ func mincostToHireWorkers(quality, wage []int, k int) float64 {
 
 type hp struct{ sort.IntSlice }
 
-func (h hp) Less(i, j int) bool { return h.IntSlice[i] > h.IntSlice[j] } // 最大堆
-func (hp) Push(any)             {}                                       // 由于没有用到，可以什么都不写
+func (h hp) Less(i, j int) bool { return h.IntSlice[i] > h.IntSlice[j] } // Max-heap
+func (hp) Push(any)             {}                                       // This is unused, so its body can be empty
 func (hp) Pop() (_ any)         { return }
 
 func Solve(inputJsonValues string) any {

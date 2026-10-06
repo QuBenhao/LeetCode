@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 哈希
+# [Python/Java/TypeScript/Go] Hashing
 
 > slug: pythonjavatypescriptgo-ha-xi-by-himymben-gl19
 > date: 2022-10-12
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/max-chunks-to-make-sorted/solutions/QwC7HI/pythonjavatypescriptgo-ha-xi-by-himymben-gl19/
 
 ---
-### 解题思路
-一个从0到n-1走的数组, 和输入数组, 只要任意时刻两者包含的数一致, 就是一组最小分块
+### Approach
+Scan an array from 0 to n-1 alongside the input array; whenever the values seen in both match, they form a minimal chunk
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

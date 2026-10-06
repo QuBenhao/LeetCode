@@ -1,4 +1,4 @@
-# [Python] 贪心(天花板)
+# [Python] Greedy with ceilings
 
 > Author: Benhao
 > Date: 2021-06-13
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-想象三栋楼的最高高度为target。
-如果有个triplet任意一个值超过最高高度，这个triplet必然不能参与任何运算中(超过天花板不能再回来了)。
-那么剩下的能用的triplets中每个triplet的值都是小于等于每个天花板的，这个时候我们只要关心能不能取到天花板的值就行了。(全部操作后最终每个位置都会变成每个位置的最大值)
+### Approach
+Imagine three buildings with maximum heights given by target.
+Any triplet exceeding a ceiling cannot participate: once a value exceeds the ceiling, it cannot be reduced.
+All remaining triplets lie at or below each ceiling. Check only whether each ceiling can be reached; merging all usable triplets gives the maximum at each position.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

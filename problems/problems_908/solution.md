@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 数学
+# [Python/Java/JavaScript/Go] Mathematics
 
 > Author: Benhao
 > Date: 2022-04-29
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-为了得到最低分数,我们需要减小数组中最大值和最小值的差异。
-我们希望最大值尽可能小,最小值尽可能大,来减小差异 (注意最终最大值是大于等于最终最小值的)。
+### Approach
+To minimize the score, reduce the difference between the array's maximum and minimum.
+Make the maximum as small as possible and the minimum as large as possible to reduce their difference, noting that the final maximum is at least the final minimum.
 
-如果最大值$nums_i$和最小值$nums_j$可以变为共同的某个数,那么所有数都可以变成这个数,最终答案为0。 ($nums_i - k \le nums_j + k$)
-如果最大值的最小值($nums_i-k$)都比最小值的最大值($nums_j+k$)大的话, 那么最终答案(最低分数)是$nums_i-nums_j-2*k$。 ($nums_i - k \gt nums_j + k$)
+If the maximum $nums_i$ and minimum $nums_j$ can reach a common value, every number can reach it and the answer is 0. ($nums_i - k \le nums_j + k$)
+If the smallest possible maximum ($nums_i-k$) still exceeds the largest possible minimum ($nums_j+k$), the answer, or minimum score, is $nums_i-nums_j-2*k$. ($nums_i - k \gt nums_j + k$)
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

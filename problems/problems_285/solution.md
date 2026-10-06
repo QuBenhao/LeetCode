@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 二叉搜索树的中序后继
+# [Python/Java/JavaScript/Go] Inorder successor in a binary search tree
 
 > slug: by-himymben-vouy
 > date: 2022-05-15
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/inorder-successor-in-bst/solutions/g2C95x/by-himymben-vouy/
 
 ---
-### 解题思路
-【同[面试题 04.06](https://leetcode.cn/problems/successor-lcci/)】
-二叉搜索树的中序遍历，节点是从小到大依次排列的。
-那么二叉搜索树中的节点的中序后继节点，就是比它大的最小的那个，这在BST中体现为，
-若节点存在右子树，那么该最小值为右子树的最左叶节点；若无右子树，该最小值为进左子树时的父节点；再没有就是空了。
-我们维护一个进左子树时的父节点即可。
+### Approach
+[Same as [面试题 04.06](https://leetcode.cn/problems/successor-lcci/)]
+An inorder traversal of a binary search tree visits nodes from smallest to largest.
+The inorder successor of a node is therefore the smallest node greater than it. In a BST:
+If the node has a right subtree, the successor is the leftmost node in that subtree. Otherwise, it is the nearest ancestor reached through a left-child descent. If neither exists, the successor is null.
+Keep track of the parent when descending into a left subtree.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.
@@ -135,7 +135,7 @@ func inorderSuccessor(root *TreeNode, p *TreeNode) (parent *TreeNode) {
     return
 }
 ```
-```Python3 [v1-递归写法Py]
+```Python3 [v1-recursive-Py]
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -147,7 +147,7 @@ class Solution:
     def inorderSuccessor(self, root: TreeNode, p: TreeNode) -> TreeNode:
         return (res if (res := self.inorderSuccessor(root.left, p)) else root if root.val > p.val else self.inorderSuccessor(root.right, p)) if root else root
 ```
-```Java [v1-递归写法Java]
+```Java [v1-recursive-Java]
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -163,7 +163,7 @@ class Solution {
     }
 }
 ```
-```JavaScript [v1-递归写法JavaScript]
+```JavaScript [v1-recursive-JavaScript]
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -180,7 +180,7 @@ var inorderSuccessor = function(root, p) {
     return root == null ? root : (root.val > p.val ? (inorderSuccessor(root.left, p) != null ? inorderSuccessor(root.left, p) : root) : inorderSuccessor(root.right, p))
 };
 ```
-```Go [v1-递归写法Go]
+```Go [v1-recursive-Go]
 /**
  * Definition for a binary tree node.
  * type TreeNode struct {

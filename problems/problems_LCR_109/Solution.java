@@ -17,14 +17,14 @@ public class Solution extends BaseSolution {
         return bfs();
     }
     int bfs() {
-        // d1 代表从起点 s 开始搜索（正向）
-        // d2 代表从结尾 t 开始搜索（反向）
+        // d1 searches forward from s
+        // d2 searches backward from t
         Deque<String> d1 = new ArrayDeque<>(), d2 = new ArrayDeque<>();
         /*
-         * m1 和 m2 分别记录两个方向出现的状态是经过多少次转换而来
+         * m1 and m2 record how many transformations reach each state from their respective directions
          * e.g.
-         * m1 = {"1000":1} 代表 "1000" 由 s="0000" 旋转 1 次而来
-         * m2 = {"9999":3} 代表 "9999" 由 t="9996" 旋转 3 次而来
+         * m1 = {"1000":1} means "1000" is reached from s="0000" in one turn
+         * m2 = {"9999":3} means "9999" is reached from t="9996" in three turns
          */
         Map<String, Integer> m1 = new HashMap<>(), m2 = new HashMap<>();
         d1.addLast(s);
@@ -33,10 +33,10 @@ public class Solution extends BaseSolution {
         m2.put(t, 0);
 
         /*
-         * 只有两个队列都不空，才有必要继续往下搜索
-         * 如果其中一个队列空了，说明从某个方向搜到底都搜不到该方向的目标节点
+         * Continue searching only while both queues are nonempty
+         * If either queue is empty, the search in that direction has exhausted all possibilities without reaching its target
          * e.g.
-         * 例如，如果 d1 为空了，说明从 s 搜索到底都搜索不到 t，反向搜索也没必要进行了
+         * For example, if d1 is empty, searching from s could not reach t, so continuing the reverse search is unnecessary
          */
         while (!d1.isEmpty() && !d2.isEmpty()) {
             int t = -1;
@@ -56,13 +56,13 @@ public class Solution extends BaseSolution {
             if (poll == null) continue;
             char[] pcs = poll.toCharArray();
             int step = cur.get(poll);
-            // 枚举替换哪个字符
+            // Enumerate the character to replace
             for (int i = 0; i < 4; i++) {
-                // 能「正向转」也能「反向转」，这里直接枚举偏移量 [-1,1] 然后跳过 0
+                // A wheel can turn forward or backward; enumerate offsets [-1,1] and skip 0
                 for (int j = -1; j <= 1; j++) {
                     if (j == 0) continue;
 
-                    // 求得替换字符串 str
+                    // Construct the replacement string str
                     int origin = pcs[i] - '0';
                     int next = (origin + j) % 10;
                     if (next == -1) next = 9;
@@ -74,7 +74,7 @@ public class Solution extends BaseSolution {
                     if (set.contains(str)) continue;
                     if (cur.containsKey(str)) continue;
 
-                    // 如果在「另一方向」找到过，说明找到了最短路，否则加入队列
+                    // If the opposite direction has reached it, the shortest path is found; otherwise, enqueue it
                     if (other.containsKey(str)) {
                         return step + 1 + other.get(str);
                     } else {

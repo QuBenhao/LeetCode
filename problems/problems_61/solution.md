@@ -1,4 +1,4 @@
-# [Python] 左右指针，取余数
+# [Python] Left and right pointers with modulo
 
 > Author: Benhao
 > Date: 2021-03-27
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-当k比链表长度小的时候，
-从head出发往右k次，这样左右指针的差距就是k了。
-左右一起挪，右边挪到底的时候，左边就是新的头了，重新连一下即可。
+### Approach
+When k is smaller than the list length,
+move right from head k times, leaving a gap of k between the left and right pointers.
+Move both pointers together. When the right pointer reaches the end, the left pointer is the new head; reconnect the list.
 
-当k比链表长度大的时候，需要取余数，相当于套圈。
-（我们从head出发往右，到达最后一个了，k却没到0，我们也能从我们减了多少求得链表的长度）
+When k is greater than the list length, take the remainder, which accounts for full laps.
+(If we move right from head and reach the last node before k reaches 0, the amount subtracted also tells us the list length.)
 
-### 代码
+### Code
 
 ```python
 # Definition for singly-linked list.

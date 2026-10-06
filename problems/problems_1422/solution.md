@@ -1,4 +1,4 @@
-# [Python3/Java/TypeScript/Go/Js/C++/C/C#/PHP/Python] 前缀和动态规划
+# [Python3/Java/TypeScript/Go/Js/C++/C/C#/PHP/Python] Prefix sums and dynamic programming
 
 > slug: -by-himymben-schd
 > date: 2022-08-14
@@ -7,23 +7,23 @@
 > url: https://leetcode.cn/problems/maximum-score-after-splitting-a-string/solutions/I1w9Ed/-by-himymben-schd/
 
 ---
-### 解题思路
-本题和[2155](https://leetcode.cn/problems/all-divisions-with-the-highest-score-of-a-binary-array/solution/pythongo-qian-zhui-he-by-himymben-2fnr/)一模一样（我说我怎么感觉做过）。
+### Approach
+This is exactly the same as [2155](https://leetcode.cn/problems/all-divisions-with-the-highest-score-of-a-binary-array/solution/pythongo-qian-zhui-he-by-himymben-2fnr/) (which explains why it felt familiar).
 
-很容易想到利用前缀和，分别统计左边0和右边1，然后枚举答案。
-但是本题有一个很大的条件是字符串只有0和1，那么0和1的个数就是对称的，有多少个0就少多少个1，两者加起来永远是字符串长度。
-那么设字符串总长度为$n$，
-假如我们知道总共0的个数$finalPresum$和当前分割位置左侧0的个数$presum$,
-可以计算出右侧1的个数为$(n - i) - (finalPresum - presum)$
-这个式子的含义是右边字符串长度减去右边0的个数。
-将变量和常量分别抽出来，于是每个位置的得分可以化简为:
+A natural approach uses prefix sums to count 0s on the left and 1s on the right, then tries every split.
+A key condition is that the string contains only 0 and 1, so their counts complement each other: every additional 0 means one fewer 1, and the two counts always sum to the string length.
+Let the total string length be $n$.
+If the total number of 0s is $finalPresum$ and the number of 0s left of the current split is $presum$,
+the number of 1s on the right is $(n - i) - (finalPresum - presum)$.
+This is the right substring's length minus its number of 0s.
+Separate the variable and constant terms to simplify the score at each position:
 $presum + (n - i) - (finalPresum - presum) = presum * 2 - i + (n - finalPresum)$
-我们只需要找到$i$, 使得$presum * 2 - i$最大即可。
+We only need to find the $i$ that maximizes $presum * 2 - i$.
 
 PS:
-注意不可割在边缘
+The split cannot be at either edge.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -181,7 +181,7 @@ class Solution {
 }
 ```
 
-### 复杂度
+### Complexity
 
-时间复杂度 $o(n)$
-空间复杂度 $o(1)$
+Time complexity: $o(n)$
+Space complexity: $o(1)$

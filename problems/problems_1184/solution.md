@@ -1,4 +1,4 @@
-# [Python/Java/C++/TypeScript/Go] 求和
+# [Python/Java/C++/TypeScript/Go] Summation
 
 > Author: Benhao
 > Date: 2024-09-16

@@ -1,4 +1,4 @@
-# [Python] 分类讨论暴力
+# [Python] Brute force with separate cases
 
 > slug: python-fen-lei-tao-lun-bao-li-by-himymbe-fi7c
 > date: 2021-08-22

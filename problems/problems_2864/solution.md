@@ -1,4 +1,4 @@
-# [Python] 贪心
+# [Python] Greedy
 
 > slug: python-tan-xin-by-himymben-kikb
 > date: 2024-03-13
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 二进制的奇数最后一位必须是1，最大的话就是把所有的1都往左边放，0往右边放
+> An odd binary number must end in 1. To maximize it, place the remaining 1s on the left and the 0s on the right.
 
-# 解题方法
+# Approach
 
-> 统计1的个数，贪心构造即可
+> Count the 1s and construct the result greedily.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

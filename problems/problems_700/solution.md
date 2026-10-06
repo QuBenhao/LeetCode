@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 递归
+# [Python/Java/JavaScript/Go] Recursion
 
 > slug: pythonjavajavascriptgo-di-gui-by-himymbe-stvf
 > date: 2021-11-25

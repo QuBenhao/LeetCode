@@ -1,4 +1,4 @@
-# [Python] 前缀和
+# [Python] Prefix sums
 
 > slug: python-qian-zhui-he-by-himymben-57lw
 > date: 2022-05-02
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/number-of-equal-count-substrings/solutions/isUWDT/python-qian-zhui-he-by-himymben-57lw/
 
 ---
-### 解题思路
-26 * count 这个范围真绝了，每这个剪枝在count小，字符串长的时候必然超时
+### Approach
+The 26 * count bound is crucial. Without this pruning, small count values and long strings will time out.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

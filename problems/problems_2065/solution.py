@@ -17,7 +17,7 @@ class Solution(solution.Solution):
             if x == 0:
                 nonlocal ans
                 ans = max(ans, sum_value)
-                # 注意这里没有 return，还可以继续走
+                # Do not return here; the walk can continue
             for y, t in g[x]:
                 if sum_time + t > max_time:
                     continue
@@ -25,9 +25,9 @@ class Solution(solution.Solution):
                     dfs(y, sum_time + t, sum_value)
                 else:
                     vis[y] = True
-                    # 每个节点的价值至多算入价值总和中一次
+                    # Count each node's value at most once in the total
                     dfs(y, sum_time + t, sum_value + values[y])
-                    vis[y] = False  # 恢复现场
+                    vis[y] = False  # Restore the previous state
 
         ans = 0
         vis = [False] * n

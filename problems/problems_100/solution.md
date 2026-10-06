@@ -1,4 +1,4 @@
-# [Python/C/Go/Java/Ts] 一行递归
+# [Python/C/Go/Java/Ts] One-line recursion
 
 > Author: Benhao
 > Date: 2024-03-07
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 模拟
+> Simulation
 
-# 解题方法
+# Approach
 
-> 两个树一样首先根节点的值一致，左子树要一致，右子树要一致。递归处理即可
+> For two trees to be identical, their root values, left subtrees, and right subtrees must match. Handle this recursively.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

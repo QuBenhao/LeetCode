@@ -9,13 +9,13 @@ class Fenwick:
     def __init__(self, n: int):
         self.tree = [0] * n
 
-    # 把下标为 i 的元素增加 v
+    # Increase the element at index i by v
     def add(self, i: int, v: int) -> None:
         while i < len(self.tree):
             self.tree[i] += v
             i += i & -i
 
-    # 返回下标在 [1,i] 的元素之和
+    # Return the sum of the elements at indices [1,i]
     def pre(self, i: int) -> int:
         res = 0
         while i > 0:
@@ -38,7 +38,7 @@ class Solution(solution.Solution):
         t.add(m - bisect_left(sorted_nums, nums[1]), -1)
         for x in nums[2:]:
             v = m - bisect_left(sorted_nums, x)
-            d = t.pre(v - 1)  # 转换成 < v 的元素个数之差
+            d = t.pre(v - 1)  # Convert to the difference in the counts of elements < v
             if d > 0 or d == 0 and len(a) <= len(b):
                 a.append(x)
                 t.add(v, 1)

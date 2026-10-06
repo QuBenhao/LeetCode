@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 暴力模拟
+# [Python/Java/JavaScript/Go] Brute-force simulation
 
 > slug: pythonjavajavascriptgoo-by-himymben-4n6f
 > date: 2022-03-30
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/self-dividing-numbers/solutions/ZnGWUM/pythonjavajavascriptgoo-by-himymben-4n6f/
 
 ---
-### 解题思路
-早上起来看了眼题，想素数筛想睡着了😂因为讨论的因子总是在2-9之间，而质数只有2、3、5、7。
-害，还是直接暴力吧先。
+### Approach
+I looked at the problem this morning and nearly fell asleep thinking about a prime sieve 😂. The factors being considered are always between 2 and 9, with only 2, 3, 5, and 7 prime.
+Oh well, brute force first.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

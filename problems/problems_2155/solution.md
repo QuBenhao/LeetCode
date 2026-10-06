@@ -1,4 +1,4 @@
-# [Python/Go] 前缀和
+# [Python/Go] Prefix sums
 
 > slug: pythongo-qian-zhui-he-by-himymben-2fnr
 > date: 2022-01-30
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/all-divisions-with-the-highest-score-of-a-binary-array/solutions/YfYrMr/pythongo-qian-zhui-he-by-himymben-2fnr/
 
 ---
-### 解题思路
-预处理1的个数或0的个数，遍历计算每个位置的答案，更新最大值。
-简化后的比较公式为`f[i] = presum[i] * 2 - i`
+### Approach
+Precompute counts of ones or zeros, evaluate the answer at each position, and update the maximum.
+The simplified comparison formula is `f[i] = presum[i] * 2 - i`.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

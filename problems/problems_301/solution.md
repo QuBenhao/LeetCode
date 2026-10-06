@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 记忆化DFS
+# [Python/Java/JavaScript] Memoized DFS
 
 > slug: python-ji-yi-hua-dfs-by-himymben-5b18
 > date: 2021-10-27
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/remove-invalid-parentheses/solutions/pmkl93/python-ji-yi-hua-dfs-by-himymben-5b18/
 
 ---
-### 解题思路
-记忆化剪枝 分别删两个连续左括号本质上是一样的,同时还能起到去重的作用
+### Approach
+Memoized pruning: deleting either of two consecutive opening parentheses gives the same result, so memoization also removes duplicates.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -100,7 +100,7 @@ class Solution {
  * @return {string[]}
  */
 var removeInvalidParentheses = function(s) {
-    // 偷懒儿了，今天不优化了
+    // Taking a shortcut today; no further optimization
     const ans = new Set(), path = [];
     const n = s.length;
     let l = 0, r = 0;

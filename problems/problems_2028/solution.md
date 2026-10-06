@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 数学
+# [Python/Java/JavaScript/Go] Mathematics
 
 > Author: Benhao
 > Date: 2022-03-27
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-根据平均数$mean$，我们知道全部的和为$sum = mean * (m + n)$。
-而根据输入可以求得前$m$个数的和，于是需要的$n$个数的和为$sum - \sum_{i=1}^mrolls_i$。
-由于每个数只能是1到6之间的整数，最终这$n$个数的和只能构造出$n$到$6 * n$之间的数。
+### Approach
+From the average $mean$, the total sum is $sum = mean * (m + n)$.
+The input gives the sum of the first $m$ values, so the required sum of the remaining $n$ values is $sum - \sum_{i=1}^mrolls_i$.
+Each value must be an integer from 1 to 6, so these $n$ values can produce only sums from $n$ to $6 * n$.
 
-构造方法为每个数都至少为和的平均数 (这样和为$\lfloor \frac{s}{n} \rfloor * n$)，前面和的余数个数加额外的一(这样加的和为s%n)即可。
+Set every value to the floor of the average (giving a sum of $\lfloor \frac{s}{n} \rfloor * n$), then add one to the first s%n values (adding s%n to the sum).
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

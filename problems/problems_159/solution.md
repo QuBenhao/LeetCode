@@ -1,4 +1,4 @@
-# [Python] 模拟 o(n)
+# [Python] Simulation o(n)
 
 > slug: python-mo-ni-on-by-himymben-381l
 > date: 2021-08-21
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/longest-substring-with-at-most-two-distinct-characters/solutions/guUrtG/python-mo-ni-on-by-himymben-381l/
 
 ---
-### 解题思路
-好像加用例了效率比较低
+### Approach
+It seems more test cases were added; the efficiency is relatively low.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

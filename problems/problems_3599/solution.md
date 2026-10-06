@@ -1,4 +1,4 @@
-# 动态规划
+# Dynamic programming
 
 > slug: dong-tai-gui-hua-by-himymben-jj84
 > date: 2025-06-29
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/partition-array-to-minimize-xor/solutions/YzpYTO/dong-tai-gui-hua-by-himymben-jj84/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

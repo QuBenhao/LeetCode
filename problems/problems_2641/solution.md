@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 题目要求堂兄弟的和，其实就是一行的和减去亲兄弟俩
+> The sum of a node's cousins is the level sum minus the sum of the sibling group containing that node.
 
-# 解题方法
+# Approach
 
-> 先遍历统计行的和、亲兄弟的和，再遍历一次赋值
+> First compute level sums and sibling sums, then traverse again to assign the new values.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

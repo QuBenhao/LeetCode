@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go/C] 费空间省时间偷个懒
+# [Python/Java/JavaScript/Go/C] A shortcut trading space for time
 
 > Author: Benhao
 > Date: 2022-01-16
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-蓄水池抽样还是很好的思路，只是每次都要随机整个链表长度的次数所以代价略大。不知道的家人们建议和[叶总](https://leetcode.cn/problems/linked-list-random-node/solution/gong-shui-san-xie-xu-shui-chi-chou-yang-1lp9d/)学一下。
+### Approach
+Reservoir sampling is a good approach, but generating a random choice for every linked-list node on each call is somewhat costly. If it is unfamiliar, I recommend learning it from [叶总](https://leetcode.cn/problems/linked-list-random-node/solution/gong-shui-san-xie-xu-shui-chi-chou-yang-1lp9d/).
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -113,7 +113,7 @@ func (this *Solution) GetRandom() int {
  * param_1 := obj.GetRandom();
  */
 ```
-蓄水池抽样
+Reservoir sampling
 ```C 
 /**
  * Definition for singly-linked list.

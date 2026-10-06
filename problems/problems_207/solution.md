@@ -1,4 +1,4 @@
-# [Python/Java] 拓扑排序
+# [Python/Java] Topological sort
 
 > Author: Benhao
 > Date: 2021-08-05
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-需要前置课程的课程在其前置课修完前是不可以修的，所以我们统计所有入度，修完所有入度为0的课程并减去他们的边直到所有能修的都修了。
+### Approach
+A course with prerequisites cannot be taken until those prerequisites have been completed. Count all indegrees, take courses with indegree 0, and remove their outgoing edges until all available courses have been taken.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        # 我们只能从没有prerequire的课程开始
+        # We can only start with courses that have no prerequisites
         In = [0] * numCourses
         connect = defaultdict(list)
         for a, b in prerequisites:

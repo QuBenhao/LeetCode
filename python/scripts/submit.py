@@ -135,7 +135,7 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
     if not exists:
         result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang,
                                            lc_question_id, code)
-    # 展示热门题解列表
+    # Display popular solutions
     try:
         articles_result = lc_libs.get_answer_articles(problem_slug, cookie, first=5)
         articles = articles_result.get("articles", [])

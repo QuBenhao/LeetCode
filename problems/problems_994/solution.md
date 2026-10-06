@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 多源BFS
+# [Python/Java/JavaScript/Go] Multi-source BFS
 
 > Author: Benhao
 > Date: 2022-01-28
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-标准的多源BFS，从多个腐烂的橘子作为初始点开始广度优先搜索，用原始grid标记访问过。
+### Approach
+Standard multi-source BFS: start from all initially rotten oranges and use the original grid to mark visited cells.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

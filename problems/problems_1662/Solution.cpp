@@ -5,7 +5,7 @@ using namespace std;
 using json = nlohmann::json;
 
 template <typename ForwardIters1, typename ForwardIters2,
-          typename Compare = std::equal_to<>  // 默认使用标准相等比较
+          typename Compare = std::equal_to<>  // Use standard equality comparison by default
           >
 bool areEqual(ForwardIters1 begin1, ForwardIters1 end1, ForwardIters2 begin2,
               ForwardIters2 end2, Compare comp = Compare()) {

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 哈希模拟
+# [Python/Java/JavaScript/Go] Simulation with a hash table
 
 > slug: pythonjavajavascriptgo-ha-xi-mo-ni-by-hi-61q8
 > date: 2022-02-08
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/count-number-of-pairs-with-absolute-difference-k/solutions/7E4Dfj/pythonjavajavascriptgo-ha-xi-mo-ni-by-hi-61q8/
 
 ---
-### 解题思路
-以前做过一个简化版，统计i、j且nums[i] + nums[j] = target的个数，本题只是增加绝对值其实本质没有区别，
+### Approach
+I previously solved a simpler version that counts pairs i, j with nums[i] + nums[j] = target. This problem adds an absolute value, but the underlying idea is the same.
 $\lvert nums[i] - nums[j] \rvert = k$
-绝对值拆分可得
-$nums[i] - nums[j] = k$或者$nums[j] - nums[i] = k$
-也就是对于$nums[j]$，我们需要知道$nums[j] + k$和$nums[j] - k$有多少个（这样就知道对应的$nums[i]$的个数）
+Expanding the absolute value gives
+$nums[i] - nums[j] = k$ or $nums[j] - nums[i] = k$.
+For each $nums[j]$, we therefore need the counts of $nums[j] + k$ and $nums[j] - k$ (which tell us the number of matching $nums[i]$ values).
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -70,7 +70,7 @@ func countKDifference(nums []int, k int) (ans int) {
 }
 ```
 
-由于数据范围小，可以使用数组作为哈希表提速
+Since the value range is small, an array can serve as a hash table for better performance.
 ```Java []
 class Solution {
     public int countKDifference(int[] nums, int k) {

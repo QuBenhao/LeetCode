@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 递归
+# [Python/Java/JavaScript/Go] Recursion
 
 > slug: pythonjavajavascriptgo-di-gui-by-himymbe-62km
 > date: 2022-01-08
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/gray-code/solutions/PdsYHB/pythonjavajavascriptgo-di-gui-by-himymbe-62km/
 
 ---
-### 解题思路
-利用对称性，假设我们知道$n-1$的构造，那么我们将这个构造反转并拼在后面，在这个反转里每个数的二进制第一位补上1，就得到了$n$的构造。
-- $n-1$的构造本身不管是正序还是倒序，相邻之间都是差1，而在反转中所有数都在第一位加了一个1，差异不变。
-- 反转后，原先最后一位会和自己相邻，加了一个1以后，差异正好是一位。
-- 反转后，原先第一位会成为最后一位，后第一位首尾相邻，加了一个1以后，差异正好是一位。
+### Approach
+Use symmetry: given the construction for $n-1$, reverse it and append it, adding a leading 1 to each binary number in the reversed part. This gives the construction for $n$.
+- In the construction for $n-1$, adjacent values differ by one bit in either forward or reverse order. Adding a leading 1 to every number in the reversed part preserves that difference.
+- After reversal, the original last value is adjacent to its own copy. Adding a leading 1 makes them differ by exactly one bit.
+- After reversal, the original first value becomes the last value, adjacent to the first across the ends of the sequence. Adding a leading 1 makes them differ by exactly one bit.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

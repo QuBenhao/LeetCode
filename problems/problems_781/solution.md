@@ -1,4 +1,4 @@
-# 按数量分组
+# Group by count
 
 > slug: an-shu-liang-fen-zu-by-himymben-f9w6
 > date: 2025-04-20
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/rabbits-in-forest/solutions/XHko9T/an-shu-liang-fen-zu-by-himymben-f9w6/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

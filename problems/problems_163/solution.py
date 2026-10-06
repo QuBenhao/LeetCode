@@ -20,12 +20,12 @@ class Solution(solution.Solution):
         #         ans.pop()
         # return ans
 
-        # 添加终止边界
+        # Add a terminal boundary
         nums.append(upper + 1)
         ans = []
         last = lower - 1
         for num in nums:
-            # 比上一个数字中有缺失,需要添加在答案中的
+            # Add the gap after the previous number to the answer
             if num - last > 2:
                 ans.append([last + 1, num - 1])
             elif num - last == 2:

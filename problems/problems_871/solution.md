@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 最大堆
+# [Python/Java/TypeScript/Go] Max-heap
 
 > Author: Benhao
 > Date: 2022-07-02
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-每次都走当前的油的距离，将经过的加油站的油都加入最大堆中。
-如果走到的距离没超过目标距离，从累计到的油中选油最多的那次加油（收益最大）。
-重复以上步骤。
+### Approach
+Travel as far as the current fuel allows and add the fuel from every station passed to a max-heap.
+If that distance does not exceed the target distance, refuel using the largest amount accumulated in the heap for the greatest gain.
+Repeat these steps.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

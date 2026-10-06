@@ -1,4 +1,4 @@
-# 滑动窗口
+# Sliding window
 
 > slug: hua-dong-chuang-kou-by-himymben-1mkj
 > date: 2025-04-24
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-complete-subarrays-in-an-array/solutions/o5QURa/hua-dong-chuang-kou-by-himymben-1mkj/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

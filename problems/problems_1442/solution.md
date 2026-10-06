@@ -1,4 +1,4 @@
-# [Python] 从双重循环到一重循环
+# [Python] From two loops to one
 
 > Author: Benhao
 > Date: 2021-05-18
@@ -7,21 +7,21 @@
 
 ---
 
-### 解题思路
-**核心**
-注意到 `2^3 = 1`时同样有`2 = 3^1`,
-也就是满足`a^b^c = d`的时候, 也会满足`a^b = c^d`和`a = b^c^d`。
-对于满足`arr[i] ^ arr[i+1] ^ ... ^ arr[k] = 0` 的`i,k`，任意的在`[i+1,k]`区间的`j`都可以构成一个数目，
-那么`[i+1,k]`的区间一共有`k-i`种选择，故对于`i,k`来说有`k-i`个j可以作为答案。
+### Approach
+**Key insight**
+Observe that when `2^3 = 1`, we also have `2 = 3^1`.
+In other words, `a^b^c = d` also implies `a^b = c^d` and `a = b^c^d`.
+For `i,k` satisfying `arr[i] ^ arr[i+1] ^ ... ^ arr[k] = 0`, every `j` in `[i+1,k]` forms a valid triplet.
+There are `k-i` choices in `[i+1,k]`, so the pair `i,k` contributes `k-i` valid values of j.
 
-那么我们统计之前的所有异或和（区间到数组的前一个值的异或），和当前的值相等时，我们在乎的是`哪些坐标满足异或值等于当前值`。
-如果统计满足异或值为`m`的列表中每个坐标，我们只需要用`len(list) * k - sum(list)`即可更新右边界为`k`的所有答案。
+Track all previous XOR sums (the XOR of each interval through the preceding array element). When one equals the current value, we need to know `which indices have an XOR value equal to the current value`.
+If we store the indices whose XOR value is `m` in a list, `len(list) * k - sum(list)` gives the contribution of all triplets with right boundary `k`.
 
-**二重到一重**
-统计上一轮的所有异或和，无外乎还是要统计异或前缀。因为上一轮的`num[i] ^ num[i+1] ^ ... num[k-1] = prexor[i] ^ prexor[k]`,
-也就是如果存在prexor[i]与当前异或结果相同，就找到了一组`i,k`，只需要记录所有满足`prexor[i] = prexor[k]`的`i`即可实现上面的更新。
+**From two loops to one**
+Tracking all XOR sums from the previous iteration is another prefix-XOR problem, since `num[i] ^ num[i+1] ^ ... num[k-1] = prexor[i] ^ prexor[k]`.
+If some prexor[i] equals the current XOR result, we have found a pair `i,k`. Recording all `i` satisfying `prexor[i] = prexor[k]` allows the update above.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -31,8 +31,8 @@ class Solution:
         # for j, num in enumerate(arr):
         #     new = defaultdict(list)
         #     for key, val in hashmap.items():
-        #         # 如果hashmap中存在与当前num相等的key，满足答案，
-        #         # 他们之间的任意一个除最左边外的坐标作为j, 都满足条件
+        #         # A key in hashmap equal to the current num gives a valid interval,
+        #         # and any index in it except the leftmost can serve as j
         #         if key == num:
         #             ans += j * len(val) - sum(val)
         #         new[num ^ key] = val
@@ -43,15 +43,15 @@ class Solution:
         l, s = Counter(), Counter()
         prexor = ans = 0
         for k, num in enumerate(arr):
-            # 将之前的异或结果更新
+            # Update the previous XOR results
             l[prexor] += 1
             s[prexor] += k
             # curxor = arr[0] ^ arr[1] ^ ... ^ arr[k]
             prexor ^= num
-            # 之前存在任意的i满足：arr[0] ^ arr[1] ^ ... ^ arr[i] = curxor,
-            # 那么i到k可以构成一个异或为0的解，他们之间任意一个坐标(除i以为可以作为j)
+            # An earlier i satisfies arr[0] ^ arr[1] ^ ... ^ arr[i] = curxor,
+            # so i to k gives an interval with XOR 0, and any index between them except i can serve as j
             if prexor in l:
-                # 同上面的双重循环解法, 利用数量和坐标距离更新
+                # As in the two-loop solution above, use the count and index distances to update the answer
                 ans += k * l[prexor] - s[prexor]
         return ans
 

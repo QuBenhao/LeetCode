@@ -1,4 +1,4 @@
-# 双指针模拟
+# Two-pointer simulation
 
 > Author: Benhao
 > Date: 2022-12-17
@@ -11,11 +11,11 @@
 
 [TOC]
 
-# 思路
-> 依次遍历group，只要能与nums的连续一段匹配，就直接匹配即可
+# Intuition
+> Process each group in order and accept the first contiguous matching segment in nums.
 
-# 解题方法
-> 使用双指针和py的切片
+# Approach
+> Use two pointers and Python slices.
 
 # Code
 ```Python3 []

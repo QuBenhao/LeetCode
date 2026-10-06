@@ -1,409 +1,409 @@
-# 面试
+# Interviews
 
-## **技术知识准备**
+## **Technical Preparation**
 
-### **计算机基础**
+### **Computer Science Fundamentals**
 
-- **数据结构与算法**
-    - 重点掌握：数组、链表、栈/队列、哈希表、树（二叉树、AVL、红黑树）、堆、图、字符串操作。
-    - 高频算法：排序（快排、归并）、二分查找、DFS/BFS、动态规划、贪心算法、滑动窗口、双指针。
-    - **推荐资料**：
-        - 书籍：《算法导论》《剑指Offer》
-        - 刷题平台：LeetCode（精选Top 100）、牛客网（国内企业真题）
-        - 学习技巧：按标签分类刷题（如动态规划），总结模板和常见优化方法。
-        - [三叶题单](https://github.com/SharingSource/LogicStack-LeetCode/wiki)
-    - [算法模板](templates.md)
-    - [Golang常用数据结构](https://github.com/emirpasic/gods)
+- **Data Structures and Algorithms**
+    - Key topics: arrays, linked lists, stacks/queues, hash tables, trees (binary trees, AVL trees, red-black trees), heaps, graphs, and string operations.
+    - Common algorithms: sorting (quicksort and merge sort), binary search, DFS/BFS, dynamic programming, greedy algorithms, sliding windows, and two pointers.
+    - **Recommended resources**:
+        - Books: *Introduction to Algorithms*, *剑指Offer* (Coding Interviews).
+        - Practice platforms: LeetCode (Top 100 problems), Nowcoder (past interview problems from Chinese companies).
+        - Study tips: practice by topic (such as dynamic programming), and summarize templates and common optimization techniques.
+        - [Problem list by 三叶](https://github.com/SharingSource/LogicStack-LeetCode/wiki)
+    - [Algorithm templates](templates.md)
+    - [Common Go data structures](https://github.com/emirpasic/gods)
 
-- **计算机网络**
-    - 核心概念：TCP/IP协议栈、HTTP/HTTPS、DNS、WebSocket、TCP三次握手/四次挥手、拥塞控制。
-    - 高频问题：HTTP状态码、RESTful API设计、Cookie/Session区别、HTTPS加密流程。
-    - **推荐资料**：
-        - 书籍：《计算机网络：自顶向下方法》
-        - 文章：MDN Web Docs、阮一峰HTTP协议博客。
+- **Computer Networks**
+    - Core concepts: the TCP/IP protocol stack, HTTP/HTTPS, DNS, WebSocket, the TCP three-way handshake/four-way teardown, and congestion control.
+    - Common questions: HTTP status codes, RESTful API design, cookies versus sessions, and the HTTPS encryption process.
+    - **Recommended resources**:
+        - Books: *Computer Networking: A Top-Down Approach*.
+        - Articles: MDN Web Docs and Ruan Yifeng's blog posts on HTTP.
 
-- **操作系统**
-    - 核心内容：进程/线程、死锁、内存管理（分页/分段）、虚拟内存、文件系统、I/O模型。
-    - 高频问题：线程同步方式（锁、信号量）、进程间通信（IPC）、上下文切换开销。
-    - **推荐资料**：
-        - 书籍：《现代操作系统》《Operating Systems: Three Easy Pieces》
-        - 视频：MIT 6.828（操作系统课程）。
+- **Operating Systems**
+    - Core topics: processes/threads, deadlocks, memory management (paging/segmentation), virtual memory, file systems, and I/O models.
+    - Common questions: thread synchronization (locks and semaphores), interprocess communication (IPC), and context-switch overhead.
+    - **Recommended resources**:
+        - Books: *Modern Operating Systems*, *Operating Systems: Three Easy Pieces*.
+        - Videos: MIT 6.828 (operating systems course).
 
-- **数据库**
-    - SQL：复杂查询（JOIN、子查询）、索引优化、事务ACID、隔离级别。
-    - NoSQL：Redis（数据结构、持久化）、MongoDB适用场景。
-    - 高频问题：索引原理（B+树）、慢查询优化、MVCC机制。
-    - **推荐资料**：
-        - 书籍：《高性能MySQL》《Redis设计与实现》
-        - 工具：EXPLAIN分析SQL执行计划。
+- **Databases**
+    - SQL: complex queries (JOINs and subqueries), index optimization, ACID transactions, and isolation levels.
+    - NoSQL: Redis (data structures and persistence) and use cases for MongoDB.
+    - Common questions: how indexes work (B+ trees), slow-query optimization, and MVCC.
+    - **Recommended resources**:
+        - Books: *High Performance MySQL*, *Redis设计与实现* (Redis Design and Implementation).
+        - Tools: use EXPLAIN to analyze SQL execution plans.
 
 ---
 
-### **编程语言**
+### **Programming Languages**
 
-针对 **Golang/Python/Java/C++** 四种编程语言的后端面试准备，以下是分语言的详细建议和重点方向：
+The following are detailed recommendations and focus areas for backend interviews in **Golang/Python/Java/C++**:
 
 #### **Golang**
 
-##### **核心知识点**
+##### **Core Topics**
 
-- **语言特性**
-    - 并发模型：`goroutine`、`channel`（缓冲/非缓冲）、`select`、`sync`包（Mutex、WaitGroup）。
-    - 内存管理：逃逸分析、GC三色标记法、内存对齐。
-    - 接口与反射：接口的隐式实现、`reflect`包的原理。
-- **高频问题**：
-    - `defer`的执行顺序与陷阱（如`defer`与闭包变量捕获）。
-    - `slice`与`map`的底层实现（扩容机制、并发安全）。
-    - `context`包的使用场景（超时控制、取消传播）。
-- **面试侧重**:
-    - 重点展示对高并发场景的理解（如用`channel`实现生产者-消费者模型）。
-    - 准备一个用Go实现的并发项目（如分布式任务调度系统）。
+- **Language features**
+    - Concurrency model: `goroutine`, `channel` (buffered/unbuffered), `select`, and the `sync` package (Mutex and WaitGroup).
+    - Memory management: escape analysis, tri-color marking in GC, and memory alignment.
+    - Interfaces and reflection: implicit interface implementation and how the `reflect` package works.
+- **Common questions**:
+    - `defer` execution order and pitfalls (such as `defer` and variable capture in closures).
+    - The underlying implementation of `slice` and `map` (growth mechanisms and concurrency safety).
+    - Use cases for the `context` package (timeouts and cancellation propagation).
+- **Interview focus**:
+    - Demonstrate an understanding of highly concurrent workloads (such as implementing the producer-consumer model with `channel`).
+    - Prepare a concurrent project implemented in Go (such as a distributed task scheduler).
 
-##### **框架与工具**
+##### **Frameworks and Tools**
 
-- 微服务框架：**Gin**（路由原理、中间件机制）、**Echo**。
-- 生态工具：**gRPC**（Protocol Buffers）、**Go Modules**依赖管理。
+- Microservice frameworks: **Gin** (routing and middleware mechanisms) and **Echo**.
+- Ecosystem tools: **gRPC** (Protocol Buffers) and dependency management with **Go Modules**.
 
-##### **推荐资料**
+##### **Recommended Resources**
 
-- 书籍：《Go语言设计与实现》《Go语言高级编程》
-- 源码：阅读标准库源码（如`net/http`、`sync`包）。
-- 实战：用Go实现高并发服务（如WebSocket聊天室）。
-- 项目: [Golang面试合集](https://github.com/lifei6671/interview-go)
-- 项目: [Golang算法模板](https://github.com/EndlessCheng/codeforces-go)
+- Books: *Go语言设计与实现* (Go Language Design and Implementation), *Go语言高级编程* (Advanced Go Programming).
+- Source code: read the standard library source (such as the `net/http` and `sync` packages).
+- Practice: implement a highly concurrent service in Go (such as a WebSocket chat room).
+- Project: [Go interview collection](https://github.com/lifei6671/interview-go)
+- Project: [Go algorithm templates](https://github.com/EndlessCheng/codeforces-go)
 
 ---
 
 #### **Python**
 
-##### **核心知识点**
+##### **Core Topics**
 
-- **语言特性**
-    - 动态类型：`鸭子类型`、`MRO`（方法解析顺序）、`GIL`全局解释器锁。
-    - 高级语法：装饰器、生成器、上下文管理器、元类（metaclass）。
-    - 内存管理：引用计数、垃圾回收机制、`__slots__`优化。
-- **高频问题**：
-    - 多线程与多进程的区别（GIL的影响）。
-    - 深浅拷贝的实现原理（`copy`模块）。
-    - 协程与异步编程（`asyncio`、`async/await`）。
-- **面试侧重**:
-    - 强调开发效率与脚本能力（如自动化工具开发经验）。
-    - 解释GIL的局限性，并说明如何绕过（如多进程+消息队列）。
+- **Language features**
+    - Dynamic typing: `duck typing`, `MRO` (method resolution order), and the `GIL` (global interpreter lock).
+    - Advanced syntax: decorators, generators, context managers, and metaclasses.
+    - Memory management: reference counting, garbage collection, and optimization with `__slots__`.
+- **Common questions**:
+    - Differences between multithreading and multiprocessing (the impact of the GIL).
+    - How shallow and deep copies are implemented (the `copy` module).
+    - Coroutines and asynchronous programming (`asyncio` and `async/await`).
+- **Interview focus**:
+    - Emphasize development efficiency and scripting skills (such as experience developing automation tools).
+    - Explain the limitations of the GIL and how to work around them (such as multiprocessing plus a message queue).
 
-##### **框架与工具**
+##### **Frameworks and Tools**
 
-- Web框架：**Django**（ORM原理、中间件）、**Flask**（请求上下文、蓝图）。
-- 数据处理：**Pandas**、**NumPy**（向量化操作）。
+- Web frameworks: **Django** (ORM internals and middleware) and **Flask** (request contexts and blueprints).
+- Data processing: **Pandas** and **NumPy** (vectorized operations).
 
-##### **推荐资料**
+##### **Recommended Resources**
 
-- 书籍：《流畅的Python》《Effective Python》
-- 学习：Python官方文档（注重CPython实现细节）。
-- 实战：用异步框架（如FastAPI）构建高吞吐API服务。
+- Books: *Fluent Python*, *Effective Python*.
+- Study: the official Python documentation (with a focus on CPython implementation details).
+- Practice: build a high-throughput API service with an asynchronous framework (such as FastAPI).
 
 ---
 
 #### **Java**
 
-##### **核心知识点**
+##### **Core Topics**
 
-- **语言特性**
-    - JVM：内存模型（堆、栈、方法区）、类加载机制、GC算法（CMS、G1）。
-    - 并发编程：`synchronized`、`volatile`、`ThreadLocal`、`AQS`（AbstractQueuedSynchronizer）。
-    - 集合框架：`HashMap`（红黑树优化）、`ConcurrentHashMap`（分段锁/CAS）。
-- **高频问题**：
-    - `ArrayList`与`LinkedList`的时间复杂度对比。
-    - Spring框架的依赖注入原理（BeanFactory vs. ApplicationContext）。
-    - JVM调优实战（OOM排查、GC日志分析）。
-- **面试侧重**：
-    - 深入JVM和框架源码（如Spring AOP的动态代理实现）。
-    - 结合分布式系统经验（如用Spring Cloud实现微服务）。
-- **核心语法**：集合框架（HashMap源码）、多线程（线程池、CAS）、JVM内存模型、垃圾回收算法。
-- **框架与生态**：Spring（IoC/AOP）、Spring Boot自动配置、MyBatis原理。
-- **高频问题**：
-    - HashMap扩容机制
-    - ConcurrentHashMap如何保证线程安全
-    - Spring Bean生命周期
-    - JVM调优实战经验
-- **推荐资料**：
-    - 书籍：《Effective Java》《深入理解Java虚拟机》
-    - 源码：JDK核心类库、Spring Framework源码。
+- **Language features**
+    - JVM: the memory model (heap, stack, and method area), class loading, and GC algorithms (CMS and G1).
+    - Concurrent programming: `synchronized`, `volatile`, `ThreadLocal`, and `AQS` (AbstractQueuedSynchronizer).
+    - Collections framework: `HashMap` (red-black tree optimization) and `ConcurrentHashMap` (segmented locking/CAS).
+- **Common questions**:
+    - Compare the time complexity of `ArrayList` and `LinkedList`.
+    - How dependency injection works in Spring (BeanFactory vs. ApplicationContext).
+    - Practical JVM tuning (OOM diagnosis and GC log analysis).
+- **Interview focus**:
+    - Explore JVM and framework internals (such as Spring AOP's dynamic proxy implementation).
+    - Draw on distributed systems experience (such as implementing microservices with Spring Cloud).
+- **Core syntax**: the collections framework (HashMap source code), multithreading (thread pools and CAS), the JVM memory model, and garbage collection algorithms.
+- **Frameworks and ecosystem**: Spring (IoC/AOP), Spring Boot auto-configuration, and how MyBatis works.
+- **Common questions**:
+    - The HashMap growth mechanism
+    - How ConcurrentHashMap ensures thread safety
+    - The Spring Bean lifecycle
+    - Practical JVM tuning experience
+- **Recommended resources**:
+    - Books: *Effective Java*, *深入理解Java虚拟机* (Understanding the JVM).
+    - Source code: the JDK core libraries and Spring Framework source.
 
-##### **框架与工具**
+##### **Frameworks and Tools**
 
-- 主流框架：**Spring Boot**（自动配置原理）、**MyBatis**（动态代理实现SQL映射）。
-- 微服务：**Spring Cloud**（服务注册发现、熔断器Hystrix）。
+- Mainstream frameworks: **Spring Boot** (how auto-configuration works) and **MyBatis** (SQL mapping through dynamic proxies).
+- Microservices: **Spring Cloud** (service registration/discovery and the Hystrix circuit breaker).
 
-##### **推荐资料**
+##### **Recommended Resources**
 
-- 书籍：《深入理解Java虚拟机》《Java并发编程实战》
-- 源码：JDK集合框架、Spring核心模块（如`spring-core`）。
+- Books: *深入理解Java虚拟机* (Understanding the JVM), *Java Concurrency in Practice*.
+- Source code: the JDK collections framework and Spring core modules (such as `spring-core`).
 
 ---
 
 #### **C++**
 
-##### **核心知识点**
+##### **Core Topics**
 
-- **语言特性**
-    - 内存管理：`new/delete`与`malloc/free`区别、智能指针（`unique_ptr`、`shared_ptr`）。
-    - 面向对象：虚函数表（vtable）、多重继承的陷阱、RAII机制。
-    - 模板与STL：模板元编程、容器（`vector`、`map`）的底层实现。
-- **高频问题**：
-    - 移动语义（`std::move`、右值引用）。
-    - 虚析构函数的作用。
-    - `const`关键字的用法（常量指针 vs. 指针常量）。
-- **面试侧重**:
-    - 突出内存管理和性能优化能力（如避免内存泄漏的方案）。
-    - 准备底层项目（如实现一个简易数据库或网络库）。
+- **Language features**
+    - Memory management: `new/delete` versus `malloc/free`, and smart pointers (`unique_ptr` and `shared_ptr`).
+    - Object-oriented programming: virtual function tables (vtables), multiple-inheritance pitfalls, and RAII.
+    - Templates and STL: template metaprogramming and container internals (`vector` and `map`).
+- **Common questions**:
+    - Move semantics (`std::move` and rvalue references).
+    - The role of virtual destructors.
+    - Uses of the `const` keyword (pointers to constants vs. constant pointers).
+- **Interview focus**:
+    - Highlight memory management and performance optimization skills (such as ways to prevent memory leaks).
+    - Prepare a low-level project (such as a simple database or networking library).
 
-##### **框架与工具**
+##### **Frameworks and Tools**
 
-- 常用库：**Boost**（智能指针、线程池）、**Qt**（信号槽机制）。
-- 高性能场景：内存池设计、零拷贝技术。
+- Common libraries: **Boost** (smart pointers and thread pools) and **Qt** (signals and slots).
+- High-performance scenarios: memory pool design and zero-copy techniques.
 
-##### **推荐资料**
+##### **Recommended Resources**
 
-- 书籍：《Effective C++》《C++ Primer》
-- 学习：C++标准文档（C++11/14/17新特性）。
-- 实战：手写STL容器（如简易`vector`）。
-- 面经： [C/C++后端开发面经](https://zhuanlan.zhihu.com/p/393268363)
-
----
-
-### **系统设计**
-
-- **基础设计**：短链生成、计数器、分布式ID生成、缓存设计（LRU）。
-- **进阶设计**：秒杀系统、社交网络（关注/粉丝）、分布式文件存储、消息队列（Kafka/RabbitMQ）。
-- **方法论**：
-    1. 明确需求（QPS、数据量、一致性要求）
-    2. 设计核心组件（数据库分库分表、缓存策略、负载均衡）
-    3. 解决瓶颈（热点数据、分布式锁、容灾备份）
-- **推荐资料**：
-    - 书籍：《数据密集型应用系统设计》
-    - 课程：Grokking the System Design Interview（英文）
-    - 实战：参考GitHub开源项目（如TinyURL）。
+- Books: *Effective C++*, *C++ Primer*.
+- Study: C++ standards documentation (new features in C++11/14/17).
+- Practice: implement STL containers yourself (such as a simple `vector`).
+- Interview experiences: [C/C++ backend development interviews](https://zhuanlan.zhihu.com/p/393268363)
 
 ---
 
-## 其他
+### **System Design**
 
-### 为什么是三次握手、四次挥手
+- **Basic designs**: URL shorteners, counters, distributed ID generation, and caches (LRU).
+- **Advanced designs**: flash-sale systems, social networks (following/followers), distributed file storage, and message queues (Kafka/RabbitMQ).
+- **Methodology**:
+    1. Clarify requirements (QPS, data volume, and consistency requirements)
+    2. Design core components (database/table sharding, caching strategies, and load balancing)
+    3. Address bottlenecks (hot data, distributed locks, and disaster recovery backups)
+- **Recommended resources**:
+    - Books: *Designing Data-Intensive Applications*.
+    - Courses: Grokking the System Design Interview (in English)
+    - Practice: refer to open-source projects on GitHub (such as TinyURL).
 
-三次握手确保建立可靠连接。四次挥手确保断开数据不丢失。
+---
 
-### 简要介绍一下gRPC
+## Other Topics
 
-### QUIC相对于HTTP2有哪些重大变化
+### Why a Three-Way Handshake and a Four-Way Teardown?
 
-### 如果一段SQL执行缓慢，你该如何排查
+The three-way handshake ensures that a reliable connection is established. The four-way teardown ensures that no data is lost when disconnecting.
 
-### MySql有哪些索引类型
+### Briefly Introduce gRPC
 
-#### **1. 主键索引（Primary Key Index）**
-- **特点**：
-  - 唯一标识表中每一行数据，不允许重复和 `NULL` 值。
-  - 每个表只能有一个主键索引。
-  - 默认使用 **B+Tree** 结构。
-- **语法**：
+### What Are the Major Changes in QUIC Compared with HTTP2?
+
+### How Would You Diagnose a Slow SQL Query?
+
+### What Index Types Does MySql Have?
+
+#### **1. Primary Key Index**
+- **Characteristics**:
+  - Uniquely identifies each row in a table; duplicate and `NULL` values are not allowed.
+  - Each table can have only one primary key index.
+  - Uses a **B+Tree** structure by default.
+- **Syntax**:
   ```sql
   CREATE TABLE users (
-      id INT PRIMARY KEY, -- 主键索引
+      id INT PRIMARY KEY, -- Primary key index
       name VARCHAR(50)
   );
   ```
 
-#### **2. 唯一索引（Unique Index）**
-- **特点**：
-  - 确保列的值唯一，允许 `NULL` 值（但只能有一个 `NULL`）。
-  - 可以创建多个唯一索引。
-  - 常用于避免重复数据（如邮箱、手机号）。
-- **语法**：
+#### **2. Unique Index**
+- **Characteristics**:
+  - Ensures that column values are unique; `NULL` values are allowed (but only one `NULL`).
+  - Multiple unique indexes can be created.
+  - Commonly used to prevent duplicate data (such as email addresses and phone numbers).
+- **Syntax**:
   ```sql
   CREATE UNIQUE INDEX idx_email ON users(email);
   ```
 
-#### **3. 普通索引（Normal Index / Non-Unique Index）**
-- **特点**：
-  - 最基本的索引类型，无唯一性约束。
-  - 用于加速查询，但允许重复值和 `NULL`。
-- **语法**：
+#### **3. Normal Index / Non-Unique Index**
+- **Characteristics**:
+  - The most basic index type, without a uniqueness constraint.
+  - Speeds up queries while allowing duplicate values and `NULL`.
+- **Syntax**:
   ```sql
   CREATE INDEX idx_name ON users(name);
   ```
 
-#### **4. 组合索引（Composite Index）**
-- **特点**：
-  - 对多个列联合建立索引，支持多条件查询。
-  - 遵循 **最左前缀原则**（查询条件需包含最左列才能触发索引）。
-- **语法**：
+#### **4. Composite Index**
+- **Characteristics**:
+  - Indexes multiple columns together to support queries with multiple conditions.
+  - Follows the **leftmost-prefix rule** (query conditions must include the leftmost column to use the index).
+- **Syntax**:
   ```sql
   CREATE INDEX idx_name_age ON users(name, age);
   ```
-- **示例**：
+- **Example**:
   ```sql
-  -- 以下查询会使用索引：
+  -- These queries use the index:
   SELECT * FROM users WHERE name = 'Alice';
   SELECT * FROM users WHERE name = 'Bob' AND age = 30;
 
-  -- 以下查询不会使用索引（缺少最左列 name）：
+  -- This query does not use the index (the leftmost column, name, is missing):
   SELECT * FROM users WHERE age = 25;
   ```
 
-#### **5. 全文索引（Full-Text Index）**
-- **特点**：
-  - 用于全文搜索（如 `MATCH ... AGAINST` 语句），支持文本字段（`CHAR`/`VARCHAR`/`TEXT`）。
-  - 仅适用于 **MyISAM** 和 **InnoDB**（MySQL 5.6+）引擎。
-- **语法**：
+#### **5. Full-Text Index**
+- **Characteristics**:
+  - Used for full-text searches (such as `MATCH ... AGAINST` statements); supports text fields (`CHAR`/`VARCHAR`/`TEXT`).
+  - Available only with the **MyISAM** and **InnoDB** (MySQL 5.6+) engines.
+- **Syntax**:
   ```sql
   CREATE FULLTEXT INDEX idx_content ON articles(content);
   ```
-- **示例**：
+- **Example**:
   ```sql
   SELECT * FROM articles 
   WHERE MATCH(content) AGAINST('database' IN NATURAL LANGUAGE MODE);
   ```
 
-#### **6. 前缀索引（Prefix Index）**
-- **特点**：
-  - 对字符串的前 `N` 个字符建立索引，减少存储空间。
-  - 需平衡前缀长度和选择性（唯一性）。
-- **语法**：
+#### **6. Prefix Index**
+- **Characteristics**:
+  - Indexes the first `N` characters of a string to reduce storage space.
+  - Requires a balance between prefix length and selectivity (uniqueness).
+- **Syntax**:
   ```sql
-  CREATE INDEX idx_name_prefix ON users(name(10)); -- 前10个字符
+  CREATE INDEX idx_name_prefix ON users(name(10)); -- First 10 characters
   ```
 
-#### **7. 空间索引（Spatial Index）**
-- **特点**：
-  - 用于地理空间数据类型（如 `GEOMETRY`, `POINT`, `POLYGON`）。
-  - 支持空间查询（如 `ST_Contains`, `ST_Distance`）。
-  - 仅适用于 **MyISAM** 引擎（InnoDB 从 MySQL 5.7+ 支持）。
-- **语法**：
+#### **7. Spatial Index**
+- **Characteristics**:
+  - Used for geospatial data types (such as `GEOMETRY`, `POINT`, and `POLYGON`).
+  - Supports spatial queries (such as `ST_Contains` and `ST_Distance`).
+  - Available only with the **MyISAM** engine (InnoDB supports it from MySQL 5.7+).
+- **Syntax**:
   ```sql
   CREATE SPATIAL INDEX idx_location ON places(coordinates);
   ```
 
-#### **8. 覆盖索引（Covering Index）**
-- **特点**：
-  - 索引包含查询所需的所有列，避免回表查询。
-  - 显著提升查询性能。
-- **示例**：
+#### **8. Covering Index**
+- **Characteristics**:
+  - Contains all columns required by a query, avoiding a table lookup.
+  - Significantly improves query performance.
+- **Example**:
   ```sql
-  -- 若索引是 (name, age)，查询只需 name 和 age：
+  -- If the index is (name, age) and the query needs only name and age:
   SELECT name, age FROM users WHERE name = 'Alice';
   ```
 
-#### **索引的存储引擎支持**
-| 索引类型       | InnoDB | MyISAM | MEMORY |
+#### **Storage Engine Support for Indexes**
+| Index type       | InnoDB | MyISAM | MEMORY |
 |----------------|--------|--------|--------|
 | **B-Tree**     | ✅      | ✅      | ✅      |
-| **全文索引**   | ✅ (5.6+) | ✅      | ❌      |
-| **空间索引**   | ✅ (5.7+) | ✅      | ❌      |
-| **哈希索引**   | ❌      | ❌      | ✅      |
+| **Full-text index**   | ✅ (5.6+) | ✅      | ❌      |
+| **Spatial index**   | ✅ (5.7+) | ✅      | ❌      |
+| **Hash index**   | ❌      | ❌      | ✅      |
 
-#### **索引选择建议**
-1. **主键索引**：必须为表显式或隐式定义。
-2. **高频查询字段**：对 `WHERE`, `JOIN`, `ORDER BY` 涉及的列建索引。
-3. **避免过度索引**：索引会降低写操作（INSERT/UPDATE/DELETE）性能。
-4. **组合索引优化**：优先选择区分度高的列作为最左前缀。
+#### **Index Selection Recommendations**
+1. **Primary key index**: must be defined for a table explicitly or implicitly.
+2. **Frequently queried fields**: index columns used in `WHERE`, `JOIN`, and `ORDER BY`.
+3. **Avoid excessive indexing**: indexes reduce the performance of write operations (INSERT/UPDATE/DELETE).
+4. **Composite index optimization**: prefer highly selective columns as the leftmost prefix.
 
-### MySQL有哪几个数据库引擎，它们的主要区别是什么？
+### What Database Engines Does MySQL Have, and What Are Their Main Differences?
 
-### 悲观锁和乐观锁的区别
+### Pessimistic Locking Versus Optimistic Locking
 
-### Redis为什么快
+### Why Is Redis Fast?
 
-- 基于内存操作：Redis的绝大部分操作在内存里就可以实现，数据也存在内存中，与传统的磁盘文件操作相比减少了IO，提高了操作的速度。
-- 高效的数据结构：Redis有专门设计了STRING、LIST、HASH等高效的数据结构，依赖各种数据结构提升了读写的效率。
-- 采用单线程：单线程操作省去了上下文切换带来的开销和CPU的消耗，同时不存在资源竞争，避免了死锁现象的发生。
-- I/O多路复用：采用I/O多路复用机制同时监听多个Socket，根据Socket上的事件来选择对应的事件处理器进行处理。
+- In-memory operations: most Redis operations can run in memory, where the data is also stored. Compared with traditional disk-file operations, this reduces I/O and improves speed.
+- Efficient data structures: Redis has specially designed efficient data structures such as STRING, LIST, and HASH, which improve read and write efficiency.
+- Single-threaded execution: this avoids the overhead and CPU cost of context switching. There is also no resource contention, preventing deadlocks.
+- I/O multiplexing: Redis monitors multiple sockets through I/O multiplexing and selects the appropriate event handler based on the events on each socket.
 
-### Redis如何保证断电后数据不会丢失？如何做到数据高可用且避免不一致问题？
+### How Does Redis Prevent Data Loss After a Power Failure? How Does It Provide High Availability and Avoid Inconsistency?
 
-#### Redis数据持久化
+#### Redis Data Persistence
 
-Redis默认情况下是内存数据库，数据是存储在内存中的。为了防止断电或其他意外情况导致数据丢失，Redis提供了两种持久化机制：
+Redis is an in-memory database by default, with data stored in memory. To prevent data loss caused by power failures or other unexpected events, Redis provides two persistence mechanisms:
 - RDB（Redis DataBase）：
-    - 原理： 将Redis在某个时间点的数据（快照）以二进制形式保存到硬盘中。
-    - 触发方式：
-        1. 手动触发：使用SAVE或BGSAVE命令。
-        2. 自动触发：配置Redis，在一定时间内有N多条数据被修改时自动触发。
-    - 优点：文件恢复速度快，适用于数据恢复。配置简单。
-    - 缺点：数据可能丢失：如果在两次RDB快照之间数据发生变化，而没有来得及保存，那么发生故障时会丢失部分数据。
+    - How it works: saves Redis data at a particular point in time (a snapshot) to disk in binary form.
+    - Triggers:
+        1. Manual: use the SAVE or BGSAVE command.
+        2. Automatic: configure Redis to trigger a snapshot when N data entries have been modified within a specified period.
+    - Advantages: fast recovery from the file, making it suitable for data recovery. Simple configuration.
+    - Disadvantages: possible data loss. If data changes between two RDB snapshots and has not yet been saved, some data will be lost when a failure occurs.
 - AOF（Append Only File）：
-    - 原理： 将所有的写操作命令以Redis协议的格式追加到一个文件中。
-    - 触发方式：
-        1. 每秒同步：每秒将缓冲区中的数据写入AOF文件一次。
-        2. 每修改同步：每次写入都同步到AOF文件。
-    - 同步关闭：在关闭服务器时才写入AOF文件。
-    - 优点：数据安全性高，数据丢失的概率较低。支持数据追加，效率高。
-    - 缺点：AOF文件可能会变得很大，影响性能。文件同步频率越高，性能影响越大。
+    - How it works: appends all write commands to a file in Redis protocol format.
+    - Triggers:
+        1. Sync every second: writes buffered data to the AOF file once per second.
+        2. Sync every change: synchronizes each write to the AOF file.
+    - Sync disabled: writes to the AOF file only when the server shuts down.
+    - Advantages: high data safety and a low probability of data loss. Supports efficient data appends.
+    - Disadvantages: the AOF file may become very large, affecting performance. More frequent file synchronization has a greater performance impact.
 
-建议：
+Recommendations:
 
-- 同时开启RDB和AOF： RDB用于快速恢复数据，AOF用于保证数据不丢失。
-- 配置合理的RDB保存策略： 根据业务需求设置RDB保存的时间间隔和触发条件。
-- 配置合适的AOF同步策略： 在保证数据安全性的前提下，选择合适的AOF同步频率。
+- Enable both RDB and AOF: use RDB for fast data recovery and AOF to ensure data is not lost.
+- Configure a suitable RDB save policy: set the RDB save interval and trigger conditions according to business requirements.
+- Configure a suitable AOF synchronization policy: choose an appropriate AOF sync frequency while ensuring data safety.
 
-#### Redis数据高可用
+#### Redis High Availability
 
-- 主从复制：
-    - 原理： 主节点负责写操作，从节点负责读操作，主节点将数据同步给从节点。
-    - 优点：读写分离，提高性能。数据冗余，提高可用性。
-    - 缺点：主节点故障时，需要手动切换。
-- 哨兵模式：
-    - 原理： 哨兵是Redis的监控工具，它可以监控多个Redis实例，并在主节点故障时自动进行故障转移。
-    - 优点：自动故障转移，提高可用性。支持主从复制配置。
-    - 缺点：配置相对复杂。
+- Primary-replica replication:
+    - How it works: the primary handles writes, replicas handle reads, and the primary synchronizes data to the replicas.
+    - Advantages: separating reads and writes improves performance. Data redundancy improves availability.
+    - Disadvantages: manual failover is required if the primary fails.
+- Sentinel mode:
+    - How it works: Sentinel is a Redis monitoring tool that can monitor multiple Redis instances and automatically fail over when the primary fails.
+    - Advantages: automatic failover improves availability. Supports primary-replica replication configuration.
+    - Disadvantages: relatively complex configuration.
 - Redis Cluster：
-    - 原理： 将数据分片存储在多个节点上，每个节点负责一部分数据。
-    - 优点：线性扩展，提高性能。高可用性。
-    - 缺点：配置复杂，数据迁移成本高。
+    - How it works: shards data across multiple nodes, each responsible for a portion of the data.
+    - Advantages: linear scalability, improved performance, and high availability.
+    - Disadvantages: complex configuration and high data migration costs.
 
-#### 如何避免数据不一致问题：
+#### Avoiding Data Inconsistency:
 
-- 主从复制一致性：
-    - 部分同步：主节点写完数据后立即同步到从节点。
-    - 全同步：主节点收到所有从节点的ack确认后才写入数据。
-- 哨兵模式故障转移：哨兵会选择一个从节点作为新的主节点，并进行数据同步。
-- Redis Cluster数据一致性：使用一致性哈希算法来分配数据。支持故障转移和数据迁移。
+- Primary-replica replication consistency:
+    - Partial synchronization: the primary synchronizes data to replicas immediately after writing it.
+    - Full synchronization: the primary writes data only after receiving ack confirmations from all replicas.
+- Sentinel failover: Sentinel selects a replica as the new primary and synchronizes data.
+- Redis Cluster data consistency: uses consistent hashing to distribute data. Supports failover and data migration.
 
-### 缓存雪崩、击穿、穿透和解决办法？
+### Cache Avalanche, Breakdown, and Penetration: What Are the Solutions?
 
-#### **1. 缓存雪崩（Cache Avalanche）**
-**定义**：大量缓存数据**同时过期**，导致所有请求直接访问数据库，引发数据库压力激增甚至崩溃。
+#### **1. Cache Avalanche**
+**Definition**: a large number of cached entries **expire simultaneously**, causing all requests to access the database directly and triggering a surge in database load or even a crash.
 
-**解决策略**：
-1. **随机过期时间**：为不同缓存设置不同的过期时间（例如基础过期时间 + 随机偏移）。
+**Solutions**:
+1. **Randomized expiration times**: assign different expiration times to cached entries (for example, a base expiration time plus a random offset).
    ```java
-   // 示例：设置过期时间为 60分钟 ± 随机10分钟
+   // Example: set expiration to 60 minutes ± a random 10 minutes
    int expireTime = 60 * 60 + (int)(Math.random() * 10 * 60);
    ```
-2. **永不过期 + 异步更新**：
-   - 缓存不设过期时间，通过后台线程定期更新。
-   - 结合互斥锁，避免多个线程同时更新。
-3. **多级缓存**：使用本地缓存（如 Caffeine）结合分布式缓存（如 Redis），降低集体失效风险。
-4. **熔断降级**：当数据库压力过大时，启用限流或返回默认值，保护系统可用性。
+2. **No expiration + asynchronous updates**:
+   - Do not set cache expiration; update the cache periodically with a background thread.
+   - Use a mutex to prevent multiple threads from updating it simultaneously.
+3. **Multilevel caching**: combine a local cache (such as Caffeine) with a distributed cache (such as Redis) to reduce the risk of simultaneous invalidation.
+4. **Circuit breaking and graceful degradation**: when the database is under excessive load, enable rate limiting or return default values to protect system availability.
 
-#### **2. 缓存击穿（Cache Breakdown）**
-**定义**：某个**热点数据过期**的瞬间，大量并发请求直接穿透到数据库，导致数据库负载骤增。
+#### **2. Cache Breakdown**
+**Definition**: when a **hot cached entry expires**, a large number of concurrent requests reach the database directly, causing a sudden increase in database load.
 
-**解决策略**：
-1. **互斥锁（Mutex Lock）**：
-   - 当缓存失效时，使用分布式锁（如 Redis 的 `SETNX`），确保只有一个线程加载数据。
+**Solutions**:
+1. **Mutex Lock**:
+   - When the cache expires, use a distributed lock (such as Redis `SETNX`) to ensure that only one thread loads the data.
    ```java
    public String getData(String key) {
        String data = cache.get(key);
        if (data == null) {
-           if (lock.tryLock()) { // 获取分布式锁
+           if (lock.tryLock()) { // Acquire the distributed lock
                try {
-                   data = db.load(key); // 查询数据库
+                   data = db.load(key); // Query the database
                    cache.set(key, data, expireTime);
                } finally {
                    lock.unlock();
                }
            } else {
-               // 等待其他线程加载完成
+               // Wait for another thread to finish loading
                Thread.sleep(100);
                return cache.get(key);
            }
@@ -411,53 +411,53 @@ Redis默认情况下是内存数据库，数据是存储在内存中的。为了
        return data;
    }
    ```
-2. **逻辑过期**：
-   - 缓存数据永不过期，但存储逻辑过期时间。当发现数据过期时，异步更新缓存。
-3. **热点数据预加载**：针对高频访问数据，提前刷新缓存，避免自然过期。
+2. **Logical expiration**:
+   - The cached data never expires, but stores a logical expiration time. When the data is found to be expired, update the cache asynchronously.
+3. **Preload hot data**: refresh frequently accessed data in advance to prevent normal expiration.
 
 
-#### **3. 缓存穿透（Cache Penetration）**
-**定义**：请求访问**不存在的数据**（如非法 ID），绕过缓存直接查询数据库，导致无效查询堆积。
+#### **3. Cache Penetration**
+**Definition**: requests for **nonexistent data** (such as invalid IDs) bypass the cache and query the database directly, causing useless queries to accumulate.
 
-**解决策略**：
-1. **布隆过滤器（Bloom Filter）**：
-   - 在缓存层前加布隆过滤器，快速判断数据是否存在，拦截无效请求。
+**Solutions**:
+1. **Bloom Filter**:
+   - Add a Bloom filter before the cache layer to quickly determine whether data exists and reject invalid requests.
    ```java
    if (!bloomFilter.mightContain(key)) {
-       return null; // 直接返回，不查询缓存或数据库
+       return null; // Return immediately without querying the cache or database
    }
    ```
-2. **缓存空值**：对查询结果为 `NULL` 的请求，缓存空值并设置较短过期时间（如 5 分钟）。
+2. **Cache null values**: when a query returns `NULL`, cache the null result with a short expiration time (such as 5 minutes).
    ```java
    if (data == null) {
-       cache.set(key, "NULL", 5 * 60); // 缓存空值
+       cache.set(key, "NULL", 5 * 60); // Cache the null value
    }
    ```
-3. **参数校验**：在业务层对请求参数进行合法性检查（如 ID 范围、格式）。
-4. **限流与黑名单**：对频繁访问无效 Key 的 IP 或用户进行限流或加入黑名单。
+3. **Parameter validation**: validate request parameters in the business layer (such as ID ranges and formats).
+4. **Rate limiting and blocklists**: rate-limit or block IP addresses or users that frequently access invalid keys.
 
-#### **对比总结**
-| 问题类型       | 触发条件                     | 核心解决思路                     | 典型方案                               |
+#### **Comparison**
+| Problem       | Trigger                     | Core approach                     | Typical solutions                               |
 |----------------|----------------------------|--------------------------------|--------------------------------------|
-| **缓存雪崩**   | 大量缓存同时失效             | 分散过期时间、多级缓存、熔断降级      | 随机过期时间、多级缓存、异步更新           |
-| **缓存击穿**   | 热点数据过期                 | 互斥锁、逻辑过期、热点预加载          | 分布式锁、逻辑过期时间、后台更新线程        |
-| **缓存穿透**   | 查询不存在的数据             | 拦截无效请求、缓存空值、参数校验      | 布隆过滤器、缓存空值、请求参数校验         |
+| **Cache avalanche**   | Many cached entries expire simultaneously             | Stagger expiration, multilevel caching, circuit breaking and graceful degradation      | Random expiration, multilevel caching, asynchronous updates           |
+| **Cache breakdown**   | Hot data expires                 | Mutexes, logical expiration, preloading hot data          | Distributed locks, logical expiration times, background update threads        |
+| **Cache penetration**   | Queries for nonexistent data             | Reject invalid requests, cache null values, validate parameters      | Bloom filters, null-value caching, request parameter validation         |
 
 
-#### **实战建议**
-1. **监控与预警**：实时监控缓存命中率、数据库 QPS，及时发现异常。
-2. **组合策略**：根据业务场景混合使用上述方案（如布隆过滤器 + 空值缓存 + 互斥锁）。
-3. **压测验证**：通过模拟高并发场景，验证解决方案的有效性。
+#### **Practical Recommendations**
+1. **Monitoring and alerts**: monitor the cache hit rate and database QPS in real time to detect anomalies promptly.
+2. **Combine strategies**: mix the approaches above according to the business scenario (such as a Bloom filter + null-value caching + a mutex).
+3. **Load testing**: simulate highly concurrent workloads to verify that the solution is effective.
 
-### Python 和 Go 的内存管理区别
+### Memory Management Differences Between Python and Go
 
-### golang中slice的底层实现？
+### How Are Slices Implemented in Go?
 
-### golang中slice和数组的区别？
+### How Do Slices and Arrays Differ in Go?
 
-### golang中slice是线程安全的吗？
+### Are Slices Thread-Safe in Go?
 
-### golang中map是线程安全的吗？如何实现一个线程安全的map
+### Are Maps Thread-Safe in Go? How Would You Implement a Thread-Safe Map?
 
 ```go
 func main() {
@@ -503,104 +503,104 @@ func main() {
 // <nil> false
 ```
 
-### golang中channel的底层实现原理
+### How Channels Are Implemented in Go
 
-Go语言中channel的底层实现原理可以分为以下几个关键部分：
+The underlying implementation of channels in Go can be divided into the following key parts:
 
-#### **1. 数据结构：`hchan`**
-在Go的运行时（runtime）中，每个channel由`hchan`结构体表示，定义在`runtime/chan.go`中：
+#### **1. Data Structure: `hchan`**
+In the Go runtime, each channel is represented by an `hchan` struct, defined in `runtime/chan.go`:
 ```go
 type hchan struct {
-    qcount   uint           // 当前缓冲区中的数据量
-    dataqsiz uint           // 缓冲区大小（容量）
-    buf      unsafe.Pointer // 指向环形缓冲区的指针
-    elemsize uint16         // 元素大小
-    closed   uint32         // channel是否已关闭（0-未关闭，1-已关闭）
-    elemtype *_type         // 元素类型信息（用于类型检查）
-    sendx    uint           // 发送索引（缓冲区中的位置）
-    recvx    uint           // 接收索引（缓冲区中的位置）
-    recvq    waitq          // 接收等待队列（sudog链表）
-    sendq    waitq          // 发送等待队列（sudog链表）
-    lock     mutex          // 互斥锁，保护channel的线程安全
+    qcount   uint           // Current number of items in the buffer
+    dataqsiz uint           // Buffer size (capacity)
+    buf      unsafe.Pointer // Pointer to the ring buffer
+    elemsize uint16         // Element size
+    closed   uint32         // Whether the channel is closed (0: open, 1: closed)
+    elemtype *_type         // Element type information (for type checking)
+    sendx    uint           // Send index (position in the buffer)
+    recvx    uint           // Receive index (position in the buffer)
+    recvq    waitq          // Receive wait queue (sudog linked list)
+    sendq    waitq          // Send wait queue (sudog linked list)
+    lock     mutex          // Mutex that protects the channel's thread safety
 }
 ```
 
-#### **2. 缓冲区与环形队列**
-- **有缓冲channel**：数据存储在`buf`指向的环形队列中，通过`sendx`和`recvx`跟踪写入和读取位置。
-- **无缓冲channel**：`buf`为空，发送和接收操作直接通过goroutine间的数据拷贝完成。
+#### **2. Buffers and Circular Queues**
+- **Buffered channels**: data is stored in the circular queue pointed to by `buf`, with `sendx` and `recvx` tracking write and read positions.
+- **Unbuffered channels**: `buf` is empty, and sends and receives copy data directly between goroutines.
 
-#### **3. 同步机制**
-##### **发送数据（Send）**
-1. **缓冲区未满**：数据直接写入缓冲区，更新`sendx`。
-2. **缓冲区已满**：
-   - 当前goroutine被打包为`sudog`，加入`sendq`队列。
-   - goroutine进入等待状态，**释放锁**，触发调度器切换执行其他goroutine。
-3. **有接收者等待**：直接将数据拷贝到接收者，唤醒接收goroutine。
+#### **3. Synchronization**
+##### **Sending Data (Send)**
+1. **Buffer not full**: write data directly to the buffer and update `sendx`.
+2. **Buffer full**:
+   - Wrap the current goroutine in a `sudog` and add it to `sendq`.
+   - The goroutine enters a waiting state, **releases the lock**, and causes the scheduler to switch to another goroutine.
+3. **Receiver waiting**: copy data directly to the receiver and wake the receiving goroutine.
 
-##### **接收数据（Recv）**
-1. **缓冲区非空**：从缓冲区读取数据，更新`recvx`。
-2. **缓冲区为空**：
-   - 当前goroutine打包为`sudog`，加入`recvq`队列。
-   - goroutine进入等待状态，**释放锁**，等待发送者唤醒。
-3. **有发送者等待**：直接从发送者拷贝数据，唤醒发送goroutine。
+##### **Receiving Data (Recv)**
+1. **Buffer not empty**: read data from the buffer and update `recvx`.
+2. **Buffer empty**:
+   - Wrap the current goroutine in a `sudog` and add it to `recvq`.
+   - The goroutine enters a waiting state, **releases the lock**, and waits to be woken by a sender.
+3. **Sender waiting**: copy data directly from the sender and wake the sending goroutine.
 
-##### **4. 等待队列（`waitq`与`sudog`）**
-- **`waitq`**：双向链表，存储等待的goroutine（`sudog`）。
-- **`sudog`**：表示一个等待中的goroutine，包含：
-  - 指向goroutine的指针。
-  - 等待的channel和操作类型（发送/接收）。
-  - 数据内存地址（用于直接拷贝）。
+##### **4. Wait Queues (`waitq` and `sudog`)**
+- **`waitq`**: a doubly linked list storing waiting goroutines (`sudog`).
+- **`sudog`**: represents a waiting goroutine and contains:
+  - A pointer to the goroutine.
+  - The channel it is waiting on and the operation type (send/receive).
+  - The memory address of the data (for direct copying).
 
-#### **5. 关闭channel**
-- 设置`closed`标志为1。
-- 唤醒所有`sendq`和`recvq`中的等待goroutine：
-  - **发送者**：触发panic（向已关闭channel发送数据）。
-  - **接收者**：返回零值和`false`（表示channel已关闭）。
+#### **5. Closing a Channel**
+- Set the `closed` flag to 1.
+- Wake all goroutines waiting in `sendq` and `recvq`:
+  - **Senders**: trigger a panic (sending data to a closed channel).
+  - **Receivers**: return the zero value and `false` (indicating that the channel is closed).
 
-#### **6. 无缓冲channel**
-- 发送和接收必须**同步配对**，数据直接从发送者拷贝到接收者，不经过缓冲区。
-- 若对方未就绪，当前goroutine加入等待队列。
+#### **6. Unbuffered Channels**
+- Sends and receives must **rendezvous synchronously**; data is copied directly from sender to receiver without passing through a buffer.
+- If the other party is not ready, the current goroutine joins the wait queue.
 
-#### **7. Select多路复用**
-- **非阻塞检查**：遍历所有case，检查channel是否可操作。
-- **随机选择**：若多个case就绪，随机选择一个执行（避免饥饿）。
-- **等待机制**：若所有case未就绪，将当前goroutine加入所有channel的等待队列，任一channel就绪后触发唤醒。
+#### **7. Select Multiplexing**
+- **Nonblocking check**: iterate over all cases to check whether each channel operation can proceed.
+- **Random selection**: if multiple cases are ready, randomly select one to execute (to avoid starvation).
+- **Waiting mechanism**: if no case is ready, add the current goroutine to every channel's wait queue; readiness on any channel triggers a wakeup.
 
-#### **8. 性能优化**
-- **直接内存拷贝**：避免数据在缓冲区和goroutine栈之间的额外复制。
-- **锁粒度控制**：通过互斥锁（`lock`）保护`hchan`状态，但等待队列的操作会短暂释放锁，减少竞争。
+#### **8. Performance Optimization**
+- **Direct memory copying**: avoids extra copies between the buffer and goroutine stacks.
+- **Lock granularity**: a mutex (`lock`) protects the `hchan` state, but wait-queue operations briefly release the lock to reduce contention.
 
-#### **示例流程**
-1. **创建channel**：
+#### **Example Flow**
+1. **Create a channel**:
    ```go
-   ch := make(chan int, 3) // 创建容量为3的缓冲channel
+   ch := make(chan int, 3) // Create a buffered channel with capacity 3
    ```
-   - 分配`hchan`结构体，初始化缓冲区、锁和队列。
+   - Allocate an `hchan` struct and initialize the buffer, lock, and queues.
 
-2. **发送数据**：
+2. **Send data**:
    ```go
    ch <- 42
    ```
-   - 加锁 → 缓冲区有空位 → 写入数据 → 解锁。
-   - 若缓冲区满，当前goroutine加入`sendq`并阻塞。
+   - Acquire the lock → buffer has space → write data → release the lock.
+   - If the buffer is full, the current goroutine joins `sendq` and blocks.
 
-3. **接收数据**：
+3. **Receive data**:
    ```go
    val := <-ch
    ```
-   - 加锁 → 缓冲区有数据 → 读取数据 → 解锁。
-   - 若缓冲区空，当前goroutine加入`recvq`并阻塞。
+   - Acquire the lock → buffer has data → read data → release the lock.
+   - If the buffer is empty, the current goroutine joins `recvq` and blocks.
 
-#### **总结**
-Go的channel通过`hchan`结构体管理缓冲区、同步锁和等待队列，实现高效的goroutine间通信：
-- **有缓冲channel**：基于环形队列的FIFO操作。
-- **无缓冲channel**：直接goroutine间数据传递。
-- **同步机制**：依赖互斥锁和等待队列，结合调度器实现阻塞与唤醒。
-- **关闭操作**：通过标志位和唤醒所有等待goroutine处理。
+#### **Summary**
+Go channels use the `hchan` struct to manage buffers, synchronization locks, and wait queues, enabling efficient communication between goroutines:
+- **Buffered channels**: FIFO operations based on a circular queue.
+- **Unbuffered channels**: direct data transfer between goroutines.
+- **Synchronization**: relies on mutexes and wait queues, working with the scheduler to block and wake goroutines.
+- **Closing**: handled through a flag and by waking all waiting goroutines.
 
-这种设计保证了channel在并发场景下的线程安全和高效性。
+This design ensures channel thread safety and efficiency under concurrency.
 
-### defer的底层原理
+### How defer Works Internally
 
 ```go
 func f1() (result int) {
@@ -626,378 +626,378 @@ func f3() (r int) {
 }
 ```
 
-### Golang的GMP理解
+### Understanding Go's GMP Model
 
-[GMP模型](https://go.cyub.vip/gmp/gmp-model/)
+[GMP model](https://go.cyub.vip/gmp/gmp-model/)
 
-[深入理解GMP](https://learnku.com/articles/41728)
+[Understanding GMP in depth](https://learnku.com/articles/41728)
 
-G表示Goroutine协程
-M表示OS线程
-P表示Processor 处理器
+G represents a Goroutine (coroutine)
+M represents an OS thread
+P represents a Processor
 
-![GMP模型](https://cdn.learnku.com/uploads/images/202003/11/58489/Ugu3C2WSpM.jpeg!large)
-
-
-### golang中make和new的区别?
-
-在 Go 语言中，`make` 和 `new` 是两个用于内存分配的内置函数，但它们的使用场景和底层行为有明显区别。以下是它们的详细对比及内存分配位置的解释：
+![GMP model](https://cdn.learnku.com/uploads/images/202003/11/58489/Ugu3C2WSpM.jpeg!large)
 
 
-#### **一、`new` 和 `make` 的核心区别**
+### How Do make and new Differ in Go?
 
-| **特性**           | **`new(T)`**                          | **`make(T, args...)`**                |
+In Go, `make` and `new` are built-in memory-allocation functions, but their use cases and underlying behavior differ substantially. The following compares them in detail and explains where memory is allocated:
+
+
+#### **1. Key Differences Between `new` and `make`**
+
+| **Feature**           | **`new(T)`**                          | **`make(T, args...)`**                |
 |---------------------|---------------------------------------|---------------------------------------|
-| **作用对象**        | 适用于任何类型（值类型、引用类型）。     | 仅适用于 `slice`、`map`、`channel` 三种引用类型。 |
-| **返回值**          | 返回 `*T`（指向类型 `T` 的指针）。       | 返回初始化后的 `T` 类型（非指针）。               |
-| **初始化行为**      | 分配内存并返回指向零值的指针。           | 分配内存并初始化数据结构（如分配底层数组、哈希表等）。 |
-| **典型用例**        | 创建值类型的指针（如 `int`、`struct`）。 | 创建引用类型的实例（如 `[]int`、`map[int]bool`）。 |
+| **Applicable types**        | Any type (value types and reference types).     | Only the three reference types: `slice`, `map`, and `channel`. |
+| **Return value**          | Returns `*T` (a pointer to type `T`).       | Returns an initialized value of type `T` (not a pointer).               |
+| **Initialization**      | Allocates memory and returns a pointer to the zero value.           | Allocates memory and initializes the data structure (such as the underlying array or hash table). |
+| **Typical use case**        | Creates a pointer to a value type (such as `int` or `struct`). | Creates an instance of a reference type (such as `[]int` or `map[int]bool`). |
 
-##### **示例代码**
+##### **Example Code**
 ```go
-// 使用 new
-ptr := new(int)    // ptr 是 *int 类型，指向 0
-s := new([]int)    // s 是 *[]int 类型，指向 nil 的 slice
+// Using new
+ptr := new(int)    // ptr has type *int and points to 0
+s := new([]int)    // s has type *[]int and points to a nil slice
 
-// 使用 make
-slice := make([]int, 10)  // 创建长度为 10 的 slice
-m := make(map[string]int) // 创建空的 map
-ch := make(chan int)      // 创建无缓冲的 channel
+// Using make
+slice := make([]int, 10)  // Create a slice of length 10
+m := make(map[string]int) // Create an empty map
+ch := make(chan int)      // Create an unbuffered channel
 ```
 
-#### **二、内存分配位置：栈 vs 堆**
-Go 的内存分配由编译器通过 **逃逸分析（Escape Analysis）** 自动决定，规则如下：
-1. **栈分配**：
-   - 如果变量的生命周期仅在函数内部，且未逃逸到函数外部，则优先分配在栈上。
-   - 栈分配速度快，但空间有限（适合小对象或短生命周期变量）。
-2. **堆分配**：
-   - 如果变量的生命周期可能超出函数范围（如被全局变量引用或返回给调用方），则分配在堆上。
-   - 堆分配速度慢，但空间大（适合大对象或长生命周期变量）。
+#### **2. Allocation Location: Stack vs. Heap**
+The Go compiler automatically determines memory allocation through **escape analysis**, according to the following rules:
+1. **Stack allocation**:
+   - If a variable's lifetime is confined to a function and it does not escape the function, stack allocation is preferred.
+   - Stack allocation is fast, but space is limited (suitable for small objects or short-lived variables).
+2. **Heap allocation**:
+   - If a variable's lifetime may extend beyond the function (such as when it is referenced by a global variable or returned to the caller), it is allocated on the heap.
+   - Heap allocation is slow, but offers more space (suitable for large objects or long-lived variables).
 
-##### **`new` 和 `make` 的内存分配**
-- **`new` 的分配行为**：
-  - `new(T)` 返回的指针可能分配在栈或堆上，具体取决于是否逃逸。
+##### **Memory Allocation with `new` and `make`**
+- **Allocation behavior of `new`**:
+  - The pointer returned by `new(T)` may be allocated on the stack or heap, depending on whether it escapes.
   ```go
   func foo() *int {
-      x := new(int) // x 逃逸到堆上
+      x := new(int) // x escapes to the heap
       *x = 42
       return x
   }
   ```
-  - 如果指针未逃逸（仅在函数内使用），可能分配在栈上：
+  - If the pointer does not escape (it is used only within the function), it may be allocated on the stack:
   ```go
   func bar() {
-      x := new(int) // x 可能分配在栈上
+      x := new(int) // x may be allocated on the stack
       *x = 42
-      // x 未被外部引用
+      // x has no external references
   }
   ```
 
-- **`make` 的分配行为**：
-  - `slice`、`map`、`channel` 的底层结构（如 `slice` 的数组）通常分配在堆上，因为它们需要动态扩容或跨函数共享。
+- **Allocation behavior of `make`**:
+  - The underlying structures of `slice`, `map`, and `channel` (such as a slice's array) are usually allocated on the heap because they need to grow dynamically or be shared across functions.
   ```go
   func createSlice() []int {
-      s := make([]int, 100) // 底层数组逃逸到堆上
+      s := make([]int, 100) // The underlying array escapes to the heap
       return s
   }
   ```
 
-#### **三、验证逃逸分析**
-通过 `go build -gcflags="-m"` 可以查看变量的逃逸情况：
+#### **3. Checking Escape Analysis**
+Use `go build -gcflags="-m"` to inspect whether variables escape:
 
-##### **示例代码**
+##### **Example Code**
 ```go
 package main
 
 func main() {
-    a := new(int)    // 测试 new
+    a := new(int)    // Test new
     *a = 1
 
-    b := make([]int, 10) // 测试 make
+    b := make([]int, 10) // Test make
     b[0] = 2
 }
 ```
 
-##### **逃逸分析输出**
+##### **Escape Analysis Output**
 ```bash
 $ go build -gcflags="-m" main.go
 # command-line-arguments
-./main.go:4:10: new(int) does not escape       # a 未逃逸，可能分配在栈上
-./main.go:7:13: make([]int, 10) escapes to heap # b 的底层数组逃逸到堆
+./main.go:4:10: new(int) does not escape       # a does not escape and may be allocated on the stack
+./main.go:7:13: make([]int, 10) escapes to heap # b's underlying array escapes to the heap
 ```
 
-#### **四、总结**
-| **函数** | **适用类型**        | **返回值** | **初始化行为**       | **内存分配位置**       |
+#### **4. Summary**
+| **Function** | **Applicable types**        | **Return value** | **Initialization**       | **Allocation location**       |
 |----------|---------------------|------------|---------------------|------------------------|
-| `new`    | 所有类型            | 指针       | 分配零值            | 由逃逸分析决定（栈/堆） |
-| `make`   | `slice`、`map`、`channel` | 实例       | 初始化数据结构      | 通常堆（底层结构逃逸） |
+| `new`    | All types            | Pointer       | Allocates a zero value            | Determined by escape analysis (stack/heap) |
+| `make`   | `slice`, `map`, `channel` | Instance       | Initializes the data structure      | Usually the heap (underlying structure escapes) |
 
-##### **关键结论**
-1. **`new` 返回指针，`make` 返回实例**。
-2. **`make` 专用于引用类型，确保数据结构可用**。
-3. **内存分配位置由逃逸分析决定**，`make` 创建的底层结构通常逃逸到堆。
+##### **Key Conclusions**
+1. **`new` returns a pointer; `make` returns an instance**.
+2. **`make` is specifically for reference types and ensures the data structure is usable**.
+3. **The allocation location is determined by escape analysis**; underlying structures created by `make` usually escape to the heap.
 
-### 并发顺序输出1到100的Go实现
+### Printing 1 to 100 in Order with Concurrency in Go
 
-这个题目要求我们使用Go语言实现一个程序，在并发环境下顺序输出1到100的数字，同时限制最多只有10个goroutine同时运行。
+This problem asks us to write a Go program that prints the numbers 1 to 100 in order in a concurrent environment, while allowing at most 10 goroutines to run simultaneously.
 
 ```go
 package main
 
 /*
-并发顺序输出1到100的Go实现
+Printing 1 to 100 in order with concurrency in Go
 
-这个题目要求我们使用Go语言实现一个程序，在并发环境下顺序输出1到100的数字，同时限制最多只有10个goroutine同时运行。
+This problem asks us to write a Go program that prints the numbers 1 to 100 in order in a concurrent environment, while allowing at most 10 goroutines to run simultaneously.
 */
 
 import "sync"
 
-// Counter 定义一个结构体来保存当前数字和锁
+// Counter defines a struct that holds the current number and a lock
 type Counter struct {
 	current int
 	mu      sync.Mutex
 }
 
-// 定义一个函数来输出数字
+// Define a function to print numbers
 func (c *Counter) printNumber(wg *sync.WaitGroup) {
-	//defer wg.Done() // 在函数结束时通知WaitGroup
+	//defer wg.Done() // Notify the WaitGroup when the function returns
 	defer func() {
 		if c.current > 100 {
 			wg.Done()
 		}
 	}()
 
-	// 获取锁
+	// Acquire the lock
 	c.mu.Lock()
-	defer c.mu.Unlock() // 在函数结束时释放锁
+	defer c.mu.Unlock() // Release the lock when the function returns
 
-	// 如果当前数字小于等于100，则输出数字并增加当前数字
+	// If the current number is at most 100, print it and increment it
 	if c.current <= 100 {
 		println(c.current)
 		c.current++
 	}
 }
 
-// 定义一个函数来控制并发输出
+// Define a function to control concurrent printing
 func (c *Counter) run() {
 	var wg sync.WaitGroup
 
-	wg.Add(10) // 设置WaitGroup计数器为10
-	// 创建10个goroutine
+	wg.Add(10) // Set the WaitGroup counter to 10
+	// Create 10 goroutines
 	for i := 0; i < 10; i++ {
 		go func() {
 			for {
-				c.printNumber(&wg)   // 调用打印函数
-				if c.current > 100 { // 如果当前数字大于100，则退出循环
+				c.printNumber(&wg)   // Call the printing function
+				if c.current > 100 { // Exit the loop if the current number exceeds 100
 					break
 				}
 			}
 		}()
 	}
 
-	wg.Wait() // 等待所有goroutine完成
+	wg.Wait() // Wait for all goroutines to finish
 }
 
 func main() {
-	counter := &Counter{current: 1} // 初始化Counter结构体
-	counter.run()                   // 调用run函数开始输出数字
+	counter := &Counter{current: 1} // Initialize the Counter struct
+	counter.run()                   // Call run to start printing numbers
 }
 ```
 
-### TCP拥塞控制
+### TCP Congestion Control
 
-TCP拥塞控制是确保网络稳定和高效运行的核心机制，其通过动态调整发送速率来避免网络拥塞。以下是TCP拥塞控制的分步解释：
+TCP congestion control is a core mechanism for stable and efficient network operation. It prevents network congestion by dynamically adjusting the sending rate. The following explains TCP congestion control step by step:
 
-#### **一、核心目标**
-- **避免网络过载**：防止因发送方速率过快导致路由器或链路缓冲区溢出。
-- **公平性**：多连接共享带宽时，确保各连接公平竞争。
-- **高效性**：最大化网络吞吐量，最小化延迟和丢包。
+#### **1. Core Goals**
+- **Avoid network overload**: prevent router or link buffers from overflowing because the sender transmits too quickly.
+- **Fairness**: ensure that connections compete fairly when sharing bandwidth.
+- **Efficiency**: maximize network throughput and minimize latency and packet loss.
 
-#### **二、核心机制**
-TCP拥塞控制主要包含四个算法：**慢启动**、**拥塞避免**、**快速重传**和**快速恢复**，通过调整**拥塞窗口（cwnd）** 控制发送速率。
+#### **2. Core Mechanisms**
+TCP congestion control primarily consists of four algorithms: **slow start**, **congestion avoidance**, **fast retransmit**, and **fast recovery**. They control the sending rate by adjusting the **congestion window (cwnd)**.
 
-##### **1. 慢启动（Slow Start）**
-- **目的**：探测网络容量，快速找到可用带宽。
-- **规则**：
-  1. 初始时，拥塞窗口 `cwnd = 1 MSS`（最大报文段大小）。
-  2. 每收到一个确认（ACK），`cwnd` 增加 `1 MSS`（指数增长）。
-  3. 当 `cwnd` 达到慢启动阈值（`ssthresh`）时，进入拥塞避免阶段。
-  4. 若发生**超时重传**（Timeout），重置 `cwnd = 1 MSS`，`ssthresh = cwnd/2`，重启慢启动。
+##### **1. Slow Start**
+- **Purpose**: probe network capacity and quickly find available bandwidth.
+- **Rules**:
+  1. Initially, the congestion window is `cwnd = 1 MSS` (maximum segment size).
+  2. For each acknowledgment (ACK) received, `cwnd` increases by `1 MSS` (exponential growth).
+  3. When `cwnd` reaches the slow-start threshold (`ssthresh`), enter congestion avoidance.
+  4. If a **retransmission timeout** occurs, reset `cwnd = 1 MSS`, set `ssthresh = cwnd/2`, and restart slow start.
 
-- **示例**：
+- **Example**:
   ```
-  cwnd变化：1 → 2 → 4 → 8 → 16（每RTT翻倍）
-  ```
-
-###### **2. 拥塞避免（Congestion Avoidance）**
-- **目的**：避免窗口增长过快导致拥塞。
-- **规则**：
-  1. 当 `cwnd >= ssthresh` 时，进入拥塞避免阶段。
-  2. 每收到一个ACK，`cwnd` 增加 `1/cwnd` MSS（线性增长）。
-  3. 若发生**超时重传**，重置 `cwnd = 1 MSS`，`ssthresh = cwnd/2`，重启慢启动。
-
-- **示例**：
-  ```
-  cwnd变化：16 → 17 → 18 → 19（每RTT增加1）
+  cwnd changes: 1 → 2 → 4 → 8 → 16 (doubles each RTT)
   ```
 
-##### **3. 快速重传（Fast Retransmit）**
-- **触发条件**：收到**3个重复ACK**（同一数据包的冗余确认）。
-- **规则**：
-  1. 立即重传丢失的报文，无需等待超时。
-  2. 设置 `ssthresh = max(cwnd/2, 2 MSS)`。
-  3. 进入**快速恢复**阶段。
+###### **2. Congestion Avoidance**
+- **Purpose**: prevent congestion caused by overly rapid window growth.
+- **Rules**:
+  1. Enter congestion avoidance when `cwnd >= ssthresh`.
+  2. For each ACK received, `cwnd` increases by `1/cwnd` MSS (linear growth).
+  3. If a **retransmission timeout** occurs, reset `cwnd = 1 MSS`, set `ssthresh = cwnd/2`, and restart slow start.
 
-##### **4. 快速恢复（Fast Recovery）**
-- **目的**：避免因单个丢包导致窗口骤降。
-- **规则**：
-  1. 设置 `cwnd = ssthresh + 3 MSS`（补偿已确认的3个重复ACK）。
-  2. 每收到一个重复ACK，`cwnd` 增加 `1 MSS`。
-  3. 当收到新数据的ACK时，设置 `cwnd = ssthresh`，进入拥塞避免阶段。
+- **Example**:
+  ```
+  cwnd changes: 16 → 17 → 18 → 19 (increases by 1 each RTT)
+  ```
 
-#### **三、算法变种**
-不同TCP版本在拥塞控制细节上有所差异：
+##### **3. Fast Retransmit**
+- **Trigger**: receiving **3 duplicate ACKs** (redundant acknowledgments for the same packet).
+- **Rules**:
+  1. Retransmit the missing segment immediately without waiting for a timeout.
+  2. Set `ssthresh = max(cwnd/2, 2 MSS)`.
+  3. Enter **fast recovery**.
 
-| **算法**       | **特点**                                                                 |
+##### **4. Fast Recovery**
+- **Purpose**: prevent a sharp window reduction caused by a single lost packet.
+- **Rules**:
+  1. Set `cwnd = ssthresh + 3 MSS` (to account for the 3 duplicate ACKs already received).
+  2. For each duplicate ACK received, `cwnd` increases by `1 MSS`.
+  3. When an ACK for new data arrives, set `cwnd = ssthresh` and enter congestion avoidance.
+
+#### **3. Algorithm Variants**
+TCP versions differ in the details of congestion control:
+
+| **Algorithm**       | **Characteristics**                                                                 |
 |----------------|--------------------------------------------------------------------------|
-| **TCP Tahoe**  | 任何丢包（超时或重复ACK）均触发慢启动，无快速恢复。                              |
-| **TCP Reno**   | 引入快速恢复，仅超时触发慢启动，重复ACK触发快速重传和快速恢复。                     |
-| **TCP NewReno**| 优化快速恢复，支持处理多个包丢失的场景，避免多次重传导致窗口过度缩减。               |
-| **TCP BBR**    | 基于带宽和延迟估计的动态调整，替代传统丢包驱动模型，减少缓冲区膨胀问题。             |
+| **TCP Tahoe**  | Any packet loss (timeout or duplicate ACKs) triggers slow start; no fast recovery.                              |
+| **TCP Reno**   | Introduces fast recovery. Only timeouts trigger slow start; duplicate ACKs trigger fast retransmit and fast recovery.                     |
+| **TCP NewReno**| Improves fast recovery to handle multiple lost packets, avoiding excessive window reduction from repeated retransmissions.               |
+| **TCP BBR**    | Adjusts dynamically based on bandwidth and latency estimates, replacing the traditional loss-driven model to reduce bufferbloat.             |
 
-#### **四、参数与示例**
-##### **关键参数**
-- **MSS（Maximum Segment Size）**：单个报文最大长度（如1460字节）。
-- **RTT（Round-Trip Time）**：数据往返时间。
-- **ssthresh（Slow Start Threshold）**：慢启动阈值，初始通常为较大值（如65535字节）。
+#### **4. Parameters and Examples**
+##### **Key Parameters**
+- **MSS (Maximum Segment Size)**: the maximum length of a single segment (such as 1460 bytes).
+- **RTT (Round-Trip Time)**: the time for data to make a round trip.
+- **ssthresh (Slow Start Threshold)**: the slow-start threshold, usually initialized to a large value (such as 65535 bytes).
 
-#### **示例场景**
-1. **正常传输**：
-   - 慢启动阶段：`cwnd` 指数增长至 `ssthresh`。
-   - 拥塞避免阶段：`cwnd` 线性增长。
-2. **丢包处理**：
-   - 若发生超时：`cwnd` 重置为1，重启慢启动。
-   - 若收到3个重复ACK：触发快速重传和快速恢复。
+#### **Example Scenarios**
+1. **Normal transmission**:
+   - Slow start: `cwnd` grows exponentially to `ssthresh`.
+   - Congestion avoidance: `cwnd` grows linearly.
+2. **Handling packet loss**:
+   - On timeout: reset `cwnd` to 1 and restart slow start.
+   - On receiving 3 duplicate ACKs: trigger fast retransmit and fast recovery.
 
-#### **五、数学公式**
-- **慢启动**：每RTT窗口翻倍  
+#### **5. Mathematical Formulas**
+- **Slow start**: the window doubles each RTT  
   \[
-  cwnd_{new} = cwnd + \text{ACK数量} \times MSS
+  cwnd_{new} = cwnd + \text{number of ACKs} \times MSS
   \]
-- **拥塞避免**：每RTT窗口增加1 MSS  
+- **Congestion avoidance**: the window increases by 1 MSS each RTT  
   \[
   cwnd_{new} = cwnd + \frac{MSS}{cwnd}
   \]
 
-#### **六、总结**
-TCP拥塞控制通过动态调整发送窗口，平衡网络吞吐量与稳定性：
-1. **慢启动**快速探测带宽，**拥塞避免**谨慎增长。
-2. **快速重传/恢复**减少丢包对性能的影响。
-3. 不同算法变种针对特定场景优化，如BBR适用于高带宽延迟积网络。
+#### **6. Summary**
+TCP congestion control balances network throughput and stability by dynamically adjusting the sending window:
+1. **Slow start** probes bandwidth quickly; **congestion avoidance** grows cautiously.
+2. **Fast retransmit/recovery** reduces the performance impact of packet loss.
+3. Different algorithm variants optimize for specific scenarios; for example, BBR suits networks with a high bandwidth-delay product.
 
-### 索引的优缺点，什么时候使用索引，什么时候不能使用索引
+### Index Advantages and Disadvantages: When to Use Indexes and When Not To
 
-- 经常搜索的列上建索引
-- 作为主键的列上要建索引
-- 经常需要连接（where子句）的列上
-- 经常需要排序的列
-- 经常需要范围查找的列
+- Index frequently searched columns
+- Index columns used as primary keys
+- Columns frequently used in joins (where clauses)
+- Columns frequently used for sorting
+- Columns frequently used for range lookups
 
-哪些列不适合建索引？
-- 很少查询的列
-- 更新很频繁的列
-- 数据值的取值比较少的列（比如性别）
+Which columns are unsuitable for indexes?
+- Rarely queried columns
+- Very frequently updated columns
+- Columns with few distinct values (such as gender)
 
-### 索引的底层实现
+### How Indexes Are Implemented
 
-数据库的索引是使用B+树来实现的。
+Database indexes are implemented using B+ trees.
 
-（为什么要用B+树，为什么不用红黑树和B树）
+(Why use B+ trees instead of red-black trees or B-trees?)
 
-B+树是一种特殊的平衡多路树，是B树的优化改进版本，它把所有的数据都存放在叶节点上，中间节点保存的是索引。这样一来相对于B树来说，减少了数据对中间节点的空间占用，使得中间节点可以存放更多的指针，使得树变得更矮，深度更小，从而减少查询的磁盘IO次数，提高查询效率。另一个是由于叶节点之间有指针连接，所以可以进行范围查询，方便区间访问。
+A B+ tree is a special balanced multiway tree and an optimized version of a B-tree. It stores all data in leaf nodes, while internal nodes store indexes. Compared with a B-tree, this reduces the space occupied by data in internal nodes, allowing them to hold more pointers. The tree becomes shorter and shallower, reducing disk I/O during queries and improving query efficiency. In addition, pointers connect the leaf nodes, enabling range queries and convenient interval access.
 
-而红黑树是二叉的，它的深度相对B+树来说更大，更大的深度意味着查找次数更多，更频繁的磁盘IO，所以红黑树更适合在内存中进行查找。
+A red-black tree is binary and is therefore deeper than a B+ tree. Greater depth means more lookup steps and more frequent disk I/O, so red-black trees are better suited to in-memory lookups.
 
-### B树和B+树的区别
+### Differences Between B-Trees and B+ Trees
 
-这都是由于B+树和B具有不同的存储结构所造成的区别，以一个m阶树为例。
+These differences arise from the different storage structures of B+ trees and B-trees. Consider a tree of order m:
 
-1. 关键字的数量不同；B+树中分支结点有m个关键字，其叶子结点也有m个，其关键字只是起到了一个索引的作用，但是B树虽然也有m个子结点，但是其只拥有m-1个关键字。
-2. 存储的位置不同；B+树中的数据都存储在叶子结点上，也就是其所有叶子结点的数据组合起来就是完整的数据，但是B树的数据存储在每一个结点中，并不仅仅存储在叶子结点上。
-3. 分支结点的构造不同；B+树的分支结点仅仅存储着关键字信息和儿子的指针（这里的指针指的是磁盘块的偏移量），也就是说内部结点仅仅包含着索引信息。
-4. 查询不同；B树在找到具体的数值以后，则结束，而B+树则需要通过索引找到叶子结点中的数据才结束，也就是说B+树的搜索过程中走了一条从根结点到叶子结点的路径。
+1. Different numbers of keys: internal nodes in a B+ tree have m keys, as do its leaf nodes; the keys serve only as an index. A B-tree also has m children, but only m-1 keys.
+2. Different storage locations: all data in a B+ tree is stored in leaf nodes, so the combined data in all leaf nodes is the complete dataset. In a B-tree, data is stored in every node, not only in leaf nodes.
+3. Different internal-node structures: internal nodes in a B+ tree store only key information and child pointers (here, pointers are disk-block offsets). In other words, internal nodes contain only index information.
+4. Different lookup behavior: a B-tree search ends when it finds the requested value. A B+ tree search ends only after following the index to data in a leaf node, so it follows a path from the root to a leaf.
 
-B+树优点：由于B+树的数据都存储在叶子结点中，分支结点均为索引，方便扫库，只需要扫一遍叶子结点即可，但是B树因为其分支结点同样存储着数据，我们要找到具体的数据，需要进行一次中序遍历按序来扫，所以B+树更加适合在区间查询的情况，所以通常B+树用于数据库索引，而B树则常用于文件索引。
+Advantages of B+ trees: because all data is stored in leaf nodes and internal nodes contain only indexes, a database scan needs only one pass over the leaves. B-tree internal nodes also store data, so finding data in order requires an in-order traversal. B+ trees are therefore better suited to range queries. They are commonly used for database indexes, while B-trees are commonly used for file indexes.
 
-### 数据库中事务的ACID
+### ACID Properties of Database Transactions
 
-数据库事务是指逻辑上对数据的一种操作，这个事务要么全部成功，要么全部失败。
+A database transaction is a logical operation on data that either succeeds completely or fails completely.
 
-#### A: atom 原子性
+#### A: Atomicity
 
-数据库事务的原子性是指：事务是一个不可分割的工作单位，这组操作要么全部发生，要么全部不发生。
+Atomicity means that a transaction is an indivisible unit of work: either all operations in the group occur, or none of them do.
 
-#### C: consistency 一致性
+#### C: Consistency
 
-数据库事务的一致性是指：在事务开始以前，数据库中的数据有一个一致的状态。在事务完成后，数据库中的事务也应该保持这种一致性。事务应该将数据从一个一致性状态转移到另一个一致性状态。
+Consistency means that the database data is in a consistent state before a transaction begins and that transactions should preserve this consistency after completion. A transaction should move the data from one consistent state to another.
 
-比如在银行转账操作后两个账户的总额应当不变。
+For example, the combined balance of two accounts should remain unchanged after a bank transfer.
 
-#### I: isolation 隔离性
+#### I: Isolation
 
-数据库事务的隔离性要求数据库中的事务不会受另一个并发执行的事务的影响，对于数据库中同时执行的每个事务来说，其他事务要么还没开始执行，要么已经执行结束，它都感觉不到还有别的事务正在执行。
+Isolation requires that a transaction not be affected by another transaction executing concurrently. For each transaction executing in the database, other transactions appear either not to have started or to have already finished; it does not observe other transactions executing.
 
-#### D：durability 持久性
+#### D: Durability
 
-数据库事务的持久性要求事务对数据库的改变是永久的，哪怕数据库发生损坏都不会影响到已发生的事务。
+Durability requires that a transaction's changes to the database be permanent. Even damage to the database should not affect transactions that have already occurred.
 
-如果事务没有完成，数据库因故断电了，那么重启后也应该是没有执行事务的状态，如果事务已经完成后数据库断电了，那么重启后就应该是事务执行完成后的状态。
-
-
-### 数据库的范式
-
-#### 第一范式(确保每列保持原子性)
-
-第一范式是最基本的范式。如果数据库表中的所有字段值都是不可分解的原子值，就说明该数据库表满足了第一范式。
-
-比如 学生 选课（包括很多课程） 就不符合第一范式
-
-#### 第二范式(确保表中的每列都和主键相关)
-
-在满足第一范式的前提下，（主要针对联合主键而言）第二范式需要确保数据库表中的每一列都和主键的所有成员直接相关，由整个主键才能唯一确定，而不能只与主键的某一部分相关或者不相关。
-
-比如一张学生信息表，由主键（学号）可以唯一确定一个学生的姓名，班级，年龄等信息。但是主键 （学号，班级） 与列 姓名，班主任，教室 就不符合第二范式，因为班主任跟部分主键（班级）是依赖关系
-
-#### 第三范式(确保非主键的列没有传递依赖)
-
-在满足第二范式的前提下，第三范式需要确保数据表中的每一列数据都和主键直接相关，而不能间接相关。非主键的列不能确定其他列，列与列之间不能出现传递依赖。
-
-比如一张学生信息表，主键是（学号）列包括 姓名，班级，班主任 就不符合第三范式，因为非主键的列中 班主任 依赖于 班级
-
-#### BCNF范式（确保主键之间没有传递依赖）
-
-主键有可能是由多个属性组合成的复合主键，那么多个主键之间不能有传递依赖。也就是复合主键之间谁也不能决定谁，相互之间没有关系。
+If the database loses power before a transaction completes, its state after restart should be as if the transaction had not executed. If power is lost after the transaction completes, its state after restart should reflect the completed transaction.
 
 
-### Linux的I/O模型介绍以及同步异步阻塞非阻塞的区别
+### Database Normal Forms
 
-IO过程包括两个阶段：（1）内核从IO设备读写数据和（2）进程从内核复制数据
+#### First Normal Form (Ensure Each Column Is Atomic)
 
-#### 阻塞
-调用IO操作的时候，如果缓冲区空或者满了，调用的进程或者线程就会处于阻塞状态直到IO可用并完成数据拷贝。
+First normal form is the most basic normal form. A table satisfies first normal form if every field value is an indivisible atomic value.
 
-#### 非阻塞
-调用IO操作的时候，内核会马上返回结果，如果IO不可用，会返回错误，这种方式下进程需要不断轮询直到IO可用为止，但是当进程从内核拷贝数据时是阻塞的。
+For example, a student record with a course-selection field containing multiple courses does not satisfy first normal form.
 
-#### IO多路复用
-同时监听多个描述符，一旦某个描述符IO就绪（读就绪或者写就绪），就能够通知进程进行相应的IO操作，否则就将进程阻塞在select或者epoll语句上。
+#### Second Normal Form (Ensure Each Column Depends on the Primary Key)
 
-#### 同步IO
-同步IO模型包括阻塞IO，非阻塞IO和IO多路复用。特点就是当进程从内核复制数据的时候都是阻塞的。
+In addition to satisfying first normal form, second normal form requires every column to depend directly on all parts of the primary key and to be uniquely determined by the entire key. This primarily concerns composite primary keys: a column must not depend on only part of the key or be unrelated to it.
 
-#### 异步IO
-在检测IO是否可用和进程拷贝数据的两个阶段都是不阻塞的，进程可以做其他事情，当IO完成后内核会给进程发送一个信号。
+For example, in a student information table, the primary key (student ID) uniquely determines a student's name, class, age, and other information. However, a primary key of (student ID, class) with columns for name, homeroom teacher, and classroom does not satisfy second normal form, because the homeroom teacher depends on only part of the key (class).
 
-### 每秒十万订单处理
+#### Third Normal Form (Ensure Non-Key Columns Have No Transitive Dependencies)
 
-[参考](https://blog.csdn.net/zhuguanbo/article/details/146203002)
+In addition to satisfying second normal form, third normal form requires every column to depend directly, rather than indirectly, on the primary key. Non-key columns must not determine other columns, and there must be no transitive dependencies between columns.
+
+For example, a student information table with a primary key of (student ID) and columns for name, class, and homeroom teacher does not satisfy third normal form, because among the non-key columns, the homeroom teacher depends on the class.
+
+#### BCNF (Ensure There Are No Transitive Dependencies Between Primary Keys)
+
+A primary key may be a composite key made up of multiple attributes, and there must be no transitive dependencies between these multiple keys. In other words, the composite-key components must not determine one another and must be unrelated to one another.
+
+
+### Linux I/O Models and the Differences Between Synchronous, Asynchronous, Blocking, and Nonblocking I/O
+
+I/O has two stages: (1) the kernel reads or writes data on the I/O device, and (2) the process copies data from the kernel.
+
+#### Blocking
+When an I/O operation is called and the buffer is empty or full, the calling process or thread blocks until I/O becomes available and the data copy is complete.
+
+#### Nonblocking
+When an I/O operation is called, the kernel returns a result immediately. If I/O is unavailable, it returns an error. The process must keep polling until I/O becomes available, but copying data from the kernel to the process is blocking.
+
+#### I/O Multiplexing
+Monitor multiple descriptors simultaneously. Once a descriptor is ready for I/O (reading or writing), notify the process to perform the corresponding operation; otherwise, block the process in select or epoll.
+
+#### Synchronous I/O
+Synchronous I/O models include blocking I/O, nonblocking I/O, and I/O multiplexing. Their common characteristic is that the process blocks while copying data from the kernel.
+
+#### Asynchronous I/O
+Neither checking I/O availability nor copying data to the process is blocking. The process can do other work, and the kernel sends it a signal when I/O completes.
+
+### Processing 100,000 Orders per Second
+
+[Reference](https://blog.csdn.net/zhuguanbo/article/details/146203002)

@@ -1,4 +1,4 @@
-# [Python] 差分数组
+# [Python] Difference array
 
 > slug: python-chai-fen-shu-zu-by-himymben-6vnw
 > date: 2022-04-24
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/count-positions-on-street-with-required-brightness/solutions/z3uACX/python-chai-fen-shu-zu-by-himymben-6vnw/
 
 ---
-### 解题思路
-差分数组应用题
+### Approach
+An application of difference arrays.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

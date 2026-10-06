@@ -1,4 +1,4 @@
-# [Python] 模拟 排序后二分
+# [Python] Simulation: sort, then binary search
 
 > Author: Benhao
 > Date: 2021-07-13
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-其实就是找每个nums2中的值，对应在nums1中最接近的值是哪个，替换为那一个以后的绝对值和是多少；统计最终最小的即可。
+### Approach
+For each value in nums2, find the closest value in nums1 and compute the sum of absolute differences after replacing with it. Return the minimum.
 
->具体来说:
-我们先统计一下原始的绝对值差的和，如果已经为0可以直接返回，不为0我们开始遍历每个位置，找对应位置的最佳替换元素(二分)，计算替换后的新的绝对值差的和，更新最小的到答案。
+> In detail:
+Compute the original sum of absolute differences and return immediately if it is 0. Otherwise, iterate over each position, binary search for its best replacement, compute the new sum, and update the minimum.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -26,15 +26,15 @@ class Solution:
         sl = sorted(nums1)
         for i, num in enumerate(nums2):
             idx = bisect.bisect_left(sl, num)
-            # idx > 0 尝试用idx-1替换当前值
+            # If idx > 0, try replacing the current value with the value at idx-1
             if idx:
                 ans = min(ans, diff - abs(nums1[i] - nums2[i]) + abs(sl[idx-1] - nums2[i]))
-            # idx < n 尝试用idx替换当前值
+            # If idx < n, try replacing the current value with the value at idx
             if idx < n:
                 ans = min(ans, diff - abs(nums1[i] - nums2[i]) + abs(sl[idx] - nums2[i]))
         return ans % (10 ** 9 + 7)
 ```
-因为上面我们总是比较了全部的diff在运算中，其实是不需要的，单独统计加入最终答案即可。写成一个单循环的解法如下:
+The above code repeatedly includes the entire diff in comparisons. Track it separately and add it to the final answer instead, giving this single-loop implementation:
 ```python3
 class Solution:
     def minAbsoluteSumDiff(self, nums1: List[int], nums2: List[int]) -> int:
@@ -43,10 +43,10 @@ class Solution:
             diff = abs(nums1[i] - nums2[i])
             total += diff
             idx = bisect.bisect_left(sl, nums2[i])
-            # idx > 0 尝试用idx-1替换当前值
+            # If idx > 0, try replacing the current value with the value at idx-1
             if idx:
                 ans = min(ans, abs(sl[idx-1] - nums2[i]) - diff)
-            # idx < n 尝试用idx替换当前值
+            # If idx < n, try replacing the current value with the value at idx
             if idx < n:
                 ans = min(ans, abs(sl[idx] - nums2[i]) - diff)
         return (total + ans) % (10 ** 9 + 7) if total else total

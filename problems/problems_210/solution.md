@@ -1,4 +1,4 @@
-# [Python/Java] 拓扑排序
+# [Python/Java] Topological sort
 
 > Author: Benhao
 > Date: 2021-08-05
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-和207一致，只是加入了一个BFS的时候每个元素按序入栈
+### Approach
+The same as problem 207, with each element added to the result in BFS order.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

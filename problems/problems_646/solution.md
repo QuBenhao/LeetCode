@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 排序 + 贪心
+# [Python/Java/TypeScript/Go] Sorting + greedy
 
 > Author: Benhao
 > Date: 2022-09-03
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-假设存在两个重叠区间, [$a_1$, $b_1$] 和 [$a_2$, $b_2$], 不妨设$a_2 \le b_1 \le b_2$,
-这个时候取前者是比取后者更优的，因为这样"前进"的边界最靠左，可以更多地加入其他区间。
-我们按右端点排序，遍历时维护一个当前覆盖到的区间右端点，
-如果后面的左端点在当前右端点之前，说明有重叠且因为后面的右端点在当前右端点的右边，是不如当前右端点更优的。
-按照这种选择统计有多少区间可以被取即可。
+### Approach
+Suppose two intervals overlap: [$a_1$, $b_1$] and [$a_2$, $b_2$]. Without loss of generality, let $a_2 \le b_1 \le b_2$.
+Choosing the first is better because its endpoint lies farther left, leaving room for more intervals.
+Sort by right endpoint, then traverse while tracking the right endpoint of the last selected interval.
+If a later interval starts before the current right endpoint, it overlaps. Its right endpoint is farther right, so it is no better than the interval already selected.
+Count how many intervals can be selected using this rule.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-by-himymben-xj4o
 > date: 2022-04-24
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/random-pick-index/solutions/C3AJ4R/pythonjavajavascriptgo-by-himymben-xj4o/
 
 ---
-### 解题思路
-暴力模拟就不过多赘述。
+### Approach
+The brute-force simulation needs no further explanation.
 
-[蓄水池算法推荐大家学习一下](https://leetcode.cn/problems/linked-list-random-node/solution/gong-shui-san-xie-xu-shui-chi-chou-yang-1lp9d/)
+[I recommend learning reservoir sampling](https://leetcode.cn/problems/linked-list-random-node/solution/gong-shui-san-xie-xu-shui-chi-chou-yang-1lp9d/)
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

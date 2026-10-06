@@ -1,4 +1,4 @@
-# [Python/C/Go] 迭代器
+# [Python/C/Go] Iterator
 
 > slug: pythoncgo-die-dai-qi-by-himymben-3z96
 > date: 2024-02-12
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/binary-tree-postorder-traversal/solutions/LMbsoy/pythoncgo-die-dai-qi-by-himymben-3z96/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -1,4 +1,4 @@
-# [Python] 先生成字典，再遍历调用key
+# [Python] Build a dictionary, then look up each key
 
 > Author: Benhao
 > Date: 2021-03-28
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-很直接的思路
+### Approach
+A straightforward approach.
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

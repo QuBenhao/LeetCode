@@ -15,12 +15,12 @@ class Solution(solution.Solution):
         presum = 0
         for num in nums:
             temp = presum
-            # 当前前缀和
+            # Current prefix sum
             presum += num
             presum %= k
-            # 同余定理
+            # Modular congruence
             if presum in modes:
                 return True
-            # 上一个前缀和，下一个就可以用了（距离为2了）
+            # The previous prefix sum can be used on the next iteration, when it is two positions away
             modes.add(temp)
         return False

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 简单递归模拟
+# [Python/Java/JavaScript/Go] Simple recursive simulation
 
 > Author: Benhao
 > Date: 2022-03-14
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-1. $a | b \geq a$, $a | b \geq b$， 所以最终最大的或结果为全部数字的或（因为或操作是非递减的）
-2. 我们知道最大的或结果，只需统计有多少种子集能构成这个结果即可
+### Approach
+1. $a | b \geq a$ and $a | b \geq b$, so the maximum OR is the OR of all numbers (because OR never decreases the value).
+2. Once the maximum OR is known, count the subsets that produce it.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

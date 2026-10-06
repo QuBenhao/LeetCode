@@ -1,4 +1,4 @@
-# 快慢指针+反转链表
+# Fast and slow pointers with list reversal
 
 > slug: kuai-man-zhi-zhen-fan-zhuan-lian-biao-by-0cdg
 > date: 2025-05-08
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/aMhZSa/solutions/hUzFrn/kuai-man-zhi-zhen-fan-zhuan-lian-biao-by-0cdg/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -14,8 +14,8 @@ class Solution(solution.Solution):
         pre_max = [0] * (len(arr) + 1)
         ans = 0
         for i, (cost, cap) in enumerate(arr):
-            # i作为第二台的最优取值
+            # Optimal value when i is the second machine
             j = bisect_left(range(i), budget - cost, key=lambda x: arr[x][0])
-            ans = max(ans, pre_max[j] + cap) # 前缀j这里相当于取arr中上式j的前一个
+            ans = max(ans, pre_max[j] + cap) # Prefix j here corresponds to the entry in arr immediately before j in the expression above
             pre_max[i + 1] = max(pre_max[i], cap)
         return ans

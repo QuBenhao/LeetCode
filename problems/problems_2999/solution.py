@@ -9,9 +9,9 @@ class Solution(solution.Solution):
         return self.numberOfPowerfulInt(*test_input)
 
     def numberOfPowerfulInt(self, start: int, finish: int, limit: int, s: str) -> int:
-        high = list(map(int, str(finish)))  # 避免在 dfs 中频繁调用 int()
+        high = list(map(int, str(finish)))  # Avoid repeated int() calls inside dfs
         n = len(high)
-        low = list(map(int, str(start).zfill(n)))  # 补前导零，和 high 对齐
+        low = list(map(int, str(start).zfill(n)))  # Pad with leading zeros to match the length of high
         diff = n - len(s)
 
         @cache
@@ -19,18 +19,18 @@ class Solution(solution.Solution):
             if i == n:
                 return 1
 
-            # 第 i 个数位可以从 lo 枚举到 hi
-            # 如果对数位还有其它约束，应当只在下面的 for 循环做限制，不应修改 lo 或 hi
+            # Enumerate the i-th digit from lo to hi
+            # Apply any other digit constraints only in the for loop below; do not change lo or hi
             lo = low[i] if limit_low else 0
             hi = high[i] if limit_high else 9
 
             res = 0
-            if i < diff:  # 枚举这个数位填什么
+            if i < diff:  # Enumerate the digit to place here
                 for d in range(lo, min(hi, limit) + 1):
                     res += dfs(i + 1, limit_low and d == lo, limit_high and d == hi)
-            else:  # 这个数位只能填 s[i-diff]
+            else:  # This digit must be s[i-diff]
                 x = int(s[i - diff])
-                if lo <= x <= hi:  # 题目保证 x <= limit，无需判断
+                if lo <= x <= hi:  # The problem guarantees x <= limit, so no check is needed
                     res = dfs(i + 1, limit_low and x == lo, limit_high and x == hi)
             return res
 

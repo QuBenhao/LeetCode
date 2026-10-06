@@ -10,7 +10,7 @@ constexpr int MOD = 10000;
 int main() {
     int n, k;
     cin >> n >> k;
-    // 当前位置i, 相当于解决1~n-i的子问题,之前已填入x个逆序对
+    // At position i, solve the subproblem for 1~n-i with x inversions already assigned
     // dp[i][x] = dp[i-1][max(0, x-(n-1-i))] + .. + dp[i-1][x]
     vector dp(2, vector(k + 1, 0));
     dp[1][0] = 1;

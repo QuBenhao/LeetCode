@@ -1,4 +1,4 @@
-# [Python] 贪心-双指针写法
+# [Python] Greedy with two pointers
 
 > slug: python-tan-xin-shuang-zhi-zhen-xie-fa-by-yr3g
 > date: 2022-02-20
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/construct-string-with-repeat-limit/solutions/8kVXo4/python-tan-xin-shuang-zhi-zhen-xie-fa-by-yr3g/
 
 ---
-### 解题思路
-优先加大的字母，加不了了加下一个大的字母（如果还有当前大字母就先加一个下一个再继续加当前字母）
+### Approach
+Prefer the largest character. When it cannot be added again, use the next-largest character (if more of the current largest remain, add just one smaller character before returning to it).
 
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 差分数组
+# [Python/Java/JavaScript/Go] Difference array
 
 > slug: pythonjavajavascriptgo-chai-fen-shu-zu-b-xhvy
 > date: 2022-03-08
@@ -7,8 +7,8 @@
 > url: https://leetcode.cn/problems/smallest-rotation-with-highest-score/solutions/VnNi6u/pythonjavajavascriptgo-chai-fen-shu-zu-b-xhvy/
 
 ---
-### 解题思路
-根据题意，可以写出如下暴力代码
+### Approach
+The problem statement gives the following brute-force implementation
 ```python3
 class Solution:
     def bestRotation(self, nums: List[int]) -> int:
@@ -21,24 +21,24 @@ class Solution:
         return ans
 ```
 
-坐标i和数字num都对k最终是否使该位变为小于等于0做出了贡献，且k在连续变动时，这个差值也是连续变动的。
-那么有没有一种办法在不知道k的情况下，优先计算什么范围的k会使i和num最终计算差异满足题目呢？
+Both index i and value num affect whether rotation k makes the value minus its index at this position at most 0. As k changes continuously, this difference changes continuously too.
+Can we determine in advance which range of k makes the difference between i and num satisfy the condition, without knowing k itself?
 
-一个数num,最终和坐标差小于等于0，只有一个范围，那就是坐标在`[num, n-1]`之间，而坐标在`[0, num-1]`之间时差显然会大于0。
-这就好办了，我们可以根据这个范围和i的取值，模拟出什么样的k会满足题意。
+For a value num, its value minus its final index is at most 0 only when the index is in `[num, n-1]`; the difference is clearly positive for indices in `[0, num-1]`.
+We can use this range and the value of i to determine which rotations k satisfy the condition.
 
-分类讨论:
-当i最开始的位置在`[num, n-1]`之间时，不移动本身就会对答案作出一个贡献，即`diff[0]+=1`；
-当k逐渐变大时，i会向左移动出num，那个时候对答案不作出贡献了，即`diff[i - num + 1] -= 1`；
-持续移动超过最左端`0`以后会回到`n-1`，又会对答案作出贡献，即`diff[i + 1] += 1`。
+Consider the cases:
+If i initially lies in `[num, n-1]`, it contributes to the answer without any rotation: `diff[0]+=1`;
+As k increases, i moves left past num and stops contributing: `diff[i - num + 1] -= 1`;
+Continuing past the leftmost position `0` wraps it to `n-1`, where it contributes again: `diff[i + 1] += 1`.
 
-当i最开始的位置在`[0, num - 1]` 之间时，不移动本身不会对答案作出贡献。移动超过最左端`0`回到`n-1`，会对答案作出贡献，即`diff[i + 1] += 1`；
-当继续移动，超过`num`回到`[0, num - 1]` 之间时，又不会再对答案做出贡献了，即`diff[i - num + n + 1] -= 1`。
+If i initially lies in `[0, num - 1]`, it contributes nothing without rotation. Moving past the leftmost position `0` and wrapping to `n-1` makes it contribute: `diff[i + 1] += 1`;
+Continuing past `num` into `[0, num - 1]` makes it stop contributing again: `diff[i - num + n + 1] -= 1`.
 
-我们只需要对diff进行遍历，维护每个时刻有多少个坐标满足差小于等于0，最终返回最大且最小的k即可。
+Scan diff while tracking how many indices have a difference at most 0 at each step, then return the smallest k that achieves the largest count.
 
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

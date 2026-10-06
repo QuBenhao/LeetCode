@@ -18,11 +18,11 @@ class Solution(solution.Solution):
             cur = ta.distance[u] - ta.distance[lca]
             half_dis = (total_dis + 1) // 2
             if cur >= half_dis:
-                # 如果 u 到 lca 的距离大于等于半条路径长度，则中位数在 u 到 lca 之间
+                # If the distance from u to lca is at least half the path length, the median lies between u and lca
                 x = ta.find_distance(u, half_dis-1)
-                x = ta.pa[x][0] # 找到 x 的父节点, 因为x 是 刚好不够, 其父节点是答案
+                x = ta.pa[x][0] # Take the parent of x: x falls just short, so its parent is the answer
             else:
-                # 如果 u 到 lca 的距离小于半条路径长度，则中位数在 v 到 lca 之间
+                # If the distance from u to lca is less than half the path length, the median lies between v and lca
                 x = ta.find_distance(v, total_dis - half_dis)
             ans[i] = x
         return ans
@@ -33,7 +33,7 @@ class TreeAncestor:
         n = len(edges) + 1
         m = n.bit_length()
         g = [[] for _ in range(n)]
-        for x, y, w in edges:  # 节点编号从 0 开始
+        for x, y, w in edges:  # Nodes are numbered from 0
             g[x].append((y, w))
             g[y].append((x, w))
 
@@ -63,22 +63,22 @@ class TreeAncestor:
 
     def get_kth_ancestor(self, node: int, k: int) -> int:
         for i in range(k.bit_length()):
-            if k >> i & 1:  # k 二进制从低到高第 i 位是 1
+            if k >> i & 1:  # Bit i of k, counted from least to most significant, is 1
                 node = self.pa[node][i]
         return node
 
-    # 返回 x 和 y 的最近公共祖先（节点编号从 0 开始）
+    # Return the lowest common ancestor of x and y (nodes are numbered from 0)
     def get_lca(self, x: int, y: int) -> int:
         if self.depth[x] > self.depth[y]:
             x, y = y, x
-        # 使 y 和 x 在同一深度
+        # Bring y to the same depth as x
         y = self.get_kth_ancestor(y, self.depth[y] - self.depth[x])
         if y == x:
             return x
         for i in range(len(self.pa[x]) - 1, -1, -1):
             px, py = self.pa[x][i], self.pa[y][i]
             if px != py:
-                x, y = px, py  # 同时往上跳 2**i 步
+                x, y = px, py  # Jump upward 2**i steps together
         return self.pa[x][0]
 
     def find_distance(self, x: int, d: int):

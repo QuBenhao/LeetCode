@@ -8,13 +8,13 @@ import requests
 
 from python.utils.http_tool import _shared_session
 
-# 力扣目前勋章的配置
+# Current LeetCode badge configuration
 RATING = 1600
 GUARDIAN = 0.05
 KNIGHT = 0.25
-# 查询的地址为全国还是全球？很关键
+# Choose the China or global query endpoint carefully
 GLOBAL = False
-# 二分查找的右端点(可自调)
+# Upper bound for binary search (adjustable)
 RIGHT = 3000
 
 RETRY_COUNT = 3

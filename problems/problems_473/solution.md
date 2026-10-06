@@ -1,4 +1,4 @@
-# [Python] 状态压缩+记忆化递归
+# [Python] State compression + memoized recursion
 
 > slug: python-zhuang-tai-ya-suo-ji-yi-hua-di-gu-7jsc
 > date: 2021-08-07
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/matchsticks-to-square/solutions/mOXss7/python-zhuang-tai-ya-suo-ji-yi-hua-di-gu-7jsc/
 
 ---
-### 解题思路
-我们能用所有火柴构成正方形，首先必然有和为4的倍数，边为和除以4(且没有火柴大于这个边长)。
-用状态压缩记录用过的火柴，和当前构建的边的和，如果达到边长，就清0构造下一个边长。
-直到我们用光所有火柴
+### Approach
+To form a square using all matches, their total length must be divisible by 4. Each side has length total/4, and no match may exceed it.
+Use state compression to track used matches and the current side's length. Once it reaches the required length, reset to 0 and build the next side.
+Continue until all matches are used.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

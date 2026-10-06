@@ -1,4 +1,4 @@
-# [Python/Java/Go] 动态规划
+# [Python/Java/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2022-02-21
@@ -7,17 +7,17 @@
 
 ---
 
-### 解题思路
-到右下角的点的路径数由它的左边那个点和上边那个点构成
+### Approach
+The number of paths to the bottom-right cell comes from the path counts at its left and upper neighbors.
 
-注:
+Notes:
 ```
-Python: cache实现简单代码
-Java: static一次获取全部结果
-Go: 滚动更新写法
+Python: use cache for a simple implementation
+Java: compute all results once with static
+Go: use rolling updates
 ```
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

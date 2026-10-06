@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-此处撰写解题思路
+### Approach
+Write the solution approach here
 
-### 代码
+### Code
 
 ```python
 class AuthenticationManager(object):

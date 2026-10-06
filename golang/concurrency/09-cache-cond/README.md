@@ -1,22 +1,22 @@
-# **9. 条件变量应用**
-**场景**：实现一个容量为 10 的环形缓冲区：
-- 多个生产者协程在缓冲区未满时写入数据
-- 多个消费者协程在缓冲区非空时读取数据
-- 当缓冲区满时生产者阻塞等待
-- 当缓冲区空时消费者阻塞等待
+# **9. Using condition variables**
+**Scenario:** Implement a ring buffer with a capacity of 10:
+- Multiple producer goroutines write data when the buffer is not full
+- Multiple consumer goroutines read data when the buffer is not empty
+- Producers block and wait when the buffer is full
+- Consumers block and wait when the buffer is empty
 
-**要求**：
-- 使用 `sync.Cond` 实现
-- 避免忙等待（busy waiting）
-- 处理协程安全退出
+**Requirements:**
+- Use `sync.Cond`
+- Avoid busy waiting
+- Handle safe goroutine termination
 
 
-## 解题
+## Exercise
 
 [solution](your_solution.go)
 
 ---
 
-## 答案
+## Solution
 
 [answer](answer.go)

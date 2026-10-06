@@ -1,14 +1,14 @@
-# 质数
+# Prime Numbers
 
-[调和级数](harmonic_series.md)优化
+Optimization using the [harmonic series](harmonic_series.md)
 
-## 求N以内的所有质数
+## Find All Primes up to N
 
 ```python
 def primes(n):
     n = int(n)
     is_prime = [True] * (n + 1)
-    is_prime[0] = is_prime[1] = False  # 0和1不是质数
+    is_prime[0] = is_prime[1] = False  # 0 and 1 are not prime
     p = 2
     while p * p <= n:
         if is_prime[p]:
@@ -24,7 +24,7 @@ void init() {
     if (inited) return;
     inited = true;
     flag[0] = flag[1] = true;
-    // 筛法求质数
+    // Find primes using a sieve
     for (int i = 2; i * i <= MAXN; i++) if (!flag[i]) for (int j = i * 2; j <= MAXN; j += i) flag[j] = true;
 }
 ```
@@ -44,7 +44,7 @@ void init() {
     }
 ```
 
-## 求N以内每个数的不同质因子个数
+## Count the Distinct Prime Factors of Every Number up to N
 
 ```python
 def count_distinct_prime_factors(n):
@@ -57,15 +57,15 @@ def count_distinct_prime_factors(n):
     return count
 ```
 
-## 质因数分解
+## Prime Factorization
 
 ```python
-# 预处理每个数的质因子列表
+# Precompute the prime factor list for each number
 mx = 1000001
 PRIME_FACTORS = [[] for _ in range(mx)]
 for i in range(2, mx):
-    if not PRIME_FACTORS[i]:  # i 是质数
-        for j in range(i, mx, i):  # i 的倍数有质因子 i
+    if not PRIME_FACTORS[i]:  # i is prime
+        for j in range(i, mx, i):  # Multiples of i have prime factor i
             PRIME_FACTORS[j].append(i)
 ```
 ```c++

@@ -1,4 +1,4 @@
-# 滑窗思想+位运算+哈希
+# Sliding window + bit operations + hashing
 
 > slug: hua-chuang-si-xiang-wei-yun-suan-ha-xi-b-fvai
 > date: 2026-02-23
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/check-if-a-string-contains-all-binary-codes-of-size-k/solutions/N6aRSO/hua-chuang-si-xiang-wei-yun-suan-ha-xi-b-fvai/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

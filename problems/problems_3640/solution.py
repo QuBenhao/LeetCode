@@ -43,7 +43,7 @@ class Solution(solution.Solution):
     #         lz = -1
     #         while idx < n - 1:
     #             if lz != -1:
-    #                 # 刚刚已经遍历过递增
+    #                 # The increasing segment has already been traversed
     #                 l = idx
     #             else:
     #                 l = idx
@@ -51,24 +51,24 @@ class Solution(solution.Solution):
     #                     if lz == -1 and nums[l] >= 0:
     #                         lz = l
     #                     l += 1
-    #                 # 未找到第一段递增
+    #                 # No first increasing segment was found
     #                 if l == idx or l == n - 1:
     #                     idx += 1
     #                     lz = -1
     #                     continue
-    #                 # 尽可能少取负数
+    #                 # Include as few negative numbers as possible
     #                 if lz == -1:
     #                     lz = l - 1
     #             q = l
     #             while q < n - 1 and nums[q] > nums[q + 1]:
     #                 q += 1
-    #             # 不存在了
+    #             # No valid segment remains
     #             if q == n - 1:
     #                 break
-    #             # 找第三段递增尽头
+    #             # Find the end of the third, increasing segment
     #             r = q
     #             tmp = lz
-    #             # 减少重复统计递增段
+    #             # Reduce repeated counting of increasing segments
     #             lz = -1
     #             while r < n - 1 and nums[r] < nums[r + 1]:
     #                 if lz == -1 and nums[r] >= 0:
@@ -76,7 +76,7 @@ class Solution(solution.Solution):
     #                 r += 1
     #             if lz == -1:
     #                 lz = r - 1
-    #             # q + 2: 最后一段有可能全为负数, 尽可能少取
+    #             # q + 2: the last segment may be entirely negative, so include as few elements as possible
     #             ans = max(ans, pre_sum[r + 1] - pre_sum[tmp], pre_sum[q + 2] - pre_sum[tmp])
     #             idx = r
     #         return ans

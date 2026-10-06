@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] BFS记录次短距离
+# [Python/Java/JavaScript/Go] Track the second-shortest distance with BFS
 
 > slug: pythonjavajavascriptgo-bfsji-lu-ci-duan-671ei
 > date: 2022-01-23
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/second-minimum-time-to-reach-destination/solutions/pbySa5/pythonjavajavascriptgo-bfsji-lu-ci-duan-671ei/
 
 ---
-### 解题思路
-由于time和change是固定的，而不是在不同边有不同的值，所以我们可以统计出起点到终点的最短距离和次短距离，然后根据次短距离计算答案。
+### Approach
+Because time and change are fixed rather than varying by edge, we can find the shortest and second-shortest distances from start to finish, then compute the answer from the second-shortest distance.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

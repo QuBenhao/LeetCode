@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/13.
-// 例题: 起床困难综合症 acwing998
+// Example: 起床困难综合症 acwing998
 //
 
 #include <bits/stdc++.h>

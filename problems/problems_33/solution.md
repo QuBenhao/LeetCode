@@ -1,4 +1,4 @@
-# [Python] 二分
+# [Python] Binary search
 
 > Author: Benhao
 > Date: 2024-03-26
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 先用二分找到递增序列的拐点，再处理拐点开始或结束的序列就已经是单调增的了，再次二分找target即可
+> First use binary search to find the rotation point. The section starting or ending at that point is increasing, so use binary search again to find target.
 
-# 解题方法
+# Approach
 
-> 二分拐点注意要找起点的话，等于nums[0]需要左指针往右移
+> When binary-searching for the start at the rotation point, move the left pointer to the right when the value equals nums[0].
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(log_n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

@@ -1,4 +1,4 @@
-# [Python] 贪心
+# [Python] Greedy
 
 > slug: python-tan-xin-by-himymben-ag4d
 > date: 2024-03-14
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 从后往前能吞就吞，不能吞则从现在的大小重新出发，继续往前看，找最大的答案
+> Work backward, absorbing each value when possible. Otherwise, restart from the current value and continue backward, tracking the largest answer.
 
-# 解题方法
+# Approach
 
-> 贪心模拟
+> Greedy simulation
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-mo-ni-by-himymben-yjxt
 > date: 2022-06-28
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/encode-and-decode-tinyurl/solutions/2mnY3Z/pythonjavatypescriptgo-mo-ni-by-himymben-yjxt/
 
 ---
-### 解题思路
-这题就按题意找一个方式实现就好。我个人其实是倾向于用rsa非对称加密的，密钥用短一点的生成的固长就不会特别长，不过没有导入这个库。
+### Approach
+Choose an implementation that follows the problem requirements. Personally, I would lean toward RSA asymmetric encryption, with a shorter key to keep the fixed-length output reasonably short, but that library is not imported here.
 
-### 代码
+### Code
 
 ```Python3 []
 import hashlib

@@ -1,4 +1,4 @@
-# [Python] 双100%，异或找初始值
+# [Python] 100% in both metrics: find the initial value with XOR
 
 > Author: Benhao
 > Date: 2021-05-10
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-perm[0] 与perm每一个值的异或结果可以由encoded求出。
-perm所有值的异或结果可以由1到n的异或结果得出。
-由于n是奇数，perm[0]和每一个值的异或的结果的异或，刚好是不带perm[0]的1到n的异或结果。
-所以两者的异或就是perm[0]了
+### Approach
+The XOR of perm[0] with each value in perm can be derived from encoded.
+The XOR of every value in perm equals the XOR of 1 through n.
+Since n is odd, XORing all the results of perm[0] XOR each value leaves the XOR of 1 through n excluding perm[0].
+XOR these two results to obtain perm[0].
 
-### 代码
+### Code
 
 ```python
 class Solution(object):
@@ -28,7 +28,7 @@ class Solution(object):
         start = 0
         for i in range(1, n, 2):
             start ^= encoded[i]
-        # 连续n个数的异或结果模4为1时为1，为3时为0
+        # For odd n, the XOR of 1 through n is 1 when n mod 4 is 1, and 0 when it is 3
         if n % 4 == 1:
             start ^= 1
         perm = [start]

@@ -12,9 +12,9 @@ class Solution(solution.Solution):
         cur_letter = 0
         n = len(s)
         for i, c in enumerate(s):
-            # 条件1: 单调递增栈, 保证字典序最小
-            # 条件2: 保证长度为k (还剩n-i个数, 已经有len(ans)个数, 要去掉栈顶一个数, 整体长度仍能到k)
-            # 条件3: 保证letter的个数至少为repetition
+            # Condition 1: an increasing monotonic stack ensures the smallest lexicographic order
+            # Condition 2: ensure length k (n-i characters remain, len(ans) are already selected, and removing the stack top must still allow length k)
+            # Condition 3: ensure at least repetition occurrences of letter
             while (ans and ans[-1] > c and n - i + len(ans) - 1 >= k and
                    (c == letter or letter_left + cur_letter - (ans[-1] == letter) >= repetition)):
                 if ans.pop() == letter:

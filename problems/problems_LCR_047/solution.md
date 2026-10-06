@@ -1,4 +1,4 @@
-# [Rust] 递归 
+# [Rust] Recursion 
 
 > slug: rust-di-gui-by-himymben-dvfl
 > date: 2024-08-21

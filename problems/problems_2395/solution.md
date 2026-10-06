@@ -1,4 +1,4 @@
-# [C/Py/Java/Ts/Go] 模拟
+# [C/Py/Java/Ts/Go] Simulation
 
 > slug: cpyjavatsgo-mo-ni-by-himymben-oj6u
 > date: 2023-03-26
@@ -11,8 +11,8 @@
 
 [TOC]
 
-# 思路
-> 二维遍历或一维遍历+哈希表
+# Intuition
+> Use a nested traversal, or a single traversal with a hash table.
 
 # Code
 ```C []

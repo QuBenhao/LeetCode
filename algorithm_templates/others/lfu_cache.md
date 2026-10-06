@@ -1,10 +1,10 @@
-# lfu缓存
+# LFU cache
 
-**最不经常使用算法**
+**Least frequently used algorithm**
 
-这个缓存算法使用一个计数器来记录条目被访问的频率。通过使用LFU缓存算法，最低访问数的条目首先被移除。这个方法并不经常使用，因为它无法对一个拥有最初高访问率之后长时间没有被访问的条目缓存负责。
+This caching algorithm uses a counter to track how often each entry is accessed. LFU evicts the entries with the lowest access counts first. It is not commonly used because an entry that was accessed frequently at first may remain cached long after its last access.
 
-哈希表+双向链表+记录频率
+Hash table + doubly linked lists + frequency tracking
 
 ```python
 from collections import defaultdict
@@ -12,13 +12,13 @@ from typing import Optional
 
 
 class Node:
-    # 提高访问属性的速度，并节省内存
+    # Speed up attribute access and save memory
     __slots__ = 'prev', 'next', 'key', 'value', 'freq'
 
     def __init__(self, key=0, val=0):
         self.key = key
         self.value = val
-        self.freq = 1  # 新书只读了一次
+        self.freq = 1  # A new book has been read once
 
 
 class LFUCache:
@@ -27,7 +27,7 @@ class LFUCache:
         self.key_to_node = {}
 
         def new_list() -> Node:
-            dummy = Node()  # 哨兵节点
+            dummy = Node()  # Sentinel node
             dummy.prev = dummy
             dummy.next = dummy
             return dummy
@@ -36,17 +36,17 @@ class LFUCache:
         self.min_freq = 0
 
     def get_node(self, key: int) -> Optional[Node]:
-        if key not in self.key_to_node:  # 没有这本书
+        if key not in self.key_to_node:  # This book is absent
             return None
-        node = self.key_to_node[key]  # 有这本书
-        self.remove(node)  # 把这本书抽出来
+        node = self.key_to_node[key]  # This book is present
+        self.remove(node)  # Pull this book out
         dummy = self.freq_to_dummy[node.freq]
-        if dummy.prev == dummy:  # 抽出来后，这摞书是空的
-            del self.freq_to_dummy[node.freq]  # 移除空链表
-            if self.min_freq == node.freq:  # 这摞书是最左边的
+        if dummy.prev == dummy:  # The stack of books is empty after removal
+            del self.freq_to_dummy[node.freq]  # Remove the empty linked list
+            if self.min_freq == node.freq:  # This is the leftmost stack of books
                 self.min_freq += 1
-        node.freq += 1  # 看书次数 +1
-        self.push_front(self.freq_to_dummy[node.freq], node)  # 放在右边这摞书的最上面
+        node.freq += 1  # Increment the number of reads
+        self.push_front(self.freq_to_dummy[node.freq], node)  # Place it on top of the stack to the right
         return node
 
     def get(self, key: int) -> int:
@@ -55,26 +55,26 @@ class LFUCache:
 
     def put(self, key: int, value: int) -> None:
         node = self.get_node(key)
-        if node:  # 有这本书
-            node.value = value  # 更新 value
+        if node:  # This book is present
+            node.value = value  # Update value
             return
-        if len(self.key_to_node) == self.capacity:  # 书太多了
+        if len(self.key_to_node) == self.capacity:  # Too many books
             dummy = self.freq_to_dummy[self.min_freq]
-            back_node = dummy.prev  # 最左边那摞书的最下面的书
+            back_node = dummy.prev  # Bottom book in the leftmost stack
             del self.key_to_node[back_node.key]
-            self.remove(back_node)  # 移除
-            if dummy.prev == dummy:  # 这摞书是空的
-                del self.freq_to_dummy[self.min_freq]  # 移除空链表
-        self.key_to_node[key] = node = Node(key, value)  # 新书
-        self.push_front(self.freq_to_dummy[1], node)  # 放在「看过 1 次」的最上面
+            self.remove(back_node)  # Remove it
+            if dummy.prev == dummy:  # This stack of books is empty
+                del self.freq_to_dummy[self.min_freq]  # Remove the empty linked list
+        self.key_to_node[key] = node = Node(key, value)  # A new book
+        self.push_front(self.freq_to_dummy[1], node)  # Place it on top of the stack of books read once
         self.min_freq = 1
 
-    # 删除一个节点（抽出一本书）
+    # Remove a node (pull out a book)
     def remove(self, x: Node) -> None:
         x.prev.next = x.next
         x.next.prev = x.prev
 
-    # 在链表头添加一个节点（把一本书放在最上面）
+    # Add a node at the head of the list (place a book on top)
     def push_front(self, dummy: Node, x: Node) -> None:
         x.prev = dummy
         x.next = dummy.next

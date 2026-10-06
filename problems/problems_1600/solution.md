@@ -1,4 +1,4 @@
-# [Python] 树的先序遍历(yield)
+# [Python] Preorder tree traversal (yield)
 
 > Author: Benhao
 > Date: 2021-06-20
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-Successor返回的优先权:
-当前节点 > 当前节点的最左子节点 > 当前节点的左二子节点 > ... > 当前节点的最后一个子节点
+### Approach
+The priority order returned by Successor is:
+Current node > its leftmost child > its second child from the left > ... > its last child
 
-相当于先序遍历，练习使用yield
+This is a preorder traversal and a chance to practice yield.
 
-### 代码
+### Code
 
 ```python3
 class ThroneInheritance:
@@ -37,7 +37,7 @@ class ThroneInheritance:
                 yield from preOrder(child)
         return list(preOrder(self.root))
 ```
-也可以使用集合记录死亡的人的，这样树的结构不用过于复杂
+A set can track deceased people, keeping the tree structure simple.
 ```python3
 class ThroneInheritance(object):
 

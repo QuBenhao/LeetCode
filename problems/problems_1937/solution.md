@@ -1,4 +1,4 @@
-# [Python] 动态规划 时间O(m * n)，空间O(n)
+# [Python] Dynamic programming: O(m * n) time, O(n) space
 
 > Author: Benhao
 > Date: 2021-07-18
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-对于所有上一行左边的数，都是加上它的坐标减去自己的坐标；对于上一行所有右边的数，都是减去它的坐标加上自己的坐标；
-分别求最大值即可。
+### Approach
+For previous-row positions to the left, add their index and subtract the current index. For positions to the right, subtract their index and add the current index.
+Take the maximum for each side.
 
-### 代码
+### Code
 ```python3
 class Solution:
     def maxPoints(self, points: List[List[int]]) -> int:

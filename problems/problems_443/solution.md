@@ -1,4 +1,4 @@
-# [Python/Java] 三指针
+# [Python/Java] Three pointers
 
 > Author: Benhao
 > Date: 2021-08-20
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-一个指针标记当前字符，另一个指针找这个字符有连续多少个，最后一个指针标记当前在数组中的读写位置。
+### Approach
+One pointer marks the current character, another finds the length of its consecutive run, and the last tracks the current read/write position in the array.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -52,6 +52,6 @@ class Solution {
 }
 ```
 
-### 复杂度
-时间复杂度: $o(n)$
-空间复杂度: $o(1)$
+### Complexity
+Time complexity: $o(n)$
+Space complexity: $o(1)$

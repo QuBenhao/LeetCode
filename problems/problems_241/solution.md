@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 区间DP
+# [Python/Java/TypeScript/Go] Interval DP
 
 > Author: Benhao
 > Date: 2022-06-30
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-讨论所有符号位置，每次找一个符号认为它是最后做运算，那么这个时候就需要递归得到两遍的结果。
-由于有大量重复计算，按区间位置进行记忆化即可（dp）
+### Approach
+Consider each operator position as the last operation to evaluate, recursively obtaining the results on both sides.
+Since many computations repeat, memoize by interval boundaries (DP).
 
-### 代码
+### Code
 
 ```Python3 []
 OP_MAP = {"+": operator.add, "-": operator.sub, "*": operator.mul}
@@ -22,7 +22,7 @@ class Solution:
             if left == right:
                 return [int(sp[left])]
             res = []
-            # 找区间里的符号, 按符号分割左右（我们认为最后计算这个符号）
+            # Find operators in the interval and split into left and right parts, treating the selected operator as the last operation
             for i in range(left + 1, right, 2):
                 for left_set in dfs(left, i - 1):
                     for right_set in dfs(i + 1, right):

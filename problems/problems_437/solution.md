@@ -1,4 +1,4 @@
-# [Python/Java] 递归前缀和 
+# [Python/Java] Recursive prefix sums 
 
 > Author: Benhao
 > Date: 2021-09-27
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-因为我们要讨论任意节点开始，到任意子节点的路径的和是否等于目标和，所以最好的办法就是记录这条路径的前缀和，然后遍历搜是否有相等的来统计个数即可。
+### Approach
+We need paths from any node to any descendant whose sum equals the target. Record prefix sums along the current path, then search for matching differences to count valid paths.
 
-在递归时，左右的要互不影响，要么复制一下list，要么回溯。
-回溯显然更优，因为复制的代价很大。
-我们可以统计和为某个值的数量，这样在统计答案时就不再需要遍历了。
+The left and right branches must not affect each other during recursion, so either copy the list or backtrack.
+Backtracking is clearly better because copying is expensive.
+Count occurrences of each prefix sum so that updating the answer no longer requires scanning the path.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -23,7 +23,7 @@ class Solution:
             if not node:
                 return 0
             cur = presum[-1] + node.val
-            # 以node结尾，和为targetSum的个数
+            # Number of paths ending at node with sum targetSum
             ans = sum(cur - p == targetSum for p in presum)
             presum.append(cur)
             return ans + dfs(node.left, list(presum)) + dfs(node.right, presum)

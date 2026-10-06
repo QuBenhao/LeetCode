@@ -22,13 +22,13 @@ class Solution(solution.Solution):
         #         i += 1
         #     else:
         #         if str.isdigit(c):
-        #             # 获取完整的数字，并解析出对应的数值
+        #             # Read the complete number and parse its value
         #             j = i
         #             while j < n and str.isdigit(formula[j]):
         #                 j += 1
         #             cnt = int(formula[i:j])
         #             i = j
-        #             # 如果栈顶元素是 )，说明当前数值可以应用给「连续一段」的原子中
+        #             # If the stack top is ), this value applies to a consecutive group of atoms
         #             if d and d[-1] == ')':
         #                 tmp = []
         #                 d.pop()
@@ -40,13 +40,13 @@ class Solution(solution.Solution):
         #
         #                 for k in range(len(tmp) - 1, -1, -1):
         #                     d.append(tmp[k])
-        #             # 如果栈顶元素不是 )，说明当前数值只能应用给栈顶的原子
+        #             # Otherwise, this value applies only to the atom at the stack top
         #             else:
         #                 cur = d.pop()
         #                 map[cur] *= cnt
         #                 d.append(cur)
         #         else:
-        #             # 获取完整的原子名
+        #             # Read the complete atom name
         #             j = i + 1
         #             while j < n and str.islower(formula[j]):
         #                 j += 1
@@ -56,13 +56,13 @@ class Solution(solution.Solution):
         #             i = j
         #             d.append(cur)
         #
-        # #  将不同编号的相同原子进行合并
+        # # Merge identical atoms with different indices
         # mm = defaultdict(int)
         # for key, cnt in map.items():
         #     atom = key.split("_")[0]
         #     mm[atom] += cnt
         #
-        # # 对mm中的key进行排序作为答案
+        # # Sort the keys in mm to construct the answer
         # ans = []
         # for key in sorted(mm.keys()):
         #     if mm[key] > 1:
@@ -71,11 +71,11 @@ class Solution(solution.Solution):
         #         ans.append(key)
         # return "".join(ans)
 
-        # 倒着的时候， 记录map，乘的基数，迭代中的乘数，个数，个数的10进制位数，元素
+        # Scan backward while tracking the count map, total multiplier, multiplier stack, count, decimal place, and element name
         cnts, multiply, muls, num, num_count, atom = defaultdict(int), 1, [], 0, 0, ""
         for c in formula[::-1]:
             if c == ')':
-                # 如果当前有统计的数字，乘的基数要叠加
+                # If a number has been parsed, include it in the total multiplier
                 if num:
                     multiply *= num
                     muls.append(num)
@@ -83,7 +83,7 @@ class Solution(solution.Solution):
                 else:
                     muls.append(1)
             elif c == '(':
-                # 去除掉上一个乘数
+                # Remove the previous multiplier
                 multiply //= muls.pop()
             elif str.isdigit(c):
                 num += int(c) * (10 ** num_count)
@@ -92,7 +92,7 @@ class Solution(solution.Solution):
                 atom += c
             else:
                 atom += c
-                # 注意我们在更新元素个数时，始终要考虑乘的基数
+                # Always account for the total multiplier when updating an element's count
                 if num:
                     cnts[atom[::-1]] += num * multiply
                 else:

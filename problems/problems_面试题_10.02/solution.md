@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/group-anagrams-lcci/solutions/YTrU0k/python-hash-counter-by-qubenhao-qp9t/
 
 ---
-### 解题思路
-字母个数相同排列不同实际上就是她们的Counter一致，Counter按'a'到'z'转换成tuple即可作为字典的hash值(key)。
-同样可以使用排序后的字符串作为hash值。
+### Approach
+Strings with identical letter counts but different orders have the same Counter. Convert the counts from 'a' to 'z' into a tuple to use as a dictionary key.
+The sorted string can also serve as the hash key.
 <br>
-按理说defaultdict应该使用set作为value，因为排列一致应该去掉啊。
-但是["",""]的用例要的是[["",""]]，那就不去重复好了。。
+I would expect defaultdict to use a set as its value, since identical permutations should be deduplicated.
+However, the test case ["",""] expects [["",""]], so keep the duplicates.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

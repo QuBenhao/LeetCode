@@ -10,18 +10,18 @@ class Solution(solution.Solution):
         :type nums: List[int]
         :rtype: int
         """
-        # 前缀和字典: key为1的数量和0的数量的差值,value为对应坐标
+        # Prefix sum dictionary: key is the difference between counts of ones and zeros; value is its index
         hashmap = {0:-1}
-        # 当前1的数量和0的数量的差值
+        # Current difference between counts of ones and zeros
         counter = ans = 0
         for i,num in enumerate(nums):
-            # 每多一个1，差值+1
+            # Each additional one increases the difference by 1
             if num:
                 counter += 1
-            # 每多一个0，差值-1
+            # Each additional zero decreases the difference by 1
             else:
                 counter -= 1
-            # 如果存在1和0的数量差值相等的地方，那么说明后者到前者之前1和0的数量相等！
+            # Equal prefix differences mean the interval between them contains equal numbers of ones and zeros!
             if counter in hashmap:
                 ans = max(ans, i - hashmap[counter])
             else:

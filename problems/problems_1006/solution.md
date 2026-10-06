@@ -1,4 +1,4 @@
-# [Python] 从直接的解法到数学推算简化
+# [Python] From a direct solution to a mathematical simplification
 
 > Author: Benhao
 > Date: 2021-04-01
@@ -7,19 +7,19 @@
 
 ---
 
-### 解题思路
-一开始很直接的思路: 只有第一个乘除运算是被加的，后面的所有乘除运算都是被减的。
-后面又因为乘除是很接近的数，不难发现他们的结果的规律。
-`n * (n-1) / (n-2) = (n^2 - n) / (n-2) = (n^2 - 2n + n - 2 + 2) / (n-2) = n + 1 + 2 / (n - 2) = n + 1`, 只有当`n-2>2`,即`n>4`时，这个式子才成立。
-于是我们有:
+### Approach
+The initial idea is straightforward: only the first multiplication/division group is added; all later multiplication/division groups are subtracted.
+Since the numbers in each multiplication/division group are close together, a pattern in their results is easy to find.
+`n * (n-1) / (n-2) = (n^2 - n) / (n-2) = (n^2 - 2n + n - 2 + 2) / (n-2) = n + 1 + 2 / (n - 2) = n + 1` holds only when `n-2>2`, that is, `n>4`.
+This gives:
 ```
 clumsy(n) = n * (n-1) // (n-2) + (n-3) - (n-4) * (n-5) // (n-6) + (n-7) - (n-8) * (n-9) // (n-10) + ...
           = (n+1) + (n-3) - (n-3) + (n-7) - (n-7) + ...
           = (n+1) + ...
 ```
-根据这一推算，可以省去很多不必要的运算。
+This derivation eliminates many unnecessary calculations.
 
-### 代码
+### Code
 
 ```python
 class Solution(object):
@@ -65,15 +65,15 @@ class Solution(object):
                   = (n+1) + ...
         """
         if N > 4:
-            # 后面全部抵消
+            # All subsequent terms cancel
             if N % 4 == 0:
                 return N + 1
-            # 最后一个 2 // (N-2) 要多出一个 - 2来, 所以是 N + 1 - 2
+            # The final 2 // (N-2) contributes an extra - 2, giving N + 1 - 2
             elif N % 4 == 3:
                 return N - 1
-            # 1 的时候最后剩下一个 + 2 - 1 = 1
-            # 2 的时候最后剩下一个 + 3 - 2 * 1 = 1
-            # 所以 N + 1 + 1
+            # For remainder 1, the final terms are + 2 - 1 = 1
+            # For remainder 2, the final terms are + 3 - 2 * 1 = 1
+            # Therefore, N + 1 + 1
             else:
                 return N + 2
         elif N == 4:
@@ -84,7 +84,7 @@ class Solution(object):
             return N
 ```
 
-上面代码的另一种简化写法就是：
+Another simplified version of the code above is:
 ```python
     def clumsy(self, N):
         """

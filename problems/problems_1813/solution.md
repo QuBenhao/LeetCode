@@ -1,4 +1,4 @@
-# [Python3] 删掉重复的部分判断剩下的是不是连续的
+# [Python3] Remove matching portions and check whether the remainder is contiguous
 
 > Author: Benhao
 > Date: 2021-04-03
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-如果连续那他们的和满足首相加末相乘项数除二
+### Approach
+For consecutive indices, their sum is (first + last) * count / 2.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

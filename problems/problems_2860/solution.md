@@ -1,4 +1,4 @@
-# [Python] 枚举被选人数
+# [Python] Enumerate the number of selected students
 
 > Author: Benhao
 > Date: 2024-09-03
@@ -12,15 +12,15 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 从小到大枚举被选人数，把小于被选人数的都选出来，如果选中的人数和枚举的被选人数一致，那么这是可行的答案之一
+> Enumerate the selected count in increasing order, selecting everyone whose value is smaller than that count. If the actual selected count matches the enumerated count, this is a valid answer.
 
-# 解题过程
+# Solution steps
 
-> 枚举选中人数
+> Enumerate the selected count.
 
-# 复杂度
+# Complexity
 
 - $O(nlog_n)$
 
@@ -47,12 +47,12 @@ class Solution:
         return ans + 1
 ```
 
-或者更好的写法，当前选了i个人，那么nums[i-1]及以下就被选了，nums[i]及以上就没被选，我们统计满足严格大于nums[i-1]且严格小于nums[i]的数量即可
+A cleaner approach: if i students are selected, nums[i-1] and those before it are selected, while nums[i] and those after it are not. Count choices where i is strictly greater than nums[i-1] and strictly smaller than nums[i].
 ```Python3 []
 class Solution:
     def countWays(self, nums: List[int]) -> int:
         nums.sort()
-        # 当前选了i个人, x及以下的人都选了，y及以上的人都没选
+        # i people are selected: everyone at or below x is selected, and everyone at or above y is not
         return int(nums[0] > 0) + sum(x < i < y for i, (x, y) in enumerate(pairwise(nums), 1)) + 1
 ```
   

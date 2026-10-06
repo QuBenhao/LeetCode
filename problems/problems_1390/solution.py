@@ -9,11 +9,11 @@ class Solution(solution.Solution):
     def sumFourDivisors(self, nums: List[int]) -> int:
         return sum(FACTORS_SUM[num] for num in nums if FACTORS_COUNT[num] == 4)
 
-# 预处理每个数的质因子列表
+# Precompute the list of prime factors for each number
 mx = 100001
 FACTORS_COUNT = [0] * mx
 FACTORS_SUM = [0] * mx
 for i in range(1, mx):
-    for j in range(i, mx, i):  # i是因子
+    for j in range(i, mx, i):  # i is a divisor
         FACTORS_COUNT[j] += 1
         FACTORS_SUM[j] += i

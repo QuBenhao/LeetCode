@@ -1,4 +1,4 @@
-# [Python/Go] 贪心模拟
+# [Python/Go] Greedy simulation
 
 > slug: pythongo-tan-xin-mo-ni-by-himymben-rmvl
 > date: 2022-02-20
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/find-three-consecutive-integers-that-sum-to-a-given-number/solutions/EwEfbH/pythongo-tan-xin-mo-ni-by-himymben-rmvl/
 
 ---
-### 解题思路
-只有被三整除的数才能被拆分，且拆分方式为`num/3-1,num/3,num/3+1`
+### Approach
+Only numbers divisible by three can be split, and the split is `num/3-1,num/3,num/3+1`.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

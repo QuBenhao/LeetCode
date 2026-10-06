@@ -1,8 +1,8 @@
-# 双指针
+# Two pointers
 
-- 双指针技巧通常用于处理数组或链表问题，如**快慢指针**检测循环、**左右指针**解决有序数组问题等。
+- The two-pointer technique is commonly used for array or linked-list problems, such as detecting cycles with **fast and slow pointers** and solving sorted-array problems with **left and right pointers**.
 
-## 示例：移除元素（原地删除）
+## Example: remove an element in place
 
 ```python
 def remove_element(nums, val):
@@ -29,7 +29,7 @@ func removeElement(nums []int, val int) int {
 }
 ```
 
-## 示例：有序数组两数之和
+## Example: two sum in a sorted array
 
 ```python
 def two_sum(nums, target):

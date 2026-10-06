@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 数学 简单题困难做
+# [Python/Java/JavaScript/Go] Mathematics: making an easy problem harder
 
 > Author: Benhao
 > Date: 2022-01-14
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-根据题意推导数学公式
+### Approach
+Derive a formula from the problem statement.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -54,7 +54,7 @@ int totalMoney(int n){
 }
 ```
 
-稍微整理一下数学公式简化为：
+Rearranging the formula gives:
 ```Python3 []
 class Solution:
     def totalMoney(self, n: int) -> int:
@@ -91,6 +91,6 @@ int totalMoney(int n){
 }
 ```
 
-### 复杂度
-时间复杂度 $o(1)$
-空间复杂度 $o(1)$
+### Complexity
+Time complexity: $o(1)$
+Space complexity: $o(1)$

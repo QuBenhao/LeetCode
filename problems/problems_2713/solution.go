@@ -12,7 +12,7 @@ func maxIncreasingCells(mat [][]int) int {
 	g := map[int][]pair{}
 	for i, row := range mat {
 		for j, x := range row {
-			g[x] = append(g[x], pair{i, j}) // 相同元素放在同一组，统计位置
+			g[x] = append(g[x], pair{i, j}) // Group equal elements and record their positions
 		}
 	}
 	keys := make([]int, 0, len(g))
@@ -25,14 +25,14 @@ func maxIncreasingCells(mat [][]int) int {
 	colMax := make([]int, len(mat[0]))
 	for _, x := range keys {
 		pos := g[x]
-		// 先把所有 f 值都算出来，再更新 rowMax 和 colMax
+		// Compute all f values before updating rowMax and colMax
 		fs := make([]int, len(pos))
 		for i, p := range pos {
 			fs[i] = max(rowMax[p.x], colMax[p.y]) + 1
 		}
 		for i, p := range pos {
-			rowMax[p.x] = max(rowMax[p.x], fs[i]) // 更新第 p.x 行的最大 f 值
-			colMax[p.y] = max(colMax[p.y], fs[i]) // 更新第 p.y 列的最大 f 值
+			rowMax[p.x] = max(rowMax[p.x], fs[i]) // Update the maximum f value in row p.x
+			colMax[p.y] = max(colMax[p.y], fs[i]) // Update the maximum f value in column p.y
 		}
 	}
 	return slices.Max(rowMax)

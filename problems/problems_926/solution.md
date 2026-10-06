@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 动态规划 及优化
+# [Python/Java/TypeScript/Go] Dynamic programming and optimization
 
 > slug: pythonjavatypescriptgo-by-himymben-gzvy
 > date: 2022-06-10
@@ -7,23 +7,23 @@
 > url: https://leetcode.cn/problems/flip-string-to-monotone-increasing/solutions/8kn1Rf/pythonjavatypescriptgo-by-himymben-gzvy/
 
 ---
-### 解题思路
-本题其实是枚举一个位置，这个位置左边全变0，右边全变1。
-那么我们需要知道这个点左边1的个数，右边0的个数。
-预处理这个计数，枚举返回最小值即可。
+### Approach
+Enumerate a split position: turn everything to its left into 0 and everything to its right into 1.
+We need the number of ones on its left and zeros on its right.
+Precompute these counts, enumerate the positions, and return the minimum.
 
 
-优化：
-注意到右边0的个数其实可以由全部1的个数和左边1的个数和长度计算到，
-在最后枚举i的式子中,
+Optimization:
+The number of zeros on the right can be computed from the total number of ones, the number of ones on the left, and the length.
+In the final expression that enumerates i,
 r_zeros[i] = (n - i) - (one - l_ones[i])
-于是求最小值变为min(l_ones[i] + n - i - one + l_ones[i] for i in range(n)),
-我们将n和one常量移到外面，就得到了优化后的动态规划。
+the minimum becomes min(l_ones[i] + n - i - one + l_ones[i] for i in range(n)),
+Move the constants n and one outside to obtain the optimized dynamic program.
 
-时间复杂度$O(n)$
-空间复杂度$O(1)$
+Time complexity: $O(n)$
+Space complexity: $O(1)$
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -121,7 +121,7 @@ func min(vals ...int) int {
 }
 ```
 
-优化
+Optimization
 ```Python3 []
 class Solution:
     def minFlipsMonoIncr(self, s: str) -> int:

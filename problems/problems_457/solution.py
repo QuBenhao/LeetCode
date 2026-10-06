@@ -14,34 +14,34 @@ class Solution(solution.Solution):
         """
         n = len(nums)
         for i in range(n):
-            # 已经被检查过了
+            # Already checked
             if nums[i] >= self.mark:
                 continue
-            # i为起点, 标记值，以及上一个的值
+            # Starting point i, marker value, and previous value
             cur, tag, last = i, self.mark + i, -1
-            # 循环要全正还是全负
+            # Whether the cycle must contain all positive or all negative values
             flag = nums[cur] > 0
             while True:
-                # 下一个点
+                # Next node
                 nxt = (cur + nums[cur]) % n
-                # 当前的值
+                # Current value
                 last = nums[cur]
-                # 修改数组里为标记过
+                # Mark the array entry as visited
                 nums[cur] = tag
-                # 移动到下一个点
+                # Move to the next node
                 cur = nxt
-                # 回到出发点了，可以停止
+                # Back at the starting point; stop
                 if cur == i:
                     break
-                # 回到标记过的点了，可以停止
+                # Back at a marked node; stop
                 if nums[cur] >= self.mark:
                     break
-                # 以下两种情况为正负相反出现了，不符合题目要求，可以停止
+                # The next two cases involve opposite signs and violate the requirements, so stop
                 if flag and nums[cur] < 0:
                     break
                 if not flag and nums[cur] > 0:
                     break
-            # 如果最后出现的点不是指向他自己的，并且当前的值为当前标记值，我们才认定构成一个要的循环
+            # A valid cycle requires that the final node does not point to itself and its current value equals this traversal's marker
             if last % n != 0 and nums[cur] == tag:
                 return True
         return False

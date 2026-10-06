@@ -17,15 +17,15 @@ func largestVariance(s string) (ans int) {
 
 	for _, ch := range s {
 		ch -= 'a'
-		// 遍历到 ch 时，只需计算 a=ch 或者 b=ch 的状态，其他状态和 ch 无关，f 值不变
+		// At ch, only compute states with a=ch or b=ch; other states are unrelated to ch and their f values stay unchanged
 		for i := range 26 {
 			if i == int(ch) {
 				continue
 			}
-			// 假设出现次数最多的字母 a=ch，更新所有 b=i 的状态
+			// Assume the most frequent letter is a=ch; update all states with b=i
 			f0[ch][i] = max(f0[ch][i], 0) + 1
 			f1[ch][i]++
-			// 假设出现次数最少的字母 b=ch，更新所有 a=i 的状态
+			// Assume the least frequent letter is b=ch; update all states with a=i
 			f0[i][ch] = max(f0[i][ch], 0) - 1
 			f1[i][ch] = f0[i][ch]
 			ans = max(ans, f1[ch][i], f1[i][ch])

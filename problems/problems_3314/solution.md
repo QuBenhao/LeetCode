@@ -1,4 +1,4 @@
-# 找到二进制右边第一个0
+# Find the first zero bit from the right
 
 > slug: zhao-dao-er-jin-zhi-you-bian-di-yi-ge-0-caiz8
 > date: 2026-01-19
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/construct-the-minimum-bitwise-array-i/solutions/v7W3iV/zhao-dao-er-jin-zhi-you-bian-di-yi-ge-0-caiz8/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

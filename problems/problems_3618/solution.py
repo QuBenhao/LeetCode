@@ -15,7 +15,7 @@ class Solution(solution.Solution):
 def primes(n):
     n = int(n)
     is_prime = [True] * (n + 1)
-    is_prime[0] = is_prime[1] = False  # 0和1不是质数
+    is_prime[0] = is_prime[1] = False  # 0 and 1 are not prime
     p = 2
     while p * p <= n:
         if is_prime[p]:

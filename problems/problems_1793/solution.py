@@ -13,7 +13,7 @@ class Solution(solution.Solution):
         """
         ans, curr_min, i, j, n = nums[k], nums[k], k, k, len(nums)
         while i > 0 or j < n - 1:
-            # 如果右边的数大，往右推得到的最小值会更大
+            # If the number on the right is larger, extending right gives a larger minimum
             if (nums[i-1] if i > 0 else 0) < (nums[j+1] if j < n-1 else 0):
                 j += 1
                 curr_min = min(curr_min, nums[j])

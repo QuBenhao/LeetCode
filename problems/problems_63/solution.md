@@ -1,4 +1,4 @@
-# [Python] 动态规划滚动更新
+# [Python] Dynamic programming with rolling updates
 
 > Author: Benhao
 > Date: 2024-03-25
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> (i, j)点的路线数由(i - 1, j)点的路线数和(i, j - 1)点的路线数构成，我们维护一个路线数，在遇到障碍时清零即可。
+> The number of paths to (i, j) comes from the path counts at (i - 1, j) and (i, j - 1). Maintain the path count and reset it to zero at obstacles.
 
-# 解题方法
+# Approach
 
-> 动态规划滚动更新
+> Dynamic programming with rolling updates
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(mn)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

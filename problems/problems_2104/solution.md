@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 单调栈
+# [Python/Java/JavaScript/Go] Monotonic stack
 
 > Author: Benhao
 > Date: 2022-03-03
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-参考了[灵老师](https://leetcode.cn/problems/sum-of-subarray-ranges/solution/cong-on2-dao-ondan-diao-zhan-ji-suan-mei-o1op/)和[草莓奶昔](https://leetcode.cn/problems/sum-of-subarray-ranges/solution/dan-diao-zhan-on-by-cao-mei-nai-xi-i-xw3d/)，他们写的都很好很清晰。
+### Approach
+I referred to [灵老师](https://leetcode.cn/problems/sum-of-subarray-ranges/solution/cong-on2-dao-ondan-diao-zhan-ji-suan-mei-o1op/) and [草莓奶昔](https://leetcode.cn/problems/sum-of-subarray-ranges/solution/dan-diao-zhan-on-by-cao-mei-nai-xi-i-xw3d/); both explanations are clear and well written.
 
-题目要求所有区间的最大值减去最小值的和，相当于求每个数作为最大值出现在的区间个数 和 作为最小值出现的区间个数。
-最大值维护一个单调递增栈，当当前值比前面的值大时，意味着栈里面的这些小的元素的右边最远到当前值，而栈里面这些小的元素作为最大值始终是它加入时前一个最大值的坐标。
-最小值与最大值思路一致，只是逻辑相反。
+The required sum of each interval's maximum minus its minimum can be computed by counting how many intervals contain each number as their maximum and as their minimum.
+For maxima, maintain an increasing monotonic stack. When the current value is larger than earlier values, it determines the right boundary for those smaller stack elements. Their left boundary as a maximum is the index of the preceding larger value when they were pushed.
+Use the same idea for minima, with the comparisons reversed.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -22,9 +22,9 @@ class Solution:
         ans, stack = 0, []
         for i, num in enumerate(nums + [inf]):
             while stack and nums[stack[-1]] < num:
-                # 栈顶元素作为最大值的时代结束了, 它作为最大值的区间为它的前一个坐标到当前把它弹出的坐标 
-                # 左边选一个作为左端点，右边选一个作为右端点，这个区间上它都是最大值
-                # 故出现次数为 组合数 C_l1 * C_r1 
+                # The stack top's time as the maximum ends here; its interval boundaries are the preceding index and the current index that pops it
+                # Choose a left endpoint on the left and a right endpoint on the right; this element is the maximum throughout each such interval
+                # Therefore its occurrence count is C_l1 * C_r1
                 ans += nums[(j:=stack.pop())] * (i - j) * (j - (stack[-1] if stack else -1))
             stack.append(i)
         stack = []

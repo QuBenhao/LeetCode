@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2022-02-16
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-当前坐标的方案数有以下关系：
-如果当前字符不是0，那么它本身可以构成一种方案，所以可以叠加上一个坐标的方案数；
-如果当前字符和上个字符组成的数字介于10到26之间，那么它们可以组合起来构成一种方案，所以可以叠加上上个坐标的方案数。
+### Approach
+The number of ways at the current index follows these relationships:
+If the current character is not 0, it can form a decoding on its own, so add the number of ways at the previous index;
+if the previous and current characters form a number from 10 through 26, they can form a decoding together, so add the number of ways two indices back.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

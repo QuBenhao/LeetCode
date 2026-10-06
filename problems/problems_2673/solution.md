@@ -1,4 +1,4 @@
-# [Python/Go/C] 贪心
+# [Python/Go/C] Greedy
 
 > slug: pythongoc-tan-xin-by-himymben-clbb
 > date: 2024-02-28
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 能在上层消除的差异就不要在底层消除，因为底层需要加多个节点，肯定比在上层加操作大。既然要每个路径都一样，那么两两节点都需要一致。故从底层依次两两处理。
+> Resolve a difference at a higher level when possible, since doing so lower down requires increments to multiple nodes and therefore more operations. Equal path sums require sibling subtrees to match, so process sibling pairs from the bottom up.
 
-# 解题方法
+# Approach
 
-> 每对儿兄弟节点需要保持一致，从底层往上层计算。同时累计和，计算上层差异、上层需要的操作数。
+> Equalize each sibling pair from the bottom up, accumulating path sums to compute differences and required operations at higher levels.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

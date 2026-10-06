@@ -15,17 +15,17 @@ private:
   vector<vector<int>> res;
   void dfs(vector<int> nums, int x) {
     if (x == nums.size() - 1) {
-      res.push_back(nums);  // 添加排列方案
+      res.push_back(nums);  // Add the permutation
       return;
     }
     set<int> st;
     for (int i = x; i < nums.size(); i++) {
       if (st.find(nums[i]) != st.end())
-        continue;  // 重复，因此剪枝
+        continue;  // Prune duplicates
       st.insert(nums[i]);
-      swap(nums[i], nums[x]);  // 交换，将 nums[i] 固定在第 x 位
-      dfs(nums, x + 1);       // 开启固定第 x + 1 位元素
-      swap(nums[i], nums[x]);  // 恢复交换
+      swap(nums[i], nums[x]);  // Swap to fix nums[i] at position x
+      dfs(nums, x + 1);       // Start fixing the element at position x + 1
+      swap(nums[i], nums[x]);  // Undo the swap
     }
   }
 };

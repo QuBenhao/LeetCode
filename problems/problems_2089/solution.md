@@ -1,4 +1,4 @@
-# [Python/Go] 模拟
+# [Python/Go] Simulation
 
 > slug: pythongo-mo-ni-by-himymben-5s3b
 > date: 2021-11-28
@@ -7,7 +7,7 @@
 > url: https://leetcode.cn/problems/find-target-indices-after-sorting-array/solutions/HiIyPE/pythongo-mo-ni-by-himymben-5s3b/
 
 ---
-### 代码
+### Code
 
 ```golang []
 func targetIndices(nums []int, target int) (ans []int) {

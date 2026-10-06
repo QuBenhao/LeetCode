@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 记忆化递归 or 动态规划
+# [Python/Java/JavaScript/Go] Memoized recursion or dynamic programming
 
 > slug: python-ji-yi-hua-di-gui-by-himymben-8o8z
 > date: 2021-11-11
@@ -10,7 +10,7 @@
 ```python3
 class Solution:
     def getMoneyAmount(self, n: int) -> int:
-        # 如果猜数字大小k，而答案不是k的话，问题变为求解 (1, k-1) 和 (k+1, n) 的子问题需要的代价的最大值
+        # If we guess k and the answer is not k, the remaining cost is the maximum of the subproblem costs for (1, k-1) and (k+1, n)
         @lru_cache(None)
         def dfs(x, y):
             return min(max(dfs(x, k-1), dfs(k+1, y)) + k for k in range(x, y + 1)) if y > x else 0
@@ -19,7 +19,7 @@ class Solution:
 ```Python3 []
 class Solution:
     def getMoneyAmount(self, n: int) -> int:
-        # 如果猜数字大小k，而答案不是k的话，问题变为求解 (1, k-1) 和 (k+1, n) 的子问题需要的代价的最大值
+        # If we guess k and the answer is not k, the remaining cost is the maximum of the subproblem costs for (1, k-1) and (k+1, n)
         dp = [[0] * (n+1) for _ in range(n+1)]
         for i in range(n-1,0,-1):
             for j in range(i+1, n+1):

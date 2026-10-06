@@ -7,7 +7,7 @@ import (
 )
 
 func calcEquation(equations [][]string, values []float64, queries [][]string) []float64 {
-	// 给方程组中的每个变量编号
+	// Assign an index to each variable in the equations
 	id := map[string]int{}
 	for _, eq := range equations {
 		a, b := eq[0], eq[1]
@@ -19,7 +19,7 @@ func calcEquation(equations [][]string, values []float64, queries [][]string) []
 		}
 	}
 
-	// 建图
+	// Build the graph
 	type edge struct {
 		to     int
 		weight float64

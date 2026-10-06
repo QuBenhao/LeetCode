@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > slug: pythongo-dong-tai-gui-hua-by-himymben-8wh8
 > date: 2022-02-07
@@ -7,20 +7,20 @@
 > url: https://leetcode.cn/problems/UlBDOe/solutions/yhdRWu/pythongo-dong-tai-gui-hua-by-himymben-8wh8/
 
 ---
-### 解题思路
-维护到任意位置我们有三种状态，全是r、若干r若干y、若干r若干y若干r，我们用三个变量维护维持这三种状态的最小操作数。
+### Approach
+At each position, track three states: only r, some r followed by some y, and some r followed by some y followed by some r. Three variables store the minimum operations needed for these states.
 
-若当前字符为r：
-> r 继承之前的r，不需要操作。（如果是第一次，初始化为0）
-> ry 必须将当前`r`变成`y`，操作为1，可以从之前的r和ry之中更小的得到
-> ryr 不需要操作，从之前的ry和ryr之中更小的得到
+If the current character is r:
+> r inherits the previous r state with no operation. (Initialize it to 0 at the first character.)
+> ry must change the current `r` to `y`, costing 1 operation, and can follow the cheaper of the previous r and ry states.
+> ryr needs no operation and follows the cheaper of the previous ry and ryr states.
 
-若当前字符为y:
-> r 必须将`y`变成`r`，操作为1。从之前的r得到（如果是第一次，初始化为1）
-> ry  可以从之前的r和ry之中更小的得到
-> ryr 必须将`y`变成`r`，操作为1。从之前ry和ryr之中更小的得到
+If the current character is y:
+> r must change `y` to `r`, costing 1 operation, and follows the previous r state. (Initialize it to 1 at the first character.)
+> ry follows the cheaper of the previous r and ry states.
+> ryr must change `y` to `r`, costing 1 operation, and follows the cheaper of the previous ry and ryr states.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

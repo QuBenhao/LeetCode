@@ -1,4 +1,4 @@
-# [Python/Java] 模拟
+# [Python/Java] Simulation
 
 > Author: Benhao
 > Date: 2021-08-08
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-统计连续的相同字符个数，超过2不加入最终字符串
+### Approach
+Count consecutive equal characters and omit any beyond the second from the result.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

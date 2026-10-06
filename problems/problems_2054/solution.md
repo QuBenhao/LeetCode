@@ -1,4 +1,4 @@
-# 动态规划
+# Dynamic programming
 
 > slug: dong-tai-gui-hua-by-himymben-esk4
 > date: 2025-12-22
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/two-best-non-overlapping-events/solutions/1xIZ5A/dong-tai-gui-hua-by-himymben-esk4/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

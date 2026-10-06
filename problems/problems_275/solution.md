@@ -1,4 +1,4 @@
-# [Python] 二分法
+# [Python] Binary search
 
 > Author: Benhao
 > Date: 2021-07-11
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-和昨天一样只不过是正序排列了所以用n-mid
+### Approach
+The same as yesterday, except the order is ascending, so use n-mid.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

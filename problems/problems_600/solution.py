@@ -7,7 +7,7 @@ class Solution(solution.Solution):
         return self.findIntegers(test_input)
 
     def findIntegers(self, n: int) -> int:
-        # dp[i]表示长度为i的二进制数中不包含相邻两个1的个数
+        # dp[i] counts length-i binary numbers with no adjacent ones
         dp = [0] * 31
         dp[0], dp[1] = 1, 2
         for i in range(2, 31):

@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 """
-LeetCode 题解拉取工具
-从 LeetCode 拉取用户发布的题解，保存到本地 problem 目录
+LeetCode solution fetching tool
+Fetch a user's published LeetCode solutions and save them in local problem directories
 
-使用方法:
+Usage:
   PYTHONPATH=. python python/scripts/fetch_solution_articles.py [--dry-run] [--force] [--problem-id ID] [--delay DELAY]
 
-环境变量:
-  LEETCODE_USER: LeetCode 用户名 (slug)
-  PROBLEM_FOLDER: 题目文件夹名 (默认 problems)
-  COOKIE: LeetCode Cookie (获取题解内容需要)
+Environment variables:
+  LEETCODE_USER: LeetCode username (slug)
+  PROBLEM_FOLDER: Problem folder name (default: problems)
+  COOKIE: LeetCode Cookie (required to fetch solution content)
 
-参数:
-  --dry-run: 只检查不保存
-  --force: 强制覆盖已存在的 solution.md
-  --problem-id ID: 指定题目ID
-  --delay DELAY: 请求间隔秒数 (默认 3.0，避免限流)
-  --verbose, -v: 详细输出
+Parameters:
+  --dry-run: Check without saving
+  --force: Overwrite existing solution.md files
+  --problem-id ID: Specify the problem ID
+  --delay DELAY: Request interval in seconds (default: 3.0, to avoid rate limits)
+  --verbose, -v: Verbose output
 """
 
 import argparse
@@ -31,7 +31,7 @@ from typing import Optional, List, Dict
 
 from dotenv import load_dotenv
 
-# 使用模块级 logger，避免污染 root logger
+# Use a module-level logger to avoid affecting the root logger
 logger = logging.getLogger(__name__)
 
 import sys; from pathlib import Path; _root = Path(__file__).resolve().parents[2]; sys.path.insert(0, str(_root))
@@ -41,7 +41,7 @@ from python.lc_libs.solution_article import get_my_solution_list, get_solution_c
 
 
 def get_question_slug_by_id(problem_id: str, cookie: str) -> Optional[Dict]:
-    """根据题目ID获取题目的slug和标题"""
+    """Get a problem's slug and title by its ID."""
     questions = get_questions_by_key_word(problem_id, cookie)
     if not questions:
         return None
@@ -57,7 +57,7 @@ def get_question_slug_by_id(problem_id: str, cookie: str) -> Optional[Dict]:
 
 
 def generate_solution_md(solution_data: Dict, question_info: Dict) -> str:
-    """生成 solution.md 文件内容"""
+    """Generate solution.md contents."""
     title = solution_data.get("title", "")
     content = solution_data.get("content", "")
     author = solution_data.get("author", {})
@@ -66,17 +66,17 @@ def generate_solution_md(solution_data: Dict, question_info: Dict) -> str:
     upvote_count = solution_data.get("upvoteCount", 0)
     created_at = solution_data.get("createdAt", "")
 
-    # 获取作者名称
+    # Get the author's name
     author_name = profile.get("realName", "") if profile else ""
     if not author_name:
         author_name = profile.get("userSlug", "") if profile else ""
     if not author_name:
         author_name = author.get("username", "Unknown")
 
-    # 解析 tags
+    # Parse tags
     tag_names = [t.get("name", "") for t in tags if t.get("name")]
 
-    # 格式化日期
+    # Format the date
     if created_at:
         try:
             from datetime import datetime
@@ -87,7 +87,7 @@ def generate_solution_md(solution_data: Dict, question_info: Dict) -> str:
     else:
         date_str = ""
 
-    # 构建 markdown
+    # Build Markdown
     md_parts = [
         f"# {title}",
         "",
@@ -109,7 +109,7 @@ def generate_solution_md(solution_data: Dict, question_info: Dict) -> str:
 
 
 def get_solved_problems(problem_folder: str) -> List[str]:
-    """获取已解决问题的ID列表"""
+    """Get the IDs of solved problems."""
     problems_path = root_path / problem_folder
     if not problems_path.exists():
         return []
@@ -122,7 +122,7 @@ def get_solved_problems(problem_folder: str) -> List[str]:
             match = pattern.match(item.name)
             if match:
                 problem_dir = item
-                # 检查是否有解法文件
+                # Check for solution files
                 has_solution = any(
                     (problem_dir / f).exists()
                     for f in ["solution.py", "solution.go", "Solution.java",
@@ -139,33 +139,33 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
          user_slug: Optional[str] = None, problem_folder: Optional[str] = None,
          cookie: Optional[str] = None):
     """
-    主函数，可被其他模块调用
+    Main function, callable from other modules
 
     Args:
-        dry_run: 只检查不保存
-        force: 强制覆盖已存在的 solution.md
-        problem_id: 指定题目ID
-        delay: 请求间隔秒数
-        verbose: 详细输出
-        user_slug: 用户名 (可选，从环境变量读取)
-        problem_folder: 题目文件夹 (可选，从环境变量读取)
-        cookie: LeetCode Cookie (可选，从环境变量读取)
+        dry_run: Check without saving
+        force: Overwrite existing solution.md files
+        problem_id: Specify the problem ID
+        delay: Request interval in seconds
+        verbose: Verbose output
+        user_slug: Username (optional; read from the environment)
+        problem_folder: Problem folder (optional; read from the environment)
+        cookie: LeetCode Cookie (optional; read from the environment)
     """
-    # 设置模块日志级别
+    # Set the module's logging level
     log_level = logging.DEBUG if verbose else logging.INFO
     logger.setLevel(log_level)
-    logger.propagate = False  # 阻止向上传播到 root logger，避免重复输出
-    # 确保有 handler 输出到控制台
+    logger.propagate = False  # Disable propagation to the root logger to avoid duplicate output
+    # Ensure a handler writes to the console
     if not logger.handlers:
         handler = logging.StreamHandler()
         handler.setLevel(log_level)
         handler.setFormatter(logging.Formatter("[%(levelname)s] %(message)s"))
         logger.addHandler(handler)
 
-    # 加载环境变量 (override=True 以覆盖已存在的系统环境变量)
+    # Load environment variables (override=True replaces existing system environment values)
     load_dotenv(root_path / ".env", override=True)
 
-    # 从参数或环境变量获取配置
+    # Get configuration from arguments or environment variables
     user_slug = user_slug or os.getenv("LEETCODE_USER", "")
     if not user_slug:
         logger.error("未设置 LEETCODE_USER 环境变量")
@@ -183,7 +183,7 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
     logger.info(f"Dry run: {dry_run}")
     logger.info(f"请求间隔: {delay}s")
 
-    # 获取要处理的题目
+    # Get the problems to process
     if problem_id:
         problem_ids = [back_question_id(problem_id)]
     else:
@@ -195,7 +195,7 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
 
     logger.info(f"发现 {len(problem_ids)} 道已解决题目")
 
-    # 统计
+    # Statistics
     stats = {
         "total": len(problem_ids),
         "checked": 0,
@@ -212,13 +212,13 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
 
         logger.info(f"[{i}/{len(problem_ids)}] 检查题目 {pid}...")
 
-        # 检查是否已存在
+        # Check whether the file already exists
         if solution_file.exists() and not force:
             logger.info(f"[{pid}] 已存在 solution.md，跳过 (使用 --force 覆盖)")
             stats["skipped"] += 1
             continue
 
-        # 获取题目 slug
+        # Get the problem slug
         question_info = get_question_slug_by_id(pid, cookie)
 
         if not question_info:
@@ -230,7 +230,7 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
         question_title = question_info.get("title", "")
         logger.debug(f"[{pid}] 题目标题: {question_title}, slug: {question_slug}")
 
-        # 获取用户题解列表
+        # Get the user's solution list
         my_solutions = get_my_solution_list(question_slug, user_slug, cookie)
 
         if not my_solutions:
@@ -240,7 +240,7 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
         stats["has_solution"] += 1
         logger.info(f"[{pid}] {question_title}: 发现 {len(my_solutions)} 篇题解")
 
-        # 选择最新的题解 (按 createdAt 排序)
+        # Select the latest solution (sort by createdAt)
         latest_solution = max(my_solutions, key=lambda x: x.get("createdAt", ""))
 
         if dry_run:
@@ -248,7 +248,7 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
             stats["downloaded"] += 1
             continue
 
-        # 获取题解详细内容
+        # Get detailed solution content
         sol_slug = latest_solution.get("slug", "")
         solution_content = get_solution_content(sol_slug, cookie)
 
@@ -257,14 +257,14 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
             stats["error"] += 1
             continue
 
-        # 检查 content 是否为空
+        # Check whether content is empty
         content_text = solution_content.get("content", "")
         if not content_text or not content_text.strip():
             logger.warning(f"[{pid}] 题解内容为空: {sol_slug}")
             stats["error"] += 1
             continue
 
-        # 生成并保存 solution.md
+        # Generate and save solution.md
         md_content = generate_solution_md(solution_content, question_info)
         problem_dir.mkdir(parents=True, exist_ok=True)
 
@@ -274,11 +274,11 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
         logger.info(f"[{pid}] {question_title}: 已保存题解 '{solution_content.get('title')}'")
         stats["downloaded"] += 1
 
-        # 避免请求过快，随机间隔 (delay * 0.8 ~ delay * 1.5)
+        # Avoid rapid requests with a random delay (delay * 0.8 ~ delay * 1.5)
         jitter = random.uniform(0.8, 1.5)
         time.sleep(delay * jitter)
 
-    # 打印统计
+    # Print statistics
     logger.info("=" * 50)
     logger.info("统计:")
     logger.info(f"  检查题目: {stats['checked']}")
@@ -291,7 +291,7 @@ def main(dry_run: bool = False, force: bool = False, problem_id: Optional[str] =
 
 
 def cli_main():
-    """命令行入口"""
+    """Command-line entry point."""
     parser = argparse.ArgumentParser(description="LeetCode 题解拉取工具")
     parser.add_argument("--dry-run", action="store_true", help="只检查不保存")
     parser.add_argument("--force", action="store_true", help="强制覆盖已存在的 solution.md")

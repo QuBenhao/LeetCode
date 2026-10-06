@@ -1,4 +1,4 @@
-# [Python] 动态规划
+# [Python] Dynamic programming
 
 > Author: Benhao
 > Date: 2024-03-25
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 当前的取法由取这个硬币前的取法数目构成，符合递推
+> The number of ways to reach the current amount comes from the ways before taking this coin, which gives a recurrence.
 
-# 解题方法
+# Approach
 
-> 动态规划，注意按金币的外循环，递推的内循环，这是为了组合数而不是排列数，也就是避免出现先取金币a、后取金币b，先取金币b、后取金币a的重复计算
+> Use dynamic programming with coins in the outer loop and the recurrence in the inner loop. This counts combinations rather than permutations, avoiding duplicate counts for taking coin a then coin b versus coin b then coin a.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2022-10-23
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-根据题意直接模拟即可
+### Approach
+Simulate the process directly as described.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

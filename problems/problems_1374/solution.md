@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 贪心构造
+# [Python/Java/TypeScript/Go] Greedy construction
 
 > slug: pythonjavatypescriptgo-by-himymben-8ws8
 > date: 2022-07-31
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/generate-a-string-with-characters-that-have-odd-counts/solutions/vIFvFw/pythonjavatypescriptgo-by-himymben-8ws8/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -9,7 +9,7 @@ class Solution(solution.Solution):
 
     def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
         n1, n2 = len(nums1), len(nums2)
-        # 为避免重复入堆, 将所有nums1的元素和nums2[0]的组合入堆
+        # To avoid duplicate heap entries, initially pair every element of nums1 with nums2[0]
         pq = [(nums1[i] + nums2[0], i, 0) for i in range(n1)]
         ans = []
         idx = 0

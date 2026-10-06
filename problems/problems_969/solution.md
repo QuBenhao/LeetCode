@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 递归 or 迭代
+# [Python/Java/JavaScript/Go] Recursion or iteration
 
 > slug: pythonjavajavascriptgo-di-gui-or-die-dai-8yxr
 > date: 2022-02-19
@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/pancake-sorting/solutions/WwN8JI/pythonjavajavascriptgo-di-gui-or-die-dai-8yxr/
 
 ---
-### 解题思路
-由于煎饼排序每次都会影响到左边，而不会影响到没被选择的右边，那么我们优先排序右边的值，这样再去解决左边的值就是解决子问题了。
+### Approach
+Each pancake flip affects the left portion but leaves the unselected right portion unchanged. Sort the rightmost values first, then solve the remaining left portion as a subproblem.
 
-注意到最多花两次，就可以将当前最大值移动到最右边。（第一次将最大值翻到最左边，第二次翻到它的位置即可）
-比如[3,2,4,1]首先将`4`翻到第一个，即[4,2,3,1]，再将起翻到最后一个，也就是[1,3,2,4]。
-那么接下来我们只需对[1,3,2]求解即可。
-而这样翻转最多使用`2 * arr.length`次，满足题目要求。
+At most two flips move the current maximum to the far right: first flip it to the far left, then flip it into its final position.
+For example, with [3,2,4,1], first flip `4` to the front, giving [4,2,3,1], then flip it to the end, giving [1,3,2,4].
+Now only [1,3,2] remains to be solved.
+This uses at most `2 * arr.length` flips, satisfying the requirement.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

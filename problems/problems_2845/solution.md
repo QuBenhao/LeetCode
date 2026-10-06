@@ -1,4 +1,4 @@
-# 前缀和
+# Prefix sums
 
 > slug: qian-zhui-he-by-himymben-chmo
 > date: 2025-04-24
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-of-interesting-subarrays/solutions/TNlMbi/qian-zhui-he-by-himymben-chmo/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

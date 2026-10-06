@@ -1,4 +1,4 @@
-# [Python/C/Go] 迭代器
+# [Python/C/Go] Iterator
 
 > Author: Benhao
 > Date: 2024-02-11
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 前序遍历模拟题
+> Simulate preorder traversal
 
-# 解题方法
+# Approach
 
-> 前序遍历：先自己，再左节点，最后右节点
+> Preorder traversal: visit the current node, then the left node, and finally the right node.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

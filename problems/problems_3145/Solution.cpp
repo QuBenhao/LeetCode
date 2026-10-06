@@ -19,25 +19,25 @@ class Solution {
   long long sum_e(long long k) {
     long long res = 0, n = 0, cnt1 = 0, sum_i = 0;
     for (long long i = __lg(k + 1); i; i--) {
-      long long c = (cnt1 << i) + (i << (i - 1)); // 新增的幂次个数
+      long long c = (cnt1 << i) + (i << (i - 1)); // Number of additional exponents
       if (c <= k) {
         k -= c;
         res += (sum_i << i) + ((i * (i - 1) / 2) << (i - 1));
-        sum_i += i;    // 之前填的 1 的幂次之和
-        cnt1++;        // 之前填的 1 的个数
-        n |= 1LL << i; // 填 1
+        sum_i += i;    // Sum of exponents for the ones already placed
+        cnt1++;        // Number of ones already placed
+        n |= 1LL << i; // Place a 1
       }
     }
-    // 最低位单独计算
+    // Handle the lowest bit separately
     if (cnt1 <= k) {
       k -= cnt1;
       res += sum_i;
-      n |= 1; // 最低位填 1
+      n |= 1; // Set the lowest bit to 1
     }
-    // 剩余的 k 个幂次，由 n 的低 k 个 1 补充
+    // Supply the remaining k exponents from the k lowest set bits of n
     while (k--) {
       res += __builtin_ctzll(n);
-      n &= n - 1; // 去掉最低位的 1（置为 0）
+      n &= n - 1; // Clear the lowest set bit (set it to 0)
     }
     return res;
   }

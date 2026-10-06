@@ -14,40 +14,40 @@ class BookMyShow {
     public BookMyShow(int n, int m) {
         this.n = n;
         this.m = m;
-        int size = 2 << (32 - Integer.numberOfLeadingZeros(n)); // 比 4n 更小
+        int size = 2 << (32 - Integer.numberOfLeadingZeros(n)); // Smaller than 4n
         min = new int[size];
         sum = new long[size];
     }
 
     public int[] gather(int k, int maxRow) {
-        // 找第一个能倒入 k 升水的水桶
+        // Find the first bucket that can hold k more liters of water
         int r = findFirst(1, 0, n - 1, maxRow, m - k);
-        if (r < 0) { // 没有这样的水桶
+        if (r < 0) { // No such bucket exists
             return new int[]{};
         }
         int c = (int) querySum(1, 0, n - 1, r, r);
-        update(1, 0, n - 1, r, k); // 倒水
+        update(1, 0, n - 1, r, k); // Pour water
         return new int[]{r, c};
     }
 
     public boolean scatter(int k, int maxRow) {
-        // [0,maxRow] 的接水量之和
+        // Total amount of water in [0,maxRow]
         long s = querySum(1, 0, n - 1, 0, maxRow);
         if (s > (long) m * (maxRow + 1) - k) {
-            return false; // 水桶已经装了太多的水
+            return false; // The buckets already contain too much water
         }
-        // 从第一个没有装满的水桶开始
+        // Start with the first bucket that is not full
         int i = findFirst(1, 0, n - 1, maxRow, m - 1);
         while (k > 0) {
             int left = Math.min(m - (int) querySum(1, 0, n - 1, i, i), k);
-            update(1, 0, n - 1, i, left); // 倒水
+            update(1, 0, n - 1, i, left); // Pour water
             k -= left;
             i++;
         }
         return true;
     }
 
-    // 把下标 i 上的元素值增加 val
+    // Increase the element at index i by val
     private void update(int o, int l, int r, int i, int val) {
         if (l == r) {
             min[o] += val;
@@ -64,7 +64,7 @@ class BookMyShow {
         sum[o] = sum[o * 2] + sum[o * 2 + 1];
     }
 
-    // 返回区间 [L,R] 内的元素和
+    // Return the sum of elements in [L,R]
     private long querySum(int o, int l, int r, int L, int R) {
         if (L <= l && r <= R) {
             return sum[o];
@@ -80,10 +80,10 @@ class BookMyShow {
         return res;
     }
 
-    // 返回区间 [0,R] 中 <= val 的最靠左的位置，不存在时返回 -1
+    // Return the leftmost position in [0,R] whose value is <= val, or -1 if none exists
     private int findFirst(int o, int l, int r, int R, int val) {
         if (min[o] > val) {
-            return -1; // 整个区间的元素值都大于 val
+            return -1; // Every value in the interval exceeds val
         }
         if (l == r) {
             return l;

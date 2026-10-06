@@ -14,7 +14,7 @@ class Solution(solution.Solution):
 
 MOD = 10**9+7
 
-# a @ b，其中 @ 是矩阵乘法
+# a @ b, where @ denotes matrix multiplication
 def mul(a: List[List[int]], b: List[List[int]]) -> List[List[int]]:
     return [[sum(x * y for x, y in zip(row, col)) % MOD for col in zip(*b)]
             for row in a]

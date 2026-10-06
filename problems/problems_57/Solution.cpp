@@ -14,7 +14,7 @@ public:
         vector<vector<int>> ans;
         for (const auto& interval: intervals) {
             if (interval[0] > right) {
-                // 在插入区间的右侧且无交集
+                // To the right of the inserted interval, with no overlap
                 if (!placed) {
                     ans.push_back({left, right});
                     placed = true;
@@ -22,11 +22,11 @@ public:
                 ans.push_back(interval);
             }
             else if (interval[1] < left) {
-                // 在插入区间的左侧且无交集
+                // To the left of the inserted interval, with no overlap
                 ans.push_back(interval);
             }
             else {
-                // 与插入区间有交集，计算它们的并集
+                // Overlaps the inserted interval; compute their union
                 left = min(left, interval[0]);
                 right = max(right, interval[1]);
             }

@@ -1,4 +1,4 @@
-# [Python] 最大最小子数组和
+# [Python] Maximum and minimum subarray sums
 
 > slug: python-zui-da-zui-xiao-zi-shu-zu-he-by-h-emfb
 > date: 2024-03-11
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 环形最大子数组和包括普通子数组和，以及前面一部分子数组+后面一部分子数组，求这个的最大值相当于求减去它的最小值，即中间的最小子数组和
+> The maximum circular subarray sum may come from a regular subarray or from a prefix plus a suffix. Maximizing the latter is equivalent to subtracting the smallest middle subarray sum from the total
 
-# 解题方法
+# Approach
 
-> 如果最大子数组和为负数，说明数组全是负数，那么最小子数组一定会选全部，差为0，排除掉这种答案即可
+> If the maximum subarray sum is negative, every value is negative. The minimum subarray would then include the entire array, leaving a difference of 0; exclude this answer
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 # Code
@@ -34,16 +34,16 @@ class Solution:
     def maxSubarraySumCircular(self, nums: List[int]) -> int:
         s, max_pre, max_ans, min_pre, min_ans = 0, -inf, -inf, 0, 0
         for num in nums:
-            # 包含num的最大前缀和
+            # Maximum prefix sum containing num
             max_pre = max(num, max_pre + num)
-            # 最大子数组和
+            # Maximum subarray sum
             max_ans = max(max_ans, max_pre)
-            # 包含num的最小前缀和
+            # Minimum prefix sum containing num
             min_pre = min(num, min_pre + num)
-            # 最小子数组和
+            # Minimum subarray sum
             min_ans = min(min_ans, min_pre)
             s += num
-        # 环形最大子数组和 = 总和 - 最小子数组和
+        # Maximum circular subarray sum = total sum - minimum subarray sum
         return max(max_ans, s - min_ans) if max_ans > 0 else max_ans
 ```
   

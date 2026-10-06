@@ -10,17 +10,17 @@ class Solution(solution.Solution):
 
     def maxRemoval(self, nums: List[int], queries: List[List[int]]) -> int:
         n, m = len(nums), len(queries)
-        queries.sort() # 按照左端点升序排序
+        queries.sort() # Sort by left endpoint in ascending order
         h = []
         diff = [0] * (n + 1)
         cur = j = 0
         for i, num in enumerate(nums):
             cur += diff[i]
-            # 将所有区间左端点在 i 之前的区间加入堆
+            # Add all intervals whose left endpoint is at or before i to the heap
             while j < m and queries[j][0] <= i:
                 heapq.heappush(h, -queries[j][1])
                 j += 1
-            # 从所有区间右端点在 i 之后的区间贪心取范围最大的
+            # Among intervals whose right endpoint is at or after i, greedily choose the one that extends farthest
             while cur < num and h and -h[0] >= i:
                 cur += 1
                 diff[-heapq.heappop(h)+1] -= 1

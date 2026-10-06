@@ -228,7 +228,7 @@ def decode_session_jwt(session_token: Optional[str]) -> Optional[Dict[str, Any]]
     if len(parts) != 3:
         return None
 
-    # 补齐 base64 padding 后解码 payload (第二部分)
+    # Add missing base64 padding, then decode the payload (the second part)
     payload = parts[1]
     payload += '=' * (4 - len(payload) % 4)
     try:
@@ -272,7 +272,7 @@ def get_session_identity(cookie: Optional[str]) -> Optional[Dict[str, Any]]:
 
 
 def _cookie_has_old_timestamp(cookie: str) -> bool:
-    """回退逻辑：Cookie 里没有可解析的 JWT 时，用其中最新的 10 位时间戳判断。"""
+    """Fallback: if no JWT can be parsed from the Cookie, use its newest 10-digit timestamp."""
     timestamp_pattern = r"(?<!\d)[\s,=]*([1-9]\d{9})[\s,=]*(?!\d)"
     match = re.findall(timestamp_pattern, cookie)
     if not match:
@@ -294,30 +294,30 @@ def check_cookie_expired(cookie: Optional[str]) -> bool:
     if not cookie:
         return True
 
-    # 查找 LEETCODE_SESSION
+    # Find LEETCODE_SESSION
     session_match = re.search(r'LEETCODE_SESSION=([^;]+)', cookie)
     if not session_match:
         return True
 
     session_token = session_match.group(1)
 
-    # JWT 格式: header.payload.signature
+    # JWT format: header.payload.signature
     if len(session_token.split('.')) != 3:
         return True
 
     payload_data = decode_session_jwt(session_token)
     if payload_data is None:
-        # 如果解析失败，回退到旧逻辑检查其他时间戳
+        # If parsing fails, fall back to the previous logic for other timestamps
         return _cookie_has_old_timestamp(cookie)
 
-    # 检查过期时间字段 (exp 或 expired_time_)
+    # Check expiration fields (exp or expired_time_)
     exp = payload_data.get('exp') or payload_data.get('expired_time_')
     try:
         if not exp:
             return True
 
-        # exp 是过期时间，如果当前时间大于 exp，则已过期
+        # exp is the expiration time; the Cookie has expired if the current time exceeds it
         return time.time() > exp
     except TypeError:
-        # exp 不是可比较的时间戳，同样回退到时间戳检查
+        # If exp is not a comparable timestamp, also fall back to timestamp checks
         return _cookie_has_old_timestamp(cookie)

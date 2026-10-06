@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-08-15
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-看不懂题但是按照题目的文字写
+### Approach
+I found the statement confusing, but implemented its instructions directly.
 
-换句话说是插入位置永远固定，按坐标，但是返回值要按照当时的ptr来判断，如果插入位置刚好在ptr，才移动ptr。
+The insertion position is fixed by the index. The return value depends on the current ptr; advance ptr only when inserting at ptr.
 
-### 代码
+### Code
 
 ```Python3 []
 class OrderedStream:

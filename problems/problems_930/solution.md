@@ -1,4 +1,4 @@
-# [Python] 前缀和+hash
+# [Python] Prefix sums + hashing
 
 > Author: Benhao
 > Date: 2021-07-07
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-我们要找到全部的子数组和为goal,直觉上我们需要找到所有前缀和里的i和j,满足presum[j] - presum[i] == goal.
-但是这样找i和j需要遍历两次，是o($n^2$)的。
+### Approach
+To find all subarrays whose sum is goal, we naturally look for all prefix-sum indices i and j satisfying presum[j] - presum[i] == goal.
+But finding i and j with nested scans takes o($n^2$).
 
-故采取Counter存储前面的所有presum[i] == presum[j] - goal的个数，答案累加即可。
-本题前缀和其实也是统计1的个数。
+Use Counter to count earlier prefix sums satisfying presum[i] == presum[j] - goal, and accumulate those counts into the answer.
+Here, a prefix sum is also a count of ones.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

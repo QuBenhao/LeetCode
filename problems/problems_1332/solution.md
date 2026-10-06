@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 回文判断
+# [Python/Java/JavaScript/Go] Palindrome check
 
 > slug: pythonjavajavascriptgo-hui-wen-pan-duan-v3gnj
 > date: 2022-01-21
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/remove-palindromic-subsequences/solutions/xHe7tp/pythonjavajavascriptgo-hui-wen-pan-duan-v3gnj/
 
 ---
-### 解题思路
-因为只有'a','b'两个字母且可以删除回文子序列，所以不管怎么样都可以把所有的'a'凑成一个序列，‘b’凑成另一个序列，他们都是回文的可以被删除，故最多需要两次。
-所以只需要看本身是不是回文，可不可以一次删除即可。
+### Approach
+Only 'a' and 'b' occur, and palindromic subsequences can be removed. All 'a' characters form one subsequence and all 'b' characters another; both are palindromes, so at most two removals are needed.
+We only need to check whether the string itself is a palindrome and can be removed in one step.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

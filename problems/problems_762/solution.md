@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-04-04
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-新出的bit_count一直没机会用，不容易
+### Approach
+I finally found a chance to use the newly added bit_count; that took a while
 
-### 代码
+### Code
 
 ```Python3 []
 PRIMES = {2, 3, 5, 7, 11, 13, 17, 19}

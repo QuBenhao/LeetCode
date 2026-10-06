@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 减法试除 
+# [Python/Java/JavaScript] Trial division by subtraction 
 
 > Author: Benhao
 > Date: 2021-10-11
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-用$2^i$去作为乘法基数, $x * 2^i = x << i$。
-从$2^{31}$试到$2^0$直到被除数被减到比除数小，
-每个能满足除出来的最大的2的幂都加入答案
-也可以理解为每次计算出答案的32位中的某一位
+### Approach
+Use $2^i$ as the multiplier: $x * 2^i = x << i$.
+Try powers from $2^{31}$ down to $2^0$ until subtraction reduces the dividend below the divisor,
+adding each largest valid power of 2 to the answer.
+This can also be viewed as calculating one of the answer's 32 bits at each step.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -22,7 +22,7 @@ class Solution:
             return 2147483647
         a, b, res = abs(dividend), abs(divisor), 0
         for i in range(31, -1, -1):
-            # 2^i * b <= a 换句话说 a/b = 2^i + (a-2^i*b)/b
+            # 2^i * b <= a; in other words, a/b = 2^i + (a-2^i*b)/b
             if (b << i) <= a:
                 res += 1 << i
                 a -= b << i
@@ -58,7 +58,7 @@ var divide = function(dividend, divisor) {
     let a = Math.abs(dividend), b = Math.abs(divisor), res = 0;
     for(let i=31;i>=0;i--){
         if((a>>>i)>=b){
-            // 1<<31 = -2147483648，需特殊处理
+            // 1<<31 = -2147483648, which requires special handling
             if(i==31){
                 a -= MAX;
                 a -= 1;

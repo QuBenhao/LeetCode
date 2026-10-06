@@ -8,15 +8,15 @@ class Solution(solution.Solution):
 
     def minimumLengthEncoding(self, words: List[str]) -> int:
         N = len(words)
-        # 逆序字典序排序
+        # Sort lexicographically by reversed words
         words.sort(key=lambda word: word[::-1])
 
         res = 0
         for i in range(N):
             if i + 1 < N and words[i + 1].endswith(words[i]):
-                # 当前单词是下一个单词的后缀，丢弃
+                # The current word is a suffix of the next word; discard it
                 pass
             else:
-                res += len(words[i]) + 1  # 单词加上一个 '#' 的长度
+                res += len(words[i]) + 1  # Length of the word plus one '#'
 
         return res

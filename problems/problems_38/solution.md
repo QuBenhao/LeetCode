@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 递归
+# [Python/Java/JavaScript] Recursion
 
 > slug: pythonjavajavascript-di-gui-by-himymben-pxpp
 > date: 2021-10-14
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/count-and-say/solutions/DDJZyh/pythonjavajavascript-di-gui-by-himymben-pxpp/
 
 ---
-### 解题思路
-把这个看成两个题，如何将形如"1211"转换成"111221"。
-然后就是递归了。
+### Approach
+Treat this as two problems: first, how to transform a string such as "1211" into "111221".
+Then apply recursion.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

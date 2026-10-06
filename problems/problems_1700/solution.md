@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-10-19
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-不在乎学生的顺序，只要还有喜欢某种三明治的学生，就可以走下去
+### Approach
+Student order does not matter. The process can continue as long as a student wants the current type of sandwich.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

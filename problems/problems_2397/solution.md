@@ -1,4 +1,4 @@
-# [Python] 二进制枚举
+# [Python] Bitmask enumeration
 
 > slug: python-er-jin-zhi-mei-ju-by-himymben-zoiy
 > date: 2022-09-03
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/maximum-rows-covered-by-columns/solutions/gzs0DX/python-er-jin-zhi-mei-ju-by-himymben-zoiy/
 
 ---
-### 解题思路
-每行以同样的二进制规则编码，
-在枚举列以后可以很快检查列是否覆盖了某行
+### Approach
+Encode every row using the same bitmask convention.
+After enumerating a set of columns, quickly check whether they cover each row.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

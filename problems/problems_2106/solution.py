@@ -15,9 +15,9 @@ class Solution(solution.Solution):
         n = len(fruits)
         while right < n and fruits[right][0] <= startPos + k:
             s += fruits[right][1]
-            # 先往左，再往右: (startPos - fruits[left][0]) + (fruits[right][0] - fruits[left][0])
-            # 先往右，再往左: (fruits[right][0] - startPos) + (fruits[right][0] - fruits[left][0])
-            # 如果两种方式都无法走出窗口，说明left需要向右移动
+            # Left first, then right: (startPos - fruits[left][0]) + (fruits[right][0] - fruits[left][0])
+            # Right first, then left: (fruits[right][0] - startPos) + (fruits[right][0] - fruits[left][0])
+            # If neither route can cover the window, move left to the right
             while fruits[right][0] * 2 - fruits[left][0] - startPos > k and startPos + fruits[right][0] - fruits[left][0] * 2 > k:
                 s -= fruits[left][1]
                 left += 1

@@ -1,4 +1,4 @@
-# [Python/Go/C] 辗转相除
+# [Python/Go/C] Repeated division
 
 > Author: Benhao
 > Date: 2024-02-27
@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 从大到小开始除余，当出现4倍或9倍时，用一个自身搭配5倍的自己或10倍的自己。如果大于4倍时需要用一个5倍的自己。其他时候用自己填满即可。
+> Divide and take remainders from the largest place value to the smallest. For a digit of 4 or 9, pair the current symbol with the symbol for five or ten times its value. For a digit greater than 4, use the symbol for five times the value. Fill the remaining amount with copies of the current symbol.
 
-# 解题方法
+# Approach
 
-> 循环辗转相除直到数字变成0。除数从1000到100到10最后到1
+> Repeatedly divide until the number becomes 0. The divisors are 1000, 100, 10, and finally 1.
 
 
 

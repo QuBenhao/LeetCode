@@ -7,7 +7,7 @@ class Solution(solution.Solution):
         return self.trailingZeroes(test_input)
 
     def trailingZeroes(self, n: int) -> int:
-        # 统计n!中5的次数
+        # Count the factors of 5 in n!
         ans = 0
         cur = 5
         while cur <= n:

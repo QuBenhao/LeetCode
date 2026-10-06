@@ -1,4 +1,4 @@
-# [Python] 比较前缀1
+# [Python] Compare the common prefix bits
 
 > Author: Benhao
 > Date: 2024-03-21
@@ -12,22 +12,22 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 假设我们在二进制最低k位时，left值为0，right值为1，那么从最低k位到最低位我们都不用再看了，因为这个区间必然包括最低k位为1，剩下最低k-1位到最低位为0这个数。
+> Suppose the kth bit from the right is 0 in left and 1 in right. We no longer need to inspect that bit or any lower bits: the interval must contain a number whose kth bit is 1 and whose lower k-1 bits are all 0.
 
-> 比如: 两个二进制数[1, 0, 1, 1], [1, 1, 1, 1]，我们注意到left最低3位为0,那么[left,right]区间必然包括[1,1,0,0]这个数，而[1,1,0,0] & [1,0,1,1] = [1, 0, 0, 0]。所以剩下的位是不需要再计算了的
+> For example, consider the binary numbers [1, 0, 1, 1] and [1, 1, 1, 1]. The third bit from the right in left is 0, so [left,right] must include [1,1,0,0], and [1,1,0,0] & [1,0,1,1] = [1, 0, 0, 0]. Therefore, the remaining bits do not need to be processed.
 
-# 解题方法
+# Approach
 
-> 找前缀1
+> Find the 1 bits in the common prefix
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(1)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

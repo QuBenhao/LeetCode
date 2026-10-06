@@ -1,4 +1,4 @@
-# [Python] 数学
+# [Python] Mathematics
 
 > slug: python-shu-xue-by-himymben-4ypu
 > date: 2022-05-01
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/elements-in-array-after-removing-and-replacing-elements/solutions/GYEghw/python-shu-xue-by-himymben-4ypu/
 
 ---
-### 解题思路
-根本不需要模拟，2n一循环，每个时刻的坐标都很好推。
+### Approach
+The process repeats every 2n steps, so each position is easy to derive directly.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

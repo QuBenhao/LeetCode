@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 高精度除法模板
+# [Python/Java/JavaScript] High-precision division template
 
 > Author: Benhao
 > Date: 2021-10-03
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-每一位小数是通过*10再除余计算的。而循环小数我们可以通过判断被除数有没有出现过，出现的位置在哪儿来判断(哈希记录)
+### Approach
+Calculate each decimal digit by multiplying by 10, dividing, and taking the remainder. Detect a repeating decimal by recording in a hash table whether the dividend has appeared before and at which position.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -18,13 +18,13 @@ class Solution:
         def hdiv(dividend, divisor, precision=0):
             a = dividend  
             b = divisor
-            #有负数的话做个标记  
+            # Mark whether the result is negative  
             if (a > 0 and b > 0) or (a < 0 and b < 0):  
                 flag = 1  
             else:  
                 flag = -1 
             
-            #变为正数，防止取模的时候有影响  
+            # Convert to positive values to avoid affecting modulo operations  
             a = abs(a)  
             b = abs(b)  
         

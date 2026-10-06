@@ -1,4 +1,4 @@
-# [Python/Go/C] BFS应用
+# [Python/Go/C] Applying BFS
 
 > Author: Benhao
 > Date: 2024-02-16
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 用层序遍历，但按奇偶层倒叙
+> Use level order traversal, reversing the order on alternating levels.
 
-# 解题方法
+# Approach
 
 > BFS
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

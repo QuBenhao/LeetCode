@@ -1,4 +1,4 @@
-# 背包
+# Knapsack
 
 > slug: bei-bao-by-himymben-96nb
 > date: 2025-06-22
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/inverse-coin-change/solutions/p9KRp2/bei-bao-by-himymben-96nb/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

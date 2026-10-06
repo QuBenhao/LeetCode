@@ -22,7 +22,7 @@ class Solution(solution.Solution):
         val = set()
         for i in range(m):
             for j in range(n):
-                # 单独的一个格子也是 rhombus
+                # A single cell is also a rhombus
                 val.add(grid[i][j])
                 for k in range(i + 2, m, 2):
                     ux, uy = i, j

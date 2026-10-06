@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 脑筋急转弯
+# [Python/Java/TypeScript/Go] A trick
 
 > slug: pythonjavatypescriptgo-by-himymben-hnh7
 > date: 2022-10-06
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/three-equal-parts/solutions/T2a17L/pythonjavatypescriptgo-by-himymben-hnh7/
 
 ---
-### 解题思路
-我们将数组中的1三等分，按第三组1到末尾来确定整个二进制数的大小（不在乎前导零，但后面的零一定都算）。
-我们判断三组1从第一个1开始是否构成同样的01分布即可。
+### Approach
+Split the array's ones into three equal groups. The binary value is determined by the third group's first one through the end: leading zeros do not matter, but all trailing zeros count.
+Check whether the three groups have the same pattern of zeros and ones starting at their first one.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

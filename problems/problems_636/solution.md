@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 栈模拟
+# [Python/Java/TypeScript/Go] Stack simulation
 
 > Author: Benhao
 > Date: 2022-08-07
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-由于本题是单线程CPU，一个任务进栈必然最终会由对应的该任务出栈结束。
-我们只需要能在任务出栈的时候统计它和进栈的时候的时间差即可。
-注意到期间可能在处理别的任务，所以我们需要排除掉其他任务的时间。
-比较简单的做法是统计一个独立任务时间的总和，并在进栈的时候加入当时的总和。
-那么出栈计算的时候减去中间被占用的独立时间就好了。
+### Approach
+The CPU is single-threaded, so every task pushed onto the stack eventually ends with its matching pop.
+When a task is popped, calculate the time elapsed since it was pushed.
+Other tasks may have run in between, so their time must be excluded.
+A simple approach is to maintain the total exclusive time of completed tasks and record that total when pushing a task.
+When popping, subtract the exclusive time consumed by other tasks in between.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -97,7 +97,7 @@ func exclusiveTime(n int, logs []string) []int {
     return ans
 }
 ```
-简化该表达式以后栈内只需要一个元素
+Simplifying the expression leaves only one value per stack entry.
 ```python3
 class Solution:
     def exclusiveTime(self, n: int, logs: List[str]) -> List[int]:

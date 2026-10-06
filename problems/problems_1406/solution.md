@@ -1,4 +1,4 @@
-# [Python] 记忆化搜索 or 动态规划(优化双100%)
+# [Python] Memoized search or dynamic programming (optimized to beat 100% in both metrics)
 
 > Author: Benhao
 > Date: 2021-06-16
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-找每个idx能取到的最大值即可
+### Approach
+Find the maximum obtainable value at each idx.
 
-使用三个变量记录最近的三个dp值，滚动更新，优化为空间O(1)
+Keep the three most recent dp values in three variables and update them in a rolling fashion, reducing space to O(1).
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -59,13 +59,13 @@ class Solution:
     def stoneGameIII(self, stoneValue: List[int]) -> str:
         n = len(stoneValue)
         curr_sum = 0
-        # 滚动更新
+        # Rolling update
         dp0 = dp1 = dp2 = 0
-        # 倒序递推
+        # Evaluate the recurrence in reverse order
         for i in range(n-1,-1,-1):
             curr_sum += stoneValue[i]
             dp0, dp1, dp2 = curr_sum - min(dp0, dp1, dp2), dp0, dp1
-        # Alice的分数减去Bob的分数
+        # Alice's score minus Bob's score
         ans = dp0 * 2 - curr_sum
         if ans > 0:
             return "Alice"

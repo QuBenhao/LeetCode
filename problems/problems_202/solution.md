@@ -1,4 +1,4 @@
-# [Python] 哈希表/快慢指针
+# [Python] Hash table / fast and slow pointers
 
 > Author: Benhao
 > Date: 2024-03-23
@@ -12,16 +12,16 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 和链表是否有环同理，可以用哈希记录，也可以用快慢指针是否会追上
+> As with detecting a cycle in a linked list, use a hash table to record visited values, or check whether fast and slow pointers meet.
 
-# 解题方法
+# Approach
 
-> 哈希表、快慢指针
+> Hash table, fast and slow pointers
 
 # Code
-哈希表
+Hash table
 ```Python3 []
 class Solution:
     def isHappy(self, n: int) -> bool:
@@ -37,7 +37,7 @@ class Solution:
             n = nxt
         return True
 ```
-快慢指针
+Fast and slow pointers
 ```Python3 []
 class Solution:
     def isHappy(self, n: int) -> bool:

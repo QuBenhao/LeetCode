@@ -1,4 +1,4 @@
-# [Python3] 简洁递归
+# [Python3] Concise recursion
 
 > Author: Benhao
 > Date: 2024-02-09
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 树的递归
+> Tree recursion
 
-# 解题方法
+# Approach
 
-> 如果当前节点为空或者要找的节点，返回自身；否则我们从左子节点的答案和右子节点的答案中找，当前的答案为：左右都不空时公共祖先是自己，其他情况返回两者不空的那个（简写为or即可）
+> Return the current node if it is null or one of the target nodes. Otherwise, inspect the results from its left and right children. If both are non-null, the current node is the common ancestor; otherwise, return whichever result is non-null (which can be written with or).
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

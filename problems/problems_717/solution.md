@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-02-20
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-每次第一次遇到一个1，它必然是一个2比特字符；而第一次遇到一个0，它必然是一个1比特字符，从头开始模拟比特分割，看最终倒数第二个点是否为一个2比特字符开头的1
+### Approach
+At each character boundary, a 1 starts a two-bit character and a 0 starts a one-bit character. Simulate the parsing from the beginning and check whether the penultimate bit is a 1 starting a two-bit character.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

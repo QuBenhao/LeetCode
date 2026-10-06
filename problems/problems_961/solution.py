@@ -14,7 +14,7 @@ class Solution(solution.Solution):
         #         return num
         # return -1
 
-        # 摩尔投票
+        # Boyer-Moore majority vote
         ans, ans_count = 0, 0
         for num in nums[1:]:
             if num == nums[0]:

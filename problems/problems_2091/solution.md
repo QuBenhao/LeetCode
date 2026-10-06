@@ -1,4 +1,4 @@
-# [Python/Go] 直接模拟
+# [Python/Go] Direct simulation
 
 > slug: pythongo-zhi-jie-mo-ni-by-himymben-g324
 > date: 2021-11-28
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/removing-minimum-and-maximum-from-array/solutions/yUCoR2/pythongo-zhi-jie-mo-ni-by-himymben-g324/
 
 ---
-### 解题思路
-要么从左开始删删到右
-要么从右开始删删到左
-要么左边删一点儿，右边删一点儿
+### Approach
+Either delete from the left through the rightmost target,
+delete from the right through the leftmost target,
+or delete some elements from each end.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

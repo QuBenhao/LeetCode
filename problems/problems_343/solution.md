@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划 -> 数学
+# [Python/Go] Dynamic programming -> mathematics
 
 > slug: pythongo-dong-tai-gui-hua-shu-xue-by-him-6ddz
 > date: 2022-02-27
@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/integer-break/solutions/oMkl5l/pythongo-dong-tai-gui-hua-shu-xue-by-him-6ddz/
 
 ---
-### 解题思路
-动态规划维护每个数字最大的拆分乘机，然后遍历枚举拆分数求当前最大即可。
+### Approach
+Use dynamic programming to store the maximum product for each integer, then enumerate splits to find the current maximum.
 
-数学：
-实际上也是CF上的一道题，尽可能地拆3乘积最大。如果模3余1要少拆一个3，凑出一个4作为2*2；如果模3余2就最后拼一个2即可。
-这是因为，超过4的数字拆成多个数字乘积都会比原数字大，4本身又是2*2，那么考虑的因数本身就只有1、2、3。
-1肯定是最没有贡献的。2和3的对比来说，3+3=2+2+2，但是3*3>2*2*2，所以拆3是最优的。
+Mathematics:
+This is also a Codeforces problem: split off as many 3s as possible to maximize the product. If the remainder modulo 3 is 1, use one fewer 3 and make a 4 as 2*2; if it is 2, append a 2.
+Any number greater than 4 can be split into numbers with a larger product, and 4 itself is 2*2. Thus, only factors 1, 2, and 3 need consideration.
+A factor of 1 contributes the least. Comparing 2 and 3, 3+3=2+2+2 but 3*3>2*2*2, so splitting into 3s is optimal.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -49,7 +49,7 @@ func max(vals ...int) int {
 }
 ```
 
-数学
+Mathematics
 ```Python3 []
 class Solution:
     def integerBreak(self, n: int) -> int:

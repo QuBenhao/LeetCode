@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 数学
+# [Python/Java/TypeScript/Go] Mathematics
 
 > Author: Benhao
 > Date: 2022-09-06
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-设字符c位于[left, right]中的idx且c唯一, 那么c出现的次数为它左边包含它的个数乘它右边包含它的个数 [即(idx + 1 - left) * (right + 1 - left)]。
-所以我们只需要统计每个字符出现的所有间隔坐标即可。
+### Approach
+Suppose character c occurs uniquely at idx within [left, right]. Its contribution is the number of left portions containing it multiplied by the number of right portions containing it [that is, (idx + 1 - left) * (right + 1 - left)].
+We therefore only need to track the interval boundaries between occurrences of each character.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

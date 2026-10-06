@@ -1,4 +1,4 @@
-# [Python] 从一个端点往另一端点遍历
+# [Python] Traverse from one endpoint to the other
 
 > Author: Benhao
 > Date: 2021-07-24
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-固定一个方向以后，每次其实只有一种选择。
+### Approach
+Once the direction is fixed, only one choice remains at each step.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

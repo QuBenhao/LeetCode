@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 贪心 + 最小堆 or 排序一次遍历
+# [Python/Java/JavaScript/Go] Greedy + min-heap or sorting with one traversal
 
 > slug: pythonjavajavascriptgo-zui-xiao-dui-tan-ao63h
 > date: 2021-12-02
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/maximize-sum-of-array-after-k-negations/solutions/NbbMQN/pythonjavajavascriptgo-zui-xiao-dui-tan-ao63h/
 
 ---
-### 解题思路
+### Approach
 
-由于我们必须反转k次，那么有不止k个负数的话，我们要反转里面最小的k个，这样最大。
-有不到k个负数的话（数组会变为全部为正），
-剩下的次数反复反转所有数里面绝对值最小的那个
-（如果偶数次负负得正所以不变，奇数次相当于只反转一次最小的那个）
+We must negate a number k times. If there are more than k negative numbers, negate the k smallest ones to maximize the sum.
+If there are fewer than k negative numbers (so the array becomes entirely positive),
+use the remaining operations to repeatedly negate the number with the smallest absolute value.
+(An even number of negations leaves it unchanged; an odd number is equivalent to negating that smallest number once.)
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -43,7 +43,7 @@ class Solution:
                 ans -= num
             else:
                 ans += num
-        # 只有一种情况我们需要减去最小的那个，k多余了且是奇数（由于已经加进去了所以要减2倍）
+        # Subtract the smallest value only when the remaining k is odd (subtract twice its value because it was already added)
         return ans - 2 * m if k and k % 2 else ans
 ```
 ```Java []
@@ -114,7 +114,7 @@ func minAbs(a, b int) int {
 }
 ```
 
-不排序也可以，遍历维护k个最小的负数
+Sorting is optional: maintain the k smallest negative numbers during a traversal.
 
 ```Python3
 class Solution:

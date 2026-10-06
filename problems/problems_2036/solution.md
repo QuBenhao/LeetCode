@@ -1,4 +1,4 @@
-# [Python] 动态规划
+# [Python] Dynamic programming
 
 > slug: python-dong-tai-gui-hua-by-himymben-skeb
 > date: 2022-05-03
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/maximum-alternating-subarray-sum/solutions/Vy3Bx0/python-dong-tai-gui-hua-by-himymben-skeb/
 
 ---
-### 解题思路
-遍历统计以i结尾的最大结果，这个最大结果由上一次加结尾的最大值或减结尾的最大值构成。
+### Approach
+Scan the array and track the best result ending at i. Derive it from the previous best result with either an added or a subtracted final element.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

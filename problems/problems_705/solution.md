@@ -1,4 +1,4 @@
-# [Python] Hash表后的二分查找
+# [Python] Binary search within hash buckets
 
 > Author: Benhao
 > Date: 2021-03-13
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-HashMap也用同样思路实现过，因为key总是独特的，排序以后便于查找
-详见[HashMap](https://leetcode.cn/problems/design-hashmap/solution/ha-xi-biao-zhong-shi-yong-shuang-xiang-l-fcw7/)
+### Approach
+I also used this approach for HashMap. Keys are unique, so sorting makes them easier to find.
+See [HashMap](https://leetcode.cn/problems/design-hashmap/solution/ha-xi-biao-zhong-shi-yong-shuang-xiang-l-fcw7/) for details.
 
-### 代码
+### Code
 
 ```python
 class MyHashSet(object):

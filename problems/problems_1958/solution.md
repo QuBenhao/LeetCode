@@ -1,4 +1,4 @@
-# [Python/Java] 模拟
+# [Python/Java] Simulation
 
 > Author: Benhao
 > Date: 2021-08-08
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-比较蠢的写法，没有注意到棋盘只有8*8
+### Approach
+An overcomplicated implementation; I missed that the board is only 8*8.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

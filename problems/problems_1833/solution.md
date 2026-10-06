@@ -1,4 +1,4 @@
-# [Python] 忘了哪次竞赛做的了,贪心就行了
+# [Python] I forget which contest this was from; greedy works
 
 > Author: Benhao
 > Date: 2021-07-01
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-题目要尽可能多地买雪糕，自然是每次买雪糕花的钱越少越好
+### Approach
+To buy as many ice creams as possible, spend as little as possible on each one.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -1,4 +1,4 @@
-# [Python] 二分查找
+# [Python] Binary search
 
 > Author: Benhao
 > Date: 2021-06-14
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-给定山形数组找顶点，
-顶点左边满足 arr[i] < arr[i+1]
-顶点右边满足 arr[i] > arr[i+1]
+### Approach
+Find the peak in a given mountain array:
+To the left of the peak, arr[i] < arr[i+1]
+To the right of the peak, arr[i] > arr[i+1]
 
-### 代码
+### Code
 
 ```python3
 class Solution:

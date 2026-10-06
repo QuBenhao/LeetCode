@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 逆向思维 - 辗转相除
+# [Python/Java/JavaScript/Go] Work backward with the Euclidean algorithm
 
 > slug: pythonjavajavascriptgo-zhan-zhuan-xiang-eh8p0
 > date: 2022-04-08
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/reaching-points/solutions/wB7Jda/pythonjavajavascriptgo-zhan-zhuan-xiang-eh8p0/
 
 ---
-### 解题思路
-tx比sx大、ty比sy大，说明我们还要发生加法，那么tx和ty中的大一点的数，就一定是由小一点的数加了k次得到，我们可以直接取余。
-为什么取余而不是减法，这样错过了起始值也没关系？因为另一个数还比起始值大，它肯定需要从小的数加出来。而对方上一次比它小的数就是和它的余数。
+### Approach
+If tx is greater than sx and ty is greater than sy, additions are still needed. The larger of tx and ty must have been obtained by adding the smaller value k times, so we can take the remainder directly.
+Why can we use the remainder instead of subtraction without worrying about skipping the starting value? The other value is still larger than its starting value, so it must have been built by adding the smaller value. Its counterpart's last smaller value is precisely the remainder.
 
-我们最终判断是否有一个相等且另一个和起始值的差是另一个起始值的整数倍即可。
+Finally, check whether one coordinate equals its starting value and the difference in the other coordinate is an integer multiple of the first starting value.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

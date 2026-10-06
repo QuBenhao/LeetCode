@@ -1,4 +1,4 @@
-# [Python] 最大堆
+# [Python] Max-heap
 
 > Author: Benhao
 > Date: 2021-05-31
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-有点儿像每回合打怪那个题，先欠着，统计所有需要用的砖头数，如果砖头数不够了，从最大的砖头数里补回来（当时应该使用梯子）
+### Approach
+This resembles the problem about fighting monsters each round: spend bricks first and track the total needed. If bricks run out, reclaim the largest previous brick expenditure by using a ladder for that climb instead.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

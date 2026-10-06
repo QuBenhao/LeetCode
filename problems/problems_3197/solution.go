@@ -9,7 +9,7 @@ import (
 
 func minimumArea(a [][]int) [][]int {
 	m, n := len(a), len(a[0])
-	// f[i+1][j+1] 表示包含【左上角为 (0,0) 右下角为 (i,j) 的子矩形】中的所有 1 的最小矩形面积
+	// f[i+1][j+1] is the minimum rectangle area covering all ones in the subrectangle with top-left corner (0,0) and bottom-right corner (i,j)
 	f := make([][]int, m+1)
 	for i := range f {
 		f[i] = make([]int, n+1)
@@ -17,7 +17,7 @@ func minimumArea(a [][]int) [][]int {
 	type data struct{ top, left, right int }
 	border := make([]data, n)
 	for j := range border {
-		border[j].top = -1 // 无
+		border[j].top = -1 // None
 	}
 
 	for i, row := range a {
@@ -30,12 +30,12 @@ func minimumArea(a [][]int) [][]int {
 				right = j
 			}
 			preB := border[j]
-			if left < 0 { // 这一排目前全是 0
-				f[i+1][j+1] = f[i][j+1] // 等于上面的结果
-			} else if preB.top < 0 { // 这一排有 1，上面全是 0
+			if left < 0 { // This row contains only zeros so far
+				f[i+1][j+1] = f[i][j+1] // Same as the result above
+			} else if preB.top < 0 { // This row contains a 1; everything above is 0
 				f[i+1][j+1] = right - left + 1
 				border[j] = data{i, left, right}
-			} else { // 这一排有 1，上面也有 1
+			} else { // Both this row and the area above contain a 1
 				l, r := min(preB.left, left), max(preB.right, right)
 				f[i+1][j+1] = (r - l + 1) * (i - preB.top + 1)
 				border[j] = data{preB.top, l, r}
@@ -51,7 +51,7 @@ func minimumSum(grid [][]int) int {
 	solve := func(a [][]int) {
 		m, n := len(a), len(a[0])
 
-		// 预处理每一行最左最右 1 的列号，用于中间区域最小矩形面积的计算
+		// Precompute the columns of the leftmost and rightmost ones in each row to calculate the minimum rectangle area for the middle region
 		type pair struct{ l, r int }
 		lr := make([]pair, m)
 		for i, row := range a {
@@ -67,16 +67,16 @@ func minimumSum(grid [][]int) int {
 			lr[i] = pair{l, r}
 		}
 
-		// lt[i+1][j+1] = 包含【左上角为 (0,0) 右下角为 (i,j) 的子矩形】中的所有 1 的最小矩形面积
+		// lt[i+1][j+1] = minimum rectangle area covering all ones in the subrectangle with top-left corner (0,0) and bottom-right corner (i,j)
 		lt := minimumArea(a)
 		a = rotate(a)
-		// lb[i][j+1] = 包含【左下角为 (m-1,0) 右上角为 (i,j) 的子矩形】中的所有 1 的最小矩形面积
+		// lb[i][j+1] = minimum rectangle area covering all ones in the subrectangle with bottom-left corner (m-1,0) and top-right corner (i,j)
 		lb := rotate(rotate(rotate(minimumArea(a))))
 		a = rotate(a)
-		// rb[i][j] = 包含【右下角为 (m-1,n-1) 左上角为 (i,j) 的子矩形】中的所有 1 的最小矩形面积
+		// rb[i][j] = minimum rectangle area covering all ones in the subrectangle with bottom-right corner (m-1,n-1) and top-left corner (i,j)
 		rb := rotate(rotate(minimumArea(a)))
 		a = rotate(a)
-		// rt[i+1][j] = 包含【右上角为 (0,n-1) 左下角为 (i,j) 的子矩形】中的所有 1 的最小矩形面积
+		// rt[i+1][j] = minimum rectangle area covering all ones in the subrectangle with top-right corner (0,n-1) and bottom-left corner (i,j)
 		rt := rotate(minimumArea(a))
 
 		if m >= 3 {
@@ -89,7 +89,7 @@ func minimumSum(grid [][]int) int {
 						top = min(top, j-1)
 						bottom = j - 1
 					}
-					// 图片上左
+					// Top-left case in the diagram
 					area := lt[i][n]                                // minimumArea(a[:i], 0, n)
 					area += (right - left + 1) * (bottom - top + 1) // minimumArea(a[i:j], 0, n)
 					area += lb[j][n]                                // minimumArea(a[j:], 0, n)
@@ -101,12 +101,12 @@ func minimumSum(grid [][]int) int {
 		if m >= 2 && n >= 2 {
 			for i := 1; i < m; i++ {
 				for j := 1; j < n; j++ {
-					// 图片上中
+					// Top-middle case in the diagram
 					area := lt[i][n] // minimumArea(a[:i], 0, n)
 					area += lb[i][j] // minimumArea(a[i:], 0, j)
 					area += rb[i][j] // minimumArea(a[i:], j, n)
 					ans = min(ans, area)
-					// 图片上右
+					// Top-right case in the diagram
 					area = lt[i][j]  // minimumArea(a[:i], 0, j)
 					area += rt[i][j] // minimumArea(a[:i], j, n)
 					area += lb[i][n] // minimumArea(a[i:], 0, n)

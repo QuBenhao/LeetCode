@@ -12,13 +12,13 @@ class Solution(solution.Solution):
 
         for i in range(m - k + 1):
             for j in range(n - k + 1):
-                # 收集 k x k 子矩阵中的所有元素
+                # Collect all elements in the k x k submatrix
                 vals = []
                 for x in range(i, i + k):
                     for y in range(j, j + k):
                         vals.append(grid[x][y])
 
-                # 排序后找最小相邻差
+                # Sort and find the minimum difference between adjacent elements
                 vals.sort()
                 min_diff = 0
                 for t in range(1, len(vals)):

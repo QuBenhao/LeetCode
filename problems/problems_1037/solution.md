@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 三点共线向量公式
+# [Python/Java/TypeScript/Go] Vector formula for three collinear points
 
 > slug: pythonjavatypescriptgo-by-himymben-i6on
 > date: 2022-06-07
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/valid-boomerang/solutions/1gTjsb/pythonjavatypescriptgo-by-himymben-i6on/
 
 ---
-### 解题思路
-正值高考之际，有必要复习一下三点共线向量公式。
-当三个点满足:
+### Approach
+With the college entrance exam approaching, this is a good time to review the vector formula for three collinear points.
+The three points are collinear when:
 $(x_2 - x_1) \times (y_3 - y_1) = (x_3 - x_1) \times (y_2 - y_1)$
-时共线，否则为回旋镖。
+Otherwise, they form a boomerang.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

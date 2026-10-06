@@ -7,7 +7,7 @@ import qubhjava.BaseSolution;
 
 public class Solution extends BaseSolution {
     public int minNumberOperations(int[] target) {
-        // 题目保证答案在 int 范围内
+        // The problem guarantees that the answer fits in int
         int ans = target[0];
         for (int i = 1; i < target.length; i++) {
             ans += Math.max(target[i] - target[i - 1], 0);

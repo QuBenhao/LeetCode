@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 简单模拟
+# [Python/Java/JavaScript/Go] Simple simulation
 
 > slug: pythonjavajavascriptgo-jian-dan-mo-ni-by-dmuc
 > date: 2022-02-13

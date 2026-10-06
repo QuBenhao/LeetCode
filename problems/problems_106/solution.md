@@ -1,4 +1,4 @@
-# [Python/Go/C] 简洁递归
+# [Python/Go/C] Concise recursion
 
 > Author: Benhao
 > Date: 2024-02-21
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 从后序遍历的最后一个确定当前节点的值，再已中序遍历该值分割出左右节点的值列表进行递归处理
+> Determine the current node's value from the last value in postorder traversal. Split the inorder traversal at that value into lists for the left and right subtrees, then process them recursively.
 
-# 解题方法
+# Approach
 
-> 与前序序列+中序序列类似
+> Similar to using preorder and inorder traversals together.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 排序哈希 -> 左右最大最小值
+# [Python/Java/TypeScript/Go] Sorting and hashing -> Left maxima and right minima
 
 > Author: Benhao
 > Date: 2022-08-12
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-最终的目的既然是让整个数组有序，那么每一个分块各个数字的个数都是和排序后各个数字的计数一致的。
-想要分的最多，只要一致就分出一块即可。
+### Approach
+Since the goal is to sort the entire array, the count of each value in every chunk must match its count in the corresponding sorted segment.
+To maximize the number of chunks, split off a chunk as soon as the counts match.
 
-其实不需要排序，只要左边分块的最大值，比右边所有数的最小值都不大的话，那么这个分块就不会影响最终的排序。
-我们只需要遍历统计左边最大值，右边最小值即可。(类似接雨水)
+Sorting is actually unnecessary: if the largest value in the left chunk is no greater than the smallest value to its right, this chunk cannot disrupt the final order.
+We only need to scan for the maximum on the left and the minimum on the right (similar to trapping rain water).
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -39,7 +39,7 @@ class Solution:
         mx, mn = [-1] * n, [inf] * n
         for i in range(n):
             mx[i], mn[-1-i] = max(mx[i-1],arr[i]), min(mn[-i],arr[-1-i])
-        # 所有的分割点i，段的个数是割点个数+1
+        # All split points i; the number of chunks is the number of split points + 1
         return sum(mx[i - 1] <= mn[i] for i in range(1, n)) + 1
 ```
 ```Java []
@@ -58,7 +58,7 @@ class Solution {
                 ans++;
             }
         }
-        // 段的个数是割点个数+1
+        // The number of chunks is the number of split points + 1
         return ++ans;
     }
 }
@@ -79,7 +79,7 @@ function maxChunksToSorted(arr: number[]): number {
             ans++
         }
     }
-    // 段的数量为割点数+1
+    // The number of chunks is the number of split points + 1
     return ++ans
 };
 ```
@@ -97,7 +97,7 @@ func maxChunksToSorted(arr []int) (ans int) {
             ans++
         }
     }
-    // 段的数量为割点数+1
+    // The number of chunks is the number of split points + 1
     ans++
     return
 }

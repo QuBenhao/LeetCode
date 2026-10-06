@@ -1,4 +1,4 @@
-# [Python] 凑9游戏
+# [Python] Make-nine game
 
 > Author: Benhao
 > Date: 2021-07-11
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-Bob能在对手干扰下赢的策略只有保证始终能凑出9，只有本身的差距是9的倍数而且两边操作数足够凑出这个差距。
+### Approach
+Bob can guarantee a win despite Alice's choices only by always completing pairs to 9. The initial difference must be a multiple of 9, with enough remaining moves on both sides to make up the difference.
 
-### 代码
+### Code
 
 ```python
 class Solution(object):
@@ -32,10 +32,10 @@ class Solution(object):
                     b += 1
                 else:
                     s -= int(c)
-        # Alice 先手， 总能使得和不为9的倍数，从而最终的和不相等
+        # Alice moves first and can keep the difference from being a multiple of 9, leaving unequal final sums
         if (a + b) % 2 == 1:
             return True
-        # 两人有相同的次数，差为总能凑数9的倍数的话，Bob胜
+        # With equal move counts, Bob wins when the difference can be made up by completing pairs to multiples of 9
         if s % 9 == 0 and s // 9 == b - a >> 1:
             return False
         return True

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 递归
+# [Python/Java/JavaScript/Go] Recursion
 
 > slug: pythonjavajavascriptgo-di-gui-by-himymbe-lu2y
 > date: 2021-11-20
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/maximum-depth-of-n-ary-tree/solutions/E1jk9d/pythonjavajavascriptgo-di-gui-by-himymbe-lu2y/
 
 ---
-### 解题思路
-每个节点的最大深度由它所有子节点的最大深度的最大值的决定
+### Approach
+A node's maximum depth is determined by the greatest depth among its children.
 
-### 代码
+### Code
 
 ```Python3 []
 """

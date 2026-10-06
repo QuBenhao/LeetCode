@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/17.
-// 例题: 激光炸弹 acwing99
+// Example: 激光炸弹 acwing99
 //
 
 #include <bits/stdc++.h>

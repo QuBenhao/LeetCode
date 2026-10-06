@@ -35,4 +35,4 @@ class Solution(solution.Solution):
                     if s >> j & 1 and dij > maxDistance:
                         return 0
             return 1
-        return sum(check(s) for s in range(1 << n))  # 枚举子集
+        return sum(check(s) for s in range(1 << n))  # Enumerate subsets

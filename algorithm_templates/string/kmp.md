@@ -1,8 +1,8 @@
-# KMP算法模板
+# KMP Algorithm Template
 
 ```python
 def kmp(s, pattern):
-    # 构建next数组
+    # Build the next array
     m = len(pattern)
     next_arr = [0] * m
     j = 0
@@ -13,7 +13,7 @@ def kmp(s, pattern):
             j += 1
         next_arr[i] = j
 
-    # 匹配过程
+    # Match the pattern
     j = 0
     for i in range(len(s)):
         while j > 0 and s[i] != pattern[j]:

@@ -12,13 +12,13 @@ class Solution {
 public:
     long long distributeCandies(int n, int limit) {
         /*
-         * n 个糖果分给3个人, 每个人不超过limit
-         * n+2个位置放两个隔板
-         * 容斥原理: 所有方案数 - C_{3}^{1} * 至少一个人超过limit + C_{3}^{2} * 至少两个人超limit - 三个人都超过limit
-         * 所有方案数: C_{n+2}_{2}
-         * 至少一个人超过limit: C_{n+2-(limit+1)}_{2}
-         * 至少两个人超过limit: C_{n+2-2*(limit+1)}_{2}
-         * 至少三个人超过limit: C_{n+2-3*(limit+1)}_{2}
+         * Distribute n candies among 3 people, with no one receiving more than limit
+         * Place two separators among n+2 positions
+         * Inclusion-exclusion: all ways - C_{3}^{1} * ways with at least one person above limit + C_{3}^{2} * ways with at least two above limit - ways with all three above limit
+         * All ways: C_{n+2}_{2}
+         * At least one person exceeds limit: C_{n+2-(limit+1)}_{2}
+         * At least two people exceed limit: C_{n+2-2*(limit+1)}_{2}
+         * At least three people exceed limit: C_{n+2-3*(limit+1)}_{2}
         */
         return c2(n+2) - 3*c2(n+1-limit) + 3 * c2(n-2*limit) - c2(n-1-3*limit);
     }

@@ -9,13 +9,13 @@ class Solution {
 public:
     int specialPerm(vector<int>& nums) {
         int n = nums.size(), u = (1 << n) - 1;
-        vector<vector<long long>> memo(u, vector<long long>(n, -1)); // -1 表示没有计算过
+        vector<vector<long long>> memo(u, vector<long long>(n, -1)); // -1 means not yet computed
         auto dfs = [&](auto&& dfs, int s, int i) -> long long {
             if (s == 0) {
-                return 1; // 找到一个特别排列
+                return 1; // Found a special permutation
             }
-            auto& res = memo[s][i]; // 注意这里是引用
-            if (res != -1) { // 之前计算过
+            auto& res = memo[s][i]; // This is a reference
+            if (res != -1) { // Already computed
                 return res;
             }
             res = 0;

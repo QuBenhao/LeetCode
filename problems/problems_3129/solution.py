@@ -22,7 +22,7 @@ class Solution(solution.Solution):
                 # we should fill one zero now on, and it should be less than or equal to limit
                 return 1 if cur == 0 and z <= limit else 0
             if cur == 0:
-                # 容斥原理
+                # Inclusion-exclusion principle
                 # we can fill zero or one, but when we fill too many zeros, we should minus exceed limit zeros case
                 return (dfs(z - 1, o, 0) + dfs(z - 1, o, 1) - (dfs(z - limit - 1, o, 1) if z > limit else 0)) % MOD
             # we can fill zero or one, but when we fill too many ones, we should minus exceed limit ones case

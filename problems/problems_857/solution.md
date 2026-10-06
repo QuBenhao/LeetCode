@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 性价比 + 工作质量大顶堆
+# [Python/Java/TypeScript/Go] Wage-to-quality ratio + max-heap of quality
 
 > Author: Benhao
 > Date: 2022-09-11
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-每个工人的性价比是期望工资除以质量，k组员工的性价比由性价比最高的人决定，最终总开支由性价比和总工作质量决定。
-我们希望性价比尽可能低，且总工作质量尽可能低。
-从小到大遍历性价比，这样当前组合的性价比就是当前性价比。我们维护一个取工作质量最小的方式即可。
+### Approach
+Each worker's ratio is expected wage divided by quality. A group of k workers uses the highest ratio among them, and its total cost depends on that ratio and total work quality.
+We want both the ratio and total work quality to be as low as possible.
+Process ratios in ascending order, so the current group's ratio is the current ratio. Maintain a way to select the smallest total work quality.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

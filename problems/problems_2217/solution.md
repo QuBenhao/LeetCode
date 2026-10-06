@@ -1,4 +1,4 @@
-# [Python] 脑筋急转弯
+# [Python] Brain teaser
 
 > slug: python-by-himymben-xxox
 > date: 2022-03-27
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/find-palindrome-with-fixed-length/solutions/hKiztW/python-by-himymben-xxox/
 
 ---
-### 解题思路
-脑筋急转弯，长度为intLength的第x个回文数是多少？
+### Approach
+A brain teaser: what is the x-th palindrome of length intLength?
 
-[1000][001]为长度为7的第一个回文数，那么第376个回文数为[1375][731]
+[1000][001] is the first palindrome of length 7, so the 376th is [1375][731].
 
-### 代码
+### Code
 
 ```python3
 class Solution:

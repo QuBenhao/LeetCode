@@ -1,4 +1,4 @@
-# [Python/Java] 记忆化递归 or 动态规划
+# [Python/Java] Memoized recursion or dynamic programming
 
 > slug: python-di-gui-shou-ji-xian-da-ge-qia-by-347jp
 > date: 2021-09-03

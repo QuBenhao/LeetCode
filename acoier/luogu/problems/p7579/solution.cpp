@@ -70,16 +70,16 @@ void helper(int l, int r, int remain) {
     // int d2 = ask_size(lmid, rmid, rmid, rmid + d);
     // d1: -1, 0, 1; d2: -1, 0, 1
     if (d1 == -1) {
-        // 1 < 2, 2里没有坏球
+        // 1 < 2: group 2 contains no defective balls
         if (remain == 1) {
             helper(l, lmid-1, remain);
             return;
         }
-        // 2中没有目标
+        // Group 2 contains no target
         if (m == 2) {
             int d2 = ask_size(lmid, rmid + 1, rmid + 1, r+1);
             if (d2 == -1) {
-                // 2 < 3, 说明rmid为坏球
+                // 2 < 3: rmid is a defective ball
                 if (x == -1) {
                     x = rmid;
                 } else {
@@ -88,17 +88,17 @@ void helper(int l, int r, int remain) {
                 --remain;
                 helper(l, lmid - 1, remain);
             } else if (d2 == 1) {
-                // 2 > 3, 说明坏球在rmid+1~r
+                // 2 > 3: the defective ball is in rmid+1~r
                 helper(l, lmid - 1, 1);
                 helper(rmid + 1, r, 1);
             } else {
-                // 说明2/3里没有坏球
+                // Neither group 2 nor group 3 contains a defective ball
                 helper(l, lmid - 1, remain);
             }
         } else if (m == 0) {
             int d2 = ask_size(lmid, rmid, rmid, r+1);
             if (d2 == -1) {
-                // 2 < 3, 不可能发生
+                // 2 < 3: impossible
                 throw invalid_argument("不可能发生依次变大");
             }
             if (d2 == 1) {
@@ -106,13 +106,13 @@ void helper(int l, int r, int remain) {
                 helper(l, lmid - 1, 1);
                 helper(rmid, r, 1);
             } else {
-                // 2 == 3, 说明2/3里没有坏球
+                // 2 == 3: neither group 2 nor group 3 contains a defective ball
                 helper(l, lmid - 1, remain);
             }
         } else {
             int d2 = ask_size(lmid-1, rmid, rmid, r+1);
             if (d2 == -1) {
-                // 2 < 3, 说明lmid-1为坏球
+                // 2 < 3: lmid-1 is a defective ball
                 if (x == -1) {
                     x = lmid - 1;
                 } else {
@@ -136,14 +136,14 @@ void helper(int l, int r, int remain) {
         if (m == 2) {
             int d2 = ask_size(lmid, rmid + 1, rmid + 1, r+1);
             if (d2 == -1) {
-                // 2 < 3, 说明3里面没有坏球, 且rmid不是坏球
+                // 2 < 3: group 3 contains no defective balls, and rmid is not defective
                 helper(l, lmid - 1, 1);
                 helper(lmid, rmid - 1, 1);
             } else if (d2 == 1) {
-                // 2 > 3, 说明坏球在rmid+1~r
+                // 2 > 3: the defective ball is in rmid+1~r
                 helper(rmid + 1, r, remain);
             } else {
-                // 说明rmid是坏球, rmid+1~r有一个坏球
+                // rmid is defective, and rmid+1~r contains one defective ball
                 if (x == -1) {
                     x = rmid;
                 } else {
@@ -154,24 +154,24 @@ void helper(int l, int r, int remain) {
         } else if (m == 0) {
             int d2 = ask_size(lmid, rmid, rmid, r+1);
             if (d2 == -1) {
-                // 2 < 3, 1、2各一个坏球
+                // 2 < 3: groups 1 and 2 each contain one defective ball
                 helper(l, lmid - 1, 1);
                 helper(lmid, rmid - 1, 1);
             } else if (d2 == 1) {
                 // 2 > 3
                 helper(rmid, r, remain);
             } else {
-                // 2 == 3, 不可能发生
+                // 2 == 3: impossible
                 throw invalid_argument("不可能发生都相等");
             }
         } else {
             int d2 = ask_size(lmid-1, rmid, rmid, r+1);
             if (d2 == -1) {
-                // 2 < 3, 说明1, 2各一个坏球
+                // 2 < 3: groups 1 and 2 each contain one defective ball
                 helper(l, lmid - 1, 1);
                 helper(lmid, rmid - 1, 1);
             } else if (d2 == 1) {
-                // 2 > 3, 说明1, 2没有坏球
+                // 2 > 3: neither group 1 nor group 2 contains a defective ball
                 helper(rmid, r, remain);
             } else {
                 // 2 == 3
@@ -179,7 +179,7 @@ void helper(int l, int r, int remain) {
             }
         }
     } else {
-        // 1 > 2, 1里没有坏球, 2里至少一个坏球
+        // 1 > 2: group 1 contains no defective balls, and group 2 contains at least one
         if (remain == 1) {
             helper(lmid, rmid - 1, remain);
             return;
@@ -187,7 +187,7 @@ void helper(int l, int r, int remain) {
         if (m == 2) {
             int d2 = ask_size(lmid, rmid+1, rmid+1, r+1);
             if (d2 == -1) {
-                // 2 < 3, 说明3里没有坏球
+                // 2 < 3: group 3 contains no defective balls
                 helper(lmid, rmid, remain);
             } else if (d2 == 1) {
                 // 2 > 3
@@ -206,7 +206,7 @@ void helper(int l, int r, int remain) {
                 // 2 > 3
                 throw invalid_argument("不可能依次变小");
             } else {
-                // 2 == 3, 说明2/3里各一个坏球
+                // 2 == 3: groups 2 and 3 each contain one defective ball
                 helper(lmid, rmid - 1, 1);
                 helper(rmid, r, 1);
             }

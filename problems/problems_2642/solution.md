@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
 > dijkstra
 
-# 解题方法
+# Approach
 
-> 构图，在线查询
+> Build the graph and answer queries online.
 
 
 # Code

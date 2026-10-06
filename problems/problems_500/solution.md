@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 模拟
+# [Python/Java/JavaScript] Simulation
 
 > slug: pythonjavajavascript-mo-ni-by-himymben-f3vx
 > date: 2021-10-30

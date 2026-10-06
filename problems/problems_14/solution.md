@@ -1,4 +1,4 @@
-# [Python/Go/C] 模拟
+# [Python/Go/C] Simulation
 
 > slug: pythongoc-mo-ni-by-himymben-jq7t
 > date: 2024-02-27
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 要么先遍历字符串数组再找最大交集，要么先遍历坐标判断是不是每个字符串该坐标都是同一个
+> Either traverse the array of strings and find their longest shared prefix, or traverse the character indices and check whether every string has the same character at each index.
 
-# 解题方法
+# Approach
 
-> 纵向+横向
+> Vertical and horizontal scans
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(mn)$
 
-空间复杂度:
+Space complexity:
 > $O(mn)$
 
 

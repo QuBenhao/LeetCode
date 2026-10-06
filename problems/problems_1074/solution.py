@@ -11,22 +11,22 @@ class Solution(solution.Solution):
         :type target: int
         :rtype: int
         """
-        # 方法同363，空间优化前缀和。注:不使用二分最大效益因为用不到二分
+        # Same approach as 363, with space-optimized prefix sums; binary search is unnecessary here
         m, n = len(matrix), len(matrix[0])
         ans = 0
-        # 固定左边列
+        # Fix the left column
         for i in range(1, n + 1):
             presum = [0] * (m + 1)
-            # 固定右边列
+            # Fix the right column
             for j in range(i, n + 1):
                 a = 0
                 d = {0:1}
-                # 选择行
+                # Select rows
                 for fixed in range(1, m + 1):
-                    # 前缀和
+                    # Prefix sum
                     presum[fixed] += matrix[fixed-1][j-1]
                     a += presum[fixed]
-                    # 使用字典统计构成target有多少个
+                    # Use a dictionary to count how many sums equal target
                     if a - target in d:
                         ans += d[a - target]
                     if a in d:

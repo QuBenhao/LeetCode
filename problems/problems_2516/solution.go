@@ -9,18 +9,18 @@ import (
 func takeCharacters(s string, k int) int {
 	cnt := [3]int{}
 	for _, c := range s {
-		cnt[c-'a']++ // 一开始，把所有字母都取走
+		cnt[c-'a']++ // Initially, take all characters
 	}
 	if cnt[0] < k || cnt[1] < k || cnt[2] < k {
-		return -1 // 字母个数不足 k
+		return -1 // Fewer than k occurrences of a character
 	}
 
 	mx, left := 0, 0
 	for right, c := range s {
 		c -= 'a'
-		cnt[c]--         // 移入窗口，相当于不取走 c
-		for cnt[c] < k { // 窗口之外的 c 不足 k
-			cnt[s[left]-'a']++ // 移出窗口，相当于取走 s[left]
+		cnt[c]--         // Moving c into the window means leaving it untaken
+		for cnt[c] < k { // Fewer than k occurrences of c remain outside the window
+			cnt[s[left]-'a']++ // Moving s[left] out of the window means taking it
 			left++
 		}
 		mx = max(mx, right-left+1)

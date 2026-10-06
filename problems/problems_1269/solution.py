@@ -12,7 +12,7 @@ class Solution(solution.Solution):
         :type arrLen: int
         :rtype: int
         """
-        # # 记忆化dfs
+        # # Memoized DFS
         # @lru_cache(None)
         # def dfs(cur, s):
         #     if cur == -1 or cur == arrLen or cur > s:
@@ -24,7 +24,7 @@ class Solution(solution.Solution):
         #
         # return dfs(0, steps) % (10 ** 9 + 7)
 
-        # # 一维数组动态规划，自底向上滚动更新
+        # # One-dimensional dynamic programming with bottom-up rolling updates
         # if arrLen == 1 or steps == 1:
         #     return 1
         # dp = [0] * (min(steps // 2 + 1, arrLen) + 2)
@@ -37,20 +37,20 @@ class Solution(solution.Solution):
         #     dp = nxt_dp
         # return dp[1] % (10 ** 9 + 7)
 
-        # 一维数组动态规划，自底向上滚动更新, 加入数学规律优化
+        # One-dimensional dynamic programming with bottom-up rolling updates and the mathematical optimization
         if arrLen == 1 or steps == 1:
             return 1
         dp = [0] * (min(steps // 2 + 1, arrLen) + 2)
         n = len(dp)
         dp[1] = dp[2] = 1
-        # 数学规律：对称性，只需要找到steps一半位置的dp的样子即可计算结果，因为后面往位置0递归算和从位置0递归算过来是一样的
+        # Symmetry: dp at half of steps is enough, because working back toward position 0 is the same as working forward from position 0
         for i in range(1, steps // 2):
             nxt_dp = [0] * n
             for j in range(1, min(n - 1, i + 3)):
                 nxt_dp[j] = dp[j-1] + dp[j] + dp[j+1]
             dp = nxt_dp
-        # 偶数行是它的中心行的平方和
+        # An even-numbered row is the sum of squares of its middle row
         if steps % 2 == 0:
             return sum(x**2 for x in dp) % (10 ** 9 + 7)
-        # 奇数行实际上是它中心两行的点乘结果
+        # An odd-numbered row is the dot product of its two middle rows
         return sum(dp[i] * (dp[i-1] + dp[i] + dp[i+1]) for i in range(1,len(dp)-1)) % (10 ** 9 + 7)

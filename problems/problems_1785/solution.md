@@ -1,4 +1,4 @@
-# 数学贪心
+# Mathematics and greedy
 
 > Author: Benhao
 > Date: 2022-12-16
@@ -11,17 +11,17 @@
 
 [TOC]
 
-# 思路
-> 每次添加尽可能大或尽可能小的数来弥补差距
+# Intuition
+> Add the largest or smallest allowed value each time to close the gap.
 
-# 解题方法
-> 向上取整可得需要多少
+# Approach
+> Round up to obtain the number needed.
 
-# 复杂度
-- 时间复杂度: 
+# Complexity
+- Time complexity:
 > $O(n)$
 
-- 空间复杂度: 
+- Space complexity:
 > $O(1)$
 
 # Code
@@ -43,4 +43,4 @@ public:
 };
 ```
 
-感谢 [@全力以赴✨](/u/endless_developy) 提供的其他语言版本
+Thanks to [@全力以赴✨](/u/endless_developy) for the implementations in other languages.

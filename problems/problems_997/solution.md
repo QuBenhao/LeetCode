@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 入度出度统计
+# [Python/Java/JavaScript/Go] Count indegrees and outdegrees
 
 > Author: Benhao
 > Date: 2021-12-19
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-只有存在一个人，即没出现在左边，且跟所有人都有在右边的关系的时候，返回这个人
+### Approach
+Return a person only if they never appear on the left and appear on the right in a relationship with every other person
 
-### 代码
+### Code
 
 ```python3
 class Solution:

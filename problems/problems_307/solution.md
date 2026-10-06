@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 线段树模版
+# [Python/Java/JavaScript/Go] Segment tree template
 
 > slug: pythonjavajavascriptgo-xian-duan-shu-mo-kmpw3
 > date: 2022-04-04
@@ -7,18 +7,18 @@
 > url: https://leetcode.cn/problems/range-sum-query-mutable/solutions/BRllMg/pythonjavajavascriptgo-xian-duan-shu-mo-kmpw3/
 
 ---
-### 解题思路
+### Approach
 
-从[叶总](https://leetcode.cn/problems/range-sum-query-mutable/solution/by-ac_oier-zmbn/)那里学了一下线段树，方便以后复制粘贴。
-我说一下我的理解。
+I learned about segment trees from [叶总](https://leetcode.cn/problems/range-sum-query-mutable/solution/by-ac_oier-zmbn/) and kept this for convenient reuse.
+Here is my understanding.
 
-根节点是tr[1]，所以我们总是从1出发开始构造或更新还有查询。
-左节点是自己乘2，右节点是自己乘二加一，也就是`u -> u << 1`和`u -> u << 1 | 1`。
-在更新区间变化时，更新增量`val - self.nums[index]`。
-底层更新完区间和之后，回调更新上层的区间和`pushup`。
-查询时，如果一个区间范围被覆盖，直接返回这个区间的和，否则向下递归找到被查询区间覆盖的区间，统计所有区间的和。
+The root is tr[1], so construction, updates, and queries always start from 1.
+The left child index is twice the current index, and the right child index is twice the current index plus one: `u -> u << 1` and `u -> u << 1 | 1`.
+When updating the interval, apply the delta `val - self.nums[index]`.
+After updating the lower-level interval sum, call `pushup` to update sums higher in the tree.
+For a query, return an interval's sum directly if it is fully covered. Otherwise, recurse downward to find covered intervals and add their sums.
 
-### 代码
+### Code
 
 ```Python3 []
 class NumArray:

@@ -1,4 +1,4 @@
-# [Python] 差分数组应用
+# [Python] Applying a difference array
 
 > slug: python-chafenshuzu-by-himymben-9ekq
 > date: 2022-04-02
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/meeting-rooms-ii/solutions/7AHRSa/python-chafenshuzu-by-himymben-9ekq/
 
 ---
-### 解题思路
-求某一时刻所需会议室的最大值，可以用差分来做
+### Approach
+Use a difference array to find the maximum number of meeting rooms needed at any point in time.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

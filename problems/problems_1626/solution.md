@@ -1,4 +1,4 @@
-# [Py] 排序动态规划
+# [Py] Sorting and dynamic programming
 
 > slug: py-pai-xu-dong-tai-gui-hua-by-himymben-4tbl
 > date: 2023-03-22
@@ -11,11 +11,11 @@
 class Solution:
     def bestTeamScore(self, scores: List[int], ages: List[int]) -> int:
         players = sorted(zip(scores, ages))
-        # dp[i] 代表选第i个玩家时，可以选择到的最大分数
+        # dp[i] is the maximum score obtainable when choosing player i
         dp = [0] * len(players)
         for i, (s, a) in enumerate(players):
             for j in range(i):
-                # 选第i个玩家不能冲突，那么他以前的玩家必须是年纪小的(排序保证了分数)
+                # To avoid conflicts with player i, earlier chosen players must be no older (sorting handles scores)
                 if players[j][1] <= a:
                     dp[i] = max(dp[i], dp[j])
             dp[i] += s

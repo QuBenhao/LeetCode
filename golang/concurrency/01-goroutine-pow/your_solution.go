@@ -4,12 +4,12 @@ type MySolution struct{}
 
 // Solve
 /**
-1. 基础协程同步
-场景：实现一个函数并发计算 10 个数字的平方，主协程等待所有计算完成后输出结果。
-要求：
-使用 sync.WaitGroup 实现协程同步
-禁止使用全局变量
-输出顺序不需要保证
+1. Basic goroutine synchronization
+Scenario: Implement a function that computes the squares of 10 numbers concurrently. The main goroutine waits for every computation to finish before printing the results.
+Requirements:
+Use sync.WaitGroup to synchronize goroutines
+Do not use global variables
+Output order does not need to be guaranteed
 */
 func (s *MySolution) Solve(numbers []int) {
 

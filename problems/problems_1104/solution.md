@@ -1,4 +1,4 @@
-# [Python/Java] 两种极其简单的递推公式(双百)
+# [Python/Java] Two very simple recurrence formulas (both metrics beat 100%)
 
 > Author: Benhao
 > Date: 2021-07-28
@@ -7,35 +7,35 @@
 
 ---
 
-### 解题思路
-我将每一层进入的端点称为入口端点，将要变成下一行的端点称为出口端点。
-每一层的入口端点一定是$2^n$，出口端点一定是$2^{n+1}-1$.
-**某一层的某个点到该层的入口端点的距离除以2**就是**上一层它的父亲节点到上一层出口端点的距离**
-或者
-**某一层的某个点到该层的出口端点的距离除以2**就是**上一层它的父亲节点到上一层入口端点的距离**
+### Approach
+I call the endpoint where a level begins the entry endpoint, and the endpoint leading into the next level the exit endpoint.
+Each level's entry endpoint is $2^n$, and its exit endpoint is $2^{n+1}-1$.
+**A node's distance from its level's entry endpoint, divided by 2**, equals **its parent's distance from the previous level's exit endpoint**.
+Or:
+**A node's distance from its level's exit endpoint, divided by 2**, equals **its parent's distance from the previous level's entry endpoint**.
 
-$x = 2^n + k, y = 2^n - 1 - k/2$，其中$x$为节点，$y$为其父亲节点
+$x = 2^n + k, y = 2^n - 1 - k/2$, where $x$ is the node and $y$ is its parent.
 
-> 比如在第一个例子中，14到它的入口端点8的距离为6，那么它的父亲节点到它那层的出口端点的距离为3,也就是7-3=4。
-而4到4的距离为0，所以下一个为3-0=3，以此类推。
-其实本质上这是因为二叉树这样标号，每层节点个数总满足是上一层的两倍导致的。
-当你计算自己到端点的距离时，上一层到同一侧的这边端点的距离其实就是一个2倍的缩放！
+> For example, in the first example, the distance from 14 to its entry endpoint 8 is 6. Its parent's distance from the exit endpoint of the preceding level is therefore 3, giving 7-3=4.
+The distance from 4 to 4 is 0, so the next node is 3-0=3, and so on.
+This follows from the labeling of the binary tree and the fact that every level has twice as many nodes as the preceding level.
+The parent's distance from the endpoint on the same side is simply the current node's distance scaled down by a factor of 2.
 
 
-### 代码
-向小的那一边缩放
+### Code
+Scale toward the smaller endpoint
 ```python3 []
 class Solution:
     def pathInZigZagTree(self, label: int) -> List[int]:
         ans = [label]
-        # 初始入口端点
+        # Initial entry endpoint
         last = 2 ** int(log(label, 2))
         while label > 1:
-            # 上一层节点到其出口端点的距离
+            # The parent node's distance from its exit endpoint
             add = label - last >> 1
-            # 计算父亲节点的值 
+            # Calculate the parent node's value 
             label = last - 1 - add
-            # 下一个入口端点必然是除以2的关系
+            # The next entry endpoint is half the current one
             last >>= 1
             ans.append(label)
         return ans[::-1]
@@ -43,7 +43,7 @@ class Solution:
 ```python3 []
 class Solution:
     def pathInZigZagTree(self, label: int) -> List[int]:
-        # 求小于等于x的最接近x的2次幂，也就是入口的端点值
+        # Find the greatest power of 2 less than or equal to x: the entry endpoint
         def closest(x):
             if not x & (x-1):
                 return x
@@ -56,14 +56,14 @@ class Solution:
             return x + 1 >> 1 if x >= 0 else 1
 
         ans = [label]
-        # 初始入口端点
+        # Initial entry endpoint
         last = closest(label)
         while label > 1:
-            # 上一层节点到其出口端点的距离
+            # The parent node's distance from its exit endpoint
             add = label - last >> 1
-            # 计算父亲节点的值 
+            # Calculate the parent node's value 
             label = last - 1 - add
-            # 下一个入口端点必然是除以2的关系
+            # The next entry endpoint is half the current one
             last >>= 1
             ans.append(label)
         return ans[::-1]
@@ -101,19 +101,19 @@ class Solution {
 }
 ```
 
-向大的那一边缩放
+Scale toward the larger endpoint
 ```python3 []
 class Solution:
     def pathInZigZagTree(self, label: int) -> List[int]:
         ans = [label]
-        # 初始出口端点
+        # Initial exit endpoint
         last = 2 ** (int(log(label, 2)) + 1)
         while label > 1:
-            # 上一层节点到其入口端点的距离
+            # The parent node's distance from its entry endpoint
             dis = last - 1 - label >> 1
-            # 计算父亲节点的值 
+            # Calculate the parent node's value 
             label = last//4 + dis
-            # 下一个出口端点必然是除以2的关系
+            # The next exit endpoint is obtained by dividing by 2
             last >>= 1
             ans.append(label)
         return ans[::-1]
@@ -121,7 +121,7 @@ class Solution:
 ```python3 []
 class Solution:
     def pathInZigZagTree(self, label: int) -> List[int]:
-        # 求大于x的最接近x的2次幂，也就是出口的端点值
+        # Find the smallest power of 2 greater than x to obtain the exit endpoint
         def closest(x):
             if not x & (x-1):
                 x += 1
@@ -134,14 +134,14 @@ class Solution:
             return x + 1 if x >= 0 else 1
 
         ans = [label]
-        # 初始出口端点
+        # Initial exit endpoint
         last = closest(label)
         while label > 1:
-            # 上一层节点到其入口端点的距离
+            # The parent node's distance from its entry endpoint
             dis = last - 1 - label >> 1
-            # 计算父亲节点的值 
+            # Calculate the parent node's value 
             label = last//4 + dis
-            # 下一个出口端点必然是除以2的关系
+            # The next exit endpoint is obtained by dividing by 2
             last >>= 1
             ans.append(label)
         return ans[::-1]

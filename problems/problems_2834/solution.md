@@ -1,4 +1,4 @@
-# [Python] 数学
+# [Python] Mathematics
 
 > slug: python-shu-xue-by-himymben-8zmh
 > date: 2024-03-08
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 本题取法是唯一的，从1取到target的一半(下取整)，再从target开始取直到取够n个
+> The optimal choice is unique: take values from 1 through floor(target/2), then continue from target until n values have been taken.
 
-# 解题方法
+# Approach
 
-> 用两次求和公式即可
+> Apply the summation formula twice.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(1)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

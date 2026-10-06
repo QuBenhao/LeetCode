@@ -1,30 +1,30 @@
-# 存图方式
+# Graph representations
 
-## 邻接矩阵
+## Adjacency matrix
 
-这是一种使用**二维矩阵**来进行存图的方式
+This representation stores a graph in a **two-dimensional matrix**.
 
-适用于边数较多的**稠密图**使用，当边数量接近点数量的平方，即$`m = n^2`$，可定义为稠密图
+It suits **dense graphs**, which have many edges. A graph is considered dense when the number of edges approaches the square of the number of nodes, that is, $`m = n^2`$.
 
 ```python
-# 稠密图适用（节点编号0~n-1）
+# Suitable for dense graphs with nodes numbered 0 to n-1
 n = 5
 graph = [[0] * n for _ in range(n)]
 
-# 添加边（带权重）
-graph[0][1] = 3  # 0→1的边权重为3
-graph[1][2] = 2  # 1→2的边权重为2
+# Add weighted edges
+graph[0][1] = 3  # Edge 0→1 has weight 3
+graph[1][2] = 2  # Edge 1→2 has weight 2
 ```
 
-## 邻接表
+## Adjacency list
 
 ```go
 package main
 
-// 稀疏图适用
+// Suitable for sparse graphs
 type Graph struct {
     nodes int
-    edges [][]int // edges[i]存储节点i的所有邻接节点
+    edges [][]int // edges[i] stores all neighbors of node i
 }
 
 func NewGraph(n int) *Graph {
@@ -34,24 +34,24 @@ func NewGraph(n int) *Graph {
     }
 }
 
-// 添加无向边
+// Add an undirected edge
 func (g *Graph) AddEdge(u, v int) {
     g.edges[u] = append(g.edges[u], v)
     g.edges[v] = append(g.edges[v], u)
 }
 ```
 
-## 类存图（带权重）
+## Class-based representation of a weighted graph
 
 ```python
 class GraphNode:
     def __init__(self, val):
         self.val = val
-        self.neighbors = []  # 存储元组(node, weight)
+        self.neighbors = []  # Store (node, weight) tuples
 
 
-# 构建示例
+# Construction example
 node0 = GraphNode(0)
 node1 = GraphNode(1)
-node0.neighbors.append((node1, 5))  # 0→1的边权重为5
+node0.neighbors.append((node1, 5))  # Edge 0→1 has weight 5
 ```

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 差分思想
+# [Python/Java/JavaScript/Go] Difference-based counting
 
 > Author: Benhao
 > Date: 2022-01-06
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-遇到左括号+1，遇到右括号-1，统计最大值
+### Approach
+Add 1 for an opening parenthesis and subtract 1 for a closing parenthesis; track the maximum.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 双指针 or 动态规划
+# [Python/Java/JavaScript/Go] Two pointers or dynamic programming
 
 > Author: Benhao
 > Date: 2022-04-18
@@ -7,22 +7,22 @@
 
 ---
 
-### 解题思路
-双指针：
-我们可以在遍历的时候记录上一次遇到c的位置，每次先更新距离为到上次遇到c的距离，直到遇到了另一个c。
-我们将这个c和上一个c的中点，到这个c之间的点，更新为更近的新的c到距离即可。同时上一个c变成了这个c。
+### Approach
+Two pointers:
+While scanning, track the last position of c. Initially set each distance to the distance from that c until another c is encountered.
+For positions between this c and the midpoint to the previous c, update the distance to this closer c. Then make this c the previous c.
 
 
-动态规划：
-在类似接雨水的题目中，我们使用简单的正反遍历动态规划。
-正反遍历可能更好理解一些，虽然时间会更久一点儿，但复杂度一样。
-从左往右看，我们可以知道所有点到它左边的c的距离；
-从右往左看，我们可以知道所有点到它右边的c的距离；
-每个点的答案为两个距离的更小值。
+Dynamic programming:
+As in problems such as trapping rain water, use simple forward and backward passes for dynamic programming.
+Forward and backward passes may be easier to understand. They take a little longer but have the same complexity.
+A left-to-right pass gives every position's distance to the c on its left;
+A right-to-left pass gives every position's distance to the c on its right;
+The answer at each position is the smaller of these two distances.
 
-### 代码
+### Code
 
-双指针
+Two pointers
 ```Python3 []
 class Solution:
     def shortestToChar(self, s: str, c: str) -> List[int]:
@@ -103,7 +103,7 @@ func shortestToChar(s string, c byte) []int {
 }
 ```
 
-正反遍历
+Forward and backward passes
 ```Python3 []
 class Solution:
     def shortestToChar(self, s: str, c: str) -> List[int]:
@@ -114,7 +114,7 @@ class Solution:
             ans[i] = min(ans[i], i - last)
         last = inf
         for i, ch in enumerate(s[::-1]):
-            # 因为两者都有 len(s) - 1 的偏移量，可以一起去掉，减少运算            
+            # Both have a len(s) - 1 offset, so cancel it from both to reduce computation            
             # if ch == c:
             #     last = len(s) - 1 - i
             # ans[-1 - i] = min(ans[-1 - i], last - len(s) + 1 + i)

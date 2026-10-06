@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-07-19
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-想象扁平化后的一维数组的平移，再将一维数组映射回二维。
-具体来说:
-原来的$(i, j)$对应的一维坐标为$i * n + j$,
-向右平移$k$后为$i * n + j + k$,
-总共只有$m * n$个位置所以最终坐标为$(i * n + j + k)$ % $(m * n)$,
-转换回二维坐标即可。
+### Approach
+Imagine shifting a flattened one-dimensional array, then mapping it back to two dimensions.
+More precisely:
+The original $(i, j)$ maps to the one-dimensional index $i * n + j$.
+After shifting right by $k$, it becomes $i * n + j + k$.
+There are only $m * n$ positions, so the final index is $(i * n + j + k)$ % $(m * n)$.
+Convert this index back to two-dimensional coordinates.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 双向链表 + 哈希表
+# [Python/Java/JavaScript/Go] Doubly linked list + hash table
 
 > slug: python-bu-man-zu-yao-qiu-jin-by-himymben-4zs4
 > date: 2022-03-15
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/all-oone-data-structure/solutions/hThtMA/python-bu-man-zu-yao-qiu-jin-by-himymben-4zs4/
 
 ---
-### 解题思路
-记录每个字母映射到的双向链表中的节点，节点中包括统计的数量信息。
-维护最左和最右的链表节点就可以O(1)返回最大值、最小值。
+### Approach
+Map each key to a node in a doubly linked list; each node stores its count.
+Maintaining the leftmost and rightmost nodes allows the maximum and minimum to be returned in O(1).
 
-（Python以外为复制的代码，仅做记录）
+(The non-Python implementations are copied here for reference only.)
 
-### 代码
+### Code
 
 ```Python3 []
 class Node:

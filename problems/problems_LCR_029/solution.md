@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-by-himymben-x7n0
 > date: 2022-06-18
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/4ueAj6/solutions/koe19T/pythonjavatypescriptgo-by-himymben-x7n0/
 
 ---
-### 解题思路
-遍历链表，找到这么一个节点，满足以下之一即为插入位置：
-1. 插入值在它的值和它的下一个的值之间
-2. 下一个值为旋转点，插入值比前面的值大或者比下一个的值小
+### Approach
+Traverse the list and find a node satisfying either condition for insertion:
+1. The inserted value lies between this node's value and the next node's value.
+2. The next node is the rotation boundary, and the inserted value is greater than the preceding value or smaller than the next value.
 
-若没有找到必然是在头尾之间 (插入位置必然存在)
+If no such node is found, insert between the tail and head. (An insertion position always exists.)
 
-### 代码
+### Code
 
 ```Python3 []
 """

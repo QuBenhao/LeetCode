@@ -1,4 +1,4 @@
-# [Python] 动态规划 滚动更新
+# [Python] Dynamic programming with rolling updates
 
 > slug: python-dong-tai-gui-hua-gun-dong-geng-xi-x2dq
 > date: 2021-07-01
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/chuan-di-xin-xi/solutions/QehSSC/python-dong-tai-gui-hua-gun-dong-geng-xi-x2dq/
 
 ---
-### 解题思路
-用一个玩家人数长度的数组动规, dp[i]代表某一轮次传到i的方案数
+### Approach
+Use a DP array with one entry per player. dp[i] is the number of ways to reach player i in a given round.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -19,16 +19,16 @@ class Solution:
         for a,b in relation:
             graph[b].add(a)
 
-        # k轮从0到n-1,相当于k-1轮从0能到达的地方到达n-1...
-        # 递归关系为player的前置玩家们的传递
+        # Reaching n-1 from 0 in k rounds means reaching a predecessor of n-1 from 0 in k-1 rounds...
+        # The recurrence sums transmissions from the predecessors of player
         # dp[k][player] = sum(dp[k-1][p']) for p' in graph[player]
         dp = [0] * n
-        # 初始不需要任何传递玩家0就有信息
+        # Initially, player 0 has the message without any transmissions
         dp[0] = 1
         for i in range(k):
             new_dp = [0] * n
             for j in range(n):
-                # 所有能传到j的
+                # All players that can transmit to j
                 new_dp[j] += sum(dp[l] for l in graph[j])
             dp = new_dp
         return dp[n-1]

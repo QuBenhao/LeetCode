@@ -10,7 +10,7 @@ class Solution {
 public:
     int subarraySum(vector<int>& nums, int k) {
         int ans = 0, s = 0;
-        unordered_map<int, int> counter{{0, 1}}; // s[0]=0 单独统计
+        unordered_map<int, int> counter{{0, 1}}; // Count s[0]=0 separately
         for (auto num: nums) {
             s += num;
             ans += counter.find(s - k) != counter.end() ? counter[s - k] : 0;

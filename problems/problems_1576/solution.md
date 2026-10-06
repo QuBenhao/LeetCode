@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-96qi
 > date: 2022-01-04
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/replace-all-s-to-avoid-consecutive-repeating-characters/solutions/YL2tWC/pythonjavajavascriptgo-mo-ni-by-himymben-96qi/
 
 ---
-### 解题思路
-每次填入与两边不相同的字母即可
+### Approach
+Fill each position with a letter different from both neighbors.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

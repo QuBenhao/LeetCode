@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-06-12
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-直接排序比较或根据题目范围计数比较
+### Approach
+Sort and compare directly, or count values within the range given in the problem and compare.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -63,7 +63,7 @@ func heightChecker(heights []int) (ans int) {
     return
 }
 ```
-计数
+Counting
 ```Python3 []
 class Solution:
     def heightChecker(self, heights: List[int]) -> int:

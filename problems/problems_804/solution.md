@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 暴力
+# [Python/Java/JavaScript/Go] Brute force
 
 > slug: pythonjavajavascriptgo-bao-li-by-himymbe-m0vo
 > date: 2022-04-09
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/unique-morse-code-words/solutions/CNIVyK/pythonjavajavascriptgo-bao-li-by-himymbe-m0vo/
 
 ---
-### 解题思路
-遍历每个单词，遍历每个单词的字母，构造它的密码，用集合记录不同的密码，最终返回集合长度即可。
+### Approach
+Iterate over each word and its letters to build its code. Store distinct codes in a set and return the set's size.
 
-### 代码
+### Code
 
 ```Python3 []
 CODE = [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."]

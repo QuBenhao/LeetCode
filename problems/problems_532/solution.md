@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 哈希表
+# [Python/Java/TypeScript/Go] Hash table
 
 > slug: pythonjavatypescriptgo-by-himymben-15sa
 > date: 2022-06-15
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/k-diff-pairs-in-an-array/solutions/wGv0GW/pythonjavatypescriptgo-by-himymben-15sa/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 数学
+# [Python/Java/TypeScript/Go] Mathematics
 
 > slug: pythonjavatypescriptgo-by-himymben-6n19
 > date: 2022-06-03
@@ -7,18 +7,18 @@
 > url: https://leetcode.cn/problems/consecutive-numbers-sum/solutions/w5miyB/pythonjavatypescriptgo-by-himymben-6n19/
 
 ---
-### 解题思路
-由于要统计的是连续正整数的和，很容易想到用求和公式化简。
+### Approach
+Since we are counting sums of consecutive positive integers, the summation formula is a natural simplification.
 $n = \sum_{i=1}^k a_i = a_1 + a_2 + \ldots + a_k = \frac{(a_1 + a_k) * k}{2}$
-代入连续正整数的条件:
+Substitute the condition for consecutive positive integers:
 $n = \frac{(a_1 + a_k) * k}{2} = \frac{(a_1 * 2 + k - 1) * k}{2}$
-代入正整数条件($a_1 \ge 1$):
+Substitute the positive-integer constraint ($a_1 \ge 1$):
 $n = \frac{(a_1 * 2 + k - 1) * k}{2} \ge \frac{(k + 1) * k}{2} \gt \frac{k^2}{2}$
-也就是说连续k个正整数的和，我们得到了k的上界。
+This gives an upper bound on k for a sum of k consecutive positive integers.
 
-然后我们根据这个范围遍历统计满足整除关系的次数即可。
+Iterate over this range and count how often the divisibility condition holds.
 
-附写代码时用注释推导过程
+The derivation written as comments while coding is included below
 ```python3
         # (2 * x + k - 1) * k // 2 = n
         # x >= 1
@@ -26,7 +26,7 @@ $n = \frac{(a_1 * 2 + k - 1) * k}{2} \ge \frac{(k + 1) * k}{2} \gt \frac{k^2}{2}
         # x = (2 * n // k + 1 - k) // 2
 ```
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

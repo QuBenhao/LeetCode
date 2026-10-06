@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 并查集 
+# [Python/Java/JavaScript] Union-find 
 
 > slug: pythonjavajavascript-bing-cha-ji-by-himy-5elv
 > date: 2021-10-08
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/data-stream-as-disjoint-intervals/solutions/esNxzC/pythonjavajavascript-bing-cha-ji-by-himy-5elv/
 
 ---
-### 解题思路
-[并查集讲解可以看](https://zhuanlan.zhihu.com/p/93647900/)
+### Approach
+[See this explanation of union-find](https://zhuanlan.zhihu.com/p/93647900/)
 
-### 代码
+### Code
 
 ```Python3 []
 from sortedcontainers import SortedSet

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 哈希表排序
+# [Python/Java/JavaScript/Go] Hash table and sorting
 
 > Author: Benhao
 > Date: 2022-03-31
@@ -7,29 +7,29 @@
 
 ---
 
-### 解题思路
-题目要求长度为$n$的数组是否能分为$\frac{n}{2}$组，每组都是一个数是另一个数的两倍。
-想想数组中最大的数或者最小的数，会发现它们要配对的数是固定的，很容易检查。
-我们将数组压缩为哈希表计数，并按序遍历键，依次抛去配对数，不能配对直接返回false。
+### Approach
+Determine whether an array of length $n$ can be divided into $\frac{n}{2}$ pairs, each containing a number and its double.
+Consider the largest or smallest number: its matching value is fixed and easy to check.
+Compress the array into hash-table counts, iterate over the keys in order, and remove matched pairs. Return false immediately if a value cannot be paired.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def canReorderDoubled(self, arr: List[int]) -> bool:
         cnts = Counter(arr)
         for k in sorted(cnts.keys()):
-            # 正数和自己乘二配对
+            # Pair positive numbers with their doubles
             if k > 0 and cnts[k * 2] < cnts[k]:
                 return False
             elif k > 0:
                 cnts[k * 2] -= cnts[k]
-            # 负数要和自己除二配对，因为是除法要讨论奇偶
+            # Pair negative numbers with their halves; division requires checking parity
             elif k < 0 and cnts[k] and (k % 2 or cnts[k // 2] < cnts[k]):
                 return False
             elif k < 0:
                 cnts[k / 2] -= cnts[k]
-            # 0本身要自己有偶数个，才能配对
+            # Zeros must occur an even number of times to be paired
             elif cnts[k] % 2:
                 return False
         return True

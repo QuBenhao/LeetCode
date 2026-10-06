@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 字典树 + 深度优先搜索
+# [Python/Java/JavaScript/Go] Trie + depth-first search
 
 > slug: pythonjavajavascriptgo-zi-dian-shu-shen-3fuzq
 > date: 2021-12-27
@@ -7,20 +7,20 @@
 > url: https://leetcode.cn/problems/concatenated-words/solutions/Zg5SCe/pythonjavajavascriptgo-zi-dian-shu-shen-3fuzq/
 
 ---
-### 解题思路
-这题蛮难的。
-首先要掌握字典树、Trie树，不了解的同学可以先看看[叶总的这篇](https://leetcode.cn/problems/implement-trie-prefix-tree/solution/gong-shui-san-xie-yi-ti-shuang-jie-er-we-esm9/)。
-有了字典树的前缀树知识我们可以根据前缀匹配字符串，当我们匹配到任意遍历过的子串结尾时，我们可以暂时认定该子串是组成我们当前连接词的一部分，剩余的字符串我们进行递归，
-如果剩余的字符串也是连接词或在字典树中存在，我们知道它必然是合格的连接词了。如果当前子串分割后后面不能构成连接词，我们要放弃刚刚的假定，继续往后面尝试分割。
+### Approach
+This problem is quite difficult.
+First, understand prefix trees, or Tries. If unfamiliar, read [this explanation by 叶总](https://leetcode.cn/problems/implement-trie-prefix-tree/solution/gong-shui-san-xie-yi-ti-shuang-jie-er-we-esm9/).
+Use the Trie to match prefixes. Whenever a match reaches the end of a previously stored word, tentatively treat that prefix as part of the current concatenated word and recurse on the remaining string.
+If the remainder is itself a concatenated word or exists in the Trie, the current word is valid. Otherwise, abandon that split and keep searching farther along for another split.
 
-要先查找匹配，后决定是否添加到字典树中。如果先添加，会导致自己表示自己，必然为True。这里还有个原因是原数组没有重复单词，所以我们必然不会因为相同单词匹配结果为True。
-结果为True不需要添加到字典树中，根据缓存即可知道再遇到它永远是连接词了。
+Check for a match before deciding whether to insert into the Trie. Inserting first would let a word match itself and always return True. The input contains no duplicate words, so identical-word matches cannot otherwise cause True.
+When the result is True, insertion into the Trie is unnecessary: the cache records that the word is concatenated whenever it appears again.
 
-【各语言的Trie树模板，我自己写的，欢迎探讨和提供更好的模板】
+[I wrote the Trie templates for each language; discussion and improved templates are welcome.]
 
-帖子还能被吞了？吞完还不让评论？过分了
+The post disappeared, and then comments were disabled? That is too much.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

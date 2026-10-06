@@ -13,7 +13,7 @@ public:
         double d = 1 - discount / 100.0;
         stringstream ss(sentence);
         string ans, w;
-        while (ss >> w) { // 一边分割，一边加到答案中
+        while (ss >> w) { // Split the string and append to the answer as we go
             if (!ans.empty()) {
                 ans += ' ';
             }

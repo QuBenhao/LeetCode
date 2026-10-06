@@ -1,4 +1,4 @@
-# [Python/Go/Java/Cpp] 归并排序
+# [Python/Go/Java/Cpp] Merge sort
 
 > Author: Benhao
 > Date: 2024-03-16
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 每次取两个链表中更小的一个，向后移动比较
+> Take the smaller node from the two lists each time, then advance and compare again.
 
-# 解题方法
+# Approach
 
-> 归并排序
+> Merge sort
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

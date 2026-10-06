@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/ransom-note/solutions/8b3nim/pythonjavajavascriptgo-by-himymben-vueu/
 
 ---
-### 解题思路
-比较两者的计数Counter即可
+### Approach
+Compare the two frequency Counters.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

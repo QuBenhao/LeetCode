@@ -1,4 +1,4 @@
-# 动态规划
+# Dynamic programming
 
 > slug: dong-tai-gui-hua-by-himymben-swhm
 > date: 2025-07-15
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-the-maximum-length-of-valid-subsequence-i/solutions/xaZSdw/dong-tai-gui-hua-by-himymben-swhm/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

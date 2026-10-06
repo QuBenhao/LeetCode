@@ -1,4 +1,4 @@
-# [Python/Go/C++/Java/Ts/Rust] 排序
+# [Python/Go/C++/Java/Ts/Rust] Sorting
 
 > Author: Benhao
 > Date: 2024-03-07
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 排序后可以保证左端点是递增的，然后依次判断相邻的有无交集即可
+> Sorting places the left endpoints in increasing order. Then check adjacent intervals for overlap.
 
-# 解题方法
+# Approach
 
-> 如果有交集，就扩充当前区间的终点
+> If they overlap, extend the endpoint of the current interval.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(nlog_n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

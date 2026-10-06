@@ -1,4 +1,4 @@
-# [Python] 使用乘法 or 辗转相除法 避免精度问题
+# [Python] Avoid precision issues with multiplication or the Euclidean algorithm
 
 > Author: Benhao
 > Date: 2021-06-24
@@ -7,17 +7,17 @@
 
 ---
 
-### 解题思路
-两两之差用乘法判断在不在一条直线上。(但是需要o(n^3)暴力判断)
-使用哈希表统计同一kx+b的个数可以少一层循环。(需要使用辗转相除法避免除法精度问题)
-因为直线总是以经过外层循环的点，所以取一个斜率即可(一个点和一个斜率确定一条直线)
+### Approach
+Use multiplication on pairwise differences to check whether points lie on the same line. (This requires an o(n^3) brute-force check.)
+Count points on the same kx+b line with a hash table to remove one loop. (Use the Euclidean algorithm to avoid division precision issues.)
+Since the line always passes through the point chosen by the outer loop, only its slope is needed. (One point and one slope determine a line.)
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def maxPoints(self, points: List[List[int]]) -> int:
-        # 三点在一条直线上时,斜率相等
+        # Three collinear points have equal slopes
         # y2 - y1 = k * (x2 - x1), y3 - y2 = k * (x3 - x2)
         # (y2 - y1) * (x3 - x2) = (y3 - y2) * (x2 - x1)
         
@@ -71,26 +71,26 @@ class Solution:
             
         return res
 ```
-使用字符串存储高精度除法结果
+Store the result of high-precision division as a string
 ```python3
 class Solution:
     def maxPoints(self, points: List[List[int]]) -> int:
         def hdiv(dividend, divisor, accuracy):
             '''
-            功能: 完成高精度的除法
-            参数:
-                dividend: 被除数
-                divisor: 除数
-                accuracy: 除法精度
-            返回: 计算结果(字符串)
+            Purpose: perform high-precision division
+            Parameters:
+                dividend: the dividend
+                divisor: the divisor
+                accuracy: division precision
+            Returns: the result as a string
             '''
-            # 定义存储结果的字符串
+            # Define a string to store the result
             res = ''
 
-            # 定义保存正负数的变量
+            # Define a variable to track the sign
             isNegative = False
 
-            # 确定正负号
+            # Determine the sign
             if dividend < 0 and divisor > 0:
                 dividend = abs(dividend)
                 isNegative = True
@@ -98,20 +98,20 @@ class Solution:
                 divisor = abs(divisor)
                 isNegative = True
 
-            # 在结果添加正负号
+            # Add the sign to the result
             if isNegative:
                 res += '-'
 
-            # 计算整数部分
+            # Calculate the integer part
             integer = round(dividend // divisor)
 
-            # 将结果添加入结果
+            # Append the calculated value to the result
             res += str(integer) + '.'
 
-            # 计算余数
+            # Calculate the remainder
             remainder = dividend % divisor
 
-            # 计算小数部分
+            # Calculate the fractional part
             for i in range(accuracy):
                 dividend = remainder * 10
                 res += str(round(dividend // divisor))

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 模拟
+# [Python/Java/JavaScript] Simulation
 
 > slug: pythonjavajavascript-mo-ni-by-himymben-pk8r
 > date: 2021-10-10
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/integer-to-english-words/solutions/j8HPvQ/pythonjavajavascript-mo-ni-by-himymben-pk8r/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

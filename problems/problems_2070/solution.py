@@ -16,7 +16,7 @@ class Solution(solution.Solution):
         max_beauty = j = 0
         for i in idx:
             q = queries[i]
-            # 增量地遍历满足 queries[i-1] < price <= queries[i] 的物品
+            # Incrementally visit items satisfying queries[i-1] < price <= queries[i]
             while j < len(items) and items[j][0] <= q:
                 max_beauty = max(max_beauty, items[j][1])
                 j += 1

@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/even-odd-tree/solutions/58krid/pythonjavajavascriptgo-bfs-by-himymben-qn71/
 
 ---
-### 解题思路
-BFS可以保证维护当前层数，以及从左到右的判断顺序，很适合本题。
-只要依次判断每层是否满足奇偶树，不满足的话直接返回False即可。
+### Approach
+BFS tracks the current level and visits nodes from left to right, making it a good fit.
+Check each level against the Even Odd Tree conditions and return False immediately if any condition fails.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-把 articles/<qslug>/<slug>.md 归位到 problems/problems_<题号>/solution.md。
+Copy articles/<qslug>/<slug>.md into problems/problems_<problem ID>/solution.md.
 
-用法:
-  python python/scripts/relocate_articles.py --dry-run    # 只统计，不复制
-  python python/scripts/relocate_articles.py              # 实际复制
+Usage:
+  python python/scripts/relocate_articles.py --dry-run    # Count only; do not copy
+  python python/scripts/relocate_articles.py              # Copy files
 
-说明:
-- 题号映射来自 solutionArticles(userSlug) 列表接口的 questionFrontendId（需登录态 COOKIE）
-- 目标目录: problems/problems_<frontendId 空格转下划线>；LCR/Interview/LCP 等前缀题自然对齐
-- 冲突处理: 目标 solution.md 已存在则命名为 solution-<slug前12>.md，绝不覆盖
-- 不删除 articles/（保留为全量备份）；只做复制
+Notes:
+- Problem ID mapping comes from questionFrontendId in the solutionArticles(userSlug) list API (requires an authenticated COOKIE)
+- Destination: problems/problems_<frontendId with spaces replaced by underscores>; prefixes such as LCR/Interview/LCP align naturally
+- Conflicts: if solution.md already exists, use solution-<first 12 characters of slug>.md; never overwrite
+- Keep articles/ as a full backup; only copy files
 """
 import argparse
 import json

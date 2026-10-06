@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-只贴了一段代码
+### Approach
+Just a code snippet.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

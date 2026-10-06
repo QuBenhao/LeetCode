@@ -1,4 +1,4 @@
-# [Python] 记忆化递归
+# [Python] Memoized recursion
 
 > Author: Benhao
 > Date: 2022-03-26
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-TODO：优化
+### Approach
+TODO: Optimize
 
-### 代码
+### Code
 
 ```python3
 class Solution:

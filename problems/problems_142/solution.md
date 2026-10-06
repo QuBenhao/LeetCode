@@ -1,4 +1,4 @@
-# [Python] 快慢指针
+# [Python] Fast and slow pointers
 
 > Author: Benhao
 > Date: 2021-07-28
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-首先，有环快慢指针必然会相遇。而且他们相遇的话，慢指针刚进入环的入口的时候，快指针必然领先了慢指针`x%C`的长度，那么快指针要追上慢指针就要走`-x%C`。他们相遇的时候相当于慢指针走了`-x%C`。这个时候从头走到入口和从这个相遇的位置走到入口距离是一致的。我们再从头出发一个相遇即可。
+### Approach
+First, if a cycle exists, the fast and slow pointers must meet. When the slow pointer first enters the cycle, the fast pointer is ahead by `x%C`, so catching the slow pointer requires covering `-x%C`. By the time they meet, the slow pointer has traveled `-x%C` within the cycle. The distance from the head to the cycle entry is then the same as the distance from the meeting point to the entry. Start another pointer from the head and let the two pointers meet again.
 
-### 代码
+### Code
 ```python3 []
 class Solution:
     def detectCycle(self, head: ListNode) -> ListNode:

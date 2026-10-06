@@ -32,10 +32,10 @@ func (dst *DynamicSegmentTree) pushDown(node *Node) {
 		node.right = &Node{}
 	}
 	if node.lazy != 0 {
-		// 更新左子节点
+		// Update the left child
 		node.left.val = node.lazy
 		node.left.lazy = node.lazy
-		// 更新右子节点
+		// Update the right child
 		node.right.val = node.lazy
 		node.right.lazy = node.lazy
 		node.lazy = 0

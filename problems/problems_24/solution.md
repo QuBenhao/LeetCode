@@ -1,4 +1,4 @@
-# 模拟两两交换
+# Simulate swapping pairs
 
 > slug: mo-ni-liang-liang-jiao-huan-by-himymben-04ph
 > date: 2025-05-31
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/swap-nodes-in-pairs/solutions/RGXMya/mo-ni-liang-liang-jiao-huan-by-himymben-04ph/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -1,4 +1,4 @@
-# 一次遍历
+# A single pass
 
 > slug: yi-ci-bian-li-by-himymben-ojyy
 > date: 2025-06-15
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-special-triplets/solutions/AUi9Ml/yi-ci-bian-li-by-himymben-ojyy/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

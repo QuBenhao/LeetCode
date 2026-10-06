@@ -1,4 +1,4 @@
-# [Python] 计数器
+# [Python] Counter
 
 > Author: Benhao
 > Date: 2021-06-13
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-可以分配只有每个出现字符的个数可以均分
+### Approach
+Redistribution is possible only if every character's count can be divided evenly.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

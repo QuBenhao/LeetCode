@@ -18,22 +18,22 @@ class Solution(solution.Solution):
         if t < 0 or k < 0:
             return False
         all_buckets = {}
-        bucket_size = t + 1  # 桶的大小设成t+1更加方便
+        bucket_size = t + 1  # A bucket size of t+1 is more convenient
         for i in range(len(nums)):
-            bucket_num = nums[i] // bucket_size  # 放入哪个桶
+            bucket_num = nums[i] // bucket_size  # Determine which bucket to use
 
-            if bucket_num in all_buckets:  # 桶中已经有元素了
+            if bucket_num in all_buckets:  # The bucket already contains an element
                 return True
 
-            all_buckets[bucket_num] = nums[i]  # 把nums[i]放入桶中
+            all_buckets[bucket_num] = nums[i]  # Put nums[i] into its bucket
 
-            if (bucket_num - 1) in all_buckets and abs(all_buckets[bucket_num - 1] - nums[i]) <= t:  # 检查前一个桶
+            if (bucket_num - 1) in all_buckets and abs(all_buckets[bucket_num - 1] - nums[i]) <= t:  # Check the previous bucket
                 return True
 
-            if (bucket_num + 1) in all_buckets and abs(all_buckets[bucket_num + 1] - nums[i]) <= t:  # 检查后一个桶
+            if (bucket_num + 1) in all_buckets and abs(all_buckets[bucket_num + 1] - nums[i]) <= t:  # Check the next bucket
                 return True
 
-            # 如果不构成返回条件，那么当i >= k 的时候就要删除旧桶了，以维持桶中的元素索引跟下一个i+1索引只差不超过k
+            # If no match is found, delete the old bucket when i >= k so that stored indices differ from the next index i+1 by at most k
             if i >= k:
                 all_buckets.pop(nums[i - k] // bucket_size)
 

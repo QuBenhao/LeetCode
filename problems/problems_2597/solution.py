@@ -11,12 +11,12 @@ class Solution(solution.Solution):
     def beautifulSubsets(self, nums: List[int], k: int) -> int:
         groups = defaultdict(Counter)
         for x in nums:
-            # 模 k 同余的数分到同一组，记录元素 x 及其出现次数
+            # Group values with the same remainder modulo k, recording each value x and its frequency
             groups[x % k][x] += 1
 
         ans = 1
         for cnt in groups.values():
-            # 计算这一组的方案数
+            # Compute the number of ways for this group
             a = sorted(cnt.items())
             m = len(a)
             f = [0] * (m + 1)
@@ -27,5 +27,5 @@ class Solution(solution.Solution):
                     f[i + 1] = f[i] + f[i - 1] * ((1 << a[i][1]) - 1)
                 else:
                     f[i + 1] = f[i] << a[i][1]
-            ans *= f[m]  # 每组方案数相乘
-        return ans - 1  # 去掉空集
+            ans *= f[m]  # Multiply the number of ways across groups
+        return ans - 1  # Exclude the empty set

@@ -1,4 +1,4 @@
-# [Python] 动态规划
+# [Python] Dynamic programming
 
 > Author: Benhao
 > Date: 2021-06-17
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-本题记忆化搜索一直超时是因为top-down比bottom-up遍历了更多地方
+### Approach
+Memoized search keeps timing out here because top-down visits more states than bottom-up.
 
-记忆化前缀和加速还不够，需要用二维数组存储区间的前缀和，勉强能过
+Memoizing prefix sums is not enough; storing interval sums in a 2D array just manages to pass.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

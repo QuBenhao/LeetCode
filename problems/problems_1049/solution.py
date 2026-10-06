@@ -13,9 +13,9 @@ class Solution(solution.Solution):
         :type stones: List[int]
         :rtype: int
         """
-        # 数学归纳法 证明 最终结果必然在某种正负取石子中
-        # 根据这个证明，原题可以理解为:将原来的石子分成两堆$positive$和$negative$的和，
-        # 并使得他们和的差值的绝对值$abs(positive - negative)$尽可能的小。
+        # Prove by mathematical induction that the final result must be a signed sum of the stones
+        # This proof reduces the problem to splitting the stones into two groups with sums $positive$ and $negative$,
+        # minimizing their absolute difference $abs(positive - negative)$.
 
         # @lru_cache(None)
         # def dfs(idx, curr):
@@ -25,7 +25,7 @@ class Solution(solution.Solution):
         #
         # return dfs(0, 0)
 
-        # 贪心: 最接近 sum//2 的组合和
+        # Greedy: find a subset sum as close as possible to sum//2
         s = sum(stones)
         t = s // 2
         sums = {0}

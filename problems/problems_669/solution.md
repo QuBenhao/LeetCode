@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 递归
+# [Python/Java/TypeScript/Go] Recursion
 
 > Author: Benhao
 > Date: 2022-09-10
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-简单递归运用题
+### Approach
+A simple application of recursion
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

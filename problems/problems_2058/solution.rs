@@ -20,7 +20,7 @@ pub struct Solution;
 // }
 impl Solution {
     pub fn nodes_between_critical_points(head: Option<Box<ListNode>>) -> Vec<i32> {
-        // 最小距离来自相邻临界点，最大距离来自首尾临界点
+        // The minimum distance is between adjacent critical points; the maximum is between the first and last
         let (mut first, mut prev, mut mn) = (0, 0, i32::MAX);
         let mut a = head.as_ref().unwrap();
         let mut b = a.next.as_ref().unwrap();

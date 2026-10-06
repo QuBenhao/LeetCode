@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-只需要注意像公交车站那道题、或者LCP变化的迷宫，处理每个数字的跳跃仅发生一次，就和BFS模板没有区别。
+### Approach
+As in the bus routes problem or LCP's changing maze, process the jumps for each value only once. The rest is standard BFS.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

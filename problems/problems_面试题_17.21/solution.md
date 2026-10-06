@@ -1,4 +1,4 @@
-# [Python] 栈（想象成每次我们都把前面的缝隙填满了）和双指针（我们总有左边最大和右边最大）
+# [Python] Stack (imagine filling earlier gaps at each step) and two pointers (track the maximum heights on both sides)
 
 > slug: python-zhan-xiang-xiang-cheng-mei-ci-wo-gt54l
 > date: 2021-04-02
@@ -7,38 +7,38 @@
 > url: https://leetcode.cn/problems/volume-of-histogram-lcci/solutions/IHdQRc/python-zhan-xiang-xiang-cheng-mei-ci-wo-gt54l/
 
 ---
-### 解题思路
-**栈的思路**
-我们计算存水的时候，不在乎前面最大的高度往前的高度，也就是我们每次清栈都是栈中比当前小的元素。
-我们计算两个柱子间的存水要根据较矮的一侧。
-考虑 [5,0,3,0,2,0,5]的情况：
-- 到3的时候，栈中是[5,0]，我们发现可以存水了，0出来是低处的高度，能存(3-0) * (2-0-1) = 3 的水；（可以注意到3上面的部分后面的5也能存，但他们还在栈中所以还能计算）
-- 到2的时候，栈中是[5,3,0], 又可以存水了，0是低处，现在想象成前面已经是[5,3,3,0,2]了，能存(2-0)*(4-2-1)=2的水；（这个时候可以理解为前面变为[5,3,3,2,2]了）
-- 最后到5的时候，栈中是[5,3,2,0],分别依次计算对应能存的水量，
-- 5和2之间能存(2-0)*(6-4-1)=2; 计算后相当于变成了[5,3,3,2,2,2,5]
-- 5和3之间能存(3-2)*(6-2-1)=3; 这里因为上一个2之间已经被填满了,计算后相当于变成[5,3,3,3,3,3,5]
-- 最后，5和5之间能存(5-3)*(6-0-1)=10;
-所以答案就是以上计算累加。
+### Approach
+**Stack approach**
+When calculating trapped water, heights before the highest preceding bar no longer matter. Each stack-clearing step therefore removes entries lower than the current bar.
+The water trapped between two bars is bounded by the shorter side.
+Consider [5,0,3,0,2,0,5]:
+- At 3, the stack is [5,0], and water can be trapped. Pop 0 as the bottom height, giving (3-0) * (2-0-1) = 3 units of water. (The later 5 can also trap water above 3, but those bars remain in the stack for later calculation.)
+- At 2, the stack is [5,3,0], so more water can be trapped. The bottom height is 0; imagine the prefix is already [5,3,3,0,2]. This traps (2-0)*(4-2-1)=2 units of water. (The prefix can now be viewed as [5,3,3,2,2].)
+- At the final 5, the stack is [5,3,2,0]. Calculate the trapped water for each level in turn:
+- Between 5 and 2, trap (2-0)*(6-4-1)=2; after this calculation, the array is effectively [5,3,3,2,2,2,5].
+- Between 5 and 3, trap (3-2)*(6-2-1)=3. The gap up to height 2 has already been filled, so the array is now effectively [5,3,3,3,3,3,5].
+- Finally, between 5 and 5, trap (5-3)*(6-0-1)=10;
+add these amounts to obtain the answer.
 
-**双指针思路**
-考虑我们每次计算每个格子可能存的水，那么就需要根据它的左右两边的最高值。
-指针的移动是尽可能想超过另一侧的高度来移动的。
-先证明: 
-当`height[left] <= height[right]`的时候，`left_max <= height[right]`
-当`height[right] < height[left]`的时候，`right_max < height[left]`
-采取反证法:
-如果height[left] <= height[right] < left_max，
-那么存在left左边比当前right大的值比如说height[left']，当left=left',right所在的值使得left向右移动了，也就是存在一个right右边的值，height[right']>=height[left'].
-那么是怎么存在一个left的值，让这个right左移了呢？
-显然不存在的，因为left_max <= height[right']。
-证毕。
+**Two-pointer approach**
+To calculate the water above each position, use the maximum heights to its left and right.
+Move the pointer on the shorter side, seeking a height that can exceed the opposite side.
+First, prove: 
+when `height[left] <= height[right]`, `left_max <= height[right]`;
+when `height[right] < height[left]`, `right_max < height[left]`.
+Proof by contradiction:
+Suppose height[left] <= height[right] < left_max.
+Then there is a height to the left of left, say height[left'], greater than the current height[right]. When left=left', the right-side height allowed left to move right, so there must be a position right' to the right of right with height[right']>=height[left'].
+But what value on the left could then have allowed right to move left?
+No such value exists, because left_max <= height[right'].
+This completes the proof.
 
-也就是说，left不是最大值的时候，也就是height[left] <= left_max <= height[right],显然left处可以存left_max-height[left]这么多水。
-反之亦然。
+Thus, when left is not the maximum, height[left] <= left_max <= height[right], and position left can hold left_max-height[left] units of water.
+The symmetric argument applies to the other side.
 
-### 代码
+### Code
 
-栈
+Stack
 ```python
 class Solution(object):
     def trap(self, height):
@@ -60,7 +60,7 @@ class Solution(object):
 
 ```
 
-双指针
+Two pointers
 ```python
 class Solution(object):
     def trap(self, height):

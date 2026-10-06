@@ -21,8 +21,8 @@ using json = nlohmann::json;
 class Solution {
 public:
     bool findTarget(TreeNode* root, int k) {
-        stack<TreeNode*> left, right; // 左右栈分别存放中序遍历和逆中序遍历的节点
-        auto expend = [&](TreeNode* nd, bool is_left) { // 展开一个节点的子树, 栈的方式遍历树
+        stack<TreeNode*> left, right; // The left and right stacks store nodes in inorder and reverse inorder, respectively
+        auto expend = [&](TreeNode* nd, bool is_left) { // Expand a node's subtree to traverse the tree with a stack
             nd = is_left ? nd->right : nd->left;
             while(nd != nullptr) {
                 if (is_left) {
@@ -44,16 +44,16 @@ public:
             right.push(node);
             node = node->right;
         }
-        TreeNode* left_ptr = left.top(), *right_ptr = right.top(); // 左指针和右指针
-        while (left_ptr->val < right_ptr->val) { // 左指针和右指针没有相遇
+        TreeNode* left_ptr = left.top(), *right_ptr = right.top(); // Left and right pointers
+        while (left_ptr->val < right_ptr->val) { // The left and right pointers have not met
             int s = left_ptr->val + right_ptr->val;
-            if (s == k) { // 找到目标值
+            if (s == k) { // Found the target sum
                 return true;
-            } else if (s > k) { // 和大于目标值, 右指针左移
+            } else if (s > k) { // The sum exceeds the target; move the right pointer left
                 right.pop();
                 expend(right_ptr, false);
                 right_ptr = right.top();
-            } else { // 和小于目标值, 左指针右移
+            } else { // The sum is below the target; move the left pointer right
                 left.pop();
                 expend(left_ptr, true);
                 left_ptr = left.top();

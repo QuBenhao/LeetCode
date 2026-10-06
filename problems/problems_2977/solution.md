@@ -1,4 +1,4 @@
-# 预处理+动态规划
+# Preprocessing + dynamic programming
 
 > slug: yu-chu-li-dong-tai-gui-hua-by-himymben-2jm2
 > date: 2026-01-30
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/minimum-cost-to-convert-string-ii/solutions/OR6K5V/yu-chu-li-dong-tai-gui-hua-by-himymben-2jm2/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

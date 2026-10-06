@@ -1,4 +1,4 @@
-# 滑窗+单调队列
+# Sliding window + monotonic deque
 
 > slug: hua-chuang-dan-diao-dui-lie-by-himymben-pqon
 > date: 2025-06-21
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-prime-gap-balanced-subarrays/solutions/5r3GaD/hua-chuang-dan-diao-dui-lie-by-himymben-pqon/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

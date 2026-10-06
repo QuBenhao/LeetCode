@@ -1,4 +1,4 @@
-# [Python/Go/C] 双指针
+# [Python/Go/C] Two pointers
 
 > Author: Benhao
 > Date: 2024-02-22
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 双指针遍历
+> Traverse with two pointers
 
-# 解题方法
+# Approach
 
-> 依次从小到大以相同元素遍历，如果有重复的就保留两个
+> Traverse groups of equal elements from smallest to largest, keeping two copies when duplicates occur.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

@@ -1,4 +1,4 @@
-# [Python]  有序列表
+# [Python] Sorted list
 
 > Author: Benhao
 > Date: 2021-06-22
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-题目很容易看出需要模拟实现每次计算左右两边的数的个数(排序好后左右两边的坐标距离),
-使用有序列表可以每个数可以o(logn)二分查找所在位置, o(logn)插入，整体就是o(n * logn)
+### Approach
+Simulate each insertion by counting the numbers on either side, using distances between indices in sorted order.
+A sorted list supports o(logn) binary search and o(logn) insertion per number, for o(n * logn) overall.
 
-### 代码
+### Code
 
 ```python3
 from sortedcontainers import SortedList

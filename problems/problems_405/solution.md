@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 进制转换
+# [Python/Java/JavaScript] Base conversion
 
 > slug: pythonjava-2jin-zhi-zhuan-huan-wei-16jin-dwen
 > date: 2021-10-02
@@ -7,17 +7,17 @@
 > url: https://leetcode.cn/problems/convert-a-number-to-hexadecimal/solutions/xjF15C/pythonjava-2jin-zhi-zhuan-huan-wei-16jin-dwen/
 
 ---
-### 解题思路
-用常见的进制转换方法即可(辗转相除)
+### Approach
+Use the standard base-conversion method (repeated division).
 
-### 代码
+### Code
 
 ```Python3 []
 CONV = "0123456789abcdef"
 class Solution:
     def toHex(self, num: int) -> str:
         ans = []
-        # 32位2进制数，转换成16进制 -> 4个一组，一共八组
+        # Convert a 32-bit binary number to hexadecimal: eight groups of four bits
         for _ in range(8):
             ans.append(num%16)
             num //= 16

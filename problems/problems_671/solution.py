@@ -11,11 +11,11 @@ class Solution(solution.Solution):
         :type root: TreeNode
         :rtype: int
         """
-        # 必然不存在第二小的值
+        # A second-smallest value cannot exist
         if not root or not root.left:
             return -1
-        # 我们知道root.val是最小值，那么,
-        # 第二小的值存在于 更小的子节点那一边的子树的第二小的值 或 更大的子节点 之中
+        # We know root.val is the minimum, so
+        # The second-smallest value is either in the smaller child's subtree or at the larger child
         left = root.left.val if root.left.val != root.val else self.findSecondMinimumValue(root.left)
         right = root.right.val if root.right.val != root.val else self.findSecondMinimumValue(root.right)
         return min(left, right) if left != -1 and right != -1 else max(left, right)

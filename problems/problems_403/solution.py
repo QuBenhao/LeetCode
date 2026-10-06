@@ -30,7 +30,7 @@ class Solution(solution.Solution):
         #     return False
         # return bfs(1, 1)
 
-        # 动态规划
+        # Dynamic programming
         # n = len(stones)
         # dp = [[False] * n for _ in range(n)]
         # dp[0][0] = True

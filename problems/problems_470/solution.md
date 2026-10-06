@@ -1,4 +1,4 @@
-# [Python/Java] 分享一下lee神的期望1.183次rand7
+# [Python/Java] Sharing lee's approach with an expected 1.183 calls to rand7
 
 > Author: Benhao
 > Date: 2021-09-05
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-官方题解或者其他解法都是很棒的思路，但是他们都舍弃太多random出来的数了，导致最终的调用期望次数很高。而理论上最佳的期望为$log_{7}10 = 1.183$，而这个期望正是需要[lee215的题解](https://leetcode.com/problems/implement-rand10-using-rand7/discuss/151567/C%2B%2BJavaPython-1.183-Call-of-rand7-Per-rand10)
-的7的次方思路的。
+### Approach
+The official and other solutions have good ideas, but discard too many random outcomes, increasing the expected number of calls. The theoretical optimum is $log_{7}10 = 1.183$, which requires [lee215's solution](https://leetcode.com/problems/implement-rand10-using-rand7/discuss/151567/C%2B%2BJavaPython-1.183-Call-of-rand7-Per-rand10)
+using powers of 7.
 
-我的理解哈。$7^{19} = 11398895185373143$。就如同生成49舍弃40-48时一样，这里舍弃后能保证11398895185373140种情况生成了（至少）一个随机数，概率是99.99999999999997%。而且其中10000000000000000以下的数是一个16位的10进制数，而这16位数每位数0-9的概率是一致的，也就是87.73%的概率生成了16个随机数。
+My understanding is this: $7^{19} = 11398895185373143$. As when generating 49 outcomes and discarding 40-48, discarding the excess here leaves 11398895185373140 outcomes that generate at least one random number, with probability 99.99999999999997%. Values below 10000000000000000 can be represented by 16 decimal digits, each equally likely to be 0-9, so there is an 87.73% chance of generating 16 random numbers.
 
-没有特别理解清楚这个解法，希望有大佬指教。
+I do not fully understand this solution yet and would appreciate an explanation.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

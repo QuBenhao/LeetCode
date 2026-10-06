@@ -17,7 +17,7 @@ func countGood(nums []int, k int) (ans int64) {
 			pairs -= counter[nums[left]]
 			left++
 		}
-		// 以当前num为右端点，0~left为左端点的子数组均满足条件
+		// With the current num as the right endpoint, subarrays starting anywhere from 0 through left satisfy the condition
 		ans += int64(left)
 	}
 	return

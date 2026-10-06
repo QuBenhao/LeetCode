@@ -20,9 +20,9 @@ class Solution(solution.Solution):
                 return 0
             ans = 0
             half = (presum[j + 1] + presum[i]) / 2
-            # 使用二分查找左右的大小中心位置
+            # Use binary search to find where the left and right sums balance
             idx = bisect.bisect_left(presum, half, lo=i, hi=j + 1)
-            # idx 左边, left更小; idx 右边, right更小
+            # Left of idx, left is smaller; right of idx, right is smaller
             if presum[idx] == half:
                 ans = max(ans, left_dfs(i, idx), right_dfs(idx, j))
             else:

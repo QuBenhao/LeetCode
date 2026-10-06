@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go/C] 模拟
+# [Python/Java/JavaScript/Go/C] Simulation
 
 > slug: pythonjavajavascriptgoc-mo-ni-by-himymbe-1d1w
 > date: 2022-01-12
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/largest-number-at-least-twice-of-others/solutions/Xmn49n/pythonjavajavascriptgoc-mo-ni-by-himymbe-1d1w/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

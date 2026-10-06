@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 词频统计 + 子集判断
+# [Python/Java/JavaScript/Go] Character counts + subset check
 
 > slug: pythonjavajavascriptgo-ci-pin-tong-ji-zi-ozou
 > date: 2021-12-10
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/shortest-completing-word/solutions/YJbmCa/pythonjavajavascriptgo-ci-pin-tong-ji-zi-ozou/
 
 ---
-### 解题思路
-用长度为26的数组记录'a'到'z'各自的个数，特别地将大写字母做相似的映射即可。
+### Approach
+Use an array of length 26 to count 'a' through 'z', mapping uppercase letters to the same entries.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2022-11-30
@@ -11,17 +11,17 @@
 
 [TOC]
 
-# 思路
-> 按题意模拟
+# Intuition
+> Simulate as described.
 
-# 解题方法
-> 遍历
+# Approach
+> Traverse the input.
 
-# 复杂度
-- 时间复杂度: 
+# Complexity
+- Time complexity:
 > $O(n)$
 
-- 空间复杂度: 
+- Space complexity:
 > $O(1)$
 
 # Code

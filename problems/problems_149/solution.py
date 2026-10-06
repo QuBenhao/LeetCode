@@ -12,7 +12,7 @@ class Solution(solution.Solution):
         :type points: List[List[int]]
         :rtype: int
         """
-        # # 三点在一条直线上时,斜率相等
+        # # Three collinear points have equal slopes
         # # y2 - y1 = k * (x2 - x1), y3 - y2 = k * (x3 - x2)
         # # (y2 - y1) * (x3 - x2) = (y3 - y2) * (x2 - x1)
         # explored = set()

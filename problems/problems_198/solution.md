@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 当前的最大值由上一次没抢+这一次抢了，和上一次的最大值、这一次没抢组成
+> The current maximum is the greater of skipping the previous house and robbing this one, or keeping the previous maximum and skipping this house.
 
-# 解题方法
+# Approach
 
-> 动态规划
+> Dynamic programming
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

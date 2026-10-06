@@ -1,40 +1,40 @@
-# 排序
+# Sorting
 
-## 排序算法分类
-排序算法可分为两大类：
-1. **比较排序**：通过比较元素决定顺序
-   - 时间复杂度下限：O(n log n)
-2. **非比较排序**：不通过比较确定顺序
-   - 可突破O(n log n)限制
+## Sorting algorithm categories
+Sorting algorithms fall into two main categories:
+1. **Comparison sorts**: determine the order by comparing elements
+   - Time complexity lower bound: O(n log n)
+2. **Non-comparison sorts**: determine the order without comparing elements
+   - Can improve on the O(n log n) bound
 
 
-## 排序算法对比
-| 算法         | 时间复杂度       | 空间复杂度 | 稳定性 | 适用场景                     |
+## Sorting algorithm comparison
+| Algorithm | Time complexity | Space complexity | Stability | Use cases |
 |--------------|------------------|------------|--------|------------------------------|
-| 冒泡排序     | O(n²)           | O(1)       | 稳定   | 小规模数据，教学使用         |
-| 选择排序     | O(n²)           | O(1)       | 不稳定 | 小规模数据                   |
-| 插入排序     | O(n²)           | O(1)       | 稳定   | 小规模或基本有序数据         |
-| 希尔排序     | O(n log n)~O(n²)| O(1)       | 不稳定 | 中等规模数据                 |
-| 归并排序     | O(n log n)      | O(n)       | 稳定   | 大规模数据，需要稳定性       |
-| 快速排序     | O(n log n)      | O(log n)   | 不稳定 | 大规模通用排序               |
-| 堆排序       | O(n log n)      | O(1)       | 不稳定 | 大规模数据，空间受限         |
-| 计数排序     | O(n+k)          | O(k)       | 稳定   | 整数排序，范围小             |
-| 桶排序       | O(n+k)          | O(n+k)     | 稳定   | 均匀分布数据                 |
-| 基数排序     | O(d(n+k))       | O(n+k)     | 稳定   | 多关键字排序（字符串、整数） |
+| Bubble sort | O(n²) | O(1) | Stable | Small datasets, teaching |
+| Selection sort | O(n²) | O(1) | Unstable | Small datasets |
+| Insertion sort | O(n²) | O(1) | Stable | Small or nearly sorted datasets |
+| Shell sort | O(n log n)~O(n²) | O(1) | Unstable | Medium-sized datasets |
+| Merge sort | O(n log n) | O(n) | Stable | Large datasets requiring stability |
+| Quick sort | O(n log n) | O(log n) | Unstable | General-purpose sorting of large datasets |
+| Heap sort | O(n log n) | O(1) | Unstable | Large datasets with limited space |
+| Counting sort | O(n+k) | O(k) | Stable | Integers with a small value range |
+| Bucket sort | O(n+k) | O(n+k) | Stable | Uniformly distributed data |
+| Radix sort | O(d(n+k)) | O(n+k) | Stable | Sorting by multiple keys (strings, integers) |
 
-> **应用建议**：
-> - 小规模数据：插入排序
-> - 通用排序：快速排序（需随机化基准避免最坏情况）
-> - 需要稳定性：归并排序
-> - 整数排序：计数排序/基数排序（数据范围合适时）
-> - 空间受限：堆排序
+> **Recommendations**:
+> - Small datasets: insertion sort
+> - General-purpose sorting: quick sort (randomize the pivot to avoid the worst case)
+> - Stability required: merge sort
+> - Integer sorting: counting sort/radix sort (when the value range is suitable)
+> - Limited space: heap sort
 
 
-## 1. 冒泡排序 (Bubble Sort)
-**思想**：相邻元素两两比较，将较大元素逐步"冒泡"到数组末端
-- **时间复杂度**：O(n²)
-- **空间复杂度**：O(1)
-- **稳定性**：稳定
+## 1. Bubble sort
+**Idea**: compare adjacent elements in pairs, gradually "bubbling" larger elements to the end of the array
+- **Time complexity**: O(n²)
+- **Space complexity**: O(1)
+- **Stability**: stable
 ```cpp
 void bubbleSort(vector<int>& arr) {
     int n = arr.size();
@@ -46,16 +46,16 @@ void bubbleSort(vector<int>& arr) {
                 swapped = true;
             }
         }
-        if (!swapped) break; // 无交换时提前退出
+        if (!swapped) break; // Exit early if no elements were swapped
     }
 }
 ```
 
-## 2. 选择排序 (Selection Sort)
-**思想**：每次选择未排序部分的最小元素，放到已排序序列末尾
-- **时间复杂度**：O(n²)
-- **空间复杂度**：O(1)
-- **稳定性**：不稳定
+## 2. Selection sort
+**Idea**: repeatedly select the smallest element in the unsorted portion and place it at the end of the sorted portion
+- **Time complexity**: O(n²)
+- **Space complexity**: O(1)
+- **Stability**: unstable
 ```cpp
 void selectionSort(vector<int>& arr) {
     int n = arr.size();
@@ -70,11 +70,11 @@ void selectionSort(vector<int>& arr) {
 }
 ```
 
-## 3. 插入排序 (Insertion Sort)
-**思想**：将未排序元素插入已排序序列的适当位置
-- **时间复杂度**：O(n²)（最坏），O(n)（最好）
-- **空间复杂度**：O(1)
-- **稳定性**：稳定
+## 3. Insertion sort
+**Idea**: insert each unsorted element into the appropriate position in the sorted portion
+- **Time complexity**: O(n²) (worst case), O(n) (best case)
+- **Space complexity**: O(1)
+- **Stability**: stable
 ```cpp
 void insertionSort(vector<int>& arr) {
     int n = arr.size();
@@ -90,11 +90,11 @@ void insertionSort(vector<int>& arr) {
 }
 ```
 
-## 4. 希尔排序 (Shell Sort)
-**思想**：改进的插入排序，通过分组增量减少移动次数
-- **时间复杂度**：O(n log n) ~ O(n²)
-- **空间复杂度**：O(1)
-- **稳定性**：不稳定
+## 4. Shell sort
+**Idea**: improve insertion sort by grouping elements at successive gaps to reduce the number of moves
+- **Time complexity**: O(n log n) ~ O(n²)
+- **Space complexity**: O(1)
+- **Stability**: unstable
 ```cpp
 void shellSort(vector<int>& arr) {
     int n = arr.size();
@@ -110,11 +110,11 @@ void shellSort(vector<int>& arr) {
 }
 ```
 
-## 5. 归并排序 (Merge Sort)
-**思想**：分治法，递归分割数组，排序后合并有序子数组
-- **时间复杂度**：O(n log n)
-- **空间复杂度**：O(n)
-- **稳定性**：稳定
+## 5. Merge sort
+**Idea**: use divide and conquer to recursively split the array, sort the subarrays, and merge them
+- **Time complexity**: O(n log n)
+- **Space complexity**: O(n)
+- **Stability**: stable
 ```cpp
 void merge(vector<int>& arr, int l, int m, int r) {
     vector<int> temp(r-l+1);
@@ -171,11 +171,11 @@ func merge(left, right []int) []int {
 }
 ```
 
-## 6. 快速排序 (Quick Sort)
-**思想**：分治法，选取基准元素，将数组划分为左右子数组
-- **时间复杂度**：O(n log n)（平均），O(n²)（最坏）
-- **空间复杂度**：O(log n)
-- **稳定性**：不稳定
+## 6. Quick sort
+**Idea**: use divide and conquer, choosing a pivot to partition the array into left and right subarrays
+- **Time complexity**: O(n log n) (average), O(n²) (worst case)
+- **Space complexity**: O(log n)
+- **Stability**: unstable
 ```cpp
 int partition(vector<int>& arr, int low, int high) {
     int pivot = arr[random() % (high - low + 1) + low];
@@ -209,11 +209,11 @@ def quick_sort(arr):
     return quick_sort(left) + middle + quick_sort(right)
 ```
 
-## 7. 堆排序 (Heap Sort)
-**思想**：利用堆数据结构，建立最大堆后反复提取堆顶元素
-- **时间复杂度**：O(n log n)
-- **空间复杂度**：O(1)
-- **稳定性**：不稳定
+## 7. Heap sort
+**Idea**: build a max heap and repeatedly extract the root element
+- **Time complexity**: O(n log n)
+- **Space complexity**: O(1)
+- **Stability**: unstable
 ```cpp
 void heapify(vector<int>& arr, int n, int i) {
     int largest = i;
@@ -230,10 +230,10 @@ void heapify(vector<int>& arr, int n, int i) {
 
 void heapSort(vector<int>& arr) {
     int n = arr.size();
-    // 建堆
+    // Build the heap
     for (int i = n/2-1; i >= 0; i--)
         heapify(arr, n, i);
-    // 排序
+    // Sort
     for (int i = n-1; i > 0; i--) {
         swap(arr[0], arr[i]);
         heapify(arr, i, 0);
@@ -241,11 +241,11 @@ void heapSort(vector<int>& arr) {
 }
 ```
 
-## 8. 计数排序 (Counting Sort)
-**思想**：非比较排序，统计元素出现次数后重建数组
-- **时间复杂度**：O(n+k)（k为数据范围）
-- **空间复杂度**：O(k)
-- **稳定性**：稳定
+## 8. Counting sort
+**Idea**: use a non-comparison sort that counts element occurrences and reconstructs the array
+- **Time complexity**: O(n+k) (k is the value range)
+- **Space complexity**: O(k)
+- **Stability**: stable
 ```cpp
 void countingSort(vector<int>& arr) {
     if (arr.empty()) return;
@@ -269,25 +269,25 @@ void countingSort(vector<int>& arr) {
 }
 ```
 
-## 9. 桶排序 (Bucket Sort)
-**思想**：将数据分到有限数量的桶中，各桶分别排序
-- **时间复杂度**：O(n+k)
-- **空间复杂度**：O(n+k)
-- **稳定性**：稳定（取决于桶内排序算法）
+## 9. Bucket sort
+**Idea**: distribute the data into a finite number of buckets and sort each bucket separately
+- **Time complexity**: O(n+k)
+- **Space complexity**: O(n+k)
+- **Stability**: stable (depends on the sorting algorithm within each bucket)
 ```cpp
 void bucketSort(vector<float>& arr) {
     int n = arr.size();
     vector<vector<float>> buckets(n);
     
-    // 分桶
+    // Distribute elements into buckets
     for (float num : arr) 
         buckets[static_cast<int>(n*num)].push_back(num);
     
-    // 桶内排序
+    // Sort within each bucket
     for (auto& bucket : buckets)
         sort(bucket.begin(), bucket.end());
     
-    // 合并
+    // Merge
     int index = 0;
     for (auto& bucket : buckets)
         for (float num : bucket)
@@ -295,11 +295,11 @@ void bucketSort(vector<float>& arr) {
 }
 ```
 
-## 10. 基数排序 (Radix Sort)
-**思想**：按位数从低到高依次进行稳定排序（通常用计数排序）
-- **时间复杂度**：O(d(n+k))（d为最大位数）
-- **空间复杂度**：O(n+k)
-- **稳定性**：稳定
+## 10. Radix sort
+**Idea**: apply a stable sort to each digit from least to most significant (usually counting sort)
+- **Time complexity**: O(d(n+k)) (d is the maximum number of digits)
+- **Space complexity**: O(n+k)
+- **Stability**: stable
 ```cpp
 void countingSortForRadix(vector<int>& arr, int exp) {
     vector<int> output(arr.size());

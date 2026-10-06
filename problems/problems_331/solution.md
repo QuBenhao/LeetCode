@@ -1,4 +1,4 @@
-# [Python] 栈 or 计数
+# [Python] Stack or counting
 
 > Author: Benhao
 > Date: 2021-03-12
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-用栈模拟节点消除过程。
+### Approach
+Use a stack to simulate removing completed nodes.
 
-或者计数统计是否合法，初始树只有一个槽位，
-初始root位，total = 1，遇到数字槽位会减1再加2，遇到'#'槽位会减1。如果某一时刻槽位为0，但仍有node没填，return False。最终槽位应该被填满，为0。
+Alternatively, count available slots to validate the serialization. The tree initially has one slot.
+Start with the root slot, total = 1. A number consumes one slot and creates two, while '#' consumes one slot. If slots reach 0 while nodes remain, return False. All slots should be filled at the end, leaving 0.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

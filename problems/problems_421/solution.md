@@ -1,4 +1,4 @@
-# [Python] Trie字典树
+# [Python] Trie
 
 > Author: Benhao
 > Date: 2021-05-16
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-字典实现，查询的时候根据当前最大值判断有没有更大的结果存在
+### Approach
+Implement the Trie with dictionaries. During queries, use the current maximum to determine whether a larger result can exist.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

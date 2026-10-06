@@ -26,8 +26,8 @@ class Solution(solution.Solution):
                         deg[i // j] += 1
 
         ans = 0
-        # 只考虑相邻点不同(拓扑序)
-        # dp[i]表示以i开头的最长序列总数
+        # Consider only unequal adjacent values (topological order)
+        # dp[i] is the number of longest sequences starting with i
         dp = [[0 for _ in range(21)] for _ in range(maxValue + 1)]
         queue = deque()
         for i in range(1, maxValue + 1):

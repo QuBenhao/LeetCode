@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-BFS统计每一层的和，返回和最大且层数最小的那个即可。
+### Approach
+Use BFS to compute each level's sum, then return the earliest level with the largest sum.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

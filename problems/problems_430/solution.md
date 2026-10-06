@@ -1,4 +1,4 @@
-# [Python/Java] dfs递归
+# [Python/Java] Recursive DFS
 
 > slug: pythonjava-dfsdi-gui-by-himymben-9098
 > date: 2021-09-23
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/flatten-a-multilevel-doubly-linked-list/solutions/6qH9u9/pythonjava-dfsdi-gui-by-himymben-9098/
 
 ---
-### 解题思路
-有child就往child优先递归，返回末尾节点，将末尾节点和node.next拼接成双向链表(扁平化)即可。
+### Approach
+Recurse into child first whenever it exists. Return the tail node, then connect it to node.next as a doubly linked list to flatten the structure.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

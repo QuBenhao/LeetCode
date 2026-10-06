@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 队列模拟
+# [Python/Java/JavaScript/Go] Queue simulation
 
 > slug: pythonjavajavascriptgo-by-himymben-h9p5
 > date: 2022-05-05
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/number-of-recent-calls/solutions/Q3wRs7/pythonjavajavascriptgo-by-himymben-h9p5/
 
 ---
-### 解题思路
-就每次把超时的踢掉
+### Approach
+Remove expired entries each time
 
 PS:
-js使用[队列](https://github.com/datastructures-js/queue)
+JS uses [queue](https://github.com/datastructures-js/queue)
 
-### 代码
+### Code
 
 ```Python3 []
 class RecentCounter:

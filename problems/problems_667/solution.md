@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 构造题
+# [Python/Java/TypeScript/Go] Constructive solution
 
 > Author: Benhao
 > Date: 2022-09-07
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-注意到题目没有说不存在构造的情况的返回，估计是全部存在构造，那构造方式一定是围绕着k的。
-想到用k或k+1个数构造k-1个不同的差，剩下的数以同样的差排列
-尝试构造k-1个差分别为k到2,剩下的数字差为1
-发现[1-(k + 1)]以 1 (k + 1) 2 k 3 (k - 1) 这样摆动刚好构造k, k-1, k - 2, k - 3 ... 这些差, 剩下的数排列为差为1的递增数列   【注意最后一个数 k // 2 + 1 和下一个数 k + 2 的差也被摆动包含】
+### Approach
+The problem does not specify what to return when construction is impossible, so a construction presumably always exists. It must be organized around k.
+Try using k or k+1 numbers to construct k-1 distinct differences, with all remaining numbers sharing the same difference.
+Construct k-1 differences from k down to 2, then use a difference of 1 for the remaining numbers.
+Alternating the values in [1-(k + 1)] as 1 (k + 1) 2 k 3 (k - 1) produces differences k, k-1, k - 2, k - 3 ... . Arrange the remaining values in ascending order with a difference of 1. [Note: the difference between the last alternating value, k // 2 + 1, and the next value, k + 2, has already appeared in the alternating part.]
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

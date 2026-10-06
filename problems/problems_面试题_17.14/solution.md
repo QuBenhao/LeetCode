@@ -1,4 +1,4 @@
-# [Python/Java] 大顶堆
+# [Python/Java] Max-heap
 
 > slug: pythonjava-da-ding-dui-by-himymben-za2u
 > date: 2021-09-02
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/smallest-k-lcci/solutions/2bxjRU/pythonjava-da-ding-dui-by-himymben-za2u/
 
 ---
-### 解题思路
-我们需要k个最小数，记录一个大小为k的大顶堆即可，每次超过长度就退出最大的元素(所以用大顶堆)。
-同理需要k个最大数，记录大小为k的小顶堆即可。
+### Approach
+To find the k smallest numbers, maintain a max-heap of size k. Whenever it grows beyond k, remove the largest element; this is why a max-heap is used.
+Likewise, use a min-heap of size k to find the k largest numbers.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

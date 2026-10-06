@@ -9,7 +9,7 @@ class Solution(solution.Solution):
         return self.minSubArrayLen(*test_input)
 
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
-        # 和862的区别在于没有负数，所以可以使用双指针来解决问题。
+        # Unlike problem 862, there are no negative numbers, so two pointers can solve this problem.
         left = 0
         ans = inf
         prefix_sum = 0

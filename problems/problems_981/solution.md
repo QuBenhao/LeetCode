@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-维护一个有序字典(字典套字典)，并使用二分查找来找到最大的timestamp的位置。
+### Approach
+Maintain an ordered dictionary nested inside a dictionary, and use binary search to locate the largest timestamp.
 
-### 代码
+### Code
 
 ```python3
 from sortedcontainers import SortedDict

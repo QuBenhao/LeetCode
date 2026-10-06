@@ -28,9 +28,9 @@ class Solution(solution.Solution):
         # for pile in piles:
         #     n = len(pile)
         #     for i in range(1, n):
-        #         pile[i] += pile[i - 1]  # 提前计算 pile 的前缀和
+        #         pile[i] += pile[i - 1]  # Precompute the prefix sums of pile
         #     sum_n = min(sum_n + n, k)
-        #     for j in range(sum_n, 0, -1):  # 优化：j 从前 i 个栈的大小之和开始枚举
-        #         # w 从 0 开始，物品体积为 w+1
+        #     for j in range(sum_n, 0, -1):  # Optimization: start j at the total size of the first i stacks
+        #         # w starts at 0, so the item weight is w+1
         #         f[j] = max(f[j], max(f[j - w - 1] + pile[w] for w in range(min(n, j))))
         # return f[k]

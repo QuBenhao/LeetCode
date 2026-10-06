@@ -26,7 +26,7 @@ class Solution(solution.Solution):
             if cnt[y]:
                 d = 1
                 while d * y <= upper:
-                    # 所有在 (d + 1) * y - 1 到 d * y的数 x，都满足 x // y = d
+                    # Every x from d * y through (d + 1) * y - 1 satisfies x // y = d
                     ans += cnt[y] * d * (presum[min((d + 1) * y - 1, upper)] - presum[d * y - 1])
                     d += 1
         return ans % mod

@@ -9,7 +9,7 @@ import (
 func minOperations(nums []int) (ans int) {
 	var minStack []int
 	for _, num := range nums {
-		// 左边每个更大的元素都需要一次操作，因为当前为割点
+		// Each larger element on the left requires an operation, since the current element is a split point
 		for len(minStack) > 0 && num < minStack[len(minStack)-1] {
 			minStack = minStack[:len(minStack)-1]
 			ans++

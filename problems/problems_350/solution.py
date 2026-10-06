@@ -7,7 +7,7 @@ class Solution(solution.Solution):
         return self.intersect(*test_input)
 
     def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        # # 解法一： 排序后双指针对比
+        # # Approach 1: Sort, then compare with two pointers
         # nums1.sort()
         # nums2.sort()
         # ans = []
@@ -24,7 +24,7 @@ class Solution(solution.Solution):
         #         idx1 += 1
         # return ans
     
-        # 解法二： 哈希计数对比
+        # Approach 2: Compare frequency counts
         c1, c2 = Counter(nums1), Counter(nums2)
         ans = []
         for k in c1 & c2:

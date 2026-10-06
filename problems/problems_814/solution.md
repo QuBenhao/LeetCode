@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 递归
+# [Python/Java/TypeScript/Go] Recursion
 
 > slug: pythonjavatypescriptgo-di-gui-by-himymbe-lvra
 > date: 2022-07-20
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/binary-tree-pruning/solutions/9le2Ev/pythonjavatypescriptgo-di-gui-by-himymbe-lvra/
 
 ---
-### 解题思路
-要剪掉所有全是0的分枝，我们可以递归看子树是否都为0，如果子树都为0即节点置为空。
-如果子树都为空且自身是0就代表该节点可以被剪掉，返回空；
-否则返回递归剪枝后的左子树和右子树构成的新树。
+### Approach
+To prune every all-zero branch, recursively check whether a subtree contains only zeros and replace it with null if so.
+If both subtrees are null and the node itself is 0, it can be pruned; return null.
+Otherwise, return the tree with its recursively pruned left and right subtrees.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

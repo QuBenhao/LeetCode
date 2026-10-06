@@ -1,4 +1,4 @@
-# [Python] 下一个对称数枚举 + 进制转换
+# [Python] Enumerate the next palindrome + convert bases
 
 > Author: Benhao
 > Date: 2021-11-21
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-枚举对称数，再转换进制，再检查转换后是否对称即可
+### Approach
+Enumerate palindromes, convert each to the target base, then check whether it is still a palindrome.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:
@@ -32,7 +32,7 @@ class Solution:
             return int(s[:l] + str((int(s[l]) + 1)) + '0' * (r - 1 - l) + str((int(s[r]) + 1)) + s[r + 1:])
 
 
-        # 十进制转换为base进制
+        # Convert from decimal to base
         def convert_to_base(num, base):
             ans = []
             while num:

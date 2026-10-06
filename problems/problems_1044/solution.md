@@ -1,4 +1,4 @@
-# [Python] 今天这题太难了我真不会
+# [Python] Today's problem is too hard for me
 
 > slug: python-jin-tian-zhe-ti-tai-nan-liao-wo-z-6wbs
 > date: 2021-12-22
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/longest-duplicate-substring/solutions/FXznWC/python-jin-tian-zhe-ti-tai-nan-liao-wo-z-6wbs/
 
 ---
-### 解题思路
-我废了，只会这样比较暴力的混一混了…具体值得学习的算法还是参考叶总、可乐总、烟花佬、dian神等诸位大佬的代码吧。
+### Approach
+I'm stuck; this fairly brute-force approach is all I can manage... For algorithms worth studying, refer to the code from 叶总, 可乐总, 烟花佬, dian神, and the other experts.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

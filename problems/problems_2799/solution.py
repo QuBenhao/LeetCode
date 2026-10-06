@@ -17,7 +17,7 @@ class Solution(solution.Solution):
             while right < n and len(window) < len(uniques):
                 window[nums[right]] += 1
                 right += 1
-            # 以left为左边界，right到n为右边界的子数组均满足条件
+            # Subarrays with left boundary left and right boundary from right through n all satisfy the condition
             if len(window) == len(uniques):
                 ans += n - right + 1
             window[num] -= 1

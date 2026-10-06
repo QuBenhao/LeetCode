@@ -1,4 +1,4 @@
-# [Python/Java] 以出度为0开始的拓扑排序 or 搜索
+# [Python/Java] Topological sort from nodes with outdegree 0, or search
 
 > Author: Benhao
 > Date: 2021-08-04
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-拓扑的解法中，所有出度为0的点是安全的，那么出到这些点的点也可以减去这条边，如果其剩下的出度为0，它也是安全的，以此类推。
+### Approach
+In the topological approach, every node with outdegree 0 is safe. Remove edges leading to these nodes; if a predecessor's remaining outdegree becomes 0, it is safe too. Repeat this process.
 
-搜索的时候可以标记节点的当前状态，如果他有出口，暂定为1，如果他的出口全部为安全的点，他们的和必然为0，就认定它也是安全的，否则它是不安全的。
+During search, mark each node's current state. If it has outgoing edges, tentatively assign 1. If all its successors are safe, their states sum to 0 and this node is safe too; otherwise it is unsafe.
 
-### 代码
-拓扑
+### Code
+Topological sort
 ```Python3 []
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
@@ -23,20 +23,20 @@ class Solution:
         for i, nodes in enumerate(graph):
             for node in nodes:
                 edges[node].append(i)
-                # 统计所有点的出度
+                # Count every node's outdegree
                 out[i] += 1
         q = deque([])
         for i in range(n):
             if not out[i]:
-                # 出度为0的点加入队列
+                # Enqueue nodes with outdegree 0
                 q.append(i)
         while q:
             node = q.popleft()
             for front in edges[node]:
-                # 去掉front->node这条边
+                # Remove the edge front->node
                 out[front] -= 1
                 if not out[front]:
-                    # 如果去掉该边后front的出度变为0，加入队列
+                    # If removing the edge makes front's outdegree 0, enqueue it
                     q.append(front)
         return [i for i in range(n) if not out[i]]
 ```
@@ -78,20 +78,20 @@ DFS
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
         n = len(graph)
-        # 每个点可能的状态: -1:点是未走过的, 0:点是安全的，1:点是走过的不确定安不安全，2:点是不安全的
+        # Node states: -1: unvisited, 0: safe, 1: visited but safety undetermined, 2: unsafe
         states = [-1] * n
 
         def dfs(node):
-            # 还未访问过
+            # Not yet visited
             if states[node] == -1:
-                # 标记为状态1
+                # Mark as state 1
                 states[node] = 1
                 for nxt in graph[node]:
                     states[node] += dfs(nxt)
-                    # 已经知道是不安全的了,可以提前结束循环
+                    # Already known to be unsafe; stop the loop early
                     if states[node] > 1:
                         break
-                # 出的所有点为安全的，它才是安全的
+                # A node is safe only if all its successors are safe
                 states[node] = 0 if states[node] == 1 else 2
             return states[node]
 
@@ -103,7 +103,7 @@ class Solution {
     int[] states;
     public List<Integer> eventualSafeNodes(int[][] graph) {
         int n = graph.length;
-        // 每个点可能的状态: -1:点是未走过的, 0:点是安全的，1:点是走过的不确定安不安全，2:点是不安全的
+        // Node states: -1: unvisited, 0: safe, 1: visited but safety undetermined, 2: unsafe
         states = new int[n];
         Arrays.fill(states, -1);
         graph_ = graph;
@@ -131,12 +131,12 @@ class Solution {
     }
 }
 ```
-DFS也可以使用纯boolean来标记
+DFS can also use boolean flags alone
 ```Python3 []
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
         n = len(graph)
-        # 每个点可能的状态: 安全的，不安全的
+        # Node states: safe or unsafe
         states = [None] * n
 
         def dfs(node):

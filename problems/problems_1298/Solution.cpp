@@ -11,8 +11,8 @@ class Solution {
 public:
     int maxCandies(vector<int>& status, vector<int>& candies, vector<vector<int>>& keys, vector<vector<int>>& containedBoxes, vector<int>& initialBoxes) {
         int ans = 0;
-        queue<int> q; // 可以使用的箱子
-        unordered_set<int> wait; // 有箱子, 但暂时没钥匙
+        queue<int> q; // Boxes that can be used
+        unordered_set<int> wait; // Boxes we have but cannot yet unlock
         for (auto b: initialBoxes) {
             if (status[b] == 1) {
                 q.push(b);
@@ -26,7 +26,7 @@ public:
             q.pop();
             for (auto k: keys[box]) {
                 auto it = wait.find(k);
-                if (it != wait.end()) { // 先遇到了箱子, 后拿到的钥匙
+                if (it != wait.end()) { // The box was found before its key
                     q.push(*it);
                     wait.erase(it);
                 }
@@ -34,7 +34,7 @@ public:
             }
             ans += candies[box];
             for (auto b: containedBoxes[box]) {
-                if (status[b] == 1 || ks.find(b) != ks.end()) { // 先拿到了钥匙, 后遇到了箱子
+                if (status[b] == 1 || ks.find(b) != ks.end()) { // The key was found before its box
                     q.push(b);
                 } else {
                     wait.insert(b);

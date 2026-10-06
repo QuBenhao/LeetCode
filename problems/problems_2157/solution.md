@@ -1,4 +1,4 @@
-# [Python] 状态压缩并查集
+# [Python] Union-find with bitmask states
 
 > slug: python-zhuang-tai-ya-suo-bing-cha-ji-by-drrvu
 > date: 2022-01-30
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/groups-of-strings/solutions/cpubag/python-zhuang-tai-ya-suo-bing-cha-ji-by-drrvu/
 
 ---
-### 解题思路
-终于学会了并查集。
+### Approach
+I finally learned union-find.
 
-### 代码
+### Code
 ```python3
 class Solution:
     def groupStrings(self, words: List[str]) -> List[int]:
@@ -25,13 +25,13 @@ class Solution:
         f = [i for i in range(n)]
         rank = [1] * n
 
-        # 路径合并
+        # Merge paths
         def find(x):
             if x != f[x]:
                 f[x] = find(f[x])
             return f[x]
         
-        # 按秩合并
+        # Union by rank
         def union(x, y):
             fx, fy = find(x), find(y)
             if rank[fx] <= rank[fy]:
@@ -50,12 +50,12 @@ class Solution:
         for k in range(n):
             tp = helper(words[k])
             for i in range(26):
-                # 删除当前位
+                # Remove the current bit
                 if (tp >> i) & 1:
                     cur = tp ^ (1 << i)
                     if cur in idx_map:
                         union(k, idx_map[cur])
-                    # 替换
+                    # Replace
                     for j in range(26):
                         if not ((tp >> j) & 1):
                             cur ^= 1 << j

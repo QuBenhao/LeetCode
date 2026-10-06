@@ -1,6 +1,6 @@
-# 回文串
+# Palindromes
 
-预处理方式
+Preprocessing approach
 
 ```go
 package main

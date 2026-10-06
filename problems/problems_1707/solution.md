@@ -1,4 +1,4 @@
-# [Python] 前缀树
+# [Python] Trie
 
 > Author: Benhao
 > Date: 2021-05-23
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-艾玛这不就是去年啥也不会的时候参加的周赛最后一题么。现在终于会了。
-排序后查询的意义是我们只加入能使用的num到数组中，这样查找最大值时可以使用贪心，能异或取1就取1，不能再妥协取0，啥也取不了的说明没数，返回-1。
-用idx记一下当前插入了的nums的位置。
+### Approach
+This was the last problem in a weekly contest I entered last year, when I barely knew anything. I can finally solve it now.
+Sorting the queries lets us insert only eligible numbers. Then greedily maximize the XOR: choose a 1 bit whenever possible, otherwise accept 0. If neither is possible, no number is available; return -1.
+Use idx to track how far we have inserted into nums.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

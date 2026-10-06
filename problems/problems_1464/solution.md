@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 前K大模板
+# [Python/Java/TypeScript/Go] Template for the top K largest values
 
 > Author: Benhao
 > Date: 2022-08-25
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-一次遍历维护前k大、前k小也是老生常谈了，
-这里给出一份模板代码。
+### Approach
+Maintaining the k largest or k smallest values in one traversal is a familiar technique.
+Here is a template implementation.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -68,7 +68,7 @@ func maxProduct(nums []int) int {
 }
 ```
 ```Python3
-# 前k小去掉这里面的所有负号
+# Remove all minus signs here to find the k smallest values
 def find_k_max(arr: List[int], k: int) -> List[int]:
     ans = []
     for num in arr:

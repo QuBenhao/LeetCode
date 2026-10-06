@@ -1,4 +1,4 @@
-# [Python/Go/Java/Cpp] 模拟统计
+# [Python/Go/Java/Cpp] Simulation and counting
 
 > Author: Benhao
 > Date: 2024-06-02
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 校验LR的数量一样，UD的数量一样
+> Check that L and R occur equally often, and that U and D occur equally often.
 
-# 解题方法
+# Approach
 
-> 一正一负即可
+> Use a positive increment for one direction and a negative increment for its opposite.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

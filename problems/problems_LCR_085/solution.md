@@ -1,4 +1,4 @@
-# 回溯
+# Backtracking
 
 > slug: hui-su-by-himymben-ebyy
 > date: 2025-04-27
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/IDBivT/solutions/2FGqaR/hui-su-by-himymben-ebyy/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

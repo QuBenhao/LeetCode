@@ -1,4 +1,4 @@
-# [Python/Go] 离线查询 + 带删除的Trie (基于421)
+# [Python/Go] Offline queries + trie with deletion (based on 421)
 
 > slug: pythongo-chi-xian-cha-xun-dai-shan-chu-d-h57x
 > date: 2021-11-15
@@ -7,29 +7,29 @@
 > url: https://leetcode.cn/problems/maximum-genetic-difference-query/solutions/BwLgMk/pythongo-chi-xian-cha-xun-dai-shan-chu-d-h57x/
 
 ---
-### 解题思路
-用421的Trie树查询每次当前节点的所有查询（最大值）填入对应答案，递归处理完全部子节点以后，在Trie中删除当前节点
+### Approach
+Use the trie from problem 421 to answer the maximum-XOR queries at each node. Recursively process all children, then remove the current node from the trie.
 
-### 代码
+### Code
 
 ```Python3 []
 MAX_BIT = len(bin(200000)) - 2
 class Solution:
     def maxGeneticDifference(self, parents: List[int], queries: List[List[int]]) -> List[int]:
         ans = [0] * len(queries)
-        # 离线查询
+        # Offline queries
         query_map = defaultdict(list)
         for i,query in enumerate(queries):
             query_map[query[0]].append((i, query[1]))
         r = -1
-        # 建树
+        # Build the tree
         mapping = defaultdict(list)
         for i, parent in enumerate(parents):
             if parent == -1:
                 r = i
             else:
                 mapping[parent].append(i)
-        # 遍历树，增查删Trie
+        # Traverse the tree, inserting into, querying, and deleting from the trie
         trie = Trie()
         def dfs(node):
             trie.insert(node)
@@ -140,7 +140,7 @@ func (t *Trie) delete(num int){
 
 func maxGeneticDifference(parents []int, queries [][]int) []int {
     ans := make([]int, len(queries))
-    // 离线
+    // Offline queries
     type query struct{
         i int
         v int
@@ -149,7 +149,7 @@ func maxGeneticDifference(parents []int, queries [][]int) []int {
     for i, v := range queries {
         queryMap[v[0]] = append(queryMap[v[0]], query{i, v[1]})
     }
-    // 建树
+    // Build the tree
     root := -1
     tree := map[int][]int{}
     for i, p := range parents {
@@ -160,7 +160,7 @@ func maxGeneticDifference(parents []int, queries [][]int) []int {
         }
     }
 
-    // 树的递归、维护Trie
+    // Recurse over the tree and maintain the trie
     trie := Trie{}
     var dfs func(int)
     dfs = func(node int) {

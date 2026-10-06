@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟 
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: p-by-himymben-r24t
 > date: 2022-09-18
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/sort-array-by-increasing-frequency/solutions/PXN8OD/p-by-himymben-r24t/
 
 ---
-### 解题思路
-哈希表自定义排序
+### Approach
+Use a hash table and a custom sort order.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

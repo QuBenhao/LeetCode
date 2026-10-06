@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-mo-ni-by-himymben-fwa9
 > date: 2022-09-26
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/check-permutation-lcci/solutions/EKRyDc/pythonjavatypescriptgo-mo-ni-by-himymben-fwa9/
 
 ---
-### 解题思路
-判断排序或计数后是否一致即可
+### Approach
+Check whether the sorted strings or character counts match.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -20,7 +20,7 @@ class Solution:
 ```Java []
 class Solution {
     public boolean CheckPermutation(String s1, String s2) {
-        // 不确定是不是都是小写字母但还是这么写了，如果不是的话需要改一下大小和下面减的东西
+        // I assumed lowercase letters without being certain; otherwise, adjust the array size and the offset subtracted below
         int[] cnts = new int[26];
         for (int i = 0; i < s1.length(); i++) {
             cnts[s1.charAt(i) - 'a']++;

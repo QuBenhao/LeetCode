@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 数学
+# [Python/Java/JavaScript/Go] Mathematics
 
 > slug: pythonjavajavascriptgo-shu-xue-by-himymb-1ykq
 > date: 2021-12-30
@@ -7,18 +7,18 @@
 > url: https://leetcode.cn/problems/perfect-number/solutions/0b2hVU/pythonjavajavascriptgo-shu-xue-by-himymb-1ykq/
 
 ---
-### 解题思路
-完全参考[完全数](https://baike.baidu.com/item/完全数/370913?fr=aladdin)的性质。
+### Approach
+This relies entirely on the properties of [perfect numbers](https://baike.baidu.com/item/完全数/370913?fr=aladdin).
 
-最近的评论功能因为加审核制度所以总看不到，哎，和家人们断联的第四天。提前祝大家2022年新年快乐啦。
+Comments have been hard to see lately because of the new moderation process. Sigh, this is the fourth day of losing touch with you all. Happy New Year 2022 in advance!
 
 ![IMG_2414.jpg](https://pic.leetcode.cn/1640903013-RJtvwh-IMG_2414.jpg)
 
-刷力扣差不多正好一年有余，收获真的很多很多，给大家的小建议是不要浮躁，踏踏实实刷题最后一定会有收获。关键还认识了很多小伙伴儿！
+I have been practicing on LeetCode for just over a year and have learned so much. My advice is to be patient and keep working steadily through problems; the effort will pay off. Best of all, I have met lots of friends!
 
-明年继续加油！
+Let's keep it up next year!
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:
@@ -60,7 +60,7 @@ func checkPerfectNumber(num int) bool {
 }
 ```
 
-完美数: $2^{p - 1} * (2^{p} - 1)$ 且 $p$和$2^{p}-1$都为质数
+Perfect number: $2^{p - 1} * (2^{p} - 1)$, where both $p$ and $2^{p}-1$ are prime
 ```python3 []
 class Solution:
     def checkPerfectNumber(self, num: int) -> bool:
@@ -135,7 +135,7 @@ func isPrime(num int) bool {
 }
 ```
 
-其实上面这个性质在二进制中更明显，我们有$p$位$1$加上右边的$p-1$位$0$
+This property is even clearer in binary: we have $p$ bits set to $1$, followed by $p-1$ bits set to $0$.
 ```python3
 class Solution:
     def checkPerfectNumber(self, num: int) -> bool:

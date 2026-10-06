@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/maximum-candies-you-can-get-from-boxes/solutions/yDFjzO/bfs-by-himymben-f1ck/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 贪心
+# [Python/Java/JavaScript/Go] Greedy
 
 > slug: pythonjavajavascriptgo-tan-xin-by-himymb-04rr
 > date: 2021-12-13
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/course-schedule-iii/solutions/2e3wI5/pythonjavajavascriptgo-tan-xin-by-himymb-04rr/
 
 ---
-### 解题思路
-按结束时间排序，可以保证我们优先考虑加入先结束的课程。
-在课程塞满的时候，用当前的(如果耗时更短)替换耗时最长的那一个(所以使用优先队列维护时长)，
-这样做的意义在于我们用更少的时间完成了相同数量的课程，可以保证后面加入更多课程且不可能比原来的方案的课程少。
+### Approach
+Sort by deadline so courses that finish earlier are considered first.
+When the schedule is full, replace the longest course with the current one if it is shorter. Use a priority queue to track durations.
+This completes the same number of courses in less time, leaving room for more courses later and never giving fewer courses than the previous choice.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

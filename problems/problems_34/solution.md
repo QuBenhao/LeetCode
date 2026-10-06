@@ -1,4 +1,4 @@
-# [Python/C] 二分查找
+# [Python/C] Binary search
 
 > Author: Benhao
 > Date: 2024-04-01
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 题目已给定有序数组，可以二分查找target位置
+> The given array is sorted, so use binary search to locate target.
 
-# 解题方法
+# Approach
 
-> 二分查找
+> Binary search
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(log_n)$
 
-空间复杂度:
+Space complexity:
 > $O(log_n)$
 
 

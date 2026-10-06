@@ -1,4 +1,4 @@
-# [Python] 哈希表
+# [Python] Hash table
 
 > Author: Benhao
 > Date: 2024-03-31

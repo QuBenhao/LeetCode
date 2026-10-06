@@ -10,12 +10,12 @@ int main() {
     long long cur;
     std::cin >> cur;
     /**
-     * 一次操作中，我们可以使 diff[l]++, diff[r+1]-- 或者 diff[l]--, diff[r+1]++
-     * 求使diff[1] ~ diff[n - 1]全为0的最小操作次数
-     * 并求diff[0]的取值范围
+     * One operation can apply diff[l]++, diff[r+1]-- or diff[l]--, diff[r+1]++
+     * Find the minimum number of operations to make diff[1] ~ diff[n - 1] all 0
+     * Also find the range of possible values of diff[0]
      *
-     * 正负可以抵消, 比如正1和负1就消除一次，负2和正2就消除两次，最后看正的多出的或者负的多出的，就是diff[0]的取值范围
-     * 因为多出来的部分可以选择和diff[0]变化或者和diff[n]变化, 也就是多出来的部分diff[0]可以变也可以不变
+     * Positive and negative values cancel: +1 and -1 cancel once, while -2 and +2 cancel twice. The remaining positive or negative surplus determines the range of diff[0]
+     * The surplus can be paired with changes to either diff[0] or diff[n], so each surplus unit may or may not change diff[0]
      */
     long long positive = 0LL, negative = 0LL;
     for (int i = 1; i < n; ++i) {

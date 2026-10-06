@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 双向链表
+# [Python/Java/TypeScript/Go] Doubly linked list
 
 > slug: pythonjavatypescriptgo-shuangxianglianbi-x8p3
 > date: 2022-08-14
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/design-circular-deque/solutions/Y1pB5F/pythonjavatypescriptgo-shuangxianglianbi-x8p3/
 
 ---
-### 解题思路
-我们记录双向链表的头，这样在插入头部、插入尾部、断开头部、返回头部、断开尾部、返回尾部都可以做到$O(1)$。
+### Approach
+Keep the head of a doubly linked list so inserting, removing, or reading at either end takes $O(1)$.
 
-### 代码
+### Code
 
 ```Python3 []
 class MyCircularDeque:

@@ -1,4 +1,4 @@
-# [Python] 边缘情况真的多
+# [Python] So many edge cases
 
 > slug: python-bian-yuan-qing-kuang-zhen-de-duo-g0atc
 > date: 2021-07-13
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/string-to-integer-atoi/solutions/wZoM10/python-bian-yuan-qing-kuang-zhen-de-duo-g0atc/
 
 ---
-### 解题思路
-此处撰写解题思路
+### Approach
+Write the solution approach here
 
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > slug: pythongo-dong-tai-gui-hua-by-himymben-ijla
 > date: 2022-02-19
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/minimum-falling-path-sum/solutions/dlBqSn/pythongo-dong-tai-gui-hua-by-himymben-ijla/
 
 ---
-### 解题思路
-滚动更新，维护到达当前行每一列的最小值，最终到达最后一行返回最小的结果即可
+### Approach
+Use rolling updates to track the minimum cost of reaching each column of the current row, then return the minimum on the last row
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

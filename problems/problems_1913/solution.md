@@ -1,4 +1,4 @@
-# [Python] 贪心
+# [Python] Greedy
 
 > Author: Benhao
 > Date: 2021-06-27
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-两个最大的减去两个最小的
+### Approach
+Subtract the product of the two smallest values from the product of the two largest.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

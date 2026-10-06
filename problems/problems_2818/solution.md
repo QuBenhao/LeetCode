@@ -1,4 +1,4 @@
-# 单调栈+质因数预处理+快速幂
+# Monotonic stack + prime-factor preprocessing + fast exponentiation
 
 > slug: dan-diao-zhan-zhi-yin-shu-yu-chu-li-kuai-d6zz
 > date: 2025-06-29
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/apply-operations-to-maximize-score/solutions/gJbL7e/dan-diao-zhan-zhi-yin-shu-yu-chu-li-kuai-d6zz/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

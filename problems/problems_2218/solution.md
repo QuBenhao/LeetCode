@@ -1,4 +1,4 @@
-# [Python] 前缀和 + 记忆化递归
+# [Python] Prefix sums + memoized recursion
 
 > Author: Benhao
 > Date: 2022-03-27
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-换句话说就是暴力解法，对每个栈都讨论了当前能取到的最大值
+### Approach
+In other words, this is a brute-force approach that considers the best value obtainable from each stack.
 
-dfs(idx, r)表示从piles[idx]开始，还可以取r次的最大值。
-那么讨论从piles[idx]里取$x$个，其结果为后面还能取的最大值以及当前取走的和，也即 dfs(idx + 1, r - x) + sum(piles[idx][:x]) 【这里进行前缀和优化避免重复计算】,
-找到其中的最大值即可
+dfs(idx, r) is the maximum value obtainable starting at piles[idx] with r picks remaining.
+If we take $x$ coins from piles[idx], the result is the best value obtainable afterward plus the current sum: dfs(idx + 1, r - x) + sum(piles[idx][:x]). [Use prefix sums here to avoid repeated calculation.]
+Take the maximum over these choices.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

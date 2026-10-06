@@ -1,4 +1,4 @@
-# 滑动窗口
+# Sliding window
 
 ```python3
 def max_sliding_window(nums, k):

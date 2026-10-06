@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 排序+双指针滑窗
+# [Python/Java/JavaScript/Go] Sorting + two-pointer sliding window
 
 > Author: Benhao
 > Date: 2022-02-10
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-排序后我们要选k个数达到最大最小的差尽可能小，必然是连续的长度为k的子数组的选法，而差值就是最右边的元素减去最左边的元素。
-遍历返回其中的最小值即可。
+### Approach
+After sorting, the k values with the smallest maximum-minus-minimum difference form a contiguous length-k subarray. Its difference is the rightmost value minus the leftmost value.
+Enumerate these windows and return the smallest difference.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

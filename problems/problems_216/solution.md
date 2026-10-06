@@ -1,4 +1,4 @@
-# [Python] 简单回溯
+# [Python] Simple backtracking
 
 > Author: Benhao
 > Date: 2024-04-21

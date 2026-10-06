@@ -22,25 +22,25 @@ func mergeKLists(lists []*ListNode) *ListNode {
 			h = append(h, head)
 		}
 	}
-	heap.Init(&h) // 堆化
+	heap.Init(&h) // Heapify
 
-	dummy := &ListNode{} // 哨兵节点，作为合并后链表头节点的前一个节点
+	dummy := &ListNode{} // Sentinel node preceding the head of the merged list
 	cur := dummy
-	for len(h) > 0 { // 循环直到堆为空
-		node := heap.Pop(&h).(*ListNode) // 剩余节点中的最小节点
-		if node.Next != nil {            // 下一个节点不为空
-			heap.Push(&h, node.Next) // 下一个节点有可能是最小节点，入堆
+	for len(h) > 0 { // Loop until the heap is empty
+		node := heap.Pop(&h).(*ListNode) // Smallest remaining node
+		if node.Next != nil {            // The next node is not null
+			heap.Push(&h, node.Next) // The next node may be the smallest; push it onto the heap
 		}
-		cur.Next = node // 合并到新链表中
-		cur = cur.Next  // 准备合并下一个节点
+		cur.Next = node // Merge into the new list
+		cur = cur.Next  // Prepare to merge the next node
 	}
-	return dummy.Next // 哨兵节点的下一个节点就是新链表的头节点
+	return dummy.Next // The node after the sentinel is the head of the new list
 }
 
 type hp []*ListNode
 
 func (h hp) Len() int           { return len(h) }
-func (h hp) Less(i, j int) bool { return h[i].Val < h[j].Val } // 最小堆
+func (h hp) Less(i, j int) bool { return h[i].Val < h[j].Val } // Min-heap
 func (h hp) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
 func (h *hp) Push(v any)        { *h = append(*h, v.(*ListNode)) }
 func (h *hp) Pop() any          { a := *h; v := a[len(a)-1]; *h = a[:len(a)-1]; return v }

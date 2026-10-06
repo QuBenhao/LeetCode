@@ -1,4 +1,4 @@
-# [Python] 极小极大博弈
+# [Python] Minimax game
 
 > Author: Benhao
 > Date: 2022-05-09
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
+### Approach
 
-[和猫和老鼠一个思路](https://leetcode.cn/problems/cat-and-mouse/solution/pythonjavajavascriptgo-zui-da-zui-xiao-b-fyt8/)
-实际状态最多有 8 * 8 * 8 * 8 * 2 种，可以用题目描述的1000作为界，但是Py会TLE。
-猜测128为回合阈值，如果TLE可以调小一点，大于64，不会证明, 不保证正确性。
+[The same idea as Cat and Mouse](https://leetcode.cn/problems/cat-and-mouse/solution/pythonjavajavascriptgo-zui-da-zui-xiao-b-fyt8/)
+There are at most 8 * 8 * 8 * 8 * 2 states. The statement's limit of 1000 turns can be used, but Python times out.
+I guessed a threshold of 128 turns; if it times out, try a smaller value above 64. I do not have a proof and cannot guarantee correctness.
 
-### 代码
+### Code
 
 ```python3
 DIRS = (0, 1), (1, 0), (0, -1), (-1, 0)
@@ -33,20 +33,20 @@ class Solution:
         @lru_cache(None)
         def dfs(m, c, i):
             """
-            极大极小博弈，
-            老鼠尽量找自己获胜的，其次接受平局
-            猫尽量找自己获胜的，其次接受平局
+            Minimax game:
+            The mouse prefers a win, then a draw
+            The cat prefers a win, then a draw
 
-            :param m: 老鼠的位置
-            :param c: 猫的位置
-            :param i: 回合
+            :param m: Mouse position
+            :param c: Cat position
+            :param i: Turn
             """
             if m == c or c == food or i > 128:
                 return False
             if m == food:
                 return True
             is_cat = False
-            # 猫回合
+            # Cat's turn
             if i % 2:
                 pos, jump = c, catJump
                 is_cat = True

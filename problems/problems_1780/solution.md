@@ -1,4 +1,4 @@
-# 三进制
+# Base 3
 
 > Author: Benhao
 > Date: 2022-12-08
@@ -11,17 +11,17 @@
 
 [TOC]
 
-# 思路
-> 一个数可以表示为不同的3的幂次的和，那么它的三进制每一位只能是1或0
+# Intuition
+> A sum of distinct powers of 3 has only 0 and 1 digits in base 3.
 
-# 解题方法
-> 按三进制转换，确保三进制任意位中没有2
+# Approach
+> Convert to base 3 and ensure no digit is 2.
 
-# 复杂度
-- 时间复杂度: 
+# Complexity
+- Time complexity:
 > $O(log_{3}n)$
 
-- 空间复杂度: 
+- Space complexity:
 > $O(1)$
 
 # Code

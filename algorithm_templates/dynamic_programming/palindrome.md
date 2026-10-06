@@ -1,4 +1,4 @@
-# 回文串切割
+# Palindrome partitioning
 
 ```python
 def min_cut(s):

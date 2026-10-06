@@ -62,14 +62,14 @@ def get_answer_san_ye(problem_id: str, problem_slug: Optional[str] = None) -> Op
 
 def get_answer_endlesscheng(problem_slug: str, cookie: str) -> Optional[Dict]:
     """
-    获取 endlesscheng (灵茶山艾府) 在指定题目下的题解
+    Get the solution by endlesscheng (灵茶山艾府) for the specified problem
 
     Args:
-        problem_slug: 题目 slug
+        problem_slug: Problem slug
         cookie: LeetCode Cookie
 
     Returns:
-        题解内容字典（含 title, content, author 等），未找到返回 None
+        Dictionary of solution content (including title, content, author, etc.); None if not found
     """
     if not cookie:
         logging.warning("Cookie is empty, cannot fetch endlesscheng solution")
@@ -80,18 +80,18 @@ def get_answer_endlesscheng(problem_slug: str, cookie: str) -> Optional[Dict]:
 
 def get_answer_articles(problem_slug: str, cookie: str, first: int = 5, skip: int = 0) -> Dict:
     """
-    获取指定题目的社区热门题解列表
+    Get popular community solutions for the specified problem
 
     Args:
-        problem_slug: 题目 slug
+        problem_slug: Problem slug
         cookie: LeetCode Cookie
-        first: 返回数量，默认 5
-        skip: 跳过数量，默认 0（用于分页）
+        first: Number of results to return; defaults to 5
+        skip: Number of results to skip; defaults to 0 (for pagination)
 
     Returns:
-        字典，包含:
-        - total: 总数
-        - articles: 题解列表，每个元素含 slug, title, author, upvoteCount, hitCount, summary 等
+        Dictionary containing:
+        - total: Total count
+        - articles: List of solutions, each containing slug, title, author, upvoteCount, hitCount, summary, etc.
     """
     if not cookie:
         logging.warning("Cookie is empty, cannot fetch solution articles")

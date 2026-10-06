@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 最接近开根的因子
+# [Python/Java/JavaScript] The factor closest to the square root
 
 > slug: pythonjavajavascript-zui-jie-jin-kai-gen-yhge
 > date: 2021-10-23

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 栈应用
+# [Python/Java/JavaScript/Go] Applying a stack
 
 > slug: pythonjavajavascriptgo-by-himymben-os66
 > date: 2022-04-15
@@ -7,42 +7,42 @@
 > url: https://leetcode.cn/problems/mini-parser/solutions/RdMgHh/pythonjavajavascriptgo-by-himymben-os66/
 
 ---
-### 解题思路
-本题和实现计算器异曲同工，使用栈维护计算顺序。
+### Approach
+Like implementing a calculator, this problem uses a stack to maintain the evaluation order.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def deserialize(self, s: str) -> NestedInteger:
-        # 纯数字
+        # A plain number
         if s[0] != '[':
             return NestedInteger(int(s))
         stack, curVal, sign = [], 0, False
         for i, c in enumerate(s):
             match c:
                 case '[':
-                    # 递归嵌套
+                    # Recursive nesting
                     stack.append(NestedInteger())
                 case '-':
-                    # 数字符号
+                    # Number sign
                     sign = True
                 case ',':
-                    # 只有上一个字符是数字才加入了新的数字，否则可能是 "],"
+                    # Add a new number only if the previous character is a digit; otherwise, this may be "],"
                     if s[i - 1].isdigit():
                         stack[-1].add(NestedInteger(-curVal if sign else curVal))
                     curVal, sign = 0, False
                 case ']':
-                    # 只有上一个字符是数字才加入了新的数字，否则可能是 "[]"
+                    # Add a new number only if the previous character is a digit; otherwise, this may be "[]"
                     if s[i - 1].isdigit():
                         stack[-1].add(NestedInteger(-curVal if sign else curVal))
-                    # 弹出栈，并将当前的对象加入嵌套的列表中
+                    # Pop the stack and add the current object to the enclosing list
                     if len(stack) > 1:
                         cur = stack.pop()
                         stack[-1].add(cur)
                     curVal, sign = 0, False
                 case _:
-                    # 数字计算
+                    # Build the number
                     curVal = curVal * 10 + int(c)
         return stack.pop()
 # """

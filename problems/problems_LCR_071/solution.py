@@ -18,7 +18,7 @@ class S:
         """
         :type w: List[int]
         """
-        # 计算前缀和，这样可以生成一个随机数，根据数的大小对应分布的坐标
+        # Compute prefix sums, then map a random number to an index according to its position in the cumulative distribution
         self.presum = list(accumulate(w))
 
     def pickIndex(self):

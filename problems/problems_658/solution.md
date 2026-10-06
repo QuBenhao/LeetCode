@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 二分 + 双指针
+# [Python/Java/TypeScript/Go] Binary search + two pointers
 
 > Author: Benhao
 > Date: 2022-08-25
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-arr本身有序，很容易想到用二分找x在arr中的位置，然后往左右根据谁更近扩充出k个即可。
+### Approach
+Since arr is already sorted, use binary search to locate x, then expand left or right toward the closer value until k values have been selected.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -11,11 +11,11 @@ class Solution(solution.Solution):
         :rtype: str
         """
         # ans = []
-        # # 10进制 转换为 26进制，A对应1，B对应2,....Z对应26
+        # # Convert base 10 to base 26: A represents 1, B represents 2, ... Z represents 26
         # while columnNumber > 0:
-        #     # 最右边位为取模运算的结果
+        #     # The rightmost digit is the result of the modulo operation
         #     columnNumber -= 1
-        #     # A的ASC码 65
+        #     # A has ASCII code 65
         #     ans.append(chr(columnNumber % 26 + 65))
         #     columnNumber //= 26
         # return ''.join(ans[::-1])
@@ -23,9 +23,9 @@ class Solution(solution.Solution):
         # ans = []
         # while columnNumber > 0:
         #     curr = columnNumber % 26
-        #     # 余数为1对应了A
+        #     # A remainder of 1 corresponds to A
         #     ans.append(chr(curr + 64) if curr > 0 else 'Z')
-        #     # 如果发生了整除的情况，我们实际上欠了一个26
+        #     # If the division is exact, we still owe a value of 26
         #     columnNumber //= 26
         #     if not curr:
         #         columnNumber -= 1

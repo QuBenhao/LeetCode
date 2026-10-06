@@ -1,4 +1,4 @@
-# 记录上一段连续的1的长度
+# Record the length of the preceding run of 1s
 
 > slug: ji-lu-shang-yi-duan-lian-xu-de-1de-chang-fdxw
 > date: 2025-08-24
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/longest-subarray-of-1s-after-deleting-one-element/solutions/LEru3W/ji-lu-shang-yi-duan-lian-xu-de-1de-chang-fdxw/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

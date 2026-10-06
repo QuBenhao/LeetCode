@@ -1,4 +1,4 @@
-# [Python/Go] 枚举
+# [Python/Go] Enumeration
 
 > slug: pythongo-mei-ju-by-himymben-vzx8
 > date: 2022-02-13
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/removing-minimum-number-of-magic-beans/solutions/8nx8J4/pythongo-mei-ju-by-himymben-vzx8/
 
 ---
-### 解题思路
-枚举所有最终剩余的豆子数，找剩下的豆子数最多的一个（这样需要拿走的最少）
+### Approach
+Enumerate possible final bean counts and choose the one that leaves the most beans in total (and therefore removes the fewest).
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

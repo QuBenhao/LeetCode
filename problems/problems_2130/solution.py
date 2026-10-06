@@ -16,22 +16,22 @@ class Solution(solution.Solution):
         return self.pairSum(head0)
 
     def pairSum(self, head: Optional[ListNode]) -> int:
-        # 1. 快慢指针找中点
+        # 1. Find the midpoint with fast and slow pointers
         slow = fast = head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
 
-        # 2. 反转后半段链表
+        # 2. Reverse the second half of the linked list
         prev = None
         while slow:
             nxt = slow.next
             slow.next = prev
             prev = slow
             slow = nxt
-        # prev 是反转后的后半段头部
+        # prev is the head of the reversed second half
 
-        # 3. 同时遍历前半段和反转后的后半段，计算最大 twin sum
+        # 3. Traverse the first half and reversed second half together to compute the maximum twin sum
         max_sum = 0
         first, second = head, prev
         while second:

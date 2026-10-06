@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2022-02-15
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-有任意子串在字典中存在时，该结尾可以由前面构成的情况构成
+### Approach
+When a substring appears in the dictionary, its ending position can be reached from a valid segmentation of the preceding prefix.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

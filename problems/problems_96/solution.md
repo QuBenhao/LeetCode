@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > slug: pythongo-dong-tai-gui-hua-by-himymben-tngf
 > date: 2022-02-17
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/unique-binary-search-trees/solutions/SFRDmC/pythongo-dong-tai-gui-hua-by-himymben-tngf/
 
 ---
-### 解题思路
-找1到n之间的某一个点i作为二叉搜索树的根节点，
-那么左子树由小于i的i-1个数构成（递归），右子树由大于i的n-i个数构成（递归）
+### Approach
+Choose a value i from 1 through n as the root of the binary search tree.
+The left subtree is formed recursively from the i-1 values smaller than i, and the right subtree from the n-i values greater than i.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -30,7 +30,7 @@ func NewUnionFind(n int) *UnionFind {
 
 func (uf *UnionFind) Find(x int) int {
 	for uf.parent[x] != x {
-		uf.parent[x] = uf.parent[uf.parent[x]] // 路径压缩
+		uf.parent[x] = uf.parent[uf.parent[x]] // Path compression
 		x = uf.parent[x]
 	}
 	return x
@@ -41,10 +41,10 @@ func (uf *UnionFind) Union(x, y int) bool {
 	rootY := uf.Find(y)
 
 	if rootX == rootY {
-		return false // 已经在同一集合
+		return false // Already in the same set
 	}
 
-	// 按秩合并
+	// Union by rank
 	if uf.rank[rootX] > uf.rank[rootY] {
 		uf.parent[rootY] = rootX
 		uf.size[rootX] += uf.size[rootY]
@@ -55,7 +55,7 @@ func (uf *UnionFind) Union(x, y int) bool {
 		}
 		uf.size[rootY] += uf.size[rootX]
 	}
-	uf.cc-- // 合并后集合数减少
+	uf.cc-- // Merging reduces the number of sets
 	return true
 }
 

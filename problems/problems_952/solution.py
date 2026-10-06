@@ -18,12 +18,12 @@ class Solution(solution.Solution):
         return max(uf.vals)
 
 
-# 预处理每个数的质因子列表
+# Precompute the prime factors of each number
 mx = 100001
 PRIME_FACTORS = [[] for _ in range(mx)]
 for _i in range(2, mx):
-    if not PRIME_FACTORS[_i]:  # i 是质数
-        for _j in range(_i, mx, _i):  # i 的倍数有质因子 i
+    if not PRIME_FACTORS[_i]:  # i is prime
+        for _j in range(_i, mx, _i):  # Multiples of i have i as a prime factor
             PRIME_FACTORS[_j].append(_i)
 
 class UnionFind:
@@ -35,7 +35,7 @@ class UnionFind:
 
     def find(self, x):
         while self.parent[x] != x:
-            self.parent[x] = self.parent[self.parent[x]]  # 路径压缩
+            self.parent[x] = self.parent[self.parent[x]]  # Path compression
             x = self.parent[x]
         return x
 
@@ -44,9 +44,9 @@ class UnionFind:
         root_y = self.find(y)
 
         if root_x == root_y:
-            return False  # 已经在同一集合
+            return False  # Already in the same set
 
-        # 按秩合并
+        # Union by rank
         if self.rank[root_x] > self.rank[root_y]:
             self.parent[root_y] = root_x
             self.vals[root_x] += self.vals[root_y]

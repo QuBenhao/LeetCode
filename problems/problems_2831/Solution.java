@@ -18,11 +18,11 @@ public class Solution extends BaseSolution {
         int ans = 0;
         for (List<Integer> pos : posLists) {
             if (pos.size() <= ans) {
-                continue; // 无法让 ans 变得更大
+                continue; // Cannot increase ans
             }
             int left = 0;
             for (int right = 0; right < pos.size(); right++) {
-                while (pos.get(right) - pos.get(left) > k) { // 要删除的数太多了
+                while (pos.get(right) - pos.get(left) > k) { // Too many elements would need to be deleted
                     left++;
                 }
                 ans = Math.max(ans, right - left + 1);

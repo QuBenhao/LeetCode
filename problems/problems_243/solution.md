@@ -1,4 +1,4 @@
-# [Python] 暴力
+# [Python] Brute force
 
 > slug: python-bao-li-by-himymben-eog0
 > date: 2021-08-22

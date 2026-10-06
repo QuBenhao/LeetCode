@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
 > BFS
 
-# 解题方法
+# Approach
 
 > BFS
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

@@ -12,9 +12,9 @@ class Solution(solution.Solution):
         ans = i = j = 0
         for _ in range(m + n - 2):
             if j == n - 1 or i < m - 1 and horizontalCut[i] < verticalCut[j]:
-                ans += horizontalCut[i] * (n - j)  # 上下连边
+                ans += horizontalCut[i] * (n - j)  # Connect vertically adjacent cells
                 i += 1
             else:
-                ans += verticalCut[j] * (m - i)  # 左右连边
+                ans += verticalCut[j] * (m - i)  # Connect horizontally adjacent cells
                 j += 1
         return ans

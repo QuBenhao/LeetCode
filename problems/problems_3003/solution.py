@@ -12,9 +12,9 @@ class Solution(solution.Solution):
         @cache
         def dfs(i, st, w):
             """
-            i: 当前坐标
-            st: 当前经过的字符集 (二进制)
-            w: 是否使用了一次变成任意字符 (true: 仍可使用)
+            i: current index
+            st: set of characters encountered so far (bitmask)
+            w: whether the one-time replacement with any character is available (true: still available)
             """
             if i == len(s):
                 return 1

@@ -1,4 +1,4 @@
-# [Python] 最小堆
+# [Python] Min-heap
 
 > Author: Benhao
 > Date: 2021-07-24
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-按占椅子发生的时间顺序排序；
-按时间维护一个被占用的椅子，再维护一个当前时间没被占用的椅子们即可
+### Approach
+Sort chair-occupation events chronologically.
+Maintain occupied chairs by departure time and a separate collection of currently free chairs.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

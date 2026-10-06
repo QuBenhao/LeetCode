@@ -17,45 +17,45 @@ class Solution(solution.Solution):
         # for i, nodes in enumerate(graph):
         #     for node in nodes:
         #         edges[node].append(i)
-        #         # 统计所有点的出度
+        #         # Count every node's outdegree
         #         out[i] += 1
         # q = deque([])
         # for i in range(n):
         #     if not out[i]:
-        #         # 出度为0的点加入队列
+        #         # Enqueue nodes with outdegree 0
         #         q.append(i)
         # while q:
         #     node = q.popleft()
         #     for front in edges[node]:
-        #         # 去掉front->node这条边
+        #         # Remove the edge front->node
         #         out[front] -= 1
         #         if not out[front]:
-        #             # 如果去掉该边后front的出度变为0，加入队列
+        #             # If removing the edge makes front's outdegree 0, enqueue it
         #             q.append(front)
         # return [i for i in range(n) if not out[i]]
 
         n = len(graph)
-        # 每个点可能的状态: -1:点是未走过的, 0:点是安全的，1:点是走过的不确定安不安全，2:点是不安全的
+        # Node states: -1: unvisited, 0: safe, 1: visited but safety undetermined, 2: unsafe
         states = [-1] * n
 
         def dfs(node):
-            # 还未访问过
+            # Not yet visited
             if states[node] == -1:
-                # 标记为状态1
+                # Mark as state 1
                 states[node] = 1
                 for nxt in graph[node]:
                     states[node] += dfs(nxt)
-                    # 已经知道是不安全的了,可以提前结束循环
+                    # Already known to be unsafe; stop the loop early
                     if states[node] > 1:
                         break
-                # 出的所有点为安全的，它才是安全的
+                # A node is safe only if all its successors are safe
                 states[node] = 0 if states[node] == 1 else 2
             return states[node]
 
         return [i for i in range(n) if not dfs(i)]
 
         # n = len(graph)
-        # # 每个点可能的状态: 安全的，不安全的
+        # # Node states: safe or unsafe
         # states = dict()
         #
         # def dfs(node):

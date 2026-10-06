@@ -11,7 +11,7 @@ class Solution(solution.Solution):
     def longestBalanced(self, s: str) -> int:
         n = len(s)
 
-        # 一种字母
+        # One distinct letter
         ans = i = 0
         while i < n:
             start = i
@@ -20,13 +20,13 @@ class Solution(solution.Solution):
                 i += 1
             ans = max(ans, i - start)
 
-        # 两种字母
+        # Two distinct letters
         def f(x: str, y: str) -> None:
             nonlocal ans
             i = 0
             while i < n:
-                pos = {0: i - 1}  # 前缀和数组的首项是 0，位置相当于在 i-1
-                d = 0  # x 的个数减去 y 的个数
+                pos = {0: i - 1}  # The first entry of the prefix sum array is 0, corresponding to position i-1
+                d = 0  # Count of x minus count of y
                 while i < n and (s[i] == x or s[i] == y):
                     d += 1 if s[i] == x else -1
                     if d in pos:
@@ -40,8 +40,8 @@ class Solution(solution.Solution):
         f('a', 'c')
         f('b', 'c')
 
-        # 三种字母
-        # 前缀和数组的首项是 0，位置相当于在 -1
+        # Three distinct letters
+        # The first entry of the prefix sum array is 0, corresponding to position -1
         pos = {(0, 0): -1}
         cnt = defaultdict(int)
         for i, b in enumerate(s):

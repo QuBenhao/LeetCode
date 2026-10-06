@@ -1,4 +1,4 @@
-# 前缀和
+# Prefix sums
 
 $`prefix\_sum[i] = \sum_{k=0}^{i-1} nums[k]`$
 
@@ -34,7 +34,7 @@ func pivotIndex(nums []int) int {
 }
 ```
 
-## 二维前缀和
+## Two-dimensional prefix sums
 
 $`prefix\_sum[i][j] = \sum_{k=0}^{i-1} \sum_{l=0}^{j-1} matrix[k][l]`$
 

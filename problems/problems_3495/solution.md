@@ -1,4 +1,4 @@
-# x的n次方通用解法
+# A general solution for powers x^n
 
 > slug: xde-nci-fang-tong-yong-jie-fa-by-himymbe-vi41
 > date: 2025-09-06
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/minimum-operations-to-make-array-elements-zero/solutions/9Kdrcp/xde-nci-fang-tong-yong-jie-fa-by-himymbe-vi41/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

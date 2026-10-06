@@ -1,4 +1,4 @@
-# [Python] 中序遍历改变树的连接（递归）
+# [Python] Rewire the tree with inorder traversal (recursion)
 
 > Author: Benhao
 > Date: 2021-04-25
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-如果有左节点，根将成为左节点生成的根，当前左节点变为None，原来的根成为新的根最右的右子树。
+### Approach
+If there is a left child, the new root is the root produced from that child. Set the current left child to None and attach the original root as the rightmost right subtree of the new root.
 
-### 代码
+### Code
 
 ```python3
 # Definition for a binary tree node.

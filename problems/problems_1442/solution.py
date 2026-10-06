@@ -16,8 +16,8 @@ class Solution(solution.Solution):
         # for j, num in enumerate(arr):
         #     new = defaultdict(list)
         #     for key, val in hashmap.items():
-        #         # 如果hashmap中存在与当前num相等的key，那么他们的异或为0，
-        #         # 他们之前的任意一个除最左边外的坐标作为右边都满足条件
+        #         # If hashmap has a key equal to the current num, their XOR is 0,
+        #         # and any index between them except the leftmost is a valid right boundary
         #         if key == num:
         #             ans += j * len(val) - sum(val)
         #         new[num ^ key] = val
@@ -28,14 +28,14 @@ class Solution(solution.Solution):
         l, s = Counter(), Counter()
         prexor = ans = 0
         for k, num in enumerate(arr):
-            # 将之前的异或结果更新
+            # Update the previous XOR results
             l[prexor] += 1
             s[prexor] += k
             # curxor = arr[0] ^ arr[1] ^ ... ^ arr[k]
             prexor ^= num
-            # 之前存在任意的i满足：arr[0] ^ arr[1] ^ ... ^ arr[i] = curxor,
-            # 那么i到k可以构成一个异或为0的解，他们之前任意一个坐标(除i以为可以作为j)
+            # An earlier i satisfies arr[0] ^ arr[1] ^ ... ^ arr[i] = curxor,
+            # so i to k gives an interval with XOR 0, and any index between them except i can serve as j
             if prexor in l:
-                # 同上面的双重循环解法, 利用数量和坐标距离更新
+                # As in the two-loop solution above, use the count and index distances to update the answer
                 ans += k * l[prexor] - s[prexor]
         return ans

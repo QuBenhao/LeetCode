@@ -7,7 +7,7 @@ class Solution(solution.Solution):
         return self.countOfSubstrings(*test_input)
 
     def countOfSubstrings(self, word: str, k: int) -> int:
-        # 恰好k个 = 至少k个 - 至少k+1个
+        # Exactly k = at least k - at least k+1
         vowels = {'a', 'e', 'i', 'o', 'u'}
 
         def count(m: int) -> int:

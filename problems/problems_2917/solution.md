@@ -1,4 +1,4 @@
-# [Python] 位运算模拟
+# [Python] Bitwise simulation
 
 > slug: python-wei-yun-suan-mo-ni-by-himymben-khp9
 > date: 2024-03-06
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 遍历二进制的0-30位，遍历数组，统计每一位是1的个数
+> For each bit from 0 through 30, scan the array and count how many values have that bit set.
 
-# 解题方法
+# Approach
 
-> 位运算模拟
+> Bitwise simulation
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

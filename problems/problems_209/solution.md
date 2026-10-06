@@ -1,4 +1,4 @@
-# [Python] 滑动窗口
+# [Python] Sliding window
 
 > Author: Benhao
 > Date: 2024-03-01
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 题目要找子数组而不是子序列，既然是连续的和，以滑动窗口处理找最小的窗口长度是最好的方法
+> The problem asks for a subarray, not a subsequence. Since the sum covers contiguous elements, a sliding window is the best way to find the minimum window length.
 
-# 解题方法
+# Approach
 
-> 维护窗口和当前的和，如果已经满足条件从左边去除多余元素，比较窗口的大小
+> Maintain the window and its sum. Once the requirement is met, remove unnecessary elements from the left and compare window lengths.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

@@ -1,4 +1,4 @@
-# [Python] 二分查找
+# [Python] Binary search
 
 > Author: Benhao
 > Date: 2021-06-13

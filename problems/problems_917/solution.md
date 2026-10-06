@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 双指针
+# [Python/Java/JavaScript/Go] Two pointers
 
 > slug: pythonjavajavascriptgo-shuang-zhi-zhen-b-szpf
 > date: 2022-02-22
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/reverse-only-letters/solutions/5z7yoz/pythonjavajavascriptgo-shuang-zhi-zhen-b-szpf/
 
 ---
-### 解题思路
-典型的交换首尾指定类型的题目，可以用双指针解决。
-左指针维护左边当前要交换的，右指针维护右边当前要交换的。
+### Approach
+This is a typical problem of swapping selected character types from the two ends, solved with two pointers.
+The left pointer tracks the next character to swap on the left, and the right pointer does the same on the right.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -88,7 +88,7 @@ func reverseOnlyLetters(s string) string {
 }
 ```
 
-一行版(栈)
+One-liner (stack)
 ```python3
 class Solution:
     def reverseOnlyLetters(self, s: str) -> str:

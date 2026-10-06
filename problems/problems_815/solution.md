@@ -1,4 +1,4 @@
-# [Python] BFS 把公交看做整体
+# [Python] BFS treating each bus route as a whole
 
 > Author: Benhao
 > Date: 2021-06-28
@@ -7,35 +7,35 @@
 
 ---
 
-### 解题思路
-你之前可以坐一号线了，你后面兜兜转转(十号线->二号线->一号线)再上一号线是没有意义的(之前上一号线是比这样更优的)。
-所以直接记录我们每次能坐的所有公交车，将它的所有站都标记为已到达(且加入队列)。
+### Approach
+If you could already take route 1, there is no point taking a detour (route 10 -> route 2 -> route 1) to board it later; boarding it earlier is better.
+Record all bus routes available at each step, mark all their stops as reached, and enqueue those stops.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def numBusesToDestination(self, routes: List[List[int]], source: int, target: int) -> int:
-        # 每个车站可以乘坐的公交车
+        # Bus routes available at each stop
         stations = defaultdict(set)
         for i, stops in enumerate(routes):
             for stop in stops:
                 stations[stop].add(i)
-        # 每个公交车线路可以到达的车站
+        # Stops reachable on each bus route
         routes = [set(x) for x in routes]
 
         q = deque([(source, 0)])
-        # 已经乘坐了的公交车
+        # Bus routes already taken
         buses = set()
-        # 已经到达了的车站
+        # Stops already reached
         stops = {source}
         while q:
             pos, cost = q.popleft()
             if pos == target:
                 return cost
-            # 当前车站中尚未乘坐的公交车
+            # Bus routes at the current stop that have not yet been taken
             for bus in stations[pos] - buses:
-                # 该公交车尚未到达过的车站
+                # Stops on this bus route that have not yet been reached
                 for stop in routes[bus] - stops:
                     buses.add(bus)
                     stops.add(stop)

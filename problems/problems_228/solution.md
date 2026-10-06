@@ -1,4 +1,4 @@
-# [Python] 区间模拟
+# [Python] Range simulation
 
 > Author: Benhao
 > Date: 2024-03-01
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 用指针往前移动，确定当前区间的范围，直到遍历出所有区间
+> Move a pointer forward to determine the current range until all ranges have been traversed.
 
-# 解题方法
+# Approach
 
-> 假如下一个元素比当前大一，就一直往前找到不比前一个元素大一的位置，即为当前区间终点。如果终点在自己，那么加入自身区间，否则加入两端区间即可
+> While each next element is one greater than the current element, advance to find the end of the current range. If the endpoint is the starting point, add that value alone; otherwise, add both endpoints.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

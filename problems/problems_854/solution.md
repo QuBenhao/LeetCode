@@ -1,4 +1,4 @@
-# [Python] 记忆化搜索
+# [Python] Memoized search
 
 > slug: python-ji-yi-hua-sou-suo-by-himymben-q3s7
 > date: 2022-09-21
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/k-similar-strings/solutions/WmkgXa/python-ji-yi-hua-sou-suo-by-himymben-q3s7/
 
 ---
-### 解题思路
-每次处理最左侧不一致的交换
+### Approach
+At each step, swap to fix the leftmost mismatch
 
-### 代码
+### Code
 
 ```python3
 class Solution:

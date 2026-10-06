@@ -38,5 +38,5 @@ class Solution(solution.Solution):
             dfs(i, j, {'#'})
             for i in range(n)
             for j in range(m)
-            if match[i][j] != '#' and (i + j) % 2  # 考虑奇数结点为起点
+            if match[i][j] != '#' and (i + j) % 2  # Use odd-parity nodes as starting points
         )

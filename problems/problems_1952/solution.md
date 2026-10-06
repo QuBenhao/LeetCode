@@ -1,4 +1,4 @@
-# [Python] 因子个数为3只有质数的平方数
+# [Python] Only squares of primes have exactly three divisors
 
 > Author: Benhao
 > Date: 2021-08-01

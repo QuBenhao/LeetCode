@@ -1,4 +1,4 @@
-# 模拟
+# Simulation
 
 > slug: mo-ni-by-himymben-wbkv
 > date: 2025-04-22
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/lwyVBB/solutions/Cwbz1B/mo-ni-by-himymben-wbkv/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

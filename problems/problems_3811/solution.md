@@ -1,4 +1,4 @@
-# 动态规划
+# Dynamic programming
 
 > slug: dong-tai-gui-hua-by-himymben-k26y
 > date: 2026-01-18
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/number-of-alternating-xor-partitions/solutions/cI2ICf/dong-tai-gui-hua-by-himymben-k26y/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

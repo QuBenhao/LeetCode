@@ -1,4 +1,4 @@
-# [Python] 偷了个懒
+# [Python] A shortcut
 
 > Author: Benhao
 > Date: 2021-04-25
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-用集合统计经历过的元素，直到遇到前面的比后面的字母大的时候，更新答案
+### Approach
+Track encountered characters in a set until a character is smaller than its predecessor, then update the answer.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

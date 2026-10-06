@@ -11,7 +11,7 @@ class Solution(solution.Solution):
     def maxTurbulenceSize(self, arr: List[int]) -> int:
         n = len(arr)
         ans = 1
-        last = [1, 1] # 第一位表示下降，第二位表示上升
+        last = [1, 1] # The first position represents a decrease, and the second an increase
         for i in range(1, n):
             cur_0 = cur_1 = 1
             if arr[i] > arr[i-1]:

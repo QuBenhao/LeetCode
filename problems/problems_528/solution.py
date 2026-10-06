@@ -17,7 +17,7 @@ class RandomPick:
         """
         :type w: List[int]
         """
-        # 计算前缀和，这样可以生成一个随机数，根据数的大小对应分布的坐标
+        # Compute prefix sums to map a random number to the index of its weighted interval
         self.presum = list(accumulate(w))
 
     def pickIndex(self):

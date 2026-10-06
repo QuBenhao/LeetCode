@@ -10,13 +10,13 @@ impl Solution {
         let n = nums.len();
         for i in 0..n - 2 {
             let x = nums[i];
-            if i > 0 && x == nums[i - 1] { // 跳过重复数字
+            if i > 0 && x == nums[i - 1] { // Skip duplicate numbers
                 continue;
             }
-            if x + nums[i + 1] + nums[i + 2] > 0 { // 优化一
+            if x + nums[i + 1] + nums[i + 2] > 0 { // Optimization 1
                 break;
             }
-            if x + nums[n - 2] + nums[n - 1] < 0 { // 优化二
+            if x + nums[n - 2] + nums[n - 1] < 0 { // Optimization 2
                 continue;
             }
             let mut j = i + 1;
@@ -30,11 +30,11 @@ impl Solution {
                 } else {
                     ans.push(vec![x, nums[j], nums[k]]);
                     j += 1;
-                    while j < k && nums[j] == nums[j - 1] { // 跳过重复数字
+                    while j < k && nums[j] == nums[j - 1] { // Skip duplicate numbers
                         j += 1;
                     }
                     k -= 1;
-                    while k > j && nums[k] == nums[k + 1] { // 跳过重复数字
+                    while k > j && nums[k] == nums[k + 1] { // Skip duplicate numbers
                         k -= 1;
                     }
                 }

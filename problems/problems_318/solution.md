@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 存储排序后的set 或 位运算替代
+# [Python/Java/JavaScript/Go] Store sorted sets or use bit manipulation
 
 > slug: pythonjavajavascriptgo-zi-zhi-hashable-s-tuxj
 > date: 2021-11-16
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/maximum-product-of-word-lengths/solutions/GNZTGJ/pythonjavajavascriptgo-zi-zhi-hashable-s-tuxj/
 
 ---
-### 解题思路
-很直观的想到用集合去判断单词之间有没有交集，然后用哈希表存储之前的一些集合的最长长度，在这些长度里找当前集合不存在交集的最大乘积。
-但是Set是unhashable的，不能作为哈希表的key。
-两种解决方案，用排序后拼接的字符串代替；或用26位位运算表示26个字母被使用的情况。
+### Approach
+A natural approach is to check whether word sets intersect. Store the maximum length seen for each set in a hash table, then find the largest product with a set disjoint from the current one.
+However, Set is unhashable and cannot serve as a hash table key.
+Two options: use a string formed by sorting and joining the set, or use 26 bits to represent which letters occur.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -20,11 +20,11 @@ class Solution:
         d, ans = defaultdict(int), 0
         for w in words:
             s = set(w)
-            # 用排序后拼接的字符串作为哈希值
+            # Use a sorted, joined string as the hash key
             he = "".join(sorted(s))
             if d[he] < len(w):
                 for other in d:
-                    # 取出来的字符串再取集合，集合没有交集才有可能作为答案
+                    # Convert the stored string back to a set; only disjoint sets can produce an answer
                     if not set(other) & s:
                         ans = max(ans, len(w) * d[other])
                 d[he] = len(w)
@@ -34,7 +34,7 @@ class Solution:
 class Solution:
     def maxProduct(self, words: List[str]) -> int:
         def hashset(word):
-            # 用26位位运算表示二十六个字母在word中被使用的情况
+            # Use 26 bits to represent which of the 26 letters appear in word
             return sum(1 << (ord(c) - ord('a')) for c in set(word))
 
         d, ans = defaultdict(int), 0
@@ -42,7 +42,7 @@ class Solution:
             h = hashset(w)
             if d[h] < len(w):
                 for other in d:
-                    # 如果位运算&的结果为0，说明他们没有使用过同样的字母，可以计算答案
+                    # A bitwise AND of 0 means no letters are shared, so this pair can contribute to the answer
                     if not other & h:
                         ans = max(d[other] * len(w), ans)
                 d[h] = len(w)

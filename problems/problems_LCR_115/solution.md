@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-jian-cha-mei-ge-x-2ki4
 > date: 2022-07-23
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/ur2n8P/solutions/T19rrv/pythonjavatypescriptgo-jian-cha-mei-ge-x-2ki4/
 
 ---
-### 解题思路
-检查每个相邻关系是否都出现过，只有都出现了才是唯一的。
+### Approach
+Check whether every adjacent pair has appeared; the reconstruction is unique only if all of them have.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -35,7 +35,7 @@ class Solution {
     }
 
     private int hash(int prev, int next) {
-        // 10^4 最多14位
+        // 10^4 requires at most 14 bits
         return prev << 14 | next;
     }
 }

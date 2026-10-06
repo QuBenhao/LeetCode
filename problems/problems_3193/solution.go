@@ -35,10 +35,10 @@ func numberOfPermutations(n int, requirements [][]int) int {
 			}
 			clear(f[min(i+r, mx)+1:])
 		} else {
-			for j := 1; j <= mx; j++ { // 计算前缀和
+			for j := 1; j <= mx; j++ { // Compute prefix sums
 				f[j] = (f[j] + f[j-1]) % mod
 			}
-			for j := mx; j > i; j-- { // 计算子数组和
+			for j := mx; j > i; j-- { // Compute the subarray sum
 				f[j] = (f[j] - f[j-i-1] + mod) % mod
 			}
 		}

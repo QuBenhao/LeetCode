@@ -9,16 +9,16 @@ class Solution(solution.Solution):
     def goodTriplets(self, nums1: List[int], nums2: List[int]) -> int:
         class FenwickTree:
             def __init__(self, n: int):
-                self.tree = [0] * (n + 1)  # 使用下标 1 到 n
+                self.tree = [0] * (n + 1)  # Use indices 1 through n
 
-            # a[i] 增加 val
+            # Increase a[i] by val
             # 1 <= i <= n
             def update(self, i: int, val: int) -> None:
                 while i < len(self.tree):
                     self.tree[i] += val
                     i += i & -i
 
-            # 计算前缀和 a[1] + ... + a[i]
+            # Compute the prefix sum a[1] + ... + a[i]
             # 1 <= i <= n
             def pre(self, i: int) -> int:
                 res = 0

@@ -9,7 +9,7 @@ class Solution(solution.Solution):
     def shortestDistanceAfterQueries(self, n: int, queries: List[List[int]]) -> List[int]:
         fa = list(range(n - 1))
 
-        # 非递归并查集
+        # Iterative union-find
         def find(x: int) -> int:
             rt = x
             while fa[rt] != rt:
@@ -19,7 +19,7 @@ class Solution(solution.Solution):
             return rt
 
         ans = []
-        cnt = n - 1  # 并查集连通块个数
+        cnt = n - 1  # Number of connected components in the union-find structure
         for l, r in queries:
             fr = find(r - 1)
             i = find(l)

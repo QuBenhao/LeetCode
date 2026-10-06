@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript]  最小/最大堆 第K大/小的数
+# [Python/Java/JavaScript] Min-/max-heap for the kth largest/smallest value
 
 > slug: pythonjavajavascript-zui-xiao-zui-da-dui-at7l
 > date: 2021-10-05
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/third-maximum-number/solutions/h22kID/pythonjavajavascript-zui-xiao-zui-da-dui-at7l/
 
 ---
-### 解题思路
-以最小堆扫描一遍，如果大小超过3就提出一个最小的元素(必然不是第三大)，最终返回答案即可。
+### Approach
+Scan once with a min-heap. Whenever its size exceeds 3, remove the minimum, which cannot be the third largest. Return the resulting answer.
 
-### 代码
+### Code
 
 ```Python3 []
 K = 3
@@ -70,14 +70,14 @@ var thirdMax = function(nums) {
  * @return {number}
  */
 var thirdMax = function(nums) {
-    // 不大了解JavaScript最小堆咋写的话，可以用仨变量的写法，意思一样
+    // If writing a JavaScript min-heap is unfamiliar, use three variables for the same idea
     let first, second, third;
     for(const num of nums){
         if(first === undefined || num > first){
             third = second;
             second = first;
             first = num;
-        // 必须去除相等的情况，重复的数字不考虑
+        // Exclude equal values; duplicates do not count
         } else if(first > num && (second === undefined || num > second)){
             third = second;
             second = num;

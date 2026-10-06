@@ -1,4 +1,4 @@
-# [Python/Java] 模拟
+# [Python/Java] Simulation
 
 > slug: pythonjava-mo-ni-by-himymben-eovi
 > date: 2021-09-21
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/split-linked-list-in-parts/solutions/jTGKVT/pythonjava-mo-ni-by-himymben-eovi/
 
 ---
-### 解题思路
-先统计链表的长度，然后根据链表的长度和k判断每段的长度(除数和余数)，除数是每个的基础长度，而余数是前多少个需要额外多一个。
+### Approach
+First count the list's length. Dividing it by k gives the base length of each part; the remainder tells how many leading parts need one extra node.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

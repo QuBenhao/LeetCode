@@ -1,4 +1,4 @@
-# [Python] 递归
+# [Python] Recursion
 
 > Author: Benhao
 > Date: 2024-03-18
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> A节点的左子树要和对称的B节点的右子树一致，A节点的右子树要和对称的B节点的左子树一致
+> Node A's left subtree must match the right subtree of its mirror node B, and A's right subtree must match B's left subtree.
 
-# 解题方法
+# Approach
 
-> 递归
+> Recursion
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

@@ -24,7 +24,7 @@ func cherryPickup(grid [][]int) int {
 				) + grid[i][j] + grid[i][k]
 			}
 		}
-		pre, cur = cur, pre // 下一个 i 的 pre 是 cur
+		pre, cur = cur, pre // cur becomes pre for the next i
 	}
 	return pre[1][n]
 }

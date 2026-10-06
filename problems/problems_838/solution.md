@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 正反遍历模拟
+# [Python/Java/JavaScript/Go] Simulate with forward and backward passes
 
 > Author: Benhao
 > Date: 2022-02-20
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-我们要统计所有点最近的'L'和'R'，来判断最终该点的状态。
-如果‘L’更近，最终为'L'；如果'R'更近，最终为'R'；如果一样近，最终为'.'
+### Approach
+Find the nearest 'L' and 'R' affecting each position to determine its final state.
+If 'L' is closer, the final state is 'L'; if 'R' is closer, it is 'R'; if they are equally close, it is '.'
 
-> 从左往右遍历时，遇到'R'，更新最新的'R'起点；遇到'L'，将'R'起点更新为无限远；每个点的'R'距离由它的坐标和'R'起点的坐标计算得到。
-> 从右往左遍历时，遇到'L'，更新最新的'L'起点；遇到'R'，将'L'起点更新为无限远；每个点的'L'距离由它的坐标和'L'起点的坐标计算得到。
+> Scan left to right: on 'R', update the latest 'R' source; on 'L', move the 'R' source infinitely far away. Compute each position's distance to 'R' from its index and the source's index.
+> Scan right to left: on 'L', update the latest 'L' source; on 'R', move the 'L' source infinitely far away. Compute each position's distance to 'L' from its index and the source's index.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

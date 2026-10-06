@@ -1,4 +1,4 @@
-# [Python] 字典dp
+# [Python] Dictionary-based DP
 
 > Author: Benhao
 > Date: 2021-04-22
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-dp[i]代表对i来说最长的数组
+### Approach
+dp[i] represents the longest array for i.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -31,8 +31,8 @@ class Solution:
                 ans = dp[num]
         return ans
 ```
-或者写成这样，有整除的数中max(dp,key=len)，就用最大的结果的列表加上当前的值
-没有就新建一个当前值的列表
+Alternatively, among divisible predecessors, take max(dp,key=len) and append the current value to the longest result.
+If none exists, create a list containing only the current value.
 ```python3
 class Solution:
     def largestDivisibleSubset(self, nums: List[int]) -> List[int]:

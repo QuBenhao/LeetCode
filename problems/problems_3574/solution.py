@@ -11,7 +11,7 @@ class Solution(solution.Solution):
     def maxGCDScore(self, nums: List[int], k: int) -> int:
         ans = 0
         for i in range(len(nums)):
-            # 因子中2的个数最少的及其数量
+            # Minimum exponent of 2 in the factorizations and the number of elements attaining it
             lb_min = inf
             used = g = 0
             for j in range(i, -1, -1):
@@ -19,7 +19,7 @@ class Solution(solution.Solution):
                 lb = cur & -cur
                 if lb < lb_min:
                     lb_min = lb
-                    used = 1 # 每个元素最多乘2一次, 木桶效应
+                    used = 1 # Each element can be multiplied by 2 at most once; the smallest exponent is the bottleneck
                 elif lb == lb_min:
                     used += 1
                 g = gcd(g, cur)

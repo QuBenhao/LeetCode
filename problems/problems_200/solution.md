@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 多源DFS，记录走过的点，判断连通性
+> Use multi-source DFS, recording visited cells to determine connectivity.
 
-# 解题方法
+# Approach
 
-> 多源DFS
+> Multi-source DFS
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(mn)$
 
-空间复杂度:
+Space complexity:
 > $O(mn)$
 
 

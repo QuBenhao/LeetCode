@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go/C++/C#/Js/PHP] 栈模拟
+# [Python/Java/TypeScript/Go/C++/C#/Js/PHP] Stack simulation
 
 > Author: Benhao
 > Date: 2022-08-30
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-注意到本题的一个关键条件**值不重复**，
-那么我们在添加元素时，直接根据当前弹出位置的值判断是否需要弹出，如果和栈顶元素一直需要一直弹出(因为如果再添加任何一个值，下一个弹出不可能再是这个值了)。
-返回是否全部弹出即可。
+### Approach
+A key condition is that **values are distinct**.
+After pushing an element, check the next value in the pop sequence. Keep popping while it matches the stack top: pushing anything else would prevent that value from being popped next.
+Return whether every element was popped.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

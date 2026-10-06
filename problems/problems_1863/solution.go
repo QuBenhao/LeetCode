@@ -8,19 +8,19 @@ import (
 
 func subsetXORSum(nums []int) int {
 	/*
-		异或: 每位比特位可以独立看待，相互互不影响
+		XOR: each bit can be considered independently
 
-		假设某位比特位，有m个1，有n-m个0
-		那么异或结果为1的子集数就是:
-		1. 选1个1，n-m里的全部子集 -- Cm_1 * 2^(n-m)
-		2. 选3个1, n-m里的全部子集 -- Cm_3 * 2^(n-m)
+		Suppose a bit is 1 in m numbers and 0 in n-m numbers
+		The number of subsets with XOR 1 at this bit is:
+		1. Choose one 1 and any subset of the n-m zeros -- Cm_1 * 2^(n-m)
+		2. Choose three 1s and any subset of the n-m zeros -- Cm_3 * 2^(n-m)
 		...
 		2^(n-m) * (Cm_1 + Cm_3 + Cm_5 + ...)
 
-		由于奇数的组合数和等于偶数的组合数和, 上面的式子等价于:
+		Since the sum of odd-sized binomial coefficients equals the sum of even-sized ones, this is equivalent to:
 		2^(n-m) * 2^(m-1) = 2^(n-1)
 
-		所以每位为1的影响是2^(n-1)，整体就是或的结果再出现2^(n-1)次
+		Each set bit therefore contributes 2^(n-1) times, giving the bitwise OR multiplied by 2^(n-1)
 	*/
 	or := 0
 	for _, num := range nums {

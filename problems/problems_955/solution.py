@@ -14,16 +14,16 @@ class Solution(solution.Solution):
         for j in range(m):
             for i in check_list:
                 if strs[i][j] > strs[i + 1][j]:
-                    # j 列不是升序，必须删
+                    # Column j is not in ascending order and must be deleted
                     ans += 1
                     break
             else:
-                # j 列是升序，不删更好
+                # Column j is in ascending order, so keeping it is better
                 new_size = 0
                 for i in check_list:
                     if strs[i][j] == strs[i + 1][j]:
-                        # 相邻字母相等，下一列 i 和 i+1 需要继续比大小
-                        check_list[new_size] = i  # 原地覆盖
+                        # Adjacent letters are equal; continue comparing rows i and i+1 in the next column
+                        check_list[new_size] = i  # Overwrite in place
                         new_size += 1
                 del check_list[new_size:]
         return ans

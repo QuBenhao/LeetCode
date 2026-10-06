@@ -1,4 +1,4 @@
-# [Python] 反转链表
+# [Python] Reverse a linked list
 
 > slug: python-fan-zhuan-lian-biao-by-himymben-u0ru
 > date: 2022-03-26
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/fan-zhuan-lian-biao-lcof/solutions/iWMB4X/python-fan-zhuan-lian-biao-by-himymben-u0ru/
 
 ---
-### 解题思路
-原地反转即可
+### Approach
+Reverse the list in place.
 
-### 代码
+### Code
 
 ```python3
 # Definition for singly-linked list.

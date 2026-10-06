@@ -17,7 +17,7 @@ type FenwickTree struct {
 func NewFenwickTree(size int) *FenwickTree {
 	return &FenwickTree{
 		n:    size,
-		tree: make([]int, size+1), // 索引从1开始
+		tree: make([]int, size+1), // Indices start at 1
 	}
 }
 

@@ -1,4 +1,4 @@
-# [Go] 新学会的线段树，来练一练
+# [Go] Practicing the segment tree I just learned
 
 > slug: go-xin-xue-hui-by-himymben-uxjd
 > date: 2022-04-05
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/longest-substring-of-one-repeating-character/solutions/WWkiyv/go-xin-xue-hui-by-himymben-uxjd/
 
 ---
-### 解题思路
-从昨天的[307](https://leetcode.cn/problems/range-sum-query-mutable/solution/pythonjavajavascriptgo-xian-duan-shu-mo-kmpw3/)魔改的。
-其实就是区间和变为区间最大值，唯一重点是头尾字符可能发生合并而增加长度，可能要更新区间最大值。
-Python超时了，和Go逻辑一模一样我也是很无语
+### Approach
+Adapted from yesterday's [307](https://leetcode.cn/problems/range-sum-query-mutable/solution/pythonjavajavascriptgo-xian-duan-shu-mo-kmpw3/).
+Replace interval sums with interval maxima. The key detail is that matching boundary characters can merge into a longer run, which may update the interval maximum.
+The Python version times out despite having exactly the same logic as Go. I am speechless.
 
-### 代码
+### Code
 
 ```golang []
 func longestRepeating(s string, queryCharacters string, queryIndices []int) []int {
@@ -118,7 +118,7 @@ func max(a, b int) int {
 }
 ```
 ```Python3 []
-# 此代码还超时中
+# This code still times out
 class Solution:
     def longestRepeating(self, s: str, queryCharacters: str, queryIndices: List[int]) -> List[int]:
         segment_tree = Tree(s)
@@ -182,7 +182,7 @@ class Tree:
     def pushup(self, u):
         left, right = self.tr[u << 1], self.tr[u << 1 | 1]
         if left.suf[0] == right.pre[0]:
-            # 合并
+            # Merge
             self.tr[u].max = max(left.max, right.max, left.suf[1] + right.pre[1])
         else:
             self.tr[u].max = max(left.max, right.max)

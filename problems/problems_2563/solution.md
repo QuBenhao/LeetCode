@@ -1,4 +1,4 @@
-# 排序+二分查找/双指针
+# Sorting + binary search / two pointers
 
 > slug: er-fen-cha-zhao-by-himymben-qmtg
 > date: 2025-04-19
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-the-number-of-fair-pairs/solutions/Y1s7aU/er-fen-cha-zhao-by-himymben-qmtg/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

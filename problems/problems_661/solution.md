@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 前缀和模拟
+# [Python/Java/JavaScript/Go] Prefix sum simulation
 
 > Author: Benhao
 > Date: 2022-03-23
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-由于本题平滑器大小固定为3*3，所以暴力遍历统计和前缀和优化统计都能过。
+### Approach
+The smoothing window is fixed at 3*3, so both direct summation and prefix-sum optimization pass.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2022-02-18
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-对于新的每一行来说，每一列的值叠加了上一行的前一列，从后往前更新即可
+### Approach
+For each new row, add the previous row's preceding column to each column's value. Update from right to left.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

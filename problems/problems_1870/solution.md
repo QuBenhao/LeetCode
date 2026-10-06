@@ -1,4 +1,4 @@
-# [Python] 二分法
+# [Python] Binary search
 
 > Author: Benhao
 > Date: 2021-05-23
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-因为只能整点发车，但不一定要整点到达。所以最后一个不需要向上取整
+### Approach
+Departures must be on whole hours, but the final arrival need not be, so do not round up the last segment.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

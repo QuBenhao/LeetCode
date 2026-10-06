@@ -56,7 +56,7 @@ public:
     if (depth[x] > depth[y]) {
       swap(x, y);
     }
-    // 对齐
+    // Align depths
     y = get_k_parent(y, depth[y] - depth[x]);
     if (y == x) {
       return x;

@@ -1,4 +1,4 @@
-# [Python/Go] 记忆化递归/动态规划
+# [Python/Go] Memoized recursion/Dynamic programming
 
 > Author: Benhao
 > Date: 2024-05-06
@@ -12,9 +12,9 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-参考[叶总](https://leetcode.cn/problems/cherry-pickup/solutions/1658619/by-ac_oier-pz7i/)
+Reference: [叶总](https://leetcode.cn/problems/cherry-pickup/solutions/1658619/by-ac_oier-pz7i/)
 
 
 # Code

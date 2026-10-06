@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/13.
-// 例题: a*b acwing90
+// Example: a*b acwing90
 //
 
 #include <bits/stdc++.h>

@@ -1,4 +1,4 @@
-# [Python/Go] 模拟
+# [Python/Go] Simulation
 
 > slug: pythongo-mo-ni-by-himymben-9hu9
 > date: 2021-11-14

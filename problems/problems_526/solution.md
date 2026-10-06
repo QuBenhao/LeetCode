@@ -1,4 +1,4 @@
-# [Python] 状态压缩 + 动态规划 (记忆化递归Py 48ms)
+# [Python] Bitmasking + dynamic programming (memoized recursion, Py 48ms)
 
 > Author: Benhao
 > Date: 2021-08-15
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-和回溯差不多，每次填入一个合理的可选的数，直到最终填出优美的排列，才累加1。
-采用记忆化递归，这样遇到相同位置剩余可选的数相同的情况时，不需要再计算。(注意可以不记录到达第几个数，因为从available的长度即可推)
+### Approach
+As with backtracking, place a valid available number at each step. Add 1 only when a complete beautiful arrangement has been formed.
+Memoized recursion avoids recalculating a state with the same position and remaining numbers. The position need not be stored separately because it can be inferred from the length of available.
 
-更新了最佳状态压缩，按可填入个数递归。
+Updated with an improved bitmask approach that recurses in order of the number of choices.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -21,26 +21,26 @@ class Solution:
         canFill = defaultdict(list)
         for i in range(1,n+1):
             for j in range(1, n+1):
-                # 每个位置可以填入哪些数
+                # Numbers that can be placed at each position
                 if j % i == 0 or i % j == 0:
                     canFill[i].append(j-1)
-        # 根据可填入数字的个数排序，优先填入个数少的
+        # Sort by the number of choices and fill the positions with fewer choices first
         order = sorted(canFill.keys(), key=lambda x:len(canFill[x]))
         end = (1 << n) - 1
 
         @lru_cache(None)
         def dfs(state):
-            # 全部填入
+            # All positions are filled
             if state == end:
                 return 1
             cnts = ans = 0
-            # 当前该填第几个位置
+            # The position to fill next
             for i in range(n):
                 if (1 << i) & state:
                     cnts += 1
-            # 当前位置可以填哪些数
+            # Numbers allowed at the current position
             for i in canFill[order[cnts]]:
-                # 哪些数还没被填
+                # Numbers not yet used
                 if not ((1 << i) & state):
                     ans += dfs(state ^ (1 << i))
             return ans

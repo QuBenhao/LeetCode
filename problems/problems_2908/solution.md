@@ -1,4 +1,4 @@
-# [Python] O(n)前后缀最小值
+# [Python] O(n) prefix and suffix minima
 
 > Author: Benhao
 > Date: 2024-03-29
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 类似前缀和，遍历统计前缀后缀的最小值变化，再遍历统计最小答案即可
+> As with prefix sums, scan to compute prefix and suffix minima, then scan again to find the minimum answer.
 
-# 解题方法
+# Approach
 
-> 前后缀
+> Prefixes and suffixes
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 两数之和
+# [Python/Java/JavaScript/Go] Two Sum
 
 > Author: Benhao
 > Date: 2022-03-23
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-使用哈希表记录之前遍历过的数字对应的坐标，检查当前值和目标值的差是否出现过，出现过意味着他们俩的和即为目标值。
+### Approach
+Use a hash table to record the indices of previously visited numbers. Check whether the difference between the target and the current value has appeared before; if so, the two numbers sum to the target.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

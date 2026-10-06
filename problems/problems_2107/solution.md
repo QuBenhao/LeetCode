@@ -1,4 +1,4 @@
-# [Python] 滑动窗口
+# [Python] Sliding window
 
 > slug: python-hua-dong-chuang-kou-by-himymben-v9tp
 > date: 2022-05-01
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/number-of-unique-flavors-after-sharing-k-candies/solutions/ohPsuP/python-hua-dong-chuang-kou-by-himymben-v9tp/
 
 ---
-### 解题思路
-定长滑窗模拟
+### Approach
+Simulate a fixed-length sliding window.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

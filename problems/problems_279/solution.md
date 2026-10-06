@@ -1,4 +1,4 @@
-# [Python] 新的一天,新的记忆化搜索 or 动态规划
+# [Python] A new day, a new memoized search or dynamic programming solution
 
 > Author: Benhao
 > Date: 2021-06-10
@@ -7,23 +7,23 @@
 
 ---
 
-### 解题思路
-纯硬搜无优化 (6484ms)
+### Approach
+Plain exhaustive search without optimization (6484ms)
 
-贪心剪枝(360ms)
+Greedy pruning (360ms)
 
-关于这里剪枝的原理，首先我们在统计过程中，已经超过已知的解法的话，就没有搜的必要了。
-另外，搜索范围卡在最大的平方数到它的四分之一(本质是使用了一个数可以拆成四个平方数的和的思想)。
+For this pruning strategy, first note that once the current count exceeds a known solution, there is no reason to continue searching.
+Also, restrict the search to square numbers between the largest square and one quarter of it, using the fact that an integer can be expressed as the sum of four squares.
 
-次数筛(336ms)
-上面贪心的剪枝比较不容易想到，但是按个数遍历就很好理解。
+Search by count (336ms)
+The greedy pruning above is less intuitive, but enumerating by the number of terms is easy to understand.
 
 bfs(~200ms)
 
-完全背包动态规划(~4000ms)
+Unbounded knapsack dynamic programming (~4000ms)
 
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -65,9 +65,9 @@ class Solution:
     def numSquares(self, n: int) -> int:
         if n == int(sqrt(n)) ** 2:
             return 1
-        # 次数筛
+        # Search by count
         for i in range(2,n+1):
-            # 次数i对应的平方数至少有一个大于等于平均数n//i
+            # Among i square terms, at least one must be at least the average n//i
             for j in range(int(sqrt(n//i)), int(sqrt(n))+1):
                 if self.numSquares(n-j*j) + 1 == i:
                     return i

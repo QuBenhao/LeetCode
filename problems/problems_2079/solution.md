@@ -1,4 +1,4 @@
-# [Python/Go] 模拟
+# [Python/Go] Simulation
 
 > Author: Benhao
 > Date: 2021-11-21
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-水不够了回去取水
+### Approach
+Go back to refill when there is not enough water.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-10-03
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-最左边的1到最右边的1之间没有0
+### Approach
+There must be no 0 between the leftmost and rightmost 1.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java] 双指针
+# [Python/Java] Two pointers
 
 > Author: Benhao
 > Date: 2021-08-18
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-从左到右找元音字母，从右到左找元音字母，这样对应的交换即可。
-因为最终第一个元音字母总是和最后一个交换的，第二个和倒数第二个，依次类推。
+### Approach
+Find vowels from the left and from the right, then swap each pair.
+The first vowel always swaps with the last, the second with the second-to-last, and so on.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

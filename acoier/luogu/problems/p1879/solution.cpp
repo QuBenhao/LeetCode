@@ -13,8 +13,8 @@ void dfs(const int n, const int i, const int st, vector<int>& states) {
         states.push_back(st);
         return;
     }
-    dfs(n, i + 1, st, states); // 不选
-    dfs(n, i + 2, st | 1 << i, states); // 选
+    dfs(n, i + 1, st, states); // Skip
+    dfs(n, i + 2, st | 1 << i, states); // Select
 }
 
 int main() {

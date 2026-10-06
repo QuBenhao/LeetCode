@@ -9,7 +9,7 @@ class Solution(solution.Solution):
 
     def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
         people.sort(key=lambda p: (p[0], -p[1]))
-        # 插入时，前面插入的对当前都没有影响，后面的都有影响，所以是第p[i][1]+1个空位置
+        # Earlier insertions do not affect the current person, while later ones do, so use the (p[i][1]+1)th empty position
         n = len(people)
         fw = FenwickTree(n)
         ans = [[] for _ in range(n)]
@@ -17,7 +17,7 @@ class Solution(solution.Solution):
             l, r = 1, n
             while l < r:
                 mid = (l + r) // 2
-                # 查询前mid个位置中有多少人，应该至多剩下mid - people[i - 1][1]个空位
+                # Query the number of people in the first mid positions; at most mid - people[i - 1][1] empty positions should remain
                 if fw.query(mid) >= mid - people[i - 1][1]:
                     l = mid + 1
                 else:
@@ -30,19 +30,19 @@ class Solution(solution.Solution):
 class FenwickTree:
     def __init__(self, size: int):
         self.n = size
-        self.tree = [0] * (self.n + 1)  # 索引从1开始
+        self.tree = [0] * (self.n + 1)  # Indices start at 1
 
     def lowbit(self, x: int) -> int:
         return x & (-x)
 
     def update(self, idx: int, delta: int) -> None:
-        """ 单点更新：a[idx] += delta """
+        """ Point update: a[idx] += delta """
         while idx <= self.n:
             self.tree[idx] += delta
             idx += self.lowbit(idx)
 
     def query(self, idx: int) -> int:
-        """ 查询前缀和：a[1] + a[2] + ... + a[idx] """
+        """ Query the prefix sum: a[1] + a[2] + ... + a[idx] """
         res = 0
         while idx > 0:
             res += self.tree[idx]
@@ -50,5 +50,5 @@ class FenwickTree:
         return res
 
     def range_query(self, l: int, r: int) -> int:
-        """ 区间查询：a[l] + a[l+1] + ... + a[r] """
+        """ Range query: a[l] + a[l+1] + ... + a[r] """
         return self.query(r) - self.query(l - 1)

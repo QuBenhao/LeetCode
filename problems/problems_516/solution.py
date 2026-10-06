@@ -17,7 +17,7 @@ class Solution(solution.Solution):
             return len(s)
 
         n = len(s)
-        # 预处理统计每个字母的所有坐标
+        # Preprocess all indices for each character
         cIndex = defaultdict(list)
         for i, c in enumerate(s):
             cIndex[ord(c) - ord('a')].append(i)
@@ -27,11 +27,11 @@ class Solution(solution.Solution):
             if l >= r:
                 return 1 if l == r else 0
             ans = 0
-            # 找处于区间l,r最左最右的a,b,c,d...,z
+            # Find the leftmost and rightmost occurrences of a,b,c,d...,z in the interval l,r
             for c in set(s[l:r + 1]):
                 i = ord(c) - ord('a')
                 left = bisect.bisect_left(cIndex[i], l)
-                # 区间里没有这个字母
+                # This character does not occur in the interval
                 if left == len(cIndex[i]):
                     continue
                 right = bisect.bisect_left(cIndex[i], r)

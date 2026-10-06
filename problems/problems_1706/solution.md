@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟(动态规划)
+# [Python/Java/JavaScript/Go] Simulation (dynamic programming)
 
 > Author: Benhao
 > Date: 2022-02-23
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-维护一个出发层纵坐标到当前行纵坐标的映射，根据每行该列的挡板进行模拟。
+### Approach
+Maintain a mapping from each starting column to its column in the current row, and simulate the board in that column.
 
-如果挡板向右，如果坐标是最后一列或者右边的挡板向左，该球会被卡住，删掉；否则它会移动到右边一列。
-同理，挡板向左，如果坐标是第一列或者左边的挡板向右，该球会被卡住，删掉；否则它会移动到左边一列。
+For a right-sloping board, the ball gets stuck at the last column or when the board on the right slopes left; remove it. Otherwise, move it one column right.
+Likewise, for a left-sloping board, the ball gets stuck at the first column or when the board on the left slopes right. Otherwise, move it one column left.
 
-模拟到最后一行后，还存在的映射为可到达的球及其最终列。其他为卡住的球返回-1。
+After the last row, the remaining mappings give the balls that exit and their final columns. Return -1 for the stuck balls.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -118,7 +118,7 @@ func findBall(grid [][]int) []int {
 }
 ```
 
-简洁递归写法
+Concise recursive implementation
 ```python3
 class Solution:
     def findBall(self, grid: List[List[int]]) -> List[int]:

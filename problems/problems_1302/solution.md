@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/deepest-leaves-sum/solutions/Bzyq4s/pythonjavatypescriptgo-bfs-by-himymben-n4oq/
 
 ---
-### 解题思路
-层序遍历裸题
+### Approach
+A straightforward level-order traversal problem.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

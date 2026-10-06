@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 记忆化递归
+# [Python/Java/TypeScript/Go] Memoized recursion
 
 > Author: Benhao
 > Date: 2022-10-20
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-当前行的第k位由上一行的第`(k - 1) / 2 + 1`得到
+### Approach
+The kth position in the current row comes from position `(k - 1) / 2 + 1` in the previous row
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

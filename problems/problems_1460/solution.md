@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 脑筋急转弯
+# [Python/Java/TypeScript/Go] Brain teaser
 
 > slug: pythonjavatypescriptgo-mo-ni-by-himymben-yc9h
 > date: 2022-08-24
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/make-two-arrays-equal-by-reversing-subarrays/solutions/8nlLy2/pythonjavatypescriptgo-mo-ni-by-himymben-yc9h/
 
 ---
-### 解题思路
-先翻转[i:j]再翻转[i:j+1]即可实现将j放到i位置，其他位置平移。
-用这个方式可以将任意数字放到任意位置
+### Approach
+Reverse [i:j], then [i:j+1], to move j to position i while shifting the other positions.
+This can move any number to any position.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

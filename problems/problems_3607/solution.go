@@ -19,7 +19,7 @@ func processQueries(c int, connections [][]int, queries [][]int) (ans []int) {
 		if _, exists := mapping[root]; !exists {
 			mapping[root] = list.New()
 		}
-		mapping[root].PushBack(i + 1) // 使用1-based索引
+		mapping[root].PushBack(i + 1) // Use 1-based indices
 		elemMap[i] = mapping[root].Back()
 	}
 	for _, query := range queries {
@@ -67,7 +67,7 @@ func NewUnionFind(size int) *UnionFind {
 
 func (uf *UnionFind) Find(x int) int {
 	for uf.parent[x] != x {
-		uf.parent[x] = uf.parent[uf.parent[x]] // 路径压缩
+		uf.parent[x] = uf.parent[uf.parent[x]] // Path compression
 		x = uf.parent[x]
 	}
 	return x
@@ -78,10 +78,10 @@ func (uf *UnionFind) Union(x, y int) bool {
 	rootY := uf.Find(y)
 
 	if rootX == rootY {
-		return false // 已经在同一集合
+		return false // Already in the same set
 	}
 
-	// 按秩合并
+	// Union by rank
 	if uf.rank[rootX] > uf.rank[rootY] {
 		uf.parent[rootY] = rootX
 	} else {
@@ -90,7 +90,7 @@ func (uf *UnionFind) Union(x, y int) bool {
 			uf.rank[rootY]++
 		}
 	}
-	uf.cc-- // 合并后集合数减少
+	uf.cc-- // Merging reduces the number of sets
 	return true
 }
 

@@ -1,4 +1,4 @@
-# [Python/Java] 排序后暴力匹配
+# [Python/Java] Sort, then match by brute force
 
 > Author: Benhao
 > Date: 2021-09-13
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按字符串长度、字典序排序后，匹配该字符串是否能由s组成，能的话就返回该字符串，否则继续往后找。
+### Approach
+Sort by string length and lexicographic order, then check whether each string can be formed from s. Return the first match; otherwise, keep searching.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 哈希表 + 递归
+# [Python/Java/TypeScript/Go] Hash table + recursion
 
 > slug: pythonjavatypescriptgo-di-gui-by-himymbe-9tds
 > date: 2022-06-19
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/most-frequent-subtree-sum/solutions/tEbAcB/pythonjavatypescriptgo-di-gui-by-himymbe-9tds/
 
 ---
-### 解题思路
-递归子树的和，根据子树和以及自身值，得到自己作为根的和，统计和的次数，返回自己的和给上层节点计算。
+### Approach
+Recursively compute the sums of the child subtrees. Add them to the current node's value to obtain the sum of the subtree rooted here, count its frequency, and return it to the parent.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

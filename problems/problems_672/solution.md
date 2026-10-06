@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 穷举
+# [Python/Java/TypeScript/Go] Exhaustive enumeration
 
 > Author: Benhao
 > Date: 2022-09-14
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-一共就四种操作，且每个操作只有一次和零次的区别 (同一个操作按两次等于没按)
-1. 当灯泡个数为2时，操作4等同于操作3，故特殊讨论。
-2. 当灯泡个数为1时，操作4等同于操作3，操作2等同于空操作，故特殊讨论。
-3. 当灯泡个数足够多(大于2)时，每个操作各不相同，我们讨论操作次数来确认我们的选择。
+### Approach
+There are only four operations, and each matters only modulo two: pressing the same button twice cancels out.
+1. With two bulbs, operation 4 equals operation 3, so handle this separately.
+2. With one bulb, operation 4 equals operation 3, and operation 2 does nothing, so handle this separately.
+3. With more than two bulbs, all four operations differ. Analyze the number of presses to determine the choices.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -24,12 +24,12 @@ class Solution:
             if presses == 1:
                 return 4
             if presses == 2:
-                return comb(4, 2) + 1 # 4个操作里选两个的选法，加上空操作
+                return comb(4, 2) + 1 # Choose two of the four operations, plus no net operation
             if presses == 3:
-                return comb(4, 3) + 4 # 4个操作里选三个的选法，加上两个操作出空+选一个操作
+                return comb(4, 3) + 4 # Choose three of the four operations, or two canceling presses plus one operation
             if presses == 4:
-                return comb(4, 2) + 2 # 4个操作里选两个的选法加上两个操作出空，加上选出空操作以及四个都选
-            return comb(4, 2) + 2 # 奇数可以退化到3，偶数可以退化到4
+                return comb(4, 2) + 2 # Choose two operations plus two canceling presses, no net operation, or all four operations
+            return comb(4, 2) + 2 # Reduce odd press counts to 3 and even counts to 4
         elif n == 2:
             if presses == 1:
                 return 3 
@@ -37,10 +37,10 @@ class Solution:
                 return comb(3, 2) + 1
             if presses == 3:
                 return comb(3, 1) + 1
-            return 4 # 奇数可以退化到3，偶数可以退化到2
+            return 4 # Reduce odd press counts to 3 and even counts to 2
         return 2
 ```
-以上代码可以简化为
+The code above simplifies to
 ```Python3 []
 class Solution:
     def flipLights(self, n: int, presses: int) -> int:

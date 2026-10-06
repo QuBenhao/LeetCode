@@ -1,4 +1,4 @@
-# 二进制前缀+DP
+# Binary prefixes + DP
 
 > slug: er-jin-zhi-qian-zhui-dp-by-himymben-j7al
 > date: 2025-06-11
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/partition-string-into-minimum-beautiful-substrings/solutions/zO48oL/er-jin-zhi-qian-zhui-dp-by-himymben-j7al/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

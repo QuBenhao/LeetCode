@@ -1,4 +1,4 @@
-# [Python] DFA 状态机转换
+# [Python] DFA state transitions
 
 > Author: Benhao
 > Date: 2021-06-17
@@ -7,21 +7,21 @@
 
 ---
 
-### 解题思路
+### Approach
 ![DFA.png](https://pic.leetcode.cn/1623892458-ENdUhr-DFA.png)
-图片来自[solution](https://leetcode.com/problems/valid-number/discuss/23728/A-simple-solution-in-Python-based-on-DFA)
+Image from [solution](https://leetcode.com/problems/valid-number/discuss/23728/A-simple-solution-in-Python-based-on-DFA)
 
-1:初始状态 (空字符串或者纯空格)
-2:符号位
-3:数字位 (形如-164,可以作为结束)
-4:小数点
-5:小数点后的数字(形如.721或者-123.6,可以作为结束)
-6:指数e
-7:指数后面的符号位
-8:指数后面的数字(形如+1e-6,可以作为结束)
-9:状态3,5,8后面多了空格(主要为了判断"1 1"是不合理的)
+1: Initial state (empty string or only spaces)
+2: Sign
+3: Digits (such as -164; can be an ending state)
+4: Decimal point
+5: Digits after the decimal point (such as .721 or -123.6; can be an ending state)
+6: Exponent e
+7: Sign after the exponent
+8: Digits after the exponent (such as +1e-6; can be an ending state)
+9: Spaces after states 3,5,8 (mainly to reject strings such as "1 1")
 
-### 代码
+### Code
 
 ```python3
 class Solution:

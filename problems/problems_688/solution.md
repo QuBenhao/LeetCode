@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 动态规划 
+# [Python/Java/JavaScript/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2022-02-16
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-典型的第k次概率依赖于周围八个点的第k-1次概率的题目，而我们知道初始概率为1，可以从0开始递推。
+### Approach
+This is a typical recurrence where the probability after k moves depends on the probabilities at the eight reachable positions after k-1 moves. The initial probability is 1, so start from move 0.
 
-### 代码
+### Code
 ```python3
 DIRS = [(1, 2), (2, 1), (-1, 2), (2, -1), (1, -2), (-2, 1), (-1, -2), (-2, -1)]
 class Solution:
@@ -105,7 +105,7 @@ func knightProbability(n int, k int, row int, column int) float64 {
     return dp[row][column][k]
 }
 ```
-滚动更新空间优化
+Optimize space with rolling updates.
 ```python3 []
 DIRS = [(1, 2), (2, 1), (-1, 2), (2, -1), (1, -2), (-2, 1), (-1, -2), (-2, -1)]
 class Solution:

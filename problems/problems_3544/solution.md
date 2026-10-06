@@ -1,4 +1,4 @@
-# 记忆化搜索
+# Memoized search
 
 > slug: ji-yi-hua-sou-suo-by-himymben-8z3n
 > date: 2025-05-10
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/subtree-inversion-sum/solutions/FElPQ1/ji-yi-hua-sou-suo-by-himymben-8z3n/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

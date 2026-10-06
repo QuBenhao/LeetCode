@@ -9,10 +9,10 @@ class Solution(solution.Solution):
 
     def maximumLength(self, nums: List[int]) -> int:
         count = Counter(nums)
-        max_len = 1  # 至少可以选一个元素
+        max_len = 1  # At least one element can be selected
 
-        # 特殊处理 x=1：因为 1^2 = 1，会形成全是 1 的序列
-        # 序列长度必须是奇数（峰值 1 个，其余对称）
+        # Handle x=1 separately: since 1^2 = 1, it forms a sequence of all ones
+        # The sequence length must be odd (one peak, with the rest symmetric)
         if 1 in count:
             c = count[1]
             max_len = max(max_len, c if c % 2 == 1 else c - 1)
@@ -20,21 +20,21 @@ class Solution(solution.Solution):
         for x in count:
             if x == 1:
                 continue
-            # 只有 count[x] >= 2 才能形成长度 > 1 的序列
+            # A sequence of length > 1 requires count[x] >= 2
             if count[x] < 2:
                 continue
 
-            # 构建链：每个数是前一个数的平方，且在数组中
+            # Build a chain: each number is the square of the previous one and is present in the array
             chain = [x]
             while chain[-1] ** 2 in count:
                 chain.append(chain[-1] ** 2)
 
-            # 找第一个 count < 2 的位置作为峰值
-            # 默认峰值是链的最后一个
+            # Find the first position with count < 2 to use as the peak
+            # By default, the peak is the last number in the chain
             peak_idx = len(chain) - 1
             for i, val in enumerate(chain):
                 if count[val] < 2:
-                    # count >= 1 可以作为峰值，count == 0 则峰值是前一个
+                    # A number with count >= 1 can be the peak; if count == 0, use the previous number
                     peak_idx = i if count[val] >= 1 else i - 1
                     break
 

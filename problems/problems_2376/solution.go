@@ -13,37 +13,37 @@ func countSpecialNumbers(n int) int {
 	memo := make([][1 << 10]int, m)
 	for i := range memo {
 		for j := range memo[i] {
-			memo[i][j] = -1 // -1 表示没有计算过
+			memo[i][j] = -1 // -1 means not yet computed
 		}
 	}
 	var dfs func(int, int, bool, bool) int
 	dfs = func(i, mask int, isLimit, isNum bool) (res int) {
 		if i == m {
 			if isNum {
-				return 1 // 得到了一个合法数字
+				return 1 // A valid number has been formed
 			}
 			return
 		}
 		if !isLimit && isNum {
 			p := &memo[i][mask]
-			if *p >= 0 { // 之前计算过
+			if *p >= 0 { // Already computed
 				return *p
 			}
-			defer func() { *p = res }() // 记忆化
+			defer func() { *p = res }() // Memoization
 		}
-		if !isNum { // 可以跳过当前数位
+		if !isNum { // The current digit can be skipped
 			res += dfs(i+1, mask, false, false)
 		}
 		d := 0
 		if !isNum {
-			d = 1 // 如果前面没有填数字，必须从 1 开始（因为不能有前导零）
+			d = 1 // If no digit has been placed, start at 1 to avoid leading zeros
 		}
 		up := 9
 		if isLimit {
-			up = int(s[i] - '0') // 如果前面填的数字都和 n 的一样，那么这一位至多填数字 s[i]（否则就超过 n 啦）
+			up = int(s[i] - '0') // If all previous digits match n, this digit can be at most s[i] (otherwise the number would exceed n)
 		}
-		for ; d <= up; d++ { // 枚举要填入的数字 d
-			if mask>>d&1 == 0 { // d 不在 mask 中，说明之前没有填过 d
+		for ; d <= up; d++ { // Enumerate the digit d to place
+			if mask>>d&1 == 0 { // If d is absent from mask, it has not been used before
 				res += dfs(i+1, mask|1<<d, isLimit && d == up, true)
 			}
 		}

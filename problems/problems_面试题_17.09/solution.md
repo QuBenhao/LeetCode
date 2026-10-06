@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] K路归并
+# [Python/Java/TypeScript/Go] K-way merge
 
 > slug: pythonjavatypescriptgo-klu-gui-bing-by-h-kxdf
 > date: 2022-09-28
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/get-kth-magic-number-lcci/solutions/J0ktc8/pythonjavatypescriptgo-klu-gui-bing-by-h-kxdf/
 
 ---
-### 解题思路
-归并应用裸题，每次取最小
-[丑数题解](https://leetcode.cn/problems/ugly-number-ii/solution/gong-shui-san-xie-yi-ti-shuang-jie-you-x-3nvs/)
+### Approach
+A direct application of merging: take the smallest value each time.
+[Ugly Number solution](https://leetcode.cn/problems/ugly-number-ii/solution/gong-shui-san-xie-yi-ti-shuang-jie-you-x-3nvs/)
 
-### 代码
+### Code
 
-最小堆
+Min-heap
 ```python3
 factors = [3, 5, 7]
 class Solution:
@@ -28,7 +28,7 @@ class Solution:
                     heapq.heappush(pq, p * cur)
         return ans
 ```
-多路归并
+Multiway merge
 ```Python3 []
 class Solution:
     def getKthMagicNumber(self, n: int) -> int:

@@ -6,7 +6,7 @@ impl Solution {
     pub fn find_products_of_elements(queries: Vec<Vec<i64>>) -> Vec<i32> {
         let mut ans = Vec::new();
         for query in queries.iter() {
-            // 偏移让数组下标从1开始
+            // Offset the array indices to start at 1
             let mut query = query.clone();
             query[0] += 1;
             query[1] += 1;
@@ -45,7 +45,7 @@ impl Solution {
         ans
     }
 
-    // 计算 <= x 所有数的数位1的和
+    // Count all set bits in numbers <= x
     fn count_one(x: i64) -> i64 {
         let mut res = 0i64;
         let mut sum = 0i64;
@@ -63,7 +63,7 @@ impl Solution {
         res
     }
 
-    // 计算 <= x 所有数的数位对幂的贡献之和
+    // Sum the bit contributions to the exponent over all numbers <= x
     fn count_pow(x: i64) -> i64 {
         let mut res = 0i64;
         let mut sum = 0i64;

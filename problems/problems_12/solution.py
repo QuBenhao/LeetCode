@@ -10,7 +10,7 @@ class Solution(solution.Solution):
         :type num: int
         :rtype: str
         """
-        # # 打表法
+        # # Lookup table approach
         # ans = [['','M','MM','MMM'],
         #        ['','C','CC','CCC','CD','D','DC','DCC','DCCC','CM'],
         #        ['','X','XX','XXX','XL','L','LX','LXX','LXXX','XC'],

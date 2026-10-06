@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 脑筋急转弯
+# [Python/Java/TypeScript/Go] Brain teaser
 
 > slug: pythonjavatypescriptgo-by-himymben-glmm
 > date: 2022-07-07
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/minimum-cost-to-move-chips-to-the-same-position/solutions/riIT9L/pythonjavatypescriptgo-by-himymben-glmm/
 
 ---
-### 解题思路
-题目中筹码移动2个距离是不花费任何代价的，所有筹码都可以被移到[1, 2]中 (不费任何代价)。
-题目变为比较[1, 2]中哪个筹码更少 (这个代价是不可能被省略的，不管怎么挪动都至少需要这么多)，即为答案。
-也就是数据中奇数少还是偶数少。
+### Approach
+Moving a chip by 2 costs nothing, so all chips can be moved to positions [1, 2] at no cost.
+The problem reduces to choosing the position in [1, 2] with fewer chips. That count is the answer: no sequence of moves can avoid paying at least this much.
+In other words, take the smaller of the counts of odd and even positions.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

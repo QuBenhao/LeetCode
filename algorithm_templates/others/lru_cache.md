@@ -1,15 +1,15 @@
-# lru缓存
+# LRU cache
 
-**最近最少使用算法**
+**Least recently used algorithm**
 
-双向链表+哈希表，值是双向链表节点
+A doubly linked list and a hash table whose values are list nodes
 
 ```python
 from typing import Optional
 
 
 class Node:
-    # 提高访问属性的速度，并节省内存
+    # Speed up attribute access and save memory
     __slots__ = 'prev', 'next', 'key', 'value'
 
     def __init__(self, key=0, value=0):
@@ -20,42 +20,42 @@ class Node:
 class LRUCache:
     def __init__(self, capacity: int):
         self.capacity = capacity
-        self.dummy = Node()  # 哨兵节点
+        self.dummy = Node()  # Sentinel node
         self.dummy.prev = self.dummy
         self.dummy.next = self.dummy
         self.key_to_node = {}
 
-    # 获取 key 对应的节点，同时把该节点移到链表头部
+    # Get the node for key and move it to the head of the list
     def get_node(self, key: int) -> Optional[Node]:
-        if key not in self.key_to_node:  # 没有这本书
+        if key not in self.key_to_node:  # This book is absent
             return None
-        node = self.key_to_node[key]  # 有这本书
-        self.remove(node)  # 把这本书抽出来
-        self.push_front(node)  # 放在最上面
+        node = self.key_to_node[key]  # This book is present
+        self.remove(node)  # Pull this book out
+        self.push_front(node)  # Place it on top
         return node
 
     def get(self, key: int) -> int:
-        node = self.get_node(key)  # get_node 会把对应节点移到链表头部
+        node = self.get_node(key)  # get_node moves the corresponding node to the head of the list
         return node.value if node else -1
 
     def put(self, key: int, value: int) -> None:
-        node = self.get_node(key)  # get_node 会把对应节点移到链表头部
-        if node:  # 有这本书
-            node.value = value  # 更新 value
+        node = self.get_node(key)  # get_node moves the corresponding node to the head of the list
+        if node:  # This book is present
+            node.value = value  # Update value
             return
-        self.key_to_node[key] = node = Node(key, value)  # 新书
-        self.push_front(node)  # 放在最上面
-        if len(self.key_to_node) > self.capacity:  # 书太多了
+        self.key_to_node[key] = node = Node(key, value)  # A new book
+        self.push_front(node)  # Place it on top
+        if len(self.key_to_node) > self.capacity:  # Too many books
             back_node = self.dummy.prev
             del self.key_to_node[back_node.key]
-            self.remove(back_node)  # 去掉最后一本书
+            self.remove(back_node)  # Remove the last book
 
-    # 删除一个节点（抽出一本书）
+    # Remove a node (pull out a book)
     def remove(self, x: Node) -> None:
         x.prev.next = x.next
         x.next.prev = x.prev
 
-    # 在链表头添加一个节点（把一本书放在最上面）
+    # Add a node at the head of the list (place a book on top)
     def push_front(self, x: Node) -> None:
         x.prev = self.dummy
         x.next = self.dummy.next
@@ -76,7 +76,7 @@ type entry struct {
 
 type LRUCache struct {
     capacity  int
-    list      *list.List // 双向链表
+    list      *list.List // Doubly linked list
     keyToNode map[int]*list.Element
 }
 
@@ -86,22 +86,22 @@ func Constructor(capacity int) LRUCache {
 
 func (c *LRUCache) Get(key int) int {
     node := c.keyToNode[key]
-    if node == nil { // 没有这本书
+    if node == nil { // This book is absent
         return -1
     }
-    c.list.MoveToFront(node) // 把这本书放在最上面
+    c.list.MoveToFront(node) // Place this book on top
     return node.Value.(entry).value
 }
 
 func (c *LRUCache) Put(key, value int) {
-    if node := c.keyToNode[key]; node != nil { // 有这本书
-        node.Value = entry{key, value} // 更新
-        c.list.MoveToFront(node) // 把这本书放在最上面
+    if node := c.keyToNode[key]; node != nil { // This book is present
+        node.Value = entry{key, value} // Update
+        c.list.MoveToFront(node) // Place this book on top
         return
     }
-    c.keyToNode[key] = c.list.PushFront(entry{key, value}) // 新书，放在最上面
-    if len(c.keyToNode) > c.capacity { // 书太多了
-        delete(c.keyToNode, c.list.Remove(c.list.Back()).(entry).key) // 去掉最后一本书
+    c.keyToNode[key] = c.list.PushFront(entry{key, value}) // Place the new book on top
+    if len(c.keyToNode) > c.capacity { // Too many books
+        delete(c.keyToNode, c.list.Remove(c.list.Back()).(entry).key) // Remove the last book
     }
 }
 ```

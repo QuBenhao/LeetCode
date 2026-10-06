@@ -1,4 +1,4 @@
-# [Python] 按连续的0和1分解字符串
+# [Python] Split the string into runs of 0s and 1s
 
 > Author: Benhao
 > Date: 2021-05-23
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-匹配连续的0的分解得到所有连续的1的长度的可能性，同理得到0的
-比较最大长度即可
+### Approach
+Split on runs of 0s to get the lengths of all runs of 1s, and vice versa.
+Compare the maximum lengths.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

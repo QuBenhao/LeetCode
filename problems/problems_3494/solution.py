@@ -10,7 +10,7 @@ class Solution(solution.Solution):
 
     def minTime(self, skill: List[int], mana: List[int]) -> int:
         n = len(skill)
-        s = list(accumulate(skill, initial=0))  # skill 的前缀和
+        s = list(accumulate(skill, initial=0))  # Prefix sums of skill
         start = 0
         for pre, cur in pairwise(mana):
             start += max(pre * s[i + 1] - cur * s[i] for i in range(n))

@@ -1,4 +1,4 @@
-# [Python] 双向BFS(100%) A*见评论
+# [Python] Bidirectional BFS (100%); see the comments for A*
 
 > Author: Benhao
 > Date: 2021-06-24
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-双向BFS的讲解见[三叶的如何使用「双向 BFS」解决搜索空间爆炸问题](https://leetcode.cn/problems/word-ladder/solution/gong-shui-san-xie-ru-he-shi-yong-shuang-magjd/)
+### Approach
+For an explanation of bidirectional BFS, see [三叶's article on using bidirectional BFS to address an exploding search space](https://leetcode.cn/problems/word-ladder/solution/gong-shui-san-xie-ru-he-shi-yong-shuang-magjd/)
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -64,7 +64,7 @@ class Solution:
                         ts.add((ts.explored[s] + 1, successor))
         return -1
 ```
-通用模板，只需要更改action和update里面的constraint(比如可能是in而不是not int)
+A general template: only action and the constraint in update need to change (for example, it may use in instead of not int)
 ```python3
 class Solution:
     def openLock(self, deadends: List[str], target: str) -> int:

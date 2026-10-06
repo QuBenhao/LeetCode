@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 排序模拟
+# [Python/Java/TypeScript/Go] Sorting and simulation
 
 > slug: pythonjavatypescriptgo-pai-xu-mo-ni-by-h-szvi
 > date: 2022-09-13
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/mean-of-array-after-removing-some-elements/solutions/e73ANg/pythonjavatypescriptgo-pai-xu-mo-ni-by-h-szvi/
 
 ---
-### 解题思路
-排序后求中间90%个数的平均值
+### Approach
+Sort and take the mean of the middle 90% of the numbers.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

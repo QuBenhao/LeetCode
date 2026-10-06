@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 克隆节点和原节点同步BFS展开，遇到target时返回cloned即可
+> Traverse the original and cloned nodes together with BFS; return cloned when target is reached.
 
-# 解题方法
+# Approach
 
 > BFS
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

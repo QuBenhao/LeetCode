@@ -1,4 +1,4 @@
-# [Python] 记录一下直接莽的BFS解法
+# [Python] Recording a straightforward BFS solution
 
 > slug: python-ji-lu-yi-xia-zhi-jie-mang-de-bfsj-1tby
 > date: 2022-02-06
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/minimum-cost-to-set-cooking-time/solutions/1aUSH7/python-ji-lu-yi-xia-zhi-jie-mang-de-bfsj-1tby/
 
 ---
-### 解题思路
-其实直接分类讨论几种时间的最短耗时就好
+### Approach
+It is sufficient to consider the few possible time representations and find the minimum input cost for each.
 
-### 代码
+### Code
 ```python3
 class Solution:
     def minCostSetTime(self, startAt: int, moveCost: int, pushCost: int, targetSeconds: int) -> int:

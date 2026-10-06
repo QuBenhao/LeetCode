@@ -1,4 +1,4 @@
-# [Python] 中序遍历+二分查找
+# [Python] Inorder traversal + binary search
 
 > slug: python-zhong-xu-bian-li-er-fen-cha-zhao-6uitw
 > date: 2024-02-24
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 二叉搜索树可以通过中序遍历得到顺序，针对每个查询可以找到它前后的元素
+> An inorder traversal of a binary search tree yields sorted values, allowing us to find the neighboring elements for each query.
 
-# 解题方法
+# Approach
 
-> 二分查找有序数组
+> Binary-search the sorted array.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n+qlogn)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

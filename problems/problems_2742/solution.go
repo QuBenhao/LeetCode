@@ -11,10 +11,10 @@ func paintWalls(cost, time []int) int {
 	n := len(cost)
 	f := make([]int, n+1)
 	for i := 1; i <= n; i++ {
-		f[i] = math.MaxInt / 2 // 防止加法溢出
+		f[i] = math.MaxInt / 2 // Prevent overflow during addition
 	}
 	for i, c := range cost {
-		t := time[i] + 1 // 注意这里加一了
+		t := time[i] + 1 // One is added here
 		for j := n; j > 0; j-- {
 			f[j] = min(f[j], f[max(j-t, 0)]+c)
 		}

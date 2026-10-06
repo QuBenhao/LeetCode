@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-kth-bit-in-nth-binary-string/solutions/aHO3TU/dfs-by-himymben-rijx/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

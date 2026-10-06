@@ -14,17 +14,17 @@ public class Solution extends BaseSolution {
 
         int[] ans = new int[size];
         for (int i = 0; i < size; i++) {
-            ans[i] = nums[uniques - 1 - i]; // 题目要求从大到小
+            ans[i] = nums[uniques - 1 - i]; // The problem requires descending order
         }
         return ans;
     }
 
-    // 26. 删除有序数组中的重复项
+    // 26. Remove Duplicates from Sorted Array
     private int removeDuplicates(int[] nums) {
         int k = 1;
         for (int i = 1; i < nums.length; i++) {
-            if (nums[i] != nums[i - 1]) { // nums[i] 不是重复项
-                nums[k++] = nums[i]; // 保留 nums[i]
+            if (nums[i] != nums[i - 1]) { // nums[i] is not a duplicate
+                nums[k++] = nums[i]; // Keep nums[i]
             }
         }
         return k;

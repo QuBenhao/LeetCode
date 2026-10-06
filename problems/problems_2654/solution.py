@@ -17,11 +17,11 @@ class Solution(solution.Solution):
             return n - cnt1
 
         min_size = n
-        a = []  # [GCD，相同 GCD 闭区间的右端点]
+        a = []  # [GCD, right endpoint of the inclusive interval sharing this GCD]
         for i, x in enumerate(nums):
             a.append([x, i])
 
-            # 原地去重，因为相同的 GCD 都相邻在一起
+            # Deduplicate in place, since equal GCD values are adjacent
             j = 0
             for p in a:
                 p[0] = gcd(p[0], x)
@@ -33,6 +33,6 @@ class Solution(solution.Solution):
             del a[j + 1:]
 
             if a[0][0] == 1:
-                # 这里本来是 i-a[0][1]+1，把 +1 提出来合并到 return 中
+                # This was i-a[0][1]+1; move the +1 into the return expression
                 min_size = min(min_size, i - a[0][1])
         return min_size + n - 1

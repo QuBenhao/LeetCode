@@ -1,4 +1,4 @@
-# [Python] 记忆化搜索(dp)优化(100%)
+# [Python] Optimized memoized search (DP) (100%)
 
 > Author: Benhao
 > Date: 2021-06-17
@@ -7,8 +7,8 @@
 
 ---
 
-### 解题思路
-在朴素搜索版本中，我们不使用left_dfs和right_dfs，所以我们每次都需要遍历查找最大值。
+### Approach
+The basic search does not use left_dfs or right_dfs, so each call must iterate to find the maximum.
 ```python3
             left = idx - 1
             right = idx
@@ -21,12 +21,12 @@
                 ans = max(ans, presum[j + 1] - presum[k] + dfs(k, j))
             return ans
 ```
-但是注意到如果搜索出现重复,遍历找最大值的时候遇到相同的(i,k)或者(k,j)，还是需要挨个比大小的(重复计算)
-如果我们能保存一个区间内的左右搜索最大值,比如说`(i,left)`,那么我们搜索`(i,left+1)`的时候只需要比较(`presum[left+2]-presum[i] + dfs(i, left+1)`和之前的`(i,left)`谁更大即可)
+When searches overlap, finding the maximum still requires comparing the same (i,k) or (k,j) intervals individually, repeating work.
+If we cache the maximum for the left and right searches over an interval such as `(i,left)`, then searching `(i,left+1)` only requires comparing `presum[left+2]-presum[i] + dfs(i, left+1)` with the cached maximum for `(i,left)`.
 
-实现方法就是使用记忆化递归代替循环求解最大值，从而保留不同区间的最大值
+Replace the loop that finds the maximum with memoized recursion to retain maxima for different intervals.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -37,9 +37,9 @@ class Solution:
                 return 0
             ans = 0
             half = (presum[j + 1] + presum[i]) / 2
-            # 使用二分查找左右的大小中心位置
+            # Use binary search to find where the left and right sums balance
             idx = bisect.bisect_left(presum, half, lo=i, hi=j + 1)
-            # idx 左边, left更小; idx 右边, right更小
+            # Left of idx, left is smaller; right of idx, right is smaller
             if presum[idx] == half:
                 ans = max(ans, left_dfs(i, idx), right_dfs(idx, j))
             else:

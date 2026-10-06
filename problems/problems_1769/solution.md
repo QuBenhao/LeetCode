@@ -1,4 +1,4 @@
-# 光芒熄灭了，但我们仍在战斗
+# The light has gone out, but we are still fighting
 
 > Author: Benhao
 > Date: 2022-12-02
@@ -11,27 +11,27 @@
 
 [TOC]
 
-# 思路
-> 方法一: 需要知道所有球的坐标
-> 方法二: 逐位统计距离，当前左右侧的距离和可以从左盒子左边和右盒子右边快速得到
+# Intuition
+> Method 1: record the positions of all balls.
+> Method 2: accumulate distances by position. Derive the left and right distance sums from the neighboring boxes' corresponding sums.
 
-# 解题方法
-> 方法一: 暴力统计
-> 方法二: 前缀和优化
+# Approach
+> Method 1: brute-force counting
+> Method 2: optimize with prefix sums
 
-# 复杂度
-方法一: 
-- 时间复杂度: 
+# Complexity
+Method 1:
+- Time complexity:
 > $O(m * n)$
 
-- 空间复杂度: 
+- Space complexity:
 > $O(n)$
 
-方法二:
-- 时间复杂度: 
+Method 2:
+- Time complexity:
 > $O(n)$
 
-- 空间复杂度: 
+- Space complexity:
 > $O(n)$
 
 # Code

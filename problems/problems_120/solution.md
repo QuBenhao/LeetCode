@@ -1,4 +1,4 @@
-# [Python/Go/C++/Java] 动态规划
+# [Python/Go/C++/Java] Dynamic programming
 
 > Author: Benhao
 > Date: 2024-03-05
@@ -12,21 +12,21 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 滚动更新
+> Rolling updates
 
-# 解题方法
+# Approach
 
-> 到第i行第j列的最小方案由第i-1行第j-1列和第i-1行第j列更小的一个叠加而成。其中最左侧直接累加
+> The minimum path sum at row i, column j is formed by adding the current value to the smaller of the sums at row i-1, column j-1 and row i-1, column j. The leftmost column is accumulated directly.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
-> $O(n)$ 【利用原数组的话$O(1)$】
+Space complexity:
+> $O(n)$ [$O(1)$ when reusing the original array]
 
 
 
@@ -102,7 +102,7 @@ class Solution {
 }
 ```
 
-直接利用原数组
+Reuse the original array directly
 ```Python3 []
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:

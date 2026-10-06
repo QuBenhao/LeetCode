@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟 -> 差分+二分
+# [Python/Java/TypeScript/Go] Simulation -> difference array + binary search
 
 > Author: Benhao
 > Date: 2022-08-19
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-只查一个时间遍历即可
+### Approach
+For a single query time, a traversal is enough.
 
-进阶：如果要反复查任意时间点的做作业个数，可以用差分统计各个区间的情况，然后用二分查询返回。
+Advanced: for repeated queries at arbitrary times, use a difference array to count students doing homework in each interval, then answer queries with binary search.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -54,7 +54,7 @@ func busyStudent(startTime []int, endTime []int, queryTime int) (ans int) {
 }
 ```
 
-```Python3 [v1-Py3 差分+二分]
+```Python3 [v1-Py3 Difference array + binary search]
 class Solution:
     def busyStudent(self, startTime: List[int], endTime: List[int], queryTime: int) -> int:
         n = len(startTime)
@@ -68,12 +68,12 @@ class Solution:
                 continue
             d += v
             ans.append([k, d])
-        # 感兴趣的朋友可以把ans打印出来看
+        # Print ans to inspect it if interested
         # print(ans)
-        # 在第一个学生之前的时间和在最后一个学生之后的时间都会走最后的0
+        # Times before the first student or after the last student both use the final 0
         return ans[bisect_right(ans, queryTime, key=lambda x:x[0]) - 1][1]
 ```
-```Go [v1-Go 差分+二分]
+```Go [v1-Go Difference array + binary search]
 func busyStudent(startTime []int, endTime []int, queryTime int) int {
     diff := map[int]int{}
     for i := 0; i < len(startTime); i++ {

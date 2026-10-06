@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-mo-ni-by-himymben-dhlf
 > date: 2022-09-08
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/crawler-log-folder/solutions/ljij0P/pythonjavatypescriptgo-mo-ni-by-himymben-dhlf/
 
 ---
-### 解题思路
-维护一个数字简单模拟栈即可。如果需要知道文件夹顺序，可以实际维护一个栈。
+### Approach
+A single counter can simulate the stack. Maintain an actual stack if the folder order is needed.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

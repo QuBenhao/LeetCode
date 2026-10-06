@@ -17,7 +17,7 @@ class Solution(solution.Solution):
             if x < 0:
                 cnt = 0
 
-                # 右上
+                # Upper right
                 i, j = 0, zero2
                 while i < zero1 and j < n:
                     if nums1[i] * nums2[j] > x:
@@ -25,7 +25,7 @@ class Solution(solution.Solution):
                     else:
                         cnt += n - j
                         i += 1
-                # 左下
+                # Lower left
                 i, j = zero1, 0
                 while i < m and j < zero2:
                     if nums1[i] * nums2[j] > x:
@@ -36,7 +36,7 @@ class Solution(solution.Solution):
             else:
                 cnt = zero1 * (n - zero2) + (m - zero1) * zero2
 
-                # 左上
+                # Upper left
                 i, j = 0, zero2 - 1
                 while i < zero1 and j >= 0:
                     if nums1[i] * nums2[j] > x:
@@ -44,7 +44,7 @@ class Solution(solution.Solution):
                     else:
                         cnt += zero1 - i
                         j -= 1
-                # 右下
+                # Lower right
                 i, j = zero1, n - 1
                 while i < m and j >= zero2:
                     if nums1[i] * nums2[j] > x:

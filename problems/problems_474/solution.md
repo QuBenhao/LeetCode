@@ -1,4 +1,4 @@
-# [Python] 二维dp or 记忆化搜索
+# [Python] Two-dimensional DP or memoized search
 
 > Author: Benhao
 > Date: 2021-06-06
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-令`dp[i][j]`表示`选了i个0,j个1`的最大元素个数。
+### Approach
+Let `dp[i][j]` be the maximum number of elements selected using `i zeros and j ones`.
 
-那么对于每个s，我们就更新整个dp表格(倒着更新因为前面的会影响后面，但后面不会影响前面）。
-所有加入s后个数分别不超过m,n都是合理的（但不一定是最优解法）。
+For each s, update the entire DP table in reverse order, since earlier entries can affect later ones but not vice versa.
+Any selection whose counts remain within m and n after adding s is valid, though not necessarily optimal.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -42,7 +42,7 @@ class Solution:
                 return 0
             ones = strs[idx].count('1')
             zeros = len(strs[idx]) - ones
-            # 选当前idx和不选当前idx的最大值
+            # Maximum of selecting and skipping the current idx
             return max(dfs(idx+1, x - zeros, y - ones) + 1, dfs(idx+1, x, y))
         
         l = len(strs)

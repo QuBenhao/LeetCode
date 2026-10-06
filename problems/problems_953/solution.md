@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-by-himymben-xx0m
 > date: 2022-05-16
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/verifying-an-alien-dictionary/solutions/67soMK/pythonjavajavascriptgo-by-himymben-xx0m/
 
 ---
-### 解题思路
-按order的规则逐位比较，从左往右只要有一组相邻单词不满足序，直接返回`false`即可。
+### Approach
+Compare characters in order according to order. Scan adjacent word pairs from left to right and return `false` as soon as a pair is out of order.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -102,14 +102,14 @@ func isAlienSorted(words []string, order string) bool {
 }
 ```
 
-一行版
+One-liner
 ```python3
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
         return sorted(words, key=lambda x:tuple(mp[c] for c in x)) == words if (mp := {c:i for i, c in enumerate(order)}) else False
 ```
 
-更新一个itertools的pairwise用法 [@jerryluan](/u/jerryluan/)
+Added a version using itertools pairwise [@jerryluan](/u/jerryluan/)
 ```python3
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:

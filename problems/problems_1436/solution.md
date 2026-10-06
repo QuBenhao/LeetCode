@@ -1,4 +1,4 @@
-# [Python/Java] 统计只在右边出现过一次的城市
+# [Python/Java] Find the city that appears only on the right
 
 > Author: Benhao
 > Date: 2021-09-30

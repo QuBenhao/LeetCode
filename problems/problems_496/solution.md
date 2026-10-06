@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 单调栈
+# [Python/Java/JavaScript] Monotonic stack
 
 > Author: Benhao
 > Date: 2021-10-25
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-使用单调栈+哈希表扫描`nums2`，得到并记录每个数字(题目说了互不相同)对应的比它最近的大数是哪个。
+### Approach
+Scan `nums2` with a monotonic stack and hash table, recording each value's next greater value. The problem guarantees distinct values.
 
-在单调栈中，只有比栈顶元素小的元素才能入栈，而这就相当于扫描到现在还没有出现比栈顶元素大(栈是单调的，里面都比栈顶大)的数。一旦出现了比栈顶大的，我们要一直弹出数，所有比它小的数都已经找到了需要的数(也就是它了)，直到并不再比它小，一直记录到最后。
+Only a value smaller than the top can be pushed without popping. Until a larger value appears, the stack's entries are still waiting for their next greater value, and all entries below the top are larger than it. When a larger value appears, keep popping smaller values and record this new value as their answer. Stop popping at a value that is not smaller, and continue to the end.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 洗牌算法
+# [Python/Java/JavaScript/Go] Shuffle algorithm
 
 > slug: pythonjavajavascriptgo-xi-pai-suan-fa-by-k7i2
 > date: 2021-11-21
@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/shuffle-an-array/solutions/7Bt41J/pythonjavajavascriptgo-xi-pai-suan-fa-by-k7i2/
 
 ---
-### 解题思路
-等概率选择每个位置应该填哪个数。
-具体来说，我们先在`0 ~ n-1`中随机选一个坐标，将它作为第一个，和第一个交换位置； （每个数被选到的概率是 $\frac{1}{n}$）
-剩下的`n-1`个数里，继续随机一个`1 ~ n-1`的坐标，将它作为第二个，和第二个交换位置；(每个数被选到的概率为第一次没被选到且第二次被选到 $\frac{n-1}{n} * \frac{1}{n-1} = \frac{1}{n}$)
+### Approach
+Choose the value for each position with equal probability.
+First, randomly choose an index in `0 ~ n-1` and swap its value into the first position. (Each value is chosen with probability $\frac{1}{n}$.)
+From the remaining `n-1` values, randomly choose an index in `1 ~ n-1` and swap its value into the second position. (The probability of not being chosen first and being chosen second is $\frac{n-1}{n} * \frac{1}{n-1} = \frac{1}{n}$.)
 。。。
-以此类推。
-每个数填到每个位置是等概率的，都是$\frac{1}{n}$
+Continue in the same way.
+Every value has the same probability, $\frac{1}{n}$, of occupying each position.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

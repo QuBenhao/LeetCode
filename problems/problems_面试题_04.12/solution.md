@@ -1,4 +1,4 @@
-# [Python/Go] 递归维护前缀和个数 
+# [Python/Go] Track prefix-sum counts recursively 
 
 > slug: pythongo-di-gui-wei-hu-qian-zhui-he-ge-s-dtls
 > date: 2021-11-15

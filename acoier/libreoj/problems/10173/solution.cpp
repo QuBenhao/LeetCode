@@ -11,8 +11,8 @@ void dfs(const int m, const int i, const int st, vector<int>& states) {
         states.emplace_back(st);
         return;
     }
-    dfs(m, i + 1, st, states); // 不选
-    dfs(m, i + 3, st | (1 << i), states); // 选
+    dfs(m, i + 1, st, states); // Skip
+    dfs(m, i + 3, st | (1 << i), states); // Select
 }
 
 int main() {
@@ -50,7 +50,7 @@ int main() {
                 continue;
             }
             const int cnt = popcount(static_cast<unsigned int>(st));
-            for (const auto& j: graph[st]) { // 上一行
+            for (const auto& j: graph[st]) { // Previous row
                 for (const auto& sub: graph[j]) {
                     if ((sub & st) != 0) {
                         continue;

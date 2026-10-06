@@ -1,4 +1,4 @@
-# [Python/Java] 博弈论
+# [Python/Java] Game theory
 
 > slug: pythonjava-bo-yi-lun-by-himymben-ybrs
 > date: 2021-09-17
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/nim-game/solutions/gK224m/pythonjava-bo-yi-lun-by-himymben-ybrs/
 
 ---
-### 解题思路
-由于一个人每次只能取1-3个石头，那么第二个人总能通过取第一个人取法跟4的补数(比如对方取1他就取3)，而达到稳定取到4以及后面4的倍数的目的。也就是说，如果有4的倍数的石子，那么后手永远能取到。
+### Approach
+Each player can take 1-3 stones, so the second player can always take the complement to 4 of the first player's move (for example, taking 3 when the opponent takes 1). Each pair of turns then removes exactly 4 stones. Thus, if the number of stones is a multiple of 4, the second player can always take the last stone.
 
-那么如果有不是4的倍数个石子呢？石子的个数模4必然余1-3。而先手的人，可以通过取这个余数而达到让自己成为上述的稳定取到4的倍数的石子的“后手”，也就是稳定的获胜。
+If the number of stones is not a multiple of 4, its remainder modulo 4 is 1-3. The first player can take that remainder, becoming the effective second player in the strategy above and guaranteeing a win.
 
-> 题外话: 这和小时候玩过的经典的报数抢21游戏一样。每个人可以报连续的一到三个数，从1报到21，谁报到21谁就能赢。这时候你就会想，你先手想赢，你必须不能报18(你报18他就能报到21了)。你想不报18你必须也不能报14(你报14他就能报到17，你只能报18了)。依次类推，你不想报的数其实是2。那么很显然，你先手第一次只报个1，你就能赢。
+> Aside: This resembles the childhood game of counting to 21. Each player says one to three consecutive numbers, starting at 1, and whoever says 21 wins. To win as the first player, avoid saying 18, since the opponent could then reach 21. To avoid 18, avoid 14, since the opponent could reach 17 and force you to say 18. Continuing backward, the number to avoid is 2. Therefore, start by saying only 1, and you can force a win.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

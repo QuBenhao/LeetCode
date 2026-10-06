@@ -31,35 +31,35 @@ impl LRUCache {
     }
 
     pub fn get(&mut self, key: i32) -> i32 {
-        if let Some(node) = self.key_to_node.get(&key) { // 有这本书
+        if let Some(node) = self.key_to_node.get(&key) { // This book is present
             let node = node.clone();
             let value = node.borrow().value;
-            self.remove(node.clone()); // 把这本书抽出来
-            self.push_front(node); // 放在最上面
+            self.remove(node.clone()); // Take this book out
+            self.push_front(node); // Put it on top
             return value;
         }
-        -1 // 没有这本书
+        -1 // This book is not present
     }
 
     pub fn put(&mut self, key: i32, value: i32) {
-        if let Some(node) = self.key_to_node.get(&key) { // 有这本书
+        if let Some(node) = self.key_to_node.get(&key) { // This book is present
             let node = node.clone();
-            node.borrow_mut().value = value; // 更新 value
-            self.remove(node.clone()); // 把这本书抽出来
-            self.push_front(node); // 放在最上面
+            node.borrow_mut().value = value; // Update value
+            self.remove(node.clone()); // Take this book out
+            self.push_front(node); // Put it on top
             return;
         }
-        let node = Node::new(key, value); // 新书
+        let node = Node::new(key, value); // New book
         self.key_to_node.insert(key, node.clone());
-        self.push_front(node); // 放在最上面
-        if self.key_to_node.len() > self.capacity { // 书太多了
+        self.push_front(node); // Put it on top
+        if self.key_to_node.len() > self.capacity { // Too many books
             let back_node = self.dummy.borrow().prev.clone().unwrap();
             self.key_to_node.remove(&back_node.borrow().key);
-            self.remove(back_node); // 去掉最后一本书
+            self.remove(back_node); // Remove the last book
         }
     }
 
-    // 删除一个节点（抽出一本书）
+    // Remove a node (take out a book)
     fn remove(&mut self, x: Rc<RefCell<Node>>) {
         let prev = x.borrow().prev.clone().unwrap();
         let next = x.borrow().next.clone().unwrap();
@@ -67,7 +67,7 @@ impl LRUCache {
         next.borrow_mut().prev = Some(prev);
     }
 
-    // 在链表头添加一个节点（把一本书放在最上面）
+    // Add a node at the head of the list (put a book on top)
     fn push_front(&mut self, x: Rc<RefCell<Node>>) {
         let next = self.dummy.borrow().next.clone();
         x.borrow_mut().prev = Some(self.dummy.clone());

@@ -1,4 +1,4 @@
-# [Python] 双哈希
+# [Python] Two hash tables
 
 > Author: Benhao
 > Date: 2024-03-21
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 一个哈希记录数字和它的频次，另一个哈希记录频次和有这个频次的数量
+> One hash table maps each number to its frequency; the other maps each frequency to the number of values with that frequency.
 
-# 解题方法
+# Approach
 
-> 在数字频次进行变化时，对频次的哈希进行同步变化即可
+> Whenever a number's frequency changes, update the frequency-count table accordingly.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

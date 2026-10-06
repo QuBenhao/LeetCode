@@ -1,4 +1,4 @@
-# [Python] 双指针
+# [Python] Two pointers
 
 > Author: Benhao
 > Date: 2021-05-09
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-利用两个数组非递增的性质
+### Approach
+Use the fact that both arrays are nonincreasing.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -19,13 +19,13 @@ class Solution:
         i = j = 0
         ans = 0
         while j < n:
-            # 如果nums1[i]是大于当前的nums2[j]的，i需要右移
-            # i不该超过j，否则不满足i<=j
+            # If nums1[i] exceeds nums2[j], move i right
+            # i must not pass j, since i<=j is required
             while i < min(m, j) and nums1[i] > nums2[j]:
                 i += 1
             if i == m:
                 return ans
-            # 对于当前j最远的满足nums1[i]<=nums2[j]就是i了
+            # This i is the farthest from j that satisfies nums1[i]<=nums2[j]
             ans = max(ans, j - i)
             j += 1
         return ans

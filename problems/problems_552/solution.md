@@ -1,4 +1,4 @@
-# [Python] 动态规划
+# [Python] Dynamic programming
 
 > Author: Benhao
 > Date: 2021-08-18
@@ -7,18 +7,18 @@
 
 ---
 
-### 解题思路
+### Approach
 
-维护各种状态以及他们的递推关系。
+Maintain the different states and their recurrence relations.
 
-> alast: 当前有A出现了，且结尾不是L(A或P)，那么它初始为1，递推关系满足由所有不带A的里面加入一个A(所以是上一次不带A的和)以及所有带A的里面加入一个P(所以是上一次带A的和)。
-> alastL: 当前有A出现了，且结尾是一个L(AL或PL)，那么它初始为0，递推关系满足由上一个带A的且结尾不是L加入一个L得到。
-> alastLL: 当前有A出现了，且结尾是LL，那么它初始为0，递推关系满足由上一个带A的且结尾是一个L的加入一个L得到。
-> last: 当前没有A，且结尾不是L(P)，那么它初始为1，递推关系满足由上一个所有不带A的里面加入一个P得到。
-> lastL: 当前没有A，且结尾是一个L，递推关系满足由不带A的且结尾没有L的里面加入一个L得到。
-> lastLL: 当前没有A, 且结尾是两个L, 递推关系满足由不带A的且结尾是一个L的里面加入一个L得到。
+> alast: An A has appeared, and the sequence does not end in L (it ends in A or P). Initialize to 1. Form this state by appending A to any sequence without A, or P to any sequence with A, so add the previous totals for both groups.
+> alastL: An A has appeared, and the sequence ends in one L (AL or PL). Initialize to 0. Form this state by appending L to a sequence that contains A and does not end in L.
+> alastLL: An A has appeared, and the sequence ends in LL. Initialize to 0. Form this state by appending L to a sequence that contains A and ends in one L.
+> last: No A has appeared, and the sequence does not end in L (it ends in P). Initialize to 1. Form this state by appending P to any sequence without A.
+> lastL: No A has appeared, and the sequence ends in one L. Form this state by appending L to a sequence without A that does not end in L.
+> lastLL: No A has appeared, and the sequence ends in two Ls. Form this state by appending L to a sequence without A that ends in one L.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -58,7 +58,7 @@ class Solution {
 }
 ```
 
-numpy矩阵快速幂
+Fast matrix exponentiation with numpy
 ```Python3
 import numpy as np
 MOD = 10 ** 9 + 7

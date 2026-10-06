@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 递归
+# [Python/Java/JavaScript/Go] Recursion
 
 > slug: pythonjavajavascriptgo-by-himymben-6400
 > date: 2022-03-19
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/construct-string-from-binary-tree/solutions/p3bruk/pythonjavajavascriptgo-by-himymben-6400/
 
 ---
-### 解题思路
-在有左孩子或右孩子时，左边的括号才会被添加。
-在有右孩子的时候，右边的括号才会被添加。
-其他和先序遍历没有区别。
+### Approach
+Add the parentheses for the left child whenever either child exists.
+Add the parentheses for the right child only when the right child exists.
+Everything else follows preorder traversal.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

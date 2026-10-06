@@ -1,4 +1,4 @@
-# [Python] 贪心
+# [Python] Greedy
 
 > Author: Benhao
 > Date: 2024-03-23
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 对于每个数x,必能添加x-1，最多n天除1以外所有小于n的数都能被添加，返回n-1即可
+> For each number x, x-1 can be added. Within at most n days, every number smaller than n except 1 can be added; return n-1.
 
-# 解题方法
+# Approach
 
-> 贪心
+> Greedy
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(1)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

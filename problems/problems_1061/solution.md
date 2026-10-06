@@ -1,4 +1,4 @@
-# 并查集
+# Union-find
 
 > slug: bing-cha-ji-by-himymben-uc54
 > date: 2025-06-04
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/lexicographically-smallest-equivalent-string/solutions/aWfhQt/bing-cha-ji-by-himymben-uc54/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

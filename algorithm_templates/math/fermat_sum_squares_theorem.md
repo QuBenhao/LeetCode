@@ -1,18 +1,18 @@
-# 费马平方和定理
+# Fermat's Sum of Two Squares Theorem
 
-- **定理内容**
+- **Theorem**
 
-一个奇素数$`p`$, 可以表示为两个整数的平方和（即$`p = x^2 + y^2`$），当且仅当$$p \equiv 1 \pmod{4}$$
+An odd prime $`p`$ can be expressed as the sum of two integer squares (that is, $`p = x^2 + y^2`$) if and only if $$p \equiv 1 \pmod{4}$$
 
-- **证明思路（简述）**
+- **Proof Sketch**
 
-如果$`p \equiv 1 \pmod{4}`$，可以通过数论方法证明$`p`$可以表示为两个平方数之和。
-如果$`p \equiv 3 \pmod{4}`$，则$`p`$无法表示为两个平方数之和。
+If $`p \equiv 1 \pmod{4}`$, number-theoretic methods can show that $`p`$ is the sum of two squares.
+If $`p \equiv 3 \pmod{4}`$, then $`p`$ cannot be expressed as the sum of two squares.
 
-- **示例**
+- **Examples**
 
-$`5 = 2^2 + 1^2`$，且$`5 \equiv 1 \pmod{4}`$
+$`5 = 2^2 + 1^2`$, and $`5 \equiv 1 \pmod{4}`$
 
-$`13 = 3^2 + 2^2`$，且$`13 \equiv 1 \pmod{4}`$
+$`13 = 3^2 + 2^2`$, and $`13 \equiv 1 \pmod{4}`$
 
-$`7`$无法表示为两个平方数之和，因为$`7 \equiv 3 \pmod{4}`$
+$`7`$ cannot be expressed as the sum of two squares because $`7 \equiv 3 \pmod{4}`$

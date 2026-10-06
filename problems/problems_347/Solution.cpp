@@ -19,7 +19,7 @@ public:
             occurrences[v]++;
         }
 
-        // pair 的第一个元素代表数组的值，第二个元素代表了该值出现的次数
+        // The pair's first element is the array value; its second element is the frequency of that value
         priority_queue<pair<int, int>, vector<pair<int, int>>, decltype(&cmp)> q(cmp);
         for (auto& [num, count] : occurrences) {
             if (q.size() == k) {

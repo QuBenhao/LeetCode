@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 双指针
+# [Python/Java/TypeScript/Go] Two pointers
 
 > slug: pythonjavatypescriptgo-shuang-zhi-zhen-b-ix9d
 > date: 2022-05-28
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/remove-outermost-parentheses/solutions/3WFprE/pythonjavatypescriptgo-shuang-zhi-zhen-b-ix9d/
 
 ---
-### 解题思路
-根据左右括号的平衡，找每个使得左右括号数量一致的点，去掉这些点即可。
+### Approach
+Track the balance of opening and closing parentheses to find each primitive substring, then remove its outer parentheses.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

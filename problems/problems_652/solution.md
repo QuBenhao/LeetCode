@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] DFS节点编号
+# [Python/Java/TypeScript/Go] Assign node IDs with DFS
 
 > Author: Benhao
 > Date: 2022-09-04
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-我们知道当两个树节点的左节点一致、右节点一致、根的值一致时，他们是重复的子树。
-所以我们先对树的子节点进行递归，判断子节点是不是一致，后面再判断当前父节点是不是一致。
-我们对每个独特的树节点进行哈希(根节点值、左节点编号、右节点编号)和编号(按出现顺序)，比如说第一个叶子节点为4，那么[4,null,null]为它的解构，0为它的编号。
-这样它的父节点的左节点，就可以用编号0表示了。于是它的父节点2的解构就是[2,0,null]，1是它的编号。
-也就是说每个节点左右节点均为编号，编号对比是否一致是很容易的。
+### Approach
+Two subtrees are duplicates when their left subtrees, right subtrees, and root values match.
+Recurse on the children first to determine whether they match, then compare the parent nodes.
+Hash each distinct subtree by (root value, left subtree ID, right subtree ID) and assign IDs in discovery order. For example, if the first leaf has value 4, its structure is [4,null,null] and its ID is 0.
+Its parent's left child can then be represented by ID 0. If the parent has value 2 and no right child, its structure is [2,0,null] and its ID is 1.
+Each node's children are represented by IDs, which are easy to compare.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

@@ -11,7 +11,7 @@ class Fenwick {
 public:
     Fenwick(int n) : tree(n) {}
 
-    // 把下标为 i 的元素增加 v
+    // Increase the element at index i by v
     void add(int i, int v) {
         while (i < tree.size()) {
             tree[i] += v;
@@ -19,7 +19,7 @@ public:
         }
     }
 
-    // 返回下标在 [1,i] 的元素之和
+    // Return the sum of the elements at indices [1,i]
     int pre(int i) {
         int res = 0;
         while (i > 0) {
@@ -45,7 +45,7 @@ public:
         for (int i = 2; i < nums.size(); i++) {
             int x = nums[i];
             int v = sorted.end() - ranges::lower_bound(sorted, x);
-            int d = t.pre(v - 1); // 转换成 < v 的元素个数之差
+            int d = t.pre(v - 1); // Convert to the difference in the counts of elements < v
             if (d > 0 || d == 0 && a.size() <= b.size()) {
                 a.push_back(x);
                 t.add(v, 1);

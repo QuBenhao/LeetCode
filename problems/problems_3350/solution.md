@@ -1,4 +1,4 @@
-# 遍历
+# Traversal
 
 > slug: bian-li-by-himymben-8u69
 > date: 2025-10-14
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/adjacent-increasing-subarrays-detection-ii/solutions/CbQu79/bian-li-by-himymben-8u69/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

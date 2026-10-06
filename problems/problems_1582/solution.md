@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-09-04
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-求和为1的行、和为1的列，
-再统计他们的交点是不是1的个数。
+### Approach
+Find rows and columns whose sums are 1.
+Then count how many of their intersections contain 1.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

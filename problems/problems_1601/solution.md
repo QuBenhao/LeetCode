@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 从大到小枚举 or 二进制枚举 (状态压缩) or 回溯
+# [Python/Java/JavaScript/Go] Enumerate sizes in descending order, bitmask enumeration, or backtracking
 
 > slug: pythonjavajavascriptgo-cong-da-dao-xiao-abkmr
 > date: 2022-02-27
@@ -7,32 +7,32 @@
 > url: https://leetcode.cn/problems/maximum-number-of-achievable-transfer-requests/solutions/gPWMPl/pythonjavajavascriptgo-cong-da-dao-xiao-abkmr/
 
 ---
-### 解题思路
-从大到小枚举最多成立的请求数(记为$m$)，遍历这个请求数下，所有构成请求数的组合($C_n^m$个)中，有没有满足题目要求的，有的话直接返回答案即可。
+### Approach
+Enumerate the number of accepted requests, $m$, from largest to smallest. Check all $C_n^m$ combinations of that size, and return immediately when one satisfies the requirements.
 
-二进制枚举requests被选取的情况，比如二进制最右边位如果是1，代表requests[0]被计入答案，用二进制形式枚举requests的所有组合，依次看是否可行更新最大答案。
+Use a bitmask to indicate which requests are selected. For example, a 1 in the rightmost bit includes requests[0]. Enumerate every subset, check whether it is feasible, and update the maximum answer.
 
-回溯枚举每个请求被选择的情况，并用一个数组维护出入度差异，最终返回最大选的总数。
+Use backtracking to choose whether to include each request. Maintain an array of differences between incoming and outgoing transfers, and return the maximum number selected.
 
-### 代码
-从大到小枚举组合
+### Code
+Enumerate combinations by descending size
 ```Python3
 class Solution:
     def maximumRequests(self, n: int, requests: List[List[int]]) -> int:
         for i in range(len(requests), 0, -1):
-            # 组合统计 m个requests里选取i个的所有组合
+            # Enumerate all ways to choose i requests from m requests
             for comb in combinations(requests, i):
-                # 统计出度入度是否完全相等
+                # Check that all incoming and outgoing counts match
                 cnts = [0] * n
                 for a, b in comb:
-                    # 出度, 入度
+                    # Outgoing count, incoming count
                     cnts[a] += 1
                     cnts[b] -= 1
                 if all(not c for c in cnts):
                     return i
         return 0
 ```
-二进制枚举
+Bitmask enumeration
 ```Java []
 class Solution {
     public int maximumRequests(int n, int[][] requests) {
@@ -111,7 +111,7 @@ func maximumRequests(n int, requests [][]int) (ans int) {
     return
 }
 ```
-回溯
+Backtracking
 ```Java []
 class Solution {
     public int maximumRequests(int n, int[][] requests) {

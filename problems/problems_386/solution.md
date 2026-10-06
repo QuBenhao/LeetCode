@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-本题和[440. 字典序的第K小数字](https://leetcode.cn/problems/k-th-smallest-in-lexicographical-order/solution/pythonjavajavascriptgo-di-gui-by-himymbe-5mq5/)大同小异。
+### Approach
+This problem is similar to [440. 字典序的第K小数字](https://leetcode.cn/problems/k-th-smallest-in-lexicographical-order/solution/pythonjavajavascriptgo-di-gui-by-himymbe-5mq5/).
 
-使用前缀树 + DFS （Python要求空间O(1)可以使用yield）
+Use a prefix tree + DFS (in Python, yield can be used when O(1) space is required).
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -34,7 +34,7 @@ class Solution {
             if(cur * 10 <= n)
                 cur *= 10;
             else {
-                // 枚举到当前前缀的最深处了，需要回到上一层并到下一个同层节点
+                // The current prefix has been fully explored; return to the parent and move to the next node at that level
                 while(cur % 10 == 9 || cur >= n)
                     cur /= 10;
                 cur++;

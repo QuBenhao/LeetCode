@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 状压dp
+# [Python/Java/TypeScript/Go] Bitmask DP
 
 > Author: Benhao
 > Date: 2022-09-20
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-[473.火柴拼正方形](https://leetcode.cn/problems/matchsticks-to-square/solution/pythonjavatypescriptgo-by-himymben-57tt/)
+### Approach
+[473. Matchsticks to Square](https://leetcode.cn/problems/matchsticks-to-square/solution/pythonjavatypescriptgo-by-himymben-57tt/)
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

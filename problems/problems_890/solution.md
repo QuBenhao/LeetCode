@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: -by-himymben-xdl2
 > date: 2022-06-12
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/find-and-replace-pattern/solutions/xeAjjw/-by-himymben-xdl2/
 
 ---
-### 解题思路
-根据规则利用哈希表，遍历每个单词，逐个校验每个单词中的每个字母，查看是否存在满足题目的映射。
+### Approach
+Use hash maps according to the rules. Check each letter of each word to see whether a mapping satisfying the problem exists.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

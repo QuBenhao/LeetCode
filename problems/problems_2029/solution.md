@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go/C] 博弈 - Alice获胜的策略分析
+# [Python/Java/JavaScript/Go/C] Game theory - analyzing Alice's winning strategy
 
 > slug: pythonjavajavascriptgoc-bo-yi-fen-xi-by-2024o
 > date: 2022-01-19
@@ -7,23 +7,23 @@
 > url: https://leetcode.cn/problems/stone-game-ix/solutions/YdJcFD/pythonjavajavascriptgoc-bo-yi-fen-xi-by-2024o/
 
 ---
-### 解题思路
-分析题目：
-> 1. 石子按模3区分，原来的大小在同一个余数堆里没有区别
-> 2. 模3余0的石子成对出现等于没出现，因为对方被迫选了模3余0，我们再选模3余0还会让他面对刚刚的局面
-> 3. 先手拿1，整体的选择只能为 1 1 2 1 2 1 2 ...
-> 4. 先手拿2，整体的选择只能为 2 2 1 2 1 2 1 ...
-> 5. 如果没有模3余0的石子（成对出现了），Alice先手取更少的那边的石子是必胜态，会逼对方必须从更少的石子中拿石子，他会先拿光
-> 6. 如果没有模3余0的石子（成对出现了），且有一堆余1或余2的石子没有，那么Alice要么在第三回合输，要么拿光也没有出现模3余0，Bob必胜
-> 7. 如果有模3余0的石子（奇数个），由于出现了一个反制的选择，如果拿更少的石子，对方拿模3余0的石子会导致自己永远要选更少的石子而先输掉游戏，
->    所以必须拿更多的那一边，只多一个或两个还不行，因为那样Bob总有拿光也没有出现模3余0的策略，Bob必胜。
->    只有当有一堆石子更多且多至少3个时候，Alice才有逼对方在这堆石子取到模3余0的策略（先拿更多的那边，后面对方拿0我们取这堆，对方拿这堆里的我们取0）
+### Approach
+Analyze the problem:
+> 1. Group stones by their remainders modulo 3; the original values make no difference within a group.
+> 2. Pairs of remainder-0 stones cancel out: if the opponent is forced to take one, we can take another and leave them facing the same position again.
+> 3. If the first player takes a 1, the sequence of choices must be 1 1 2 1 2 1 2 ...
+> 4. If the first player takes a 2, the sequence of choices must be 2 2 1 2 1 2 1 ...
+> 5. With no remainder-0 stones left (after pairing them off), Alice wins by taking from the smaller group first. This forces the opponent to keep taking from that group and run out first.
+> 6. With no remainder-0 stones left (after pairing them off), if either the remainder-1 or remainder-2 group is empty, Alice either loses on the third turn or exhausts all stones without making the sum divisible by 3. Bob wins in either case.
+> 7. With an odd number of remainder-0 stones, the opponent has a counter: if Alice starts with the smaller group, the opponent can take a remainder-0 stone and force her to keep taking from the smaller group, so she loses first.
+>    Alice must therefore start with the larger group. Having only one or two more stones is insufficient, because Bob can always arrange for all stones to be taken without making the sum divisible by 3, and win.
+>    Only when one group has at least three more stones can Alice force the opponent to make the sum divisible by 3 (start with the larger group; afterward, take from that group when the opponent takes 0, and take 0 when the opponent takes from that group).
 
-总结：
-偶数个整除3的石子下，Alice的策略为拿1或2更少的那边，如果1或2里有一堆没有，Alice无法获胜。
-奇数个整除3的石子下，Alice的策略为拿1或2更多的那边，如果更多的那边不比另一堆多至少3个，Alice无法获胜。
+Summary:
+With an even number of stones divisible by 3, Alice starts with the smaller of the remainder-1 and remainder-2 groups. If either group is empty, Alice cannot win.
+With an odd number of stones divisible by 3, Alice starts with the larger of the remainder-1 and remainder-2 groups. Unless that group has at least three more stones, Alice cannot win.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -37,13 +37,13 @@ class Solution:
             else:
                 cnts[m] += 1
         if not cnts[0]:
-            # Alice获胜的策略必然是先取1或2中更少的那个，如果有一个没得可取，
-            # 那么Alice必然是拿到第一个模3余0（第三次为Alice取），要么石子全拿光也不会是0（比如两个1）
+            # Alice must start with the smaller of the remainder-1 and remainder-2 groups. If either group is empty,
+            # Alice is the first to make the sum divisible by 3 (on her third-turn move), or all stones are exhausted without doing so (for example, two 1s)
             return min(cnts[1], cnts[2]) > 0
         else:
-            # 拥有了一个先手反制的选择（再非第一回合选择模3余0的数，会导致本来该自己必须选某堆石子变为对方必须先选）
-            # 那么Alice第一回合必须拿更多的那边的石子（更少会导致对方拿模3余0，我们面对上面分析的必输态）
-            # 如果拿走一个以后，更多的石子和另一堆一样多 或者 只多一个，那么Bob总有永远和不为3且取光所有石子的选择。
+            # There is a counter to the first player's strategy: taking a remainder-0 stone after the first turn switches which player must take from a given group first
+            # Alice must therefore start with the larger group (starting with the smaller group lets the opponent take 0 and leave us in the losing position analyzed above)
+            # If, after taking one stone, the larger group has the same size as the other group or only one more stone, Bob can always exhaust the stones without making the sum divisible by 3
             return abs(cnts[1] - cnts[2]) > 2
 ```
 ```Java []

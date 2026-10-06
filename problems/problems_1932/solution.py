@@ -18,9 +18,9 @@ class Solution(solution.Solution):
         return tree_to_list(res)
 
     def canMerge(self, trees: List[TreeNode]) -> Optional[TreeNode]:
-        # 存储所有叶节点值的哈希集合
+        # Hash set of all leaf values
         leaves = set()
-        # 存储 (根节点值, 树) 键值对的哈希映射
+        # Hash map from root values to trees
         candidates = dict()
         for tree in trees:
             if tree.left:
@@ -29,39 +29,39 @@ class Solution(solution.Solution):
                 leaves.add(tree.right.val)
             candidates[tree.val] = tree
 
-        # 存储中序遍历上一个遍历到的值，便于检查严格单调性
+        # Previous inorder value, used to check strict increase
         prev = float("-inf")
 
-        # 中序遍历，返回值表示是否有严格单调性
+        # Inorder traversal; return whether values are strictly increasing
         def dfs(tree: Optional[TreeNode]) -> bool:
             if not tree:
                 return True
 
-            # 如果遍历到叶节点，并且存在可以合并的树，那么就进行合并
+            # Merge when a leaf has a matching tree available
             if not tree.left and not tree.right and tree.val in candidates:
                 tree.left = candidates[tree.val].left
                 tree.right = candidates[tree.val].right
-                # 合并完成后，将树丛哈希映射中移除，以便于在遍历结束后判断是否所有树都被遍历过
+                # Remove the merged tree from the map so we can later check that every tree was visited
                 candidates.pop(tree.val)
 
-            # 先遍历左子树
+            # Traverse the left subtree first
             if not dfs(tree.left):
                 return False
-            # 再遍历当前节点
+            # Then visit the current node
             nonlocal prev
             if tree.val <= prev:
                 return False
             prev = tree.val
-            # 最后遍历右子树
+            # Finally traverse the right subtree
             return dfs(tree.right)
 
         for tree in trees:
-            # 寻找合并完成后的树的根节点
+            # Find the root of the merged tree
             if tree.val not in leaves:
-                # 将其从哈希映射中移除
+                # Remove it from the hash map
                 candidates.pop(tree.val)
-                # 从根节点开始进行遍历
-                # 如果中序遍历有严格单调性，并且所有树的根节点都被遍历到，说明可以构造二叉搜索树
+                # Traverse from the root
+                # A strictly increasing inorder traversal that visits every tree root forms a valid BST
                 return tree if dfs(tree) and not candidates else None
 
         return None

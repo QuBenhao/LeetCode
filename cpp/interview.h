@@ -21,14 +21,14 @@
 #include <limits>
 #include <functional>
 
-// 常用数据结构定义
+// Common data structure definitions
 struct ListNode {
     int val;
     ListNode *next;
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode *next) : val(x), next(next) {}
     ~ListNode() {
-        delete next; // 注意：递归删除可能导致栈溢出，实际使用中应谨慎
+        delete next; // Note: recursive deletion can overflow the stack; use with care
     }
 };
 
@@ -45,7 +45,7 @@ struct TreeNode {
 
 namespace InterviewUtils {
 
-// 基础输入处理
+// Basic input handling
 template<typename T>
 std::vector<T> read_vector() {
     std::cout << "Enter elements (space-separated): ";
@@ -74,7 +74,7 @@ std::vector<std::vector<T>> read_matrix() {
     return matrix;
 }
 
-// 链表构建与输出
+// Linked list construction and output
 ListNode* build_linked_list(const std::vector<int>& nums) {
     ListNode dummy(0);
     ListNode* curr = &dummy;
@@ -94,7 +94,7 @@ void print_linked_list(ListNode* head) {
     std::cout << "\n";
 }
 
-// 二叉树构建（层序输入）
+// Binary tree construction (level-order input)
 TreeNode* build_tree(const std::vector<std::string>& nodes) {
     if (nodes.empty() || nodes[0] == "null") return nullptr;
 
@@ -106,14 +106,14 @@ TreeNode* build_tree(const std::vector<std::string>& nodes) {
         TreeNode* curr = q.front();
         q.pop();
 
-        // 左子节点
+        // Left child
         if (i < nodes.size() && nodes[i] != "null") {
             curr->left = new TreeNode(std::stoi(nodes[i]));
             q.push(curr->left);
         }
         i++;
 
-        // 右子节点
+        // Right child
         if (i < nodes.size() && nodes[i] != "null") {
             curr->right = new TreeNode(std::stoi(nodes[i]));
             q.push(curr->right);
@@ -130,7 +130,7 @@ void print_tree(TreeNode* root, int level = 0) {
     print_tree(root->left, level + 1);
 }
 
-// 调试输出工具
+// Debug output helpers
 template<typename T>
 void print_container(const T& container) {
     for (const auto& item : container) {

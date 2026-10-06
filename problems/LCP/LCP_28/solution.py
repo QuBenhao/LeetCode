@@ -17,7 +17,7 @@ class Solution(solution.Solution):
         left, right = 0, len(nums) - 1
         ans = 0
         while left < right:
-            # 当前左指针和右指针无法构成方案，总和需要变小
+            # The current left and right pointers do not form a valid pair; the sum must decrease
             if nums[left] + nums[right] > target:
                 right -= 1
             else:

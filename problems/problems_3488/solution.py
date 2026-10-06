@@ -10,12 +10,12 @@ class Solution(solution.Solution):
     def solveQueries(self, nums: List[int], queries: List[int]) -> List[int]:
         n = len(nums)
 
-        # 预处理：每个值的所有位置
+        # Preprocess: all positions of each value
         pos = defaultdict(list)
         for i, num in enumerate(nums):
             pos[num].append(i)
 
-        # 每个位置到最近同值的最小距离
+        # Minimum distance from each position to the nearest equal value
         dist = [n] * n
         for indices in pos.values():
             k = len(indices)
@@ -24,11 +24,11 @@ class Solution(solution.Solution):
             for i, idx in enumerate(indices):
                 prev_idx = indices[i - 1]
                 next_idx = indices[(i + 1) % k]
-                # 左边距离：i=0 时环形
+                # Distance to the left: wrap around when i=0
                 d_left = idx - prev_idx if i > 0 else idx + n - prev_idx
-                # 右边距离：i=k-1 时环形
+                # Distance to the right: wrap around when i=k-1
                 d_right = next_idx - idx if i < k - 1 else next_idx + n - idx
                 dist[idx] = min(d_left, d_right)
 
-        # 查询
+        # Queries
         return [dist[q] if dist[q] < n else -1 for q in queries]

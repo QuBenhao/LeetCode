@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 动态规划
+# [Python/Java/JavaScript/Go] Dynamic programming
 
 > slug: pythonjavajavascriptgo-dong-tai-gui-hua-jypcp
 > date: 2021-11-04
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/longest-arithmetic-subsequence-of-given-difference/solutions/VzqKjM/pythonjavajavascriptgo-dong-tai-gui-hua-jypcp/
 
 ---
-### 解题思路
-当前数字`num`能构成的最长定差子序列，由上一个`num-difference`能构成的最长定差子序列的长度决定。
+### Approach
+The longest fixed-difference subsequence ending at `num` is determined by the length of the longest such subsequence ending at the earlier value `num-difference`.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

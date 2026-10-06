@@ -1,4 +1,4 @@
-# 中点+倒序链表+交替拼接
+# Find the midpoint, reverse the list, and interleave the halves
 
 > slug: zhong-dian-dao-xu-lian-biao-jiao-ti-pin-iikxy
 > date: 2025-04-25
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/LGjMqU/solutions/N0Znkw/zhong-dian-dao-xu-lian-biao-jiao-ti-pin-iikxy/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

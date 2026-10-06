@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 迭代器+双指针
+# [Python/Java/JavaScript/Go] Iterators and two pointers
 
 > slug: pythonjavajavascriptgo-die-dai-qi-shuang-wc1k
 > date: 2022-03-21
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/opLdQZ/solutions/RWEmHq/pythonjavajavascriptgo-die-dai-qi-shuang-wc1k/
 
 ---
-### 解题思路
-[题解完全一致](https://leetcode.cn/problems/two-sum-iv-input-is-a-bst/solution/pythonjavajavascriptgo-by-himymben-prb2/)
+### Approach
+[Identical solution](https://leetcode.cn/problems/two-sum-iv-input-is-a-bst/solution/pythonjavajavascriptgo-by-himymben-prb2/)
 
-### 代码
+### Code
 
 ```python3
 # Definition for a binary tree node.

@@ -1,4 +1,4 @@
-# [Python] 二分查找
+# [Python] Binary search
 
 > Author: Benhao
 > Date: 2024-04-09
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 有序，找0的左右插入位置
+> The array is sorted; find the left and right insertion positions for 0.
 
-# 解题方法
+# Approach
 
-> 二分查找
+> Binary search
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(log_n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

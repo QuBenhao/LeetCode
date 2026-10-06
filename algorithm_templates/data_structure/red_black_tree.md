@@ -1,13 +1,13 @@
-# 红黑树
+# Red-Black Tree
 
-- **红黑树**是一种自平衡的二叉搜索树，通过颜色标记和旋转操作保持平衡，确保插入、删除和查找的时间复杂度为 **O(log n)**。
-- 核心性质
-    1. **颜色规则**：每个节点是红色或黑色。
-    2. **根节点**：根必须是黑色。
-    3. **叶子节点**：所有叶子（NIL节点）是黑色。
-    4. **红色节点限制**：红色节点的子节点必须是黑色（无连续红节点）。
-    5. **黑高一致**：从任意节点到其所有叶子节点的路径中，黑色节点数量相同。
-- [855. 考场就座](./problems/problems_855/solution.go)
+- A **red-black tree** is a self-balancing binary search tree. It uses colors and rotations to maintain balance, ensuring **O(log n)** time complexity for insertion, deletion, and lookup.
+- Core properties
+    1. **Color rule**: Every node is either red or black.
+    2. **Root**: The root must be black.
+    3. **Leaves**: All leaves (NIL nodes) are black.
+    4. **Red node constraint**: A red node must have black children (no consecutive red nodes).
+    5. **Equal black height**: Every path from a given node to any of its leaves contains the same number of black nodes.
+- [855. Exam Room](./problems/problems_855/solution.go)
 
 ```python
 class Node:
@@ -21,11 +21,11 @@ class Node:
 
 class RedBlackTree:
     def __init__(self):
-        self.NIL = Node(None, color='BLACK')  # 哨兵叶子节点
+        self.NIL = Node(None, color='BLACK')  # Sentinel leaf node
         self.root = self.NIL
 
     def left_rotate(self, x):
-        """ 左旋操作（维护红黑树平衡） """
+        """ Left rotation to maintain red-black tree balance. """
         y = x.right
         x.right = y.left
         if y.left != self.NIL:
@@ -41,7 +41,7 @@ class RedBlackTree:
         x.parent = y
 
     def right_rotate(self, x):
-        """ 右旋操作（镜像对称） """
+        """ Right rotation, mirroring the left rotation. """
         y = x.left
         x.left = y.right
         if y.right != self.NIL:
@@ -57,39 +57,39 @@ class RedBlackTree:
         x.parent = y
 
     def insert_fixup(self, z):
-        """ 插入后修复颜色和结构 """
+        """ Repair colors and structure after insertion. """
         while z.parent.color == 'RED':
             if z.parent == z.parent.parent.left:
-                y = z.parent.parent.right  # 叔节点
-                if y.color == 'RED':  # Case 1: 叔节点为红
+                y = z.parent.parent.right  # Uncle node
+                if y.color == 'RED':  # Case 1: The uncle is red
                     z.parent.color = 'BLACK'
                     y.color = 'BLACK'
                     z.parent.parent.color = 'RED'
                     z = z.parent.parent
                 else:
-                    if z == z.parent.right:  # Case 2: 三角结构转直线
+                    if z == z.parent.right:  # Case 2: Convert a triangle into a line
                         z = z.parent
                         self.left_rotate(z)
-                    # Case 3: 调整颜色并旋转
+                    # Case 3: Recolor and rotate
                     z.parent.color = 'BLACK'
                     z.parent.parent.color = 'RED'
                     self.right_rotate(z.parent.parent)
-            else:  # 镜像处理父节点在右侧的情况
-                # TODO: 类似左侧逻辑 ...
+            else:  # Mirror the logic when the parent is a right child
+                # TODO: Similar to the left-side logic ...
                 pass
             if z == self.root:
                 break
         self.root.color = 'BLACK'
 
     def insert(self, key):
-        """ 插入节点并修复 """
+        """ Insert a node and repair the tree. """
         z = Node(key)
         z.parent = self.NIL
         z.left = self.NIL
         z.right = self.NIL
         y = self.NIL
         x = self.root
-        while x != self.NIL:  # 标准BST插入
+        while x != self.NIL:  # Standard BST insertion
             y = x
             if z.key < x.key:
                 x = x.left
@@ -106,7 +106,7 @@ class RedBlackTree:
         self.insert_fixup(z)
 
 
-# 使用示例
+# Usage example
 rbt = RedBlackTree()
 rbt.insert(10)
 rbt.insert(20)
@@ -377,21 +377,21 @@ func (t *RedBlackTree) inOrderHelper(node *Node, result *[]int) {
 }
 ```
 
-## 关键操作解析
+## Key Operations Explained
 
-| 操作       | 说明                                         |
+| Operation | Description |
 |----------|--------------------------------------------|
-| **左旋**   | 将右子节点提升为父节点，原父节点变为左子节点，保持二叉搜索树性质。          |
-| **右旋**   | 将左子节点提升为父节点，原父节点变为右子节点，镜像对称操作。             |
-| **插入修复** | 通过颜色翻转和旋转解决连续红节点问题，分三种情况处理（叔节点颜色决定策略）。     |
-| **删除修复** | 处理双重黑节点问题，通过兄弟节点颜色和子节点分布调整（代码较复杂，未展示完整逻辑）。 |
+| **Left rotation** | Promote the right child to the parent position and make the original parent its left child, preserving the binary search tree property. |
+| **Right rotation** | Promote the left child to the parent position and make the original parent its right child, mirroring the left rotation. |
+| **Insertion fixup** | Resolve consecutive red nodes through recoloring and rotations. There are three cases, with the strategy determined by the uncle's color. |
+| **Deletion fixup** | Resolve double-black nodes based on the sibling's color and its children (the code is complex, so the full logic is not shown). |
 
-## 应用场景
+## Use Cases
 
-1. **有序映射/集合**：如Java的`TreeMap`、C++的`std::map`。
-2. **数据库索引**：B+树的变种常用于数据库索引，红黑树用于内存数据管理。
-3. **任务调度**：Linux内核的公平调度器（CFS）用红黑树管理进程队列。
+1. **Ordered maps and sets**: Examples include Java's `TreeMap` and C++'s `std::map`.
+2. **Database indexes**: B+ tree variants are often used for database indexes, while red-black trees manage data in memory.
+3. **Task scheduling**: The Linux kernel's Completely Fair Scheduler (CFS) uses red-black trees to manage process queues.
 
-通过实现红黑树，可以深入理解自平衡数据结构的设计思想，但实际开发中建议直接使用语言标准库中的有序容器（如Python的
-`sortedcontainers`或Golang的第三方库`github.com/emirpasic/gods/trees/redblacktree`）。
+Implementing a red-black tree helps explain the design of self-balancing data structures. In practice, use ordered containers from the language's standard library (such as Python's
+`sortedcontainers` or the third-party Go library `github.com/emirpasic/gods/trees/redblacktree`).
 

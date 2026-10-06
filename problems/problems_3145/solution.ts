@@ -1,7 +1,7 @@
 function findProductsOfElements(queries: number[][]): number[] {
     let ans: Array<number> = [];
     for (let query of queries) {
-        // 偏移让数组下标从1开始
+        // Offset the array indices to start at 1
         query[0]++;
         query[1]++;
         let l = midCheck(BigInt(query[0]));
@@ -40,7 +40,7 @@ function findProductsOfElements(queries: number[][]): number[] {
     return ans;
 };
 
-// 计算 <= x 所有数的数位1的和
+// Count all set bits in numbers <= x
 function countOne(x: bigint): bigint {
     let res: bigint = 0n;
     let sum = 0;
@@ -59,7 +59,7 @@ function countOne(x: bigint): bigint {
     return res;
 }
 
-// 计算 <= x 所有数的数位对幂的贡献之和
+// Sum the bit contributions to the exponent over all numbers <= x
 function countPow(x: bigint): bigint {
     let res: bigint = 0n;
     let sum = 0;

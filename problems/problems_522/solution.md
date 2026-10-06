@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-06-26
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-首先一个字符串的子序列如果不是其他字符串的子序列，那么这个字符串本身也一定不是。
-因为包含这个字符串本身的，一定也能包含它的任意子序列。
-所以题目变为从字符串数组中找最长的一个原字符串，该字符串不是其他字符串的子序列。
-根据数据范围，暴力模拟判断即可。
+### Approach
+First, if a subsequence of a string is not a subsequence of any other string, the whole string itself cannot be either.
+Any string containing the whole string as a subsequence must also contain all of its subsequences.
+The problem therefore becomes finding the longest original string in the array that is not a subsequence of any other string.
+Given the input limits, a brute-force check is sufficient.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

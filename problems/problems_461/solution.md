@@ -1,4 +1,4 @@
-# [Python] 异或后统计1的个数即可
+# [Python] XOR, then count the 1 bits
 
 > Author: Benhao
 > Date: 2021-05-27
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-该用户太懒了，只写了一行代码。
+### Approach
+This user was too lazy to write more than one line of code.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

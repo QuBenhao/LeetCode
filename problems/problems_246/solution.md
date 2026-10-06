@@ -1,4 +1,4 @@
-# [Python] 双指针模拟
+# [Python] Two-pointer simulation
 
 > slug: python-shuang-zhi-zhen-mo-ni-by-himymben-satv
 > date: 2021-08-22
@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/strobogrammatic-number/solutions/vH7u6c/python-shuang-zhi-zhen-mo-ni-by-himymben-satv/
 
 ---
-### 解题思路
-左右双指针必须满足翻转对称关系
+### Approach
+The left and right pointers must satisfy rotational symmetry.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def isStrobogrammatic(self, num: str) -> bool:
-        # 满足旋转后还是数字的数字
+        # Digits that remain valid after rotation
         reverseDict = {'6':'9','9':'6','8':'8','0':'0','1':'1'}
         l, r = 0, len(num) - 1
         while l <= r:

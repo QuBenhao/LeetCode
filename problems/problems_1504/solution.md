@@ -1,4 +1,4 @@
-# 单调栈
+# Monotonic stack
 
 > slug: dan-diao-zhan-by-himymben-qwbg
 > date: 2025-06-14
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-submatrices-with-all-ones/solutions/SquGuA/dan-diao-zhan-by-himymben-qwbg/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

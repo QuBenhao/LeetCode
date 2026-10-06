@@ -14,9 +14,9 @@ class Solution(solution.Solution):
         def dfs(node):
             if not node:
                 return 0,0
-            # 选了左节点 or 不选左节点
+            # Select or skip the left node
             ls, ln = dfs(node.left)
-            # 选了右节点 or 不选右节点
+            # Select or skip the right node
             rs, rn = dfs(node.right)
             return node.val + ln + rn, max(ls, ln) + max(rs, rn)
         return max(dfs(root))

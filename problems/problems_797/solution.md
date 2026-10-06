@@ -1,4 +1,4 @@
-# [Python/Java] 记忆化dfs or BFS or 回溯
+# [Python/Java] Memoized DFS, BFS, or backtracking
 
 > Author: Benhao
 > Date: 2021-08-24
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-无环图，我们从起点往每个点都走一遍到终点就行
+### Approach
+The graph is acyclic, so traverse every path from the start to the destination
 
-### 代码
+### Code
 
-记忆化递归
+Memoized recursion
 ```Python3 []
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
@@ -104,7 +104,7 @@ class Solution {
 }
 ```
 
-回溯
+Backtracking
 ```Python3 []
 class Solution:
     def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:

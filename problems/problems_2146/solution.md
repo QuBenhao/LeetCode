@@ -1,4 +1,4 @@
-# [Python] BFS + 优先队列
+# [Python] BFS + priority queue
 
 > slug: python-bfs-you-xian-dui-lie-by-himymben-qfnk
 > date: 2022-01-23
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/k-highest-ranked-items-within-a-price-range/solutions/lPUVRF/python-bfs-you-xian-dui-lie-by-himymben-qfnk/
 
 ---
-### 解题思路
-在bfs的同时维护一个大小为k的优先队列即可
+### Approach
+Maintain a priority queue of size k while running BFS.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

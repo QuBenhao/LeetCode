@@ -9,7 +9,7 @@ struct BookMyShow {
 }
 
 impl BookMyShow {
-    // 把下标 i 上的元素值增加 val
+    // Increase the element at index i by val
     fn update(&mut self, o: usize, l: usize, r: usize, i: usize, val: i32) {
         if l == r {
             self.min[o] += val;
@@ -26,7 +26,7 @@ impl BookMyShow {
         self.sum[o] = self.sum[o * 2] + self.sum[o * 2 + 1];
     }
 
-    // 返回区间 [L,R] 内的元素和
+    // Return the sum of elements in [L,R]
     fn query_sum(&self, o: usize, l: usize, r: usize, left: usize, right: usize) -> i64 {
         if left <= l && r <= right {
             return self.sum[o];
@@ -42,10 +42,10 @@ impl BookMyShow {
         res
     }
 
-    // 返回区间 [0,R] 中 <= val 的最靠左的位置，不存在时返回 -1
+    // Return the leftmost position in [0,R] whose value is <= val, or -1 if none exists
     fn find_first(&self, o: usize, l: usize, r: usize, right: usize, val: i32) -> i32 {
         if self.min[o] > val {
-            return -1; // 整个区间的元素值都大于 val
+            return -1; // Every value in the interval exceeds val
         }
         if l == r {
             return l as i32;
@@ -71,27 +71,27 @@ impl BookMyShow {
     }
 
     fn gather(&mut self, k: i32, max_row: i32) -> Vec<i32> {
-        // 找第一个能倒入 k 升水的水桶
+        // Find the first bucket that can hold k more liters of water
         let r = self.find_first(1, 0, self.n - 1, max_row as usize, self.m - k);
         if r < 0 {
-            return vec![]; // 没有这样的水桶
+            return vec![]; // No such bucket exists
         }
         let c = self.query_sum(1, 0, self.n - 1, r as usize, r as usize) as i32;
-        self.update(1, 0, self.n - 1, r as usize, k); // 倒水
+        self.update(1, 0, self.n - 1, r as usize, k); // Pour water
         vec![r, c]
     }
 
     fn scatter(&mut self, mut k: i32, max_row: i32) -> bool {
-        // [0,maxRow] 的接水量之和
+        // Total amount of water in [0,maxRow]
         let s = self.query_sum(1, 0, self.n - 1, 0, max_row as usize);
         if s > (self.m as i64 * (max_row + 1) as i64) - k as i64 {
-            return false; // 水桶已经装了太多的水
+            return false; // The buckets already contain too much water
         }
-        // 从第一个没有装满的水桶开始
+        // Start with the first bucket that is not full
         let mut i = self.find_first(1, 0, self.n - 1, max_row as usize, self.m - 1) as usize;
         while k > 0 {
             let left = k.min(self.m - self.query_sum(1, 0, self.n - 1, i, i) as i32);
-            self.update(1, 0, self.n - 1, i, left); // 倒水
+            self.update(1, 0, self.n - 1, i, left); // Pour water
             k -= left;
             i += 1;
         }

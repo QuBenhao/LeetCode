@@ -1,4 +1,4 @@
-# 模拟
+# Simulation
 
 > slug: mo-ni-by-himymben-hrmq
 > date: 2025-07-30
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/neighboring-bitwise-xor/solutions/ch9yRP/mo-ni-by-himymben-hrmq/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -1,4 +1,4 @@
-# [Python/Java] 前缀和+二分查找 
+# [Python/Java] Prefix sums + binary search
 
 > Author: Benhao
 > Date: 2021-09-09
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-首先根据消耗粉笔是循环的，所以我们可以用消耗粉笔的和对k进行取余，结果保持一致(相当于取了很多轮以后)。
-根据余数，我们需要判断到哪个学生会消耗完。而这正是前缀和中找余数的位置(二分加速)。
+### Approach
+Chalk consumption repeats cyclically, so replace k with k modulo the total consumption without changing the answer, effectively skipping full rounds.
+Find which student exhausts this remainder by binary searching its position in the prefix sums.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java] 暴力的有序列表
+# [Python/Java] Brute force with a sorted list
 
 > Author: Benhao
 > Date: 2021-08-26
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-维护一个有序列表，属于暴力解法…只适用于竞赛秒题。
+### Approach
+Maintaining a sorted list is a brute-force solution, useful only for solving the problem quickly in a contest.
 
-常规解法来说，还是应该左边维护一个大顶堆，右边维护一个小顶堆，这样很方便取到中间的值。
+The standard approach maintains a max-heap on the left and a min-heap on the right, making the middle values easy to retrieve.
 
-### 代码
+### Code
 
 ```Python3
 from sortedcontainers import SortedList
@@ -30,7 +30,7 @@ class MedianFinder:
     def findMedian(self) -> float:
         return self.nums[n // 2] if (n := len(self.nums)) % 2 else float(self.nums[n//2] + self.nums[(n-1)//2])/2
 ```
-双顶堆
+Two heaps
 ```Python3 []
 class MedianFinder:
     def __init__(self):
@@ -61,20 +61,20 @@ class MedianFinder {
     PriorityQueue<Integer> maxHeap;
     PriorityQueue<Integer> minHeap;
     public MedianFinder() {
-        // 左边要大顶堆 （中间的数最大）
+        // Use a max-heap on the left (the middle value is its maximum)
         maxHeap = new PriorityQueue<>((a,b) -> b - a);
-        // 右边要小顶堆 （中间的数最小）
+        // Use a min-heap on the right (the middle value is its minimum)
         minHeap = new PriorityQueue<>((a,b) -> a - b);
     }
     
     public void addNum(int num) {
-        // 如果小顶堆没有数，或者插入的数属于小顶堆，先加到小顶堆
-        // 否则加到大顶堆
+        // Insert into the min-heap if it is empty or the new value belongs there
+        // Otherwise, insert into the max-heap
         if(minHeap.size() == 0 || minHeap.peek() <= num)
             minHeap.add(num);
         else
             maxHeap.add(num);
-        // 判断两边长度是否差别太大
+        // Check whether the heap sizes differ too much
         if(minHeap.size() - maxHeap.size() > 1)
             maxHeap.add(minHeap.poll());
         else if(maxHeap.size() - minHeap.size() > 1)
@@ -82,8 +82,8 @@ class MedianFinder {
     }
     
     public double findMedian() {
-        // 总长度为偶数，两边各取一个
-        // 否则取更长一点儿的那边的那个
+        // For an even total size, take one value from each side
+        // Otherwise, take the value from the larger heap
         if(minHeap.size() == maxHeap.size())
             return (minHeap.peek() + maxHeap.peek()) / 2.0;
         else if(minHeap.size() > maxHeap.size())

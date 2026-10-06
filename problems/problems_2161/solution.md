@@ -1,4 +1,4 @@
-# [Python] 双指针模拟
+# [Python] Two-pointer simulation
 
 > slug: python-shuang-zhi-zhen-mo-ni-by-himymben-62d5
 > date: 2022-02-06
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/partition-array-according-to-given-pivot/solutions/J2DFhv/python-shuang-zhi-zhen-mo-ni-by-himymben-62d5/
 
 ---
-### 解题思路
-左指针安排小于分割值的数，右指针安排大于分割值的数，最后将右边的倒序即可
+### Approach
+Use the left pointer for values smaller than the pivot and the right pointer for larger values, then reverse the right side.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

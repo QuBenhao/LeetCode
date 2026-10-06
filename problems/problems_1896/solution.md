@@ -1,4 +1,4 @@
-# [Python] 栈+动态规划
+# [Python] Stack + dynamic programming
 
 > Author: Benhao
 > Date: 2021-06-14
@@ -7,25 +7,25 @@
 
 ---
 
-### 解题思路
-其实这题就是披着计算器外衣的动态规划。
-我们先考虑没有括号，我们有一个最小单元，单纯类似"0&1|0"时我们怎么计算最小的操作数使它相反。
-0 | 0， 我们只需要两边的某一个变为1
-0 | 1 或者 1 | 0， 我们只需要把符号变成&
-1 | 1，我们需要将某一边变成0且符号变成&
-0 & 0，我们需要将某一边变为1且符号变为|
-0 & 1 或者 1 & 0， 我们只需要将符号变为|
-1 & 1, 我们需要将某一边变为0
+### Approach
+This is dynamic programming disguised as a calculator problem.
+First ignore parentheses and consider a small expression such as "0&1|0". How many operations are needed to flip its result?
+0 | 0: change either operand to 1.
+0 | 1 or 1 | 0: change the operator to &.
+1 | 1: change one operand to 0 and the operator to &.
+0 & 0: change one operand to 1 and the operator to |.
+0 & 1 or 1 & 0: change the operator to |.
+1 & 1: change either operand to 0.
 
-这个时候我们再引入括号，可以发现类似于计算器，我们要优先计算最底层不受其他计算影响的括号(栈),
-我们去掉每个括号的时候，将它简化为它的`结果值,转换最小的操作数`。
-我们将简化后的结果加入原来这个括号所属的父节点(括号)中，
-不停维护这两个变量即可直到最后即可。
+With parentheses, use a stack as in a calculator to evaluate the innermost groups first.
+Replace each parenthesized group with its `result and minimum operations to flip it`.
+Add that simplified result to its parent group.
+Maintain these two values until the entire expression has been processed.
 
-为简化代码，我们将每个单独的0和1也看做一种被括号包裹的最小单元，所以加入时是他们的值和转换需要的操作1。
+To simplify the code, treat each individual 0 or 1 as a minimal group, storing its value and a flip cost of 1.
 
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -41,7 +41,7 @@ class Solution:
         1   &   0   0, 1
         1   &   1   1, min(c1,c2)
         """
-        # l中没有括号，计算l的结果:val,change
+        # l contains no parentheses; compute its result as val,change
         def cal(l):
             val, change = l[0]
             idx = 1

@@ -10,9 +10,9 @@ using namespace std;
 int main() {
     int n, m;
     scanf("%d%d", &n, &m);
-    // 数组变化为等差数列
-    // 那么一阶差分是[0, s, d, d, d, -e, 0] 起始变化为s,中间变化全部为d,最终变化为-e
-    // 二阶差分变化就是[0, s, d-s, 0, 0, -d-e, e]
+    // The array updates form an arithmetic progression
+    // Its first difference is [0, s, d, d, d, -e, 0]: the initial change is s, intermediate changes are d, and the final change is -e
+    // The second-difference update is [0, s, d-s, 0, 0, -d-e, e]
     std::vector<long long> diff(n + 4);
     for (int i = 0; i < m; ++i) {
         int l, r;

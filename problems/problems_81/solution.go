@@ -25,7 +25,7 @@ func binarySearch(nums []int, left, right, target int) int {
 func search(nums []int, target int) bool {
 	n := len(nums)
 	left, right := 0, n-1
-	// 恢复二段性
+	// Restore the two-part structure
 	for left < right && nums[right] == nums[left] {
 		right--
 	}

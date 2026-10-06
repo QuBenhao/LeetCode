@@ -8,23 +8,23 @@ import qubhjava.BaseSolution;
 public class Solution extends BaseSolution {
     public long minimumMoves(int[] nums, int k, int maxChanges) {
         List<Integer> pos = new ArrayList<>();
-        int c = 0; // nums 中连续的 1 长度
+        int c = 0; // Length of consecutive ones in nums
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] == 0) continue;
-            pos.add(i); // 记录 1 的位置
+            pos.add(i); // Record the positions of ones
             c = Math.max(c, 1);
             if (i > 0 && nums[i - 1] == 1) {
                 if (i > 1 && nums[i - 2] == 1) {
-                    c = 3; // 有 3 个连续的 1
+                    c = 3; // There are 3 consecutive ones
                 } else {
-                    c = Math.max(c, 2); // 有 2 个连续的 1
+                    c = Math.max(c, 2); // There are 2 consecutive ones
                 }
             }
         }
 
         c = Math.min(c, k);
         if (maxChanges >= k - c) {
-            // 其余 k-c 个 1 可以全部用两次操作得到
+            // Each of the remaining k-c ones can be obtained in two operations
             return Math.max(c - 1, 0) + (k - c) * 2;
         }
 
@@ -35,10 +35,10 @@ public class Solution extends BaseSolution {
         }
 
         long ans = Long.MAX_VALUE;
-        // 除了 maxChanges 个数可以用两次操作得到，其余的 1 只能一步步移动到 pos[i]
+        // maxChanges ones can each be obtained in two operations; the rest must be moved to pos[i] one step at a time
         int size = k - maxChanges;
         for (int right = size; right <= n; right++) {
-            // s1+s2 是 j 在 [left, right) 中的所有 pos[j] 到 index=pos[(left+right)/2] 的距离之和
+            // s1+s2 is the sum of distances from every pos[j], for j in [left, right), to index=pos[(left+right)/2]
             int left = right - size;
             int i = left + size / 2;
             long index = pos.get(i);

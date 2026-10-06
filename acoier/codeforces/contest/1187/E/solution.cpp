@@ -29,7 +29,7 @@ void dfs2(const int u, const int pa) {
         if (v == pa) {
             continue;
         }
-        // 换根, 增加一个n-sz[v]的得分, 减少一个sz[v]的得分
+        // Reroot: add a score of n-sz[v] and subtract a score of sz[v]
         dp[v] = dp[u] + n - sz[v] * 2;
         dfs2(v, u);
     }

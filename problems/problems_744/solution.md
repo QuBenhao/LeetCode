@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 暴力 or 二分
+# [Python/Java/JavaScript/Go] Brute force or binary search
 
 > Author: Benhao
 > Date: 2022-04-02
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-按题意模拟即可
+### Approach
+Simulate the process described in the problem.
 
-### 代码
-模拟
+### Code
+Simulation
 ```Python3 []
 class Solution:
     def nextGreatestLetter(self, letters: List[str], target: str) -> str:
@@ -51,7 +51,7 @@ func nextGreatestLetter(letters []byte, target byte) byte {
 }
 ```
 
-二分
+Binary search
 ```Python3 []
 class Solution:
     def nextGreatestLetter(self, letters: List[str], target: str) -> str:

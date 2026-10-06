@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 贪心
+# [Python/Java/JavaScript] Greedy
 
 > Author: Benhao
 > Date: 2021-10-31
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-首先最大的糖果种类数可以用集合的大小求出，然后根据平均分配，可能取不到最大种类数，取两者最小值。
+### Approach
+The number of distinct candy types is the size of the set. An equal split may prevent taking every type, so take the smaller of the number of types and the number of candies allowed.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

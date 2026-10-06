@@ -8,10 +8,10 @@ class Solution(solution.Solution):
         return self.minimumDistance(test_input)
 
     def minimumDistance(self, points: List[List[int]]) -> int:
-        max_x1, max_x2 = nlargest(2, (x + y for x, y in points))  # x 最大次大
-        min_x1, min_x2 = nsmallest(2, (x + y for x, y in points))  # x 最小次小
-        max_y1, max_y2 = nlargest(2, (y - x for x, y in points))  # y 最大次大
-        min_y1, min_y2 = nsmallest(2, (y - x for x, y in points))  # y 最小次小
+        max_x1, max_x2 = nlargest(2, (x + y for x, y in points))  # Largest and second-largest x
+        min_x1, min_x2 = nsmallest(2, (x + y for x, y in points))  # Smallest and second-smallest x
+        max_y1, max_y2 = nlargest(2, (y - x for x, y in points))  # Largest and second-largest y
+        min_y1, min_y2 = nsmallest(2, (y - x for x, y in points))  # Smallest and second-smallest y
 
         ans = inf
         for x, y in points:

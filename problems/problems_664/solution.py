@@ -11,7 +11,7 @@ class Solution(solution.Solution):
         :type s: str
         :rtype: int
         """
-        # 预处理，连续的由相同字符组成的子串看做一个,比如"aaabbb"和"ab"是没有区别的
+        # Preprocess runs of identical characters as one character; for example, "aaabbb" and "ab" are equivalent
         building = [s[0]]
         for i in range(1, len(s)):
             if s[i] != s[i - 1]:
@@ -23,10 +23,10 @@ class Solution(solution.Solution):
                 return 0
             elif i == j:
                 return 1
-            # j和i是相同的，那么打印i到j和打印i到j-1所需的次数是一样的(或者说i+1到j)
+            # If the characters at j and i match, printing i through j takes as many turns as i through j-1 (or i+1 through j)
             if building[i] == building[j]:
                 return dfs(i, j - 1)
-            # i和j是不同的,找到一个最优的拆分方式
+            # The characters at i and j differ; find the optimal split
             return min(dfs(i, k) + dfs(k + 1, j) for k in range(i, j)
                        if building[k] == building[i] or building[k] == building[j])
 

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 贪心
+# [Python/Java/JavaScript/Go] Greedy
 
 > slug: pythonjavajavascriptgo-tan-xin-by-himymb-0nn5
 > date: 2022-02-27
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/optimal-division/solutions/Wx5acx/pythonjavajavascriptgo-tan-xin-by-himymb-0nn5/
 
 ---
-### 解题思路
-不管怎么添加括号，第一个数子永远是唯一的分子，而第二个数字永远是分母的一部分。
-分子是不能变大的，要想尽可能大，只能从分母入手，把分母变得尽可能小。
-而这显然只需要让第二个数字尽可能地除后面越多的数越好（因为都是正整数）。
+### Approach
+However the parentheses are added, the first number remains the only numerator, and the second number is always part of the denominator.
+The numerator cannot increase, so maximize the result by making the denominator as small as possible.
+Since all numbers are positive integers, divide the second number by as many subsequent numbers as possible.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

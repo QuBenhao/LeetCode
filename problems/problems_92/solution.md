@@ -1,4 +1,4 @@
-# [Python] 不停迭代直到变为left是头的情况，再到left==right
+# [Python] Keep iterating until left is the head, then until left==right
 
 > Author: Benhao
 > Date: 2021-03-17
@@ -7,9 +7,9 @@
 
 ---
 
-### 解题思路
-当head不在left和right中，迭代统计left和right的位置
-当head是left以后，统计right的位置，记录right.next为successor，从后往前依次反转链表
+### Approach
+When head is outside the range from left to right, iterate while tracking the positions of left and right.
+Once head is at left, track the position of right, record right.next as successor, and reverse the list from back to front.
 
 front -> 1 -> 2 -> 3 -> 4 -> successor
 
@@ -19,7 +19,7 @@ front -> 1 (1__>2) 4 -> 3 -> 2 -> successor
 
 front -> 4 -> 3 -> 2 -> 1 ->successor
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for singly-linked list.

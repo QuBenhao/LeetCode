@@ -1,4 +1,4 @@
-# [Python] 空间O(1) 学习了一波投票算法
+# [Python] O(1) space: learning the majority vote algorithm
 
 > slug: python-kong-jian-o1-xue-xi-liao-yi-bo-to-9ds6
 > date: 2021-07-08
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-majority-element-lcci/solutions/h51jsM/python-kong-jian-o1-xue-xi-liao-yi-bo-to-9ds6/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

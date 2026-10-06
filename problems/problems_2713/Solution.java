@@ -12,7 +12,7 @@ public class Solution extends BaseSolution {
         TreeMap<Integer, List<int[]>> g = new TreeMap<>();
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                // 相同元素放在同一组，统计位置
+                // Group equal elements and record their positions
                 g.computeIfAbsent(mat[i][j], k -> new ArrayList<>()).add(new int[]{i, j});
             }
         }
@@ -21,7 +21,7 @@ public class Solution extends BaseSolution {
         int[] rowMax = new int[m];
         int[] colMax = new int[n];
         for (List<int[]> pos : g.values()) {
-            // 先把所有 f 值都算出来，再更新 rowMax 和 colMax
+            // Compute all f values before updating rowMax and colMax
             int[] fs = new int[pos.size()];
             for (int k = 0; k < pos.size(); k++) {
                 int[] p = pos.get(k);
@@ -34,8 +34,8 @@ public class Solution extends BaseSolution {
                 int[] p = pos.get(k);
                 int i = p[0];
                 int j = p[1];
-                rowMax[i] = Math.max(rowMax[i], fs[k]); // 更新第 i 行的最大 f 值
-                colMax[j] = Math.max(colMax[j], fs[k]); // 更新第 j 列的最大 f 值
+                rowMax[i] = Math.max(rowMax[i], fs[k]); // Update the maximum f value in row i
+                colMax[j] = Math.max(colMax[j], fs[k]); // Update the maximum f value in column j
             }
         }
         return ans;

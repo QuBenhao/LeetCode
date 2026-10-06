@@ -12,9 +12,9 @@ class Solution(solution.Solution):
             if idx == len(nums):
                 ans.append(list(path))
                 return
-            # 不选当前数
+            # Skip the current number
             backtrack(idx + 1, path)
-            # 选当前数
+            # Select the current number
             path.append(nums[idx])
             backtrack(idx + 1, path)
             # backtrack

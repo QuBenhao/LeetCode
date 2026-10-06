@@ -14,27 +14,27 @@ class Solution(solution.Solution):
         workers.sort()
 
         def check(k: int) -> bool:
-            k += 1  # 二分最小的无法完成的 k+1，那么最终的 k 就是最大的可以完成的 k
-            # 贪心：用最强的 k 名工人，完成最简单的 k 个任务
+            k += 1  # Binary-search for the smallest infeasible k+1; the final k is the largest feasible count
+            # Greedy: use the k strongest workers to complete the k easiest tasks
             i, p = 0, pills
             valid_tasks = deque()
-            for w in workers[-k:]:  # 枚举工人
-                # 在吃药的情况下，把能完成的任务记录到 valid_tasks 中
+            for w in workers[-k:]:  # Iterate over workers
+                # Record tasks the worker can complete with a pill in valid_tasks
                 while i < k and tasks[i] <= w + strength:
                     valid_tasks.append(tasks[i])
                     i += 1
-                # 即使吃药也无法完成任务
+                # Cannot complete any task even with a pill
                 if not valid_tasks:
                     return True
-                # 无需吃药就能完成（最简单的）任务
+                # Can complete the easiest task without a pill
                 if w >= valid_tasks[0]:
                     valid_tasks.popleft()
                     continue
-                # 必须吃药
-                if p == 0:  # 没药了
+                # A pill is required
+                if p == 0:  # No pills remain
                     return True
                 p -= 1
-                # 完成（能完成的）最难的任务
+                # Complete the hardest feasible task
                 valid_tasks.pop()
             return False
 

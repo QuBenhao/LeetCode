@@ -1,4 +1,4 @@
-# 数学
+# Mathematics
 
 > slug: shu-xue-by-himymben-t0ea
 > date: 2025-05-26
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/divisible-and-non-divisible-sums-difference/solutions/ONt4Eb/shu-xue-by-himymben-t0ea/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

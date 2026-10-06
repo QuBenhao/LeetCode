@@ -1,4 +1,4 @@
-# [Python] 记录每个位置及折扣的最小代价
+# [Python] Track the minimum cost for each position and remaining discount count
 
 > slug: python-by-himymben-sx05
 > date: 2022-05-02
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/minimum-cost-to-reach-city-with-discounts/solutions/t8LuET/python-by-himymben-sx05/
 
 ---
-### 解题思路
-当出现同一个位置同样剩余折扣有更小的代价时，重新入队
+### Approach
+If a smaller cost is found for the same position and remaining discount count, enqueue the state again.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -1,4 +1,4 @@
-# 单调栈思想
+# Monotonic stack idea
 
 > slug: dan-diao-zhan-si-xiang-by-himymben-sv5x
 > date: 2025-06-02
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/candy/solutions/NKd8vx/dan-diao-zhan-si-xiang-by-himymben-sv5x/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

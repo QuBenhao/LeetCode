@@ -29,13 +29,13 @@ class Solution(solution.Solution):
             cost = present[u] // (pb + 1)
             f = defaultdict(lambda: -inf)
             f[0] = 0
-            # 不买当前的最大收益
+            # Maximum profit without buying the current stock
             for child in graph[u]:
                 f = merge(f, dfs(child, 0))
             if cost <= budget:
                 dp = defaultdict(lambda: -inf)
                 dp[cost] = future[u] - cost
-                # 买当前的最大收益
+                # Maximum profit when buying the current stock
                 for child in graph[u]:
                     dp = merge(dp, dfs(child, 1))
                 for b in dp:

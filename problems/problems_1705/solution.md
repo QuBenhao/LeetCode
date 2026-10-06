@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 最小堆贪心
+# [Python/Java/JavaScript/Go] Greedy min-heap
 
 > Author: Benhao
 > Date: 2021-12-23
@@ -7,19 +7,19 @@
 
 ---
 
-### 解题思路
-核心思路就是每次要吃最先腐烂的苹果，那么要用最小堆按腐烂时间排序，同时记录消耗掉的苹果数（没有苹果了就删除）
+### Approach
+Always eat the apple that will rot first. Use a min-heap ordered by expiration time, track the remaining count in each batch, and remove depleted batches.
 
 **PS**:
-兜兜转转刷题一年啦，从只会一点儿Python和Java到现在比较熟练的状态了，再接再厉。也毕业上岸了，希望大家都加油和好运，找到心仪的工作～
-好怀念，这是我最早那会儿开始刷题参加周赛时的题目，那时候这题我还错了7、8次到结束也没做出来呢。
+A year of solving problems has passed. I have gone from knowing a little Python and Java to feeling reasonably proficient, and I will keep going. I have also graduated and found a job. Good luck to everyone finding work they enjoy!
+This brings back memories: it appeared in one of my earliest weekly contests. I made seven or eight wrong attempts and still could not solve it before the contest ended.
 
 ![image.png](https://pic.leetcode.cn/1640272572-SjcXbk-image.png)
 
 
-### 代码
+### Code
 
-按天数循环写在一起
+Handle everything in one loop over days
 ```Python3 []
 class Solution:
     def eatenApples(self, apples: List[int], days: List[int]) -> int:
@@ -183,7 +183,7 @@ func (h *IntHeap) Push(x interface{}) {
 }
 ```
 
-天数结束后直接依次统计 (不需要再一天天遍历剩下的天)
+After the growing days end, count each remaining batch directly instead of advancing day by day
 ```Python3 []
 class Solution:
     def eatenApples(self, apples: List[int], days: List[int]) -> int:

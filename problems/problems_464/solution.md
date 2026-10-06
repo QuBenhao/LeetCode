@@ -1,4 +1,4 @@
-# [Python] 状态压缩记忆化dfs
+# [Python] State compression with memoized DFS
 
 > slug: python-zhuang-tai-ya-suo-ji-yi-hua-dfs-b-5meu
 > date: 2021-08-07

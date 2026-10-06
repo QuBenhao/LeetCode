@@ -1,4 +1,4 @@
-# [Python] 递推公式 + 二分查找
+# [Python] Recurrence + binary search
 
 > Author: Benhao
 > Date: 2021-08-01
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-第i层都比第i-1层多了一个外圈，外圈计算一下可知是$12 * i^2$个苹果。
-由f(i) - f(i-1) = 12 * i * i, f(0) = 0 可得:
+### Approach
+Layer i adds an outer ring to layer i-1, containing $12 * i^2$ apples.
+From f(i) - f(i-1) = 12 * i * i and f(0) = 0, we obtain:
 f(i) = 2 * i * (i+1) * (2*i+1)。
-我们二分查找需要的层数即可。
+Binary search the number of layers required.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

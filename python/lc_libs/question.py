@@ -127,10 +127,10 @@ def extract_outputs_from_md(markdown_text: str, chinese: bool = False) -> list:
                     continue
                 html_content = ""
                 try:
-                    # 将Markdown转换为HTML
+                    # Convert Markdown to HTML
                     html_content = markdown.markdown(tmp)
 
-                    # 将HTML转换为字符
+                    # Convert HTML to text
                     text_content = html2text.html2text(html_content)
                     text_content = convert_to_evaluable_str(text_content.replace("\n", ""))
                     res.append(safe_literal_eval(text_content))

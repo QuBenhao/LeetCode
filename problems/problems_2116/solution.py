@@ -11,15 +11,15 @@ class Solution(solution.Solution):
             return False
         mn = mx = 0
         for b, lock in zip(s, locked):
-            if lock == '1':  # 不能改
+            if lock == '1':  # Cannot be changed
                 d = 1 if b == '(' else -1
                 mx += d
-                if mx < 0:  # c 不能为负
+                if mx < 0:  # c cannot be negative
                     return False
                 mn += d
-            else:  # 可以改
-                mx += 1  # 改成左括号，c 加一
-                mn -= 1  # 改成右括号，c 减一
-            if mn < 0:  # c 不能为负
-                mn = 1  # 此时 c 的取值范围都是奇数，最小的奇数是 1
-        return mn == 0  # 说明最终 c 能是 0
+            else:  # Can be changed
+                mx += 1  # Change to an opening parenthesis: increment c
+                mn -= 1  # Change to a closing parenthesis: decrement c
+            if mn < 0:  # c cannot be negative
+                mn = 1  # All possible values of c are odd here; the smallest valid odd value is 1
+        return mn == 0  # This means c can end at 0

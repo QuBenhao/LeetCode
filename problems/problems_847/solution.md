@@ -1,4 +1,4 @@
-# [Python/Java] (状态压缩 or tuple) + BFS or 迭代加深深度优先搜索
+# [Python/Java] Bitmask or tuple + BFS, or iterative deepening depth-first search
 
 > Author: Benhao
 > Date: 2021-08-06
@@ -7,24 +7,24 @@
 
 ---
 
-### 解题思路
-用一个长度为n的二进制表示每个点被走过的状态(该位为0表示没走过，该位为1表示走过)，我们最终的目标是走过所有点，也就是$2^n-1$。
-**不会状态压缩也没有关系，利用Py的tuple记录走过的状态也可以，效果和二进制一样的，只是效率没那么高，但是通俗易懂（保证看得懂）。**
+### Approach
+Use an n-bit binary number to record which nodes have been visited: 0 means unvisited and 1 means visited. The goal is to visit every node, represented by $2^n-1$.
+**If you are unfamiliar with bitmasks, a Python tuple can record the visited state too. It works like the binary representation, though less efficiently, and is easy to understand (I promise).**
 
 
-BFS初始起点从每个点开始，我们第一次走到终点的时候，所用的距离就是最终答案。
+Start BFS from every node. The distance when we first reach the goal state is the answer.
 
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def shortestPathLength(self, graph: List[List[int]]) -> int:
         n = len(graph)
-        # 初始以每个点为起点
+        # Initialize with every node as a starting point
         frontier = [(i, 1 << i) for i in range(n)]
         explored = set(frontier)
-        # 目标为2^n - 1
+        # The goal is 2^n - 1
         goal = (1 << n) - 1
         step = 0
         while frontier:
@@ -33,15 +33,15 @@ class Solution:
                 if state == goal:
                     return step
                 for other in graph[cur]:
-                    # 下一个状态
+                    # Next state
                     successor = (other, 1 << other | state)
-                    # 新的状态没有被走过
+                    # The new state has not been visited
                     if successor not in explored:
                         explored.add(successor)
                         nxt.append(successor)
             frontier = nxt
             step += 1
-        # 图不连通
+        # The graph is disconnected
         return -1
 ```
 ```Java []
@@ -80,10 +80,10 @@ class Solution:
         temp = [0] * n
         for i in range(n):
             temp[i] = 1
-            # 其实这个temp和1<<i表示的是完全相同的状态
+            # temp represents exactly the same state as 1<<i
             frontier.append((i, tuple(temp)))
             temp[i] = 0
-        # 必须是tuple因为list是属于unhashable的
+        # Must be a tuple because a list is unhashable
         explored = set(frontier)
         goal = tuple([1] * n)
         step = 0
@@ -93,22 +93,22 @@ class Solution:
                 if state == goal:
                     return step
                 for other in graph[cur]:
-                    # 把一个tuple再转换成list，实际上也进行了复制
+                    # Converting a tuple back to a list also makes a copy
                     temp = list(state)
-                    # 这就相当于 1 << other | state
+                    # Equivalent to 1 << other | state
                     temp[other] = 1
-                    # 将list转换成tuple，这样可以hash判断有没有走过
+                    # Convert the list to a tuple so hashing can check whether it has been visited
                     successor = (other, tuple(temp))
                     if successor not in explored:
                         explored.add(successor)
                         nxt.append(successor)
             frontier = nxt
             step += 1
-        # 图不连通
+        # The graph is disconnected
         return -1
 ```
 
-【额外思路】迭代加深深度优先搜索
+[Additional approach] Iterative deepening depth-first search
 ```Python3 []
 class Solution:
     def shortestPathLength(self, graph: List[List[int]]) -> int:

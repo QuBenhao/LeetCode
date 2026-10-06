@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按绝对之差最大值的最小依次dijkstra遍历
+### Approach
+Use Dijkstra's algorithm, prioritizing the smallest maximum absolute difference along a path.
 
-### 代码
+### Code
 
 ```python3
 DIRS = (0, 1), (1, 0), (0, -1), (-1, 0)

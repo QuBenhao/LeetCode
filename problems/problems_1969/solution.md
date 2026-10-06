@@ -1,4 +1,4 @@
-# [Python] 贪心一行
+# [Python] One-line greedy solution
 
 > Author: Benhao
 > Date: 2021-08-15
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-没工夫证明，看灵老师的吧
+### Approach
+No time for a proof; see 灵老师's explanation.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

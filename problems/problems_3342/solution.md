@@ -1,4 +1,4 @@
-# Dijkstra模板
+# Dijkstra template
 
 > slug: dijkstramo-ban-by-himymben-sr1o
 > date: 2025-05-07
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-ii/solutions/yF8JhP/dijkstramo-ban-by-himymben-sr1o/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

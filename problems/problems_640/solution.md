@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-08-09
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-将式子解析为"k * x = val"，再分析答案即可。
+### Approach
+Parse the equation into "k * x = val", then determine the answer.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def solveEquation(self, equation: str) -> str:
-        # sign: 当前正负, cur: 当前数字, num: 等式的数字项大小, k: 等式x的系数, left: 是否在等号左, has_val: 当前有没有出现任何数字
+        # sign: current sign; cur: current number; num: constant term; k: coefficient of x; left: whether before the equals sign; has_val: whether any digit has appeared
         sign, cur, num, k, left, has_val = 1, 0, 0, 0, True, False
         for c in equation + "=":
             if c in "-+=x":

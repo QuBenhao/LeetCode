@@ -21,7 +21,7 @@ class Solution(solution.Solution):
         1   &   0   0, 1
         1   &   1   1, min(c1,c2)
         """
-        # l中没有括号，计算l的结果:val,change
+        # l contains no parentheses; compute its result as val,change
         def cal(l):
             val, change = l[0]
             idx = 1

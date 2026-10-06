@@ -1,4 +1,4 @@
-# 位运算——取最高位
+# Bit operations: highest set bit
 
 ```c++
 int highBit(unsigned int n) {

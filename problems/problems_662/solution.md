@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-使用满二叉树编号, 可以轻松计算同一层任意两节点的距离(带空节点), 我们BFS返回最左和最右距离最大的那层即可。
+### Approach
+Number nodes as in a full binary tree to calculate the distance between any two nodes on a level, including missing nodes. Use BFS and return the largest distance between a level's leftmost and rightmost nodes.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

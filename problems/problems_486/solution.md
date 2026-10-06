@@ -8,44 +8,44 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-1. 这是一道两人零和博弈题，玩家 1 先手、双方都采取最优策略，问玩家 1 的总分能否不低于玩家 2（平局也算赢）。
-2. 核心状态设计为「当前区间 `[l, r]` 在双方最优博弈下，玩家 1 与玩家 2 的得分差」`diff`。由于零和，得分差最大即玩家 1 最优、最小即玩家 2 最优，于是同一套 minimax 即可覆盖两人。
-3. 用符号 `sig` 区分当前轮到谁：`sig = 1` 表示玩家 1（最大化差值，取走的数字按 `+nums` 计入）；`sig = -1` 表示玩家 2（最小化差值，取走的数字按 `-nums` 计入，等价于玩家 1 相对落后）。
-4. 当前是谁的回合只取决于「已取走了几个数」：已取 `n - (r - l + 1)` 个。取走偶数个 → 轮到玩家 1，否则玩家 2。用区间长度与总长的奇偶是否相同即可判定，写成 `sig = -1 if (r - l + 1) & 1 != n & 1 else 1`。
+1. This is a two-player zero-sum game. Player 1 moves first, both play optimally, and the question is whether player 1 can score at least as much as player 2. A tie counts as a win.
+2. Define the state `diff` as the score difference between player 1 and player 2 for the current interval `[l, r]` under optimal play. In a zero-sum game, player 1 maximizes this difference and player 2 minimizes it, so one minimax formulation covers both players.
+3. Use `sig` to distinguish turns: `sig = 1` for player 1, who maximizes the difference and contributes `+nums`; `sig = -1` for player 2, who minimizes the difference and contributes `-nums`, reducing player 1's relative score.
+4. The turn depends only on how many numbers have been taken: `n - (r - l + 1)`. An even count means player 1's turn; otherwise, player 2's. Compare the parity of the interval length and total length: `sig = -1 if (r - l + 1) & 1 != n & 1 else 1`.
 
-# 解题过程
+# Solution steps
 
-> 区间记忆化搜索（minimax）
+> Memoized interval search (minimax)
 
-- 定义 `dfs(l, r)`：返回区间 `[l, r]` 在双方最优下的得分差。
-- 边界：只剩一个数 `l == r`，当前玩家独吞它，返回 `nums[l] * sig`。
-- 转移：当前玩家可拿左端或右端。拿左端后剩余 `[l+1, r]`，得分差变为 `dfs(l+1, r) + sig * nums[l]`；拿右端同理 `dfs(l, r-1) + sig * nums[r]`。
-- 玩家 1 回合（`sig > 0`）取两者较大值，玩家 2 回合（`sig < 0`）取两者较小值。
-- 最终判断 `dfs(0, n-1) >= 0` 即可。`@cache` 记忆化避免重复计算。
+- Define `dfs(l, r)` to return the score difference for interval `[l, r]` under optimal play.
+- Base case: When only one number remains, `l == r`, the current player takes it; return `nums[l] * sig`.
+- Transition: Take either endpoint. Taking the left leaves `[l+1, r]` and gives `dfs(l+1, r) + sig * nums[l]`; taking the right similarly gives `dfs(l, r-1) + sig * nums[r]`.
+- On player 1's turn (`sig > 0`), choose the larger result; on player 2's turn (`sig < 0`), choose the smaller.
+- Finally, check `dfs(0, n-1) >= 0`. Memoization with `@cache` avoids repeated computation.
 
-# 极小化极大算法（Minimax）
+# Minimax
 
-这是零和博弈中双方都采取最优策略时的通用决策框架。博弈可画成一棵「游戏树」：每个结点是一个局面，边是某一方的一步走法；叶子结点给出终局收益。
+Minimax is a general decision framework for zero-sum games in which both players act optimally. A game tree represents each position as a node and each move as an edge; leaves give the final payoff.
 
-- 轮到 **MAX 方** 时，它想让自己收益最大，于是从子结点里取最大值：`value = max(value(child))`。
-- 轮到 **MIN 方** 时，它想压低 MAX 的收益（零和即等于让自己收益最大），于是取最小值：`value = min(value(child))`。
-- 两方沿树交替 max / min，逐层回溯到根，根的值就是「在双方都最优时 MAX 能获得的最终收益」。本题要的正是这个值是否 ≥ 0。
+- On **MAX's** turn, choose the child with the greatest payoff: `value = max(value(child))`.
+- On **MIN's** turn, minimize MAX's payoff, which maximizes MIN's payoff in a zero-sum game: `value = min(value(child))`.
+- Alternate max / min while propagating values back to the root. The root value is MAX's final payoff under optimal play. This problem asks whether that value is ≥ 0.
 
-通常会写成两个互相调用的函数 `maxValue` / `minValue`，或显式传一个 `turn` 参数区分当前是谁。本解法的 `sig` 写法正是它的等价简化：
+Typical implementations use mutually recursive `maxValue` / `minValue` functions or an explicit `turn` parameter. The `sig` approach here is an equivalent simplification:
 
-- 因为零和，双方其实共用同一个「玩家 1 − 玩家 2 得分差」状态，只是目标相反。把「当前是谁的回合」编码成一个符号 `sig`：
-  - `sig = 1`（轮到玩家 1，MAX 方）：差值按 `+nums` 计入，并在子状态里取 **max**；
-  - `sig = -1`（轮到玩家 2，MIN 方）：差值按 `-nums` 计入（玩家 2 拿走即玩家 1 相对落后），并在子状态里取 **min**。
-- 于是两个交替的 `max` / `min` 被合并成「同一个递归 + 一个带符号的取极函数」，`sig` 同时承载了「收益符号」和「取大还是取小」两件事。这就是代码里 `sig` 写法与标准 Minimax 的对应关系。
+- Both players share the same state, the score difference player 1 − player 2, but have opposite objectives. Encode the current turn as `sig`:
+  - `sig = 1` (player 1, MAX): contribute `+nums` to the difference and take the **max** of child states.
+  - `sig = -1` (player 2, MIN): contribute `-nums`, since player 2's gain reduces player 1's relative score, and take the **min**.
+- The alternating `max` / `min` functions become one recursive function with a signed extremum operation. `sig` controls both the payoff sign and whether to maximize or minimize, matching standard Minimax.
 
-补充：Minimax 在状态爆炸时常用 **α–β 剪枝** 提前砍掉不可能被选择的子树来提速；本题状态只有 $O(n^2)$ 且都需展开，故不剪枝，直接记忆化即可。
+Note: Minimax often uses **α–β pruning** to skip subtrees that cannot affect the decision when the state space grows large. Here there are only $O(n^2)$ states, all requiring evaluation, so memoization suffices without pruning.
 
-# 复杂度
+# Complexity
 
-- 时间复杂度: $O(n^2)$ —— 状态 `(l, r)` 共 $O(n^2)$ 个，每状态 $O(1)$ 计算。
-- 空间复杂度: $O(n^2)$ —— 缓存表大小 $O(n^2)$，递归栈深度 $O(n)$。
+- Time complexity: $O(n^2)$ — there are $O(n^2)$ states `(l, r)`, each requiring $O(1)$ work.
+- Space complexity: $O(n^2)$ — the cache has $O(n^2)$ entries and the recursion depth is $O(n)$.
 
 # Code
 ```Python3 []

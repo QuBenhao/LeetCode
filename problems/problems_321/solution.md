@@ -1,4 +1,4 @@
-# 单调栈+枚举
+# Monotonic stack + enumeration
 
 > slug: dan-diao-zhan-mei-ju-by-himymben-hv8a
 > date: 2025-06-16
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/create-maximum-number/solutions/gFIih3/dan-diao-zhan-mei-ju-by-himymben-hv8a/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

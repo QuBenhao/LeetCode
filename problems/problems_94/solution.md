@@ -1,4 +1,4 @@
-# [Python/C] 中序遍历迭代器
+# [Python/C] Inorder traversal iterator
 
 > Author: Benhao
 > Date: 2024-02-10
@@ -12,22 +12,22 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 中序遍历模拟
+> Simulate inorder traversal
 
-# 解题方法
+# Approach
 
-> 中序遍历：优先左节点，然后自己，最后右节点
-> 先序遍历: 优先自己，然后左节点，最后右节点
-> 后序遍历: 优先左节点，然后右节点，最后自己
+> Inorder traversal: visit the left node, then the current node, and finally the right node.
+> Preorder traversal: visit the current node, then the left node, and finally the right node.
+> Postorder traversal: visit the left node, then the right node, and finally the current node.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

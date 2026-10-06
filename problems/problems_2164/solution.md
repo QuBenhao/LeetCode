@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > slug: python-mo-ni-by-himymben-ev48
 > date: 2022-02-06
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/sort-even-and-odd-indices-independently/solutions/AAIVC3/python-mo-ni-by-himymben-ev48/
 
 ---
-### 解题思路
-按题目说的排序即可
+### Approach
+Sort as specified in the problem.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

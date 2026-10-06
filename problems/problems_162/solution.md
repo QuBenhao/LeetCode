@@ -1,4 +1,4 @@
-# [Python] 二分
+# [Python] Binary search
 
 > slug: python-er-fen-by-himymben-e54f
 > date: 2024-03-11
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 题目要求找拐点，实际上就是单调性发生变化的地方，我们按单调性二分即可
+> The problem asks for a turning point, where the direction of monotonicity changes. Use binary search based on that direction.
 
-# 解题方法
+# Approach
 
-> 二分
+> Binary search
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(log_n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 # Code

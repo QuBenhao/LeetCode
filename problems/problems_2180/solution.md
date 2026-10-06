@@ -1,4 +1,4 @@
-# [C] 模拟
+# [C] Simulation
 
 > slug: c-mo-ni-by-himymben-xoxc
 > date: 2023-01-05
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-integers-with-even-digit-sum/solutions/kh3FWV/c-mo-ni-by-himymben-xoxc/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

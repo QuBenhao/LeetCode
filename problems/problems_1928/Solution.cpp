@@ -6,7 +6,7 @@ using json = nlohmann::json;
 
 class Solution {
 private:
-  // 极大值
+  // Large sentinel value
   static constexpr int INFTY = INT_MAX / 2;
 
 public:

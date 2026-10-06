@@ -1,4 +1,4 @@
-# [Python] 两种方法：依次螺旋填数，到达边界右转（顺时针）
+# [Python] Two approaches: fill in a spiral, turning right at boundaries (clockwise)
 
 > Author: Benhao
 > Date: 2021-03-15
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-从左上角出发开始转圈，通过前面有没有被填过来判断是不是需要转向。
+### Approach
+Start at the top-left corner and move in a spiral, turning when the next cell has already been filled.
 
-另一种思路就是每圈看成四个边组成，手动卡边界，特殊情况只有n=1时，没有四个边只有一个。
+Another approach treats each ring as four sides with explicitly controlled boundaries. The only special case is n=1, which has a single cell instead of four sides.
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

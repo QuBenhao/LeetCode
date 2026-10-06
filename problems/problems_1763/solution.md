@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 分治思想
+# [Python/Java/JavaScript/Go] Divide and conquer
 
 > Author: Benhao
 > Date: 2022-02-01
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-将原问题拆解成子问题，如果某个字符在当前字符串中没有它对应的大写或小写字符，它必不能构成答案中的一部分，答案只能在它左边或在它右边。
-我们返回该点左边或右边更长的答案即为答案。
-如果不存在这样的字符，说明原字符串本身就是美好字符串。
+### Approach
+Split the problem into subproblems. A character whose opposite case is absent from the current string cannot belong to the answer, so the answer must lie entirely to its left or right.
+Return the longer answer from those two sides.
+If no such character exists, the entire string is nice.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -20,7 +20,7 @@ class Solution:
         if len(s) < 2:
             return ""
         for i, c in enumerate(s):
-            # 存在任意不满足题目的割点
+            # Split at any character that violates the condition
             if c.upper() not in s or c.lower() not in s:
                 return max(self.longestNiceSubstring(s[:i]), self.longestNiceSubstring(s[i+1:]), key = len)
         return s

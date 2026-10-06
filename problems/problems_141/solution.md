@@ -1,4 +1,4 @@
-# [Python] 快慢指针
+# [Python] Fast and slow pointers
 
 > Author: Benhao
 > Date: 2024-03-01
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 如果存在环路，走的快的人一定能追上走的慢的人
+> If a cycle exists, the faster traveler must eventually catch the slower one.
 
-# 解题方法
+# Approach
 
-> 快指针每次移动两步，慢指针每次移动一步，如果快指针能追上慢指针，代表有环，否则会到链表末尾即结束
+> Move the fast pointer two steps and the slow pointer one step at a time. If the fast pointer catches the slow pointer, a cycle exists. Otherwise, it reaches the end of the list and the process stops.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 标记(原地哈希)
+# [Python/Java/JavaScript/Go] Marking (in-place hashing)
 
 > slug: pythonjavajavascriptgo-zuo-biao-biao-ji-hbfem
 > date: 2022-05-08
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-all-duplicates-in-an-array/solutions/RYovnP/pythonjavajavascriptgo-zuo-biao-biao-ji-hbfem/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

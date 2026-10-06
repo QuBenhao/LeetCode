@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > slug: python-mo-ni-by-himymben-yqzr
 > date: 2022-02-06
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/smallest-value-of-the-rearranged-number/solutions/9cgvJq/python-mo-ni-by-himymben-yqzr/
 
 ---
-### 解题思路
-正数重排尽可能小，负数重排尽可能大
+### Approach
+For a positive number, rearrange its digits to be as small as possible; for a negative number, make its magnitude as large as possible.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

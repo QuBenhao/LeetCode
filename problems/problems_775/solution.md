@@ -1,4 +1,4 @@
-# [Python/Go] 切片递归
+# [Python/Go] Recursion with slices
 
 > Author: Benhao
 > Date: 2022-11-15
@@ -11,19 +11,19 @@
 
 [TOC]
 
-# 思路
-> 局部倒置的要求其实很苛刻，相邻的逆序对。这个数量是很直观可以统计出的。全局倒置如果要和局部倒置一致，那么他们之间就不能有倒置关系，也就是有某种顺序的存在。再根据题目要求的数目是[0,n-1]进行推理。
+# Intuition
+> A local inversion is strictly defined as an inversion between adjacent elements, so its count is straightforward. For global and local inversion counts to match, there can be no inversions between nonadjacent elements, which implies a certain ordering. Reason from the constraint that the values are [0,n-1].
 
-# 解题方法
-> Python写了一般递归超时了，
+# Approach
+> A straightforward recursive Python solution timed out.
 ```Python3
-        # n - 1只能放在最后一个或者倒数第二个，如果放在倒数第二个，最后一个只能放n - 2
-        # [ , ... , n - 1, n - 2] 或者 [, ... , n - 1]
-        # 如果n - 1在最后一个，那么就是nums去掉最大值的递归, n - 1完全不会参与任何倒置
+        # n - 1 can only be last or second to last; if it is second to last, the last value must be n - 2
+        # [ , ... , n - 1, n - 2] or [, ... , n - 1]
+        # If n - 1 is last, recurse on nums without its maximum; n - 1 participates in no inversions
         return len(nums) <= 1 or (nums[-1] == len(nums) - 1 and self.isIdealPermutation(nums[:-1])) or (nums[-1] == len(nums) - 2 and nums[-2] == len(nums) - 1 and self.isIdealPermutation(nums[:-2]))
 ```
-数组的反复复制递归消耗太大，于是想到了用Go的切片。
-其实Py只要不复制数组，直接用坐标递归就可以了(但是就不一行了)
+Repeatedly copying the array during recursion is too expensive, which led me to Go slices.
+Python can also recurse on indices without copying the array (but then it is no longer a one-liner)
 
 
 # Code

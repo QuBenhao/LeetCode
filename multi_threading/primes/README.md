@@ -1,3 +1,3 @@
-# 质数
+# Prime numbers
 
-高并发打印质数, 输入一个整数n, 按顺序输出小于等于n的所有质数.
+Print primes concurrently: given an integer n, output all primes less than or equal to n in order.

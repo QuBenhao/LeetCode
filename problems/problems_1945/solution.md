@@ -1,4 +1,4 @@
-# 模拟
+# Simulation
 
 > Author: Benhao
 > Date: 2022-12-15
@@ -11,11 +11,11 @@
 
 [TOC]
 
-# 思路
-> 按题意模拟
+# Intuition
+> Simulate as described.
 
-# 解题方法
-> 循环统计数变为多少 (字符串偷懒)
+# Approach
+> Repeatedly compute the transformed number, using strings as a shortcut.
 
 # Code
 ```Python3 []

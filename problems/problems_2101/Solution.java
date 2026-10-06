@@ -16,7 +16,7 @@ public class Solution extends BaseSolution {
                 long dx = x - bombs[j][0];
                 long dy = y - bombs[j][1];
                 if (dx * dx + dy * dy <= r * r) {
-                    g[i].add(j); // i 可以引爆 j
+                    g[i].add(j); // i can detonate j
                 }
             }
         }

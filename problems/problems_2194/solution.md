@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > slug: python-mo-ni-by-himymben-ba1f
 > date: 2022-03-06

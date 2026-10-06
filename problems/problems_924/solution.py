@@ -13,7 +13,7 @@ class Solution(solution.Solution):
             vis[x] = True
             nonlocal node_id, size
             size += 1
-            # 按照状态机更新 node_id
+            # Update node_id according to the state machine
             if node_id != -2 and x in st:
                 node_id = x if node_id == -1 else -2
             for y, conn in enumerate(graph[x]):

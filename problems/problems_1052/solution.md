@@ -1,4 +1,4 @@
-# [Python] 滑动窗口
+# [Python] Sliding window
 
 > Author: Benhao
 > Date: 2024-04-23
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 滑动窗口
+> Sliding window
 
-# 解题方法
+# Approach
 
-> 维护一个minutes窗口内全部满意
+> Maintain a window of length minutes in which every customer is satisfied.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

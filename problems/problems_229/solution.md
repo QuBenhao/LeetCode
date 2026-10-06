@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 模拟->摩尔投票进阶
+# [Python/Java/JavaScript] Simulation -> generalized Boyer-Moore majority vote
 
 > slug: pythonjavajavascript-mo-ni-by-himymben-abvt
 > date: 2021-10-21
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/majority-element-ii/solutions/I2v6eM/pythonjavajavascript-mo-ni-by-himymben-abvt/
 
 ---
-### 解题思路
-我们之前做过超过一半个数的众数摩尔投票，其实这里思路是一模一样的，只是从两个抵消变成三个抵消。
-同理，大于$\lfloor \frac{n}{k} \rfloor$个数的众数，只需要$k$个数进行抵消即可。
+### Approach
+We previously used Boyer-Moore majority voting to find a number occurring more than half the time. The idea here is the same, except that three different values cancel each other instead of two.
+Likewise, to find values occurring more than $\lfloor \frac{n}{k} \rfloor$ times, cancel groups of $k$ different values.
 
-每$k$个数抵消一次的时候，最多抵消$\lfloor \frac{n}{k} \rfloor$次，如果个数比它多的数字，一定会留下。
+At most $\lfloor \frac{n}{k} \rfloor$ groups of $k$ values can be canceled, so a value occurring more often must remain.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -24,7 +24,7 @@ class Solution:
 ```Python3 []
 class Solution:
     def majorityElement(self, nums: List[int]) -> List[int]:
-        # 摩根投票 每三个不一样的数抵消一次
+        # Boyer-Moore majority vote: cancel each group of three different values
         numA = numB = None
         cntA = cntB = 0
         for num in nums:
@@ -45,7 +45,7 @@ class Solution:
                     numA = None
                 if not cntB:
                     numB = None
-        # 个数验证
+        # Verify the counts
         cntA = cntB = 0
         for num in nums:
             if num == numA:
@@ -147,7 +147,7 @@ var majorityElement = function(nums) {
 };
 ```
 
-通用k个摩尔投票众数 (还可以优化)
+Generalized Boyer-Moore majority vote for k (can still be optimized)
 ```Python3
 k = 3
 class Solution:

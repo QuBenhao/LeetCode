@@ -9,7 +9,7 @@ class Solution {
 public:
   long long minTime(const vector<int> &skill, const vector<int> &mana) {
     int n = skill.size(), m = mana.size();
-    vector<int> s(n + 1);  // skill 的前缀和
+    vector<int> s(n + 1);  // Prefix sums of skill
     partial_sum(skill.begin(), skill.end(), s.begin() + 1);
 
     int64_t start = 0;

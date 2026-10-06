@@ -17,7 +17,7 @@ class Solution(solution.Solution):
             ans = max(ans, min(i - left2 + 1, numOperations))
 
             cnt += 1
-            # 循环直到连续相同段的末尾，这样可以统计出 x 的出现次数
+            # Continue to the end of the run of equal values to count the occurrences of x
             if i < n - 1 and x == nums[i + 1]:
                 continue
             while nums[left] < x - k:

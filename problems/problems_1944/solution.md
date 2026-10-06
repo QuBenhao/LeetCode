@@ -1,4 +1,4 @@
-# [Python] 单调栈
+# [Python] Monotonic stack
 
 > Author: Benhao
 > Date: 2021-07-24
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-逆序维护一个单调栈。
+### Approach
+Maintain a monotonic stack while traversing backward.
 
-每个高度的人在踢掉栈里的元素时(从小到大)，这些全部都是他能看到的人，栈里如果剩下还有比他高的，他只能看到那个人，再往后的看不到了。
+A person can see every shorter person popped from the stack, in increasing height order. If a taller person remains, only that first taller person is visible; all farther people are blocked.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

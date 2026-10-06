@@ -18,11 +18,11 @@ class Solution(solution.Solution):
                 if val == 0:
                     heights[j] = 0
                 else:
-                    heights[j] += 1 # 叠加纵向高度
-                while st and heights[st[-1]] >= heights[j]: # 单调栈找到当前高度的最大宽度
-                    prev_sum -= prev[st.pop()] # 减去之前的贡献
-                prev[j] = heights[j] * (j - (st[-1] if st else -1)) # 计算当前高度的贡献
-                prev_sum += prev[j] # 累加当前高度的贡献
+                    heights[j] += 1 # Accumulate column heights
+                while st and heights[st[-1]] >= heights[j]: # Use a monotonic stack to find the maximum width for the current height
+                    prev_sum -= prev[st.pop()] # Subtract the previous contribution
+                prev[j] = heights[j] * (j - (st[-1] if st else -1)) # Compute the contribution of the current height
+                prev_sum += prev[j] # Accumulate the contribution of the current height
                 st.append(j)
-                ans += prev_sum # 累加到答案中
+                ans += prev_sum # Add it to the answer
         return ans

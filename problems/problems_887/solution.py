@@ -16,11 +16,11 @@ class Solution(solution.Solution):
     #     """
     #     if k == 1 or n <= 2:
     #         return n
-    #     # 如果k比n大，我们可以每个楼层用一个鸡蛋，最快的方法就是二分
+    #     # If k exceeds n, we can use one egg per floor; binary search is the fastest approach
     #     if k >= n:
     #         return int(log(n, 2)) + 1
-    #     # 假设初始扔的第一个楼层为x,如果鸡蛋碎了，那么问题变为用k-1个鸡蛋解决x-1个楼层; 如果没碎，问题变为k个鸡蛋解决n-x个楼层
-    #     # 如果x越大，左边越大，右边越小; x越小左边越小，右边越大
+    #     # Suppose the first drop is from floor x: if the egg breaks, solve x-1 floors with k-1 eggs; otherwise, solve n-x floors with k eggs
+    #     # As x increases, the left side increases and the right decreases; as x decreases, the left decreases and the right increases
     #     ans = n
     #     left, right = 1, n
     #     while left < right:
@@ -35,11 +35,11 @@ class Solution(solution.Solution):
     #     return ans
 
     def superEggDrop(self, k: int, n: int) -> int:
-        # 反过来想，给我们k个鸡蛋，m次尝试机会，我们最多能测出多少层？
-        # 我们扔一个鸡蛋，鸡蛋可能碎了，也可能没碎。
-        # 如果鸡蛋没碎，我们就能解决dp[k][m-1]层；如果鸡蛋碎了，我们就能解决dp[k-1][m-1]层;再加上第一个扔的层。
-        # 有: dp[k][m] = dp[k][m-1] + dp[k-1][m-1] + 1.
-        # 问题变为求最小的m使得dp[k][m] >= n
+        # Reverse the question: with k eggs and m attempts, how many floors can we test?
+        # Drop an egg; it may break or survive.
+        # If it survives, we can handle dp[k][m-1] floors; if it breaks, dp[k-1][m-1] floors; add the floor of this drop.
+        # Thus: dp[k][m] = dp[k][m-1] + dp[k-1][m-1] + 1.
+        # The problem becomes finding the smallest m such that dp[k][m] >= n
         for i in range(1, n + 1):
             if self.maximumFloors(k, i) >= n:
                 return i

@@ -1,4 +1,4 @@
-# [Python] 一边旋转一边统计被障碍物卡住的石子
+# [Python] Rotate while counting stones stopped by obstacles
 
 > Author: Benhao
 > Date: 2021-05-15
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-每个障碍物只能卡住它左边的石子，然后清空计数，剩下的计的就是给下一个障碍物了。
-最后看看默认的底部障碍物有没有石子
+### Approach
+Each obstacle stops only the stones to its left. Reset the count afterward; subsequent stones belong to the next obstacle.
+Finally, handle stones that fall against the implicit bottom boundary.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

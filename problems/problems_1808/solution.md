@@ -1,4 +1,4 @@
-# [Python] 整数拆成多个整数（可重复）和使他们的乘积最大
+# [Python] Split an integer into a sum of integers, allowing repeats, to maximize their product
 
 > Author: Benhao
 > Date: 2021-03-28
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-尽可能地拆出3，其次2，不要1，如果余1就分出一个3拆出4来，如果余2就多加一个2.
+### Approach
+Use as many 3s as possible, then 2s, and avoid 1s. If the remainder is 1, combine it with a 3 to make 4; if it is 2, add another 2.
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

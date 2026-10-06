@@ -1,4 +1,4 @@
-# [Python] 使用两个双端队列保持平衡
+# [Python] Balance two deques
 
 > Author: Benhao
 > Date: 2021-05-26
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-通过分别存储前半和后半且维护他们的长度差，保证中间的插入位置总是front的最后。
-而中间出的时候在front的最后后者back的最前，看两者的长度。
+### Approach
+Store the front and back halves separately and maintain their length difference so that middle insertions always go at the end of front.
+A middle removal takes from the end of front or the start of back, depending on their lengths.
 
-### 代码
+### Code
 
 ```python3
 class FrontMiddleBackQueue:

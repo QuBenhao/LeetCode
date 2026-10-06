@@ -1,4 +1,4 @@
-# [Python/Java] 大顶堆贪心
+# [Python/Java] Greedy with a max heap
 
 > slug: pythonjava-da-ding-dui-tan-xin-by-himymb-ms90
 > date: 2021-09-07
@@ -7,27 +7,27 @@
 > url: https://leetcode.cn/problems/ipo/solutions/2OvHdW/pythonjava-da-ding-dui-tan-xin-by-himymb-ms90/
 
 ---
-### 解题思路
-我们需要知道的信息是: `在需要的本金小于等于我们当前资本的项目中，利益最大的是哪个`，所以我们将输入组合起来并按本金排序，这样在循环中，所有小于等于当前本金的都可以加入到大顶堆中(维护所有可选的利益的堆)，于是我们就可以选到当前利益最大的那个的了。一种特殊情况是，如果我们当前的资本已经不支持任何项目了，也就是我们的钱再也不可能发生变化了，只能结束了。
+### Approach
+We need to know `which project has the highest profit among those whose required capital does not exceed our current capital`. Pair the inputs and sort them by required capital. During each iteration, add every affordable project to a max heap that tracks the available profits, then choose the most profitable project. If our current capital cannot fund any remaining project, it can no longer increase, so stop.
 
-注: 每次都选利益最大的那个是因为我们选项目的个数有限制，选的越大最终的答案才能越大。
+Note: Always choose the most profitable project because the number of projects we can take is limited. Larger profits lead to a larger final result.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def findMaximizedCapital(self, k: int, w: int, profits: List[int], capital: List[int]) -> int:
         n = len(profits)
-        # 将profits和capital组合起来，并按本金排序，这样保证我们总能选取所有小于等于当前资本的
+        # Pair profits with capital and sort by required capital so every affordable project can be selected
         projects = sorted(zip(profits, capital), key=lambda x:x[1])
         cur = []
         idx = 0
         while k:
-            # 将所有需要的本金小于等于当前资本的项目加入最大堆
+            # Add every project whose required capital does not exceed our current capital to the max heap
             while idx < n and projects[idx][1] <= w:
                 heapq.heappush(cur, -projects[idx][0])
                 idx += 1
-            # 如果有项目在当前的大顶堆中，我们做利益最大的那一个。
+            # If the max heap contains any projects, take the most profitable one.
             if cur:
                 w -= heapq.heappop(cur)
             else:

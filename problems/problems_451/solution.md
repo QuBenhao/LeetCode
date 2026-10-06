@@ -1,4 +1,4 @@
-# [Python] Counter 排序
+# [Python] Sort a Counter
 
 > Author: Benhao
 > Date: 2021-07-03
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按个数排序，个数多的排在前面，然后循环生成即可。
+### Approach
+Sort by frequency in descending order, then generate the result.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

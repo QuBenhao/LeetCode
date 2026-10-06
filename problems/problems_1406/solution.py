@@ -48,13 +48,13 @@ class Solution(solution.Solution):
 
         n = len(stoneValue)
         curr_sum = 0
-        # 滚动更新
+        # Rolling update
         dp0 = dp1 = dp2 = 0
-        # 倒序递推
+        # Evaluate the recurrence in reverse order
         for i in range(n - 1, -1, -1):
             curr_sum += stoneValue[i]
             dp0, dp1, dp2 = curr_sum - min(dp0, dp1, dp2), dp0, dp1
-        # Alice的分数减去Bob的分数
+        # Alice's score minus Bob's score
         ans = dp0 * 2 - curr_sum
         if ans > 0:
             return "Alice"

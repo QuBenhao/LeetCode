@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 简单计数
+# [Python/Java/JavaScript/Go] Simple counting
 
 > slug: pythonjavajavascriptgo-by-himymben-isb6
 > date: 2022-03-21
@@ -7,16 +7,16 @@
 > url: https://leetcode.cn/problems/remove-colored-pieces-if-both-neighbors-are-the-same-color/solutions/TbsVoG/pythonjavajavascriptgo-by-himymben-isb6/
 
 ---
-### 解题思路
-由于Alice只能删除连续三个A中间的A，Bob只能删除连续三个B中间的B，所以他们之间互相是无法做到影响对方的操作的。
-这其实并不是一个博弈，只是根据输入判断谁能删除的字符更多而已。
+### Approach
+Alice can only remove the middle A from three consecutive As, and Bob can only remove the middle B from three consecutive Bs, so neither player's moves can affect the other's.
+This is therefore just a comparison of how many characters each player can remove from the input.
 
-> 如果删掉字符并删掉周围两个字符，才会变成博弈的题，比如：
-> BAAABB 是Bob胜
-> BAAABBAAA 是Alice胜
-> BBAAABBAAABB 是Bob胜
+> Removing a character together with its two neighbors would turn this into a game-theory problem. For example:
+> Bob wins with BAAABB.
+> Alice wins with BAAABBAAA.
+> Bob wins with BBAAABBAAABB.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

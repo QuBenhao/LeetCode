@@ -1,4 +1,4 @@
-# 模拟
+# Simulation
 
 > slug: mo-ni-by-himymben-zvmm
 > date: 2026-02-03
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/trionic-array-ii/solutions/j1XyK1/mo-ni-by-himymben-zvmm/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-10-02
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-L可以向左移动，R可以向右移动，但是L不能跨过R，R也不能跨过L。
-我们遍历维护L和R的情况，当出现以下情形之一，即可返回否:
-1. 当前目标需要一个R而原字符串遇到了L，怎么也搞不出这个R了
-2. 当前目标需要一个L而原字符串遇到了R，怎么也搞不出这个L了
+### Approach
+L can move left and R can move right, but neither can cross the other.
+Track L and R while scanning, and return false if either of these occurs:
+1. The target currently needs an R but the original string encounters an L; that R can never be supplied
+2. The target currently needs an L but the original string encounters an R; that L can never be supplied
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

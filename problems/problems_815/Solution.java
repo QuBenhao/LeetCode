@@ -33,7 +33,7 @@ public class Solution extends BaseSolution {
         int ans = bfs();
         return ans;
     }
-    // 记录某个车站可以进入的路线
+    // Record the routes accessible from each stop
     Map<Integer, Set<Integer>> map = new HashMap<>();
     int bfs() {
         Deque<Integer> d1 = new ArrayDeque<>(), d2 = new ArrayDeque<>();
@@ -42,12 +42,12 @@ public class Solution extends BaseSolution {
         int n = rs.length;
         for (int i = 0; i < n; i++) {
             for (int station : rs[i]) {
-                // 将从起点可以进入的路线加入正向队列
+                // Add routes accessible from the source to the forward queue
                 if (station == s) {
                     d1.addLast(i);
                     m1.put(i, 1);
                 }
-                // 将从终点可以进入的路线加入反向队列
+                // Add routes accessible from the destination to the backward queue
                 if (station == t) {
                     d2.addLast(i);
                     m2.put(i, 1);
@@ -58,13 +58,13 @@ public class Solution extends BaseSolution {
             }
         }
 
-        // 如果「起点所发起的路线」和「终点所发起的路线」有交集，直接返回 1
+        // If the source and destination share an accessible route, return 1 immediately
         Set<Integer> s1 = map.get(s), s2 = map.get(t);
         Set<Integer> tot = new HashSet<>(s1);
         tot.retainAll(s2);
         if (!tot.isEmpty()) return 1;
 
-        // 双向 BFS
+        // Bidirectional BFS
         while (!d1.isEmpty() && !d2.isEmpty()) {
             int res = -1;
             if (d1.size() <= d2.size()) {
@@ -80,13 +80,13 @@ public class Solution extends BaseSolution {
     int update(Deque<Integer> d, Map<Integer, Integer> cur, Map<Integer, Integer> other) {
         int m = d.size();
         while (m-- > 0) {
-            // 取出当前所在的路线，与进入该路线所花费的距离
+            // Pop the current route and the distance needed to reach it
             int poll = !d.isEmpty() ? d.pollFirst() : -1;
             int step = cur.get(poll);
 
-            // 遍历该路线所包含的车站
+            // Iterate over the stops on this route
             for (int station : rs[poll]) {
-                // 遍历将由该线路的车站发起的路线
+                // Iterate over routes accessible from this route's stops
                 Set<Integer> lines = map.get(station);
                 if (lines == null) continue;
                 for (int nr : lines) {

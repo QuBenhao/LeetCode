@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 因子个数为奇数的数字是完全平方数
+# [Python/Java/JavaScript/Go] Numbers with an odd number of factors are perfect squares
 
 > slug: python-yin-zi-ge-shu-wei-qi-shu-de-shu-z-opqy
 > date: 2021-11-14
@@ -7,20 +7,20 @@
 > url: https://leetcode.cn/problems/bulb-switcher/solutions/bO3y5q/python-yin-zi-ge-shu-wei-qi-shu-de-shu-z-opqy/
 
 ---
-### 解题思路
+### Approach
 ```Python3
-# 1. 每次某个灯被开关，是当前遍历的i为它的因子
-# 2. 某个灯被开关奇数次最后会亮着，偶数次最后会熄灭
-# 3. 某个数的因子个数为奇数个，它的所有质因子都出现了偶数次（完全平方数）
-# 小于等于n的完全平方数个数为，1^2 .. 2^2 .. ... sqrt(n) ^ 2,  即sqrt(n)
+# 1. A bulb is toggled when the current i is a factor of its number
+# 2. A bulb toggled an odd number of times ends on; an even number of times ends off
+# 3. A number has an odd number of factors when every prime factor has an even exponent (a perfect square)
+# The perfect squares at most n are 1^2, 2^2, ..., sqrt(n)^2, giving sqrt(n) such numbers
 ```
 
-关于因子个数是奇数个，只能是完全平方数，也是老生常谈了。
-计算因子个数可以用它的全部素因子出现的次数，用$(1+r_1) * (1+r_2) * \ldots * (1+r_k)$计算，这个是奇数只有所有质因子个数$r_i$全部为偶数，也就是完全平方数了
+The fact that only perfect squares have an odd number of factors is well known.
+Use the exponents of all prime factors to count divisors: $(1+r_1) * (1+r_2) * \ldots * (1+r_k)$. This product is odd only when every prime exponent $r_i$ is even, which means the number is a perfect square.
 ![20190812201920998.png](https://pic.leetcode.cn/1636930495-LOUJcM-20190812201920998.png)
 
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# 离散化树状数组
+# Coordinate compression with a Fenwick tree
 
 > slug: chi-san-hua-shu-zhuang-shu-zu-by-himymbe-ctlh
 > date: 2025-05-09
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-of-smaller-numbers-after-self/solutions/cu0ZDp/chi-san-hua-shu-zhuang-shu-zu-by-himymbe-ctlh/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

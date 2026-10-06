@@ -1,4 +1,4 @@
-# [Python] 暴力
+# [Python] Brute force
 
 > slug: python-bao-li-by-himymben-ddol
 > date: 2021-08-21
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/one-edit-distance/solutions/nUXvoS/python-bao-li-by-himymben-ddol/
 
 ---
-### 解题思路
-必须变化一次相同
+### Approach
+The strings must become equal after exactly one edit.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

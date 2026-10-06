@@ -1,4 +1,4 @@
-# [Python] 动态规划
+# [Python] Dynamic programming
 
 > slug: -by-himymben-qvhp
 > date: 2022-03-27
@@ -7,16 +7,16 @@
 > url: https://leetcode.cn/problems/minimum-deletions-to-make-array-beautiful/solutions/tYtGSv/-by-himymben-qvhp/
 
 ---
-### 解题思路
-dp[i]表示以i为开头，删成满足题目条件的最小代价。根据nums[i]和nums[i+1]是否相等从后往前递推即可。
+### Approach
+dp[i] is the minimum number of deletions needed to make the suffix starting at i satisfy the conditions. Work backward according to whether nums[i] and nums[i+1] are equal.
 
-假如nums[i]和nums[i+1]相等，那么必然不能以nums[i]开头，我们需要删掉nums[i]，也即dp[i] = dp[i+1] + 1，
-而如果不相等，可以不做处理，和以nums[i+2]开头删的次数一样，即dp[i] = dp[i+2]
+If nums[i] and nums[i+1] are equal, the result cannot start with nums[i], so delete it: dp[i] = dp[i+1] + 1.
+If they differ, keep both; the deletion count is the same as for the suffix starting at nums[i+2], so dp[i] = dp[i+2].
 
-在初始化时，dp[len(nums)]本身是空数组，不需要删就满足条件，所以dp[-1] = 0,
-而dp[len(nums)-1]是奇数长度的，必须删掉自己，所以dp[-2] = 1
+For initialization, dp[len(nums)] represents an empty array, which already satisfies the conditions, so dp[-1] = 0.
+dp[len(nums)-1] has odd length and must delete its only element, so dp[-2] = 1.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

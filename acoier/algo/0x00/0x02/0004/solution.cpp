@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/15.
-// 例题: 费解的开关 acwing95
+// Example: 费解的开关 acwing95
 //
 
 #include <bits/stdc++.h>
@@ -29,10 +29,10 @@ int dfs(int x, int y, int s) {
     if (x == N || s == STEP) {
         return STEP + 1;
     }
-    // 必要剪枝: 不能把上一行正确的扭成错误的
+    // Required pruning: do not turn a correct cell in the previous row into an incorrect one
     if (x > 0 && matrix[x - 1] >> (N - 1 - y) & 1) return dfs(x, y + 1, s);
     int res = STEP + 1;
-    // 扭x, y
+    // Toggle x, y
     matrix[x] ^= 1 << (N - 1 - y);
     for (const auto& [dx, dy]: DIR) {
         const int nx = x + dx, ny = y + dy;
@@ -40,7 +40,7 @@ int dfs(int x, int y, int s) {
         matrix[nx] ^= 1 << (N - 1 - ny);
     }
     res = min(res, dfs(x, y + 1, s + 1));
-    // 不扭
+    // Do not toggle
     matrix[x] ^= 1 << (N - 1 - y);
     for (const auto& [dx, dy]: DIR) {
         const int nx = x + dx, ny = y + dy;

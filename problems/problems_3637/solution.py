@@ -9,7 +9,7 @@ class Solution(solution.Solution):
         return self.isTrionic(test_input)
 
     def isTrionic(self, nums: List[int]) -> bool:
-        # 第一段必为增
+        # The first segment must be increasing
         if nums[0] >= nums[1]:
             return False
         cur = 1
@@ -17,13 +17,13 @@ class Solution(solution.Solution):
         for a, b in pairwise(nums):
             if a == b:
                 return False
-            # 非拐点
+            # Not a turning point
             if (a < b) == (cur == 1):
                 continue
-            # 拐点
+            # Turning point
             cur ^= 1
             t += 1
-            # 优化提前返回
+            # Optimize with an early return
             if t > 2:
                 return False
         return t == 2

@@ -40,18 +40,18 @@ class Solution(solution.Solution):
         # return sum(val for (_,v),val in dp.items() if v == minProfit) % (10 ** 9 + 7)
 
         mod = 10 ** 9 + 7
-        # 容斥原理 g <= n, p >= minProfit的组合个数为 g<=n的个数减去g<=n,p < minProfit的个数
-        # 先求 g<=n 的组合数
+        # Inclusion-exclusion: the count with g <= n, p >= minProfit equals the count with g<=n minus the count with g<=n,p < minProfit
+        # First count combinations with g<=n
         dp1 = [0] * (n + 1)
         dp1[0] = 1
         for g in group:
             for i in range(n, g - 1, -1):
                 dp1[i] += dp1[i - g]
-        # p < minProfit的组合数为0
+        # The count of combinations with p < minProfit is 0
         if not minProfit:
             return sum(dp1) % mod
 
-        # 求 g <= n, p < minProfit的组合数
+        # Count combinations with g <= n, p < minProfit
         dp2 = [[0] * minProfit for _ in range(n + 1)]
         dp2[0][0] = 1
         for g, p in zip(group, profit):

@@ -30,7 +30,7 @@ void dfs2(const int u, const int pa) {
         if (v == pa) {
             continue;
         }
-        // 交换得分, v得分相对于u来说, (n - sz[v])整体+1, sz[v]整体-1
+        // Reroot the score from u to v: each of the n - sz[v] nodes gains 1, and each of the sz[v] nodes loses 1
         dp[v] = dp[u] + n - sz[v] * 2;
         dfs2(v, u);
     }

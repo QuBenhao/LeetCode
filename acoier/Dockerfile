@@ -1,12 +1,12 @@
-# 使用Ubuntu LTS版本
+# Use an Ubuntu LTS release
 FROM ubuntu:22.04
 
-# 避免apt-get交互式提示
+# Disable interactive apt-get prompts
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 更新并安装基础工具
+# Update packages and install basic tools
 RUN apt-get update && apt-get install -y \
-    # 基础工具
+    # Basic tools
     sudo \
     curl \
     wget \
@@ -17,9 +17,9 @@ RUN apt-get update && apt-get install -y \
     procps \
     net-tools \
     iputils-ping \
-    # SSH服务器
+    # SSH server
     openssh-server \
-    # C++开发工具链
+    # C++ development toolchain
     build-essential \
     gcc \
     g++ \
@@ -28,36 +28,36 @@ RUN apt-get update && apt-get install -y \
     clangd \
     clang-format \
     clang-tidy \
-    # 构建工具
+    # Build tools
     cmake \
     ninja-build \
     make \
-    # Python3（用于某些算法题）
+    # Python 3 (for some algorithm problems)
     python3 \
     python3-pip \
-    # 其他有用的工具
+    # Other useful tools
     valgrind \
     cppcheck \
     bear \
-    # 文件传输
+    # File transfer
     rsync \
     && rm -rf /var/lib/apt/lists/*
 
-# 配置SSH
+# Configure SSH
 RUN mkdir /var/run/sshd && \
     echo 'root:root' | chpasswd && \
     sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
     sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
 
-# 创建一个非root用户（可选，但推荐）
+# Create a non-root user (optional but recommended)
 RUN useradd -m -s /bin/bash benhao && \
     echo 'benhao:benhao' | chpasswd && \
     usermod -aG sudo benhao
 
-# 设置工作目录
+# Set the working directory
 WORKDIR /workspace
 
-# 安装常用Python包用于算法训练
+# Install common Python packages for algorithm practice
 RUN pip3 install --no-cache-dir \
     numpy \
     matplotlib \
@@ -65,17 +65,17 @@ RUN pip3 install --no-cache-dir \
     scipy \
     ipython
 
-# 为CLion配置环境变量
+# Configure environment variables for CLion
 ENV CC=/usr/bin/gcc
 ENV CXX=/usr/bin/g++
 ENV PATH="/usr/local/bin:${PATH}"
 
-# 创建项目目录
+# Create the project directory
 RUN mkdir -p /workspace/.config && \
     chmod -R 777 /workspace
 
-# 暴露SSH端口
+# Expose the SSH port
 EXPOSE 22
 
-# 启动SSH服务
+# Start the SSH service
 CMD ["/usr/sbin/sshd", "-D"]

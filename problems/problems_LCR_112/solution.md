@@ -1,4 +1,4 @@
-# [Python/Java] 记忆化dfs or 记忆化动态规划？
+# [Python/Java] Memoized DFS or memoized dynamic programming?
 
 > slug: python-ji-yi-hua-dfs-by-qubenhao-vb9r
 > date: 2021-08-06
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/fpTFWP/solutions/TxQng5/python-ji-yi-hua-dfs-by-qubenhao-vb9r/
 
 ---
-### 解题思路
-每个点只能往数值更高的那一侧移动，加入记忆化相当于记录了每个点最长的路径长度，这样新的点如果要走到这个点，直接叠加即可（必然还满足递增性质）
+### Approach
+Each cell can move only to a higher-valued neighbor. Memoization records the longest path from each cell, so a new cell reaching a cached cell can reuse that length; the path still satisfies the increasing constraint.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

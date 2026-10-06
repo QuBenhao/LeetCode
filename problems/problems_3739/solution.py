@@ -9,7 +9,7 @@ class Solution(solution.Solution):
         return self.countMajoritySubarrays(*test_input)
 
     def countMajoritySubarrays(self, nums: List[int], target: int) -> int:
-        sl = SortedList([0])  # 为什么加个 0？见 525 题我的题解
+        sl = SortedList([0])  # Why add a 0? See my solution to problem 525
         ans = s = 0
         for x in nums:
             s += 1 if x == target else -1

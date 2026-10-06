@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 记忆化递归 - 偶数必除2 奇数两者中取最小
+# [Python/Java/JavaScript/Go] Memoized recursion: halve even values and take the better choice for odd values
 
 > slug: pythonjavajavascriptgo-ou-shu-bi-chu-2-q-rw6q
 > date: 2021-11-18
@@ -7,18 +7,18 @@
 > url: https://leetcode.cn/problems/integer-replacement/solutions/QIZGry/pythonjavajavascriptgo-ou-shu-bi-chu-2-q-rw6q/
 
 ---
-### 解题思路
-偶数除2永远是最优的，因为如果你要在移动两次后再除2，完全可以由除2再移动一次替代，这样操作会少一个。
-也就是越在数字小的时候做加减，影响的越大，越能省操作。
+### Approach
+Dividing an even number by 2 is always optimal. If you change it twice before halving, you could instead halve first and change it once, saving an operation.
+Addition or subtraction has more effect on a smaller number, saving more operations.
 
-奇数其实也能分类，
-$4*n+1$要么加一要么减一，除二以后变为$2*n$或$2*n+1$，再运算以后变为$n$或$n+1$
-既然总要变成$n$或$n+1$, 减一运算到$n$需要`3`步，而加一运算到$n$需要`4`步；减一运算到$n+1$需要`4`步，而加一运算到$n+1$同样需要`4`步；
-也就是说$4*n+1$的时候减一，一定能构造出答案，比加一好或者和加一的效果一样。
+Odd numbers can also be split into cases.
+For $4*n+1$, adding or subtracting one and then halving gives $2*n+1$ or $2*n$, eventually leading to $n+1$ or $n$.
+Since we must reach $n$ or $n+1$, subtracting one reaches $n$ in `3` steps, while adding one takes `4`. Reaching $n+1$ takes `4` steps whether we first subtract or add one.
+Thus, for $4*n+1$, subtracting one always leads to an answer at least as good as adding one.
 
-同理$4*n+3$的时候加一，也一定比减一好 (除了3，3两次就到1了，加一再除再减反而会浪费步数)。
+Likewise, for $4*n+3$, adding one is better than subtracting one, except for 3: it reaches 1 in two steps, while adding, dividing, and subtracting wastes steps.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -36,7 +36,7 @@ class Solution {
         if(n % 2 == 0)
             ans = 1 + integerReplacement(n / 2);
         else
-            // 改用等价的默认除二计算结果简化两步，避免 2^31 - 1 加一的溢出
+            // Combine two steps using the equivalent result after halving, avoiding overflow from adding one to 2^31 - 1
             ans = Math.min(integerReplacement(n/2 + 1), integerReplacement(n/2)) + 2;
         cache.put(n, ans);
         return ans;
@@ -96,7 +96,7 @@ func min(a, b int) int {
 }
 ```
 
-既然奇数的情况可以完全确认加一还是减一，就不需要再去min了
+Since the correct choice for odd numbers is fully determined, taking min is unnecessary.
 ```Go []
 func integerReplacement(n int) int {
     ans := 0

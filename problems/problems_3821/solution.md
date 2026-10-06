@@ -1,4 +1,4 @@
-# 递归思想
+# Recursive approach
 
 > slug: di-gui-si-xiang-by-himymben-uxuv
 > date: 2026-01-25
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-nth-smallest-integer-with-k-one-bits/solutions/59Z0mZ/di-gui-si-xiang-by-himymben-uxuv/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/24.
-// 例题: Tallest Cow acwing101
+// Example: Tallest Cow acwing101
 //
 
 #include <bits/stdc++.h>

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 两数之和思想 or 背包动态规划
+# [Python/Java/JavaScript/Go] Two Sum idea or knapsack DP
 
 > slug: pythonjavajavascriptgo-liang-shu-zhi-he-optkq
 > date: 2021-12-28
@@ -7,25 +7,25 @@
 > url: https://leetcode.cn/problems/count-special-quadruplets/solutions/4iAc7p/pythonjavajavascriptgo-liang-shu-zhi-he-optkq/
 
 ---
-### 解题思路
-和LC经典的第一题有异曲同工之处。枚举左边两者和，枚举右边两者差，动态更新相同数目到答案。
+### Approach
+This resembles LeetCode's classic first problem. Enumerate pair sums on the left and pair differences on the right, dynamically adding matching counts to the answer.
 
-另外同样可以采用背包动态规划思想，我们要选三个到背包里，维护 不选的各个值的个数、选一个各个值的个数、选两个各个值的个数、选三个各个值的个数。
-在遍历到每个数，统计选三个了的各值中该数的个数就是答案的一部分。
+Alternatively, use knapsack DP to choose three values. Maintain counts of each sum with zero, one, two, or three values selected.
+At each number, add the count of three-value sums equal to that number to the answer.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def countQuadruplets(self, nums: List[int]) -> int:
         l, ans = Counter(), 0
         for i in range(1, len(nums) - 2):
-            # 到目前为止统计了所有0到i的两坐标和
+            # All pair sums from indices 0 through i have been counted
             for j in range(i):
                 l[nums[i] + nums[j]] += 1
-            # 目前第三个坐标为i+1，枚举第四个坐标j的范围
+            # The third index is i+1; enumerate possible fourth indices j
             for j in range(i + 2, len(nums)):
-                # 叠加以前统计的左半段和的结果，i+1作为第三个idx和j最多组成这么多
+                # Add the previously counted left-pair sums matching this third index i+1 and fourth index j
                 ans += l[nums[j] - nums[i+1]]
         return ans
 ```
@@ -146,6 +146,6 @@ func countQuadruplets(nums []int) (ans int) {
 }
 ```
 
-### 复杂度
+### Complexity
 
-时间复杂度 $o(n^{2})$
+Time complexity: $o(n^{2})$

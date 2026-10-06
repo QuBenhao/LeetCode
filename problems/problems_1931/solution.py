@@ -22,14 +22,14 @@ class Solution(solution.Solution):
                 return 2 if colors[0] == colors[-1] else 1
             tmp = list(colors[1:])
             ans = 0
-            # 列的最底部要进入下一列
+            # At the bottom of a column, advance to the next column
             if i == m - 1:
                 for k in range(3):
                     if k != colors[0] and k != colors[-1]:
                         ans += dfs(0, j + 1, tuple(tmp + [k]))
             else:
                 for k in range(3):
-                    # 列的最顶部时上边的格子颜色不影响当前的选择
+                    # At the top of a column, the previous cell's color does not constrain the choice
                     if (i and k != colors[0] and k != colors[-1]) or (not i and k != colors[0]):
                         ans += dfs(i + 1, j, tuple(tmp + [k]))
             return ans % (10 ** 9 + 7)

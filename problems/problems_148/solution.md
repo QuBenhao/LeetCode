@@ -1,4 +1,4 @@
-# [Python] 归并排序
+# [Python] Merge sort
 
 > Author: Benhao
 > Date: 2024-03-11
@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 归并
+> Merge
 
-# 解题方法
+# Approach
 
-> 拆分链表，分别多两个子链表递归排序，最后再对多个有序进行归并
+> Split the list, recursively sort the two sublists, then merge the sorted lists.
 
 
 # Code

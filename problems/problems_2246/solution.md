@@ -1,4 +1,4 @@
-# [Python] 记忆化递归
+# [Python] Memoized recursion
 
 > slug: by-himymben-0xqq
 > date: 2022-04-17
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/longest-path-with-different-adjacent-characters/solutions/Ff8wyZ/by-himymben-0xqq/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

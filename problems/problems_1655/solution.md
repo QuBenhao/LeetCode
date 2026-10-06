@@ -1,4 +1,4 @@
-# [Python] 贪心记忆化搜索
+# [Python] Greedy memoized search
 
 > Author: Benhao
 > Date: 2021-06-10
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-统计数的频次，将频次从大到小排序，取前`len(quantity)`个!（如果连前面数组长度的频次都无法满足，加上后面的就更不可能了）
-使用tuple记录当前的可选频次,每次遍历合理分配即可。
+### Approach
+Count number frequencies, sort them in descending order, and keep the first `len(quantity)` counts. If these largest counts cannot satisfy the requests, adding smaller ones cannot help.
+Store the available counts in a tuple and enumerate valid allocations at each step.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

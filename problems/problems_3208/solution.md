@@ -1,4 +1,4 @@
-# [Python] 滑窗 
+# [Python] Sliding window 
 
 > slug: python-hua-chuang-by-himymben-d5er
 > date: 2024-11-27
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/alternating-groups-ii/solutions/hDMLT2/python-hua-chuang-by-himymben-d5er/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -7,7 +7,7 @@ import (
 )
 
 func minZeroArray(nums []int, queries [][]int) int {
-	//// 二分+差分
+	//// Binary search + difference array
 	//n, m := len(nums), len(queries)
 	//check := func(x int) bool {
 	//	diff := make([]int, n+1)
@@ -39,7 +39,7 @@ func minZeroArray(nums []int, queries [][]int) int {
 	//}
 	//return left
 
-	// 差分+双指针
+	// Difference array + two pointers
 	n, m := len(nums), len(queries)
 	diff := make([]int, n+1)
 	k := 0

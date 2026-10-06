@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/25.
-// 例题: Best Cow Fences acwing102
+// Example: Best Cow Fences acwing102
 //
 
 #include <bits/stdc++.h>
@@ -13,12 +13,12 @@ vector<int> nums;
 constexpr double EPS = 1e-5;
 
 bool check(double x) {
-    // 长度至少为F的最大子段和(每个值减去平均值)是否大于0
+    // Check whether the maximum subarray sum of length at least F is positive after subtracting the average from each value
     vector<double> sum(N + 1);
     for (int i = 1; i <= N; ++i) {
         sum[i] = sum[i - 1] + nums[i - 1] - x;
     }
-    // 维护前面的最小和, 这样后续区间减去最小一定是最大区间和, 双指针保证长度至少为F即可
+    // Track the minimum preceding prefix sum; subtracting it maximizes the interval sum. Two pointers ensure a length of at least F
     double min_v = 0;
     for (int i = 0, j = F; j <= N; ++i, ++j) {
         min_v = min(min_v, sum[i]);
@@ -34,7 +34,7 @@ int solve() {
         if (check(mid)) left = mid;
         else right = mid;
     }
-    // 结果要最大值必须用right, 不能用left, 否则可能有精度问题
+    // Use right for the maximum result; using left may cause precision errors
     return floor(right * 1000);
 }
 

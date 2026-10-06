@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 队列模拟
+# [Python/Java/TypeScript/Go] Queue simulation
 
 > slug: pythonjavatypescriptgo-by-himymben-4fo1
 > date: 2022-07-15
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/qIsx9U/solutions/4eZAFW/pythonjavatypescriptgo-by-himymben-4fo1/
 
 ---
-### 解题思路
-队列模拟滑动窗口即可。
-注意使用一个变量维护滑动窗口的总和，避免反复重复计算滑窗内的和。
+### Approach
+Use a queue to simulate the sliding window.
+Maintain the window sum in a variable to avoid repeatedly summing the same elements.
 
-### 代码
+### Code
 
 ```Python3 []
 class MovingAverage:
@@ -74,7 +74,7 @@ class MovingAverage {
         this.size = size
         this.sum = 0
         /**
-         *  找不到自己队列的模板了突然，只能指针了先
+         *  I could not find my queue template, so I used pointers for now
          */
         this.idx = 0
     }

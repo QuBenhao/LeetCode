@@ -1,4 +1,4 @@
-# [Python] 贪心
+# [Python] Greedy
 
 > Author: Benhao
 > Date: 2021-06-15
@@ -7,19 +7,19 @@
 
 ---
 
-思来想去感觉后手不可能赢，凡是后手能赢的取法先手也能取到。
+After thinking it through, I cannot see how the second player can win: the first player can also obtain any winning selection available to the second.
 
-毁灭了，改完网卡了发不出来。
+Disaster: after changing the network adapter, I cannot post.
 
-- 长度为偶数，和为奇数:
-    - 两者取的石子一样多
-    - 不管怎么取,两者的和都不一样
+- The length is even and the sum is odd:
+    - Both players take the same number of piles
+    - Their totals differ regardless of how they choose
 
-- 先手每次取的时候，数组长度都为偶数，首尾在原数组中的坐标的奇偶性不同。
-- 后手每次取的时候，数组长度都为奇数，首尾在原数组中的坐标的奇偶性相同。
+- On every first-player turn, the array length is even, and the endpoints' original indices have different parity.
+- On every second-player turn, the array length is odd, and the endpoints' original indices have the same parity.
 
-先手可以通过自己选`奇数位置还是偶数位置`来控制后手拿的都是`偶数位置或奇数位置`,
-而`奇数位的和`和`偶数位的和`必然有一个更大，先手可以稳定拿更大的那个，故必胜。
+The first player can choose `odd or even positions` and force the second player to take only `even or odd positions`, respectively.
+Either the `sum at odd positions` or the `sum at even positions` must be larger. The first player can always take the larger sum and therefore always wins.
 
 ```python3
 class Solution:

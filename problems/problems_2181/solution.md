@@ -1,4 +1,4 @@
-# [Python/Go] 链表模拟
+# [Python/Go] Linked-list simulation
 
 > Author: Benhao
 > Date: 2022-02-20
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-将所有非0叠加到前面的0上，断开所有非0点，将最后一个0去掉即可
+### Approach
+Add every nonzero value to the preceding zero node, unlink all nonzero nodes, and remove the final zero node.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for singly-linked list.
@@ -53,4 +53,4 @@ func mergeNodes(head *ListNode) *ListNode {
     end.Next = nil
     return head
 }
-``` 
+```

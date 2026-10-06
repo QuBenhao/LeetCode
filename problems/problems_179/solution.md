@@ -1,4 +1,4 @@
-# [Python] 自定义比较函数的排序
+# [Python] Sort with a custom comparison function
 
 > Author: Benhao
 > Date: 2021-04-12
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按两两下加后结果的大小排序
+### Approach
+Sort by comparing the results of concatenating each pair in both orders.
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

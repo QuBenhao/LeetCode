@@ -19,7 +19,7 @@ func colorTheGrid(m int, n int) (ans int) {
 next:
 	for color := range pow3[m-1] * 3 {
 		for i := range m - 1 {
-			if color/pow3[i+1]%3 == color/pow3[i]%3 { // 相邻颜色相同
+			if color/pow3[i+1]%3 == color/pow3[i]%3 { // Adjacent colors are equal
 				continue next
 			}
 		}
@@ -32,7 +32,7 @@ next:
 	next2:
 		for j, color2 := range valid {
 			for _, p3 := range pow3 {
-				if color1/p3%3 == color2/p3%3 { // 相邻颜色相同
+				if color1/p3%3 == color2/p3%3 { // Adjacent colors are equal
 					continue next2
 				}
 			}

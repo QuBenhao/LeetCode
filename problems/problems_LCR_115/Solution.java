@@ -22,7 +22,7 @@ public class Solution extends BaseSolution {
     }
 
     private int hash(int prev, int next) {
-        // 10^4 最多14位
+        // 10^4 requires at most 14 bits
         return prev << 14 | next;
     }
 

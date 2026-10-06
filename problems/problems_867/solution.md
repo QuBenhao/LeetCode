@@ -1,4 +1,4 @@
-# [Python] 转置矩阵
+# [Python] Matrix transpose
 
 > slug: python-zhuan-zhi-ju-zhen-by-himymben-ioy2
 > date: 2022-03-13

@@ -1,4 +1,4 @@
-# [Python] 贪心
+# [Python] Greedy
 
 > Author: Benhao
 > Date: 2021-05-30
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-首先x这个数是必须加入整个字符串的。
-那么负数的时候，我们遇到一个比x大的数（字符），x插在这里会比x插在后面任意地方的结果都大。
-而正数的时候，我们遇到一个比x小的数（字符），x插在这里会比x插在后面任意地方的结果都大。
+### Approach
+The digit x must be inserted somewhere in the string.
+For a negative number, insert x before the first digit greater than x; this gives a larger result than inserting it anywhere later.
+For a positive number, insert x before the first digit smaller than x; this gives a larger result than inserting it anywhere later.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

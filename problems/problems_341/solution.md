@@ -1,4 +1,4 @@
-# [Python] iterator应为指向数据的指针而不是复制数据
+# [Python] An iterator should point to data rather than copy it
 
 > Author: Benhao
 > Date: 2021-03-23
@@ -7,16 +7,16 @@
 
 ---
 
-### 解题思路
-首先不应考虑复制数据的解法，而是考虑指向原数据的解法。
-列表中每个位置有两种可能性，一个是数字，一个是列表。
-如果是数字，显然就是我们想要的；
-如果是列表，需要从列表中找到下一个数字；
-如果列表中没有下一个数字，应该挪到上层列表中下一个元素。
+### Approach
+Start with an approach that points to the original data rather than copying it.
+Each list position contains either a number or another list.
+A number is exactly what we need.
+For a list, find the next number within it.
+If that list has no next number, move to the next element in its parent list.
 
-顺便实现了一下 NestedInteger， 如果想做本地测试的可以用这个代码。
+I also implemented NestedInteger for anyone who wants to test locally.
 
-### 代码
+### Code
 
 ```python
 # """

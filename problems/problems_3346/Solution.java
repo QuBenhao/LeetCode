@@ -11,8 +11,8 @@ public class Solution extends BaseSolution {
         Map<Integer, Integer> diff = new TreeMap<>();
         for (int x : nums) {
             cnt.merge(x, 1, Integer::sum); // cnt[x]++
-            diff.putIfAbsent(x, 0); // 把 x 插入 diff，以保证下面能遍历到 x
-            // 把 [x-k, x+k] 中的每个整数的出现次数都加一
+            diff.putIfAbsent(x, 0); // Insert x into diff to ensure that x is visited below
+            // Increase the occurrence count of every integer in [x-k, x+k] by one
             diff.merge(x - k, 1, Integer::sum); // diff[x-k]++
             diff.merge(x + k + 1, -1, Integer::sum); // diff[x+k+1]--
         }

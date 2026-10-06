@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-mo-ni-by-himymben-xheb
 > date: 2022-10-14
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/build-an-array-with-stack-operations/solutions/QnlPDU/pythonjavatypescriptgo-mo-ni-by-himymben-xheb/
 
 ---
-### 解题思路
-每一个缺失的数字就填入一组"Push"和"Pop"即可
+### Approach
+For each missing number, add one "Push" and one "Pop".
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 滑动窗口 -> 定长优化 -> 常数优化
+# [Python/Java/JavaScript/Go] Sliding window -> fixed-length optimization -> constant-factor optimization
 
 > Author: Benhao
 > Date: 2021-11-27
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-我们不在乎顺序，只在乎字母的个数，可以使用滑动窗口，维护窗口内各个字母的个数，当窗口中各字母个数和p的一致时，窗口的头就是想要的答案了。
+### Approach
+Only letter counts matter, not their order. Use a sliding window to maintain character counts; when they match p, the window's start is an answer.
 
-既然要求长度是一致的，那么我们显然始终要比的也是一样长度的字符串，也就是和p一样长的固定窗口，这时候只需要用一个指针就可以完成滑动了。
+The lengths must match, so always compare a fixed window with the same length as p. A single pointer is enough to move this window.
 
-每次比较26位的区别是没有必要的，因为变动总是一个字母，一位的变动，可以维护一个当前窗口和p的统计的不一样的个数，维护在同一个哈希表里，
-当某位变成零，不一样的个数减一；当某位从零变成非零，不一样的个数加一。只有当不一样的个数为0时，才是想要的答案。
+Comparing all 26 counts each time is unnecessary because each change affects only one letter. Store count differences in one hash table and track how many letters have different counts between the window and p.
+When a difference becomes zero, decrement the mismatch count; when it changes from zero to nonzero, increment it. A window is an answer exactly when the mismatch count is 0.
 
-### 代码
+### Code
 
 ```Python3
 class Solution:

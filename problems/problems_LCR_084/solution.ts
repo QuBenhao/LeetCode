@@ -1,5 +1,5 @@
 function permuteUnique(nums: number[]): number[][] {
-    const ansMap = new Map();//用于去重
+    const ansMap = new Map();// Used to remove duplicates
     const dfs = (path:number[],indexMap:Map<number,number>) => {
         if (path.length === nums.length) {
             const key = path.join('-');
@@ -20,7 +20,7 @@ function permuteUnique(nums: number[]): number[][] {
         }
     }
     dfs([],new Map());
-    //返回二维数组
+    // Return a two-dimensional array
     return Array.from(ansMap.values());
 };
 

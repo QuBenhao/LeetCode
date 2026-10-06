@@ -11,15 +11,15 @@ class Solution(solution.Solution):
 
     def findXSum(self, nums: List[int], k: int, x: int) -> List[int]:
         cnt = defaultdict(int)
-        L = SortedList()  # 保存 tuple (出现次数，元素值)
+        L = SortedList()  # Store tuples (frequency, element value)
         R = SortedList()
-        sum_l = 0  # L 的元素和
+        sum_l = 0  # Sum of the elements in L
 
         def add(val: int) -> None:
             if cnt[val] == 0:
                 return
             p = (cnt[val], val)
-            if L and p > L[0]:  # p 比 L 中最小的还大
+            if L and p > L[0]:  # p is larger than the smallest element in L
                 nonlocal sum_l
                 sum_l += p[0] * p[1]
                 L.add(p)
@@ -53,7 +53,7 @@ class Solution(solution.Solution):
 
         ans = [0] * (len(nums) - k + 1)
         for r, in_ in enumerate(nums):
-            # 添加 in_
+            # Add in_
             remove(in_)
             cnt[in_] += 1
             add(in_)
@@ -62,14 +62,14 @@ class Solution(solution.Solution):
             if l < 0:
                 continue
 
-            # 维护大小
+            # Maintain the size
             while R and len(L) < x:
                 r2l()
             while len(L) > x:
                 l2r()
             ans[l] = sum_l
 
-            # 移除 out
+            # Remove out
             out = nums[l]
             remove(out)
             cnt[out] -= 1

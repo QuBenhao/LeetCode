@@ -13,7 +13,7 @@ class Solution(solution.Solution):
         """
         cnt = Counter(nums)
         ns = sorted(cnt.keys())
-        # 当前最大值和上次最大值的动态规划
+        # Dynamic programming for the current maximum and the maximum before the previous value
         max_so_far = cnt[ns[0]] * ns[0]
         max_except_last = 0
         for i in range(1,len(cnt)):

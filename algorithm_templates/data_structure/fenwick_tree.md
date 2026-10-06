@@ -1,28 +1,28 @@
-# 树状数组
+# Fenwick Tree
 
-树状数组（Fenwick Tree）是一种高效处理 **前缀和查询** 和 **单点更新** 的数据结构，时间复杂度为 $`O(\log n)`$。
+A Fenwick tree efficiently supports **prefix sum queries** and **point updates**, each with a time complexity of $`O(\log n)`$.
 
-`子节点t[x]的父节点是t[x+lowbit(x)]`
+The parent of node `t[x]` is `t[x+lowbit(x)]`.
 
-其中lowbit是求二进制最低位1 (可通过取反，再+1，再&)
+Here, `lowbit` returns the lowest set bit in the binary representation (invert the bits, add 1, then apply `&` with the original value).
 
 ```python
 class FenwickTree:
     def __init__(self, size: int):
         self.n = size
-        self.tree = [0] * (self.n + 1)  # 索引从1开始
+        self.tree = [0] * (self.n + 1)  # Indices start at 1
 
     def lowbit(self, x: int) -> int:
         return x & (-x)
 
     def update(self, idx: int, delta: int) -> None:
-        """ 单点更新：a[idx] += delta """
+        """ Point update: a[idx] += delta """
         while idx <= self.n:
             self.tree[idx] += delta
             idx += self.lowbit(idx)
 
     def query(self, idx: int) -> int:
-        """ 查询前缀和：a[1] + a[2] + ... + a[idx] """
+        """ Query the prefix sum: a[1] + a[2] + ... + a[idx] """
         res = 0
         while idx > 0:
             res += self.tree[idx]
@@ -30,19 +30,19 @@ class FenwickTree:
         return res
 
     def range_query(self, l: int, r: int) -> int:
-        """ 区间查询：a[l] + a[l+1] + ... + a[r] """
+        """ Range query: a[l] + a[l+1] + ... + a[r] """
         return self.query(r) - self.query(l - 1)
 
 
-# 示例
+# Example
 arr = [1, 3, 5, 7, 9]
 n = len(arr)
 ft = FenwickTree(n)
 for i in range(1, n + 1):
     ft.update(i, arr[i - 1])
 
-print(ft.query(3))  # 输出9 (1+3+5)
-print(ft.range_query(2, 4))  # 输出15 (3+5+7)
+print(ft.query(3))  # Outputs 9 (1+3+5)
+print(ft.range_query(2, 4))  # Outputs 15 (3+5+7)
 ```
 
 ```go
@@ -58,7 +58,7 @@ type FenwickTree struct {
 func NewFenwickTree(size int) *FenwickTree {
     return &FenwickTree{
         n:    size,
-        tree: make([]int, size+1), // 索引从1开始
+        tree: make([]int, size+1), // Indices start at 1
     }
 }
 
@@ -94,33 +94,33 @@ func main() {
         ft.Update(i, arr[i-1])
     }
 
-    fmt.Println(ft.Query(3))       // 输出9
-    fmt.Println(ft.RangeQuery(2, 4)) // 输出15
+    fmt.Println(ft.Query(3))       // Outputs 9
+    fmt.Println(ft.RangeQuery(2, 4)) // Outputs 15
 }
 ```
 
 ```c++
-// 根据题目用 FenwickTree<int> t(n) 或者 FenwickTree<long long> t(n) 初始化
+// Initialize with FenwickTree<int> t(n) or FenwickTree<long long> t(n), as required by the problem
 template<typename T>
 class FenwickTree {
     vector<T> tree;
 
 public:
-    // 使用下标 1 到 n
+    // Use indices 1 through n
     FenwickTree(int n) : tree(n + 1) {}
 
-    // a[i] 增加 val
+    // Add val to a[i]
     // 1 <= i <= n
-    // 时间复杂度 O(log n)
+    // Time complexity: O(log n)
     void update(int i, T val) {
         for (; i < tree.size(); i += i & -i) {
             tree[i] += val;
         }
     }
 
-    // 求前缀和 a[1] + ... + a[i]
+    // Compute the prefix sum a[1] + ... + a[i]
     // 1 <= i <= n
-    // 时间复杂度 O(log n)
+    // Time complexity: O(log n)
     T pre(int i) const {
         T res = 0;
         for (; i > 0; i &= i - 1) {
@@ -129,9 +129,9 @@ public:
         return res;
     }
 
-    // 求区间和 a[l] + ... + a[r]
+    // Compute the range sum a[l] + ... + a[r]
     // 1 <= l <= r <= n
-    // 时间复杂度 O(log n)
+    // Time complexity: O(log n)
     T query(int l, int r) const {
         if (r < l) {
             return 0;
@@ -175,39 +175,39 @@ class FenwickTree {
 }
 ```
 
-## **核心原理**
+## **Core Principles**
 
-1. **二进制索引**  
-   每个节点 `tree[i]` 管理原数组的一段区间，区间长度为 `lowbit(i)`（即 `i` 的二进制中最低位的 `1` 对应的值）。例如：
-    - `lowbit(6) = 2`（`6` 的二进制为 `110`）。
-    - `tree[6]` 管理原数组中 `a[5]` 和 `a[6]` 的和。
+1. **Binary indexing**  
+   Each node `tree[i]` covers a range of the original array with length `lowbit(i)`, the value of the lowest set bit in the binary representation of `i`. For example:
+    - `lowbit(6) = 2` (`6` is `110` in binary).
+    - `tree[6]` stores the sum of `a[5]` and `a[6]` in the original array.
 
-2. **操作逻辑**
-    - **单点更新**：更新 `a[i]` 时，需更新所有覆盖 `i` 的 `tree` 节点。
-    - **前缀和查询**：通过累加多个 `tree` 节点的值得到前 `i` 项的和。
+2. **How the operations work**
+    - **Point update**: Updating `a[i]` requires updating every `tree` node that covers `i`.
+    - **Prefix sum query**: Add the values of several `tree` nodes to obtain the sum of the first `i` elements.
 
-## **关键操作**
+## **Key Operations**
 
-| 操作        | 时间复杂度         | 说明                     |
+| Operation | Time Complexity | Description |
 |-----------|---------------|------------------------|
-| **单点更新**  | $`O(\log n)`$ | 更新所有覆盖当前索引的 `tree` 节点。 |
-| **前缀和查询** | $`O(\log n)`$ | 累加多个 `tree` 节点的值。      |
-| **区间查询**  | $`O(\log n)`$ | 通过两次前缀和查询相减得到。         |
+| **Point update** | $`O(\log n)`$ | Update every `tree` node that covers the current index. |
+| **Prefix sum query** | $`O(\log n)`$ | Add the values of several `tree` nodes. |
+| **Range query** | $`O(\log n)`$ | Subtract the results of two prefix sum queries. |
 
-## **应用场景**
+## **Applications**
 
-1. **动态前缀和**：实时统计前 `k` 个元素的和。
-2. **逆序对计数**：结合离散化处理数组的逆序对问题。
-3. **区间修改**：结合差分数组支持区间增减操作。
+1. **Dynamic prefix sums**: Maintain the sum of the first `k` elements in real time.
+2. **Counting inversions**: Combine with coordinate compression to count inversions in an array.
+3. **Range updates**: Combine with a difference array to support range increments and decrements.
 
-## **复杂度分析**
+## **Complexity Analysis**
 
-- **时间复杂度**：所有操作均为 $`O(\log n)`$。
-- **空间复杂度**：$`O(n)`$。
+- **Time complexity**: All operations take $`O(\log n)`$.
+- **Space complexity**: $`O(n)`$.
 
-通过树状数组，可以高效处理需要频繁更新和查询的场景，适用于算法竞赛和工程中的高性能需求。
+Fenwick trees efficiently handle frequent updates and queries, making them useful for competitive programming and engineering tasks that require high performance.
 
-# 区间更新+区间求和 —— 树状数组 + 差分
+# Range Updates and Range Sums with Fenwick Trees and Difference Arrays
 
 ```c++
 //
@@ -222,17 +222,17 @@ using namespace std;
 class FenwickTree {
 private:
     int n;
-    vector<long long> bit1, bit2;  // 两个树状数组
+    vector<long long> bit1, bit2;  // Two Fenwick trees
 
-    // 通用更新操作
+    // General update operation
     void update(vector<long long>& bit, int idx, long long val) {
         while (idx <= n) {
             bit[idx] += val;
-            idx += idx & -idx;  // 最低位的1
+            idx += idx & -idx;  // Lowest set bit
         }
     }
 
-    // 通用查询操作
+    // General query operation
     long long query(const vector<long long>& bit, int idx) {
         long long sum = 0;
         while (idx > 0) {
@@ -248,7 +248,7 @@ public:
         bit2.resize(n + 1, 0);
     }
 
-    // 区间修改：对区间[l, r]每个元素加val
+    // Range update: add val to every element in [l, r]
     void range_update(int l, int r, long long val) {
         update(bit1, l, val);
         update(bit1, r + 1, -val);
@@ -256,23 +256,23 @@ public:
         update(bit2, r + 1, -val * (r + 1));
     }
 
-    // 单点修改：位置idx加val
+    // Point update: add val at index idx
     void point_update(int idx, long long val) {
         range_update(idx, idx, val);
     }
 
-    // 求前缀和[1, k]
+    // Compute the prefix sum over [1, k]
     long long prefix_sum(int k) {
         return (k + 1) * query(bit1, k) - query(bit2, k);
     }
 
-    // 区间查询：求区间[l, r]的和
+    // Range query: compute the sum over [l, r]
     long long range_sum(int l, int r) {
         if (l > r) return 0;
         return prefix_sum(r) - prefix_sum(l - 1);
     }
 
-    // 获取原始数组值
+    // Get the value in the original array
     long long get_value(int idx) {
         return range_sum(idx, idx);
     }
@@ -303,7 +303,7 @@ int main() {
 }
 ```
 
-# 树状数组模板&应用
+# Fenwick Tree Templates and Applications
 
 ```c++
 //

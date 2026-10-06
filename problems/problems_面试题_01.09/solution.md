@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-mo-ni-by-himymben-epc3
 > date: 2022-09-29
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/string-rotation-lcci/solutions/LyiwE7/pythonjavatypescriptgo-mo-ni-by-himymben-epc3/
 
 ---
-### 解题思路
-所有带旋转字眼的，把原数组复制一倍解决
+### Approach
+For rotation problems, duplicate the original array to handle the wraparound.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

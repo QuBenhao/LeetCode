@@ -9,7 +9,7 @@ class Solution(solution.Solution):
         return self.minCost(*test_input)
 
     def minCost(self, basket1: List[int], basket2: List[int]) -> int:
-        # 要求完全相同，不只是和相等，所以每个数要出现偶数次，两个里面已经相同的可以直接忽略
+        # The baskets must match exactly, not just in sum, so each value must occur an even number of times; matching occurrences in both baskets can be ignored
         count = defaultdict(int)
         for a, b in zip(basket1, basket2):
             count[a] += 1
@@ -23,4 +23,4 @@ class Solution(solution.Solution):
 
         nums.sort()
         mn = min(count)
-        return sum(min(x, mn * 2) for x in nums[:len(nums) // 2])  # 两个数可以交换，或者用最小的数替换两个数，所以取最小的
+        return sum(min(x, mn * 2) for x in nums[:len(nums) // 2])  # Swap the two values directly, or use the minimum value for two swaps; take the smaller cost

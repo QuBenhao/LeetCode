@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go/C++] 不等式推导
+# [Python/Java/TypeScript/Go/C++] Derive the bounds from inequalities
 
 > Author: Benhao
 > Date: 2022-06-13
@@ -7,19 +7,19 @@
 
 ---
 
-### 解题思路
-首先要知道的是：
-1. 右斜对角线是横纵坐标和为定值(左斜的话是差为定值)。
-2. 一共有$m + n - 1$个对角线，对应左上角贴边走到右下角
+### Approach
+First, note that:
+1. An upward-sloping diagonal has a constant sum of coordinates; a downward-sloping diagonal has a constant difference.
+2. There are $m + n - 1$ diagonals, corresponding to walking along the boundary from the top-left to the bottom-right corner.
 
-根据以上条件，可以推导每个对角线的横纵坐标范围，再确认一下从上到下还是从下到上即可。
+Use these conditions to derive each diagonal's coordinate ranges, then determine whether to traverse top to bottom or bottom to top.
 ```python3
-            # 已知 x + y = k 和 0 <= x < m 还有 0 <= y < n
+            # Given x + y = k, 0 <= x < m, and 0 <= y < n
             # 0 <= x < m, 0 <= k - x < n
             # 0 <= x < m, k - n < x <= k
 ```
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

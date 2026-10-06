@@ -21,61 +21,61 @@ import qubhjava.BaseSolution;
 import qubhjava.models.TreeNode;
 
 public class Solution extends BaseSolution {
-    // 森林中叶子节点的度数，下标是叶子节点的值
+    // Leaf degrees in the forest, indexed by leaf value
     public int[] du = new int[50005];
-    // 根节点的值对应的根节点
+    // Map root values to root nodes
     public TreeNode[] nodeValToNode = new TreeNode[50005];
-    // 拓扑排序的队列
+    // Queue for topological sorting
     public Queue<TreeNode> queue = new LinkedList<>();
-    // 森林中树的棵数
+    // Number of trees in the forest
     public int n;
-    // 合并次数，即森林中树减少的数量
+    // Number of merges, or trees removed from the forest
     public int sub = 0;
-    // 合并完成的树是否满足二叉搜索树
+    // Whether the merged tree satisfies the BST property
     public boolean isOK = true;
     public TreeNode canMerge(List<TreeNode> trees) {
         n = trees.size();
         for (int i = 0; i < n; i++) {
             TreeNode treeNode = trees.get(i);
             nodeValToNode[treeNode.val] = treeNode;
-            // 该根节点的叶子节点度数增加操作
+            // Increment degrees of leaves under this root
             dfs(treeNode , true);
         }
         queue = new LinkedList<>();
         for (int i = 0; i < n; i++) {
             TreeNode treeNode = trees.get(i);
-            // 根节点度数为0，入队
+            // Enqueue roots with degree 0
             if(du[treeNode.val] == 0) {
                 queue.add(treeNode);
             }
         }
-        // 只有根节点度数为0的根节点数量为1个时，才有可能合并成一个满足要求的二叉搜索树
-        // 大于1个时很容易理解为什么不行，因为肯定不能合并成一棵树
-        // 根节点度数为0，即该根节点不可能“附属”到其他树上，只能作为根，就是多根情况，很显然不行
-        // 等于0个时，为什么不行？因为有循环，合并成的树不可能符合二叉搜索树的要求
-        // 如1 -> 2 , 2 -> 3 , 3 -> 1（a -> b代表根节点a的叶子节点中有和根节点b相同的值）
-        // 如果合并根节点1、2得到新树（根节点还是1），新树不能与根节点3合并，因为根节点3中的叶子节点有和根节点1相同的值
-        // 这样不满足二叉搜索树的要求（任意节点的左子树中的值都严格小于此节点的值、任意节点的右子树中的值都严格大于此节点的值）
+        // A valid merged BST is possible only if exactly one root has degree 0
+        // More than one such root cannot be merged into a single tree
+        // A degree-0 root cannot attach to another tree and must remain a root, so multiple such roots are invalid
+        // No degree-0 root means a cycle, which cannot form a valid BST
+        // For example: 1 -> 2, 2 -> 3, 3 -> 1, where a -> b means tree a has a leaf with root b's value
+        // After merging roots 1 and 2 under root 1, merging root 3 introduces a leaf equal to root 1
+        // This violates the BST rule: every value in a node's left subtree is smaller, and every value in its right subtree is larger
         if(queue.size() != 1) return null;
-        // 记录合并后的整棵树的根节点，就是答案
+        // Save the root of the fully merged tree as the answer
         TreeNode ans = queue.peek();
         while (!queue.isEmpty()) {
             TreeNode treeNode = queue.poll();
-            // 该根节点的叶子节点度数减少操作
+            // Decrement degrees of leaves under this root
             dfsSub(treeNode);
-            // 已经合并完成了，可以退出了
+            // All merges are complete; exit
             if(sub == n - 1) break;
         }
-        // 拓扑排序结束了，合并还没有完成
+        // Topological sorting finished before all trees were merged
         if(sub != n - 1) return null;
-        // 检查合并完成的树是否满足要求
+        // Check whether the merged tree meets the requirements
         check(ans);
         if(!isOK) return null;
-        // 满足要求
+        // Requirements satisfied
         return ans;
     }
 
-    // 拓扑排序，叶子节点的度数++ , 如果根节点就是叶子节点则不需要++，因为根节点想要入队（度数为0时），只会根据其他树的叶子节点来--
+    // Topological sorting: increment leaf degrees, except for a root that is also a leaf; its degree is decremented only by other trees' leaves before it can be enqueued at degree 0
     public void dfs(TreeNode treeNode , boolean isRoot) {
         if(treeNode.left == null && treeNode.right == null) {
             if(!isRoot) du[treeNode.val]++;
@@ -85,17 +85,17 @@ public class Solution extends BaseSolution {
         if(treeNode.right != null) dfs(treeNode.right , false);
     }
 
-    // 拓扑排序，叶子节点的度数-- ，如果叶子节点此时的度数为0，并且该叶子节点与某个根节点的值相同，就合并树，并且把该根节点加入队列
+    // Topological sorting: decrement leaf degrees; if one reaches 0 and matches a root value, merge that tree and enqueue its root
     public void dfsSub(TreeNode treeNode) {
         if(treeNode.left == null && treeNode.right == null) {
             du[treeNode.val]--;
             if(du[treeNode.val] == 0 && nodeValToNode[treeNode.val] != null) {
-                // 合并树
+                // Merge trees
                 treeNode.left = nodeValToNode[treeNode.val].left;
                 treeNode.right = nodeValToNode[treeNode.val].right;
-                // 度数为0了，可以入队了
+                // Degree is now 0; enqueue it
                 queue.add(treeNode);
-                // 森林中树--
+                // Decrease the forest's tree count
                 sub++;
             }
             return;
@@ -104,28 +104,28 @@ public class Solution extends BaseSolution {
         if(treeNode.right != null) dfsSub(treeNode.right);
     }
 
-    // 检查合并的树是否满足二叉搜索树，返回该子树的{最小值 ， 最大值}
+    // Check the merged subtree's BST property and return {minimum, maximum}
     public int[] check(TreeNode treeNode) {
-        // 已经不满足要求了，随便返回什么
+        // Already invalid; the returned value does not matter
         if (!isOK) return new int[2];
         int[] minAndMax = new int[2];
-        // 初值
-        minAndMax[0] = treeNode.val;  // 最小值
-        minAndMax[1] = treeNode.val;  // 最大值
+        // Initial value
+        minAndMax[0] = treeNode.val;  // Minimum value
+        minAndMax[1] = treeNode.val;  // Maximum value
         if (treeNode.left != null) {
             int[] left = check(treeNode.left);
-            // 更新
+            // Update
             minAndMax[0] = Math.min(minAndMax[0], left[0]);
             minAndMax[1] = Math.max(minAndMax[1], left[1]);
-            // 如果节点值不大于左子树的最大值，则不满足要求
+            // Invalid if the node's value is no greater than the left subtree's maximum
             if (treeNode.val <= left[1]) isOK = false;
         }
         if (treeNode.right != null) {
             int[] right = check(treeNode.right);
-            // 更新
+            // Update
             minAndMax[0] = Math.min(minAndMax[0], right[0]);
             minAndMax[1] = Math.max(minAndMax[1], right[1]);
-            // 如果节点值不小于右子树的最小值，则不满足要求
+            // Invalid if the node's value is no smaller than the right subtree's minimum
             if (treeNode.val >= right[0]) isOK = false;
         }
         return minAndMax;

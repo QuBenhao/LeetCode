@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 边角统计 or 岛屿数量
+# [Python/Java/JavaScript/Go] Count corners or count islands
 
 > Author: Benhao
 > Date: 2021-12-18
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-每个战舰都会有边角，有且仅有一个左上边角、右上边角、右下边角、左下边角。
-具体来说，战舰里只有一个点，左边和上边都是'.'；只有一个点，上边和右边都是'.'；只有一个点，右边和下边都是'.'；只有一个点下边和左边都是'.'。
-我们只需要任选一个边角，进行统计即可。
+### Approach
+Each battleship has exactly one top-left, top-right, bottom-right, and bottom-left corner.
+Specifically, exactly one cell has '.' both above and to the left; one has '.' above and to the right; one has '.' to the right and below; and one has '.' below and to the left.
+Choose any one corner type and count it.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -58,7 +58,7 @@ func countBattleships(board [][]byte) (ans int) {
 }
 ```
 
-当然这也是比较简单的一种岛屿统计，可以使用传统的dfs或bfs做
+This is also a simple island-counting problem that can be solved with standard DFS or BFS.
 ```python3
 class Solution:
     def countBattleships(self, board: List[List[str]]) -> int:

@@ -1,4 +1,4 @@
-# [C] 滑窗
+# [C] Sliding window
 
 > Author: Benhao
 > Date: 2023-01-07
@@ -7,7 +7,7 @@
 
 ---
 
-题目可以转换为找一段最长的连续子数组，使得他们的和为sum(nums) - x
+Reframe the problem as finding the longest contiguous subarray with sum sum(nums) - x.
 
 ```C []
 int min(int a, int b) {

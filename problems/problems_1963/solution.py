@@ -16,7 +16,7 @@ class Solution(solution.Solution):
                 count += 1
             else:
                 if not count:
-                    # 将最右的'['和这个']'互换，后面的count会多1，但是由于数量相等，不影响再往后的右括号
+                    # Swap this ']' with the rightmost '['; later count increases by 1, but equal total counts keep later closing brackets valid
                     ans += 1
                     count += 1
                 else:

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-08-29
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按题意排列即可
+### Approach
+Rearrange the elements as specified.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

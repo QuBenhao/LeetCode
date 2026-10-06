@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-bc31
 > date: 2022-01-09
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/slowest-key/solutions/3J6jOz/pythonjavajavascriptgo-mo-ni-by-himymben-bc31/
 
 ---
-### 解题思路
-遍历统计最大即可
+### Approach
+Traverse and track the maximum.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

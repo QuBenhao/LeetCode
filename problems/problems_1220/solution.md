@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 困难题简单做 动态规划->矩阵快速幂模板
+# [Python/Java/JavaScript/Go] A simple approach to a hard problem: dynamic programming -> fast matrix exponentiation template
 
 > slug: pythonjavajavascriptgo-kun-nan-ti-jian-d-urbm
 > date: 2022-01-16
@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/count-vowels-permutation/solutions/yXEPF1/pythonjavajavascriptgo-kun-nan-ti-jian-d-urbm/
 
 ---
-### 解题思路
-本题的题目描述本身就是动态规划，可以很容易写出递推公式，使用滚动更新的方式节省空间。
+### Approach
+The problem statement already describes a dynamic program. The recurrence is easy to write, and rolling updates save space.
 
-动态规划的时间复杂度为$o(n)$，递推写作矩阵乘法的话，会变成相同矩阵的幂次，可以使用矩阵快速幂，时间复杂度$o(\log_2n)$
+Dynamic programming takes $o(n)$ time. Expressing the recurrence as matrix multiplication gives powers of the same matrix, allowing fast matrix exponentiation in $o(\log_2n)$ time.
 
-矩阵快速幂乘法在Js中会出现精度问题，需要手写加法实现的快速乘法。
+Multiplication during fast matrix exponentiation has precision issues in Js, so implement fast multiplication using addition.
 
-### 代码
-动态规划
+### Code
+Dynamic programming
 ```Python3 []
 MOD = 10**9 + 7
 class Solution:
@@ -83,7 +83,7 @@ func countVowelPermutation(n int) int {
     return ((((a + e) % MOD + i) % MOD + o) % MOD + u) % MOD
 }
 ```
-矩阵快速幂
+Fast matrix exponentiation
 ```Python3 []
 import numpy as np
 MOD = 10 ** 9 + 7

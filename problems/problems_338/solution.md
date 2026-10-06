@@ -1,4 +1,4 @@
-# [Python] 递推解法
+# [Python] Recurrence
 
 > Author: Benhao
 > Date: 2021-03-02
@@ -7,12 +7,12 @@
 
 ---
 
-注意到是从0到n的:
-一开始数组是[0] --- 0 的时候
-到第一位的时候添加了0+1，数组变为[0,1] --- 1 的时候
-到第二位的时候添加了0+1 和 1+1， 数组变为 [0, 1, 1, 2] --- 2 和 3 的时候
-到第三位的时候添加了0+1，1+1，1+1 和 2+1， 数组变为 [0, 1, 1, 2, 1, 2, 2, 3] --- 4, 5, 6, 7 的时候
-以此类推直到n即可
+Notice that the range starts at 0 and ends at n:
+Initially, the array is [0] for the number 0.
+For the first bit, append 0+1, producing [0,1] for the number 1.
+For the second bit, append 0+1 and 1+1, producing [0, 1, 1, 2] for the numbers 2 and 3.
+For the third bit, append 0+1, 1+1, 1+1, and 2+1, producing [0, 1, 1, 2, 1, 2, 2, 3] for the numbers 4, 5, 6, and 7.
+Continue in the same way up to n.
 
 ```
     def countBits(self, num):

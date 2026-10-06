@@ -1,4 +1,4 @@
-# [Python/Java] 递归 or 迭代 以及 本题条件下的最优递归解法
+# [Python/Java] Recursion, iteration, and optimal recursion using the problem's constraints
 
 > Author: Benhao
 > Date: 2021-07-27
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-递归时返回每个节点返回该节点最小的两个值，如果没有子节点，加入inf。
-迭代维护最小的两个值即可。
+### Approach
+Have each recursive call return the two smallest values in the subtree. Use inf when a child is absent.
+For an iterative solution, maintain the two smallest values.
 
-利用本题的题目条件的递归见最后一个代码(最优写法)。
+The final code uses the problem's special property for the optimal recursive approach.
 
-### 代码
-普通递归返回每个节点的最小的两个值
+### Code
+Ordinary recursion returning the two smallest values for each node
 ```python3
 class Solution:
     def findSecondMinimumValue(self, root: TreeNode) -> int:
@@ -29,7 +29,7 @@ class Solution:
         return ans if len(ans:=sorted(set([l1, l2, r1, r2]))[:2]) == 2 else ans + [inf]
 ```
 
-迭代 (BFS)
+Iteration (BFS)
 ```python3 []
 class Solution:
     def findSecondMinimumValue(self, root: TreeNode) -> int:
@@ -70,15 +70,15 @@ class Solution {
 }
 ```
 
-**但这样递归才能最大程度的利用每个节点都是它的两个子节点最小值的这一性质**
+**The following recursion fully uses the property that each node's value is the minimum of its two children's values.**
 ```python3 []
 class Solution:
     def findSecondMinimumValue(self, root: TreeNode) -> int:
-        # 必然不存在第二小的值
+        # A second-smallest value cannot exist
         if not root or not root.left:
             return -1
-        # 我们知道root.val是最小值，那么
-        # 第二小的值存在于 更小的子节点那一边的子树的第二小的值 或 更大的子节点 之中
+        # We know root.val is the minimum, so
+        # The second-smallest value is either in the smaller child's subtree or at the larger child
         left = root.left.val if root.left.val != root.val else self.findSecondMinimumValue(root.left)
         right = root.right.val if root.right.val != root.val else self.findSecondMinimumValue(root.right)
         return min(left, right) if left != -1 and right != -1 else max(left, right)
@@ -86,10 +86,10 @@ class Solution:
 ```java []
 class Solution {
     public int findSecondMinimumValue(TreeNode root) {
-        // 必然不存在第二小的值的节点
+        // A node whose subtree cannot contain a second-smallest value
         if(root == null || root.left == null)
             return -1;
-        // 第二小的值存在于左右子树不同于当前节点的最小值
+        // Find the smallest value in either subtree that differs from the current node's value
         int left = root.val == root.left.val ? findSecondMinimumValue(root.left) : root.left.val;
         int right = root.val == root.right.val ? findSecondMinimumValue(root.right) : root.right.val;
         if(left == -1)

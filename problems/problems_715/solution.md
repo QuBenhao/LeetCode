@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 动态开点含懒标记线段树模版
+# [Python/Java/TypeScript/Go] Segment-tree template with on-demand nodes and lazy tags
 
 > slug: by-himymben-vo9g
 > date: 2022-06-19
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/range-module/solutions/jFax8Z/by-himymben-vo9g/
 
 ---
-### 解题思路
-题目描述的就是一个线段树……
+### Approach
+The problem description calls for a segment tree...
 
-### 代码
+### Code
 
 ```Python3 []
 MAX_RANGE = int(1e9 + 7)
@@ -48,7 +48,7 @@ class SegmentTree:
     def update(node: Node, lc: int, rc: int, l: int, r: int, v: bool) -> None:
         if l <= lc and rc <= r:
             node.val = v
-            # 注意产生变化懒标记就为True，因为更新有删除
+            # Set the lazy tag to True whenever a change occurs, since updates can also delete
             node.add = True
             return
         SegmentTree.pushdown(node)
@@ -63,19 +63,19 @@ class SegmentTree:
     def query(node: Node, lc: int, rc: int, l: int, r: int) -> bool:
         if l <= lc and rc <= r:
             return node.val
-        # 先确保所有关联的懒标记下沉下去
+        # First ensure all relevant lazy tags have been pushed down
         SegmentTree.pushdown(node)
         mid, ans = (lc + rc) >> 1, True
         if l <= mid:
             ans = ans and SegmentTree.query(node.ls, lc, mid, l, r)
         if r > mid:
-            # 同样为不同题目中的更新方式
+            # The aggregation operation also depends on the problem
             ans = ans and SegmentTree.query(node.rs, mid + 1, rc, l, r)
         return ans
     
     @staticmethod
     def pushdown(node: Node) -> None:
-        # 懒标记, 在需要的时候才开拓节点和赋值
+        # Lazy propagation: create nodes and assign values only when needed
         if node.ls is None:
             node.ls = Node()
         if node.rs is None:
@@ -83,13 +83,13 @@ class SegmentTree:
         if not node.add:
             return
         node.ls.val, node.rs.val = node.val, node.val
-        # 注意产生变化懒标记就为True，因为更新有删除
+        # Set the lazy tag to True whenever a change occurs, since updates can also delete
         node.ls.add, node.rs.add = True, True
         node.add = False
     
     @staticmethod
     def pushup(node: Node) -> None:
-        # 动态更新方式：此处为两者都true
+        # The aggregation here requires both children to be true
         node.val = node.ls.val and node.rs.val
 ```
 ```Java []

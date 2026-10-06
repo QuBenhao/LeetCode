@@ -1,4 +1,4 @@
-# [Python/Go/C] 标准BFS
+# [Python/Go/C] Standard BFS
 
 > slug: pythongoc-biao-zhun-bfs-by-himymben-de6o
 > date: 2024-02-17
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> BFS应用题
+> Applying BFS
 
-# 解题方法
+# Approach
 
 > BFS
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

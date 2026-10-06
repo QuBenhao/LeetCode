@@ -1,4 +1,4 @@
-# [Python] 前缀和
+# [Python] Prefix sums
 
 > Author: Benhao
 > Date: 2024-03-18
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 前缀和
+> Prefix sums
 
-# 解题方法
+# Approach
 
-> 可以用来在数组中快速求任意区间的和
+> Use them to quickly compute the sum of any array interval.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

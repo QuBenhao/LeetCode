@@ -16,7 +16,7 @@ class Solution(solution.Solution):
         # (a - b) ^ 2 + (a + b) ^ 2 = 2 * (a ^ 2 + b ^ 2) = 2 * c
         while c % 2 == 0:
             c //= 2
-        # 费马平方和定理
+        # Fermat's theorem on sums of two squares
         if c % 4 == 3:
             return False
         for i in range(3, int(math.sqrt(c)) + 1, 4):
@@ -28,7 +28,7 @@ class Solution(solution.Solution):
                 return False
         return True
 
-        # # 双指针解法
+        # # Two-pointer solution
         # sqrt = int(math.sqrt(c))
         # if sqrt * sqrt == c:
         #     return True

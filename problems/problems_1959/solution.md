@@ -1,4 +1,4 @@
-# [Python/Java] 记忆化递归(二维dp)
+# [Python/Java] Memoized recursion (2D DP)
 
 > Author: Benhao
 > Date: 2021-08-07
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-我们可以变换k次，也就是我们可以将原数组分成k+1个区间，每个区间必须取区间最大值（认定每个区间内，不能变化，所以必须取区间最大）
-原题里每个区间都要求和（区间最大值-每个值），其实拆开算，就是区间最大值*区间长度再减去区间和，
-我们最终其实总要减去所有的数，故只要在递归的时候统计我们最小能取到的最大值的各区间和即可。
+### Approach
+With k resizing operations, split the array into k+1 intervals. Each interval must use its maximum value because the size cannot change within that interval.
+For each interval, summing (interval maximum - each value) is equivalent to interval maximum * interval length - interval sum.
+Every value is subtracted once overall, so the recursion only needs to minimize the sum of interval maximum * interval length.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

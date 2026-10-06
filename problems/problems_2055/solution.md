@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 前缀和应用题
+# [Python/Java/JavaScript/Go] Applying prefix sums
 
 > slug: pythonjavajavascriptgo-qian-zhui-he-ying-26nk
 > date: 2022-03-07
@@ -7,41 +7,41 @@
 > url: https://leetcode.cn/problems/plates-between-candles/solutions/culeny/pythonjavajavascriptgo-qian-zhui-he-ying-26nk/
 
 ---
-### 解题思路
-对于每个区间的查询，我们关心的是以下信息:
-1. 左边端点右边第一个蜡烛的位置
-2. 右边端点左边第一个蜡烛的位置
-3. 这两个蜡烛之间有多少盘子
+### Approach
+For each range query, we need the following information:
+1. The first candle at or to the right of the left endpoint.
+2. The first candle at or to the left of the right endpoint.
+3. The number of plates between these two candles.
 
-统计每个点左边最近和右边最近的蜡烛是一类简单的动态规划。
-而求两点之间某个类型的数量，是标准的前缀和应用。
+Finding the nearest candle on each side of every position is a simple dynamic-programming problem.
+Counting items of a given type between two positions is a standard use of prefix sums.
 
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def platesBetweenCandles(self, s: str, queries: List[List[int]]) -> List[int]:
         n = len(s)
-        # presum: 统计*的前缀和, lefts: 统计每个坐标左边最近的|的坐标, rights: 统计每个坐标右边最近的|的坐标
+        # presum: prefix counts of *; lefts: nearest | at or to the left of each position; rights: nearest | at or to the right
         presum, lefts, rights, l = [0] * (n + 1), [-1] * n, [-1] * n, -1
         for i, c in enumerate(s):
             if c == '*':
-                # 当前字符为*，前缀和个数加一
+                # The current character is *, so increment the prefix count
                 presum[i + 1] = presum[i] + 1
             else:
-                # 当前字符为|，前缀和个数不变
+                # The current character is |, so the prefix count stays the same
                 presum[i + 1] = presum[i]
-                # 更新最新的坐标最近坐标（接下来下次更新前最近的都是i）
+                # Update the nearest candle position (it remains i until the next update)
                 l = i
             lefts[i] = l
-        # 右边与左边的更新同理，只需要从右往左
+        # Compute right-side positions the same way, scanning from right to left
         r = -1
         for i, c in enumerate(s[::-1]):
             if c == '|':
                 r = n - 1 - i
             rights[n - 1 - i] = r
-        # 最终答案只有 左查询点的右边有蜡烛、右查询点的左边有蜡烛、且右边的蜡烛在左边的蜡烛右边中间才可能有*，否则肯定是0个
+        # Plates can exist only if both boundary candles exist and the right candle lies to the right of the left candle; otherwise the answer is 0
         return [presum[lefts[r]] - presum[rights[l]] if rights[l] >= 0 and lefts[r] >= 0 and rights[l] < lefts[r] else 0 for l, r in queries]
 ```
 ```Java []

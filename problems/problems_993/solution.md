@@ -1,4 +1,4 @@
-# [Python] 使用字典的BFS 
+# [Python] BFS with a dictionary 
 
 > Author: Benhao
 > Date: 2021-05-16

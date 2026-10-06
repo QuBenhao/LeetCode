@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 关于不想把简单题做太复杂这件事
+# [Python/Java/JavaScript/Go] Keeping an easy problem simple
 
 > slug: -by-himymben-oopc
 > date: 2022-03-16
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/longest-word-in-dictionary/solutions/exkJDP/-by-himymben-oopc/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

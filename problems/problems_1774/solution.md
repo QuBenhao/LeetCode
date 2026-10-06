@@ -1,4 +1,4 @@
-# 深度优先搜索应用题
+# An application of depth-first search
 
 > Author: Benhao
 > Date: 2022-12-04
@@ -11,15 +11,15 @@
 
 [TOC]
 
-# 思路
-> 按题意搜索答案
+# Intuition
+> Search for the answer according to the requirements.
 
-# 解题方法
-> 深度优先搜索
+# Approach
+> Depth-first search
 
-# 复杂度
-- 复杂度: 
-> 搜索不讨论时空复杂度
+# Complexity
+- Complexity:
+> Time and space complexity are not discussed for this search.
 
 # Code
 ```Python3 []

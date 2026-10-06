@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 有大小上界的BFS
+# [Python/Java/JavaScript/Go] BFS with an upper bound on the search size
 
 > slug: pythonjavajavascriptgo-you-da-xiao-shang-j04b
 > date: 2022-01-10
@@ -7,28 +7,28 @@
 > url: https://leetcode.cn/problems/escape-a-large-maze/solutions/6m8tQ5/pythonjavajavascriptgo-you-da-xiao-shang-j04b/
 
 ---
-### 解题思路
-因为blocked的大小只有不到200，而棋盘大小相对于200几乎是无限大，遍历光棋盘必然会超时。
+### Approach
+The size of blocked is at most 200, while the grid is practically infinite compared with 200. Traversing the entire grid would certainly time out.
 
-blocked有几种能包围中一个区域的方式。
+There are several ways for blocked to enclose a region.
 ```python
 """
-在棋盘角落
+At a corner of the grid
    x
   x
  x
 x
 
-在其他地方
+Elsewhere
  x
 x x
  x
 """
 ```
-只有利用棋盘边缘的方式可以最大程度上拥有一个限制区域，而我们广度优先搜索时，只要大小超过该区域，棋子必然不足以封锁住我们的路线了。
-角落的最大区域大小为$\frac{n * (n-1)}{2}$,其中$n$为blocked的长度。
+Using the grid boundary allows the largest enclosed region. Once BFS explores more cells than this region can contain, there cannot be enough blocked cells to seal off our route.
+The largest region at a corner has size $\frac{n * (n-1)}{2}$, where $n$ is the length of blocked.
 
-### 代码
+### Code
 
 ```Python3 []
 BOUND = int(1e6)

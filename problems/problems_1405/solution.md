@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 贪心
+# [Python/Java/JavaScript/Go] Greedy
 
 > slug: pythonjavajavascriptgo-tan-xin-by-himymb-iep8
 > date: 2022-02-07
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/longest-happy-string/solutions/yr0F1G/pythonjavajavascriptgo-tan-xin-by-himymb-iep8/
 
 ---
-### 解题思路
-递归写法：
-每次添加一个当前最多的字符到答案中，最多连续两个相同的字符，如果还要添加该字符，必须从剩下字符里先添加一个其他最多的字符。
+### Approach
+Recursive implementation:
+Append the currently most frequent character, allowing at most two identical characters in a row. Before adding it again, first append the most frequent remaining different character.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

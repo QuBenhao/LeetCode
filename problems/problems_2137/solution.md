@@ -1,4 +1,4 @@
-# [Python] 二分
+# [Python] Binary search
 
 > slug: python-er-fen-by-himymben-zhba
 > date: 2022-04-28
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/pour-water-between-buckets-to-make-water-levels-equal/solutions/y6r0JA/python-er-fen-by-himymben-zhba/
 
 ---
-### 解题思路
-此处撰写解题思路
+### Approach
+Write the solution approach here.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -21,10 +21,10 @@ class Solution:
             s1 = s2 = 0
             for b in buckets:
                 if b > x:
-                    # 倒掉了多少水
+                    # Amount of water poured out
                     s1 += b - x
                 else:
-                    # 至少需要多少水
+                    # Minimum amount of water needed
                     s2 += (x - b) * 100 / (100 - loss)
             return s1 >= s2
 

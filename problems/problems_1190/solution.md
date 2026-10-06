@@ -1,4 +1,4 @@
-# [Python] 奇思妙想的栈树
+# [Python] An imaginative stack tree
 
 > Author: Benhao
 > Date: 2021-05-26
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-外面的()嵌套里面的()，里面的()就像是外面的()的子节点。本质上和第二段写法一样
+### Approach
+Outer () contain inner (), so the inner () act like child nodes of the outer (). This is essentially the same as the second implementation.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -47,7 +47,7 @@ class StackTree:
 
 ```
 
-不建Class，直接用[[]]
+Use [[]] directly without defining a Class
 ```python3
 class Solution:
     def reverseParentheses(self, s: str) -> str:

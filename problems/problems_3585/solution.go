@@ -121,7 +121,7 @@ func findMedian(n int, edges [][]int, queries [][]int) []int {
 		if ta.distance[u]-ta.distance[lca] >= halfDis {
 			// from u to lca
 			x = ta.FindDistance(u, halfDis-1)
-			ans[i] = ta.pa[x][0] // 取父节点
+			ans[i] = ta.pa[x][0] // Take the parent node
 		} else {
 			// from v to lca
 			ans[i] = ta.FindDistance(v, totalDis-halfDis)

@@ -1,4 +1,4 @@
-# 标题儿
+# A title
 
 > Author: Benhao
 > Date: 2022-12-03
@@ -11,17 +11,17 @@
 
 [TOC]
 
-# 思路
-> 模拟遍历统计即可
+# Intuition
+> Traverse and count directly.
 
-# 解题方法
-> 遍历统计第二大
+# Approach
+> Track the second-largest digit while traversing.
 
-# 复杂度
-- 时间复杂度: 
+# Complexity
+- Time complexity:
 > $O(n)$
 
-- 空间复杂度: 
+- Space complexity:
 > $O(1)$
 
 # Code

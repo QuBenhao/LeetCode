@@ -10,8 +10,8 @@ class Solution(solution.Solution):
         return self.countTrapezoids(test_input)
 
     def countTrapezoids(self, points: List[List[int]]) -> int:
-        cnt = defaultdict(lambda: defaultdict(int))  # 斜率 -> 截距 -> 个数
-        cnt2 = defaultdict(lambda: defaultdict(int))  # 中点 -> 斜率 -> 个数
+        cnt = defaultdict(lambda: defaultdict(int))  # Slope -> intercept -> count
+        cnt2 = defaultdict(lambda: defaultdict(int))  # Midpoint -> slope -> count
 
         for i, (x, y) in enumerate(points):
             for x2, y2 in points[:i]:
@@ -23,8 +23,8 @@ class Solution(solution.Solution):
                 else:
                     k = dy / dx
                     b = (y * dx - dy * x) / dx
-                cnt[k][b] += 1  # 按照斜率和截距分组
-                cnt2[(x + x2, y + y2)][k] += 1  # 按照中点和斜率分组
+                cnt[k][b] += 1  # Group by slope and intercept
+                cnt2[(x + x2, y + y2)][k] += 1  # Group by midpoint and slope
 
         ans = 0
         for ct in cnt.values():

@@ -33,17 +33,17 @@ class Solution(solution.Solution):
         """
 
         def dfs(node):
-            # 每个节点有 不染色 到 处于染了k个色的连接之中 的所有情况
+            # Each node has states ranging from uncolored to belonging to a connected component of k colored nodes
             dp = [0] * (k + 1)
             if not node:
                 return dp
             left = dfs(node.left)
             right = dfs(node.right)
-            # 当前不涂色，左右两边的结果全部可以获得
+            # Leave the current node uncolored and take the best results from both subtrees
             dp[0] = max(left) + max(right)
-            # 当前涂色
+            # Color the current node
             for i in range(1, k + 1):
-                # 左边涂j个色，右边涂i-1-j
+                # Color j nodes on the left and i-1-j on the right
                 dp[i] = max(left[j] + right[i - 1 - j] for j in range(i)) + node.val
             return dp
 

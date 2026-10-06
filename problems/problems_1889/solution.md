@@ -1,4 +1,4 @@
-# [Python] 用箱子去二分查找包裹
+# [Python] Binary search packages by box size
 
 > Author: Benhao
 > Date: 2021-06-06
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-我是伞兵
+### Approach
+I'm an idiot.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -26,7 +26,7 @@ class Solution:
             for b in box:
                 last = idx
                 idx = bisect.bisect_right(packages, b, lo=last)
-                # 我们需要(idx-last)个箱子b
+                # We need (idx-last) boxes of size b
                 curr += (idx - last) * b
             ans = min(ans, curr)
         return (ans-sum(packages)) % (10 ** 9 + 7) if ans != float("inf") else -1

@@ -1,6 +1,6 @@
-# 最短路径
+# Shortest paths
 
-## Dijkstra算法（优先队列实现）
+## Dijkstra's algorithm with a priority queue
 
 ```python
 import heapq

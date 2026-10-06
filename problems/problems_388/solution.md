@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-by-himymben-hlbt
 > date: 2022-04-20
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/longest-absolute-file-path/solutions/4mrUTi/pythonjavajavascriptgo-by-himymben-hlbt/
 
 ---
-### 解题思路
-按换行符分割输入，根据该行的前缀tab数量确认它属于哪个层级，用哈希记录之前遍历的长度，在遇到文件的'.'时统计答案即可。
+### Approach
+Split the input by newlines and use each line's leading tab count to determine its depth. Store preceding path lengths in a hash table and update the answer when a '.' identifies a file.
 
-### 代码
+### Code
 
 ```Python3 []
 # import more_itertools

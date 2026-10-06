@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 数学 - 统计5的因子个数
+# [Python/Java/JavaScript/Go] Math: count factors of 5
 
 > Author: Benhao
 > Date: 2022-03-24
@@ -7,27 +7,27 @@
 
 ---
 
-### 解题思路
-末尾0其实是任意正整数乘以10产生的，也就是说因子中每出现一个2和一个5，结果就会多一个末尾0。
-显然连续数字的阶乘里，2的因子个数是远远多于5的因子个数的。那么主要影响末尾0的个数其实是5的因子个数。
+### Approach
+A trailing zero is produced by multiplying a positive integer by 10. In other words, each pair of factors 2 and 5 adds a trailing zero to the result.
+In a factorial, factors of 2 are far more numerous than factors of 5. Therefore, the number of factors of 5 determines the number of trailing zeros.
 
 
-5的倍数会产生一个5的因子，比如5、10、15、20
-$5^2$的倍数会产生两个5的因子，比如25、50、75、100
-$5^3$的倍数会产生三个5的因子，比如125、250、375、500
+Multiples of 5 contribute one factor of 5, such as 5, 10, 15, and 20.
+Multiples of $5^2$ contribute two factors of 5, such as 25, 50, 75, and 100.
+Multiples of $5^3$ contribute three factors of 5, such as 125, 250, 375, and 500.
 ...
-以此类推
+And so on.
 
 
-对于$5^i$的因子的倍数，在统计$5$到$5^{i-1}$个的倍数时，已经被计算了$i-1$次了，那么只需要单独统计$5^i$倍数出现了多少次再累加一次到答案即可,
-也即$\lfloor \frac{n}{5^i} \rfloor$。
+A multiple of $5^i$ has already been counted $i-1$ times when counting multiples of $5$ through $5^{i-1}$. Therefore, count how many multiples of $5^i$ occur and add that count to the answer once more,
+namely $\lfloor \frac{n}{5^i} \rfloor$.
 
-答案即为他们的和：
+The answer is their sum:
 $\sum_{i=1}^5 \lfloor \frac{n}{5^i} \rfloor$
 
-【这里上届为5是因为输入范围为10000，3125为这个范围内最大的5的次方】
+[The upper bound here is 5 because the input limit is 10000, and 3125 is the largest power of 5 within that range.]
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

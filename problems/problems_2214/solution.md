@@ -1,4 +1,4 @@
-# [Python] 求和
+# [Python] Summation
 
 > slug: python-by-himymben-f8wd
 > date: 2022-04-24
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/minimum-health-to-beat-game/solutions/fwyV90/python-by-himymben-f8wd/
 
 ---
-### 解题思路
-护甲最多抵挡最大那次攻击里，两者的最小值
+### Approach
+The armor can block at most the smaller of its strength and the largest attack.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

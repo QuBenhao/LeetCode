@@ -1,4 +1,4 @@
-# [Python/Go/C] 模拟
+# [Python/Go/C] Simulation
 
 > Author: Benhao
 > Date: 2024-02-26
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 从A点开始模拟出发，如果走到B点走不下去了，说明从A到B之间的任何一个点出发都没用，因为一个点能走到下一个点，剩的油量是非负数。那么继续尝试从B点的下一个点出发。依次重试直到没有可以尝试的出发点。
+> Simulate starting from A. If the trip cannot continue from B, starting from any point between A and B will not work either, because reaching the next point leaves a nonnegative amount of gas. Next, try starting from the point after B. Repeat until no starting points remain to try.
 
-# 解题方法
+# Approach
 
-> 从0出发，模拟出发后的油量，如果到某点后不能再前进，就更新为那个点的下一个点，如果更新到了经历过的点，说明不存在答案。
+> Start at 0 and simulate the remaining gas. If the trip cannot continue from a point, change the starting point to the next one. If the new start is a previously visited point, no answer exists.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

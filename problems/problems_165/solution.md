@@ -1,4 +1,4 @@
-# [Python/Java] 双指针逐位比较(小数点)
+# [Python/Java] Compare dot-separated components with two pointers
 
 > Author: Benhao
 > Date: 2021-08-31
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-我们每次统计小数点和小数点之间的数字大小，然后比较两者谁大即可。没有的始终默认为0。
-也就是说`1.0.0.0.0`和`1`没有区别，除非后面有个大于0的一位，我们要一直比较到出现大小差异的那位，否则他们相等。
+### Approach
+At each step, read the number between two dots and compare the two values. Missing components always default to 0.
+Thus, `1.0.0.0.0` and `1` are equivalent unless a later component is greater than 0. Keep comparing until a component differs; otherwise, the versions are equal.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -54,6 +54,6 @@ class Solution {
 }
 ```
 
-### 复杂度
-时间复杂度 o(m+n)
-空间复杂度 o(1)
+### Complexity
+Time complexity o(m+n)
+Space complexity o(1)

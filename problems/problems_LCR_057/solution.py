@@ -24,7 +24,7 @@ class Solution(solution.Solution):
         #     st.add(num)
         # return False
 
-        # 桶排序
+        # Bucket sort
         bucket_map = {}
         size = t + 1
         for i, num in enumerate(nums):

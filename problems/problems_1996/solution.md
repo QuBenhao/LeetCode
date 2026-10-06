@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 排序双指针
+# [Python/Java/JavaScript/Go] Sorting and two pointers
 
 > slug: pythonjavajavascriptgo-pai-xu-shuang-zhi-9d9z
 > date: 2022-01-28
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/the-number-of-weak-characters-in-the-game/solutions/yrsGGK/pythonjavajavascriptgo-pai-xu-shuang-zhi-9d9z/
 
 ---
-### 解题思路
-本题要求攻击、防御两个纬度都超杀，才能判断一个角色是弱角色。
-我们想知道尽可能强的怪，用来判断其他弱的怪。容易满足这个想法的是排序。
-按攻击从大到小、防御从大到小排序后，我们得到一个比较满意的顺序，遍历到当前的指针时，之前的怪的攻击力都是大于等于自己的，我们只需要知道他们之中大于自己攻击力的最高的防御力，来确认自己是不是弱角色。
-使用双指针，第一个指针维护当前遍历到的攻击力（之前最高的防御力），第二个指针遍历与第一个指针攻击力相同的怪的防御力（当前攻击力下的防御力），统计弱角色的个数。
+### Approach
+A character is weak only if another character has strictly greater attack and defense.
+Find strong characters to identify weaker ones; sorting provides a suitable order.
+Sort by descending attack, then descending defense. Earlier characters have at least as much attack. Among those with strictly greater attack, track the maximum defense to determine whether the current character is weak.
+Use one pointer to mark the current attack group and retain the previous maximum defense. A second pointer scans all characters with that attack, counting those with lower defense.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python] 迭代器
+# [Python] Iterator
 
 > Author: Benhao
 > Date: 2024-03-08
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 二叉搜索树中序遍历即可得到有序序列，取第k个
+> An inorder traversal of a binary search tree yields a sorted sequence; take its kth element.
 
-# 解题方法
+# Approach
 
-> 使用迭代器避免全部遍历
+> Use an iterator to avoid traversing the entire tree.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(k)$
 
-空间复杂度:
+Space complexity:
 > $O(k)$
 
 

@@ -10,17 +10,17 @@ class Solution(solution.Solution):
         :type nums: List[int]
         :rtype: int
         """
-        # # 位数统计
+        # # Count bits
         # cnt = [0] * 32
         # for num in nums:
         #     for i in range(32):
-        #         # 最右边第i位是否为1
+        #         # Check whether the ith bit from the right is 1
         #         if (num >> i) & 1:
         #             cnt[i] += 1
         # ans = 0
         # for i in range(32):
         #     if cnt[i] % 3:
-        #         # Python 中第32位为1表示负数
+        #         # In Python, a 1 in the 32nd bit indicates a negative number
         #         if i == 31:
         #             ans -= (1 << i)
         #         else:
@@ -28,9 +28,9 @@ class Solution(solution.Solution):
         # return ans
 
         """
-        真值表转换解法
-        00 - 出现一次 -> 01 - 出现一次 -> 10 - 出现一次 -> 00
-        用两位a和b表示三种状态的值，我们有:
+        Truth table conversion approach
+        00 - one occurrence -> 01 - one occurrence -> 10 - one occurrence -> 00
+        Using two bits a and b to represent three states, we have:
         a,b,x -> a b
         0 0 0 -> 0 0
         0 0 1 -> 0 1
@@ -38,11 +38,11 @@ class Solution(solution.Solution):
         0 1 1 -> 1 0
         1 0 0 -> 1 0
         1 0 1 -> 0 0
-        也就是说:
-        同时更新a,b的话:
+        That is:
+        When updating a and b simultaneously:
         a, b = (a & ~x) | (b & x), b ^ x & ~a
         
-        先更新b，用新的b更新a的话:
+        When updating b first, then using the new b to update a:
         b = b ^ x & ~a
         a = a ^ x & ~b
         """

@@ -23,7 +23,7 @@ class Solution(solution.Solution):
                 root_y = self.find(y)
 
                 if root_x == root_y:
-                    return False  # 已经在同一集合
+                    return False  # Already in the same set
 
                 fa = min(root_x, root_y)
                 child = max(root_x, root_y)

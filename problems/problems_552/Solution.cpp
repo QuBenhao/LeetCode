@@ -10,7 +10,7 @@ class Solution {
 
   using matrix = array<array<int, SIZE>, SIZE>;
 
-  // 返回矩阵 a 和矩阵 b 相乘的结果
+  // Return the product of matrices a and b
   matrix mul(matrix &a, matrix &b) {
     matrix c{};
     for (int i = 0; i < SIZE; i++) {
@@ -23,11 +23,11 @@ class Solution {
     return c;
   }
 
-  // 返回 n 个矩阵 a 相乘的结果
+  // Return the product of n copies of matrix a
   matrix pow(matrix a, int n) {
     matrix res = {};
     for (int i = 0; i < SIZE; i++) {
-      res[i][i] = 1; // 单位矩阵
+      res[i][i] = 1; // Identity matrix
     }
     while (n) {
       if (n & 1) {

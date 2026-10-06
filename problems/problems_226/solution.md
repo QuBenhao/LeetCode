@@ -1,4 +1,4 @@
-# [Python/Go/Java/Cpp] 递归
+# [Python/Go/Java/Cpp] Recursion
 
 > Author: Benhao
 > Date: 2024-03-18
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 递归交换左右子树
+> Recursively swap the left and right subtrees
 
-# 解题方法
+# Approach
 
-> 递归
+> Recursion
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

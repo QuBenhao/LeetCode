@@ -25,4 +25,4 @@ class Solution(solution.Solution):
                 right = mid
             else:
                 left = mid
-        return (left + right) / 2  # 区间中点误差小
+        return (left + right) / 2  # The interval midpoint has a small error

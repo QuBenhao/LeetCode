@@ -1,4 +1,4 @@
-# [Python] 栈
+# [Python] Stack
 
 > Author: Benhao
 > Date: 2024-03-01
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 遇见这种左右括号对称消除的，直接选择栈就行，因为最新的右括号必须消除的是最后一个左括号，这符合栈的概念
+> A stack fits this kind of matching and canceling of opening and closing brackets: the newest closing bracket must cancel the most recent opening bracket.
 
-# 解题方法
+# Approach
 
-> 应用栈
+> Use a stack
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

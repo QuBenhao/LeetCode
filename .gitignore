@@ -83,5 +83,5 @@ venv/
 # C++ compile commands (auto-generated, contains local paths)
 compile_commands.json
 
-# 力扣题解原始抓取备份（可由 fetch 脚本重拉，不进仓库）
+# Raw backups of scraped LeetCode editorials (refetchable with the fetch script; do not commit).
 articles/

@@ -1,4 +1,4 @@
-# [Python/Go/C] 递归思想
+# [Python/Go/C] Recursive approach
 
 > Author: Benhao
 > Date: 2024-02-19
@@ -12,29 +12,29 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 当前节点有两种可能的最大路径：
->> 1. 以当前路径为端点：
->>> a. 以左节点为端点的最大路径+当前节点
->>> b. 以右节点为端点的最大路径+当前节点
->>> 两者取大
->> 2. 不经过当前节点或以当前节点为折线:
->>> a. 左节点中的最大直径
->>> b. 右节点中的最大直径
->>> c. 以左节点为端点的最大路径+当前节点+以右节点为端点的最大路径
->>> 这里因为左右节点的最大直径一定不小于以左右节点为端点的最大路径，所以不用加入大小比较中
+> At the current node, consider two kinds of longest paths:
+>> 1. A path ending at the current node:
+>>> a. The longest path ending at the left child + the current node
+>>> b. The longest path ending at the right child + the current node
+>>> Take the larger of the two.
+>> 2. A path that avoids the current node or connects both subtrees through it:
+>>> a. The maximum diameter in the left subtree
+>>> b. The maximum diameter in the right subtree
+>>> c. The longest path ending at the left child + the current node + the longest path ending at the right child
+>>> Each subtree's maximum diameter is at least as long as its longest path ending at that child, so those paths do not need separate comparisons here.
 
-# 解题方法
+# Approach
 
-> 递归
+> Recursion
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 
@@ -92,9 +92,9 @@ func diameterOfBinaryTree(root *TreeNode) int {
 }
 ```
 
-# 思路
-理解了上面的代码以后，就可以理解如何用一个最大值简化递归返回。
-我们将递归函数的返回定义改为以当前节点为端点的最大路径长度，而我们在递归过程中统一维护最大的可能路径。这样上一个思路中多余的不以当前节点为端点的路径的长度就不再需要被维护了，我们直接关心它们是否可以成为最终的答案就可以了，因为它们的长度以后也不会改变了。
+# Intuition
+Once the code above makes sense, we can simplify the recursive return value by maintaining a single maximum.
+Let the recursive function return the longest path ending at the current node, while maintaining the overall longest path during recursion. We no longer need to return lengths of paths that do not end at the current node. Their lengths cannot change later, so only whether they improve the final answer matters.
 
 # Code
 

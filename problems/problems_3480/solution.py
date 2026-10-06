@@ -12,7 +12,7 @@ class Solution(solution.Solution):
         for a, b in conflictingPairs:
             if a > b:
                 a, b = b, a
-            # 维护a前二小的右端点b，这样删除一个冲突对时，右端点可以快速取到
+            # Track the two smallest right endpoints b for a, so the right endpoint is readily available after removing one conflicting pair
             if b < g0[a]:
                 g1[a] = g0[a]
                 g0[a] = b
@@ -34,7 +34,7 @@ class Solution(solution.Solution):
                 b1 = c
 
             ans += b0 - i
-            if b0 != pre_b0:  # 重新统计连续相同 b0 的 extra
+            if b0 != pre_b0:  # Recompute extra for a consecutive run of equal b0 values
                 extra = 0
             extra += b1 - b0
             max_extra = max(max_extra, extra)

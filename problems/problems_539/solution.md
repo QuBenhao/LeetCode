@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-06fd
 > date: 2022-01-17
@@ -7,17 +7,17 @@
 > url: https://leetcode.cn/problems/minimum-time-difference/solutions/kKpSR9/pythonjavajavascriptgo-mo-ni-by-himymben-06fd/
 
 ---
-### 解题思路
-一天有$24$小时，一小时有$60$分钟，一天一共有$24*60=1440$分钟，所以转换一下本题是：
+### Approach
+There are $24$ hours in a day and $60$ minutes in an hour, giving $24*60=1440$ minutes per day. We can restate the problem as follows:
 
-> 有1440个座位排成一个圆圈，编号从0到1439
-> 0与1和1439相邻，1与0和2相邻，依此类推。
-> 有n个人拿着可能不同、可能相同的编号来落座，问最后挨得最近的人
+> There are 1440 seats arranged in a circle, numbered from 0 to 1439.
+> Seat 0 is adjacent to 1 and 1439; seat 1 is adjacent to 0 and 2; and so on.
+> There are n people with seat numbers that may be the same or different. Find the smallest distance between any two people once seated.
 
-显然如果人数比整个座位多，由抽屉原理可知，至少有一个座位坐了两个人，那么最小的距离必然是0。
-其他时候我们只需要按顺序转完一圈，就知道谁是最近的了。
+If there are more people than seats, the pigeonhole principle guarantees that at least two people share a seat, so the minimum distance is 0.
+Otherwise, going around the circle in order is enough to find the closest pair.
 
-### 代码
+### Code
 
 ```Python3 []
 TOTAL = 24 * 60
@@ -91,7 +91,7 @@ func findMinDifference(timePoints []string) int {
 }
 ```
 
-这里给出不需要排序的遍历圈的Python代码
+Here is Python code that traverses the circle without sorting.
 ```Python3 
 TOTAL = 24 * 60
 class Solution:

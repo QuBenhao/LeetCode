@@ -1,18 +1,18 @@
-# **3. 并发资源竞争**
-**场景**：实现一个线程安全的计数器，启动 1000 个协程同时对计数器进行 +1 操作。
+# **3. Concurrent resource contention**
+**Scenario:** Implement a thread-safe counter and start 1000 goroutines, each incrementing it by 1.
 
-**要求**：
-- 最终结果必须准确达到 1000
-- 比较 `sync.Mutex` 与 `atomic` 两种实现方式的性能差异
-- 附加：实现一个读写分离的计数器（读多写少场景）
+**Requirements:**
+- The final result must be exactly 1000
+- Compare the performance of `sync.Mutex` and `atomic` implementations
+- Extension: Implement a counter with separate read and write access for a workload with many reads and few writes
 
 
-## 解题
+## Exercise
 
 [solution](your_solution.go)
 
 ---
 
-## 答案
+## Solution
 
 [answer](answer.go)

@@ -27,12 +27,12 @@ int main() {
     vector<long long> dp(n + 1);
     for (const auto& [k, v]: mp) {
         for (int i = n; i >= 0; --i) {
-            // 只买主键
+            // Buy only the main item
             if (i >= a[k][0]) {
                 dp[i] = max(dp[i], dp[i - a[k][0]] + f(k));
             }
             if (v.size() > 1) {
-                // 买主键和其中一个附件
+                // Buy the main item and one accessory
                 for (const auto& j: v) {
                     if (j == k) {
                         continue;
@@ -41,7 +41,7 @@ int main() {
                         dp[i] = max(dp[i], dp[i - a[k][0] - a[j][0]] + f(k) + f(j));
                     }
                 }
-                // 买两个附件
+                // Buy both accessories
                 if (v.size() == 3) {
                     int s = a[k][0];
                     long long val = f(k);

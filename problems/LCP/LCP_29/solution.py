@@ -13,12 +13,12 @@ class Solution(solution.Solution):
         :type yPos: int
         :rtype: int
         """
-        # 计算离x,y最近的边，也就是遍历的外圈圈数
+        # Find the nearest edge to x,y, which gives the number of outer rings to traverse
         x = y = n = min(xPos, yPos, num - 1 - xPos, num - 1 - yPos)
         length, cur = 0, num - 1
-        # 遍历外圈长为从num-1到num-1-(n-1)*2的等差数列
+        # The side lengths of the outer rings form an arithmetic progression from num-1 to num-1-(n-1)*2
         length = (cur * 4 + (cur - (n - 1) * 2) * 4) * n // 2
-        # x,y所在的外圈长度
+        # Side length of the ring containing x,y
         cur -= 2 * n
         if xPos == x:
             length += yPos - y

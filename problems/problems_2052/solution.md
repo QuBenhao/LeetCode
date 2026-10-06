@@ -1,4 +1,4 @@
-# [Python] 前缀和+动态规划
+# [Python] Prefix sums + dynamic programming
 
 > slug: python-qian-zhui-he-dong-tai-gui-hua-by-31oqx
 > date: 2022-05-02
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/minimum-cost-to-separate-sentence-into-rows/solutions/XEPpSm/python-qian-zhui-he-dong-tai-gui-hua-by-31oqx/
 
 ---
-### 解题思路
-枚举左端点分割区间
+### Approach
+Enumerate left endpoints to partition the interval.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

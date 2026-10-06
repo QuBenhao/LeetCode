@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 从起点标准的BFS看最早到终点的跳跃次数
+> Run standard BFS from the start to find the fewest jumps to the destination
 
-# 解题方法
+# Approach
 
-> 注意不能连续跳跃蛇梯，所以跳跃后的位置如果有蛇梯，不能标记为走过，必须是骰子走过才算
+> Snakes and ladders cannot be chained. If a jump lands on another snake or ladder, do not mark that square visited; only landing there via a die roll counts
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n^2)$
 
-空间复杂度:
+Space complexity:
 > $O(n^2)$
 
 
@@ -48,7 +48,7 @@ class Solution:
             ans += 1
             for _ in range(length):
                 cur = queue.popleft()
-                # 如果都是空地，就跳最远的那一次即可
+                # If all squares are empty, only take the farthest jump
                 already = False
                 for nxt in range(min(total, cur + 6), cur, -1):
                     if nxt == total:
@@ -60,7 +60,7 @@ class Solution:
                     if board[x][y] != -1:
                         if board[x][y] - 1 == total:
                             return ans
-                        # 不能连续跳梯子，所以下一个点如果是蛇梯，还可以以其他方式走，所以不标记
+                        # Ladders cannot be chained, so a destination square with a snake or ladder can still be reached another way; do not mark it
                         #explored.add(board[x][y] - 1)
                         queue.append(board[x][y] - 1)
                     elif not already:

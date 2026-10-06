@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2024-03-06
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 走到前面是边界，或者前面是走过的位置，就转弯
+> Turn when the next position is beyond the boundary or has already been visited.
 
-# 解题方法
+# Approach
 
-> 转弯的方式采用方向数组坐标移动
+> Use a direction array to move the coordinates when turning.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(mn)$
 
-空间复杂度:
+Space complexity:
 > $O(mn)$
 
 

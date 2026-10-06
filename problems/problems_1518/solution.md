@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 记忆化递归 or 迭代 -> 数学
+# [Python/Java/JavaScript/Go] Memoized recursion or iteration -> mathematics
 
 > Author: Benhao
 > Date: 2021-12-16
@@ -7,25 +7,25 @@
 
 ---
 
-### 解题思路
-每次先喝可以换酒的酒，不够换的攒着等后面几波再喝。
+### Approach
+At each step, drink the bottles that can be exchanged, saving the remainder for later rounds.
 
-另一种数学反推思维
+An alternative mathematical derivation works backward:
 ```python3
-# 每y个空瓶子返回一个空瓶子
-# 也就是每y个空瓶子消耗掉y-1个空瓶子
-# 但是y-1本身不能换瓶子
-# 以这个模式来看
-# 换一次最少的瓶子要y个
-# 换两次最少的瓶子要y + y - 1 = 2 * y - 1
-# 换三次最少的瓶子要y + y - 1 + y - 1 = 3 * y - 2
+# Every y empty bottles yield one empty bottle after exchanging and drinking
+# Thus, each exchange consumes y-1 empty bottles
+# However, y-1 bottles alone are not enough for an exchange
+# Following this pattern:
+# One exchange requires at least y bottles
+# Two exchanges require at least y + y - 1 = 2 * y - 1 bottles
+# Three exchanges require at least y + y - 1 + y - 1 = 3 * y - 2 bottles
 # ...
-# 换k次就需要 y + (k-1) * (y-1) = k * y - k + 1
-# 反着算k的话，x = k * (y - 1) + 1  ===> k = (x-1)//(y-1)
-# 换句话说，x瓶酒最多换 (x-1)//(y-1)次
+# k exchanges require y + (k-1) * (y-1) = k * y - k + 1 bottles
+# Solving for k: x = k * (y - 1) + 1  ===> k = (x-1)//(y-1)
+# In other words, x bottles allow at most (x-1)//(y-1) exchanges
 ```
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -70,7 +70,7 @@ func numWaterBottles(numBottles int, numExchange int)(ans int) {
 }
 ```
 
-数学
+Mathematics
 ```Python3 []
 class Solution:
     def numWaterBottles(self, numBottles: int, numExchange: int) -> int:

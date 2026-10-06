@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2022-11-19
@@ -11,17 +11,17 @@
 
 [TOC]
 
-# 思路
-> 题目给定的是变化量，我们维护一个和即可
+# Intuition
+> The input gives changes in altitude, so maintain a running sum.
 
-# 解题方法
-> 前缀和最大值
+# Approach
+> Maximum prefix sum
 
-# 复杂度
-- 时间复杂度: 
+# Complexity
+- Time complexity:
 > $O(n)$
 
-- 空间复杂度: 
+- Space complexity:
 > $O(n)$
 
 # Code

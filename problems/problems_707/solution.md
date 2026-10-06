@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 双向链表
+# [Python/Java/TypeScript/Go] Doubly linked list
 
 > slug: pythonjavatypescriptgo-shuang-xiang-lian-khb9
 > date: 2022-09-23
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/design-linked-list/solutions/FQzbRL/pythonjavatypescriptgo-shuang-xiang-lian-khb9/
 
 ---
-### 解题思路
-链表模拟
+### Approach
+Simulate using a linked list.
 
-### 代码
+### Code
 
 ```Python3 []
 class LinkNode:

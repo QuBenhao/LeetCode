@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2024-03-12
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 逐位判断是否为1
+> Check whether each bit is 1
 
-# 解题方法
+# Approach
 
-> n从右往左看，结果从左往右看，只需要一个右移，一个左移
+> Read n from right to left and build the result from left to right: right-shift one and left-shift the other.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(log_n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

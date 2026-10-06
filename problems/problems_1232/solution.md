@@ -1,4 +1,4 @@
-# [Python/Java/Golang/C++] 数学
+# [Python/Java/Golang/C++] Mathematics
 
 > Author: Benhao
 > Date: 2024-06-07

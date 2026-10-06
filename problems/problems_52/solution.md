@@ -1,4 +1,4 @@
-# [Python] 回溯
+# [Python] Backtracking
 
 > Author: Benhao
 > Date: 2024-03-11
@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 每行依次填充，如果到某一行填不了，就回溯尝试之前行填别的
+> Fill each row in turn. If a row has no valid placement, backtrack and try another placement in an earlier row.
 
-# 解题方法
+# Approach
 
-> 利用横纵坐标和、横纵坐标差来快速判断斜线满足
+> Use the sum and difference of the coordinates to check diagonal constraints quickly.
 
 # Code
 ```Python3 []

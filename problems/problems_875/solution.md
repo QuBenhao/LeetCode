@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 二分
+# [Python/Java/TypeScript/Go] Binary search
 
 > slug: pythonjavatypescriptgo-er-fen-by-himymbe-wzyt
 > date: 2022-06-06
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/koko-eating-bananas/solutions/GKTp5S/pythonjavatypescriptgo-er-fen-by-himymbe-wzyt/
 
 ---
-### 解题思路
-标准的搭配helper函数的二分应用题 (Py中为lambda函数)
+### Approach
+A standard binary search application with a helper function (a lambda in Python)
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

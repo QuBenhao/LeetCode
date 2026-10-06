@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/xu-lie-hua-er-cha-shu-lcof/solutions/3atZcy/python-an-ceng-die-dai-by-qubenhao-ka3u/
 
 ---
-### 解题思路
-用一个特殊符号表示空，题目给的例子是按root->root.left->root.right的顺序依次入队，其实就是BFS。
+### Approach
+Use a special symbol for null. The example enqueues nodes in root->root.left->root.right order, which is BFS.
 
-反序列化的时候左右交替
+Alternate between left and right children when deserializing.
 <br>
-今天是六月最后一天，正好也是刷的第500道题。坚持就有收获。
+Today is the last day of June and also my 500th problem. Persistence pays off.
 
-### 代码
+### Code
 
 ```python3
 # Definition for a binary tree node.

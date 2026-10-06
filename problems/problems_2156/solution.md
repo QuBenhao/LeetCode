@@ -1,4 +1,4 @@
-# [Python/Go] 倒序滑动窗口 or 正向滑窗乘法逆元(扩展欧几里德)
+# [Python/Go] Reverse sliding window, or a forward window with modular inverses (extended Euclidean algorithm)
 
 > Author: Benhao
 > Date: 2022-01-30
@@ -7,16 +7,16 @@
 
 ---
 
-### 解题思路
-容易想到一个长度为k的滑动窗口。
+### Approach
+A sliding window of length k is a natural choice.
 
-给出的哈希计算函数是一个等比求和数列，两者可以通过减去首元素，除以power再加上新元素的power的k-1次方计算。
-但是这个的问题在于除法不满足取余的恒等性。(本题的power和modulo也不一定满足互质)
-因此需要倒序，减去当前的值，乘以power再加上新元素的值。（乘法满足取余恒等）
+The hash is a sum weighted by powers of a common ratio. To move the window forward, subtract the first element, divide by power, then add the new element multiplied by power to the k-1.
+The difficulty is that ordinary division does not preserve modular equivalence. (Here, power and modulo are not necessarily coprime either.)
+Traverse in reverse instead: subtract the outgoing contribution, multiply by power, then add the incoming element. Multiplication preserves modular equivalence.
 
-关于除法取模，感兴趣的了解一下[逆元](https://blog.csdn.net/LeBron_Yang/article/details/82948732)
+For modular division, see this explanation of [modular inverses](https://blog.csdn.net/LeBron_Yang/article/details/82948732).
 
-### 代码
+### Code
 
 ```Python3
 class Solution:
@@ -36,7 +36,7 @@ class Solution:
         return s[ans:ans+k]
 ```
 
-利用python3.8新特性，`pow(p, -1, mod)`直接求解乘法逆元
+Use the feature added in Python 3.8: `pow(p, -1, mod)` directly computes the modular multiplicative inverse.
 ```Python3
 class Solution:
     def subStrHash(self, s: str, power: int, modulo: int, k: int, hashValue: int) -> str:
@@ -72,7 +72,7 @@ class Solution:
         return ""
 ```
 
-【进阶】Go语言扩展欧几里德
+[Advanced] Extended Euclidean algorithm in Go
 ```Go
 func subStrHash(s string, power int, modulo int, k int, hashValue int) string {
     val := func(b byte) int {
@@ -81,7 +81,7 @@ func subStrHash(s string, power int, modulo int, k int, hashValue int) string {
 
     v, p, n := 0, 1, len(s)
     if gcd(power, modulo) > 1 {
-        // 倒序
+        // Reverse order
         ans := -1
         for i := n - k; i < n; i++ {
             v = (v + val(s[i]) * p % modulo) % modulo
@@ -100,7 +100,7 @@ func subStrHash(s string, power int, modulo int, k int, hashValue int) string {
         }
         return s[ans:ans+k]
     } else {
-        // 因为modulo不一定是质数，费马小定理不一定成立。需使用扩展欧几里德
+        // modulo is not necessarily prime, so Fermat's little theorem may not apply; use the extended Euclidean algorithm
         np, _, _ := Exgcd(power, modulo)
         np = (np + modulo) % modulo
         for i := 0; i < k; i++ {
@@ -123,7 +123,7 @@ func subStrHash(s string, power int, modulo int, k int, hashValue int) string {
     return ""
 }
 
-// 最大公约数
+// Greatest common divisor
 func gcd(a, b int) int {
 	if b == 0 {
 		return a
@@ -131,7 +131,7 @@ func gcd(a, b int) int {
 	return gcd(b, a%b)
 }
 
-// 快速幂
+// Fast exponentiation
 func pow(p, n, mod int) int {
 	ans := int64(1)
 	pN, modN := int64(p), int64(mod)
@@ -145,8 +145,8 @@ func pow(p, n, mod int) int {
 	return int(ans)
 }
 
-// 扩展欧几里德 a * x + b * y = 1
-// 求x, y，使得ax + by = gcd(a, b)
+// Extended Euclidean algorithm: a * x + b * y = 1
+// Find x and y such that ax + by = gcd(a, b)
 func Exgcd(a, b int) (o, p, q int) {
     if b == 0 {
         return 1, 0, a

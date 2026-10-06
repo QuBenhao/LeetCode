@@ -1,4 +1,4 @@
-# [Python] 暴力枚举符合的排列组合
+# [Python] Brute-force enumeration of valid arrangements
 
 > Author: Benhao
 > Date: 2021-12-05
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
+### Approach
 itertools.permutations
 
-### 代码
+### Code
 
 ```python3
 from itertools import permutations

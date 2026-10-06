@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 贪心
+# [Python/Java/JavaScript/Go] Greedy
 
 > slug: -by-himymben-8jkw
 > date: 2022-05-08
@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/di-string-match/solutions/R6N4sX/-by-himymben-8jkw/
 
 ---
-### 解题思路
-由于题目仅在乎相邻位置的大小关系, 
-那么大于时我们取当时可取里的最大、小于时我们当时可取里的最小,
-这样后一个位置选任何可取内的数字都满足条件,
-且剩下的数字正好是少一个数字的递归问题。
-(设当前最小和最大分别为a,b, 假如取的是最小的数字a, 那么新的范围是[a + 1, b], 
-相当于解决[0, b - a - 1]的排列问题, 只是映射偏移了a+1而已)
+### Approach
+The problem only cares about the ordering of adjacent positions. 
+When the current value must be greater, take the largest available number; when it must be smaller, take the smallest.
+Then any remaining number satisfies the condition at the next position.
+The remaining numbers form the same recursive problem with one fewer number.
+(Let the current minimum and maximum be a,b. If we take the minimum a, the new range is [a + 1, b], 
+equivalent to solving the permutation problem on [0, b - a - 1], merely shifted by a+1)
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

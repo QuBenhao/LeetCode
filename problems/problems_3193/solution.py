@@ -25,8 +25,8 @@ class Solution(solution.Solution):
                 for j in range(m + 1):
                     f[j] = f[r] if r <= j <= min(i + r, mx) else 0
             else:
-                for j in range(1, mx + 1):  # 计算前缀和
+                for j in range(1, mx + 1):  # Compute prefix sums
                     f[j] = (f[j] + f[j - 1]) % MOD
-                for j in range(mx, i, -1):  # 计算子数组和
+                for j in range(mx, i, -1):  # Compute the subarray sum
                     f[j] = (f[j] - f[j - i - 1]) % MOD
         return f[req[-1]]

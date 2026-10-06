@@ -1,4 +1,4 @@
-# [Python] LIS 正反向最长递增子序列
+# [Python] LIS in both directions
 
 > Author: Benhao
 > Date: 2021-05-26
@@ -7,27 +7,27 @@
 
 ---
 
-### 解题思路
-题目是山形数组，要找到左边一串递增，右边一串递减，且删除次数尽可能少。
-那么我们循环考虑每个点作为山顶时，我们要怎么统计删除次数呢？
-换句话说，如果有一个点作为山顶，它的左边最少要删除几次？右边最少要删除几次呢？
-再换句话说，以一个点作为最大值的最长递增子序列是多长呢？
+### Approach
+A mountain array needs an increasing left side and a decreasing right side, with as few deletions as possible.
+Consider every point as the peak. How many deletions are needed?
+For a chosen peak, find the minimum deletions on its left and on its right.
+Equivalently, find the longest increasing subsequence whose maximum is that point.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def minimumMountainRemovals(self, nums: List[int]) -> int:
         n = len(nums)
-        # 从左到右的最长递增序列
+        # Longest increasing subsequences from left to right
         forward = self.LIS(nums)
-        # 从右到左的最长递增序列
+        # Longest increasing subsequences from right to left
         backward = self.LIS(nums[::-1])[::-1]
         res = 0
         for i in range(n):
-            # 山顶的点不能在两侧，两边至少有额外的一个比自己小的点
+            # The peak cannot be at either end; both sides need at least one additional smaller element
             if forward[i] > 1 and backward[i] > 1:
-                # 左右构成的最长山形数组 由两者的和的决定 （去掉当前的重复1）
+                # Add both lengths for the longest mountain, subtracting 1 for the duplicated peak
                 res = max(res, forward[i] + backward[i] - 1)
         return n - res
     
@@ -36,15 +36,15 @@ class Solution:
         dp = [1] * n
         curr = [nums[0]]
         for i in range(1, n):
-            # 找到nums[i]在curr中的位置
+            # Find the position of nums[i] in curr
             idx = bisect.bisect_left(curr, nums[i])
-            # 如果idx最大，加入最长递增子序列中
+            # If idx is at the end, extend the longest increasing subsequence
             if idx == len(curr):
                 curr.append(nums[i])
-            # 否则替换其所在位置的curr[idx]
+            # Otherwise, replace curr[idx]
             else:
                 curr[idx] = nums[i]
-            # nums[i] 能取到的最长递增子序列就是idx+1
+            # The longest increasing subsequence ending at nums[i] has length idx+1
             dp[i] = idx + 1
         return dp
 

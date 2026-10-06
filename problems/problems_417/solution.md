@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 多源BFS or DFS
+# [Python/Java/JavaScript/Go] Multi-source BFS or DFS
 
 > Author: Benhao
 > Date: 2022-04-26
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-从边出发，只要有比自己高的点，就往高处走，直到走不了为止。
-最终返回太平洋和大西洋能走到的点的交集。
-说明这些点可以流到太平洋和大西洋。
+### Approach
+Start from the edges and keep moving to higher points until no further move is possible.
+Return the intersection of the points reachable from the Pacific and Atlantic.
+These are the points from which water can flow to both oceans.
 
 PS:
-给出py中二维转一维 和 tuple 的两种写法
+Two Python versions are provided: flattening two-dimensional coordinates, and using tuples.
 
-### 代码
+### Code
 
 ```Python3 []
 DIRS = (0, 1), (0, -1), (-1, 0), (1, 0)

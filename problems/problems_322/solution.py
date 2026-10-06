@@ -16,12 +16,12 @@ class Solution(solution.Solution):
         # return -1 if (ans := dfs(amount)) == inf else ans
 
         """
-        二进制转换，$a+b+c=x$求解可以转化为$2^a*2^b*2^c=2^x$，也就是$1 << x = 1 << a << b << c$
-        题目可以转化为：
-            我们的取硬币操作可以理解为右移操作，
-            取的总数变为$1<<amount$，
-            我们最少需要右移多少次直到最小位出现1，
-            也就是我们找到了取$1<<0$的路径了。这个时候其他位是不是1不影响，只要有一个路径出现就代表找到了。
+        Binary transformation: solving $a+b+c=x$ can be transformed into $2^a*2^b*2^c=2^x$, or $1 << x = 1 << a << b << c$.
+        The problem can be reframed as follows:
+            Taking a coin is a right-shift operation.
+            Represent the total as $1<<amount$.
+            Find the fewest right shifts needed for a 1 to appear in the lowest bit.
+            This means a path to $1<<0$ has been found. Whether other bits are 1 does not matter; one such path is enough.
         """
         if not amount:
             return 0

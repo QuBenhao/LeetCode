@@ -1,4 +1,4 @@
-# [Python/C] 反着看交换的顺序其实就很清晰了
+# [Python/C] The permutation order is clearer when viewed in reverse
 
 > Author: Benhao
 > Date: 2021-03-28
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-如果两倍在n以内，就到两倍的位置，否则就到乘2-n+1（奇数）位置。
+### Approach
+If doubling the index stays below n, move to twice the index; otherwise, move to 2 * index - n + 1, an odd position.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution(object):

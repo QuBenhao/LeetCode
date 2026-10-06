@@ -12,17 +12,17 @@ public class Solution extends BaseSolution {
         while (i < n - 1 && nums[i] < nums[i + 1]) {
             i++;
         }
-        if (i == n - 1) { // 每个非空子数组都可以移除
+        if (i == n - 1) { // Every nonempty subarray can be removed
             return n * (n + 1) / 2;
         }
 
-        int ans = i + 2; // 不保留后缀的情况，一共 i+2 个
-        // 枚举保留的后缀为 nums[j:]
+        int ans = i + 2; // Cases with no retained suffix: i+2 in total
+        // Enumerate nums[j:] as the retained suffix
         for (int j = n - 1; j == n - 1 || nums[j] < nums[j + 1]; j--) {
             while (i >= 0 && nums[i] >= nums[j]) {
                 i--;
             }
-            // 可以保留前缀 nums[:i+1], nums[:i], ..., nums[:0] 一共 i+2 个
+            // Retain any prefix nums[:i+1], nums[:i], ..., nums[:0]: i+2 choices in total
             ans += i + 2;
         }
         return ans;

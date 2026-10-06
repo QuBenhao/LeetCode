@@ -1,4 +1,4 @@
-# [Python] 递归
+# [Python] Recursion
 
 > Author: Benhao
 > Date: 2024-04-04
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 维护父节点的最大最小值然后递归，这样答案就存在于和它们的差的绝对值中
+> Track the maximum and minimum ancestor values during recursion; the answer is among the absolute differences from these values.
 
-# 解题方法
+# Approach
 
-> 递归
+> Recursion
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

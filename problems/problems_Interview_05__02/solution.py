@@ -8,7 +8,7 @@ class Solution(solution.Solution):
 
     def printBin(self, num: float) -> str:
         s = ["0."]
-        for _ in range(6):  # 至多循环 6 次
+        for _ in range(6):  # At most 6 iterations
             num *= 2
             if num < 1:
                 s.append('0')

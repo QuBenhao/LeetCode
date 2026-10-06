@@ -1,4 +1,4 @@
-# [Python] 贪心
+# [Python] Greedy
 
 > Author: Benhao
 > Date: 2022-12-24
@@ -7,7 +7,7 @@
 
 ---
 
-始终从字典序更大的那个字符串取首字母
+Always take the first character from the lexicographically larger string.
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java] 模拟
+# [Python/Java] Simulation
 
 > Author: Benhao
 > Date: 2021-09-22

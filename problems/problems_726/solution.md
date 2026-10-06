@@ -1,4 +1,4 @@
-# [Python] 倒着算可以只遍历一遍
+# [Python] A single pass by working backward
 
 > Author: Benhao
 > Date: 2021-07-05
@@ -7,19 +7,19 @@
 
 ---
 
-### 解题思路
-左右括号内的乘的基数可以从后面先累加，遇到左括号除以上一个乘数得到后面(倒序的后面就是正序的前面)的基数即可
+### Approach
+Accumulate the multiplier inside parentheses while scanning backward. At an opening parenthesis, divide out the most recent factor to recover the multiplier for the following part of the reverse scan, which lies earlier in the original string.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def countOfAtoms(self, formula: str) -> str:
-        # 倒着的时候， 记录map，乘的基数，迭代中的乘数，个数，个数的10进制位数，元素
+        # Scan backward while tracking the count map, total multiplier, multiplier stack, count, decimal place, and element name
         cnts, multiply, muls, num, num_count, atom = defaultdict(int), 1, [], 0, 0, ""
         for c in formula[::-1]:
             if c == ')':
-                # 如果当前有统计的数字，乘的基数要叠加
+                # If a number has been parsed, include it in the total multiplier
                 if num:
                     multiply *= num
                     muls.append(num)
@@ -27,7 +27,7 @@ class Solution:
                 else:
                     muls.append(1)
             elif c == '(':
-                # 去除掉上一个乘数
+                # Remove the previous multiplier
                 multiply //= muls.pop()
             elif str.isdigit(c):
                 num += int(c) * (10 ** num_count)
@@ -36,7 +36,7 @@ class Solution:
                 atom += c
             else:
                 atom += c
-                # 注意我们在更新元素个数时，始终要考虑乘的基数
+                # Always account for the total multiplier when updating an element's count
                 if num:
                     cnts[atom[::-1]] += num * multiply
                 else:

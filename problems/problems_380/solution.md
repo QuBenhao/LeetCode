@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 哈希表
+# [Python/Java/JavaScript/Go] Hash table
 
 > slug: pythonjavajavascriptgo-by-himymben-nlrg
 > date: 2022-04-12
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/insert-delete-getrandom-o1/solutions/rBsOj7/pythonjavajavascriptgo-by-himymben-nlrg/
 
 ---
-### 解题思路
-核心思想：
-1. 哈希表记录加入和删除的数，可以O(1)检查是否出现过
-2. 用数组维护所有数，方便随机取一个数，数组后加入一个数也是O(1)，唯一难点在于删除。
-3. 用哈希表维护每个数加入时的坐标，在要删除的数不是数组最后一个时，与最后一个交换（因为是不在乎顺序的，所以这种交换不影响任何东西），此时要删除的数成为数组最后一个，可以O(1)删除
+### Approach
+Core idea:
+1. Track inserted and deleted values in a hash table for O(1) membership checks.
+2. Store all values in an array for random access. Appending also takes O(1); deletion is the only difficulty.
+3. Store each value's index in the hash table. If a value to delete is not last, swap it with the last element. Order does not matter, so this changes nothing relevant. The target is now last and can be deleted in O(1).
 
-### 代码
+### Code
 
 ```Python3 []
 class RandomizedSet:

@@ -10,25 +10,25 @@ import (
 func sumE(k int) (res int) {
 	var n, cnt1, sumI int
 	for i := bits.Len(uint(k+1)) - 1; i > 0; i-- {
-		c := cnt1<<i + i<<(i-1) // 新增的幂次个数
+		c := cnt1<<i + i<<(i-1) // Number of additional exponents
 		if c <= k {
 			k -= c
 			res += sumI<<i + i*(i-1)/2<<(i-1)
-			sumI += i   // 之前填的 1 的幂次之和
-			cnt1++      // 之前填的 1 的个数
-			n |= 1 << i // 填 1
+			sumI += i   // Sum of exponents for the ones already placed
+			cnt1++      // Number of ones already placed
+			n |= 1 << i // Place a 1
 		}
 	}
-	// 最低位单独计算
+	// Handle the lowest bit separately
 	if cnt1 <= k {
 		k -= cnt1
 		res += sumI
-		n |= 1 // 最低位填 1
+		n |= 1 // Set the lowest bit to 1
 	}
-	// 剩余的 k 个幂次，由 n 的低 k 个 1 补充
+	// Supply the remaining k exponents from the k lowest set bits of n
 	for ; k > 0; k-- {
 		res += bits.TrailingZeros(uint(n))
-		n &= n - 1 // 去掉最低位的 1（置为 0）
+		n &= n - 1 // Clear the lowest set bit (set it to 0)
 	}
 	return
 }

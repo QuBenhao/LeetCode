@@ -1,4 +1,4 @@
-# [Python] 快慢指针
+# [Python] Fast and slow pointers
 
 > Author: Benhao
 > Date: 2024-04-03
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 要找到倒数第n个，只要快指针比慢指针先走n步，这样快指针到结尾的时候慢指针就是我们想要到节点
+> To find the nth node from the end, move the fast pointer n steps ahead of the slow pointer. When the fast pointer reaches the end, the slow pointer is at the desired node.
 
-# 解题方法
+# Approach
 
-> 快慢指针
+> Fast and slow pointers
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

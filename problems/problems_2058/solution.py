@@ -16,14 +16,14 @@ class Solution(solution.Solution):
         return self.nodesBetweenCriticalPoints(head0)
 
     def nodesBetweenCriticalPoints(self, head: Optional[ListNode]) -> List[int]:
-        # 三指针滑窗：first/prev 记录第一个和上一个临界点的下标（下标从 1 起）
-        # 最小距离必来自相邻两个临界点，最大距离必来自首尾两个临界点
+        # Three-pointer sliding window: first/prev store the first and previous critical-point indices (starting at 1)
+        # The minimum distance is between adjacent critical points; the maximum is between the first and last
         first = prev = 0
         mn = 10 ** 9
         a, b, c = head, head.next, head.next.next
         i = 2
         while c:
-            if (b.val - a.val) * (b.val - c.val) > 0:  # 同号 => 极大值或极小值
+            if (b.val - a.val) * (b.val - c.val) > 0:  # Same sign => a local maximum or minimum
                 if prev:
                     mn = min(mn, i - prev)
                 else:

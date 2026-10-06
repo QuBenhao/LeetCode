@@ -1,4 +1,4 @@
-# [Python] 快速幂
+# [Python] Fast exponentiation
 
 > Author: Benhao
 > Date: 2021-07-04
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-因为偶数位只能填0,2,4,6,8(允许前缀0)五个数，奇数位只有2,3,5,7四个质数。
-所以最终结果就是偶数位的组合数乘上奇数W位组合数
+### Approach
+Even indices have five choices, 0,2,4,6,8, including a leading 0; odd indices have four prime choices, 2,3,5,7.
+Multiply the number of choices for the even positions by the number for the odd positions.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def countGoodNumbers(self, n: int) -> int:
-        # 偶数位 0, 2, 4, 6, 8； 奇数位 2, 3, 5, 7
+        # Even indices: 0, 2, 4, 6, 8; odd indices: 2, 3, 5, 7
         return (pow(5, ceil(n/2), 10**9+7) * pow(4, n//2, 10**9+7)) % (10**9+7)
 ```

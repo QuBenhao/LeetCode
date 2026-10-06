@@ -1,4 +1,4 @@
-# [Python] 栈模拟队列
+# [Python] Simulate a queue with stacks
 
 > Author: Benhao
 > Date: 2024-03-04
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 先进后出模拟先进先出的话，只需要在出的时候用另一个栈将所有栈内元素退出来放到另一个栈，这样要先出的元素就会在栈顶
+> To simulate first-in, first-out with last-in, first-out, transfer all elements to a second stack when removing an element. The element that should leave first will then be at the top.
 
-# 解题方法
+# Approach
 
-> 双栈模拟
+> Simulation with two stacks
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

@@ -1,4 +1,4 @@
-# [C] 模拟
+# [C] Simulation
 
 > slug: c-mo-ni-by-himymben-5ftv
 > date: 2023-01-11

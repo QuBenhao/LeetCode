@@ -12,15 +12,15 @@ class Solution(solution.Solution):
         :rtype: int
         """
         i = j = 0
-        # 排序后从小到大，这样判断k能否使i,j间的nums全部到nums[j]
+        # Sort ascending to check whether k can raise all values from i through j to nums[j]
         nums.sort()
         for j in range(len(nums)):
-            # k多了nums[j]步
+            # Add nums[j] to the available step budget k
             k += nums[j]
-            # nums[j] * (j - i + 1) 代表 从全部为0到全部为nums[j]所需的步数
-            # 如果k比全部变为nums[j]所需的步数小，需要抛去最左边的值（因为最左边的距离当前的最远）
-            # 如果当前i，j不满足这个式子了，我们就移动一下最左边的指针即可，这样可以保证它和上一次的窗口大小一致
-            # (如果我们遇到了最长的窗口，后面的窗口和可能始终不满足，但是答案的大小固定，我们想寻找有没有更长的窗口而已)
+            # nums[j] * (j - i + 1) is the number of steps to raise an all-zero window to nums[j]
+            # If k is insufficient, remove the leftmost value, which is farthest below nums[j]
+            # If i and j fail the inequality, move the left pointer once to preserve the previous window length
+            # (Later windows may remain invalid after the longest one; we only seek a longer valid window)
             if k < nums[j] * (j - i + 1):
                 k -= nums[i]
                 i += 1

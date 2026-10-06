@@ -16,7 +16,7 @@ class Solution(solution.Solution):
 
             def find(self, x):
                 while self.parent[x] != x:
-                    self.parent[x] = self.parent[self.parent[x]]  # 路径压缩
+                    self.parent[x] = self.parent[self.parent[x]]  # Path compression
                     x = self.parent[x]
                 return x
 
@@ -25,9 +25,9 @@ class Solution(solution.Solution):
                 root_y = self.find(y)
 
                 if root_x == root_y:
-                    return False  # 已经在同一集合
+                    return False  # Already in the same set
 
-                # 按秩合并
+                # Union by rank
                 if self.rank[root_x] > self.rank[root_y]:
                     self.parent[root_y] = root_x
                 else:
@@ -51,7 +51,7 @@ class Solution(solution.Solution):
             if num + 1 in idx_map:
                 uf.union(i, idx_map[num + 1])
         ans = 0
-        # 统计每个集合的大小
+        # Count the size of each set
         size_map = defaultdict(int)
         for i in idx_map.values():
             root = uf.find(i)

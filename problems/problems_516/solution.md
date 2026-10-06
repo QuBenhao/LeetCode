@@ -1,4 +1,4 @@
-# [Python/Java/Go] 记忆化递归(99%) or 区间dp
+# [Python/Java/Go] Memoized recursion (99%) or interval DP
 
 > Author: Benhao
 > Date: 2021-08-12
@@ -7,37 +7,37 @@
 
 ---
 
-### 解题思路
-有点儿贪心的递归思路，每个字母想要组成最大的回文子串的两端，那么它一定是取最左边和最右边的该字符的坐标。
-比如说"bbbabc"，"b"如果是最终答案的回文串的两端，一定是第一个"b“和最后一个"b"，因为其他任意"b"的组合都比它更小(剩余字符串总是被最贪心的取法覆盖)。而以这两个"b"为两端，剩下的字符串中能取出多大的回文子序列，就构成了这两个"b"的答案，也就是递归的思想。
+### Approach
+The recursive idea is somewhat greedy: for a character to form both ends of the longest palindromic subsequence, choose its leftmost and rightmost occurrences.
+For example, in "bbbabc", if "b" forms both ends of the final palindrome, choose the first and last "b". Any other pair encloses a smaller substring, which is already covered by this greedy choice. The longest palindromic subsequence inside these two occurrences, together with the two "b" characters, gives the answer for this pair. That leads to recursion.
 
-有了这个思路我们就很容易写出递归的代码:
+With this idea, the recursive code is straightforward:
 ```Python3
     def longestPalindromeSubseq(self, s: str) -> int:
         if len(s) <= 1:
             return len(s)
         ans = 0
         for i,c in enumerate(s):
-            # 每个字母找最右边的那个
+            # Find the rightmost occurrence of each character
             r = str.rindex(s, c)
-            # 如果当前不是最右边的那个，往里面递归
+            # If this is not the rightmost occurrence, recurse on the interior
             if r > i:
                 ans = max(ans, self.longestPalindromeSubseq(s[i+1:r]) + 2)
             else:
                 ans = max(ans, 1)
         return ans
 ```
-然后不出意外的超时了。
-每次都分割字符串、还要找最右的字母，还没有跳过被找过的字母(同样是贪心，要和最左边的那个字母组合，中间的其实不用尝试)。
-问题不大，加个记忆化，不分割改成记录两端坐标，预处理所有的字母对应的所有坐标，这样就可以二分了。
+Unsurprisingly, this exceeded the time limit.
+Each call slices the string and searches for the rightmost occurrence. It also does not skip characters already considered: greedily pairing with the leftmost occurrence means the intermediate occurrences need not be tried.
+We can fix this with memoization, using endpoint indices instead of slicing, and preprocessing the indices of every character so we can use binary search.
 
 <br>
-还是提一下回文串常见的通用动态规划，当两个位置的字符相等，有一个递推，否则，有另一个递推。
-和上面的记忆化递归思路大同小异，如果两边的字符相等，那么它由之前的计算结果得到`dp[i][j] = dp[i+1][j-1] + 2`;如果不相等，它由之前的不取某一边端点的最大值组成，也就是`dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1])`。
+It is also worth describing the usual dynamic programming approach for palindromes. Equal characters at the two endpoints use one recurrence; unequal characters use another.
+The idea is similar to the memoized recursion above. If the endpoint characters match, use the previously computed result: `dp[i][j] = dp[i+1][j-1] + 2`. Otherwise, take the larger result obtained by omitting either endpoint: `dp[i][j] = Math.max(dp[i+1][j], dp[i][j-1])`.
 
-由于我们的递推，左端点i依赖于i+1的结果，右端点j依赖于j-1的结果，所以采用i--,j++的递推方式。
+In this recurrence, the left endpoint i depends on i+1, and the right endpoint j depends on j-1, so iterate with i-- and j++.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -46,7 +46,7 @@ class Solution:
             return len(s)
 
         n = len(s)
-        # 预处理统计每个字母的所有坐标
+        # Preprocess all indices for each character
         cIndex = defaultdict(list)
         for i, c in enumerate(s):
             cIndex[ord(c) - ord('a')].append(i)
@@ -56,10 +56,10 @@ class Solution:
             if l >= r:
                 return 1 if l == r else 0
             ans = 0
-            # 找处于区间l,r最左最右的a,b,c,d...,z
+            # Find the leftmost and rightmost occurrences of a,b,c,d...,z in the interval l,r
             for i in range(26):
                 left = bisect.bisect_left(cIndex[i], l)
-                # 区间里没有这个字母
+                # This character does not occur in the interval
                 if left == len(cIndex[i]):
                     continue
                 right = bisect.bisect_left(cIndex[i], r)
@@ -70,7 +70,7 @@ class Solution:
         
         return dfs(0, n-1)
 ```
-同款思路，就是玩儿~
+The same idea, just for fun~
 ```Python3
 class Solution:
     @lru_cache(None)

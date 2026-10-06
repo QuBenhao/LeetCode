@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/16.
-// 例题: Sumdiv acwing97
+// Example: Sumdiv acwing97
 //
 
 #include <bits/stdc++.h>

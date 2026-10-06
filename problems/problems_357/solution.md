@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 数学
+# [Python/Java/JavaScript/Go] Mathematics
 
 > Author: Benhao
 > Date: 2022-04-10
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-对于n位数，第一位有除0以外的9个数可选。
-对于剩余数位，每次选前面没被选的，可选数从9依次递减。
-当n大于0时，需要再叠加上第一位选0，相当于n-1位数的答案数。
+### Approach
+For an n-digit number, the first digit has 9 choices, excluding 0.
+For each remaining digit, choose an unused digit; the number of choices decreases from 9.
+When n is greater than 0, also include the case with leading 0, which corresponds to the answer for n-1 digits.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

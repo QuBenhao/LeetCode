@@ -14,7 +14,7 @@ class Solution(solution.Solution):
 MAX_N = 30
 ans = [[] for _ in range(10)]
 
-# 力扣 9. 回文数
+# LeetCode 9. Palindrome Number
 def is_k_palindrome(x: int, k: int) -> bool:
     if x % k == 0:
         return False
@@ -40,13 +40,13 @@ def do_palindrome(x: int) -> bool:
 def init() -> None:
     base = 1
     while True:
-        # 生成奇数长度回文数，例如 base = 10，生成的范围是 101 ~ 999
+        # Generate odd-length palindromes; for example, base = 10 produces values from 101 to 999
         for i in range(base, base * 10):
             s = str(i)
             x = int(s + s[::-1][1:])
             if do_palindrome(x):
                 return
-        # 生成偶数长度回文数，例如 base = 10，生成的范围是 1001 ~ 9999
+        # Generate even-length palindromes; for example, base = 10 produces values from 1001 to 9999
         for i in range(base, base * 10):
             s = str(i)
             x = int(s + s[::-1])

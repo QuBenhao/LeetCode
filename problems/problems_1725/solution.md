@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-02-04
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-统计两两一组的最小值的最大值的个数
+### Approach
+Take the minimum of each pair, then count how many attain the maximum of those minima.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

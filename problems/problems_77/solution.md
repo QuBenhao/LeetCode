@@ -1,4 +1,4 @@
-# [Python] 回溯
+# [Python] Backtracking
 
 > slug: python-hui-su-by-himymben-ghog
 > date: 2024-03-10
@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 回溯
+> Backtracking
 
-# 解题方法
+# Approach
 
-> n个里选k个，可以有n - k个数依次被跳过
+> Choosing k out of n allows n - k numbers to be skipped in turn.
 
 
 # Code

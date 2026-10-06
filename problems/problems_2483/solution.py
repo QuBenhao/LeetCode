@@ -9,7 +9,7 @@ class Solution(solution.Solution):
         return self.bestClosingTime(test_input)
 
     def bestClosingTime(self, customers: str) -> int:
-        # 选某一个点, 前面的N累加代价, 后面的Y累加代价
+        # For a chosen closing time, add the penalties for preceding Ns and following Ys
         # ys = customers.count('Y')
         # ns = 0
         # ans_t, ans = 0, inf
@@ -21,8 +21,8 @@ class Solution(solution.Solution):
         #     else:
         #         ys -= 1
         """
-        从上面的代码中可以看出, 我们在乎的是ns+ys的和的最小值
-        ys一开始是多少是固定的, 具体值其实不需要知道
+        The code above shows that we only care about the minimum value of ns+ys.
+        The initial value of ys is fixed, so its exact value is unnecessary.
         """
         ns = 0
         ans_t, ans = 0, inf

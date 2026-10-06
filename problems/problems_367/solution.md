@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟(三种解法)
+# [Python/Java/JavaScript/Go] Simulation (three approaches)
 
 > slug: pythonjavajavascript-mo-ni-by-himymben-bsp4
 > date: 2021-11-03
@@ -32,12 +32,12 @@ var isPerfectSquare = function(num) {
     while(l <= r){
         const mid = l + Math.floor((r - l) / 2);
         const divid = Math.floor(num/mid);
-        // 可能因为向下取整而相等，需要额外判断。 比如 10//3 = 3并不代表3*3=10
+        // Equality may result from rounding down and needs an extra check: 10//3 = 3 does not imply 3*3=10
         if(mid == divid){
             if(num % mid == 0)
                 return true;
             l = mid + 1;
-        // 这个时候必然有 mid * mid > num
+        // Here, mid * mid must be greater than num
         }else if(mid > divid)
             r = mid - 1;
         else

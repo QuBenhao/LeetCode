@@ -8,14 +8,14 @@ import qubhjava.BaseSolution;
 public class Solution extends BaseSolution {
     private static class TrieNode {
         Map<String, TrieNode> son = new HashMap<>();
-        String name; // 文件夹名称
-        boolean deleted = false; // 删除标记
+        String name; // Folder name
+        boolean deleted = false; // Deletion flag
     }
 
     public List<List<String>> deleteDuplicateFolder(List<List<String>> paths) {
         TrieNode root = new TrieNode();
         for (List<String> path : paths) {
-            // 把 path 插到字典树中，见 208. 实现 Trie
+            // Insert path into the trie; see 208. Implement Trie
             TrieNode cur = root;
             for (String s : path) {
                 if (!cur.son.containsKey(s)) {
@@ -26,7 +26,7 @@ public class Solution extends BaseSolution {
             }
         }
 
-        Map<String, TrieNode> exprToNode = new HashMap<>(); // 子树括号表达式 -> 子树根节点
+        Map<String, TrieNode> exprToNode = new HashMap<>(); // Parenthesized subtree expression -> subtree root
         for (TrieNode son : root.son.values()) {
             genExpr(son, exprToNode);
         }
@@ -40,22 +40,22 @@ public class Solution extends BaseSolution {
     }
 
     private String genExpr(TrieNode node, Map<String, TrieNode> exprToNode) {
-        if (node.son.isEmpty()) { // 叶子
-            return node.name; // 表达式就是文件夹名
+        if (node.son.isEmpty()) { // Leaf
+            return node.name; // The expression is just the folder name
         }
 
         List<String> expr = new ArrayList<>();
         for (TrieNode son : node.son.values()) {
-            // 每个子树的表达式外面套一层括号
+            // Wrap each subtree expression in parentheses
             expr.add("(" + genExpr(son, exprToNode) + ")");
         }
         Collections.sort(expr);
 
-        String subTreeExpr = String.join("", expr); // 按字典序拼接所有子树的表达式
+        String subTreeExpr = String.join("", expr); // Concatenate all subtree expressions in lexicographic order
         TrieNode n = exprToNode.get(subTreeExpr);
-        if (n != null) { // 哈希表中有 subTreeExpr，说明有重复的文件夹
-            n.deleted = true; // 哈希表中记录的节点标记为删除
-            node.deleted = true; // 当前节点标记为删除
+        if (n != null) { // An existing subTreeExpr in the map indicates duplicate folders
+            n.deleted = true; // Mark the node recorded in the map for deletion
+            node.deleted = true; // Mark the current node for deletion
         } else {
             exprToNode.put(subTreeExpr, node);
         }
@@ -63,18 +63,18 @@ public class Solution extends BaseSolution {
         return node.name + subTreeExpr;
     }
 
-    // 在字典树上回溯，仅访问未被删除的节点，并将路径记录到答案中
-    // 类似 257. 二叉树的所有路径
+    // Backtrack through the trie, visiting only undeleted nodes and recording their paths in the answer
+    // Similar to 257. Binary Tree Paths
     private void dfs(TrieNode node, List<String> path, List<List<String>> ans) {
         if (node.deleted) {
             return;
         }
         path.add(node.name);
-        ans.add(new ArrayList<>(path)); // 记录路径
+        ans.add(new ArrayList<>(path)); // Record the path
         for (TrieNode son : node.son.values()) {
             dfs(son, path, ans);
         }
-        path.removeLast(); // 恢复现场
+        path.removeLast(); // Restore the previous state
     }
 
     @Override

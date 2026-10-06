@@ -1,4 +1,4 @@
-# [Python] 差分数组
+# [Python] Difference array
 
 > slug: python-cha-fen-shu-zu-by-himymben-2kx5
 > date: 2022-05-04
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/brightest-position-on-street/solutions/5HoyEG/python-cha-fen-shu-zu-by-himymben-2kx5/
 
 ---
-### 解题思路
+### Approach
 
-模板题，不过需要扁平化差分的距离
+A standard application, but the distances between difference-array coordinates must be accounted for.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

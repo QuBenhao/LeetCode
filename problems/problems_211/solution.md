@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/design-add-and-search-words-data-structure/solutions/1glRPJ/python-trie-bfs-by-himymben-m90f/
 
 ---
-### 解题思路
-Trie树，在搜索时用BFS处理"."的情况
+### Approach
+Use a Trie, handling "." with BFS during the search.
 
-### 代码
+### Code
 
 ```Python3 []
 class WordDictionary:

@@ -1,4 +1,4 @@
-# [Python] 记忆化搜索
+# [Python] Memoized search
 
 > slug: python-ji-yi-hua-sou-suo-by-himymben-kdxj
 > date: 2024-03-01
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 每次判断当前能往后走两个，还是走三个，缓存结果
+> At each step, check whether a group of two or three elements can be taken, and cache the result.
 
-# 解题方法
+# Approach
 
-> 记忆化搜索
+> Memoized search
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

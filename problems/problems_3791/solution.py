@@ -10,7 +10,7 @@ class Solution(solution.Solution):
 
     def countBalanced(self, low: int, high: int) -> int:
         def digitDP(low: int, high: int, target: int) -> int:
-            low_s = list(map(int, str(low)))  # 避免在 dfs 中频繁调用 int()
+            low_s = list(map(int, str(low)))  # Avoid frequent int() calls in dfs
             high_s = list(map(int, str(high)))
             n = len(high_s)
             diff_lh = n - len(low_s)
@@ -18,7 +18,7 @@ class Solution(solution.Solution):
             @cache
             def dfs(i: int, cnt0: int, limit_low: bool, limit_high: bool) -> int:
                 # if cnt0 > target:
-                #     return 0  # 不合法
+                #     return 0  # Invalid
                 if i == n:
                     return 1 if cnt0 == 0 else 0
 
@@ -28,16 +28,16 @@ class Solution(solution.Solution):
                 res = 0
                 start = lo
 
-                # 通过 limit_low 和 i 可以判断能否不填数字，无需 is_num 参数
-                # 如果前导零不影响答案，去掉这个 if block
+                # limit_low and i determine whether a digit can be skipped; no is_num parameter is needed
+                # Remove this if block if leading zeros do not affect the answer
                 if limit_low and i < diff_lh:
-                    # 不填数字，上界不受约束
+                    # Skip this digit; the upper bound no longer applies
                     res = dfs(i + 1, 0, True, False)
                     start = 1
 
                 for d in range(start, hi + 1):
                     res += dfs(i + 1,
-                               cnt0 + (d if i % 2 == 0 else -d),  # 统计 0 的个数
+                               cnt0 + (d if i % 2 == 0 else -d),  # Count zeros
                                limit_low and d == lo,
                                limit_high and d == hi)
 

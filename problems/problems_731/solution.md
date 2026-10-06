@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 动态开点线段树
+# [Python/Java/TypeScript/Go] Segment tree with on-demand nodes
 
 > Author: Benhao
 > Date: 2022-07-18
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-整个儿就是一个yesterday once more的即视感，你看看[这题](https://leetcode.cn/problems/falling-squares/solution/pythonjavatypescriptgo-by-himymben-7x5r/)
+### Approach
+This feels like yesterday once more; take a look at [this problem](https://leetcode.cn/problems/falling-squares/solution/pythonjavatypescriptgo-by-himymben-7x5r/).
 
-我们在线段树中叠加区间最大个数，当个数不足两个时，他还可以加一个，否则就是满了的情况。
+Track the maximum overlap count in each segment-tree range. If it is below two, another booking can be added; otherwise, the range is full.
 
-### 代码
+### Code
 
 ```Python3 []
 MAX = int(1e9)
@@ -60,19 +60,19 @@ class SegmentTree:
     def query(node: Node, lc: int, rc: int, l: int, r: int) -> int:
         if l <= lc and rc <= r:
             return node.val
-        # 先确保所有关联的懒标记下沉下去
+        # First ensure all relevant lazy tags have been pushed down
         SegmentTree.pushdown(node)
         mid, ans = (lc + rc) >> 1, 0
         if l <= mid:
             ans = SegmentTree.query(node.ls, lc, mid, l, r)
         if r > mid:
-            # 同样为不同题目中的更新方式
+            # The aggregation operation also depends on the problem
             ans = max(ans, SegmentTree.query(node.rs, mid + 1, rc, l, r))
         return ans
     
     @staticmethod
     def pushdown(node: Node) -> None:
-        # 懒标记, 在需要的时候才开拓节点和赋值
+        # Lazy propagation: create nodes and assign values only when needed
         if node.ls is None:
             node.ls = Node()
         if node.rs is None:
@@ -87,7 +87,7 @@ class SegmentTree:
     
     @staticmethod
     def pushup(node: Node) -> None:
-        # 动态更新方式：此处为最大值
+        # The aggregation operation here is maximum
         node.val = max(node.ls.val, node.rs.val)
 
 ```

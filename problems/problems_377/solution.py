@@ -28,7 +28,7 @@ class Solution(solution.Solution):
         # return bfs(target)
 
         nums.sort()
-        # dp[i]: 组合成i的组合数
+        # dp[i]: the number of combinations summing to i
         dp = [1] + [0] * target
         for i in range(1, target + 1):
             for num in nums:

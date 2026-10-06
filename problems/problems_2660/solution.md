@@ -1,4 +1,4 @@
-# [Python/C/Java/Go/TypeScript] 简洁循环比较
+# [Python/C/Java/Go/TypeScript] Concise comparison in a loop
 
 > slug: pythoncjavago-jian-ji-xun-huan-bi-jiao-b-92uo
 > date: 2023-12-26
@@ -11,21 +11,21 @@
 
 \[TOC]
 
-# 思路
+# Intuition
 
-> 循环遍历时记录10的出现
+> Track occurrences of 10 while iterating.
 
-# 解题方法
+# Approach
 
-> 因为是比较两个和的大小，故在循环中一加一减即可
+> To compare the two sums, add one player's score and subtract the other's during the loop.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 
 > $O(1)$
 
@@ -132,7 +132,7 @@ function isWinner(player1: number[], player2: number[]): number {
 };
 ```
 
-通用写法
+General implementation
 
 ```Python3 []
 LAST = 2

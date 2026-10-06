@@ -10,29 +10,29 @@ class Solution(solution.Solution):
         :type arr: List[str]
         :rtype: int
         """
-        # 预处理数据, 去掉带有重复字符的字符串
+        # Preprocess the data by removing strings with duplicate characters
         arr = [t for s in arr if len(t := set(s)) == len(s)]
-        # 启发式预估最大的结果
+        # Estimate an upper bound on the result
         predict = len(set().union(*arr))
         n = len(arr)
         self.curr = set()
         self.ans = 0
 
         def dfs(idx):
-            # 更新当前背包中的长度到答案
+            # Update the answer with the current selection's length
             self.ans = max(self.ans, len(self.curr))
-            # 找到能拼接出最大可能结果的结果了，不需要继续搜索 或者 当前的背包加上后面最长的结果都无法超过当前的答案了，不需要继续搜索
+            # Stop searching if the maximum possible result is reached, or if the current selection plus the remaining upper bound cannot improve the answer
             if self.ans == predict or idx == n or len(self.curr) + len(set().union(*arr[idx:])) < self.ans:
                 return
-            # 从idx到n,根据回溯寻找当前01背包和后面组成的最大值
+            # Backtrack from idx to n to maximize the current 0/1 knapsack selection combined with the remaining items
             for i in range(idx, n):
-                # 当前背包与arr[idx]不冲突
+                # The current selection does not overlap with arr[idx]
                 if not self.curr & arr[i]:
-                    # 加入背包, A+B
+                    # Add to the selection, A+B
                     self.curr |= arr[i]
-                    # 判断新的背包的最大值
+                    # Evaluate the maximum for the new selection
                     dfs(i + 1)
-                    # 回溯继续寻找最大值, (A+B) - B
+                    # Backtrack and continue searching for the maximum, (A+B) - B
                     self.curr ^= arr[i]
 
         dfs(0)

@@ -19,12 +19,12 @@ class Solution(solution.Solution):
 
         def dfs(x: int) -> None:
             nonlocal ans
-            vis[x] = True  # 避免重复访问
+            vis[x] = True  # Avoid repeated visits
             for y, dis in g[x]:
                 ans = min(ans, dis)
                 if not vis[y]:
                     dfs(y)
 
-        # 遍历节点 1 所在连通块
+        # Traverse the connected component containing node 1
         dfs(1)
         return ans

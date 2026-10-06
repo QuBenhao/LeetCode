@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/find-bottom-left-tree-value/solutions/OWzKaj/pythonjavatypescriptgo-by-himymben-s7l6/
 
 ---
-### 解题思路
-用BFS按层遍历，答案是最后一层的第一个节点的值
+### Approach
+Use BFS to traverse the tree level by level. The answer is the value of the first node on the last level.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

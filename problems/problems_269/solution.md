@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 拓扑 
+# [Python/Java/TypeScript/Go] Topological sort 
 
 > slug: by-himymben-jall
 > date: 2022-05-31
@@ -7,17 +7,17 @@
 > url: https://leetcode.cn/problems/alien-dictionary/solutions/UVfNjX/by-himymben-jall/
 
 ---
-### 解题思路
-1. 遍历words统计所有出现的字母
-2. 遍历words中相邻的每对儿，统计这两对儿字典序不同的原因（第一个出现不同的地方，如果都一样且前面的长，可以直接返回）
-3. 从所有没有入度的字母开始，拓扑遍历所有转移（因为转移是满足字典序的，入度为0时加入的话，所有字典序比它小的都已经加入了，可以加入）
+### Approach
+1. Traverse words to collect every letter that appears.
+2. Compare each adjacent pair in words to find the first differing character, which determines their lexicographic order. If all compared characters match and the earlier word is longer, return immediately.
+3. Start with all letters of indegree 0 and traverse the graph topologically. Each edge represents lexicographic order, so when a letter's indegree reaches 0, all letters that must precede it have already been added.
 
 PS:
-WA了三发才理解题意，
-所有字母都要出现在最终的答案中，不是只有转移的。
-别的就没啥了。
+It took three wrong submissions to understand the problem.
+Every letter must appear in the final answer, not just letters involved in edges.
+There is nothing else to it.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

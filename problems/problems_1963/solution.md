@@ -1,4 +1,4 @@
-# [Python/Java] 贪心
+# [Python/Java] Greedy
 
 > Author: Benhao
 > Date: 2021-08-08
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-每到一个位置，只要我们左括号的个数不少于右括号的个数，它就是平衡的。否则必须进行交换
+### Approach
+At each position, the prefix is balanced as long as opening brackets are at least as numerous as closing brackets. Otherwise, a swap is required.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -21,7 +21,7 @@ class Solution:
                 count += 1
             else:
                 if not count:
-                    # 将最右的'['和这个']'互换，后面的count会多1，但是由于数量相等，不影响再往后的右括号
+                    # Swap this ']' with the rightmost '['; later count increases by 1, but equal total counts keep later closing brackets valid
                     ans += 1
                     count += 1
                 else:

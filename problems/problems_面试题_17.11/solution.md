@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-by-himymben-bjco
 > date: 2022-05-26
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-closest-lcci/solutions/Drk6ty/pythonjavajavascriptgo-by-himymben-bjco/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -1,4 +1,4 @@
-# [Python/Java] 最长非递减子序列
+# [Python/Java] Longest nondecreasing subsequence
 
 > Author: Benhao
 > Date: 2021-08-08
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-和LIS思路差不多，用二分优化到O(nlogn)
+### Approach
+Use the same idea as LIS, optimized to O(nlogn) with binary search.
 
-维护一个当前的最长非递减子序列的栈，找当前元素的插入位置（相等插入位置要往右，所以用bisect_right!），那么它的最长长度就是它插入的下标+1(从0到idx构成的序列)
+Maintain the tail values of the current longest nondecreasing subsequences. Find the current element's insertion position, using bisect_right so equal values go to the right. Its longest length is insertion index + 1, covering positions 0 through idx.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

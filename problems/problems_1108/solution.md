@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
+### Approach
 emmm
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

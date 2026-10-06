@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 田忌赛马
+# [Python/Java/TypeScript/Go] Tian Ji's horse-racing strategy
 
 > slug: pythonjavatypescriptgo-tianjisaimai-by-h-u4h8
 > date: 2022-10-08
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/advantage-shuffle/solutions/YeLz0J/pythonjavatypescriptgo-tianjisaimai-by-h-u4h8/
 
 ---
-### 解题思路
-假设nums2中最大的数大于等于nums1中最大的数，那么这个数是“不可战胜”的，
-也就是说nums1最多有总长度少1的优势。
-既然我们要放弃这个位置，就丢弃我们最小的数到这里即可。
-如果是另一种情况，用nums1最大的数比nums2最大的数即可。
-剩下的数相当于递归解决。
+### Approach
+If the largest number in nums2 is at least the largest in nums1, that number is unbeatable.
+Thus nums1 can have an advantage at at most one fewer than its total number of positions.
+Since we must give up this position, assign our smallest number to it.
+Otherwise, match the largest number in nums1 against the largest in nums2.
+Solve the remaining numbers recursively.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

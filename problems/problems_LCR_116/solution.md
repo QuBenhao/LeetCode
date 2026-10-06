@@ -1,4 +1,4 @@
-# 并查集
+# Union-find
 
 > slug: bing-cha-ji-by-himymben-5iqg
 > date: 2025-04-28
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/bLyHh0/solutions/h1wksR/bing-cha-ji-by-himymben-5iqg/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

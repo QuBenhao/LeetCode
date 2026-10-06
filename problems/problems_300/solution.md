@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] LIS 最长上升子序列模板
+# [Python/Java/JavaScript/Go] LIS: longest increasing subsequence template
 
 > Author: Benhao
 > Date: 2022-01-11
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-利用单调栈 + 二分查找实现o(nlogn)解法
+### Approach
+Use a monotonic stack + binary search for an o(nlogn) solution.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

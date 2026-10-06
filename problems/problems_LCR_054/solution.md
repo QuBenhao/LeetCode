@@ -1,4 +1,4 @@
-# 右子树先的中序遍历
+# Inorder traversal with the right subtree first
 
 > slug: you-zi-shu-xian-de-zhong-xu-bian-li-by-h-vpjx
 > date: 2025-04-26
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/w6cpku/solutions/jTh8qL/you-zi-shu-xian-de-zhong-xu-bian-li-by-h-vpjx/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -1,4 +1,4 @@
-# [Python/Go] 递归/动态规划
+# [Python/Go] Recursion/Dynamic programming
 
 > slug: pythongo-di-gui-dong-tai-gui-hua-by-himy-m6fw
 > date: 2022-02-07
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/fibonacci-number/solutions/zq3Leg/pythongo-di-gui-dong-tai-gui-hua-by-himy-m6fw/
 
 ---
-### 解题思路
+### Approach
 f(n) = f(n - 1) + f(n - 2)
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

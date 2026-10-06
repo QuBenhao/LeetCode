@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 哈希 -> 坐标交换
+# [Python/Java/JavaScript/Go] Hashing -> swapping by index
 
 > slug: pythonjavajavascriptgo-ha-xi-by-himymben-j25s
 > date: 2021-11-25
@@ -56,15 +56,15 @@ func findRepeatNumber(nums []int) int {
 }
 ```
 
-既然数字都是0～n-1，可以看成是坐标并填入对应位置，填不了的时候就是重复的坐标（数字）了
+Since all numbers are in 0~n-1, treat them as indices and place each number at its matching position. If that position is already occupied by the same number, it is a duplicate.
 ```python3 []
 class Solution:
     def findRepeatNumber(self, nums: List[int]) -> int:
         for i in range(len(nums)):
-            # 当前坐标与当前坐标的数不一致，交换到它该到的位置直到一致位置
+            # While the value differs from its index, swap it into its matching position
             while nums[i] != i:
                 num = nums[i]
-                # 交换的位置已经填入自己了，说明重复了
+                # The destination already contains its matching value, so this is a duplicate
                 if nums[num] == num:
                     return num
                 nums[num], nums[i] = nums[i], nums[num]

@@ -7,7 +7,7 @@ class Solution(solution.Solution):
         return self.myPow(*test_input)
 
     def myPow(self, x: float, n: int) -> float:
-        # 矩阵快速幂
+        # Fast matrix exponentiation
         if x == 0.0:
             return 0.0
         if n < 0:

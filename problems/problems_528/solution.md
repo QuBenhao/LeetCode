@@ -1,4 +1,4 @@
-# [Python] 前缀和+随机数二分查找
+# [Python] Prefix sums + binary search for a random number
 
 > Author: Benhao
 > Date: 2021-08-29
@@ -7,9 +7,9 @@
 
 ---
 
-### 解题思路
-题目可能比较难理解。直白的说就是你有一个空间很大的数组，然后对于每个坐标i，你有w[i]个i在这个数组中，最后随机从数组里选一个。
-这么理解可以写出类似这样的代码，但是很费空间(我们先随机取10000个)。
+### Approach
+The problem may be hard to understand. In plain terms, imagine a very large array containing w[i] copies of each index i, then choose one entry at random.
+This interpretation gives code like the following, but uses a lot of space. Here we generate 10000 random choices in advance.
 ```python3
 class Solution:
 
@@ -26,18 +26,18 @@ class Solution:
         self.idx += 1
         return self.picks[self.idx]
 ```
-那有什么办法可以更好的生成呢？
+How can we generate the choices more efficiently?
 
-注意到如果第一个坐标有$k_0$个，那么它占用区间$[1,k_0]$，而第二个坐标有$k_1$个占用区间$[k_0+1,k_0+k_1]$，这个时候我们生成一个随机数在区间$[1,k_0+k_1]$，落在第一个坐标的区间概率为$\frac{k_0}{k_0+k_1}$，这是完全符合我们想要的。
-而且，这个随机数可以根据二分查找对应回原来的坐标。相当于小于等于$k_0$对应坐标0，大于$k_0$小于$k_1$对应坐标1,依次类推。这样我们生成一个随机数即可。
+If the first index has $k_0$ copies, it occupies $[1,k_0]$. If the second has $k_1$ copies, it occupies $[k_0+1,k_0+k_1]$. A random number in $[1,k_0+k_1]$ falls in the first interval with probability $\frac{k_0}{k_0+k_1}$, exactly as required.
+Binary search maps this random number back to the original index. A value at most $k_0$ maps to index 0, a value greater than $k_0$ and less than $k_1$ maps to index 1, and so on. We therefore only need to generate one random number.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
 
     def __init__(self, w: List[int]):
-        # 计算前缀和，这样可以生成一个随机数，根据数的大小对应分布的坐标
+        # Compute prefix sums to map a random number to the index of its weighted interval
         self.presum = list(accumulate(w))
 
     def pickIndex(self) -> int:

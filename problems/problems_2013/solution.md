@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 哈希统计模拟
+# [Python/Java/JavaScript/Go] Simulation with hash-based counting
 
 > slug: pythonjavajavascriptgo-ha-xi-tong-ji-mo-uxixs
 > date: 2022-01-25
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/detect-squares/solutions/ysj3tJ/pythonjavajavascriptgo-ha-xi-tong-ji-mo-uxixs/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

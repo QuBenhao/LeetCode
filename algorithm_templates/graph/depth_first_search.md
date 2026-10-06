@@ -5,7 +5,7 @@ def dfs(node, visited):
     if node in visited:
         return
     visited.add(node)
-    # 处理当前节点
+    # Process the current node
     for neighbor in node.neighbors:
         dfs(neighbor, visited)
 ```
@@ -16,33 +16,33 @@ func dfs(node *GraphNode, visited map[*GraphNode]bool) {
         return
     }
     visited[node] = true
-    // 处理当前节点
+    // Process the current node
     for _, neighbor := range node.neighbors {
         dfs(neighbor, visited)
     }
 }
 ```
 
-## DFS时间戳
+## DFS timestamps
 
-DFS时间戳是在深度优先搜索(DFS)过程中为每个节点记录的两个关键时间点：**发现时间(d_time)** 和**完成时间(f_time)**。这种技术广泛应用于树和图的各种算法中。
+DFS timestamps record two key moments for each node during depth-first search (DFS): its **discovery time (d_time)** and **finish time (f_time)**. This technique is widely used in tree and graph algorithms.
 
-### 核心概念
+### Core concepts
 
-1. **发现时间(d_time)**：节点第一次被访问的时间点
-2. **完成时间(f_time)**：节点所有邻接节点都被访问完毕的时间点
-3. **时间戳区间**：每个节点都有一个时间区间 `[d_time, f_time]`，该区间包含了其所有后代节点的时间区间
+1. **Discovery time (d_time)**: When the node is first visited
+2. **Finish time (f_time)**: When all of the node's neighbors have been visited
+3. **Timestamp interval**: Each node has an interval `[d_time, f_time]` that contains the intervals of all its descendants
 
-### 关键性质
+### Key properties
 
-- **祖先-后代关系**：如果节点u是节点v的祖先，则：
+- **Ancestor-descendant relationship**: If node u is an ancestor of node v, then:
   ```
   d_time[u] < d_time[v] < f_time[v] < f_time[u]
   ```
-- **无重叠关系**：如果两个节点的时间区间互不重叠，则它们之间没有祖先-后代关系
-- **子树包含**：节点u的子树中所有节点的时间戳都在`[d_time[u], f_time[u]]`范围内
+- **Disjoint intervals**: If two nodes have nonoverlapping intervals, neither is an ancestor of the other
+- **Subtree containment**: The timestamps of every node in u's subtree lie within `[d_time[u], f_time[u]]`
 
-### 实现代码
+### Implementation
 
 ```python
 class TreeNode:
@@ -51,23 +51,23 @@ class TreeNode:
         self.children = children if children is not None else []
 
 def dfs_timestamps(root):
-    """为树中每个节点计算DFS时间戳"""
-    timestamps = {}  # 存储每个节点的时间戳 (d_time, f_time)
-    time = 0  # 全局时间计数器
+    """Compute DFS timestamps for every node in the tree."""
+    timestamps = {}  # Store each node's timestamps (d_time, f_time)
+    time = 0  # Global time counter
     
     def dfs(node):
         nonlocal time
         if not node:
             return
         
-        d_time = time  # 记录发现时间
+        d_time = time  # Record the discovery time
         time += 1
         
-        # 递归访问所有子节点
+        # Visit every child recursively
         for child in node.children:
             dfs(child)
         
-        f_time = time  # 记录完成时间
+        f_time = time  # Record the finish time
         time += 1
         
         timestamps[node.val] = (d_time, f_time)
@@ -75,7 +75,7 @@ def dfs_timestamps(root):
     dfs(root)
     return timestamps
 
-# 构建示例树
+# Build the example tree
 #       1
 #     / | \
 #    2  3  4
@@ -89,10 +89,10 @@ node3 = TreeNode(3)
 node4 = TreeNode(4, [node7])
 root = TreeNode(1, [node2, node3, node4])
 
-# 计算时间戳
+# Compute timestamps
 timestamps = dfs_timestamps(root)
 
-# 打印结果
+# Print the results
 print("节点 | 发现时间 | 完成时间")
 print("-----------------------")
 for node in sorted(timestamps.keys()):
@@ -100,7 +100,7 @@ for node in sorted(timestamps.keys()):
     print(f"  {node}  |    {d}      |    {f}")
 ```
 
-### 输出示例
+### Example output
 
 ```
 节点 | 发现时间 | 完成时间
@@ -114,33 +114,33 @@ for node in sorted(timestamps.keys()):
   7  |    6      |    7
 ```
 
-### 应用场景
+### Applications
 
-1. **子树识别**：判断一个节点是否在另一个节点的子树中
-2. **最近公共祖先(LCA)**：快速确定两个节点的最近公共祖先
-3. **树链剖分**：优化树上路径查询
-4. **拓扑排序**：对有向无环图进行排序
-5. **环检测**：在图中检测环的存在
-6. **强连通分量**：用于Tarjan算法等
+1. **Subtree membership**: Check whether one node belongs to another node's subtree
+2. **Lowest common ancestor (LCA)**: Quickly find the lowest common ancestor of two nodes
+3. **Heavy-light decomposition**: Optimize path queries on trees
+4. **Topological sorting**: Order the nodes of a directed acyclic graph
+5. **Cycle detection**: Detect cycles in a graph
+6. **Strongly connected components**: Used in algorithms such as Tarjan's algorithm
 
-### 使用示例：判断节点关系
+### Usage example: checking node relationships
 
 ```python
 def is_ancestor(u, v, timestamps):
-    """判断u是否是v的祖先"""
+    """Check whether u is an ancestor of v."""
     d_u, f_u = timestamps[u]
     d_v, f_v = timestamps[v]
     return d_u < d_v and f_v < f_u
 
-# 示例：判断节点2是否是节点5的祖先
+# Example: check whether node 2 is an ancestor of node 5
 print("节点2是节点5的祖先吗?", 
-      is_ancestor(2, 5, timestamps))  # 输出: True
+      is_ancestor(2, 5, timestamps))  # Output: True
 
-# 示例：判断节点1是否是节点7的祖先
+# Example: check whether node 1 is an ancestor of node 7
 print("节点1是节点7的祖先吗?", 
-      is_ancestor(1, 7, timestamps))  # 输出: True
+      is_ancestor(1, 7, timestamps))  # Output: True
 
-# 示例：判断节点3是否是节点6的祖先
+# Example: check whether node 3 is an ancestor of node 6
 print("节点3是节点6的祖先吗?", 
-      is_ancestor(3, 6, timestamps))  # 输出: False
+      is_ancestor(3, 6, timestamps))  # Output: False
 ```

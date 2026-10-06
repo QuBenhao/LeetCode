@@ -1,4 +1,4 @@
-# [Python] 递归
+# [Python] Recursion
 
 > Author: Benhao
 > Date: 2024-03-19
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 递归处理子树，重新拼接
+> Process the subtrees recursively, then reconnect them.
 
-# 解题方法
+# Approach
 
-> 将左子树变为右子树，右子树接到左子树变化后最右下
+> Move the left subtree to the right, then attach the original right subtree to the bottom-right end of the transformed left subtree.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

@@ -1,4 +1,4 @@
-# [Python] 贪心
+# [Python] Greedy
 
 > slug: python-tan-xin-by-himymben-mww5
 > date: 2022-02-06
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/minimum-sum-of-four-digit-number-after-splitting-digits/solutions/mKypzE/python-tan-xin-by-himymben-mww5/
 
 ---
-### 解题思路
-将小的数尽量安排在前面，两个数尽可能接近最后的和最小
+### Approach
+Place smaller digits earlier and keep the two numbers as close as possible to minimize their sum.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -18,7 +18,7 @@ class Solution(solution.Solution):
             if must:
                 must_edges.append((u, v, s))
                 if not uf.union(u, v):
-                    return -1  # 必选边成环
+                    return -1  # Mandatory edges form a cycle
                 right = min(right, s)
             else:
                 avail_edges.append((u, v, s))
@@ -48,7 +48,7 @@ class Solution(solution.Solution):
             return cur_uf.size == 1
 
         if all_uf.size > 1:
-            return -1  # 无法连通
+            return -1  # Cannot connect all nodes
 
         left = 1
         while left < right:
@@ -68,7 +68,7 @@ class UnionFind:
 
     def find(self, x):
         while self.parent[x] != x:
-            self.parent[x] = self.parent[self.parent[x]]  # 路径压缩
+            self.parent[x] = self.parent[self.parent[x]]  # Path compression
             x = self.parent[x]
         return x
 
@@ -77,9 +77,9 @@ class UnionFind:
         root_y = self.find(y)
 
         if root_x == root_y:
-            return False  # 已经在同一集合
+            return False  # Already in the same set
 
-        # 按秩合并
+        # Union by rank
         if self.rank[root_x] > self.rank[root_y]:
             self.parent[root_y] = root_x
         else:

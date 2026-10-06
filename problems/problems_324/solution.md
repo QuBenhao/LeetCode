@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 排序贪心
+# [Python/Java/TypeScript/Go] Sorting and a greedy approach
 
 > slug: pythonjavatypescriptgo-by-himymben-q6nj
 > date: 2022-06-27
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/wiggle-sort-ii/solutions/6eGQC1/pythonjavatypescriptgo-by-himymben-q6nj/
 
 ---
-### 解题思路
-写在前面，本解法不满足进阶的条件。
-题目给定了所有输入数组都可以得到满足题目要求的结果，
-按题目条件我们想偶数坐标位填小一些的数，奇数坐标位填大一些的数，想到排序后分成两部分。
-但是这两部分的分界处可能是一样大的，比如[4,5,5,6]的分界在5。
-为了保证一样大的数会被错开，我们可以将前部分倒序填入，同时为了保证一定比它大，后部分也要倒序填入。
+### Approach
+First, this solution does not meet the follow-up requirements.
+The problem guarantees that every input array has a valid arrangement.
+We want smaller values at even indices and larger values at odd indices, suggesting sorting and splitting the array into two parts.
+However, the values at the boundary may be equal, as with the two 5s in [4,5,5,6].
+To separate equal values, insert the first part in reverse order. Insert the second part in reverse order as well to ensure its paired values are larger.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

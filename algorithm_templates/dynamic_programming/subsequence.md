@@ -1,4 +1,4 @@
-# 子序列DP
+# Subsequence DP
 
-- 子序列 + 相邻元素无关：选或不选。代表题目：[494. 目标和（0-1 背包）](../../problems/problems_494/problem_zh.md)。
-- 子序列 + 相邻元素相关：枚举选哪个。代表题目：[300. 最长递增子序列](../../problems/problems_300/problem_zh.md)。
+- Subsequences with no dependency between adjacent elements: choose whether to include each element. Example: [494. Target Sum (0-1 knapsack)](../../problems/problems_494/problem_zh.md).
+- Subsequences with dependencies between adjacent elements: enumerate which element to choose. Example: [300. Longest Increasing Subsequence](../../problems/problems_300/problem_zh.md).

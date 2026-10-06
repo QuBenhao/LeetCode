@@ -1,4 +1,4 @@
-# [Python] 前缀和
+# [Python] Prefix sums
 
 > slug: by-himymben-v99n
 > date: 2022-04-26
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/unique-substrings-with-equal-digit-frequency/solutions/zgNc2N/by-himymben-v99n/
 
 ---
-### 解题思路
-习惯性压行然后就发现卡常超时了噗
+### Approach
+I compressed the code out of habit, only to hit a time limit because of constant-factor overhead, haha.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -21,7 +21,7 @@ pub struct Solution;
 impl Solution {
     pub fn reverse_k_group(mut head: Option<Box<ListNode>>, k: i32) -> Option<Box<ListNode>> {
         let mut next_head = &mut head;
-        // 获取下一轮头结点
+        // Get the head for the next round
         for _ in 0..k {
             if let Some(node) = next_head.as_mut() {
                 next_head = &mut node.next;
@@ -29,9 +29,9 @@ impl Solution {
                 return head;
             }
         }
-        // 获取除本轮结果
+        // Get the result excluding the current round
         let mut new_head = Self::reverse_k_group(next_head.take(), k);
-        // 翻转本轮k个节点
+        // Reverse the k nodes in this round
         for _ in 0..k {
             if let Some(mut node) = head {
                 head = node.next.take();

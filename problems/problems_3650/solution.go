@@ -48,7 +48,7 @@ func minCost(n int, edges [][]int) int {
 			}
 		}
 	}
-	return -1 // 如果没有到达终点，返回-1
+	return -1 // Return -1 if the destination was not reached
 }
 
 type pair struct{ d, i int }

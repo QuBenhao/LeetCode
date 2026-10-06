@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 贪心
+# [Python/Java/TypeScript/Go] Greedy
 
 > slug: -by-himymben-f1pv
 > date: 2022-08-03
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/minimum-subsequence-in-non-increasing-order/solutions/zQwrBN/-by-himymben-f1pv/
 
 ---
-### 解题思路
+### Approach
 `该子序列的元素之和 严格 大于未包含在该子序列中的各元素之和`
-未包含在该子序列中的各元素之和最大为总共的和减去该子序列的元素和，
-那么满足题意的子序列的和必须严格大于总和的一半。
+The sum of elements outside the subsequence is the total sum minus the subsequence sum.
+Thus, a valid subsequence must have a sum strictly greater than half the total.
 
-接下来考虑长度最小，显然贪心拿最大的数能用最少的数达到和超过总和的一半。
+To minimize its length, greedily choose the largest numbers: this exceeds half the total using the fewest elements.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -91,5 +91,5 @@ func minSubsequence(nums []int) []int {
 }
 ```
 
-### 复杂度
-时间复杂度 $n logn$
+### Complexity
+Time complexity: $n logn$

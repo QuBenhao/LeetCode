@@ -1,4 +1,4 @@
-# [Python/JavaTypeScript/Go] 双指针模拟栈
+# [Python/JavaTypeScript/Go] Simulate a stack with two pointers
 
 > slug: pythonjavatypescriptgo-by-himymben-1vsd
 > date: 2022-06-16
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/duplicate-zeros/solutions/GQaxcc/pythonjavatypescriptgo-by-himymben-1vsd/
 
 ---
-### 解题思路
-遍历统计零的个数及数据结束位置，
-想像成每个零都会入栈两次，当栈长度与数组一样长时，结束遍历。从栈顶依次弹出元素。
+### Approach
+Traverse the array to count zeros and locate the final source position.
+Imagine pushing each zero onto a stack twice. Stop once the stack is as long as the array, then pop elements from its top in order.
 
-一个指针代表数据位置(栈顶)，一个指针代表写入位置(原数组当前写入位置)
+One pointer tracks the source position (the stack top); the other tracks the write position in the original array.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

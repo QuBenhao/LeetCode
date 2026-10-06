@@ -1,4 +1,4 @@
-# 贪心
+# Greedy
 
 > Author: Benhao
 > Date: 2022-12-07
@@ -11,11 +11,11 @@
 
 [TOC]
 
-# 思路
-> 数字和较小的数组尽可能将数变成6，数字和较大的数组尽可能将数变成1，这样的操作数最少。那么我们统计和小的数组的数，以及和大的数组的对称数，贪心计算结果即可
+# Intuition
+> Minimize operations by increasing numbers in the smaller-sum array toward 6 and decreasing numbers in the larger-sum array toward 1. Count the former values and the latter's mirrored values, then compute the result greedily.
 
-# 解题方法
-> 和较小的数组里的1与和较大的数组里的6是对称的，所以在统计数字频率时，将两者映射
+# Approach
+> A 1 in the smaller-sum array is equivalent to a 6 in the larger-sum array, so map these symmetric values together when counting frequencies.
 
 # Code
 ```Python3 []

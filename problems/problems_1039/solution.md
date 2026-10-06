@@ -1,4 +1,4 @@
-# [C/Py/Java/Ts/Go] 动态规划
+# [C/Py/Java/Ts/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2023-04-02
@@ -11,13 +11,13 @@
 
 [TOC]
 
-# 思路
-1. 图形中的所有边最终都属于某个三角形
-2. 给某个边选三角形时实际上是选第三个点
-3. 当选出某个三角形后(选中某点)，原图形被分割为：左端点到该点，该点到右端点的最小分割的子问题。当然再加上该三角形的分数即可。
+# Intuition
+1. Every edge of the polygon eventually belongs to a triangle.
+2. Choosing a triangle for an edge amounts to choosing its third vertex.
+3. Choosing a triangle (its third vertex) splits the polygon into two minimum-triangulation subproblems: from the left endpoint to that vertex, and from that vertex to the right endpoint. Add the chosen triangle's score.
 
-# 解题方法
-> 区间动态规划
+# Approach
+> Interval dynamic programming
 
 # Code
 ```Python3 []

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 递归
+# [Python/Java/TypeScript/Go] Recursion
 
 > Author: Benhao
 > Date: 2022-05-30
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-当前为叶子结点，则累加值左移一位并加上当前叶子节点的值。
-当前不为叶子节点，累加值左移一位并加上当前节点的值，然后以新的累加值向下递归。
+### Approach
+At a leaf, shift the accumulated value left by one bit and add the leaf's value.
+At a non-leaf node, shift the accumulated value left by one bit and add the current node's value, then recurse downward with the new accumulated value.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

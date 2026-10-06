@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/find-largest-value-in-each-tree-row/solutions/Pmo5si/pythonjavatypescriptgo-bfs-by-himymben-6jcd/
 
 ---
-### 解题思路
-BFS层序遍历统计每层最大值即可
+### Approach
+Use a BFS level-order traversal to find the maximum value on each level.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

@@ -20,7 +20,7 @@ class Solution(solution.Solution):
     #     :type s: str
     #     :rtype: List[str]
     #     """
-    #     # 递归解法
+    #     # Recursive solution
     #     if len(s) <= 1:
     #         return [s]
     #     return list(set(s[i] + perm for i in range(len(s)) for perm in self.permutation(s[:i] + s[i + 1:])))
@@ -30,12 +30,12 @@ class Solution(solution.Solution):
         :type s: str
         :rtype: List[str]
         """
-        # 非递归解法
+        # Iterative solution
         n = len(s)
         curr = list(sorted(s))
         end = list(reversed(curr))
         ans = []
-        # 生成下一个排列
+        # Generate the next permutation
         while curr != end:
             ans.append(''.join(curr))
             i = n - 2

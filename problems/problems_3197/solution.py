@@ -24,29 +24,29 @@ class Solution(solution.Solution):
 
         m, n = len(grid), len(grid[0])
         ans = inf
-        # 枚举左上角的矩形
+        # Enumerate the top-left rectangle
         for i in range(m):
             for j in range(n):
                 if i == m - 1 and j == n - 1:
                     continue
                 first = helper(0, j, 0, i)
                 if j == n - 1:
-                    # 横切
+                    # Horizontal cut
                     for x in range(i + 1, m - 1):
                         ans = min(ans, first + helper(0, n - 1, i + 1, x) + helper(0, n - 1, x + 1, m - 1))
-                    # 竖切
+                    # Vertical cut
                     for y in range(n - 1):
                         ans = min(ans, first + helper(y + 1, n - 1, i + 1, m - 1) + helper(0, y, i + 1, m - 1))
                 elif i == m - 1:
-                    # 横切
+                    # Horizontal cut
                     for x in range(m - 1):
                         ans = min(ans, first + helper(j + 1, n - 1, 0, x) + helper(j + 1, n - 1, x + 1, m - 1))
-                    # 竖切
+                    # Vertical cut
                     for y in range(j + 1, n - 1):
                         ans = min(ans, first + helper(y + 1, n - 1, 0, m - 1) + helper(j + 1, y, 0, m - 1))
                 else:
-                    # 横切
+                    # Horizontal cut
                     ans = min(ans, first + helper(j + 1, n - 1, 0, i) + helper(0, n - 1, i + 1, m - 1))
-                    # 竖切
+                    # Vertical cut
                     ans = min(ans, first + helper(0, j, i + 1, m - 1) + helper(j + 1, n - 1, 0, m - 1))
         return ans

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 数学 
+# [Python/Java/JavaScript] Mathematics 
 
 > slug: pythonjavajavascript-shu-xue-by-himymben-j1wh
 > date: 2021-10-19
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/minimum-moves-to-equal-array-elements/solutions/qpQ9Jo/pythonjavajavascript-shu-xue-by-himymben-j1wh/
 
 ---
-### 解题思路
-每次能让n-1个数加1，相当于每次能让一个数减1。既然是一个数减一，那么相等必然需要都等于最小的那个数，统计每个数到最小的数的距离。
+### Approach
+Incrementing n-1 values by 1 is equivalent to decrementing one value by 1. With decrements, all values must reach the minimum, so sum each value's distance from that minimum.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

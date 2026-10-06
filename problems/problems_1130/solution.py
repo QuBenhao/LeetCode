@@ -31,7 +31,7 @@ class Solution(solution.Solution):
         #
         # return dfs(0, len(arr) - 1)[0]
 
-        # 贪心依次合并相邻中更小的组合
+        # Greedily merge the smaller neighboring pair at each step
         ans = 0
         st = []
         for right in arr:

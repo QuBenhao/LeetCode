@@ -24,15 +24,15 @@ class Solution(solution.Solution):
         count = Counter(deliciousness)
 
         res = 0
-        # 由于每个数只遍历了最接近自己的2的次幂的组合，所以不可能重复;比如说1和3构成4，只在3的时候计算；3和5构成8只在5的时候计算。
+        # Each number considers only pairs summing to its next power of two, avoiding duplicates: 1+3=4 is counted only at 3, and 3+5=8 only at 5
         for i in count:
             if i == 0:
                 continue
-            # i的下一个2的幂次
+            # The next power of two after i
             target = self.nextPower(i)
-            # 如果i能和任意的count中的key够成这个幂次
+            # If i can combine with a key in count to reach this power
             res += count[i] * count[target - i]
-            # 如果i自身是一个2的幂次
+            # If i itself is a power of two
             if i == target:
                 res += count[i] * (count[i] - 1) // 2
         return res % MOD

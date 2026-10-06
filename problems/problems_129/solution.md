@@ -1,4 +1,4 @@
-# [Python] 递归
+# [Python] Recursion
 
 > Author: Benhao
 > Date: 2024-03-23
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 在递归的同时累加当前数字，就和十进制从左到右遍历构成数是一个道理，上一次的数*10+当前数
+> Accumulate the current number during recursion, just as a decimal number is built from left to right: previous number * 10 + current digit.
 
-# 解题方法
+# Approach
 
-> 递归
+> Recursion
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

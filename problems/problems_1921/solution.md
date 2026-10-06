@@ -1,4 +1,4 @@
-# [Python] 按怪物到达时间分类
+# [Python] Group monsters by arrival time
 
 > Author: Benhao
 > Date: 2021-07-04
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-优先消灭这些先到达的怪物，如果怎么也不够消灭了，就返回。
-注意分类时，按天花板除-1，也就是每个点都是(k-1，k]。
-这是因为第k分钟时，所有这个区间内的都能到达了。
+### Approach
+Eliminate the earliest-arriving monsters first. Return when there is no longer enough time to eliminate them all.
+Group by ceiling division minus 1, so each bucket covers (k-1, k].
+By minute k, every monster in that interval has arrived.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

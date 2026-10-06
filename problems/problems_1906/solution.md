@@ -1,4 +1,4 @@
-# [Python] 差分数组(100%)
+# [Python] Difference array (100%)
 
 > Author: Benhao
 > Date: 2021-06-20
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-很标准的差分。我们需要知道不同区间之间有哪些数，所以前缀统计每个区间不同的数的个数(1-100)。
+### Approach
+Use standard prefix differences. To determine which values occur in a range, keep prefix counts for every value from 1 through 100.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def minDifference(self, nums: List[int], queries: List[List[int]]) -> List[int]:
-        # 差分数组
+        # Difference array
         diff = [[0] * 101]
         for num in nums:
             diff.append(list(diff[-1]))
@@ -23,9 +23,9 @@ class Solution:
 
         ans = []
         for l,r in queries:
-            res = 100 # 最大不会超过100
+            res = 100 # The maximum cannot exceed 100
             last = -100
-            # 我们通过差分数组求得l到r之间有哪些数
+            # Use prefix differences to find which values occur from l through r
             for i in range(1, 101):
                 if diff[r + 1][i] - diff[l][i] > 0:
                     res = min(res, i - last)
@@ -33,12 +33,12 @@ class Solution:
             ans.append(res if res < 100 else -1)
         return ans
 ```
-有的数据可能用不到100那么大，用nums里的最大值即可
+Some inputs never reach 100, so use the maximum value in nums instead.
 ```python3
 class Solution:
     def minDifference(self, nums: List[int], queries: List[List[int]]) -> List[int]:
         m = max(nums)
-        # 差分数组
+        # Difference array
         diff = [[0] * (m+1)]
         for num in nums:
             diff.append(list(diff[-1]))
@@ -46,9 +46,9 @@ class Solution:
 
         ans = []
         for l,r in queries:
-            res = m # 最大不会超过最大值
-            last = -m # 保证第一个数做差不影响结果
-            # 我们通过差分数组求得l到r之间有哪些数
+            res = m # The answer cannot exceed the maximum value
+            last = -m # Ensure the first difference does not affect the result
+            # Use prefix differences to find which values occur from l through r
             for i in range(1, m+1):
                 if diff[r + 1][i] - diff[l][i] > 0:
                     res = min(res, i - last)

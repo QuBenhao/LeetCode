@@ -13,7 +13,7 @@ class Solution(solution.Solution):
         """
         totalValues = [(a+b) for a,b in zip(aliceValues, bobValues)]
         totalValues.sort(reverse=True)
-        # 所有Alice能拿到的石头的总价值，其中每个都多拿了Bob的对应石子,再减去本来就是Bob拿的石子，正好是Bob的所有石子
+        # Sum the combined values of Alice's stones, then subtract all of Bob's valuations to obtain the score difference
         ans = sum(totalValues[::2]) - sum(bobValues)
         if ans > 0:
             return 1

@@ -8,7 +8,7 @@ using ll = long long;
 
 int n, k;
 vector<vector<int>> graph;
-array<vector<vector<int>>, 4> dp; // 0: 未放置&未监听, 1: 未放置&监听, 2: 放置&未监听, 3: 放置&监听
+array<vector<vector<int>>, 4> dp; // 0: not placed & unmonitored; 1: not placed & monitored; 2: placed & unmonitored; 3: placed & monitored
 constexpr int MOD = 1e9 + 7;
 
 int sum_mod(const initializer_list<int> nums) {
@@ -42,12 +42,12 @@ int dfs(const int u, const int pa) {
                 int tot = sum_mod({dp[0][v][j], dp[1][v][j], dp[2][v][j], dp[3][v][j]});
                 tmp[0][i + j] = sum_mod({
                     tmp[0][i + j],
-                    mul_mod({dp[0][u][i], dp[1][v][j]}) // 子节点必须被监听, 因为父节点不会监听它了
+                    mul_mod({dp[0][u][i], dp[1][v][j]}) // The child must be monitored because its parent will not monitor it
                 });
                 tmp[1][i + j] = sum_mod({
                     tmp[1][i + j],
-                    mul_mod({dp[0][u][i], dp[3][v][j]}), // 子节点必须被监听, 因为父节点不会监听它了
-                    mul_mod({dp[1][u][i], sum_mod({dp[1][v][j], dp[3][v][j]})}), // 子节点必须自洽
+                    mul_mod({dp[0][u][i], dp[3][v][j]}), // The child must be monitored because its parent will not monitor it
+                    mul_mod({dp[1][u][i], sum_mod({dp[1][v][j], dp[3][v][j]})}), // The child's state must be valid on its own
                 });
                 tmp[2][i + j] = sum_mod({
                     tmp[2][i + j],

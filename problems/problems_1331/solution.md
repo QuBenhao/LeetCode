@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > slug: python-by-himymben-vwrb
 > date: 2022-03-13
@@ -7,7 +7,7 @@
 > url: https://leetcode.cn/problems/rank-transform-of-an-array/solutions/InDIeC/python-by-himymben-vwrb/
 
 ---
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -1,11 +1,11 @@
-# 异或
+# XOR
 
-`xor`运算的性质：
+Properties of the `xor` operation:
 
 1. $`a \oplus a = 0`$
 2. $`a \oplus 0 = a`$
 3. $`a \oplus b \oplus c = a \oplus c \oplus b`$
-4. 1到n的连续异或结果, 根据n%4分类。(0 -> n, 1 -> 1, 2 -> n + 1, 3 -> 0)
+4. The XOR of consecutive integers from 1 to n depends on n%4: (0 -> n, 1 -> 1, 2 -> n + 1, 3 -> 0)
 
 ```python3
 def xor_range(n):
@@ -40,7 +40,7 @@ func singleNumber(nums []int) int {
 }
 ```
 
-## 线性基求最大异或子集
+## Maximum subset XOR using a linear basis
 
 ```python
 def find_maximum_xor(arr):

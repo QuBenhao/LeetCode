@@ -1,4 +1,4 @@
-# [Python/Java] 递归求解
+# [Python/Java] Recursive solution
 
 > slug: python-di-gui-qiu-jie-by-qubenhao-a3lc
 > date: 2021-08-13
@@ -7,21 +7,21 @@
 > url: https://leetcode.cn/problems/number-of-digit-one/solutions/BQai4x/python-di-gui-qiu-jie-by-qubenhao-a3lc/
 
 ---
-### 解题思路
-> 先观察以下规律，
-> 9以下的1有`1`个
-> 99以下的1相当于从10个9里面取1(个位数)，又从10-19里面的十位数取1,所以是10 + 10*1 = `20`
-> 999以下的有 100 + 10 * 20 = `300`
-> 以此类推
+### Approach
+> First, observe this pattern:
+> Up to 9, there is `1` occurrence of the digit 1.
+> Up to 99, the ones digits contribute 1 from each of ten groups of 0-9, and the tens digits contribute 1 for 10-19, giving 10 + 10*1 = `20`.
+> Up to 999, there are 100 + 10 * 20 = `300` occurrences.
+> And so on
 
 
-那么现在给我们一个n,我们首先知道它能出现多少次一个小于等于它的9999..。比如说`3278`，必然是包含了`999`的而且0999,1999,2999一共相当于出现了三次，这就是我们的res部分的`999`中1的个数乘以第一位的大小。这个时候没考虑的是什么呢？一个是第一位为3时其他位变动产生的1以及第一位是1的所有(仅讨论第一位上的1)。
+Given n, first determine how many complete blocks ending in 9999.. it contains. For example, `3278` contains three such blocks, ending at 0999, 1999, and 2999. This gives the res component: the number of 1s in `999` multiplied by the leading digit. Two contributions remain: 1s in the lower digits when the leading digit is 3, and all occurrences of 1 in the leading position.
 
-前者正是往后的一个递归了(比如`3278`我们需要知道`278`能组成多少1，它是第一位为`3`的1的个数)，而后者，要讨论是否大于1，这就好比`3278`中是包含`1000-1999`的所有千位数的1的，但是`1278`中只有279个千位数的1。所以我们在返回的时候，判断他是不是大于1然后加不同的个数即可。
+The first contribution is a recursive subproblem: for `3278`, count the 1s in `278`, which gives the lower-digit contribution when the leading digit is `3`. For the second, check whether the leading digit exceeds 1. `3278` includes every leading 1 in `1000-1999`, whereas `1278` includes only 279 leading 1s. Add the appropriate count when returning.
 
-> 注意：n的第一位是不可能为0的，这是整数的一个性质，所以这保证了我们第一位要么等于1，要么大于1
+> Note: The leading digit of n cannot be 0, so it is either 1 or greater than 1.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -32,7 +32,7 @@ class Solution:
         x = len(num) - 1
         nxt = int(num[1:])
         res = self.f(x) * int(num[0]) + self.countDigitOne(nxt)
-        # 第一位大于1，包含那位为1的所有1的个数是10**x ; 否则是num后面的部分再加上"10000.."这个情况的1
+        # If the leading digit exceeds 1, it contributes 10**x ones; otherwise, use the remaining part of num plus the one in "10000.."
         return res + 10 ** x if int(num[0]) > 1 else res + nxt + 1
 
     """
@@ -42,7 +42,7 @@ class Solution:
     0-9999: 1000 + 10 * 300 = 4000
     0-99999: 10000 + 10 * 4000 = 50000
     f(i) = 10 ** (i-1) + 10 * f(i-1)
-    其实也可以直接写 f(i) = i * 10 ** (i-1)
+    Alternatively, write f(i) = i * 10 ** (i-1) directly.
     """
     @lru_cache(None)
     def f(self, i):
@@ -65,8 +65,8 @@ class Solution {
 }
 ```
 
-### 复杂度
-分析: 递归的时候，我们每次处理了最左位的数字，递归的时候减去了这一位，数字大小可以大概认为是除以10的(下次至少少一位)，所以:
-时间复杂度 $o(log_{10}n)$
-空间复杂度 $o(log_{10}n)$
-更准确地应该写成n中不为0的位数。
+### Complexity
+Analysis: Each recursive call processes and removes the leftmost digit. The number shrinks by roughly a factor of 10, with at least one fewer digit in the next call. Therefore:
+Time complexity $o(log_{10}n)$
+Space complexity $o(log_{10}n)$
+More precisely, the bound is the number of nonzero digits in n.

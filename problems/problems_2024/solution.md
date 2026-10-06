@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 双指针滑动窗口 
+# [Python/Java/JavaScript/Go] Sliding window with two pointers
 
 > Author: Benhao
 > Date: 2022-03-28
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-题目要求统计最长的区间，这个区间内 T的数目小于等于k 或 F的数目小于等于k。
-我们使用双指针维护当前指针对应的最左区间，并维护两个指针间T和F的各自的数目。
-加入当前指针的T或F的数目，如果导致当前区间的数目不满足题目要求，抛去左指针T或F的数目并移动左指针直到满足为止。
-统计每个指针最左的指针，就是该指针对应的最大区间长度。
+### Approach
+Find the longest interval in which the number of T characters is at most k or the number of F characters is at most k.
+Use two pointers to maintain the leftmost valid interval ending at the current position, tracking the counts of T and F between the pointers.
+Add the current T or F to its count. If the interval becomes invalid, remove the character at the left pointer from its count and advance that pointer until the interval is valid again.
+For each right pointer, the leftmost valid left pointer gives the maximum interval length ending there.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -22,9 +22,9 @@ class Solution:
         for right, c in enumerate(answerKey):
             cnts_t += c == 'T'
             cnts_f += c == 'F'
-            # 当前区间内的t和f的个数不能都大于k，我们只能变k次
+            # The counts of t and f in the window cannot both exceed k; only k changes are allowed
             while cnts_t > k and cnts_f > k:
-                # 超过最大变动次数了，当前指针的区间最左要向右移动
+                # The change limit is exceeded, so move the window's left boundary to the right
                 cnts_t -= answerKey[left] == 'T'
                 cnts_f -= answerKey[left] == 'F'
                 left += 1

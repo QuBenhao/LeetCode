@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-minimum-time-to-reach-last-room-i/solutions/WZEwxw/dijkstra-by-himymben-rd9y/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

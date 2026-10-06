@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 透过现象看本质 - 二进制
+# [Python/Java/JavaScript/Go] See the underlying pattern: binary representation
 
 > Author: Benhao
 > Date: 2022-01-30
@@ -7,23 +7,23 @@
 
 ---
 
-### 解题思路
+### Approach
 
-【除夕快乐家人们】
+[Happy Lunar New Year's Eve, everyone!]
 
-遇到奇数减一除二、遇到偶数除二，本质上都是二进制的右移，只是奇数需要额外的一步。
-出现奇数其实是在右移一定次数后，`num & 1 == 1`，也就是右移前该位为1。
-出现偶数其实是在右移一定次数后，`num & 1 == 0`, 也就是右移前该位为0。
-也就是说，每个二进制位的`1`都会带来两步的代价，每个二进制位的`0`都会带来一步的代价。
-唯一特殊的是二进制最左的`1`最后减一为0不需要除二了，所以步数为1。
+For an odd number, subtract 1 and divide by 2; for an even number, divide by 2. Both are essentially a binary right shift, but odd numbers require an extra step.
+An odd number occurs when `num & 1 == 1` after some right shifts, meaning that the corresponding bit was 1 before shifting.
+An even number occurs when `num & 1 == 0` after some right shifts, meaning that the corresponding bit was 0 before shifting.
+Thus, each binary `1` costs two steps, and each binary `0` costs one step.
+The exception is the leftmost `1`: subtracting 1 makes it 0 without another division, so it costs one step.
 
-举个例子：
+For example:
 22 -> 11 -> 10 -> 5 -> 4 -> 2 -> 1 -> 0
 10110 -> 1011 -> 1010 -> 101 -> 100 -> 10 -> 1 -> 0
 
-另外分享一个计算二进制1的个数的算法：[Hamming Weight](https://www.cnblogs.com/yongssu/p/4348479.html)
+Here is another algorithm for counting binary 1s: [Hamming Weight](https://www.cnblogs.com/yongssu/p/4348479.html).
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# 哈希模拟
+# Hash-based simulation
 
 > Author: Benhao
 > Date: 2022-12-12
@@ -42,4 +42,4 @@ public:
 };
 ```
 
-感谢[@伊泽瑞尔](/u/herestars)、[@阿尼亚](/u/coco-e1) 小伙伴儿们提供的其他语言版本
+Thanks to [@伊泽瑞尔](/u/herestars) and [@阿尼亚](/u/coco-e1) for the implementations in other languages.

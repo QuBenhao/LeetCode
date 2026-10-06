@@ -1,4 +1,4 @@
-# [Python/Java/Go] 树状动态规划求拓扑方案数 + 乘法逆元求组合数
+# [Python/Java/Go] Tree DP for topological orderings + modular inverses for combinations
 
 > Author: Benhao
 > Date: 2021-06-27
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-学习了……[来源](https://leetcode.com/problems/count-ways-to-build-rooms-in-an-ant-colony/discuss/1299545/Python3-post-order-dfs)
+### Approach
+Learned from [this source](https://leetcode.com/problems/count-ways-to-build-rooms-in-an-ant-colony/discuss/1299545/Python3-post-order-dfs).
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -19,16 +19,16 @@ class Solution:
         for i,num in enumerate(prevRoom):
             connect[num].append(i)
 
-        # 返回:元素个数,拓扑排序方案数
+        # Return: node count, number of topological orderings
         def dfs(idx):
             nodes, ans = 0, 1
             for subnode in connect[idx]:
                 nodes_, ans_ = dfs(subnode)
                 nodes += nodes_
-                # 因为当前的拓扑排序方案数不影响加入该子树后的拓扑排序方案数，所以是乘法叠加
-                # 新的拓扑排序方案数为: 当前的拓扑排序方案数 * 从nodes个位置里选nodes_个位置分配给该子树 * 子树的拓扑排序方案数
+                # The current ordering choices and the subtree's ordering choices are independent, so multiply them
+                # New ordering count = current count * ways to choose nodes_ of nodes positions for this subtree * subtree ordering count
                 ans = (ans * comb(nodes, nodes_) * ans_) % (10 ** 9 + 7)
-            # 加上根节点
+            # Include the root
             return nodes + 1, ans
         
         return dfs(0)[1]

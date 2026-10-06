@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 字符串加法 + 深度优先搜索
+# [Python/Java/JavaScript/Go] String addition + depth-first search
 
 > slug: pythonjavajavascriptgo-zi-fu-chuan-jia-f-w5by
 > date: 2022-01-09
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/additive-number/solutions/U4cBvb/pythonjavajavascriptgo-zi-fu-chuan-jia-f-w5by/
 
 ---
-### 解题思路
-字符串加法不会有精度的问题。
-搜索的时候注意数字不能以0开头且有位数。
+### Approach
+String addition avoids precision issues.
+During the search, remember that a multidigit number cannot start with 0.
 
-每次求出加和往后推判断是否满足即可。
+Compute each sum and move forward to check whether it matches.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -199,7 +199,7 @@ func isAdditiveNumber(num string) bool {
     return false
 }
 ```
-补充一个简洁版本
+An additional concise version
 ```python3
 class Solution:
     def isAdditiveNumber(self, num: str) -> bool:

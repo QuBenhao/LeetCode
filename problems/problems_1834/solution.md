@@ -1,4 +1,4 @@
-# [Python] 优先队列
+# [Python] Priority queue
 
 > Author: Benhao
 > Date: 2021-04-18
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-任务按(开始时间，时长，下标)从大到小排序。
-如果当前队列有任务，执行任务，更新时间；如果没有，从任务表中出任务，更新时间。
-根据时间将任务压入队列中，按（时长，下标，开始时间）入队，这里开始时间其实只是为了更新时间用。
+### Approach
+Sort tasks in descending order by (start time, duration, index).
+If the queue has a task, execute it and update the time. Otherwise, take one from the task list and update the time.
+Enqueue tasks as they become available using (duration, index, start time). The start time is needed only for updating the clock.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

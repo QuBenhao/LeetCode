@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 很经典的一道进制转换思维模式题
+# [Python/Java/JavaScript/Go] A classic base-conversion insight
 
 > slug: pythonjavajavascriptgo-hen-jing-dian-de-qilwu
 > date: 2021-11-24
@@ -7,23 +7,23 @@
 > url: https://leetcode.cn/problems/poor-pigs/solutions/G8HAk4/pythonjavajavascriptgo-hen-jing-dian-de-qilwu/
 
 ---
-### 解题思路
+### Approach
 ```python3
-# 特别经典的一道题，1024个桶里，有一个有毒，十个小白鼠可以做测试，怎么一次找到有毒的那个
-# 将0~1023写成二进制，最多是十位，每个小白鼠喝所有某一位为1的（一鼠一位）
-# 最终要找的那个就是所有死的小白鼠的位为1，其他位为0
-# 我们知道十只小白鼠一次可以试出2^10个桶，如果是两次呢？
-# 其实两次可以看成三进制，每个小白鼠可以在两轮内试出某一位是0还是1还是2
-# 第一次死就是那一位为1，第二次是那一次为2，没死就是那一位为0
-# 这样来看的话，
-# x轮就该转换成(x+1)进制, 我们要找buckets在x+1进制下是几位，就是我们至少需要的小白鼠个数了
+# Classic puzzle: one of 1024 buckets is poisoned; how can ten mice identify it in one test?
+# Write 0~1023 in binary using at most ten bits; each mouse drinks from all buckets with a 1 in its assigned bit
+# The poisoned bucket's number has 1s at the positions of mice that died and 0s elsewhere
+# Ten mice can distinguish 2^10 buckets in one round; what about two rounds?
+# Two rounds correspond to base 3: each mouse can determine whether one digit is 0, 1, or 2
+# Death in the first round means digit 1, death in the second means 2, and survival means 0
+# From this perspective:
+# x rounds correspond to base (x+1); the number of digits needed for buckets in that base gives the minimum number of mice
 ```
 
-感谢各位一直以来的陪伴和鼓励！一起继续加油啊！感恩节快乐～
+Thank you all for your continued company and encouragement! Let's keep going together. Happy Thanksgiving!
 
-[关于这样信息熵最大化的解释可以看三叶的题解](https://leetcode.cn/problems/poor-pigs/solution/gong-shui-san-xie-jin-zhi-cai-xiang-xian-69fl/)
+[See 三叶's solution for an explanation of maximizing information entropy this way](https://leetcode.cn/problems/poor-pigs/solution/gong-shui-san-xie-jin-zhi-cai-xiang-xian-69fl/)
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:
@@ -33,7 +33,7 @@ class Solution:
 ```Java []
 class Solution {
     public int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
-        // 这里用了一个换底公式
+        // Use the change-of-base formula here
         return (int)Math.ceil(Math.log(buckets)/Math.log(minutesToTest/minutesToDie + 1));
     }
 }

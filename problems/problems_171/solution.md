@@ -1,4 +1,4 @@
-# [Python/Java] 26进制转换为10进制
+# [Python/Java] Convert base 26 to base 10
 
 > Author: Benhao
 > Date: 2021-07-29

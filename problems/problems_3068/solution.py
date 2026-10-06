@@ -17,8 +17,8 @@ class Solution(solution.Solution):
             graph[v].append(u)
 
         def dfs(_u, _pa) -> Tuple[int, int]:
-            # f0: 以_u为根的子树中, 除去_u, _u和k异或了偶数次的最大值
-            # f1: 以_u为根的子树中, 除去_u, _u和k异或了奇数次的最大值
+            # f0: maximum sum in the subtree rooted at _u, excluding _u, when _u is XORed with k an even number of times
+            # f1: maximum sum in the subtree rooted at _u, excluding _u, when _u is XORed with k an odd number of times
             f0, f1 = 0, -inf
             for _v in graph[_u]:
                 if _v == _pa:

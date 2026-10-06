@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 状态压缩 + 动态规划(记忆化递归)
+# [Python/Java/JavaScript/Go] Bitmask DP with memoized recursion
 
 > slug: pythonjavajavascriptgo-zhuang-tai-ya-suo-peme
 > date: 2022-02-21
@@ -7,25 +7,25 @@
 > url: https://leetcode.cn/problems/the-number-of-good-subsets/solutions/0Ubsud/pythonjavajavascriptgo-zhuang-tai-ya-suo-peme/
 
 ---
-### 解题思路
+### Approach
 
-题目的一个重要条件为数字大小最大为30。相同的数字我们来说只是统计不同的个数，他们本身不能同时被选。故将输入转换为计数并去掉其中质数的平方的倍数（质数平方的倍数不存在不同质因数分解方式），再统计剩下的数有哪些质因子。&#x20;
-
-
-
-我们可以通过状态压缩维护一个当前质数被选取的情况，以前选了的质数不能再被选。比如说选了6，那么有2和3这个质因子的数就不能再被选了（也是集合不能有交集的概念）。&#x20;
+The key constraint is that values are at most 30. Repeated values contribute multiplicities but cannot be selected together. Convert the input to counts, discard multiples of prime squares because they are not square-free, and record the prime factors of each remaining value.&#x20;
 
 
 
-1比较特殊，1本身不能构成好子集，但是选任意个1（或不选）均不影响原好子集，所以递归最终结果返回$2^{cnts[1]}$。
+Use a bitmask to record selected prime factors. A previously selected prime cannot be selected again: after choosing 6, no other number containing 2 or 3 may be chosen. Equivalently, the factor sets must be disjoint.&#x20;
+
+
+
+The value 1 is special: it cannot form a good subset by itself, but choosing any number of 1s, including none, preserves an existing good subset. The recursion therefore returns $2^{cnts[1]}$ at its terminal state.
 
 
 
 PS:
-只需创建一个2^10大小的数组，倒序滚动更新节省空间。
-另外大数相乘的溢出一定要记得处理。
+Use an array of size 2^10 and update it backward in place to save space.
+Remember to handle overflow when multiplying large values.
 
-### 代码
+### Code
 
 ```Python3 []
 PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
@@ -50,13 +50,13 @@ class Solution:
         @lru_cache(None)
         def dfs(idx, ps):
             if idx > 30 or len(ps) == len(PRIMES):
-                # 不可能所有质数都没被选的空集
+                # Exclude the empty selection with no prime factors chosen
                 return (len(ps) > 0) * ones
             st, ans = set(ps), 0
-            # idx存在在原数组中且质因子尚未被选
+            # idx occurs in the original array and none of its prime factors has been selected
             if idx in cnts and not key_primes[idx] & st:
                 ans += cnts[idx] % MOD * dfs(idx + 1, tuple(st | key_primes[idx])) % MOD
-            # 叠加不选idx的答案数
+            # Add the number of answers that omit idx
             return (ans + dfs(idx + 1, ps)) % MOD
 
         return dfs(2, tuple())

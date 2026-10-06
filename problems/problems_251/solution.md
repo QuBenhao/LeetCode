@@ -1,4 +1,4 @@
-# [Python] 没用迭代器
+# [Python] Without an iterator
 
 > slug: python-mei-yong-die-dai-qi-by-himymben-w7e3
 > date: 2021-08-22
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/flatten-2d-vector/solutions/bobg8x/python-mei-yong-die-dai-qi-by-himymben-w7e3/
 
 ---
-### 解题思路
-应该用Java做的，判断当前所在列表有没有值，没有就看总列表中还有没有新的列表。
+### Approach
+I should have used Java for this. Check whether the current list has another value; if not, check whether the outer list has another list.
 
-### 代码
+### Code
 
 ```python3
 class Vector2D:

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 值域二分
+# [Python/Java/TypeScript/Go] Binary search over the value range
 
 > slug: pythonjavatypescriptgo-zhi-yu-by-himymbe-tc01
 > date: 2022-06-14
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/find-k-th-smallest-pair-distance/solutions/mh6c3k/pythonjavatypescriptgo-zhi-yu-by-himymbe-tc01/
 
 ---
-### 解题思路
-对于第k小很常见的一个解法是对答案的范围进行二分。本题距离越大，一个点可以到的其他点的个数是单调不减的，满足二段性。
+### Approach
+A common way to find the kth smallest value is to binary search the answer range. Here, increasing the distance never decreases the number of other points within reach of a point, giving the monotonic condition needed for binary search.
 
-对每个答案校验它是否为第k小，需要统计有多少对儿点小于该距离，同样可以对每个点进行二分。或使用滑窗双指针的思想。
+For each candidate distance, count pairs closer than that distance to locate the kth value. Use binary search for each point, or a sliding window with two pointers.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -29,7 +29,7 @@ class Solution:
         def helper(dist: int) -> int:
             ans = i = 0
             for j, num in enumerate(nums):
-                # 枚举每个右端点的左端点
+                # Find the possible left endpoints for each right endpoint
                 while num - nums[i] > dist:
                     i += 1
                 ans += j - i

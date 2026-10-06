@@ -1,4 +1,4 @@
-# [Python/Java] 堆实现BFS or 记录每个节点最短到达时间
+# [Python/Java] Heap-based BFS or shortest arrival time for each node
 
 > Author: Benhao
 > Date: 2021-08-02
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按最小的时间依次BFS搜索整个图即可。
+### Approach
+Search the entire graph in increasing arrival-time order using BFS.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

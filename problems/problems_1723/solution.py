@@ -19,15 +19,15 @@ class Solution(solution.Solution):
             if index == n:
                 return True
             for j in range(k):
-                # 尝试将第index个任务分配给第j个人
+                # Try assigning task index to worker j
                 if assign[j] >= jobs[index]:
                     assign[j] -= jobs[index]
-                    # 递归
+                    # Recursion
                     if is_possible(index + 1):
                         return True
-                    # 分配给第j个人无法完成其他人的分配
+                    # Assigning it to worker j leaves no valid assignment for the remaining tasks
                     assign[j] += jobs[index]
-                # 无法分配任何任务给第j个人
+                # No task can be assigned to worker j
                 if assign[j] == mid:
                     break
             return False
@@ -35,7 +35,7 @@ class Solution(solution.Solution):
         while left < right:
             mid = (left + right) // 2
             assign = [mid] * k
-            # 分配为最大mid是可行的
+            # An assignment with maximum load mid is feasible
             if is_possible(0):
                 right = mid
             else:
@@ -49,7 +49,7 @@ class Solution(solution.Solution):
         #         return float("inf")
         #     if index == n:
         #         return curr_max
-        #     # 优先分配给没分配过的人
+        #     # Prioritize workers who have not received a task
         #     if nxt < k:
         #         assign[nxt] = jobs[index]
         #         ans = min(ans, dfs(index + 1, nxt + 1, max(curr_max, assign[nxt]), ans))

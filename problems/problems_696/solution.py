@@ -13,7 +13,7 @@ class Solution(solution.Solution):
         for i in range(n):
             cur += 1
             if i == n - 1 or s[i] != s[i + 1]:
-                # 拐点 / 当前组的结束
+                # Transition point / end of the current group
                 ans += min(cur, pre)
                 pre = cur
                 cur = 0

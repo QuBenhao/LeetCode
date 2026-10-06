@@ -1,4 +1,4 @@
-# [Python/Go] 二维前缀和应用题
+# [Python/Go] Applying two-dimensional prefix sums
 
 > Author: Benhao
 > Date: 2022-02-20
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-本题为二维矩阵前缀和模板题
+### Approach
+This is a template problem for prefix sums in a two-dimensional matrix.
 
-### 代码
+### Code
 
 ```Python3 []
 class NumMatrix:

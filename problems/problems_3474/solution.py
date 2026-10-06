@@ -13,7 +13,7 @@ class Solution(solution.Solution):
         word = [''] * total_len
         fixed = [False] * total_len
 
-        # 1. 处理所有 'T' 约束
+        # 1. Handle all 'T' constraints
         for i in range(n):
             if str1[i] == 'T':
                 for j in range(m):
@@ -21,24 +21,24 @@ class Solution(solution.Solution):
                     char = str2[j]
                     if fixed[pos]:
                         if word[pos] != char:
-                            return ""  # 冲突，无解
+                            return ""  # Conflict; no solution
                     else:
                         word[pos] = char
                         fixed[pos] = True
 
-        # 2. 填充未确定的位置为 'a'（字典序最小）
+        # 2. Fill undetermined positions with 'a' (lexicographically smallest)
         for i in range(total_len):
             if not fixed[i]:
                 word[i] = 'a'
 
-        # 3. 检查并修正所有 'F' 约束
+        # 3. Check and fix all 'F' constraints
         for i in range(n):
             if str1[i] == 'F':
                 substring = ''.join(word[i:i+m])
                 if substring == str2:
-                    # 需要找一个未固定的位置修改
+                    # Find an unfixed position to modify
                     modified = False
-                    for j in range(m - 1, -1, -1):  # 从后往前找，保证字典序最小
+                    for j in range(m - 1, -1, -1):  # Search from right to left to keep the result lexicographically smallest
                         pos = i + j
                         if not fixed[pos]:
                             for c in range(ord(word[pos]) + 1, ord('z') + 1):
@@ -48,7 +48,7 @@ class Solution(solution.Solution):
                             if modified:
                                 break
                     if not modified:
-                        return ""  # 无法修改，无解
+                        return ""  # No position can be changed; no solution
 
         return ''.join(word)
 

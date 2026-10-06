@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 约瑟夫环
+# [Python/Java/JavaScript/Go] Josephus problem
 
 > Author: Benhao
 > Date: 2022-05-03
@@ -7,21 +7,21 @@
 
 ---
 
-### 解题思路
-很经典的题。
+### Approach
+A classic problem.
 
-我们第一轮会删掉第$k$个人，问题就变为对$n-1$个人进行这个游戏。
-假设我们知道$f(n-1,k)$最终剩下的人的编号,
-由于我们删了第$k$个人，$n-1$个人的游戏是从原来第$k+1$个人开始的，
-也就是说原来的编号和新的编号有一个偏差$k$。
-以坐标从$0$到$n-1$来看的话(去掉1的偏差减少计算量,最终加一次1即可)，有公式:
+The first round removes person $k$, reducing the game to $n-1$ people.
+Suppose $f(n-1,k)$ gives the index of the final survivor.
+After removing person $k$, the game with $n-1$ people starts at the original person $k+1$.
+The old and new indices therefore differ by $k$.
+Using indices $0$ through $n-1$ avoids repeatedly handling the offset of 1; add 1 only at the end. The recurrence is:
 $f(n,k) = (f(n - 1, k) + k) \% n$
 
-当只剩一个人时，他必然活下来，
-即$f(1,k) = 0$,
-我们从$f(1,k)$推出$f(2,k)$一直到$f(n,k)$即可。
+With only one person left, that person survives.
+Thus, $f(1,k) = 0$.
+Starting from $f(1,k)$, derive $f(2,k)$ and continue through $f(n,k)$.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

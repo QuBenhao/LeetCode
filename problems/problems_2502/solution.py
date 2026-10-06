@@ -29,7 +29,7 @@ class SegTree:
         self.t[i].max0 = size
         self.t[i].todo = v
 
-    # 下传懒标记
+    # Push down lazy tags
     def spread(self, o: int, l: int, r: int) -> None:
         v = self.t[o].todo
         if v != -1:
@@ -38,7 +38,7 @@ class SegTree:
             self.do(o * 2 + 1, m + 1, r, v)
             self.t[o].todo = -1
 
-    # 初始化线段树
+    # Initialize the segment tree
     def build(self, o: int, l: int, r: int) -> None:
         self.do(o, l, r, -1)
         if l == r:
@@ -47,7 +47,7 @@ class SegTree:
         self.build(o * 2, l, m)
         self.build(o * 2 + 1, m + 1, r)
 
-    # 把区间 [ql, qr] 都置为 v
+    # Set every value in [ql, qr] to v
     def update(self, o: int, l: int, r: int, ql: int, qr: int, v: int) -> None:
         if ql <= l and r <= qr:
             self.do(o, l, r, v)
@@ -59,22 +59,22 @@ class SegTree:
         if m < qr:
             self.update(o * 2 + 1, m + 1, r, ql, qr, v)
 
-        # 合并左右子树的信息
+        # Merge information from the left and right subtrees
         lo = self.t[o * 2]
         ro = self.t[o * 2 + 1]
-        # 区间前缀连续 0 的个数
+        # Number of consecutive zeros at the start of the interval
         self.t[o].pre0 = lo.pre0
         if lo.pre0 == m - l + 1:
-            self.t[o].pre0 += ro.pre0  # 和右子树的 pre0 拼起来
-        # 区间后缀连续 0 的个数
+            self.t[o].pre0 += ro.pre0  # Join with the right subtree's pre0
+        # Number of consecutive zeros at the end of the interval
         self.t[o].suf0 = ro.suf0
         if ro.suf0 == r - m:
-            self.t[o].suf0 += lo.suf0  # 和左子树的 suf0 拼起来
-        # 区间最长连续 0 的个数
+            self.t[o].suf0 += lo.suf0  # Join with the left subtree's suf0
+        # Longest run of consecutive zeros in the interval
         self.t[o].max0 = max(lo.max0, ro.max0, lo.suf0 + ro.pre0)
 
-    # 线段树二分，找最左边的区间左端点，满足区间全为 0 且长度 >= size
-    # 如果不存在这样的区间，返回 -1
+    # Binary-search the segment tree for the leftmost start of an all-zero interval with length >= size
+    # Return -1 if no such interval exists
     def find_first(self, o: int, l: int, r: int, size: int) -> int:
         if self.t[o].max0 < size:
             return -1
@@ -82,12 +82,12 @@ class SegTree:
             return l
         self.spread(o, l, r)
         m = (l + r) // 2
-        idx = self.find_first(o * 2, l, m, size)  # 递归左子树
+        idx = self.find_first(o * 2, l, m, size)  # Recurse into the left subtree
         if idx < 0:
-            # 左子树的后缀 0 个数 + 右子树的前缀 0 个数 >= size
+            # Left subtree's zero suffix length + right subtree's zero prefix length >= size
             if self.t[o * 2].suf0 + self.t[o * 2 + 1].pre0 >= size:
                 return m - self.t[o * 2].suf0 + 1
-            idx = self.find_first(o * 2 + 1, m + 1, r, size)  # 递归右子树
+            idx = self.find_first(o * 2 + 1, m + 1, r, size)  # Recurse into the right subtree
         return idx
 
 
@@ -99,9 +99,9 @@ class Allocator:
 
     def allocate(self, size: int, mID: int) -> int:
         i = self.tree.find_first(1, 0, self.n - 1, size)
-        if i < 0:  # 无法分配内存
+        if i < 0:  # Cannot allocate memory
             return -1
-        # 分配内存 [i, i+size-1]
+        # Allocate memory [i, i+size-1]
         self.blocks[mID].append((i, i + size - 1))
         self.tree.update(1, 0, self.n - 1, i, i + size - 1, 1)
         return i
@@ -110,7 +110,7 @@ class Allocator:
         ans = 0
         for l, r in self.blocks[mID]:
             ans += r - l + 1
-            self.tree.update(1, 0, self.n - 1, l, r, 0)  # 释放内存
+            self.tree.update(1, 0, self.n - 1, l, r, 0)  # Free memory
         del self.blocks[mID]
         return ans
 

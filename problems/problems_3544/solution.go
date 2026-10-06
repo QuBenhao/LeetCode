@@ -32,21 +32,21 @@ func subtreeInversionSum(edges [][]int, nums []int, k int) int64 {
 		}
 		ans := int64(nums[i] * sign)
 		if neighbours, ok := graph[i]; ok {
-			// 能反转的话的结果
+			// Result if inversion is allowed
 			cur := -int64(nums[i] * sign)
 			for _, neigh := range neighbours {
 				if neigh == pa {
 					continue
 				}
-				// 不反转
+				// Do not invert
 				ans += dfs(neigh, max(0, d-1), sign, i)
 				if d == 0 {
-					// 能反转，传入k-1的距离（因为限制d==0代表可继续反转)
+					// Inversion is allowed; pass distance k-1 (since d==0 means another inversion is allowed)
 					cur += dfs(neigh, k-1, -sign, i)
 				}
 			}
 			if d == 0 {
-				// 能反转的话取最大
+				// Take the maximum if inversion is allowed
 				ans = max(ans, cur)
 			}
 		} else if d == 0 {

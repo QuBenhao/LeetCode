@@ -12,12 +12,12 @@ class Solution(solution.Solution):
             g[x].append(y)
             g[y].append(x)
 
-        # 返回子树 x 的点权和
+        # Return the sum of node weights in the subtree rooted at x
         def dfs(x: int, fa: int) -> int:
             s = values[x]
             for y in g[x]:
-                if y != fa:  # 避免访问父节点
-                    # 加上子树 y 的点权和，得到子树 x 的点权和
+                if y != fa:  # Avoid visiting the parent
+                    # Add subtree y's node-weight sum to obtain subtree x's sum
                     s += dfs(y, x)
             nonlocal ans
             ans += s % k == 0

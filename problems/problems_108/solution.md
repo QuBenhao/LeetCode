@@ -1,4 +1,4 @@
-# [Python] 递归
+# [Python] Recursion
 
 > Author: Benhao
 > Date: 2024-03-02
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 要平衡每次从中间分是最好的选择
+> Splitting at the middle each time is the best choice for keeping the tree balanced.
 
-# 解题方法
+# Approach
 
-> 这里直接选择切数组，实际上用坐标最好，节省空间
+> This implementation slices the array directly. Using indices would be better because it saves space.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

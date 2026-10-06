@@ -1,4 +1,4 @@
-# [Python] 全排列
+# [Python] Permutations
 
 > Author: Benhao
 > Date: 2024-03-11
@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 依次枚举每一位填哪个数，直到填满
+> Enumerate which number to place at each position until all positions are filled.
 
-# 解题方法
+# Approach
 
-> 把填的数填入位置，把原位置的数交换到后面等之后选取
+> Put the chosen number in position and swap the original number to the back for a later choice.
 
 
 # Code

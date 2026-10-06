@@ -33,7 +33,7 @@ class Solution(solution.Solution):
                 return 0
             ones = strs[idx].count('1')
             zeros = len(strs[idx]) - ones
-            # 选当前idx和不选当前idx的最大值
+            # Maximum of selecting and skipping the current idx
             return max(dfs(idx + 1, x - zeros, y - ones) + 1, dfs(idx + 1, x, y))
 
         l = len(strs)

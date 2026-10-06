@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 多路归并最小堆 or 二分统计
+# [Python/Java/JavaScript/Go] Multiway merge with a min-heap or binary search with counting
 
 > slug: pythonjavajavascriptgo-zui-xiao-dui-by-h-l2z3
 > date: 2021-11-28
@@ -7,20 +7,20 @@
 > url: https://leetcode.cn/problems/k-th-smallest-prime-fraction/solutions/vpnZMt/pythonjavajavascriptgo-zui-xiao-dui-by-h-l2z3/
 
 ---
-### 解题思路
-每个素数作为分母时，分子按从小到大的顺序就可以构造该分母下分数的顺序，
-我们需要对比的是不同分母之间当前分数的大小，故采用最小堆，将所有当前值加入堆。
+### Approach
+For each prime denominator, taking numerators in ascending order produces that denominator's fractions in order.
+We need to compare the current fractions for different denominators, so put all current values in a min-heap.
 
-今天是复制粘贴Js和Go的最小堆模板的一天
+Today is a day for copying and pasting min-heap templates for Js and Go
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:
     def kthSmallestPrimeFraction(self, arr: List[int], k: int) -> List[int]:
         pq = []
         for i in range(1, len(arr)):
-            # 分数、分母坐标、分子坐标
+            # Fraction, denominator index, numerator index
             heapq.heappush(pq, (1/arr[i], i, 0))
         for _ in range(k):
             val, j, i = heapq.heappop(pq)
@@ -130,7 +130,7 @@ func kthSmallestPrimeFraction(arr []int, k int) []int {
     for j := 1; j < n; j++ {
         pq[j-1] = frac{arr[0], arr[j], 0, j}
     }
-    // 相当于heapq.heapify
+    // Equivalent to heapq.heapify
     heap.Init(&pq)
     for r := 1; r < k; r++ {
         cur := heap.Pop(&pq).(frac)
@@ -145,7 +145,7 @@ type frac struct{
     x, y, i, j int 
 }
 
-// 最小堆模板
+// Min-heap template
 type hp []frac
 func (h hp) Len() int            { return len(h) }
 func (h hp) Less(i, j int) bool  { return h[i].x*h[j].y < h[i].y*h[j].x }
@@ -155,7 +155,7 @@ func (h *hp) Pop() interface{}   { a := *h; v := a[len(a)-1]; *h = a[:len(a)-1];
 ```
 
 ---
-二分法
+Binary search
 ```python3 []
 class Solution:
     def kthSmallestPrimeFraction(self, arr: List[int], k: int) -> List[int]:

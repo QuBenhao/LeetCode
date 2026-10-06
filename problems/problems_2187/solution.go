@@ -11,25 +11,25 @@ func minimumTime(time []int, totalTrips int) int64 {
 	minT := slices.Min(time)
 	maxT := slices.Max(time)
 	avg := (totalTrips-1)/len(time) + 1
-	// 循环不变量：check(left) 恒为 false
+	// Loop invariant: check(left) is always false
 	left := minT*avg - 1
-	// 循环不变量：check(right) 恒为 true
+	// Loop invariant: check(right) is always true
 	right := min(maxT*avg, minT*totalTrips)
-	for left+1 < right { // 开区间 (left, right) 不为空
+	for left+1 < right { // The open interval (left, right) is nonempty
 		mid := (left + right) / 2
 		sum := 0
 		for _, t := range time {
 			sum += mid / t
 		}
 		if sum >= totalTrips {
-			right = mid // 缩小二分区间为 (left, mid)
+			right = mid // Shrink the binary-search interval to (left, mid)
 		} else {
-			left = mid // 缩小二分区间为 (mid, right)
+			left = mid // Shrink the binary-search interval to (mid, right)
 		}
 	}
-	// 此时 left 等于 right-1
-	// check(left) = false 且 check(right) = true，所以答案是 right
-	return int64(right) // 最小的 true
+	// Now left equals right-1
+	// check(left) = false and check(right) = true, so the answer is right
+	return int64(right) // The smallest value for which the predicate is true
 }
 
 func Solve(inputJsonValues string) any {

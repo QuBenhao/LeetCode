@@ -1,4 +1,4 @@
-# [Python] 爆搜
+# [Python] Exhaustive search
 
 > Author: Benhao
 > Date: 2022-10-30
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按题意依次处理字母位
+### Approach
+Process each letter position according to the problem statement
 
-### 代码
+### Code
 
 ```python3
 class Solution:

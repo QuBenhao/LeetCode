@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 双指针扫描
+# [Python/Java/JavaScript/Go] Two-pointer scan
 
 > slug: pythonjavajavascriptgo-shuang-zhi-zhen-s-1zjg
 > date: 2021-11-30

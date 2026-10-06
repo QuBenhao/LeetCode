@@ -1,4 +1,4 @@
-# [Python] 滑动窗口
+# [Python] Sliding window
 
 > Author: Benhao
 > Date: 2024-04-11
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 滑窗维护k个数的集合，判断有没有重复即可
+> Maintain a set of k values in a sliding window and check for duplicates.
 
-# 解题方法
+# Approach
 
-> 滑动窗口
+> Sliding window
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(k)$
 
 

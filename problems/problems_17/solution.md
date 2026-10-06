@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 枚举组合
+> Enumerate combinations
 
-# 解题方法
+# Approach
 
-> 使用itertools
+> Use itertools
 
 
 # Code

@@ -1,4 +1,4 @@
-# [Python/Go/C] 多数投票
+# [Python/Go/C] Majority voting
 
 > Author: Benhao
 > Date: 2024-02-23
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 既然要找多余一半的，那么就通过记录数量来找最多的
+> Since we need the element that occurs more than half the time, track counts to find the most frequent one.
 
-# 解题方法
+# Approach
 
-> 既然答案是多数，那么用少数去抵消多数的票一定剩的还是多数，于是得到多数的答案
+> Since the answer is a majority, canceling its votes with minority votes must still leave the majority, giving the answer.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

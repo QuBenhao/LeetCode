@@ -1,4 +1,4 @@
-# Python 优先队列
+# Python priority queue
 
 > Author: Benhao
 > Date: 2021-03-07
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-从终点开始推，依次加入到终点距离最短的点，如果距离被计算过，也就说明路径数要叠加之前的点的路径数
+### Approach
+Work backward from the destination, adding nodes in increasing distance to it. For distances already computed, accumulate the path counts from those earlier nodes.
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

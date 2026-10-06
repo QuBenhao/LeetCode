@@ -1,4 +1,4 @@
-# [Python/Java] 哈希表
+# [Python/Java] Hash table
 
 > Author: Benhao
 > Date: 2021-07-30
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-记录每一个列出现的所有数字(带行数)，按列排序，按行排序，按值排序即可。
+### Approach
+Record all values in each column with their row indices, then sort by column, row, and value.
 
-### 代码
+### Code
 ```python3 []
 class Solution:
     def verticalTraversal(self, root: TreeNode) -> List[List[int]]:

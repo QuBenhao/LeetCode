@@ -1,4 +1,4 @@
-# [Python] 用栈的两种不同思路
+# [Python] Two different stack-based approaches
 
 > Author: Benhao
 > Date: 2021-03-10
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-思路一： 用栈存全部信息，到')'或结尾计算一次
-思路二： 边走边算，遇到括号时用栈暂存结果待以后计算 （详情在代码注释）
+### Approach
+Approach 1: Store all information in a stack and evaluate at ')' or the end.
+Approach 2: Evaluate as you go, using a stack to save intermediate results at parentheses for later evaluation. (See the code comments for details.)
 
-### 代码
+### Code
 
 ```python
 class Solution(object):
@@ -63,7 +63,7 @@ class Solution(object):
         return stack[0]
 ```
 
-### 思路二：时间空间复杂度更小
+### Approach 2: Lower time and space complexity
 
 ```python
     def calculate(self, s):

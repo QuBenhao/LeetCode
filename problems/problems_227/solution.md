@@ -1,4 +1,4 @@
-# [Python] 单一循环以此计算，不需要栈
+# [Python] Evaluate sequentially in a single loop without a stack
 
 > Author: Benhao
 > Date: 2021-03-11
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-因为没有括号，不需要存运算顺序，遇到乘除优先算即可
+### Approach
+There are no parentheses, so there is no need to store the operation order; evaluate multiplication and division first when they are encountered.
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

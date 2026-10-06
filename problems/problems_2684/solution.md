@@ -1,4 +1,4 @@
-# [Python] BFS或DFS
+# [Python] BFS or DFS
 
 > slug: python-bfshuo-dfs-by-himymben-t19b
 > date: 2024-03-16
@@ -12,21 +12,21 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 从第一列开始多源BFS，看能走到的最深层数
-> 或者从第一列开始DFS，看能走到的最深层数
+> Run multi-source BFS from the first column to find the deepest reachable level.
+> Alternatively, run DFS from the first column to find the deepest reachable level.
 
-# 解题方法
+# Approach
 
-> 答案最大为列数
+> The answer is at most the number of columns.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(mn)$
 
-空间复杂度:
+Space complexity:
 > $O(m)$
 
 

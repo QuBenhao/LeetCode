@@ -1,4 +1,4 @@
-# [Python/Go] 取余模拟
+# [Python/Go] Simulation with modulo
 
 > Author: Benhao
 > Date: 2021-11-13
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按周长取余，并分情况讨论属于哪个边
+### Approach
+Take the step count modulo the perimeter, then determine which edge it falls on.
 
-### 代码
+### Code
 
 ```Python3 []
 class Robot:
@@ -55,7 +55,7 @@ class Robot:
         return [self.y, self.x]
 
     def getDir(self) -> str:
-        #"North" ，"East" ，"South" 或者 "West"
+        # "North", "East", "South", or "West"
         return self.dirs[self.dir]
 
 

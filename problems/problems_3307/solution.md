@@ -1,4 +1,4 @@
-# 二进制规律跟3304一样
+# The same binary pattern as in 3304
 
 > slug: er-jin-zhi-gui-lu-gen-3304yi-yang-by-him-2j8s
 > date: 2025-07-03
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-the-k-th-character-in-string-game-ii/solutions/DWHs3p/er-jin-zhi-gui-lu-gen-3304yi-yang-by-him-2j8s/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

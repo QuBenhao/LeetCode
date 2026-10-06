@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 成对的括号
+# [Python/Java/TypeScript/Go] Matching parentheses
 
 > slug: pythonjavatypescriptgo-cheng-dui-de-gua-bbsjz
 > date: 2022-10-04
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/minimum-add-to-make-parentheses-valid/solutions/7NT8yT/pythonjavatypescriptgo-cheng-dui-de-gua-bbsjz/
 
 ---
-### 解题思路
-当出现一个右括号时，会消除一个前面的左括号，如果前面没有可消除的左括号了，说明这个右括号是多余的，我们需要添加配对的才行。
-最后余下的左括号也需要添加配对的才行。
+### Approach
+Each closing parenthesis cancels an earlier opening parenthesis. If none is available, this closing parenthesis is unmatched and needs an opening parenthesis added.
+Any opening parentheses left over also need matching closing parentheses added.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

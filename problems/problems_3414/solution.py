@@ -9,17 +9,17 @@ class Solution(solution.Solution):
 
     def maximumWeight(self, intervals: List[List[int]]) -> List[int]:
         n = len(intervals)
-        # 按右端点升序，选中的区间在排序后构成一条链（后一个的左端点 > 前一个的右端点）
+        # Sort by right endpoint in ascending order; selected intervals form a chain in this order (each next left endpoint > the previous right endpoint)
         order = sorted(range(n), key=lambda i: intervals[i][1])
         rs = [intervals[i][1] for i in order]
-        # pref[k][p]：前 p+1 个区间里选 k 个互不重叠的最优 (得分, 升序下标元组)
+        # pref[k][p]: best (score, ascending tuple of indices) when choosing k non-overlapping intervals among the first p+1
         pref = [[None] * n for _ in range(4)]
         ans = (0, ())
         for p, i in enumerate(order):
             l, r, w = intervals[i]
             cur = [None] * 4
             cur[0] = (w, (i,))
-            lim = bisect_left(rs, l) - 1  # 最后一个满足 r < l 的位置，即能接在 i 前面的区间
+            lim = bisect_left(rs, l) - 1  # Last position satisfying r < l, i.e. an interval that can precede i
             if lim >= 0:
                 for k in range(1, 4):
                     bp = pref[k - 1][lim]

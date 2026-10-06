@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2022-11-29
@@ -11,17 +11,17 @@
 
 [TOC]
 
-# 思路
-> 交替二进制串只有两种，"010101"或者"101010"，我们统计与哪种更接近即可
+# Intuition
+> There are only two alternating binary patterns, "010101" and "101010". Find which one is closer.
 
-# 解题方法
-> 逐位统计不同的个数，另一个个数恰相反。返回最小的即可
+# Approach
+> Count mismatching positions. The other pattern has the complementary count; return the smaller count.
 
-# 复杂度
-- 时间复杂度: 
+# Complexity
+- Time complexity:
 > $O(n)$
 
-- 空间复杂度: 
+- Space complexity:
 > $O(1)$
 
 # Code

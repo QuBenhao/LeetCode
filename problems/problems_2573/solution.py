@@ -10,39 +10,39 @@ class Solution(solution.Solution):
         n = len(lcp)
         word = [''] * n
 
-        # 步骤1：构造字符串（贪心）
+        # Step 1: construct the string greedily
         for i in range(n):
-            # 找到与位置 i 有 lcp > 0 的位置 j，则 word[i] 必须等于 word[j]
+            # Find a position j with lcp > 0 relative to i; word[i] must equal word[j]
             for j in range(i):
                 if lcp[i][j] > 0:
                     word[i] = word[j]
                     break
 
-            # 如果没有找到，则需要分配一个新的字符
+            # If none exists, assign a new character
             if word[i] == '':
-                # 找到能用的最小字符
-                # 必须与所有 lcp[i][j] = 0 的位置 j 的字符不同
+                # Find the smallest usable character
+                # It must differ from the character at every j with lcp[i][j] = 0
                 used = set()
                 for j in range(i):
                     if lcp[i][j] == 0:
                         used.add(word[j])
 
-                # 选择最小可用字符
+                # Choose the smallest available character
                 for c in range(26):
                     ch = chr(ord('a') + c)
                     if ch not in used:
                         word[i] = ch
                         break
 
-                # 如果26个字母都用完了，无解
+                # If all 26 letters are used, there is no solution
                 if word[i] == '':
                     return ""
 
-        # 步骤2：验证 LCP 矩阵
-        # 计算 word 对应的 LCP 矩阵
+        # Step 2: validate the LCP matrix
+        # Compute the LCP matrix for word
         computed = [[0] * n for _ in range(n)]
 
-        # 从右下角向左上角填充（利用递推关系）
+        # Fill from bottom right to top left using the recurrence
         for i in range(n - 1, -1, -1):
             for j in range(n - 1, -1, -1):
                 if word[i] == word[j]:
@@ -53,7 +53,7 @@ class Solution(solution.Solution):
                 else:
                     computed[i][j] = 0
 
-        # 验证是否与给定矩阵一致
+        # Check whether it matches the given matrix
         for i in range(n):
             for j in range(n):
                 if computed[i][j] != lcp[i][j]:

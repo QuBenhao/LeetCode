@@ -1,4 +1,4 @@
-# [Python] 矩阵模拟
+# [Python] Matrix simulation
 
 > Author: Benhao
 > Date: 2024-03-01
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 依次遍历每行、每列、每个九宫格，判断是否有重复数字
+> Traverse each row, column, and 3x3 box, checking for duplicate digits.
 
-# 解题方法
+# Approach
 
-> 模拟
+> Simulation
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

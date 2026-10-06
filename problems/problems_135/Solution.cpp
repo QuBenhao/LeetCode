@@ -10,23 +10,23 @@ public:
     int candy(vector<int>& ratings) {
         int n = ratings.size();
         int ans = 0, cur = 1, top = 0, left = 0;
-        for (int i = 0; i <= n; i++) { // 增加i=n的情况保证最后一个递减序列也被处理
-            if (i == 0 || i == n || ratings[i-1] <= ratings[i]) { // 断点
+        for (int i = 0; i <= n; i++) { // Include i=n to ensure the final decreasing sequence is processed
+            if (i == 0 || i == n || ratings[i-1] <= ratings[i]) { // Break point
                 int len = i - left;
-                ans += len * (len - 1)/2 + max(top, len) - top; // 上次递减序列的贡献
+                ans += len * (len - 1)/2 + max(top, len) - top; // Contribution from the previous decreasing sequence
                 if (i == 0 || i == n || ratings[i-1] == ratings[i]) {
-                    cur = 1; // 断点重置糖果为1
+                    cur = 1; // Reset the candy count to 1 at the break point
                 } else {
-                    cur++; // 递增序列，要比上一次糖果多1
+                    cur++; // In an increasing sequence, use one more candy than the previous count
                 }
                 top = cur;
                 left = i;
-                ans += cur; // 累加当前递增序列的贡献
+                ans += cur; // Accumulate the contribution from the current increasing sequence
             } else {
-                cur = 1; // 当前递减，重置下次递增可以取的值
+                cur = 1; // Currently decreasing; reset the value available for the next increasing sequence
             }
         }
-        return ans-1; // 去掉i=n时的贡献1
+        return ans-1; // Remove the extra contribution of 1 from i=n
     }
 };
 

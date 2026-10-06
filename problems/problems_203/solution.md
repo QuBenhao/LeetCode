@@ -1,4 +1,4 @@
-# [Python] 使用dummy偷个懒
+# [Python] Simplify with a dummy node
 
 > Author: Benhao
 > Date: 2021-06-04
@@ -7,22 +7,22 @@
 
 ---
 
-### 解题思路
-每次遍历当前指针和前一个指针，如果当前指针的值要删除，就将前一个指针的next变成当前的next即可；否则两者正常往后移。
+### Approach
+Traverse with a current pointer and a previous pointer. If the current node should be deleted, set the previous node's next to the current node's next; otherwise, advance both pointers normally.
 
-**另外**
-一般这种移除链表节点的题都可以使用迭代or递归来解决。
-比如说如果当前节点是要删除的点，那么返回的就是它的next(作为新的头)；否则处理后面的部分然后返回自己作为头（头不变）；
+**Also**
+Problems involving node removal from linked lists can generally be solved either iteratively or recursively.
+If the current node should be deleted, return its next node as the new head. Otherwise, process the remainder of the list and return the current node as the unchanged head.
 ```python3
         if not head:
             return head
-        # 处理后面的部分
+        # Process the remainder of the list
         head.next = self.removeElements(head.next, val)
-        # 谁是头
+        # Determine the head
         return head.next if head.val == val else head
 ```
 
-### 代码
+### Code
 
 ```python3
 # Definition for singly-linked list.

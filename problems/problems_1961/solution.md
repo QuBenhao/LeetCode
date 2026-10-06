@@ -1,4 +1,4 @@
-# [Python/Java] 模拟
+# [Python/Java] Simulation
 
 > Author: Benhao
 > Date: 2021-08-08
@@ -7,17 +7,17 @@
 
 ---
 
-### 解题思路
-从头开始拼，能拼出s才行（复杂度比较高，不如找到和s等长的位置比较一次）
+### Approach
+Concatenate from the beginning until s is formed. This is relatively expensive; comparing once when the length reaches len(s) is better.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def isPrefixString(self, s: str, words: List[str]) -> bool:
         return any(''.join(words[:i+1]) == s for i in range(len(words)))
 ```
-优化后
+Optimized version
 ```Python3 []
 class Solution:
     def isPrefixString(self, s: str, words: List[str]) -> bool:

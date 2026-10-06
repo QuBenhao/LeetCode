@@ -1,4 +1,4 @@
-# [Python] 记忆化递归
+# [Python] Memoized recursion
 
 > slug: python-ji-yi-hua-di-gui-by-himymben-5kvy
 > date: 2022-05-08
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/check-if-there-is-a-valid-parentheses-string-path/solutions/yE9IJy/python-ji-yi-hua-di-gui-by-himymben-5kvy/
 
 ---
-### 解题思路
-维护到(i,j)时左括号和右括号个数的差异，到右下角的时候有0才返回True。
+### Approach
+Track the difference between opening and closing parenthesis counts at (i,j). Return True only if 0 is reachable at the bottom-right corner.
 
-### 代码
+### Code
 
 ```python3
 DIRS = (0, 1), (1, 0)

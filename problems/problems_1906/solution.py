@@ -13,7 +13,7 @@ class Solution(solution.Solution):
         :rtype: List[int]
         """
         m = max(nums)
-        # 差分数组
+        # Difference array
         diff = [[0] * (m + 1)]
         for num in nums:
             diff.append(list(diff[-1]))
@@ -21,9 +21,9 @@ class Solution(solution.Solution):
 
         ans = []
         for l, r in queries:
-            res = m  # 最大不会超过最大值
-            last = -m  # 保证第一个数做差不影响结果
-            # 我们通过差分数组求得l到r之间有哪些数
+            res = m  # The answer cannot exceed the maximum value
+            last = -m  # Ensure the first difference does not affect the result
+            # Use prefix differences to find which values occur from l through r
             for i in range(1, m + 1):
                 if diff[r + 1][i] - diff[l][i] > 0:
                     res = min(res, i - last)

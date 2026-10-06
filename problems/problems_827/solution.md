@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] DFS + 标记岛屿 + 枚举变化点
+# [Python/Java/TypeScript/Go] DFS + label islands + enumerate cells to change
 
 > Author: Benhao
 > Date: 2022-09-18
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-1. 遍历 + DFS 统计已知所有岛屿的面积以及将岛屿标号、将点映射到岛屿的标号上
-2. 枚举变化点，统计它四周点所属岛屿及面积，返回最大值即可
+### Approach
+1. Traverse with DFS to compute each island's area, label the islands, and map each cell to its island label
+2. Enumerate cells to change, total the areas of the distinct islands adjacent to each, and return the maximum
 
-### 代码
+### Code
 
 ```Python3 []
 DIRS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
@@ -224,7 +224,7 @@ func max(a, b int) int {
 }
 ```
 
-PS: 可以直接修改原数组作为标记，省去空间和坐标转换
+PS: Modify the original array directly to mark islands and save space and coordinate conversions
 ```Python3
 DIRS = [(-1, 0), (0, 1), (1, 0), (0, -1)]
 class Solution:

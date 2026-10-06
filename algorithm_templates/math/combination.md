@@ -1,94 +1,94 @@
-# 组合数
+# Binomial Coefficients
 
-[排列组合](../backtrack/permutaions_combinations.md)
+[Permutations and Combinations](../backtrack/permutaions_combinations.md)
 
-## **组合数求和公式**
+## **Binomial Coefficient Sum Identities**
 
-### **1. 全部组合数求和**
+### **1. Sum of All Binomial Coefficients**
 
-**公式**：
+**Formula**:
 $$
 \sum_{k=0}^n \binom{n}{k} = 2^n
 $$
 
-**解释**：
+**Explanation**:
 
-- **二项式定理**：根据二项式展开式，令 $` x = 1 `$：
+- **Binomial theorem**: Set $` x = 1 `$ in the binomial expansion:
   $`
   (1 + 1)^n = \sum_{k=0}^n \binom{n}{k} 1^k 1^{n-k} = \sum_{k=0}^n \binom{n}{k}.
   `$
-  因此，和为 $` 2^n `$。
+  Therefore, the sum is $` 2^n `$.
 
-- **组合意义**：从 $` n `$ 个元素中选取任意多个元素（包括选 0 个或全选），总共有 $` 2^n `$ 种方式。
+- **Combinatorial interpretation**: There are $` 2^n `$ ways to choose any number of elements from $` n `$ elements, including choosing none or all of them.
 
-**示例**：
+**Example**:
 
-- 当 $` n = 3 `$ 时：
+- When $` n = 3 `$:
   $`
   \binom{3}{0} + \binom{3}{1} + \binom{3}{2} + \binom{3}{3} = 1 + 3 + 3 + 1 = 8 = 2^3.
   `$
 
-### **2. 带权组合数求和（每个组合乘以其元素个数）**
+### **2. Weighted Sum of Binomial Coefficients (Weighted by Subset Size)**
 
-**公式**：
+**Formula**:
 $$
 \sum_{k=0}^n k \binom{n}{k} = n \cdot 2^{n-1}
 $$
 
-**解释**：
+**Explanation**:
 
-- **代数推导**：利用二项式定理的导数：
+- **Algebraic derivation**: Differentiate the binomial expansion:
   $`
   \frac{d}{dx} \left( (1+x)^n \right) = n(1+x)^{n-1} = \sum_{k=0}^n k \binom{n}{k} x^{k-1}.
   `$
-  两边乘以 $` x `$，再令 $` x = 1 `$，得：
+  Multiply both sides by $` x `$, then set $` x = 1 `$ to obtain:
   $`
   \sum_{k=0}^n k \binom{n}{k} = n \cdot 2^{n-1}.
   `$
 
-- **组合意义**：从 $` n `$ 人中选一个委员会（任意大小），再选一个主席。总共有两种方式：
-    1. 先选主席（$` n `$ 种选择），再从剩余 $` n-1 `$ 人中任意选成员（$` 2^{n-1} `$ 种）。
-    2. 先选 $` k `$ 人（$` \binom{n}{k} `$ 种），再从 $` k `$ 人中选主席（$` k `$ 种），总数为 $
+- **Combinatorial interpretation**: Choose a committee of any size from $` n `$ people, then choose its chair. This can be counted in two ways:
+    1. Choose the chair first ($` n `$ choices), then choose any subset of the remaining $` n-1 `$ people as members ($` 2^{n-1} `$ choices).
+    2. Choose $` k `$ people first ($` \binom{n}{k} `$ choices), then choose a chair from those $` k `$ people ($` k `$ choices), giving a total of $
        ` \sum_{k=0}^n k \binom{n}{k} `$。
 
-**示例**：
+**Example**:
 
-- 当 $` n = 4 `$ 时：
+- When $` n = 4 `$:
   $`
   0\binom{4}{0} + 1\binom{4}{1} + 2\binom{4}{2} + 3\binom{4}{3} + 4\binom{4}{4} = 0 + 4 + 12 + 12 + 4 = 32 = 4 \cdot 2^{3}.
   `$
 
-### **3. 奇数、偶数组合数的和**
+### **3. Sums of Binomial Coefficients with Odd and Even Indices**
 
-**公式**:
+**Formula**:
 $$
 \sum_{k=1}^{\lceil (n-1)/2 \rceil} \binom{n}{2k+1} = \sum_{k=0}^{\lceil (n-1)/2 \rceil} \binom{n}{2k} = 2^{n-1}
 $$
 
-由二项式展开可证
+This follows from the binomial expansion.
 
-## **其他常见组合数求和公式**
+## **Other Common Binomial Coefficient Sum Identities**
 
-1. **平方和公式**：
+1. **Sum of squares**:
    $`
    \sum_{k=0}^n \binom{n}{k}^2 = \binom{2n}{n}.
    `$
-   **解释**：从 $` 2n `$ 个元素中选 $` n `$ 个，等价于分成两组各 $` n `$ 个，并选 $` k `$ 个从第一组、$` n−k `$ 个从第二组。
+   **Explanation**: Choosing $` n `$ elements from $` 2n `$ elements is equivalent to dividing them into two groups of $` n `$ elements, then choosing $` k `$ from the first group and $` n−k `$ from the second.
 
-2. **交替符号和**：
+2. **Alternating sum**:
    $`
    \sum_{k=0}^n (-1)^k \binom{n}{k} = 0 \quad (n \geq 1).
    `$
-   **解释**：由二项式定理 $` (1 - 1)^n = 0 `$。
+   **Explanation**: By the binomial theorem, $` (1 - 1)^n = 0 `$.
 
-## **总结**
+## **Summary**
 
-| 求和类型          | 公式                        | 核心推导工具    |
+| Sum Type | Formula | Main Derivation Method |
 |---------------|---------------------------|-----------|
-| 全部组合数求和       | $` 2^n `$                 | 二项式定理     |
-| 带权组合数求和（元素个数） | $` n \cdot 2^{n-1} `$     | 导数或组合解释   |
-| 平方和           | $` \binom{2n}{n} `$       | 组合恒等式     |
-| 交替符号和         | $` 0 `$（当 $` n \geq 1 `$） | 二项式定理代入负值 |
+| Sum of all binomial coefficients | $` 2^n `$ | Binomial theorem |
+| Sum weighted by subset size | $` n \cdot 2^{n-1} `$ | Differentiation or a combinatorial argument |
+| Sum of squares | $` \binom{2n}{n} `$ | Combinatorial identity |
+| Alternating sum | $` 0 `$ (when $` n \geq 1 `$) | Substitute a negative value into the binomial expansion |
 
-这些公式在概率论、组合优化和算法分析中有广泛应用，例如动态规划中的状态转移计数。
+These identities are widely used in probability, combinatorial optimization, and algorithm analysis, such as counting state transitions in dynamic programming.
 

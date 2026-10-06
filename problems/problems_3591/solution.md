@@ -1,4 +1,4 @@
-# 模拟
+# Simulation
 
 > slug: mo-ni-by-himymben-e7af
 > date: 2025-06-22
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/check-if-any-element-has-prime-frequency/solutions/LdtLXT/mo-ni-by-himymben-e7af/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -1,4 +1,4 @@
-# [Python] 坐标哈希+二分
+# [Python] Index hash map + binary search
 
 > Author: Benhao
 > Date: 2022-11-16
@@ -11,11 +11,11 @@
 
 [TOC]
 
-# 思路
-> 将字符串处理为按字符分类的坐标哈希数组, 这样对每个单词, 不断二分往后找下一个字符的坐标, 就可以判断是否是子序列了
+# Intuition
+> Map each character to an array of its indices in the string. For each word, repeatedly binary search for the next character's index farther to the right to determine whether it is a subsequence
 
-# 解题方法
-> 用哈希坐标将输入的字符串转换, 再依次判断每个字符串是否是子序列
+# Approach
+> Convert the input string into a hash map of indices, then check each string to see whether it is a subsequence
 
 # Code
 ```Python3 []

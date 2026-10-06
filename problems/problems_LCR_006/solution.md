@@ -1,4 +1,4 @@
-# [Python] 双指针
+# [Python] Two pointers
 
 > slug: python-shuang-zhi-zhen-by-himymben-8ci6
 > date: 2022-03-14
@@ -7,7 +7,7 @@
 > url: https://leetcode.cn/problems/kLl5u1/solutions/QhewVz/python-shuang-zhi-zhen-by-himymben-8ci6/
 
 ---
-### 代码
+### Code
 
 ```python3
 class Solution:

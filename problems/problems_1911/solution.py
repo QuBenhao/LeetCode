@@ -11,7 +11,7 @@ class Solution(solution.Solution):
         :rtype: int
         """
         n = len(nums)
-        # dp[i][0] 作为-结尾,dp[i][1]作为+结尾,dp[i][2]不包含i结尾为-，dp[i][3]不包含i结尾为+
+        # dp[i][0]: include i, end with -; dp[i][1]: include i, end with +; dp[i][2]: exclude i, end with -; dp[i][3]: exclude i, end with +
         dp0 = dp2 = dp3 = 0
         dp1 = nums[0]
         for i in range(1, n):

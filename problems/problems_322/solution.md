@@ -1,4 +1,4 @@
-# [Python] 记忆化搜索/二进制BFS
+# [Python] Memoized search / binary BFS
 
 > Author: Benhao
 > Date: 2024-03-24
@@ -12,25 +12,25 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 取了一个钱，这个问题就变成取钱后的最小取钱方式，标准的递归题目
+> After taking one coin, the problem becomes finding the minimum number of coins for the remaining amount: a standard recursive problem.
 
-# 解题方法
+# Approach
 
-> 记忆化搜索（动态规划）
-> 这里提一下二进制转换，$a+b+c=x$求解可以转化为$2^a*2^b*2^c=2^x$，也就是$1 << x = 1 << a << b << c$
-> 题目可以转化为：我们的取硬币操作可以理解为右移操作，取的总数变为$1<<amount$，我们最少需要右移多少次直到最小位出现1，也就是我们找到了取$1<<0$的路径了。这个时候其他位是不是1不影响，只要有一个路径出现就代表找到了。
-> 在BFS的同时遍历coins进行右移，模拟取的操作，取了a以后下一次要取的数就变为$(1<<x)>>a$，重复这样的BFS
+> Memoized search (dynamic programming)
+> A note on the binary transformation: solving $a+b+c=x$ can be transformed into $2^a*2^b*2^c=2^x$, or $1 << x = 1 << a << b << c$.
+> Reframe taking a coin as a right shift, with the total represented by $1<<amount$. Find the fewest right shifts needed for a 1 to appear in the lowest bit, meaning a path to $1<<0$ has been found. Whether other bits are 1 does not matter; one such path is enough.
+> During BFS, iterate over coins and shift right to simulate taking each coin. After taking a, the next state is $(1<<x)>>a$. Repeat this BFS.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
-> 记忆化$O(n)$
-> 二进制BFS$O(1)$
+Space complexity:
+> Memoization $O(n)$
+> Binary BFS $O(1)$
 
 
 

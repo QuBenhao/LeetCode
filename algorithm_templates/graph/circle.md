@@ -1,3 +1,3 @@
-# 环
+# Cycles
 
-使用[并查集](../data_structure/union_find_set.md)
+Use [union-find](../data_structure/union_find_set.md)

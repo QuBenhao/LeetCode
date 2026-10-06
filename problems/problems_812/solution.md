@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 数学
+# [Python/Java/JavaScript/Go] Mathematics
 
 > Author: Benhao
 > Date: 2022-05-15
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-方法一: 从网上找一个合适的，从三点坐标计算三角形面积的公式
-方法二: 直接cv这里的公式
+### Approach
+Method 1: find a suitable formula online for a triangle's area from its three vertex coordinates
+Method 2: copy and paste the formula here
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

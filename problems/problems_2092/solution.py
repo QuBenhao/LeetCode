@@ -19,9 +19,9 @@ class Solution(solution.Solution):
                 x, y, _ = meetings[i]
                 uf.union(x, y)
                 i += 1
-            # 撤销合并
-            # 1. 都不知道秘密, 这个会开了等于没开。
-            # 实际上这有这一轮刚建连的, 才有可能没和0连接, 因为之前留下的都是和0连通的, 所以这样撤销是没问题的。
+            # Undo the unions
+            # 1. Neither person knows the secret, so the meeting has no effect
+            # Only connections created in this round can be disconnected from 0, since all retained earlier connections reach 0; undoing them this way is safe
             for x, y, _ in meetings[start: i]:
                 if not uf.is_connected(x, 0):
                     uf.parent[x] = x
@@ -35,7 +35,7 @@ class UnionFind:
 
     def find(self, x: int) -> int:
         while self.parent[x] != x:
-            self.parent[x] = self.parent[self.parent[x]]  # 路径压缩
+            self.parent[x] = self.parent[self.parent[x]]  # Path compression
             x = self.parent[x]
         return x
 
@@ -44,7 +44,7 @@ class UnionFind:
         root_y = self.find(y)
 
         if root_x == root_y:
-            return False  # 已经在同一集合
+            return False  # Already in the same set
         self.parent[root_x] = root_y
         return True
 

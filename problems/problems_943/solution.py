@@ -23,10 +23,10 @@ class Solution(solution.Solution):
         track = [[-1] * n for _ in range(mask)] # track[mask][i] represents the previous word index before words[i] in the optimal path for mask
         for s in range(1, mask):
             for i in range(n):
-                if ((s >> i) & 1) == 0: # s 不可能以 words[i] 结尾
+                if ((s >> i) & 1) == 0: # s cannot end with words[i]
                     continue
                 for j in range(n):
-                    if ((s >> j) & 1) == 1: # s 已经包含 words[j]
+                    if ((s >> j) & 1) == 1: # s already contains words[j]
                         continue
                     if dp[ns := s | (1 << j)][j] < dp[s][i] + g[i][j]:
                         dp[ns][j] = dp[s][i] + g[i][j]

@@ -1,4 +1,4 @@
-# [Python] 记忆化递归
+# [Python] Memoized recursion
 
 > slug: python-ji-yi-hua-di-gui-by-himymben-i27f
 > date: 2021-11-27

@@ -1,4 +1,4 @@
-# [Python/Java/Go/C/Ts] 滑动窗口
+# [Python/Java/Go/C/Ts] Sliding window
 
 > Author: Benhao
 > Date: 2024-03-06
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 题目要求的是子串，当我们遇到相同字符时，需要将子串起始位置移动到上一个相同字符之后，这符合滑动窗口的思想
+> The problem asks for a substring. When a repeated character appears, move the start of the substring past that character's previous occurrence. This fits the sliding-window approach.
 
-# 解题方法
+# Approach
 
-> 滑动窗口
+> Sliding window
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

@@ -10,24 +10,24 @@ class Solution(solution.Solution):
         :type piles: List[int]
         :rtype: bool
         """
-        # 先手可以永远拿奇数位或者永远拿偶数位,两个里面更大的那个是必胜的
+        # The first player can always take odd positions or always take even positions; choosing the larger sum guarantees a win
         # return True
 
-        # # dp[i][j]的最大值由(piles[i]-dp[i+1][j],piles[j]-dp[i][j-1])决定
-        # # 要先求长度短的
+        # # The maximum dp[i][j] is determined by (piles[i]-dp[i+1][j],piles[j]-dp[i][j-1])
+        # # Compute shorter intervals first
         # n = len(piles)
         # dp = [[piles[i]] * n for i in range(n)]
-        # # 长度为1到n
+        # # Lengths from 1 to n
         # for length in range(2, n + 1):
-        #     # 枚举左端点
+        #     # Enumerate left endpoints
         #     for i in range(n - length + 1):
-        #         # 对应的右端点
+        #         # Corresponding right endpoint
         #         j = i + length - 1
         #         dp[i][j] = max(piles[i] - dp[i + 1][j], piles[j] - dp[i][j - 1])
         # # print(dp)
         # return dp[0][n - 1] > 0
 
-        # 优化为一维
+        # Optimize to one dimension
         n = len(piles)
         dp = list(piles)
         for i in range(n - 2, -1, -1):

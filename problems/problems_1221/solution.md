@@ -1,4 +1,4 @@
-# [Python/Java] 贪心统计L和R的个数
+# [Python/Java] Greedily count L and R
 
 > Author: Benhao
 > Date: 2021-09-07
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-因为一开始给出的是平衡字符串，L和R的个数是相等的，也就是说当我们分割出去一个平衡子串后，剩下的L和R的个数依然相等。每次能分出去都分的话，这样分串是最多的。
+### Approach
+The input string is balanced, with equal counts of L and R. Removing a balanced substring leaves equal counts of L and R. Splitting off a substring whenever possible therefore gives the largest number of substrings.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

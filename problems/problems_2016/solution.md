@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 动态规划
+# [Python/Java/JavaScript/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2022-02-25
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-维护一个到当前的最小值，该最小值必然和当前数组成当前数能构成的差的最大值。比较每一个数能组成的最大值，维护最终最大值即可。
+### Approach
+Maintain the minimum value seen so far. Pairing it with the current value gives the largest possible difference for that value. Compare these differences and keep the overall maximum.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

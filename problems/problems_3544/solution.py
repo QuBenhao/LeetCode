@@ -21,7 +21,7 @@ class Solution(solution.Solution):
             idx = max(c, 0) * n * k + d * n + i
             if memo[idx] is not None:
                 return memo[idx]
-            # 反转当前或不反转
+            # Invert the current subtree or leave it unchanged
             ans = nums[i] * c
             if graph[i]:
                 ans += sum(dfs(j, max(0, d - 1), c, i) for j in graph[i] if j != pa)

@@ -9,7 +9,7 @@ import (
 
 func kthLargestValue(matrix [][]int, k int) int {
 	m, n := len(matrix), len(matrix[0])
-	a := make([]int, 0, m*n) // 预分配空间
+	a := make([]int, 0, m*n) // Preallocate space
 	colSum := make([]int, n)
 	for _, row := range matrix {
 		s := 0

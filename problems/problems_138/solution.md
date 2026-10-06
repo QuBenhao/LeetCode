@@ -1,4 +1,4 @@
-# [Rust] O(1)空间复制
+# [Rust] Copy with O(1) space
 
 > Author: Benhao
 > Date: 2024-08-24

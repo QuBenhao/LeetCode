@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟 
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-by-himymben-k4kr
 > date: 2022-09-17
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/largest-substring-between-two-equal-characters/solutions/a8yWAT/pythonjavatypescriptgo-by-himymben-k4kr/
 
 ---
-### 解题思路
-根据题意统计每个字母最左最右坐标，最终求最大值即可
+### Approach
+Record the leftmost and rightmost indices of each letter, then compute the maximum required distance.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

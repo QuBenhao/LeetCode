@@ -18,8 +18,8 @@ class Solution {
 
   vector<vector<int>> minimumArea(const vector<vector<int>> &a) {
     int m = a.size(), n = a[0].size();
-    // f[i+1][j+1] 表示包含【左上角为 (0,0) 右下角为 (i,j) 的子矩形】中的所有 1
-    // 的最小矩形面积
+    // For the subrectangle with top-left (0,0) and bottom-right (i,j), f[i+1][j+1] stores
+    // the minimum area of a rectangle covering all its ones.
     vector f(m + 1, vector<int>(n + 1));
     vector<tuple<int, int, int>> border(n + 1, {-1, -1, -1});
     for (int i = 0; i < m; i++) {
@@ -32,12 +32,12 @@ class Solution {
           right = j;
         }
         auto &[pre_top, pre_left, pre_right] = border[j];
-        if (left < 0) {                  // 这一排目前全是 0
-          f[i + 1][j + 1] = f[i][j + 1]; // 等于上面的结果
-        } else if (pre_top < 0) {        // 这一排有 1，上面全是 0
+        if (left < 0) {                  // This row contains only zeros so far
+          f[i + 1][j + 1] = f[i][j + 1]; // Same as the result above
+        } else if (pre_top < 0) {        // This row contains a 1; everything above is 0
           f[i + 1][j + 1] = right - left + 1;
           border[j] = {i, left, right};
-        } else { // 这一排有 1，上面也有 1
+        } else { // Both this row and the area above contain a 1
           int l = min(pre_left, left), r = max(pre_right, right);
           f[i + 1][j + 1] = (r - l + 1) * (i - pre_top + 1);
           border[j] = {pre_top, l, r};
@@ -50,7 +50,7 @@ class Solution {
   int solve(vector<vector<int>> &a) {
     int m = a.size(), n = a[0].size();
 
-    // 预处理每一行最左最右 1 的列号，用于中间区域最小矩形面积的计算
+    // Precompute the columns of the leftmost and rightmost ones in each row to calculate the minimum rectangle area for the middle region
     vector<pair<int, int>> lr(m);
     for (int i = 0; i < m; i++) {
       int l = -1, r = 0;
@@ -65,20 +65,20 @@ class Solution {
       lr[i] = {l, r};
     }
 
-    // lt[i+1][j+1] = 包含【左上角为 (0,0) 右下角为 (i,j) 的子矩形】中的所有 1
-    // 的最小矩形面积
+    // For the subrectangle with top-left (0,0) and bottom-right (i,j), lt[i+1][j+1] stores
+    // the minimum area of a rectangle covering all its ones.
     vector<vector<int>> lt = minimumArea(a);
     a = rotate(a);
-    // lb[i][j+1] = 包含【左下角为 (m-1,0) 右上角为 (i,j) 的子矩形】中的所有 1
-    // 的最小矩形面积
+    // For the subrectangle with bottom-left (m-1,0) and top-right (i,j), lb[i][j+1] stores
+    // the minimum area of a rectangle covering all its ones.
     vector<vector<int>> lb = rotate(rotate(rotate(minimumArea(a))));
     a = rotate(a);
-    // rb[i][j] = 包含【右下角为 (m-1,n-1) 左上角为 (i,j) 的子矩形】中的所有 1
-    // 的最小矩形面积
+    // For the subrectangle with bottom-right (m-1,n-1) and top-left (i,j), rb[i][j] stores
+    // the minimum area of a rectangle covering all its ones.
     vector<vector<int>> rb = rotate(rotate(minimumArea(a)));
     a = rotate(a);
-    // rt[i+1][j] = 包含【右上角为 (0,n-1) 左下角为 (i,j) 的子矩形】中的所有 1
-    // 的最小矩形面积
+    // For the subrectangle with top-right (0,n-1) and bottom-left (i,j), rt[i+1][j] stores
+    // the minimum area of a rectangle covering all its ones.
     vector<vector<int>> rt = rotate(minimumArea(a));
 
     int ans = INT_MAX;
@@ -92,7 +92,7 @@ class Solution {
             top = min(top, j - 1);
             bottom = j - 1;
           }
-          // 图片上左
+          // Top-left case in the diagram
           ans = min(ans, lt[i][n] + (right - left + 1) * (bottom - top + 1) +
                              lb[j][n]);
         }
@@ -102,9 +102,9 @@ class Solution {
     if (m >= 2 && n >= 2) {
       for (int i = 1; i < m; i++) {
         for (int j = 1; j < n; j++) {
-          // 图片上中
+          // Top-middle case in the diagram
           ans = min(ans, lt[i][n] + lb[i][j] + rb[i][j]);
-          // 图片上右
+          // Top-right case in the diagram
           ans = min(ans, lt[i][j] + rt[i][j] + lb[i][n]);
         }
       }

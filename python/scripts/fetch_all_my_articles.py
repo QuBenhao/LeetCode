@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """
-全量拉取用户在 LeetCode 发布的题解文章，整理进仓库 articles/ 目录。
+Fetch all of a user's published LeetCode solution articles into the repository's articles/ directory.
 
-用法:
+Usage:
   python python/scripts/fetch_all_my_articles.py [--dry-run] [--limit N] [--force] [--delay S] [--retry-empty] [--status]
 
-说明:
-- 列表用 solutionArticles(userSlug) 全量分页拉取（无需登录）
-- 正文用 solutionArticle(slug) 拉取（需要登录态 COOKIE，从项目根 .env 读取）
-- 输出: articles/<questionTitleSlug>/<slug>.md + articles/_index.json 汇总
-- 断点续传: 已存在的 md 文件直接跳过；空正文文章标记 empty，--retry-empty 时补拉
-- 健壮性: 每处理一篇就增量写回 _index.json（含 ok/empty/skipped/last_heartbeat），进程被杀也不丢进度
-- 启动方式: 用 WorkBuddy 的 run_in_background 启动；会话暂停会断，断后重跑同一条 run 命令即可精确续传
-- 判断断没断: 跑 `status` 子命令（查进程存活 + 心跳），或看 /tmp 日志最后修改时间
+Notes:
+- Fetch all list pages with solutionArticles(userSlug) (no login required)
+- Fetch article bodies with solutionArticle(slug) (requires an authenticated COOKIE read from the project root .env)
+- Output: articles/<questionTitleSlug>/<slug>.md plus an articles/_index.json summary
+- Resume: skip existing md files; mark articles with empty bodies as empty and refetch them with --retry-empty
+- Robustness: update _index.json incrementally after each article (including ok/empty/skipped/last_heartbeat) so process termination does not lose progress
+- Launch through WorkBuddy's run_in_background; pausing the session interrupts the process, and rerunning the same run command resumes from the saved progress
+- Check for interruption with the `status` subcommand (process liveness and heartbeat), or check the /tmp log's last modification time
 """
 import argparse
 import json
@@ -145,11 +145,11 @@ def fetch_content(slug: str, cookie: str, retries: int = 3):
 
 
 def is_done(md_path: Path, retry_empty: bool = False) -> bool:
-    """已完成 = 文件已存在。
+    """Complete means the file already exists.
 
-    默认：任何已存在的文件（含占位符）都视为已完成，跳过，避免每轮在
-    拉取失败的空文章上重复浪费时间。
-    retry_empty=True 时（补拉模式）一律视为未完成，强制重拉。
+    By default, any existing file (including a placeholder) is treated as complete
+    and skipped to avoid repeatedly wasting time on empty articles that failed to fetch.
+    With retry_empty=True, treat every article as incomplete and force a refetch.
     """
     if not md_path.exists():
         return False
@@ -211,7 +211,7 @@ def write_index(index_map: dict, total: int):
 
 
 def _pgrep_pids(pattern: str, self_pid: int) -> list:
-    """返回存活的匹配 pid（排除自身）。无 pgrep 时返回空。"""
+    """Return matching live PIDs, excluding this process; return an empty list if pgrep is unavailable."""
     try:
         out = subprocess.run(
             ["pgrep", "-f", pattern], capture_output=True, text=True
@@ -233,7 +233,7 @@ def _pgrep_pids(pattern: str, self_pid: int) -> list:
 
 
 def do_status():
-    """打印拉取进度与进程存活状态，不依赖 WorkBuddy 界面。"""
+    """Print fetch progress and process liveness without relying on the WorkBuddy interface."""
     idx_path = ARTICLES_DIR / "_index.json"
     if not idx_path.exists():
         print("[状态] 尚未开始：没有 _index.json。运行不带 --status 的命令启动拉取。")
@@ -309,7 +309,7 @@ def main():
         md_path = ARTICLES_DIR / qslug / f"{slug}.md"
 
         if not args.force and is_done(md_path, args.retry_empty):
-            # 已成功拉取过：记录 skipped，不重复请求
+            # Already fetched successfully: record skipped and do not request it again
             stats["skipped"] += 1
             index_map[slug] = {
                 "title": n.get("title"),
@@ -324,7 +324,7 @@ def main():
                 "file": str(md_path.relative_to(ROOT)),
                 "status": "skipped",
             }
-            # skipped 不频繁写盘，避免刷屏；但仍累计
+            # Avoid frequent disk writes for skipped articles, but still count them
             continue
 
         logger.info(f"[{i}/{len(nodes)}] {n.get('title')} ({qslug})")
@@ -343,7 +343,7 @@ def main():
             "file": str(md_path.relative_to(ROOT)),
             "status": res,
         }
-        # 每篇增量写盘：进程被杀也不丢进度，且空文章被记录为 empty 便于后续补拉
+        # Write after each article to survive process termination; record empty articles for later retries
         write_index(index_map, total)
 
     write_index(index_map, total)

@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2022-02-14
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-分别维护 买入、卖出、冷冻期 的最大值，答案由最终卖出和冷冻期的最大值组成
+### Approach
+Maintain the maximum values for buying, selling, and cooldown separately. The answer is the maximum of the final selling and cooldown states.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

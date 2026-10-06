@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2024-03-20
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 先找到要处理的这一段，递归处理后面，再将这一段翻转，从头开始一个个链接到尾部
+> First identify the segment to process, recursively process the rest, then reverse this segment by attaching its nodes to the tail one at a time from the head.
 
-# 解题方法
+# Approach
 
-> 模拟
+> Simulation
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

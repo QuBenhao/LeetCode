@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 数学
+# [Python/Java/JavaScript/Go] Mathematics
 
 > slug: pythonjavajavascriptgo-shu-xue-by-himymb-9nkj
 > date: 2022-03-02
@@ -7,17 +7,17 @@
 > url: https://leetcode.cn/problems/add-digits/solutions/J6sgQd/pythonjavajavascriptgo-shu-xue-by-himymb-9nkj/
 
 ---
-### 解题思路
-观察:
-1. 最终答案肯定为0-9
-2. 只有0才能得到0，其他数字只要有数就永远不会加出0，那么其他数字只能对应1-9
-3. 函数满足 f(a + 1) = f(a) + 1 (这里结果的10看作1)
+### Approach
+Observations:
+1. The final answer must be between 0 and 9.
+2. Only 0 yields 0. Any other number has a nonzero digit, so its digit sum cannot become 0; its result must be between 1 and 9.
+3. The function satisfies f(a + 1) = f(a) + 1 (treat a result of 10 as 1 here).
 
-结果只能是1-9的无限循环
+The results therefore cycle through 1-9 indefinitely.
 
-9个一循环，也就是f(a + 9) = f(a)，那么我们抛去加的多余的9，结果一致，即f(a) = f(a % 9) (这里结果的f(0)看作9)
+The cycle length is 9, so f(a + 9) = f(a). Removing extra multiples of 9 leaves the result unchanged: f(a) = f(a % 9) (treat f(0) as 9 here).
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

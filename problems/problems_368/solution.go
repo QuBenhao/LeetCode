@@ -10,18 +10,18 @@ import (
 func largestDivisibleSubset(nums []int) (ans []int) {
 	sort.Ints(nums)
 	n := len(nums)
-	// 定义 f[i] 为考虑前 i 个数字，且以第 i 个数为结尾的最长「整除子集」长度。
+	// f[i] is the length of the longest divisible subset ending at the ith number among the numbers considered so far.
 	f := make([]int, n)
-	// 定义 g[i] 为记录 f[i] 是由哪个下标的状态转移而来，如果 f[i] = f[j] + 1, 则有 g[i] = j。
+	// g[i] records the predecessor index used to obtain f[i]: if f[i] = f[j] + 1, then g[i] = j.
 	g := make([]int, n)
 
 	for i := 0; i < n; i++ {
-		// 至少包含自身一个数，因此起始长度为 1，由自身转移而来
+		// The subset contains at least the number itself, so start with length 1 and itself as the predecessor
 		l := 1
 		prev := i
 		for j := 0; j < i; j++ {
 			if nums[i]%nums[j] == 0 {
-				// 如果能接在更长的序列后面，则更新「最大长度」&「从何转移而来」
+				// If this number can extend a longer sequence, update the maximum length and predecessor
 				if f[j]+1 > l {
 					l = f[j] + 1
 					prev = j
@@ -29,12 +29,12 @@ func largestDivisibleSubset(nums []int) (ans []int) {
 			}
 		}
 
-		// 记录「最终长度」&「从何转移而来」
+		// Record the final length and predecessor
 		f[i] = l
 		g[i] = prev
 	}
 
-	// 遍历所有的 f[i]，取得「最大长度」和「对应下标」
+	// Scan all f[i] values to find the maximum length and its index
 	max := -1
 	idx := -1
 	for i := 0; i < n; i++ {
@@ -44,7 +44,7 @@ func largestDivisibleSubset(nums []int) (ans []int) {
 		}
 	}
 
-	// 使用 g[] 数组回溯出具体方案
+	// Reconstruct the subset by following g[]
 	for len(ans) != max {
 		ans = append(ans, nums[idx])
 		idx = g[idx]

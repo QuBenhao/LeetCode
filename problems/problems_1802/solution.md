@@ -1,4 +1,4 @@
-# [Python] 二分法，给定一个值是否存在这个构造
+# [Python] Binary search: can a given value be constructed?
 
 > Author: Benhao
 > Date: 2021-03-21
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-当我们知道index位置的最大值时，我们很容易求得两侧分别的和的最小值，如果这个值比最大和还要大，显然这个最大值不合理。
+### Approach
+For a candidate maximum at index, compute the minimum sums on both sides. If the total exceeds the allowed maximum sum, the candidate is infeasible.
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

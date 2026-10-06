@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 动态规划
+# [Python/Java/TypeScript/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2022-10-10
@@ -7,25 +7,25 @@
 
 ---
 
-### 解题思路
-讨论每组相邻交换与不换的选择，最终返回最小
+### Approach
+Consider swapping or keeping each adjacent pair of positions, then return the minimum
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def minSwap(self, nums1: List[int], nums2: List[int]) -> int:
-        # dp0: 上一次没换，dp1: 上一次换了
+        # dp0: no swap at the previous position; dp1: swapped at the previous position
         dp0, dp1 = 0, 1
         for (n10, n20), (n11, n21) in pairwise(zip(nums1, nums2)):
             tmp0, tmp1, dp0, dp1 = dp0, dp1, inf, inf
-            # 可以保持不动
+            # Can keep the current order
             if n11 > n10 and n21 > n20:
-                # 上一次不换这次也不换 或者 上一次换了这次也换
+                # Neither position is swapped, or both the previous and current positions are swapped
                 dp0, dp1 = tmp0, tmp1 + 1
-            # 可以交换
+            # Can swap
             if n11 > n20 and n21 > n10:
-                # 上一次交换了这次不换 或者 上一次不换这次换
+                # The previous position is swapped and the current one is not, or vice versa
                 dp0, dp1 = min(dp0, tmp1), min(dp1, tmp0 + 1)
         return min(dp0, dp1)
 ```

@@ -11,7 +11,7 @@ class Solution(solution.Solution):
         ans = n
         one = 0
         for i in range(n):
-            # 一共有k个1，右边就有n-i-k+one个0，提取n和k在最后加
+            # With k ones in total, there are n-i-k+one zeros on the right; factor out n and k and add them at the end
             ans = min(ans, one * 2 - i)
             one += s[i] == '1'
         return min(ans + n - one, one)

@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 在初始化的时候更新树里的二叉树，将数字维护到集合里
+> Restore the binary tree during initialization and store its values in a set.
 
-# 解题方法
+# Approach
 
-> 判断是否在集合内即可
+> Then check membership in the set.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

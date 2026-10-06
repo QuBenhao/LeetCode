@@ -1,4 +1,4 @@
-# [Python] 统计字符数目一致
+# [Python] Compare character counts
 
 > Author: Benhao
 > Date: 2024-03-27
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 统计各字符数目一致即可
+> Check that the counts of each character match.
 
-# 解题方法
+# Approach
 
-> 模拟
+> Simulation
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

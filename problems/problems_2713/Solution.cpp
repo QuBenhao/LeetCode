@@ -14,21 +14,21 @@ public:
         map<int, vector<pair<int, int>>> g;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                g[mat[i][j]].emplace_back(i, j); // 相同元素放在同一组，统计位置
+                g[mat[i][j]].emplace_back(i, j); // Group equal elements and record their positions
             }
         }
 
         vector<int> row_max(m), col_max(n);
         for (auto& [_, pos] : g) {
-            // 先把所有 f 值都算出来，再更新 row_max 和 col_max
+            // Compute all f values before updating row_max and col_max
             vector<int> fs;
             for (auto& [i, j] : pos) {
                 fs.push_back(max(row_max[i], col_max[j]) + 1);
             }
             for (int k = 0; k < pos.size(); k++) {
                 auto& [i, j] = pos[k];
-                row_max[i] = max(row_max[i], fs[k]); // 更新第 i 行的最大 f 值
-                col_max[j] = max(col_max[j], fs[k]); // 更新第 j 列的最大 f 值
+                row_max[i] = max(row_max[i], fs[k]); // Update the maximum f value in row i
+                col_max[j] = max(col_max[j], fs[k]); // Update the maximum f value in column j
             }
         }
         return ranges::max(row_max);

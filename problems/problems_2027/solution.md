@@ -1,4 +1,4 @@
-# [Python] 贪心模拟
+# [Python] Greedy simulation
 
 > slug: python-tan-xin-mo-ni-by-himymben-3qip
 > date: 2022-12-27
@@ -7,7 +7,7 @@
 > url: https://leetcode.cn/problems/minimum-moves-to-convert-string/solutions/bFuIYv/python-tan-xin-mo-ni-by-himymben-3qip/
 
 ---
-注意最左边的X一定会消耗一次操作，那么就顺着从左往右依次找最左边的X即可
+The leftmost X always requires one operation, so repeatedly find the leftmost remaining X while scanning from left to right.
 
 ```Python3 []
 class Solution:

@@ -17,9 +17,9 @@ class Solution(solution.Solution):
                 return
             if x < 0 or s < 0:
                 return
-            # 不选当前
+            # Skip the current element
             dfs(x - 1, s)
-            # 选当前
+            # Select the current element
             path.append(candidates[x])
             dfs(x, s - candidates[x])
             path.pop()

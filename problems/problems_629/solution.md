@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 记忆化递归 or 动态规划
+# [Python/Java/JavaScript/Go] Memoized recursion or dynamic programming
 
 > slug: python-ji-yi-hua-di-gui-by-himymben-bujz
 > date: 2021-11-10
@@ -7,24 +7,24 @@
 > url: https://leetcode.cn/problems/k-inverse-pairs-array/solutions/mlDAEA/python-ji-yi-hua-di-gui-by-himymben-bujz/
 
 ---
-### 解题思路
-这题和[1866](https://leetcode.cn/problems/number-of-ways-to-rearrange-sticks-with-k-sticks-visible/solution/python-kao-lu-mei-ci-fang-zhi-de-du-shi-mskpw/)的思路可以说如出一辙了
+### Approach
+The idea is essentially identical to [1866](https://leetcode.cn/problems/number-of-ways-to-rearrange-sticks-with-k-sticks-visible/solution/python-kao-lu-mei-ci-fang-zhi-de-du-shi-mskpw/).
 
-假设现在有`n`个位置给`最大的数字`选，那么它放在`第一个`，就会产生`n-1`个逆序对，剩下的情况变为`n-1个数字`需要产生`k-(n-1)`个逆序对.
-假设现在有`n`个位置给`最大的数字`选，那么它放在`第二个`，就会产生`n-2`个逆序对，剩下的情况变为`n-1个数字`需要产生`k-(n-2)`个逆序对.
-...（以此类推）
-假设现在有`n`个位置给`最大的数字`选，那么它放在`倒数第一个`，就会产生`0`个逆序对，剩下的情况变为`n-1个数字`需要产生`k`个逆序对.
+Suppose there are `n` positions for the `largest number`. Placing it `first` creates `n-1` inverse pairs, leaving `n-1 numbers` that must form `k-(n-1)` inverse pairs.
+Suppose there are `n` positions for the `largest number`. Placing it `second` creates `n-2` inverse pairs, leaving `n-1 numbers` that must form `k-(n-2)` inverse pairs.
+...and so on.
+Suppose there are `n` positions for the `largest number`. Placing it `last` creates `0` inverse pairs, leaving `n-1 numbers` that must form `k` inverse pairs.
 
 ```python
-# 模拟最大的填入的位置， 进行递归
+# Enumerate the position of the largest number and recurse
 # dp[n][k] = dp[n-1][k] + dp[n-1][k-1] + dp[n-1][k-2] + dp[n-1][k-3] + ... + dp[n-1][k-(n-1)]
-# 当前的连续和其实大部分都由上一个连续和求过了
+# Most terms in the current range sum were already included in the previous range sum
 # dp[n][k-1] =            dp[n-1][k-1] + dp[n-1][k-2] + dp[n-1][k-3] + ... + dp[n-1][k-(n-1)] + dp[n-1][k-1-(n-1)]
-# 错位相减简化式子
+# Subtract the shifted sums to simplify the expression
 # dp[n][k] - dp[n][k-1] = dp[n-1][k] - dp[n-1][k-n] if k >= n else dp[n-1][k]
 ```
 
-### 代码
+### Code
 
 ```python3
 MOD = int(1e9) + 7

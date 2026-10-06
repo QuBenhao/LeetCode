@@ -17,26 +17,26 @@ class Solution(solution.Solution):
             # sum(i,j) = presum[j+1] - presum[i]
             presum[i+1] = presum[i] + nums[i]
 
-        # 双向单调栈
-        # 左边第一个比i小的下标
+        # Monotonic stacks in both directions
+        # Index of the first smaller element left of i
         left = [-1] * n
-        # 右边第一个比i小的下标
+        # Index of the first smaller element right of i
         right = [n] * n
 
-        # 单调栈
+        # Monotonic stack
         stack = []
         for i in range(n):
-            # 单调递增栈
+            # Monotonically increasing stack
             while stack and nums[i] < nums[stack[-1]]:
-                # 当前元素比栈中最后一个元素小，那么栈中最后一个元素右边第一个比它小的就是当前元素了
+                # If the current element is smaller than the stack top, it is that element's first smaller element to the right
                 right[stack.pop()] = i
             stack.append(i)
 
         stack = []
         for i in range(n-1, -1, -1):
-            # 单调递增栈
+            # Monotonically increasing stack
             while stack and nums[i] < nums[stack[-1]]:
-                # 当前元素比栈中最后一个元素小，那么栈中最后一个元素左边第一个比它小的就是当前元素了
+                # If the current element is smaller than the stack top, it is that element's first smaller element to the left
                 left[stack.pop()] = i
             stack.append(i)
 

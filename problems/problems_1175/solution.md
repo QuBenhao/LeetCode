@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 欧式筛统计素数个数
+# [Python/Java/TypeScript/Go] Count primes with Euler's sieve
 
 > slug: pythonjavatypescriptgo-ou-shi-shai-by-hi-cacg
 > date: 2022-06-30
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/prime-arrangements/solutions/Azalkw/pythonjavatypescriptgo-ou-shi-shai-by-hi-cacg/
 
 ---
-### 解题思路
-题目的本意是统计n以内素数的个数，答案由素数的全排列数乘上非素数的全排列数得到。
+### Approach
+The key is to count the primes up to n. The answer is the number of permutations of the primes multiplied by the number of permutations of the non-primes.
 
-因此我们只需要统计素数的个数即可。
+Thus, we only need to count the primes.
 
-感谢[@emove](/u/emove/)同学提供的Go语言版本
+Thanks to [@emove](/u/emove/) for providing the Go version.
 
-### 代码
+### Code
 
 ```Python3 []
 MOD = int(1e9) + 7
@@ -22,7 +22,7 @@ class Solution:
     def numPrimeArrangements(self, n: int) -> int:
         return Solution.factorial(cnts := Solution.euler(n)) * Solution.factorial(n - cnts) % MOD
 
-    # 欧式筛统计素数个数
+    # Count primes with Euler's sieve
     @staticmethod
     def euler(x):
         is_prime = [True] * (x + 1)

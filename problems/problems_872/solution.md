@@ -1,4 +1,4 @@
-# [Python] 迭代使用yield
+# [Python] Iterate with yield
 
 > Author: Benhao
 > Date: 2021-05-10
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-借着二叉树练练yield和yield from
+### Approach
+Practice yield and yield from with a binary tree
 
-### 代码
+### Code
 
 ```python3
 # Definition for a binary tree node.

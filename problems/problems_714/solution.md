@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2022-02-14
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-分别维护 买入、卖出 的最大值
-卖出在更新时加入交易费用即可
+### Approach
+Maintain the maximum values for the bought and sold states separately.
+Account for the transaction fee when updating the sold state.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

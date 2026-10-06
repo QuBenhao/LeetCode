@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 替换下一节点 改变地址！
+# [Python/Java/JavaScript/Go] Replace the next node and change the link!
 
 > slug: pythonjavajavascript-ti-huan-xia-yi-jie-04thl
 > date: 2021-11-01
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/delete-node-in-a-linked-list/solutions/6CnbRB/pythonjavajavascript-ti-huan-xia-yi-jie-04thl/
 
 ---
-### 解题思路
-这题说实话出的不好，因为你只能删掉下一个节点，把下一个节点的值都赋值给该节点。但是，这本质上并不是删掉想删的对象。
+### Approach
+Honestly, this problem is poorly framed: you can only delete the next node after copying its value into the given node. This does not actually delete the intended object.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

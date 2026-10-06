@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 中序遍历 + 归并 (进阶:中序迭代器 + 归并)
+# [Python/Java/JavaScript/Go] Inorder traversal + merge (advanced: inorder iterators + merge)
 
 > slug: python-by-himymben-1zz0
 > date: 2022-04-30
@@ -7,17 +7,17 @@
 > url: https://leetcode.cn/problems/all-elements-in-two-binary-search-trees/solutions/PZ44ds/python-by-himymben-1zz0/
 
 ---
-### 解题思路
-题目给出的是二叉搜索树，所以中序遍历可以直接得到一个有序列表。
-题目变为合并两个有序列表。
-我们使用归并，依次看两个数组当前更小的，比较后将更小的加入答案，指针后移。
+### Approach
+The input trees are binary search trees, so inorder traversal directly produces sorted lists.
+The problem becomes merging two sorted lists.
+Compare the current values in the two arrays, append the smaller value to the answer, and advance its pointer.
 
-迭代器只是在上面的基础上，不一次性获得全部的列表，而是每次只取出最小的那个做比较。（这种做法在树很大，但是最终要的归并结果很少的时候，将有巨大优势）
+The iterator version follows the same approach, but retrieves only the next smallest value for comparison instead of generating the full list at once. This has a large advantage when the trees are large but only a small portion of the merged result is needed.
 
 PS:
-不明白用迭代器为什么这么慢，有没有大佬给解释一下。
+I am not sure why the iterator version is so slow; could someone explain?
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.
@@ -175,7 +175,7 @@ func getAllElements(root1 *TreeNode, root2 *TreeNode) []int {
 }
 ```
 
-```python3 [v1 - 迭代器第一种]
+```python3 [v1 - First iterator approach]
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -213,7 +213,7 @@ class Solution:
         ans.extend(chain(gen1, gen2))
         return ans
 ```
-```Python3 [v1 - 迭代器第二种]
+```Python3 [v1 - Second iterator approach]
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):

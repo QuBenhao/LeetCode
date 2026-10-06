@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 贪心
+# [Python/Java/JavaScript/Go] Greedy
 
 > slug: pythonjavajavascriptgo-tan-xin-by-himymb-oi3i
 > date: 2021-12-29
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/hand-of-straights/solutions/saNSPi/pythonjavajavascriptgo-tan-xin-by-himymb-oi3i/
 
 ---
-### 解题思路
-每个顺子一定有最小和最大的一张牌，每次一幅牌里也一定有最小的一张，这张牌必须有顺子是满足所有牌都在顺子里的充要条件。把它的顺子去掉以后，又会有一张新的最小的牌，如此反复，直到没有牌。
+### Approach
+Every straight has a smallest and largest card, and the remaining hand always has a smallest card. That card must belong to a straight for all cards to be grouped into straights. Remove its straight, then repeat with the new smallest card until none remain.
 
-家人们，已经两天了，要么看不到你们的评论，要么回复了感觉你们看不到😭绝了
+Folks, it has been two days: either I cannot see your comments, or I reply and it seems you cannot see mine 😭 Unbelievable
 
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -100,7 +100,7 @@ func isNStraightHand(hand []int, groupSize int) bool {
 }
 ```
 
-[@meteordream](/u/meteordream/) 以上方法的一点小优化是直接减去最小牌的次数，可以减少循环
+[@meteordream](/u/meteordream/) A small optimization is to subtract the smallest card's count directly, reducing the number of iterations
 ```python3
 class Solution:
     def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:

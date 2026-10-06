@@ -1,4 +1,4 @@
-# [Python] 集合差集 
+# [Python] Set difference
 
 > slug: python-by-himymben-tbto
 > date: 2022-03-27
@@ -7,7 +7,7 @@
 > url: https://leetcode.cn/problems/find-the-difference-of-two-arrays/solutions/FfjMGy/python-by-himymben-tbto/
 
 ---
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -1,34 +1,34 @@
-# 1559. 二维网格图中探测环
+# 1559. Detect Cycles in 2D Grid
 
-[题目链接](https://leetcode.cn/problems/detect-cycles-in-2d-grid/description/)
+[Problem link](https://leetcode.cn/problems/detect-cycles-in-2d-grid/description/)
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 并查集
+> Union-find
 
-题目要求检测网格中是否存在由**相同字符**构成的环（长度 ≥ 4）。关键观察：
+Determine whether the grid contains a cycle of **equal characters** with length >= 4. Key observations:
 
-1. **只能水平/垂直移动** → 最小的环是 2×2 的正方形（4 个格子）
-2. **相同字符才能相连** → 只需考虑同字符的相邻格子
-3. **环的判定**：如果在合并两个相邻格子的过程中发现它们**已经连通**，说明添加这条边会形成环
+1. **Only horizontal/vertical moves are allowed** -> the smallest cycle is a 2×2 square (4 cells).
+2. **Only equal characters can connect** -> consider only adjacent cells with the same character.
+3. **Cycle detection**: if two adjacent cells are **already connected** when we try to merge them, adding this edge forms a cycle.
 
-由于最小环长度为 4，一旦发现已连通，必然满足环长度要求。
+Since the minimum cycle length is 4, detecting an existing connection guarantees the length requirement is met.
 
-# 解题过程
+# Solution steps
 
-1. **坐标映射**：将二维坐标 `(i, j)` 映射为一维索引 `i * n + j`
-2. **遍历顺序**：对于每个格子，只检查**右边**和**下边**的相邻格子（避免重复处理）
-3. **并查集合并**：
-   - 如果相邻格子字符相同，尝试合并
-   - 若 `union` 返回 `False`（已在同一集合），说明形成环，返回 `True`
-4. **遍历完成**：若无环，返回 `False`
+1. **Coordinate mapping**: map the 2D coordinates `(i, j)` to the 1D index `i * n + j`.
+2. **Traversal order**: for each cell, check only its **right** and **bottom** neighbors to avoid processing an edge twice.
+3. **Union-find merge**:
+   - If adjacent cells contain the same character, try to merge them.
+   - If `union` returns `False` (already in the same set), a cycle has formed; return `True`.
+4. **After traversal**: return `False` if no cycle was found.
 
-# 复杂度
+# Complexity
 
-- 时间复杂度: $O(m \times n \times \alpha(mn))$，其中 $\alpha$ 是反阿克曼函数，实际接近常数
-- 空间复杂度: $O(m \times n)$
+- Time complexity: $O(m \times n \times \alpha(mn))$, where $\alpha$ is the inverse Ackermann function, effectively constant in practice.
+- Space complexity: $O(m \times n)$
 
 # Code
 ```Python3 []

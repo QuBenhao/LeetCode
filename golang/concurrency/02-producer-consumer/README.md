@@ -1,21 +1,21 @@
 
-# **2. 生产者-消费者模型**
-**场景**：创建 3 个生产者协程和 2 个消费者协程：
-- 生产者每秒生成一个随机整数（1-100）
-- 消费者立即打印接收到的数字
-- 程序在 5 秒后自动终止
+# **2. Producer-consumer pattern**
+**Scenario:** Create 3 producer goroutines and 2 consumer goroutines:
+- Each producer generates a random integer (1-100) every second
+- Consumers immediately print the numbers they receive
+- The program terminates automatically after 5 seconds
 
-**要求**：
-- 使用 `context.Context` 实现优雅关闭
-- 避免 channel 泄漏
-- 消费者打印需要显示消费者编号
+**Requirements:**
+- Use `context.Context` for graceful shutdown
+- Avoid channel leaks
+- Include the consumer ID in the output
 
-## 解题
+## Exercise
 
 [solution](your_solution.go)
 
 ---
 
-## 答案
+## Solution
 
 [answer](answer.go)

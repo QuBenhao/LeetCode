@@ -1,4 +1,4 @@
-# 每次一口气走26步
+# Take 26 steps at a time
 
 > slug: mei-ci-yi-kou-qi-zou-26bu-by-himymben-tj29
 > date: 2025-05-12
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/total-characters-in-string-after-transformations-i/solutions/41o6Pd/mei-ci-yi-kou-qi-zou-26bu-by-himymben-tj29/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

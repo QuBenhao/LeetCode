@@ -29,9 +29,9 @@ class Solution(solution.Solution):
         f = [[0] * k for _ in range(len(groups) + 1)]
         f[0] = [1] * k
         for i, c in enumerate(groups):
-            # 计算 f[i] 的前缀和数组 s
+            # Compute the prefix sum array s for f[i]
             s = list(accumulate(f[i], initial=0))
-            # 计算子数组和
+            # Compute the subarray sum
             for j in range(k):
                 f[i + 1][j] = (s[j + 1] - s[max(j - c, 0)]) % MOD
 

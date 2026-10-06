@@ -15,11 +15,11 @@ class Solution(solution.Solution):
         cur = 1
         while k > 1:
             count = dfs(cur, cur)
-            # 当前节点中总数都小于需要的数，可以全部取走，bfs到同层下一点 (比如 1 -> 2)
+            # If the entire subtree contains fewer nodes than needed, skip it and move to the next node at this level (for example, 1 -> 2)
             if count < k:
                 k -= count
                 cur += 1 # to go to the next number
-            # 答案在当前节点的子节点中，取走当前根节点，dfs向下 (比如 1 -> 10)
+            # The answer is among the current node's descendants; consume the root and descend with DFS (for example, 1 -> 10)
             else:
                 k -= 1
                 cur *= 10 # to go deeper in the tree

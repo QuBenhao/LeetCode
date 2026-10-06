@@ -1,9 +1,9 @@
-# 并查集
+# Union-Find
 
-并查集（Union-Find）是一种数据结构，用于处理一些不交集的合并及查询问题。它支持两种操作：
+Union-Find is a data structure for merging and querying disjoint sets. It supports two operations:
 
-1. **Find**：查找元素所在的集合。
-2. **Union**：合并两个集合。
+1. **Find**: Find the set containing an element.
+2. **Union**: Merge two sets.
 
 ```python
 class UnionFind:
@@ -15,7 +15,7 @@ class UnionFind:
 
     def find(self, x: int) -> int:
         while self.parent[x] != x:
-            self.parent[x] = self.parent[self.parent[x]]  # 路径压缩
+            self.parent[x] = self.parent[self.parent[x]]  # Path compression
             x = self.parent[x]
         return x
 
@@ -24,9 +24,9 @@ class UnionFind:
         root_y = self.find(y)
 
         if root_x == root_y:
-            return False  # 已经在同一集合
+            return False  # Already in the same set
 
-        # 按秩合并
+        # Union by rank
         if self.rank[root_x] > self.rank[root_y]:
             self.parent[root_y] = root_x
             self.size[root_x] += self.size[root_y]
@@ -70,7 +70,7 @@ func NewUnionFind(n int) *UnionFind {
 
 func (uf *UnionFind) Find(x int) int {
 	for uf.parent[x] != x {
-		uf.parent[x] = uf.parent[uf.parent[x]] // 路径压缩
+		uf.parent[x] = uf.parent[uf.parent[x]] // Path compression
 		x = uf.parent[x]
 	}
 	return x
@@ -81,10 +81,10 @@ func (uf *UnionFind) Union(x, y int) bool {
 	rootY := uf.Find(y)
 
 	if rootX == rootY {
-		return false // 已经在同一集合
+		return false // Already in the same set
 	}
 
-	// 按秩合并
+	// Union by rank
 	if uf.rank[rootX] > uf.rank[rootY] {
 		uf.parent[rootY] = rootX
 		uf.size[rootX] += uf.size[rootY]
@@ -95,7 +95,7 @@ func (uf *UnionFind) Union(x, y int) bool {
 		}
 		uf.size[rootY] += uf.size[rootX]
 	}
-	uf.cc-- // 合并后集合数减少
+	uf.cc-- // Merging reduces the number of sets
 	return true
 }
 
@@ -191,9 +191,9 @@ class UnionFind {
 }
 ```
 
-## 模板
+## Templates
 
-### 普通
+### Basic
 ```c++
 struct DSU {
     vector<size_t> pa;
@@ -208,7 +208,7 @@ size_t DSU::find(size_t x) { return pa[x] == x ? x : pa[x] = find(pa[x]); }
 void DSU::unite(size_t x, size_t y) { pa[find(x)] = find(y); }
 ```
 
-### 按节点数合并
+### Union by Size
 ```c++
 struct DSU {
     vector<size_t> pa, size;
@@ -229,19 +229,19 @@ void DSU::unite(size_t x, size_t y) {
 } 
 ```
 
-### 带删除
+### With Deletion
 ```c++
 struct DSU {
   size_t id;
   std::vector<size_t> pa, size;
 
-  // 注意这里的m实际上是总操作数，给出足够多的空间用来重新连接
+  // m is the total number of operations; allocate enough space for reconnections
   explicit DSU(size_t size_, size_t m)
       : id(size_ * 2), pa(size_ * 2 + m), size(size_ * 2 + m, 1) {
-    // size 的前半段其实没有使用，只是为了让下标计算更简单
+    // The first half of size is unused; it only simplifies index calculations
     std::iota(pa.begin(), pa.begin() + size_,
-              size_);  // 令 i 指向虚点 i + size_
-    std::iota(pa.begin() + size_, pa.end(), size_);  // 所有虚点指向它自身
+              size_);  // Point i to the virtual node i + size_
+    std::iota(pa.begin() + size_, pa.end(), size_);  // Each virtual node points to itself
   }
 
   size_t find(size_t x) { return pa[x] == x ? x : pa[x] = find(pa[x]); }

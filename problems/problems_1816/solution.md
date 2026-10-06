@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 找第k个空格的坐标
+# [Python/Java/JavaScript/Go] Find the index of the k-th space
 
 > Author: Benhao
 > Date: 2021-12-05

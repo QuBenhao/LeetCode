@@ -1,4 +1,4 @@
-# [Python/Java] 最长上升子序列
+# [Python/Java] Longest increasing subsequence
 
 > Author: Benhao
 > Date: 2021-07-26
@@ -7,43 +7,43 @@
 
 ---
 
-### 解题思路
-本题要找最少操作次数，实际上就是找最长的公共子序列(这样需要的操作最少);
-根据target中互不相同，我们知道每个数字对应的坐标唯一;
-于是最长公共子序列等价于arr用target的坐标转换后构成最长的上升子序列.
+### Approach
+Minimizing operations is equivalent to finding the longest common subsequence, since it requires the fewest insertions.
+All values in target are distinct, so each value maps to a unique index.
+Replace values in arr with their indices in target. The longest common subsequence then becomes the longest increasing subsequence of these indices.
 
-这是因为:
-**不管怎么样，公共子序列在target中必然是从左到右的，那么他们的坐标自然是从小到大的**
+This works because:
+**A common subsequence always runs from left to right in target, so its indices must increase.**
 
-### 代码
+### Code
 ```python3 []
 class Solution:
     def minOperations(self, target: List[int], arr: List[int]) -> int:
-        # 分析:
-        # 本题要找最少操作次数，实际上就是找最长的公共子序列(这样需要的操作最少)
-        # 根据target中互不相同，我们知道每个数字对应的坐标唯一
-        # 于是最长公共子序列等价于arr用target的坐标转换后构成最长的上升子序列
+        # Analysis:
+        # Minimize operations by finding the longest common subsequence
+        # Distinct values in target give every value a unique index
+        # Map arr to indices in target; the longest common subsequence becomes a longest increasing subsequence
 
-        # 数字对应坐标
+        # Map values to indices
         idx_dict = {num: i for i, num in enumerate(target)}
-        # 300.最长上升子序列
+        # 300. Longest Increasing Subsequence
         stack = []
         for num in arr:
-            # 只有在target的数字才可能属于公共子序列
+            # Only values present in target can belong to the common subsequence
             if num in idx_dict:
-                # 转换坐标
+                # Convert to an index
                 idx = idx_dict[num]
-                # 该坐标在当前栈中的位置
+                # Position of this index in the current stack
                 i = bisect.bisect_left(stack, idx)
-                # 如果在最后要加入元素，否则要修改该位置的元素
-                # 跟一般的讲，i代表了目前这个idx在stack中的大小位置，
-                # 在前面出现还比idx大的stack中的元素是无法和idx构成最长上升子序列的。
-                # i左边的数比idx小，可以和idx构成上升子序列，(idx构成的长度就是i+1)
-                # idx比i的值小，将i替换后可以方便后面构成更优的子序列(越小后面能加入的数越多)
+                # Append if at the end; otherwise replace the element at this position
+                # More generally, i is the sorted position of idx in stack
+                # Earlier elements in stack larger than idx cannot precede idx in an increasing subsequence
+                # Values left of i are smaller than idx and can precede it in an increasing subsequence of length i+1
+                # Replacing stack[i] with the smaller idx leaves more room for later values to extend a subsequence
                 if i == len(stack):
                     stack.append(0)
                 stack[i] = idx
-        # 最终stack的长度就构成了最长上升子序列的长度，用减法即可得到本题答案
+        # The final stack length is the LIS length; subtract it to obtain the answer
         return len(target) - len(stack)
 ```
 ```java []

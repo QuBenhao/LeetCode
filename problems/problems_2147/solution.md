@@ -1,4 +1,4 @@
-# [Python/Go] 简单组合计数
+# [Python/Go] Simple combinatorial counting
 
 > Author: Benhao
 > Date: 2022-01-23
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-每两个沙发和两个沙发中间，统计空位个数即可。
+### Approach
+Count the available spaces between each consecutive pair of seat groups, with two seats per group.
 
-### 代码
+### Code
 
 ```python3 []
 MOD = 10**9 + 7

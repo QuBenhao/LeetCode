@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 排序 + 双指针
+# [Python/Java/JavaScript/Go] Sorting + two pointers
 
 > slug: pythonjavajavascriptgo-pai-xu-shuang-zhi-p76s
 > date: 2021-12-19
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/heaters/solutions/eHtAMR/pythonjavajavascriptgo-pai-xu-shuang-zhi-p76s/
 
 ---
-### 解题思路
-其实就是要找每个房子落在哪个加热器之间，然后比较他们俩之中更近的那一侧。可以使用二分，也可以使用双指针，从头开始一起移动。
+### Approach
+Find the two heaters surrounding each house and choose the nearer one. Use binary search or move two pointers together from the beginning.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

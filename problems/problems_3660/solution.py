@@ -11,19 +11,19 @@ class Solution(solution.Solution):
         if n == 1:
             return nums[:]
 
-        # 前缀最大值
+        # Prefix maximum
         preMax = [0] * n
         preMax[0] = nums[0]
         for i in range(1, n):
             preMax[i] = max(preMax[i - 1], nums[i])
 
-        # 从右往左遍历，维护后缀最小值
+        # Traverse from right to left, maintaining the suffix minimum
         ans = [0] * n
-        ans[n - 1] = preMax[n - 1]  # 最后一个位置可以跳到全局最大值
+        ans[n - 1] = preMax[n - 1]  # The last position can jump to the global maximum
         sufMin = nums[n - 1]
 
         for i in range(n - 2, -1, -1):
-            # 如果 preMax[i] > sufMin，可以桥接到 i+1
+            # If preMax[i] > sufMin, a connection to i+1 is possible
             if preMax[i] > sufMin:
                 ans[i] = ans[i + 1]
             else:

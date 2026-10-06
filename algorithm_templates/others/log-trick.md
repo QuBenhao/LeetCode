@@ -2,7 +2,7 @@
 
 ## gcd
 
-记录最左侧gcd区间
+Track the leftmost interval for each gcd
 ```python3
 from math import gcd
 
@@ -20,7 +20,7 @@ for i, num in enumerate(nums):
     del g[j + 1:]
 ```
 
-记录最右侧gcd区间
+Track the rightmost interval for each gcd
 ```python3
 from math import gcd
 

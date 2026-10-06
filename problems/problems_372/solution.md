@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 快速幂 
+# [Python/Java/JavaScript/Go] Fast exponentiation 
 
 > slug: pythonjavajavascriptgo-kuai-su-mi-by-him-0hhe
 > date: 2021-12-05
@@ -7,17 +7,17 @@
 > url: https://leetcode.cn/problems/super-pow/solutions/JPLCxX/pythonjavajavascriptgo-kuai-su-mi-by-him-0hhe/
 
 ---
-# 解题思路
+# Approach
 
-归根结底就是
-同底数幂运算公式: $p^{a + b} = p^{a} * p^{b}$
-和
-幂的乘方: $(p^a)^b = p^{a * b}$
+Ultimately, this uses:
+The same-base exponent rule: $p^{a + b} = p^{a} * p^{b}$
+and
+The power-of-a-power rule: $(p^a)^b = p^{a * b}$
 
-[叶总题解](https://leetcode.cn/problems/super-pow/solution/gong-shui-san-xie-di-gui-kuai-su-mi-ying-yx1j/)
-[快速幂算法讲解](https://zhuanlan.zhihu.com/p/95902286)
+[Solution by 叶总](https://leetcode.cn/problems/super-pow/solution/gong-shui-san-xie-di-gui-kuai-su-mi-ying-yx1j/)
+[Explanation of fast exponentiation](https://zhuanlan.zhihu.com/p/95902286)
 
-# 代码
+# Code
 ```python3
 class Solution:
     def superPow(self, a: int, b: List[int]) -> int:

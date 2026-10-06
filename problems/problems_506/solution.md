@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 哈希表 + 排序
+# [Python/Java/JavaScript/Go] Hash table + sorting
 
 > slug: pythonjavajavascriptgo-ha-xi-biao-pai-xu-xfg9
 > date: 2021-12-01
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/relative-ranks/solutions/Z5DN0G/pythonjavajavascriptgo-ha-xi-biao-pai-xu-xfg9/
 
 ---
-### 解题思路
-哈希表记录原来的分值对应的坐标，这样排序后我们就知道每个原来的坐标排多少名了。
+### Approach
+Use a hash table to record the original index of each score. After sorting, we can determine the rank at each original index.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

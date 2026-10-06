@@ -8,16 +8,16 @@ class Solution(solution.Solution):
 
     def numSteps(self, s: str) -> int:
         # carry = 0
-        # ans = len(s) - 1 # 除第一位以外每位1或0都至少操作一次
+        # ans = len(s) - 1 # Every bit after the first, whether 1 or 0, requires at least one operation
         # for i in range(len(s) - 1, 0, -1):
         #     cur = carry + int(s[i])
-        #     ans += 1 if cur == 1 else 0 # 奇数需要额外+1
-        #     carry = 0 if cur == 0 else 1 # 产生进位
+        #     ans += 1 if cur == 1 else 0 # Odd numbers require an extra +1
+        #     carry = 0 if cur == 0 else 1 # Generate the carry
         # return ans + carry
 
-        # 从上面的规律可以发现, 最右侧1左边的0才会有额外的奇数贡献
+        # The pattern above shows that only zeros to the left of the rightmost 1 contribute an extra odd-number operation
         ans = len(s) - 1
         if (idx := s.rfind('1')) > 0:
-            # 存在最右侧1左边的0, 每个0需要额外+1, 且idx处和0处各需要+1
+            # Each zero to the left of the rightmost 1 requires an extra +1, and positions idx and 0 each require +1
             ans += s.count('0', 1, idx) + 2
         return ans

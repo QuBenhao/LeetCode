@@ -11,7 +11,7 @@ class Solution(solution.Solution):
         :type nums: List[int]
         :rtype: List[int]
         """
-        # # 左边是重复的数，右边是丢失的数
+        # # Repeated number on the left, missing number on the right
         # return [Counter(nums).most_common(1)[0][0], (set(i for i in range(1, len(nums) + 1)) - set(nums)).pop()]
 
         # x = sum(nums) - sum(set(nums))
@@ -25,9 +25,9 @@ class Solution(solution.Solution):
         # # 1 ^ 2 ^ ... ^ 4k+2 = 4k+2 ^ 1 = 4k+3
         # # 1 ^ 2 ^ ... ^ 4k+3 = 0
         # n = len(nums)
-        # # 应该的位运算结果
+        # # Expected XOR result
         # ans = [n, 1, n + 1, 0][n % 4]
-        # # 实际的位运算结果以及重复的数字
+        # # Actual XOR result and the repeated number
         # res = repeat = 0
         # for num in nums:
         #     val = abs(num)
@@ -36,5 +36,5 @@ class Solution(solution.Solution):
         #         repeat = val
         #     else:
         #         nums[val - 1] = -nums[val - 1]
-        # # res的结果少异或了一次丢失的数, 多异或了一次重复的数，也就是说res^ans=x^y
+        # # res omits one XOR with the missing number and adds one with the repeated number, so res^ans=x^y
         # return [repeat, repeat ^ res ^ ans]

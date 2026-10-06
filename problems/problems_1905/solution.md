@@ -1,4 +1,4 @@
-# [Python] 以岛屿2为连通进行dfs
+# [Python] DFS over connected components in grid 2
 
 > Author: Benhao
 > Date: 2021-06-20
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-如果当前岛屿2中为1，岛屿1中为0，那么必不可能为子岛屿。
+### Approach
+If a cell is 1 in grid 2 but 0 in grid 1, its island cannot be a sub-island.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

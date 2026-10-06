@@ -1,4 +1,4 @@
-# [Python] 删除检测
+# [Python] Delete and check
 
 > Author: Benhao
 > Date: 2021-06-27
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-当时觉得一道简单题为什么要想那么麻烦，于是就写出了这个。
-分别删除第一个不满足递增的位置的两个，如果任意一个满足递增，那么为True
-否则为False
+### Approach
+I felt an easy problem should not need a complicated solution, so I wrote this.
+At the first non-increasing adjacent pair, try deleting each element separately. Return True if either resulting array is strictly increasing.
+Otherwise, return False.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

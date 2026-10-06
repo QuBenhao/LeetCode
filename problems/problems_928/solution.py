@@ -17,8 +17,8 @@ class Solution(solution.Solution):
                 if conn == 0:
                     continue
                 if y in st:
-                    # 按照 924 题的状态机更新 node_id
-                    # 注意避免重复统计，例如上图中的 0 有两条不同路径可以遇到 1
+                    # Update node_id using the state machine from problem 924
+                    # Avoid double counting: for example, 0 in the diagram above can reach 1 along two different paths
                     if node_id != -2 and node_id != y:
                         node_id = y if node_id == -1 else -2
                 elif not vis[y]:
@@ -31,9 +31,9 @@ class Solution(solution.Solution):
             node_id = -1
             size = 0
             dfs(i)
-            if node_id >= 0:  # 只找到一个在 initial 中的节点
-                # 删除节点 node_id 可以让 size 个点不被感染
+            if node_id >= 0:  # Found only one node from initial
+                # Removing node_id prevents size nodes from being infected
                 cnt[node_id] += size
 
-        # size 取反计算最大值，相同最大值取 node_id 最小值
+        # Negate size to select the maximum; break ties with the smallest node_id
         return min((-size, node_id) for node_id, size in cnt.items())[1] if cnt else min(initial)

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 二维前缀和
+# [Python/Java/JavaScript/Go] Two-dimensional prefix sums
 
 > Author: Benhao
 > Date: 2022-04-28
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-本题需要递归枚举正方形，直到正方形全是1或全是0为止。
-否则就切割成四个小正方形继续递归。
+### Approach
+Recursively examine squares until each contains only 1s or only 0s.
+Otherwise, split the square into four smaller squares and recurse.
 
-判断全1或全0可以很容易想到，二维前缀和的结果是正方形的大小或0。
+A two-dimensional prefix sum readily identifies a uniform square: its sum equals either the square's area or 0.
 
-### 代码
+### Code
 
 ```Python3 []
 """
@@ -42,7 +42,7 @@ class Solution:
             elif diff == (x1 - x0) * (y1 - y0):
                 return Node(True, True, None, None, None, None)
             else:
-                # 这里填True、False都行
+                # Either True or False works here
                 return Node(True, False, dfs(x0, y0, hx:=(x0 + x1) // 2, hy:=(y0 + y1) // 2),
                                          dfs(x0, hy, hx, y1),
                                          dfs(hx, y0, x1, hy),

@@ -1,4 +1,4 @@
-# [Python] 前缀和+二分查找
+# [Python] Prefix sums and binary search
 
 > slug: python-er-by-himymben-xxc7
 > date: 2022-03-13
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/ju-qing-hong-fa-shi-jian/solutions/vCyC04/python-er-by-himymben-xxc7/
 
 ---
-### 解题思路
-三个维度其实和一个维度的代码没有什么区别
+### Approach
+The code for three dimensions is essentially the same as for one.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

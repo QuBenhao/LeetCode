@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 二分
+# [Python/Java/JavaScript] Binary search
 
 > slug: pythonjavajavascript-er-fen-by-himymben-5cau
 > date: 2021-10-13
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/B1IidL/solutions/rd5wAE/pythonjavajavascript-er-fen-by-himymben-5cau/
 
 ---
-### 解题思路
-题目已知是个山峰数组了，每个点跟它两边的大小关系，都能告诉我们山峰应该在哪儿，故采取二分。
+### Approach
+The array is known to be a mountain array. Comparing each element with its neighbors indicates which direction leads to the peak, so use binary search.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

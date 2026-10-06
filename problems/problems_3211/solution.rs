@@ -10,13 +10,13 @@ impl Solution {
                 return;
             }
 
-            // 填 0
+            // Place a 0
             if i == 0 || path[i - 1] == '1' {
-                path[i] = '0'; // 直接覆盖
+                path[i] = '0'; // Overwrite directly
                 dfs(i + 1, path, ans);
             }
 
-            // 填 1
+            // Place a 1
             path[i] = '1';
             dfs(i + 1, path, ans);
 

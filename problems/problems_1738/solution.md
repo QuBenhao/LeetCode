@@ -1,4 +1,4 @@
-# [Python] 二维前缀异或
+# [Python] 2D prefix XOR
 
 > Author: Benhao
 > Date: 2021-05-19
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-因为异或中,有`x^x = 0` 
-根据容斥原理，`matrix[i][j] = matrix[i][j] ^ matrix[i-1][j] ^ matrix[i][j-1] ^ matrix[i-1][j-1]`
+### Approach
+XOR satisfies `x^x = 0`.
+By inclusion-exclusion, `matrix[i][j] = matrix[i][j] ^ matrix[i-1][j] ^ matrix[i][j-1] ^ matrix[i-1][j-1]`.
 
-### 代码
+### Code
 
 ```python3
 

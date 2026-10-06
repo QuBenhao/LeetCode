@@ -1,4 +1,4 @@
-# [Python] 状压 + 记忆化递归 
+# [Python] Bitmask states + memoized recursion
 
 > slug: python-by-himymben-umzg
 > date: 2022-04-23
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/maximum-cost-of-trip-with-k-highways/solutions/IVYXCK/python-by-himymben-umzg/
 
 ---
-### 解题思路
-状压标记访问过的点
+### Approach
+Use a bitmask to mark visited nodes.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

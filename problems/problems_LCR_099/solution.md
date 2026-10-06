@@ -1,4 +1,4 @@
-# 动态规划
+# Dynamic programming
 
 > slug: dong-tai-gui-hua-by-himymben-9fls
 > date: 2025-04-24
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/0i0mDW/solutions/kYXl5q/dong-tai-gui-hua-by-himymben-9fls/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

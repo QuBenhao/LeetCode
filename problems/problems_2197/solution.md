@@ -1,4 +1,4 @@
-# [Python] 栈模拟
+# [Python] Stack simulation
 
 > Author: Benhao
 > Date: 2022-03-06
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-不停的判断相邻的最大公约数是否大于1，大于1就合并。
-和答案栈的最后一个同样要比较（向左合并）
+### Approach
+Repeatedly check whether adjacent values have a greatest common divisor greater than 1; if so, merge them.
+Also compare with the last element of the answer stack to merge to the left.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

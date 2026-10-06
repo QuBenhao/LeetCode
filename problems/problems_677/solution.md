@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/map-sum-pairs/solutions/EfOlbr/pythonjavajavascriptgo-trie-dfs-or-bfs-b-cbmd/
 
 ---
-### 解题思路
-常规的Trie树(还不了解Trie的同学可以先看三叶的前置🧀：[实现 Trie (前缀树)](https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&mid=2247488490&idx=1&sn=db2998cb0e5f08684ee1b6009b974089&chksm=fd9cb8f5caeb31e3f7f67dba981d8d01a24e26c93ead5491edb521c988adc0798d8acb6f9e9d&token=59039721&lang=zh_CN#rd))，
-在结束符号存val，这样相同的单词就会更新存储的val。
-在DFS或BFS搜前缀的所有值时，统计所有节点下的“#”的值的和。
+### Approach
+Use a standard trie. If tries are new to you, start with 三叶's prerequisite material 🧀: [Implement Trie (Prefix Tree)](https://mp.weixin.qq.com/s?__biz=MzU4NDE3MTEyMA==&mid=2247488490&idx=1&sn=db2998cb0e5f08684ee1b6009b974089&chksm=fd9cb8f5caeb31e3f7f67dba981d8d01a24e26c93ead5491edb521c988adc0798d8acb6f9e9d&token=59039721&lang=zh_CN#rd).
+Store val at the terminal marker so inserting the same word updates its stored value.
+When using DFS or BFS under a prefix, sum the values stored at every "#" marker.
 
-### 代码
+### Code
 DFS
 ```Python3 []
 class MapSum:

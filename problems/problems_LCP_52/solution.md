@@ -1,4 +1,4 @@
-# [Python/Go] 维护区间 (数据加强会超时)
+# [Python/Go] Maintain intervals (stronger test data would time out)
 
 > slug: python-by-himymben-juh9
 > date: 2022-04-16
@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/QO5KpG/solutions/qwD18A/python-by-himymben-juh9/
 
 ---
-### 解题思路
+### Approach
 
-区间覆盖，最后覆盖的区间一定会生效，所以倒序处理，依次删掉被处理过的区间。
-树转数组，用二分将数值映射到坐标，保证紧密。
-暴力维护有序列表
+For interval overwrites, the last update always takes effect. Process updates in reverse and remove intervals that have already been handled.
+Convert the tree to an array and use binary search to map values to compact indices.
+Maintain a sorted list by brute force.
 
-(非暴力使用并查集或线段树，回头补)
+(A faster approach uses union-find or a segment tree; add it later.)
 
-### 代码
+### Code
 
 ```python3 []
 # Definition for a binary tree node.

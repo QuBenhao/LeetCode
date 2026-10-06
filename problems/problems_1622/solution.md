@@ -1,4 +1,4 @@
-# 懒标记+模逆元
+# Lazy tags + modular inverse
 
 > Author: Benhao
 > Date: 2026-03-14
@@ -12,19 +12,19 @@
 
 [TOC]
 
-## 方法：懒标记 + 模逆元
+## Method: lazy tags + modular inverse
 
-### 思路
-
-
-
-
-首先考虑朴素做法：每次 `addAll` 和 `multAll` 都遍历数组进行修改，时间复杂度为 $O(n)$，显然会超时。
+### Intuition
 
 
 
 
-我们注意到，`addAll` 和 `multAll` 对数组中所有元素的作用可以统一表示为线性变换：
+The naive approach updates the entire array on every `addAll` and `multAll` call, taking $O(n)$ time per operation and exceeding the time limit.
+
+
+
+
+The effect of `addAll` and `multAll` on every element can be expressed as a linear transformation:
 
 
 
@@ -34,39 +34,39 @@ $$f(x) = \text{mul} \times x + \text{add}$$
 
 
 
-因此，我们可以维护两个懒标记 `mul` 和 `add`，将操作延迟到查询时计算。
+Maintain two lazy tags, `mul` and `add`, and defer applying them until a query.
 
 
 
 
-**懒标记的更新规则：**
+**Updating the lazy tags:**
 
 
 
 
-- `addAll(inc)`：所有元素加 `inc`，即 `add += inc`
+- `addAll(inc)`: add `inc` to every element, so `add += inc`.
 
-- `multAll(m)`：所有元素乘 `m`，即 `mul *= m, add *= m`
-
-
-
-
-这样两种操作都是 $O(1)$ 时间。
+- `multAll(m)`: multiply every element by `m`, so `mul *= m, add *= m`.
 
 
 
 
-**新元素的处理：**
+Both operations now take $O(1)$ time.
 
 
 
 
-当调用 `append(val)` 时，当前标记为 $(\text{mul}, \text{add})$。如果直接存储 `val`，后续查询时会重复应用标记。
+**Handling new elements:**
 
 
 
 
-解决方案是存储元素的**归一化值**，即假设当前标记为 $(1, 0)$ 时该元素的值：
+When `append(val)` is called, the current tags are $(\text{mul}, \text{add})$. Storing `val` directly would apply the existing tags again on a later query.
+
+
+
+
+Instead, store the element's **normalized value**: the value it would have if the current tags were $(1, 0)$:
 
 
 
@@ -76,7 +76,7 @@ $$\text{stored} = \frac{\text{val} - \text{add}}{\text{mul}}$$
 
 
 
-查询时用当前标记还原：
+Reconstruct the value with the current tags when querying:
 
 
 
@@ -86,12 +86,12 @@ $$\text{result} = \text{mul} \times \text{stored} + \text{add}$$
 
 
 
-**模逆元：**
+**Modular inverse:**
 
 
 
 
-模意义下的除法需要求逆元。由于 $10^9 + 7$ 是质数，根据费马小定理：
+Division in modular arithmetic requires a modular inverse. Since $10^9 + 7$ is prime, Fermat's little theorem gives:
 
 
 
@@ -101,7 +101,7 @@ $$a^{p-1} \equiv 1 \pmod{p}$$
 
 
 
-可得：
+Therefore:
 
 
 
@@ -111,19 +111,19 @@ $$a^{-1} \equiv a^{p-2} \pmod{p}$$
 
 
 
-因此用快速幂即可求逆元。
+The inverse can thus be computed with fast exponentiation.
 
 
 
 
-### 代码
+### Code
 
 ```python [Python3]
 MOD = 10 ** 9 + 7
 
-# 费马小定理
+# Fermat's little theorem
 def inv(x):
-    # py的快速幂
+    # Python's fast exponentiation
     return pow(x, MOD - 2, MOD)
 
 class Fancy:
@@ -134,9 +134,9 @@ class Fancy:
 
     def append(self, val: int) -> None:
         """
-        我们有f(x) = mul * x + add, 那么 f(x) = val时, x = (val - add) / mul
-        这里涉及到模逆元，所以用inv(mul)表示除以mul
-        翻译一下这里就是 (val - add) / mul的意思
+        Given f(x) = mul * x + add, when f(x) = val, x = (val - add) / mul
+        Use the modular inverse inv(mul) to represent division by mul
+        In other words, this means (val - add) / mul
         """
         self.arr.append((val - self.add) * inv(self.mul) % MOD)
 
@@ -156,14 +156,14 @@ class Fancy:
 
 
 
-### 复杂度分析
+### Complexity analysis
 
 
 
 
-- 时间复杂度：$O(1)$ 每次 `addAll` 和 `multAll`，$O(\log \text{MOD})$ 每次 `append` 和 `getIndex`。
+- Time complexity: $O(1)$ per `addAll` and `multAll`, and $O(\log \text{MOD})$ per `append` and `getIndex`.
 
-- 空间复杂度：$O(n)$，其中 $n$ 为 `append` 的调用次数。
+- Space complexity: $O(n)$, where $n$ is the number of `append` calls.
 
 
   

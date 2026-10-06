@@ -1,4 +1,4 @@
-# [Python] 后序遍历
+# [Python] Postorder traversal
 
 > slug: python-hou-xu-bian-li-by-himymben-swkk
 > date: 2021-08-22
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/count-univalue-subtrees/solutions/ViMd3D/python-hou-xu-bian-li-by-himymben-swkk/
 
 ---
-### 解题思路
-后序遍历，检查节点与子树节点值是否一致，如果子树已经不一致，返回inf，这样可以保证他们值(与父节点)不相同
+### Approach
+Use postorder traversal to check whether each node matches the values in its subtrees. If a subtree already contains different values, return inf so that it cannot match its parent.
 
-### 代码
+### Code
 
 ```python3
 # Definition for a binary tree node.

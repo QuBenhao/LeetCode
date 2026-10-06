@@ -28,10 +28,10 @@ public:
                 fill(f.begin() + r + 1, f.begin() + min(i + r, mx) + 1, f[r]);
                 fill(f.begin() + min(i + r, mx) + 1, f.end(), 0);
             } else {
-                for (int j = 1; j <= mx; j++) { // 计算前缀和
+                for (int j = 1; j <= mx; j++) { // Compute prefix sums
                     f[j] = (f[j] + f[j - 1]) % MOD;
                 }
-                for (int j = mx; j > i; j--) { // 计算子数组和
+                for (int j = mx; j > i; j--) { // Compute the subarray sum
                     f[j] = (f[j] - f[j - i - 1] + MOD) % MOD;
                 }
             }

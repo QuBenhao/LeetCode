@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划(多路归并)
+# [Python/Go] Dynamic programming (multiway merge)
 
 > Author: Benhao
 > Date: 2022-02-17
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-新的丑数由之前的丑数乘以2、3、5之中的一个得到（保证质因子永远只有2、3、5），
-我们可以维护三个坐标，记录每个质因子现在该乘的是第几个丑数。
+### Approach
+Each new ugly number is an earlier ugly number multiplied by 2, 3, or 5, ensuring that its only prime factors remain 2, 3, and 5.
+Maintain three indices to record which ugly number each prime factor should multiply next.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

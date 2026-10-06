@@ -17,8 +17,8 @@ class Solution(solution.Solution):
         #         stack.append("#")
         # return len(stack) == 1 and stack[0] == "#"
 
-        # 初始树只有一个槽位，每次填入东西都会减少一个槽位，填入数字会额外增加两个槽位(等待填#)
-        # 看过程中是否槽位已满或最终是否刚好填满
+        # The tree initially has one slot; every entry consumes a slot, and a number creates two more slots (eventually filled by #)
+        # Check whether slots run out too early or are exactly filled at the end
         total = 1
         for node in preorder.split(","):
             total -= 1

@@ -9,7 +9,7 @@
 - Adapt submit.py to new get_answer_articles return type
   ([`43badfe`](https://github.com/QuBenhao/LeetCode/commit/43badfe2d7313a81620b3022fb5f3520eb65c332))
 
-- 题解链接bug
+- Fix solution link bug
   ([`6e6c3ad`](https://github.com/QuBenhao/LeetCode/commit/6e6c3ad2a1d83674a3d315b5785adaeefc0d1fb3))
 
 ### Features
@@ -95,7 +95,7 @@
   ([#188](https://github.com/QuBenhao/LeetCode/pull/188),
   [`7c06b75`](https://github.com/QuBenhao/LeetCode/commit/7c06b753912967390b3c84c492e8ed7e05da98fc))
 
-- 社区题解分页与展示优化 ([#188](https://github.com/QuBenhao/LeetCode/pull/188),
+- Improve community solution pagination and display ([#188](https://github.com/QuBenhao/LeetCode/pull/188),
   [`7c06b75`](https://github.com/QuBenhao/LeetCode/commit/7c06b753912967390b3c84c492e8ed7e05da98fc))
 
 
@@ -248,7 +248,7 @@
 
 ### Bug Fixes
 
-- 修复 IndentationError 缩进错误
+- Fix IndentationError
   ([`f0b1b71`](https://github.com/QuBenhao/LeetCode/commit/f0b1b71ff3cfa3a244b35ce74245d68540fa8869))
 
 ### Features
@@ -362,16 +362,16 @@
 - Rollback
   ([`96e8871`](https://github.com/QuBenhao/LeetCode/commit/96e88718fcabec7265517c6d37a37b8c7279cc71))
 
-- 修复 GitHub Actions 问题
+- Fix GitHub Actions issues
   ([`3291f95`](https://github.com/QuBenhao/LeetCode/commit/3291f9591f4f22ebc76e8f490e6274cfe6763059))
 
-- 修复题号提取逻辑 - grep -oE 正确匹配 [题号]
+- Fix problem ID extraction: use grep -oE to match [problem ID] correctly
   ([`609464b`](https://github.com/QuBenhao/LeetCode/commit/609464b437a70830eb31cbfeb184919a918177fc))
 
-- 恢复 -f 6 提取题号，之前错误改成 -f 2
+- Restore -f 6 for extracting problem IDs after it was incorrectly changed to -f 2
   ([`eb1bbe5`](https://github.com/QuBenhao/LeetCode/commit/eb1bbe5b374b155c02566bd648499a7dfc77dbcf))
 
-- 正确恢复 daily.yml 文件内容
+- Correctly restore daily.yml contents
   ([`48fb54a`](https://github.com/QuBenhao/LeetCode/commit/48fb54a4113297fc50513a26afa81732418631f9))
 
 ### Documentation
@@ -520,15 +520,15 @@
 
 ### Bug Fixes
 
-- 清理 .cookie_tmp 临时文件 + 修复提示换行问题
+- Clean up the .cookie_tmp temporary file and fix prompt line breaks
   ([`7ebf850`](https://github.com/QuBenhao/LeetCode/commit/7ebf850d7a6880287aaf8efe4a62a58c4b6a049c))
 
 ### Features
 
-- 升级 leetcode.py 支持交互式初始化和浏览器 Cookie 自动检测
+- Upgrade leetcode.py with interactive initialization and automatic browser Cookie detection
   ([`40b8dc7`](https://github.com/QuBenhao/LeetCode/commit/40b8dc759ea6b15fa75bea6208853e29d4b3d809))
 
-- 添加中文界面支持 + 解决 Cookie 超长输入问题
+- Add Chinese interface support and handle excessively long Cookie input
   ([`c907e71`](https://github.com/QuBenhao/LeetCode/commit/c907e7187075752e1a176519078148a0847adf2f))
 
 
@@ -536,7 +536,7 @@
 
 ### Bug Fixes
 
-- 修复 Token 权限问题，添加 DEBUG 模式
+- Fix Token permissions and add DEBUG mode
   ([`54ba269`](https://github.com/QuBenhao/LeetCode/commit/54ba269f7dd8b15ecfb2a0c03f0e41c149c1bc56))
 
 ### Documentation
@@ -544,13 +544,13 @@
 - Update README
   ([`6639656`](https://github.com/QuBenhao/LeetCode/commit/66396566e79c846bcf4529b9301eea28a31e5dbd))
 
-- 添加 Cookie 自动更新工具说明
+- Document the automatic Cookie update tool
   ([`5a0ca8e`](https://github.com/QuBenhao/LeetCode/commit/5a0ca8ec10ac855ce38e80221f284008bdcb1aec))
 
-- 添加中文版 README
+- Add a Chinese README
   ([`a3b1464`](https://github.com/QuBenhao/LeetCode/commit/a3b14645b9487c9cf46124c27313d58692d0f1b4))
 
-- 精简README
+- Streamline README
   ([`03d0b04`](https://github.com/QuBenhao/LeetCode/commit/03d0b04fef23269c0da93604c32c0ed172172ce7))
 
 ### Features
@@ -558,7 +558,7 @@
 - Update 2026 holiday
   ([`e95cd9c`](https://github.com/QuBenhao/LeetCode/commit/e95cd9c389a2dc2c1411b11234b89d6c735eb2e0))
 
-- 重构脚本，支持灵活配置
+- Refactor scripts to support flexible configuration
   ([`b66e0c6`](https://github.com/QuBenhao/LeetCode/commit/b66e0c673bcb3999d5a72bd774d0de4d2a51e874))
 
 ### Testing
@@ -867,7 +867,7 @@
 - Algo 0x03 Tallest cow solution
   ([`c06dcec`](https://github.com/QuBenhao/LeetCode/commit/c06dcec05b0060720a7ddd633fb08e77d9916737))
 
-- Algo 0x03 激光炸弹 solution
+- Solve Algo 0x03: 激光炸弹
   ([`5a097c0`](https://github.com/QuBenhao/LeetCode/commit/5a097c02c79b9f07c8f04b0197b3bc7997fed9b7))
 
 - Algo 0x04 Best Cow Fences solution
@@ -949,7 +949,7 @@
 - Update semantic
   ([`02e4d10`](https://github.com/QuBenhao/LeetCode/commit/02e4d109d2374921ccbe8c429b4db00eb7ed8636))
 
-- 查询题目
+- Query problems
   ([`cbbadd5`](https://github.com/QuBenhao/LeetCode/commit/cbbadd5443e8077607456ab8283e0667610b2afb))
 
 ### Chores
@@ -1011,7 +1011,7 @@
 - 1339 solution
   ([`bc3b01e`](https://github.com/QuBenhao/LeetCode/commit/bc3b01ec402232b0c7b18f40f832ab929e596800))
 
-- 1351, 面试题 02.03, 面试题 17.04 solution
+- Solve 1351, 面试题 02.03, and 面试题 17.04
   ([`ae6fe5c`](https://github.com/QuBenhao/LeetCode/commit/ae6fe5c6d0e6e62074b4751388b2652497d40f28))
 
 - 1390 solution
@@ -1056,13 +1056,13 @@
 - 2043 solution
   ([`6d99d2e`](https://github.com/QuBenhao/LeetCode/commit/6d99d2e59d4b29c38d6e163484fb0c716b95299a))
 
-- 2054, 面试题 03.02 solution
+- Solve 2054 and 面试题 03.02
   ([`ae89327`](https://github.com/QuBenhao/LeetCode/commit/ae893274a31aee555f42fbcb9a64a4115e2ae9e3))
 
-- 2092, 面试题 16.02 solution
+- Solve 2092 and 面试题 16.02
   ([`f89f324`](https://github.com/QuBenhao/LeetCode/commit/f89f3240933cc898c64ee1fcdb7aa7cb9ca618c9))
 
-- 2092, 面试题 16.02 solution
+- Solve 2092 and 面试题 16.02
   ([`786fb4e`](https://github.com/QuBenhao/LeetCode/commit/786fb4e12a33f5c92e741eabdc6c4766bc246d2e))
 
 - 2110 solution
@@ -1101,13 +1101,13 @@
 - 2300 solution
   ([`0f560bf`](https://github.com/QuBenhao/LeetCode/commit/0f560bfbcf6529ff6a9cf7ace1eac2c09e98f5b8))
 
-- 2402, 面试题 16.06, 面试题 08.04 solution
+- Solve 2402, 面试题 16.06, and 面试题 08.04
   ([`4843ca8`](https://github.com/QuBenhao/LeetCode/commit/4843ca87727ce6b564b1370b109ececcd6511483))
 
 - 2435 solution
   ([`ef98aa2`](https://github.com/QuBenhao/LeetCode/commit/ef98aa2c7cfa96150a9e3f24e836d5967dc24dbf))
 
-- 2483, 面试题 16.05 solution
+- Solve 2483 and 面试题 16.05
   ([`3a3cb0e`](https://github.com/QuBenhao/LeetCode/commit/3a3cb0e7e736dc0e32ef49149a65ca7c6895d7fc))
 
 - 2536 solution
@@ -1131,10 +1131,10 @@
 - 3047 solution
   ([`758a520`](https://github.com/QuBenhao/LeetCode/commit/758a520c134937daa842c7d8469849d216373cb2))
 
-- 3074, 面试题 05.02 solution
+- Solve 3074 and 面试题 05.02
   ([`987b003`](https://github.com/QuBenhao/LeetCode/commit/987b003dd43bce0330b8b3c1ebf276f0a7e591a4))
 
-- 3075, 面试题 08.03 solution
+- Solve 3075 and 面试题 08.03
   ([`ff2ff84`](https://github.com/QuBenhao/LeetCode/commit/ff2ff846a33f0e0a6e442acd068f05723320bb2a))
 
 - 3100, 407, 417 solution
@@ -1281,13 +1281,13 @@
 - 865 solution
   ([`9b6445a`](https://github.com/QuBenhao/LeetCode/commit/9b6445a12b9b5981a150315445d66054ddef90b6))
 
-- 944, 面试题 08.02 solution
+- Solve 944 and 面试题 08.02
   ([`6506df4`](https://github.com/QuBenhao/LeetCode/commit/6506df4a31af5267548eb436141037f4a372c8c1))
 
-- 955, 面试题 02.01, 面试题 10.01 solution
+- Solve 955, 面试题 02.01, and 面试题 10.01
   ([`42bec2a`](https://github.com/QuBenhao/LeetCode/commit/42bec2a490fc21b4440a34f44c2d4821b8e84792))
 
-- 960, 面试题 16.04 solution
+- Solve 960 and 面试题 16.04
   ([`8057963`](https://github.com/QuBenhao/LeetCode/commit/80579633ecf59d9c087aff02d994c66b82979002))
 
 - 961 solution
@@ -1701,40 +1701,40 @@
 - Algo 0x00 a^b solution
   ([`23cb9c2`](https://github.com/QuBenhao/LeetCode/commit/23cb9c251bed97ef97a6fb0600e72b73578f39c1))
 
-- Algo 0x00 起床困难综合症 solution
+- Solve Algo 0x00: 起床困难综合症
   ([`31b27c8`](https://github.com/QuBenhao/LeetCode/commit/31b27c8bb2960a6cc3bfdc1055421aa3639e4017))
 
 - Algo 0x02 Fractal Streets solution
   ([`84ad84f`](https://github.com/QuBenhao/LeetCode/commit/84ad84f88afcdbcad5cedba5112f52759d4633dd))
 
-- Algo 0x02 递归实现指数型枚举 solution
+- Solve Algo 0x02: 递归实现指数型枚举
   ([`8d47c7b`](https://github.com/QuBenhao/LeetCode/commit/8d47c7b196821aab580337a76302c870d2cf92b1))
 
-- Algo 0x02 递归实现指数型枚举 solution
+- Solve Algo 0x02: 递归实现指数型枚举
   ([`1ff7f8d`](https://github.com/QuBenhao/LeetCode/commit/1ff7f8d14e771597cafb2392a6e7706d6232df12))
 
-- Algo 0x02 递归实现组合型枚举 solution
+- Solve Algo 0x02: 递归实现组合型枚举
   ([`1fbb55e`](https://github.com/QuBenhao/LeetCode/commit/1fbb55ee2f4d5382540c47b3f594d098162ba6a9))
 
-- Algo 0x02 非递归实现组合型枚举 solution
+- Solve Algo 0x02: 非递归实现组合型枚举
   ([`4695c34`](https://github.com/QuBenhao/LeetCode/commit/4695c34090935a54ddf423f27e7992f75e21e5c9))
 
-- Algo 0x02 非递归实现组合型枚举 solution
+- Solve Algo 0x02: 非递归实现组合型枚举
   ([`991c102`](https://github.com/QuBenhao/LeetCode/commit/991c102023afc50dc218b1c4df51b3fb93e600ad))
 
-- Algo 0x03 递归实现排列型枚举 solution
+- Solve Algo 0x03: 递归实现排列型枚举
   ([`43fa8d3`](https://github.com/QuBenhao/LeetCode/commit/43fa8d3e99e6d765063d33075582715792e38139))
 
-- Algo 0x04 费解的开关 better solution
+- Improve the solution for Algo 0x04: 费解的开关
   ([`bcaff89`](https://github.com/QuBenhao/LeetCode/commit/bcaff89aeda30ccbbbbd56176cde25a541d2e4bb))
 
-- Algo 0x04 费解的开关 better solution
+- Improve the solution for Algo 0x04: 费解的开关
   ([`790bfcf`](https://github.com/QuBenhao/LeetCode/commit/790bfcf02e5ac75bcb7f8248096955030f595f5a))
 
-- Algo 0x04 费解的开关 better solution
+- Improve the solution for Algo 0x04: 费解的开关
   ([`c5fdb7d`](https://github.com/QuBenhao/LeetCode/commit/c5fdb7d76b980e7f5d9050a7c5d81d220fdfc950))
 
-- Algo 0x04 费解的开关 solution
+- Solve Algo 0x04: 费解的开关
   ([`db72923`](https://github.com/QuBenhao/LeetCode/commit/db729232592c75657e880c013a9d3193872db6df))
 
 - Algo 0x05 Strange Towers of Hanoi solution
@@ -2001,7 +2001,7 @@
 
 ### Documentation
 
-- Add 质因数分解
+- Add prime factorization
   ([`fd36896`](https://github.com/QuBenhao/LeetCode/commit/fd3689625ce4c5371198c691bcd65bbd926e155f))
 
 - Template

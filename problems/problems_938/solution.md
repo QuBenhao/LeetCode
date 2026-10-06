@@ -1,4 +1,4 @@
-# [Python/Go/C] 简洁递归
+# [Python/Go/C] Concise recursion
 
 > Author: Benhao
 > Date: 2024-02-26
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 二叉搜索树，如果当前节点在范围内，则加入和；如果当前节点比最低范围大，就再搜搜右子树；如果当前节点比最高范围小，就再搜搜左子树
+> In a binary search tree, add the current node to the sum if it is in range. If it exceeds the lower bound, search the right subtree; if it is below the upper bound, search the left subtree
 
-# 解题方法
+# Approach
 
-> 递归处理
+> Process recursively
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

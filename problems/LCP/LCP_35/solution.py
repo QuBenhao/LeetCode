@@ -24,23 +24,23 @@ class Solution(solution.Solution):
             else:
                 connect[a][b] = connect[b][a] = w
         pq = []
-        # 时间，剩余电量, 位置
+        # Time, remaining charge, position
         heapq.heappush(pq, (0, 0, start))
-        # 到每个点，剩余一定电量 所需的最少时间
+        # Minimum time to reach each node with a given remaining charge
         dp = set()
-        # 优先队列遍历每一个可能的时间点，直到足够到达终点的时间
+        # Explore candidate arrival times with a priority queue until the destination is reached
         while pq:
             t, c, p = heapq.heappop(pq)
             if p == end:
                 return t
-            # 到达过该点，且比当前的方式快
+            # This node was already reached faster with the same remaining charge
             if (c, p) in dp:
                 continue
             dp.add((c, p))
-            # 当前剩余电量不足cnt且没有当前电量+1的状态的话，充一次电入队
+            # If the remaining charge is below cnt and the state with one more unit of charge is unvisited, charge once and enqueue
             if c < cnt and (c+1, p) not in dp:
                 heapq.heappush(pq, (t + charge[p], c + 1, p))
-            # 当前电量如果足够前往某个城市，入队
+            # If the current charge is enough to reach a city, enqueue that move
             for nxt in connect[p]:
                 dis = connect[p][nxt]
                 if dis > c or (c - dis, nxt) in dp:

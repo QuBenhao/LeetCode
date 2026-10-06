@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/the-time-when-the-network-becomes-idle/solutions/rZ2l0a/-by-himymben-tu1u/
 
 ---
-### 解题思路
-用BFS统计每个服务器$i$到0服务器的最短距离$d_i$，那么该服务器第一次接收到服务器的消息的时间为$d_i * 2$，
-于是该服务器最后一次发出消息的时间为$\lfloor \frac{d_i * 2 - 1}{p} \rfloor * p$ (这里的减一是因为收到消息的那一刻不会再发消息)，
-该服务器最后一次消息回复的时间为$\lfloor \frac{d_i * 2 - 1}{p} \rfloor * p + d_i * 2$
+### Approach
+Use BFS to find the shortest distance $d_i$ from each server $i$ to server 0. That server receives its first reply at time $d_i * 2$.
+Its last message is therefore sent at time $\lfloor \frac{d_i * 2 - 1}{p} \rfloor * p$ (subtract one because it stops sending messages as soon as a reply arrives).
+The reply to its last message arrives at time $\lfloor \frac{d_i * 2 - 1}{p} \rfloor * p + d_i * 2$.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

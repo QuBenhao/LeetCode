@@ -13,5 +13,5 @@ class Solution(solution.Solution):
         :type nums: List[int]
         :rtype: int
         """
-        # 每个数出现的次数是 2^(n-1) 次
+        # Each number appears 2^(n-1) times
         return reduce(or_, nums) << (len(nums) - 1)

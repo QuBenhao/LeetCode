@@ -4,44 +4,44 @@ project(ACOIER CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 获取项目根目录
+# Get the project root directory
 get_filename_component(PROJECT_ROOT ${CMAKE_CURRENT_SOURCE_DIR} ABSOLUTE)
 
-# 递归查找所有 solution*.cpp 文件
+# Recursively find all solution*.cpp files
 file(GLOB_RECURSE SOLUTION_FILES "*/solution*.cpp")
 
 foreach(SOLUTION_FILE ${SOLUTION_FILES})
-    # 获取相对于项目根目录的路径
+    # Get the path relative to the project root
     file(RELATIVE_PATH REL_PATH ${PROJECT_ROOT} ${SOLUTION_FILE})
 
-    # 提取目录名和文件名
+    # Extract the directory name and filename
     get_filename_component(DIR_NAME ${REL_PATH} DIRECTORY)
     get_filename_component(FILE_NAME ${REL_PATH} NAME)
-    get_filename_component(FILE_NAME_WE ${REL_PATH} NAME_WE)  # 不带扩展名的文件名
+    get_filename_component(FILE_NAME_WE ${REL_PATH} NAME_WE)  # Filename without the extension
 
-    # 提取目录的最后一级
+    # Extract the last directory component
     if(DIR_NAME)
         get_filename_component(SHORT_DIR_NAME ${DIR_NAME} NAME)
 
-        # 生成目标名
-        # 方案1: 用目录名+文件名组合
+        # Generate the target name
+        # Option 1: Combine the directory name and filename
         string(REPLACE "/" "_" TARGET_NAME ${DIR_NAME})
         set(TARGET_NAME "${TARGET_NAME}_${FILE_NAME_WE}")
 
-        # 方案2: 如果希望目标名更简洁，可以只用文件名(但要确保唯一性)
-        # 这里用方案1
+        # Option 2: Use only the filename for a shorter target name (ensure it is unique)
+        # Use option 1 here
 
-        # 确保是有效的标识符
+        # Ensure the name is a valid identifier
         string(MAKE_C_IDENTIFIER ${TARGET_NAME} TARGET_NAME)
 
-        # 设置输出名
-        # 可以使用目录名+文件名组合，避免重名
+        # Set the output name
+        # Combine the directory name and filename to avoid duplicate names
         set(OUTPUT_NAME "${SHORT_DIR_NAME}_${FILE_NAME_WE}")
 
-        # 添加可执行文件
+        # Add the executable
         add_executable(${TARGET_NAME} ${SOLUTION_FILE})
 
-        # 设置输出属性
+        # Set output properties
         set_target_properties(${TARGET_NAME} PROPERTIES
                 OUTPUT_NAME ${OUTPUT_NAME}
                 RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
@@ -49,7 +49,7 @@ foreach(SOLUTION_FILE ${SOLUTION_FILES})
 
         message(STATUS "Found: ${DIR_NAME}/${FILE_NAME} -> ${TARGET_NAME} (输出: ${OUTPUT_NAME})")
     else()
-        # 如果在根目录
+        # If the file is in the root directory
         add_executable(${FILE_NAME_WE} ${SOLUTION_FILE})
         set_target_properties(${FILE_NAME_WE} PROPERTIES
                 RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin

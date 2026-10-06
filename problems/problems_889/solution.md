@@ -1,4 +1,4 @@
-# [Python/Go/C] 先序+后序
+# [Python/Go/C] Preorder + postorder
 
 > slug: pythongoc-xian-xu-hou-xu-by-himymben-qtu4
 > date: 2024-02-22
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 按根节点在后序中对左右子树进行拆分
+> Split the left and right subtrees using the root's position in postorder
 
-# 解题方法
+# Approach
 
-> 先序、后序拆分左右子树
+> Split preorder and postorder into left and right subtrees
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

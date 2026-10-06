@@ -1,4 +1,4 @@
-# [Python] 拓扑排序
+# [Python] Topological sort
 
 > Author: Benhao
 > Date: 2024-04-03
@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 以拓扑排序可以统计干净遍历到的节点的所有祖先，因为遍历到它时它的入度为0，说明所有祖先都已经处理过
+> Topological sorting lets us collect every ancestor of a node: when the node is visited, its indegree is 0, so all its ancestors have already been processed.
 
-# 解题方法
+# Approach
 
-> 拓扑排序
+> Topological sort
 
 
 # Code

@@ -1,4 +1,4 @@
-# 暴力枚举
+# Brute-force enumeration
 
 > slug: bao-li-mei-ju-by-himymben-eqgr
 > date: 2025-08-22
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-the-minimum-area-to-cover-all-ones-ii/solutions/UnhCg3/bao-li-mei-ju-by-himymben-eqgr/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

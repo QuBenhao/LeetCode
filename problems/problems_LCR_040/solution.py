@@ -8,7 +8,7 @@ class Solution(solution.Solution):
 
     def maximalRectangle(self, matrix: List[str]) -> int:
         m, n = len(matrix), len(matrix[0]) if matrix else 0
-        # 二维压缩到一维后，就和最大矩形面积一样了
+        # After compressing two dimensions into one, this becomes the largest rectangle in a histogram
         heights = [0] * (n+1)
         heights[-1] = -1
         max_area = 0

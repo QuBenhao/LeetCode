@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-mv7j
 > date: 2022-04-16
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/most-common-word/solutions/iQkV98/pythonjavajavascriptgo-mo-ni-by-himymben-mv7j/
 
 ---
-### 解题思路
-段落换小写，按那些标点符号分割，统计非空字符串且不在禁用字符串中的数量最多的字符串。
+### Approach
+Convert the paragraph to lowercase, split on the specified punctuation, and find the most frequent nonempty string that is not banned.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

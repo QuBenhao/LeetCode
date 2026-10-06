@@ -1,4 +1,4 @@
-# [Python/Java/Go] 中序遍历
+# [Python/Java/Go] Inorder traversal
 
 > Author: Benhao
 > Date: 2024-03-02
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 中序遍历，依次比较相邻的差值找最小结果
+> Use an inorder traversal and compare adjacent values to find the minimum difference.
 
-# 解题方法
+# Approach
 
-> 使用迭代器+pairwise特性
+> Use an iterator with pairwise.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

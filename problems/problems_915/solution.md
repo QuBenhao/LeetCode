@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > slug: python-mo-ni-by-himymben-3cer
 > date: 2022-10-24
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/partition-array-into-disjoint-intervals/solutions/44NCiD/python-mo-ni-by-himymben-3cer/
 
 ---
-### 解题思路
-找左边最大值比右边最小值的割点，从左往右统计最大值，从右往左统计最小值即可
+### Approach
+Find a split where the maximum on the left is no greater than the minimum on the right: compute maxima from left to right and minima from right to left
 
-### 代码
+### Code
 
 ```python3
 class Solution:

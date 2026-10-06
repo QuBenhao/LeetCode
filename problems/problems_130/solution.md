@@ -12,26 +12,26 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 找中间的联通部分不如从两边找不用变X的所有O，那么剩下的所有O都是要变X的
+> Instead of finding connected regions in the middle, start at the boundaries and find all O cells that do not need to become X. All remaining O cells must become X.
 
-# 解题方法
+# Approach
 
 > DFS
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(mn)$
 
-空间复杂度:
+Space complexity:
 > $O(mn)$
 
 
 
 # Code
-边缘优化
+Boundary optimization
 ```Python3 []
 DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
 class Solution:
@@ -60,7 +60,7 @@ class Solution:
                 elif board[i][j] == 'O':
                     board[i][j] = 'X'
 ```
-普通遍历
+Standard traversal
 ```python3 []
 DIRS = [(0, 1), (1, 0), (-1, 0), (0, -1)]
 class Solution:

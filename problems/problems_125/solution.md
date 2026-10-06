@@ -1,4 +1,4 @@
-# [Python/Go/C] 双指针模拟
+# [Python/Go/C] Two-pointer simulation
 
 > slug: pythongoc-shuang-zhi-zhen-mo-ni-by-himym-x5jz
 > date: 2024-02-29
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 左边和右边的指针不停比较
+> Keep comparing the characters at the left and right pointers.
 
-# 解题方法
+# Approach
 
-> 双指针模拟
+> Two-pointer simulation
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

@@ -24,16 +24,16 @@ class Solution(solution.Solution):
         n = len(nums)
         nums.sort()
         ans = 0
-        # 固定最大边, a + b > c
+        # Fix the largest side, a + b > c
         for i in range(n - 1, 1, -1):
             l, r = 0, i - 1
-            # 两数之和问题！
+            # This is a two-sum problem!
             while l < r:
-                # 两数之和大于最大边，他们之间的所有值作为左端点，均可以和右端点构成答案
+                # If the sum exceeds the largest side, every left endpoint between the pointers also works with this right endpoint
                 if nums[l] + nums[r] > nums[i]:
                     ans += r - l
                     r -= 1
                 else:
-                    # 小于最大边，构不成答案，之后的右端点都需要更大的左端点才有可能继续构成答案
+                    # If the sum is too small, later right endpoints need a larger left endpoint to form a valid triangle
                     l += 1
         return ans

@@ -1,4 +1,4 @@
-# [Python/Go] 模拟
+# [Python/Go] Simulation
 
 > slug: pythongo-mo-ni-by-himymben-bxz8
 > date: 2022-01-23
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/rearrange-array-elements-by-sign/solutions/AXsGBz/pythongo-mo-ni-by-himymben-bxz8/
 
 ---
-### 解题思路
-双指针模拟或直接模拟均可
+### Approach
+Either two-pointer simulation or direct simulation works.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

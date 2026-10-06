@@ -1,4 +1,4 @@
-# [Python] 贪心 排序+双指针
+# [Python] Greedy sorting + two pointers
 
 > Author: Benhao
 > Date: 2021-08-25
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-观察这么一件事儿，越重的人，越容易自己独占一条船。如果想尽可能地利用空间，就尽可能往它们上面塞人。
+### Approach
+Observe that heavier people are more likely to need a boat to themselves. To use space efficiently, pair them with someone whenever possible.
 
-> 如果最重的，重到连最轻的都加不上去，那它只能自己一个人一条船。剩下的问题就是一个递归的解了;
-> 如果最重的可以带上最轻的，那它们俩一艘船是最优的。因为最轻的能和任一个人一起，但其他人不一定能和最重的人一起。
+> If the heaviest person cannot share even with the lightest, they must take a boat alone. Solve the remaining problem recursively;
+> If the heaviest can take the lightest, pairing them is optimal: the lightest can share with anyone, but others may not fit with the heaviest.
 
-排序后，双指针。如果两人的和小于等于limit，那么左右凑一对儿，往中间递归；否则右边独自占一条船。
+Sort and use two pointers. If their combined weight is at most limit, pair the left and right people and continue inward; otherwise, the rightmost person takes a boat alone.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

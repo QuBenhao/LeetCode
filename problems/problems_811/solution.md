@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 哈希表模拟
+# [Python/Java/TypeScript/Go] Hash map simulation
 
 > slug: pythonjavatypescriptgo-mo-ni-by-himymben-b87j
 > date: 2022-10-05
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/subdomain-visit-count/solutions/Q8zpPU/pythonjavatypescriptgo-mo-ni-by-himymben-b87j/
 
 ---
-### 解题思路
-按题目对每个域名统计次数，最终返回即可
+### Approach
+Count each domain's occurrences as specified, then return the result
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

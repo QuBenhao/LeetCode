@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > slug: python-mo-ni-by-himymben-1bae
 > date: 2024-03-11
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 按空格拆分字符串，判断每个字符串长度，按要求首字母大写其余小写，或者小写
+> Split the string on spaces and check each word's length. As required, either capitalize the first letter and lowercase the rest, or lowercase the whole word.
 
-# 解题方法
+# Approach
 
-> 模拟
+> Simulation
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

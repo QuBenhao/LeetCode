@@ -1,4 +1,4 @@
-# [Python] 找到根，从根递归构建
+# [Python] Find the root and recursively build from it
 
 > slug: python-zhao-dao-gen-cong-gen-di-gui-gou-4wkoq
 > date: 2022-03-06
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/create-binary-tree-from-descriptions/solutions/GiLTQG/python-zhao-dao-gen-cong-gen-di-gui-gou-4wkoq/
 
 ---
-### 解题思路
-根是出现在parent里没出现在child里的
+### Approach
+The root appears in parent but never in child.
 
-### 代码
+### Code
 
 ```python3
 # Definition for a binary tree node.

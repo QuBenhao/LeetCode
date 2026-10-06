@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-utd5
 > date: 2022-04-06
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/rotate-string/solutions/MJeavV/pythonjavajavascriptgo-mo-ni-by-himymben-utd5/
 
 ---
-### 解题思路
-所谓的旋转其实就是以任意位置开始，到转回来自己结束。
-即为两个原字符串拼接的子串
+### Approach
+A rotation starts at any position and continues until it wraps back to that position.
+It is therefore a substring of two concatenated copies of the original string
 
 PS:
-在很多尾和头相连的数组题目中，都常使用两倍数组的小技巧
+Doubling the array is a common trick in problems where the end connects to the beginning
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 降维 + 哈希表记录交换
+# [Python/Java/JavaScript/Go] Flatten the matrix + track swaps in a hash table
 
 > slug: pythonjavajavascriptgo-jiang-wei-ha-xi-b-8ipu
 > date: 2021-11-27
@@ -7,20 +7,20 @@
 > url: https://leetcode.cn/problems/random-flip-matrix/solutions/kKzjxc/pythonjavajavascriptgo-jiang-wei-ha-xi-b-8ipu/
 
 ---
-### 解题思路
-二维矩阵用一维数组表示也是老生常谈了，不做赘述了，就是将 `i,j -> i*n + j`做个一对一的映射。
+### Approach
+Representing a two-dimensional matrix as a one-dimensional array is familiar: use the one-to-one mapping `i,j -> i*n + j`.
 
-转换成一维其实做法和前几天的随机数的思路是一模一样的。但是有个问题是，m和n都是$10^4$，乘起来是$10^8$，这样的数组维护起来是极其昂贵的。
-注意到最多flip一千次，那么有没有办法可以只记录用过的数，并维护出上面我们想要的数组的样子呢？首先想到的就是哈希表了，既然没有数组去交换记录，是不是可以直接记录被用的数和他交换的数的映射呢？
+After flattening, the approach is identical to the random-number problem from a few days ago. However, m and n can each be $10^4$, giving $10^8$ entries, so maintaining the array is very expensive.
+There are at most a thousand calls to flip. Can we record only the used numbers while maintaining the conceptual array above? A hash table comes to mind: instead of swapping entries in a real array, record a mapping from each used position to the value swapped into it.
 
-假设我们的一维数组为 [0, 1, 2, 3, 4, 5]，最后一个值为5；
-第一次random，假如是3，我们下一次随机是想要[0, 1, 2, 4, 5]中取一个，将`5`填入`3`的位置，就像是做了一次`3`和`5`的交换，
-数组变为 [0, 1, 2, 5, 4] （我们记录映射 `3 -> 5`）
-第二次random，我们在`0~4`中取一个（数组坐标），假如不是`3`，我们做和上一次一样的操作；假如是`3`，那么我们这次随机出来的数就相当于是`5`，这个时候我们仍需要将`3`的映射更新，变为最新的最后一个数`4`，
-这样数组就变为 [0, 1, 2, 4] (我们记录映射 `3` -> `4`)，并不是真的做了这么个数组。
-一直到最后将全部数组都可以随机出，被用过的数不会再出现，因为始终会取它们映射到的没被用过的数。
+Suppose the one-dimensional array is [0, 1, 2, 3, 4, 5], with 5 as its last value.
+If the first random choice is 3, the next choice should come from [0, 1, 2, 4, 5]. Put `5` in position `3`, effectively swapping `3` and `5`.
+The array becomes [0, 1, 2, 5, 4] (record the mapping `3 -> 5`).
+For the second random choice, choose an array index in `0~4`. If it is not `3`, repeat the previous operation. If it is `3`, the selected value is effectively `5`. Update the mapping for `3` to the new last value, `4`.
+The conceptual array becomes [0, 1, 2, 4] (record the mapping `3` -> `4`); no actual array is created.
+Continue until every value has been selected. A used number cannot appear again because its mapping always points to an unused number.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:
@@ -32,8 +32,8 @@ class Solution:
     def flip(self) -> List[int]:
         r = random.randint(0, self.total)
         idx = self.record.get(r, r)
-        # 相当于total的值没被用，将那个值填入idx位置；
-        # 被用了的话，将它那里填入的没被用的值填入
+        # If the value at total is unused, put that value at idx;
+        # Otherwise, use the unused value previously mapped to that position
         self.record[r] = self.record.get(self.total, self.total)
         self.total -= 1
         ans = [idx // self.n, idx % self.n]

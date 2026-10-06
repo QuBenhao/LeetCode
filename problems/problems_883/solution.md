@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-by-himymben-tls4
 > date: 2022-04-25
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/projection-area-of-3d-shapes/solutions/iwzY8o/pythonjavajavascriptgo-by-himymben-tls4/
 
 ---
-### 解题思路
-xy平面的投影面积为: 数组中非0的总个数。
-xz平面的投影面积为: 每行最大值。
-yz平面的投影面积为: 每列最大值。
+### Approach
+The xy-plane projection area is the total number of nonzero array entries.
+The xz-plane projection area comes from each row's maximum.
+The yz-plane projection area comes from each column's maximum.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

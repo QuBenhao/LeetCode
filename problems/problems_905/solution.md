@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: python-by-himymben-c1j5
 > date: 2022-04-27
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/sort-array-by-parity/solutions/GI1w72/python-by-himymben-c1j5/
 
 ---
-### 解题思路
-该用户太懒了只有代码
+### Approach
+This user was too lazy to write an explanation; code only
 
-### 代码
+### Code
 ```python3
 class Solution:
     def sortArrayByParity(self, nums: List[int]) -> List[int]:

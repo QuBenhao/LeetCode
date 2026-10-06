@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 双优先队列
+# [Python/Java/JavaScript/Go] Two priority queues
 
 > slug: by-himymben-bour
 > date: 2022-03-29
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-servers-that-handled-most-number-of-requests/solutions/o57MEM/by-himymben-bour/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

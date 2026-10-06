@@ -1,4 +1,4 @@
-# [Python] 两个优先队列 双100%
+# [Python] Two priority queues: 100% in both metrics
 
 > Author: Benhao
 > Date: 2021-05-30
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-空闲服务器根据`权重`和`坐标`排序，使用中的服务器根据`结束时间`，`权重`和`坐标`排序。
-遍历任务。
-当我们有使用中的小于任务基础时间的服务器，将它们加入空闲（因为实际上任务已结束），
-如果我们有空闲的服务器，在空闲队列中找权重最小的加入使用的队列中。
-如果我们没有空闲的服务器，在使用队列中找最早完成且权重最小的，重新加入队列。
+### Approach
+Order idle servers by `weight` and `index`, and busy servers by `finish time`, `weight`, and `index`.
+Process the tasks in order.
+Move busy servers that have finished by the task's arrival time into the idle queue.
+If a server is idle, take the one with the smallest weight and move it into the busy queue.
+Otherwise, take the earliest-finishing busy server with the smallest weight and reinsert it with its new finish time.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

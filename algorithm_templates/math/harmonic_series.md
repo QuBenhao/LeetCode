@@ -1,20 +1,20 @@
-# 调和级数
+# Harmonic Series
 
-调和级数思想常用于优化算法复杂度，特别是在处理涉及因子、倍数或分块计算的问题时。下面我将通过具体题目展示如何利用调和级数性质降低时间复杂度，并提供四种语言的实现。
+The harmonic series often helps reduce algorithmic complexity, especially in problems involving divisors, multiples, or block-based computation. The following example shows how to use its properties to reduce time complexity, with implementations in four languages.
 
-## 经典应用：计算1~n中每个数的因子个数
+## Classic Application: Count the Divisors of Every Number from 1 to n
 
-### 问题描述
-给定正整数n，计算每个数i (1 ≤ i ≤ n) 的因子个数。
+### Problem Description
+Given a positive integer n, count the divisors of each number i (1 ≤ i ≤ n).
 
-### 暴力解法（O(n√n)）
+### Brute-Force Solution (O(n√n))
 ```python
-# Python 暴力解法
+# Python brute-force solution
 def count_factors_brute_force(n):
     result = [0] * (n + 1)
     for i in range(1, n + 1):
         count = 0
-        # 检查从1到√i的所有数
+        # Check every number from 1 to √i
         j = 1
         while j * j <= i:
             if i % j == 0:
@@ -26,11 +26,11 @@ def count_factors_brute_force(n):
     return result
 ```
 
-### 调和级数优化解法（O(n log n)）
-利用调和级数性质：对于每个数d，它是n/d个数的因子
+### Harmonic Series Optimization (O(n log n))
+Use the harmonic series: each number d is a divisor of n/d numbers.
 
 ```cpp
-// C++ 优化解法
+// Optimized C++ solution
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -56,7 +56,7 @@ int main() {
 ```
 
 ```python
-# Python 优化解法
+# Optimized Python solution
 def count_factors(n):
     factors = [0] * (n + 1)
     for i in range(1, n + 1):
@@ -73,7 +73,7 @@ for i in range(1, n + 1):
 ```
 
 ```go
-// Golang 优化解法
+// Optimized Go solution
 package main
 
 import "fmt"
@@ -98,7 +98,7 @@ func main() {
 ```
 
 ```java
-// Java 优化解法
+// Optimized Java solution
 public class FactorCount {
     public static int[] countFactors(int n) {
         int[] factors = new int[n + 1];
@@ -120,28 +120,28 @@ public class FactorCount {
 }
 ```
 
-## 复杂度分析
+## Complexity Analysis
 
-1. **暴力解法**：O(n√n)
-   - 对于每个数i，需要检查√i个可能的因子
-   - 总操作数约为n√n
+1. **Brute-force solution**: O(n√n)
+   - For each number i, check √i possible divisors.
+   - The total number of operations is approximately n√n.
 
-2. **调和级数优化**：O(n log n)
-   - 外层循环i从1到n
-   - 内层循环j从i开始，每次增加i，直到超过n
-   - 总操作数为n(1 + 1/2 + 1/3 + ... + 1/n) ≈ n ln n
+2. **Harmonic series optimization**: O(n log n)
+   - The outer loop runs i from 1 to n.
+   - The inner loop starts j at i and increments it by i until it exceeds n.
+   - The total number of operations is n(1 + 1/2 + 1/3 + ... + 1/n) ≈ n ln n.
 
-## 其他应用场景
+## Other Applications
 
-1. **埃拉托斯特尼筛法**：利用调和级数思想优化素数筛选
-2. **除数函数求和**：计算1~n中所有数的因子个数之和
-3. **欧拉函数预处理**：批量计算1~n的欧拉函数值
-4. **莫比乌斯函数预处理**：批量计算1~n的莫比乌斯函数值
+1. **Sieve of Eratosthenes**: Use the harmonic series to optimize prime sieving.
+2. **Divisor summatory function**: Sum the divisor counts of all numbers from 1 to n.
+3. **Euler's totient function preprocessing**: Compute totient values for all numbers from 1 to n.
+4. **Möbius function preprocessing**: Compute Möbius function values for all numbers from 1 to n.
 
-## 埃氏筛法优化示例
+## Sieve of Eratosthenes Optimization Example
 
 ```cpp
-// C++ 埃氏筛法优化
+// Optimized C++ sieve of Eratosthenes
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -160,21 +160,21 @@ vector<bool> sieve_of_eratosthenes(int n) {
 }
 ```
 
-## 性能对比
+## Performance Comparison
 
-| 方法 | 时间复杂度 | n=10^6时的运行时间(估计) |
+| Method | Time Complexity | Estimated Runtime for n=10^6 |
 |------|------------|--------------------------|
-| 暴力解法 | O(n√n) | ~2秒 |
-| 调和级数优化 | O(n log n) | ~0.1秒 |
+| Brute-force solution | O(n√n) | ~2 seconds |
+| Harmonic series optimization | O(n log n) | ~0.1 seconds |
 
-## 总结
+## Summary
 
-调和级数思想通过改变循环方向（从"对每个数找因子"变为"对每个因子找倍数"），将算法复杂度从O(n√n)降低到O(n log n)。这种优化技巧在解决数论和组合问题时非常有用，特别是当需要预处理大量数据时。
+The harmonic series approach reduces complexity from O(n√n) to O(n log n) by reversing the iteration: instead of finding divisors for each number, find multiples of each divisor. This optimization is useful for number theory and combinatorics problems, especially when preprocessing large amounts of data.
 
-关键点：
-1. 识别问题中隐含的调和级数结构
-2. 改变循环方向，从因子角度考虑问题
-3. 利用空间换时间，预处理结果
-4. 注意内存访问模式，优化缓存性能
+Key points:
+1. Identify the harmonic series structure hidden in the problem.
+2. Reverse the iteration and consider the problem from the divisors' perspective.
+3. Trade space for time by precomputing results.
+4. Consider memory access patterns to improve cache performance.
 
-掌握这种思想可以帮助解决许多算法问题，特别是在编程竞赛和面试中常见的数据预处理和优化问题。
+Understanding this approach helps solve many algorithm problems, especially the preprocessing and optimization problems common in programming contests and interviews.

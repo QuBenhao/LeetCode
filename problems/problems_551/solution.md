@@ -1,4 +1,4 @@
-# [Python/Java] 模拟 时间o(n) 空间o(1)
+# [Python/Java] Simulation with o(n) time and o(1) space
 
 > Author: Benhao
 > Date: 2021-08-16

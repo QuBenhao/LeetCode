@@ -14,24 +14,24 @@ public class Solution extends BaseSolution {
             maxT = Math.max(maxT, t);
         }
         int avg = (totalTrips - 1) / time.length + 1;
-        // 循环不变量：check(left) 恒为 false
+        // Loop invariant: check(left) is always false
         long left = (long) minT * avg - 1;
-        // 循环不变量：check(right) 恒为 true
+        // Loop invariant: check(right) is always true
         long right = Math.min((long) maxT * avg, (long) minT * totalTrips);
-        // 开区间 (left, right) 不为空
+        // The open interval (left, right) is nonempty
         while (left + 1 < right) {
             long mid = (left + right) >>> 1;
             if (check(mid, time, totalTrips)) {
-                // 缩小二分区间为 (left, mid)
+                // Shrink the binary-search interval to (left, mid)
                 right = mid;
             } else {
-                // 缩小二分区间为 (mid, right)
+                // Shrink the binary-search interval to (mid, right)
                 left = mid;
             }
         }
-        // 此时 left 等于 right-1
-        // check(left) = false 且 check(right) = true，所以答案是 right
-        return right; // 最小的 true
+        // Now left equals right-1
+        // check(left) = false and check(right) = true, so the answer is right
+        return right; // The smallest value for which the predicate is true
     }
 
     private boolean check(long x, int[] time, int totalTrips) {

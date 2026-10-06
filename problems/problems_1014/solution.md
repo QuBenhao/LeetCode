@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2022-02-13
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-维护一个之前的`values[i] + i`的最大值，之后用`values[j] - j`的和的最大值找最大的答案即可
+### Approach
+Maintain the maximum earlier `values[i] + i`, then maximize its sum with `values[j] - j` to obtain the answer.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -38,7 +38,7 @@ func max(a, b int) int {
     return b
 }
 ```
-另一个写法
+Another implementation
 ```Python3 []
 class Solution:
     def maxScoreSightseeingPair(self, values: List[int]) -> int:

@@ -7,7 +7,7 @@ import (
 )
 
 func findTargetSumWays(nums []int, target int) int {
-	// 正数和为a, 负数和为(s - a), a - (s - a) = target, a = (target + s) / 2
+	// Let the positive sum be a and the negative-side sum be (s - a): a - (s - a) = target, so a = (target + s) / 2
 	t := target
 	for _, num := range nums {
 		target += num

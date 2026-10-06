@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 数组模拟
+# [Python/Java/JavaScript/Go] Array simulation
 
 > Author: Benhao
 > Date: 2022-03-17
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-直接按题意模拟即可
+### Approach
+Simulate the operations as described.
 
-### 代码
+### Code
 
 ```Python3 []
 class Bank:

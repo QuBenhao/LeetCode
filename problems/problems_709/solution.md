@@ -7,7 +7,7 @@
 
 ---
 
-使用内置函数全部一行
+Every version is one line using a built-in function.
 ```python3 []
 class Solution:
     def toLowerCase(self, s: str) -> str:
@@ -35,7 +35,7 @@ func toLowerCase(s string) string {
 }
 ```
 
-不使用内置函数
+Without built-in functions
 ```python3 []
 class Solution:
     def toLowerCase(self, s: str) -> str:

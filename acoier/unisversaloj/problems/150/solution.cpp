@@ -13,14 +13,14 @@ bool mark[MAXN],vis[MAXN];
 struct node {
 	int st,ed,lca,d;
 } P[MAXN];
-struct Edge {//前向星
+struct Edge {// Forward-star adjacency list
 	int ed,v,last;
 } G[MAXN*2];
 struct que {
 	int ed,id;
 };
 vector<que> Q[MAXN];
-struct s__ {//树剖预处理
+struct s__ {// Preprocess heavy-light decomposition
 	int son[MAXN],size[MAXN],top[MAXN],deep[MAXN];
 	void DFS1(int x,int fa,int v) {
 		dis[x]=dis[fa]+v;
@@ -53,7 +53,7 @@ struct s__ {//树剖预处理
 		return x;
 	}
 } shupou;
-void Rd(int &res) {//读优
+void Rd(int &res) {// Fast input
 	res=0;
 	char ch=getchar();
 	while('0'>ch||ch>'9')ch=getchar();
@@ -75,47 +75,47 @@ void DFS(int x,int fa,int &bb) {
 		DFS(t,x,bb);
 	}
 }
-void DFSla(int x,int fa,int zu) {//后缀
+void DFSla(int x,int fa,int zu) {// Suffix
 	vis[x]=1;
-	for(int i=0; i<Q[x].size(); i++) {//访问vector
+	for(int i=0; i<Q[x].size(); i++) {// Iterate over the vector
 		int t=Q[x][i].ed,id=Q[x][i].id;
-		if(vis[t]==1)sumla[zu]=max(sumla[zu],P[id].d);//更新
+		if(vis[t]==1)sumla[zu]=max(sumla[zu],P[id].d);// Update
 	}
 	int nex=0;
 	for(int i=head[x]; ~i; i=G[i].last) {
 		int t=G[i].ed,v=G[i].v;
 		if(t==fa)continue;
-		if(mark[t]) {//优先遍历两旁伸出的子树
+		if(mark[t]) {// Visit the side subtrees first
 			nex=t;
 			continue;
 		}
 		DFSla(t,x,zu);
 	}
 	if(nex) {
-		sumla[num[nex]]=sumla[num[x]];//更新下一个的后缀
-		if(nex==P[bh].st)return;//下一个点如果是另一端点的话就直接退出
+		sumla[num[nex]]=sumla[num[x]];// Update the next node's suffix
+		if(nex==P[bh].st)return;// Stop immediately if the next node is the other endpoint
 		DFSla(nex,x,num[nex]);
 	}
 }
-void DFSfr(int x,int fa,int zu) {//前缀
+void DFSfr(int x,int fa,int zu) {// Prefix
 	vis[x]=1;
-	for(int i=0; i<Q[x].size(); i++) {//访问vector
+	for(int i=0; i<Q[x].size(); i++) {// Iterate over the vector
 		int t=Q[x][i].ed,id=Q[x][i].id;
-		if(vis[t]==1)sumfr[zu]=max(sumfr[zu],P[id].d);//更新
+		if(vis[t]==1)sumfr[zu]=max(sumfr[zu],P[id].d);// Update
 	}
 	int nex=0;
 	for(int i=head[x]; ~i; i=G[i].last) {
 		int t=G[i].ed,v=G[i].v;
 		if(t==fa)continue;
-		if(mark[t]) {//优先遍历两旁伸出的子树
+		if(mark[t]) {// Visit the side subtrees first
 			nex=t;
 			continue;
 		}
 		DFSfr(t,x,zu);
 	}
 	if(nex) {
-		sumfr[num[nex]]=sumfr[num[x]];//更新下一个的前缀
-		if(nex==P[bh].ed)return;//下一个点如果是另一端点的话就直接退出
+		sumfr[num[nex]]=sumfr[num[x]];// Update the next node's prefix
+		if(nex==P[bh].ed)return;// Stop immediately if the next node is the other endpoint
 		DFSfr(nex,x,num[nex]);
 	}
 }
@@ -147,7 +147,7 @@ int main() {
 	DFSfr(P[bh].st,0,num[P[bh].st]);
 	memset(vis,false,sizeof(vis));
 	DFSla(P[bh].ed,0,num[P[bh].ed]);
-	for(int i=1;i<=bb;i++){//更新最终答案
+	for(int i=1;i<=bb;i++){// Update the final answer
 		int res=0;
 		res=max(res,P[bh].d-lian[i]);
 		res=max(res,sumfr[i]);

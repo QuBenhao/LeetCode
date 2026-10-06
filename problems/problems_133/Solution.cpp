@@ -37,26 +37,26 @@ public:
 
     unordered_map<Node *, Node *> visited;
 
-    // 将题目给定的节点添加到队列
+    // Add the given node to the queue
     queue<Node *> Q;
     Q.push(node);
-    // 克隆第一个节点并存储到哈希表中
+    // Clone the first node and store it in the hash table
     visited[node] = new Node(node->val);
 
-    // 广度优先搜索
+    // Breadth-first search
     while (!Q.empty()) {
-      // 取出队列的头节点
+      // Remove the node at the front of the queue
       auto n = Q.front();
       Q.pop();
-      // 遍历该节点的邻居
+      // Traverse this node's neighbors
       for (auto &neighbor : n->neighbors) {
         if (visited.find(neighbor) == visited.end()) {
-          // 如果没有被访问过，就克隆并存储在哈希表中
+          // If unvisited, clone it and store it in the hash table
           visited[neighbor] = new Node(neighbor->val);
-          // 将邻居节点加入队列中
+          // Add the neighboring node to the queue
           Q.push(neighbor);
         }
-        // 更新当前节点的邻居列表
+        // Update the current node's neighbor list
         visited[n]->neighbors.emplace_back(visited[neighbor]);
       }
     }

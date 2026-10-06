@@ -1,4 +1,4 @@
-# [Python/Go] 递归/动态规划
+# [Python/Go] Recursion/dynamic programming
 
 > Author: Benhao
 > Date: 2021-08-07

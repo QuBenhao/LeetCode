@@ -1,4 +1,4 @@
-# 统计i-nums[i]
+# Count i-nums[i]
 
 > slug: tong-ji-i-numsi-by-himymben-ku5h
 > date: 2025-04-18
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-number-of-bad-pairs/solutions/bgBo6F/tong-ji-i-numsi-by-himymben-ku5h/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

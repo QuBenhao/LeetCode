@@ -9,7 +9,7 @@ class Solution(solution.Solution):
     def longestCommonPrefix(self, arr1: List[int], arr2: List[int]) -> int:
         root = {}
 
-        # 插入数字到 Trie
+        # Insert the number into the Trie
         for num in arr1:
             node = root
             for c in str(num):
@@ -17,7 +17,7 @@ class Solution(solution.Solution):
                     node[c] = {}
                 node = node[c]
 
-        # 沿着 Trie 走一次，记录能走多深
+        # Walk the Trie once and record the depth reached
         def query(num: int) -> int:
             node = root
             s = str(num)

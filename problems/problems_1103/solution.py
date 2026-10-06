@@ -11,11 +11,11 @@ class Solution(solution.Solution):
         """
         x * (x + 1) // 2 >= candies > x * (x - 1) // 2
         (x + 1) * (x + 1) > x * (x + 1) >= 2 * candies > x * (x - 1) > (x - 1) * (x - 1)
-        x + 1 > 根号下(2 * candies) > x - 1
+        x + 1 > sqrt(2 * candies) > x - 1
         {} + 1 > x > {} - 1
         """
         f = (candies * 2) ** 0.5
-        # 从最大往最小逼近
+        # Refine the estimate downward from the upper bound
         x = int(f + 1)
         if (s := x * (x + 1) // 2) > candies:
             s -= x

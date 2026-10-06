@@ -10,7 +10,7 @@ impl SeatManager {
     fn new(n: i32) -> Self {
         let mut available = BinaryHeap::new();
         for i in 1..=n {
-            available.push(-i); // 取相反数，变成最小堆
+            available.push(-i); // Negate values to obtain a min-heap
         }
         Self { available }
     }

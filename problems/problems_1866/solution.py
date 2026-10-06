@@ -19,13 +19,13 @@ class Solution(solution.Solution):
         for i in range(1, n + 1):
             g = [0] * (k + 1)
             for j in range(1, k + 1):
-                # 第一种理解是：
-                # 把最小的木棍填在第一个位置，必定会被看到，故木棍数-1且看到的数-1
-                # 把最小的那根木棍填在除第一个位置外的任意一个位置(有i-1个)，都不会被看到，故 木棍数-1且看到的数不变
+                # First interpretation:
+                # Put the shortest stick first, where it is visible: decrease both the stick count and visible count by 1
+                # Put the shortest stick in any of the other i-1 positions, where it is hidden: decrease the stick count by 1 and keep the visible count unchanged
 
-                # 第二种理解是:
-                # 最后一根木棍能被看到，那它只能是最大的那根木棍，故 木棍数-1且看到的数-1
-                # 最后一根木棍不能被看到，那它可以是1到(i-1)中的任意一个木棍(有i-1个)，都不会被看到，故 木棍数-1且看到的数不变
+                # Second interpretation:
+                # If the last stick is visible, it must be the tallest: decrease both the stick count and visible count by 1
+                # If the last stick is hidden, it can be any of the i-1 shorter sticks: decrease the stick count by 1 and keep the visible count unchanged
                 g[j] = (f[j] * (i - 1) + f[j - 1]) % mod
             f = g
 

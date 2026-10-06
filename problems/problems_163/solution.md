@@ -1,4 +1,4 @@
-# [Python] 根据数据范围要按nums遍历，不能按lower到upper
+# [Python] The constraints require traversing nums, not the range from lower to upper
 
 > slug: python-gen-ju-shu-ju-fan-wei-yao-an-nums-zt62
 > date: 2021-08-21
@@ -10,12 +10,12 @@
 ```python3
 class Solution:
     def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[str]:
-        # 添加终止边界
+        # Add a terminal boundary
         nums.append(upper + 1)
         ans = []
         last = lower - 1
         for num in nums:
-            # 比上一个数字中有缺失,需要添加在答案中的
+            # Add the gap after the previous number to the answer
             if num - last > 2:
                 ans.append(str(last+1) + '->' + str(num-1))
             elif num - last == 2:
@@ -25,16 +25,16 @@ class Solution:
 
 ```
 
-20240622题目已改变
-```python3 [方法一]
+20240622: The problem has changed
+```python3 [Approach 1]
 class Solution:
     def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[List[int]]:
-        # 添加终止边界
+        # Add a terminal boundary
         nums.append(upper + 1)
         ans = []
         last = lower - 1
         for num in nums:
-            # 比上一个数字中有缺失,需要添加在答案中的
+            # Add the gap after the previous number to the answer
             if num - last > 2:
                 ans.append([last + 1, num - 1])
             elif num - last == 2:
@@ -42,7 +42,7 @@ class Solution:
             last = num
         return ans
 ```
-```Python3 [方法二]
+```Python3 [Approach 2]
 class Solution:
     def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[List[int]]:
         ans = [[lower, upper]]

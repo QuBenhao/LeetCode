@@ -1,4 +1,4 @@
-# 简单模拟题
+# Simple simulation
 
 > Author: Benhao
 > Date: 2022-12-08
@@ -11,17 +11,17 @@
 
 [TOC]
 
-# 思路
-> 按题意模拟
+# Intuition
+> Simulate as described.
 
-# 解题方法
-> 根据横纵坐标奇偶性判断即可
+# Approach
+> Check the parity of the horizontal and vertical coordinates.
 
-# 复杂度
-- 时间复杂度: 
+# Complexity
+- Time complexity:
 > $O(1)$
 
-- 空间复杂度: 
+- Space complexity:
 > $O(1)$
 
 # Code

@@ -1,4 +1,4 @@
-# [Python3/Go] 打家劫舍动态规划
+# [Python3/Go] House Robber dynamic programming
 
 > Author: Benhao
 > Date: 2021-05-04
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-首先想到用Counter和排序处理数据，这样从小到大看的话，`num`只需要考虑前一个是不是`num-1`，就可以判断当前元素可以取得的最大值了。
-使用`max_so_far`来记录当前最大值，`max_except_last`来记录上个最大值。
-这样在出现相邻的情况时,也就是`num == num-1`，当前能取的最大值就是上个最大值加上当前值；
-在不出现相邻的情况时，也就是`else`, 当前能取的最大值就是当前最大值加上当前值；
+### Approach
+First, use Counter and sorting to process the values in ascending order. For each `num`, checking whether the previous value is `num-1` is enough to determine the best score when taking it.
+Use `max_so_far` for the current maximum and `max_except_last` for the maximum excluding the previous value.
+When values are adjacent, written here as `num == num-1`, the best score from taking the current value is the maximum excluding the previous value plus the current contribution.
+When they are not adjacent, the `else` case, add the current contribution to the current maximum.
 
-动态规划，维护一个选当前和不选当前的最大得分。
-### 代码
+Use dynamic programming to maintain the best scores for taking and skipping the current value.
+### Code
 
 ```python3
 class Solution:

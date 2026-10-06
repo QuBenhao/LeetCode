@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 数学
+# [Python/Java/TypeScript/Go] Mathematics
 
 > Author: Benhao
 > Date: 2022-07-28
@@ -7,16 +7,16 @@
 
 ---
 
-### 解题思路
-四个点两两的距离一共有6个，
-正方形中只有两种距离，一个是边长，一个是对角线，
-其中边长出现4次，对角线出现2次，对角线长度是边长的$\sqrt{2}$倍
+### Approach
+Four points have six pairwise distances.
+A square has only two distinct distances: its side length and its diagonal length.
+The side length appears four times and the diagonal length twice; the diagonal is $\sqrt{2}$ times the side length.
 
-在数学里的讲法是：
-1. 四条边都相等的四边形是菱形。
-2. 对角线相等的菱形是正方形。
+In geometric terms:
+1. A quadrilateral with four equal sides is a rhombus.
+2. A rhombus with equal diagonals is a square.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python] 任性的Py(100%)+枚举最多项数
+# [Python] Python's flexibility (100%) + enumerate the largest number of terms
 
 > Author: Benhao
 > Date: 2021-06-18
@@ -7,43 +7,43 @@
 
 ---
 
-### 解题思路
-管$n$原本有多大呢，先转成int再说。
+### Approach
+Whatever the size of $n$, convert it to int first.
 
-$n$在$x$进制中，全部位都是1的话意味着什么?意味着$n$可以写作形如$n = x^{m-1} + ... + x + 1$,于是$n$在$x$进制中就是一个长度为$m$的所有位都是1的字符串(数), $\underbrace{11...1}_{m}$。
-同样采用最多的项数$m$来枚举确定最小的基数x
+What does it mean for every digit of $n$ in base $x$ to be 1? It means $n = x^{m-1} + ... + x + 1$, so its base-$x$ representation is a string of $m$ ones: $\underbrace{11...1}_{m}$.
+Enumerate from the largest number of terms $m$ to determine the smallest base x.
 <br>
 
-假设$n = x^{m-1} + x^{m-2} + ... + x + 1$,表示为$m$个项数的和,
-**如何推断m的最大值？**
+Suppose $n = x^{m-1} + x^{m-2} + ... + x + 1$, a sum of $m$ terms.
+**How can we bound m?**
 $n = x^{m-1} + x^{m-2} + ... + x + 1 > x^{m-1}$,
-所以$x^{m-1} < n$，
-$m$的最大值首先要根据x越小,m越大(基数越大，所需的项数必然越小)，故最大的$m$由基数$x = 2$决定, 以2为底保证了所有底的最多的项数。
-代入上面的不等式$2^{m-1} < n$，我们得到$m < \log_2n + 1$。
-在实际代码中，可以取2进制的长度num.bit_length()，相当于log(num,2)向上取整
-**如何根据m,n求得x呢？**
-上面的不等式两边同时开根$m-1$，有:
+Therefore, $x^{m-1} < n$.
+Smaller x permits larger m: a larger base requires fewer terms. Thus, the maximum $m$ occurs at base $x = 2$, which gives the largest possible number of terms.
+Substituting into $2^{m-1} < n$ gives $m < \log_2n + 1$.
+In code, use the binary length num.bit_length(), equivalent here to rounding log(num,2) up.
+**How do we find x from m and n?**
+Take the $(m-1)$th root of both sides of the inequality above:
 $\sqrt[m-1]{x^{m-1}} < \sqrt[m-1]{n}$
-即 $x < \sqrt[m-1]{n}$
+That is, $x < \sqrt[m-1]{n}$.
 
-下面再来证明$x+1 > \sqrt[m-1]{n}$:
-从[二项式展开](https://baike.baidu.com/item/二项展开式/7078006?fr=aladdin)中很容易看出:
-$(x+1)^{m-1} = x^{m-1} + a * x^{m-2} + ... + b * x + 1 > x^{m-1} + x^{m-2} + ... + x + 1 = n$，我们不用关心每个系数是什么，我们只要知道每个阶数都存在且系数大于等于1(不会等于n因为m>2的时候中间存在不为1的系数)
+Next, prove that $x+1 > \sqrt[m-1]{n}$:
+The [binomial expansion](https://baike.baidu.com/item/二项展开式/7078006?fr=aladdin) shows that:
+$(x+1)^{m-1} = x^{m-1} + a * x^{m-2} + ... + b * x + 1 > x^{m-1} + x^{m-2} + ... + x + 1 = n$. The exact coefficients do not matter; every power appears with a coefficient at least 1. Equality with n is impossible when m>2 because some intermediate coefficient exceeds 1.
 
-所以:
+Therefore:
 $x < \sqrt[m-1]{n} < x + 1$
 <br>
 
-**简化等比数列求和常用的方式就是乘一个比再做差消元**:
-我们有$n * x = x^{m} + x^{m-1} + ... + x$,
-两式做差得到$n * x - n = x^{m} - 1$,
-即n = $(x^{m} - 1)/(x-1)$
+**A common way to simplify a geometric series is to multiply by the ratio and subtract to eliminate terms**:
+We have $n * x = x^{m} + x^{m-1} + ... + x$.
+Subtracting gives $n * x - n = x^{m} - 1$.
+That is, n = $(x^{m} - 1)/(x-1)$.
 <br>
 
-循环找不到的话其实就是$m = 2, x = n-1$的时候必然保证的解
+If the loop finds no solution, $m = 2, x = n-1$ always provides one.
 <br>
-Py中将1/(m-1)替换为1.0/(m-1)即可(Py2版本地板除的原因)
-### 代码
+Replace 1/(m-1) with 1.0/(m-1) in Python to avoid integer floor division in Python 2.
+### Code
 
 ```python3
 class Solution:
@@ -51,9 +51,9 @@ class Solution:
         num = int(n)
         # n = x^(m-1) + x^(m-2) + ... + x + 1
         for m in range(num.bit_length(),2,-1):
-            # 二项式展开 x^(m-1) < n < (x+1)^(m-1)
+            # Binomial expansion: x^(m-1) < n < (x+1)^(m-1)
             x = int(pow(num,1/(m-1)))
-            # 等比数列求和 n = (x^m - 1)/(x-1)
+            # Geometric series sum: n = (x^m - 1)/(x-1)
             if num == (pow(x,m) - 1)//(x-1):
                 return str(x)
         return str(num-1)

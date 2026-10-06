@@ -8,14 +8,14 @@ class Solution(solution.Solution):
 
     def minCut(self, s: str) -> int:
         n = len(s)
-        # 预处理回文串
+        # Precompute palindromic substrings
         is_palindrome = [[False] * n for _ in range(n)]
         for i in range(n - 1, -1, -1):
             for j in range(i, n):
                 if s[i] == s[j] and (j - i <= 1 or is_palindrome[i + 1][j - 1]):
                     is_palindrome[i][j] = True
 
-        # 动态规划
+        # Dynamic programming
         dp = [0x3f3f3f3f] * n
         for i in range(n):
             if is_palindrome[0][i]:

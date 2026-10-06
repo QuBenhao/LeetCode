@@ -1,4 +1,4 @@
-# [Python/Go] 模拟
+# [Python/Go] Simulation
 
 > slug: pythongo-mo-ni-by-himymben-tl7t
 > date: 2022-01-23
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/count-elements-with-strictly-smaller-and-greater-elements/solutions/p1VlE0/pythongo-mo-ni-by-himymben-tl7t/
 
 ---
-### 解题思路
-因为最大值、最小值一定不满足题目条件，而其他数字均可以用最大值和最小值满足条件，所以统计最大值、最小值的个数即可
+### Approach
+The maximum and minimum values cannot satisfy the conditions, while every other value can use them to do so. Count the occurrences of the maximum and minimum.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

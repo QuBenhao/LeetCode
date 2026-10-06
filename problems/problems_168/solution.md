@@ -1,4 +1,4 @@
-# [Python] 26进制
+# [Python] Base 26
 
 > Author: Benhao
 > Date: 2021-06-28
@@ -7,38 +7,38 @@
 
 ---
 
-### 解题思路
-本质上其实我们在用字母来写一个26进制,A代表1,B代表2,....Z代表26。
+### Approach
+Essentially, we are writing a base-26 number with letters: A represents 1, B represents 2, ... Z represents 26.
 
-基础知识
-> 10进制数字$n$转换为k进制时，可以通过辗转相除依次计算从右边开始的每一位。
-因为最终我们要找到$n = a_{0} * k^m + a_{1} * k^{m-1} + \ldots + a_{m} * 1$,
-所以$a_m = n$%$k$ (前面的所有都乘了k的某个次方所以整除k)。
-然后 $(n - a_m) // k$ 就得到了 $a_0 * k^{m-1} + \ldots + a_{m-1} * 1$,
-从而可以求得$a_{m-1}$,循环下去即可。
-换个角度理解， 相当于给你一个数字，你怎么求得它的十进制每一位数字是什么？
+Background
+> To convert a decimal number $n$ to base k, repeatedly divide to calculate each digit, starting from the right.
+We ultimately want to find $n = a_{0} * k^m + a_{1} * k^{m-1} + \ldots + a_{m} * 1$,
+so $a_m = n$%$k$ (all preceding terms are multiplied by a power of k and are therefore divisible by k).
+Then $(n - a_m) // k$ gives $a_0 * k^{m-1} + \ldots + a_{m-1} * 1$,
+which lets us calculate $a_{m-1}$. Continue in the same way.
+Another way to think about it: given a number, how would you extract each of its decimal digits?
 
-**方法一**
-但是这样写26进制的话不是从0开始的，所以改为A对应0，Z对应25，在相应的地方应该加减1恢复原状.
+**Approach 1**
+This base-26 representation does not start at 0, so remap A to 0 and Z to 25, adding or subtracting 1 where needed to restore the original values.
 
-**方法二**
-如果加减一不好理解，也可以用直接对应的方法，但是最终A其实是Z,B其实是A,C其实是B...以此类推。
-这里注意在实际上是Z，也就是0的情况比较特殊，它不是真的0，而是一个26构成的，要减去这个26。
+**Approach 2**
+If the addition and subtraction of 1 are hard to follow, use a direct mapping. In that mapping, A actually corresponds to Z, B to A, C to B, and so on.
+The case representing Z, or 0, needs special care: it is not really 0 but a value of 26, so subtract that 26.
 
-**方法三**
-最后奉上一个递归解法
+**Approach 3**
+Finally, here is a recursive solution.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def convertToTitle(self, columnNumber: int) -> str:
         ans = []
-        # 10进制 转换为 26进制，A对应1，B对应2,....Z对应26
+        # Convert base 10 to base 26: A represents 1, B represents 2, ... Z represents 26
         while columnNumber > 0:
-            # 最右边位为取模运算的结果
+            # The rightmost digit is the result of the modulo operation
             columnNumber -= 1
-            # A的ASC码 65
+            # A has ASCII code 65
             ans.append(chr(columnNumber%26 + 65))
             columnNumber //= 26
         return ''.join(ans[::-1])
@@ -49,9 +49,9 @@ class Solution:
         ans = []
         while columnNumber > 0:
             curr = columnNumber%26
-            # 余数为1对应了A
+            # A remainder of 1 corresponds to A
             ans.append(chr(curr+64) if curr > 0 else 'Z')
-            # 如果发生了整除的情况，我们实际上欠了一个26
+            # If the division is exact, we still owe a value of 26
             columnNumber //= 26
             if not curr:
                 columnNumber -= 1

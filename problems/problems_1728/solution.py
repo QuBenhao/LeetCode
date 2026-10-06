@@ -8,7 +8,7 @@ class Solution(solution.Solution):
     def solve(self, test_input=None):
         return self.canMouseWin(*test_input)
 
-    # 913. 猫和老鼠
+    # 913. Cat and Mouse
     def catMouseGame(self, g_mouse: List[List[int]], g_cat: List[List[int]], mouse_start: int, cat_start: int,
                      hole: int) -> int:
         n = len(g_mouse)
@@ -21,70 +21,70 @@ class Solution(solution.Solution):
         winner = [[[0, 0] for _ in range(n)] for _ in range(n)]
         q = deque()
         for i in range(n):
-            winner[hole][i][1] = 1  # 鼠到达洞中（此时轮到猫移动），鼠获胜
-            winner[i][hole][0] = 2  # 猫到达洞中（此时轮到鼠移动），猫获胜
-            winner[i][i][0] = winner[i][i][1] = 2  # 猫和鼠出现在同一个节点，无论轮到谁移动，都是猫获胜
+            winner[hole][i][1] = 1  # The mouse reaches the hole (the cat moves next): the mouse wins
+            winner[i][hole][0] = 2  # The cat reaches the hole (the mouse moves next): the cat wins
+            winner[i][i][0] = winner[i][i][1] = 2  # The cat and mouse occupy the same node: the cat wins regardless of whose turn it is
             q.append((hole, i, 1))
             q.append((i, hole, 0))
             q.append((i, i, 0))
             q.append((i, i, 1))
 
-        # 获取 (mouse, cat, turn) 的上个状态（值尚未确定）
+        # Get unresolved predecessor states of (mouse, cat, turn)
         def get_pre_states() -> List[Tuple[int, int]]:
-            if turn:  # 当前轮到猫移动，枚举上一轮鼠的位置
+            if turn:  # It is the cat's turn; enumerate the mouse's previous positions
                 return [(pre_mouse, cat) for pre_mouse in g_mouse[mouse] if winner[pre_mouse][cat][0] == 0]
-            # 当前轮到鼠移动，枚举上一轮猫的位置
+            # It is the mouse's turn; enumerate the cat's previous positions
             return [(mouse, pre_cat) for pre_cat in g_cat[cat] if winner[mouse][pre_cat][1] == 0]
 
-        # 减少上个状态的度数
+        # Decrease the predecessor state's degree
         def dec_deg_to_zero() -> bool:
             deg[pre_mouse][pre_cat][pre_turn] -= 1
             return deg[pre_mouse][pre_cat][pre_turn] == 0
 
         while q:
             mouse, cat, turn = q.popleft()
-            win = winner[mouse][cat][turn]  # 最终谁赢了
+            win = winner[mouse][cat][turn]  # Eventual winner
             pre_turn = turn ^ 1
             for pre_mouse, pre_cat in get_pre_states():
-                # 情况一：如果上一回合鼠从 pre 移动到 cur，最终鼠赢，那么标记 pre 状态的 winner = 鼠
-                # 情况二：如果上一回合猫从 pre 移动到 cur，最终猫赢，那么标记 pre 状态的 winner = 猫
-                # 情况三：如果上一回合鼠从 pre 移动到 cur，最终猫赢，那么待定，直到我们发现从 pre 出发能到达的状态都是猫赢，那么标记 pre 状态的 winner = 猫
-                # 情况四：如果上一回合猫从 pre 移动到 cur，最终鼠赢，那么待定，直到我们发现从 pre 出发能到达的状态都是鼠赢，那么标记 pre 状态的 winner = 鼠
+                # Case 1: the mouse moved from pre to cur and eventually wins; mark pre with winner = mouse
+                # Case 2: the cat moved from pre to cur and eventually wins; mark pre with winner = cat
+                # Case 3: the mouse moved from pre to cur and the cat wins; leave pre unresolved until all its successors are cat wins, then mark winner = cat
+                # Case 4: the cat moved from pre to cur and the mouse wins; leave pre unresolved until all its successors are mouse wins, then mark winner = mouse
                 if pre_turn == win - 1 or dec_deg_to_zero():
                     winner[pre_mouse][pre_cat][pre_turn] = win
                     q.append((pre_mouse, pre_cat, pre_turn))
 
-        # 鼠在节点 mouse_start，猫在节点 cat_start，当前轮到鼠移动
-        return winner[mouse_start][cat_start][0]  # 返回最终谁赢了（或者平局）
+        # The mouse starts at mouse_start, the cat at cat_start, and the mouse moves first
+        return winner[mouse_start][cat_start][0]  # Return the eventual winner (or a draw)
 
     def canMouseWin(self, grid: List[str], catJump: int, mouseJump: int) -> bool:
-        DIRS = (0, -1), (0, 1), (-1, 0), (1, 0)  # 左右上下
+        DIRS = (0, -1), (0, 1), (-1, 0), (1, 0)  # Left, right, up, down
         m, n = len(grid), len(grid[0])
-        # 鼠和猫分别建图
+        # Build separate graphs for the mouse and cat
         g_mouse = [[] for _ in range(m * n)]
         g_cat = [[] for _ in range(m * n)]
         for i, row in enumerate(grid):
             for j, c in enumerate(row):
-                if c == '#':  # 墙
+                if c == '#':  # Wall
                     continue
-                if c == 'M':  # 鼠的位置
+                if c == 'M':  # Mouse position
                     mx, my = i, j
-                elif c == 'C':  # 猫的位置
+                elif c == 'C':  # Cat position
                     cx, cy = i, j
-                elif c == 'F':  # 食物（洞）的位置
+                elif c == 'F':  # Food (hole) position
                     fx, fy = i, j
-                v = i * n + j  # 二维坐标 (i,j) 映射为一维坐标 v
-                for dx, dy in DIRS:  # 枚举左右上下四个方向
-                    for k in range(mouseJump + 1):  # 枚举跳跃长度
+                v = i * n + j  # Map 2D coordinates (i,j) to 1D coordinate v
+                for dx, dy in DIRS:  # Enumerate the four directions: left, right, up, down
+                    for k in range(mouseJump + 1):  # Enumerate jump lengths
                         x, y = i + k * dx, j + k * dy
-                        if not (0 <= x < m and 0 <= y < n and grid[x][y] != '#'):  # 出界或者遇到墙
+                        if not (0 <= x < m and 0 <= y < n and grid[x][y] != '#'):  # Out of bounds or blocked by a wall
                             break
-                        g_mouse[v].append(x * n + y)  # 连边
-                    for k in range(catJump + 1):  # 枚举跳跃长度
+                        g_mouse[v].append(x * n + y)  # Add an edge
+                    for k in range(catJump + 1):  # Enumerate jump lengths
                         x, y = i + k * dx, j + k * dy
-                        if not (0 <= x < m and 0 <= y < n and grid[x][y] != '#'):  # 出界或者遇到墙
+                        if not (0 <= x < m and 0 <= y < n and grid[x][y] != '#'):  # Out of bounds or blocked by a wall
                             break
-                        g_cat[v].append(x * n + y)  # 连边
+                        g_cat[v].append(x * n + y)  # Add an edge
 
-        # 判断是否鼠赢
+        # Check whether the mouse wins
         return self.catMouseGame(g_mouse, g_cat, mx * n + my, cx * n + cy, fx * n + fy) == 1

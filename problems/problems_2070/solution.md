@@ -1,4 +1,4 @@
-# [Python/Go] 离线查询
+# [Python/Go] Offline queries
 
 > Author: Benhao
 > Date: 2021-11-13
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-排序查询时，当前的结果依赖于上一次查询，可以免去重复的查询
+### Approach
+Sort the queries so each result can build on the previous query and avoid repeated work.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

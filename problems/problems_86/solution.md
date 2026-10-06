@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2024-03-24
@@ -12,21 +12,21 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 遍历链表的同时拆分成大小两个链表
+> Traverse the list while splitting it into lists of smaller and larger values.
 
-# 解题方法
+# Approach
 
-> 最后小的再接上大的即可
+> Finally, attach the larger-value list to the smaller-value list.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
-> $O(1)$ (没有新创建节点，直接改变原有的连接)
+Space complexity:
+> $O(1)$ (No new nodes are created; only existing links are changed.)
 
 
 

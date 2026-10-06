@@ -1,4 +1,4 @@
-# Python counter带记忆循环
+# Python Counter with incremental reuse
 
 > Author: Benhao
 > Date: 2021-03-07
@@ -7,7 +7,7 @@
 
 ---
 
-上一次分布中从i到j的counter可以用于计算从i到j+1的counter
+Reuse the Counter for i through j to compute the Counter for i through j+1.
 ```
     def beautySum(self, s):
         """

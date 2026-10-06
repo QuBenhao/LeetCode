@@ -1,4 +1,4 @@
-# [Python] 排序+二分
+# [Python] Sorting + binary search
 
 > Author: Benhao
 > Date: 2023-11-10
@@ -16,4 +16,3 @@ class Solution:
     def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
         return [len(sp) - bisect_left(sp, success / s) for s in spells] if (sp := sorted(potions)) else []
 ```
-  

@@ -1,4 +1,4 @@
-# 贪心+换根dfs
+# Greedy + rerooting DFS
 
 > slug: tan-xin-huan-gen-dfs-by-himymben-vrou
 > date: 2025-05-27
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/maximize-the-number-of-target-nodes-after-connecting-trees-i/solutions/d3jeX9/tan-xin-huan-gen-dfs-by-himymben-vrou/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

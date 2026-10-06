@@ -1,4 +1,4 @@
-# 记忆化搜索
+# Memoized search
 
 > slug: ji-yi-hua-sou-suo-by-himymben-f23m
 > date: 2025-05-10
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/maximum-weighted-k-edge-path/solutions/VDfchP/ji-yi-hua-sou-suo-by-himymben-f23m/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

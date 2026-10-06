@@ -14,7 +14,7 @@ class Solution(solution.Solution):
                 n = len(edges) + 1
                 m = n.bit_length()
                 graph = defaultdict(list)
-                for x, y, w in edges:  # 节点编号从 0 开始
+                for x, y, w in edges:  # Nodes are numbered from 0
                     graph[x].append((y, w))
                     graph[y].append((x, w))
 
@@ -45,11 +45,11 @@ class Solution(solution.Solution):
                     k &= k - 1
                 return node
 
-            # 返回 x 和 y 的最近公共祖先（节点编号从 0 开始）
+            # Return the lowest common ancestor of x and y (nodes are numbered from 0)
             def get_lca(self, x: int, y: int) -> int:
                 if self.depth[x] > self.depth[y]:
                     x, y = y, x
-                # 先将 y 提升到与 x 同一深度
+                # First lift y to the same depth as x
                 y = self.get_kth_ancestor(y, self.depth[y] - self.depth[x])
                 if y == x:
                     return x

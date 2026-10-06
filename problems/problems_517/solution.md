@@ -1,4 +1,4 @@
-# [Python/Java] 找最大传输量
+# [Python/Java] Find the maximum transfer count
 
 > slug: pythonjava-zhao-zui-da-chuan-shu-liang-b-cj8f
 > date: 2021-09-28
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/super-washing-machines/solutions/VLlaZl/pythonjava-zhao-zui-da-chuan-shu-liang-b-cj8f/
 
 ---
-### 解题思路
-由于一次可以多个洗衣机送衣服，所以我们只要找要送最多次的洗衣机即可。
-由于一个洗衣机往两边都送的话，要叠加统计次数，所以特殊处理。
+### Approach
+Several washing machines can send clothes at the same time, so find the machine that needs the most transfers.
+A machine that sends clothes in both directions needs the counts added together, so handle that case separately.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -22,17 +22,17 @@ class Solution:
         avg = total // n
         ans = cur = 0
         for m in machines:
-            # 向两边都送的情况
+            # The case where clothes must be sent in both directions
             if cur < 0 and cur + m - avg > 0:
-                # 我们既需要往左边送cur次，又需要往右边送cur+m-avg次，所以叠加
+                # Add the counts: cur transfers to the left and cur+m-avg transfers to the right
                 # ans = max(ans, abs(cur) + abs(cur + m - avg))
-                # 上面的式子根据判断条件就变成
+                # Under the condition above, this expression simplifies to
                 ans = max(ans, m - avg)
                 cur += m - avg
             else:
-                # 当前累计出的差值
+                # The cumulative difference so far
                 cur += m - avg
-                # 从左到右最多需要借/送多少次
+                # The maximum number of transfers needed to borrow/send clothes from left to right
                 ans = max(ans, abs(cur))
         return ans
 ```

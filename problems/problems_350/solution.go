@@ -8,7 +8,7 @@ import (
 )
 
 func intersect(nums1 []int, nums2 []int) (ans []int) {
-	// 解法一： 排序双指针
+	// Approach 1: Sorting and two pointers
 	sort.Ints(nums1)
 	sort.Ints(nums2)
 	n1, n2 := len(nums1), len(nums2)
@@ -25,7 +25,7 @@ func intersect(nums1 []int, nums2 []int) (ans []int) {
 	}
 	return
 
-	// // 解法二： 哈希
+	// // Approach 2: Hashing
 	// counter1, counter2 := map[int]int{}, map[int]int{}
 	// for _, num := range nums1 {
 	// 	counter1[num]++

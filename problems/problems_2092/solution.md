@@ -1,4 +1,4 @@
-# [Python] 按时间排序后同一时间内多源BFS
+# [Python] Sort by time, then run multi-source BFS within each time group
 
 > Author: Benhao
 > Date: 2021-11-28
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-维护一个从头到尾的密接人员集合，每次与该时间的开会的人取交集作为BFS的源,传播
+### Approach
+Maintain the set of people who know the secret throughout. At each time, intersect it with that time's meeting participants and use the intersection as BFS sources to spread the secret.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

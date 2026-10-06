@@ -1,4 +1,4 @@
-# [Python/Go] 暴力
+# [Python/Go] Brute force
 
 > slug: pythongo-bao-li-by-himymben-7uje
 > date: 2021-11-21
@@ -7,7 +7,7 @@
 > url: https://leetcode.cn/problems/two-furthest-houses-with-different-colors/solutions/Erpwui/pythongo-bao-li-by-himymben-7uje/
 
 ---
-### 代码
+### Code
 
 ```python3 []
 class Solution:

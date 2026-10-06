@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2021-04-02
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-如果当前字符相同，那么当前最长公共序列等于前一次的最大长度加一
-否则等于两者取一个作为末尾中的最大值
+### Approach
+If the current characters match, the current longest common subsequence is one longer than the maximum length for the preceding prefixes.
+Otherwise, take the larger result obtained by dropping either of the two final characters.
 
-### 代码
+### Code
 
 ```Python []
 class Solution(object):

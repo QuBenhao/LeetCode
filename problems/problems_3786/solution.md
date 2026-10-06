@@ -1,4 +1,4 @@
-# DFS 边遍历边统计
+# DFS: accumulate counts during traversal
 
 > slug: dfs-bian-bian-li-bian-tong-ji-by-himymbe-5en5
 > date: 2025-12-21
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/total-sum-of-interaction-cost-in-tree-groups/solutions/51wkFK/dfs-bian-bian-li-bian-tong-ji-by-himymbe-5en5/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

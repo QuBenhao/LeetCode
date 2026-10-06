@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > slug: pythongo-dong-tai-gui-hua-by-himymben-5y64
 > date: 2022-02-12
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/maximum-length-of-subarray-with-positive-product/solutions/8e8SJp/pythongo-dong-tai-gui-hua-by-himymben-5y64/
 
 ---
-### 解题思路
-维护正数、负数当前子数组最长的长度
+### Approach
+Track the longest current subarray with a positive product and with a negative product.
 
-### 代码
+### Code
 ```python3 []
 class Solution:
     def getMaxLen(self, nums: List[int]) -> int:

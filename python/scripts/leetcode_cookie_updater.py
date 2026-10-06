@@ -47,7 +47,7 @@ from python.utils import check_cookie_expired
 
 
 def setup_logging(level: str = "INFO"):
-    """设置日志"""
+    """Configure logging."""
     log_format = "%(asctime)s [%(levelname)s] %(message)s"
     date_format = "%Y-%m-%d %H:%M:%S"
     logging.basicConfig(
@@ -59,10 +59,10 @@ def setup_logging(level: str = "INFO"):
 
 
 def get_leetcode_cn_cookie(logger: logging.Logger) -> str | None:
-    """从浏览器获取 LeetCode CN 的 Cookie"""
+    """Get LeetCode CN Cookies from a browser."""
     cookie_parts = []
 
-    # 尝试多种浏览器
+    # Try multiple browsers
     browsers = [
         ('Chrome', browser_cookie3.chrome),
         ('Edge', browser_cookie3.edge),
@@ -102,7 +102,7 @@ def get_leetcode_cn_cookie(logger: logging.Logger) -> str | None:
 
 
 def update_github_secret(cookie: str, repo_name: str, github_token: str, logger: logging.Logger) -> bool:
-    """更新 GitHub Secrets"""
+    """Update GitHub Secrets."""
     try:
         from github import Github, Auth
     except ImportError:
@@ -120,11 +120,11 @@ def update_github_secret(cookie: str, repo_name: str, github_token: str, logger:
         repo = g.get_repo(repo_name)
         logger.debug(f"仓库名: {repo.full_name}")
         
-        # 检查 token 权限
+        # Check token permissions
         user = g.get_user()
         logger.debug(f"当前用户: {user.login}")
         
-        # 更新 COOKIE secret
+        # Update the COOKIE secret
         logger.debug("正在创建/更新 secret COOKIE...")
         repo.create_secret("COOKIE", cookie)
         
@@ -141,11 +141,11 @@ def update_github_secret(cookie: str, repo_name: str, github_token: str, logger:
 
 
 def update_local_env(cookie: str, env_path: str, logger: logging.Logger) -> bool:
-    """更新本地 .env 文件"""
+    """Update the local .env file."""
     env_file = Path(env_path)
     
     try:
-        # 读取现有内容
+        # Read existing contents
         lines = []
         cookie_updated = False
         
@@ -153,7 +153,7 @@ def update_local_env(cookie: str, env_path: str, logger: logging.Logger) -> bool
             with open(env_file, 'r', encoding='utf-8') as f:
                 lines = f.readlines()
             
-            # 查找并更新现有的 COOKIE 行
+            # Find and update the existing COOKIE line
             for i, line in enumerate(lines):
                 if line.strip().startswith('COOKIE='):
                     lines[i] = f'COOKIE="{cookie}"\n'
@@ -161,14 +161,14 @@ def update_local_env(cookie: str, env_path: str, logger: logging.Logger) -> bool
                     logger.debug(f"更新现有 COOKIE 行: 第 {i+1} 行")
                     break
         
-        # 如果没有找到 COOKIE 行，添加到末尾
+        # If no COOKIE line exists, append one
         if not cookie_updated:
             if lines and not lines[-1].endswith('\n'):
                 lines.append('\n')
             lines.append(f'COOKIE="{cookie}"\n')
             logger.debug("添加新的 COOKIE 行")
         
-        # 写回文件
+        # Write the file back
         with open(env_file, 'w', encoding='utf-8') as f:
             f.writelines(lines)
         
@@ -195,14 +195,14 @@ def main():
     
     args = parser.parse_args()
     
-    # 设置日志
+    # Configure logging
     logger = setup_logging(args.log_level)
     
     logger.info("=" * 50)
     logger.info("LeetCode CN Cookie 自动更新工具")
     logger.info("=" * 50)
     
-    # 检查是否有更新目标
+    # Check whether an update target was specified
     github_token = args.github_token or os.environ.get('GITHUB_TOKEN')
     update_github = bool(args.repo_name and github_token)
     update_env = bool(args.env_path)
@@ -216,7 +216,7 @@ def main():
     if args.repo_name and not github_token:
         logger.warning(f"指定了 --repo {args.repo_name} 但未提供 GITHUB_TOKEN，跳过 GitHub 更新")
     
-    # 获取 Cookie
+    # Get the Cookie
     logger.info("[1/2] 从浏览器获取 Cookie...")
     cookie = get_leetcode_cn_cookie(logger)
     
@@ -227,7 +227,7 @@ def main():
     logger.info(f"✓ Cookie 长度: {len(cookie)} 字符")
     logger.debug(f"Cookie 预览: {cookie[:200]}...")
     
-    # 更新目标
+    # Update the targets
     success = True
     step = 0
     total_steps = sum([update_github, update_env])
@@ -244,7 +244,7 @@ def main():
         if not update_local_env(cookie, args.env_path, logger):
             success = False
     
-    # 结果
+    # Results
     if success:
         logger.info("\n✅ 完成！")
         return 0

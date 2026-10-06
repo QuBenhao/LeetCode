@@ -10,19 +10,19 @@ public class Solution extends BaseSolution {
         char[] s = S.toCharArray();
         int[] cnt = new int[3];
         for (char c : s) {
-            cnt[c - 'a']++; // 一开始，把所有字母都取走
+            cnt[c - 'a']++; // Initially, take all characters
         }
         if (cnt[0] < k || cnt[1] < k || cnt[2] < k) {
-            return -1; // 字母个数不足 k
+            return -1; // Fewer than k occurrences of a character
         }
 
-        int mx = 0; // 子串最大长度
+        int mx = 0; // Maximum substring length
         int left = 0;
         for (int right = 0; right < s.length; right++) {
             int c = s[right] - 'a';
-            cnt[c]--; // 移入窗口，相当于不取走 c
-            while (cnt[c] < k) { // 窗口之外的 c 不足 k
-                cnt[s[left] - 'a']++; // 移出窗口，相当于取走 s[left]
+            cnt[c]--; // Moving c into the window means leaving it untaken
+            while (cnt[c] < k) { // Fewer than k occurrences of c remain outside the window
+                cnt[s[left] - 'a']++; // Moving s[left] out of the window means taking it
                 left++;
             }
             mx = Math.max(mx, right - left + 1);

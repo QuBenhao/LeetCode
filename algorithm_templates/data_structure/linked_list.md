@@ -1,6 +1,6 @@
-# 链表
+# Linked List
 
-## 反转链表
+## Reverse a Linked List
 
 ```python
 class ListNode:
@@ -41,7 +41,7 @@ func reverseList(head *ListNode) *ListNode {
 }
 ```
 
-## 快慢指针
+## Fast and Slow Pointers
 
 ```python
 class ListNode:

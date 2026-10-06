@@ -1,4 +1,4 @@
-# [Python] 好久不见
+# [Python] Long Time No See
 
 > Author: Benhao
 > Date: 2021-06-03
@@ -7,21 +7,21 @@
 
 ---
 
-### 解题思路
+### Approach
 **我来到你的城市，走过你来时的路**
 
-考虑有两个人以同样的速度在两个不一样长的跑道上跑步。
+Imagine two people running at the same speed on tracks of different lengths.
 
-如果相交，那么他们必然会到达同样的终点(也可以看出，本质上通过判断末尾节点是否相同来判断有没有相交)。
-问题是，如果他们之前的跑道长短不一，他们到达终点以及相交点的时间都是不一样的。
-假设你是个公正的裁判，这时候你说:"那不行啊，凭什么一个跑内圈，另一个跑外圈？跑内圈的也得去跑外圈去！",
-这时候跑内圈的又不干了，他说:"不是我再跑个外圈我之前跑的内圈就白跑了？",
-这时候你想:"也对，那为了公平公正公开，跑外圈的人再跑一下内圈吧！"
-于是两个人终于跑了同样的路，因为长度一致了，俩人是同时到终点，那么俩人肯定也是同时到的交点（因为交点到终点的长度俩人都一样）。
+If the tracks intersect, they must reach the same endpoint. (This also shows that checking whether the final nodes are identical can determine whether the lists intersect.)
+The problem is that if their tracks have different lengths before the intersection, they reach both the intersection and the endpoint at different times.
+Suppose you are a fair referee. You say, "That will not do. Why does one person run the inner track while the other runs the outer track? The inner-track runner must run the outer track too!",
+The inner-track runner objects: "If I run the outer track now, does my earlier run on the inner track count for nothing?",
+You think, "Fair point. To make this fair and transparent, the outer-track runner should also run the inner track!"
+Now both people have run the same total distance. Since their distances are equal, they reach the endpoint at the same time, so they must also reach the intersection at the same time: the distance from the intersection to the endpoint is the same for both.
 
-如果不相交，那么两个人每个时刻所在的位置都是不一样的。
+If the tracks do not intersect, the two people occupy different positions at every moment.
 
-### 代码
+### Code
 
 ```python3
 # Definition for singly-linked list.

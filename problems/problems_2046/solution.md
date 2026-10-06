@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > slug: python-by-himymben-jfpf
 > date: 2022-05-02
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/sort-linked-list-already-sorted-using-absolute-values/solutions/q5EQzx/python-by-himymben-jfpf/
 
 ---
-### 解题思路
-因为已经按绝对值排好序，所以每次遇到正数不变，遇到负数将负数断开后拼接到头即可
+### Approach
+The list is already sorted by absolute value. Leave positive values in place, and detach each negative value and prepend it to the head.
 
-### 代码
+### Code
 
 ```python3
 # Definition for singly-linked list.

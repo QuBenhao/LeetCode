@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 排序模拟
+# [Python/Java/TypeScript/Go] Sort and simulate
 
 > Author: Benhao
 > Date: 2022-07-03
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-排序后所有可能的最小绝对值由每对儿相邻的差构成
+### Approach
+After sorting, every possible minimum absolute difference occurs between adjacent elements.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

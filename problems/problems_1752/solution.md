@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2022-11-27
@@ -11,17 +11,17 @@
 
 [TOC]
 
-# 思路
-> 统计拐点个数
+# Intuition
+> Count the drops between adjacent elements.
 
-# 解题方法
-> 只能有一个拐点
+# Approach
+> At most one drop is allowed.
 
-# 复杂度
-- 时间复杂度: 
+# Complexity
+- Time complexity:
 > $O(n)$
 
-- 空间复杂度: 
+- Space complexity:
 > $O(n)$
 
 # Code

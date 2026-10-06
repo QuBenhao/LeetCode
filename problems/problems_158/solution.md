@@ -1,4 +1,4 @@
-# [Python] 很麻烦地理解了题目(99%)
+# [Python] Understanding the problem took some effort (99%)
 
 > slug: python-hen-ma-fan-di-li-jie-liao-ti-mu-b-290i
 > date: 2021-08-21
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/read-n-characters-given-read4-ii-call-multiple-times/solutions/nSeDt3/python-hen-ma-fan-di-li-jie-liao-ti-mu-b-290i/
 
 ---
-### 解题思路
-递归解，不够了就读四个到缓存。
+### Approach
+Recursive solution: when the buffer is insufficient, read four more characters into it.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

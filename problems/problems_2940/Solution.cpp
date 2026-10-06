@@ -14,24 +14,24 @@ public:
         for (int i = 0; i < queries.size(); i++) {
             int a = queries[i][0], b = queries[i][1];
             if (a > b) {
-                swap(a, b); // 保证 a <= b
+                swap(a, b); // Ensure a <= b
             }
             if (a == b || heights[a] < heights[b]) {
-                ans[i] = b; // i 直接跳到 j
+                ans[i] = b; // i jumps directly to j
             } else {
-                qs[b].emplace_back(heights[a], i); // 离线询问
+                qs[b].emplace_back(heights[a], i); // Offline queries
             }
         }
 
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
         for (int i = 0; i < heights.size(); i++) {
             while (!pq.empty() && pq.top().first < heights[i]) {
-                // 堆顶的 heights[a] 可以跳到 heights[i]
+                // The heap-top heights[a] can jump to heights[i]
                 ans[pq.top().second] = i;
                 pq.pop();
             }
             for (auto& p : qs[i]) {
-                pq.emplace(p); // 后面再回答
+                pq.emplace(p); // Answer later
             }
         }
         return ans;

@@ -7,16 +7,16 @@
 
 ---
 
-### 解题思路
-统计所有的食物(桌)的排序，再统计每桌对应的食物有多少即可
+### Approach
+Sort all food names and table numbers, then count how many of each food each table ordered.
 
-不熟悉sortedcontainers的话，使用set然后sorted即可
+If sortedcontainers is unfamiliar, use set followed by sorted.
 `foods=set(), foods = sorted(foods)`
 
 <br>
-第一种方法性能不好是因为我们额外使用了Counter统计后返回结果，实际上我们可以直接在结果数组里统计数量最后变成str返回。
+The first method is slower because it uses an extra Counter before building the result. We can count directly in the result array, then convert the counts to str.
 
-### 代码
+### Code
 
 ```python3
 from sortedcontainers import SortedSet
@@ -32,22 +32,22 @@ class Solution:
         return [["Table"] + [food for food in foods]] + [[table] + [str(tables[table][food]) for food in foods] for table in sorted(tables.keys(), key=int)]
 ```
 
-维护两个排序好的字典，对应idx
+Maintain two sorted dictionaries mapping entries to idx.
 ```python3
 from sortedcontainers import SortedDict
 
 
 class Solution:
     def displayTable(self, orders: List[List[str]]) -> List[List[str]]:
-        # 转换orders为，所有订单里的全部桌和全部食物
+        # Extract all tables and all foods from orders
         obj = list(zip(*orders))
-        # 排序好的tables，每个table对应结果数组中的第几行
+        # Sorted tables: map each table to its row in the result array
         tables = SortedDict({v:i for i,v in enumerate(sorted(map(int,set(obj[1]))), 1)})
-        # 排序好的foods，每个food对应结果数组中的第几列
+        # Sorted foods: map each food to its column in the result array
         foods = SortedDict({v:i for i,v in enumerate(sorted(set(obj[2])), 1)})
-        # 生成结果数组并填好第一行第一列
+        # Create the result array and fill its first row and first column
         res = [["Table"] + [food for food in foods]] + [[str(key)] + ["0"] * len(foods) for key in tables]
-        # 统计每桌每个食物的数量
+        # Count each food ordered by each table
         for _, table, food in orders:
             res[tables[int(table)]][foods[food]] = str(int(res[tables[int(table)]][foods[food]]) + 1)
         return res

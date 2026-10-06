@@ -1,4 +1,4 @@
-# [Python/Java] 动态规划
+# [Python/Java] Dynamic programming
 
 > Author: Benhao
 > Date: 2021-09-26
@@ -7,17 +7,17 @@
 
 ---
 
-### 解题思路
-用dp[0]表示以`上个字符作为结尾的方案数`，用dp[1]表示以`当前字符作为结尾的方案数`。
+### Approach
+Let dp[0] be the `number of ways ending at the previous character`, and dp[1] the `number of ways ending at the current character`.
 
-我们有: nxt_dp[0] = dp[1]
-而nxt_dp[1]由以`上个字符结尾方案数 * 当前字符单独解码方案数` + `上上个字符结尾方案数 * 上个字符与当前字符组合的方案数`
+We have: nxt_dp[0] = dp[1]
+Compute nxt_dp[1] as `ways ending at the previous character * ways to decode the current character alone` + `ways ending two characters earlier * ways to decode the previous and current characters together`.
 
-初始化的时候，上个字符是空的，方案数为1；求解当前字符解码方案数即可。
+At initialization, the previous prefix is empty and has one decoding. Calculate the number of ways to decode the current character.
 
-注：不出现在字典枚举中的组合即为不存在，认为方案数为0。
+Note: Combinations absent from the dictionary are invalid and have zero decodings.
 
-### 代码
+### Code
 
 ```Python3 []
 ONE = {'1': 1, '2': 1, '3': 1, '4': 1, '5': 1, '6': 1, '7': 1, '8': 1, '9': 1, '*': 9}

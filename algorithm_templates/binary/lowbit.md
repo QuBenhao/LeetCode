@@ -1,7 +1,7 @@
-# 取最低位
+# Lowest set bit
 
 ```c++
 int lowBit(int n) {
-    return n & -n;  // 等价于 n & (n ^ (n - 1))
+    return n & -n;  // Equivalent to n & (n ^ (n - 1))
 }
 ```

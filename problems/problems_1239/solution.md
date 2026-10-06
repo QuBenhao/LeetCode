@@ -1,4 +1,4 @@
-# [Python] 直白朴素的01背包 到 回溯(两个剪枝加速)
+# [Python] From straightforward 0/1 knapsack to backtracking (two pruning optimizations)
 
 > Author: Benhao
 > Date: 2021-06-18
@@ -7,27 +7,27 @@
 
 ---
 
-### 解题思路
-一个字符串可以作为答案当且仅当其中没有重复的字符(包括我们在拼接字符串以后,拼接的字符串也同理)
-所以维护一个之前所有的合法的拼接字符串,判断当前所有能组成的合理的字符串，最后返回最大值即可。
+### Approach
+A string is a valid candidate if and only if it contains no duplicate characters. This also applies to strings formed by concatenation.
+Maintain all valid concatenated strings found so far, consider every valid string that the current string can form, and return the maximum length.
 <br>
-上面的方法有一个问题就是**需要维护从头到尾全部的拼接字符串**,而使用回溯法解决01背包问题恰好可以避免做这件事 。
-考虑到达idx位置时，我们已知当前拼接的字符串（idx前面的01背包选择），我们要搜索后面的所有选择的可能性组成的所有结果，但是每次考虑完某种加入某个东西的背包后，我们后面需要回退回不加它的背包，再重新尝试后面的结果。这个结果搜索完后，我们才会回退到前面的01背包的选择，去回溯产生新的背包。
-换句话说,当前分枝上的两个子分支，一个是加入i的(递归调用的dfs(i+1))，一个是不加i的(i后面的循环)
+The drawback is that **all concatenated strings must be retained throughout the process**. Solving the 0/1 knapsack problem with backtracking avoids this.
+At position idx, the current concatenated string represents the 0/1 knapsack choices before idx. Explore all possible choices after it. After exploring the branch that includes an item, undo that inclusion and try later choices without it. Only after these branches have been searched do we backtrack to earlier knapsack choices and form new selections.
+In other words, each branch has two subbranches: one includes i (the recursive dfs(i+1) call), and one excludes i (the loop iterations after i).
 <br>
-**回溯使用了两个剪枝**
-一个是`初始预估的最大的答案，搜索找到最大答案了自然可以直接返回`。
-另一个是对当前背包和当前最大值的一个评估，`如果当前的背包加上启发式预估后面的最大结果(这里面可以和当前背包重复)都无法超过当前的答案，没有搜索的必要了`。(也可以使用`len(set(self.curr).union(*arr[idx:]))`来作为不能和当前背包重复的启发式结果，测试了一下感觉性能、剪枝效果不如用可以重复的)
+**Backtracking uses two pruning rules**
+The first is `estimate the maximum possible answer initially and return as soon as the search reaches it`.
+The other compares the current selection with the best answer: `if the current selection plus a heuristic upper bound for the remaining strings (allowing overlap with the current selection) cannot exceed the best answer, stop searching`. (Alternatively, `len(set(self.curr).union(*arr[idx:]))` gives a bound that excludes overlap with the current selection. In my tests, its performance and pruning seemed worse than the bound that allows overlap.)
 <br>
-- Python回溯代码中可能存在的不能理解的点:
-    - 新的arr由合理的字符串的集合们组成
-    - 启发式预估是忽略了背包选择的限制条件的(不管有没有用到里面的字符，随便加入)
-    - 使用集合可以快速判断交集是否为空
-    - 集合A,B: A.union(B) = A | B = $A \cup B$
-    - 集合A,B: A & B = $A \cap B$, A & B is None $\iff A \cap B = \emptyset$
-    - 集合A,B: A ^ B = $(A \cup B) \setminus (A \cap B)$, 由于题目中交集为B,所以也可以使用self.curr -= arr[i]代替回溯方法
+- Points in the Python backtracking code that may need explanation:
+    - The new arr contains sets representing valid strings.
+    - The heuristic estimate ignores the selection constraints, allowing characters to be added whether or not they are already present.
+    - Sets make it easy to check whether the intersection is empty.
+    - For sets A,B: A.union(B) = A | B = $A \cup B$
+    - For sets A,B: A & B = $A \cap B$, A & B is None $\iff A \cap B = \emptyset$
+    - For sets A,B: A ^ B = $(A \cup B) \setminus (A \cap B)$. Since the intersection here is B, self.curr -= arr[i] can also undo the selection during backtracking.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -50,29 +50,29 @@ class Solution:
 ```python3
 class Solution:
     def maxLength(self, arr: List[str]) -> int:
-        # 预处理数据, 去掉带有重复字符的字符串
+        # Preprocess the data by removing strings with duplicate characters
         arr = [t for s in arr if len(t:=set(s)) == len(s)]
-        # 启发式预估最大的结果
+        # Estimate an upper bound on the result
         predict = len(set().union(*arr))
         n = len(arr)
         self.curr = set()
         self.ans = 0
 
         def dfs(idx):
-            # 更新当前背包中的长度到答案
+            # Update the answer with the current selection's length
             self.ans = max(self.ans, len(self.curr))
-            # 找到能拼接出最大可能结果的结果了，不需要继续搜索 或者 当前的背包加上后面最长的结果都无法超过当前的答案了，不需要继续搜索
+            # Stop searching if the maximum possible result is reached, or if the current selection plus the remaining upper bound cannot improve the answer
             if self.ans == predict or idx == n or len(self.curr) + len(set().union(*arr[idx:])) < self.ans:
                 return
-            # 从idx到n,根据回溯寻找01背包最大值
+            # Backtrack from idx to n to find the maximum 0/1 knapsack result
             for i in range(idx, n):
-                # 当前背包与arr[idx]不冲突
+                # The current selection does not overlap with arr[idx]
                 if not self.curr & arr[i]:
-                    # 加入背包, A+B
+                    # Add to the selection, A+B
                     self.curr |= arr[i]
-                    # 判断新的背包的最大值
+                    # Evaluate the maximum for the new selection
                     dfs(i+1)
-                    # 回溯继续寻找最大值, (A+B) - B
+                    # Backtrack and continue searching for the maximum, (A+B) - B
                     self.curr ^= arr[i]
         
         dfs(0)

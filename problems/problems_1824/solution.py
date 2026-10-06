@@ -10,7 +10,7 @@ class Solution(solution.Solution):
         :type obstacles: List[int]
         :rtype: int
         """
-        # 贪心
+        # Greedy
         n = len(obstacles)
         curr = 2
         lines = {1, 2, 3}
@@ -36,7 +36,7 @@ class Solution(solution.Solution):
                 ans += 1
         return ans
 
-        # 动态规划
+        # Dynamic programming
         # n = len(obstacles)
         # ans = [1, 0, 1]
         # for i in range(1,n-1):

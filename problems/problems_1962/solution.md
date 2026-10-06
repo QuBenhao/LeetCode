@@ -1,4 +1,4 @@
-# [Python/Java] 最大堆贪心
+# [Python/Java] Greedy max-heap
 
 > Author: Benhao
 > Date: 2021-08-08
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-每次都降最大的那个数，收益最高
+### Approach
+Reducing the largest number each time gives the largest benefit.
 
-Python里负数向下除相当于正数向上除, Java里用优先队列自制大顶堆。
+In Python, floor division of a negative value corresponds to ceiling division of its positive counterpart. In Java, configure a priority queue as a max-heap.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

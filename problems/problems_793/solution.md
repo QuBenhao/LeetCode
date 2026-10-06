@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 差比数列 + 二分
+# [Python/Java/TypeScript/Go] Arithmetico-geometric sequence + binary search
 
 > slug: pythonjavatypescriptgo-chai-bi-shu-lie-e-nycq
 > date: 2022-08-28
@@ -7,16 +7,16 @@
 > url: https://leetcode.cn/problems/preimage-size-of-factorial-zeroes-function/solutions/GWlTkp/pythonjavatypescriptgo-chai-bi-shu-lie-e-nycq/
 
 ---
-### 解题思路
-1. 首先想到的是，阶乘末尾0的个数完全由5的因子个数决定，因为2的个数由于多于5的个数，所以讨论5即可。
-2. 其次想到的是计算一个数有多少个5的因子，需要依次除以5的各个次方，每个次方会单独贡献一个额外的5。
-   上面的式子和差比求和公式是一致的，不过这里是整除，但是我们仍可得到这个数字的范围。(原式乘以5再作差，会得到该数字一定大于等于4 * k)
-3. 5的因子个数是随着数字变大单调不减的。
-4. 有k个5的因子的数上界也很容易确定，比较宽松的估一个5 * (k + 1)即可 (兼容k=0的情况)。
-5. 在已知的上下界里二分校验有没有数有k个5的因子即可，如果没有返回0，如果有说明该数x (x % 5 == 0)到 x + 4 这五个数都满足。
+### Approach
+1. First, the number of trailing zeros in a factorial depends entirely on its number of factors of 5. Factors of 2 are more plentiful, so only factors of 5 matter.
+2. To count the factors of 5 in a factorial, divide the number successively by each power of 5; each power contributes an additional factor of 5.
+   The expression above follows the arithmetico-geometric summation formula, except that division is integer division here. We can still bound the number: multiply the original expression by 5 and subtract to show that the number must be at least 4 * k.
+3. The number of factors of 5 is nondecreasing as the number grows.
+4. An upper bound for a number whose factorial has k factors of 5 is also easy to find: the loose bound 5 * (k + 1) suffices and handles k=0.
+5. Binary search within these bounds for a number whose factorial has k factors of 5. Return 0 if none exists; otherwise, the five numbers from x (x % 5 == 0) through x + 4 all qualify.
 
 
-### 代码
+### Code
 
 ```Python3 []
 @lru_cache(None)

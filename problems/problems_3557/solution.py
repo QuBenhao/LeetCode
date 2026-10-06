@@ -16,7 +16,7 @@ class Solution(solution.Solution):
             if c not in pos:
                 pos[c] = i
             elif i - pos[c] > 2:
-                # 右端点越小越好，找到就清除
+                # Smaller right endpoints are better; clear the entry once found
                 ans += 1
                 pos.clear()
         return ans

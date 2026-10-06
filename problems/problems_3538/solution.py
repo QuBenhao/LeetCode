@@ -18,7 +18,7 @@ class Solution(solution.Solution):
             if i == n - 1:
                 return inf if _k else 0
             t = time_prefix_sum[i+1] - time_prefix_sum[pre]
-            # i到nxt合并以后，计算的时间是time[i]，time[i]由上一次割点的产生决定(即pre)，从pre到i的前缀和是s[i+1]-s[pre]
+            # After merging from i to nxt, the time used is time[i], determined by the previous split point pre; the prefix-sum difference from pre to i is s[i+1]-s[pre]
             return min(dfs(_k- (nxt-i-1), nxt, i + 1) + t * (position[nxt] - position[i]) for nxt in range(i + 1, min(n, i + _k + 2)))
 
         dfs.cache_clear()

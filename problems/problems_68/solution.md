@@ -1,4 +1,4 @@
-# [Python/Java] 硬模拟
+# [Python/Java] Direct simulation
 
 > Author: Benhao
 > Date: 2021-09-08
@@ -7,31 +7,31 @@
 
 ---
 
-### 解题思路
-统计哪些单词构成一行以后，将该行进行左右对齐的空格补齐。
+### Approach
+After determining which words fit on a line, pad the line with spaces to justify both margins.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
-        # 将word[left]到word[right-1]的单词组合成一个左右对齐的行
+        # Combine words from word[left] through word[right-1] into a fully justified line
         def process(left, right):
-            # 结尾行，向后补齐空格
+            # Pad the final line with trailing spaces
             if right == n:
                 res = ' '.join(words[left:right])
                 res += ' ' * (maxWidth - len(res))
                 return res
             spaces = right - left - 1
-            # 单独单词构成的行，向后补齐空格
+            # Pad a single-word line with trailing spaces
             if not spaces:
                 return words[left] + ' ' * (maxWidth - len(words[left]))
             cur = sum(len(w) for w in words[left:right]) + spaces
-            # 统计每个空隙间的空格数
+            # Calculate the number of spaces in each gap
             each = [1] * spaces
             j = 0
             while cur < maxWidth:
-                # 根据题意优先补左边，所以从0开始
+                # The problem requires filling gaps on the left first, so start at 0
                 each[j] += 1
                 j += 1
                 if j == spaces:
@@ -39,7 +39,7 @@ class Solution:
                 cur += 1
             j = 0
             res = ''
-            # 根据每个间隙的空格数构建该行字符串
+            # Build the line using the number of spaces in each gap
             while left < right:
                 res += words[left]
                 if left < right - 1:
@@ -55,9 +55,9 @@ class Solution:
             i = idx
             curLen = len(words[idx])
             idx += 1
-            # 统计哪些单词组成一行
+            # Determine which words form one line
             while idx < n and curLen < maxWidth:
-                # 单词之间需要空格
+                # Spaces are required between words
                 curLen += 1
                 curLen += len(words[idx])
                 idx += 1

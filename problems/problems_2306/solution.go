@@ -12,12 +12,12 @@ func distinctNames(ideas []string) (ans int64) {
 		group[i] = map[string]bool{}
 	}
 	for _, s := range ideas {
-		group[s[0]-'a'][s[1:]] = true // 按照首字母分组
+		group[s[0]-'a'][s[1:]] = true // Group by first letter
 	}
 
-	for i, a := range group { // 枚举所有组对
+	for i, a := range group { // Enumerate all pairs of groups
 		for _, b := range group[:i] {
-			m := 0 // 交集的大小
+			m := 0 // Size of the intersection
 			for s := range a {
 				if b[s] {
 					m++
@@ -26,7 +26,7 @@ func distinctNames(ideas []string) (ans int64) {
 			ans += int64(len(a)-m) * int64(len(b)-m)
 		}
 	}
-	return ans * 2 // 乘 2 放到最后
+	return ans * 2 // Multiply by 2 at the end
 }
 
 func Solve(inputJsonValues string) any {

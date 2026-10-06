@@ -1,4 +1,4 @@
-# [Python3/Java/TypeScript/Go/C/C++/C#/Js/PHP/Python] 递归
+# [Python3/Java/TypeScript/Go/C/C++/C#/Js/PHP/Python] Recursion
 
 > slug: pythonjavatypescriptgo-di-gui-by-himymbe-m57o
 > date: 2022-08-29
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/maximum-binary-tree-ii/solutions/8CgAt1/pythonjavatypescriptgo-di-gui-by-himymbe-m57o/
 
 ---
-### 解题思路
-因为是在数组末尾添加新的val，所以我们可以和根节点比较，
-如果比根节点大，那么说明val是新的根且原根节点是其左子树(因为val在数组中是原根的值的右边)。
-如果比根节点小，那么说明val必然是递归添加在原根右节点中。注意递归时可能会改变右子树的根，所以重新赋值根节点的右节点即可。
-最后如果递归到根为空，直接返回一个新叶子节点既可。
+### Approach
+Since the new val is appended to the array, compare it with the root.
+If val exceeds the root, val becomes the new root and the old root becomes its left subtree, since val occurs to the right of the old root's value in the array.
+If val is smaller than the root, recursively insert it into the root's right subtree. Recursion may change that subtree's root, so reassign the root's right child.
+If recursion reaches a null root, simply return a new leaf node.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

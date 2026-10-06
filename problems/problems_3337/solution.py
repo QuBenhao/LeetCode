@@ -17,8 +17,8 @@ class Solution(solution.Solution):
         for c in s:
             f[ord(c) - ord('a')][0] += 1
 
-        # 矩阵快速幂
-        # a @ b，其中 @ 是矩阵乘法
+        # Fast matrix exponentiation
+        # a @ b, where @ denotes matrix multiplication
         def mul(a: List[List[int]], b: List[List[int]], MOD: int) -> List[List[int]]:
             return [[sum(x * y for x, y in zip(row, col)) % MOD for col in zip(*b)]
                     for row in a]

@@ -11,7 +11,7 @@ func countBalls(lowLimit int, highLimit int) (ans int) {
 	low := strconv.FormatInt(int64(lowLimit), 10)
 	high := strconv.FormatInt(int64(highLimit), 10)
 	n := len(high)
-	low = strings.Repeat("0", n-len(low)) + low // 补前导零，和 high 对齐
+	low = strings.Repeat("0", n-len(low)) + low // Pad with leading zeros to match high
 
 	m := int(high[0]-'0') + (n-1)*9
 	memo := make([][]int64, n)
@@ -38,8 +38,8 @@ func countBalls(lowLimit int, highLimit int) (ans int) {
 			defer func() { *p = res }()
 		}
 
-		// 第 i 个数位可以从 lo 枚举到 hi
-		// 如果对数位还有其它约束，应当只在下面的 for 循环做限制，不应修改 lo 或 hi
+		// Enumerate the i-th digit from lo to hi
+		// Apply any additional digit constraints only inside the for loop below; do not change lo or hi
 		lo := 0
 		if limitLow {
 			lo = int(low[i] - '0')

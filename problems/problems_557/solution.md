@@ -1,4 +1,4 @@
-# [Go] 双指针 or 栈
+# [Go] Two pointers or a stack
 
 > slug: go-shuang-zhi-zhen-by-himymben-yxh3
 > date: 2022-01-21

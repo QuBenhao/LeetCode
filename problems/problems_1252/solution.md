@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 容斥原理
+# [Python/Java/TypeScript/Go] Inclusion-exclusion
 
 > slug: pythonjavatypescriptgo-rong-chi-yuan-li-7c5n1
 > date: 2022-07-12
@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/cells-with-odd-values-in-a-matrix/solutions/HQ9rOt/pythonjavatypescriptgo-rong-chi-yuan-li-7c5n1/
 
 ---
-### 解题思路
-我们只需要统计哪些行加了奇数次，哪些列加了奇数次 （因为所有偶数次的变化可以认为和0等价，相当于没变）
-根据这些行和列，利用容斥原理计算最终结果。
+### Approach
+Count which rows and columns were incremented an odd number of times. Any even number of increments is equivalent to 0 for parity, so it can be treated as no change.
+Use inclusion-exclusion on these rows and columns to calculate the result.
 
-具体是：
-每一行会有n个数变为奇数，每一列会有m个数变为奇数，但是每一个行和列的交点都是偶数(不满足题意)，
-却被计算了两次，所以要刨除掉所有交点的次数。
+Specifically:
+Each row contributes n odd numbers and each column contributes m odd numbers, but every intersection of such a row and column is even and does not qualify.
+Each intersection has been counted twice, so subtract both contributions.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

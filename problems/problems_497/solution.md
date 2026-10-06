@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 前缀和 + 二分
+# [Python/Java/TypeScript/Go] Prefix sums + binary search
 
 > slug: pythonjavatypescriptgo-qian-zhui-he-er-f-ztcs
 > date: 2022-06-09
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/solutions/XAPfm3/pythonjavatypescriptgo-qian-zhui-he-er-f-ztcs/
 
 ---
-### 解题思路
-给定矩形左下角$(a, b)$和右上角$(x, y)$,该矩形内点的个数为$(x - a + 1) \times (y - b + 1)$。
-我们可以从全部点的个数中随机一个数，从个数前缀和中确定是在第几个矩阵中。
-再从该矩阵的宽或者高，确定随机的点在第几行第几个。
+### Approach
+For a rectangle with bottom-left corner $(a, b)$ and top-right corner $(x, y)$, the number of points is $(x - a + 1) \times (y - b + 1)$.
+Choose a random index among all points and use prefix sums of point counts to locate its rectangle.
+Then use the rectangle's width or height to determine the point's row and position within that row.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Go] 纯暴力dfs 或 BFS剪枝
+# [Python/Go] Brute-force DFS or BFS with pruning
 
 > slug: python-chun-bao-li-dfswei-you-hua-by-him-uk9z
 > date: 2021-11-08
@@ -7,16 +7,16 @@
 > url: https://leetcode.cn/problems/zuma-game/solutions/jSkoSf/python-chun-bao-li-dfswei-you-hua-by-him-uk9z/
 
 ---
-### 解题思路
-dfs就是枚举有没有把棋盘消灭光、枚举不同颜色球和不同的插入位置，in_a_row就是检测有没有三连并消元。
+### Approach
+DFS checks whether the board is empty and enumerates ball colors and insertion positions. in_a_row detects and removes runs of three or more.
 
-### 代码
+### Code
 
 ```python3
 COLORS = ["R", "Y", "B", "G", "W"]
 class Solution:
     def findMinStep(self, board: str, hand: str) -> int:
-        # 单纯检测一下board里有没有加上手上的还不能够3个的球，直接返回-1
+        # Return -1 if any board color still has fewer than three balls after including the hand
         cnts, cnts_b = Counter(hand), Counter(board)
         total = len(hand)
         if any(cnts_b[k] + cnts[k] < 3 for k in cnts_b.keys()):
@@ -24,20 +24,20 @@ class Solution:
 
         @lru_cache(None)
         def dfs(bd, hd):
-            # 全部消掉了，返回所用的球数
+            # All balls are removed; return the number used
             if len(bd) <= 0:
                 return total - sum(hd)
             n = len(bd)
             ans = inf
-            # 遍历手上的球的颜色
+            # Iterate over the colors in hand
             for i, v in enumerate(hd):
-                # 如果该颜色还有球可以用
+                # If a ball of this color remains
                 if v:
                     cp = list(hd)
-                    # 用掉这个球
+                    # Use this ball
                     cp[i] -= 1
                     nt = tuple(cp)
-                    # 枚举插入位置
+                    # Enumerate insertion positions
                     for j in range(n + 1):
                         ans = min(ans, dfs(in_a_row(bd[:j] + COLORS[i] + bd[j:]), nt))
             return ans
@@ -46,7 +46,7 @@ class Solution:
         def in_a_row(bd):
             l = r = 0
             while l < len(bd):
-                # 判断有没有连续三个一样的球，有的话就剪掉bd[l:r]，迭代返回
+                # If at least three consecutive balls match, remove bd[l:r] and recursively return the cleaned board
                 while r < len(bd) and bd[r] == bd[l]:
                     r += 1
                 if r - l > 2:
@@ -54,19 +54,19 @@ class Solution:
                 l = r
             return bd
 
-        # 手上的以不同颜色的球计数的tuple作为传参，直接避免尝试重复的球
+        # Pass the hand as a tuple of color counts to avoid trying duplicate balls
         start = [cnts[c] for c in COLORS]
         res = dfs(board, tuple(start))
         return res if res != inf else -1
 ```
-应该用BFS+剪枝达到的最高效率(参考自[@ChangXingJiang](/u/changxingjiang/))
+BFS with pruning should be the most efficient approach (adapted from [@ChangXingJiang](/u/changxingjiang/)).
 ```Python3 []
 COLORS = ["R", "Y", "B", "G", "W"]
 class Solution:
     def findMinStep(self, board: str, hand: str) -> int:
         @lru_cache(None)
         def clean(s):
-            # 消除桌面上需要消除的球
+            # Remove all runs that should disappear from the board
             n = 1
             while n:
                 s, n = re.subn(r"(.)\1{2,}", "", s)
@@ -76,10 +76,10 @@ class Solution:
         start = [cnts[c] for c in COLORS]
         hand = tuple(start)
 
-        # 初始化用双端队列维护的状态队列：其中的三个元素分别为当前桌面的球、当期手中的球、当前回合数
+        # Initialize a deque of states: current board, current hand, and number of turns
         queue = deque([(board, hand, 0)])
 
-        # 记忆化
+        # Memoization
         visited = {(board, hand)}
 
         while queue:
@@ -89,13 +89,13 @@ class Solution:
                     if not cur_hand[j]:
                         continue
                     c = COLORS[j]
-                    # 第 1 个剪枝条件: 只在连续相同颜色的球的开头位置插入新球(在它前面插入过了，不需要再插入，意义相同)
+                    # Pruning rule 1: insert only at the start of a run of the same color (other positions in that run are equivalent)
                     if i > 0 and cur_board[i - 1] == c:
                         continue
 
-                    # 第 2 个剪枝条件: 只在以下两种情况放置新球
-                    #  - 第 1 种情况 : 当前后颜色相同且与当前颜色不同时候放置球
-                    #  - 第 2 种情况 : 当前球颜色与后面的球的颜色相同
+                    # Pruning rule 2: insert a ball only in either of these cases
+                    #  - Case 1: the neighboring balls have the same color, different from the inserted ball
+                    #  - Case 2: the inserted ball matches the following ball
                     choose = False
                     if 0 < i < len(cur_board) and cur_board[i - 1] == cur_board[i] and cur_board[i - 1] != c:
                         choose = True
@@ -175,15 +175,15 @@ func findMinStep(board string, hand string) int {
             for j, r := range COLORS {
                 if cur_hand[j] > 0 {
                     c := byte(r)
-                    // 第 1 个剪枝条件: 只在连续相同颜色的球的开头位置插入新球(在它前面插入过了，不需要再插入，意义相同)
+                    // Pruning rule 1: insert only at the start of a run of the same color (other positions in that run are equivalent)
                     if i > 0 && cur_board[i - 1] == c{
                         continue
                     }
 
                     /** 
-                     *  第 2 个剪枝条件: 只在以下两种情况放置新球
-                     *  - 第 1 种情况 : 当前后颜色相同且与当前颜色不同时候放置球
-                     *  - 第 2 种情况 : 当前球颜色与后面的球的颜色相同
+                     *  Pruning rule 2: insert a ball only in either of these cases
+                     *  - Case 1: the neighboring balls have the same color, different from the inserted ball
+                     *  - Case 2: the inserted ball matches the following ball
                      */
                     choose := false
                     if 0 < i && i < len(cur_board) && cur_board[i - 1] == cur_board[i] && cur_board[i - 1] != c{

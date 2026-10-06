@@ -1,4 +1,4 @@
-# [Python/Go] 记忆化递归 || 状态压缩动态规划
+# [Python/Go] Memoized recursion || dynamic programming with compressed states
 
 > slug: python-ji-yi-hua-di-gui-by-himymben-pnq1
 > date: 2022-02-13
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/maximum-and-sum-of-array/solutions/4LyDDU/python-ji-yi-hua-di-gui-by-himymben-pnq1/
 
 ---
-### 解题思路
+### Approach
 
-枚举盒子的状态即可，和状态压缩一样
+Enumerate the slot states, just as with state compression.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -34,7 +34,7 @@ class Solution:
 func maximumANDSum(nums []int, numSlots int) (ans int) {
     dp := make([]int, 1 << (numSlots * 2))
     for i, f := range dp {
-        // 已经填了几个数
+        // How many numbers have already been placed
         idx := bitCounts(i, numSlots * 2)
         if idx < len(nums) {
             for j := 0; j < numSlots * 2; j++ {

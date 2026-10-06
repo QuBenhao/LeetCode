@@ -1,4 +1,4 @@
-# [Python/Go/C] 模拟
+# [Python/Go/C] Simulation
 
 > Author: Benhao
 > Date: 2024-02-27
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 注意到从右至左是递增的话是加法，出现逆序的地方是减法
+> Moving from right to left, add when the values increase and subtract where the order is reversed.
 
-# 解题方法
+# Approach
 
-> 转换罗马数字比较相邻大小决定正负
+> Convert the Roman numerals, comparing adjacent values to decide whether to add or subtract.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

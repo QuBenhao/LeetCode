@@ -1,4 +1,4 @@
-# [Python] DP 时间复杂度O(m*n) 空间复杂度O(n)
+# [Python] DP with O(m*n) time and O(n) space
 
 > Author: Benhao
 > Date: 2021-03-17
@@ -7,8 +7,8 @@
 
 ---
 
-### 解题思路
-由空间复杂度O(m*n)简化而来
+### Approach
+Simplified from an approach with O(m*n) space complexity.
 
 ```python
         dp = [[1] * (m + 1)] + [[0] * (m + 1) for _ in range(n)]
@@ -19,39 +19,39 @@
                 if t[i] == s[j]:
                     dp[i + 1][j + 1] += dp[i][j]
 ```
-`dp[i][j]` 表示numDistinct(s[:j],t[:i])的结果。
-显然,如果s[:j]中能包含t[:i+1]的次数，s多一位也能包含，即 `dp[i+1][j+1] += dp[i+1][j]`.
-如果`s[j] == t[i]`, 那么之前的s[:j]不用包含t的第i位, 即`dp[i+1][j+1] += dp[i][j]`.
+`dp[i][j]` represents the result of numDistinct(s[:j],t[:i]).
+Any occurrence of t[:i+1] in s[:j] is still present after adding one character to s, so `dp[i+1][j+1] += dp[i+1][j]`.
+If `s[j] == t[i]`, the preceding s[:j] does not need to include the character at index i of t, so `dp[i+1][j+1] += dp[i][j]`.
 <br>
-考虑二维变为一维时，刚刚的dp只取每一行对应列的值，逐步更新。
-每次存储的都是该列循环对应的值。也就是说s[:j]对应的dp[:][j]。含义:s从0到j-1中，分别包含对应的t[:i+1]多少次。
+To reduce the two-dimensional DP to one dimension, keep the value in the corresponding column for each row and update it incrementally.
+At each step, the stored values correspond to the current column: dp[:][j] for s[:j]. They count how many times each corresponding t[:i+1] occurs as a subsequence of s from index 0 through j-1.
 <br>
-以`s="babgbag"`和`t="bag"`为例:
-在循环之中：
-i = 0, 第一列初始为[1, 0, 0, 0]
-i = 1, 第二列时，s[0] == t[0], 数组更新为[1, 1, 0, 0] (dp[1] += dp[0])
-i = 2, 第三列时，s[1] == t[1], 数组更新为[1, 1, 1, 0] (dp[2] += dp[1])
-i = 3, 第四列时, s[2] == t[0], 数组更新为[1, 2, 1, 0] (dp[1] += dp[0])
-i = 4, 第五列时, s[3] == t[2], 数组更新为[1, 2, 1, 1] (dp[3] += dp[2])
-i = 5, 第六列时, s[4] == t[0], 数组更新为[1, 3, 1, 1] (dp[1] += dp[0])
-i = 6, 第七列时, s[5] == t[1], 数组更新为[1, 3, 4, 1] (dp[2] += dp[1])
-i = 7, 第八列时, s[6] == t[2], 数组更新为[1, 3, 4, 5] (dp[3] += dp[2])
-循环结束，得到结果5.
+For example, with `s="babgbag"` and `t="bag"`:
+During the loop:
+i = 0, the first column is initialized to [1, 0, 0, 0]
+i = 1, in the second column, s[0] == t[0], so the array becomes [1, 1, 0, 0] (dp[1] += dp[0])
+i = 2, in the third column, s[1] == t[1], so the array becomes [1, 1, 1, 0] (dp[2] += dp[1])
+i = 3, in the fourth column, s[2] == t[0], so the array becomes [1, 2, 1, 0] (dp[1] += dp[0])
+i = 4, in the fifth column, s[3] == t[2], so the array becomes [1, 2, 1, 1] (dp[3] += dp[2])
+i = 5, in the sixth column, s[4] == t[0], so the array becomes [1, 3, 1, 1] (dp[1] += dp[0])
+i = 6, in the seventh column, s[5] == t[1], so the array becomes [1, 3, 4, 1] (dp[2] += dp[1])
+i = 7, in the eighth column, s[6] == t[2], so the array becomes [1, 3, 4, 5] (dp[3] += dp[2])
+The loop ends with a result of 5.
 <br>
-上面的例子中,t没有重复字符。
-以`s="rabbb"`,`t="bb"`为例:
+In the example above, t has no repeated characters.
+For example, with `s="rabbb"` and `t="bb"`:
 i = 0, dp = [1, 0, 0]
 i = 1, dp = [1, 0, 0]
 i = 2, dp = [1, 0, 0]
-i = 3, dp = [1, 1, 0] (dp[2] += dp[1], dp[1] += dp[0]) 因为"rab"中可以包含"b"一次，但不可能包含"bb"
-i = 4, dp = [1, 2, 1] (dp[2] += dp[1], dp[1] += dp[0]) 因为前面"rab"可以包含"b"一次了，那么因为又多了个"b",就可以包含"bb"一次了，新的"b"又说明可以包含"b"多了一次。
+i = 3, dp = [1, 1, 0] (dp[2] += dp[1], dp[1] += dp[0]) because "rab" contains "b" once as a subsequence, but cannot contain "bb"
+i = 4, dp = [1, 2, 1] (dp[2] += dp[1], dp[1] += dp[0]) because the preceding "rab" already contains "b" once, and adding another "b" creates one occurrence of "bb". The new "b" also adds another occurrence of "b".
 i = 5, dp = [1, 3, 3] (dp[2] += dp[1], dp[1] += dp[0])
 <br>
-可以看出，**逆序保证了对对应的t[:i+1],我们只计算上次循环中,t[:i]的次数**
+As this shows, **reverse iteration ensures that, for each t[:i+1], we use only the count of t[:i] from the previous iteration**.
 
-*注：下面代码中i和j和上述相反*
+*Note: i and j in the code below are swapped relative to the explanation above.*
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

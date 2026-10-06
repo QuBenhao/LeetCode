@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划(滚动更新)
+# [Python/Go] Dynamic programming (rolling updates)
 
 > Author: Benhao
 > Date: 2022-02-22
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-当前能组成的最大正方形变成由，左上角、上方、左边的点能组成的最大正方形的最小值在加上当前自己的1构成。
-加入左上角只能构成一个边长为1的正方形，那么当前最多能构成边长为2的正方形。
-同理，上方和左边都会对当前点造成影响。
+### Approach
+The largest square ending at the current cell has side length one plus the minimum of the largest square side lengths at the upper-left, upper, and left cells.
+For example, if the upper-left cell can form only a square of side length 1, the current cell can form a square of side length at most 2.
+Similarly, the upper and left cells also constrain the current cell.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

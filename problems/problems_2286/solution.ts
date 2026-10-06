@@ -2,7 +2,7 @@ class BookMyShow {
   private readonly tree: SegmentTree
 
   constructor(row: number, col: number) {
-    this.tree = new SegmentTree(row, col) // 行 列
+    this.tree = new SegmentTree(row, col) // Rows and columns
   }
 
   gather(k: number, maxRow: number): number[] {
@@ -23,15 +23,15 @@ class BookMyShow {
 
 
 
-// 都是到叶子节点的单点更新 不用加懒标记
+// All updates are point updates at leaves, so lazy tags are unnecessary
 class SegmentTree {
-  private readonly sums: number[] // 每行剩余座位数
-  private readonly maxs: Uint32Array // 区间最大值
+  private readonly sums: number[] // Remaining seats in each row
+  private readonly maxs: Uint32Array // Interval maximum
   private readonly rowSize: number
   private readonly colSize: number
 
   /**
-   * @param rowSize 区间右边界
+   * @param rowSize Right endpoint of the interval
    */
   constructor(rowSize: number, colSize: number) {
     this.rowSize = rowSize
@@ -49,7 +49,7 @@ class SegmentTree {
     return this._querySum(1, l, r, 1, this.rowSize)
   }
 
-  // 找到最小的行满足sum>=k的位置
+  // Find the smallest row where sum>=k
   updateOneRow(
     l: number,
     r: number,
@@ -59,7 +59,7 @@ class SegmentTree {
     this._updateOneRow(1, l, r, 1, this.rowSize, delta, resRef)
   }
 
-  // 从最小的行开始填充delta
+  // Fill delta seats starting from the smallest row
   updateManyRows(l: number, r: number, deltaRef: { value: number }): void {
     this._updateManyRows(1, l, r, 1, this.rowSize, deltaRef)
   }
@@ -94,7 +94,7 @@ class SegmentTree {
     return res
   }
 
-  // gather 找到第一个行空座位>=k的位置
+  // gather: find the first row with at least k empty seats
   private _updateOneRow(
     rt: number,
     L: number,
@@ -102,10 +102,10 @@ class SegmentTree {
     l: number,
     r: number,
     delta: number,
-    resRef: { resRow: number; resCol: number } // 返回值
+    resRef: { resRow: number; resCol: number } // Return value
   ): void {
-    if (this.maxs[rt] < delta) return // 简单的写法就是在入口判断
-    if (l === r) {  // 单点修改 找到答案了
+    if (this.maxs[rt] < delta) return // The simplest approach is to check at the entry point
+    if (l === r) {  // Point update: the answer has been found
       resRef.resRow = l - 1
       resRef.resCol = this.colSize - this.sums[rt]
       this.sums[rt] -= delta
@@ -122,7 +122,7 @@ class SegmentTree {
     this._pushUp(rt)
   }
 
-  // scatter 尽量往左填充delta 即二叉树先遍历左子树再遍历右子树
+  // scatter: fill delta seats as far left as possible, visiting the left subtree before the right
   private _updateManyRows(
     rt: number,
     L: number,
@@ -131,7 +131,7 @@ class SegmentTree {
     r: number,
     deltaRef: { value: number }
   ): void {
-    if (l === r) {  // 单点修改 填充这一行
+    if (l === r) {  // Point update: fill this row
       const remain = Math.min(deltaRef.value, this.sums[rt])
       this.sums[rt] -= remain
       this.maxs[rt] -= remain

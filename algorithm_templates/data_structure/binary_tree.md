@@ -1,6 +1,6 @@
-# 二叉树
+# Binary Tree
 
-## 前序遍历
+## Preorder Traversal
 
 ```python
 def preorder(root):
@@ -42,6 +42,6 @@ func preorderTraversal(root *TreeNode) []int {
 }
 ```
 
-## 中序遍历
+## Inorder Traversal
 
-## 后序遍历
+## Postorder Traversal

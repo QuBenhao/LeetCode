@@ -1,4 +1,4 @@
-# [Python/Go] 模拟
+# [Python/Go] Simulation
 
 > slug: pythongo-mo-ni-by-himymben-il1d
 > date: 2022-01-23
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/find-all-lonely-numbers-in-the-array/solutions/stAal5/pythongo-mo-ni-by-himymben-il1d/
 
 ---
-### 解题思路
-哈希统计即可
+### Approach
+Count occurrences with a hash table.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

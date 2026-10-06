@@ -9,10 +9,10 @@ class Solution(solution.Solution):
         return self.makeTheIntegerZero(*test_input)
 
     def makeTheIntegerZero(self, num1: int, num2: int) -> int:
-        # num1 - x * num2 = x个可重复二的幂的和 >= x
+        # num1 - x * num2 = the sum of x powers of two, allowing repetitions, which is >= x
         for x in count(1):
             num1 -= num2
-            # num1 >= x, 否则返回-1
+            # num1 >= x; otherwise return -1
             if x > num1:
                 break
             if x >= num1.bit_count():

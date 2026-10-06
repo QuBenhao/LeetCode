@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 简单模拟
+# [Python/Java/JavaScript/Go] Simple simulation
 
 > slug: pythonjavajavascriptgo-jian-dan-mo-ni-by-l5hn
 > date: 2022-04-20
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/goat-latin/solutions/kWhSl6/pythonjavajavascriptgo-jian-dan-mo-ni-by-l5hn/
 
 ---
-### 解题思路
-该用户太懒了只有代码
+### Approach
+This user was too lazy to write an explanation; code only
 
-### 代码
+### Code
 
 ```Python3 []
 VOWELS = "aeiouAEIOU"

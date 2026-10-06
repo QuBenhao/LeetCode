@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 二分查找
+> Binary search
 
-# 解题方法
+# Approach
 
-> 相同的时候往左边找
+> Search to the left when the values are equal.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(log_n)$
 
-空间复杂度:
+Space complexity:
 > $O(log_n)$
 
 

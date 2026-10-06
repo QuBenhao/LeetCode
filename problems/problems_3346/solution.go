@@ -13,8 +13,8 @@ func maxFrequency(nums []int, k, numOperations int) (ans int) {
 	diff := map[int]int{}
 	for _, x := range nums {
 		cnt[x]++
-		diff[x] += 0 // 把 x 插入 diff，以保证下面能遍历到 x
-		diff[x-k]++  // 把 [x-k, x+k] 中的每个整数的出现次数都加一
+		diff[x] += 0 // Insert x into diff to ensure that x is visited below
+		diff[x-k]++  // Increase the occurrence count of every integer in [x-k, x+k] by one
 		diff[x+k+1]--
 	}
 

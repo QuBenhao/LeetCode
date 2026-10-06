@@ -13,7 +13,7 @@ func numberOfSets(n, maxDistance int, roads [][]int) (ans int) {
 		g[i] = make([]int, n)
 		for j := range g[i] {
 			if j != i { // g[i][i] = 0
-				g[i][j] = math.MaxInt / 2 // 防止加法溢出
+				g[i][j] = math.MaxInt / 2 // Prevent overflow during addition
 			}
 		}
 	}
@@ -28,7 +28,7 @@ func numberOfSets(n, maxDistance int, roads [][]int) (ans int) {
 		f[i] = make([]int, n)
 	}
 next:
-	for s := 0; s < 1<<n; s++ { // 枚举子集
+	for s := 0; s < 1<<n; s++ { // Enumerate subsets
 		for i, row := range g {
 			if s>>i&1 == 0 {
 				continue

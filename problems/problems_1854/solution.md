@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2021-05-09
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-作为一个没有感情的人口统计机器，每当某年有人出生，该年的人数要+1，每当某年有人死亡，该年的人数要-1。每年的人口变化为1950年到2050年的数组。
-而从始至终就可以统计每年有多少人，活着。
+### Approach
+Act as an impartial population counter: add 1 in each birth year and subtract 1 in each death year. Store yearly population changes in an array spanning 1950 through 2050.
+Traverse from start to finish to count the people alive in each year.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

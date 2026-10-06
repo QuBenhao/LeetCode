@@ -1,4 +1,4 @@
-# [Python] DP or 记忆化搜索
+# [Python] DP or memoized search
 
 > Author: Benhao
 > Date: 2024-04-22
@@ -7,7 +7,7 @@
 
 ---
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

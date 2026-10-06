@@ -25,7 +25,7 @@ class Solution(solution.Solution):
             x, step = queue.popleft()
             if x == n * n:
                 return step
-            # 加入贪心：跳跃到没有蛇或者梯子的地方要跳尽可能远
+            # Add a greedy rule: when jumping to a square with no snake or ladder, go as far as possible
             picked = False
             for dx in range(6, 0, -1):
                 nxt = x + dx
@@ -34,7 +34,7 @@ class Solution(solution.Solution):
                 if nxt not in explored:
                     i, j = transform(nxt)
                     explored.add(nxt)
-                    # 该位置有跳跃
+                    # This square has a jump
                     if board[i][j] != -1:
                         queue.append((board[i][j], step + 1))
                     elif not picked:

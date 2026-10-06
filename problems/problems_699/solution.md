@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 映射暴力 -> 线段树
+# [Python/Java/TypeScript/Go] Brute force with coordinate mapping -> segment tree
 
 > Author: Benhao
 > Date: 2022-05-26
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-先用Py实现一个映射暴力解，效率很高😂
+### Approach
+First, a Python brute-force solution with coordinate mapping. It is quite efficient 😂
 
-从三叶那里学了一下【线段树动态开点 + 懒标记】的写法
+I learned how to use a segment tree with on-demand nodes and lazy tags from 三叶.
 
-内心OS：
-五月一整个月的每日怎么感觉都挺难写的
+My inner monologue:
+Why have the daily challenges felt so hard to implement throughout May?
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -37,7 +37,7 @@ class Solution:
         return ans
 ```
 
-从[叶总](https://leetcode.cn/problems/falling-squares/solution/by-ac_oier-zpf0/)那儿抄一套带懒标记的动态开点线段树
+A segment-tree template with on-demand nodes and lazy tags copied from [叶总](https://leetcode.cn/problems/falling-squares/solution/by-ac_oier-zpf0/)
 ```Python3 []
 class Node:
     def __init__(self) -> None:

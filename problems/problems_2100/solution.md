@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 动态规划
+# [Python/Java/JavaScript/Go] Dynamic programming
 
 > slug: pythonjavajavascriptgo-dong-tai-gui-hua-sd4pc
 > date: 2022-03-05
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/find-good-days-to-rob-the-bank/solutions/gbgJwb/pythonjavajavascriptgo-dong-tai-gui-hua-sd4pc/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

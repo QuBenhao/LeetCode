@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 深度优先搜索
+# [Python/Java/JavaScript/Go] Depth-first search
 
 > slug: pythonjavajavascriptgo-shen-du-you-xian-hm3mw
 > date: 2022-03-10
@@ -7,16 +7,16 @@
 > url: https://leetcode.cn/problems/count-nodes-with-the-highest-score/solutions/8dBZAF/pythonjavajavascriptgo-shen-du-you-xian-hm3mw/
 
 ---
-### 解题思路
+### Approach
 
-总共有$n$个节点
-对于任意节点$i$，它的分数可以由左子树大小$left_i$和右子树大小$right_i$得到:
+There are $n$ nodes in total.
+For any node $i$, its score can be obtained from its left subtree size $left_i$ and right subtree size $right_i$:
 $score_i = left_i * right_i * (n - left_i - right_i - 1)$
-在这个式子中，乘法项不足1的看作1
+Treat any factor smaller than 1 in this expression as 1.
 
-这和深度优先搜索是契合的，我们先递归完子节点得到子树的大小，再以递归结果计算当前节点的最终值。
+This fits depth-first search: recurse into the children to obtain their subtree sizes, then use those results to compute the current node's score.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

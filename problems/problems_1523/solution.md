@@ -1,4 +1,4 @@
-# [Python/Go/Java/Cpp] 模拟
+# [Python/Go/Java/Cpp] Simulation
 
 > Author: Benhao
 > Date: 2024-06-02
@@ -12,21 +12,21 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 每两个数里就有一个数是奇数，high到low之间一共有(high - low) // 2组成对。再额外加上某一端是奇数即可
+> Each pair of consecutive numbers contains one odd number. There are (high - low) // 2 pairs between low and high; add one more if either endpoint is odd.
 
-# 解题方法
+# Approach
 
-> 比如3-7: 3,4; 5,6; 为两组；7为额外奇数
-再比如6-9: 6,7为一组; 9为额外奇数
+> For example, 3-7 has two pairs, 3,4 and 5,6, with 7 as the extra odd number.
+For 6-9, 6,7 is one pair, with 9 as the extra odd number.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(1)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

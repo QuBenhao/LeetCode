@@ -1,4 +1,4 @@
-# [Python] 动态规划 & 记忆化搜索 2000ms -> 32ms 的过程
+# [Python] Dynamic programming & memoized search: from 2000ms to 32ms
 
 > Author: Benhao
 > Date: 2021-07-06
@@ -7,38 +7,38 @@
 
 ---
 
-### 解题思路
-我们要在某一层$x$扔这个鸡蛋,鸡蛋可能碎了，也可能没碎; 如果鸡蛋碎了，那么结果必然在小于$x$的层里;否则,结果必须在高于$x$的层里；
-前者问题就变为用$k-1$个鸡蛋，解决$x-1$层;后者问题就变为用$k$个鸡蛋解决$n-x$层。
-由于我们要解决全部的可能性，所以我们要取这两者的最大值: 故扔在该层的最终结果为`dp[k-1][x-1], dp[k][n-x]`中的最大值，加上我们扔这个鸡蛋的操作1.
+### Approach
+Drop an egg from floor $x$; it may break or survive. If it breaks, the answer lies below $x$; otherwise, the answer lies above $x$.
+The former case becomes solving $x-1$ floors with $k-1$ eggs; the latter becomes solving $n-x$ floors with $k$ eggs.
+We must handle every possibility, so take the larger of the two results. Dropping from this floor therefore costs the maximum of `dp[k-1][x-1], dp[k][n-x]`, plus 1 for this drop.
 
-但是我们不知道扔在哪层，也就是$x$是多少对于解决$k,n$最好的解。
-初步想法是遍历找所有楼层的扔法中最小的那个。
-也就是`dp[k][n] = min(max(dp[k-1][x-1], dp[k][n-x]) for x in range(1, n)) + 1`。
+But we do not know which floor $x$ gives the best solution for $k,n$.
+The initial idea is to try every floor and take the minimum result.
+That is, `dp[k][n] = min(max(dp[k-1][x-1], dp[k][n-x]) for x in range(1, n)) + 1`.
 
-这样每次都需要遍历n来找到最大值，会超时。
-有没有优化的办法呢？
+Scanning n each time to find the maximum times out.
+Can this be optimized?
 
-我们知道在有相同鸡蛋的时候，需要检测的层数越多，最终需要的操作次数也就越多。也就是说当x变大的时候，左边变大了；而右边变小了。
-这种感觉就像是左边是一条从小到大的线，右边是一条从大到小的线，而最终结果必然在交点附近。
-根据这种单调性，我们可以想到利用二分查找来加速找到最合适的$x$的位置。
-如果当前是k-1,x-1这边更大，那么我们需要再看看x变小;相反如果是k,n-x这边更大，我们需要再看看x变大。
-于是得到了第一段代码 (2000ms)。
-
-<br>
-发现这种写法提交后有点儿慢，于是又开始思考其他人是怎么写的那么快的算法。
-想到了从另一种角度考虑这个问题。
-鸡蛋还是要扔的，它也还是可能碎也可能没碎。但是呢，如果这次我们关注于尝试次数，也就是说，我们有$k$个鸡蛋,最多$m$次尝试次数，我们能最多检测多少层呢？
-显然如果鸡蛋碎了，那么我们还能使用$k-1$个鸡蛋，还有$m-1$次尝试次数；如果鸡蛋没碎，我们就还能使用$k$个鸡蛋，但尝试次数还是要变为$m-1$。再加上我们扔鸡蛋的这层.
-也就是说`dp[k][m] = dp[k][m-1] + dp[k-1][m-1] + 1`。
-我们只要找到最小的m，使得dp[k][m] >= n即可。
-于是有了第二段代码 (700ms)。
+With the same number of eggs, more floors require more operations. As x increases, the left expression increases while the right expression decreases.
+Think of the left expression as an increasing curve and the right expression as a decreasing curve; the final answer must be near their intersection.
+This monotonicity suggests binary search to find the best $x$ faster.
+If the k-1,x-1 side is larger, try a smaller x; if the k,n-x side is larger, try a larger x.
+This gives the first implementation (2000ms).
 
 <br>
-性能好像还是不够好，因为我们可能反复计算了很多次同样的k和m。
-故最终使用记忆化搜索解决重复搜索同样的问题的解得到第三段代码 (32ms)。
+The submission was still a little slow, so I started thinking about how others made their algorithms so fast.
+I considered the problem from another angle.
+We still drop eggs, and each may break or survive. But focus on the number of attempts: with $k$ eggs and at most $m$ attempts, how many floors can we test?
+If the egg breaks, $k-1$ eggs and $m-1$ attempts remain. If it survives, $k$ eggs remain, but still only $m-1$ attempts. Add the floor from which we dropped the egg.
+That is, `dp[k][m] = dp[k][m-1] + dp[k-1][m-1] + 1`.
+Find the smallest m such that dp[k][m] >= n.
+This gives the second implementation (700ms).
 
-### 代码
+<br>
+Performance still seems insufficient because we may calculate the same k and m many times.
+Memoized search eliminates repeated subproblems, giving the third implementation (32ms).
+
+### Code
 
 ```python3
 class Solution:
@@ -46,11 +46,11 @@ class Solution:
     def superEggDrop(self, k: int, n: int) -> int:
         if k == 1 or n <= 2:
             return n
-        # 如果k比n大，我们可以每个楼层用一个鸡蛋，最快的方法就是二分
+        # If k exceeds n, we can use one egg per floor; binary search is the fastest approach
         if k >= n:
             return int(log(n, 2)) + 1
-        # 假设初始扔的第一个楼层为x,如果鸡蛋碎了，那么问题变为用k-1个鸡蛋解决x-1个楼层; 如果没碎，问题变为k个鸡蛋解决n-x个楼层
-        # 如果x越大，左边越大，右边越小; x越小左边越小，右边越大
+        # Suppose the first drop is from floor x: if the egg breaks, solve x-1 floors with k-1 eggs; otherwise, solve n-x floors with k eggs
+        # As x increases, the left side increases and the right decreases; as x decreases, the left decreases and the right increases
         ans = n
         left, right = 1, n
         while left < right:
@@ -68,11 +68,11 @@ class Solution:
 ```python3
 class Solution:
     def superEggDrop(self, k: int, n: int) -> int:
-        # 反过来想，给我们k个鸡蛋，m次尝试机会，我们最多能测出多少层？
-        # 我们扔一个鸡蛋，鸡蛋可能碎了，也可能没碎。
-        # 如果鸡蛋没碎，我们就能解决dp[k][m-1]层；如果鸡蛋碎了，我们就能解决dp[k-1][m-1]层;再加上第一个扔的层。
-        # 有: dp[k][m] = dp[k][m-1] + dp[k-1][m-1] + 1.
-        # 问题变为求最小的使得dp[k][m] >= n
+        # Reverse the question: with k eggs and m attempts, how many floors can we test?
+        # Drop an egg; it may break or survive.
+        # If it survives, we can handle dp[k][m-1] floors; if it breaks, dp[k-1][m-1] floors; add the floor of this drop.
+        # Thus: dp[k][m] = dp[k][m-1] + dp[k-1][m-1] + 1.
+        # The problem becomes finding the smallest m such that dp[k][m] >= n
         dp = [[0] * (n + 1) for _ in range(k+1)]
         dp[1][1] = 1
         for i in range(1, k+1):
@@ -86,11 +86,11 @@ class Solution:
 ```python3
 class Solution:
     def superEggDrop(self, k: int, n: int) -> int:
-        # 反过来想，给我们k个鸡蛋，m次尝试机会，我们最多能测出多少层？
-        # 我们扔一个鸡蛋，鸡蛋可能碎了，也可能没碎。
-        # 如果鸡蛋没碎，我们就能解决dp[k][m-1]层；如果鸡蛋碎了，我们就能解决dp[k-1][m-1]层;再加上第一个扔的层。
-        # 有: dp[k][m] = dp[k][m-1] + dp[k-1][m-1] + 1.
-        # 问题变为求最小的使得dp[k][m] >= n
+        # Reverse the question: with k eggs and m attempts, how many floors can we test?
+        # Drop an egg; it may break or survive.
+        # If it survives, we can handle dp[k][m-1] floors; if it breaks, dp[k-1][m-1] floors; add the floor of this drop.
+        # Thus: dp[k][m] = dp[k][m-1] + dp[k-1][m-1] + 1.
+        # The problem becomes finding the smallest m such that dp[k][m] >= n
         for i in range(1, n+1):
             if self.maximumFloors(k, i) >= n:
                 return i

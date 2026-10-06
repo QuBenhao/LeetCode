@@ -1,4 +1,4 @@
-# [Python] 迭代解法 不需要dummy head
+# [Python] Iterative solution without a dummy head
 
 > Author: Benhao
 > Date: 2021-03-25
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-如果head.next的值和head的值相等，那么我们要一直往前找，直到值和head的值不相等位置。**因为是排序链表**
-如果不相等，说明head要被留下，那么转而寻找head.next后面的head。
+### Approach
+If head.next has the same value as head, keep advancing until a value differs from head. **The list is sorted.**
+If the values differ, keep head and look for the next head starting from head.next.
 
-### 代码
+### Code
 
 ```python
 # Definition for singly-linked list.

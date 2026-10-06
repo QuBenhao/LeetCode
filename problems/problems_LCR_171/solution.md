@@ -1,4 +1,4 @@
-# [Python/Java] 相遇问题
+# [Python/Java] Meeting pointers
 
 > slug: python-xiang-yu-wen-ti-by-qubenhao-jhm5
 > date: 2021-07-20
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/solutions/Z6eM1E/python-xiang-yu-wen-ti-by-qubenhao-jhm5/
 
 ---
-### 解题思路
-两个节点分别从headA, headB出发，到达终点时交换起点，这样他们到达交点走过的节点数就一致了(同时到达交点)。
+### Approach
+Start two pointers at headA and headB, and switch each to the other head when it reaches the end. Both then travel the same number of nodes before reaching the intersection, so they arrive together.
 
-没有交点的情况，A和B最终会一起变成None。
+If there is no intersection, A and B eventually become None at the same time.
 
-### 代码
+### Code
 
 ```python3
 # Definition for singly-linked list.

@@ -25,7 +25,7 @@ func NewUnionFind(size int) *UnionFind {
 
 func (uf *UnionFind) Find(x int) int {
 	for uf.parent[x] != x {
-		uf.parent[x] = uf.parent[uf.parent[x]] // 路径压缩
+		uf.parent[x] = uf.parent[uf.parent[x]] // Path compression
 		x = uf.parent[x]
 	}
 	return x
@@ -36,10 +36,10 @@ func (uf *UnionFind) Union(x, y int) bool {
 	rootY := uf.Find(y)
 
 	if rootX == rootY {
-		return false // 已经在同一集合
+		return false // Already in the same set
 	}
 
-	// 按秩合并
+	// Union by rank
 	if uf.rank[rootX] > uf.rank[rootY] {
 		uf.parent[rootY] = rootX
 	} else {
@@ -60,10 +60,10 @@ func findRedundantConnection(edges [][]int) []int {
 	uf := NewUnionFind(n)
 	for _, edge := range edges {
 		if !uf.Union(edge[0], edge[1]) {
-			return edge // 找到冗余边
+			return edge // Found the redundant edge
 		}
 	}
-	return nil // 如果没有冗余边
+	return nil // If there is no redundant edge
 }
 
 func Solve(inputJsonValues string) any {

@@ -1,4 +1,4 @@
-# [Python] 暴力模拟
+# [Python] Brute-force simulation
 
 > slug: python-bao-li-mo-ni-by-himymben-yyxf
 > date: 2023-03-23

@@ -1,4 +1,4 @@
-# [Python] 记忆化搜索
+# [Python] Memoized search
 
 > Author: Benhao
 > Date: 2024-08-19
@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 记录当前位置、当前jump，递归到达k的方案数
+> Track the current position and jump, then recursively count the ways to reach k
 
-# 解题过程
+# Solution steps
 
-> 使用负数来记录上一次使用了-1，这样可以少一个状态
+> Use a negative number to record that the previous operation was -1, eliminating one state variable
 
 # Code
 ```Python3 []

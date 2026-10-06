@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	maxLevel = 16  // 最大层数
-	p        = 0.5 // 层数生成概率
+	maxLevel = 16  // Maximum number of levels
+	p        = 0.5 // Probability of adding a level
 )
 
 type SkipNode struct {

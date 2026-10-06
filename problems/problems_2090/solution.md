@@ -1,4 +1,4 @@
-# [Python/Go] 前缀和 or 不用前缀和的定长滑窗
+# [Python/Go] Prefix sums, or a fixed-length sliding window without prefix sums
 
 > slug: pythongo-qian-zhui-he-or-bu-yong-qian-zh-fra1
 > date: 2021-11-28
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/k-radius-subarray-averages/solutions/hQWRcw/pythongo-qian-zhui-he-or-bu-yong-qian-zh-fra1/
 
 ---
-### 解题思路
-两种模拟方式
+### Approach
+Two ways to simulate the process.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

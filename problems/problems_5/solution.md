@@ -1,4 +1,4 @@
-# [Python/Go] 中心扩展
+# [Python/Go] Expand around the center
 
 > Author: Benhao
 > Date: 2022-02-23
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-枚举每个奇偶长度的回文串的中心起点，找最长的可能性
+### Approach
+Enumerate the centers of odd- and even-length palindromes to find the longest possible one.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

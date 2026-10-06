@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-07-10
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-看了眼数据范围，然后只能替换字母不能添加和删除，哈希表存按单词长度分类，然后搜索的时候遍历对应长度即可。
+### Approach
+Given the input limits, and that letters can only be replaced, not inserted or deleted, group words by length in a hash table. Search only the words of the matching length.
 
 PS：
-昨天早上起来就忙同学的婚礼，到飞回家已经晚上十一点了，所以昨天就连题目都没读用手机cv了一下
+Yesterday I was busy with a classmate's wedding from the morning and did not get home by plane until eleven at night. I copied and pasted a solution on my phone without even reading the problem.
 
-### 代码
+### Code
 
 ```Python3 []
 class MagicDictionary:

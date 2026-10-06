@@ -9,23 +9,23 @@ class Solution {
 public:
     long long minimumMoves(vector<int>& nums, int k, int maxChanges) {
         vector<int> pos;
-        int c = 0; // nums 中连续的 1 长度
+        int c = 0; // Length of consecutive ones in nums
         for (int i = 0; i < nums.size(); i++) {
             if (nums[i] == 0) continue;
-            pos.push_back(i); // 记录 1 的位置
+            pos.push_back(i); // Record the positions of ones
             c = max(c, 1);
             if (i > 0 && nums[i - 1] == 1) {
                 if (i > 1 && nums[i - 2] == 1) {
-                    c = 3; // 有 3 个连续的 1
+                    c = 3; // There are 3 consecutive ones
                 } else {
-                    c = max(c, 2); // 有 2 个连续的 1
+                    c = max(c, 2); // There are 2 consecutive ones
                 }
             }
         }
 
         c = min(c, k);
         if (maxChanges >= k - c) {
-            // 其余 k-c 个 1 可以全部用两次操作得到
+            // Each of the remaining k-c ones can be obtained in two operations
             return max(c - 1, 0) + (k - c) * 2;
         }
 
@@ -36,10 +36,10 @@ public:
         }
 
         long long ans = LLONG_MAX;
-        // 除了 maxChanges 个数可以用两次操作得到，其余的 1 只能一步步移动到 pos[i]
+        // maxChanges ones can each be obtained in two operations; the rest must be moved to pos[i] one step at a time
         int size = k - maxChanges;
         for (int right = size; right <= n; right++) {
-            // s1+s2 是 j 在 [left, right) 中的所有 pos[j] 到 index=pos[(left+right)/2] 的距离之和
+            // s1+s2 is the sum of distances from every pos[j], for j in [left, right), to index=pos[(left+right)/2]
             int left = right - size;
             int i = left + size / 2;
             long long index = pos[i];

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 哈希计数暴力
+# [Python/Java/TypeScript/Go] Brute force with hash counts
 
 > slug: -by-himymben-oe1t
 > date: 2022-06-22
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/substring-with-concatenation-of-all-words/solutions/RXdMEs/-by-himymben-oe1t/
 
 ---
-### 解题思路
-枚举起始位置，按步长统计单词个数是否一致。
+### Approach
+Enumerate starting positions and advance by the word length, checking whether the word counts match.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

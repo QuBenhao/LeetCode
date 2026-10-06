@@ -8,9 +8,9 @@ class Solution(solution.Solution):
 
     def canPartitionGrid(self, grid: List[List[int]]) -> bool:
         m, n = len(grid), len(grid[0])
-        # 计算总和
+        # Compute the total sum
         total = sum(sum(row) for row in grid)
-        # 检查水平分割
+        # Check horizontal splits
         row_sum = 0
         for i in range(m - 1):
             row_sum += sum(grid[i])
@@ -18,7 +18,7 @@ class Solution(solution.Solution):
                 return True
             elif d > total:
                 break
-        # 检查垂直分割
+        # Check vertical splits
         col_sum = 0
         for j in range(n - 1):
             col_sum += sum(grid[i][j] for i in range(m))

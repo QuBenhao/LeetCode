@@ -1,4 +1,4 @@
-# [Python] 用2、3、5反复分解
+# [Python] Repeatedly factor out 2, 3, and 5
 
 > Author: Benhao
 > Date: 2021-04-09
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-除2、除3、除5，如果剩下的东西不是1，说明有其他质因数
+### Approach
+Divide by 2, 3, and 5. If the remainder is not 1, another prime factor exists.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

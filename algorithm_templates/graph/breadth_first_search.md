@@ -1,12 +1,12 @@
 # BFS
 
-- 核心思想
+- Core ideas
 
-1. **队列结构**：用队列（先进先出）管理待访问的节点。
-2. **逐层扩展**：按层处理节点，保证最先找到最短路径。
-3. **避免重复访问**：记录已访问的节点（如哈希表、数组标记）。
+1. **Queue**: Use a first-in, first-out queue to manage nodes awaiting a visit.
+2. **Expand by level**: Process nodes level by level so that the shortest path is found first.
+3. **Avoid repeated visits**: Track visited nodes, for example with a hash table or array of flags.
 
-## 基本结构（树/图的层序遍历）
+## Basic structure: level-order traversal of a tree or graph
 
 ```python
 from collections import deque
@@ -21,17 +21,17 @@ def get_neighbors(node):
 
 
 def bfs(start_node):
-    queue = deque([start_node])  # 初始化队列
-    visited = set()  # 记录已访问节点（图可能需要）
-    visited.add(start_node)  # 标记初始节点
+    queue = deque([start_node])  # Initialize the queue
+    visited = set()  # Track visited nodes, which may be needed for a graph
+    visited.add(start_node)  # Mark the starting node
 
     while queue:
-        level_size = len(queue)  # 当前层的节点数（层序遍历需要）
+        level_size = len(queue)  # Number of nodes at this level, needed for level-order traversal
         for _ in range(level_size):
             node = queue.popleft()
-            # 处理当前节点（如访问、判断目标等）
+            # Process the current node, for example by visiting it or checking for the target
             process(node)
-            # 遍历相邻节点（根据问题定义）
+            # Iterate over adjacent nodes as defined by the problem
             for neighbor in get_neighbors(node):
                 if neighbor not in visited:
                     visited.add(neighbor)
@@ -39,7 +39,7 @@ def bfs(start_node):
     return
 ```
 
-## 示例：二叉树层序遍历
+## Example: binary tree level-order traversal
 
 ```python
 from collections import deque
@@ -70,12 +70,12 @@ def level_order(root):
     return result
 
 
-# 测试
+# Test
 _root = TreeNode(3, TreeNode(9), TreeNode(20, TreeNode(15), TreeNode(7)))
-print(level_order(_root))  # 输出 [[3], [9, 20], [15, 7]]
+print(level_order(_root))  # Output: [[3], [9, 20], [15, 7]]
 ```
 
-## 示例：网格最短路径（0 可走，1 障碍）
+## Example: shortest path in a grid (0 is walkable, 1 is blocked)
 
 ```python
 from collections import deque
@@ -83,7 +83,7 @@ from collections import deque
 
 def shortest_path(grid, start, end):
     rows, cols = len(grid), len(grid[0])
-    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # 上下左右
+    directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, down, left, right
     queue = deque([(start[0], start[1], 0)])  # (x, y, steps)
     visited = set()
     visited.add((start[0], start[1]))
@@ -98,20 +98,20 @@ def shortest_path(grid, start, end):
                 if grid[nx][ny] == 0 and (nx, ny) not in visited:
                     visited.add((nx, ny))
                     queue.append((nx, ny, steps + 1))
-    return -1  # 不可达
+    return -1  # Unreachable
 
 
-# 测试
+# Test
 _grid = [
     [0, 0, 1, 0],
     [0, 0, 0, 0],
     [1, 1, 0, 1],
     [0, 0, 0, 0]
 ]
-print(shortest_path(_grid, (0, 0), (3, 3)))  # 输出 6
+print(shortest_path(_grid, (0, 0), (3, 3)))  # Output: 6
 ```
 
-## 基本结构（队列实现）
+## Basic structure: queue implementation
 
 ```go
 package main
@@ -121,14 +121,14 @@ import (
     "fmt"
 )
 
-// 树节点定义
+// Tree node definition
 type TreeNode struct {
     Val   int
     Left  *TreeNode
     Right *TreeNode
 }
 
-// 层序遍历示例
+// Level-order traversal example
 func levelOrder(root *TreeNode) [][]int {
     result := [][]int{}
     if root == nil {
@@ -155,7 +155,7 @@ func levelOrder(root *TreeNode) [][]int {
     return result
 }
 
-// 测试
+// Test
 func main() {
     root := &TreeNode{3, 
         &TreeNode{9, nil, nil}, 
@@ -164,11 +164,11 @@ func main() {
             &TreeNode{7, nil, nil},
         },
     }
-    fmt.Println(levelOrder(root)) // 输出 [[3] [9 20] [15 7]]
+    fmt.Println(levelOrder(root)) // Output: [[3] [9 20] [15 7]]
 }
 ```
 
-## 示例：网格最短路径
+## Example: shortest path in a grid
 
 ```go
 type Point struct {
@@ -205,7 +205,7 @@ func shortestPath(grid [][]int, start, end [2]int) int {
     return -1
 }
 
-// 测试
+// Test
 func main() {
     grid := [][]int{
         {0,0,1,0},
@@ -213,17 +213,17 @@ func main() {
         {1,1,0,1},
         {0,0,0,0},
     }
-    fmt.Println(shortestPath(grid, [2]int{0,0}, [2]int{3,3})) // 输出 6
+    fmt.Println(shortestPath(grid, [2]int{0,0}, [2]int{3,3})) // Output: 6
 }
 ```
 
-## BFS 关键点
+## Key points about BFS
 
-| 特性        | 说明                                       |
+| Property | Description |
 |-----------|------------------------------------------|
-| **时间复杂度** | O(N)，N 为节点数（每个节点访问一次）                    |
-| **空间复杂度** | O(N)，最坏情况队列存储所有节点                        |
-| **适用场景**  | 最短路径（无权图）、层序遍历、拓扑排序、连通块问题                |
-| **注意事项**  | 1. 确保标记已访问节点；2. 处理空输入；3. 队列初始化正确；4. 边界检查 |
+| **Time complexity** | O(N), where N is the number of nodes; each node is visited once. |
+| **Space complexity** | O(N); in the worst case, the queue stores all nodes. |
+| **Use cases** | Shortest paths in unweighted graphs, level-order traversal, topological sorting, and connected components. |
+| **Checks** | 1. Mark visited nodes; 2. Handle empty input; 3. Initialize the queue correctly; 4. Check bounds. |
 
-根据具体问题，调整 **节点定义**、**邻居获取方式** 和 **终止条件** 即可适配不同场景。
+Adapt the **node definition**, **neighbor lookup**, and **termination condition** to the specific problem.

@@ -1,4 +1,4 @@
-# 滑动窗口
+# Sliding window
 
 > slug: hua-dong-chuang-kou-by-himymben-asf7
 > date: 2025-04-28
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-subarrays-where-max-element-appears-at-least-k-times/solutions/Ahit1d/hua-dong-chuang-kou-by-himymben-asf7/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -13,6 +13,6 @@ class Solution(solution.Solution):
         #         return False
         # return True
 
-        # 交替特性 10101 1010
-        # 异或得 11111
+        # Alternating patterns: 10101 and 1010
+        # XOR gives 11111
         return (x := n ^ (n >> 1)) & (x + 1) == 0

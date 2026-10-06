@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 以当前最小的距离消耗不停移动，叠加更新可以走到的次数，如果有更小的距离方案，则更新数目；如果是一致的距离方案，则叠加数目
+> Always expand the smallest current distance and update path counts. Replace the count when a shorter path is found; add to it when an equally short path is found.
 
-# 解题方法
+# Approach
 
-> 实际上是优先队列实现的Dijkstra算法
+> This is Dijkstra's algorithm implemented with a priority queue.
 
 
 # Code

@@ -1,4 +1,4 @@
-# 从右端点看左端点范围
+# Determine the range of left endpoints from each right endpoint
 
 > slug: cong-you-duan-dian-kan-zuo-duan-dian-fan-mo26
 > date: 2025-04-26
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-subarrays-with-fixed-bounds/solutions/1jP44A/cong-you-duan-dian-kan-zuo-duan-dian-fan-mo26/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

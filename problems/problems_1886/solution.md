@@ -1,4 +1,4 @@
-# [Python] 判断顺时针转0度,90度,180度和270度是否一样
+# [Python] Compare clockwise rotations by 0, 90, 180, and 270 degrees
 
 > Author: Benhao
 > Date: 2021-06-06
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-该用户太懒了见代码
+### Approach
+Too lazy to explain; see the code.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 队列
+# [Python/Java/TypeScript/Go] Queue
 
 > slug: pythonjavatypescriptgo-by-himymben-3e9w
 > date: 2022-07-24
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/complete-binary-tree-inserter/solutions/XtG97w/pythonjavatypescriptgo-by-himymben-3e9w/
 
 ---
-### 解题思路
-由于题目是完全二叉树且始终优先添左边，
-整个填充过程是从上到下，从左到右的，这个顺序满足先进先出，故使用BFS + 队列。
-当一个节点不是左右节点都有时，它就还是可以插入的节点，放入队列中，插入时最先进队列的节点优先添加子节点即可。
+### Approach
+The tree is complete, and insertion always favors the left.
+Fill from top to bottom and left to right. This order is first in, first out, so use BFS and a queue.
+Any node missing at least one child is still available for insertion, so enqueue it. When inserting, add children to the earliest enqueued node first.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

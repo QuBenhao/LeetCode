@@ -1,4 +1,4 @@
-# [Python] 单调栈及思考过程
+# [Python] Monotonic stack and reasoning
 
 > Author: Benhao
 > Date: 2021-03-24
@@ -7,27 +7,27 @@
 
 ---
 
-### 解题思路
-题目是找三个数字，左边最小，中间最大，那么一共有六种找法：
-- 先找1，3，最后找2
-- 先找1，2，最后找3
-- 先找3，2，最后找1
-- 先找3，1，最后找2
-- 先找2，3，最后找1
-- 先找2，1，最后找3
+### Approach
+The problem asks for three values with the smallest on the left and the largest in the middle. There are six possible search orders:
+- Find 1, then 3, and finally 2.
+- Find 1, then 2, and finally 3.
+- Find 3, then 2, and finally 1.
+- Find 3, then 1, and finally 2.
+- Find 2, then 3, and finally 1.
+- Find 2, then 1, and finally 3.
 
-不难看出第一种找法很难，因为我们需要检查2的上下界。
-如果这里是先找1，2，再找3的话，相对就会简单了一些。我们省去了检查3和1的大小比对。
-所以第二种、第三种、第五种、第六种更简单。
+The first order is difficult because it requires checking both the lower and upper bounds for 2.
+Finding 1 and 2 before 3 is easier because comparing 3 with 1 becomes unnecessary.
+Thus, the second, third, fifth, and sixth search orders are simpler.
 
-我们倾向于一个方向来找答案。
-如果先找1，2，再找3，我们需要从左边找1、从右边找2，这其实很困难。
+We prefer to search in one direction.
+Finding 1 and 2 before 3 requires finding 1 from the left and 2 from the right, which is difficult.
 
-而第五种先找2，3，最后找1，是从右往左的单方向的最简单的方式了。
-使用一个单调栈来维护目前的值的大小顺序，可以保证找到一个比栈中元素大的值，而栈中元素又都是在右边的元素，那么3和2就找到了。
-一直pop可以保证第三个值可以尽可能的大。
+The fifth order, finding 2 and 3 before 1, is the simplest single-direction search from right to left.
+Use a monotonic stack to maintain the ordering of current values. When a value exceeds an element in the stack, that stack element is to its right, so we have found 3 and 2.
+Keep popping to make the third value as large as possible.
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

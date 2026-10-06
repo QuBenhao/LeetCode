@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 位运算模拟
+# [Python/Java/JavaScript/Go] Bitwise simulation
 
 > Author: Benhao
 > Date: 2022-04-23
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-运用lowbit求数的二进制最低位
+### Approach
+Use lowbit to find the least significant set bit
 
-### 代码
+### Code
 
 ```Python3 []
 idx_map = {1<<i:i for i in range(30)}

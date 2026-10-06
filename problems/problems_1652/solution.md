@@ -1,4 +1,4 @@
-# [Python/Go] 前缀和 or 滑动窗口
+# [Python/Go] Prefix sums or sliding window
 
 > Author: Benhao
 > Date: 2024-05-05
@@ -12,18 +12,18 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 多个连续的和用前缀和。固定的k长度和用滑动窗口
+> Use prefix sums for multiple contiguous sums, or a sliding window for fixed-length sums of k elements.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
 
 # Code
-```Python3 [前缀和]
+```Python3 [Prefix sums]
 class Solution:
     def decrypt(self, code: List[int], k: int) -> List[int]:
         n = len(code)

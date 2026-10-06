@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 暴力模拟 -> 素数筛
+# [Python/Java/JavaScript/Go] Brute-force simulation -> prime sieve
 
 > slug: pythonjavajavascriptgo-su-shu-shai-by-hi-5i6z
 > date: 2022-02-09
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/simplified-fractions/solutions/Dc1mTb/pythonjavajavascriptgo-su-shu-shai-by-hi-5i6z/
 
 ---
-### 解题思路
-判断每个分子和当前分母的最大公约数是否为1
+### Approach
+Check whether each numerator has greatest common divisor 1 with the current denominator.
 
-预处理小于等于n的所有素数，用素数分解枚举的分母的所有质因子，用所有质因子构造分母的所有非互质分子，其他的均可加入答案。
+Precompute all primes up to n. Factor each candidate denominator, then use its prime factors to generate all numerators that are not coprime with it. Add all remaining numerators to the answer.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -82,19 +82,19 @@ class Solution:
                     isPrime[j] = False
                 primes.append(i)
         ans = []
-        # 枚举分母
+        # Enumerate denominators
         for i in range(2, n + 1):
             if isPrime[i]:
                 ans += ["{}/{}".format(j, i) for j in range(1, i)]
             else:
                 idx, ps = 0, set()
-                # 分母的所有质因子
+                # All prime factors of the denominator
                 while idx < len(primes) and primes[idx] < i // 2 + 1:
                     if not i % primes[idx]:
                         ps.add(primes[idx])
                     idx += 1
                 s = set()
-                # 构造分母的所有最大公约数不为1的分子
+                # Generate all numerators whose greatest common divisor with the denominator is not 1
                 for p in ps:
                     for j in range(p, i, p):
                         s.add(j)

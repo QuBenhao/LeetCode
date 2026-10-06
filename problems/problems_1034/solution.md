@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] DFS + 记录走过点 or 三色标记法
+# [Python/Java/JavaScript/Go] DFS + visited points or three-color marking
 
 > slug: pythonjavajavascriptgo-dfs-ji-lu-zou-guo-l7e5
 > date: 2021-12-06
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/coloring-a-border/solutions/tIudjn/pythonjavajavascriptgo-dfs-ji-lu-zou-guo-l7e5/
 
 ---
-### 解题思路
-从row，col出发，要通过周围四个点，是否存在非连通分量才进行染色（或者边缘）。那么就需要先标记为访问过，等递归完四周才知道当前点的最终染色结果。
+### Approach
+Starting from row, col, recolor a cell only if one of its four neighbors lies outside the connected component (or the cell is on the grid boundary). Mark the cell as visited first; its final color is determined after recursively checking all four neighbors.
 
-### 代码
+### Code
 
-记录走过的点
+Record visited points
 ```python3 []
 class Solution:
     def colorBorder(self, grid: List[List[int]], row: int, col: int, color: int) -> List[List[int]]:
@@ -141,7 +141,7 @@ func colorBorder(grid [][]int, row int, col int, color int) [][]int {
 }
 ```
 
-三色标记
+Three-color marking
 ```Python3 []
 class Solution:
     def colorBorder(self, grid: List[List[int]], row: int, col: int, color: int) -> List[List[int]]:

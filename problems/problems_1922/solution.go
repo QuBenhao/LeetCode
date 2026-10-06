@@ -10,13 +10,13 @@ const MOD = 1000_000_007
 
 func fastPower(a, b, mod int64) int {
 	result := int64(1)
-	a = a % mod // 初始取模（若mod > 0）
+	a = a % mod // Apply the initial modulus if mod > 0
 	for b > 0 {
-		if b%2 == 1 { // 当前二进制位为1
+		if b%2 == 1 { // The current binary digit is 1
 			result = (result * a) % mod
 		}
-		a = (a * a) % mod // 基数平方
-		b /= 2            // 右移一位
+		a = (a * a) % mod // Square the base
+		b /= 2            // Shift right by one bit
 	}
 	return int(result)
 }

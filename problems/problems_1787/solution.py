@@ -19,23 +19,23 @@ class Solution(solution.Solution):
             for j in range(i, n, k):
                 counters[i][nums[j]] += 1
 
-        # 每组数的众数
+        # Mode of each group
         mcv = [counters[i].most_common(1)[0][1] for i in range(k)]
-        # 每组全部变为同样的数的代价
+        # Cost to make each group uniform
         ans = n - sum(mcv)
 
         keys = [sorted(counters[i].keys(), key=lambda x: -counters[i][x]) for i in range(k)]
 
-        # 每组数都是众数，要满足异或为0，需要统计每组数选哪个数达到最优解，或者牺牲哪组数
+        # Starting from each group's mode, choose alternative values or sacrifice one group to achieve XOR 0 optimally
         @lru_cache(None)
         def dfs(idx, curr):
             if idx == k and curr == 0:
                 return 0
             elif idx == k:
                 return float("inf")
-            # 牺牲这组数的额外代价,所有数都换为某个数，使得异或为0
+            # Extra cost to sacrifice this group by changing all its values to make the XOR 0
             res = mcv[idx]
-            # 变为这组数中的某个数
+            # Change to a value already present in this group
             for key in keys[idx]:
                 if mcv[idx] - counters[idx][key] >= res:
                     continue

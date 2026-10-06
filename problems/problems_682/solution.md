@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-03-26
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-像在写业务代码
+### Approach
+This feels like writing business logic.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python] 记忆化搜索 100%
+# [Python] Memoized search: 100%
 
 > Author: Benhao
 > Date: 2021-05-23
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-超时其实主要是因为存在连续长度大于最大跳跃距离的超长的case，和第一题很像的方法就可以判断他们为False了。
-其实解决超时主要就是需要额外的提前返回整个dfs的结果为False，而不是继续搜索。
+### Approach
+Timeouts mainly come from long cases with a blocked run exceeding the maximum jump distance. A method similar to the first problem can reject these as False.
+The main fix for the timeout is to return False from the entire DFS early instead of continuing the search.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

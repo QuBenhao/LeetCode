@@ -1,4 +1,4 @@
-# [Python] 中序遍历
+# [Python] Inorder traversal
 
 > Author: Benhao
 > Date: 2024-03-19
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 二叉搜索树中序遍历为递增序列
+> Inorder traversal of a binary search tree produces an increasing sequence.
 
-# 解题方法
+# Approach
 
-> 遍历或递归判断即可
+> Check by traversal or recursion.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

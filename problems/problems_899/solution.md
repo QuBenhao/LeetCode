@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 脑筋急转弯
+# [Python/Java/TypeScript/Go] A trick
 
 > Author: Benhao
 > Date: 2022-08-02
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-首先考虑了一下k=1的情景，因为这个情况操作最少。
-显然我们只能不停地将第一个位置放到最后，那么答案就是从某一个位置开始的，找最小值。
+### Approach
+First consider k=1, which allows the fewest operations.
+We can only keep moving the first character to the end, so find the smallest string starting at any position.
 
-然后考虑了一下k=2的情景，这个时候我发现可以将一个字母放在前两位中的一位，然后剩下的字母可以持续旋转。
-在这期间，这个字母可以在任意时刻加入到最后，也就是我们可以通过一定数量的操作将原字符串任意排列，
-那答案就是排序啦。
+Next consider k=2. One letter can stay in one of the first two positions while the remaining letters keep rotating.
+At any point, this letter can be moved to the end, so a sequence of operations can rearrange the original string into any permutation.
+The answer is therefore the sorted string.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

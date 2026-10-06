@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-7w0h
 > date: 2022-05-03
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/reorder-data-in-log-files/solutions/yi9qv5/pythonjavajavascriptgo-mo-ni-by-himymben-7w0h/
 
 ---
-### 解题思路
-按题目要求自定义lambda排序比较器
+### Approach
+Define a lambda sorting comparator according to the problem's rules
 
-特别说明:
-Python sort和sorted是稳定的。
-Java Arrays.sort 在比较对象时是稳定的，在比较int等基本类型使用了快排是不稳定的。Collections.sort 是稳定的。
+A specific note:
+Python sort and sorted are stable.
+Java Arrays.sort is stable for objects, but uses unstable quicksort for primitive types such as int. Collections.sort is stable.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

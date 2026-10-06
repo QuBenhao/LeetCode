@@ -25,7 +25,7 @@ int main() {
         if (weights[i] <= W) {
             dp[i] = times[i];
         }
-        for (int j = i; j; j = i & (j - 1)) { // 子集枚举
+        for (int j = i; j; j = i & (j - 1)) { // Enumerate subsets
             if (weights[i ^ j] <= W) {
                 dp[i] = min(dp[i], dp[j] + times[i ^ j]);
             }

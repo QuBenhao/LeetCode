@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 字符串模拟
+# [Python/Java/JavaScript/Go] String simulation
 
 > slug: pythonjavajavascriptgo-zi-fu-chuan-mo-ni-wvl8
 > date: 2022-02-24
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/complex-number-multiplication/solutions/AjAwnL/pythonjavajavascriptgo-zi-fu-chuan-mo-ni-wvl8/
 
 ---
-### 解题思路
-字符串解析成实部、虚部，然后应用多项式乘多项式展开，得到最终的实部、虚部
+### Approach
+Parse each string into real and imaginary parts, then expand their product to obtain the final real and imaginary parts.
 
 ps：
-不使用库函数可以做一次小模拟练习
+Avoiding library functions makes this a small simulation exercise.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

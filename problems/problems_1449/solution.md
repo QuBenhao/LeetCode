@@ -1,4 +1,4 @@
-# [Python] 记忆化dfs or 动态规划
+# [Python] Memoized DFS or dynamic programming
 
 > Author: Benhao
 > Date: 2021-06-12
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按贪心先搜代价最小的(这样组出的长度更长)，数值更大的(这样组出的数字更大)。
+### Approach
+Greedily search lower-cost digits first to form longer numbers, preferring larger digits to make the resulting number larger.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -30,7 +30,7 @@ class Solution:
                             ans = max(ans, d[val] + res, key=int)
             return str(ans)
 
-        # 重复的代价永远会取更高的那个
+        # For duplicate costs, always choose the larger digit
         d = dict((v,str(i)) for i,v in enumerate(cost,1))
         cost = sorted(d.keys())
         return dfs(target)

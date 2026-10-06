@@ -69,7 +69,7 @@
     <build>
         <plugins>
 
-            <!-- Groovy脚本执行器 -->
+            <!-- Groovy script runner -->
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
@@ -95,7 +95,7 @@
                                 import groovy.json.JsonSlurper
                                 import java.nio.file.*
 
-                                // 1. 读取.env文件
+                                // 1. Read the .env file
                                 def envFile = Paths.get(project.basedir.toString(), ".env").toFile()
                                 def baseDir = "problems"
                                 if (envFile.exists()) {
@@ -110,14 +110,14 @@
                                     println "Error: ${envFile.absolutePath} not found, using default base directory: ${baseDir}"
                                 }
 
-                                // 2. 读取config.json
+                                // 2. Read config.json
                                 def configFile = Paths.get(project.basedir.toString(), "daily-${baseDir}.json").toFile()
                                 if (!configFile.exists()) {
                                     throw new RuntimeException("Config file not found: ${configFile.absolutePath}")
                                 }
                                 def config = new JsonSlurper().parse(configFile)
 
-                                // 3. 构建源目录列表
+                                // 3. Build the source directory list
                                 def sources = [] as Set
                                 sources.add(Paths.get(project.basedir.toString(), baseDir, "${baseDir}_${config.daily}").toFile().absolutePath)
                                 // config.plans might be null or empty, handle it gracefully
@@ -134,11 +134,11 @@
                                 println "==> Add dynamic source roots:"
                                 sources.each { println "  - $it" }
 
-                                // 4. 设置Maven属性
+                                // 4. Set Maven properties
                                 sources.eachWithIndex { source, index ->
                                     project.properties["dynamic.source${index + 1}"] = source
                                 }
-                                // 5. 补全10个
+                                // 5. Fill all 10 source directory slots
                                 (sources.size()..9).each { index ->
                                     project.properties["dynamic.source${index + 1}"] = "qubhjava"
                                 }
@@ -148,7 +148,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- 添加动态源目录插件 -->
+            <!-- Add the dynamic source directory plugin -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>

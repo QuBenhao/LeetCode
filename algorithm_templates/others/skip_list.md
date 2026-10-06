@@ -1,9 +1,9 @@
-# 跳表
+# Skip list
 
 [Skip Lists: A Probabilistic Alternative to Balanced Trees](https://15721.courses.cs.cmu.edu/spring2018/papers/08-oltpindexes1/pugh-skiplists-cacm1990.pdf)
 
-跳表是一种**多层链表结构**，通过建立多级索引实现快速查询（时间复杂度 $`O(\log n)`$），常用于代替平衡树。Redis 的有序集合（Sorted
-Set）底层即使用跳表。
+A skip list is a **multilevel linked list** that uses several index levels for fast queries (time complexity $`O(\log n)`$). It is often used as an alternative to balanced trees. Redis sorted
+sets use skip lists internally.
 
 ```python
 import random
@@ -13,15 +13,15 @@ from typing import Optional
 class SkipNode:
     def __init__(self, val: int = -1, levels: int = 0):
         self.val = val
-        self.next = [None] * levels  # 每层的下一个节点
+        self.next = [None] * levels  # Next node at each level
 
 
 class SkipList:
     def __init__(self, max_level: int = 16, p: float = 0.5):
-        self.max_level = max_level  # 最大层数
-        self.p = p  # 层数生成概率
+        self.max_level = max_level  # Maximum number of levels
+        self.p = p  # Probability of adding another level
         self.head = SkipNode(levels=self.max_level)
-        self.level = 0  # 当前有效层数
+        self.level = 0  # Current number of active levels
 
     def _random_level(self) -> int:
         level = 1
@@ -73,7 +73,7 @@ class SkipList:
         return True
 
 
-# 使用示例
+# Usage example
 sl = SkipList()
 sl.add(3)
 sl.add(1)
@@ -92,8 +92,8 @@ import (
 )
 
 const (
-	maxLevel = 16     // 最大层数
-	p        = 0.5    // 层数生成概率
+	maxLevel = 16     // Maximum number of levels
+	p        = 0.5    // Probability of adding another level
 )
 
 type SkipNode struct {
@@ -184,7 +184,7 @@ func (sl *SkipList) Erase(num int) bool {
 	return true
 }
 
-// 使用示例
+// Usage example
 func main() {
 	sl := NewSkipList()
 	sl.Add(3)
@@ -196,32 +196,32 @@ func main() {
 }
 ```
 
-## **核心特性**
+## **Core properties**
 
-1. **多层结构**：包含多个层级的链表，底层链表包含所有元素，上层链表作为索引。
-2. **随机层数**：插入节点时，随机生成层数（概率控制，通常为 50%）。
-3. **快速查询**：从高层向低层逐级缩小范围，类似二分查找。
+1. **Multilevel structure**: Several linked-list levels are used. The bottom level contains every element, while the upper levels serve as indexes.
+2. **Random levels**: Each inserted node receives a random number of levels, controlled by a probability that is usually 50%.
+3. **Fast queries**: Narrow the search from higher levels to lower ones, similarly to binary search.
 
-## **时间复杂度**
+## **Time complexity**
 
-| 操作 | 时间复杂度         |
+| Operation | Time complexity |
 |----|---------------|
-| 查找 | $`O(\log n)`$ |
-| 插入 | $`O(\log n)`$ |
-| 删除 | $`O(\log n)`$ |
+| Search | $`O(\log n)`$ |
+| Insert | $`O(\log n)`$ |
+| Delete | $`O(\log n)`$ |
 
-## **关键操作解析**
+## **Key operations**
 
-| 操作     | 步骤                                               |
+| Operation | Steps |
 |--------|--------------------------------------------------|
-| **插入** | 1. 查找插入位置并记录每层的前驱节点；<br>2. 随机生成层数；<br>3. 更新各层指针。 |
-| **删除** | 1. 查找目标节点并记录每层的前驱节点；<br>2. 更新指针并调整有效层数。          |
-| **查找** | 从最高层开始，逐层缩小范围，最终在底层定位。                           |
+| **Insert** | 1. Find the insertion position and record the predecessor at each level.<br>2. Generate a random number of levels.<br>3. Update the pointers at each level. |
+| **Delete** | 1. Find the target node and record the predecessor at each level.<br>2. Update the pointers and adjust the number of active levels. |
+| **Search** | Start at the highest level and narrow the search one level at a time, locating the element at the bottom level. |
 
-## **应用场景**
+## **Applications**
 
-1. **有序集合**：如 Redis 的 `ZSET`，支持快速范围查询。
-2. **替代平衡树**：实现简单且在高并发环境下性能更好。
-3. **高性能索引**：需要频繁插入、删除和查询的场景。
+1. **Sorted sets**: For example, Redis `ZSET` supports fast range queries.
+2. **Alternative to balanced trees**: Simpler to implement and performs better under high concurrency.
+3. **High-performance indexes**: Suitable for frequent insertions, deletions, and queries.
 
-通过跳表的结构设计和随机层数生成，可以在保证高效操作的同时避免复杂的平衡调整逻辑。
+A skip list's structure and random level generation support efficient operations without complex rebalancing logic.

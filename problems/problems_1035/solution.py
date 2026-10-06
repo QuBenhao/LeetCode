@@ -11,7 +11,7 @@ class Solution(solution.Solution):
         :type nums2: List[int]
         :rtype: int
         """
-        # 最长公共子序列 LCS 同1143
+        # Longest common subsequence (LCS), as in 1143
         m, n = len(nums1), len(nums2)
         dp = [[0] * (n+1) for _ in range(m+1)]
         for i in range(1,m+1):

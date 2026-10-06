@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 二分
+# [Python/Java/JavaScript/Go] Binary search
 
 > slug: pythonjavajavascriptgo-er-fen-by-himymbe-wz4r
 > date: 2022-05-17
@@ -7,17 +7,17 @@
 > url: https://leetcode.cn/problems/kth-smallest-number-in-multiplication-table/solutions/n3MplD/pythonjavajavascriptgo-er-fen-by-himymbe-wz4r/
 
 ---
-### 解题思路
-乘法表中第k小的数并不能直观地得到, 但是乘法表中的某个数$x$，比它小的数有多少个是很好统计的(每行$i$都是$\frac{x}{i}$个)。
-对乘法表的值域做比它小的个数的二分，找到k对应的位置。
+### Approach
+The kth smallest value in a multiplication table is not obvious, but counting values below a given $x$ is easy: row $i$ contributes $\frac{x}{i}$.
+Binary search the table's value range using the count of smaller values to locate the position corresponding to k.
 
-有朋友可能问了，这个值域中还包括并不在乘法表中的质数呢？
-根据二段性，比这个质数小一点的乘法表中的数和这个质数，在这个乘法表中小于它的个数是一样的，我们会取左边界也就是乘法表里的数(这也是为啥Py里用bisect_left而不是bisect_right)。
+You might ask: does this range also contain prime numbers absent from the multiplication table?
+The monotonic count is the same at such a prime and at the nearest smaller table value. We choose the left boundary, which is the table value. This is also why the Python code uses bisect_left rather than bisect_right.
 
 PS:
-小优化，交换行数，对小的行数统计二分值
+A small optimization: swap the dimensions so the counting step uses the smaller number of rows.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

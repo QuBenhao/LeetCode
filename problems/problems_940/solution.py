@@ -8,8 +8,8 @@ class Solution(solution.Solution):
 
     def distinctSubseqII(self, s: str) -> int:
         mod = 10 ** 9 + 7
-        dp = [0] * 26  # dp[c]: 以字符 c 结尾的不同子序列个数
+        dp = [0] * 26  # dp[c]: the number of distinct subsequences ending in character c
         for ch in s:
-            dp[ord(ch) - 97] = (sum(dp) + 1) % mod  # 接在所有子序列后面 + 单独一个 ch
+            dp[ord(ch) - 97] = (sum(dp) + 1) % mod  # Append to every subsequence, plus ch on its own
         return sum(dp) % mod
 

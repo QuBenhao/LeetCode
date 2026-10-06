@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-终于能写熟悉的DFS了
+### Approach
+Finally, a chance to use familiar DFS!
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

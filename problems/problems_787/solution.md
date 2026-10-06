@@ -1,4 +1,4 @@
-# [Python/Java] 记忆化递归 or 一维dp
+# [Python/Java] Memoized recursion or one-dimensional DP
 
 > Author: Benhao
 > Date: 2021-08-23
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-我们从起点出发，能经过最多`k`个城市，相当于我们能离开城市`k+1`次。如果我们到达了终点，返回0；如果我们不是终点也不能再动了，返回inf；返回我们能移动到的所有城市的最小值。
+### Approach
+Starting from the source, we can pass through at most `k` intermediate cities, which means leaving a city `k+1` times. Return 0 upon reaching the destination; return inf if we are elsewhere and have no moves left. Otherwise, return the minimum cost over all cities we can move to.
 
-动态规划中，我们可以从src出发(消耗为0)，同样移动k+1次，返回到终点最小的花费。
+In dynamic programming, start at src with cost 0, allow k+1 moves, and return the minimum cost to the destination.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -42,12 +42,12 @@ class Solution {
     public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
         int[] dp = new int[n];
         Arrays.fill(dp, INF);
-        //起点消耗为0
+        // The starting cost is 0
         dp[src] = 0;
         for(int r=0;r<=k;r++){
-            // 复制当前走的次数的状态
+            // Copy the state for the current number of moves
             int[] nxt = Arrays.copyOf(dp, n);
-            // 再移动一次后的状态(到达每个点的花费)
+            // State after one more move: the cost of reaching each node
             for(int[] flight:flights){
                 int a = flight[0], b = flight[1], c = flight[2];
                 nxt[b] = Math.min(nxt[b], dp[a] + c);

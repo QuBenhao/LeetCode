@@ -17,8 +17,8 @@ class Solution(solution.Solution):
             st = 0
             for j in range(min_j, max_j + 1):
                 i = k + j - n
-                ans[i][j] = st.bit_count()  # 计算 st 中 1 的个数
-                st |= 1 << grid[i][j]  # 把 grid[i][j] 加到 st 中
+                ans[i][j] = st.bit_count()  # Count the set bits in st
+                st |= 1 << grid[i][j]  # Add grid[i][j] to st
 
             st = 0
             for j in range(max_j, min_j - 1, -1):

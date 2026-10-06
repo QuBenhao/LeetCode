@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 多路归并应用题
+# [Python/Java/JavaScript/Go] Applying multiway merge
 
 > Author: Benhao
 > Date: 2022-01-13
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-和[786. 第 K 个最小的素数分数](https://leetcode.cn/problems/k-th-smallest-prime-fraction/solution/pythonjavajavascriptgo-zui-xiao-dui-by-h-l2z3/)在做法上无任何区别。
+### Approach
+The approach is identical to [786. 第 K 个最小的素数分数](https://leetcode.cn/problems/k-th-smallest-prime-fraction/solution/pythonjavajavascriptgo-zui-xiao-dui-by-h-l2z3/).
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -134,7 +134,7 @@ func kSmallestPairs(nums1 []int, nums2 []int, k int) [][]int {
     for i := 0; i < n1; i++ {
         pq[i] = []int{nums1[i] + nums2[0], i, 0}
     }
-    // 相当于heapq.heapify
+    // Equivalent to heapq.heapify
     heap.Init(&pq)
     for pq.Len() > 0 && k > 0 {
         k--
@@ -146,7 +146,7 @@ func kSmallestPairs(nums1 []int, nums2 []int, k int) [][]int {
     }
     return ans
 }
-// 最小堆模板
+// Min-heap template
 type hp [][]int
 func (h hp) Len() int            { return len(h) }
 func (h hp) Less(i, j int) bool  { return h[i][0] < h[j][0] }

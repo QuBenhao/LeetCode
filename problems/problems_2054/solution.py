@@ -17,7 +17,7 @@ class Solution(solution.Solution):
         st = list(sorted(times))
         for i, t in enumerate(st):
             tm[t] = i
-        # dp[i][0]表示到时间i的选过一次的最大值, dp[i][1]表示到时间i的选过两次的最大值
+        # dp[i][0] is the maximum value after choosing one event by time i; dp[i][1] is the maximum after choosing two
         dp = [[0, 0] for _ in range(len(st) + 1)]
         events_map = defaultdict(list)
         for i, (_, b, _) in enumerate(events):

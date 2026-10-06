@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 双指针滑窗
+# [Python/Java/TypeScript/Go] Two-pointer sliding window
 
 > Author: Benhao
 > Date: 2022-10-17
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-本题要找最长的子数组，使得其中只有两个不同的元素。
-我们遍历时维护两个不同元素的最左和最右的位置，当遇到第三个元素时做处理，剔除左边的那个元素即可。
+### Approach
+Find the longest subarray containing only two distinct elements.
+Track the leftmost and rightmost positions of the two distinct elements while scanning. When a third appears, remove the element on the left.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -27,13 +27,13 @@ class Solution:
             elif fruits[left_b] == val:
                 right_b = i
             else:
-                # 遇到了第三个元素，统计答案并更新新的两个元素
+                # A third distinct element appears; update the answer and the new pair of elements
                 ans = max(ans, i - left_a)
                 if right_a < right_b:
                     left_a, right_a, left_b, right_b = right_a + 1, right_b, i, i
                 else:
                     left_a, right_a, left_b, right_b = right_b + 1, right_a, i, i
-        # 处理一些只有一个元素、最大值在最后等特殊情况
+        # Handle cases such as only one distinct element or the longest window ending at the array's end
         return max(ans, len(fruits) - left_a)
 ```
 ```Java []

@@ -1,4 +1,4 @@
-# [Python] DP/记忆化搜索
+# [Python] DP / memoized search
 
 > slug: python-dpji-yi-hua-sou-suo-by-himymben-j6eb
 > date: 2024-03-15
@@ -12,26 +12,26 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 这题的递归比较好推理，就是当前块的最大价值由枚举不同割法的最大价值构成
+> The recursion is straightforward: the maximum value of the current piece is the best result over all possible cuts.
 
-# 解题方法
+# Approach
 
-> 踩坑1：递归枚举prices切割，因prices数组长，递归次数多必然超时。超时代码
+> Pitfall 1: recursively enumerate cuts using prices. The long prices array causes too many recursive calls and a timeout. Here is the code that times out.
 ```Python3 []
-        # 会超时！！！！！别CV这里!!!
+        # This times out!!!!! Do not copy this code!!!
         @lru_cache(None)
         def dfs(i, j):
             return max(max(dfs(i - h, j) + dfs(h, j - w), dfs(i, j - w) + dfs(i - h, w)) + p if i >= h and j >= w else 0 for h, w, p in prices)
 
-        # 会超时！！！！！别CV这里!!!
+        # This times out!!!!! Do not copy this code!!!
         return dfs(m, n)
 ```
-> 遍历prices会超时，重新观察数据范围，发现m和n小，那么直接枚举行和列的割法即可。
-> 踩坑2: 如果当前行、列在prices内，不代表它是最大价值的，可能继续切割仍有更大价值，所以不能一在prices里就返回，仍要判断切割后对比最大值。
+> Iterating over prices times out. Looking again at the constraints, m and n are small, so enumerate horizontal and vertical cuts directly.
+> Pitfall 2: a piece whose dimensions occur in prices does not necessarily have its maximum value there; further cuts may earn more. Do not return immediately on a prices match: compare it with the values from cutting.
 ```Python3 []
-        # 会错误！！！！！别CV这里!!!
+        # This is incorrect!!!!! Do not copy this code!!!
         pd = {(h, w): p for h, w, p in prices}
 
         @lru_cache(None)
@@ -45,17 +45,17 @@
                 ans = max(ans, dfs(i, nj) + dfs(i, j - nj))
             return ans
         
-        # 会错误！！！！！别CV这里!!!
+        # This is incorrect!!!!! Do not copy this code!!!
         return dfs(m, n)
 ```
-> 枚举当前行的一半割法、当前列的一半割法即可，因为j和n-j具有对称性
+> Enumerate only half the horizontal and vertical cut positions, since j and n-j are symmetric.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(mn(m + n))$
 
-空间复杂度:
+Space complexity:
 > $O(mn)$
 
 

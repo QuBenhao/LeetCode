@@ -1,4 +1,4 @@
-# [Python] 贪心
+# [Python] Greedy
 
 > Author: Benhao
 > Date: 2021-07-18
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-能爬到就往上爬，不能爬到就搭梯子直到足够爬到下一个地方
+### Approach
+Climb whenever the next rung is reachable; otherwise, add enough rungs to reach it.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

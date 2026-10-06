@@ -10,14 +10,14 @@ import (
 
 type fenwick []int
 
-// 把下标为 i 的元素增加 v
+// Increase the element at index i by v
 func (f fenwick) add(i, v int) {
 	for ; i < len(f); i += i & -i {
 		f[i] += v
 	}
 }
 
-// 返回下标在 [1,i] 的元素之和
+// Return the sum of the elements at indices [1,i]
 func (f fenwick) pre(i int) (res int) {
 	for ; i > 0; i &= i - 1 {
 		res += f[i]
@@ -38,7 +38,7 @@ func resultArray(nums []int) (ans []int) {
 	t.add(m-sort.SearchInts(sorted, nums[1]), -1)
 	for _, x := range nums[2:] {
 		v := m - sort.SearchInts(sorted, x)
-		d := t.pre(v - 1) // 转换成 < v 的元素个数之差
+		d := t.pre(v - 1) // Convert to the difference in the counts of elements < v
 		if d > 0 || d == 0 && len(a) <= len(b) {
 			a = append(a, x)
 			t.add(v, 1)

@@ -1,1 +1,1 @@
-# 正难则反
+# Work backward when the forward approach is difficult

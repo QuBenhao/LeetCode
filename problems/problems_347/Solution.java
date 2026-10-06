@@ -12,7 +12,7 @@ public class Solution extends BaseSolution {
             occurrences.put(num, occurrences.getOrDefault(num, 0) + 1);
         }
 
-        // int[] 的第一个元素代表数组的值，第二个元素代表了该值出现的次数
+        // The int[] array's first element is the value; its second element is the frequency of that value
         PriorityQueue<int[]> queue = new PriorityQueue<int[]>(new Comparator<int[]>() {
             public int compare(int[] m, int[] n) {
                 return m[1] - n[1];

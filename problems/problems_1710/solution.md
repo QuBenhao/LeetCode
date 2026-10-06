@@ -1,4 +1,4 @@
-# [Python] 贪心
+# [Python] Greedy
 
 > Author: Benhao
 > Date: 2022-11-15
@@ -11,17 +11,17 @@
 
 [TOC]
 
-# 思路
-> 给定了不同的单元价值，显然取单元价值更高的更优
+# Intuition
+> With different unit counts per box, taking boxes with more units is better.
 
-# 解题方法
-> 将数组按单元价值排序，统计取尽或者卡车用尽所能达到的最大值即可
+# Approach
+> Sort by units per box and count the maximum units until the boxes or truck capacity run out.
 
-# 复杂度
-- 时间复杂度: 
+# Complexity
+- Time complexity:
 > $O(nlog_n)$
 
-- 空间复杂度: 
+- Space complexity:
 > $O(n)$
 
 # Code

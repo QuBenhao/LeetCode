@@ -1,4 +1,4 @@
-# [Python/Go/C++/Java/Typescript/Rust] 贪心
+# [Python/Go/C++/Java/Typescript/Rust] Greedy
 
 > slug: pythongocjavatypescriptrust-tan-xin-by-h-mdyv
 > date: 2024-09-23
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/maximize-number-of-subsequences-in-a-string/solutions/D89iJ2/pythongocjavatypescriptrust-tan-xin-by-h-mdyv/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

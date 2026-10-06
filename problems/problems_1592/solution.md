@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-09-06
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-统计空格数和单词数，按题意拼接
+### Approach
+Count the spaces and words, then join them as required.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

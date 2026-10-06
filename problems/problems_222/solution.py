@@ -17,9 +17,9 @@ class Solution(solution.Solution):
 
     def countNodes(self, root: Optional[TreeNode]) -> int:
         """
-        满二叉树的深度由它一直往左递归构成。
-        如果左右子树深度不一致，说明左子树是不满的，右子树是满的，我们递归统计左子树，加上当前右子树的满二叉树数目 + 根节点 (1 << right)
-        如果左右子树深度一致，说明左子树是满的，右子树是不满的，我们递归统计右子树，加上当前左子树的满二叉树数目 + 根节点 (1 << left)
+        The depth of a perfect binary tree is found by recursively following left children.
+        If the left and right subtree depths differ, the left subtree is not perfect and the right subtree is perfect. Recursively count the left subtree, then add the size of the perfect right subtree plus the root: (1 << right).
+        If the left and right subtree depths are equal, the left subtree is perfect and the right subtree is not perfect. Recursively count the right subtree, then add the size of the perfect left subtree plus the root: (1 << left).
         """
         def depth(node):
             h = 0

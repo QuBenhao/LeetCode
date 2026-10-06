@@ -37,19 +37,19 @@ class Solution(solution.Solution):
 class FenwickTree:
     def __init__(self, size: int):
         self.n = size
-        self.tree = [0] * (self.n + 1)  # 索引从1开始
+        self.tree = [0] * (self.n + 1)  # Indices start at 1
 
     def lowbit(self, x: int) -> int:
         return x & (-x)
 
     def update(self, idx: int, delta: int) -> None:
-        """ 单点更新：a[idx] += delta """
+        """ Point update: a[idx] += delta """
         while idx <= self.n:
             self.tree[idx] += delta
             idx += self.lowbit(idx)
 
     def query(self, idx: int) -> int:
-        """ 查询前缀和：a[1] + a[2] + ... + a[idx] """
+        """ Query the prefix sum: a[1] + a[2] + ... + a[idx] """
         res = 0
         while idx > 0:
             res += self.tree[idx]
@@ -57,5 +57,5 @@ class FenwickTree:
         return res
 
     def range_query(self, l: int, r: int) -> int:
-        """ 区间查询：a[l] + a[l+1] + ... + a[r] """
+        """ Range query: a[l] + a[l+1] + ... + a[r] """
         return self.query(r) - self.query(l - 1)

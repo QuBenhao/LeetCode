@@ -1,4 +1,4 @@
-# [Python] DP + 二分
+# [Python] DP + binary search
 
 > Author: Benhao
 > Date: 2022-10-22
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-按结束时间排序,每个位置的最大收益由`上一次最大收益(不选当前)`和`选当前以及上一次和当前不冲突的最大收益`,
-为求得上一次与当前不冲突的位置, 我们采用二分找到开始时间在结束时间所在的坐标即可
+### Approach
+Sort by end time. The maximum profit at each position comes from either `the previous maximum profit (skip the current job)` or `the current job plus the maximum earlier profit compatible with it`.
+To locate the last compatible job, use binary search to find where the current start time falls among the sorted end times.
 
-### 代码
+### Code
 
 ```Python3 
 class Solution:

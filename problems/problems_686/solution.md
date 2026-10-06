@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 覆盖匹配只有两种情况
+# [Python/Java/JavaScript/Go] Only two cases for covering the target string
 
 > slug: pythonjavajavascriptgo-fu-gai-pi-pei-zhi-7m38
 > date: 2021-12-21
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/repeated-string-match/solutions/1PFsei/pythonjavajavascriptgo-fu-gai-pi-pei-zhi-7m38/
 
 ---
-### 解题思路
-覆盖$b$字符串至少需要$\lceil \frac{b}{a} \rceil$个$a$字符串，至多需要$\lceil \frac{b}{a} \rceil + 1$个$a$字符串。
+### Approach
+Covering string $b$ requires at least $\lceil \frac{b}{a} \rceil$ copies of string $a$, and at most $\lceil \frac{b}{a} \rceil + 1$ copies of $a$.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -4,18 +4,18 @@ type MySolution struct{}
 
 // Solve
 /**
-7. 工作池模式
-场景：创建包含 4 个 worker 的协程池，处理持续到达的任务：
-	- Worker 处理任务需要 100-500ms 随机时间
-	- 当收到 SIGINT (ctrl+c) 信号时：
-		- 停止接收新任务
-		- 优雅完成已接收任务
-		- 输出统计信息（总处理任务数）
+7. Worker pool pattern
+Scenario: Create a pool of 4 worker goroutines to process a continuous stream of tasks:
+	- Each worker takes a random 100-500ms to process a task
+	- When SIGINT (ctrl+c) is received:
+		- Stop accepting new tasks
+		- Finish accepted tasks gracefully
+		- Print statistics (total number of processed tasks)
 
-要求：
-使用 os/signal 处理系统信号
-使用带缓冲的 channel 作为任务队列
-实现 graceful shutdown
+Requirements:
+Use os/signal to handle system signals
+Use a buffered channel as the task queue
+Implement graceful shutdown
 */
 func (s *MySolution) Solve(workers int) {
 

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 抽屉原理
+# [Python/Java/JavaScript/Go] Pigeonhole principle
 
 > Author: Benhao
 > Date: 2022-05-21
@@ -7,16 +7,16 @@
 
 ---
 
-### 解题思路
-把2n个位置看成n个装两个数的抽屉。
-由于有n个相同的数，那么要么他们各自在一个抽屉中(相隔)，要么存在一对儿在一个抽屉中(相邻)。
+### Approach
+Treat the 2n positions as n drawers holding two numbers each.
+The n equal numbers either occupy separate drawers or include a pair sharing a drawer, making them adjacent.
 
-假设我们不存在相邻的相同数(即所有相同数都被隔开)，
-只有在n=2的时候，可以出现一个在头一个在尾中间隔着两个数的情况，其他情况都一定存在某两个相同数最多隔一个其他数。
+Suppose there are no adjacent equal numbers, so every copy is separated.
+Only when n=2 can one copy be first and the other last with two numbers between them. In every other case, some pair of equal numbers has at most one other number between them.
 
-处理掉这一个特殊情况，我们循环判断相邻和相隔一个位置的数是否相等即可。
+Handle this special case, then check equal values at adjacent positions and positions two apart.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

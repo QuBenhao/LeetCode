@@ -20,7 +20,7 @@ func Constructor(arr []int) RangeFreqQuery {
 }
 
 func (rfq *RangeFreqQuery) Query(left int, right int, value int) int {
-	// sort.SearchInts 相当于 python的bisect.bisect_left
+	// sort.SearchInts is equivalent to Python's bisect.bisect_left
 	return sort.SearchInts(rfq.idxMap[value], right+1) - sort.SearchInts(rfq.idxMap[value], left)
 }
 

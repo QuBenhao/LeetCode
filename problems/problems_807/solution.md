@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 求每行每列的最大值
+# [Python/Java/JavaScript/Go] Find each row and column maximum
 
 > Author: Benhao
 > Date: 2021-12-12
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-根据题意，每个位置最高的高度取决于原来该行、该列的最大值中的最小值。
+### Approach
+The maximum allowed height at each position is the smaller of its original row maximum and column maximum.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -103,6 +103,6 @@ func maxIncreaseKeepingSkyline(grid [][]int) int {
 }
 ```
 
-### 复杂度
-时间复杂度 $o(m * n)$
-空间复杂度 $o(m + n)$
+### Complexity
+Time complexity: $o(m * n)$
+Space complexity: $o(m + n)$

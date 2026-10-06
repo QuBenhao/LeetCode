@@ -10,5 +10,5 @@ class Solution(solution.Solution):
 
     def countWays(self, nums: List[int]) -> int:
         nums.sort()
-        # 当前选了i个人, x及以下的人都选了，y及以上的人都没选
+        # i people are selected: everyone at or below x is selected, and everyone at or above y is not
         return int(nums[0] > 0) + sum(x < i < y for i, (x, y) in enumerate(pairwise(nums), 1)) + 1

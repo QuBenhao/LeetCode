@@ -1,4 +1,4 @@
-# [Python] heapq优先队列
+# [Python] heapq priority queue
 
 > Author: Benhao
 > Date: 2024-03-03
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 堆排序
+> Heap sort
 
-# 解题方法
+# Approach
 
-> 取出第k大即可
+> Take the kth largest element.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(nlog_k)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

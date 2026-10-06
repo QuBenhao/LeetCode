@@ -1,4 +1,4 @@
-# [Python/Java] 记录最长递增子序列不长度不同末尾的个数
+# [Python/Java] Count increasing subsequences by length and ending value
 
 > slug: pythonjava-ji-lu-zui-chang-di-zeng-zi-xu-53ht
 > date: 2021-09-20
@@ -7,22 +7,22 @@
 > url: https://leetcode.cn/problems/number-of-longest-increasing-subsequence/solutions/HM1Ll7/pythonjava-ji-lu-zui-chang-di-zeng-zi-xu-53ht/
 
 ---
-### 解题思路
-在求最长公共子序列的时候，我们维护一个序列数组，二分查找当前数的位置，然后用这个位置计算该数的序列长度。但是这题我们需要额外统计个数，每次我们找到该数的最长递增子序列的长度后，需要求和该所有能构成以这个数结尾的个数，而这个正是`长度-1`中小于这个数的个数的和。
+### Approach
+When finding the longest increasing subsequence, maintain an array of tails, binary search for the current number's position, and use that position to determine its subsequence length. Here we also need counts. Once the length is known, sum the counts of all subsequences that can be extended by this number: those of `length-1` ending in a smaller number.
 
-调了半天优化的…未遂…遂直接暴力统计上一个长度小于当前数的个数的叠加。
+I spent a while trying to optimize this without success, then simply summed the counts at the previous length whose ending values are smaller than the current number.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def findNumberOfLIS(self, nums: List[int]) -> int:
-        #  我们需要知道的是 末尾数字大小以及其长度以及个数
+        # Track the ending value, subsequence length, and count
         # 1 2 2 6 3 4 7
         dp = []
-        # 长度 映射 不同的数字大小的个数
+        # Map each length to counts for its different ending values
         records = defaultdict(list)
-        # 初始化空的个数为1
+        # Initialize the empty subsequence count to 1
         records[0] = [(-inf, 1)]
         for num in nums:
             idx = bisect_left(dp, num)
@@ -30,7 +30,7 @@ class Solution:
                 dp[idx] = num
             else:
                 dp.append(num)
-            # idx + 1 为 当前数字构成的最长递增子序列的长度，它的个数由 idx 长度中比它小的个数组成
+            # idx + 1 is the longest increasing subsequence length ending here; its count comes from length-idx subsequences ending in smaller values
             records[idx + 1].append((num, sum(v for k,v in records[idx] if k < num)))
         return sum(v[1] for v in records[max(records.keys())])
 ```

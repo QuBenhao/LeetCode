@@ -1,4 +1,4 @@
-# [Python] 92题反转链表 + 长度判断
+# [Python] Reverse a linked list as in problem 92 + check the length
 
 > slug: python-92ti-fan-zhuan-lian-biao-chang-du-53zx
 > date: 2021-11-14
@@ -17,14 +17,14 @@ class Solution:
     def reverseEvenLengthGroups(self, head: Optional[ListNode]) -> Optional[ListNode]:
         def reverseList(h, l):
             i,p, cur = 0, None, h
-            # 检测剩余长度是否足够
+            # Check whether enough nodes remain
             while i < l and cur:
                 p = cur
                 cur = cur.next
                 i += 1
             if i % 2 != 0:
                 return h, p
-            # 设置 dummyNode 是这一类问题的一般做法
+            # Using a dummyNode is standard for this type of problem
             dummy_node = ListNode(-1)
             dummy_node.next = h
             pre = dummy_node

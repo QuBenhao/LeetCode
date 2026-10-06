@@ -1,17 +1,17 @@
-# **5. 多路 channel 合并**
-**场景**：实现 `fanIn` 函数合并三个输入 channel 的数据到一个输出 channel。
+# **5. Merging multiple channels**
+**Scenario:** Implement a `fanIn` function that merges data from three input channels into one output channel.
 
-**要求**：
-- 当所有输入 channel 关闭后自动关闭输出 channel
-- 使用 `select` 语句实现
-- 处理不同 channel 关闭时间不一致的情况
+**Requirements:**
+- Close the output channel automatically after all input channels close
+- Use `select` statements
+- Handle input channels closing at different times
 
-## 解题
+## Exercise
 
 [solution](your_solution.go)
 
 ---
 
-## 答案
+## Solution
 
 [answer](answer.go)

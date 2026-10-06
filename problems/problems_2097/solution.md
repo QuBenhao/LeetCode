@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/valid-arrangement-of-pairs/solutions/DfPBpK/pythongo-hierholzer-by-himymben-k0xl/
 
 ---
-### 解题思路
-进行一波算法学习记录，参考332题目的官解o(n)解决欧拉回路问题
+### Approach
+Recording what I learned from the official solution to problem 332: solve the Eulerian-circuit problem in o(n).
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:
@@ -24,19 +24,19 @@ class Solution:
         start = None
         for k, v in cnts.items():
             start = k
-            # 入度比出度大一的点，必然作为起点
+            # A node whose indegree exceeds its outdegree by one must be the start
             if v == 1:
                 break
         ans = []
         def dfs(u):
-            # 遍历递归，直到遍历光
+            # Recurse until all edges have been traversed
             while connect[u]:
-                # 递归到尽头
+                # Recurse to the end
                 dfs(connect[u].pop())
-            # 遍历光才加入当前节点
+            # Add the current node only after exhausting its edges
             ans.append(u)
         dfs(start)
-        # 入栈顺序倒序必然是遍历路径
+        # Reversing the stack insertion order gives the traversal path
         return [[ans[i], ans[i-1]] for i in range(len(ans)-1,0,-1)]
 ```
 ```Go []

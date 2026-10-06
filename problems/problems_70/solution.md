@@ -1,4 +1,4 @@
-# [Python] 动态规划
+# [Python] Dynamic programming
 
 > Author: Benhao
 > Date: 2024-03-04
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 动态规划滚动更新
+> Dynamic programming with rolling updates
 
-# 解题方法
+# Approach
 
-> 当前的组合数由上一层走一步+上两层走两步组成
+> The current count combines taking one step from the previous stair and two steps from the stair before that.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

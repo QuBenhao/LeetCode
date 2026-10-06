@@ -18,7 +18,7 @@ public class Solution extends BaseSolution {
             g[y].add(new int[]{x, t});
         }
 
-        // Dijkstra 算法
+        // Dijkstra's algorithm
         int[] dis = new int[n];
         Arrays.fill(dis, Integer.MAX_VALUE);
         dis[0] = 0;
@@ -28,14 +28,14 @@ public class Solution extends BaseSolution {
             int[] p = pq.poll();
             int dx = p[0];
             int x = p[1];
-            if (dx > dis[x]) { // x 之前出堆过
+            if (dx > dis[x]) { // x was already popped from the heap
                 continue;
             }
             for (int[] e : g[x]) {
                 int y = e[0];
                 int newDis = dx + e[1];
                 if (newDis < dis[y]) {
-                    dis[y] = newDis; // 更新 x 的邻居的最短路
+                    dis[y] = newDis; // Update the shortest distances to x's neighbors
                     pq.offer(new int[]{newDis, y});
                 }
             }
@@ -51,7 +51,7 @@ public class Solution extends BaseSolution {
         for (int[] e : g[x]) {
             int y = e[0];
             int t = e[1];
-            // 相比方法一，这里多了 dis[y]
+            // Compared with method 1, this also includes dis[y]
             if (sumTime + t + dis[y] > maxTime) {
                 continue;
             }
@@ -59,9 +59,9 @@ public class Solution extends BaseSolution {
                 res = Math.max(res, dfs(y, sumTime + t, sumValue, vis, g, values, maxTime, dis));
             } else {
                 vis[y] = true;
-                // 每个节点的价值至多算入价值总和中一次
+                // Count each node's value at most once in the total
                 res = Math.max(res, dfs(y, sumTime + t, sumValue + values[y], vis, g, values, maxTime, dis));
-                vis[y] = false; // 恢复现场
+                vis[y] = false; // Restore the previous state
             }
         }
         return res;

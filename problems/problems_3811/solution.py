@@ -9,19 +9,19 @@ class Solution(solution.Solution):
         return self.alternatingXOR(*test_input)
 
     def alternatingXOR(self, nums: List[int], target1: int, target2: int) -> int:
-        counts1 = defaultdict(int) # 以target1结尾, 值为x的方案数
-        counts2 = defaultdict(int) # 以target2结尾, 值为x的方案数
+        counts1 = defaultdict(int) # Number of ways ending with target1 and having value x
+        counts2 = defaultdict(int) # Number of ways ending with target2 and having value x
         counts2[0] = 1
 
         ans = 0
         pre = 0
         for num in nums:
             pre ^= num
-            # target2后面拼一个target1的方案数, 即counts2[pre ^ target1]
-            # target1后面拼一个target2的方案数, 即counts1[pre ^ target2]
+            # Number of ways to append target1 after target2, i.e. counts2[pre ^ target1]
+            # Number of ways to append target2 after target1, i.e. counts1[pre ^ target2]
             ans = (counts2[target1 ^ pre] + counts1[target2 ^ pre]) % MOD
-            # 更新以target1结尾, 值为pre的方案数: 叠加counts2[pre ^ target1]
-            # 更新以target2结尾, 值为pre的方案数: 叠加counts1[pre ^ target2]
+            # Update the number of ways ending with target1 and having value pre: add counts2[pre ^ target1]
+            # Update the number of ways ending with target2 and having value pre: add counts1[pre ^ target2]
             counts1[pre], counts2[pre] = (counts1[pre] + counts2[pre ^ target1]) % MOD, (counts2[pre] + counts1[pre ^ target2]) % MOD
         return ans
 

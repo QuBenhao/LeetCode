@@ -1,4 +1,4 @@
-# [Python/Golang/Java/Cpp] 双指针 
+# [Python/Golang/Java/Cpp] Two pointers 
 
 > Author: Benhao
 > Date: 2024-03-05
@@ -12,22 +12,22 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 双指针
+> Two pointers
 
-# 解题方法
+# Approach
 
-> 左右指针left和right,计算高度会以短板计算，所以对短板来说另一头已经是最远的选择了。比如`height[left] < height[right]`，我们将left指针右移，实际上是否定了所有区间`[left+1,right-1]`和left的组合区域面积，因为它们必然小于(left, right)的面积。
-以这样的思路移动指针可以不停地否定诸多不必要计算的答案。
+> With pointers left and right, the shorter side determines the height, so the other endpoint is already the farthest possible choice for that shorter side. For example, when `height[left] < height[right]`, moving left to the right rules out pairing left with any index in `[left+1,right-1]`, because all of those areas must be smaller than the area of (left, right).
+Moving the pointers this way repeatedly rules out many candidates that do not need to be calculated.
 
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

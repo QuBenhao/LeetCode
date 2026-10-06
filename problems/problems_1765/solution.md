@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 多源BFS
+# [Python/Java/JavaScript/Go] Multi-source BFS
 
 > Author: Benhao
 > Date: 2022-01-29
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-本题可以存在多个水域作为BFS的起点，是多源BFS的模板题。可以用原矩阵进行标记访问过(更新答案)。
+### Approach
+Multiple water cells serve as BFS starting points, making this a standard multi-source BFS problem. Reuse the matrix to mark visited cells and store the answer.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -18,11 +18,11 @@ class Solution:
         queue, m, n, cost = [], len(isWater), len(isWater[0]), 0
         for i, row in enumerate(isWater):
             for j, val in enumerate(row):
-                # 水域，作为起点入队，并更新为答案需要返回的0
+                # Enqueue water cells as starting points and set their required height to 0
                 if val:
                     isWater[i][j] = 0
                     queue.append((i, j))
-                # 陆地：先更新为无限大的高度，等BFS时更新它
+                # Initialize land to infinite height and update it during BFS
                 else:
                     isWater[i][j] = inf
         while queue:
@@ -30,7 +30,7 @@ class Solution:
             cost += 1
             for i, j in queue:
                 for dx, dy in (0, 1), (1, 0), (-1, 0), (0, -1):
-                    # 只有没被更新过的陆地才能被更新，否则已经有更近的水域访问过它了
+                    # Update only unvisited land; visited cells were already reached from closer water
                     if 0 <= (nx := i + dx) < m and 0 <= (ny := j + dy) < n and isWater[nx][ny] > cost:
                         isWater[nx][ny] = cost
                         nxt.append((nx, ny))

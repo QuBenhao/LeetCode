@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] Dijkstra + 优先队列
+# [Python/Java/JavaScript] Dijkstra + priority queue
 
 > Author: Benhao
 > Date: 2021-11-03
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-[三叶的题解](https://leetcode.cn/problems/trapping-rain-water-ii/solution/gong-shui-san-xie-jing-dian-dijkstra-yun-13ik/)
-大致思路就是以边界为起点，从最低开始往内推，保留最高的边界高度（或本身是个边界）。
-因为优先队列保证了每次第一次访问到一个点，一定是该点能存的雨水的最高高度了（它是后面所有高度最矮的）。
+### Approach
+[Solution by 三叶](https://leetcode.cn/problems/trapping-rain-water-ii/solution/gong-shui-san-xie-jing-dian-dijkstra-yun-13ik/)
+Start from the boundary and work inward from the lowest point, retaining the maximum boundary height encountered (or the point's own height when it forms a boundary).
+The priority queue ensures that the first visit to a point gives the highest water level it can hold, because this boundary is the lowest among those that follow.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

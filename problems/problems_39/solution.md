@@ -1,4 +1,4 @@
-# [Python] 回溯
+# [Python] Backtracking
 
 > Author: Benhao
 > Date: 2024-03-11
@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 回溯
+> Backtracking
 
-# 解题方法
+# Approach
 
-> 枚举选不选当前，不选的话以后都不能再选了，选的话递归继续判断和
+> Enumerate whether to select the current element. If skipped, it cannot be selected later. If selected, continue recursively checking the sum.
 
 # Code
 ```Python3 []
@@ -34,9 +34,9 @@ class Solution:
                 return
             if x < 0 or s < 0:
                 return
-            # 不选当前
+            # Skip the current element
             dfs(x - 1, s)
-            # 选当前
+            # Select the current element
             path.append(candidates[x])
             dfs(x, s - candidates[x])
             path.pop()

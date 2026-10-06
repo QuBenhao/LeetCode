@@ -37,29 +37,29 @@ class Solution(solution.Solution):
         # return max(dp,key=len)
 
         # n = len(nums)
-        # # 获得有序数组
+        # # Obtain a sorted array
         # nums.sort()
-        # # matrix[i][0]  代表 到该节点的最长步数
-        # # matrix[i][1] 代表 最长步数时的上一个节点
+        # # matrix[i][0] is the maximum number of steps to this node
+        # # matrix[i][1] is the predecessor on the longest path
         # matrix = [(0,0)] * n
         #
         # maxDis = maxPos = -1
-        # # 从前往后遍历
+        # # Traverse from beginning to end
         # for i in range(n):
         #     for j in range(i+1,n):
         #         if nums[j]%nums[i]==0:
-        #             # 满足题目条件的情况下
-        #             # 若从当前节点（i）往目标节点（j）的步数较之前的元素更大，则更新最长步数与上一个节点
+        #             # If the problem's condition is satisfied
+        #             # If the path from current node i to target node j is longer than the previous best, update the length and predecessor
         #             if matrix[i][0]+1 > matrix[j][0]:
         #                 matrix[j] = (matrix[i][0] + 1, i)
         #
-        #     # 每一轮遍历结束后检查是否为最大值（当前节点i的最大步数只由i之前的元素决定）
-        #     # 记录下最大值所在的位置
+        #     # After each iteration, check for a new maximum (the best length at node i depends only on preceding elements)
+        #     # Record the index of the maximum
         #     if matrix[i][0]>maxDis:
         #         maxDis = matrix[i][0]
         #         maxPos = i
         #
-        # # 根据最大步数所在的位置，逆向推出所选子集
+        # # Reconstruct the selected subset backward from the index with the maximum path length
         # re = []
         # re.append(nums[maxPos])
         # while matrix[maxPos][0]!=0:

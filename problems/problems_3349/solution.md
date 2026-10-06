@@ -1,4 +1,4 @@
-# 模拟
+# Simulation
 
 > slug: mo-ni-by-himymben-4ilh
 > date: 2025-10-14
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/adjacent-increasing-subarrays-detection-i/solutions/rSIqGL/mo-ni-by-himymben-4ilh/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

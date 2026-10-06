@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 类似斐波那契数列的动态规划
+# [Python/Java/JavaScript/Go] Fibonacci-like dynamic programming
 
 > Author: Benhao
 > Date: 2022-01-28
@@ -7,22 +7,22 @@
 
 ---
 
-### 解题思路
-受烟花大佬[@megurine](/u/megurine/)的邀请，来做做这道题，确实很有意思。
-到达下一个房间需要到达当前房间两次。
-而到达当前房间x两次需要从nextVisit[x]再到x一次。
-也就是:
+### Approach
+烟花 [@megurine](/u/megurine/) invited me to try this problem; it is quite interesting.
+Reaching the next room requires visiting the current room twice.
+The second visit to room x requires traveling from nextVisit[x] back to x.
+That is:
 $f(x + 1) = f(x) + f(x) - f(nextVisit[x])$
-而第一次到达后跳转到nextVisit[x]需要一天，第二次到达后跳转到x+1需要一天
-故最终递推关系为:
+After the first visit, moving to nextVisit[x] takes one day; after the second, moving to x+1 takes another day.
+The final recurrence is therefore:
 $f(x + 1) = f(x) + f(x) - f(nextVisit[x]) + 2$
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def firstDayBeenInAllRooms(self, nextVisit: List[int]) -> int:
-        # 到达第x+1房间需要先到达第x房间两次，第一次到达x后需要额外一天到达nextVisit[x]，从nextVisit[x]到达x可以用他们的差计算，第二次到达x后仍需额外一天到达x+1
+        # To reach room x+1, visit x twice: spend one day moving to nextVisit[x], use the difference of their first-visit times to return to x, then spend one more day moving to x+1
         # f(x + 1) = f(x) + f(x) - f(nextVisit[x]) + 2
         dp = [0] * len(nextVisit)
         dp[0] = 1

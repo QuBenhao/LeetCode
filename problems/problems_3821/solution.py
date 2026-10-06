@@ -10,10 +10,10 @@ class Solution(solution.Solution):
         return self.nthSmallest(*test_input)
 
     def nthSmallest(self, n: int, k: int) -> int:
-        ## 解法一
+        ## Solution 1
         # last = 0
         # for i in range(k - 1, 50):
-        #     # 二进制第i位, 共有i + 1位可以填1, 从中选k个的取法
+        #     # At bit i, there are i + 1 positions available for ones; count the ways to choose k of them
         #     cur = comb(i + 1, k)
         #     if cur == n:
         #         return sum(1 << j for j in range(i, i - k, -1))
@@ -22,10 +22,10 @@ class Solution(solution.Solution):
         #     last = cur
         # return 0
 
-        ## 解法二
+        ## Solution 2
         # ans = 0
         # while n > 0:
-        #     # idx 对应 二进制 第idx-1位
+        #     # idx corresponds to bit idx-1
         #     idx = bisect_left(COMBINATIONS[k], n)
         #     if COMBINATIONS[k][idx] > n:
         #         ans |= 1 << (idx - 1)
@@ -36,10 +36,10 @@ class Solution(solution.Solution):
         #     k -= 1
         # return ans
 
-        ## 解法三
+        ## Solution 3
         ans = 0
         for i in range(49, -1, -1):
-            # 假如当前不选1, 剩下的位够不够选出n个? 不够的话必选
+            # If the current bit is not set to 1, do the remaining bits allow at least n choices? If not, this bit must be set
             if COMBINATIONS[k][i] < n:
                 ans |= 1 << i
                 n -= COMBINATIONS[k][i]

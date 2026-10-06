@@ -17,30 +17,30 @@ class Solution(solution.Solution):
             remains[g % batchSize] += 1
         ans = remains[0]
         remains[0] = 0
-        # 贪心: 余数和为batchSize的可以两两一组
+        # Greedy: pair remainders that sum to batchSize
         for i in range(1, batchSize // 2 + 1):
             if i != batchSize - i:
                 tp = min(remains[i], remains[batchSize - i])
                 ans += tp
                 remains[i] -= tp
                 remains[batchSize - i] -= tp
-            # 中间数
+            # Middle remainder
             else:
                 ans += remains[i] // 2
                 remains[i] %= 2
 
-        # 之前人们的和的余数和剩余的人们
+        # Remainder of the previous total and the remaining groups
         @lru_cache(None)
         def dfs(s, remain):
             res = 0
             for i in range(1, batchSize):
-                # 还有模batchSize余i的组
+                # Groups with remainder i modulo batchSize remain
                 if remain[i-1]:
                     r = list(remain)
                     r[i-1] -= 1
-                    # 如果之前和的余数为0，开心的人数为dfs的结果+1；否则为dfs的结果
+                    # If the previous total has remainder 0, add 1 happy group to the DFS result; otherwise, use the DFS result
                     res = max(res, (s == 0) + dfs((s+i) % batchSize, tuple(r)))
-            # 不在这里加上(s==0)是因为可能remain已经空了
+            # Do not add (s==0) here because remain may already be empty
             return res
 
         return ans + dfs(0, tuple(remains[1:]))

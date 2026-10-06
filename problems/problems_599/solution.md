@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 哈希表
+# [Python/Java/JavaScript/Go] Hash table
 
 > slug: pythonjavajavascriptgo-ha-xi-biao-by-him-bm8s
 > date: 2022-03-13
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/minimum-index-sum-of-two-lists/solutions/oG8nUW/pythonjavajavascriptgo-ha-xi-biao-by-him-bm8s/
 
 ---
-### 解题思路
-遍历两个列表，记录他们的字符串到坐标的映射，遍历他们的公共字符串，统计坐标和最小的字符串。
+### Approach
+Traverse both lists to map each string to its index, then examine the common strings and find those with the minimum index sum.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

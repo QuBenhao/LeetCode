@@ -19,7 +19,7 @@ class Solution(solution.Solution):
         #         count[i+1] = count[i]
         # ans = float("inf")
         # for i in range(n):
-        #     # 到i有多少个'b'，后面有多少个'a'
+        #     # Count 'b' characters through i and 'a' characters after i
         #     b = i - count[i]
         #     a = count[-1] - count[i+1]
         #     if not a and not b:
@@ -27,13 +27,13 @@ class Solution(solution.Solution):
         #     ans = min(ans, b+a)
         # return ans
 
-        # b的个数
+        # Number of b characters
         cnt = ans = 0
         for c in s:
             if c == 'b':
-                # 'b'为结尾，必然不影响之前的平衡性
+                # Ending with 'b' preserves the previous balance
                 cnt += 1
             else:
-                # 'a'为结尾，要么是上一个的平衡结果再删掉这个'a',要么要删光前面的'b'
+                # For a final 'a', either delete it after balancing the prefix or delete all preceding 'b' characters
                 ans = min(ans + 1, cnt)
         return ans

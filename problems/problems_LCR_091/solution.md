@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 动态规划
+# [Python/Java/TypeScript/Go] Dynamic programming
 
 > slug: pythonjavatypescriptgo-dong-tai-gui-hua-77g3a
 > date: 2022-06-25
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/JEj789/solutions/Vr6qrV/pythonjavatypescriptgo-dong-tai-gui-hua-77g3a/
 
 ---
-### 解题思路
-当前最小花费由当前刷红、刷蓝、刷绿中最小的花费决定。
-当前刷红，上一个只能是蓝或绿，所以由上一次蓝绿最小值加上当前红的代价得到。
-以此类推。
+### Approach
+The current minimum cost is the minimum of the costs of painting the current house red, blue, or green.
+If the current house is red, the previous house must be blue or green. Add the current red cost to the smaller of the previous blue and green costs.
+The same reasoning applies to the other colors.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

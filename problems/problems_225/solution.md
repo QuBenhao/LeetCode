@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2024-03-03
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 用队列模拟栈
+> Simulate a stack with a queue
 
-# 解题方法
+# Approach
 
-> 关键点在于怎么弹出最后一个元素。我们可以按队列的特性将队列前面的重新弹出进入一次，这样就可以取出最后一个了
+> The key is how to remove the last element. Dequeue the preceding elements and enqueue them again, bringing the last element to the front for removal.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

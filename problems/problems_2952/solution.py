@@ -14,6 +14,6 @@ class Solution(solution.Solution):
                 s += coins[i]
                 i += 1
             else:
-                s *= 2  # 必须添加 s
+                s *= 2  # Must add s
                 ans += 1
         return ans

@@ -1,4 +1,4 @@
-# [Python/Go/Java/Cpp] 数学求和公式+不等式推算
+# [Python/Go/Java/Cpp] Summation formula + inequality derivation
 
 > Author: Benhao
 > Date: 2024-06-02
@@ -12,21 +12,21 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 我们能发多少次(求和公式的末项), 我们发完剩下的发不出去的是多少个 (余数)
-假设我们知道发了多少次，那么我们就知道发了多少轮，最后一轮发到了谁 (除余)
+> Find how many full distributions are possible (the final term in the summation formula) and how many candies remain afterward (the remainder).
+Once we know the number of distributions, division and remainder tell us how many rounds were completed and who received candies in the final round.
 
-# 解题方法
+# Approach
 
-> 通过求和公式，不等式，推算大致发了多少次，再计算逼近
+> Use the summation formula and inequalities to estimate the number of distributions, then refine the estimate.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 
@@ -38,11 +38,11 @@ class Solution:
         """
         x * (x + 1) // 2 >= candies > x * (x - 1) // 2
         (x + 1) * (x + 1) > x * (x + 1) >= 2 * candies > x * (x - 1) > (x - 1) * (x - 1)
-        x + 1 > 根号下(2 * candies) > x - 1
+        x + 1 > sqrt(2 * candies) > x - 1
         {} + 1 > x > {} - 1
         """
         f = (candies * 2) ** 0.5
-        # 从最大往最小逼近
+        # Refine the estimate downward from the upper bound
         x = int(f + 1)
         if (s := x * (x + 1) // 2) > candies:
             s -= x

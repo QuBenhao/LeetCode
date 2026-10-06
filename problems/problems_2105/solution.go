@@ -10,26 +10,26 @@ func minimumRefill(plants []int, capacityA, capacityB int) (ans int) {
 	a, b := capacityA, capacityB
 	i, j := 0, len(plants)-1
 	for i < j {
-		// Alice 给植物 i 浇水
+		// Alice waters plant i
 		if a < plants[i] {
-			// 没有足够的水，重新灌满水罐
+			// Not enough water; refill the watering can
 			ans++
 			a = capacityA
 		}
 		a -= plants[i]
 		i++
-		// Bob 给植物 j 浇水
+		// Bob waters plant j
 		if b < plants[j] {
-			// 没有足够的水，重新灌满水罐
+			// Not enough water; refill the watering can
 			ans++
 			b = capacityB
 		}
 		b -= plants[j]
 		j--
 	}
-	// Alice 和 Bob 到达同一株植物，那么当前水罐中水更多的人会给这株植物浇水
+	// If Alice and Bob reach the same plant, the person with more water remaining waters it
 	if i == j && max(a, b) < plants[i] {
-		// 没有足够的水，重新灌满水罐
+		// Not enough water; refill the watering can
 		ans++
 	}
 	return

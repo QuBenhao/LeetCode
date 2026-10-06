@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 找到相邻递推关系
+# [Python/Java/JavaScript/Go] Find the recurrence between adjacent results
 
 > slug: pythonjavajavascriptgo-by-himymben-anmd
 > date: 2022-04-21
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/rotate-function/solutions/VfSick/pythonjavajavascriptgo-by-himymben-anmd/
 
 ---
-### 解题思路
-不难发现：
+### Approach
+It is easy to see that:
 $F(k + 1) = F(k) + \sum_{i=0}^{n-1}nums_i - n * nums_{-k}$
-我们从F(0)出发，遍历所有F，统计最大值
+Start from F(0), traverse all F values, and track the maximum.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

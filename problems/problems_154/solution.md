@@ -1,4 +1,4 @@
-# [Python] 二分法
+# [Python] Binary search
 
 > Author: Benhao
 > Date: 2021-04-09
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-mid比right小，断点在mid及其左侧；
-mid比right大，断点在mid右侧；
-mid和right相等，去掉right不会影响结果。（为了避免结果的index不是断点处，判断right和它左边的大小关系）
+### Approach
+If mid is smaller than right, the rotation point is at mid or to its left;
+If mid is greater than right, the rotation point is to the right of mid;
+If mid equals right, removing right does not affect the result. (To ensure the resulting index is at the rotation point, compare right with its left neighbor.)
 
-### 代码
+### Code
 
 ```python3
 class Solution:

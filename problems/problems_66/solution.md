@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2024-03-13
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-从右往左模拟加一看进位即可
+### Approach
+Simulate adding one from right to left, tracking the carry.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

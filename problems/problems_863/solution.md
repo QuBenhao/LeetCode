@@ -1,4 +1,4 @@
-# [Python/Java] 奇思妙想(不建图)
+# [Python/Java] An unusual idea without building a graph
 
 > Author: Benhao
 > Date: 2021-07-28
@@ -7,17 +7,17 @@
 
 ---
 
-### 解题思路
-> 任意一个节点到root的路径 都必然和 root到target的路径 相交于某个节点(共同父节点)。
-那么他们之间的距离就是 这个节点到这个共同父节点 + target到这个共同父节点 的距离之和。
-求出所有和为k的即可。
+### Approach
+> The path from any node to root must intersect the path from root to target at some node, their common ancestor.
+The distance between them is the sum of the distance from this node to their common ancestor and the distance from target to that ancestor.
+Find all nodes for which this sum is k.
 
-具体来说，我们深度搜索找到root到target的路径，那么target到这些父节点的距离我们就都知道了。
-在搜索答案的节点时，我们假设某个父节点作为共同父节点，那么答案的节点到这个父节点的距离也就固定了。在处理共同父节点要更靠近target的情况时，我们遇到是target的父节点，重新给当前距离赋值即可。
+Specifically, use DFS to find the path from root to target, which gives target's distance to each ancestor on that path.
+When searching for answer nodes, assume an ancestor is their common ancestor with target; the required distance from an answer node to that ancestor is then fixed. To handle a common ancestor closer to target, reset the current distance whenever another ancestor of target is encountered.
 
-(可以额外剪枝，如果node的左右都没有root到target的任意路径节点了且dis已经小于0了，那么后面不可能存在距离为k的节点了)。
+(Additional pruning: if neither child subtree contains any node on the root-to-target path and dis is already negative, no later node can be at distance k.)
 
-### 代码
+### Code
 ```python3 []
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:
@@ -111,7 +111,7 @@ class Solution {
 }
 ```
 
-剪枝版本时间 99%
+Pruned version: runtime 99%
 ```python3 []
 class Solution:
     def distanceK(self, root: TreeNode, target: TreeNode, k: int) -> List[int]:

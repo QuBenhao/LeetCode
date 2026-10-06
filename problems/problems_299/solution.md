@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > slug: python-mo-ni-by-himymben-drwh
 > date: 2024-03-10
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 模拟
+> Simulation
 
-# 解题方法
+# Approach
 
-> 统计每个数字的个数，统计一样位置的数目A，一样数字不一样位置的数目B由两者一样数字的数目减去A得到
+> Count each digit and count matching positions as A. The number B of matching digits in different positions is the total shared digit count minus A.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

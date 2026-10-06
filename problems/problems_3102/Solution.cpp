@@ -7,8 +7,8 @@ using json = nlohmann::json;
 
 class Solution {
 private:
-    // 更新最大次大
-    void update_max(int v, int& max1, int& max2) { // 注意这里是引用
+    // Update the largest and second-largest values
+    void update_max(int v, int& max1, int& max2) { // This is a reference
         if (v > max1) {
             max2 = max1;
             max1 = v;
@@ -17,8 +17,8 @@ private:
         }
     }
 
-    // 更新最小次小
-    void update_min(int v, int& min1, int& min2) { // 注意这里是引用
+    // Update the smallest and second-smallest values
+    void update_min(int v, int& min1, int& min2) { // This is a reference
         if (v < min1) {
             min2 = min1;
             min1 = v;

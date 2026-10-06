@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-10-11
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按题意模拟即可
+### Approach
+Simulate the process as described.
 
-### 代码
+### Code
 
 ```Python3
 class Solution:

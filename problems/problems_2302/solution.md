@@ -1,4 +1,4 @@
-# 滑动窗口
+# Sliding window
 
 > slug: hua-dong-chuang-kou-by-himymben-ywnv
 > date: 2025-04-28
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-subarrays-with-score-less-than-k/solutions/kMuaoJ/hua-dong-chuang-kou-by-himymben-ywnv/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

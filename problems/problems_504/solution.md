@@ -1,4 +1,4 @@
-# [考古] 贴个老题解的简洁版
+# [From the archives] A concise version of an older solution
 
 > slug: kao-gu-tie-ge-lao-ti-jie-de-jian-ji-ban-16mtv
 > date: 2022-03-06
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/base-7/solutions/qvRPKU/kao-gu-tie-ge-lao-ti-jie-de-jian-ji-ban-16mtv/
 
 ---
-### 解题思路
-[辗转相除法解决所有进制转换问题](https://leetcode.cn/problems/base-7/solution/pythonjavajavascriptgo-zhan-zhuan-xiang-752fe/)
+### Approach
+[Repeated division for base conversion](https://leetcode.cn/problems/base-7/solution/pythonjavajavascriptgo-zhan-zhuan-xiang-752fe/)
 
-### 代码
+### Code
 
 ```python3
 class Solution:

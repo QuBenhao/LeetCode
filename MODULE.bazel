@@ -29,7 +29,7 @@ hedron_compile_commands_ext_tt = use_extension("@hedron_compile_commands//:works
 hedron_compile_commands_ext_ttt = use_extension("@hedron_compile_commands//:workspace_setup_transitive_transitive_transitive.bzl", "hedron_compile_commands_extension")
 
 bazel_dep(name = "googletest", version = "1.17.0")
-# 2025.9.19的提交解决了rules_cc的问题, 但1.17.0版本没有; 日后合入主线的话可以更新版本去掉这段
+# The 2025-09-19 commit fixes the rules_cc issue, but version 1.17.0 does not include it; update the version and remove this override once it is merged upstream.
 git_override(
     module_name = "googletest",
     remote = "https://github.com/google/googletest.git",
@@ -37,7 +37,7 @@ git_override(
 )
 
 bazel_dep(name = "nlohmann_json", version = "3.12.0")
-# 找了个最新的可以work的commit(2026.1.2); 日后合入主线的话可以更新版本去掉这段
+# Use the latest working commit found (2026-01-02); update the version and remove this override once it is merged upstream.
 git_override(
     module_name = "nlohmann_json",
     remote = "https://github.com/nlohmann/json.git",

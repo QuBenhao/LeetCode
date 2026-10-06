@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟 空闲单元法
+# [Python/Java/TypeScript/Go] Simulation with one spare slot
 
 > Author: Benhao
 > Date: 2022-08-01
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-循环队列中增加一个额外空间，
-当队列空的时候，通过`队尾的插入位置 == 队首位置`来判断。
-当队列满的时候，通过`(队尾的插入位置 + 1) % 总长度 == 队首位置`来判断。 (`队尾的插入位置 == 队首位置`不再具有二义性)
+### Approach
+Reserve one extra slot in the circular queue.
+The queue is empty when `the tail insertion position == the head position`.
+The queue is full when `(the tail insertion position + 1) % total capacity == the head position`. This removes the ambiguity of `the tail insertion position == the head position`.
 
-### 代码
+### Code
 
 ```Python3 []
 class MyCircularQueue:

@@ -20,9 +20,9 @@ public:
         vector<int> ans(2);
         for (int i = 1; i <= n * n; i++) {
             if (cnt[i] == 2) {
-                ans[0] = i; // 出现两次的数
+                ans[0] = i; // The number that appears twice
             } else if (cnt[i] == 0) {
-                ans[1] = i; // 出现零次的数
+                ans[1] = i; // The number that never appears
             }
         }
         return ans;

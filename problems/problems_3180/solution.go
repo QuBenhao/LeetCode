@@ -10,7 +10,7 @@ import (
 
 func maxTotalReward(rewardValues []int) int {
 	slices.Sort(rewardValues)
-	rewardValues = slices.Compact(rewardValues) // 去重
+	rewardValues = slices.Compact(rewardValues) // Remove duplicates
 
 	one := big.NewInt(1)
 	f := big.NewInt(1)

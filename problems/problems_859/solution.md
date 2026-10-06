@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 要么相同且有重复的字母可以交换，要么只有两个不同交换就一致
+# [Python/Java/JavaScript/Go] Identical strings with a duplicate letter to swap, or exactly two mismatches fixed by swapping
 
 > slug: pythonjavajavascriptgo-yao-yao-xiang-ton-5ylz
 > date: 2021-11-22
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/buddy-strings/solutions/ZvMEPG/pythonjavajavascriptgo-yao-yao-xiang-ton-5ylz/
 
 ---
-### 解题思路
-根据题意，必须交换一次，交换一次后一致的情况只有两种：
-1. 本身字符串是一致的，有相同的字母，交换相同的字母仍然一致
-2. 本身字符串刚好有两个字母顺序对调了，交换后正好一致
+### Approach
+Exactly one swap is required. Only two cases produce equal strings after one swap:
+1. The strings are already equal and contain a repeated letter; swapping equal letters preserves equality
+2. Exactly two letters are reversed between the strings; swapping them makes the strings equal
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:
@@ -27,10 +27,10 @@ class Solution:
                     x = i
                 elif y == -1:
                     y = i
-                # 有三个不同了
+                # There are already three mismatches
                 else:
                     return False
-        # 必须是两种情况
+        # One of the two cases must hold
         return (x != -1 and y != -1 and s[x] == goal[y] and goal[x] == s[y] ) or (x == -1 and y == -1 and any(c > 1 for c in cnts))
 ```
 ```Java []
@@ -131,7 +131,7 @@ func buddyStrings(s string, goal string) bool {
 }
 ```
 
-差点儿忘了有人可能需要一行
+I almost forgot that someone might want a one-liner
 ```python3
 class Solution:
     def buddyStrings(self, s: str, goal: str) -> bool:

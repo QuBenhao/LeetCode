@@ -8,20 +8,20 @@ import (
 
 const MOD int64 = 1e9 + 7
 
-// TreeAncestor 使用扁平化数组存储倍增信息
+// TreeAncestor stores binary lifting information in a flat array
 type TreeAncestor struct {
-	depth  []int // depth[i] = i 到根的距离
-	parent []int // parent[i] = i 的父节点
-	jump   []int // 扁平化的倍增表：jump[node*m + k] = node 的 2^k 祖先
+	depth  []int // depth[i] = distance from i to the root
+	parent []int // parent[i] = parent of i
+	jump   []int // Flat binary lifting table: jump[node*m + k] = the 2^k-th ancestor of node
 	m      int   // log n
 }
 
-// Constructor 构建 TreeAncestor
-// 时间复杂度：O(n log n)，空间复杂度：O(n log n)
+// Constructor builds TreeAncestor
+// Time complexity: O(n log n); space complexity: O(n log n)
 func Constructor(edges [][]int) TreeAncestor {
 	n := len(edges) + 1
 
-	// 建图：每个节点存储邻居列表
+	// Build the graph: store a neighbor list for each node
 	degs := make([]int, n)
 	for _, e := range edges {
 		degs[e[0]-1]++
@@ -41,7 +41,7 @@ func Constructor(edges [][]int) TreeAncestor {
 		graph[v][degs[v]] = u
 	}
 
-	// DFS 预处理深度和父节点（迭代版避免栈溢出）
+	// Precompute depths and parents with DFS (iterative to avoid stack overflow)
 	depth := make([]int, n)
 	parent := make([]int, n)
 	visited := make([]bool, n)
@@ -77,13 +77,13 @@ func Constructor(edges [][]int) TreeAncestor {
 		}
 	}
 
-	// 计算 m = ceil(log2(n))
+	// Compute m = ceil(log2(n))
 	m := 0
 	for (1 << m) < n {
 		m++
 	}
 
-	// 扁平化倍增表
+	// Flat binary lifting table
 	jump := make([]int, n*m)
 	for i := 0; i < n; i++ {
 		jump[i*m+0] = parent[i]
@@ -108,7 +108,7 @@ func Constructor(edges [][]int) TreeAncestor {
 	}
 }
 
-// getLCA 使用倍增法求 LCA，O(log n)
+// getLCA finds the LCA using binary lifting in O(log n)
 func (ta *TreeAncestor) getLCA(u, v int) int {
 	if u == v {
 		return u
@@ -117,7 +117,7 @@ func (ta *TreeAncestor) getLCA(u, v int) int {
 		u, v = v, u
 	}
 
-	// 将 u 提升到与 v 同一深度
+	// Lift u to the same depth as v
 	diff := ta.depth[u] - ta.depth[v]
 	for bit := 0; diff > 0; bit++ {
 		if diff&1 == 1 && bit < ta.m {
@@ -133,7 +133,7 @@ func (ta *TreeAncestor) getLCA(u, v int) int {
 		return u
 	}
 
-	// 一起向上跳
+	// Jump upward together
 	for bit := ta.m - 1; bit >= 0; bit-- {
 		pu := ta.jump[u*ta.m+bit]
 		pv := ta.jump[v*ta.m+bit]
@@ -146,13 +146,13 @@ func (ta *TreeAncestor) getLCA(u, v int) int {
 	return ta.jump[u*ta.m+0]
 }
 
-// getDist 返回两点间边数距离
+// getDist returns the distance between two nodes in number of edges
 func (ta *TreeAncestor) getDist(u, v int) int {
 	lca := ta.getLCA(u, v)
 	return ta.depth[u] + ta.depth[v] - 2*ta.depth[lca]
 }
 
-// fastPow 快速幂计算 base^exp % MOD
+// fastPow computes base^exp % MOD using fast exponentiation
 func fastPow(base, exp int64) int64 {
 	result := int64(1)
 	base %= MOD
@@ -166,9 +166,9 @@ func fastPow(base, exp int64) int64 {
 	return result
 }
 
-// assignEdgeWeights 主函数
-// 时间复杂度：O(n log n) 预处理 + O(q log n) 查询
-// 空间复杂度：O(n log n)，但使用一维数组更节省内存
+// assignEdgeWeights is the main function
+// Time complexity: O(n log n) preprocessing + O(q log n) queries
+// Space complexity: O(n log n), with a one-dimensional array saving memory
 func assignEdgeWeights(edges [][]int, queries [][]int) []int {
 	ta := Constructor(edges)
 	ans := make([]int, 0, len(queries))

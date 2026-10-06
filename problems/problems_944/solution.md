@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-05-11
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-该用户太懒了只有代码
+### Approach
+This user was too lazy to write an explanation; code only
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

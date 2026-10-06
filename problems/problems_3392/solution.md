@@ -1,4 +1,4 @@
-# 遍历
+# Traversal
 
 > slug: mo-ni-by-himymben-rg4o
 > date: 2025-04-27
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-subarrays-of-length-three-with-a-condition/solutions/PWsqLa/mo-ni-by-himymben-rg4o/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

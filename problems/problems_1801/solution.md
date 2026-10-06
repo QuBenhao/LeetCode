@@ -1,4 +1,4 @@
-# [Python] 优先队列
+# [Python] Priority queue
 
 > Author: Benhao
 > Date: 2021-03-21
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-sells按从小到大,buys按从大到小。所以buy中用-price
+### Approach
+Order sells from smallest to largest and buys from largest to smallest, using -price for buy orders.
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

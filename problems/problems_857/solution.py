@@ -10,7 +10,7 @@ class Solution(solution.Solution):
         return self.mincostToHireWorkers(*test_input)
 
     def mincostToHireWorkers(self, quality: List[int], wage: List[int], k: int) -> float:
-        # 性价比=w/q
+        # Wage-to-quality ratio=w/q
         ans, total, pq = inf, 0, []
         for q, w in sorted(zip(quality, wage), key=lambda x: (x[1] / x[0])):
             total += q

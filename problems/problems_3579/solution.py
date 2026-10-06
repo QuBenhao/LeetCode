@@ -15,20 +15,20 @@ class Solution(solution.Solution):
                 return
             if counter[(y, x)] > 0:
                 counter[(y, x)] -= 1
-                # 因为刚刚有取到逆对, 所以用交换操作代替原来的替换操作, 操作数不需要变化了
+                # A reverse pair was found, so replace the previous replacement operation with a swap; the operation count stays unchanged
             else:
                 counter[(x, y)] += 1
                 nonlocal op
-                op += 1 # 暂时使用替换操作
+                op += 1 # Use a replacement operation for now
 
         n = len(word1)
 
-        # 预处理所有反转操作子串
+        # Preprocess all substrings for reversal operations
         rev_op = [[0] * n for _ in range(n)]
-        # 中心扩展法
+        # Expand around the center
         for i in range(2 * n - 1):
             cnt = defaultdict(int)
-            op = 1 # 反转操作
+            op = 1 # Reversal operation
             l, r = i // 2, (i+1) // 2
             while l >= 0 and r < n:
                 update(cnt, word1[l], word2[r])
@@ -42,9 +42,9 @@ class Solution(solution.Solution):
         for i in range(n):
             res = inf
             cnt = defaultdict(int)
-            op = 0 # 正序不操作
+            op = 0 # Keep the original order without a reversal
             for j in range(i, -1, -1):
                 update(cnt, word1[j], word2[j])
-                res = min(res, f[j] + min(op, rev_op[j][i])) # 子串[j, i]的最小操作数
+                res = min(res, f[j] + min(op, rev_op[j][i])) # Minimum operations for substring [j, i]
             f[i + 1] = res
         return f[n]

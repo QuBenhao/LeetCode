@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 动态开点线段树
+# [Python/Java/TypeScript/Go] Segment tree with on-demand nodes
 
 > Author: Benhao
 > Date: 2022-06-05
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-直接就是[叶总](https://leetcode.cn/problems/my-calendar-iii/solution/by-ac_oier-cv31/)那儿一个板子的学习😂
+### Approach
+This is a study of the template from [叶总](https://leetcode.cn/problems/my-calendar-iii/solution/by-ac_oier-cv31/) 😂
 
-### 代码
+### Code
 
 ```Python3 []
 class Node:

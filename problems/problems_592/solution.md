@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-07-26
@@ -7,20 +7,20 @@
 
 ---
 
-### 解题思路
-首先要写一个从字符串中读取每个分子、分母的功能，
-我们不需要计算小数，只需要通分计算最终分子、分母即可。
+### Approach
+First, implement parsing each numerator and denominator from the string.
+There is no need to compute decimal values. Use common denominators to calculate the final numerator and denominator.
 
-记住以下两点即可: 
-1. 两个不同的分母通分的结果为他们的最小公倍数
-2. 一个非最简分数的化简方式为分子分母除去他们的最大公约数
+Remember these two points:
+1. The least common denominator of two fractions is the least common multiple of their denominators.
+2. Reduce a fraction by dividing its numerator and denominator by their greatest common divisor.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def fractionAddition(self, expression: str) -> str:
-        # 可以不单写成函数，放在同一个循环里更简洁
+        # A separate function is optional; using the same loop is more concise
         def read_number(i: int):
             sign, numerator, denominator = -1 if expression[i] == '-' else 1, 0, 0
             if expression[i] in "+-":

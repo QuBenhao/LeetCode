@@ -1,4 +1,4 @@
-# [Python] 直接写就行
+# [Python] Implement directly
 
 > Author: Benhao
 > Date: 2021-07-04
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-模拟
+### Approach
+Simulation
 
-### 代码
+### Code
 
 ```python3
 class Solution:

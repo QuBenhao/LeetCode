@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-mo-ni-by-himymben-j72n
 > date: 2022-09-30
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/zero-matrix-lcci/solutions/ivOdFN/pythonjavatypescriptgo-mo-ni-by-himymben-j72n/
 
 ---
-### 解题思路
-总感觉主站里做过。
-先标记一下第一行和第一列最终是否要变0，再利用第一行第一列存储该行该列是否要变0
+### Approach
+This feels like a problem I have already solved on the main site.
+First record whether the first row and column must eventually become zero. Then use that row and column to mark which remaining rows and columns must become zero.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 递归
+# [Python/Java/TypeScript/Go] Recursion
 
 > slug: pythonjavatypescriptgo-di-gui-by-himymbe-ltm8
 > date: 2022-07-15
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/logical-or-of-two-binary-grids-represented-as-quad-trees/solutions/HDSLTB/pythonjavatypescriptgo-di-gui-by-himymbe-ltm8/
 
 ---
-### 解题思路
-本题和[427](https://leetcode.cn/problems/construct-quad-tree/solution/python-by-himymben-ld18/)没有什么区别，
-由于是或运算，所以很多时候我们不需要递归到最深，当有一个是叶子节点后，它如果是1那么或结果必然是1，如果是0那么或结果必然是另一个节点。
-注意将结果一致的四个子节点合并为一个新的叶子节点即可。
+### Approach
+This problem is much the same as [427](https://leetcode.cn/problems/construct-quad-tree/solution/python-by-himymben-ld18/).
+Because the operation is OR, we often do not need to recurse to the deepest level. If either node is a leaf with value 1, the result must be 1. If its value is 0, the result is the other node.
+Remember to merge four child leaves with the same result into a new leaf.
 
-### 代码
+### Code
 
 ```Python3 []
 """

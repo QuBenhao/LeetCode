@@ -1,4 +1,4 @@
-# [Go] 统计每个元音字母能各自出现多少次
+# [Go] Count how many times each vowel appears
 
 > slug: go-tong-ji-mei-ge-yuan-yin-zi-mu-neng-ge-yqnl
 > date: 2021-11-07
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/vowels-of-all-substrings/solutions/fugYG0/go-tong-ji-mei-ge-yuan-yin-zi-mu-neng-ge-yqnl/
 
 ---
-### 解题思路
-这题的本质是求一个字母能出现在所有子串中多少次，
-这个字母出现在它前半段中有 i + 1 种 （子串起始位置），
-出现在后半段中有 n - i 种（子串结束位置），
-乘起来便是它出现的次数了
+### Approach
+The key is to count how many substrings contain a given character.
+There are i + 1 choices before and including this character for the substring's starting position,
+and n - i choices at or after it for the ending position.
+Their product is the number of times it appears.
 
-### 代码
+### Code
 
 ```golang
 func countVowels(word string) (ans int64) {

@@ -1,4 +1,4 @@
-# [Python] 记忆化搜索
+# [Python] Memoized search
 
 > Author: Benhao
 > Date: 2024-05-07
@@ -12,9 +12,9 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-同[昨天的摘樱桃](https://leetcode.cn/problems/cherry-pickup/solutions/2767715/pythongo-ji-yi-hua-di-gui-dong-tai-gui-h-i3tm/)
+Same approach as [yesterday's Cherry Pickup](https://leetcode.cn/problems/cherry-pickup/solutions/2767715/pythongo-ji-yi-hua-di-gui-dong-tai-gui-h-i3tm/).
 
 
 # Code

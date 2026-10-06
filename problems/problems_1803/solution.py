@@ -17,11 +17,11 @@ class Solution(solution.Solution):
             count = Counter(A)
             res = 0
             while x:
-                # x的最后一位为1
+                # The last bit of x is 1
                 if x & 1:
-                    # a ^ (x-1) ^ a 的结果为x-1,必然小于x
+                    # a ^ (x-1) ^ a equals x-1, which is necessarily less than x
                     res += sum(count[a] * count[(x - 1) ^ a] for a in count)
-                # 往右移一位，新的a>>1 由 a^0和a^1组成
+                # Shift right by one bit; the new a>>1 combines contributions from a^0 and a^1
                 count = Counter({a >> 1: count[a] + count[a ^ 1] for a in count})
                 x >>= 1
             return res // 2
@@ -60,14 +60,14 @@ class Solution(solution.Solution):
 #             # every bit of the val and high from left to right
 #             bit = (val >> i) & 1
 #             cmp = (high >> i) & 1
-#             # 如果high的第i位是1
+#             # If bit i of high is 1
 #             if cmp:
-#                 # 如果当前字典中存在和bit值相等的，也就是该位异或结果为0，是小于此时cmp的1的,应直接加入答案
+#                 # An entry matching bit gives XOR 0, below cmp's 1; add it directly to the answer
 #                 if node.get(bit, {}):
 #                     ans += node[bit]["cnt"]
-#                 # 当前字典中存在和bit值异或为1的，也就是和cmp相等，那么要比较下一位的结果
+#                 # An entry giving XOR 1 matches cmp, so compare the next bit
 #                 node = node.get(1 ^ bit, {})
 #             else:
-#                 # 当前cmp为0，只有和bit异或结果为0的可以加入答案
+#                 # With cmp equal to 0, only entries giving XOR 0 can contribute
 #                 node = node.get(bit, {})
 #         return ans

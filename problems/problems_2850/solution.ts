@@ -9,12 +9,12 @@ type Edge = {
 
 type Neighbor = {
   to: number
-  /** 反向边在邻接表中的下标. */
+  /** Index of the reverse edge in the adjacency list. */
   rid: number
-  /** 边的残量. */
+  /** Residual capacity of the edge. */
   capacity: number
   cost: number
-  /** -1表示是反向边. */
+  /** -1 indicates a reverse edge. */
   id: number
 }
 
@@ -74,7 +74,7 @@ class MinCostMaxFlow {
   }
 
   /**
-   * @returns (flow, cost) 的每个转折点.
+   * @returns Each turning point of (flow, cost).
    */
   slope(limit = INF): [flow: number, cost: number][] {
     const res: [flow: number, cost: number][] = []
@@ -104,7 +104,7 @@ class MinCostMaxFlow {
   }
 
   /**
-   * @warning 注意根据from,to排除虚拟源点汇点; `flow>0` 才是流经的边.
+   * @warning Exclude artificial source and sink nodes using from and to; only edges with `flow>0` carry flow.
    */
   getEdges(): Edge[] {
     const res: Edge[] = []

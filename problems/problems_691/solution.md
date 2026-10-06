@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-从target出发【起始状态】，使用每个贴纸去掉对应个数的字母【状态转移】，看最终能否出现空字符串【目标状态】。
-优化: 优先从左往右去掉当前状态中的字符，减少排列组合情况。
-(比如我们删1次stickers[0]同时删1次stickers[1]，就有两个顺序达到同样的效果)【大白话就是先删a后删b，和先删b后删a一样，我们在乎的是选了ab，而不是排列ab】
+### Approach
+Start from target [initial state]. Each sticker removes its matching character counts [state transition]. Check whether the empty string can eventually be reached [goal state].
+Optimization: remove the current state's characters from left to right to reduce equivalent selection orders.
+For example, applying stickers[0] once and stickers[1] once gives the same result in either order. Removing a then b is equivalent to removing b then a; we care about selecting ab, not their permutation.
 
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

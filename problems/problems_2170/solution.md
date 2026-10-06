@@ -1,4 +1,4 @@
-# [Python/Go] 模拟
+# [Python/Go] Simulation
 
 > slug: pythongo-mo-ni-by-himymben-xcy7
 > date: 2022-02-13
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/minimum-operations-to-make-the-array-alternating/solutions/CuvQbT/pythongo-mo-ni-by-himymben-xcy7/
 
 ---
-### 解题思路
-统计奇偶坐标的最多元素和次多元素
+### Approach
+Find the most and second-most frequent elements at even and odd indices.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

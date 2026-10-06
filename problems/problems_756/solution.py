@@ -51,10 +51,10 @@ class Solution(solution.Solution):
                 vis.add(pyramid[i])
                 return dfs(i - 1, 0)
 
-            # 7代表最小的三位, 换算为三位字符串
+            # 7 represents the lowest three bits; convert them to a three-character string
             for t in groups[pyramid[i + 1] >> (j * 3) & 7][pyramid[i + 1] >> ((j + 1) * 3) & 7]:
-                pyramid[i] &= ~(7 << (j * 3)) # 先清除
-                pyramid[i] |= t << (j * 3) # 填入top
+                pyramid[i] &= ~(7 << (j * 3)) # Clear first
+                pyramid[i] |= t << (j * 3) # Fill in top
                 if dfs(i, j + 1):
                     return True
 

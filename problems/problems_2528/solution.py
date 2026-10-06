@@ -8,37 +8,37 @@ class Solution(solution.Solution):
 
     def maxPower(self, stations: List[int], r: int, k: int) -> int:
         n = len(stations)
-        # 滑动窗口
-        s = sum(stations[:r])  # 先计算 [0, r-1] 的发电量，为第一个窗口做准备
+        # Sliding window
+        s = sum(stations[:r])  # Compute the power in [0, r-1] to prepare the first window
         power = [0] * n
         for i in range(n):
-            # 右边进
+            # Enter from the right
             if (right := i + r) < n:
                 s += stations[right]
-            # 左边出
+            # Leave from the left
             if (left := i - r - 1) >= 0:
                 s -= stations[left]
             power[i] = s
 
         def check(low: int) -> bool:
-            diff = [0] * n  # 差分数组
+            diff = [0] * n  # Difference array
             sum_d = built = 0
             for i, p in enumerate(power):
-                sum_d += diff[i]  # 累加差分值
+                sum_d += diff[i]  # Accumulate difference values
                 m = low - (p + sum_d)
                 if m <= 0:
                     continue
-                # 需要在 i+r 额外建造 m 个供电站
+                # Build m additional power stations at i+r
                 built += m
-                if built > k:  # 不满足要求
+                if built > k:  # Does not satisfy the requirement
                     return False
-                # 把区间 [i, i+2r] 加一
-                sum_d += m  # 由于 diff[i] 后面不会再访问，我们直接加到 sum_d 中
+                # Add one to the interval [i, i+2r]
+                sum_d += m  # diff[i] will not be visited again, so add directly to sum_d
                 if (right := i + r * 2 + 1) < n:
                     diff[right] -= m
             return True
 
-        # 开区间二分
+        # Binary search on an open interval
         mn = min(power)
         left, right = mn + k // n, mn + k + 1
         while left + 1 < right:

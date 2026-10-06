@@ -20,15 +20,15 @@ class Solution(solution.Solution):
         # return [["Table"] + [food for food in foods]] + [[table] + [str(tables[table][food]) for food in foods] for
         #                                                  table in sorted(tables.keys(), key=int)]
 
-        # # 转换orders为，所有订单里的全部桌和全部食物
+        # # Extract all tables and all foods from orders
         # obj = list(zip(*orders))
-        # # 排序好的tables，每个table对应结果数组中的第几行
+        # # Sorted tables: map each table to its row in the result array
         # tables = SortedDict({v:i for i,v in enumerate(sorted(map(int,set(obj[1]))), 1)})
-        # # 排序好的foods，每个food对应结果数组中的第几列
+        # # Sorted foods: map each food to its column in the result array
         # foods = SortedDict({v:i for i,v in enumerate(sorted(set(obj[2])), 1)})
-        # # 结果数组的第一行
+        # # First row of the result array
         # res = [["Table"] + [food for food in foods]] + [[str(key)] + ["0"] * len(foods) for key in tables]
-        # # 统计每桌每个食物的数量
+        # # Count each food ordered by each table
         # for _, table, food in orders:
         #     res[tables[int(table)]][foods[food]] = str(int(res[tables[int(table)]][foods[food]]) + 1)
         # return res

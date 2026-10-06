@@ -1,4 +1,4 @@
-# [Python/Java] 回溯 + Trie删除
+# [Python/Java] Backtracking + Trie deletion
 
 > Author: Benhao
 > Date: 2021-09-15
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-单纯的dfs回溯超时了。采用统计单词字母个数加速，比如某个单词要10个'e'，棋盘上一共9个'e'，那必然不能构成这个单词
+### Approach
+Plain DFS backtracking timed out. Counting letter frequencies speeds it up: if a word needs 10 occurrences of 'e' but the board has only 9, the word cannot be formed.
 
-**更新于2024/04/06**
-回溯遍历时更新找到过的单词，移出Trie
+**Updated on 2024/04/06**
+During backtracking, update the words already found and remove them from the Trie.
 
-### 代码
+### Code
 
 ```python3 []
 DIRS = [(0, 1), (1, 0), (0, -1), (-1, 0)]

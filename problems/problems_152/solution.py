@@ -11,8 +11,8 @@ class Solution(solution.Solution):
         n = len(nums)
         if n == 1:
             return nums[0]
-        # dp[i][0]表示以i结尾的子数组的最小乘积
-        # dp[i][1]表示以i结尾的子数组的最大乘积
+        # dp[i][0] is the minimum product of a subarray ending at i
+        # dp[i][1] is the maximum product of a subarray ending at i
         dp = [[inf, -inf] for _ in range(n)]
         dp[0] = [nums[0], nums[0]]
         ans = nums[0]

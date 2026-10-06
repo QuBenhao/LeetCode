@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 贪心大模拟
+# [Python/Java/JavaScript/Go] Greedy simulation with many cases
 
 > slug: python-tan-xin-da-mo-ni-by-himymben-6cbl
 > date: 2022-03-01
@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/find-the-closest-palindrome/solutions/vX4eK9/python-tan-xin-da-mo-ni-by-himymben-6cbl/
 
 ---
-### 解题思路
+### Approach
 
-[贪心]一个数字最近的回文数是取自身的一半，再做加减一再做对称里的一个数。
-但是细节情况特别多，比如99最近的是101而不是根据贪心生成的88或1001，1001最近的是999也不是99或者1111。
-最后决定把所有有可能性的答案加进去然后比较最小的作为答案。
+[Greedy] A candidate for the nearest palindrome comes from taking half the number, optionally adding or subtracting one, then mirroring it.
+There are many edge cases. For example, the nearest palindrome to 99 is 101, not the greedily generated 88 or 1001. The nearest to 1001 is 999, not 99 or 1111.
+I decided to include every possible candidate and compare them to choose the nearest one.
 
-PS: 代码中对长度为1的特判可以去掉，因为后面还是可以正常处理长度为1的结果。
+PS: The special case for length 1 can be removed, since the remaining code handles one-digit inputs correctly.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

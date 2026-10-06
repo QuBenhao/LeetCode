@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 角度计算、排序、双指针
+# [Python/Java/JavaScript/Go] Angles, sorting, and two pointers
 
 > slug: pythonjavajavascriptgo-jiao-du-ji-suan-p-5iy4
 > date: 2021-12-15
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/maximum-number-of-visible-points/solutions/0ieGGZ/pythonjavajavascriptgo-jiao-du-ji-suan-p-5iy4/
 
 ---
-### 解题思路
-计算角度是一个纯数学题，就是以location为坐标系原点，根据点和点的横坐标差、纵坐标差，利用`arctan`函数计算弧度，再把弧度换算成角度。
-将得到的点排序，利用双指针进行滑窗滑动。滑窗的限制是最大角减最小角不得大于固定的angle角度。
+### Approach
+Computing the angles is a mathematical step: use location as the origin, compute the coordinate differences, use `arctan` to obtain radians, and convert them to degrees.
+Sort the resulting points by angle and use two pointers for a sliding window. The largest and smallest angles in the window must differ by at most angle.
 
-我们从第一个点开始转圈，直到转完所有点，得到最大的个数。
+Rotate from the first point through all points, tracking the maximum count.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

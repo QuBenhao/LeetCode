@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 两个字符串判断是否打乱顺序后一样
+# [Python/Java/JavaScript] Check whether two strings can be equal after rearranging
 
 > Author: Benhao
 > Date: 2021-10-27
@@ -7,7 +7,7 @@
 
 ---
 
-### 代码
+### Code
 ```Python3 []
 NUMS = [Counter(str(1<<i)) for i in range(30)]
 

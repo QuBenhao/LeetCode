@@ -1,4 +1,4 @@
-# [Python/Go/C] 前缀后缀
+# [Python/Go/C] Prefixes and suffixes
 
 > Author: Benhao
 > Date: 2024-02-26
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 答案每个位置的数目为该位置的数组前缀积*数组后缀积
+> Each answer is the product of the array prefix and suffix excluding that position.
 
-# 解题方法
+# Approach
 
-> 遍历维护前缀积，再遍历求后缀积从而得到答案
+> Traverse once to maintain prefix products, then again for suffix products to obtain the answer.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

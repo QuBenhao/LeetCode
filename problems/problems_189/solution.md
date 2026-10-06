@@ -1,4 +1,4 @@
-# [Python/Go/C] k分割翻转
+# [Python/Go/C] Split at k and reverse
 
 > Author: Benhao
 > Date: 2024-02-23
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 后面的数要到前面，前面的数要到后面，可以用翻转。最终顺序再分别翻一次即可
+> Reversal can move the numbers at the back to the front and those at the front to the back. Reverse each section again to restore its final order.
 
-# 解题方法
+# Approach
 
 > [5,6,7,1,2,3,4] = [5,6,7] + [1,2,3,4] = [7,6,5] + [4,3,2,1] = [7,6,5,4,3,2,1] = [1,2,3,4,5,6,7]
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

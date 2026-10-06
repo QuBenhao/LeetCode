@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-2wt8
 > date: 2022-04-11
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/number-of-lines-to-write-string/solutions/bKb483/pythonjavajavascriptgo-mo-ni-by-himymben-2wt8/
 
 ---
-### 解题思路
-每攒够超过一百就将多出的宽度新起一行
+### Approach
+Whenever the accumulated width exceeds one hundred, start a new line with the overflowing character's width
 
-### 代码
+### Code
 
 ```Python3 []
 MAX_WIDTH = 100

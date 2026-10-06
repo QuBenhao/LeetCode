@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go]  模拟 & 新年快乐！
+# [Python/Java/JavaScript/Go] Simulation & Happy New Year!
 
 > slug: pythonjavajavascriptgo-mo-ni-xin-nian-ku-qwcw
 > date: 2021-12-31
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/convert-1d-array-into-2d-array/solutions/jA1Ysr/pythonjavajavascriptgo-mo-ni-xin-nian-ku-qwcw/
 
 ---
-### 解题思路
-都2022年了，一些2021年的评论我还看不到呢哈哈哈。大家新年快乐
+### Approach
+It is already 2022, and I still cannot see some comments from 2021, haha. Happy New Year, everyone!
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

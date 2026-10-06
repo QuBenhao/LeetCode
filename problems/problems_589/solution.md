@@ -1,4 +1,4 @@
-# [Python/C/Go] 前序遍历迭代器
+# [Python/C/Go] Preorder traversal iterator
 
 > slug: pythoncgo-qian-xu-bian-li-die-dai-qi-by-y0ue9
 > date: 2024-02-18
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 标准的前序遍历
+> Standard preorder traversal
 
-# 解题方法
+# Approach
 
-> 先加入当前节点的值，再从左至右递归处理子节点
+> Add the current node's value, then recursively process its children from left to right.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-10-07
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-统计所有升序子数组的和，取其中最大即可。
+### Approach
+Compute the sum of every ascending subarray and return the maximum.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

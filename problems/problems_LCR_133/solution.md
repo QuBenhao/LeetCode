@@ -1,4 +1,4 @@
-# [Python] 又回到了位运算
+# [Python] Back to bitwise operations
 
 > slug: python-you-hui-dao-liao-wei-yun-suan-by-d8m8u
 > date: 2021-06-22
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/solutions/Ylq2XJ/python-you-hui-dao-liao-wei-yun-suan-by-d8m8u/
 
 ---
-### 解题思路
-如代码
+### Approach
+See the code.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

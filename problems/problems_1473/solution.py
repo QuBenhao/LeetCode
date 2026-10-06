@@ -57,11 +57,11 @@ class Solution(solution.Solution):
         res = dfs(0, 0, target)
         return res if res != float("inf") else -1
 
-        # 自底向上dp
+        # Bottom-up dp
         # # house, color, target
         # # dp[i][j][t] = min(dp[i-1][j][t], min(dp[i][j'][t-1]))  (j' != j)
         # dp = [[[float("inf")] * target for _ in range(n)] for _ in range(m)]
-        # # 初始将一个房子染色的情况更新
+        # # Initialize the states for painting one house
         # if houses[0]:
         #     dp[0][houses[0] - 1][0] = 0
         # else:
@@ -70,7 +70,7 @@ class Solution(solution.Solution):
         # for i in range(1,m):
         #     if houses[i]:
         #         color = houses[i] - 1
-        #         # 使用i对target进行剪枝
+        #         # Use i to prune target
         #         for t in range(min(target,i+1)):
         #             dp[i][color][t] = dp[i-1][color][t]
         #             if t:
@@ -79,7 +79,7 @@ class Solution(solution.Solution):
         #                         dp[i][color][t] = min(dp[i][color][t], dp[i-1][j][t-1])
         #     else:
         #         for j in range(n):
-        #             # 使用i对target进行剪枝
+        #             # Use i to prune target
         #             for t in range(min(target,i+1)):
         #                 dp[i][j][t] = dp[i-1][j][t]
         #                 if t:
@@ -95,7 +95,7 @@ class Solution(solution.Solution):
         #         ans = min(ans, dp[-1][j][target-1])
         # return ans if ans != float("inf") else -1
 
-        # # 自顶向下dp
+        # # Top-down dp
         # dp = [[[float("inf")] * target for _ in range(n)] for _ in range(m)]
         # if houses[-1]:
         #     dp[-1][houses[-1]-1][0] = 0

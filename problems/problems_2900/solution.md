@@ -1,4 +1,4 @@
-# 模拟最长交替
+# Simulate the longest alternating sequence
 
 > slug: mo-ni-zui-chang-jiao-ti-by-himymben-a5wc
 > date: 2025-05-14
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/longest-unequal-adjacent-groups-subsequence-i/solutions/l3zZjc/mo-ni-zui-chang-jiao-ti-by-himymben-a5wc/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

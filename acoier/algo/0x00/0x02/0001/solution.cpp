@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/14.
-// 例题:  递归实现指数型枚举 acwing92
+// Example: 递归实现指数型枚举 acwing92
 //
 
 #include <bits/stdc++.h>
@@ -16,9 +16,9 @@ void dfs(int cur, vector<int>& path) {
         cout << endl;
         return;
     }
-    // 不选当前
+    // Skip the current element
     dfs(cur + 1, path);
-    // 选当前
+    // Select the current element
     path.emplace_back(cur);
     dfs(cur + 1, path);
     path.pop_back();

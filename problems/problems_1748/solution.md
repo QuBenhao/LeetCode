@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 哈希统计模拟
+# [Python/Java/JavaScript/Go] Hash counting and simulation
 
 > Author: Benhao
 > Date: 2022-02-06

@@ -7,8 +7,8 @@ using json = nlohmann::json;
 
 struct TrieNode {
     unordered_map<string, TrieNode*> son;
-    string name; // 文件夹名称
-    bool deleted = false; // 删除标记
+    string name; // Folder name
+    bool deleted = false; // Deletion flag
 };
 
 class Solution {
@@ -16,7 +16,7 @@ public:
     vector<vector<string>> deleteDuplicateFolder(const vector<vector<string>>& paths) {
         TrieNode* root = new TrieNode();
         for (auto& path : paths) {
-            // 把 path 插到字典树中，见 208. 实现 Trie
+            // Insert path into the trie; see 208. Implement Trie
             TrieNode* cur = root;
             for (auto& s : path) {
                 if (!cur->son.contains(s)) {
@@ -27,28 +27,28 @@ public:
             }
         }
 
-        unordered_map<string, TrieNode*> expr_to_node; // 子树括号表达式 -> 子树根节点
+        unordered_map<string, TrieNode*> expr_to_node; // Parenthesized subtree expression -> subtree root
 
         auto gen_expr = [&](this auto&& gen_expr, TrieNode* node) -> string {
-            if (node->son.empty()) { // 叶子
-                return node->name; // 表达式就是文件夹名
+            if (node->son.empty()) { // Leaf
+                return node->name; // The expression is just the folder name
             }
 
             vector<string> expr;
             for (auto& [_, son] : node->son) {
-                // 每个子树的表达式外面套一层括号
+                // Wrap each subtree expression in parentheses
                 expr.emplace_back("(" + gen_expr(son) + ")");
             }
             ranges::sort(expr);
 
             string sub_tree_expr;
             for (auto& e : expr) {
-                sub_tree_expr += e; // 按字典序拼接所有子树的表达式
+                sub_tree_expr += e; // Concatenate all subtree expressions in lexicographic order
             }
 
-            if (expr_to_node.contains(sub_tree_expr)) { // 哈希表中有 sub_tree_expr，说明有重复的文件夹
-                expr_to_node[sub_tree_expr]->deleted = true; // 哈希表中记录的节点标记为删除
-                node->deleted = true; // 当前节点标记为删除
+            if (expr_to_node.contains(sub_tree_expr)) { // An existing sub_tree_expr in the map indicates duplicate folders
+                expr_to_node[sub_tree_expr]->deleted = true; // Mark the node recorded in the map for deletion
+                node->deleted = true; // Mark the current node for deletion
             } else {
                 expr_to_node[sub_tree_expr] = node;
             }
@@ -63,8 +63,8 @@ public:
         vector<vector<string>> ans;
         vector<string> path;
 
-        // 在字典树上回溯，仅访问未被删除的节点，并将路径记录到答案中
-        // 类似 257. 二叉树的所有路径
+        // Backtrack through the trie, visiting only undeleted nodes and recording their paths in the answer
+        // Similar to 257. Binary Tree Paths
         auto dfs = [&](this auto&& dfs, TrieNode* node) -> void {
             if (node->deleted) {
                 return;
@@ -74,7 +74,7 @@ public:
             for (auto& [_, son] : node->son) {
                 dfs(son);
             }
-            path.pop_back(); // 恢复现场
+            path.pop_back(); // Restore the previous state
         };
 
         for (auto& [_, son] : root->son) {

@@ -15,7 +15,7 @@ public class Solution extends BaseSolution {
             int x = p[0] + p[1];
             int y = p[1] - p[0];
 
-            // x 最大次大
+            // Largest and second-largest x
             if (x > maxX1) {
                 maxX2 = maxX1;
                 maxX1 = x;
@@ -23,7 +23,7 @@ public class Solution extends BaseSolution {
                 maxX2 = x;
             }
 
-            // x 最小次小
+            // Smallest and second-smallest x
             if (x < minX1) {
                 minX2 = minX1;
                 minX1 = x;
@@ -31,7 +31,7 @@ public class Solution extends BaseSolution {
                 minX2 = x;
             }
 
-            // y 最大次大
+            // Largest and second-largest y
             if (y > maxY1) {
                 maxY2 = maxY1;
                 maxY1 = y;
@@ -39,7 +39,7 @@ public class Solution extends BaseSolution {
                 maxY2 = y;
             }
 
-            // y 最小次小
+            // Smallest and second-smallest y
             if (y < minY1) {
                 minY2 = minY1;
                 minY1 = y;

@@ -37,8 +37,8 @@ jobs:
         run: |
           git fetch --tags
 
-          # 筛选出所有带连字符 '-' 的标签 (通常是 v1.0.0-beta.1 这类)
-          # 并排除掉最新的 5 个，防止正在发布的被删掉
+          # Select all tags containing a hyphen '-' (usually prereleases such as v1.0.0-beta.1).
+          # Exclude the five newest tags to avoid deleting a release in progress.
           tags_to_delete=$(git for-each-ref --sort=-taggerdate --format '%(refname:short)' refs/tags | grep "-" | tail -n +6)
 
           for tag in $tags_to_delete; do

@@ -14,18 +14,18 @@ class Solution(solution.Solution):
             diff[x2+1][y1] -= 1
             diff[x2+1][y2+1] += 1
         ans = [[0] * n for _ in range(n)]
-        # 还原原数组 - 方法1：直接计算前缀和
+        # Reconstruct the original array - method 1: compute prefix sums directly
         for i in range(n):
             for j in range(n):
-                # 当前位置的值
+                # Value at the current position
                 ans[i][j] = diff[i][j]
-                # 加上左边的值
+                # Add the value to the left
                 if i > 0:
                     ans[i][j] += ans[i - 1][j]
-                # 加上上边的值
+                # Add the value above
                 if j > 0:
                     ans[i][j] += ans[i][j - 1]
-                # 减去左上角的值（因为加了两次）
+                # Subtract the top-left value (it was added twice)
                 if i > 0 and j > 0:
                     ans[i][j] -= ans[i - 1][j - 1]
 

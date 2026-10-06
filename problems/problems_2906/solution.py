@@ -10,7 +10,7 @@ class Solution(solution.Solution):
         MOD = 12345
         n, m = len(grid), len(grid[0])
         total = n * m
-        # 只用前缀数组，后缀用滚动变量
+        # Store only the prefix array and use a rolling variable for the suffix
         pre = [1] * total
         for i in range(n):
             for j in range(m):

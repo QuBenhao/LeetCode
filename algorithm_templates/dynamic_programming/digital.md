@@ -1,23 +1,23 @@
-# 数位dp
+# Digit DP
 
-数位DP用于解决数字各位相关的计数问题，例如统计区间内满足特定条件的数字数量。其核心是通过动态规划逐位处理数字，利用记忆化技术避免重复计算。
+Digit DP solves counting problems involving the digits of numbers, such as counting numbers in a range that satisfy a condition. It processes numbers digit by digit with dynamic programming and uses memoization to avoid repeated computation.
 
-## **核心思想**
+## **Core idea**
 
-1. **拆解数位**：将数字转换为字符数组，逐位处理。
-2. **状态记录**：记录当前位置、是否受上界限制、前导零状态及其他条件。
-3. **记忆化搜索**：缓存已计算的状态，优化时间复杂度。
+1. **Split the digits**: Convert the number to a character array and process one digit at a time.
+2. **Track the state**: Record the current position, whether the upper bound applies, the leading-zero state, and any other conditions.
+3. **Memoize the search**: Cache computed states to improve time complexity.
 
-## **通用步骤**
+## **General steps**
 
-1. **预处理数位**：将数字转换为字符串或数组。
-2. **递归处理每一位**：
-    - **限制条件**：当前位是否受上界限制。
-    - **前导零处理**：标记是否处于前导零状态。
-    - **状态转移**：根据当前位选择更新状态。
-3. **边界处理**：处理完所有位后返回结果。
+1. **Prepare the digits**: Convert the number to a string or array.
+2. **Process each digit recursively**:
+    - **Bound constraint**: Track whether the current digit is constrained by the upper bound.
+    - **Leading zeros**: Track whether the number is still in the leading-zero state.
+    - **State transition**: Update the state based on the chosen digit.
+3. **Base case**: Return the result after processing all digits.
 
-## **Python 模板（以统计无重复数字为例）**
+## **Python template: counting numbers with distinct digits**
 
 ```python
 from functools import lru_cache
@@ -50,8 +50,8 @@ def count_special_numbers(n: int) -> int:
     return dp(0, 0, True, True)
 
 
-# 示例：统计1到n中无重复数字的数目
-print(count_special_numbers(20))  # 输出19（1-20中除11外都符合）
+# Example: count numbers from 1 to n with distinct digits
+print(count_special_numbers(20))  # Output: 19 (all numbers from 1 to 20 except 11 qualify)
 ```
 
 ```go
@@ -68,37 +68,37 @@ func countSpecialNumbers(n int) int {
     memo := make([][1 << 10]int, m)
     for i := range memo {
         for j := range memo[i] {
-            memo[i][j] = -1 // -1 表示没有计算过
+            memo[i][j] = -1 // -1 means not yet computed
         }
     }
     var dfs func(int, int, bool, bool) int
     dfs = func(i, mask int, isLimit, isNum bool) (res int) {
         if i == m {
             if isNum {
-                return 1 // 得到了一个合法数字
+                return 1 // Found a valid number
             }
             return
         }
         if !isLimit && isNum {
             p := &memo[i][mask]
-            if *p >= 0 { // 之前计算过
+            if *p >= 0 { // Already computed
                 return *p
             }
-            defer func() { *p = res }() // 记忆化
+            defer func() { *p = res }() // Memoization
         }
-        if !isNum { // 可以跳过当前数位
+        if !isNum { // This digit position can be skipped
             res += dfs(i+1, mask, false, false)
         }
         d := 0
         if !isNum {
-            d = 1 // 如果前面没有填数字，必须从 1 开始（因为不能有前导零）
+            d = 1 // If no digit has been placed yet, start at 1 to avoid leading zeros
         }
         up := 9
         if isLimit {
-            up = int(s[i] - '0') // 如果前面填的数字都和 n 的一样，那么这一位至多填数字 s[i]（否则就超过 n 啦）
+            up = int(s[i] - '0') // If all previous digits match n, this digit cannot exceed s[i], or the number would exceed n
         }
-        for ; d <= up; d++ { // 枚举要填入的数字 d
-            if mask>>d&1 == 0 { // d 不在 mask 中，说明之前没有填过 d
+        for ; d <= up; d++ { // Try each digit d
+            if mask>>d&1 == 0 { // d is absent from mask, so it has not been used
                 res += dfs(i+1, mask|1<<d, isLimit && d == up, true)
             }
         }
@@ -108,24 +108,24 @@ func countSpecialNumbers(n int) int {
 }
 ```
 
-## **关键参数解释**
+## **Key parameters**
 
-| 参数      | 说明                                  |
+| Parameter | Description |
 |---------|-------------------------------------|
-| `pos`   | 当前处理的数位位置（从高位到低位）。                  |
-| `mask`  | 状态掩码，记录已使用的数字（例如用位掩码表示）。            |
-| `tight` | 是否受上界限制（如处理到第`i`位时，前`i-1`位是否与上界相同）。 |
-| `lead`  | 是否处于前导零状态（前导零不计入已使用数字）。             |
+| `pos`   | Current digit position, from most significant to least significant. |
+| `mask`  | State mask recording the digits already used, for example as a bitmask. |
+| `tight` | Whether the upper bound applies: at digit `i`, whether the preceding `i-1` digits match the bound. |
+| `lead`  | Whether the number is still in the leading-zero state; leading zeros do not count as used digits. |
 
-## **适用场景**
+## **Use cases**
 
-1. **无重复数字计数**：如示例所示。
-2. **数位和限制**：统计数位和等于特定值的数字。
-3. **特定模式匹配**：如包含/不包含某些子序列。
+1. **Counting numbers with distinct digits**: As in the example above.
+2. **Digit-sum constraints**: Count numbers whose digits sum to a specified value.
+3. **Pattern matching**: For example, require or exclude certain subsequences.
 
-通过合理设计状态转移和记忆化策略，数位DP能高效解决复杂的数位计数问题。模板可根据具体问题调整状态定义和转移逻辑。
+With suitable state transitions and memoization, digit DP can efficiently solve complex digit-counting problems. Adapt the state definition and transition logic to the specific problem.
 
-## 模板 2.0
+## Template 2.0
 
 ```python
 from functools import cache
@@ -133,9 +133,9 @@ from functools import cache
 
 class Solution:
     def numberOfPowerfulInt(self, start: int, finish: int, limit: int, s: str) -> int:
-        high = list(map(int, str(finish)))  # 避免在 dfs 中频繁调用 int()
+        high = list(map(int, str(finish)))  # Avoid repeated int() calls in dfs
         n = len(high)
-        low = list(map(int, str(start).zfill(n)))  # 补前导零，和 high 对齐
+        low = list(map(int, str(start).zfill(n)))  # Pad with leading zeros to align with high
         diff = n - len(s)
 
         @cache
@@ -143,18 +143,18 @@ class Solution:
             if i == n:
                 return 1
 
-            # 第 i 个数位可以从 lo 枚举到 hi
-            # 如果对数位还有其它约束，应当只在下面的 for 循环做限制，不应修改 lo 或 hi
+            # The digit at position i can range from lo to hi
+            # Apply any additional digit constraints only in the for loop below; do not change lo or hi
             lo = low[i] if limit_low else 0
             hi = high[i] if limit_high else 9
 
             res = 0
-            if i < diff:  # 枚举这个数位填什么
+            if i < diff:  # Try each choice for this digit
                 for d in range(lo, min(hi, limit) + 1):
                     res += dfs(i + 1, limit_low and d == lo, limit_high and d == hi)
-            else:  # 这个数位只能填 s[i-diff]
+            else:  # This digit must be s[i-diff]
                 x = int(s[i - diff])
-                if lo <= x <= hi:  # 题目保证 x <= limit，无需判断
+                if lo <= x <= hi:  # The problem guarantees x <= limit, so no check is needed
                     res = dfs(i + 1, limit_low and x == lo, limit_high and x == hi)
             return res
 
@@ -168,7 +168,7 @@ func numberOfPowerfulInt(start, finish int64, limit int, s string) int64 {
 	low := strconv.FormatInt(start, 10)
 	high := strconv.FormatInt(finish, 10)
 	n := len(high)
-	low = strings.Repeat("0", n-len(low)) + low // 补前导零，和 high 对齐
+	low = strings.Repeat("0", n-len(low)) + low // Pad with leading zeros to align with high
 	diff := n - len(s)
 
 	memo := make([]int64, n)
@@ -189,8 +189,8 @@ func numberOfPowerfulInt(start, finish int64, limit int, s string) int64 {
 			defer func() { *p = res }()
 		}
 
-		// 第 i 个数位可以从 lo 枚举到 hi
-		// 如果对数位还有其它约束，应当只在下面的 for 循环做限制，不应修改 lo 或 hi
+		// The digit at position i can range from lo to hi
+		// Apply any additional digit constraints only in the for loop below; do not change lo or hi
 		lo := 0
 		if limitLow {
 			lo = int(low[i] - '0')
@@ -200,13 +200,13 @@ func numberOfPowerfulInt(start, finish int64, limit int, s string) int64 {
 			hi = int(high[i] - '0')
 		}
 
-		if i < diff { // 枚举这个数位填什么
+		if i < diff { // Try each choice for this digit
 			for d := lo; d <= min(hi, limit); d++ {
 				res += dfs(i+1, limitLow && d == lo, limitHigh && d == hi)
 			}
-		} else { // 这个数位只能填 s[i-diff]
+		} else { // This digit must be s[i-diff]
 			x := int(s[i-diff] - '0')
-			if lo <= x && x <= hi { // 题目保证 x <= limit，无需判断
+			if lo <= x && x <= hi { // The problem guarantees x <= limit, so no check is needed
 				res += dfs(i+1, limitLow && x == lo, limitHigh && x == hi)
 			}
 		}
@@ -216,14 +216,14 @@ func numberOfPowerfulInt(start, finish int64, limit int, s string) int64 {
 }
 ```
 
-## 模板 2.1
+## Template 2.1
 
 ```python3
-# 代码示例：返回 [low, high] 中的恰好包含 target 个 0 的数字个数
-# 比如 digitDP(0, 10, 1) == 2
-# 要点：我们统计的是 0 的个数，需要区分【前导零】和【数字中的零】，前导零不能计入，而数字中的零需要计入
+# Example: count numbers in [low, high] that contain exactly target zeros
+# For example, digitDP(0, 10, 1) == 2
+# When counting zeros, distinguish leading zeros from zeros within the number; exclude the former and count the latter
 def digitDP(low: int, high: int, target: int) -> int:
-    low_s = list(map(int, str(low)))  # 避免在 dfs 中频繁调用 int()
+    low_s = list(map(int, str(low)))  # Avoid repeated int() calls in dfs
     high_s = list(map(int, str(high)))
     n = len(high_s)
     diff_lh = n - len(low_s)
@@ -231,7 +231,7 @@ def digitDP(low: int, high: int, target: int) -> int:
     @cache
     def dfs(i: int, cnt0: int, limit_low: bool, limit_high: bool) -> int:
         if cnt0 > target:
-            return 0  # 不合法
+            return 0  # Invalid
         if i == n:
             return 1 if cnt0 == target else 0
 
@@ -241,16 +241,16 @@ def digitDP(low: int, high: int, target: int) -> int:
         res = 0
         start = lo
 
-        # 通过 limit_low 和 i 可以判断能否不填数字，无需 is_num 参数
-        # 如果前导零不影响答案，去掉这个 if block
+        # limit_low and i determine whether a digit can be skipped, so no is_num parameter is needed
+        # Remove this if block if leading zeros do not affect the answer
         if limit_low and i < diff_lh:
-            # 不填数字，上界不受约束
+            # Skip this digit; the upper bound no longer applies
             res = dfs(i + 1, 0, True, False)
             start = 1
 
         for d in range(start, hi + 1):
             res += dfs(i + 1,
-                       cnt0 + (1 if d == 0 else 0),  # 统计 0 的个数
+                       cnt0 + (1 if d == 0 else 0),  # Count zeros
                        limit_low and d == lo,
                        limit_high and d == hi)
 
@@ -260,9 +260,9 @@ def digitDP(low: int, high: int, target: int) -> int:
     return dfs(0, 0, True, True)
 ```
 ```c++
-// 代码示例：返回 [low, high] 中的恰好包含 target 个 0 的数字个数
-// 比如 digitDP(0, 10, 1) == 2
-// 要点：我们统计的是 0 的个数，需要区分【前导零】和【数字中的零】，前导零不能计入，而数字中的零需要计入
+// Example: count numbers in [low, high] that contain exactly target zeros
+// For example, digitDP(0, 10, 1) == 2
+// When counting zeros, distinguish leading zeros from zeros within the number; exclude the former and count the latter
 long long digitDP(long long low, long long high, int target) {
     string low_s = to_string(low);
     string high_s = to_string(high);
@@ -272,7 +272,7 @@ long long digitDP(long long low, long long high, int target) {
 
     auto dfs = [&](this auto&& dfs, int i, int cnt0, bool limit_low, bool limit_high) -> long long {
         if (cnt0 > target) {
-            return 0; // 不合法
+            return 0; // Invalid
         }
         if (i == n) {
             return cnt0 == target;
@@ -288,16 +288,16 @@ long long digitDP(long long low, long long high, int target) {
         long long res = 0;
         int d = lo;
 
-        // 通过 limit_low 和 i 可以判断能否不填数字，无需 is_num 参数
-        // 如果前导零不影响答案，去掉这个 if block
+        // limit_low and i determine whether a digit can be skipped, so no is_num parameter is needed
+        // Remove this if block if leading zeros do not affect the answer
         if (limit_low && i < diff_lh) {
-            // 不填数字，上界不受约束
+            // Skip this digit; the upper bound no longer applies
             res = dfs(i + 1, 0, true, false);
             d = 1;
         }
 
         for (; d <= hi; d++) {
-            // 统计 0 的个数
+            // Count zeros
             res += dfs(i + 1, cnt0 + (d == 0), limit_low && d == lo, limit_high && d == hi);
             // res %= MOD;
         }

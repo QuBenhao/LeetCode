@@ -1,4 +1,4 @@
-# [Python] 记忆化搜索 or 动态规划(省空间) or 记忆化递归(一行)
+# [Python] Memoized search or dynamic programming (less space) or memoized recursion (one line)
 
 > Author: Benhao
 > Date: 2021-06-16
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-能使对方输就是自己赢，不能使对方输就是自己输
+### Approach
+You win if you can force your opponent to lose; otherwise, you lose.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -26,7 +26,7 @@ class Solution:
 
         return dfs(n)
 ```
-使用集合记录所有False(也可以记录所有True)，判断与各种平方数的差值在不在集合中就知道当前值在不在集合中了
+Store all False states in a set (or all True states). Subtract each possible square and check set membership to determine whether the current state belongs in the set.
 ```python3
 class Solution:
     def winnerSquareGame(self, n: int) -> bool:

@@ -8,12 +8,12 @@ class Solution {
 public:
     int jump(vector<int>& nums) {
         int n = nums.size(), steps = 0;
-        for (int left = 0, right = 0; right < n-1; steps++) { // right: 当前能走到的最远坐标
+        for (int left = 0, right = 0; right < n-1; steps++) { // right: the farthest index currently reachable
             int tmp = right;
             for (int c = left; c <= tmp; c++) {
                 right = max(right, c+nums[c]);
             }
-            left = tmp + 1; // 跳跃一次, 上次在[left, tmp], 下次在[tmp+1, right]
+            left = tmp + 1; // One jump: the previous range is [left, tmp], and the next is [tmp+1, right]
         }
         return steps;
     }

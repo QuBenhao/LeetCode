@@ -1,4 +1,4 @@
-# [Python/Java] 从暴力 到 暴力的优化 到 差分 到 并查集?
+# [Python/Java] From brute force to optimization, difference arrays, and union-find?
 
 > Author: Benhao
 > Date: 2021-07-23
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-暴力就是判断left到right之间每个数是否都有区间覆盖。
-暴力的优化：用集合可以统计所有覆盖到的点，避免反复查看同样的区间。
+### Approach
+Brute force checks whether every number from left through right is covered by an interval.
+Optimize it with a set of all covered points, avoiding repeated checks of the same intervals.
 <br>
-差分是想到覆盖问题中，在左端点到右端点之间，都是加了1的，到达右端点以后再减一，这样可以保证每次统计都将所有区间的影响加入(如果有被覆盖到必然大于0)
+For a difference array, add 1 at each interval's left endpoint and subtract 1 just after its right endpoint. The running total includes every interval's contribution and is positive wherever coverage exists.
 <br>
-覆盖问题也想到并查集，覆盖的部分指向它的下一个，没覆盖的指向自己。但是这里效率不大高，可能是数据范围小。
+Union-find also fits coverage: covered positions point to the next position, and uncovered positions point to themselves. It is not very efficient here, perhaps because the input range is small.
 
-### 代码
+### Code
 ```python3
 class Solution:
     def isCovered(self, ranges: List[List[int]], left: int, right: int) -> bool:

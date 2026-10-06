@@ -1,4 +1,4 @@
-# [Python] 记忆化dfs
+# [Python] Memoized DFS
 
 > Author: Benhao
 > Date: 2021-05-24
@@ -7,23 +7,23 @@
 
 ---
 
-### 解题思路
-递推的由来:
-既然后面的打印会覆盖前面的，也就是说，如果开始字符串的两头各有一个'a'，那么我们打满'a'(后面总会覆盖)，和分别打两个'a'(中间相当于打满了空)在前后的效果是一样的，但是次数是不同的。
-即打印'aba'和打印'ab'的次数一样。
+### Approach
+Deriving the recurrence:
+Later printing overwrites earlier printing. If the string begins and ends with 'a', printing 'a' across the whole interval, then overwriting the middle, has the same final effect as printing the two endpoints separately, but uses a different number of turns.
+Thus, printing 'aba' takes the same number of turns as printing 'ab'.
 
-如果首尾不同的话，我们总归是要分别打印他们的，而这个分别打印可以看做是对原字符串拆分成两个字符串来打印，关键是找到合理的拆分地方。
-什么时候能节省打印次数呢？就又回到了上面的递推。
+If the endpoints differ, they must be printed separately. Treat this as splitting the original string into two strings; the key is choosing the right split.
+When can a split save a printing turn? That brings us back to the recurrence above.
 
-拆分k的地方还可以优化，最优的k应该是能节省打印次数的，会出现在k和i或者j相同的地方。
+The split position k can also be optimized. An optimal split that saves turns occurs where the character at k matches the character at i or j.
 
-### 代码
+### Code
 
-优化前
+Before optimization
 ```python3
 class Solution:
     def strangePrinter(self, s: str) -> int:
-        # 预处理，连续的由相同字符组成的子串看做一个,比如"aaabbb"和"ab"是没有区别的
+        # Preprocess runs of identical characters as one character; for example, "aaabbb" and "ab" are equivalent
         building = [s[0]]
         for i in range(1, len(s)):
             if s[i] != s[i-1]:
@@ -35,19 +35,19 @@ class Solution:
                 return 0
             elif i == j:
                 return 1
-            # j和i是相同的，那么打印i到j和打印i到j-1所需的次数是一样的(或者说i+1到j)
+            # If the characters at j and i match, printing i through j takes as many turns as i through j-1 (or i+1 through j)
             if building[i] == building[j]:
                 return dfs(i, j - 1)
-            # i和j是不同的,找到一个最优的拆分方式
+            # The characters at i and j differ; find the optimal split
             return min(dfs(i,k) + dfs(k+1,j) for k in range(i,j))
 
         return dfs(0, len(building) - 1)
 
 ```
 
-优化后
+After optimization
 ```python3
-        # 预处理，连续的由相同字符组成的子串看做一个,比如"aaabbb"和"ab"是没有区别的
+        # Preprocess runs of identical characters as one character; for example, "aaabbb" and "ab" are equivalent
         building = [s[0]]
         for i in range(1, len(s)):
             if s[i] != s[i - 1]:
@@ -59,10 +59,10 @@ class Solution:
                 return 0
             elif i == j:
                 return 1
-            # j和i是相同的，那么打印i到j和打印i到j-1所需的次数是一样的(或者说i+1到j)
+            # If the characters at j and i match, printing i through j takes as many turns as i through j-1 (or i+1 through j)
             if building[i] == building[j]:
                 return dfs(i, j - 1)
-            # i和j是不同的,找到一个最优的拆分方式
+            # The characters at i and j differ; find the optimal split
             return min(dfs(i, k) + dfs(k + 1, j) for k in range(i, j)
                            if building[k] == building[i] or building[k] == building[j])
 

@@ -1,4 +1,4 @@
-# [Python] 数位DP模板
+# [Python] Digit DP template
 
 > Author: Benhao
 > Date: 2022-09-25
@@ -7,17 +7,17 @@
 
 ---
 
-### 解题思路
-当年从[草莓奶昔那里大佬学习的](https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/solution/python-shu-wei-dpmo-ban-ti-by-981377660l-xtkb/)
+### Approach
+I learned this some time ago from [草莓奶昔](https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/solution/python-shu-wei-dpmo-ban-ti-by-981377660l-xtkb/)
 
-### 代码
+### Code
 
 ```python3
 def cal(upper: int, digits: List[int]) -> int:
     
     @lru_cache(None)
     def dfs(pos: int, hasLeadingZero: bool, isLimit: bool, has: bool) -> int:
-        """当前在第pos位，hasLeadingZero表示有前导0，isLimit表示是否贴合上界, has表示是否出现过2、5、6、9"""
+        """At position pos, hasLeadingZero indicates leading zeros, isLimit indicates whether the upper bound still applies, and has indicates whether 2, 5, 6, or 9 has appeared"""
         if pos == len(nums):
             return not hasLeadingZero and has
 

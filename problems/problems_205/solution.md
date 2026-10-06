@@ -1,4 +1,4 @@
-# [Python] 正反哈希表映射
+# [Python] Forward and reverse hash table mappings
 
 > slug: python-zheng-fan-ha-xi-biao-ying-she-by-0si7q
 > date: 2024-03-07
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 从s的字符映射到t的字符，同时从t的字符映射到s的字符
+> Map characters from s to t and also from t to s.
 
-# 解题方法
+# Approach
 
-> 如果出现对不齐的情况，就无法转化
+> If either mapping is inconsistent, the strings cannot be transformed.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

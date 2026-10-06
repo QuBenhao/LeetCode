@@ -1,4 +1,4 @@
-# [Python] 考虑每次放置的都是最小的那根棍
+# [Python] Place the shortest stick at each step
 
 > Author: Benhao
 > Date: 2021-05-16
@@ -7,24 +7,24 @@
 
 ---
 
-### 解题思路
-假如说我们要放置5个木棍，有3个被看到。
-假设`1`能被看到，也就是`1`必然放在最前面,那我们需要找`2,3,4,5`中的只能有`3-1=2`个被看到的解。
-假设`1`不被看到，也就是`1`放在除了最前面的位置都不会影响解，那我们需要找`2,3,4,5`中有`3`个被看到的解。
+### Approach
+Suppose we arrange 5 sticks so that 3 are visible.
+If `1` is visible, `1` must be first. We then need arrangements of `2,3,4,5` with exactly `3-1=2` visible sticks.
+If `1` is hidden, placing `1` anywhere except first does not change visibility. We then need arrangements of `2,3,4,5` with `3` visible sticks.
 
-在考虑`2,3,4,5`中有`3`个被看到的解的时候，实际上和`1,2,3,4`中有`3`个被看到的解是等价的。
-于是又可以代入上面的递推。
+Arranging `2,3,4,5` with `3` visible sticks is equivalent to arranging `1,2,3,4` with `3` visible sticks.
+Apply the same recurrence again.
 
-也就是
+That is:
 ```python3
-# i个棍的时候，最小的棍不被看到有i-1个位置可以选择
+# With i sticks, the shortest stick has i-1 positions where it is hidden
 dp[i][j] = dp[i-1][j-1] + dp[i-1][j] * (i-1)
 ```
-当然，也可以按官方答案讨论最后位置的棍递推关系是一致的。
+Considering the last stick, as in the official solution, yields the same recurrence.
 
-使用滚动数组更新
+Use a rolling array
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -32,13 +32,13 @@ class Solution:
         mod = 10 ** 9 + 7
 
         dp = [0] * (k+1)
-        # 一个棍的情况
+        # Base case: one stick
         dp[1] = 1
         for i in range(2, n+1):
             new = [0] * (k+1)
             for j in range(1, k+1):
-                # 把最小的木棍填在第一个位置，必定会被看到，故木棍数-1且k-1
-                # 把最小的那根木棍填在除第一个位置外的任意一个位置(有i-1个)，都不会被看到，故 木棍数-1且k不变
+                # Put the shortest stick first, where it is visible: decrease both the stick count and k by 1
+                # Put the shortest stick in any of the other i-1 positions, where it is hidden: decrease the stick count by 1 and keep k unchanged
                 new[j] = dp[j-1] + dp[j] * (i-1)
             dp = new
         return dp[k] % mod

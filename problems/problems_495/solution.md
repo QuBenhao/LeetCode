@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 统计每次中毒被刷新前的影响时长
+# [Python/Java/JavaScript/Go] Count poison duration before each refresh
 
 > slug: pythonjavajavascriptgo-tong-ji-mei-ci-zh-h5h9
 > date: 2021-11-09
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/teemo-attacking/solutions/6C7Sh7/pythonjavajavascriptgo-tong-ji-mei-ci-zh-h5h9/
 
 ---
-### 解题思路
-以下一个时间节点为终点，看当前影响的时长会不会被下一次刷新
+### Approach
+Use the next timestamp as the endpoint and check whether it refreshes the poison before the current effect ends.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

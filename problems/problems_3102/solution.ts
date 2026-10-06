@@ -14,15 +14,15 @@ function minimumDistance(points: number[][]): number {
     let res: number = Infinity;
     if (maxVal1 >= maxVal2) {
         const i: number = sx[0][1], j: number = sx[n - 1][1];
-        // 去掉 i 后的最大曼哈顿距离
+        // Maximum Manhattan distance after removing i
         res = Math.min(res, Math.max(remove(sx, i), remove(sy, i)));
-        // 去掉 j 后的最大曼哈顿距离
+        // Maximum Manhattan distance after removing j
         res = Math.min(res, Math.max(remove(sx, j), remove(sy, j)));
     } else {
         const i: number = sy[0][1], j: number = sy[n - 1][1];
-        // 去掉 i 后的最大曼哈顿距离
+        // Maximum Manhattan distance after removing i
         res = Math.min(res, Math.max(remove(sx, i), remove(sy, i)));
-        // 去掉 j 后的最大曼哈顿距离
+        // Maximum Manhattan distance after removing j
         res = Math.min(res, Math.max(remove(sx, j), remove(sy, j)));
     }
     return res;

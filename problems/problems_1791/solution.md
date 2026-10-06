@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-02-17
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-每条边里都会有中心点，而其他点只出现一次。
-从前两个找公共点即可
+### Approach
+Every edge contains the center, while each other node appears only once.
+Find the common node of the first two edges.
 
-### 代码
+### Code
 ```Python3
 class Solution:
     def findCenter(self, edges: List[List[int]]) -> int:

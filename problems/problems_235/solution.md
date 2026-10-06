@@ -1,4 +1,4 @@
-# [Python/Go/C] 简洁递归
+# [Python/Go/C] Concise recursion
 
 > slug: pythongoc-jian-ji-di-gui-by-himymben-e69d
 > date: 2024-02-25
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-search-tree/solutions/Qbqfy0/pythongoc-jian-ji-di-gui-by-himymben-e69d/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

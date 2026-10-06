@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-by-himymben-tvtg
 > date: 2022-05-23
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/univalued-binary-tree/solutions/y0KgCe/pythonjavajavascriptgo-by-himymben-tvtg/
 
 ---
-### 解题思路
-就遍历树就行
+### Approach
+Simply traverse the tree
 
-### 代码
+### Code
 
-```Python3 [v1-Py迭代器写法]
+```Python3 [v1-Py iterator version]
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):

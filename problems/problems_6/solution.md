@@ -1,4 +1,4 @@
-# [Python/Go/C] 转向模拟
+# [Python/Go/C] Simulate direction changes
 
 > slug: pythongoc-zhuan-xiang-mo-ni-by-himymben-rani
 > date: 2024-02-28
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 类似x,y坐标题目中，下次移动的方向，走到头转向。只不过这里是一维的，在达到行数后转向
+> As in problems with x,y coordinates, track the next direction of movement and turn at the end. Here the movement is one-dimensional, turning when the row limit is reached.
 
-# 解题方法
+# Approach
 
-> 模拟当前处于哪行，先填入那行，后面再将所有行的答案合并
+> Simulate the current row and place the character there, then combine the results from all rows.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 
@@ -68,7 +68,7 @@ func convert(s string, numRows int) string {
     return string(ans)
 }
 ```
-直接依次计算每行的下一个在原字符串中的坐标
+Directly calculate each row's next index in the original string.
 ```C []
 char* convert(char* s, int numRows) {
     int n = strlen(s);

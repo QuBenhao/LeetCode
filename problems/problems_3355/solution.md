@@ -1,4 +1,4 @@
-# 差分数组
+# Difference array
 
 > slug: chai-fen-shu-zu-by-himymben-54wa
 > date: 2025-05-19
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/zero-array-transformation-i/solutions/Qol3Mk/chai-fen-shu-zu-by-himymben-54wa/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

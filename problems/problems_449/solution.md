@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] BFS通用二叉树序列化 -> 先序、后序遍历
+# [Python/Java/JavaScript/Go] General binary-tree serialization with BFS -> preorder or postorder traversal
 
 > slug: pythonjavajavascriptgo-by-himymben-2izg
 > date: 2022-05-10
@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/serialize-and-deserialize-bst/solutions/uLfsAo/pythonjavajavascriptgo-by-himymben-2izg/
 
 ---
-### 解题思路
-为尽量紧凑，我们用“#”表示空节点，用“,”分割节点，编码和解码中按BFS顺序排列节点。
+### Approach
+For compactness, use "#" for null nodes and "," to separate nodes. Encode and decode nodes in BFS order.
 
 
-注意上面的解法并没有利用题目的二叉搜索树的性质，我们可以利用数字大小，分割左子树与右子树。
-具体来说，当我们知道根节点的值，那么所有大于根节点的，一定是右子树的一部分；其余为左子树。
-后序遍历后，我们可以先得到根节点的值，根据这个值，再递归构造右子树，最后构造左子树即可。
+The solution above does not use the binary search tree property. We can use value comparisons to separate the left and right subtrees.
+Given the root value, all greater values belong to the right subtree; the rest belong to the left subtree.
+With postorder traversal, read the root first, then use its value to recursively construct the right subtree followed by the left subtree.
 
-### 代码
+### Code
 
 ```Python3 [v1-BFS]
 # Definition for a binary tree node.
@@ -74,7 +74,7 @@ class Codec:
 # ans = deser.deserialize(tree)
 # return ans
 ```
-```Python3 [v1-后序遍历 Py]
+```Python3 [v1-postorder-Py]
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -121,7 +121,7 @@ class Codec:
 # ans = deser.deserialize(tree)
 # return ans
 ```
-```Java [v1-先序遍历 Java]
+```Java [v1-preorder-Java]
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -179,7 +179,7 @@ public class Codec {
 // TreeNode ans = deser.deserialize(tree);
 // return ans;
 ```
-```JavaScript [v1-后序遍历 JavaScript]
+```JavaScript [v1-postorder-JavaScript]
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -236,7 +236,7 @@ var deserialize = function(data) {
  * deserialize(serialize(root));
  */
 ```
-```Go [v1-先序遍历 Go]
+```Go [v1-preorder-Go]
 /**
  * Definition for a binary tree node.
  * type TreeNode struct {

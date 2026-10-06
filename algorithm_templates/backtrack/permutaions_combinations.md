@@ -1,6 +1,6 @@
-# 排列组合
+# Permutations and combinations
 
-## 全排列
+## All permutations
 
 ```python3
 def permute(nums):
@@ -42,7 +42,7 @@ func permute(nums []int) (ans [][]int) {
 }
 ```
 
-### 重复元素全排列
+### Permutations with duplicate elements
 
 ```python3
 def next_permutation(arr):
@@ -86,7 +86,7 @@ func NextPermutation(nums []int) {
 }
 ```
 
-## 组合
+## Combinations
 
 ```python3
 def combination_sum(candidates, target: int):
@@ -100,9 +100,9 @@ def combination_sum(candidates, target: int):
             return
         if x < 0 or s < 0:
             return
-        # 不选当前
+        # Skip the current element
         dfs(x - 1, s)
-        # 选当前
+        # Choose the current element
         path.append(candidates[x])
         dfs(x, s - candidates[x])
         path.pop()
@@ -135,7 +135,7 @@ func combinationSum(candidates []int, target int) (ans [][]int) {
 }
 ```
 
-### 重复元素组合
+### Combinations with duplicate elements
 
 ```python3
 def combination_sum2(candidates, target: int):
@@ -196,7 +196,7 @@ func combinationSum2(candidates []int, target int) (ans [][]int) {
 }
 ```
 
-### 重复元素子集
+### Subsets with duplicate elements
 
 ```go
 func subsetsWithDup(nums []int) (ans [][]int) {

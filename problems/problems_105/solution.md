@@ -1,4 +1,4 @@
-# [Python/Go/C] 简介递归
+# [Python/Go/C] Recursion overview
 
 > Author: Benhao
 > Date: 2024-02-20
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 前序遍历的第一个值为根节点的值,而中序遍历中根节点的值的左边为左子树,根节点的值的右边为右子树,递归构造即可.
+> The first value in preorder traversal is the root value. In inorder traversal, values to the left of the root belong to the left subtree, and values to the right belong to the right subtree. Construct the tree recursively.
 
-# 解题方法
+# Approach
 
-> 以根节点划分左右子树的值后递归处理
+> Split the values into left and right subtrees at the root, then process them recursively.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

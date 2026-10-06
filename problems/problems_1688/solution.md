@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go/C] 基于本题的几种思考方式
+# [Python/Java/JavaScript/Go/C] Several ways to think about this problem
 
 > Author: Benhao
 > Date: 2022-01-24
@@ -7,26 +7,26 @@
 
 ---
 
-### 解题思路
-1. 递归（数学归纳法）
-> 当我们有一支队伍时，不需要比较，
-> 即$n = 1$时，$f(1) = 0$
-> 当我们有超过一支队伍时，总是可以先比较两队，比较后人数变为n-1,于是有
-> $n >= 2$时，$f(n) = 1 + f(n - 1)$
-> 这里就可以写出递推的解法了，也可以用数学归纳法求出f(n)的表达式
+### Approach
+1. Recursion (mathematical induction)
+> With one team, no match is needed.
+> When $n = 1$, $f(1) = 0$.
+> With more than one team, first play a match between any two teams. This leaves n-1 teams, so:
+> For $n >= 2$, $f(n) = 1 + f(n - 1)$.
+> This gives a recurrence, or we can derive an expression for f(n) by induction.
 > $f(n) + f(n-1) + \ldots + f(1) = 1 + f(n-1) + 1 + f(n-2) + \ldots + 1 + f(1) + 0$
-> 消元得到$f(n) = n - 1$
+> Simplifying gives $f(n) = n - 1$.
 
-2. 二进制
-> 本题采取的策略总是除二，和二进制里右移一位相通，那么是否可以用二进制的思想考虑本题呢？
-> 由于二的幂次不涉及奇数的轮空问题，所以考虑将原二进制拆成多个二的幂次，
-> (注：以下数字均为二进制)
-> 举个例子, 10110 变为 10000 + 100 + 10，
-> 二的幂次的比赛场数很好计算，【一直右移直到变为1】，也就是10000 比 1111 场, 100 比 11 场， 10 比 1 场
-> 那么总场数为 1111 + 11 + 1 + 剩余人数（n的二进制1的个数）需要的比赛场数
-> 把多的1优先给原来最左的二进制位，1111就会变为10000
+2. Binary representation
+> Each round divides by two, like a right shift in binary. Can we reason about the problem in binary?
+> Powers of two avoid byes caused by an odd team count, so decompose the number into powers of two.
+> (All numbers below are binary.)
+> For example, 10110 becomes 10000 + 100 + 10.
+> For a power of two, repeatedly shift right until reaching 1: 10000 teams need 1111 matches, 100 teams need 11 matches, and 10 teams need 1 match.
+> The total is 1111 + 11 + 1, plus the matches needed for the remaining teams (the number of 1 bits in n).
+> Apply an extra 1 to the original leftmost binary component first, turning 1111 into 10000.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -60,4 +60,4 @@ int numberOfMatches(int n){
 }
 ```
 
-题太简单？不如去三叶姐姐那里把[wiki](https://github.com/SharingSource/LogicStack-LeetCode/wiki)刷光
+Too easy? Try all the problems in 三叶姐姐's [wiki](https://github.com/SharingSource/LogicStack-LeetCode/wiki).

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 回溯
+# [Python/Java/JavaScript/Go] Backtracking
 
 > slug: pythonjavajavascriptgo-hui-su-by-himymbe-iczz
 > date: 2022-02-05
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/path-with-maximum-gold/solutions/NmpBcc/pythonjavajavascriptgo-hui-su-by-himymbe-iczz/
 
 ---
-### 解题思路
-尝试每一个挖矿起点、回溯每一个路径，返回最大的一个
+### Approach
+Try every starting gold mine, backtrack through every path, and return the largest total.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -120,7 +120,7 @@ func getMaximumGold(grid [][]int) (ans int) {
 }
 ```
 
-优化：只有角落的矿值得作为起点尝试，非角落的点一般在角落的点的某种路径上，很多是无意义的重复计算。
+Optimization: only corner mines are worth trying as starting points. Non-corner cells usually lie on some path from a corner, so many searches repeat work unnecessarily.
 ```python3
 DIRS = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 class Solution:

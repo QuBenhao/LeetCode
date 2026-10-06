@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 下一个排列
+# [Python/Java/TypeScript/Go] Next permutation
 
 > Author: Benhao
 > Date: 2022-07-03
@@ -7,16 +7,16 @@
 
 ---
 
-### 解题思路
-本质就是下一个排列，不过有一些越界的问题。
-偷懒儿直接把自己31题的代码贴过来当函数用了。
+### Approach
+This is essentially the next-permutation problem, with some boundary issues.
+I took a shortcut and reused my code for problem 31 as a helper function.
 
-简单举个例子讲解一下，
-1111169741的下一个排列是，从右到左找到第一个不满足单调增的地方，即9和6。
-交换6和1479中第一个比6大的（这样下一个排列尽可能小），即变为1111179641。
-然后将9641这部分倒序得到1111171469即可。
+Here is a simple example.
+To find the next permutation of 1111169741, scan from right to left for the first break in increasing order, between 9 and 6.
+Swap 6 with the first digit greater than 6 in 1479, keeping the next permutation as small as possible. This gives 1111179641.
+Reverse the 9641 suffix to get 1111171469.
 
-### 代码
+### Code
 
 ```Python3 []
 MAX_32 = 2147483647

@@ -1,4 +1,4 @@
-# [Python] 费马平方和定理
+# [Python] Fermat's theorem on sums of two squares
 
 > Author: Benhao
 > Date: 2021-04-28
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-根据费马平方和定理，检查所有模4余3的因子的个数是否为偶数个即可
+### Approach
+By Fermat's theorem on sums of two squares, check that each prime factor congruent to 3 modulo 4 has an even exponent.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -20,7 +20,7 @@ class Solution:
         # (a - b) ^ 2 + (a + b) ^ 2 = 2 * (a ^ 2 + b ^ 2) = 2 * c
         while c % 2 == 0:
             c //= 2
-        # 费马平方和定理
+        # Fermat's theorem on sums of two squares
         if c % 4 == 3:
             return False
         sqrt = int(math.sqrt(c))

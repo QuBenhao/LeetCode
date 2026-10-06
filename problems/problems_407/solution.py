@@ -14,17 +14,17 @@ class Solution(solution.Solution):
             for j, height in enumerate(row):
                 if i == 0 or i == m - 1 or j == 0 or j == n - 1:
                     h.append((height, i, j))
-                    row[j] = -1  # 标记 (i,j) 访问过
+                    row[j] = -1  # Mark (i,j) as visited
         heapify(h)
 
         ans = 0
         while h:
-            min_height, i, j = heappop(h)  # min_height 是木桶的短板
+            min_height, i, j = heappop(h)  # min_height is the lowest boundary of the container
             for x, y in (i, j - 1), (i, j + 1), (i - 1, j), (i + 1, j):
-                if 0 <= x < m and 0 <= y < n and heightMap[x][y] >= 0:  # (x,y) 没有访问过
-                    # 如果 (x,y) 的高度小于 min_height，那么接水量为 min_height - heightMap[x][y]
+                if 0 <= x < m and 0 <= y < n and heightMap[x][y] >= 0:  # (x,y) has not been visited
+                    # If (x,y) is lower than min_height, it holds min_height - heightMap[x][y] water
                     ans += max(min_height - heightMap[x][y], 0)
-                    # 给木桶新增一块高为 max(min_height, heightMap[x][y]) 的木板
+                    # Extend the container with a boundary of height max(min_height, heightMap[x][y])
                     heappush(h, (max(min_height, heightMap[x][y]), x, y))
-                    heightMap[x][y] = -1  # 标记 (x,y) 访问过
+                    heightMap[x][y] = -1  # Mark (x,y) as visited
         return ans

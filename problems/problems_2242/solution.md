@@ -1,4 +1,4 @@
-# [Python] 关于装饰器缓存的教训
+# [Python] A lesson about decorator caches
 
 > slug: python-guan-yu-by-himymben-5y0m
 > date: 2022-04-16
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/maximum-score-of-a-node-sequence/solutions/3zhVnX/python-guan-yu-by-himymben-5y0m/
 
 ---
-### 解题思路
-暴力枚举中间的那条边，统计两头能给找到的其他最大得分点。
+### Approach
+Brute-force the middle edge and find the highest-scoring other neighbors of its two endpoints.
 
-装饰器返回的缓存对象一定不要直接编辑！会改变缓存结果。加两个list复制比赛代码就ac了😓
+Never directly modify an object returned from a decorator's cache: doing so changes the cached result. Adding two list copies made my contest code pass. 😓
 
-### 代码
+### Code
 ```python3
 class Solution:
     def maximumScore(self, scores: List[int], edges: List[List[int]]) -> int:

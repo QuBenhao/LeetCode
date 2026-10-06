@@ -48,10 +48,10 @@ class Solution(solution.Solution):
         #         return x + 1
         #     return 0
         #
-        # # 整体除以2, 利用 %4 结论计算 ans 中除「最低一位」的结果
+        # # Divide everything by 2 and use the %4 rule to calculate all but the least significant bit of ans
         # s = start >> 1
-        # # 计算 1 到 s - 1的异或结果，再计算 1 到 s + n - 1的异或结果，两者异或得到ans中除最后一位的结果
+        # # XOR 1 through s - 1 and 1 through s + n - 1; XORing these results gives all but the last bit of ans
         # prefix = cal(s - 1) ^ cal(s + n - 1)
-        # # 利用「奇偶性」计算 ans 中的「最低一位」结果
+        # # Use parity to calculate the least significant bit of ans
         # last = n & start & 1
         # return prefix << 1 | last

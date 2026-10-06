@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 二分查找
+# [Python/Java/JavaScript/Go] Binary search
 
 > slug: pythonjavajavascriptgo-er-fen-cha-zhao-b-bqfc
 > date: 2021-12-10
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/online-election/solutions/VRETOa/pythonjavajavascriptgo-er-fen-cha-zhao-b-bqfc/
 
 ---
-### 解题思路
-因为本题为在线查询，所以需要在初始化的时候统计所有投票时刻的答案。
-这样后面查询在时刻之间的时刻，答案肯定是上一个时刻的答案（因为这期间不会变了）；
-在查询某一时刻的答案，答案就是该时刻的答案。
+### Approach
+Because queries are online, precompute the answer at every voting time during initialization.
+For a later query between two voting times, use the answer at the earlier time, since it does not change in between;
+For a query at an exact voting time, use that time's answer.
 
-### 代码
+### Code
 
 ```Python3 []
 class TopVotedCandidate:

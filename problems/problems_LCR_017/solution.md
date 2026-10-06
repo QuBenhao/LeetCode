@@ -1,4 +1,4 @@
-# [Python/Go/C++/Java/Typescript/Rust] 滑动窗口
+# [Python/Go/C++/Java/Typescript/Rust] Sliding window
 
 > slug: python-hua-dong-chuang-kou-by-himymben-cy12
 > date: 2024-09-24
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/M1oyTv/solutions/9aaucB/python-hua-dong-chuang-kou-by-himymben-cy12/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

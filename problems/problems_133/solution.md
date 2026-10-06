@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 复制图
+> Copy the graph
 
-# 解题方法
+# Approach
 
-> DFS遍历图同时记录走过的点
+> Traverse the graph with DFS, recording the visited nodes.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

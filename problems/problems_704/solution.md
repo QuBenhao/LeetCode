@@ -1,4 +1,4 @@
-# [Python/Java] 标准二分查找
+# [Python/Java] Standard binary search
 
 > slug: pythonjava-biao-zhun-er-fen-cha-zhao-by-k1ob9
 > date: 2021-09-05

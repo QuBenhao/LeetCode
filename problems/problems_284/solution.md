@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 迭代器模拟
+# [Python/Java/JavaScript] Iterator simulation
 
 > Author: Benhao
 > Date: 2021-10-04
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-存储上一个peek的元素，如果有就在peek时直接返回，不移动指针；next的时候清空peek的元素。
+### Approach
+Cache the element from the last peek. If cached, return it on peek without moving the pointer; clear the cache on next.
 
-### 代码
+### Code
 ```Python3 []
 class PeekingIterator:
     def __init__(self, iterator):

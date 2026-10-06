@@ -1,4 +1,4 @@
-# [Python/Go/C] 双指针推移
+# [Python/Go/C] Advance two pointers
 
 > Author: Benhao
 > Date: 2024-02-22
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 利用非递减性质，依次找到下一个不重复的元素
+> Use the nondecreasing order to find each next distinct element.
 
-# 解题方法
+# Approach
 
-> 遍历从小到大依次找不重复的元素，将他们从左到右按顺序填入
+> Traverse from smallest to largest, finding distinct elements and writing them in order from left to right.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

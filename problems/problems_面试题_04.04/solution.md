@@ -1,4 +1,4 @@
-# [Python] 递归
+# [Python] Recursion
 
 > slug: python-di-gui-by-himymben-sn9r
 > date: 2022-03-14
@@ -7,7 +7,7 @@
 > url: https://leetcode.cn/problems/check-balance-lcci/solutions/17RbNd/python-di-gui-by-himymben-sn9r/
 
 ---
-### 代码
+### Code
 
 ```python3
 # Definition for a binary tree node.

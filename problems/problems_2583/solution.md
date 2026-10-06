@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 要依次对树的每一层做操作，这是标准的广度优先搜索。
+> Processing the tree one level at a time is a standard use of breadth-first search.
 
-# 解题方法
+# Approach
 
-> 逐层统计每层的和，最后排序返回答案
+> Compute the sum of each level, then sort the sums and return the answer.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(nlogn)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > slug: python-mo-ni-by-himymben-jc5a
 > date: 2022-04-17
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/calculate-digit-sum-of-a-string/solutions/vSK8ph/python-mo-ni-by-himymben-jc5a/
 
 ---
-### 解题思路
-该用户太懒了只有代码
+### Approach
+This user was too lazy to write an explanation; only code is provided.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

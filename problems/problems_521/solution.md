@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 贪心
+# [Python/Java/JavaScript/Go] Greedy
 
 > Author: Benhao
 > Date: 2022-03-05
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-1. 一个长的序列一定不是一个短的序列的子序列
-2. 相同长度的序列只要有一个字符不同就不是子序列
+### Approach
+1. A longer sequence cannot be a subsequence of a shorter sequence.
+2. Two sequences of equal length cannot be subsequences of each other if any character differs.
 
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 统计每个点出现次数以及矩形面积和
+# [Python/Java/JavaScript/Go] Count corner occurrences and sum rectangle areas
 
 > slug: pythonjavajavascriptgo-tong-ji-mei-ge-di-x3ub
 > date: 2021-11-15
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/perfect-rectangle/solutions/wmFKN9/pythonjavajavascriptgo-tong-ji-mei-ge-di-x3ub/
 
 ---
-### 解题思路
-我们考虑拼出完美矩形的情况:
-1. 左下角、左上角、右下角、右上角的顶点一定是所有矩阵的最外圈
-2. 它们的`面积和`一定和完美矩阵的面积相等
-3. 任意不是这四个顶点的小矩阵的点，一定会出现两次或四次（如果出现四次以上，一定有超过四个矩阵以这个点为顶点，那么必然有重叠；如果出现奇数次，那么必然没有被完整覆盖）【这个的判断可以去掉面积相等，但是是内部重叠的情况】
+### Approach
+Consider the conditions for forming a perfect rectangle:
+1. Its bottom-left, top-left, bottom-right, and top-right corners must be the outermost corners among all rectangles.
+2. The `sum of areas` must equal the area of the perfect rectangle.
+3. Every smaller-rectangle corner other than those four outer corners must appear twice or four times. More than four occurrences means more than four rectangles share that corner, so overlap is unavoidable; an odd count means incomplete coverage. [This check can replace the equal-area check for internal-overlap cases.]
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -194,7 +194,7 @@ func point(a, b int) int {
     return 10001 * a + b
 }
 ```
-两两相消
+Cancel in pairs
 ```Python3 []
 class Solution:
     def isRectangleCover(self, rectangles: List[List[int]]) -> bool:

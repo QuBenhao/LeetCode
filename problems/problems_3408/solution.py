@@ -15,7 +15,7 @@ class Solution(solution.Solution):
 class TaskManager:
     def __init__(self, tasks: List[List[int]]):
         self.mp = {taskId: (priority, userId) for userId, taskId, priority in tasks}
-        self.h = [(-priority, -taskId, userId) for userId, taskId, priority in tasks]  # 取相反数，变成最大堆
+        self.h = [(-priority, -taskId, userId) for userId, taskId, priority in tasks]  # Negate the values to obtain a max-heap
         heapify(self.h)
 
     def add(self, userId: int, taskId: int, priority: int) -> None:
@@ -23,11 +23,11 @@ class TaskManager:
         heappush(self.h, (-priority, -taskId, userId))
 
     def edit(self, taskId: int, newPriority: int) -> None:
-        # 懒修改
+        # Lazy update
         self.add(self.mp[taskId][1], taskId, newPriority)
 
     def rmv(self, taskId: int) -> None:
-        # 懒删除
+        # Lazy deletion
         self.mp[taskId] = (-1, -1)
 
     def execTop(self) -> int:
@@ -36,5 +36,5 @@ class TaskManager:
             if self.mp[-taskId] == (-priority, userId):
                 self.rmv(-taskId)
                 return userId
-            # else 货不对板，堆顶和 mp 中记录的不一样，说明堆顶数据已被修改或删除，不做处理
+            # Otherwise, the heap top does not match the record in mp: it has been modified or deleted, so ignore it
         return -1

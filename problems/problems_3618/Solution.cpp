@@ -11,7 +11,7 @@ void init() {
     return;
   inited = true;
   flag[0] = flag[1] = true;
-  // 筛法求质数
+  // Find primes with a sieve
   for (int i = 2; i * i <= MAXN; i++) {
     if (!flag[i]) {
       for (int j = i * 2; j <= MAXN; j += i) {

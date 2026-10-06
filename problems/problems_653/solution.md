@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 迭代器 + 双指针
+# [Python/Java/JavaScript/Go] Iterators + two pointers
 
 > slug: pythonjavajavascriptgo-by-himymben-prb2
 > date: 2022-03-20
@@ -7,17 +7,17 @@
 > url: https://leetcode.cn/problems/two-sum-iv-input-is-a-bst/solutions/zd2FLs/pythonjavajavascriptgo-by-himymben-prb2/
 
 ---
-### 解题思路
-如果我们有一个从小到大的排列好的数组，那么我们找两数之和的方案就很简单了，一个指针从左往右扫，一个指针从右往左扫。
-当左指针与右指针的和小于目标时，左指针右移；
-当左指针与右指针的和大于目标时，右指针左移；
-当左指针与右指针的和等于目标时，我们找到了想要的结果。
+### Approach
+In an ascending sorted array, two-sum is straightforward: move one pointer from left to right and the other from right to left.
+If the sum at the two pointers is below the target, move the left pointer right.
+If the sum exceeds the target, move the right pointer left.
+If the sum equals the target, the required pair has been found.
 
-而这个从小到大的数组，从BST的中序遍历便可以得到。
-怎么在不遍历完就模拟出两个指针的情况呢？
-我们需要用到迭代器。
+An inorder traversal of a BST produces this ascending sequence.
+How can we simulate both pointers without completing the traversal first?
+Use iterators.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

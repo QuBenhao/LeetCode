@@ -13,7 +13,7 @@ func minSwaps(s string) (ans int) {
 			cur++
 		} else {
 			cur--
-			// 和最右边的[交换
+			// Swap with the rightmost [
 			if cur < 0 {
 				ans++
 				cur = 1

@@ -12,7 +12,7 @@ class Solution(solution.Solution):
         :type prerequisites: List[List[int]]
         :rtype: bool
         """
-        # 拓扑排序，我们只能从没有prerequire的课程开始
+        # Topological sort: we can only start with courses that have no prerequisites
         graph, q, degree = defaultdict(list), deque([]), [0] * numCourses
         for u, v in prerequisites:
             graph[u].append(v)

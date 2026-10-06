@@ -8,19 +8,19 @@ using namespace std;
 using json = nlohmann::json;
 
 class MedianFinder {
-    priority_queue<int> left; // 最大堆
-    priority_queue<int, vector<int>, greater<>> right; // 最小堆
+    priority_queue<int> left; // Max-heap
+    priority_queue<int, vector<int>, greater<>> right; // Min-heap
 public:
     MedianFinder() {
 
     }
 
     void addNum(int num) {
-        if (left.size() == right.size()) { // 两边一样多，先加入右边，再把右边最小值给左边
+        if (left.size() == right.size()) { // When both sides have the same size, insert into the right heap, then move its minimum to the left
             right.push(num);
             left.push(right.top());
             right.pop();
-        } else { // 左边更多，加入左边后，将左边最大给右边（保持两边数量一致）
+        } else { // When the left has more elements, insert there, then move its maximum to the right to balance the sizes
             left.push(num);
             right.push(left.top());
             left.pop();

@@ -1,4 +1,4 @@
-# [Py/Java/Ts/Go/C] 双指针
+# [Py/Java/Ts/Go/C] Two pointers
 
 > slug: pyjavatsgoc-shuang-zhi-zhen-by-himymben-yrsa
 > date: 2023-03-25
@@ -11,11 +11,11 @@
 
 [TOC]
 
-# 思路
-> 题目要求删除的是子数组，而不是子序列，子数组是连续的，我们可以采用枚举这个数组的两端。因为最终整体是单调的，也就是左端点的左边和右端点的右边是单调的。那么当左边端点往右移动时，右边端点不可能往左移动（假设左端点i，右端点j的时候，arr[:i] + arr[j+1:]满足单调，那么arr[i-1] <= arr[j+1]，而左端点右移后新的左端点i'满足arr[i - 1] <= arr[i' - 1]），所以可以使用双指针。
+# Intuition
+> The removed subarray must be contiguous, so enumerate its two endpoints. The remaining prefix and suffix must both be nondecreasing. As the left endpoint moves right, the right endpoint cannot move left: if removing [i,j] makes arr[:i] + arr[j+1:] nondecreasing, then arr[i-1] <= arr[j+1]; a later left endpoint i' satisfies arr[i - 1] <= arr[i' - 1]. This allows a two-pointer approach.
 
-# 解题方法
-> 双指针，枚举左端点对应的右端点，看最小的是哪个。注意当左端点出现拐点时，说明这里必须删除，没有必要继续右移了。
+# Approach
+> For each left endpoint, use two pointers to find the corresponding right endpoint and minimize the removed length. Stop when the prefix decreases, since that point must be removed and the left endpoint cannot move farther right.
 
 # Code
 ```C []
@@ -40,19 +40,19 @@ int findLengthOfShortestSubarray(int* arr, int arrSize){
 class Solution:
     def findLengthOfShortestSubarray(self, arr: List[int]) -> int:
         j = len(arr) - 1
-        # 统计右端点最长单调区间
+        # Find the longest nondecreasing suffix
         while j and arr[j] >= arr[j - 1]:
             j -= 1
-        # 整体单调直接返回
+        # Return immediately if the whole array is nondecreasing
         if not j:
             return 0
         i, ans = 0, j
         while i < len(arr) - 1:
-            # 枚举当前左端点的最左右端点
+            # Find the leftmost valid right endpoint for the current left endpoint
             while j < len(arr) and arr[j] < arr[i]:
                 j += 1
             ans = min(ans, j - i - 1)
-            # 左端点出现拐点，后面的点不可能作为左端点
+            # The prefix decreases; no later position can be the left endpoint
             if arr[i + 1] < arr[i]:
                 break
             i += 1

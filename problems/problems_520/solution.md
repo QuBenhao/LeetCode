@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 简单状态机 or 统计 or 倒序
+# [Python/Java/JavaScript/Go] Simple state machine, counting, or reverse traversal
 
 > Author: Benhao
 > Date: 2021-11-12
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-如果首字母是小写，那么整个单词必须是小写；
-如果首字母是大写，第二个字母是小写，剩下的部分也必须小写；
-否则必须全部大写
+### Approach
+If the first letter is lowercase, the entire word must be lowercase.
+If the first letter is uppercase and the second is lowercase, the rest must also be lowercase.
+Otherwise, every letter must be uppercase.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -104,7 +104,7 @@ func detectCapitalUse(word string) bool {
 }
 ```
 
-另一种思路，统计大写的个数
+Another approach is to count the uppercase letters.
 ```Python3 []
 class Solution:
     def detectCapitalUse(self, word: str) -> bool:
@@ -122,7 +122,7 @@ func detectCapitalUse(word string) bool {
 }
 ```
 
-倒序分别找最后一个大小写的坐标
+Traverse backward to find the last uppercase and lowercase indices.
 ```Python3 []
 class Solution:
     def detectCapitalUse(self, word: str) -> bool:
@@ -140,7 +140,7 @@ class Solution:
 ```Go []
 func detectCapitalUse(word string) bool {
     lastLower, lastUpper := -1, -1
-    // 也可以正序写，但是永远要完整遍历不会提前break
+    // Forward traversal also works, but it always scans the entire word without an early break
     for i, r := range word {
         if r <= 'z' && r >= 'a' {
             lastLower = i

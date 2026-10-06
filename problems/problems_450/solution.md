@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 递归
+# [Python/Java/TypeScript/Go] Recursion
 
 > Author: Benhao
 > Date: 2022-06-02
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-当前节点比删除值小，右子树的根变为右子树中删除；
-当前节点比删除值大，左子树的根变为左子树中删除；
-当前就是要被删的节点，如果它没有左子树或没有右子树，可以直接平移嫁接。
-否则需要找到左子树最大值或右子树最小值作为新的根。
+### Approach
+If the current value is smaller than the value to delete, replace the right subtree's root with the result of deleting from that subtree.
+If the current value is larger than the value to delete, replace the left subtree's root with the result of deleting from that subtree.
+If the current node is the target and has no left or no right subtree, replace it directly with its remaining child.
+Otherwise, use the maximum value in the left subtree or the minimum value in the right subtree as the new root.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

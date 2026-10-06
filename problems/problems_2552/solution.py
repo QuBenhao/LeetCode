@@ -14,8 +14,8 @@ class Solution(solution.Solution):
             for j in range(l):
                 if nums[j] < nums[l]:  # 3 < 4
                     cnt4 += cnt3[j]
-                    # 把 j 当作 i，把 l 当作 k，现在 nums[i] < nums[k]，即 1 < 2
+                    # Treat j as i and l as k; now nums[i] < nums[k], corresponding to 1 < 2
                     cnt2 += 1
-                else:  # 把 l 当作 k，现在 nums[j] > nums[k]，即 3 > 2
+                else:  # Treat l as k; now nums[j] > nums[k], corresponding to 3 > 2
                     cnt3[j] += cnt2
         return cnt4

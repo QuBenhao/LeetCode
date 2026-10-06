@@ -16,7 +16,7 @@ class Solution(solution.Solution):
         for i in range(m):
             for j in range(n):
                 idx = to_idx(i, j)
-                # 只检查右边和下边，避免重复
+                # Check only right and bottom neighbors to avoid duplicates
                 if j < n - 1 and grid[i][j] == grid[i][j + 1] and not uf.union(idx, idx + 1):
                     return True
                 if i < m - 1 and grid[i][j] == grid[i + 1][j] and not uf.union(idx, idx + n):
@@ -33,7 +33,7 @@ class UnionFind:
 
     def find(self, x: int) -> int:
         while self.parent[x] != x:
-            self.parent[x] = self.parent[self.parent[x]]  # 路径压缩
+            self.parent[x] = self.parent[self.parent[x]]  # Path compression
             x = self.parent[x]
         return x
 
@@ -42,9 +42,9 @@ class UnionFind:
         root_y = self.find(y)
 
         if root_x == root_y:
-            return False  # 已经在同一集合
+            return False  # Already in the same set
 
-        # 按秩合并
+        # Union by rank
         if self.rank[root_x] > self.rank[root_y]:
             self.parent[root_y] = root_x
             self.size[root_x] += self.size[root_y]

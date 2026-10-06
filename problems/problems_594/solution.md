@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 遍历统计 or 排序双指针
+# [Python/Java/JavaScript/Go] Count frequencies or sort with two pointers
 
 > Author: Benhao
 > Date: 2021-11-19
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-用HashMap统计个数后，遍历的时候直接判断有没有相邻的数的个数统计答案即可。
+### Approach
+Count occurrences with a HashMap, then iterate over the values and check for neighboring values to calculate the answer from their counts.
 
-也可以一边遍历统计数目，一边根据当前数目更新最大值。
+Alternatively, count occurrences and update the maximum as you traverse.
 
-另一种思路是排序+双指针，比较省空间（先找到当前数字有多少个，再找比它大1的有多少个，更新答案）。
+Another approach is sorting with two pointers, which uses less space: count the current number, then the number one greater than it, and update the answer.
 
-### 代码
+### Code
 ```Python3 
 class Solution:
     def findLHS(self, nums: List[int]) -> int:

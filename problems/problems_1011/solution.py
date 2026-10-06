@@ -11,7 +11,7 @@ class Solution(solution.Solution):
         :type D: int
         :rtype: int
         """
-        # max_weight能否在D天内运载全部货物
+        # Can max_weight carry all the goods within D days?
         def helper(max_weight):
             count = count_w = 0
             for w in weights:
@@ -23,7 +23,7 @@ class Solution(solution.Solution):
                 count += 1
             return count > D
 
-        # 左边界至少要比最大的货物重，也要比每天平均货物大；右边界至多是全部的和，一天运完
+        # The lower bound must cover both the heaviest item and the average daily load; the upper bound is the total weight, shipped in one day
         left, right = max(sum(weights) // D, max(weights)), sum(weights)
         while left < right:
             mid = (left + right) // 2

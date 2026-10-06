@@ -1,4 +1,4 @@
-# 单调栈-找每个元素左右第一个比自己小的位置
+# Monotonic stack: find the first smaller element on each side of every element
 
 > slug: dan-diao-zhan-zhao-mei-ge-yuan-su-zuo-yo-6b91
 > date: 2025-05-10
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/minimum-operations-to-convert-all-elements-to-zero/solutions/gs1MCp/dan-diao-zhan-zhao-mei-ge-yuan-su-zuo-yo-6b91/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

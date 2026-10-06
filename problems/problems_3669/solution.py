@@ -39,10 +39,10 @@ class Solution(solution.Solution):
         return result
 
 
-# 预处理每个数的质因子列表
+# Precompute the prime factor list for each number
 mx = 100001
 PRIME_FACTORS = [[] for _ in range(mx)]
 for i in range(2, mx):
-    if not PRIME_FACTORS[i]:  # i 是质数
-        for j in range(i, mx, i):  # i 的倍数有质因子 i
+    if not PRIME_FACTORS[i]:  # i is prime
+        for j in range(i, mx, i):  # Multiples of i have prime factor i
             PRIME_FACTORS[j].append(i)

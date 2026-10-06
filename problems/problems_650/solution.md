@@ -1,4 +1,4 @@
-# [Python/Java] 记忆化搜索 or (进阶)因数分解递归
+# [Python/Java] Memoized search or advanced factorization recursion
 
 > slug: pythonjava-ji-yi-hua-sou-suo-by-himymben-tx2s
 > date: 2021-09-18
@@ -7,16 +7,16 @@
 > url: https://leetcode.cn/problems/2-keys-keyboard/solutions/PJhAcJ/pythonjava-ji-yi-hua-sou-suo-by-himymben-tx2s/
 
 ---
-### 解题思路
-我们每次可以进行的操作是复制全部或者粘贴上去。当我们已经复制了目前的全部，就没有必要再复制了（这个时候只能粘贴）。
-加上一个剪枝：如果当前剩余数除站帖数有余数，我们必然不能再构成答案。
+### Approach
+Each operation either copies everything or pastes the clipboard. Once all current characters have been copied, copying again is unnecessary; only pasting helps.
+Add pruning: if the remaining count is not divisible by the number of characters pasted, the target cannot be reached.
 
-注意到我们复制粘贴，永远是以某个因子进行的。就是说不管怎么粘贴，最开始的因子始终会被整除。换句话说：`我们只有在n的质因数的时候才能复制`，否则我们在其他时候复制将凑不出答案。
-我们复制了一个数的最大的因数(除去自己)，需要复制粘贴目标数除上这个因数的次数。于是递归即可。
+Copying and pasting always works in multiples of some factor. However many times we paste, the initial factor still divides the result. In other words, `we can copy only at a prime factor of n`; copying at other times cannot produce the target.
+Copy the largest proper factor of the target. The required number of copy/paste operations is the target divided by that factor, giving a recursive solution.
 
-> 要出门儿了……关于往最大的因数递归是最优解回头再证明一下。
+> Heading out now... I will return to the proof that recursing on the largest factor is optimal.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

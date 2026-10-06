@@ -1,4 +1,4 @@
-# [Python] 从左下角或者右下角看的搜索树
+# [Python] View the matrix as a search tree from the bottom-left or bottom-right corner
 
 > Author: Benhao
 > Date: 2024-03-11
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 往一边会变小，往另一边会变大，找能不能遇到target
+> Moving one way decreases the value, while moving the other way increases it. Search for target.
 
-# 解题方法
+# Approach
 
-> 当然最好还是二分直接找
+> Direct binary search is still the best choice.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(mn)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 # Code
@@ -44,7 +44,7 @@ class Solution:
                 i += 1
         return False
 ```
-二分查找
+Binary search
 ```Python3 []
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:

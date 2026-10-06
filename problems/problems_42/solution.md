@@ -1,4 +1,4 @@
-# [Python/Go/C] 天际线 or 单调栈
+# [Python/Go/C] Skyline or monotonic stack
 
 > Author: Benhao
 > Date: 2024-02-26
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 每一个位置能接到的水是它左右两边最高的柱子的较小的一个，故分别计算每个位置的左右最高柱子（类似前缀和+后缀和）
+> The water each position can hold is determined by the smaller of the tallest bars on its left and right. Compute those two maximum heights for every position, similarly to prefix and suffix sums.
 
-# 解题方法
+# Approach
 
-> 从左至右扫描得到每个点左边的最高柱子，再从右至左扫描得到每个点右边的最高柱子，依次计算每个点能接到的雨水
+> Scan from left to right to find the tallest bar to the left of each position, then scan from right to left for the tallest bar to its right. Calculate the trapped water at each position.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 
@@ -89,7 +89,7 @@ int trap(int* height, int heightSize) {
 }
 ```
 
-单调栈解法
+Monotonic stack approach
 ```Python3 []
 class Solution:
     def trap(self, height: List[int]) -> int:
@@ -97,12 +97,12 @@ class Solution:
         for i, h in enumerate(height):
             while stack and h > height[stack[-1]]:
                 idx = stack.pop()
-                # 左边没有比自身高的柱子了
+                # No taller bar remains on the left
                 if not stack:
                     continue
-                # 高度为左右两边最小的减去自身的高度
+                # Height is the smaller of the two boundary heights minus the current height
                 he = min(height[stack[-1]], h) - height[idx]
-                # 宽度为左右两边的中间距离
+                # Width is the gap between the left and right boundaries
                 wi = i - stack[-1] - 1
                 ans += he * wi
             stack.append(i)

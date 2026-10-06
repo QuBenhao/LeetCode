@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 异或
+# [Python/Java/TypeScript/Go] XOR
 
 > slug: pythonjavatypescriptgo-by-himymben-4qfg
 > date: 2022-09-26
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/missing-two-lcci/solutions/sXhPS9/pythonjavatypescriptgo-by-himymben-4qfg/
 
 ---
-### 解题思路
-首先得到两个缺失的数的异或值，找到他们任意一个不同的二进制位(这里采用lowbit)。
-按这个二进制位区分原来的异或和，我们将得到其中一个数。
+### Approach
+First compute the XOR of the two missing numbers and find any bit where they differ (using lowbit here).
+Partition the original XOR calculation by that bit to obtain one of the numbers.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

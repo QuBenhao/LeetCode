@@ -1,4 +1,4 @@
-# [Python/Go] 二维数组前缀和
+# [Python/Go] Two-dimensional prefix sums
 
 > slug: pythongo-er-wei-shu-zu-qian-zhui-he-by-h-risi
 > date: 2022-02-20
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/matrix-block-sum/solutions/34e3L0/pythongo-er-wei-shu-zu-qian-zhui-he-by-h-risi/
 
 ---
-### 解题思路
-预处理二维前缀和，可以o(1)求出每个点的周围k个正方形的大小。
+### Approach
+Precompute two-dimensional prefix sums to calculate each cell's surrounding square sum within distance k in o(1).
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

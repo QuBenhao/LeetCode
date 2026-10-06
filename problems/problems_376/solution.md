@@ -1,4 +1,4 @@
-# [Python/Go] 贪心动态规划 o(n)
+# [Python/Go] Greedy dynamic programming o(n)
 
 > slug: pythongo-tan-xin-dong-tai-gui-hua-on-by-mbqmm
 > date: 2022-02-24
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/wiggle-subsequence/solutions/FSOdMG/pythongo-tan-xin-dong-tai-gui-hua-on-by-mbqmm/
 
 ---
-### 解题思路
-维护一个最长摆动序列。
+### Approach
+Maintain a longest wiggle subsequence.
 
-实际上就是贪心的选择所有下降序列的最小值、上升序列的最大值【比如一段上升序列中最多取两个值构成正摆动，那么取的值越大越方便下一次取出负摆动】。
+Greedily choose the minimum of each descending run and the maximum of each ascending run. For example, an ascending run contributes at most two values to an upward wiggle, and taking the largest value makes the next downward wiggle easier.
 
-这个做法的好处是可以如果题目要求，也可以直接将最长摆动序列返回
+An advantage is that this approach can return the longest wiggle subsequence itself if required.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -22,13 +22,13 @@ class Solution:
         ans = []
         for num in nums:
             if len(ans) > 1:
-                # 该正摆动了
+                # An upward wiggle is next
                 if ans[-2] > ans[-1]:
                     if num > ans[-1]:
                         ans.append(num)
                     else:
                         ans[-1] = num
-                # 该负摆动了
+                # A downward wiggle is next
                 else:
                     if num < ans[-1]:
                         ans.append(num)
@@ -64,7 +64,7 @@ func wiggleMaxLength(nums []int) int {
 }
 ```
 
-简化写法
+Simplified version
 ```Python3 []
 class Solution:
     def wiggleMaxLength(self, nums: List[int]) -> int:

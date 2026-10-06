@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-很标准的BFS板子
+### Approach
+A standard BFS template.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

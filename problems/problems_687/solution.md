@@ -7,9 +7,9 @@
 
 ---
 
-### 解题思路
-Ja\va语言打不出来了家人们（好像修复了）。
-先给出一份WA的代码，一开始没注意路径是两点之间，
+### Approach
+The Ja\va language option would not display, folks (it seems to be fixed now).
+Here is a WA version first. I initially overlooked that a path connects any two nodes.
 ```python3
 # Definition for a binary tree node.
 # class TreeNode:
@@ -21,10 +21,10 @@ class Solution:
     def longestUnivaluePath(self, root: Optional[TreeNode]) -> int:
         def dfs(node):
             """
-            返回最长路径以及根节点路径长度
+            Return the longest path and the length of the path ending at the root.
             """
             if not node:
-                # 根节点值, 根节点路径长度, 最长路径长度
+                # Root value, path length ending at the root, longest path length
                 return (None, 0, 0)
             left, right = dfs(node.left), dfs(node.right)
             r = 1
@@ -36,11 +36,11 @@ class Solution:
 
         return max(0, max(dfs(root)[1:]) - 1)
 ```
-其实面对树上这种最大值，都是子节点的值返回以后和根节点计算后递归返回，和树形dp的思路差不多。
-我们只需要维护一个根路径的值(一开始错误的地方)，维护一个根节点折线最大值即可。
-因为路径是两点之间，所以根节点不能取折线，而是到根的最大值，这样递归返回可以继续作为折线的一半被使用。
+For maxima on trees, recursively obtain the children's results, combine them at the root, and return the result. This is similar to tree DP.
+Maintain the path length ending at the root, which was the source of the initial error, and the maximum path joining both sides through the root.
+A path connects two endpoints, so the value returned for the root cannot already join two branches. Return the longest path ending at the root so its parent can use it as one half of a longer path.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.
@@ -53,10 +53,10 @@ class Solution:
     def longestUnivaluePath(self, root: Optional[TreeNode]) -> int:
         def dfs(node):
             """
-            返回最长路径以及根节点路径长度
+            Return the longest path and the length of the path ending at the root.
             """
             if not node:
-                # 根节点值, 根节点不折线的最长路径长度, 最长路径长度
+                # Root value, longest path ending at the root without joining branches, longest overall path
                 return (None, 0, 0)
             left, right = dfs(node.left), dfs(node.right)
             return (node.val, max((lv := left[1] + 1 if node.val == left[0] else 1), (rv := right[1] + 1 if node.val == right[0] else 1)), max(lv + rv - 1, left[-1], right[-1]))

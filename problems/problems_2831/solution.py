@@ -15,10 +15,10 @@ class Solution(solution.Solution):
         ans = 0
         for pos in pos_lists.values():
             if len(pos) <= ans:
-                continue  # 无法让 ans 变得更大
+                continue  # Cannot increase ans
             left = 0
             for right, p in enumerate(pos):
-                while p - pos[left] > k:  # 要删除的数太多了
+                while p - pos[left] > k:  # Too many elements would need to be deleted
                     left += 1
                 ans = max(ans, right - left + 1)
         return ans

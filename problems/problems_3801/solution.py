@@ -37,7 +37,7 @@ class Solution(solution.Solution):
             if f[i] == 0:
                 continue
             j = (i - 1) & i
-            while j: # 枚举子集
+            while j: # Enumerate subsets
                 k = i ^ j
                 f[i] = min(f[i], f[j] + f[k] + g[j] + g[k] + abs(h[j] - h[k]))
                 j = (j - 1) & i

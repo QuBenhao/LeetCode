@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-73si
 > date: 2022-02-14
@@ -7,36 +7,36 @@
 > url: https://leetcode.cn/problems/lucky-numbers-in-a-matrix/solutions/OcAim5/pythonjavajavascriptgo-mo-ni-by-himymben-73si/
 
 ---
-### 解题思路
-这样的点至多有一个，我们只需要确定某行最小值的最大值与某列最大值的最小值一致
+### Approach
+There is at most one such cell. Check whether the largest row minimum equals the smallest column maximum.
 
-1. 证明
-反证法：
-假设有两个点`x1,y1`和`x2,y2`，它们都是幸运数。
-根据题目描述，我们有以下大小关系：
-> matrix[x1][y1] <= matrix[x1][y2] (行最小)
-> matrix[x1][y1] >= matrix[x2][y1] (列最大)
-> matrix[x2][y2] <= matrix[x2][y1] (行最小)
-> matrix[x2][y2] >= matrix[x1][y2] (列最大)
+1. Proof
+Proof by contradiction:
+Suppose two cells, `x1,y1` and `x2,y2`, are both lucky numbers.
+The problem's conditions give these inequalities:
+> matrix[x1][y1] <= matrix[x1][y2] (row minimum)
+> matrix[x1][y1] >= matrix[x2][y1] (column maximum)
+> matrix[x2][y2] <= matrix[x2][y1] (row minimum)
+> matrix[x2][y2] >= matrix[x1][y2] (column maximum)
 
-我们会发现:
+It follows that:
 > matrix[x2][y2] >= matrix[x1][y2] >= matrix[x1][y1]
 > matrix[x1][y1] >= matrix[x2][y1] >= matrix[x2][y2]
 
-所以只有`matrix[x1][y1] == matrix[x2][y2]`这一种情况，
-但是题目给出了数字各不相同，矛盾。
+The only possibility is therefore `matrix[x1][y1] == matrix[x2][y2]`.
+But the problem states that all values are distinct, a contradiction.
 
 
-2. 为什么是行的最小值的最大值和列的最大值的最小值
+2. Why use the largest row minimum and the smallest column maximum?
 
-假设我们没有取行的最小值的最大值，设取得行`r1`，那么一定存在某一行`r2`的最小值大于`r1`。
-那么`r1`的最小值那一列是一定小于`r2`的该列的值的（因为最小值比`r2`的最小值还小）
-显然这样的`r1`最小值必然不满足该列最大值。
-故我们必须取行的最小值的最大值。
-同理可以证明我们必须取列的最大值的最小值。
-又因为答案最多一个，故只有这两个值相等，才存在答案
+Suppose the chosen row `r1` does not have the largest row minimum. Then some row `r2` has a minimum greater than that of `r1`.
+The minimum in `r1` must be smaller than the value in the same column of `r2`, since it is even smaller than the minimum of `r2`.
+Thus, the minimum in `r1` cannot be the maximum of that column.
+We must therefore choose the largest row minimum.
+The same reasoning shows that we must choose the smallest column maximum.
+Since there is at most one answer, it exists only when these two values are equal.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -127,6 +127,6 @@ func max (a, b int) int {
 }
 ```
 
-### 复杂度
-时间复杂度$O(m * n)$
-空间复杂度$O(1)$
+### Complexity
+Time complexity: $O(m * n)$
+Space complexity: $O(1)$

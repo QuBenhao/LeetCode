@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 从面积随机 + 极角随机
+# [Python/Java/TypeScript/Go] Random area + random polar angle
 
 > slug: pythonjavatypescriptgo-cong-mian-ji-chu-r4yzm
 > date: 2022-06-05
@@ -7,19 +7,19 @@
 > url: https://leetcode.cn/problems/generate-random-point-in-a-circle/solutions/DgGVbr/pythonjavatypescriptgo-cong-mian-ji-chu-r4yzm/
 
 ---
-### 解题思路
-已知圆的半径，我们可以清楚知道这个圆的面积。我们从面积随机，根据面积可以反推它到圆心的距离为多少。
-这个时候我们的点相当于在一个360度的圆周上，我们同时随机一个角度就能确定一个点。
-这两个随机是完全独立的。
+### Approach
+The circle's radius gives its area. Sample an area uniformly, then derive the corresponding distance from the center.
+The point now lies somewhere on a full 360-degree circumference; sample an angle to determine its position.
+These two random choices are independent.
 
 
-注意一些常见的思路的错误之处：
-1. 随机一个横坐标，计算纵坐标的范围再随机一个纵坐标。
-   主要错误：纵坐标的范围由横坐标决定，不再独立，越靠近圆边缘越密集，圆中心越稀疏。
-2. 随机一个极角，再随机一个半径或半径缩放大小。
-   主要错误：角度固定后，半径的随机并不应该是均匀的。这样会造成越靠近圆中心越密集，圆边缘稀疏。
+Common mistakes to watch for:
+1. Sample an x coordinate, calculate the allowed y range, and then sample a y coordinate.
+   Problem: The y range depends on x, so the choices are not independent. This makes points denser near the circle's edge and sparser near its center.
+2. Sample a polar angle, then sample a radius or a radius scale factor.
+   Problem: After fixing the angle, the radius should not be uniformly distributed. Doing so makes points denser near the center and sparser near the edge.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

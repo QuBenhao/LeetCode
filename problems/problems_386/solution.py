@@ -13,10 +13,10 @@ class Solution(solution.Solution):
         j = 1
         for i in range(n):
             ans.append(j)
-            if j * 10 <= n: # 能乘10的时候优先乘10
+            if j * 10 <= n: # Multiply by 10 whenever possible
                 j *= 10
             else:
-                while j % 10 == 9 or j + 1 > n: # 当前已经到当前前缀最大了, 除以10相当于回到父节点
+                while j % 10 == 9 or j + 1 > n: # The current prefix is exhausted; divide by 10 to return to the parent
                     j //= 10
-                j += 1 # 下一个节点
+                j += 1 # Next node
         return ans

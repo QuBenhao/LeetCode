@@ -1,15 +1,15 @@
-# 单调栈
+# Monotonic stack
 
-## 单调栈适用场景
+## When to use a monotonic stack
 
-单调栈可以在时间复杂度为$`O(n)`$，求解出某个元素左边或者右边第一个比它大或者小的元素。
+A monotonic stack finds the first greater or smaller element to the left or right of each element in $`O(n)`$ time.
 
-单调栈一般用于解决一下几种问题：
+A monotonic stack is commonly used for the following problems:
 
-- 寻找左侧第一个比当前元素大的元素。
-- 寻找左侧第一个比当前元素小的元素。
-- 寻找右侧第一个比当前元素大的元素。
-- 寻找右侧第一个比当前元素小的元素。
+- Find the first element to the left that is greater than the current element.
+- Find the first element to the left that is smaller than the current element.
+- Find the first element to the right that is greater than the current element.
+- Find the first element to the right that is smaller than the current element.
 
 ```python3
 def solve(nums):

@@ -1,4 +1,4 @@
-# [Python] 单调栈
+# [Python] Monotonic stack
 
 > slug: python-by-himymben-xbbz
 > date: 2022-10-21
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/online-stock-span/solutions/2yU9NN/python-by-himymben-xbbz/
 
 ---
-### 解题思路
-栈内只维护比自己大的元素，弹出所有小于等于自身的元素，在弹出时叠加他们的连续长度即可（小于等于他们肯定也小于等于当前元素）。
-可以想象成每次最大连续日数都被压缩了，比如`[100, 80, 60, 70]` 会变成 `[100, 80, 70(长度2)]`, 这样下一个包括70的元素就自动包含了他的长度2
+### Approach
+Keep only elements larger than the current one in the stack. Pop all elements less than or equal to it and accumulate their consecutive spans; anything at most those elements is also at most the current one.
+Think of each maximal consecutive span as compressed: `[100, 80, 60, 70]` becomes `[100, 80, 70(span 2)]`, so a later element that includes 70 automatically includes its span of 2
 
 
-### 代码
+### Code
 
 ```python3
 class StockSpanner:

@@ -1,4 +1,4 @@
-# [Python] 标准的二分题目(100%)
+# [Python] A standard binary search problem (100%)
 
 > slug: python-biao-zhun-de-er-fen-ti-mu-100-by-2ossr
 > date: 2021-07-15

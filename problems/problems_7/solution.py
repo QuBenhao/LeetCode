@@ -23,11 +23,11 @@ class Solution(solution.Solution):
         # while x != 0:
         #     if ans > INT_MAX or ans < INT_MIN:
         #         return 0
-        #     # Python3 的取模运算在 x 为负数时也会返回 [0, 9] 以内的结果，因此这里需要进行特殊判断
+        #     # Python3 modulo returns a result in [0, 9] even when x is negative, so special handling is needed here
         #     digit = x % 10
         #     if x < 0 and digit > 0:
         #         digit -= 10
-        #     # 不直接除10主要是Python对于负数除10的结果特殊
+        #     # Avoid dividing directly by 10 because Python handles division of negative numbers by 10 differently
         #     x = (x - digit) // 10
         #     ans = ans * 10 + digit
         # return ans

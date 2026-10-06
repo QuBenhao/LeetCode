@@ -1,4 +1,4 @@
-# [Python] 记忆化DFS 100%
+# [Python] Memoized DFS, beats 100%
 
 > Author: Benhao
 > Date: 2021-05-04
@@ -7,18 +7,18 @@
 
 ---
 
-### 解题思路
-dfs加点儿backtracking
+### Approach
+DFS with a little backtracking.
 
-以房间号、对应颜色和剩余街区作为dfs传参
-(houses列表作为外部变量，不断改变而不作为传参，因为list还要给lru_cache设计hash，使用backtracking回退house对应的值即可)
+Pass the house index, color, and number of remaining neighborhoods to dfs.
+(Keep houses as an external list that is updated as needed, rather than passing it as an argument: a list would need a hash representation for lru_cache. Use backtracking to restore the corresponding house value.)
 
-关于剪枝，当剩余街区小于0（也就是-1），说明分配不合理；当剩余街区比剩余的房子还多，也是分配不合理的；
+For pruning, a negative number of remaining neighborhoods (that is, -1) makes the assignment invalid. More remaining neighborhoods than remaining houses is also invalid.
 
-剩下的就是对没有颜色的房子遍历找颜色，对有颜色的统计一下剩余街区往下传即可。
+For unpainted houses, try every color. For painted houses, update the number of remaining neighborhoods and pass it downward.
 
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -57,7 +57,7 @@ class Solution:
         return res
 ```
 
-使用color代替houses[idx-1]的使用，代码更简洁也更快了。(不需要再对houses赋值了)
+Using color instead of houses[idx-1] makes the code shorter and faster, and removes the need to assign values to houses.
 ```python3
 class Solution:
     def minCost(self, houses: List[int], cost: List[List[int]], m: int, n: int, target: int) -> int:

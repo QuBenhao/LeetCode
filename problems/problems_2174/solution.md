@@ -1,4 +1,4 @@
-# [Python] 状压dp
+# [Python] Bitmask DP
 
 > slug: python-zhuangya-by-himymben-wvn9
 > date: 2022-04-25
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/remove-all-ones-with-row-and-column-flips-ii/solutions/7lk311/python-zhuangya-by-himymben-wvn9/
 
 ---
-### 解题思路
-用二进制 1 << (i * n + j) 位表示grid[i][j]是否为1的状压
-使用了记忆化递归写dp
+### Approach
+Use bit 1 << (i * n + j) to encode whether grid[i][j] is 1.
+Implement the DP with memoized recursion.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

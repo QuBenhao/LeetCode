@@ -24,7 +24,7 @@ class Solution(solution.Solution):
                 n = len(edges) + 1
                 m = n.bit_length()
                 graph = defaultdict(list)
-                for x, y in edges:  # 节点编号从 1 开始
+                for x, y in edges:  # Nodes are numbered from 1
                     graph[x-1].append((y-1, 1))
                     graph[y-1].append((x-1, 1))
 
@@ -52,22 +52,22 @@ class Solution(solution.Solution):
 
             def get_kth_ancestor(self, node: int, k: int) -> int:
                 for i in range(k.bit_length()):
-                    if k >> i & 1:  # k 二进制从低到高第 i 位是 1
+                    if k >> i & 1:  # Bit i of k, counted from least to most significant, is 1
                         node = self.pa[node][i]
                 return node
 
-            # 返回 x 和 y 的最近公共祖先（节点编号从 0 开始）
+            # Return the lowest common ancestor of x and y (nodes are numbered from 0)
             def get_lca(self, x: int, y: int) -> int:
                 if self.depth[x] > self.depth[y]:
                     x, y = y, x
-                # 使 y 和 x 在同一深度
+                # Bring y to the same depth as x
                 y = self.get_kth_ancestor(y, self.depth[y] - self.depth[x])
                 if y == x:
                     return x
                 for i in range(len(self.pa[x]) - 1, -1, -1):
                     px, py = self.pa[x][i], self.pa[y][i]
                     if px != py:
-                        x, y = px, py  # 同时往上跳 2**i 步
+                        x, y = px, py  # Jump upward 2**i steps together
                 return self.pa[x][0]
 
             def get_distance(self, x: int, y: int) -> int:

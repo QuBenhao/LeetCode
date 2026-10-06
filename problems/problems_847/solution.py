@@ -11,10 +11,10 @@ class Solution(solution.Solution):
         :rtype: int
         """
         n = len(graph)
-        # 初始以每个点为起点
+        # Initialize with every node as a starting point
         frontier = [(i, 1 << i) for i in range(n)]
         explored = set(frontier)
-        # 目标为2^n - 1
+        # The goal is 2^n - 1
         goal = (1 << n) - 1
         step = 0
         while frontier:
@@ -23,13 +23,13 @@ class Solution(solution.Solution):
                 if state == goal:
                     return step
                 for other in graph[cur]:
-                    # 下一个状态
+                    # Next state
                     successor = (other, 1 << other | state)
-                    # 新的状态没有被走过
+                    # The new state has not been visited
                     if successor not in explored:
                         explored.add(successor)
                         nxt.append(successor)
             frontier = nxt
             step += 1
-        # 图不连通
+        # The graph is disconnected
         return -1

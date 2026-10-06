@@ -1,4 +1,4 @@
-# [Python/Java] 前缀和裸题
+# [Python/Java] A straightforward prefix-sum problem
 
 > Author: Benhao
 > Date: 2021-08-27

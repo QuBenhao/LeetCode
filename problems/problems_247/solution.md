@@ -1,4 +1,4 @@
-# [Python] 递归
+# [Python] Recursion
 
 > slug: python-di-gui-by-himymben-zjk6
 > date: 2021-08-22
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/strobogrammatic-number-ii/solutions/kssZN4/python-di-gui-by-himymben-zjk6/
 
 ---
-### 解题思路
-每次往两边叠加对称数，比如左边+6，右边+9；
-要额外注意0在中间的加入方式，需要两位对称(0不能作为首字母)
+### Approach
+Add a symmetric pair to both ends each time, such as 6 on the left and 9 on the right.
+Take care when inserting 0 in the middle: insert symmetric pairs, and do not allow 0 as the leading digit.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

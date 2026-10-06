@@ -9,8 +9,8 @@ class Solution(solution.Solution):
     def maxJumps(self, arr: List[int], d: int) -> int:
         n = len(arr)
 
-        # 单调栈预处理：每个位置左右两侧第一个 >= 自身高度的障碍位置
-        # right[i] = i 右侧第一个 arr[j] >= arr[i] 的下标，不存在则为 n
+        # Precompute with a monotonic stack: the nearest barrier on either side whose height is >= the current height
+        # right[i] = the first index j to the right of i with arr[j] >= arr[i], or n if none exists
         right = [n] * n
         stack = []
         for i in range(n):
@@ -18,7 +18,7 @@ class Solution(solution.Solution):
                 right[stack.pop()] = i
             stack.append(i)
 
-        # left[i] = i 左侧第一个 arr[j] >= arr[i] 的下标，不存在则为 -1
+        # left[i] = the first index j to the left of i with arr[j] >= arr[i], or -1 if none exists
         left = [-1] * n
         stack = []
         for i in range(n):
@@ -27,7 +27,7 @@ class Solution(solution.Solution):
             left[i] = stack[-1] if stack else -1
             stack.append(i)
 
-        # DP：按高度从小到大处理
+        # DP: process heights in ascending order
         indices = sorted(range(n), key=lambda i: arr[i])
         dp = [1] * n
 

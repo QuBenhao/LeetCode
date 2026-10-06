@@ -1,4 +1,4 @@
-# [Python] 递归
+# [Python] Recursion
 
 > Author: Benhao
 > Date: 2024-03-20
@@ -12,21 +12,21 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 首先想到递归的时候减去当前节点的值(即为加入和)，向下寻找能否在叶子节点的时候和为0。但是要特别注意空节点不代表和为0
+> The first idea is to subtract the current node's value during recursion, accounting for it in the sum, and continue downward to see whether the remaining sum is 0 at a leaf. Be careful: reaching a null node does not mean the sum is 0.
 
-# 解题方法
+# Approach
 
-> 判断当前节点和是否为叶子节点，递归处理和
+> Check the current node's value and whether it is a leaf, then process the remaining sum recursively.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
-> 添加时间复杂度, 示例： $O(n)$
+Time complexity:
+> Add the time complexity, for example: $O(n)$
 
-空间复杂度:
-> 添加空间复杂度, 示例： $O(n)$
+Space complexity:
+> Add the space complexity, for example: $O(n)$
 
 
 

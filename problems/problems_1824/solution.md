@@ -1,4 +1,4 @@
-# [Python] 动态规划
+# [Python] Dynamic programming
 
 > Author: Benhao
 > Date: 2021-04-11
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-维护到达i时，三条跑道处所用的最小跳跃值。
-每次跳的时候，讨论当前位置的障碍物和下一个位置的障碍物。
-我们想从两个障碍物中交错通过时，总是需要两次跳跃；
-而我们想从两侧前面没有障碍物的地方跳到当前障碍物的前面时，总是需要一次跳跃；
-最后如果前面没有障碍物，不需要跳跃。
+### Approach
+Track the minimum jumps needed to reach position i in each of the three lanes.
+For each jump, consider obstacles at the current and next positions.
+Passing between two staggered obstacles requires two jumps.
+Moving from an unobstructed side lane to the position ahead of the current obstacle requires one jump.
+If the path ahead is clear, no jump is needed.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

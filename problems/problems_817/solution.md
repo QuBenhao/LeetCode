@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-mo-ni-by-himymben-9ir0
 > date: 2022-10-11
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/linked-list-components/solutions/oqbFu1/pythonjavatypescriptgo-mo-ni-by-himymben-9ir0/
 
 ---
-### 解题思路
-使用哈希表记录所有数组中的数，在遍历链表时，判断当前数是否在哈希表中，计算答案和当前组件状态即可
+### Approach
+Store every array value in a hash table. While traversing the linked list, check whether the current value is in the table and update the answer and current component state
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for singly-linked list.

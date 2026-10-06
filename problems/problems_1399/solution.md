@@ -1,4 +1,4 @@
-# 模拟
+# Simulation
 
 > slug: mo-ni-by-himymben-0dny
 > date: 2025-04-23
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-largest-group/solutions/SxmXNL/mo-ni-by-himymben-0dny/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

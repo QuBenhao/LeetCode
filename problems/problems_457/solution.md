@@ -1,4 +1,4 @@
-# [Python/Java]  反着看这道题(无指针的空间o(1)?)
+# [Python/Java] Think backward about this problem (o(1) space without pointers?)
 
 > Author: Benhao
 > Date: 2021-08-07
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-构不成循环的点有什么情况呢？它的下一个点是它自己，或者它和下一个点的乘积小于等于0（相反的数或者0，相当于进了一个构不成循环的地方，所以可以改成0，不影响存在的循环）。
-修改后，所有指向这些0的点，又都是新的构不成循环的点，以此类推。如果我们持续做这种变化，直到我们没有任何地方可以变化。最后如果数组中存在不为0的地方，那他们就是那个循环的地方。
+### Approach
+Which nodes cannot form a valid cycle? A node whose next node is itself, or whose value times the next value is at most 0. Opposite signs or a zero lead somewhere that cannot form a valid cycle, so mark the node as 0 without affecting any existing valid cycle.
+After marking, every node pointing to these zeros is another node that cannot form a cycle. Repeat until no changes remain. Any nonzero values left in the array then belong to a cycle.
 
-### 代码
-省空间费时间
+### Code
+Save space at the cost of time
 ```Python3 []
 class Solution:
     def circularArrayLoop(self, nums: List[int]) -> bool:
@@ -23,9 +23,9 @@ class Solution:
             for i, num in enumerate(nums):
                 if not num:
                     continue
-                # Python里负数取模为正
+                # In Python, modulo with a positive divisor gives a nonnegative result even for negative values
                 nxt = (i + num) % n
-                # 指向自己、指向正负相反的地方、指向0,均构不成循环
+                # A node pointing to itself, an opposite-sign value, or 0 cannot form a valid cycle
                 if nxt == i or nums[nxt] * num <= 0:
                     change = True
                     nums[i] = 0
@@ -55,7 +55,7 @@ class Solution {
     }
 }
 ```
-费空间省时间
+Save time at the cost of space
 ```Python3 []
 class Solution:
     def circularArrayLoop(self, nums: List[int]) -> bool:

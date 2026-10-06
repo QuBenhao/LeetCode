@@ -16,23 +16,23 @@ func leftmostBuildingQueries(heights []int, queries [][]int) []int {
 	for i, q := range queries {
 		a, b := q[0], q[1]
 		if a > b {
-			a, b = b, a // 保证 a <= b
+			a, b = b, a // Ensure a <= b
 		}
 		if a == b || heights[a] < heights[b] {
-			ans[i] = b // a 直接跳到 b
+			ans[i] = b // a jumps directly to b
 		} else {
-			qs[b] = append(qs[b], pair{heights[a], i}) // 离线询问
+			qs[b] = append(qs[b], pair{heights[a], i}) // Offline queries
 		}
 	}
 
 	h := hp{}
 	for i, x := range heights {
 		for h.Len() > 0 && h[0].h < x {
-			// 堆顶的 heights[a] 可以跳到 heights[i]
+			// The heap-top heights[a] can jump to heights[i]
 			ans[heap.Pop(&h).(pair).i] = i
 		}
 		for _, p := range qs[i] {
-			heap.Push(&h, p) // 后面再回答
+			heap.Push(&h, p) // Answer later
 		}
 	}
 	return ans

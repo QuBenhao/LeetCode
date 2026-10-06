@@ -1,6 +1,6 @@
-# 二分查找
+# Binary search
 
-**「二分」的本质是二段性，并非单调性。只要一段满足某个性质，另外一段不满足某个性质，就可以用「二分」。**
+**Binary search relies on a two-part partition, not necessarily monotonic values. It applies when one part satisfies a property and the other does not.**
 
 ```python3
 # bisect.bisect_left
@@ -36,12 +36,12 @@ func BinarySearch(arr []int, target int) int {
 }
 ```
 
-## 带重复元素的旋转数组
+## Rotated array with duplicate elements
 
 ```go
 package main
 
-// 这里的二段性是一段满足<target，另一段不满足
+// One part satisfies < target, and the other does not
 func binarySearch(nums []int, left, right, target int) int {
 	l, r := left, right
 	for l < r {
@@ -61,11 +61,11 @@ func binarySearch(nums []int, left, right, target int) int {
 func search(nums []int, target int) bool {
 	n := len(nums)
 	left, right := 0, n-1
-	// 恢复二段性
+	// Restore the two-part partition
 	for left < right && nums[right] == nums[left] {
 		right--
 	}
-	// 这里的二段性是一段满足>=nums[0]，另一段不满足
+	// One part satisfies >= nums[0], and the other does not
 	for left < right {
 		mid := left + (right-left+1)/2
 		if nums[mid] >= nums[0] {

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 哈希映射
+# [Python/Java/TypeScript/Go] Hash mapping
 
 > slug: pythonjavatypescriptgo-by-himymben-2eme
 > date: 2022-06-26
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/random-pick-with-blacklist/solutions/u673fL/pythonjavatypescriptgo-by-himymben-2eme/
 
 ---
-### 解题思路
-值域范围内的个数为n，不可选的数有m个，所以可选的数一共n-m个。
-我们随机一个n-m内的数，总能找到唯一一个它对应的可选数。
+### Approach
+The range contains n values, of which m are forbidden, leaving n-m valid choices.
+Choose a random index among n-m possibilities and map it to a unique allowed value.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

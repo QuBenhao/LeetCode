@@ -10,13 +10,13 @@ public:
     int left = 1, right = maxSum - n + 1;
     auto check = [n, index, maxSum](int mid) {
       int64_t leftSum = 0, rightSum = 0;
-      // 从0到index-1
+      // From 0 through index-1
       if (mid > index) {
         leftSum = (int64_t)(mid - 1 + mid - index) * index / 2;
       } else {
         leftSum = (int64_t)(mid - 1 + 1) * (mid - 1) / 2 + (index - mid + 1);
       }
-      // 从index+1到n-1
+      // From index+1 through n-1
       if (mid > n - index - 1) {
         rightSum =
             (int64_t)(mid - 1 + mid - (n - index - 1)) * (n - index - 1) / 2;

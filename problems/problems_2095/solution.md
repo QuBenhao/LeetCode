@@ -1,4 +1,4 @@
-# [Python/Go] 长度遍历 / 快慢指针
+# [Python/Go] Traverse by length / fast and slow pointers
 
 > slug: pythongo-chang-du-bian-li-by-himymben-60ia
 > date: 2021-12-05
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/delete-the-middle-node-of-a-linked-list/solutions/O2IK9k/pythongo-chang-du-bian-li-by-himymben-60ia/
 
 ---
-### 解题思路
-特判一个节点的情况
+### Approach
+Handle the single-node case separately.
 
 or
 
-快慢指针经典运用
+A classic use of fast and slow pointers.
 
-### 代码
+### Code
 
 ```python3 []
 # Definition for singly-linked list.
@@ -64,7 +64,7 @@ func deleteMiddle(head *ListNode) *ListNode {
 }
 ```
 
-快慢指针
+Fast and slow pointers
 ```python3 []
 # Definition for singly-linked list.
 # class ListNode:

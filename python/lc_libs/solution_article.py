@@ -1,5 +1,5 @@
 """
-LeetCode 题解文章相关 API
+APIs for LeetCode solution articles
 """
 
 import json
@@ -15,13 +15,13 @@ from python.utils.http_tool import general_request
 
 def extract_solution_slug_from_url(url: str) -> Optional[str]:
     """
-    从 LeetCode 题解 URL 中提取 slug
+    Extract the slug from a LeetCode solution URL
 
-    支持的 URL 格式:
+    Supported URL formats:
     - https://leetcode.cn/problems/{problem}/solutions/{id}/{slug}/
     - https://leetcode.com/problems/{problem}/solutions/{id}/{slug}/
     """
-    # 匹配 /solutions/{数字}/{slug}/ 或 /solutions/{数字}/{slug}
+    # Match /solutions/{number}/{slug}/ or /solutions/{number}/{slug}
     match = re.search(r'/solutions/\d+/([^/?#]+)/?', url)
     if match:
         return match.group(1)
@@ -30,14 +30,14 @@ def extract_solution_slug_from_url(url: str) -> Optional[str]:
 
 def get_solution_by_url(url: str, cookie: str) -> Optional[Dict]:
     """
-    通过 LeetCode 题解 URL 获取题解内容
+    Fetch solution content through a LeetCode solution URL
 
     Args:
-        url: LeetCode 题解 URL，如 https://leetcode.cn/problems/xxx/solutions/123/slug/
+        url: LeetCode solution URL, such as https://leetcode.cn/problems/xxx/solutions/123/slug/
         cookie: LeetCode Cookie
 
     Returns:
-        题解内容字典，包含 title, content, author 等
+        Dictionary of solution content, including title, content, author, etc.
     """
     slug = extract_solution_slug_from_url(url)
     if not slug:
@@ -47,7 +47,7 @@ def get_solution_by_url(url: str, cookie: str) -> Optional[Dict]:
 
 
 def get_my_solution_list(question_slug: str, user_slug: str, cookie: str) -> List[Dict]:
-    """获取当前用户在指定题目下的题解列表"""
+    """Get the current user's solutions for the specified problem."""
     def handle_response(response):
         data = json.loads(response.text)
         if data.get("errors"):
@@ -75,7 +75,7 @@ def get_my_solution_list(question_slug: str, user_slug: str, cookie: str) -> Lis
     if not result:
         return []
 
-    # 过滤出当前用户的题解
+    # Filter for the current user's solutions
     filtered = []
     for edge in result:
         node = edge.get("node", {})
@@ -89,7 +89,7 @@ def get_my_solution_list(question_slug: str, user_slug: str, cookie: str) -> Lis
 
 
 def get_solution_content(solution_slug: str, cookie: str, max_retries: int = 3) -> Optional[Dict]:
-    """获取题解的详细内容，支持重试"""
+    """Get detailed solution content, with retry support."""
     def handle_response(response):
         data = json.loads(response.text)
         if data.get("errors"):
@@ -112,14 +112,14 @@ def get_solution_content(solution_slug: str, cookie: str, max_retries: int = 3) 
         )
 
         if result:
-            # 检查 content 是否为空
+            # Check whether content is empty
             content = result.get("content", "")
             if content and content.strip():
                 return result
             else:
                 logging.warning(f"Empty content for {solution_slug}, attempt {attempt + 1}/{max_retries}")
                 if attempt < max_retries - 1:
-                    time.sleep(2 * (attempt + 1))  # 递增等待时间
+                    time.sleep(2 * (attempt + 1))  # Increase the wait time
         else:
             logging.warning(f"Failed to get solution content for {solution_slug}, attempt {attempt + 1}/{max_retries}")
             if attempt < max_retries - 1:
@@ -131,20 +131,20 @@ def get_solution_content(solution_slug: str, cookie: str, max_retries: int = 3) 
 def get_solution_articles(question_slug: str, cookie: str, author_slug: str = None,
                           first: int = 15, skip: int = 0, order_by: str = "DEFAULT") -> Dict:
     """
-    获取指定题目下的题解列表
+    Get solutions for the specified problem
 
     Args:
-        question_slug: 题目的 slug，如 'maximize-the-distance-between-points-on-a-square'
+        question_slug: Problem slug, such as 'maximize-the-distance-between-points-on-a-square'
         cookie: LeetCode Cookie
-        author_slug: 可选，指定作者的 slug，如 'endlesscheng'（使用 userInput 服务端过滤）
-        first: 返回数量，默认 15
-        skip: 跳过数量，默认 0（用于分页）
-        order_by: 排序方式，默认 'DEFAULT'，可选 'MOST_POPULAR'
+        author_slug: Optional author slug, such as 'endlesscheng' (uses server-side userInput filtering)
+        first: Number of results to return; defaults to 15
+        skip: Number of results to skip; defaults to 0 (for pagination)
+        order_by: Sort order; defaults to 'DEFAULT', with 'MOST_POPULAR' also supported
 
     Returns:
-        字典，包含:
-        - total: 总数
-        - articles: 题解列表，每个元素包含 slug, title, author, upvoteCount, summary 等
+        Dictionary containing:
+        - total: Total count
+        - articles: List of solutions, each containing slug, title, author, upvoteCount, summary, etc.
     """
     if not cookie:
         logging.warning("Cookie is empty, cannot fetch solution articles")
@@ -163,7 +163,7 @@ def get_solution_articles(question_slug: str, cookie: str, author_slug: str = No
             }
         return None
 
-    # 当指定 author_slug 时，增大 first 并使用 userInput 服务端过滤
+    # When author_slug is provided, increase first and use server-side userInput filtering
     actual_first = first if not author_slug else min(first * 3, 50)
     user_input = author_slug if author_slug else ""
 
@@ -188,12 +188,12 @@ def get_solution_articles(question_slug: str, cookie: str, author_slug: str = No
     if not result:
         return {"total": 0, "articles": []}
 
-    # 提取 node 数据
+    # Extract node data
     articles = []
     for edge in result.get("edges", []):
         node = edge.get("node", {})
         if author_slug:
-            # 服务端已通过 userInput 过滤，客户端再做精确匹配
+            # The server filters by userInput; also require an exact match on the client
             author = node.get("author", {})
             profile = author.get("profile", {})
             node_author_slug = profile.get("userSlug", "") if profile else ""
@@ -201,29 +201,29 @@ def get_solution_articles(question_slug: str, cookie: str, author_slug: str = No
                 continue
         articles.append(node)
 
-    # 当有 author 过滤时，total 使用过滤后的实际数量
+    # With an author filter, use the actual filtered count for total
     actual_total = len(articles) if author_slug else result.get("total", 0)
     return {"total": actual_total, "articles": articles}
 
 
 def get_solution_by_author(question_slug: str, author_slug: str, cookie: str) -> Optional[Dict]:
     """
-    获取指定作者在指定题目下的题解内容
+    Get a specified author's solution content for the specified problem
 
     Args:
-        question_slug: 题目的 slug
-        author_slug: 作者的 slug，如 'endlesscheng'
+        question_slug: Problem slug
+        author_slug: Author slug, such as 'endlesscheng'
         cookie: LeetCode Cookie
 
     Returns:
-        题解内容字典，包含 title, content, author 等；如果没有找到返回 None
+        Dictionary of solution content, including title, content, author, etc.; None if not found
     """
     result = get_solution_articles(question_slug, cookie, author_slug=author_slug)
     articles = result.get("articles", [])
     if not articles:
         return None
 
-    # 取第一个（通常一个作者一个题目只有一篇题解）
+    # Take the first result (an author usually has only one solution per problem)
     article = articles[0]
     solution_slug = article.get("slug")
     if not solution_slug:

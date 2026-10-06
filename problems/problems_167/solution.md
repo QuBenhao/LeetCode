@@ -1,4 +1,4 @@
-# [Python] 双指针
+# [Python] Two pointers
 
 > slug: python-shuang-zhi-zhen-by-himymben-uiap
 > date: 2024-03-01
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 在有序的数组中找和为target的，根据当前和与目标的差异移动指针调整大小即可
+> To find a pair summing to target in a sorted array, move the pointers to increase or decrease the current sum according to its difference from the target.
 
-# 解题方法
+# Approach
 
-> 双指针
+> Two pointers
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

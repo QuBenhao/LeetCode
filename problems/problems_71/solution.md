@@ -1,4 +1,4 @@
-# [Python] 栈
+# [Python] Stack
 
 > Author: Benhao
 > Date: 2024-03-07
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 以栈去处理".."的弹出上一层
+> Use a stack to pop the previous level for "..".
 
-# 解题方法
+# Approach
 
-> 按层级"/"分割，以栈处理中间的路径变化，最后再以"/"组合
+> Split levels on "/", use a stack to handle path changes, then join the result with "/".
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

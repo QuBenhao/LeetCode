@@ -1,14 +1,14 @@
-cmake_minimum_required(VERSION 3.14)  # FetchContent需要3.11+
+cmake_minimum_required(VERSION 3.14)  # FetchContent requires 3.11+
 project(LeetCode)
 
-# 设置全局编译和链接选项
+# Set global compiler and linker options
 if (APPLE)
-    # macOS 上使用 libc++ 而不是已弃用的 libstdc++
+    # Use libc++ on macOS instead of the deprecated libstdc++
     add_compile_options(-stdlib=libc++)
     add_link_options(-stdlib=libc++)
 endif ()
 
-# 启用地址消毒器
+# Enable AddressSanitizer
 add_compile_options(
         -O2
         -fsanitize=address
@@ -18,14 +18,14 @@ add_link_options(
         -fsanitize=address
 )
 
-# 设置C++标准
+# Set the C++ standard
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# 使用FetchContent管理外部依赖
+# Manage external dependencies with FetchContent
 include(FetchContent)
 
-# 1. 集成nlohmann_json (仅头文件库)
+# 1. Integrate nlohmann_json (a header-only library)
 FetchContent_Declare(
         nlohmann_json
         GIT_REPOSITORY https://github.com/nlohmann/json.git
@@ -33,22 +33,22 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(nlohmann_json)
 
-# 2. 集成GoogleTest
+# 2. Integrate GoogleTest
 FetchContent_Declare(
         googletest
         URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-        DOWNLOAD_EXTRACT_TIMESTAMP TRUE  # 解决时间戳警告
+        DOWNLOAD_EXTRACT_TIMESTAMP TRUE  # Resolve timestamp warnings
 )
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-# 启用测试
+# Enable tests
 enable_testing()
 
 configure_file(${CMAKE_SOURCE_DIR}/.env ${CMAKE_BINARY_DIR}/.env COPYONLY)
 file(READ "${CMAKE_BINARY_DIR}/.env" ENV_CONTENT)
-# 读取问题配置
+# Read the problem configuration
 string(REGEX MATCH "PROBLEM_FOLDER=\"([^\"]+)\"" _ ${ENV_CONTENT})
 set(PROBLEM_FOLDER "${CMAKE_MATCH_1}")
 

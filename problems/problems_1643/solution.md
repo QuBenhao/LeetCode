@@ -1,4 +1,4 @@
-# [Python] 排列组合
+# [Python] Combinatorics
 
 > Author: Benhao
 > Date: 2021-05-31
@@ -7,33 +7,33 @@
 
 ---
 
-### 解题思路
-参考的代码添加了注释。
-核心思想就是每次判断当前选'H'的话，后面是否够凑出k个，不够的话这里必然是选'V'的。
+### Approach
+I added comments to the reference implementation.
+At each step, check whether choosing 'H' leaves at least k possible paths. If not, this position must be 'V'.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def kthSmallestPath(self, destination: List[int], k: int) -> str:
-        # 本题为组合题，有h个相同的'H'和v个相同的'V',我们需要对他们进行排序
-        # 队列长度为h+v,我们需要选择h个位置给'H'
-        # 也就是说对h,v来说，组合数有comb(h+v,h)个
+        # Arrange h identical 'H' characters and v identical 'V' characters
+        # Choose h positions for 'H' in a sequence of length h+v
+        # Thus, h and v give comb(h+v,h) combinations
         v, h = destination 
         res = ''
         while h > 0 and v > 0:
-            # 先选'H'的选择比先选'V'的选择优先，那么在h,v位置，选'H'的话，h-1,v不变
-            # 此处放'H'的组合数
+            # Paths starting with 'H' precede those starting with 'V'; choosing 'H' reduces h by 1 and leaves v unchanged
+            # Number of combinations with 'H' here
             num = math.comb(h + v - 1, h - 1)
-            # 如果放'H'都不足以凑够k个，说明这里要放V，然后在后面找k-num
+            # If choosing 'H' gives fewer than k paths, choose V and find path k-num among the remaining paths
             if k > num:
                 res += 'V'
                 v -= 1
                 k -= num 
-            # 如果足够k个了，说明这里是放'H'的，到后面继续判断该'H'还是'V'
+            # Otherwise, choose 'H' and continue deciding between 'H' and 'V'
             else:
                 res += 'H'
                 h -= 1
-        # 我们到达了某个边，剩下的就是只有一种情况（走到尽头即可）
+        # At a boundary, only one path remains: go straight to the destination
         return res + h * 'H' + v * 'V'
 ```

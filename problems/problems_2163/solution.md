@@ -1,4 +1,4 @@
-# [Python] 前后缀堆
+# [Python] Prefix and suffix heaps
 
 > Author: Benhao
 > Date: 2022-02-06
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-其实就是从中间n个数中找最优分割点，分割点左边n个数最小和和右边n个数最大和。
+### Approach
+Find the best split among the middle n values, minimizing the sum of n values on the left and maximizing the sum of n values on the right.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

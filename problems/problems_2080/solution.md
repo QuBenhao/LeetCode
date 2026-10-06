@@ -1,4 +1,4 @@
-# [Python/Go] 哈希表+二分
+# [Python/Go] Hash table + binary search
 
 > Author: Benhao
 > Date: 2021-11-21
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-模拟即可
+### Approach
+Simulate the operations.
 
-### 代码
+### Code
 
 ```python3 []
 class RangeFreqQuery:

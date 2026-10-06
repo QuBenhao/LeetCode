@@ -11,7 +11,7 @@ class Solution(solution.Solution):
     def maxEnergyBoost(self, a: List[int], b: List[int]) -> int:
         c = (a, b)
 
-        @cache  # 缓存装饰器，避免重复计算 dfs 的结果（记忆化）
+        @cache  # Cache decorator to avoid recomputing dfs results (memoization)
         def dfs(i: int, j: int) -> int:
             if i < 0:
                 return 0

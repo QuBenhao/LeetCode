@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 哈希暴力
+# [Python/Java/TypeScript/Go] Brute force with hashing
 
 > slug: -by-himymben-eqe1
 > date: 2022-07-14
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/prefix-and-suffix-search/solutions/Va47RU/-by-himymben-eqe1/
 
 ---
-### 解题思路
-记录每个单词的前缀后缀拼接组合，更新为最后一个坐标即可。
+### Approach
+Record each concatenated prefix/suffix combination of every word, updating it to the latest index.
 
-### 代码
+### Code
 
 ```Python3 []
 class WordFilter:

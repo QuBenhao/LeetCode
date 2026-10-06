@@ -1,4 +1,4 @@
-# [Python/Go/C] 计数
+# [Python/Go/C] Counting
 
 > Author: Benhao
 > Date: 2024-02-25
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 排序固然简单，但没有价值。二分答案也是一个选择（毕竟答案具备二分性质），不过更好的是从三叶那学习O(n)的方法，统计计数后从大到小遍历（类似前缀和），找到第一个满足条件的即为答案
+> Sorting is straightforward but offers little insight. Binary search on the answer is also possible because the condition is monotonic. A better option is the O(n) method learned from 三叶: count frequencies, then traverse from large to small, accumulating counts as with prefix sums. The first value satisfying the condition is the answer.
 
-# 解题方法
+# Approach
 
-> 统计后遍历找答案
+> Count, then traverse to find the answer
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

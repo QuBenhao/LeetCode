@@ -1,4 +1,4 @@
-# [C] 模拟
+# [C] Simulation
 
 > slug: c-mo-ni-by-himymben-uowz
 > date: 2023-01-13
@@ -7,7 +7,7 @@
 > url: https://leetcode.cn/problems/rearrange-characters-to-make-target-string/solutions/YNgryk/c-mo-ni-by-himymben-uowz/
 
 ---
-统计每一个字符的个数，s能覆盖target的多少倍，按木桶原理找最小
+Count each character, then determine how many copies of target s can cover. The smallest character ratio is the limiting factor.
 
 ```C []
 int min(int a, int b) {

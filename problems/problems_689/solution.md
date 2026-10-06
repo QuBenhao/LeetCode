@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 前缀和 + 背包动态规划
+# [Python/Java/JavaScript/Go] Prefix sums + knapsack dynamic programming
 
 > slug: pythonjavajavascriptgo-qian-zhui-he-bei-3mfqv
 > date: 2021-12-07
@@ -7,38 +7,38 @@
 > url: https://leetcode.cn/problems/maximum-sum-of-3-non-overlapping-subarrays/solutions/XAuD8f/pythonjavajavascriptgo-qian-zhui-he-bei-3mfqv/
 
 ---
-### 解题思路
-我们先预处理获得所有长度为k的子数组的和
-对于这里面的所有和，我们要取不能相邻k个内的三个，和最大的值
-说白了就是每k个最多取一个，跟打家劫舍的背包大同小异，只是需要记录路径的坐标
-我们用动态规划，分别维护当前取第一个的最大值和坐标，取第二个的最大值和坐标和取第三个的最大值和坐标即可
+### Approach
+First, preprocess the sums of every subarray of length k.
+Choose three of these sums whose positions are at least k apart, maximizing their total.
+In other words, select at most one in each group of k positions. This resembles the House Robber knapsack approach, with the additional need to record the selected indices.
+Use dynamic programming to track the maximum sums and indices for selecting one, two, and three subarrays.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def maxSumOfThreeSubarrays(self, nums: List[int], k: int) -> List[int]:
         def lMax(l1, l2):
-            # 根据我们放入这个函数的顺序，可以保证相等的时候我们始终返回坐标字典序小的那一个
+            # The argument order guarantees that ties return the lexicographically smaller indices
             if l1[0] >= l2[0]:
                 return l1
             return l2
 
         presum = [0] + list(accumulate(nums))
-        # 每k个求和构成所有可选的连续子数组的和
+        # Sum each length-k window to obtain every candidate subarray sum
         windows = [presum[i+k] - presum[i] for i in range(len(nums) - k + 1)]
-        # 从windows里选三个数和最大且不相邻
-        # dp[i]有三个维度，分别代表选第一个的最大值和坐标，选第二个的最大值和坐标，以及选第三个的最大值和坐标
+        # Choose three non-overlapping windows with the largest total
+        # dp[i] has three states: the best sum and indices for selecting one, two, or three subarrays
         dp = [[[0, -1]] * 3 for _ in range(len(windows))]
         for i,w in enumerate(windows):
-            # 只有可能选第一个
+            # Only one subarray can be selected so far
             if i < k:
                 dp[i][0] = lMax(dp[i-1][0], [w, i])
             else:
                 dp[i][0] = lMax(dp[i-1][0], [w, i])
-                # 维护第二个的最大值, 它由k个前取了第一个的最大值加上取当前的值 和 上一次取第二个的最大值构成
+                # For two subarrays, compare the previous best with the best one-subarray sum k positions earlier plus the current window
                 dp[i][1] = lMax([dp[i-k][0][0] + w, (dp[i-k][0][1],i)], dp[i-1][1])
-                # 只有2k以后才有可能选第三个，维护第三个的最大值, 它由k个前取了第二个的最大值加上取当前的值 和 上一次取第三个的最大值构成
+                # Three subarrays become possible after 2k positions; compare the previous best with the best two-subarray sum k positions earlier plus the current window
                 if i >= 2 * k:
                     dp[i][2] = lMax([dp[i-k][1][0] + w, (dp[i-k][1][1][0],dp[i-k][1][1][1],i)], dp[i-1][2])
         m, ans = 0, None

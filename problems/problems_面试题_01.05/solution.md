@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 双指针实现简单编辑距离
+# [Python/Java/JavaScript/Go] A simple edit-distance check with two pointers
 
 > slug: pythonjavajavascriptgo-shuang-zhi-zhen-s-vojx
 > date: 2022-05-12
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/one-away-lcci/solutions/czNrD8/pythonjavajavascriptgo-shuang-zhi-zhen-s-vojx/
 
 ---
-### 解题思路
-本题要求两个字符串的编辑距离不超过1，我们不需要像编辑距离一样统计对比所有位置了，只需要依次比较不同，因为最多有一处。
+### Approach
+The edit distance between the two strings must be at most 1. There is no need to compare every pair of positions as in the general edit-distance problem; compare characters in order, since at most one mismatch is allowed.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -26,15 +26,15 @@ class Solution:
             elif used:
                 return False
             else:
-                # 根据长度判断三种变化:
+                # Use the lengths to distinguish three types of edit:
                 if m > n:
-                    # first长，删掉i，i后移
+                    # first is longer: delete its character at i and advance i
                     i += 1
                 elif m < n:
-                    # second长，删掉j，j后移
+                    # second is longer: delete its character at j and advance j
                     j += 1
                 else:
-                    # 编辑i与j一致，一起后移
+                    # Edit the characters at i and j to match, then advance both
                     i += 1
                     j += 1
                 used = True
@@ -123,7 +123,7 @@ func oneEditAway(first string, second string) bool {
 }
 ```
 
-皮一下
+A playful shortcut
 ```python3
 class Solution:
     def oneEditAway(self, first: str, second: str) -> bool:

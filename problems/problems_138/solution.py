@@ -19,13 +19,13 @@ class Solution(solution.Solution):
         if not head:
             return head
 
-        # 复制所有节点，插入原节点的后面
+        # Copy every node and insert the copy after the original node
         cur = head
         while cur:
             cur.next = Node(cur.val, cur.next, None)
             cur = cur.next.next
 
-        # 连接所有复制的节点的random指针
+        # Connect the random pointers of all copied nodes
         cur = head
         copy_head = head.next
         while cur:
@@ -33,7 +33,7 @@ class Solution(solution.Solution):
                 cur.next.random = cur.random.next
             cur = cur.next.next
 
-        # 断开原链表与复制链表之间的连接
+        # Disconnect the original list from the copied list
         cur = head
         cur_ = copy_head
         while cur and cur_:

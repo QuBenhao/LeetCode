@@ -1,4 +1,4 @@
-# [Python] 统计每一位有多少个0，有多少个1
+# [Python] Count zeros and ones at each bit position
 
 > Author: Benhao
 > Date: 2021-05-28
@@ -7,34 +7,34 @@
 
 ---
 
-### 解题思路
-> 第一段代码
-> 使用一个Counter来记录每一位`1`的个数，这样是循环到每个数的时候既可以统计和前面的数的汉明距离，又可以更新Counter。
+### Approach
+> First code block
+> Use a Counter to record the number of `1`s at each bit position. For each number, compute its Hamming distances from preceding numbers while updating the Counter.
 
-> 第二段代码是去掉了循环中的统计汉明距离，直接在最终对每一位统计`0`的个数乘以`1`的个数。这里其实是把刚刚的`循环加法`换成了一个`乘法求和`。
-> 每位`0`的个数是总共的数字个数减去`1`的个数。
+> The second code block removes the per-iteration Hamming-distance calculation. At the end, multiply the count of `0`s by the count of `1`s at each position. This replaces `repeated addition` with `a sum of products`.
+> The count of `0`s at a position is the total number count minus the count of `1`s.
 
-> 有了第二段代码不难发现
-> 我们只需要知道每一位的`0`和`1`的个数，这和昨天使用bin(x).count('1')是一致的。
-> 我们需要`map`+`bin`获得所有数字的二进制字符串，然后统计每一位的'1'即可。这刚好就是`zip`的拆分。
-> 取30位是因为2^29 < 10^9 < 2^30
+> From the second code block, it is easy to see:
+> We need only the counts of `0`s and `1`s at each position, similar to yesterday's use of bin(x).count('1').
+> Use `map` + `bin` to obtain every number's binary string, then count '1's at each position. Transposing with `zip` does exactly this.
+> Use 30 bits because 2^29 < 10^9 < 2^30.
 
-**关于format**
-将十进制转换为固定长度的多进制类型：
-> `8位二进制`
+**About format**
+Convert decimal values to a fixed-width representation in another base:
+> `8-bit binary`
 > '{:08b}'.format(9)
 > '00001001'
 
-> `6位8进制`
+> `6-digit octal`
 > '{:06o}'.format(9)
 > '000011'
 
->`6位16进制`
+>`6-digit hexadecimal`
 > '{:06x}'.format(9)
 > '000009'
 
 
-### 代码
+### Code
 
 ```python3
 class Solution:

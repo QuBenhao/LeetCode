@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > slug: python-mo-ni-by-himymben-n9ew
 > date: 2024-03-04
@@ -12,21 +12,21 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 判断回文的基本思路是后半段的反转与前半段一致
+> The basic palindrome check is whether the reversed second half matches the first half.
 
-# 解题方法
+# Approach
 
-> 数字我们可以通过辗转相除从后往前取数字，当小于等于原数时，说明我们已经处理过半了
-如果原数字是奇数长度，则两者判断十倍差异。如果原数字是偶数长度，则判断两者是否一致。
+> Repeated division extracts digits from back to front. When the value is less than or equal to the original number, we have processed at least half of it.
+For an odd number of digits, compare the two values after accounting for a factor of ten. For an even number of digits, check whether they are equal.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

@@ -1,4 +1,4 @@
-# [C/Py/Java/Ts/Go] 模拟
+# [C/Py/Java/Ts/Go] Simulation
 
 > slug: cpyjavatsgo-mo-ni-by-himymben-5uzl
 > date: 2023-03-20

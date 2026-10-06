@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 简单模拟
+# [Python/Java/TypeScript/Go] Simple simulation
 
 > Author: Benhao
 > Date: 2022-08-11
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-按所在组人数分组，每个组是所在组人数的人就行
+### Approach
+Group people by their required group size, then split each bucket into groups of that size.
 
 PS:
-最优解法（可达100%），可以在遍历中构造
+An optimal approach (can beat 100%): construct groups during the traversal.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -76,7 +76,7 @@ func groupThePeople(groupSizes []int) (ans [][]int) {
 }
 ```
 
-```python3 [v1-一次遍历 Python3]
+```python3 [v1-One traversal Python3]
 class Solution:
     def groupThePeople(self, groupSizes: List[int]) -> List[List[int]]:
         ans, mp = [], dict()
@@ -88,7 +88,7 @@ class Solution:
                 ans[mp[v]].append(i)
         return ans
 ```
-```go [v1-一次遍历 Go]
+```go [v1-One traversal Go]
 func groupThePeople(groupSizes []int) (ans [][]int) {
     mp := map[int]int{}
     for i, v := range groupSizes {

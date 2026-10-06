@@ -34,14 +34,14 @@ class Solution(solution.Solution):
         #             queue.append((nb, depth + 1))
         # return -1
 
-        # 邻近点
+        # Neighbors
         neighbors = {0: (1, 3), 1: (0, 2, 4), 2: (1, 5), 3: (0, 4), 4: (1, 3, 5), 5: (2, 4)}
 
-        # 曼哈顿距离
+        # Manhattan distance
         def ManhattanDist(p1, p2):
             return abs(p2[0] - p1[0]) + abs(p2[1] - p1[1])
 
-        # State状态
+        # State
         class State:
             def __init__(self, b=None, cost=0):
                 self.board = b
@@ -60,7 +60,7 @@ class Solution(solution.Solution):
             def __hash__(self):
                 return self.hash
 
-            # 两种启发式
+            # Two heuristics
             def heuristic(self):
                 # h1
                 return sum(1 for i in range(6) if self.board[i] and self.board[i] != i + 1)
@@ -69,7 +69,7 @@ class Solution(solution.Solution):
                 #     ManhattanDist((i // 3, i % 3), ((num - 1) // 3, (num - 1) % 3))
                 #     for i, num in enumerate(self.board) if num)
 
-            # 下一个状态为和0的各种交换
+            # Generate the next states by swapping with 0
             def successor(self):
                 idx = self.board.index(0)
                 successors = []
@@ -81,13 +81,13 @@ class Solution(solution.Solution):
                 return successors
 
         board = board[0] + board[1]
-        # 无解
+        # No solution
         if sum(1 for i in range(6) for j in range(i+1, 6) if board[j] and board[i] > board[j]) % 2 == 1:
             return -1
         initState = State(board)
         pq = [initState]
         explored = {initState:0}
-        # 优先队列以f=h+g进行了排序
+        # The priority queue is ordered by f=h+g
         while pq:
             state = heapq.heappop(pq)
             if state.board == [1, 2, 3, 4, 5, 0]:

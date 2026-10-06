@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-rayz
 > date: 2022-01-23
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/stock-price-fluctuation/solutions/5w4ebP/pythonjavajavascriptgo-mo-ni-by-himymben-rayz/
 
 ---
-### 解题思路
-维护一个最大的时间戳，维护一个价格的有序列表（在相同时间戳更新价格时删掉原来错误的时间戳）
+### Approach
+Maintain the latest timestamp and a sorted list of prices (remove the old incorrect entry when a price is updated at the same timestamp).
 
-### 代码
+### Code
 
 ```Python3 []
 from sortedcontainers import SortedList

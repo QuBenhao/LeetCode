@@ -1,4 +1,4 @@
-# [Python] 各个方向前缀和
+# [Python] Prefix sums in every direction
 
 > Author: Benhao
 > Date: 2021-06-13
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-我脑子秀逗了居然还想二分
+### Approach
+I must have lost my mind to consider binary search here.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

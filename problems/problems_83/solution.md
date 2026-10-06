@@ -1,4 +1,4 @@
-# [Python] 依旧是迭代
+# [Python] Iteration again
 
 > Author: Benhao
 > Date: 2021-03-25
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-有重复就让head.next=后面的部分即可
+### Approach
+When a duplicate occurs, set head.next to the remaining portion of the list.
 
-### 代码
+### Code
 
 ```python
 # Definition for singly-linked list.

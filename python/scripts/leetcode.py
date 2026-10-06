@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-LeetCode 工具集 - 主入口
-支持交互式初始化、浏览器 Cookie 自动检测、多语言界面
+LeetCode toolkit: main entry point
+Supports interactive initialization, automatic browser Cookie detection, and a multilingual interface
 
-使用方法：
-  python leetcode.py           # 默认中文界面
-  python leetcode.py --en      # 英文界面
-  python leetcode.py --init    # 强制进入初始化向导
+Usage:
+  python leetcode.py           # Chinese interface by default
+  python leetcode.py --en      # English interface
+  python leetcode.py --init    # Force the initialization wizard
 """
 
 import argparse
@@ -892,7 +892,7 @@ def repository_health(problem_folder: str):
 
 
 def _get_problem_slug_from_id(problem_id: str, cookie: str) -> Optional[str]:
-    """通过题目 ID 获取 problem_slug"""
+    """Get problem_slug by problem ID."""
     origin_problem_id = back_question_id(problem_id)
     questions = lc_libs.get_questions_by_key_word(origin_problem_id, cookie)
     if not questions:
@@ -904,13 +904,13 @@ def _get_problem_slug_from_id(problem_id: str, cookie: str) -> Optional[str]:
 
 
 def _display_width(s: str) -> int:
-    """计算字符串在终端的显示宽度（中文等宽字符占两列）"""
+    """Calculate terminal display width (full-width characters, such as Chinese, occupy two columns)."""
     import unicodedata
     return sum(2 if unicodedata.east_asian_width(c) in ('W', 'F') else 1 for c in s)
 
 
 def _pad_to_width(s: str, width: int) -> str:
-    """将字符串填充到指定显示宽度"""
+    """Pad a string to the specified display width."""
     current_width = _display_width(s)
     if current_width >= width:
         return s
@@ -920,37 +920,37 @@ def _pad_to_width(s: str, width: int) -> str:
 def _display_solution_detail(title: str, author_name: str, upvote: int,
                               content: str, solution_link: str) -> bool:
     """
-    展示题解详情（边界框 + 分页器）
+    Display solution details in a bordered box and pager
 
     Returns:
-        True 如果用户选择保存，False 否则
+        True if the user chooses to save, otherwise False
     """
-    # 边界框展示元信息（固定宽度 50）
+    # Display metadata in a bordered box (fixed width 50)
     box_width = 50
-    content_width = box_width - 4  # 去掉 "│ " 和 " │"
+    content_width = box_width - 4  # Remove "│ " and " │"
 
     print(f"\n┌{'─' * (box_width - 2)}┐")
 
-    # 标题行（截断并填充）
+    # Title line (truncate and pad)
     title_display = title[:content_width - 2] if _display_width(title) > content_width - 2 else title
     print(f"│ 📄 {_pad_to_width(title_display, content_width - 2)}│")
 
-    # 作者行
+    # Author line
     author_display = author_name[:content_width - 2] if _display_width(author_name) > content_width - 2 else author_name
     print(f"│ 👤 {_pad_to_width(author_display, content_width - 2)}│")
 
-    # 点赞行
+    # Upvote line
     upvote_str = str(upvote)
     print(f"│ 👍 {_pad_to_width(upvote_str, content_width - 2)}│")
 
-    # 链接行（如果有）
+    # Link line, if available
     if solution_link:
         link_display = solution_link[:content_width - 2] if len(solution_link) > content_width - 2 else solution_link
         print(f"│ 🔗 {_pad_to_width(link_display, content_width - 2)}│")
 
     print(f"└{'─' * (box_width - 2)}┘")
 
-    # 使用分页器展示内容
+    # Display content in a pager
     if content:
         import tempfile
         tmp_path = None
@@ -961,12 +961,12 @@ def _display_solution_detail(title: str, author_name: str, upvote: int,
                 f.write(content)
                 tmp_path = f.name
 
-            # 使用列表形式避免 shell 注入
+            # Use an argument list to avoid shell injection
             import shlex
             pager_cmd = shlex.split(os.environ.get('PAGER', 'less -R'))
             subprocess.run(pager_cmd + [tmp_path])
         except Exception:
-            # 如果分页器失败，直接打印前 100 行
+            # If the pager fails, print the first 100 lines directly
             print("\n" + SEPARATE_LINE)
             lines = content.split('\n')
             for line in lines[:100]:
@@ -983,7 +983,7 @@ def _display_solution_detail(title: str, author_name: str, upvote: int,
 
 
 def _save_solution(article_content: dict, problem_folder: str, problem_id: str):
-    """保存题解到本地文件"""
+    """Save a solution to a local file."""
     problem_dir = root_path / problem_folder / f"{problem_folder}_{back_question_id(problem_id)}"
     if not problem_dir.exists():
         print(f"{t('solution_save_failed')} - 目录不存在: {problem_dir}")
@@ -1005,7 +1005,7 @@ def _save_solution(article_content: dict, problem_folder: str, problem_id: str):
 
 
 def _browse_community_solutions(cookie: str, problem_folder: str):
-    """浏览社区题解（支持分页）"""
+    """Browse community solutions with pagination."""
     problem_id_input = input_until_valid(t("solution_enter_problem_id"), allow_all_not_empty,
                                           t("solution_problem_id_empty"))
     print(SEPARATE_LINE)
@@ -1031,7 +1031,7 @@ def _browse_community_solutions(cookie: str, problem_folder: str):
             return
 
         max_page = math.ceil(total / page_size)
-        # 构建题解列表展示
+        # Build the solution list display
         lines = []
         for i, article in enumerate(articles, 1):
             title = article.get("title", "")
@@ -1056,7 +1056,7 @@ def _browse_community_solutions(cookie: str, problem_folder: str):
         pick = None
         match select:
             case "" | "0":
-                # 回车或 0 返回
+                # Enter or 0 returns
                 return
             case "b":
                 if cur_page == 1:
@@ -1071,7 +1071,7 @@ def _browse_community_solutions(cookie: str, problem_folder: str):
             case v if v.isdigit() and 1 <= int(v) <= len(articles):
                 pick = int(v)
             case _:
-                # 其他无效输入，继续显示当前页
+                # For other invalid input, continue showing the current page
                 continue
 
         print(SEPARATE_LINE)
@@ -1104,7 +1104,7 @@ def _browse_community_solutions(cookie: str, problem_folder: str):
 
 
 def _view_author_solutions(cookie: str, problem_folder: str):
-    """查看指定作者题解"""
+    """View a specified author's solution."""
     author_input = input_until_valid(t("solution_enter_author"), allow_all)
     author_slug = author_input.strip() if author_input.strip() else "endlesscheng"
     print(SEPARATE_LINE)
@@ -1141,13 +1141,13 @@ def _view_author_solutions(cookie: str, problem_folder: str):
 
 
 def solution_center(cookie, problem_folder):
-    """题解中心"""
+    """Solution center."""
     while True:
         method = input_until_valid(t("solution_menu"), allow_all)
         print(SEPARATE_LINE)
         match method:
             case "1":
-                # 拉取我的题解
+                # Fetch my solutions
                 user_slug = os.getenv("LEETCODE_USER", "")
                 if not user_slug:
                     print(t("fetch_no_user"))

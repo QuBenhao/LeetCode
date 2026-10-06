@@ -1,4 +1,4 @@
-# [Python/Java] 不知道怎么吐槽了…祝大家七夕快乐吧
+# [Python/Java] I'm out of jokes... Happy Qixi, everyone
 
 > Author: Benhao
 > Date: 2021-08-13
@@ -7,16 +7,16 @@
 
 ---
 
-### 解题思路
-摘了一下诺手的话，看完能看懂题了起码[@zbtzbt](/u/zbtzbt/)
+### Approach
+An excerpt from 诺手's explanation; at least it makes the problem understandable [@zbtzbt](/u/zbtzbt/)
 
-就是暴力模拟，判断有没有不开心……
-我不想优化了，今天我就非得多用一些对象（没有对象还不能new了吗？？）。
+Use brute-force simulation to check who is unhappy...
+I do not feel like optimizing this today; I insist on using more objects (if I cannot find a partner, can I at least use new??).
 
 
-希望七夕不快乐的朋友--！快乐++!
+Wishing everyone a Qixi with unhappiness-- and happiness++!
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -52,7 +52,7 @@ class Solution:
                     ans.add(y)
         return len(ans)
 ```
-另一种写法
+Another implementation
 ```Python3 []
 class Solution:
     def unhappyFriends(self, n: int, preferences: List[List[int]], pairs: List[List[int]]) -> int:
@@ -111,6 +111,6 @@ class Solution {
 }
 ```
 
-### 复杂度
-时间复杂度$o(n^2)$
-空间复杂度$o(n^2)$
+### Complexity
+Time complexity: $o(n^2)$
+Space complexity: $o(n^2)$

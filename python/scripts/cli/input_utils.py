@@ -84,10 +84,10 @@ def allow_number(x: str) -> bool:
 
 
 def allow_lang_selection(x: str) -> bool:
-    """语言选择：接受空（回车=默认 0）或逗号分隔的 0-5。"""
+    """Language selection: accept empty input (Enter defaults to 0) or comma-separated values from 0-5."""
     return bool(re.match(r"^([0-5](,[0-5])*)?$", x))
 
 
 def allow_optional_choice(allowed: set) -> Callable[[str], bool]:
-    """菜单选择：接受空（回车=默认值）或落在允许集合内的输入。"""
+    """Menu selection: accept empty input (Enter uses the default) or a value in the allowed set."""
     return lambda x: x == "" or x in allowed

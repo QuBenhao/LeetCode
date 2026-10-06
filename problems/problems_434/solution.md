@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 模拟
+# [Python/Java/JavaScript] Simulation
 
 > slug: pythonjavajavascript-mo-ni-by-himymben-1pex
 > date: 2021-10-06
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/number-of-segments-in-a-string/solutions/CpCU6Q/pythonjavajavascript-mo-ni-by-himymben-1pex/
 
 ---
-### 解题思路
-遍历统计个数即可
+### Approach
+Traverse and count.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 凡是每一层要做什么的，都先考虑BFS能不能解决 (注意其他语言有溢出风险的情况的话，考虑先除，累加小数?)
+> Whenever a problem operates on each level, consider BFS first. In languages where overflow is possible, consider dividing first and accumulating fractional values.
 
-# 解题方法
+# Approach
 
 > BFS
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

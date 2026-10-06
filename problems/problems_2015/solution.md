@@ -1,4 +1,4 @@
-# [Python] 差分数组
+# [Python] Difference array
 
 > slug: python-cha-fen-shu-zu-by-himymben-v28w
 > date: 2022-05-04
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/average-height-of-buildings-in-each-segment/solutions/NqAMMO/python-cha-fen-shu-zu-by-himymben-v28w/
 
 ---
-### 解题思路
-差分扫描线问题
+### Approach
+A sweep-line problem using a difference array.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

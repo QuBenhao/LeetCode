@@ -1,4 +1,4 @@
-# [Python/Java] 暴力模拟
+# [Python/Java] Brute-force simulation
 
 > Author: Benhao
 > Date: 2021-08-22
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按步长为2遍历数组(所有偶数位)，该位和该位的下一个奇数位按规则填入，返回最大值即可。
+### Approach
+Iterate over even indices with a step of 2, fill each even index and the following odd index using the rules, and return the maximum.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

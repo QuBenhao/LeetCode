@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-by-himymben-5i56
 > date: 2022-05-29
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/validate-ip-address/solutions/MHPa5v/pythonjavajavascriptgo-by-himymben-5i56/
 
 ---
-### 解题思路
-根据'.'和':'判断是IPv4还是IPv6。
-根据判断IPv4规则，按'.'分割字符串后需要长度为4，且分割的每个字符串长度在1到3之间，可以解析为数字，不含前导零然后大小在0到255之间。
-根据判断IPv6规则，按':'分割字符串后需要长度为8，且分割的每个字符串长度在1到4之间，每个字符都需要在0-9或a-f或A-F中。
+### Approach
+Use '.' and ':' to distinguish IPv4 from IPv6.
+For IPv4, splitting on '.' must produce four parts. Each part must have length 1-3, parse as a number, have no leading zeros, and be between 0 and 255.
+For IPv6, splitting on ':' must produce eight parts. Each part must have length 1-4 and contain only characters from 0-9, a-f, or A-F.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

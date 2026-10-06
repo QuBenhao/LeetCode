@@ -1,4 +1,4 @@
-# [Python/Java] 模拟 and 优化
+# [Python/Java] Simulation and optimization
 
 > slug: pythonjava-mo-ni-and-you-hua-by-himymben-was2
 > date: 2021-09-12
@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/valid-parenthesis-string/solutions/BXtlnC/pythonjava-mo-ni-and-you-hua-by-himymben-was2/
 
 ---
-### 解题思路
-纯模拟: 用一个集合记录所有当前可能的左括号个数，遇到左括号，所有可能数+1，遇到右括号，所有可能数-1，遇到星号，可能+1，可能不变，可能-1。左括号个数不能是负数，所以如果没有左括号个数的时候，可以返回False了。
+### Approach
+Direct simulation: keep a set of all possible counts of unmatched left parentheses. A left parenthesis adds 1 to each count; a right parenthesis subtracts 1; an asterisk may add 1, leave the count unchanged, or subtract 1. Counts cannot be negative. If no valid count remains, return False.
 
-**我们的集合里左括号个数的可能性其实是一个范围，从最低的一个数到最高的一个数全部都在，所以可以记录左右范围即可**。
-因为就是在对一个范围进行偏移，左括号往右偏1，右括号往左偏1，星号往两边扩大1
+**The possible counts form a continuous range from the minimum to the maximum, so we only need its two endpoints.**
+Each step shifts or expands this range: a left parenthesis shifts it right by 1, a right parenthesis shifts it left by 1, and an asterisk expands it by 1 in both directions.
 
-### 代码
+### Code
 
-模拟
+Simulation
 ```Python3 []
 class Solution:
     def checkValidString(self, s: str) -> bool:
@@ -74,11 +74,11 @@ class Solution {
 }
 ```
 
-优化
+Optimization
 ```Python3 []
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        # l表示当前左括号最少可能为多少，r表示当前左括号最多可能是多少，他们之间都可以取到
+        # l and r are the minimum and maximum possible unmatched-left-parenthesis counts; every value between them is possible
         l = r = 0
         for c in s:
             if c == '(':

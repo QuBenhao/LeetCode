@@ -1,4 +1,4 @@
-# [Python/Go] 模拟
+# [Python/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-02-20

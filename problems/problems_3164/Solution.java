@@ -28,7 +28,7 @@ public class Solution extends BaseSolution {
             int x = e.getKey();
             int cnt = e.getValue();
             int s = 0;
-            for (int y = x; y <= u; y += x) { // 枚举 x 的倍数
+            for (int y = x; y <= u; y += x) { // Enumerate multiples of x
                 if (cnt1.containsKey(y)) {
                     s += cnt1.get(y);
                 }

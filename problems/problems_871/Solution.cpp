@@ -12,16 +12,16 @@ public:
     priority_queue<int> fuel_heap;
     for (auto &station : stations) {
       int position = station[0];
-      cur_fuel -= position - pre_position; // 每行驶 1 英里用掉 1 升汽油
-      while (!fuel_heap.empty() && cur_fuel < 0) { // 没油了
-        cur_fuel += fuel_heap.top();               // 选油量最多的油桶
+      cur_fuel -= position - pre_position; // Each mile consumes 1 liter of fuel
+      while (!fuel_heap.empty() && cur_fuel < 0) { // Out of fuel
+        cur_fuel += fuel_heap.top();               // Choose the fuel can with the most fuel
         fuel_heap.pop();
         ans++;
       }
-      if (cur_fuel < 0) { // 无法到达
+      if (cur_fuel < 0) { // Cannot reach the destination
         return -1;
       }
-      fuel_heap.push(station[1]); // 留着后面加油
+      fuel_heap.push(station[1]); // Save it for refueling later
       pre_position = position;
     }
     return ans;

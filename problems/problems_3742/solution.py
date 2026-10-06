@@ -10,10 +10,10 @@ class Solution(solution.Solution):
 
     def maxPathScore(self, grid: List[List[int]], k: int) -> int:
         m, n = len(grid), len(grid[0])
-        # dp[i][j] 存储 {花费: 最大得分}
-        # 花费: 非零单元格各花费1
+        # dp[i][j] stores {cost: maximum score}
+        # Cost: each nonzero cell costs 1
         dp = [[{} for _ in range(n)] for _ in range(m)]
-        dp[0][0][0] = 0  # 起点，花费0，得分0
+        dp[0][0][0] = 0  # Starting cell: cost 0, score 0
 
         for i in range(m):
             for j in range(n):

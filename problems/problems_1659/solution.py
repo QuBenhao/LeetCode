@@ -21,20 +21,20 @@ class Solution(solution.Solution):
                 return dfs(x + 1, 0, intro, extro, state)
             if x == m:
                 return 0
-            # 最近的n个安排，再多不会被当前的影响到
+            # Keep the last n placements; earlier cells cannot be affected by this one
             l = list(state)
-            # 上面的人是l[0]，左边的人是l[-1]
+            # The upper neighbor is l[0], and the left neighbor is l[-1]
 
-            # 什么也不填
+            # Leave the cell empty
             ans = dfs(x, y + 1, intro, extro, tuple(l[1:] + [0]))
 
-            # 填入一个内向
+            # Place an introvert
             if intro:
                 diff = 120
                 if l[0] == 1:
                     diff -= 30 * 2
                 elif l[0] == 2:
-                    # 一个内向一个外向
+                    # One introvert and one extrovert
                     diff -= 10
                 if y:
                     if l[-1] == 1:
@@ -43,7 +43,7 @@ class Solution(solution.Solution):
                         diff -= 10
                 ans = max(ans, dfs(x, y + 1, intro - 1, extro, tuple(l[1:] + [1])) + diff)
 
-            # 填入一个外向
+            # Place an extrovert
             if extro:
                 diff = 40
                 if l[0] == 1:

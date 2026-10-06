@@ -17,7 +17,7 @@ class Solution(solution.Solution):
             for i in range(m):
                 tmp = dp[i + 1]
                 if s1[i] == c:
-                    # pre是上一轮的dp[i]
+                    # pre is dp[i] from the previous iteration
                     dp[i + 1] = pre + v
                 else:
                     dp[i + 1] = max(dp[i + 1], dp[i])

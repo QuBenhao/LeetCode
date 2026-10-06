@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 递归 or 迭代
+# [Python/Java/JavaScript/Go] Recursion or iteration
 
 > slug: -by-himymben-155v
 > date: 2022-03-11
@@ -7,7 +7,7 @@
 > url: https://leetcode.cn/problems/n-ary-tree-postorder-traversal/solutions/mDvTto/-by-himymben-155v/
 
 ---
-递归
+Recursion
 ```Python3 []
 """
 # Definition for a Node.
@@ -113,7 +113,7 @@ func postorder(root *Node) (ans []int) {
 }
 ```
 
-迭代
+Iteration
 ```Python3 []
 """
 # Definition for a Node.

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-by-himymben-yuea
 > date: 2022-03-13
@@ -7,18 +7,18 @@
 > url: https://leetcode.cn/problems/utf-8-validation/solutions/u4W8Un/pythonjavajavascriptgo-by-himymben-yuea/
 
 ---
-### 解题思路
-可算是读懂题了。
-输入的整数甭管怎么样，都看作8位2进制的数。
-从左到右开始模拟，
-当前数字如果是0开头的，那么该数字单独成一个1字节字符。
-当前数字如果是110开头的，那么该数字需要额外跟着一个10开头的数，构成一个2字节字符。
+### Approach
+I finally understood the problem.
+Treat every input integer as an 8-bit binary number.
+Simulate from left to right.
+If the current number starts with 0, it forms a one-byte character by itself.
+If it starts with 110, it must be followed by one number starting with 10 to form a two-byte character.
 ...
-数字开头有$x$个1，后面就需要跟着$x-1$个10开头的数和它划为一组。
-每组数字（几个数一组）都由这组数的开头数决定。
+If the leading number starts with $x$ ones, it must be grouped with the next $x-1$ numbers, each starting with 10.
+The first number in each group determines how many numbers that group contains.
 
 
-### 代码
+### Code
 
 ```Python3 []
 ONE = 1 << 7

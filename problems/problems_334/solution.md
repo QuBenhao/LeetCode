@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go/C] 简化最长上升子序列问题
+# [Python/Java/JavaScript/Go/C] Simplifying the longest increasing subsequence problem
 
 > Author: Benhao
 > Date: 2022-01-11
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
+### Approach
 
-在求解LIS（最长上升子序列时，我们常用[单调栈维护+二分查找实现](https://leetcode.cn/problems/longest-increasing-subsequence/solution/pythonjavajavascriptgo-lis-zui-chang-sha-e36x/)）。
-本题只需要找到任意一个长度等于3的上升子序列，故可以用两个变量模拟前两个栈内元素，
-判断当前数字在跟这两个元素的大小关系，如果小于第一个，则替换第一个，然后如果小于第二个，则替换第二个，否则我们已经找到了满足答案的三个数。
+For LIS (longest increasing subsequence), we often use [a monotonic stack with binary search](https://leetcode.cn/problems/longest-increasing-subsequence/solution/pythonjavajavascriptgo-lis-zui-chang-sha-e36x/).
+This problem only requires an increasing subsequence of length 3, so two variables can represent the first two stack entries.
+Compare the current number with these two values. If it is smaller than the first, replace the first; otherwise, if it is smaller than the second, replace the second. Otherwise, three suitable numbers have been found.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -14,7 +14,7 @@ public class Solution extends BaseSolution {
         int m = a.length;
         int n = a[0].length;
         
-        // 预处理每一行最左最右 1 的列号，用于中间区域最小矩形面积的计算
+        // Precompute the columns of the leftmost and rightmost ones in each row to calculate the minimum rectangle area for the middle region
         int[][] lr = new int[m][2];
         for (int i = 0; i < m; i++) {
             int l = -1;
@@ -31,16 +31,16 @@ public class Solution extends BaseSolution {
             lr[i][1] = r;
         }
 
-        // lt[i+1][j+1] = 包含【左上角为 (0,0) 右下角为 (i,j) 的子矩形】中的所有 1 的最小矩形面积
+        // lt[i+1][j+1] = minimum rectangle area covering all ones in the subrectangle with top-left corner (0,0) and bottom-right corner (i,j)
         int[][] lt = minimumArea(a);
         a = rotate(a);
-        // lb[i][j+1] = 包含【左下角为 (m-1,0) 右上角为 (i,j) 的子矩形】中的所有 1 的最小矩形面积
+        // lb[i][j+1] = minimum rectangle area covering all ones in the subrectangle with bottom-left corner (m-1,0) and top-right corner (i,j)
         int[][] lb = rotate(rotate(rotate(minimumArea(a))));
         a = rotate(a);
-        // rb[i][j] = 包含【右下角为 (m-1,n-1) 左上角为 (i,j) 的子矩形】中的所有 1 的最小矩形面积
+        // rb[i][j] = minimum rectangle area covering all ones in the subrectangle with bottom-right corner (m-1,n-1) and top-left corner (i,j)
         int[][] rb = rotate(rotate(minimumArea(a)));
         a = rotate(a);
-        // rt[i+1][j] = 包含【右上角为 (0,n-1) 左下角为 (i,j) 的子矩形】中的所有 1 的最小矩形面积
+        // rt[i+1][j] = minimum rectangle area covering all ones in the subrectangle with top-right corner (0,n-1) and bottom-left corner (i,j)
         int[][] rt = rotate(minimumArea(a));
 
         int ans = Integer.MAX_VALUE;
@@ -58,7 +58,7 @@ public class Solution extends BaseSolution {
                         top = Math.min(top, j - 1);
                         bottom = j - 1;
                     }
-                    // 图片上左
+                    // Top-left case in the diagram
                     ans = Math.min(ans, lt[i][n] + (right - left + 1) * (bottom - top + 1) + lb[j][n]);
                 }
             }
@@ -67,9 +67,9 @@ public class Solution extends BaseSolution {
         if (m >= 2 && n >= 2) {
             for (int i = 1; i < m; i++) {
                 for (int j = 1; j < n; j++) {
-                    // 图片上中
+                    // Top-middle case in the diagram
                     ans = Math.min(ans, lt[i][n] + lb[i][j] + rb[i][j]);
-                    // 图片上右
+                    // Top-right case in the diagram
                     ans = Math.min(ans, lt[i][j] + rt[i][j] + lb[i][n]);
                 }
             }
@@ -80,7 +80,7 @@ public class Solution extends BaseSolution {
     private int[][] minimumArea(int[][] a) {
         int m = a.length;
         int n = a[0].length;
-        // f[i+1][j+1] 表示包含【左上角为 (0,0) 右下角为 (i,j) 的子矩形】中的所有 1 的最小矩形面积
+        // f[i+1][j+1] is the minimum rectangle area covering all ones in the subrectangle with top-left corner (0,0) and bottom-right corner (i,j)
         int[][] f = new int[m + 1][n + 1];
         int[][] border = new int[n][3];
         for (int j = 0; j < n; j++) {
@@ -97,14 +97,14 @@ public class Solution extends BaseSolution {
                     right = j;
                 }
                 int[] preB = border[j];
-                if (left < 0) { // 这一排目前全是 0
-                    f[i + 1][j + 1] = f[i][j + 1]; // 等于上面的结果
-                } else if (preB[0] < 0) { // 这一排有 1，上面全是 0
+                if (left < 0) { // This row contains only zeros so far
+                    f[i + 1][j + 1] = f[i][j + 1]; // Same as the result above
+                } else if (preB[0] < 0) { // This row contains a 1; everything above is 0
                     f[i + 1][j + 1] = right - left + 1;
                     border[j][0] = i;
                     border[j][1] = left;
                     border[j][2] = right;
-                } else { // 这一排有 1，上面也有 1
+                } else { // Both this row and the area above contain a 1
                     int l = Math.min(preB[1], left);
                     int r = Math.max(preB[2], right);
                     f[i + 1][j + 1] = (r - l + 1) * (i - preB[0] + 1);

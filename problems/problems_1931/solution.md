@@ -1,4 +1,4 @@
-# [Python] 列数少所以按列状压
+# [Python] Compress states along the smaller column dimension
 
 > Author: Benhao
 > Date: 2021-07-11
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-比赛的时候傻了。。。写了个按行的TLE了
+### Approach
+I made a mistake during the contest and used row-based states, which timed out.
 
-用长度为m的tuple记录前面m个位置的颜色分布。影响当前填色的只有第一个(当前的左边格)和最后一个（当前的上边格）
+Store the previous m colors in a tuple of length m. Only its first entry (the left neighbor) and last entry (the upper neighbor) affect the current color.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

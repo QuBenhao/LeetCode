@@ -9,31 +9,31 @@ class Solution(solution.Solution):
 
     def minimumMoves(self, nums: List[int], k: int, max_changes: int) -> int:
         pos = []
-        c = 0  # nums 中连续的 1 长度
+        c = 0  # Length of consecutive ones in nums
         for i, x in enumerate(nums):
             if x == 0:
                 continue
-            pos.append(i)  # 记录 1 的位置
+            pos.append(i)  # Record the positions of ones
             c = max(c, 1)
             if i > 0 and nums[i - 1] == 1:
                 if i > 1 and nums[i - 2] == 1:
-                    c = 3  # 有 3 个连续的 1
+                    c = 3  # There are 3 consecutive ones
                 else:
-                    c = max(c, 2)  # 有 2 个连续的 1
+                    c = max(c, 2)  # There are 2 consecutive ones
 
         c = min(c, k)
         if max_changes >= k - c:
-            # 其余 k-c 个 1 可以全部用两次操作得到
+            # Each of the remaining k-c ones can be obtained in two operations
             return max(c - 1, 0) + (k - c) * 2
 
         n = len(pos)
         pre_sum = list(accumulate(pos, initial=0))
 
         ans = inf
-        # 除了 max_changes 个数可以用两次操作得到，其余的 1 只能一步步移动到 pos[i]
+        # max_changes ones can each be obtained in two operations; the rest must be moved to pos[i] one step at a time
         size = k - max_changes
         for right in range(size, n + 1):
-            # s1+s2 是 j 在 [left, right) 中的所有 pos[j] 到 pos[(left+right)/2] 的距离之和
+            # s1+s2 is the sum of distances from every pos[j], for j in [left, right), to pos[(left+right)/2]
             left = right - size
             i = left + size // 2
             s1 = pos[i] * (i - left) - (pre_sum[i] - pre_sum[left])

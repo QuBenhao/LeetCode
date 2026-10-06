@@ -1,4 +1,4 @@
-# [Python] 计算每个的值即可
+# [Python] Compute each value directly
 
 > Author: Benhao
 > Date: 2021-05-30
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-见代码
+### Approach
+See the code.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

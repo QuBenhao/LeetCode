@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2021-06-27
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-咋感觉比上一题好写呢
+### Approach
+This feels easier to write than the previous problem.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

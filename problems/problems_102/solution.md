@@ -1,4 +1,4 @@
-# [Python/Go] 简洁BFS
+# [Python/Go] Concise BFS
 
 > Author: Benhao
 > Date: 2024-02-14
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 一层层遍历是标准的BFS
+> Traversing one level at a time is standard BFS.
 
-# 解题方法
+# Approach
 
-> BFS模拟
+> Simulate with BFS
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

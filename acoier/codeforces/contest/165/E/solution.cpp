@@ -3,7 +3,7 @@
 //
 #include <iostream>
 
-// 在线评测系统通常使用GCC
+// Online judges usually use GCC
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -21,24 +21,24 @@ int main() {
     cin >> n;
     vector<int> a(n);
 
-    // 初始化 dp 数组为 -1
+    // Initialize the dp array to -1
     memset(dp, -1, sizeof(dp));
 
-    // 读入并标记存在的数字
+    // Read the numbers and mark those present
     for (int i = 0; i < n; i++) {
         cin >> a[i];
-        dp[a[i]] = a[i];  // 直接标记
+        dp[a[i]] = a[i];  // Mark the number directly
     }
 
-    // 预处理 DP：dp[mask] 存储 mask 的某个存在的子集
-    // 从子集向超集传递
+    // Precompute DP: dp[mask] stores an existing number whose set bits form a subset of mask
+    // Propagate from subsets to supersets
     for (int mask = 0; mask < MAX_MASK; mask++) {
         if (dp[mask] != -1) {
-            // 这个 mask 本身就在数组中
+            // This mask itself is in the array
             continue;
         }
 
-        // 尝试去掉一位 1，查看子集
+        // Try removing one set bit to examine a subset
         for (int i = 0; i < 22; i++) {
             if (mask & (1 << i)) {
                 int sub = mask ^ (1 << i);
@@ -50,9 +50,9 @@ int main() {
         }
     }
 
-    // 为每个 a[i] 寻找答案
+    // Find an answer for each a[i]
     for (int i = 0; i < n; i++) {
-        // 取补集，只保留低 22 位
+        // Take the complement, keeping only the lowest 22 bits
         int complement = (~a[i]) & FULL_MASK;
         cout << dp[complement] << " ";
     }

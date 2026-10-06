@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 单调栈
+# [Python/Java/TypeScript/Go] Monotonic stack
 
 > Author: Benhao
 > Date: 2022-09-12
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-我们想找到左边第一个比右边某个大数小的，左边尽可能靠左，右边尽可能大且尽可能靠右。
-我们维护被交换的坐标，当出现可以交换更左边的时候(单调栈弹出)，左边变为弹出坐标。
-当出现更大的数将右边交换的坐标弹出时，右边坐标变为新坐标。
-当出现与右边坐标一样大的但更靠右时，右边坐标变为新坐标。
+### Approach
+Find the earliest digit that is smaller than some digit to its right. The left digit should be as far left as possible; the right digit should be as large, and as far right, as possible.
+Track the indices to swap. When the monotonic stack pops an index farther left that can be swapped, update the left index to it.
+If a larger digit pops the current right swap index, replace the right index with the new one.
+If an equally large digit appears farther right, update the right index to the new position.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

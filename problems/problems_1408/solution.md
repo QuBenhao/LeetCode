@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 暴力
+# [Python/Java/TypeScript/Go] Brute force
 
 > slug: pythonjavatypescriptgo-ba-by-himymben-2zon
 > date: 2022-08-06
@@ -7,14 +7,14 @@
 > url: https://leetcode.cn/problems/string-matching-in-an-array/solutions/YvUrSL/pythonjavatypescriptgo-ba-by-himymben-2zon/
 
 ---
-### 解题思路
-一个字符串在所有字符串里以子字符串出现不止一次(抛去自身)，
-说明就在答案中。
+### Approach
+If a string appears as a substring more than once across all the strings (including its own occurrence),
+it belongs in the answer.
 
 PS:
-可以直接用`indexOf(subStr) != lastIndexOf(subStr)`判断出现了不止一次
+Use `indexOf(subStr) != lastIndexOf(subStr)` directly to check for multiple occurrences.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -57,7 +57,7 @@ func stringMatching(words []string) (ans []string) {
     return
 }
 ```
-简洁写法
+Concise implementation
 ```Java []
 class Solution {
     public List<String> stringMatching(String[] words) {

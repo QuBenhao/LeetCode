@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > slug: pythongo-dong-tai-gui-hua-by-himymben-fpvv
 > date: 2022-02-28
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/minimum-time-to-finish-the-race/solutions/zDmEFD/pythongo-dong-tai-gui-hua-by-himymben-fpvv/
 
 ---
-### 解题思路
-轮胎跑圈的时间是指数增长的，也就是到达一定圈数时，更换成自己重新跑都会比继续跑更优。
-预处理统计各个轮胎连续跑一定圈数的最小时间后，用最小时间去统计总共跑圈的最小时间（动态规划）。
+### Approach
+A tire's lap time grows exponentially, so after enough laps, even changing to a fresh tire of the same type is faster than continuing.
+Precompute the minimum time for each number of consecutive laps across all tires, then use these times in dynamic programming to find the minimum total race time.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

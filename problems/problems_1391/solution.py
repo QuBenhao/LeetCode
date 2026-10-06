@@ -8,18 +8,18 @@ class Solution(solution.Solution):
         return self.hasValidPath([x[:] for x in test_input])
 
     def hasValidPath(self, grid: List[List[int]]) -> bool:
-        # 方向: 上(0), 右(1), 下(2), 左(3)
+        # Directions: up (0), right (1), down (2), left (3)
         dx = [-1, 0, 1, 0]
         dy = [0, 1, 0, -1]
 
-        # 每条街道可以通往的方向
+        # Directions connected by each street type
         street_dirs = {
-            1: {1, 3},    # 左、右
-            2: {0, 2},    # 上、下
-            3: {2, 3},    # 下、左
-            4: {1, 2},    # 右、下
-            5: {0, 3},    # 上、左
-            6: {0, 1},    # 上、右
+            1: {1, 3},    # Left, right
+            2: {0, 2},    # Up, down
+            3: {2, 3},    # Down, left
+            4: {1, 2},    # Right, down
+            5: {0, 3},    # Up, left
+            6: {0, 1},    # Up, right
         }
 
         m, n = len(grid), len(grid[0])
@@ -38,8 +38,8 @@ class Solution(solution.Solution):
                     continue
                 if (nx, ny) in visited:
                     continue
-                # 检查相邻格子能否从相反方向进入
-                nd = (d + 2) % 4  # 相反方向
+                # Check whether the neighboring cell allows entry from the opposite direction
+                nd = (d + 2) % 4  # Opposite direction
                 if nd in street_dirs[grid[nx][ny]]:
                     if nx == m - 1 and ny == n - 1:
                         return True

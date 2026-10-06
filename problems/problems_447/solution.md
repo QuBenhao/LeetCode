@@ -1,4 +1,4 @@
-# [Python/Java] 暴力枚举中心点
+# [Python/Java] Brute-force enumeration of the center
 
 > slug: pythonjava-bao-li-mei-ju-zhong-xin-dian-a21qf
 > date: 2021-09-12
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/number-of-boomerangs/solutions/7EW8je/pythonjava-bao-li-mei-ju-zhong-xin-dian-a21qf/
 
 ---
-### 解题思路
-我们需要知道到任意一个点，距离相等的点(记录不同的距离的个数用哈希表)有哪些。
-每$k$个距离相等的点，能选出两个不在乎顺序的可能性为$A_k^2$, 就是$k*(k-1)$
+### Approach
+For each point, find how many other points are at each distance from it, using a hash table to count distances.
+Each group of $k$ equidistant points gives $A_k^2 = k*(k-1)$ choices of two points.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -24,7 +24,7 @@ class Solution:
             cnts = Counter()
             for q in points:
                 cnts[distance(p, q)] += 1
-            # 距离到p相等的点(某个距离)有val个，从val个任意取两个不在乎顺序为An2 = n * (n-1)
+            # For val points at the same distance from p, the number of choices of two points is An2 = n * (n-1)
             for val in cnts.values():
                 ans += val * (val - 1)
         return ans
@@ -52,7 +52,7 @@ class Solution {
 }
 ```
 
-在统计时叠加答案
+Accumulate the answer while counting.
 ```Python3 []
 class Solution:
     def numberOfBoomerangs(self, points: List[List[int]]) -> int:

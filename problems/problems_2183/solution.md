@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划 
+# [Python/Go] Dynamic programming
 
 > slug: pythongo-dong-tai-gui-hua-by-himymben-og2b
 > date: 2022-02-20
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/count-array-pairs-divisible-by-k/solutions/wnuTtN/pythongo-dong-tai-gui-hua-by-himymben-og2b/
 
 ---
-### 解题思路
-蛮暴力的。可能因为k的最大因数个数是常数级别的所以还可以。
+### Approach
+This is fairly brute force. It may be acceptable because the maximum number of divisors of k is bounded by a small constant.
 
-当前能加入答案的个数由之前所有最大公因数中乘是k的倍数的个数得到，再将当前最大公因数个数加入到统计。
+Count previous greatest common divisors whose product with the current one is a multiple of k, add their counts to the answer, then record the current greatest common divisor.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -41,7 +41,7 @@ func coutPairs(nums []int, k int) (ans int64) {
     return
 }
 
-// 辗转相除法
+// Euclidean algorithm
 func gcd(a, b int) int {
 	for a != 0 {
 		a, b = b % a, a

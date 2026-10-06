@@ -14,7 +14,7 @@ public class Solution extends BaseSolution {
         for (int i = 0; i < s.length; i++) {
             cnt++;
             if (i + 1 == s.length || s[i] != s[i + 1]) {
-                groups[s[i] - 'a'].add(cnt); // 统计连续字符长度
+                groups[s[i] - 'a'].add(cnt); // Count the lengths of runs of equal characters
                 cnt = 0;
             }
         }
@@ -24,7 +24,7 @@ public class Solution extends BaseSolution {
             if (a.isEmpty()) continue;
             a.sort(Collections.reverseOrder());
             a.add(0);
-            a.add(0); // 假设还有两个空串
+            a.add(0); // Assume two additional empty strings
             ans = Math.max(ans, Math.max(a.get(0) - 2, Math.max(Math.min(a.get(0) - 1, a.get(1)), a.get(2))));
         }
 

@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-按题目含义递归处理
+### Approach
+Process the tree recursively as described in the problem.
 
-### 代码
+### Code
 
 ```Python3 []
 # Definition for a binary tree node.

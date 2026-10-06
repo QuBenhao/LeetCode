@@ -1,4 +1,4 @@
-# [Python/Java] 记忆化递归
+# [Python/Java] Memoized recursion
 
 > Author: Benhao
 > Date: 2021-08-15
@@ -7,17 +7,17 @@
 
 ---
 
-### 解题思路
-凡是到了出界的地方，返回1；
-凡是没有移动次数了，返回0；
-于是当前的答案由它向四个方向移动构成(移动一次故移动次数减一)
+### Approach
+Return 1 whenever the position is outside the grid.
+Return 0 when no moves remain.
+The current answer is the sum of moving in each of the four directions, with one fewer move remaining.
 
-【注意】可以剪枝，如果当前位置怎么移动也不可能到边界了，必然返回0
+[Note] Prune a state if no sequence of remaining moves can reach the boundary; its answer must be 0.
 
-加入剪枝的时间如下:
+Runtime after adding pruning:
 ![image.png](https://pic.leetcode.cn/1628991340-yesZxk-image.png)
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -27,39 +27,39 @@ class Solution:
     def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
         return 1 if startRow < 0 or startRow == m or startColumn < 0 or startColumn == n else (0 if not maxMove else sum(self.findPaths(m, n, maxMove - 1, startRow+dx, startColumn+dy) for dx, dy in self.dirc) % self.mod)
 ```
-不写成一行的话:
+Expanded from the one-line version:
 ```Python3
 class Solution:
     mod = 10 ** 9 + 7
     dirc = [(0, 1), (0, -1), (1, 0), (-1, 0)]
     @lru_cache(None)
     def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
-        # 出界了
+        # Outside the grid
         if startRow < 0 or startRow == m or startColumn < 0 or startColumn == n:
             return 1
-        # 没移动次数了
+        # No moves remain
         if not maxMove:
             return 0
-        # 向四个方向移动的结果的和
+        # Sum the results of moving in all four directions
         ans = 0
         for dx, dy in self.dirc:
             ans = (ans + self.findPaths(m, n, maxMove - 1, startRow + dx, startColumn + dy)) % self.mod
         return ans
 ```
-一定到达不了的剪枝(Python里我有点儿偷懒，单写一个不带m,n的dfs记忆可能更快)
+Prune states that cannot reach the boundary. I took a shortcut in Python; a separate memoized dfs without m and n as arguments may be faster.
 ```Python3 []
 class Solution:
     mod = 10 ** 9 + 7
     dirc = [(0, 1), (0, -1), (1, 0), (-1, 0)]
     @lru_cache(None)
     def findPaths(self, m: int, n: int, maxMove: int, startRow: int, startColumn: int) -> int:
-        # 出界了
+        # Outside the grid
         if startRow < 0 or startRow == m or startColumn < 0 or startColumn == n:
             return 1
-        # 没移动次数了或者怎么移动也不可能出界了
+        # No moves remain, or leaving the grid is impossible
         if not maxMove or (m - maxMove > startRow > maxMove - 1 and n - maxMove > startColumn > maxMove - 1):
             return 0
-        # 向四个方向移动的结果的和
+        # Sum the results of moving in all four directions
         ans = 0
         for dx, dy in self.dirc:
             ans = (ans + self.findPaths(m, n, maxMove - 1, startRow + dx, startColumn + dy)) % self.mod
@@ -93,7 +93,7 @@ class Solution {
 }
 ```
 
-### 复杂度
+### Complexity
 
-时间复杂度$o(maxMove*m*n)$
-空间复杂度$o(maxMove*m*n)$
+Time complexity: $o(maxMove*m*n)$
+Space complexity: $o(maxMove*m*n)$

@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-by-himymben-cxyj
 > date: 2022-08-08
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/minimum-value-to-get-positive-step-by-step-sum/solutions/FbAMW0/pythonjavatypescriptgo-by-himymben-cxyj/
 
 ---
-### 解题思路
-找前缀和的最小值，我们要在到达最小值的时候仍然大于等于1。
+### Approach
+Find the minimum prefix sum. The running total must still be at least 1 when it reaches this minimum.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,26 +1,26 @@
-# 倍增
+# Doubling
 
-倍增（Doubling）是一种**预处理数据并利用二进制思想优化查询效率**的算法技术。其核心思想是通过构建一个**跳转表**（如稀疏表，Sparse
-Table），使得每次查询或操作的时间复杂度从线性降低到对数级别（如 $`O(\log n)`$。以下是其核心要点和应用场景：
+Doubling is an algorithmic technique that **preprocesses data and uses binary decomposition to speed up queries**. Its central idea is to build a **jump table** (such as a sparse
+table), reducing each query or operation from linear to logarithmic time, such as $`O(\log n)`$. The main principles and applications are described below:
 
-## **倍增的核心原理**
+## **Core principles of doubling**
 
-1. **二进制分解**  
-   将问题分解为多个**按指数递增的步长**（如 $`2^0, 2^1, 2^2, \dots`$）来处理。例如，跳转表中存储从每个位置出发，经过 $`2^k`$
-   步后的结果。
+1. **Binary decomposition**  
+   Break the problem into **exponentially increasing step sizes** (such as $`2^0, 2^1, 2^2, \dots`$). For example, a jump table stores the result of taking $`2^k`$
+   steps from each position.
 
-2. **预处理跳转表**  
-   构建一个二维数组 `dp[k][i]`，表示从位置 `i` 出发，跳转 $`2^k`$ 步后的目标位置或计算结果。例如：
-    - `dp[0][i]` 表示跳转 1 步（$`2^0 = 1`$）后的结果。
-    - `dp[k][i] = dp[k-1][ dp[k-1][i] ]`，即通过递归方式构建跳转表。
+2. **Preprocess the jump table**  
+   Build a two-dimensional array `dp[k][i]` containing the destination or result after taking $`2^k`$ steps from position `i`. For example:
+    - `dp[0][i]` stores the result after 1 step ($`2^0 = 1`$).
+    - `dp[k][i] = dp[k-1][ dp[k-1][i] ]` builds the jump table recursively.
 
-3. **快速查询**  
-   将目标步长分解为二进制形式，按位累加跳转步长。例如，跳转 13 步（二进制 `1101`）时，分解为 $`8 + 4 + 1`$ 步，依次跳转 $
-   `2^3, 2^2, 2^0`$ 步。
+3. **Fast queries**  
+   Express the requested number of steps in binary and combine jumps for its set bits. For example, 13 steps (binary `1101`) can be decomposed into $`8 + 4 + 1`$ steps, taking jumps of $
+   `2^3, 2^2, 2^0`$ steps in sequence.
 
-## **典型应用场景**
+## **Typical applications**
 
-### 快速幂
+### Fast exponentiation
 ```c++
 int fast_pow(int64_t base, int64_t exp, int64_t mod) {
   int64_t res = 1;
@@ -33,28 +33,28 @@ int fast_pow(int64_t base, int64_t exp, int64_t mod) {
 }
 ```
 
-### 最近公共祖先
+### Lowest common ancestor
 
-- **问题**：在树中快速找到两个节点的最近公共祖先。
-- **倍增实现**：
-    1. 预处理每个节点的 $`2^k`$ 级祖先（`up[k][u]`）。
-    2. 先将两个节点调整到同一深度，再同时向上跳转，直到找到公共祖先。
-- **时间复杂度**：预处理 $`O(n \log n)`$，查询 $`O(\log n)`$。
-- **例**: [3553.包含给定路径的最小带权子树 II](problems/problems_3553/problem_zh.md)
+- **Problem**: Quickly find the lowest common ancestor of two nodes in a tree.
+- **Implementation using doubling**:
+    1. Precompute the $`2^k`$-th ancestor of each node (`up[k][u]`).
+    2. Bring both nodes to the same depth, then move them upward together until their common ancestor is found.
+- **Time complexity**: $`O(n \log n)`$ preprocessing and $`O(\log n)`$ per query.
+- **Example**: [3553.包含给定路径的最小带权子树 II](problems/problems_3553/problem_zh.md)
 
 ```c++
 class LcaBinaryLifting {
     vector<int> depth;
-    vector<long long> dis; // 如果是无权树（边权为 1），dis 可以去掉，用 depth 代替
+    vector<long long> dis; // For an unweighted tree (edge weights of 1), use depth instead of dis
     vector<vector<int>> pa;
 
 public:
     LcaBinaryLifting(vector<vector<int>>& edges) {
         int n = edges.size() + 1;
-        int m = bit_width((unsigned) n); // n 的二进制长度
+        int m = bit_width((unsigned) n); // Number of bits in n
         vector<vector<pair<int, int>>> g(n);
         for (auto& e : edges) {
-            // 如果题目的节点编号从 1 开始，改成 x=e[0]-1 和 y=e[1]-1
+            // If node labels start at 1, use x=e[0]-1 and y=e[1]-1
             int x = e[0], y = e[1], w = e[2];
             g[x].emplace_back(y, w);
             g[y].emplace_back(x, w);
@@ -85,8 +85,8 @@ public:
         }
     }
 
-    // 返回 node 的第 k 个祖先节点
-    // 如果不存在，返回 -1
+    // Return the k-th ancestor of node
+    // Return -1 if it does not exist
     int get_kth_ancestor(int node, int k) {
         for (; k > 0 && node >= 0; k &= k - 1) {
             node = pa[countr_zero((unsigned) k)][node];
@@ -94,12 +94,12 @@ public:
         return node;
     }
 
-    // 返回 x 和 y 的最近公共祖先（节点编号从 0 开始）
+    // Return the lowest common ancestor of x and y (node labels start at 0)
     int get_lca(int x, int y) {
         if (depth[x] > depth[y]) {
             swap(x, y);
         }
-        y = get_kth_ancestor(y, depth[y] - depth[x]); // 使 y 和 x 在同一深度
+        y = get_kth_ancestor(y, depth[y] - depth[x]); // Bring y to the same depth as x
         if (y == x) {
             return x;
         }
@@ -107,13 +107,13 @@ public:
             int px = pa[i][x], py = pa[i][y];
             if (px != py) {
                 x = px;
-                y = py; // 同时往上跳 2^i 步
+                y = py; // Move both nodes up by 2^i steps
             }
         }
         return pa[0][x];
     }
 
-    // 返回 x 到 y 的距离（最短路长度）
+    // Return the distance from x to y (shortest path length)
     long long get_dis(int x, int y) {
         return dis[x] + dis[y] - dis[get_lca(x, y)] * 2;
     }
@@ -128,7 +128,7 @@ class TreeAncestor:
         n = len(edges) + 1
         m = n.bit_length()
         g = [[] for _ in range(n)]
-        for x, y in edges:  # 节点编号从 0 开始
+        for x, y in edges:  # Node labels start at 0
             g[x].append(y)
             g[y].append(x)
 
@@ -153,22 +153,22 @@ class TreeAncestor:
 
     def get_kth_ancestor(self, node: int, k: int) -> int:
         for i in range(k.bit_length()):
-            if k >> i & 1:  # k 二进制从低到高第 i 位是 1
+            if k >> i & 1:  # Bit i of k, counted from the least significant bit, is 1
                 node = self.pa[node][i]
         return node
 
-    # 返回 x 和 y 的最近公共祖先（节点编号从 0 开始）
+    # Return the lowest common ancestor of x and y (node labels start at 0)
     def get_lca(self, x: int, y: int) -> int:
         if self.depth[x] > self.depth[y]:
             x, y = y, x
-        # 使 y 和 x 在同一深度
+        # Bring y to the same depth as x
         y = self.get_kth_ancestor(y, self.depth[y] - self.depth[x])
         if y == x:
             return x
         for i in range(len(self.pa[x]) - 1, -1, -1):
             px, py = self.pa[x][i], self.pa[y][i]
             if px != py:
-                x, y = px, py  # 同时往上跳 2**i 步
+                x, y = px, py  # Move both nodes up by 2**i steps
         return self.pa[x][0]
 
     def get_dis(self, x: int, y: int) -> int:
@@ -458,50 +458,50 @@ class TreeAncestor {
 }
 ```
 
-### 2. **区间最值查询（RMQ）**
+### 2. **Range minimum/maximum query (RMQ)**
 
-- **问题**：多次查询数组某个区间的最小值/最大值。
-- **倍增实现**：
-    1. 构建稀疏表 `st[k][i]`，表示从 `i` 开始长度为 $`2^k`$ 的区间最值。
-    2. 查询区间 `[L, R]` 时，取最大的 $`k`$ 使得 $`2^k \leq R-L+1`$，比较 `st[k][L]` 和 `st[k][R-2^k+1]`。
-- **时间复杂度**：预处理 $`O(n \log n)`$，查询 $`O(1)`$。
+- **Problem**: Repeatedly query the minimum or maximum value in an array interval.
+- **Implementation using doubling**:
+    1. Build a sparse table `st[k][i]` containing the minimum or maximum over the interval of length $`2^k`$ starting at `i`.
+    2. To query `[L, R]`, choose the largest $`k`$ such that $`2^k \leq R-L+1`$ and compare `st[k][L]` with `st[k][R-2^k+1]`.
+- **Time complexity**: $`O(n \log n)`$ preprocessing and $`O(1)`$ per query.
 
-### 快速幂
+### Fast exponentiation
 
-- **问题**：高效计算 $`a^b \mod p`$。
-- **倍增实现**：
-    1. 将指数 $`b`$ 分解为二进制形式。
-    2. 通过累乘 $`a^{2^k}`$ 快速计算结果。
-- **时间复杂度**：$`O(\log b)`$。
+- **Problem**: Compute $`a^b \mod p`$ efficiently.
+- **Implementation using doubling**:
+    1. Express the exponent $`b`$ in binary.
+    2. Multiply the corresponding powers $`a^{2^k}`$ to compute the result efficiently.
+- **Time complexity**: $`O(\log b)`$.
 
-快速幂算法用于高效计算大整数幂或幂取模，时间复杂度为 $`O(\log n)`$。
+Fast exponentiation computes large integer powers or modular powers in $`O(\log n)`$ time.
 
-#### **Python 模板**
+#### **Python template**
 
 ```python
 def fast_power(a: int, b: int, mod: int = None) -> int:
     """
-    计算 a^b 或 (a^b) % mod
-    :param a: 底数
-    :param b: 指数（非负整数）
-    :param mod: 可选模数
-    :return: a^b 或 (a^b) % mod
+    Compute a^b or (a^b) % mod
+    :param a: Base
+    :param b: Exponent (a nonnegative integer)
+    :param mod: Optional modulus
+    :return: a^b or (a^b) % mod
     """
     result = 1
-    a = a % mod if mod else a  # 初始取模（若提供mod）
+    a = a % mod if mod else a  # Reduce the base modulo mod if provided
     while b > 0:
-        if b % 2 == 1:  # 当前二进制位为1
+        if b % 2 == 1:  # The current binary digit is 1
             result = result * a
             if mod: result %= mod
-        a = a * a  # 基数平方
+        a = a * a  # Square the base
         if mod: a %= mod
-        b //= 2  # 右移一位
+        b //= 2  # Shift right by one bit
     return result
 
 
-# 示例
-print(fast_power(2, 10))  # 输出 1024
-print(fast_power(2, 10, 1000))  # 输出 24 (1024 % 1000)
+# Example
+print(fast_power(2, 10))  # Outputs 1024
+print(fast_power(2, 10, 1000))  # Outputs 24 (1024 % 1000)
 ```
 
 ```go
@@ -511,38 +511,38 @@ import "fmt"
 
 func fastPower(a, b, mod int) int {
     result := 1
-    a = a % mod // 初始取模（若mod > 0）
+    a = a % mod // Reduce the base modulo mod (if mod > 0)
     for b > 0 {
-        if b%2 == 1 { // 当前二进制位为1
+        if b%2 == 1 { // The current binary digit is 1
             result = (result * a) % mod
         }
-        a = (a * a) % mod // 基数平方
-        b /= 2           // 右移一位
+        a = (a * a) % mod // Square the base
+        b /= 2           // Shift right by one bit
     }
     return result
 }
 
 func main() {
-    fmt.Println(fastPower(2, 10, 0))    // 输出 1024（mod=0时不取模）
-    fmt.Println(fastPower(2, 10, 1000)) // 输出 24
+    fmt.Println(fastPower(2, 10, 0))    // Outputs 1024 (no modular reduction when mod=0)
+    fmt.Println(fastPower(2, 10, 1000)) // Outputs 24
 }
 ```
 
-#### 矩阵快速幂
+#### Fast matrix exponentiation
 
-矩阵快速幂是一种高效解决线性递推问题的算法，通过将递推关系转化为矩阵乘法形式，利用快速幂将时间复杂度从 $`O(n)`$ 优化到 $
-`O(\log n)`$。以下是其核心原理和实现方法：
+Fast matrix exponentiation solves linear recurrences efficiently. It expresses the recurrence as matrix multiplication and uses fast exponentiation to reduce the time complexity from $`O(n)`$ to $
+`O(\log n)`$. Its main principles and implementation are described below:
 
-**通用步骤**
+**General steps**
 
-**1. 确定递推阶数**
+**1. Determine the order of the recurrence**
 
-对于 $`k`$ 阶线性递推（如 $`F(n) = a_1F(n-1) + \dots + a_kF(n-k)`$），构造 $`k \times k`$ 的转移矩阵。
+For a linear recurrence of order $`k`$, such as $`F(n) = a_1F(n-1) + \dots + a_kF(n-k)`$, construct a $`k \times k`$ transition matrix.
 
-**2. 构造转移矩阵**
+**2. Construct the transition matrix**
 
-- 第 $`i`$ 行表示如何从 $`F(n-i)`$ 推导到 $`F(n-i+1)`$。
-- 例如，斐波那契数列的转移矩阵为：
+- Row $`i`$ describes how to derive $`F(n-i+1)`$ from $`F(n-i)`$.
+- For example, the transition matrix for the Fibonacci sequence is:
   $$
   \begin{bmatrix}
   1 & 1 \\
@@ -550,11 +550,11 @@ func main() {
   \end{bmatrix}
   $$
 
-**3. 初始状态向量**
+**3. Define the initial state vector**
 
-根据递推的初始条件定义初始向量：
+Define the initial vector from the recurrence's initial conditions:
 $$
-\text{初始状态} =
+\text{Initial state} =
 \begin{bmatrix}
 F(k-1) \\
 F(k-2) \\
@@ -563,33 +563,33 @@ F(0)
 \end{bmatrix}
 $$
 
-**4. 计算矩阵幂**
+**4. Compute the matrix power**
 
-通过快速幂计算 $`\text{转移矩阵}^{n}`$，再与初始状态相乘得到结果。
+Use fast exponentiation to compute $`\text{transition matrix}^{n}`$, then multiply it by the initial state to obtain the result.
 
 ```go
 func fib(n int) int {
     if n == 0 {
         return 0
     }
-    // 转移矩阵
+    // Transition matrix
     mat := [][]int{{1, 1}, {1, 0}}
-    // 计算 mat^(n-1)
+    // Compute mat^(n-1)
     res := matrixPower(mat, n-1)
-    // 初始状态 [F(1), F(0)] = [1, 0]
+    // Initial state [F(1), F(0)] = [1, 0]
     return res[0][0] * 1 + res[0][1] * 0
 }
 ```
 
-**应用场景**
+**Applications**
 
-1. **线性递推问题**：如斐波那契数列、爬楼梯问题。
-2. **动态规划优化**：将状态转移方程转化为矩阵形式。
-3. **图论中的路径计数**：邻接矩阵的幂表示路径数。
+1. **Linear recurrences**: Examples include the Fibonacci sequence and the climbing stairs problem.
+2. **Dynamic programming optimization**: Express state transitions as a matrix.
+3. **Counting paths in graphs**: Powers of the adjacency matrix give path counts.
 
-**推广到 k 阶递推**
+**Generalization to recurrences of order k**
 
-对于 $`k`$ 阶递推 $`F(n) = a_1F(n-1) + a_2F(n-2) + \dots + a_kF(n-k)`$，转移矩阵为：
+For a recurrence of order $`k`$, $`F(n) = a_1F(n-1) + a_2F(n-2) + \dots + a_kF(n-k)`$, the transition matrix is:
 $$
 \begin{bmatrix}
 a_1 & a_2 & \dots & a_{k-1} & a_k \\
@@ -599,7 +599,7 @@ a_1 & a_2 & \dots & a_{k-1} & a_k \\
 0 & 0 & \dots & 1 & 0
 \end{bmatrix}
 $$
-初始状态向量为：
+The initial state vector is:
 $$
 \begin{bmatrix}
 F(k-1) \\
@@ -609,16 +609,16 @@ F(0)
 \end{bmatrix}
 $$
 
-1. **构造矩阵**：将递推关系转化为矩阵乘法形式。
-2. **快速幂加速**：通过矩阵快速幂将线性递推的时间复杂度优化到对数级。
-3. **通用性强**：适用于任何线性递推关系，只需调整转移矩阵和初始状态。
+1. **Construct the matrix**: Express the recurrence as matrix multiplication.
+2. **Accelerate with fast exponentiation**: Fast matrix exponentiation reduces a linear recurrence's computation time from linear to logarithmic.
+3. **General applicability**: Any linear recurrence can use this method by adjusting the transition matrix and initial state.
 
 ```python
 from typing import List
 
 
-# 矩阵快速幂
-# a @ b，其中 @ 是矩阵乘法
+# Fast matrix exponentiation
+# a @ b, where @ denotes matrix multiplication
 def mul(a: List[List[int]], b: List[List[int]], mod: int) -> List[List[int]]:
     return [[sum(x * y for x, y in zip(row, col)) % mod for col in zip(*b)]
             for row in a]
@@ -635,10 +635,10 @@ def pow_mul(a: List[List[int]], n: int, f0: List[List[int]], mod: int = 1000_000
     return res
 ```
 
-## **优势与局限**
+## **Advantages and limitations**
 
-- **优势**：将线性时间的查询优化到对数时间。
-- **局限**：需要额外的空间存储跳转表（如 $`O(n \log n)`$ 的稀疏表）。
-- **适用场景**：适用于**静态数据**（预处理后数据不变）的多次查询问题。
+- **Advantage**: Reduces query time from linear to logarithmic.
+- **Limitation**: Requires extra space for the jump table, such as $`O(n \log n)`$ for a sparse table.
+- **Use cases**: Repeated queries over **static data** that does not change after preprocessing.
 
-理解倍增的核心在于掌握**二进制分解**和**跳转表的预处理逻辑**，它是高效解决许多算法问题的关键技巧。
+Understanding doubling requires mastering **binary decomposition** and **jump table preprocessing**, which are useful techniques for solving many algorithm problems efficiently.

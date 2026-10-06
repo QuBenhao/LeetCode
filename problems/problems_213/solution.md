@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划
+# [Python/Go] Dynamic programming
 
 > Author: Benhao
 > Date: 2022-02-08
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-讨论一下取第一个和不取第一个，和打家劫舍I就没有区别了
+### Approach
+Consider the cases of taking and skipping the first house; each becomes the same as House Robber I.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

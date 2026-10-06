@@ -1,4 +1,4 @@
-# [Python/Go/C] 模拟
+# [Python/Go/C] Simulation
 
 > Author: Benhao
 > Date: 2024-02-27
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-从后往前找第一个非空格直到再遇到空格结束
+### Approach
+Scan backward to the first non-space character, then continue until another space is reached.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

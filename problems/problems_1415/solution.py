@@ -12,7 +12,7 @@ class Solution(solution.Solution):
         bs = 1 << (n - 1)
         if k > 3 * bs:
             return ""
-        # 第一位填a, 后面有2^(n-1)种
+        # With a in the first position, the remaining positions have 2^(n-1) possibilities
         if k > 2 * bs:
             ans = "c"
             k -= 2 * bs

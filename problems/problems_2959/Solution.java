@@ -9,7 +9,7 @@ public class Solution extends BaseSolution {
     public int numberOfSets(int n, int maxDistance, int[][] roads) {
         int[][] g = new int[n][n];
         for (int i = 0; i < n; i++) {
-            Arrays.fill(g[i], Integer.MAX_VALUE / 2); // 防止加法溢出
+            Arrays.fill(g[i], Integer.MAX_VALUE / 2); // Prevent overflow during addition
             g[i][i] = 0;
         }
         for (int[] e : roads) {

@@ -1,4 +1,4 @@
-# [Python/Go] 二进制枚举模拟
+# [Python/Go] Enumerate bitmasks and simulate
 
 > slug: pythongo-er-jin-zhi-mei-ju-mo-ni-by-himy-x43g
 > date: 2022-01-23
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/maximum-good-people-based-on-statements/solutions/1Ix3ui/pythongo-er-jin-zhi-mei-ju-mo-ni-by-himy-x43g/
 
 ---
-### 解题思路
-遍历所有好人的可能情况，检测每次他们是好人是否成立，成立统计最大值，不成立不构成答案。
+### Approach
+Enumerate all possible sets of good people and check whether each assignment is consistent. Update the maximum for valid assignments; invalid ones cannot be answers.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

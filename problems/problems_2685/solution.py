@@ -23,7 +23,7 @@ class UnionFind:
 
     def find(self, x: int) -> int:
         while self.parent[x] != x:
-            self.parent[x] = self.parent[self.parent[x]]  # 路径压缩
+            self.parent[x] = self.parent[self.parent[x]]  # Path compression
             x = self.parent[x]
         return x
 
@@ -33,9 +33,9 @@ class UnionFind:
 
         if root_x == root_y:
             self.links[root_x] += 1
-            return False  # 已经在同一集合
+            return False  # Already in the same set
 
-        # 按秩合并
+        # Union by rank
         if self.rank[root_x] > self.rank[root_y]:
             self.parent[root_y] = root_x
             self.size[root_x] += self.size[root_y]

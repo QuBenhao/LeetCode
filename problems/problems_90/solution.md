@@ -1,4 +1,4 @@
-# [Python] 相同的时候只需要添加上一个影响的长度
+# [Python] For duplicates, extend only the subsets affected by the previous occurrence
 
 > Author: Benhao
 > Date: 2021-03-31
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-首先想到bfs，根据set的特性来筛除相同的结果，但是显然这样增加了很多不必要的重复选择。（第一段代码）
-而排序后，下标就可以用来判断是否相同，相同的那个元素是否在列表中等判断了。（第二段代码）
-根据第二个的思路，其实核心就是上一个相同元素影响的长度，那我们只需要记一下长度即可（第三段代码）
+### Approach
+The first idea was bfs, using a set to filter duplicate results, but this introduces many unnecessary repeated choices. (First code block.)
+After sorting, indices can be used to determine whether elements are equal and whether the previous equal element is already in a subset. (Second code block.)
+The key to the second approach is the number of subsets affected by the previous equal element, so we only need to record that count. (Third code block.)
 
-### 代码
+### Code
 ```python
 class Solution(object):
     def subsetsWithDup(self, nums):
@@ -35,11 +35,11 @@ class Solution(object):
 
 ```
 
-我们只想把相同的元素添加在所有有前一个元素的列表中。
-比如说[1,2,2]
-我们前面有[[1],[1,2],[2]]，这个时候最后一个2只想添加在有前一个2中的，而没有2的再添加就会造成和添加前一个的重复了。
-所以是[[1],[1,2],[2],[1,2,2],[2,2]]。
-其实ans里是有[]空集的，但是空集没法zip后取第一个元素，所以就跳过它再单独添加了。
+We only want to append a duplicate element to subsets that contain its previous occurrence.
+For example, [1,2,2]
+We already have [[1],[1,2],[2]]. The final 2 should only be appended to subsets containing the previous 2. Adding it to subsets without 2 would duplicate the results of adding the previous occurrence.
+The result is therefore [[1],[1,2],[2],[1,2,2],[2,2]].
+ans actually includes the empty subset [], but zip cannot provide its first element, so skip it and add it separately.
 
 ```python
 class Solution(object):
@@ -59,7 +59,7 @@ class Solution(object):
         return [[]] + [list(list(zip(*x))[0]) for x in ans if x]
 ```
 
-统计一下相同的时候上一个影响的长度，只对添加了相同元素的进行添加
+For equal elements, record the number of subsets affected by the previous occurrence and extend only those that received that element.
 ```python
 class Solution(object):
     def subsetsWithDup(self, nums):

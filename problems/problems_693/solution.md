@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 位运算
+# [Python/Java/JavaScript/Go] Bitwise operations
 
 > Author: Benhao
 > Date: 2022-03-27
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-题目要求n的二进制为101010交替，那么n和n右移一位刚好错开，它们异或的结果所有位都会是1。如果n有任意位有连续的1时，右移异或都会出现某位0。
+### Approach
+The binary representation of n must alternate as 101010. Shifting n right by one offsets this pattern, so XORing the two gives all ones. If n has adjacent ones, at least one bit in the XOR result is zero.
 
-如何快速判断全部为是1？其实就是判断是否异或结果为2的幂次减一。
-判断2的幂次$a$的位运算方法为a&(a-1)==0
+How can we quickly check for all ones? Check whether the XOR result is one less than a power of two.
+The bitwise test for a power of two $a$ is a&(a-1)==0.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

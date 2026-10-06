@@ -9,7 +9,7 @@ class Solution(solution.Solution):
         return self.countGood(*test_input)
 
     def countGood(self, nums: List[int], k: int) -> int:
-        cnt = defaultdict(int)  # 比 Counter() 快
+        cnt = defaultdict(int)  # Faster than Counter()
         ans = left = pairs = 0
         for x in nums:
             pairs += cnt[x]

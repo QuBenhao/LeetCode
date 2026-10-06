@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 求和 或 异或
+# [Python/Java/JavaScript/Go] Sum or XOR
 
 > slug: pythonjavajavascriptgo-qiu-he-deng-chai-z9kdy
 > date: 2021-11-05
@@ -7,7 +7,7 @@
 > url: https://leetcode.cn/problems/missing-number/solutions/8U6UKp/pythonjavajavascriptgo-qiu-he-deng-chai-z9kdy/
 
 ---
-`求和`
+`Summation`
 ```Python3 []
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
@@ -23,7 +23,7 @@ func missingNumber(nums []int) int {
 }
 ```
 
-`如果求和怕溢出，用减法做`
+`Use subtraction if summation might overflow`
 ```Go
 func missingNumber(nums []int) int {
     ans := 0
@@ -34,7 +34,7 @@ func missingNumber(nums []int) int {
 }
 ```
 
-`异或性质`
+`XOR properties`
 ```Python3 []
 class Solution:
     def missingNumber(self, nums: List[int]) -> int:
@@ -44,7 +44,7 @@ class Solution:
 class Solution {
     public int missingNumber(int[] nums) {
         /**
-         连续数字从1到n的异或规律 4 * k -> 4 * k
+         Pattern for the XOR of consecutive integers from 1 to n: 4 * k -> 4 * k
                 4 * k + 1 -> 1
                 4 * k + 2 -> 4 * k + 3
                 4 * k + 3 -> 0
@@ -94,7 +94,7 @@ func missingNumber(nums []int) int {
         ans ^= num
     }
     /**
-    连续数字从1到n的异或规律 
+    Pattern for the XOR of consecutive integers from 1 to n 
     4 * k -> 4 * k
     4 * k + 1 -> 1
     4 * k + 2 -> 4 * k + 3
@@ -117,7 +117,7 @@ func missingNumber(nums []int) int {
         ans ^= num
     }
     /**
-    连续数字从1到n的异或规律 
+    Pattern for the XOR of consecutive integers from 1 to n 
     4 * k -> 4 * k
     4 * k + 1 -> 1
     4 * k + 2 -> 4 * k + 3

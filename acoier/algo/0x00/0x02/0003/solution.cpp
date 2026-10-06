@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/15.
-// 例题: 递归实现排列型枚举 acwing94
+// Example: 递归实现排列型枚举 acwing94
 //
 
 #include <bits/stdc++.h>
@@ -17,7 +17,7 @@ void dfs(const int cur, vector<int>& path) {
         cout << endl;
         return;
     }
-    // 要求字典序，所以只能按数枚举，不能按位值枚举
+    // Lexicographic order requires enumerating values, not their assigned positions
     // for (int i = 0; i < n; ++i) {
     //     if (path[i] != -1) continue;
     //     path[i] = cur;

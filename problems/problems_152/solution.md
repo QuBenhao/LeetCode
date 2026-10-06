@@ -1,4 +1,4 @@
-# [Python/Go] 维护一个子数组乘积的最大值和最小值
+# [Python/Go] Maintain the maximum and minimum subarray products
 
 > Author: Benhao
 > Date: 2022-02-12
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-因为可以有负数，最大值可能由之前的最小值乘当前的负数得到
+### Approach
+Because negative numbers are allowed, the maximum may come from multiplying the previous minimum by the current negative number.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

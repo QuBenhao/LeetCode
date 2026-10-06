@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > Author: Benhao
 > Date: 2022-09-22
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-使用哈希表记录数字头，判断是否可以顺着走完
+### Approach
+Map each piece's first number in a hash table and check whether the pieces can be followed to the end.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

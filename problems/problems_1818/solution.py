@@ -21,10 +21,10 @@ class Solution(solution.Solution):
         sl = sorted(nums1)
         for i, num in enumerate(nums2):
             idx = bisect.bisect_left(sl, num)
-            # idx > 0 尝试用idx-1替换当前值
+            # If idx > 0, try replacing the current value with the value at idx-1
             if idx:
                 ans = min(ans, diff - abs(nums1[i] - nums2[i]) + abs(sl[idx - 1] - nums2[i]))
-            # idx < n 尝试用idx替换当前值
+            # If idx < n, try replacing the current value with the value at idx
             if idx < n:
                 ans = min(ans, diff - abs(nums1[i] - nums2[i]) + abs(sl[idx] - nums2[i]))
         return ans % (10 ** 9 + 7)

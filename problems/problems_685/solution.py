@@ -7,40 +7,40 @@ class Solution(solution.Solution):
         return self.findRedundantDirectedConnection(test_input)
 
     def findRedundantDirectedConnection(self, edges: List[List[int]]) -> List[int]:
-        # 更新x的所属节点，并返回编号为x的所属节点
+        # Update and return the representative of the node numbered x
         def find(x: int) -> int:
-            # 如果x已经为根节点了，直接返回
-            # 否则就沿着所属根节点一直往上走
+            # Return immediately if x is already the root
+            # Otherwise, keep following parent links toward the root
             if x == pa[x]:
                 return x
             pa[x] = find(pa[x])
             return pa[x]
 
-        # 合并两个节点所属区域
+        # Merge the sets containing the two nodes
         def unit(x: int, y: int):
-            # 将y的所属节点作为x所属节点的所属节点
-            # 相当于x所在的这个子树搭到y的所在子树的根节点上
+            # Make y's representative the parent of x's representative
+            # Attach the subtree containing x to the root of the subtree containing y
             pa[find(x)] = find(y)
 
         n = len(edges)
-        pa = list(range(n + 1))  # pa[i]表示节点i的所属根节点，用于并查集; 初始pa[i]=i，表示节点i以自己为根节点
-        fa = list(range(n + 1))  # fa[i]表示节点i的父节点; 初始fa[i]=i，表示节点i的父节点为本身
+        pa = list(range(n + 1))  # pa[i] is node i's union-find parent; initially pa[i]=i, so each node is its own root
+        fa = list(range(n + 1))  # fa[i] is node i's parent; initially fa[i]=i, so each node is its own parent
 
-        conflict = -1  # 冲突边的下标，初始为-1，表示不存在冲突
-        circle = -1  # 构成环的下标，初始为-1，表示不存在环
+        conflict = -1  # Index of the conflicting edge; -1 initially means no conflict
+        circle = -1  # Index of the cycle-forming edge; -1 initially means no cycle
         for i, (a, b) in enumerate(edges):
             if fa[b] != b:
-                conflict = i  # 找到冲突的边，这个边我们就不会加入并查集
+                conflict = i  # Found a conflicting edge; do not add it to union-find
             else:
-                fa[b] = a  # 记录节点b的父节点为a
+                fa[b] = a  # Record a as the parent of b
                 if find(a) != find(b):
-                    unit(a, b)  # 如果两个节点不在一个树上，则合并
+                    unit(a, b)  # Merge the nodes if they belong to different trees
                 else:
-                    circle = i  # 如果两个节点已经在一个树上，则这条边就是构成环的最后一条边
+                    circle = i  # If they already belong to the same tree, this edge is the last one forming the cycle
 
         if conflict < 0:
-            return edges[circle]  # 有环无冲突，直接返回构成环的最后一条边
+            return edges[circle]  # Cycle without conflict: return the last edge forming the cycle
         if circle < 0:
-            return edges[conflict]  # 有冲突无环，删掉冲突的边
+            return edges[conflict]  # Conflict without a cycle: remove the conflicting edge
         b = edges[conflict][1]
-        return [fa[b], b]  # 有环有冲突，冲突的另一条边一定在环上，删除它
+        return [fa[b], b]  # Both cycle and conflict: the other conflicting edge must be on the cycle, so remove it

@@ -1,4 +1,4 @@
-# [Python] 在有序集合中查是否有两数和
+# [Python] Check for a two-number sum in a sorted collection
 
 > slug: python-zai-you-xu-ji-he-zhong-cha-shi-fo-1lva
 > date: 2021-08-22

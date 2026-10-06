@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 纯业务逻辑
+# [Python/Java/JavaScript/Go] Direct rule checking
 
 > slug: pythonjavajavascriptgo-chun-ye-wu-luo-ji-20k3
 > date: 2021-12-08
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/valid-tic-tac-toe-state/solutions/ZS7wSR/pythonjavajavascriptgo-chun-ye-wu-luo-ji-20k3/
 
 ---
-### 解题思路
-X先手，所以个数要么比O多一个，要么一样。
-两个人之间只能有一个人赢，赢的时候，X赢的话必然比O多一个，O赢的话必然和X一样多。
+### Approach
+X moves first, so its count must equal O's count or exceed it by one.
+Only one player can win. If X wins, there must be one more X than O; if O wins, their counts must be equal.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

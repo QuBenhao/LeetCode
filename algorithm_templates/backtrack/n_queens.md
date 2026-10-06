@@ -1,4 +1,4 @@
-# N皇后
+# N queens
 
 ```python3
 def total_n_queens(n):

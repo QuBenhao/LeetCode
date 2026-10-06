@@ -9,20 +9,20 @@ public:
   long long distinctNames(vector<string> &ideas) {
     unordered_set<string> groups[26];
     for (auto &s : ideas) {
-      groups[s[0] - 'a'].insert(s.substr(1));  // 按照首字母分组
+      groups[s[0] - 'a'].insert(s.substr(1));  // Group by first letter
     }
 
     int64_t ans = 0;
-    for (int a = 1; a < 26; a++) {  // 枚举所有组对
+    for (int a = 1; a < 26; a++) {  // Enumerate all pairs of groups
       for (int b = 0; b < a; b++) {
-        int m = 0;  // 交集的大小
+        int m = 0;  // Size of the intersection
         for (auto &s : groups[a]) {
           m += groups[b].count(s);
         }
         ans += (int64_t)(groups[a].size() - m) * (groups[b].size() - m);
       }
     }
-    return ans * 2;  // 乘 2 放到最后
+    return ans * 2;  // Multiply by 2 at the end
   }
 };
 

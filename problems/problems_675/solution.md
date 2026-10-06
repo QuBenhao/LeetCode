@@ -7,15 +7,15 @@
 > url: https://leetcode.cn/problems/cut-off-trees-for-golf-event/solutions/dCMSf2/pythonjavajavascriptgo-bfs-by-himymben-3hjb/
 
 ---
-### 解题思路
-题目其实是多次BFS的意思。每次都求从当前最矮的树到次矮的树的最小距离，最后累加答案即可。
-(PS: 根据题目数据范围, 我们需要对输入做排序和映射为坐标的处理)
+### Approach
+This is a sequence of BFS searches. Find the shortest distance from the current shortest tree to the next shortest tree, then sum the distances.
+(PS: Given the input limits, sort the input and map tree heights to coordinates.)
 
-当然这个方法在本题不是最优解，因为会有很多重复计算在里面(多次计算两点之间的最短距离，可能会有重叠)。
+This is not optimal for the problem because it repeats work: shortest-path searches between different pairs may overlap.
 
-补充一个A star写法，heuristic函数使用曼哈顿距离即可。
+An A star version is also included; use Manhattan distance as the heuristic.
 
-### 代码
+### Code
 
 ```Python3 []
 DIRS = (0, 1), (1, 0), (0, -1), (-1, 0)

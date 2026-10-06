@@ -1,4 +1,4 @@
-# [Python] 偷懒使用permutations (一行)，面试记住递归和非递归两种解法
+# [Python] Take a shortcut with permutations (one line); remember both recursive and iterative approaches for interviews
 
 > slug: python-permutations-by-qubenhao-3yqy
 > date: 2021-06-21
@@ -7,25 +7,25 @@
 > url: https://leetcode.cn/problems/zi-fu-chuan-de-pai-lie-lcof/solutions/jglzap/python-permutations-by-qubenhao-3yqy/
 
 ---
-### 解题思路
-permutations本身就是序列的全排列，但是不会去重，加上set即可。
+### Approach
+permutations generates every permutation of a sequence but does not remove duplicates; use set for that.
 
-**递归**
-递归的思路很简单，每次从列表中取一个放在最前面，然后和后面的全排列组合即可。（因为有很多重复计算，所以加入记忆化可以从500ms优化到100ms）
+**Recursion**
+The recursive idea is simple: take each element from the list, place it first, and combine it with every permutation of the remaining elements. (There is substantial repeated work, so memoization reduced the time from 500ms to 100ms.)
 
-**非递归**
-非递归相对麻烦，可以考虑字典序解全排列(按从最小到最大生成).
-记得之前周赛还是什么时候做过类似19631的下一个刚好比它大一点的排列的数是什么（非递归解决这个问题）。
-想象1234是最小的，下一个是1243，再下一个是1324，。。。以此类推。
+**Iteration**
+The iterative approach is more involved. Generate permutations in lexicographic order, from smallest to largest.
+I remember a similar problem, perhaps from a weekly contest: for a number such as 19631, find the next permutation that is just larger than it. That operation solves this problem iteratively.
+For example, 1234 is the smallest, followed by 1243, then 1324, and so on.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def permutation(self, s: str) -> List[str]:
         return list(set(''.join(st) for st in itertools.permutations(s)))
 ```
-递归解法
+Recursive solution
 ```python3
 class Solution:
     @lru_cache(None)
@@ -34,7 +34,7 @@ class Solution:
             return [s]
         return list(set(s[i] + perm for i in range(len(s)) for perm in self.permutation(s[:i] + s[i+1:])))
 ```
-非递归解法
+Iterative solution
 ```python3
 class Solution:
     def permutation(self, s: str) -> List[str]:
@@ -42,7 +42,7 @@ class Solution:
         curr = list(sorted(s))
         end = list(reversed(curr))
         ans = []
-        # 生成下一个排列
+        # Generate the next permutation
         while curr != end:
             ans.append(''.join(curr))
             i = n - 2

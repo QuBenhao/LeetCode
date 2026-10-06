@@ -25,8 +25,8 @@ class Solution(solution.Solution):
             return min(pre01[-1],pre10[-1])
         ans = inf
         for i in range(n):
-            # 把前面i个放到最后
-            # 前面要10101，后面要010
+            # Move the first i characters to the end
+            # The front needs 10101 and the back needs 010
             ans1 = pre01[-1] - pre01[i] + pre10[i]
             ans2 = pre10[-1] - pre10[i] + pre01[i]
             ans = min(ans, ans1, ans2)

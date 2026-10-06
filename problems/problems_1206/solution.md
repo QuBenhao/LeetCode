@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 跳表
+# [Python/Java/TypeScript/Go] Skip list
 
 > Author: Benhao
 > Date: 2022-07-25
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-参照[论文](https://15721.courses.cs.cmu.edu/spring2018/papers/08-oltpindexes1/pugh-skiplists-cacm1990.pdf)的伪代码实现
+### Approach
+Implemented from the pseudocode in the [paper](https://15721.courses.cs.cmu.edu/spring2018/papers/08-oltpindexes1/pugh-skiplists-cacm1990.pdf).
 
-### 代码
+### Code
 
 ```Python3 []
 MAX_LEVEL = 32
@@ -87,7 +87,7 @@ class Skiplist:
 ```
 
 
-(非题目要求的解法)
+(An approach outside the problem's requirements)
 ```Python3
 class Skiplist:
 

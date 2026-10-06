@@ -1,4 +1,4 @@
-# [Python/Go/C] 动态规划
+# [Python/Go/C] Dynamic programming
 
 > Author: Benhao
 > Date: 2024-02-24
@@ -12,21 +12,21 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 维护当前最大的持股利润、以及当前最大的卖出利润
+> Maintain the maximum profit while holding stock and the maximum profit after selling.
 
-# 解题方法
+# Approach
 
-> 当前最大的持股利润：上一个最大持股利润，和上一个最大的卖出利润减去当前买入价的最大值构成
-当前最大的卖出利润：上一个最大卖出利润，和上一个最大的持股利润加上当前卖出价的最大值构成
+> The current maximum profit while holding stock is the greater of the previous maximum holding profit and the previous maximum selling profit minus the current purchase price.
+The current maximum profit after selling is the greater of the previous maximum selling profit and the previous maximum holding profit plus the current sale price.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

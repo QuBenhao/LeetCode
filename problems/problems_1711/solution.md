@@ -1,4 +1,4 @@
-# [Python] 使用哈希表统计
+# [Python] Count with a hash table
 
 > Author: Benhao
 > Date: 2021-07-07
@@ -7,16 +7,16 @@
 
 ---
 
-### 解题思路
-统计完一个Counter后，遍历每个数字能组成的2的幂($2^0$直到$2^{21}$)，然后用 这个数字的个数 乘上 2的幂减去这个数的个数 就能得到 组成该2的幂个数 了。
-注意这个数本身是一个2的幂的一半时，自身构成用组合公式n个里面选两个。
+### Approach
+Build a Counter, then for each number enumerate powers of two from $2^0$ through $2^{21}$. Multiply that number's count by the count of the power of two minus that number to count pairs summing to the power of two.
+When a number is half a power of two, pairs of equal values use the combination formula for choosing two from n.
 
-因为总是重复计算了一遍，所以最终结果除2
+Divide the final result by 2 because each pair is counted twice.
 
 <br>
-另附不重复的加法叠加解法
+An incremental approach that avoids double counting is also included.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -24,7 +24,7 @@ class Solution:
         cnts = Counter(deliciousness)
         return (sum(cnts[key] * (cnts[key] - 1) if key == 2 ** (i-1) else cnts[key] * cnts[2**i-key] for key in cnts for i in range(22))//2) % (10 ** 9 + 7)
 ```
-这两段代码是等价的，第一个只是写成了一行
+These two snippets are equivalent; the first is simply written on one line.
 ```python3
 class Solution:
     def countPairs(self, deliciousness: List[int]) -> int:
@@ -38,7 +38,7 @@ class Solution:
                     ans += cnts[key] * cnts[2**i - key]
         return (ans // 2) % (10 ** 9 + 7)
 ```
-可以避免重复计算22个2的幂来加速(其实还可以循环从key的大小开始来加速)
+Avoid recomputing the 22 powers of two to speed this up. Starting the loop near the key's value can also help.
 ```python3
 class Solution:
     powersOfTwo = [2**i for i in range(22)]
@@ -48,7 +48,7 @@ class Solution:
         cnts = Counter(deliciousness)
         return (sum(cnts[key] * (cnts[key] - 1) if key == target - key else cnts[key] * cnts[target-key] for key in cnts for target in self.powersOfTwo))//2 % self.mod
 ```
-加法叠加
+Incremental counting
 ```python3
 class Solution:
     powersOfTwo = [2**i for i in range(22)]
@@ -62,7 +62,7 @@ class Solution:
             cnts[num] += 1
         return ans % self.mod
 ```
-进阶100%解法，思路来自[@DarkArmed](/u/darkarmed/)
+Advanced 100% solution, based on an idea from [@DarkArmed](/u/darkarmed/)
 ```python3
 class Solution:
     def countPairs(self, deliciousness: List[int]) -> int:
@@ -70,15 +70,15 @@ class Solution:
         count = Counter(deliciousness)
 
         res = 0
-        # 由于每个数只遍历了最接近自己的2的次幂的组合，所以不可能重复;比如说1和3构成4，只在3的时候计算；3和5构成8只在5的时候计算。
+        # Each number considers only pairs summing to its next power of two, avoiding duplicates: 1+3=4 is counted only at 3, and 3+5=8 only at 5
         for i in count:
             if i == 0:
                 continue
-            # i的下一个2的幂次
+            # The next power of two after i
             target = self.nextPower(i)
-            # 如果i能和任意的count中的key够成这个幂次
+            # If i can combine with a key in count to reach this power
             res += count[i] * count[target - i]
-            # 如果i自身是一个2的幂次
+            # If i itself is a power of two
             if i == target:
                 res += count[i] * (count[i] - 1) // 2
         return res % MOD

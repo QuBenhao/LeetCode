@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-vwns
 > date: 2022-01-30
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/uncommon-words-from-two-sentences/solutions/Dh73t9/pythonjavajavascriptgo-mo-ni-by-himymben-vwns/
 
 ---
-### 解题思路
-按空格分割后统计单词频次，在一个里出现一次、在另一个里面没出现，换句话说就是在两个里面一共出现一次。
+### Approach
+Split on spaces and count word frequencies. Appearing once in one sentence and never in the other is equivalent to appearing exactly once across both.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

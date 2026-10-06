@@ -17,7 +17,7 @@ public:
             g[y].emplace_back(x, t);
         }
 
-        // Dijkstra 算法
+        // Dijkstra's algorithm
         vector<int> dis(n, INT_MAX);
         dis[0] = 0;
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
@@ -25,13 +25,13 @@ public:
         while (!pq.empty()) {
             auto [dx, x] = pq.top();
             pq.pop();
-            if (dx > dis[x]) { // x 之前出堆过
+            if (dx > dis[x]) { // x was already popped from the heap
                 continue;
             }
             for (auto& [y, d] : g[x]) {
                 int new_dis = dx + d;
                 if (new_dis < dis[y]) {
-                    dis[y] = new_dis; // 更新 x 的邻居的最短路
+                    dis[y] = new_dis; // Update the shortest distances to x's neighbors
                     pq.emplace(new_dis, y);
                 }
             }
@@ -43,10 +43,10 @@ public:
         auto dfs = [&](auto&& self, int x, int sum_time, int sum_value) -> void {
             if (x == 0) {
                 ans = max(ans, sum_value);
-                // 注意这里没有 return，还可以继续走
+                // Do not return here; the walk can continue
             }
             for (auto& [y, t] : g[x]) {
-                // 相比方法一，这里多了 dis[y]
+                // Compared with method 1, this also includes dis[y]
                 if (sum_time + t + dis[y] > max_time) {
                     continue;
                 }
@@ -54,9 +54,9 @@ public:
                     self(self, y, sum_time + t, sum_value);
                 } else {
                     vis[y] = true;
-                    // 每个节点的价值至多算入价值总和中一次
+                    // Count each node's value at most once in the total
                     self(self, y, sum_time + t, sum_value + values[y]);
-                    vis[y] = false; // 恢复现场
+                    vis[y] = false; // Restore the previous state
                 }
             }
         };

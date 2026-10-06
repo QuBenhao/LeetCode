@@ -1,4 +1,4 @@
-# [Python/Go/C] 动态规划
+# [Python/Go/C] Dynamic programming
 
 > Author: Benhao
 > Date: 2024-02-24
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 当前卖出股票的最大收益由之前的最小值和自身构成，遍历的同时维护目前最小值，与答案比较得到最大的差即可
+> The maximum profit from selling now is the difference between the current price and the smallest previous price. Maintain the minimum price while traversing, and compare each difference with the answer to find the maximum.
 
-# 解题方法
+# Approach
 
-> 遍历，动态规划
+> Traversal and dynamic programming
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 

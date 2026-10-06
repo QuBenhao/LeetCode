@@ -1,4 +1,4 @@
-# [Python] 二分查找断点
+# [Python] Find the rotation point with binary search
 
 > Author: Benhao
 > Date: 2021-04-08
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-如果left比right小，那么left就是left到right的最小值;
-如果mid比right小，那么断点就在mid或者mid左边，比如[5,1,2,3,4]，`right = 4`,`mid = 2`,最小值在mid左侧。
-如果mid比left大，那么断电就在mid右边，比如[3,4,5,1,2],`left = 3`,`mid = 5`,最小值在mid右侧。
-**不存在nums[right]<nums[mid]<nums[left]**
+### Approach
+If left is smaller than right, left is the minimum from left to right;
+If mid is smaller than right, the rotation point is at mid or to its left. For example, in [5,1,2,3,4], `right = 4` and `mid = 2`, so the minimum is to the left of mid.
+If mid is greater than left, the rotation point is to the right of mid. For example, in [3,4,5,1,2], `left = 3` and `mid = 5`, so the minimum is to the right of mid.
+**nums[right]<nums[mid]<nums[left] cannot occur**
 
-### 代码
+### Code
 
 ```python3
 class Solution:

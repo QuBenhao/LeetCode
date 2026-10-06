@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 哈希
+# [Python/Java/JavaScript] Hashing
 
 > slug: pythonjavajavascript-ha-xi-by-himymben-wcr9
 > date: 2021-10-07
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/repeated-dna-sequences/solutions/3hNzmM/pythonjavajavascript-ha-xi-by-himymben-wcr9/
 
 ---
-### 解题思路
-遍历所有长度为10的子串，统计哈希个数
+### Approach
+Traverse all substrings of length 10 and count their occurrences in a hash table.
 
-### 代码
+### Code
 
 ```Python3 []
 LEN = 10

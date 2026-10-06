@@ -21,12 +21,12 @@ class Solution(solution.Solution):
             size, sz0, ok = 1, 0, True
             for y in g[x]:
                 if y == fa:
-                    continue  # 不能递归到父节点
+                    continue  # Do not recurse into the parent
                 sz = dfs(y, x)
                 if sz0 == 0:
-                    sz0 = sz  # 记录第一个儿子子树的大小
-                elif sz != sz0:  # 存在大小不一样的儿子子树
-                    ok = False  # 注意不能 break，其他子树 y 仍然要递归
+                    sz0 = sz  # Record the size of the first child's subtree
+                elif sz != sz0:  # A child's subtree has a different size
+                    ok = False  # Do not break; the other subtrees y must still be traversed recursively
                 size += sz
             nonlocal ans
             ans += ok

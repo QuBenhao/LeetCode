@@ -17,8 +17,8 @@ class Solution(solution.Solution):
         for i in range(1, n + 1):
             x, d = a[i]
 
-            # 往左射，墙的坐标范围为 [left_x, x]
-            left_x = max(x - d, a[i - 1][0] + 1)  # +1 表示不能射到左边那个机器人
+            # Shoot left; wall coordinates are in [left_x, x]
+            left_x = max(x - d, a[i - 1][0] + 1)  # +1 prevents hitting the robot on the left
             while left < m and walls[left] < left_x:
                 left += 1
             while cur < m and walls[cur] < x:
@@ -26,18 +26,18 @@ class Solution(solution.Solution):
             cur1 = cur
             if cur < m and walls[cur] == x:
                 cur += 1
-            left_res = f0 + cur - left  # 下标在 [left, cur-1] 中的墙都能摧毁
+            left_res = f0 + cur - left  # All walls with indices in [left, cur-1] can be destroyed
 
-            # 往右射，右边那个机器人往左射，墙的坐标范围为 [x, right_x]
+            # Shoot right while the robot on the right shoots left; wall coordinates are in [x, right_x]
             x2, d2 = a[i + 1]
-            right_x = min(x + d, x2 - d2 - 1)  # -1 表示不能射到右边那个机器人
+            right_x = min(x + d, x2 - d2 - 1)  # -1 prevents hitting the robot on the right
             while right0 < m and walls[right0] <= right_x:
                 right0 += 1
-            f0 = max(left_res, f1 + right0 - cur1)  # 下标在 [cur1, right0-1] 中的墙都能摧毁
+            f0 = max(left_res, f1 + right0 - cur1)  # All walls with indices in [cur1, right0-1] can be destroyed
 
-            # 往右射，右边那个机器人往右射，墙的坐标范围为 [x, right_x]
-            right_x = min(x + d, x2 - 1)  # -1 表示不能射到右边那个机器人
+            # Shoot right while the robot on the right also shoots right; wall coordinates are in [x, right_x]
+            right_x = min(x + d, x2 - 1)  # -1 prevents hitting the robot on the right
             while right1 < m and walls[right1] <= right_x:
                 right1 += 1
-            f1 = max(left_res, f1 + right1 - cur1)  # 下标在 [cur1, right1-1] 中的墙都能摧毁
+            f1 = max(left_res, f1 + right1 - cur1)  # All walls with indices in [cur1, right1-1] can be destroyed
         return f1

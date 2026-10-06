@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 拓扑
+# [Python/Java/TypeScript/Go] Topological sorting
 
 > slug: pythonjavatypescriptgo-by-himymben-xngf
 > date: 2022-05-31
@@ -7,17 +7,17 @@
 > url: https://leetcode.cn/problems/Jf1JuT/solutions/Nxkezb/pythonjavatypescriptgo-by-himymben-xngf/
 
 ---
-### 解题思路
-1. 遍历words统计所有出现的字母
-2. 遍历words中相邻的每对儿，统计这两对儿字典序不同的原因（第一个出现不同的地方，如果都一样且前面的长，可以直接返回）
-3. 从所有没有入度的字母开始，拓扑遍历所有转移（因为转移是满足字典序的，入度为0时加入的话，所有字典序比它小的都已经加入了，可以加入）
+### Approach
+1. Traverse words to collect every letter that appears.
+2. Examine each adjacent pair in words and find the first differing letter, which determines their lexicographic order. If all compared letters match and the first word is longer, return immediately.
+3. Start with every letter of indegree 0 and traverse the edges in topological order. The edges encode lexicographic order, so when a letter has indegree 0, all letters required to precede it have already been added.
 
 PS:
-WA了三发才理解题意，
-所有字母都要出现在最终的答案中，不是只有转移的。
-别的就没啥了。
+It took three WA submissions to understand the requirement:
+every letter must appear in the final answer, including letters with no ordering edges.
+That is the only other detail.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

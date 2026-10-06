@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 以左下角或右上角为根的BST
+# [Python/Java/JavaScript] A BST rooted at the bottom-left or top-right corner
 
 > Author: Benhao
 > Date: 2021-10-24
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-用左下或右上为根，整个矩阵其实就是一个二分搜索树。
+### Approach
+With the bottom-left or top-right corner as the root, the entire matrix can be viewed as a binary search tree.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -62,7 +62,7 @@ var searchMatrix = function(matrix, target) {
 };
 ```
 
-附一个以前写的二分
+Also included is a binary search solution I wrote earlier.
 ```Python
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:

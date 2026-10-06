@@ -1,4 +1,4 @@
-# [Python] 差分数组
+# [Python] Difference array
 
 > Author: Benhao
 > Date: 2021-07-24
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-差分是对这个区间内全部加上这个颜色的一个好办法，然后判断颜色相同的一个区间；
-另外，
-可能写的比较麻烦，要额外判断颜色相等时，他们是不是由不同的端点组成了。
+### Approach
+A difference array adds each color over its interval, then identifies intervals with the same resulting color sum.
+Also,
+this implementation may be cumbersome: equal color sums need an extra check for boundaries arising from different intervals.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

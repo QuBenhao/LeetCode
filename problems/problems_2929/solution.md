@@ -1,4 +1,4 @@
-# 数学推导
+# Mathematical derivation
 
 > slug: shu-xue-tui-dao-by-himymben-fzau
 > date: 2025-05-31
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/distribute-candies-among-children-ii/solutions/kmEBPN/shu-xue-tui-dao-by-himymben-fzau/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

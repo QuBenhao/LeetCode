@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 排序 + 二分
+# [Python/Java/TypeScript/Go] Sorting + binary search
 
 > slug: pythonjavatypescriptgo-pa-by-himymben-kgw2
 > date: 2022-09-12
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/special-array-with-x-elements-greater-than-or-equal-x/solutions/jN4kjF/pythonjavatypescriptgo-pa-by-himymben-kgw2/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

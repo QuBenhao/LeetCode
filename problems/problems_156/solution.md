@@ -1,4 +1,4 @@
-# [Python] 递归解法
+# [Python] Recursive solution
 
 > slug: python-di-gui-jie-fa-by-himymben-os72
 > date: 2021-08-21
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/binary-tree-upside-down/solutions/3yaKHJ/python-di-gui-jie-fa-by-himymben-os72/
 
 ---
-### 解题思路
-函数返回最终的root，也就是没有root.left的地方。
-更改顺序为递归，先从最后的root开始整理，递归到最左节点，根的右节点为原来的父节点，根的左节点为原来的右节点。依次递归
+### Approach
+The function returns the final root: the node with no root.left.
+Reorder the tree recursively, starting from the final root. Recurse to the leftmost node; the root's right child becomes its original parent, and its left child becomes the original right node. Repeat through the recursion.
 
-### 代码
+### Code
 
 ```python3
 # Definition for a binary tree node.

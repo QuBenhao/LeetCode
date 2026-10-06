@@ -1,4 +1,4 @@
-# [Python/Go] 贪心
+# [Python/Go] Greedy
 
 > slug: pythongo-tan-xin-by-himymben-gnyi
 > date: 2022-02-20
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/maximum-split-of-positive-even-integers/solutions/YL24Iz/pythongo-tan-xin-by-himymben-gnyi/
 
 ---
-### 解题思路
-从小到大取不同的偶数直到和大于等于最终结果。
-如果等于直接返回，大于的话将最后一个元素变大直接到和为答案即可。（贪心保证了个数最多）
+### Approach
+Take distinct even numbers in increasing order until their sum reaches or exceeds the target.
+If the sum equals the target, return it. Otherwise, enlarge the last selected element to make the sum equal the target. (The greedy choice maximizes the number of elements.)
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

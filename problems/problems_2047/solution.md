@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 模拟
+# [Python/Java/JavaScript/Go] Simulation
 
 > slug: pythonjavajavascriptgo-mo-ni-by-himymben-jx0s
 > date: 2022-01-26
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/number-of-valid-words-in-a-sentence/solutions/9E4OgP/pythonjavajavascriptgo-mo-ni-by-himymben-jx0s/
 
 ---
-### 解题思路
-基于题意判断按空格分割后的满足要求的单词个数。（PS：本题非常适合用DFA或正则匹配的思路解）
+### Approach
+Split on spaces and count the words that satisfy the rules. (PS: This problem is particularly well suited to a DFA or regular-expression approach.)
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -144,10 +144,10 @@ func check(word string) (ans int) {
 }
 ```
 
-稍微学了下正则表达式，如果我理解的不对麻烦指出，感谢。
-`[a-z]*` 匹配任意多的小写字母'a'到'z'
-`([a-z]-[a-z]+)?` 有问号，整体可以不存在，也可以出现一次。以小写字母-小写字母出现
-`[!.,]?$` 结尾可以为三种符号中的一种
+I studied regular expressions a little; please point out any mistakes in my understanding. Thanks.
+`[a-z]*` matches any number of lowercase letters from 'a' to 'z'.
+`([a-z]-[a-z]+)?` has a question mark, so the whole group can occur zero or one time. It matches a lowercase letter, a hyphen, and one or more lowercase letters.
+`[!.,]?$` allows the string to end with one of these three punctuation marks.
 ```python3
 class Solution:
     def countValidWords(self, sentence: str) -> int:

@@ -1,4 +1,4 @@
-# [Python/Go] 辗转相除
+# [Python/Go] Euclidean algorithm
 
 > Author: Benhao
 > Date: 2022-02-13
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-当一个数比另一个数大很多时，我们会发现需要大数减小数的倍数次（大数除小数）
-减到最后大数变成除小数的余数，小数变成了更大的那个数
+### Approach
+When one number is much larger than the other, the smaller number must be subtracted repeatedly: the number of subtractions is the larger number divided by the smaller.
+After those subtractions, the larger number becomes the remainder, and the previously smaller number becomes the larger one.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

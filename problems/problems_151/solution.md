@@ -1,4 +1,4 @@
-# [Python/Go/C] 模拟
+# [Python/Go/C] Simulation
 
 > slug: pythongoc-mo-ni-by-himymben-m2f0
 > date: 2024-02-28
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 去除多余的空格，按空格分割，将分割后的数组反转，最后空格拼接字符串
+> Remove extra spaces, split on spaces, reverse the resulting array, and join the strings with spaces.
 
-# 解题方法
+# Approach
 
-> 模拟
+> Simulation
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

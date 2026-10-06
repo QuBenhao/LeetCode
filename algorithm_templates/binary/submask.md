@@ -1,14 +1,14 @@
-# 枚举子集
+# Enumerating subsets
 
-在使用状压 DP 的问题中，有时会希望对于每个掩码，遍历掩码的所有子掩码:
+In bitmask DP problems, it is sometimes useful to iterate over every submask of each mask:
 ```c++
 for (int m = 0; m < (1 << n); ++m)
-  // 降序遍历 m 的非空子集
+  // Iterate over the nonempty subsets of m in descending order
   for (int s = m; s; s = (s - 1) & m)
-// s 是 m 的一个非空子集
+// s is a nonempty subset of m
 ```
 
-## 习题
+## Exercises
 
 ```c++
 //
@@ -17,7 +17,7 @@ for (int m = 0; m < (1 << n); ++m)
 #include <iostream>
 
 #ifdef ONLINE_JUDGE
-    // 在线评测系统通常使用GCC
+    // Online judges usually use GCC
     #include <bits/stdc++.h>
 #else
     #include <iosfwd>
@@ -38,24 +38,24 @@ int main() {
     cin >> n;
     vector<int> a(n);
 
-    // 初始化 dp 数组为 -1
+    // Initialize the dp array to -1
     memset(dp, -1, sizeof(dp));
 
-    // 读入并标记存在的数字
+    // Read the numbers and mark those present
     for (int i = 0; i < n; i++) {
         cin >> a[i];
-        dp[a[i]] = a[i];  // 直接标记
+        dp[a[i]] = a[i];  // Mark it directly
     }
 
-    // 预处理 DP：dp[mask] 存储 mask 的某个存在的子集
-    // 从子集向超集传递
+    // Precompute DP: dp[mask] stores a submask of mask that is present in the array
+    // Propagate from subsets to supersets
     for (int mask = 0; mask < MAX_MASK; mask++) {
         if (dp[mask] != -1) {
-            // 这个 mask 本身就在数组中
+            // This mask itself is in the array
             continue;
         }
 
-        // 尝试去掉一位 1，查看子集
+        // Try clearing one set bit to examine a submask
         for (int i = 0; i < 22; i++) {
             if (mask & (1 << i)) {
                 int sub = mask ^ (1 << i);
@@ -67,9 +67,9 @@ int main() {
         }
     }
 
-    // 为每个 a[i] 寻找答案
+    // Find the answer for each a[i]
     for (int i = 0; i < n; i++) {
-        // 取补集，只保留低 22 位
+        // Take the complement, keeping only the lowest 22 bits
         int complement = (~a[i]) & FULL_MASK;
         cout << dp[complement] << " ";
     }

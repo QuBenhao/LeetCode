@@ -11,14 +11,14 @@ class Solution(solution.Solution):
         :type finishTime: str
         :rtype: int
         """
-        # f到s之间有多少个15分钟, 但是01->29这种不能看做15分钟
+        # Count complete quarter-hours between s and f; 01->29 does not contain one
         start = int(startTime[:2]) * 60 + int(startTime[3:])
         finish = int(finishTime[:2]) * 60 + int(finishTime[3:])
-        # 通宵的情况
+        # Overnight case
         if finish < start:
-            # 加一天
+            # Add one day
             finish += 24 * 60
-        # 要正点结束
+        # The finish must fall on a quarter-hour boundary
         finish = finish // 15 * 15
-        # 这里开始不再需要调整为正点因为地板除15是一致的
+        # No need to adjust the start to a boundary here, since floor division by 15 gives the same result
         return (finish - start) // 15 if finish > start else 0

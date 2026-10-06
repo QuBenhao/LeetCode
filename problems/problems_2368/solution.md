@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 直接从0开始dfs，遇到禁止点返回，直到递归完
+> Run DFS from 0, returning whenever a restricted node is reached, until the recursion finishes.
 
-# 解题方法
+# Approach
 
 > DFS
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

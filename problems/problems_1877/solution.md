@@ -1,4 +1,4 @@
-# [Python/Go] 贪心
+# [Python/Go] Greedy
 
 > Author: Benhao
 > Date: 2021-07-19
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-田忌赛马。
-为了使得最大的数的和尽可能地小，要将它和最小的值匹配。
+### Approach
+Tian Ji's horse-racing strategy.
+Pair the largest value with the smallest to minimize its pair sum.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

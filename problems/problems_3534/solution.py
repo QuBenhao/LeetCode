@@ -9,21 +9,21 @@ class Solution(solution.Solution):
         return self.pathExistenceQueries(*test_input)
 
     def pathExistenceQueries(self, n: int, nums: List[int], maxDiff: int, queries: List[List[int]]) -> List[int]:
-        idx = sorted(range(n), key=lambda i: nums[i]) # 映射nums中排序后的索引到原索引
-        mapping = {j: i for i, j in enumerate(idx)} # 映射nums中的索引到排序后的索引
+        idx = sorted(range(n), key=lambda i: nums[i]) # Map sorted indices of nums to original indices
+        mapping = {j: i for i, j in enumerate(idx)} # Map original indices of nums to sorted indices
 
         m = n.bit_length()
-        pa = [[0] * m for _ in range(n)] # pa[i][j]表示从i(排序后索引)出发经过2^j步能到达的最远节点(排序后索引)
+        pa = [[0] * m for _ in range(n)] # pa[i][j] is the farthest node (sorted index) reachable from i (sorted index) in 2^j steps
 
         left = 0
         for i, j in enumerate(idx):
-            while nums[j] - nums[idx[left]] > maxDiff: # 找最左能到的节点
+            while nums[j] - nums[idx[left]] > maxDiff: # Find the leftmost reachable node
                 left += 1
             pa[i][0] = left
 
         for j in range(1, m):
             for i in range(n):
-                pa[i][j] = pa[pa[i][j - 1]][j - 1] # 倍增
+                pa[i][j] = pa[pa[i][j - 1]][j - 1] # Binary lifting
 
         ans = [-1] * len(queries)
         for i, (l, r) in enumerate(queries):

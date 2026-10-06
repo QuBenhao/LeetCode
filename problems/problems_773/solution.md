@@ -1,4 +1,4 @@
-# [Python] A Star (附简洁的BFS 100%)
+# [Python] A Star (with concise BFS, 100%)
 
 > Author: Benhao
 > Date: 2021-06-25
@@ -7,28 +7,28 @@
 
 ---
 
-### 解题思路
-这是特别经典的 8 puzzle，有两种常见的启发式函数:
-1. 不在应该在的位置上的元素个数；
-2. 每个元素到应该去的位置的曼哈顿距离。
+### Approach
+This is the classic 8 puzzle, with two common heuristic functions:
+1. The number of misplaced elements;
+2. The Manhattan distance from each element to its target position.
 
-因为第一个效果更好,所以这里用了第一个。
+The first performs better, so it is used here.
 <br>
-关于N*M puzzle问题中, M为奇数时, 逆序对数为奇数个时无解这一结论的[证明](https://blog.csdn.net/qq_45458915/article/details/103313671)
+For an N*M puzzle with odd M, an odd inversion count means there is no solution; see the [proof](https://blog.csdn.net/qq_45458915/article/details/103313671)
 
-### 代码
+### Code
 
 ```python3
 class Solution:
     def slidingPuzzle(self, board: List[List[int]]) -> int:
-        # 邻近点
+        # Neighbors
         neighbors = {0: (1, 3), 1: (0, 2, 4), 2: (1, 5), 3: (0, 4), 4: (1, 3, 5), 5: (2, 4)}
 
-        # 曼哈顿距离
+        # Manhattan distance
         def ManhattanDist(p1, p2):
             return abs(p2[0] - p1[0]) + abs(p2[1] - p1[1])
 
-        # State状态
+        # State
         class State:
             def __init__(self, b=None, cost=0):
                 self.board = b
@@ -47,7 +47,7 @@ class Solution:
             def __hash__(self):
                 return self.hash
 
-            # 两种启发式
+            # Two heuristics
             def heuristic(self):
                 # h1
                 return sum(1 for i in range(6) if self.board[i] and self.board[i] != i + 1)
@@ -56,7 +56,7 @@ class Solution:
                 #     ManhattanDist((i // 3, i % 3), ((num - 1) // 3, (num - 1) % 3))
                 #     for i, num in enumerate(self.board) if num)
 
-            # 下一个状态为和0的各种交换
+            # Generate the next states by swapping with 0
             def successor(self):
                 idx = self.board.index(0)
                 successors = []
@@ -68,13 +68,13 @@ class Solution:
                 return successors
 
         board = board[0] + board[1]
-        # n*m puzzle中，m为奇数时,逆序数对奇偶性要和最终奇偶性相同，否则无解
+        # In an n*m puzzle with odd m, inversion parity must match the target state's parity; otherwise there is no solution
         if sum(1 for i in range(6) for j in range(i+1, 6) if board[j] and board[i] > board[j]) % 2 == 1:
             return -1
         initState = State(board)
         pq = [initState]
         explored = {initState}
-        # 优先队列以f=h+g进行了排序
+        # The priority queue is ordered by f=h+g
         while pq:
             state = heapq.heappop(pq)
             if state.board == [1, 2, 3, 4, 5, 0]:
@@ -85,7 +85,7 @@ class Solution:
                     heapq.heappush(pq, successor)
         return -1
 ```
-常规bfs
+Standard BFS
 ```python3
 class Solution:
     def slidingPuzzle(self, board: List[List[int]]) -> int:

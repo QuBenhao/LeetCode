@@ -1,4 +1,4 @@
-# [Python] 维护最小前缀和
+# [Python] Maintain the minimum prefix sum
 
 > Author: Benhao
 > Date: 2024-03-03
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 求最大区间和相当于求前面最小的前缀和以及当前前缀和的差的最大值
+> Finding the maximum subarray sum is equivalent to maximizing the difference between the current prefix sum and the smallest preceding prefix sum.
 
-# 解题方法
+# Approach
 
-> 遍历维护一个最小前缀和，最终答案由某位置的最大结果构成
+> Maintain the minimum prefix sum while traversing; the final answer is the largest result at any position.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(1)$
 
 
@@ -41,7 +41,7 @@ class Solution:
             m = min(pre, m)
         return ans
 ```
-另外写一遍经典的 
+Here is the classic approach as well. 
 divide and conquer
 ```Python3 []
 class Solution:

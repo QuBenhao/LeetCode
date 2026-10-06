@@ -12,28 +12,28 @@ class Solution(solution.Solution):
 
 class TextEditor:
     def __init__(self):
-        self.left = []  # 光标左侧字符
-        self.right = []  # 光标右侧字符
+        self.left = []  # Characters to the left of the cursor
+        self.right = []  # Characters to the right of the cursor
 
     def addText(self, text: str) -> None:
-        self.left.extend(text)  # 入栈
+        self.left.extend(text)  # Push onto the stack
 
     def deleteText(self, k: int) -> int:
-        pre = len(self.left)  # 删除之前的栈大小
-        del self.left[-k:]  # 出栈
-        return pre - len(self.left)  # 减去删除之后的栈大小
+        pre = len(self.left)  # Stack size before deletion
+        del self.left[-k:]  # Pop from the stack
+        return pre - len(self.left)  # Subtract the stack size after deletion
 
     def text(self) -> str:
-        return ''.join(self.left[-10:])  # 光标左边至多 10 个字符
+        return ''.join(self.left[-10:])  # At most 10 characters to the left of the cursor
 
     def cursorLeft(self, k: int) -> str:
         while k and self.left:
-            self.right.append(self.left.pop())  # 左手倒右手
+            self.right.append(self.left.pop())  # Move from the left stack to the right stack
             k -= 1
         return self.text()
 
     def cursorRight(self, k: int) -> str:
         while k and self.right:
-            self.left.append(self.right.pop())  # 右手倒左手
+            self.left.append(self.right.pop())  # Move from the right stack to the left stack
             k -= 1
         return self.text()

@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 看成线性的，找最小值 + 一行版本
+# [Python/Java/JavaScript/Go] Treat each dimension independently and find its minimum + one-line version
 
 > Author: Benhao
 > Date: 2021-11-06
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-我们最关心的是，对于行和对于列最小的变动分别在哪里（两个线性），因为那个变动决定了最大的数的行数和列数（乘起来就是答案要的个数）
+### Approach
+What matters is the smallest update boundary for rows and for columns, considered independently. These determine how many rows and columns contain the maximum value; their product is the answer.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -62,7 +62,7 @@ func maxCount(m int, n int, ops [][]int) int {
     return m * n
 }
 ```
-应邀写一下一行版本
+A one-line version, as requested
 ```Python3
 class Solution:
     def maxCount(self, m: int, n: int, ops: List[List[int]]) -> int:

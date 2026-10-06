@@ -9,12 +9,12 @@ class Solution(solution.Solution):
         return self.totalCost(*test_input)
 
     def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
-        # 存在交叉的情况，可以取k个最小的数
+        # The candidate ranges overlap, so take the k smallest values
         if candidates * 2 + k > len(costs):
             costs.sort()
             return sum(costs[:k])
         
-        # 不存在交叉
+        # The candidate ranges do not overlap
         left_idx, right_idx = candidates, -candidates-1
         left, right = costs[:left_idx], costs[right_idx+1:]
         heapq.heapify(left)

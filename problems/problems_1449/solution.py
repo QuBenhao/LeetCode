@@ -28,7 +28,7 @@ class Solution(solution.Solution):
                             ans = max(ans, d[val] + res, key=int)
             return str(ans)
 
-        # 重复的代价永远会取更高的那个
+        # For duplicate costs, always choose the larger digit
         d = dict((v,str(i)) for i,v in enumerate(cost,1))
         cost = sorted(d.keys())
         return dfs(target)

@@ -1,4 +1,4 @@
-# 对称翻转
+# Reflect and flip
 
 > slug: dui-cheng-fan-zhuan-by-himymben-gyrv
 > date: 2025-05-31
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/rotate-image/solutions/MWfM2o/dui-cheng-fan-zhuan-by-himymben-gyrv/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

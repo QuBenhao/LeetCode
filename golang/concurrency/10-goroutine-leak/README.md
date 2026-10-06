@@ -1,5 +1,5 @@
-# **10. Goroutine 泄漏排查**
-**场景**：给定一个有泄漏的并发代码：
+# **10. Diagnosing goroutine leaks**
+**Scenario:** Given concurrent code with a leak:
 ```go
 func leakyFunction() {
     ch := make(chan int)
@@ -7,21 +7,21 @@ func leakyFunction() {
         time.Sleep(time.Second)
         ch <- 1
     }()
-    return // 直接返回
+    return // Return immediately
 }
 ```
-**要求**：
-- 分析泄漏原因
-- 给出两种修复方案
-- 使用 `runtime.NumGoroutine()` 验证修复效果
+**Requirements:**
+- Analyze the cause of the leak
+- Provide two ways to fix it
+- Use `runtime.NumGoroutine()` to verify the fixes
 
 
-## 解题
+## Exercise
 
 [solution](your_solution.go)
 
 ---
 
-## 答案
+## Solution
 
 [answer](answer.go)

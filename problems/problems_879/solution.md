@@ -1,4 +1,4 @@
-# [Python] 记忆化搜索 or 动态规划
+# [Python] Memoized search or dynamic programming
 
 > Author: Benhao
 > Date: 2021-06-09
@@ -7,17 +7,17 @@
 
 ---
 
-### 解题思路
-剪了半天枝,没想到真能过
-其实关键在于很多时候我们可以忽略人数限制(加上后面所有人也不会超)，或者忽略profit限制了(已经达到minProfit了)
+### Approach
+After all that pruning, I did not expect it to actually pass
+The key is that we can often ignore the headcount limit when even all remaining people would not exceed it, or ignore the profit requirement once minProfit has been reached
 
-根据搜索的思路很容易写出动态规划。
+The search approach translates easily into dynamic programming.
 
-最后的容斥原理是最快的,思路来自[大佬的题解](https://leetcode.cn/problems/profitable-schemes/solution/qiao-yong-rong-chi-yuan-li-jian-hua-ti-mu-by-lucif/)
+The final inclusion-exclusion approach is the fastest; the idea comes from [this excellent solution](https://leetcode.cn/problems/profitable-schemes/solution/qiao-yong-rong-chi-yuan-li-jian-hua-ti-mu-by-lucif/)
 
-### 代码
+### Code
 
-记忆化搜索
+Memoized search
 ```python3
 class Solution:
     def profitableSchemes(self, n: int, minProfit: int, group: List[int], profit: List[int]) -> int:
@@ -36,7 +36,7 @@ class Solution:
         return dfs(0,n,0) % (10**9+7)
 ```
 
-dp使用Counter
+DP using Counter
 ```python3
 class Solution:
     def profitableSchemes(self, n: int, minProfit: int, group: List[int], profit: List[int]) -> int:
@@ -49,7 +49,7 @@ class Solution:
         return sum(val for (_,v),val in dp.items() if v == minProfit) % (10 ** 9 + 7)
 ```
 
-dp使用SortedDict
+DP using SortedDict
 ```python3
 from sortedcontainers import SortedDict
 
@@ -60,7 +60,7 @@ class Solution:
         dp[(0,0)] = 1
         for g,p in zip(group, profit):
             for tg,tp in list(dp.keys()):
-                # tg,tp为负为了排序
+                # Negate tg,tp for sorting
                 if g - tg <= n:
                     key = tg-g, -min(p-tp, minProfit)
                     if key in dp:
@@ -70,24 +70,24 @@ class Solution:
         return sum(val for (_,v),val in dp.items() if v == -minProfit) % (10 ** 9 + 7)
 ```
 
-最后，根据大佬的容斥原理思路写的
+Finally, an implementation based on the expert's inclusion-exclusion idea
 ```python3
 class Solution:
     def profitableSchemes(self, n: int, minProfit: int, group: List[int], profit: List[int]) -> int:
         mod = 10 ** 9 + 7
 
-        # 容斥原理 g <= n, p >= minProfit的组合个数为 g<=n的个数减去g<=n,p < minProft的个数
-        # 先求 g<=n 的组合数
+        # Inclusion-exclusion: the count with g <= n, p >= minProfit equals the count with g<=n minus the count with g<=n,p < minProft
+        # First count combinations with g<=n
         dp1 = [0] * (n+1)
         dp1[0] = 1
         for g in group:
             for i in range(n,g-1,-1):
                 dp1[i] += dp1[i-g]
-        # p < minProfit的组合数为0
+        # The count of combinations with p < minProfit is 0
         if not minProfit:
             return sum(dp1) % mod
         
-        # 求 g <= n, p < minProfit的组合数
+        # Count combinations with g <= n, p < minProfit
         dp2 = [[0] * minProfit for _ in range(n+1)]
         dp2[0][0] = 1
         for g,p in zip(group, profit):

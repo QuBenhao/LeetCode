@@ -1,4 +1,4 @@
-# [Python] 按order权重排序
+# [Python] Sort by weights from order
 
 > Author: Benhao
 > Date: 2022-11-13
@@ -11,17 +11,17 @@
 
 [TOC]
 
-# 思路
-> 既然是按order排序，那么order会给每个字符一个权重，按坐标即可，这样坐标小的权重就靠前
+# Intuition
+> To sort by order, assign each character a weight equal to its index in order, so smaller indices come first
 
-# 解题方法
-> 将order转化成哈希表
+# Approach
+> Convert order to a hash map
 
-# 复杂度
-- 时间复杂度: 
+# Complexity
+- Time complexity: 
 > $O(nlog_n)$
 
-- 空间复杂度: 
+- Space complexity: 
 > $O(n)$
 
 # Code

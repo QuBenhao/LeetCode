@@ -1,4 +1,4 @@
-# [Python] 简洁BFS
+# [Python] Concise BFS
 
 > Author: Benhao
 > Date: 2024-03-28
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> equations代表状态转移，也就是图的点和连续。values代表状态间转移的代价。queries在查询从起始状态到最终状态是否存在转移路线，以及代价。
+> equations defines state transitions: graph nodes and edges. values gives transition costs. queries asks whether a path exists from the starting state to the final state and what its cost is.
 
-# 解题方法
+# Approach
 
-> 标准的BFS
+> Standard BFS
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/16.
-// 例题: Fractal Streets acwing98
+// Example: Fractal Streets acwing98
 //
 
 #include <bits/stdc++.h>
@@ -8,7 +8,7 @@ using namespace std;
 typedef long long ll;
 #define lowbit(x) ((x)&(-(x)))
 
-// 坐标
+// Coordinates
 pair<ll, ll> dfs(const int n, const ll a) {
     if (n == 0) return {0, 0};
     const ll d = 1LL << (n - 1);

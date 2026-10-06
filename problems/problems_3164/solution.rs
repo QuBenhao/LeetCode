@@ -25,7 +25,7 @@ impl Solution {
         let u = *cnt1.keys().max().unwrap();
         for (x, cnt) in cnt2 {
             let mut s = 0;
-            for y in (x..=u).step_by(x as usize) { // 枚举 x 的倍数
+            for y in (x..=u).step_by(x as usize) { // Enumerate multiples of x
                 if let Some(&c) = cnt1.get(&y) {
                     s += c;
                 }

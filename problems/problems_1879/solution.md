@@ -1,4 +1,4 @@
-# [Python] 记忆化dfs 100%
+# [Python] Memoized DFS: 100%
 
 > Author: Benhao
 > Date: 2021-05-29
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-看了一圈没有发记忆化搜索的，那写一个吧。传参用tuple而不是list，这样才有hash值。
+### Approach
+I did not see a memoized-search solution, so here is one. Pass a tuple instead of a list so that the arguments are hashable.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

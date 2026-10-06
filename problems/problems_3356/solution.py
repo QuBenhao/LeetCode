@@ -9,7 +9,7 @@ class Solution(solution.Solution):
         return self.minZeroArray(*test_input)
 
     def minZeroArray(self, nums: List[int], queries: List[List[int]]) -> int:
-        # # 二分+差分
+        # # Binary search + difference array
         # n, m = len(nums), len(queries)
         # def check(x):
         #     diff = [0] * (n + 1)
@@ -28,7 +28,7 @@ class Solution(solution.Solution):
         #         left = mid + 1
         # return left if left < m + 1 else -1
 
-        # 差分+双指针
+        # Difference array + two pointers
         diff = [0] * (len(nums) + 1)
         k, cur = 0, 0
         for i, (num, d) in enumerate(zip(nums, diff)):

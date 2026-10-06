@@ -36,23 +36,23 @@ class Solution(solution.Solution):
         for p, q in pairwise(pos):
             update(q, q - p)
             for j in range(p + 1, q):
-                left[j] = p  # 删除 j
+                left[j] = p  # Remove j
                 right[j] = q
         for j in range(pos[-1] + 1, m):
-            left[j] = pos[-1]  # 删除 j
+            left[j] = pos[-1]  # Remove j
             right[j] = m
 
         ans = []
         for q in reversed(queries):
             x = q[1]
-            pre = find(left, x - 1)  # x 左侧最近障碍物的位置
+            pre = find(left, x - 1)  # Position of the nearest obstacle to the left of x
             if q[0] == 1:
-                left[x] = x - 1  # 删除 x
+                left[x] = x - 1  # Remove x
                 right[x] = x + 1
-                nxt = find(right, x)  # x 右侧最近障碍物的位置
-                update(nxt, nxt - pre)  # 更新 d[nxt] = nxt - pre
+                nxt = find(right, x)  # Position of the nearest obstacle to the right of x
+                update(nxt, nxt - pre)  # Update d[nxt] = nxt - pre
             else:
-                # 最大长度要么是 [0,pre] 中的最大 d，要么是 [pre,x] 这一段的长度
+                # The maximum length is either the maximum d in [0,pre] or the length of [pre,x]
                 max_gap = max(pre_max(pre), x - pre)
                 ans.append(max_gap >= q[2])
 

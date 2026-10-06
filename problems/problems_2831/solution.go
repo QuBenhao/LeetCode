@@ -14,11 +14,11 @@ func longestEqualSubarray(nums []int, k int) (ans int) {
 
 	for _, pos := range posLists {
 		if len(pos) <= ans {
-			continue // 无法让 ans 变得更大
+			continue // Cannot increase ans
 		}
 		left := 0
 		for right, p := range pos {
-			for p-pos[left] > k { // 要删除的数太多了
+			for p-pos[left] > k { // Too many elements would need to be deleted
 				left++
 			}
 			ans = max(ans, right-left+1)

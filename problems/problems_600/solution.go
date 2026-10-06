@@ -7,7 +7,7 @@ import (
 )
 
 func findIntegers(n int) (ans int) {
-	// dp[i] 表示长度为 i 的二进制不包含连续的 1 的个数
+	// dp[i] counts length-i binary strings with no consecutive ones
 	dp := make([]int, 31)
 	dp[0], dp[1] = 1, 2
 	for i := 2; i < 31; i++ {

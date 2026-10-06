@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 单调栈
+# [Python/Java/TypeScript/Go] Monotonic stack
 
 > slug: pythonjavatypescriptgo-dan-diao-zhan-by-0f3uz
 > date: 2022-09-01
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/final-prices-with-a-special-discount-in-a-shop/solutions/Y3HcHo/pythonjavatypescriptgo-dan-diao-zhan-by-0f3uz/
 
 ---
-### 解题思路
-本题要找每个元素的下一个小于等于它的元素，很容易想到单调栈。
-具体来说，我们维护一个单调递增栈，栈里面的元素都是没找到小于等于自己的元素的。
-当出现一个比栈顶小的元素时，我们根据大小不停地弹出栈顶 (这个数就是小于等于该栈顶的第一个数了)。
-最后将没有出现小于等于的元素赋予原值即可 (或者在末尾添加0保证所有人都弹出)
+### Approach
+We need the next element less than or equal to each element, which naturally suggests a monotonic stack.
+Maintain a monotonically increasing stack of elements that have not yet found a later element less than or equal to themselves.
+When a smaller element appears, keep popping the stack as appropriate: the current value is the first value less than or equal to each popped element.
+Elements with no later value less than or equal to them keep their original values. Alternatively, append 0 to ensure that every element is popped.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

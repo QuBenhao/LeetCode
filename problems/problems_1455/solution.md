@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 模拟
+# [Python/Java/TypeScript/Go] Simulation
 
 > slug: pythonjavatypescriptgo-by-himymben-e5bb
 > date: 2022-08-21
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence/solutions/dO46Fq/pythonjavatypescriptgo-by-himymben-e5bb/
 
 ---
-### 解题思路
-嗯
+### Approach
+Hmm.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

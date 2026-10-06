@@ -28,7 +28,7 @@ public:
         int u = ranges::max_element(cnt1)->first;
         for (auto& [x, cnt] : cnt2) {
             int s = 0;
-            for (int y = x; y <= u; y += x) { // 枚举 x 的倍数
+            for (int y = x; y <= u; y += x) { // Enumerate multiples of x
                 s += cnt1.contains(y) ? cnt1[y] : 0;
             }
             ans += (long long) s * cnt;

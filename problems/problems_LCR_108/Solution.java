@@ -12,7 +12,7 @@ public class Solution extends BaseSolution {
         set.clear();
         s = _s;
         e = _e;
-        // 将所有 word 存入 set，如果目标单词不在 set 中，说明无解
+        // Put all words in set; if the target word is absent, there is no solution
         set.addAll(ws);
         if (!set.contains(e)) return 0;
         int ans = bfs();
@@ -20,15 +20,15 @@ public class Solution extends BaseSolution {
     }
 
     int bfs() {
-        // d1 代表从起点 beginWord 开始搜索（正向）
-        // d2 代表从结尾 endWord 开始搜索（反向）
+        // d1 searches forward from beginWord
+        // d2 searches backward from endWord
         Deque<String> d1 = new ArrayDeque<>(), d2 = new ArrayDeque<>();
 
         /*
-         * m1 和 m2 分别记录两个方向出现的单词是经过多少次转换而来
+         * m1 and m2 record how many transformations reach each word from their respective directions
          * e.g.
-         * m1 = {"abc":1} 代表 abc 由 beginWord 替换 1 次字符而来
-         * m2 = {"xyz":3} 代表 xyz 由 endWord 替换 3 次字符而来
+         * m1 = {"abc":1} means abc is reached from beginWord by replacing one character
+         * m2 = {"xyz":3} means xyz is reached from endWord by replacing three characters
          */
         Map<String, Integer> m1 = new HashMap<>(), m2 = new HashMap<>();
         d1.add(s);
@@ -37,14 +37,14 @@ public class Solution extends BaseSolution {
         m2.put(e, 0);
 
         /*
-         * 只有两个队列都不空，才有必要继续往下搜索
-         * 如果其中一个队列空了，说明从某个方向搜到底都搜不到该方向的目标节点
+         * Continue searching only while both queues are nonempty
+         * If either queue is empty, the search in that direction has exhausted all possibilities without reaching its target
          * e.g.
-         * 例如，如果 d1 为空了，说明从 beginWord 搜索到底都搜索不到 endWord，反向搜索也没必要进行了
+         * For example, if d1 is empty, searching from beginWord could not reach endWord, so continuing the reverse search is unnecessary
          */
         while (!d1.isEmpty() && !d2.isEmpty()) {
             int t;
-            // 为了让两个方向的搜索尽可能平均，优先拓展队列内元素少的方向
+            // Expand the direction with fewer queued elements first to keep the two searches as balanced as possible
             if (d1.size() <= d2.size()) {
                 t = update(d1, m1, m2);
             } else {
@@ -55,30 +55,30 @@ public class Solution extends BaseSolution {
         return -1;
     }
 
-    // update 代表从 deque 中取出一个单词进行扩展，
-    // cur 为当前方向的距离字典；other 为另外一个方向的距离字典
+    // update expands words taken from deque,
+    // cur stores distances in the current direction; other stores distances in the opposite direction
     int update(Deque<String> deque, Map<String, Integer> cur, Map<String, Integer> other) {
         int m = deque.size();
         while (m-- > 0) {
-            // 获取当前需要扩展的原字符串
+            // Get the original string to expand
             String poll = deque.pollFirst();
             int n = poll.length();
 
-            // 枚举替换原字符串的哪个字符 i
+            // Enumerate the character position i to replace in the original string
             for (int i = 0; i < n; i++) {
-                // 枚举将 i 替换成哪个小写字母
+                // Enumerate which lowercase letter replaces position i
                 for (int j = 0; j < 26; j++) {
-                    // 替换后的字符串
+                    // String after replacement
                     String sub = poll.substring(0, i) + String.valueOf((char)('a' + j)) + poll.substring(i + 1);
                     if (set.contains(sub)) {
-                        // 如果该字符串在「当前方向」被记录过（拓展过），跳过即可
+                        // Skip the string if it has already been recorded (expanded) in the current direction
                         if (cur.containsKey(sub) && cur.get(sub) <= cur.get(poll) + 1) continue;
 
-                        // 如果该字符串在「另一方向」出现过，说明找到了联通两个方向的最短路
+                        // If the string was reached from the opposite direction, the shortest path connecting the searches has been found
                         if (other.containsKey(sub)) {
                             return cur.get(poll) + 1 + other.get(sub);
                         } else {
-                            // 否则加入 deque 队列
+                            // Otherwise, add it to deque
                             deque.addLast(sub);
                             cur.put(sub, cur.get(poll) + 1);
                         }

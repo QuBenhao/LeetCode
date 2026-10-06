@@ -12,13 +12,13 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 从bank中得到可以进行的转换
+> Derive the allowed transitions from bank.
 
-# 解题方法
+# Approach
 
-> 从头到尾看看能否BFS
+> Use BFS to check whether the end can be reached from the start.
 
 
 # Code

@@ -1,4 +1,4 @@
-# [Python] 用n&n-1 从右往左数1
+# [Python] Count 1 bits from right to left with n&n-1
 
 > Author: Benhao
 > Date: 2021-03-22
@@ -7,12 +7,12 @@
 
 ---
 
-### 解题思路
-n&n-1会消去最右边的1 
-统计能消多少次即可
-比如`101000`&`100111` = `100000`
+### Approach
+n&n-1 clears the rightmost 1 bit. 
+Count how many times this can be done.
+For example, `101000`&`100111` = `100000`
 
-### 代码
+### Code
 
 ```python
 class Solution(object):

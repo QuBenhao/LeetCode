@@ -1,6 +1,6 @@
-# 几何
+# Geometry
 
-## 平行四边形
+## Parallelograms
 
-1. 对角线互相平分
+1. The diagonals bisect each other.
 

@@ -1,4 +1,4 @@
-# [Python/Java] 双向哈希
+# [Python/Java] Bidirectional hash maps
 
 > Author: Benhao
 > Date: 2024-03-15
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 记录一个 pattern字符到s中的子串的哈希，和一个s中的子串到pattern字符的哈希，遍历对比是否一致
+> Record a map from pattern characters to words in s and another from words in s to pattern characters, then traverse and check consistency.
 
-# 解题方法
+# Approach
 
-> 哈希
+> Hashing
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

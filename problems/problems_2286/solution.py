@@ -14,10 +14,10 @@ class BookMyShow:
     def __init__(self, n: int, m: int):
         self.n = n
         self.m = m
-        self.min = [0] * (2 << n.bit_length())  # 相比 4n 空间更小
+        self.min = [0] * (2 << n.bit_length())  # Uses less space than 4n
         self.sum = [0] * (2 << n.bit_length())
 
-    # 线段树：把下标 i 上的元素值增加 val
+    # Segment tree: increase the element at index i by val
     def update(self, o: int, l: int, r: int, i: int, val: int) -> None:
         if l == r:
             self.min[o] += val
@@ -31,7 +31,7 @@ class BookMyShow:
         self.min[o] = min(self.min[o * 2], self.min[o * 2 + 1])
         self.sum[o] = self.sum[o * 2] + self.sum[o * 2 + 1]
 
-    # 线段树：返回区间 [L,R] 内的元素和
+    # Segment tree: return the sum of elements in [L,R]
     def query_sum(self, o: int, l: int, r: int, L: int, R: int) -> int:
         if L <= l and r <= R:
             return self.sum[o]
@@ -43,10 +43,10 @@ class BookMyShow:
             res += self.query_sum(o * 2 + 1, m + 1, r, L, R)
         return res
 
-    # 线段树：返回区间 [0,R] 中 <= val 的最靠左的位置，不存在时返回 -1
+    # Segment tree: return the leftmost position in [0,R] whose value is <= val, or -1 if none exists
     def find_first(self, o: int, l: int, r: int, R: int, val: int) -> int:
         if self.min[o] > val:
-            return -1  # 整个区间的元素值都大于 val
+            return -1  # Every value in the interval exceeds val
         if l == r:
             return l
         m = (l + r) // 2
@@ -57,24 +57,24 @@ class BookMyShow:
         return -1
 
     def gather(self, k: int, maxRow: int) -> List[int]:
-        # 找第一个能倒入 k 升水的水桶
+        # Find the first bucket that can hold k more liters of water
         r = self.find_first(1, 0, self.n - 1, maxRow, self.m - k)
-        if r < 0:  # 没有这样的水桶
+        if r < 0:  # No such bucket exists
             return []
         c = self.query_sum(1, 0, self.n - 1, r, r)
-        self.update(1, 0, self.n - 1, r, k)  # 倒水
+        self.update(1, 0, self.n - 1, r, k)  # Pour water
         return [r, c]
 
     def scatter(self, k: int, maxRow: int) -> bool:
-        # [0,maxRow] 的接水量之和
+        # Total amount of water in [0,maxRow]
         s = self.query_sum(1, 0, self.n - 1, 0, maxRow)
         if s > self.m * (maxRow + 1) - k:
-            return False  # 水桶已经装了太多的水
-        # 从第一个没有装满的水桶开始
+            return False  # The buckets already contain too much water
+        # Start with the first bucket that is not full
         i = self.find_first(1, 0, self.n - 1, maxRow, self.m - 1)
         while k:
             left = min(self.m - self.query_sum(1, 0, self.n - 1, i, i), k)
-            self.update(1, 0, self.n - 1, i, left)  # 倒水
+            self.update(1, 0, self.n - 1, i, left)  # Pour water
             k -= left
             i += 1
         return True

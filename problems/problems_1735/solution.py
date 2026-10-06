@@ -13,10 +13,10 @@ class Solution(solution.Solution):
         :type queries: List[List[int]]
         :rtype: List[int]
         """
-        # target最大为10000，那么质因数最大为97
+        # target is at most 10000, so the largest prime factor to try is 97
         primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
 
-        # 分解质因数
+        # Prime factorization
         @lru_cache(None)
         def div(num):
             c = Counter()
@@ -32,8 +32,8 @@ class Solution(solution.Solution):
         for l,t in queries:
             count = div(t)
             cur = 1
-            # 对于每个质因子，分配方式为将v个质因数填入l个箱子中有多少种填法
-            # 球同，盒不同，盒可以为空，组合数结果为C(N+M-1, M-1)
+            # For each prime factor, count ways to distribute v copies among l boxes
+            # Identical balls, distinct boxes, empty boxes allowed: C(N+M-1, M-1)
             for v in count.values():
                 cur *= math.comb(l+v-1,v)
             ans.append(cur % (10 ** 9 + 7))

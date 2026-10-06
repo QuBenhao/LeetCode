@@ -8,16 +8,16 @@ import (
 )
 
 func minimumValueSum(nums, andValues []int) int {
-	const inf = math.MaxInt / 2 // 除 2 防止下面 +nums[i] 溢出
+	const inf = math.MaxInt / 2 // Divide by 2 to prevent overflow in +nums[i] below
 	n, m := len(nums), len(andValues)
 	type args struct{ i, j, and int }
 	memo := map[args]int{}
 	var dfs func(int, int, int) int
 	dfs = func(i, j, and int) int {
-		if n-i < m-j { // 剩余元素不足
+		if n-i < m-j { // Not enough elements remain
 			return inf
 		}
-		if j == m { // 分了 m 段
+		if j == m { // Split into m segments
 			if i == n {
 				return 0
 			}
@@ -25,14 +25,14 @@ func minimumValueSum(nums, andValues []int) int {
 		}
 		and &= nums[i]
 		p := args{i, j, and}
-		if res, ok := memo[p]; ok { // 之前计算过
+		if res, ok := memo[p]; ok { // Already computed
 			return res
 		}
-		res := dfs(i+1, j, and)  // 不划分
-		if and == andValues[j] { // 划分，nums[i] 是这一段的最后一个数
+		res := dfs(i+1, j, and)  // Do not split here
+		if and == andValues[j] { // Split here; nums[i] is the last number in this segment
 			res = min(res, dfs(i+1, j+1, -1)+nums[i])
 		}
-		memo[p] = res // 记忆化
+		memo[p] = res // Memoization
 		return res
 	}
 	ans := dfs(0, 0, -1)

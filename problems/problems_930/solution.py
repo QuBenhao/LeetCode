@@ -21,7 +21,7 @@ class Solution(solution.Solution):
         #     cnts[countOnes] += 1
         # return ans
 
-        # 滑动窗口
+        # Sliding window
         n = len(nums)
         ans = l1 = l2 = s1 = s2 = 0
         for r in range(n):

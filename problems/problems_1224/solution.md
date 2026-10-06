@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 哈希表 
+# [Python/Java/TypeScript/Go] Hash table 
 
 > slug: pythonjavatypescriptgo-ha-xi-biao-by-him-bbph
 > date: 2022-08-18
@@ -7,24 +7,24 @@
 > url: https://leetcode.cn/problems/maximum-equal-frequency/solutions/bJ4Tvg/pythonjavatypescriptgo-ha-xi-biao-by-him-bbph/
 
 ---
-### 解题思路
-哈希表维护个数，以及个数的个数。
-然后讨论每个位置是否在几种满足题意的条件中。
+### Approach
+Use hash tables to track frequencies and the number of values with each frequency.
+Then check at each position whether one of the valid cases holds.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
     def maxEqualFreq(self, nums: List[int]) -> int:
         """
-        删除一个元素后频次相同有以下几种情况:
-        1. 每个数只出现一次
-        2. 只有一个数比其他数出现多一次，其他数一样多 (删掉多一次的一个数)
-        3. 大家都出现的一样多，只有一个数出现了一次 (删掉一次的这个数)
-        那么怎么维护从头开始的个数，方便统计这三个条件呢？
-        哈希表记录次数是肯定的
-        1. 都是一个数，说明最大长度是1
-        2. 需要统计出现的个数的个数才好确定后两种情况
+        After removing one element, all frequencies can be equal in these cases:
+        1. Every number appears once.
+        2. One number appears once more than all the others, which have equal frequencies (remove one occurrence of the more frequent number).
+        3. All numbers have the same frequency except for one number that appears once (remove that number).
+        How can we maintain frequencies from the start to check these three conditions efficiently?
+        Use a hash table to record frequencies.
+        1. If every number appears once, the maximum frequency is 1.
+        2. Count the number of values with each frequency to identify the last two cases.
         """
         counter, counter_counter, max_counts, ans = Counter(), Counter(), 0, 0
         for i, num in enumerate(nums):

@@ -1,15 +1,15 @@
 /**
- * @param {number[][]} routes routes[i] 中的所有值 互不相同
+ * @param {number[][]} routes All values in routes[i] are distinct
  * @param {number} source
  * @param {number} target  0 <= source, target < 10**6
- * @return {number}  求出 最少乘坐的公交车数量 。如果不可能到达终点车站，返回 -1 。
+ * @return {number} The minimum number of buses to take, or -1 if the destination stop is unreachable.
  */
 const numBusesToDestination = function (
   routes: number[][],
   source: number,
   target: number
 ): number {
-  // `每个车站可以乘坐的公交车`
+  // `Bus routes available at each stop`
   const busByStation = new Map<number, Set<number>>()
   routes.forEach((route, bus) =>
     route.forEach(station => {
@@ -18,7 +18,7 @@ const numBusesToDestination = function (
     })
   )
 
-  // 已经到达过的车站和已经乘坐过的公交线路不用在遍历了；
+  // No need to revisit stops already reached or bus routes already taken;
   const visitedStation = new Set<number>()
   const visitedBus = new Set<number>()
   let queue: [cur: number, steps: number][] = [[source, 0]]

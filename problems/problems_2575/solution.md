@@ -1,4 +1,4 @@
-# [Python] 同余相乘相加
+# [Python] Multiplication and addition of congruences
 
 > slug: python-tong-yu-xiang-cheng-xiang-jia-by-tzatt
 > date: 2024-03-07
@@ -12,24 +12,24 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 1 反身性 a ≡ a (mod m)
-2 对称性 若a ≡ b(mod m) 则b ≡ a (mod m)
-3 传递性 若a ≡ b (mod m)，b ≡ c (mod m),则a ≡ c (mod m)
-4 同余式相加若a ≡ b (mod m)，c≡d(mod m)，则a+-c≡b+-d（mod m）
-5 同余式相乘 若a ≡ b (mod m)，c≡d(mod m)，则ac≡bd（mod m）
+> 1 Reflexivity: a ≡ a (mod m)
+2 Symmetry: if a ≡ b(mod m), then b ≡ a (mod m)
+3 Transitivity: if a ≡ b (mod m) and b ≡ c (mod m), then a ≡ c (mod m)
+4 Addition of congruences: if a ≡ b (mod m) and c≡d(mod m), then a+-c≡b+-d (mod m)
+5 Multiplication of congruences: if a ≡ b (mod m) and c≡d(mod m), then ac≡bd (mod m)
 
-# 解题方法
+# Approach
 
-> 从首位开始依次计算每一位的余即可，掌握同余性质的数学原理
+> Starting from the first digit, compute each prefix's remainder using the mathematical properties of congruence.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

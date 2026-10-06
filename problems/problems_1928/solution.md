@@ -1,4 +1,4 @@
-# [Python] 费用最小堆 (200ms)
+# [Python] Min-heap by cost (200ms)
 
 > Author: Benhao
 > Date: 2021-07-10
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-有点儿像[秋季赛的电动车](https://leetcode.cn/problems/DFPeFJ/)
-考虑遍历最小费用，如果同一个城市出现更多费用，但是可以获得更多时间的时候，仍然加入堆
+### Approach
+Similar to the [electric-car problem from the autumn contest](https://leetcode.cn/problems/DFPeFJ/).
+Explore by minimum cost. A more expensive path to the same city should still enter the heap if it leaves more time available.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

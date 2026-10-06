@@ -1,4 +1,4 @@
-# [Python] 统计01前缀和和10前缀和
+# [Python] Prefix mismatch counts for 01 and 10 patterns
 
 > Author: Benhao
 > Date: 2021-06-06
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-pre01[i+1] 代表0到i的字符与010101的区别的个数。其余同理。
+### Approach
+pre01[i+1] counts mismatches between positions 0 through i and the 010101 pattern. The other prefix array works similarly.
 
-n为偶数的情况很简单，要么前半截要1010，后半截也要1010，要么就是都要0101,所以返回两者的最小值即可。
-奇数的时候枚举每个放到后面不同的长度需要的操作次数。
+For even n, both parts must follow either 1010 or 0101, so return the smaller mismatch count.
+For odd n, enumerate the operation count for moving each possible prefix length to the end.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -42,8 +42,8 @@ class Solution:
             return min(pre01[-1],pre10[-1])
         ans = float("inf")
         for i in range(n):
-            # 把前面i个放到最后
-            # 前面要10101，后面要010
+            # Move the first i characters to the end
+            # The front needs 10101 and the back needs 010
             ans1 = pre01[-1] - pre01[i] + pre10[i]
             ans2 = pre10[-1] - pre10[i] + pre01[i]
             ans = min(ans, ans1, ans2)

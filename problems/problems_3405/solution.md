@@ -1,4 +1,4 @@
-# 数学
+# Mathematics
 
 > slug: shu-xue-by-himymben-povq
 > date: 2025-06-16
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/count-the-number-of-arrays-with-k-matching-adjacent-elements/solutions/7ZovUJ/shu-xue-by-himymben-povq/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

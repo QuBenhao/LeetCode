@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/15.
-// 例题: Strange Towers of Hanoi acwing96
+// Example: Strange Towers of Hanoi acwing96
 //
 
 #include <bits/stdc++.h>
@@ -9,14 +9,14 @@ typedef long long ll;
 #define lowbit(x) ((x)&(-(x)))
 
 /*
- * d[x]表示3塔中搬运x盘的最小步数
- * 需要先把x-1盘搬到B塔, 再把最大盘搬到C塔, 再把x-1盘搬到C塔
- * 即: d[x] = 2 * d[x - 1] + 1
+ * d[x] is the minimum number of moves for x disks on 3 pegs
+ * Move x-1 disks to peg B, move the largest disk to peg C, then move the x-1 disks to peg C
+ * Thus: d[x] = 2 * d[x - 1] + 1
  * d[1] = 1
  *
- * f[x]表示4塔中搬运x盘的最小步数
- * 可以先搬i个盘子到B塔, 剩下的就是x-i个盘的3塔问题, 再把i盘搬到D塔的4塔问题
- * 即: f[x] = min(f[i] * 2 + d[x-i])
+ * f[x] is the minimum number of moves for x disks on 4 pegs
+ * Move i disks to peg B, solve the 3-peg problem for the remaining x-i disks, then solve the 4-peg problem to move the i disks to peg D
+ * Thus: f[x] = min(f[i] * 2 + d[x-i])
  * f[1] =1
 */
 

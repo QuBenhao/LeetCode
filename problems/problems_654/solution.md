@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 递归 && 单调栈
+# [Python/Java/TypeScript/Go] Recursion && monotonic stack
 
 > slug: python-by-himymben-1kn0
 > date: 2022-08-20
@@ -7,12 +7,12 @@
 > url: https://leetcode.cn/problems/maximum-binary-tree/solutions/RP8eR8/python-by-himymben-1kn0/
 
 ---
-### 解题思路
-一段序列中最大值会作为根，它的左右会分别递归构造左右子树。
+### Approach
+The maximum value in a sequence becomes the root. Recursively construct its left and right subtrees from the values on either side.
 
-当然这样每次都要找一段序列中的最大值，代价很大，可以使用单调栈优化(每次处理一段区间的最大值)。
+Repeatedly finding the maximum of each subsequence is expensive. A monotonic stack can optimize this by handling interval maxima.
 
-### 代码
+### Code
 
 ```python3
 # Definition for a binary tree node.

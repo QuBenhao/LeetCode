@@ -1,4 +1,4 @@
-# [Python] 前缀+统计每个位置作为分界线 or 动态规划
+# [Python] Prefix counts at every split, or dynamic programming
 
 > Author: Benhao
 > Date: 2021-06-04
@@ -7,22 +7,22 @@
 
 ---
 
-### 解题思路
-**前缀暴力**
-设想每个位置只要左边留'a'，右边留'b'的操作数;那么需要知道左边要删多少个'b'，右边要删多少个'a'；
-故使用前缀和统计'a'的数量（'b'的数量自然就是长度减'a'的数量）
-统计每个位置作为分界线需要的操作数，最终返回最小的。
+### Approach
+**Brute force with prefix counts**
+For each split, keep only 'a' on the left and 'b' on the right. Count the 'b' characters to delete on the left and the 'a' characters to delete on the right.
+Use prefix sums to count 'a' characters; the 'b' count is the length minus the 'a' count.
+Compute the deletions needed at each split and return the minimum.
 
-**动态规划**
-假设前面的字符串是平衡的，那么它要么是以'b’结尾，要么全是'a'。
-到当前位置时，如果字符是'b'，是不影响平衡性的。
-但如果字符是'a'，
-要么是保留这个'a'，那么这种保留必须要删光之前所有的'b';
-另一种选择是删掉这个'a'，不管之前是怎么样的，保留了原来的平衡性。
+**Dynamic programming**
+Assume the preceding string is balanced: it either ends with 'b' or consists entirely of 'a' characters.
+If the current character is 'b', it preserves the balance.
+If the current character is 'a',
+either keep it and delete every preceding 'b',
+or delete it and preserve the preceding string's balance.
 
-所以当前位置的最优解必然是`上一个的最优解+1`和`b的个数`中最小的那个。
+The optimum at this position is therefore the smaller of `the previous optimum + 1` and `the number of b characters`.
 
-### 代码
+### Code
 
 ```python3
 class Solution:
@@ -36,7 +36,7 @@ class Solution:
                 count[i+1] = count[i]
         ans = float("inf")
         for i in range(n):
-            # 到i有多少个'b'，后面有多少个'a'
+            # Count 'b' characters through i and 'a' characters after i
             b = i - count[i]
             a = count[-1] - count[i+1]
             if not a and not b:
@@ -48,14 +48,14 @@ class Solution:
 ```python3
 class Solution:
     def minimumDeletions(self, s: str) -> int:
-        # b的个数
+        # Number of b characters
         cnt = ans = 0
         for c in s:
             if c == 'b':
-                # 'b'为结尾，必然不影响之前的平衡性
+                # Ending with 'b' preserves the previous balance
                 cnt += 1
             else:
-                # 'a'为结尾，要么是上一个的平衡结果再删掉这个'a',要么要删光前面的'b'
+                # For a final 'a', either delete it after balancing the prefix or delete all preceding 'b' characters
                 ans = min(ans + 1, cnt)
         return ans
 ```

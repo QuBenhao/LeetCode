@@ -1,4 +1,4 @@
-# 二分+差分
+# Binary search + difference array
 
 > slug: er-fen-chai-fen-by-himymben-pfwi
 > date: 2025-05-20
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/zero-array-transformation-ii/solutions/hm3Q6Z/er-fen-chai-fen-by-himymben-pfwi/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -1,4 +1,4 @@
-# [Python/Java/Go] 区间dp
+# [Python/Java/Go] Interval dp
 
 > slug: pythonjavago-qu-jian-dp-by-himymben-dswz
 > date: 2022-02-03
@@ -7,11 +7,11 @@
 > url: https://leetcode.cn/problems/allocate-mailboxes/solutions/BQCIHt/pythonjavago-qu-jian-dp-by-himymben-dswz/
 
 ---
-### 解题思路
-预处理各个房屋区间放一个邮箱的距离最小和。
-当前从0到i的房屋安排，由【0到i之间选择一个j分割区间后，j到i的房屋里放一个邮箱，与上次0到j的距离和的和】的最小值决定。
+### Approach
+Precompute the minimum total distance for placing one mailbox in each interval of houses.
+For houses from 0 to i, choose a split j between 0 and i. Minimize the sum of the cost of one mailbox for houses from j to i and the previous total distance for houses from 0 to j.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

@@ -1,4 +1,4 @@
-# [Python] 直接重连
+# [Python] Reconnect directly
 
 > Author: Benhao
 > Date: 2021-05-26
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-找到各处连接点
+### Approach
+Find each connection point.
 
-### 代码
+### Code
 
 ```python3
 # Definition for singly-linked list.

@@ -1,4 +1,4 @@
-# [Python/Java] LCS 最长公共子序列模板题 
+# [Python/Java] A standard longest common subsequence (LCS) problem
 
 > slug: pythonjava-lcs-zui-chang-gong-gong-zi-xu-la8y
 > date: 2021-09-24
@@ -7,18 +7,18 @@
 > url: https://leetcode.cn/problems/delete-operation-for-two-strings/solutions/LN3NLs/pythonjava-lcs-zui-chang-gong-gong-zi-xu-la8y/
 
 ---
-### 解题思路
-求最少的删除次数，其实就是求两个字符串能构成的最长的公共子序列(最长的公共子序列需要的删除步数最少)。
+### Approach
+Finding the fewest deletions is equivalent to finding the longest common subsequence of the two strings: retaining the longest common subsequence requires the fewest deletions.
 
-而最长公共子序列的递推为：
-如果两个位置的字符相等,即$word1_i = word2_j$，当前到i和j结尾的最长公共子序列就由去掉这个字符的最长公共子序列长度构成，也就是$dp[i][j] = dp[i-1][j-1] + 1$
-如果两个位置的字符不相等，那么必然由两者之一的某一个结尾的最长公共子序列的长度构成，也就是$dp[i][j] = max(dp[i][j-1], dp[i-1][j])$
+The longest common subsequence recurrence is:
+If the characters match, $word1_i = word2_j$, the LCS ending at i and j extends the LCS without those characters: $dp[i][j] = dp[i-1][j-1] + 1$.
+If the characters differ, omit one endpoint and take the longer LCS: $dp[i][j] = max(dp[i][j-1], dp[i-1][j])$.
 
-图片摘自算法导论：
+Image from Introduction to Algorithms:
 ![image.png](https://pic.leetcode.cn/1632524761-VakGzA-image.png)
 
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

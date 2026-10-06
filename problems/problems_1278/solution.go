@@ -19,11 +19,11 @@ func palindromePartition(s string, k int) int {
 			}
 		}
 	}
-	// 简化为枚举右端点，最少需要改变的次数
+	// Reduce the problem to enumerating right endpoints and minimizing the required changes
 	dp := minChange[0]
 	for i := 1; i < k; i++ {
-		// 左边至少要能割i-1次，所以右端点至少为i; 题目要求割k-1次，所有右端点在n-k+i的不会被用到
-		// 共用同一个空间做dp时，因为依赖左边的值，所以需要倒序更新
+		// The left side must allow i-1 cuts, so the right endpoint is at least i; k-1 cuts are required in total, so endpoints beyond n-k+i are unused
+		// When reusing the dp array, update in reverse order because each state depends on values to its left
 		for r := n - k + i; r >= i; r-- {
 			dp[r] = math.MaxInt / 2
 			for l := i; l <= r; l++ {

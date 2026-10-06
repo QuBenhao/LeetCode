@@ -1,4 +1,4 @@
-# [Python/Go] 动态规划 
+# [Python/Go] Dynamic programming
 
 > slug: pythongo-dong-tai-gui-hua-by-himymben-xcpe
 > date: 2022-02-08
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/min-cost-climbing-stairs/solutions/BBMU0c/pythongo-dong-tai-gui-hua-by-himymben-xcpe/
 
 ---
-### 解题思路
-维护走到当前阶梯和上一个阶梯的最小值
+### Approach
+Maintain the minimum costs to reach the current step and the previous step.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

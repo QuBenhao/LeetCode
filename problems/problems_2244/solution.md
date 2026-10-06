@@ -1,4 +1,4 @@
-# [Python/Golang] 哈希+数学贪心
+# [Python/Golang] Hashing + mathematical greedy strategy
 
 > Author: Benhao
 > Date: 2024-05-14
@@ -12,22 +12,22 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 哈希统计，贪心尽可能多地取3，经典的按3求余分类取法
+> Count with a hash table and greedily take as many groups of 3 as possible, using the standard case split by remainder modulo 3.
 
-# 解题方法
+# Approach
 
-> 如果模3余1，少取一个3，剩出个4取两次2 （1是例外，直接返回）
-如果模3余2，取所有3后再取一个2
-如果整除3，就全取3
+> If the remainder is 1, take one fewer group of 3, leaving 4 tasks for two groups of 2. (A count of 1 is the exception; return immediately.)
+If the remainder is 2, take all possible groups of 3 and then one group of 2.
+If the count is divisible by 3, use only groups of 3.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

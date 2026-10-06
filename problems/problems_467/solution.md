@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 动态规划
+# [Python/Java/JavaScript/Go] Dynamic programming
 
 > slug: pythonjavajavascriptgo-by-himymben-em9d
 > date: 2022-05-24
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/unique-substrings-in-wraparound-string/solutions/0PmOX9/pythonjavajavascriptgo-by-himymben-em9d/
 
 ---
-### 解题思路
-因为s是一个固定的字符串，我们维护以每个字符结尾的最长子串长度，就可以直接累加所有以该字符结尾的子字符串 (每个字符统计最长长度即可。因为更小的长度都是更长的长度的子串)。
-在遍历的时候我们维护一个当前的最长长度。
-如果当前字符满足与上一个字符在s中连续（也就是后面的比前面的ASCII的差模26大1），那么以当前字符结尾的最长长度就从前面累加，
-否则就是新的开始。
+### Approach
+Since s is fixed, maintain the longest valid substring ending with each character. Its length counts all distinct substrings ending with that character, since every shorter one is a suffix of the longest.
+Maintain the current longest length during traversal.
+If the current character follows the previous one in s, meaning their ASCII-code difference modulo 26 is 1, extend the previous length.
+Otherwise, start a new substring.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

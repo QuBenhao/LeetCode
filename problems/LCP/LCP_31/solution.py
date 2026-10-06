@@ -11,9 +11,9 @@ class Solution(solution.Solution):
         :type maze: List[List[str]]
         :rtype: bool
         """
-        # 迷宫的行数、列数以及到达终点最多的时间
+        # Maze rows, columns, and the maximum time available to reach the destination
         m, n, t = len(maze[0]), len(maze[0][0]), len(maze)
-        # 移动方式
+        # Possible moves
         dir = [(-1, 0), (0, 0), (1, 0), (0, 1), (0, -1)]
 
         @ lru_cache(None)
@@ -27,19 +27,19 @@ class Solution(solution.Solution):
                 x_, y_ = x + dx, y + dy
                 if x_ < 0 or x_ == m or y_ < 0 or y_ == n:
                     continue
-                # 下一个时刻该地点可以走
+                # This location is traversable at the next time step
                 if maze[time+1][x_][y_] == '.':
                     if dfs(x_, y_, time+1, magicA, magicB):
                         return True
-                # 下一个时刻需要使用卷轴
+                # A scroll is needed at the next time step
                 else:
-                    # 使用临时卷轴
+                    # Use the temporary scroll
                     if magicA:
                         if dfs(x_, y_, time+1, False, magicB):
                             return True
-                    # 使用永久卷轴
+                    # Use the permanent scroll
                     if magicB:
-                        # 使用永久卷轴的意义相当于在原地停留无限长的时间 （等价于离开这里再在下一个时刻回到这里）
+                        # A permanent scroll lets us stay here indefinitely (equivalently, leave and return at the next time step)
                         for next_time in range(time+1, t):
                             if dfs(x_, y_, next_time, magicA, False):
                                 return True

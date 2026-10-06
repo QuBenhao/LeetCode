@@ -1,4 +1,4 @@
-# [Python/Golang/Cpp/Java] 模拟
+# [Python/Golang/Cpp/Java] Simulation
 
 > Author: Benhao
 > Date: 2024-03-07
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 以两个链表的遍历为循环是不够的，当我们出现最终位的进位时是比原两个链表更长的
+> Looping only over the two lists is insufficient: a carry from the final digit makes the result longer than either original list.
 
-# 解题方法
+# Approach
 
-> 同时遍历两个链表，记录进位，最终返回结果
+> Traverse both lists together, track the carry, and return the result.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

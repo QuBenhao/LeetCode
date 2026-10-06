@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 最大最小博弈
+# [Python/Java/JavaScript/Go] Minimax game
 
 > Author: Benhao
 > Date: 2022-01-03
@@ -7,21 +7,21 @@
 
 ---
 
-### 解题思路
-对于老鼠来说，最好的情况是自己赢，我们认定该情景是-1分；其次好的情况是平局，我们认定该情景是0分；最差的情况是猫赢，我们认定该情景是1分。
-也就是说对于老鼠来说，想要得分尽可能小，而对于猫来说，想要得分尽可能大，这就是经典的最大最小博弈了。
+### Approach
+For the mouse, winning is best, with a score of -1; a draw is next, with a score of 0; the worst outcome is a cat win, with a score of 1.
+The mouse therefore wants the smallest possible score, while the cat wants the largest. This is a classic minimax game.
 
-平局分析：认定走了足够到遍历所有该去的尝试赢的走法的点，仍然无法结束。
-**$2 * n^2$才能遍历光所有情景出现完全相同的情况，$2*n$不足以判断平局**
+Draw analysis: after enough moves to explore every state that could lead to a win, the game still has not ended.
+**It takes $2 * n^2$ states to exhaust all possibilities before an identical state repeats; $2*n$ is insufficient to identify a draw**
 
-感谢[@AC_Mikoto](/u/ac_mikoto/)提供的测试用例。
+Thanks to [@AC_Mikoto](/u/ac_mikoto/) for the test cases.
 > [[5, 7, 9], [3, 4, 5, 6], [3, 4, 5, 8], [1, 2, 6, 7], [1, 2, 5, 7, 9], [0, 1, 2, 4, 8], [1, 3, 7, 8], [0, 3, 4, 6, 8], [2, 5, 6, 7, 9], [0, 4, 8]]
 > [[2, 4, 6], [2, 5, 6, 7], [0, 1, 6, 8, 9], [4, 5, 7, 9], [0, 3, 6, 7, 8], [1, 3, 6, 7, 9], [0, 1, 2, 4, 5, 9], [1, 3, 4, 5, 8], [2, 4, 7, 9], [2, 3, 5, 6, 8]]
 > [[7], [2, 6, 8, 9], [1, 4, 5, 6, 7], [4, 5, 7], [2, 3, 5, 8], [2, 3, 4, 7], [1, 2, 9], [0, 2, 3, 5, 9], [1, 4, 9], [1, 6, 7, 8]]
 
-### 代码
+### Code
 
-贴一个解，还没看完
+Pasting a solution here; I have not finished reading it yet
 ```python3
 class Solution(object):
     def catMouseGame(self, graph):
@@ -87,13 +87,13 @@ class Solution:
         @lru_cache(None)
         def dfs(m, c, i):
             """
-            极大极小博弈，
-            老鼠尽量找自己获胜的，其次接受平局
-            猫尽量找自己获胜的，其次接受平局
+            Minimax game:
+            The mouse seeks a win first, then accepts a draw
+            The cat seeks a win first, then accepts a draw
 
-            :param m: 老鼠的位置
-            :param c: 猫的位置
-            :param i: 回合
+            :param m: The mouse's position
+            :param c: The cat's position
+            :param i: The turn
             """
             if i > 100:
                 return 0

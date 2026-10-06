@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 排序 + 二分
+# [Python/Java/JavaScript/Go] Sorting + binary search
 
 > Author: Benhao
 > Date: 2022-05-19
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-既然每个区间的start是唯一的,那么我们按start排序(保留原坐标),
-然后对每个区间二分找它的右侧区间即可。
+### Approach
+Each interval's start is unique, so sort by start while retaining the original indices.
+Then binary-search for each interval's right interval.
 
-### 代码 
+### Code 
 
 ```Python3 []
 class Solution:

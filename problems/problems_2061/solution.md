@@ -1,4 +1,4 @@
-# [Python] 深度优先搜索
+# [Python] Depth-first search
 
 > slug: python-shen-du-you-xian-sou-suo-by-himym-ihx2
 > date: 2022-05-02
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/number-of-spaces-cleaning-robot-cleaned/solutions/1mDY7i/python-shen-du-you-xian-sou-suo-by-himym-ihx2/
 
 ---
-### 解题思路
-模拟机器人一直往前走就行了。标记位置+方向作为走过的判断
+### Approach
+Simulate the robot moving forward. Mark each position and direction pair to detect previously visited states.
 
-### 代码
+### Code
 
 ```python3
 DIRS = [(0, 1), (1, 0), (0, -1), (-1, 0)]

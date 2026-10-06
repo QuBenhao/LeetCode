@@ -1,4 +1,4 @@
-# [Python] 递增三元组
+# [Python] Increasing triplets
 
 > Author: Benhao
 > Date: 2022-02-20
@@ -7,21 +7,21 @@
 
 ---
 
-### 解题思路
-将题目转换，用一个数组数字对应坐标的映射，去替换另一个数组。
-这样做的目的是将题目转换为求一个数组中递增三元组的个数。
-这是因为转换坐标映射，在第一个数组中的坐标大小必然是从小到大的，那么在第二个数组中的递增三元组自然而然满足了在第一个数组中的递增三元组这一条件。
+### Approach
+Transform the problem by mapping each value in one array to its index and replacing the values in the other array with those indices.
+This reduces the problem to counting increasing triplets in a single array.
+The mapped indices are ordered by position in the first array, so an increasing triplet in the transformed second array also satisfies the increasing-position condition in the first.
 
 
-转换后，和求最长递增子序列有一些相似。
-比如用例一，从nums1可以得到映射如下: 2->0, 0->1, 1->2, 3->3，替换nums2得到[1,2,0,3]
-我们要从nums2中统计递增三元组的个数，可以维护一个遍历过的值，快速统计当前值之前有多少个小于自己的数，想到单调栈结构。但是又因为在增加时不可以替换原栈的值，故使用SortedList
+After this transformation, the problem resembles finding a longest increasing subsequence.
+For example 1, nums1 gives the mapping 2->0, 0->1, 1->2, 3->3. Replacing nums2 yields [1,2,0,3].
+To count increasing triplets in nums2, maintain the values already visited and quickly count those smaller than the current value. A monotonic stack comes to mind, but inserting must not replace existing values, so use SortedList.
 
 
-我们知道比当前值小的有idx个，当前走过的值有sl的长度个，可以很快统计出该点作为中间点的递增三元组个数为：$idx * (n - 1 - i - len(sl) + idx)$ 
-【比$i$大的数有$n - 1 - i$个, 其中被走过了$len(sl) - idx$个】
+There are idx visited values smaller than the current value, and len(sl) visited values in total. The number of increasing triplets with this point in the middle is $idx * (n - 1 - i - len(sl) + idx)$.
+[There are $n - 1 - i$ values greater than $i$, of which $len(sl) - idx$ have already been visited.]
 
-### 代码
+### Code
 
 ```python3
 from sortedcontainers import SortedList

@@ -1,4 +1,4 @@
-# [Go/Python] 转换求和
+# [Go/Python] Transform the problem into a sum
 
 > Author: Benhao
 > Date: 2021-11-14
@@ -7,11 +7,11 @@
 
 ---
 
-### 解题思路
-前面的影响以k的值为下限，
-后面的影响以k的值-1为下限。
+### Approach
+Contributions from people ahead are limited by the value at k;
+contributions from people behind are limited by the value at k minus 1.
 
-### 代码
+### Code
 ```Python3 []
 class Solution:
     def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:

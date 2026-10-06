@@ -1,4 +1,4 @@
-# [Python] 状压 + 记忆化递归
+# [Python] Bitmask states + memoized recursion
 
 > slug: python-zhuang-ya-ji-yi-hua-di-gui-by-him-ghw8
 > date: 2022-04-26
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/minimum-number-of-lines-to-cover-points/solutions/lqHI2T/python-zhuang-ya-ji-yi-hua-di-gui-by-him-ghw8/
 
 ---
-### 解题思路
-枚举点是否有直线了，再枚举没有直线的点和其他点组成直线
+### Approach
+Track which points are already covered by a line, then pair an uncovered point with other points to form a line.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

@@ -1,4 +1,4 @@
-# 栈模拟
+# Stack simulation
 
 > slug: zhan-mo-ni-by-himymben-c32q
 > date: 2025-06-02
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/decode-string/solutions/9j9S1t/zhan-mo-ni-by-himymben-c32q/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

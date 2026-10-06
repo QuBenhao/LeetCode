@@ -1,4 +1,4 @@
-# [Python/C/Go/Java/Typescript] 二分查找/遍历
+# [Python/C/Go/Java/Typescript] Binary search or traversal
 
 > Author: Benhao
 > Date: 2024-03-15
@@ -12,22 +12,22 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 1. 二分查找插入点，合并插入即可
-> 2. 遍历比较区间大小，合并插入区间
+> 1. Find the insertion point with binary search, then merge and insert.
+> 2. Traverse and compare the intervals, merging the inserted interval.
 
-# 解题方法
+# Approach
 
-> 二分查找、模拟
+> Binary search and simulation
 
-# 复杂度
+# Complexity
 
-时间复杂度:
-> 二分$O(log_n)$
-> 遍历$O(n)$
+Time complexity:
+> Binary search $O(log_n)$
+> Traversal $O(n)$
 
-空间复杂度:
+Space complexity:
 > $O(n)$
 
 

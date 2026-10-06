@@ -1,6 +1,6 @@
 //
 // Created by benhao on 2026/1/15.
-// 例题: 费解的开关 acwing95
+// Example: 费解的开关 acwing95
 //
 
 #include <bits/stdc++.h>
@@ -27,7 +27,7 @@ void ProcessPoint(const int x, const int y) {
 }
 
 void dfs(const int r, const int s) {
-    // 步数不够
+    // Not enough moves remain
     if (s > STEP || s > ans) {
         return;
     }
@@ -36,9 +36,9 @@ void dfs(const int r, const int s) {
         return;
     }
     if (r == 0) {
-        // 枚举每一位变或不变
+        // Enumerate whether to toggle each position
         for (uint8_t i = 0; i <= MASK; ++i) {
-            // 第一行，步数肯定够
+            // The first row always has enough moves available
             int dis = 0;
             for (int x = i; x; ) {
                 int lb = lowbit(x);
@@ -54,7 +54,7 @@ void dfs(const int r, const int s) {
             }
         }
     } else {
-        // 非第一行，必须把上一行全部填为1
+        // After the first row, every cell in the previous row must be set to 1
         int dis = 0;
         const uint8_t diff = MASK ^ MATRIX[r - 1];
         for (int x = diff; x; ) {
@@ -64,7 +64,7 @@ void dfs(const int r, const int s) {
             x -= lb;
         }
         dfs(r + 1, s + dis);
-        // 复原
+        // Restore
         for (int x = diff; x; ) {
             int lb = lowbit(x);
             ProcessPoint(r, N - 1 - TRANS[lb]);

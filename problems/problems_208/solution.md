@@ -1,4 +1,4 @@
-# [Python] 字典Trie模版
+# [Python] Dictionary-based Trie template
 
 > Author: Benhao
 > Date: 2024-03-02
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
+### Approach
 Trie
 
-### 代码
+### Code
 
 ```Python3 []
 class Trie:

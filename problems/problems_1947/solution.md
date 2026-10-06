@@ -1,4 +1,4 @@
-# [Python] 枚举所有配对情况
+# [Python] Enumerate all pairings
 
 > Author: Benhao
 > Date: 2021-07-26

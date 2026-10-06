@@ -1,4 +1,4 @@
-# [Python/Go] 集合交集、并集 or 并查集
+# [Python/Go] Set intersection and union, or union-find
 
 > slug: pythongo-ji-he-jiao-ji-bing-ji-by-himymb-4l1o
 > date: 2021-11-14
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/process-restricted-friend-requests/solutions/Ukx1oj/pythongo-ji-he-jiao-ji-bing-ji-by-himymb-4l1o/
 
 ---
-### 解题思路
-爱一个人，也要爱一个人的优点和缺点。成为朋友，就接纳了ta的全部
+### Approach
+Loving someone means loving their strengths and weaknesses. Becoming friends means accepting all of them.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:

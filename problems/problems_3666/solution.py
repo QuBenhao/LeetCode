@@ -16,14 +16,14 @@ class Solution(solution.Solution):
             return 1 if z == n else -1
 
         ans = inf
-        # 情况一：操作次数 m 是偶数
-        if z % 2 == 0:  # z 必须是偶数
-            m = max((z + k - 1) // k, (z + n - k - 1) // (n - k))  # 下界
-            ans = m + m % 2  # 把 m 往上调整为偶数
+        # Case 1: the operation count m is even
+        if z % 2 == 0:  # z must be even
+            m = max((z + k - 1) // k, (z + n - k - 1) // (n - k))  # Lower bound
+            ans = m + m % 2  # Round m up to an even number
 
-        # 情况二：操作次数 m 是奇数
-        if z % 2 == k % 2:  # z 和 k 的奇偶性必须相同
-            m = max((z + k - 1) // k, (n - z + n - k - 1) // (n - k))  # 下界
-            ans = min(ans, m | 1)  # 把 m 往上调整为奇数
+        # Case 2: the operation count m is odd
+        if z % 2 == k % 2:  # z and k must have the same parity
+            m = max((z + k - 1) // k, (n - z + n - k - 1) // (n - k))  # Lower bound
+            ans = min(ans, m | 1)  # Round m up to an odd number
 
         return ans if ans < inf else -1

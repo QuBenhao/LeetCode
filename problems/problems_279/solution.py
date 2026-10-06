@@ -16,7 +16,7 @@ class Solution(solution.Solution):
         #         dp[j] = min(dp[j],dp[j-curr]+1)
         # return dp[n]
 
-        # 次数筛的贪心
+        # Greedy search by count
         ps = set([i * i for i in range(1, int(n ** 0.5) + 1)])
 
         def divisible(n, count):
@@ -34,9 +34,9 @@ class Solution(solution.Solution):
     # def numSquares(self, n: int) -> int:
     #     if n == int(sqrt(n)) ** 2:
     #         return 1
-    #     # 次数筛
+    #     # Search by count
     #     for i in range(2,n+1):
-    #         # 次数i对应的平方数至少有一个大于等于平均数n//i
+    #         # Among i square terms, at least one must be at least the average n//i
     #         for j in range(int(sqrt(n//i)), int(sqrt(n))+1):
     #             if self.numSquares(n-j*j) + 1 == i:
     #                 return i

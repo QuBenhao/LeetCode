@@ -8,7 +8,7 @@ using json = nlohmann::json;
 class Solution {
 public:
     int numberOfSets(int n, int maxDistance, vector<vector<int>> &roads) {
-        vector<vector<int>> g(n, vector<int>(n, INT_MAX / 2)); // 防止加法溢出
+        vector<vector<int>> g(n, vector<int>(n, INT_MAX / 2)); // Prevent overflow during addition
         for (int i = 0; i < n; i++) {
             g[i][i] = 0;
         }
@@ -49,7 +49,7 @@ public:
         };
 
         int ans = 0;
-        for (int s = 0; s < (1 << n); s++) { // 枚举子集
+        for (int s = 0; s < (1 << n); s++) { // Enumerate subsets
             ans += check(s);
         }
         return ans;

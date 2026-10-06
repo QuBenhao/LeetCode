@@ -1,4 +1,4 @@
-# [Python] 使用itertools的combinations和product
+# [Python] Use combinations and product from itertools
 
 > Author: Benhao
 > Date: 2021-06-21
@@ -7,14 +7,14 @@
 
 ---
 
-### 解题思路
-小时的位置对应4个灯`1,2,4,8`，所以亮n个灯的所有情况为Combinations([1,2,4,8], n).
-分钟的位置对应6个灯`1,2,4,8,16,32`, 所以亮n个灯的情况为Combinations([1,2,4,8,16,32], n).
+### Approach
+The hour uses four lights, `1,2,4,8`, so the ways to light n of them are Combinations([1,2,4,8], n).
+The minute uses six lights, `1,2,4,8,16,32`, so the ways to light n of them are Combinations([1,2,4,8,16,32], n).
 <br>
-我们要找一共有turnedOn个灯的情况，那么必然是小时亮了`i`个灯, 分钟亮了`turnedOn - i`个灯。
-再用product遍历当前两者的选择的所有可能组合即可。
+For a total of turnedOn lights, the hour must use `i` lights and the minute `turnedOn - i` lights.
+Use product to enumerate every combination of the current hour and minute choices.
 
-### 代码
+### Code
 
 ```python3
 from itertools import combinations,product

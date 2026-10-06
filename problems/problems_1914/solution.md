@@ -1,4 +1,4 @@
-# [Python] 逐层旋转 - 方向数组法
+# [Python] Rotate each layer using a direction array
 
 > Author: Benhao
 > Date: 2021-06-27
@@ -7,30 +7,30 @@
 
 ---
 
-### 解题思路
+### Approach
 
-矩阵由多层同心方环组成，每层独立旋转。逆时针旋转 `k` 次，等价于将元素数组左移 `k % len` 位。
+The matrix consists of concentric rectangular rings that rotate independently. Rotating a ring counterclockwise `k` times is equivalent to shifting its element array left by `k % len` positions.
 
-**优化思路**：用**方向数组**统一生成坐标，避免4个独立循环。
+**Optimization**: use a **direction array** to generate coordinates uniformly instead of four separate loops.
 
-方向数组 `dirs = [(0,1), (1,0), (0,-1), (-1,0)]` 分别对应右、下、左、上四个方向，配合各边长度循环，一气呵成生成所有坐标。这种模式在网格题（DFS/BFS/螺旋矩阵）中都能复用。
+The direction array `dirs = [(0,1), (1,0), (0,-1), (-1,0)]` represents right, down, left, and up. Combine it with each side's length to generate all coordinates in one loop. This pattern also applies to grid DFS/BFS and spiral matrix problems.
 
-### 代码
+### Code
 
 ```python3 []
 class Solution:
     def rotateGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
         m, n = len(grid), len(grid[0])
-        # 方向：右、下、左、上（逆时针）
+        # Directions: right, down, left, up (counterclockwise)
         dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 
         for layer in range(min(m, n) // 2):
             top, left = layer, layer
             bottom, right = m - 1 - layer, n - 1 - layer
-            # 各边长度
+            # Length of each side
             lengths = [right - left, bottom - top, right - left, bottom - top]
 
-            # 生成该层坐标（逆时针顺序）
+            # Generate this layer's coordinates in counterclockwise order
             coords = []
             i, j = top, left
             for (di, dj), length in zip(dirs, lengths):
@@ -39,7 +39,7 @@ class Solution:
                     i += di
                     j += dj
 
-            # 提取、旋转、写回
+            # Extract, rotate, and write back
             vals = [grid[r][c] for r, c in coords]
             shift = k % len(vals)
             vals = vals[shift:] + vals[:shift]

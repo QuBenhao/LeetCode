@@ -12,24 +12,24 @@ class Solution(solution.Solution):
         :type queries: List[int]
         :rtype: List[int]
         """
-        # 优先队列
+        # Priority queue
         intervals.sort(reverse=True)
         pq = []
         res = {}
         for q in sorted(queries):
-            # 从左边界最小的开始检查
+            # Start checking from the smallest left endpoint
             while intervals and intervals[-1][0] <= q:
                 l, r = intervals.pop()
-                # 右边界满足条件
+                # The right endpoint satisfies the condition
                 if r >= q:
                     heapq.heappush(pq,(r-l+1,r))
-            # 去掉pq中不满足右边界
+            # Remove entries from pq whose right endpoints fail the condition
             while pq and pq[0][1] < q:
                 heapq.heappop(pq)
             res[q] = pq[0][0] if pq else -1
         return [res[q] for q in queries]
 
-        # # 并查集解法
+        # # Union-find solution
         # n = len(queries)
         # q = sorted(queries)
         # intervals.sort(key=lambda x:x[1]-x[0])
@@ -43,7 +43,7 @@ class Solution(solution.Solution):
         #
         # for a, b in intervals:
         #     l,r = bisect.bisect_left(q, a), bisect.bisect_right(q, b)
-        #     # 并查集查找下一个位置
+        #     # Use union-find to find the next position
         #     v = find(l)
         #     while v < r:
         #         ans[v] = b - a + 1

@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-核心思路就是使用有序序列维护题目要求的各种东西
+### Approach
+Use sorted collections to maintain the data required by each operation.
 
-### 代码
+### Code
 
 ```python3
 from sortedcontainers import SortedList

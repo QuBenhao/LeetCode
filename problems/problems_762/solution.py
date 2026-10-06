@@ -13,11 +13,11 @@ class Solution(solution.Solution):
         return digitDP(left, right)
 
 PRIMES = {2, 3, 5, 7, 11, 13, 17, 19}
-# 代码示例：返回 [low, high] 中的恰好包含 target 个 0 的数字个数
-# 比如 digitDP(0, 10, 1) == 2
-# 要点：我们统计的是 0 的个数，需要区分【前导零】和【数字中的零】，前导零不能计入，而数字中的零需要计入
+# Example: return the count of numbers in [low, high] containing exactly target zeros
+# For example, digitDP(0, 10, 1) == 2
+# Key point: when counting zeros, distinguish leading zeros from zeros within a number; exclude the former and count the latter
 def digitDP(low: int, high: int) -> int:
-    low_s = list(map(int, bin(low)[2:]))  # 避免在 dfs 中频繁调用 int()
+    low_s = list(map(int, bin(low)[2:]))  # Avoid frequent int() calls in dfs
     high_s = list(map(int, bin(high)[2:]))
     n = len(high_s)
     diff_lh = n - len(low_s)
@@ -33,16 +33,16 @@ def digitDP(low: int, high: int) -> int:
         res = 0
         start = lo
 
-        # 通过 limit_low 和 i 可以判断能否不填数字，无需 is_num 参数
-        # 如果前导零不影响答案，去掉这个 if block
+        # limit_low and i determine whether a digit can be skipped, so no is_num parameter is needed
+        # Remove this if block if leading zeros do not affect the answer
         if limit_low and i < diff_lh:
-            # 不填数字，上界不受约束
+            # Skip this digit; the upper bound no longer applies
             res = dfs(i + 1, 0, True, False)
             start = 1
 
         for d in range(start, hi + 1):
             res += dfs(i + 1,
-                       cnt0 + (1 if d == 1 else 0),  # 统计 1 的个数
+                       cnt0 + (1 if d == 1 else 0),  # Count the ones
                        limit_low and d == lo,
                        limit_high and d == hi)
 

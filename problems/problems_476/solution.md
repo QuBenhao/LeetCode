@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 从低位开始累加
+# [Python/Java/JavaScript] Accumulate from the low bits
 
 > slug: pythonjavajavascript-cong-di-wei-kai-shi-uoi4
 > date: 2021-10-18

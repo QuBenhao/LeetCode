@@ -23,7 +23,7 @@ class Solution(solution.Solution):
             for b in box:
                 last = idx
                 idx = bisect.bisect_right(packages, b, lo=last)
-                # 我们需要(idx-last)个箱子b
+                # We need (idx-last) boxes of size b
                 curr += (idx - last) * b
             ans = min(ans, curr)
         return (ans-sum(packages)) % (10 ** 9 + 7) if ans != float("inf") else -1

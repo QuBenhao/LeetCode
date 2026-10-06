@@ -1,4 +1,4 @@
-# 模拟
+# Simulation
 
 > slug: mo-ni-by-himymben-glbp
 > date: 2025-05-04
@@ -7,4 +7,4 @@
 > url: https://leetcode.cn/problems/maximum-product-of-two-digits/solutions/wL58TW/mo-ni-by-himymben-glbp/
 
 ---
-(内容拉取失败)
+(Failed to fetch content)

@@ -12,26 +12,26 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 找最小路径且只能往右或往下，那么任意格子的最小路径由它左边和上边的最小路径中更小的一个构成。我们逐行维护这个最小值即可
+> Since we seek the minimum path sum and can move only right or down, the minimum for any cell comes from the smaller of the minimum sums to its left and upper neighbors. Maintain this minimum row by row.
 
-# 解题方法
+# Approach
 
-> 动态规划
+> Dynamic programming
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(mn)$
 
-空间复杂度:
+Space complexity:
 > $O(min(m, n))$
 
 
 
 # Code
-逐行写法
+Row-by-row approach
 ```Python3 []
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:
@@ -44,7 +44,7 @@ class Solution:
                 dp[j] = min(dp[j - 1] + grid[i][j], dp[j] + grid[i][j])
         return dp[-1]
 ```
-逐列写法
+Column-by-column approach
 ```Python3 []
 class Solution:
     def minPathSum(self, grid: List[List[int]]) -> int:

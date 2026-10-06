@@ -1,34 +1,34 @@
-# 线段树
+# Segment Tree
 
-线段树是一种二叉树数据结构，用于高效解决**区间查询**（如区间求和、最大值、最小值）和**单点/区间更新**问题。时间复杂度为 O(log
-n)。
+A segment tree is a binary tree data structure that efficiently handles **range queries** (such as sums, maxima, and minima) and **point/range updates**, with a time complexity of O(log
+n).
 
-- 核心思想
-    - 结构：每个节点代表一个区间，叶子节点代表单个元素，内部节点合并子区间的信息。
-    - 分治：将区间不断二分，直到不可分割。
-    - 合并：父节点存储子节点信息的聚合值（如求和、最大值等）。
+- Core ideas
+    - Structure: Each node represents a range. Leaves represent individual elements, and internal nodes combine information from their child ranges.
+    - Divide and conquer: Repeatedly split a range in half until it cannot be divided further.
+    - Merge: A parent stores the aggregate of its children's information, such as a sum or maximum.
 
-- 线段树操作
-    - 构建：递归分割区间，计算初始值。
-    - 查询：分解目标区间，合并覆盖区间的结果。
-    - 更新：更新叶子节点，回溯更新父节点。
+- Segment tree operations
+    - Build: Recursively divide the range and compute initial values.
+    - Query: Split the target range and combine the results from the covered ranges.
+    - Update: Update a leaf, then update its ancestors on the way back up.
 
-| 类型      | 空间复杂度      | 使用场景             |
+| Type | Space Complexity | Use Case |
 |---------|------------|------------------|
-| 常规线段树   | O(4n)      | 区间较小（如 n ≤ 1e6）  |
-| 动态开点线段树 | O(Q log R) | 区间极大（如 R = 1e18） |
+| Standard segment tree | O(4n) | Small ranges (e.g., n ≤ 1e6) |
+| Dynamic segment tree | O(Q log R) | Very large ranges (e.g., R = 1e18) |
 
-## 常规线段树
+## Standard Segment Tree
 
 ```python
 class SegmentTree:
     def __init__(self, _data):
         self.n = len(_data)
-        self.tree = [0] * (4 * self.n)  # 预分配4倍空间
+        self.tree = [0] * (4 * self.n)  # Preallocate four times the array size
         self.build(0, 0, self.n - 1, _data)
 
     def build(self, node, start, end, _data):
-        """ 递归构建线段树 """
+        """ Build the segment tree recursively. """
         if start == end:
             self.tree[node] = _data[start]
         else:
@@ -40,7 +40,7 @@ class SegmentTree:
             self.tree[node] = self.tree[left_node] + self.tree[right_node]
 
     def update(self, index, value):
-        """ 更新元素 """
+        """ Update an element. """
         self._update(0, 0, self.n - 1, index, value)
 
     def _update(self, node, start, end, index, value):
@@ -57,26 +57,26 @@ class SegmentTree:
             self.tree[node] = self.tree[left_node] + self.tree[right_node]
 
     def query_range(self, l, r):
-        """ 区间查询 """
+        """ Range query. """
         return self._query(0, 0, self.n - 1, l, r)
 
     def _query(self, node, start, end, l, r):
         if r < start or end < l:
-            return 0  # 无交集
+            return 0  # No overlap
         if l <= start and end <= r:
-            return self.tree[node]  # 完全覆盖
+            return self.tree[node]  # Fully covered
         mid = (start + end) // 2
         left_node = 2 * node + 1
         right_node = 2 * node + 2
         return self._query(left_node, start, mid, l, r) + self._query(right_node, mid + 1, end, l, r)
 
 
-# 使用示例
+# Usage example
 data = [1, 3, 5, 7, 9, 11]
 st = SegmentTree(data)
-print(st.query_range(1, 3))  # 输出 15 (3+5+7)
-st.update(2, 10)  # 更新索引2为10
-print(st.query_range(1, 3))  # 输出 20 (3+10+7)
+print(st.query_range(1, 3))  # Outputs 15 (3+5+7)
+st.update(2, 10)  # Set index 2 to 10
+print(st.query_range(1, 3))  # Outputs 20 (3+10+7)
 ```
 
 ```go
@@ -92,7 +92,7 @@ type SegmentTree struct {
 func NewSegmentTree(data []int) *SegmentTree {
     n := len(data)
     st := &SegmentTree{
-        tree: make([]int, 4*n), // 预分配4倍空间
+        tree: make([]int, 4*n), // Preallocate four times the array size
         n:    n,
     }
     st.build(0, 0, n-1, data)
@@ -138,10 +138,10 @@ func (st *SegmentTree) QueryRange(l, r int) int {
 
 func (st *SegmentTree) query(node, start, end, l, r int) int {
     if r < start || end < l {
-        return 0 // 无交集
+        return 0 // No overlap
     }
     if l <= start && end <= r {
-        return st.tree[node] // 完全覆盖
+        return st.tree[node] // Fully covered
     }
     mid := (start + end) / 2
     leftNode := 2*node + 1
@@ -152,59 +152,59 @@ func (st *SegmentTree) query(node, start, end, l, r int) int {
 func main() {
     data := []int{1, 3, 5, 7, 9, 11}
     st := NewSegmentTree(data)
-    fmt.Println(st.QueryRange(1, 3)) // 输出 15
+    fmt.Println(st.QueryRange(1, 3)) // Outputs 15
     st.Update(2, 10)
-    fmt.Println(st.QueryRange(1, 3)) // 输出 20
+    fmt.Println(st.QueryRange(1, 3)) // Outputs 20
 }
 ```
 
-## 动态开点
+## Dynamic Node Allocation
 
-动态开点线段树（惰性建树）适用于区间范围极大（如 $`10^9`$）但实际操作稀疏的场景，通过按需创建节点节省内存。
+A dynamic segment tree (built lazily) is useful when the range is very large (e.g., $`10^9`$) but operations are sparse. It saves memory by creating nodes on demand.
 
-- **动态开点线段树原理**
+- **How a dynamic segment tree works**
 
-延迟初始化：仅在访问时创建子节点。
+Lazy initialization: Create child nodes only when they are accessed.
 
-节点管理：每个节点保存左右子节点指针和区间聚合值。
+Node management: Each node stores pointers to its left and right children and the aggregate value for its range.
 
-节省空间：空间复杂度由操作次数决定，而非数据范围。
+Space savings: Space complexity depends on the number of operations rather than the size of the value range.
 
 ```python
 class Node:
-    __slots__ = ['left', 'right', 'val', 'lazy']  # 优化内存
+    __slots__ = ['left', 'right', 'val', 'lazy']  # Reduce memory usage
 
     def __init__(self):
         self.left = None
         self.right = None
         self.val = 0
-        self.lazy = 0  # 惰性标记（用于区间更新）
+        self.lazy = 0  # Lazy tag for range updates
 
 
 class DynamicSegmentTree:
     def __init__(self, start, end):
         self.root = Node()
-        self.start = start  # 区间左端点
-        self.end = end  # 区间右端点
+        self.start = start  # Left endpoint of the range
+        self.end = end  # Right endpoint of the range
 
     def _push_down(self, node, l, r):
-        # 动态创建子节点并下推惰性标记
+        # Create child nodes on demand and push down lazy tags
         if node.left is None:
             node.left = Node()
         if node.right is None:
             node.right = Node()
         if node.lazy != 0:
             mid = (l + r) // 2
-            # 更新左子节点
+            # Update the left child
             node.left.val += node.lazy * (mid - l + 1)
             node.left.lazy += node.lazy
-            # 更新右子节点
+            # Update the right child
             node.right.val += node.lazy * (r - mid)
             node.right.lazy += node.lazy
             node.lazy = 0
 
     def _update(self, node, l, r, ul, ur, val):
-        if ul <= l and r <= ur:  # 完全覆盖
+        if ul <= l and r <= ur:  # Fully covered
             node.val += val * (r - l + 1)
             node.lazy += val
             return
@@ -217,7 +217,7 @@ class DynamicSegmentTree:
         node.val = node.left.val + node.right.val
 
     def update_range(self, l, r, val):
-        """区间更新 [l, r] 增加 val"""
+        """Range update: add val to [l, r]."""
         self._update(self.root, self.start, self.end, l, r, val)
 
     def _query(self, node, l, r, ql, qr):
@@ -230,14 +230,14 @@ class DynamicSegmentTree:
         return self._query(node.left, l, mid, ql, qr) + self._query(node.right, mid + 1, r, ql, qr)
 
     def query_range(self, l, r):
-        """查询区间 [l, r] 的和"""
+        """Query the sum over [l, r]."""
         return self._query(self.root, self.start, self.end, l, r)
 
 
-# 使用示例（假设区间范围为 [0, 1e9]）
+# Usage example with the range [0, 1e9]
 dst = DynamicSegmentTree(0, 10 ** 9)
-dst.update_range(1, 3, 5)  # 区间 [1,3] 增加5
-print(dst.query_range(2, 4))  # 输出 5（仅覆盖到3）
+dst.update_range(1, 3, 5)  # Add 5 to the range [1,3]
+print(dst.query_range(2, 4))  # Outputs 5 (covered only up to 3)
 ```
 
 ```go
@@ -272,10 +272,10 @@ func (dst *DynamicSegmentTree) pushDown(node *Node, l, r int) {
     }
     if node.lazy != 0 {
         mid := (l + r) / 2
-        // 更新左子节点
+        // Update the left child
         node.left.val += node.lazy * (mid - l + 1)
         node.left.lazy += node.lazy
-        // 更新右子节点
+        // Update the right child
         node.right.val += node.lazy * (r - mid)
         node.right.lazy += node.lazy
         node.lazy = 0
@@ -323,59 +323,59 @@ func (dst *DynamicSegmentTree) QueryRange(l, r int) int {
 func main() {
     dst := NewDynamicSegmentTree(0, 1e9)
     dst.UpdateRange(1, 3, 5)
-    fmt.Println(dst.QueryRange(2, 4)) // 输出 5
+    fmt.Println(dst.QueryRange(2, 4)) // Outputs 5
 }
 ```
 
-## 动态指针
+## Dynamic Pointers
 
-- 核心概念
+- Core concepts
 
-1. **动态指针**：
-    - 每个节点保存左右子节点的**指针**（引用），而非固定数组索引。
-    - **按需创建子节点**：在首次访问时动态分配内存（通过 `push_down` 实现）。
-    - 优点：节省内存，适合处理 `1e18` 级别的稀疏区间操作。
+1. **Dynamic pointers**:
+    - Each node stores **pointers** (references) to its left and right children instead of fixed array indices.
+    - **Create children on demand**: Allocate memory dynamically on first access, using `push_down`.
+    - Benefit: Saves memory and handles sparse range operations over ranges as large as `1e18`.
 
-2. **惰性传播 (Lazy Propagation)**：
-    - 延迟对子节点的更新操作，通过 `lazy` 标记记录待处理的任务。
-    - 在访问子节点前通过 `push_down` 方法将标记下推并更新子节点。
+2. **Lazy propagation**:
+    - Defer updates to children and record pending work in a `lazy` tag.
+    - Before accessing children, use `push_down` to propagate the tag and update them.
 
 ```python
 class Node:
     __slots__ = ['left', 'right', 'val', 'lazy']
 
     def __init__(self):
-        self.left = None  # 动态指针：左子节点
-        self.right = None  # 动态指针：右子节点
-        self.val = 0  # 当前区间的聚合值（根据场景修改初始值）
-        self.lazy = 0  # 惰性标记（根据场景定义含义）
+        self.left = None  # Dynamic pointer to the left child
+        self.right = None  # Dynamic pointer to the right child
+        self.val = 0  # Aggregate for the current range; adapt the initial value to the use case
+        self.lazy = 0  # Lazy tag; define its meaning for the use case
 
 
 class DynamicSegmentTree:
     def __init__(self, start, end):
         self.root = Node()
-        self.start = start  # 区间左端点
-        self.end = end  # 区间右端点
+        self.start = start  # Left endpoint of the range
+        self.end = end  # Right endpoint of the range
 
     def _push_down(self, node, l, r):
-        """动态创建子节点并下推惰性标记"""
+        """Create child nodes on demand and push down lazy tags."""
         if node.left is None:
             node.left = Node()
         if node.right is None:
             node.right = Node()
-        if node.lazy != 0:  # 根据场景修改惰性标记处理逻辑
+        if node.lazy != 0:  # Adapt lazy tag handling to the use case
             mid = (l + r) // 2
-            # 示例：区间增加值（修改此处实现其他操作）
+            # Example: Add to a range; change this for other operations
             node.left.val += node.lazy * (mid - l + 1)
             node.left.lazy += node.lazy
             node.right.val += node.lazy * (r - mid)
             node.right.lazy += node.lazy
-            node.lazy = 0  # 清除标记
+            node.lazy = 0  # Clear the tag
 
     def _update(self, node, l, r, ul, ur, val):
-        """更新区间 [ul, ur]（根据场景修改更新逻辑）"""
+        """Update [ul, ur]; adapt the update logic to the use case."""
         if ul <= l and r <= ur:
-            # 示例：区间增加值（修改此处实现其他操作）
+            # Example: Add to a range; change this for other operations
             node.val += val * (r - l + 1)
             node.lazy += val
             return
@@ -385,59 +385,59 @@ class DynamicSegmentTree:
             self._update(node.left, l, mid, ul, ur, val)
         if ur > mid:
             self._update(node.right, mid + 1, r, ul, ur, val)
-        # 聚合子节点结果（根据场景修改聚合逻辑）
+        # Aggregate child results; adapt the aggregation logic to the use case
         node.val = node.left.val + node.right.val
 
     def update_range(self, l, r, val):
         self._update(self.root, self.start, self.end, l, r, val)
 
     def _query(self, node, l, r, ql, qr):
-        """查询区间 [ql, qr]（根据场景修改查询逻辑）"""
+        """Query [ql, qr]; adapt the query logic to the use case."""
         if qr < l or r < ql:
-            return 0  # 根据场景返回初始值（如最大值返回 -inf）
+            return 0  # Return the identity value for the use case, e.g., -inf for a maximum
         if ql <= l and r <= qr:
             return node.val
         self._push_down(node, l, r)
         mid = (l + r) // 2
-        # 聚合子查询结果（根据场景修改合并逻辑）
+        # Aggregate subquery results; adapt the merge logic to the use case
         return self._query(node.left, l, mid, ql, qr) + self._query(node.right, mid + 1, r, ql, qr)
 
     def query_range(self, l, r):
         return self._query(self.root, self.start, self.end, l, r)
 ```
 
-### 动态指针管理注意事项
+### Dynamic Pointer Management
 
-1. **内存控制**：
-    - 在 Python 中，未被引用的节点会被自动回收；在 Go 中需手动管理（或依赖 GC）。
-    - 在极端情况下，可添加节点复用池减少内存分配开销。
-2. **递归深度**：
-    - 处理极大区间时可能触发栈溢出，可改用迭代实现或调整递归深度限制。
-3. **标记下推顺序**：
-    - 必须在访问子节点前调用 `push_down`，确保子节点已创建且标记已处理。
+1. **Memory management**:
+    - Python automatically reclaims unreferenced nodes; in Go, manage them manually or rely on garbage collection.
+    - In extreme cases, add a node reuse pool to reduce allocation overhead.
+2. **Recursion depth**:
+    - Very large ranges may cause a stack overflow. Use an iterative implementation or adjust the recursion limit.
+3. **Tag propagation order**:
+    - Always call `push_down` before accessing children to ensure they exist and their tags have been processed.
 
-### 性能优化技巧
+### Performance Optimization Tips
 
-| 技巧        | 适用场景        | 实现方式                     |
+| Technique | Use Case | Implementation |
 |-----------|-------------|--------------------------|
-| **节点池复用** | 高频更新/查询操作   | 预分配节点对象池，通过索引管理而非动态创建/销毁 |
-| **迭代实现**  | 避免递归栈溢出     | 用栈或队列模拟递归过程              |
-| **离散化坐标** | 区间端点稀疏但数量有限 | 将原始坐标映射到紧凑的整数范围，减少动态开点需求 |
+| **Node pool reuse** | Frequent updates and queries | Preallocate a pool of nodes and manage them by index instead of creating and destroying them dynamically |
+| **Iterative implementation** | Avoid recursion stack overflow | Simulate recursion with a stack or queue |
+| **Coordinate compression** | Sparse but finite range endpoints | Map original coordinates to a compact integer range to reduce the need for dynamic node allocation |
 
-### 动态开点线段树应用
+### Dynamic Segment Tree Applications
 
-线段树的核心逻辑在不同场景下需要调整的部分主要集中在 **聚合方式** 和 **惰性标记处理** 上。以下是关键修改点：
+Adapting a segment tree to different use cases mainly involves changing **aggregation** and **lazy tag handling**. The key changes are:
 
-| 场景         | 修改点                                  | 示例（区间求和 → 区间最大值）                      |
+| Aspect | What to Change | Example (Range Sum → Range Maximum) |
 |------------|--------------------------------------|---------------------------------------|
-| **聚合逻辑**   | 合并子区间结果的方式（如 `sum` → `max`）          | `node.val = max(left.val, right.val)` |
-| **惰性标记处理** | 区间更新时的标记传递逻辑（如加减 → 赋值）               | `lazy` 存储待赋值的值而非增量                    |
-| **初始化值**   | 根据聚合逻辑选择初始值（如求和初始化为0，最大值初始化为负无穷）     | `self.val = -inf`                     |
-| **区间合并方式** | 查询时如何合并部分覆盖区间的结果（如求和直接相加，最大值取子区间最大值） | `return max(left_query, right_query)` |
+| **Aggregation logic** | How child range results are combined (e.g., `sum` → `max`) | `node.val = max(left.val, right.val)` |
+| **Lazy tag handling** | How tags propagate during range updates (e.g., addition/subtraction → assignment) | `lazy` stores the value to assign instead of an increment |
+| **Initial value** | Choose based on the aggregation logic (e.g., 0 for sums and negative infinity for maxima) | `self.val = -inf` |
+| **Combining ranges** | How partially covered query results are merged (e.g., add sums or take the maximum of child ranges) | `return max(left_query, right_query)` |
 
-#### 区间求和
+#### Range Sum
 
-- 场景：求区间内元素的和，支持区间增减操作（如 [l, r] += val）。
+- Use case: Sum the elements in a range, with support for range increments and decrements (e.g., [l, r] += val).
 
 ```python
 class SumSegmentTree:
@@ -447,8 +447,8 @@ class SumSegmentTree:
         def __init__(self):
             self.left = None
             self.right = None
-            self.val = 0  # 区间和
-            self.lazy = 0  # 延迟增加量
+            self.val = 0  # Range sum
+            self.lazy = 0  # Deferred increment
 
     def __init__(self, start, end):
         self.root = self.Node()
@@ -462,10 +462,10 @@ class SumSegmentTree:
             node.right = self.Node()
         if node.lazy != 0:
             mid = (l + r) // 2
-            # 更新左子树
+            # Update the left subtree
             node.left.val += node.lazy * (mid - l + 1)
             node.left.lazy += node.lazy
-            # 更新右子树
+            # Update the right subtree
             node.right.val += node.lazy * (r - mid)
             node.right.lazy += node.lazy
             node.lazy = 0
@@ -488,7 +488,7 @@ class SumSegmentTree:
 
     def _query(self, node, l, r, ql, qr):
         if qr < l or r < ql:
-            return 0  # 无交集
+            return 0  # No overlap
         if ql <= l and r <= qr:
             return node.val
         self._push_down(node, l, r)
@@ -499,9 +499,9 @@ class SumSegmentTree:
         return self._query(self.root, self.start, self.end, l, r)
 ```
 
-#### 区间最小值
+#### Range Minimum
 
-- 场景：求区间内的最小值，支持区间赋值操作（如 [l, r] = val）。
+- Use case: Find the minimum in a range, with support for range assignment (e.g., [l, r] = val).
 
 ```python
 class MinSegmentTree:
@@ -511,8 +511,8 @@ class MinSegmentTree:
         def __init__(self):
             self.left = None
             self.right = None
-            self.val = float('inf')  # 初始为无穷大
-            self.lazy = None  # 延迟赋值标记
+            self.val = float('inf')  # Initialize to infinity
+            self.lazy = None  # Deferred assignment tag
 
     def __init__(self, start, end):
         self.root = self.Node()
@@ -525,7 +525,7 @@ class MinSegmentTree:
         if node.right is None:
             node.right = self.Node()
         if node.lazy is not None:
-            # 赋值操作覆盖子节点
+            # Overwrite child values with the assignment
             node.left.val = node.lazy
             node.left.lazy = node.lazy
             node.right.val = node.lazy
@@ -537,7 +537,7 @@ class MinSegmentTree:
 
     def _update(self, node, l, r, ul, ur, val):
         if ul <= l and r <= ur:
-            node.val = val  # 直接赋值
+            node.val = val  # Assign directly
             node.lazy = val
             return
         self._push_down(node)
@@ -546,14 +546,14 @@ class MinSegmentTree:
             self._update(node.left, l, mid, ul, ur, val)
         if ur > mid:
             self._update(node.right, mid + 1, r, ul, ur, val)
-        node.val = min(node.left.val, node.right.val)  # 合并逻辑
+        node.val = min(node.left.val, node.right.val)  # Merge logic
 
     def query_range(self, l, r):
         return self._query(self.root, self.start, self.end, l, r)
 
     def _query(self, node, l, r, ql, qr):
         if qr < l or r < ql:
-            return float('inf')  # 不影响最小值计算
+            return float('inf')  # Does not affect the minimum
         if ql <= l and r <= qr:
             return node.val
         self._push_down(node)
@@ -564,9 +564,9 @@ class MinSegmentTree:
         )
 ```
 
-#### 区间最大值
+#### Range Maximum
 
-- 场景：求区间内的最大值，支持区间增减操作（如 [l, r] += val）。
+- Use case: Find the maximum in a range, with support for range increments and decrements (e.g., [l, r] += val).
 
 ```python
 class MaxSegmentTree:
@@ -576,8 +576,8 @@ class MaxSegmentTree:
         def __init__(self):
             self.left = None
             self.right = None
-            self.max_val = -float('inf')  # 初始为负无穷
-            self.lazy = 0  # 延迟增加量
+            self.max_val = -float('inf')  # Initialize to negative infinity
+            self.lazy = 0  # Deferred increment
 
     def __init__(self, start, end):
         self.root = self.Node()
@@ -590,7 +590,7 @@ class MaxSegmentTree:
         if node.right is None:
             node.right = self.Node()
         if node.lazy != 0:
-            # 传递增量
+            # Propagate the increment
             node.left.max_val += node.lazy
             node.left.lazy += node.lazy
             node.right.max_val += node.lazy
@@ -602,7 +602,7 @@ class MaxSegmentTree:
 
     def _update(self, node, l, r, ul, ur, val):
         if ul <= l and r <= ur:
-            node.max_val += val  # 增加最大值
+            node.max_val += val  # Increase the maximum
             node.lazy += val
             return
         self._push_down(node)
@@ -611,14 +611,14 @@ class MaxSegmentTree:
             self._update(node.left, l, mid, ul, ur, val)
         if ur > mid:
             self._update(node.right, mid + 1, r, ul, ur, val)
-        node.max_val = max(node.left.max_val, node.right.max_val)  # 合并逻辑
+        node.max_val = max(node.left.max_val, node.right.max_val)  # Merge logic
 
     def query_range(self, l, r):
         return self._query(self.root, self.start, self.end, l, r)
 
     def _query(self, node, l, r, ql, qr):
         if qr < l or r < ql:
-            return -float('inf')  # 不影响最大值计算
+            return -float('inf')  # Does not affect the maximum
         if ql <= l and r <= qr:
             return node.max_val
         self._push_down(node)
@@ -629,9 +629,9 @@ class MaxSegmentTree:
         )
 ```
 
-#### 区间更新
+#### Range Updates
 
--场景：区间赋值操作，覆盖之前的修改（如 [l, r] = val）。
+- Use case: Assign values to a range, overwriting earlier updates (e.g., [l, r] = val).
 
 ```python
 class RangeAssignSegmentTree:
@@ -641,8 +641,8 @@ class RangeAssignSegmentTree:
         def __init__(self):
             self.left = None
             self.right = None
-            self.val = 0  # 当前区间的值（全部相同）
-            self.lazy = None  # 延迟赋值标记
+            self.val = 0  # Value of the current range; all elements are equal
+            self.lazy = None  # Deferred assignment tag
 
     def __init__(self, start, end):
         self.root = self.Node()
@@ -655,7 +655,7 @@ class RangeAssignSegmentTree:
         if node.right is None:
             node.right = self.Node()
         if node.lazy is not None:
-            # 传递赋值标记
+            # Propagate the assignment tag
             node.left.val = node.lazy
             node.left.lazy = node.lazy
             node.right.val = node.lazy

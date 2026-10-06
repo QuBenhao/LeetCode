@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 栈模拟
+# [Python/Java/TypeScript/Go] Stack simulation
 
 > Author: Benhao
 > Date: 2022-07-13
@@ -7,13 +7,13 @@
 
 ---
 
-### 解题思路
-用栈模拟当前行星碰撞后的情况。
-因为每次发生碰撞都是先讨论最后一个向右的和当前的向左的，
-看当前的向左的能一直往左(栈顶依次弹出)碰到多少个，是符合后进先出的。
-其他情况因为暂时不会发生碰撞，所以直接入栈。
+### Approach
+Use a stack to represent the asteroids remaining after collisions.
+A collision first involves the last right-moving asteroid and the current left-moving asteroid.
+The current asteroid may continue left, repeatedly colliding with and popping the stack top. This follows last-in, first-out order.
+Other cases do not collide yet, so push them directly onto the stack.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:
@@ -21,15 +21,15 @@ class Solution:
         stack = []
         for ast in asteroids:
             add = True
-            # 只有新来的向左的，才有可能和原来的发生碰撞 (想象最后一个是向右的话，没有人能和它相撞)
+            # Only a new left-moving asteroid can collide with earlier ones; a new right-moving asteroid cannot
             if ast < 0:
-                # 依次遍历栈顶全部向右的，它们会和当前的相撞，如果它们大小小于当前的大小，它们会被撞没
+                # Process right-moving asteroids at the stack top; any smaller than the current asteroid are destroyed
                 while stack and stack[-1] > 0 and stack[-1] < -ast:
                     stack.pop()
-                # 如果还存在向右的，说明当前的大小撞不过栈顶
+                # If a right-moving asteroid remains, the current asteroid cannot destroy it
                 if stack and stack[-1] > 0:
                     add = False
-                    # 两个一样大的都要消失
+                    # Equal-sized asteroids both disappear
                     if stack[-1] == -ast:
                         stack.pop()
             if add:

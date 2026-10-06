@@ -6,22 +6,22 @@ using json = nlohmann::json;
 
 class Solution {
     int find_k_smallest(vector<int>& nums1, int i, vector<int>& nums2, int j, int k) {
-        // 从两个有序数组中找到第k小的数
-        if (nums1.size() - i > nums2.size() - j) { // 交换, 确保nums1中可选数更少, nums2中更多
+        // Find the kth smallest number in two sorted arrays
+        if (nums1.size() - i > nums2.size() - j) { // Swap to ensure nums1 has fewer available numbers and nums2 has more
             return find_k_smallest(nums2, j, nums1, i, k);
         }
-        if (i == nums1.size()) { // nums1中已选完, 从nums2里拿第k个
+        if (i == nums1.size()) { // nums1 is exhausted; take the kth number from nums2
             return nums2[j+k-1];
         }
-        if (k == 1) { // nums1和nums2都有可选的数, 最小值数两者首个元素中更小的那个
+        if (k == 1) { // Both arrays have available numbers; the minimum is the smaller of their first elements
             return min(nums1[i], nums2[j]);
         }
-        // 尝试从nums1中取k/2个, j里面直接取k-k/2 (确保k是奇数时sj多取一个)
+        // Try taking k/2 from nums1 and k-k/2 for j (so sj takes one extra when k is odd)
         int si = min(static_cast<int>(nums1.size()), i+k/2), sj = j + k - k/2;
-        if (nums1[si-1] > nums2[sj-1]) { // i取k/2的偏大了，说明j可能能取更多,i可能要取更少
+        if (nums1[si-1] > nums2[sj-1]) { // Taking k/2 at i gives a value that is too large; j may need more and i fewer
             return find_k_smallest(nums1, i, nums2, sj, k - (sj - j));
         } else {
-            // i取k/2的偏小了，说明i可能要取更多, j可能要取更少
+            // Taking k/2 at i gives a value that is too small; i may need more and j fewer
             return find_k_smallest(nums1, si, nums2, j, k - (si - i));
         }
     }
@@ -29,12 +29,12 @@ public:
     double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
         int tot = nums1.size() + nums2.size();
         if (tot % 2 == 0) {
-            // 偶数个，中位数要找第tot/2个小的和第tot/2+1个小的的平均值
+            // For an even count, average the tot/2-th and (tot/2+1)-th smallest numbers
             int left = find_k_smallest(nums1, 0, nums2, 0, tot/2);
             int right = find_k_smallest(nums1, 0, nums2, 0, tot/2+1);
             return (left+right)/2.0;
         }
-        // 奇数个, 中位数就是tot/2+1小
+        // For an odd count, the median is the (tot/2+1)-th smallest number
         return find_k_smallest(nums1, 0, nums2, 0, tot/2+1);
     }
 };

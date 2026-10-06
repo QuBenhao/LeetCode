@@ -15,10 +15,10 @@ class Solution(solution.Solution):
         return self.distributeCandies(*test_input)
 
     def distributeCandies(self, n: int, limit: int) -> int:
-        # 总方案数 C n+2 2
-        # 一个人超limit的个数为 C n+1-limit 2
-        # 两个人超limit的个数为 C n-2*limit 2
-        # 三个人超limit的个数为 C n-1-3*limit 2
+        # Total number of ways: C n+2 2
+        # Ways for one person to exceed limit: C n+1-limit 2
+        # Ways for two people to exceed limit: C n-2*limit 2
+        # Ways for three people to exceed limit: C n-1-3*limit 2
 
         return (combination_nums(n + 2)
                 - 3 * combination_nums(n + 1 - limit)

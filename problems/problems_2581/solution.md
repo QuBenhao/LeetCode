@@ -1,4 +1,4 @@
-# [Python/Go] 换根dp
+# [Python/Go] Rerooting DP
 
 > slug: pythongoc-huan-gen-dp-by-himymben-csne
 > date: 2024-02-29
@@ -12,20 +12,20 @@
 
 [TOC]
 
-# 思路
+# Intuition
 
-> 从[灵神那里](https://leetcode.cn/problems/count-number-of-possible-root-nodes/solutions/2147714/huan-gen-dppythonjavacgo-by-endlesscheng-ccwy/?envType=daily-question&envId=2024-02-29)学会的
+> Learned from [灵神](https://leetcode.cn/problems/count-number-of-possible-root-nodes/solutions/2147714/huan-gen-dppythonjavacgo-by-endlesscheng-ccwy/?envType=daily-question&envId=2024-02-29).
 
-# 解题方法
+# Approach
 
-> 以一个值为根建树以后，猜对的数量根据不停换根而变化，统计满足答案的变化数
+> Build the tree with one root, then track how the number of correct guesses changes as the root moves. Count the root choices that satisfy the requirement.
 
-# 复杂度
+# Complexity
 
-时间复杂度:
+Time complexity:
 > $O(n+m)$
 
-空间复杂度:
+Space complexity:
 > $O(n+m)$
 
 
@@ -43,7 +43,7 @@ class Solution:
         for a, b in guesses:
             gs[a].add(b)
         
-        # 统计以root为根，猜对的数量
+        # Count correct guesses when the tree is rooted at root
         def dfs1(node, parent):
             cnts = 0
             if node in gs[parent]:
@@ -53,13 +53,13 @@ class Solution:
                     cnts += dfs1(child, node)
             return cnts
 
-        # 统计交换其中的父子关系，猜对数量的变化
+        # Track the change in correct guesses when reversing this parent-child relationship
         def dfs2(node, parent, cur):
             res = cur >= k
             for child in graph[node]:
                 if child != parent:
-                    # 以child为父节点，node为子节点，child的其他子节点父子关系不变，node的父节点、其他子节点的父子关系不变
-                    # 所以变化的只有node是child的父节点之前的猜测的正确性
+                    # Make child the parent and node the child; relationships with child's other children and with node's parent and other children stay unchanged
+                    # Thus only the correctness of the guess that node is child's parent changes
                     res += dfs2(child, node, cur - (child in gs[node]) + (node in gs[child])) 
             return res
         
@@ -76,7 +76,7 @@ func rootCount(edges [][]int, guesses [][]int, k int) int {
 
 	type pair struct{ x, y int }
 	gs := make(map[pair]int, len(guesses))
-	for _, p := range guesses { // guesses 转成哈希表
+	for _, p := range guesses { // Convert guesses to a hash table
 		gs[pair{p[0], p[1]}] = 1
 	}
 

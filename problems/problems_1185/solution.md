@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 计算日期与今天的天数差
+# [Python/Java/JavaScript/Go] Calculate the day difference from today
 
 > slug: pythonjavajavascriptgo-ji-suan-ri-qi-yu-5lp2p
 > date: 2022-01-03
@@ -7,10 +7,10 @@
 > url: https://leetcode.cn/problems/day-of-the-week/solutions/6bpFFC/pythonjavajavascriptgo-ji-suan-ri-qi-yu-5lp2p/
 
 ---
-### 解题思路
-已知今天是星期一，只需要知道输入的日期与今天的天数差，再对七取余就可以算出该日期是星期几。
+### Approach
+Given that today is Monday, find the difference in days between the input date and today, then take it modulo seven to obtain the weekday.
 
-### 代码
+### Code
 
 ```Python3 []
 ANS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -18,18 +18,18 @@ DAYS = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 class Solution:
     def dayOfTheWeek(self, day: int, month: int, year: int) -> str:
         def helper(d, m, y):
-            # 2022.1.3 星期一
+            # 2022.1.3 Monday
             ans = 1 
-            # 天数的偏移量
+            # Offset in days
             ans = (ans + d - 3) % 7
-            # 计算年的偏差量
+            # Calculate the offset contributed by years
             if y < 2022:
                 for i in range(y, 2022):
                     ans = (ans - (366 if not i % 4 and (i % 100 or not i % 400) else 365)) % 7
             else:
                 for i in range(2022, y):
                     ans = (ans + (366 if not i % 4 and (i % 100 or not i % 400) else 365)) % 7
-            # 计算月的偏差量
+            # Calculate the offset contributed by months
             for i in range(m - 1):
                 ans = (ans + DAYS[i]) % 7
                 if i == 1 and not y % 4 and (y % 100 or not y % 400):

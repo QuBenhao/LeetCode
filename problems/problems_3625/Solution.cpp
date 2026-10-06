@@ -9,8 +9,8 @@ class Solution {
 public:
   int countTrapezoids(const vector<vector<int>> &points) {
     unordered_map<double, unordered_map<double, int>>
-        cnt;                                              // 斜率 -> 截距 -> 个数
-    unordered_map<int, unordered_map<double, int>> cnt2;  // 中点 -> 斜率 -> 个数
+        cnt;                                              // Slope -> intercept -> count
+    unordered_map<int, unordered_map<double, int>> cnt2;  // Midpoint -> slope -> count
     int n = points.size();
     for (int i = 0; i < n - 1; ++i) {
       int x1 = points[i][0], y1 = points[i][1];

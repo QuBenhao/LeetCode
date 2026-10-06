@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript] 模拟
+# [Python/Java/JavaScript] Simulation
 
 > slug: pythonjavajavascript-mo-ni-by-himymben-d652
 > date: 2021-10-12
@@ -46,7 +46,7 @@ class Solution {
  * @return {string[]}
  */
 var fizzBuzz = function(n) {
-    // 今天是把Java代码复制粘贴过来的一天
+    // Today I copied and pasted the Java code
     const ans = [];
     for(let i=1;i<=n;i++){
         if(i % 3 != 0 && i % 5 != 0)

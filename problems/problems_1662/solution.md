@@ -1,4 +1,4 @@
-# [Python] 模拟
+# [Python] Simulation
 
 > Author: Benhao
 > Date: 2022-11-01
@@ -7,10 +7,10 @@
 
 ---
 
-### 解题思路
-迭代器逐位比较字符一致
+### Approach
+Use iterators to compare characters one by one.
 
-### 代码
+### Code
 
 ```python3
 class Solution:

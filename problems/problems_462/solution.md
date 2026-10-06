@@ -1,4 +1,4 @@
-# [Python/Java/JavaScript/Go] 中位数
+# [Python/Java/JavaScript/Go] Median
 
 > slug: pythonjavajavascriptgo-zhong-wei-shu-din-wgz6
 > date: 2022-05-18
@@ -7,21 +7,21 @@
 > url: https://leetcode.cn/problems/minimum-moves-to-equal-array-elements-ii/solutions/CWknZc/pythonjavajavascriptgo-zhong-wei-shu-din-wgz6/
 
 ---
-### 解题思路
-数轴上有n个点，求一个点使他们到这个点距离和的最小。
-中位数有这样的性质: 所有数与中位数的绝对差之和最小。
+### Approach
+Given n points on a number line, find a point minimizing the sum of distances to them.
+The median minimizes the sum of absolute differences from all values.
 
-这里不多赘述这个证明,只给出简单证明思路,感兴趣的可以自行百度。
-假设有有序数列$a_1, a_2, \ldots , a_n$, 且$a_1 \le a_2 \le \ldots \le a_n$:
-这个数$x$显然不该在$a_1$左边或者$a_n$右边，这样距离明显比在里面大。
-当$a_1 \le x \le a_n$，不管怎么变化，最终结果都是$\lvert a_1 - x \rvert + \lvert a_n - x \rvert = a_n - a_1$。
-【其实就是$\lvert a_1 - x \rvert + \lvert a_n - x \rvert \ge a_n - a_1$】
-同样继续讨论$a_2 \le x \le a_n-1$和其他点。
-会得到不等式 $\sum_{i=1}^n \lvert a_i - x \rvert \ge a_n - a_1 + a_{n-2} - a_2 + \ldots$
+I will only outline the proof; search for more detail if interested.
+Let $a_1, a_2, \ldots , a_n$ be sorted so that $a_1 \le a_2 \le \ldots \le a_n$:
+The value $x$ should not lie to the left of $a_1$ or to the right of $a_n$, since that clearly gives a greater distance sum than a point inside.
+For $a_1 \le x \le a_n$, changing x leaves $\lvert a_1 - x \rvert + \lvert a_n - x \rvert = a_n - a_1$ unchanged.
+[More generally, $\lvert a_1 - x \rvert + \lvert a_n - x \rvert \ge a_n - a_1$.]
+Apply the same reasoning to $a_2 \le x \le a_n-1$ and the remaining points.
+This gives $\sum_{i=1}^n \lvert a_i - x \rvert \ge a_n - a_1 + a_{n-2} - a_2 + \ldots$.
 
-最后就会得到中位数性质。
+The median property follows.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

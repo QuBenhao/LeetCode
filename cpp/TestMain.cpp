@@ -13,7 +13,7 @@
 #ifndef BUILD_CMAKE
 #include "tools/cpp/runfiles/runfiles.h"
 #else
-#include <cstdlib> // 用于 getenv
+#include <cstdlib> // For getenv
 #endif
 
 using std::cerr;
@@ -186,12 +186,12 @@ void RegisterMyTests(const vector<TestCase> &values) {
 
 int main(int argc, char **argv) {
   try {
-    // 检查是否提供了测试用例路径
+    // Check whether a test case path was provided
     string testcasePath;
     if (argc >= 2) {
       testcasePath = argv[1];
     } else {
-      // 尝试从环境变量获取路径
+      // Try to get the path from the environment variable
       const char *env_path = std::getenv("TESTCASE_FILE");
       if (env_path) {
         testcasePath = env_path;
@@ -206,11 +206,11 @@ int main(int argc, char **argv) {
 
     cout << "Loading testcases from: " << testcasePath << endl;
 
-    // 加载测试用例
+    // Load test cases
     vector<LeetCode::qubh::TestCase> testcases =
         LeetCode::qubh::LoadTestCases(testcasePath);
 
-    // 初始化并运行测试
+    // Initialize and run tests
     testing::InitGoogleTest(&argc, argv);
     LeetCode::qubh::RegisterMyTests(testcases);
     return RUN_ALL_TESTS();

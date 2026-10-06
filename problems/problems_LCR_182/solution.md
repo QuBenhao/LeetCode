@@ -1,4 +1,4 @@
-# [Go] 建切片，错位赋值
+# [Go] Create a slice and copy with an offset
 
 > slug: go-jian-qie-pian-cuo-wei-fu-zhi-by-himym-viwq
 > date: 2021-11-12

@@ -13,15 +13,15 @@ class Solution(solution.Solution):
         :rtype: int
         """
         m = len(primes)
-        # dp[i] 代表第i+1个丑数
+        # dp[i] is the (i+1)th ugly number
         dp = [1] * n
-        # 丑数, 刚刚乘过的丑数的坐标, 质因数
+        # Ugly number, index of the ugly number just multiplied, prime factor
         pq = [(p, 0, i) for i, p in enumerate(primes)]
 
         for i in range(1, n):
-            # 目前最新的最小的丑数
+            # Current smallest new ugly number
             dp[i] = pq[0][0]
-            # 所有等于这个值的要全部出队列，并根据该乘的丑数重新加入队列
+            # Pop every entry equal to this value, then reinsert using the next ugly number to multiply
             while pq and pq[0][0] == dp[i]:
                 _, idx, p = heapq.heappop(pq)
                 heapq.heappush(pq, (dp[idx + 1] * primes[p], idx + 1, p))

@@ -19,7 +19,7 @@ public:
       int res = 1;
 
       if (first + second <= (n + 1) / 2) {
-        // 计算满足 first+second > ceil(n / 2^(k+1)) 的最小 k，推导过程见题解
+        // Compute the smallest k satisfying first+second > ceil(n / 2^(k+1)); see the solution for the derivation
         int k = bit_width((n - 1u) / (first + second - 1)) - 1;
         n = ((n - 1) >> k) + 1;  // n = ceil(n / 2^k)
         res += k;
@@ -29,11 +29,11 @@ public:
         }
       }
 
-      // 情况 1 和情况 3 合并，情况 2 合并到最后的 return
+      // Combine cases 1 and 3; include case 2 in the final return
       if (second - first == 1 ||
           (second > (n + 1) / 2 && second - first == 2)) {
-        // 先把 n 变成 ceil(n/2)，然后计算需要多少次 ceil(n/2) 的操作才能把 n
-        // 变成偶数，推导过程见题解 这里把 (n+1)/2 和 n-1 合并，得到 (n+1)/2-1 =
+        // First replace n with ceil(n/2), then count how many ceil(n/2) operations make n
+        // even; see the solution for the derivation. Combining (n+1)/2 and n-1 gives (n+1)/2-1 =
         // (n-1)/2
         return res + 1 + countr_zero((n - 1u) / 2);
       }

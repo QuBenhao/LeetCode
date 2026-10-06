@@ -1,4 +1,4 @@
-# [Python/Java/TypeScript/Go] 字典树应用题
+# [Python/Java/TypeScript/Go] An application of tries
 
 > slug: pythonjavatypescriptgo-zi-dian-shu-ying-pjwyp
 > date: 2022-07-06
@@ -7,13 +7,13 @@
 > url: https://leetcode.cn/problems/replace-words/solutions/31ZzS4/pythonjavatypescriptgo-zi-dian-shu-ying-pjwyp/
 
 ---
-### 解题思路
-前置知识: [Trie字典树](https://leetcode.cn/problems/implement-trie-prefix-tree/solution/gong-shui-san-xie-yi-ti-shuang-jie-er-we-esm9/)
+### Approach
+Prerequisite: [Trie](https://leetcode.cn/problems/implement-trie-prefix-tree/solution/gong-shui-san-xie-yi-ti-shuang-jie-er-we-esm9/)
 
-根据题目给的前缀(词根)创建字典树，遍历句子中的每个单词，替换为第一个与字典树匹配的前缀。
-与其他题目的Trie树的搜索用法不同的是，我们不需要保证整个单词属于字典树中或整个单词可以拆解成字典树中的单词，只需要找到第一次匹配到的前缀即可，所以这里写了一个新的查询方法。
+Build a trie from the given prefixes (roots). Traverse each word in the sentence and replace it with the first matching prefix in the trie.
+Unlike other trie searches, we do not need the whole word to appear in the trie or to be decomposable into trie words. We only need the first matching prefix, so this uses a new query method.
 
-### 代码
+### Code
 
 ```Python3 []
 class Solution:

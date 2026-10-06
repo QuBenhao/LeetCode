@@ -12,12 +12,12 @@ class Solution(solution.Solution):
         """
         # a % c = x, b % c = y --> ab % c = xy % c
         """
-        证明：设a = m * c + x, b = n * c + y
+        Proof: Let a = m * c + x, b = n * c + y.
             a * b = m * n * c * c + x * n * c + y * m * c + x * y
-            故 a * b % c = x * y % c
+            Therefore, a * b % c = x * y % c.
         """
-        # 由上面结论可以得到如下两个性质
-        # 4的幂满足模3余1（每个4都是模3余1，乘起来也模3余1）
-        # 2的奇数次幂满足一个4的幂乘上一个2，相当于一个模3余1的数和模3余2的数相乘,所以模3余2
-        # 故 2的奇数次幂和偶数次幂模3是不同的
+        # The conclusion above gives two properties
+        # Powers of 4 have remainder 1 modulo 3 (each factor 4 has remainder 1, so their product does too)
+        # An odd power of 2 is a power of 4 times 2, so its remainder modulo 3 is 1 times 2, or 2
+        # Thus, odd and even powers of 2 have different remainders modulo 3
         return n & (n-1) == 0 and n % 3 == 1 if n > 0 else False

@@ -1,4 +1,4 @@
-# [Python] 叠加匹配字符串 or 动态规划
+# [Python] Repeated string matching or dynamic programming
 
 > Author: Benhao
 > Date: 2021-05-26
@@ -7,15 +7,15 @@
 
 ---
 
-### 解题思路
-> 叠加匹配
-> 每匹配到一次`k`个word,尝试匹配`k+1`个word，直到匹配不了为止。`k`从1开始。
+### Approach
+> Repeated matching
+> Starting with `k` = 1, whenever `k` copies of word match, try `k+1` copies. Stop when they no longer match.
 
-> 动态规划
-> 每从当前位置匹配到一个word，更新word后位置的最大值
+> Dynamic programming
+> Whenever word matches at the current position, update the maximum at the position immediately after it.
 
 
-### 代码
+### Code
 
 ```python3
 class Solution:

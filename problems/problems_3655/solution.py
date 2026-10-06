@@ -11,16 +11,16 @@ class Solution(solution.Solution):
         MOD = 10 ** 9 + 7
         n = len(nums)
 
-        # 每个位置需要乘的总乘数
+        # Total multiplier for each position
         mult = [1] * n
 
-        # 按 k 分组处理
+        # Process groups by k
         groups = defaultdict(list)  # k -> [(l, r, v), ...]
         for l, r, k, v in queries:
             groups[k].append((l, r, v))
 
         for k, ops in groups.items():
-            # 差分数组
+            # Difference array
             diff = defaultdict(lambda: 1)
 
             for l, r, v in ops:
@@ -30,7 +30,7 @@ class Solution(solution.Solution):
                     inv_v = pow(v, MOD - 2, MOD)
                     diff[next_pos] = (diff[next_pos] * inv_v) % MOD
 
-            # 按余数类分组处理差分点
+            # Process difference points grouped by residue class
             # rem_diffs[rem] = [(pos, val), ...]
             rem_diffs = defaultdict(list)
             for pos, val in diff.items():
@@ -41,13 +41,13 @@ class Solution(solution.Solution):
                 cur = 1
                 idx = 0
                 for pos in range(rem, n, k):
-                    # 应用该位置的所有差分
+                    # Apply all differences at this position
                     while idx < len(items) and items[idx][0] == pos:
                         cur = (cur * items[idx][1]) % MOD
                         idx += 1
                     mult[pos] = (mult[pos] * cur) % MOD
 
-        # 最终结果
+        # Final result
         result = 0
         for i in range(n):
             val = (nums[i] * mult[i]) % MOD

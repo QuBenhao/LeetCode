@@ -13,14 +13,14 @@ class Solution(solution.Solution):
         :rtype: bool
         """
         """
-        nums长度为偶数时，先手必胜
-        反证法：假设无论Alice擦去哪个数，Bob都必胜
-        由于数组长度为偶数，所以Bob获胜时不能是数全被擦光了（因为偶数个回合最后擦的肯定是Bob），肯定是存在某个回合，无论Alice擦掉哪个，异或都为0
-        即n1 ^ n2 ^ ... nk = a (a!=0), n1 ^ n2 ^..^ nk-1 = n2 ^..^ nk = n1 ^ n3 ^.. ^ nk = 0
-        上面的所有式子成立当且仅当 n1 = n2 = .. = nk = a 且 k为奇数
-        那么必然是剩余奇数个a，相当于Alice擦的时候，数组长度为奇数，这与nums长度为偶数是矛盾的
+        When nums has even length, the first player always wins
+        Proof by contradiction: assume Bob always wins regardless of which number Alice erases
+        Since the array has even length, Bob cannot win by having all numbers erased: Bob must make the last erasure after an even number of turns. There must therefore be a turn on which every number Alice could erase leaves an XOR of 0
+        That is, n1 ^ n2 ^ ... nk = a (a!=0), n1 ^ n2 ^..^ nk-1 = n2 ^..^ nk = n1 ^ n3 ^.. ^ nk = 0
+        All the expressions above hold if and only if n1 = n2 = .. = nk = a and k is odd
+        This means an odd number of copies of a remain, so the array has odd length on Alice's turn, contradicting the even length of nums
         
-        那么如果nums长度为奇数时，Alice想赢，只能是nums异或结果本身为0
-        这是因为无论Alice擦掉哪个数，数组长度都变为偶数且Bob先手，那么Bob就必胜
+        If nums has odd length, Alice can win only if the XOR of nums is already 0
+        Whatever number Alice erases, the array becomes even in length with Bob to move, so Bob is guaranteed to win
         """
         return len(nums) % 2 == 0 or reduce(xor, nums) == 0

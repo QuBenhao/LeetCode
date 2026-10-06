@@ -15,7 +15,7 @@ import (
  * }
  */
 func nodesBetweenCriticalPoints(head *ListNode) []int {
-	// 最小距离来自相邻临界点，最大距离来自首尾临界点
+	// The minimum distance is between adjacent critical points; the maximum is between the first and last
 	first, prev, mn := 0, 0, 1<<30
 	a, b, c := head, head.Next, head.Next.Next
 	for i := 2; c != nil; i++ {
