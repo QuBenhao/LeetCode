@@ -3,6 +3,12 @@
 ## Project Structure
 Problem folders: `problems/problems_<id>/` with `problem.md`, `problem_zh.md`, `solution.*`, `Solution.*`, `solution.md`, testcases. Shared helpers: `python/`, `golang/`, `typescript/`, `cpp/`, `rust/`. Algorithm notes: `algorithm_templates/`. Metadata: `data/`. Tests: `tests/`. Multithreading: `multi_threading/<id>/`.
 
+## Documentation Languages
+Use English for engineering documentation and agent instructions by default.
+`README_CN.md` and `problem_zh.md` are intentional Chinese editions; maintain
+them in Chinese. Preserve quoted source material, localized examples, test data,
+and exact filenames when updating nearby English documentation.
+
 ## Build & Test
 - `make verify`: stable local checks (Python codegen/unit, TypeScript smoke, Go helpers)
 - `make health`: scan for missing docs/testcases/links/solutions, Rust workspace drift
