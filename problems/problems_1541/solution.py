@@ -7,25 +7,17 @@ class Solution(solution.Solution):
         return self.minInsertions(test_input)
 
     def minInsertions(self, s: str) -> int:
-        ans, left = 0, 0
-        i, n = 0, len(s)
-        while i < n:
-            if s[i] == ')':
-                if i < n - 1 and s[i + 1] == ')':
-                    if left:
-                        left -= 1
-                    else:
-                        ans += 1
-                    i = i + 2
-                else:
+        # need: 当前还缺多少个 ')'（欠账）
+        ans = need = 0
+        for c in s:
+            if c == '(':
+                if need % 2:  # 前面有落单的 ')'，补一个凑成 '))'
                     ans += 1
-                    if left:
-                        left -= 1
-                    else:
-                        ans += 1
-                    i += 1
-            else:
-                left += 1
-                i += 1
-        ans += left * 2
-        return ans
+                    need -= 1
+                need += 2
+            elif need:
+                need -= 1
+            else:  # 无人认领的 ')'，补一个 '('，还缺一个 ')'
+                ans += 1
+                need = 1
+        return ans + need
