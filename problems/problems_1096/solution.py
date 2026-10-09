@@ -10,23 +10,20 @@ class Solution(solution.Solution):
         n = len(expression)
 
         def dfs(i: int) -> tuple[set[str], int]:
-            """Parse a comma-separated list of alternatives, stopping at '}' or the end.
-
-            Return (the union of the alternatives, the stopping index pointing to '}' or the end).
-            """
             alts: set[str] = set()
-            prod = {""}  # Concatenation result for the current alternative
+            prod = {""}  # 当前备选的连接结果
             while i < n and expression[i] not in ",}":
                 if expression[i] == "{":
-                    sub, i = dfs(i + 1)  # Union of the subgroup
+                    sub, i = dfs(i + 1)  # 子组的并集
                     prod = {a + b for a in prod for b in sub}
-                    i += 1  # Skip '}'
+                    i += 1  # 跳过 '}'
                 else:
                     prod = {a + expression[i] for a in prod}
                     i += 1
-            alts |= prod  # Final alternative
+            alts |= prod  # 最后一个备选
             if i < n and expression[i] == ",":
-                rest, i = dfs(i + 1)  # More alternatives follow the comma; take their union at the same level
+                rest, i = dfs(i + 1)  # 逗号后面还有备选，同级并集
+                alts |= rest
                 alts |= rest
             return alts, i
 
