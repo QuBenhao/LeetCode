@@ -6,8 +6,18 @@ Problem folders: `problems/problems_<id>/` with `problem.md`, `problem_zh.md`, `
 ## Documentation Languages
 Use English for engineering documentation and agent instructions by default.
 `README_CN.md` and `problem_zh.md` are intentional Chinese editions; maintain
-them in Chinese. Preserve quoted source material, localized examples, test data,
+them in Chinese. `algorithm_templates/**/*_zh.md` are the Chinese editions of
+the algorithm notes (restored from before the 2026-10-06 translation commit);
+keep each in sync content-wise with its English counterpart and maintain it
+in Chinese. Preserve quoted source material, localized examples, test data,
 and exact filenames when updating nearby English documentation.
+
+## Daily Problem
+Identify the daily problem by the dated commit, not by local files:
+`git fetch` then look for today's `test: [YYYYMMDD] Add (<id>)` on the default
+branch. `daily-problems.json` and `get_daily_path.py` only reflect the last
+sync; if the local repo is behind master, their `daily` field is stale and
+points to an earlier day's problem.
 
 ## Build & Test
 - `make verify`: stable local checks (Python codegen/unit, TypeScript smoke, Go helpers)
