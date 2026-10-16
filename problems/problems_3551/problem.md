@@ -1,4 +1,4 @@
-# 3551. Minimum Swaps to Sort by Digit Sum 
+# 3551. Minimum Swaps to Sort by Digit Sum [Rating: 1506.72]
 
 <p>You are given an array <code>nums</code> of <strong>distinct</strong> positive integers. You need to sort the array in <strong>increasing</strong> order based on the sum of the digits of each number. If two numbers have the same digit sum, the <strong>smaller</strong> number appears first in the sorted order.</p>
 
