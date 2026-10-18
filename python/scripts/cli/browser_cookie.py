@@ -4,11 +4,16 @@ Automatically detects LeetCode CN cookies from installed browsers.
 """
 
 import glob
+from importlib.metadata import version
 import os
 import sqlite3
 import sys
 from pathlib import Path
 from typing import List, Optional, Tuple
+
+from python.utils import check_cookie_expired
+
+from .i18n import t
 
 # Optional: browser_cookie3 for auto-detecting LeetCode cookie
 try:
@@ -60,6 +65,13 @@ def _profile_cookie_files(user_data_dir: str) -> List[str]:
     platform and version, so both variants are globbed.
     """
     base = os.path.expanduser(user_data_dir)
+    # glob suppresses directory-access errors, making a protected Chrome
+    # directory look absent. Check directory access before searching profiles.
+    try:
+        with os.scandir(base):
+            pass
+    except FileNotFoundError:
+        return []
     patterns = (
         ('Default', 'Cookies'),
         ('Default', 'Network', 'Cookies'),
@@ -90,41 +102,72 @@ def _extract_cookies(cj) -> Optional[Tuple[str, int]]:
     return "; ".join(f"{c.name}={c.value}" for c in cookies), len(cookies)
 
 
-def _probe(browser_func, **kwargs) -> Optional[Tuple[str, int]]:
+def _probe(browser_func, browser_label: str, diagnostics: list, **kwargs) -> Optional[Tuple[str, int]]:
     """Call a browser_cookie3 factory, tolerating missing/locked stores."""
     try:
-        return _extract_cookies(browser_func(domain_name=_domain, **kwargs))
-    except (PermissionError, FileNotFoundError, sqlite3.OperationalError,
-            browser_cookie3.BrowserCookieError):
-        # Browser not installed, cookie database locked, or permission denied
-        return None
+        found = _extract_cookies(browser_func(domain_name=_domain, **kwargs))
+        status = 'found' if found else 'empty'
+    except PermissionError:
+        status = 'permission'
+        found = None
+    except FileNotFoundError:
+        status = 'missing'
+        found = None
+    except sqlite3.Error:
+        status = 'database'
+        found = None
+    except browser_cookie3.BrowserCookieError as error:
+        # Classify known library errors, but never display their raw text: it
+        # can include private paths or cookie data supplied by a dependency.
+        message = str(error).lower()
+        if 'decrypt' in message:
+            status = 'decryption'
+        elif 'failed to find cookies' in message or (
+                'could not find' in message and 'profile directory' in message):
+            status = 'missing'
+        elif 'database' in message:
+            status = 'database'
+        else:
+            status = 'error'
+        found = None
+    diagnostics.append((browser_label, status))
+    return found
 
 
 def _collect_candidates(browser_name: str, browser_func, chromium_family: bool,
-                        platform: str) -> List[Tuple[str, str, int]]:
+                        platform: str, diagnostics: list) -> List[Tuple[str, str, int]]:
     """Every candidate store of one browser: its default store, then each profile."""
+    cookie_files = []
+    if chromium_family:
+        user_data = _CHROMIUM_USER_DATA[browser_name].get(platform)
+        if user_data:
+            try:
+                cookie_files = _profile_cookie_files(user_data)
+            except PermissionError:
+                diagnostics.append((browser_name, 'permission'))
+                return []
+            except OSError:
+                diagnostics.append((browser_name, 'error'))
+                return []
+
     candidates = []
-    found = _probe(browser_func)
+    found = _probe(browser_func, browser_name, diagnostics)
     if found:
         candidates.append((found[0], browser_name, found[1]))
 
     if not chromium_family:
         return candidates
-    user_data = _CHROMIUM_USER_DATA[browser_name].get(platform)
-    if not user_data:
-        return candidates
-
-    for cookie_file in _profile_cookie_files(user_data):
-        found = _probe(browser_func, cookie_file=cookie_file)
+    for cookie_file in cookie_files:
+        profile = _profile_label(cookie_file)
+        label = browser_name if profile == 'Default' else f"{browser_name} ({profile})"
+        found = _probe(browser_func, label, diagnostics, cookie_file=cookie_file)
         if found:
-            profile = _profile_label(cookie_file)
-            label = browser_name if profile == 'Default' else f"{browser_name} ({profile})"
             candidates.append((found[0], label, found[1]))
 
     return candidates
 
 
-def list_browser_cookies() -> List[Tuple[str, str, int]]:
+def list_browser_cookies(diagnostics: Optional[list] = None) -> List[Tuple[str, str, int]]:
     """
     All LeetCode CN cookie candidates found on this machine.
 
@@ -134,8 +177,13 @@ def list_browser_cookies() -> List[Tuple[str, str, int]]:
 
     Returns:
         List of (cookie_string, browser_label, cookie_count), possibly empty
+
+    diagnostics, when supplied, receives only browser labels and status codes.
     """
+    if diagnostics is None:
+        diagnostics = []
     if not HAS_BROWSER_COOKIE:
+        diagnostics.append(('browser-cookie3', 'dependency'))
         return []
 
     plan = [
@@ -148,11 +196,41 @@ def list_browser_cookies() -> List[Tuple[str, str, int]]:
 
     candidates, seen = [], set()
     for browser_name, browser_func, chromium_family in plan:
-        for candidate in _collect_candidates(browser_name, browser_func, chromium_family, platform):
+        for candidate in _collect_candidates(browser_name, browser_func, chromium_family, platform, diagnostics):
             if candidate[0] not in seen:
                 seen.add(candidate[0])
                 candidates.append(candidate)
     return candidates
+
+
+def _print_diagnostics(diagnostics: list) -> None:
+    """Print only fixed messages and browser/profile labels, never exception text."""
+    for browser, status in dict.fromkeys(diagnostics):
+        print(t('cookie_diagnostic_line', browser=browser,
+                detail=t(f'cookie_diagnostic_{status}')))
+
+
+def detect_browser_cookies() -> List[Tuple[str, str, int]]:
+    """Interactive detection with actionable diagnostics when no store succeeds."""
+    diagnostics = []
+    candidates = list_browser_cookies(diagnostics)
+    if not candidates:
+        _print_diagnostics(diagnostics)
+    return candidates
+
+
+def diagnose_browser_cookies() -> int:
+    """Owner-run diagnostics without loading configuration or updating cookies."""
+    print(t('cookie_diagnostic_title'))
+    print(f"Python {sys.version.split()[0]}")
+    if HAS_BROWSER_COOKIE:
+        print(f"browser-cookie3 {version('browser-cookie3')}")
+    diagnostics = []
+    candidates = list_browser_cookies(diagnostics)
+    _print_diagnostics(diagnostics)
+    valid = sum(not check_cookie_expired(cookie) for cookie, _, _ in candidates)
+    print(t('cookie_diagnostic_summary', total=len(candidates), valid=valid))
+    return 0 if valid else 1
 
 
 def get_browser_cookie() -> Optional[Tuple[str, str, int]]:

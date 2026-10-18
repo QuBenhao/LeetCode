@@ -248,6 +248,24 @@ Auto-update LeetCode CN Cookie from browser to GitHub Secrets or local .env file
 
 ## Usage
 
+If the interactive toolkit reports no browser Cookie while you are logged in,
+run this diagnostic in your own terminal, using the same Python environment:
+
+```bash
+python python/scripts/leetcode.py --cookie-diagnostics
+```
+
+It distinguishes missing stores, empty stores, permission errors, database errors,
+and decryption failures. It does not load `.env`, update configuration, make
+authenticated requests, or print Cookie values or accounts. Detection supports
+`leetcode.cn` only. A successful local expiry check does not verify server login.
+On macOS, a protected browser directory may previously have appeared missing
+because profile globbing suppresses access errors. If diagnostics reports denied
+access, review permissions for the terminal app running the script in System
+Settings > Privacy & Security, then quit and reopen that terminal. Full Disk
+Access grants broad access to other apps' data; enable it only for a terminal
+you trust. See [Apple's privacy settings guide](https://support.apple.com/guide/mac-help/mchl211c911f/mac).
+
 ```bash
 # Update GitHub Secrets only
 python python/scripts/leetcode_cookie_updater.py --repo QuBenhao/LeetCode

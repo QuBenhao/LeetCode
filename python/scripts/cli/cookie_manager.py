@@ -9,7 +9,7 @@ from python.utils import check_cookie_expired
 
 from .i18n import t
 from .input_utils import input_until_valid, allow_all, allow_all_not_empty
-from .browser_cookie import list_browser_cookies, read_cookie_from_file, HAS_BROWSER_COOKIE
+from .browser_cookie import detect_browser_cookies, read_cookie_from_file, HAS_BROWSER_COOKIE
 from .cookie_select import select_browser_cookie, candidate_label
 
 SEPARATE_LINE = "-" * 50
@@ -37,7 +37,7 @@ def check_and_update_cookie(_cookie: str, auto_detect: bool = True) -> str:
             )
             if auto_detect_choice != "n":
                 print(t("cookie_detecting"))
-                picked = select_browser_cookie(list_browser_cookies())
+                picked = select_browser_cookie(detect_browser_cookies())
                 if picked:
                     cookie = picked[0]
                     print(t("cookie_detected", browser=candidate_label(picked), count=picked[2]))

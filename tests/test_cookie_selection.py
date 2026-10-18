@@ -3,6 +3,7 @@
 import base64
 import json
 import re
+import sqlite3
 import time
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -318,8 +319,107 @@ def test_list_browser_cookies_survives_browsers_without_stores(chrome_stores, mo
     assert browser_cookie.get_browser_cookie() is None
 
 
+@pytest.mark.unit
+def test_detection_reports_permission_denial_instead_of_missing_store(chrome_stores, monkeypatch, capsys):
+    def deny_directory_access(_path):
+        raise PermissionError("private diagnostic text")
+
+    def unexpected_cookie_read(**kwargs):
+        pytest.fail("must not read cookies after directory access was denied")
+
+    _install_fake_browsers(monkeypatch, unexpected_cookie_read)
+    monkeypatch.setattr(browser_cookie.os, 'scandir', deny_directory_access)
+
+    assert browser_cookie.detect_browser_cookies() == []
+
+    output = capsys.readouterr().out
+    assert 'Chrome: ' + I18N['zh']['cookie_diagnostic_permission'] in output
+    assert 'Chrome: ' + I18N['zh']['cookie_diagnostic_missing'] not in output
+    assert 'private diagnostic text' not in output
+
+
+@pytest.mark.unit
+@pytest.mark.parametrize('error,status', [
+    (PermissionError('private diagnostic text'), 'permission'),
+    (FileNotFoundError('private diagnostic text'), 'missing'),
+    (sqlite3.OperationalError('private diagnostic text'), 'database'),
+    (browser_cookie.browser_cookie3.BrowserCookieError(
+        'Unable to get key for cookie decryption: private diagnostic text'), 'decryption'),
+    (browser_cookie.browser_cookie3.BrowserCookieError(
+        'Failed to find cookies for Chrome browser: private diagnostic text'), 'missing'),
+    (browser_cookie.browser_cookie3.BrowserCookieError(
+        'Could not find Firefox profile directory: private diagnostic text'), 'missing'),
+    (browser_cookie.browser_cookie3.BrowserCookieError(
+        'Unable to read database file: private diagnostic text'), 'database'),
+    (browser_cookie.browser_cookie3.BrowserCookieError('private diagnostic text'), 'error'),
+])
+def test_probe_classifies_failures_without_exposing_details(error, status, capsys):
+    def fail(**kwargs):
+        raise error
+
+    diagnostics = []
+    assert browser_cookie._probe(fail, 'Chrome', diagnostics) is None
+    assert diagnostics == [('Chrome', status)]
+    browser_cookie._print_diagnostics(diagnostics)
+    assert 'private diagnostic text' not in capsys.readouterr().out
+
+
+@pytest.mark.unit
+def test_diagnostics_distinguishes_empty_store_from_failed_read():
+    diagnostics = []
+    assert browser_cookie._probe(lambda **kwargs: [], 'Chrome', diagnostics) is None
+    assert diagnostics == [('Chrome', 'empty')]
+
+
+@pytest.mark.unit
+def test_diagnostics_reports_missing_dependency_without_reading_browsers(monkeypatch):
+    monkeypatch.setattr(browser_cookie, 'HAS_BROWSER_COOKIE', False)
+    diagnostics = []
+    assert browser_cookie.list_browser_cookies(diagnostics) == []
+    assert diagnostics == [('browser-cookie3', 'dependency')]
+
+
+@pytest.mark.unit
+@pytest.mark.parametrize('expired', [False, True])
+def test_diagnostic_command_reports_only_status_and_counts(monkeypatch, capsys, expired):
+    cookie = _session_cookie({'user_slug': 'private-account',
+                              'exp': int(time.time()) + (-3600 if expired else 3600)})
+
+    def fake_candidates(diagnostics):
+        diagnostics.extend([('Chrome (Profile 4)', 'found')] * 2)
+        return [(cookie, 'Chrome (Profile 4)', 2)]
+
+    monkeypatch.setattr(browser_cookie, 'list_browser_cookies', fake_candidates)
+
+    assert browser_cookie.diagnose_browser_cookies() == int(expired)
+
+    output = capsys.readouterr().out
+    assert output.count('Chrome (Profile 4)') == 1
+    assert I18N['zh']['cookie_diagnostic_summary'].format(total=1, valid=int(not expired)) in output
+    assert cookie not in output
+    assert 'LEETCODE_SESSION' not in output
+    assert 'private-account' not in output
+
+
+@pytest.mark.unit
+def test_diagnostic_command_exits_before_loading_configuration(monkeypatch):
+    from python.scripts import leetcode
+
+    def unexpected_config_access(*args, **kwargs):
+        pytest.fail("diagnostics must not load or update configuration")
+
+    monkeypatch.setattr('sys.argv', ['leetcode.py', '--cookie-diagnostics', '--health', '--init'])
+    monkeypatch.setattr(leetcode, 'load_dotenv', unexpected_config_access)
+    monkeypatch.setattr(leetcode, 'set_key', unexpected_config_access)
+    monkeypatch.setattr(leetcode, 'configure', unexpected_config_access)
+    monkeypatch.setattr(leetcode, 'initialize_env', unexpected_config_access)
+    monkeypatch.setattr(leetcode, 'diagnose_browser_cookies', lambda: 1)
+
+    assert leetcode.main() == 1
+
+
 # --------------------------------------------------------------------------- #
-# Translations for the account picker
+# Translations for the account picker and browser diagnostics
 # --------------------------------------------------------------------------- #
 
 _ACCOUNT_KEYS = {
@@ -333,6 +433,13 @@ _ACCOUNT_KEYS = {
     'cookie_account_valid': {},
     'cookie_account_unknown': {},
     'cookie_account_auto': {'user': 'user'},
+    'cookie_diagnostic_title': {},
+    'cookie_diagnostic_line': {'browser': 'Chrome', 'detail': 'status'},
+    **{f'cookie_diagnostic_{status}': {} for status in (
+        'found', 'empty', 'missing', 'permission', 'database', 'decryption',
+        'error', 'dependency',
+    )},
+    'cookie_diagnostic_summary': {'total': 1, 'valid': 1},
 }
 
 

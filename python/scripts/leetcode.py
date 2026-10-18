@@ -7,6 +7,7 @@ Usage:
   python leetcode.py           # Chinese interface by default
   python leetcode.py --en      # English interface
   python leetcode.py --init    # Force the initialization wizard
+  python leetcode.py --cookie-diagnostics  # Diagnose browser access without updating configuration
 """
 
 import argparse
@@ -33,7 +34,7 @@ import sys; from pathlib import Path; _root = Path(__file__).resolve().parents[2
 from python.scripts.cli import (
     t, set_language, get_language,
     input_until_valid, input_pick_array,
-    list_browser_cookies, read_cookie_from_file, HAS_BROWSER_COOKIE,
+    detect_browser_cookies, diagnose_browser_cookies, read_cookie_from_file, HAS_BROWSER_COOKIE,
     select_browser_cookie, candidate_label,
     check_and_update_cookie,
 )
@@ -80,7 +81,7 @@ def initialize_env():
     retry_count = 0
     if HAS_BROWSER_COOKIE:
         while retry_count < max_retries:
-            candidates = list_browser_cookies()
+            candidates = detect_browser_cookies()
             if not candidates:
                 print(t("init_no_cookie"))
                 print(t("cookie_no_browser_hint"))
@@ -301,7 +302,7 @@ def configure():
             )
             if auto_detect != "n":
                 print(t("config_detecting"))
-                picked = select_browser_cookie(list_browser_cookies())
+                picked = select_browser_cookie(detect_browser_cookies())
                 if picked:
                     cookie = picked[0]
                     print(t("init_found_cookie", browser=candidate_label(picked), count=picked[2]))
@@ -1201,6 +1202,8 @@ def main():
     parser = argparse.ArgumentParser(description="LeetCode 工具集")
     parser.add_argument('--en', action='store_true', help='Use English interface')
     parser.add_argument('--init', action='store_true', help='Force initialization wizard')
+    parser.add_argument('--cookie-diagnostics', action='store_true',
+                        help='Diagnose browser Cookie access without reading .env or updating configuration')
     parser.add_argument('--health', action='store_true', help='Run repository health checks and exit')
     parser.add_argument('--health-folder', default=None, help='Problem folder to scan for --health')
     args = parser.parse_args()
@@ -1208,6 +1211,9 @@ def main():
     # Set language
     if args.en:
         set_language("en")
+
+    if args.cookie_diagnostics:
+        return diagnose_browser_cookies()
 
     if args.health:
         try:

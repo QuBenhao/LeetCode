@@ -103,6 +103,20 @@ Languages selected: python3, golang
 
 ## 使用方法
 
+如果交互工具在浏览器已登录时仍提示未找到 Cookie，请在自己的终端中，使用运行工具的同一 Python 环境执行：
+
+```bash
+python python/scripts/leetcode.py --cookie-diagnostics
+```
+
+诊断会区分存储不存在、存储为空、权限不足、数据库读取失败和解密失败。
+它不会加载 `.env`、更新配置、发送认证请求或显示 Cookie 值及账号。
+自动检测仅支持 `leetcode.cn`；本地有效期检查通过不代表服务端登录状态已验证。
+macOS 保护的浏览器目录此前可能被误报为不存在，因为目录通配搜索会吞掉访问错误。
+如果诊断提示系统拒绝访问，请在「系统设置 → 隐私与安全」中检查运行脚本的终端应用权限，
+然后完全退出并重新打开终端。「完全磁盘访问」会授予对其他应用数据的广泛访问权限，
+仅为你信任的终端开启。参见 [Apple 隐私设置说明](https://support.apple.com/guide/mac-help/mchl211c911f/mac)。
+
 ```bash
 # 只更新 GitHub Secrets
 python python/scripts/leetcode_cookie_updater.py --repo QuBenhao/LeetCode
