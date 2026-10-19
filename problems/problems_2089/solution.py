@@ -1,3 +1,5 @@
+from bisect import bisect_left, bisect_right
+
 import solution
 from typing import *
 
@@ -7,5 +9,5 @@ class Solution(solution.Solution):
         return self.targetIndices(*test_input)
 
     def targetIndices(self, nums: List[int], target: int) -> List[int]:
-        pass
-
+        nums.sort()
+        return [i for i in range(bisect_left(nums, target), bisect_right(nums, target))]
