@@ -1,6 +1,6 @@
 module leetCode
 
-go 1.25
+go 1.26.10
 
 require (
 	github.com/emirpasic/gods v1.18.1
