@@ -38,7 +38,7 @@ jobs:
     - name: Set up Python environment
       uses: actions/setup-python@v5
       with:
-        python-version: '3.14.8'
+        python-version: '3.14.9'
 
     - name: Install dependencies
       run: |
