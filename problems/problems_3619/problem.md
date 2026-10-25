@@ -1,4 +1,4 @@
-# 3619. Count Islands With Total Value Divisible by K 
+# 3619. Count Islands With Total Value Divisible by K [Rating: 1461.19]
 
 <p>You are given an <code>m x n</code> matrix <code>grid</code> and a positive integer <code>k</code>. An <strong>island</strong> is a group of <strong>positive</strong> integers (representing land) that are <strong>4-directionally</strong> connected (horizontally or vertically).</p>
 

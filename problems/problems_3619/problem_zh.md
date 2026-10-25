@@ -1,4 +1,4 @@
-# 3619. 可以被 K 整除的岛屿总价值数目 
+# 3619. 总价值可以被 K 整除的岛屿数目 [难度分: 1461.19]
 
 <p>给你一个 <code>m x n</code> 的矩阵 <code>grid</code> 和一个正整数 <code>k</code>。一个&nbsp;<strong>岛屿&nbsp;</strong>是由&nbsp;<strong>正&nbsp;</strong>整数（表示陆地）组成的，并且陆地间&nbsp;<strong>四周&nbsp;</strong>连通（水平或垂直）。</p>
 
