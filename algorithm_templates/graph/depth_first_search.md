@@ -23,6 +23,67 @@ func dfs(node *GraphNode, visited map[*GraphNode]bool) {
 }
 ```
 
+## Three-state visited discipline
+
+The `visited` set above is enough while the traversal only needs reachability. It is **not** enough once each node's answer is a property of its whole component, merged from the neighbours' answers: then "already finished" and "still on the stack" must be told apart, otherwise two adjacent nodes of the same component call each other forever.
+
+```text
+UNVISITED    not entered yet
+IN_PROGRESS  entered, answer still unknown (on the recursion stack)
+DONE         every neighbour processed, answer final
+```
+
+Rules:
+
+1. Mark `IN_PROGRESS` on entry, **before** recursing into the neighbours.
+2. Meeting an `IN_PROGRESS` node means "the answer is not known yet": return the **identity element of the merge operator** — `True` for AND (all neighbours must hold), `False` for OR, `0` for a sum, `+inf` / `-inf` for a min / max. Returning a *decided* value here is the silent bug.
+3. Store the result only when the node becomes `DONE`.
+
+In an undirected graph a node that is `IN_PROGRESS` when you touch it is always an ancestor on the current path (there are no cross edges), and its own frame folds in whatever your subtree would have contributed. That is why the neutral value is safe.
+
+Why `False` is wrong for an AND merge — take a closed 2x2 island:
+
+```text
+1 1 1 1
+1 0 0 1
+1 1 1 1
+```
+
+Starting at `(1,1)`, the neighbour `(1,2)` touches the `IN_PROGRESS` ancestor `(1,1)`. Returning `False` there ("assume not closed") turns `(1,2)` into `False`, and the whole island is reported as touching the border: answer 0 instead of 1.
+
+### Template (1254. Number of Closed Islands, AND merge)
+
+```python
+def closedIsland(grid):
+    m, n = len(grid), len(grid[0])
+    UNVISITED, IN_PROGRESS, DONE = 0, 1, 2
+    state = [[UNVISITED] * n for _ in range(m)]
+
+    def dfs(i, j):
+        if not (0 <= i < m and 0 <= j < n):
+            return False                     # left the grid: the component touches the border
+        if grid[i][j] == 1 or state[i][j] == DONE:
+            return True                      # water / finished: identity of AND
+        if state[i][j] == IN_PROGRESS:
+            return True                      # on the stack: unknown, contributes identity
+        state[i][j] = IN_PROGRESS
+        ok = True
+        for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            ok &= dfs(i + di, j + dj)        # deliberately no short-circuit
+        state[i][j] = DONE
+        return ok
+
+    return sum(dfs(i, j) for i in range(m) for j in range(n)
+               if grid[i][j] == 0 and state[i][j] == UNVISITED)
+```
+
+Two follow-ups worth remembering:
+
+- Write `ok &= dfs(...)`, not `ok and dfs(...)`: a short-circuit stops the traversal halfway through the component, leaving the rest `UNVISITED` so the outer loop counts the same component again.
+- Every node of one component ends up with the same `DONE` value, so a per-node value cache is redundant; a plain `visited` set is enough. The third state only matters for the value a frame returns while it is still on the stack.
+
+The same three states are the white / gray / black colouring of cycle detection: gray is `IN_PROGRESS`, and an edge into a gray node is a back edge, i.e. a cycle.
+
 ## DFS timestamps
 
 DFS timestamps record two key moments for each node during depth-first search (DFS): its **discovery time (d_time)** and **finish time (f_time)**. This technique is widely used in tree and graph algorithms.

@@ -23,6 +23,67 @@ func dfs(node *GraphNode, visited map[*GraphNode]bool) {
 }
 ```
 
+## 三态访问标记（visited 纪律）
+
+上面那个 `visited` 集合只够应付「求可达性」。一旦每个节点的答案是**整个连通分量的属性**、并且要靠合并邻居的返回值算出来，就必须区分「已经算完」和「还在栈上」——否则同一分量内两个相邻节点会互相递归，直到爆栈。
+
+```text
+UNVISITED    还没进入
+IN_PROGRESS  已进入，答案未知（在递归栈上）
+DONE         邻居全部处理完，答案已定
+```
+
+三条规则：
+
+1. 进入时立刻标 `IN_PROGRESS`，**在**递归邻居之前。
+2. 遇到 `IN_PROGRESS` 的节点表示「答案还不知道」，此时要返回**合并运算的单位元**——AND 返回 `True`（全部成立），OR 返回 `False`，求和返回 `0`，取最值返回不影响合并的极值。这里返回一个「已定」的值就是那个不报错的 bug。
+3. 只有在节点变成 `DONE` 时才落最终值。
+
+无向图里你遇到的 `IN_PROGRESS` 节点一定是当前路径上的祖先（不存在横叉边），它自己的栈帧会把你这一支本该贡献的信息汇总进去，所以返回中性值是安全的。
+
+为什么 AND 合并时返回 `False` 是错的——看这个被水完全包住的 2×2 岛：
+
+```text
+1 1 1 1
+1 0 0 1
+1 1 1 1
+```
+
+从 `(1,1)` 出发，邻居 `(1,2)` 会碰到还在 `IN_PROGRESS` 的祖先 `(1,1)`。若这里返回 `False`（「按不封闭算」），`(1,2)` 就被判成 `False`，整块会被误报成接触边界：答案 0 而不是 1。
+
+### 模板（1254. 统计封闭岛屿的数目，AND 合并）
+
+```python
+def closedIsland(grid):
+    m, n = len(grid), len(grid[0])
+    UNVISITED, IN_PROGRESS, DONE = 0, 1, 2
+    state = [[UNVISITED] * n for _ in range(m)]
+
+    def dfs(i, j):
+        if not (0 <= i < m and 0 <= j < n):
+            return False                     # 越界：该分量接触边界
+        if grid[i][j] == 1 or state[i][j] == DONE:
+            return True                      # 水 / 已完成：AND 的单位元
+        if state[i][j] == IN_PROGRESS:
+            return True                      # 在栈上：答案未知，贡献单位元
+        state[i][j] = IN_PROGRESS
+        ok = True
+        for di, dj in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            ok &= dfs(i + di, j + dj)        # 故意不短路
+        state[i][j] = DONE
+        return ok
+
+    return sum(dfs(i, j) for i in range(m) for j in range(n)
+               if grid[i][j] == 0 and state[i][j] == UNVISITED)
+```
+
+两个顺带要记住的点：
+
+- 写 `ok &= dfs(...)` 而不是 `ok and dfs(...)`：短路会让遍历在半路停住，分量里剩下的格子还是 `UNVISITED`，主循环会把同一块再数一次。
+- 同一个分量的所有节点最终值都一样，所以「逐节点存值」是冗余的，一个普通 `visited` 集合就够；第三态真正影响的是栈帧**返回时**给出的那个值。
+
+同样的三态就是判环时的白 / 灰 / 黑染色：灰色即 `IN_PROGRESS`，指向灰点的边就是返祖边，也就是环。
+
 ## DFS时间戳
 
 DFS时间戳是在深度优先搜索(DFS)过程中为每个节点记录的两个关键时间点：**发现时间(d_time)** 和**完成时间(f_time)**。这种技术广泛应用于树和图的各种算法中。
