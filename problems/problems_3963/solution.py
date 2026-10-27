@@ -7,5 +7,9 @@ class Solution(solution.Solution):
         return self.createGrid(*test_input)
 
     def createGrid(self, m: int, n: int) -> list[str]:
-        pass
-
+        ans = [['#'] * n for _ in range(m)]
+        for i in range(m):
+            ans[i][n - 1] = '.'
+        for j in range(n):
+            ans[0][j] = '.'
+        return ["".join(row) for row in ans]
