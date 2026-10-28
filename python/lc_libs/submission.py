@@ -1,3 +1,4 @@
+import ast
 import json
 import logging
 import random
@@ -205,6 +206,58 @@ def get_submission_detail(submit_id: str,
                            cookies={"cookie": cookie})
 
 
+_UNPARSEABLE = object()
+
+
+def _parse_case_literal(text: str):
+    """Parse a Python/JSON-style literal, returning ``_UNPARSEABLE`` otherwise."""
+    for parser in (json.loads, ast.literal_eval):
+        try:
+            return parser(text)
+        except (ValueError, SyntaxError, TypeError):
+            continue
+    return _UNPARSEABLE
+
+
+def _same_case_value(left: str, right: str) -> bool:
+    """Compare two literal strings regardless of quoting and spacing style.
+
+    Testcases generated from problem examples are written from Python objects
+    (single quotes, spaces after commas), while LeetCode submission details
+    return JSON (double quotes, compact). Comparing parsed values avoids false
+    negatives; when either side is not a literal (e.g. ``a = 1, b = 2``), fall
+    back to a quote- and space-insensitive text comparison.
+    """
+    left_value, right_value = _parse_case_literal(left), _parse_case_literal(right)
+    if left_value is not _UNPARSEABLE and right_value is not _UNPARSEABLE:
+        return left_value == right_value
+    return (left.replace(" ", "").replace("'", "\"")
+            == right.replace(" ", "").replace("'", "\""))
+
+
+def _testcase_file_has_case(content: List[str], code_input: str, expected_output: str) -> bool:
+    """Whether the two-line ``testcase`` file already holds this exact case.
+
+    The first line stores the inputs and the second the outputs, positionally.
+    When both parse as JSON, compare (input, output) pairs so an input or output
+    that merely occurs inside another case is not mistaken for a duplicate.
+    """
+    if len(content) < 2:
+        return False
+    inputs = _parse_case_literal(content[0])
+    outputs = _parse_case_literal(content[1])
+    expected_output_value = _parse_case_literal(expected_output)
+    if (isinstance(inputs, list) and isinstance(outputs, list)
+            and len(inputs) == len(outputs) and expected_output_value is not _UNPARSEABLE):
+        for existing_input, existing_output in zip(inputs, outputs):
+            if existing_input == code_input and existing_output == expected_output_value:
+                return True
+        return False
+    escaped_input = code_input.replace("\n", "\\n").replace("\"", "\\\"")
+    return (f"\"{escaped_input}\"".replace(" ", "") in content[0].replace(" ", "")
+            and expected_output.replace(" ", "") in content[1].replace(" ", ""))
+
+
 def _add_test(root_path: Path,
               problem_folder: str,
               question_id: str,
@@ -244,9 +297,7 @@ def _add_test(root_path: Path,
             opt = splits[-1].strip()
             if opt.endswith("))"):
                 opt = opt[:-2]
-            if (ipt.replace(" ", "") == code_input_py.replace(" ", "") or
-                ipt.replace(" ", "").replace("'", "\"") == code_input_py.replace(" ", "")) and \
-                    opt.replace(" ", "") == expected_output_py.replace(" ", ""):
+            if _same_case_value(ipt, code_input_py) and _same_case_value(opt, expected_output_py):
                 need_add_test = False
                 break
 
@@ -266,17 +317,13 @@ def _add_test(root_path: Path,
         with file_path.open('w', encoding='utf-8') as f:
             f.write("\n".join(content))
 
-    need_add_test = True
     file_path = root_path / problem_folder / f"{problem_folder}_{question_id}" / "testcase"
     if file_path.exists():
         with file_path.open('r', encoding='utf-8') as f:
             content = f.read().split("\n")
-            code_input = code_input.replace("\n", "\\n").replace("\"", "\\\"")
-            if f"\"{code_input}\"".replace(" ", "") in content[0].replace(" ", "") \
-                    and expected_output.replace(" ", "") in content[1].replace(" ", ""):
-                need_add_test = False
-        if need_add_test:
-            new_content = "\n".join([content[0][:-1] + ", \"{}\"]".format(code_input),
+        if not _testcase_file_has_case(content, code_input, expected_output):
+            escaped_input = code_input.replace("\n", "\\n").replace("\"", "\\\"")
+            new_content = "\n".join([content[0][:-1] + ", \"{}\"]".format(escaped_input),
                                      content[1][:-1] + f", {expected_output}]"])
             with file_path.open('w', encoding="utf-8") as f:
                 f.write(new_content)
