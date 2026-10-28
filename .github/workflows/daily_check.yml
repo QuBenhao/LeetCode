@@ -3,7 +3,10 @@ name: LeetCode Submit Checker
 on:
   workflow_dispatch: # manually trigger
   schedule:
-    - cron: '0 14 * * *'  # run every day at midnight
+    # 23:30 Asia/Shanghai (15:30 UTC): late enough to catch the China day's
+    # submissions, early enough for setup to finish before the 00:00 China
+    # midnight that resets the checker's "today" window.
+    - cron: '30 15 * * *'
 
 jobs:
   scrape:

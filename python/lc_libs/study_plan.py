@@ -2,13 +2,12 @@ import heapq
 import json
 import logging
 from collections import defaultdict, deque
-from datetime import datetime, timedelta
 from typing import Optional
 
 import requests
 
 from python.constants import LEET_CODE_BACKEND, PLAN_QUERY, PLAN_PROGRESS_QUERY
-from python.utils import general_request, is_chinese_workday, is_chinese_holiday
+from python.utils import general_request, get_china_local_time, is_chinese_workday, is_chinese_holiday
 
 
 def get_user_study_plans(cookie: str) -> Optional[list]:
@@ -92,15 +91,18 @@ def generate_question_todo(plan_sub_groups, todo_num: int):
     return all_problems, all_solved, recommends
 
 
+def _get_todo_num(current_datetime) -> int:
+    """Number of questions to recommend for a China-local datetime."""
+    if is_chinese_holiday(current_datetime):
+        return 0
+    if is_chinese_workday(current_datetime):
+        return 1
+    return 2
+
+
 def get_user_study_plan_progress(plan_slug: str, cookie: str, todo_num: int = -1):
     if todo_num < 0:
-        current_datetime = datetime.now().replace(tzinfo=None) + timedelta(hours=8)
-        if is_chinese_holiday(current_datetime):
-            todo_num = 0
-        elif is_chinese_workday(current_datetime):
-            todo_num = 1
-        else:
-            todo_num = 2
+        todo_num = _get_todo_num(get_china_local_time())
 
     def handle_response(response: requests.Response):
         if response.text:
