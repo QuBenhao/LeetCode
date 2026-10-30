@@ -1,7 +1,6 @@
-# 3665. Twisted Mirror Path Count 
+# 3665. Twisted Mirror Path Count [Rating: 1883.02]
 
 <p>Given an <code>m x n</code> binary grid <code>grid</code> where:</p>
-
 
 <ul>
 	<li><code>grid[i][j] == 0</code> represents an empty cell, and</li>
