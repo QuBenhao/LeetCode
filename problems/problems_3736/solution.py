@@ -7,5 +7,9 @@ class Solution(solution.Solution):
         return self.minMoves(test_input)
 
     def minMoves(self, nums: List[int]) -> int:
-        pass
-
+        s, m = 0, nums[0]
+        for num in nums:
+            if num > m:
+                m = num
+            s += num
+        return m * len(nums) - s
