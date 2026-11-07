@@ -70,6 +70,45 @@ class TestTimeUtils:
             assert not is_chinese_holiday(dt), f"{dt} should not be a holiday"
             assert not is_chinese_workday(dt), f"{dt} should not be a workday"
 
+    @pytest.fixture
+    def holiday_2027_dates(self):
+        """Chinese holidays in 2027 (first and last day of each break)."""
+        return [
+            datetime(2027, 1, 1),
+            datetime(2027, 1, 3),
+            datetime(2027, 2, 5),
+            datetime(2027, 2, 13),
+            datetime(2027, 4, 3),
+            datetime(2027, 5, 5),
+            datetime(2027, 6, 9),
+            datetime(2027, 9, 15),
+            datetime(2027, 10, 1),
+            datetime(2027, 10, 7),
+        ]
+
+    @pytest.fixture
+    def workday_2027_dates(self):
+        """Chinese workdays (weekend makeup days) in 2027."""
+        return [
+            datetime(2027, 1, 31),
+            datetime(2027, 2, 14),
+            datetime(2027, 5, 8),
+            datetime(2027, 9, 26),
+            datetime(2027, 10, 9),
+        ]
+
+    def test_2027_holidays_detected(self, holiday_2027_dates):
+        """Test that 2027 holidays are correctly identified."""
+        for dt in holiday_2027_dates:
+            assert is_chinese_holiday(dt), f"{dt} should be a holiday"
+            assert not is_chinese_workday(dt), f"{dt} should not be a workday"
+
+    def test_2027_workdays_detected(self, workday_2027_dates):
+        """Test that 2027 makeup workdays are correctly identified."""
+        for dt in workday_2027_dates:
+            assert not is_chinese_holiday(dt), f"{dt} should not be a holiday"
+            assert is_chinese_workday(dt), f"{dt} should be a workday"
+
     @staticmethod
     def _china_epoch(dt: datetime) -> float:
         """Epoch seconds for a China (UTC+8) wall-clock time."""
