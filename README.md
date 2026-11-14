@@ -193,17 +193,24 @@ Bye!
 To directly submit Solution to LeetCode, try any language below:
 
 ```shell
-python python/scripts/submit.py -h
+.venv/bin/python python/scripts/submit.py -h
 # usage: submit.py [-h] [-id ID] {go,py,ts,js,c++,java,golang,python3,typescript,javascript,cpp,rt,rust}
-python python/scripts/submit.py python3 -id=1
-python python/scripts/submit.py -id=2 py
-python python/scripts/submit.py py
-python python/scripts/submit.py golang -id=2
-python python/scripts/submit.py cpp -id=1
-python python/scripts/submit.py java -id=2
-python python/scripts/submit.py typescript -id=1
-python python/scripts/submit.py rust -id=1
+.venv/bin/python python/scripts/submit.py python3 -id=1
+.venv/bin/python python/scripts/submit.py -id=2 py
+.venv/bin/python python/scripts/submit.py py
+.venv/bin/python python/scripts/submit.py golang -id=2
+.venv/bin/python python/scripts/submit.py cpp -id=1
+.venv/bin/python python/scripts/submit.py java -id=2
+.venv/bin/python python/scripts/submit.py typescript -id=1
+.venv/bin/python python/scripts/submit.py rust -id=1
+# daily problem; PROBLEM_FOLDER defaults to `problems`
+.venv/bin/python python/scripts/submit.py -d python3
 ```
+
+The CLI reads `COOKIE` and the optional `PROBLEM_FOLDER` (default `problems`)
+from the environment or `.env`; use your own terminal for authenticated
+submission. Exit status is `0` only for a confirmed Accepted result, `1` for
+submission/network failures, and `2` for missing configuration.
 
 To get any problem you want, try:
 

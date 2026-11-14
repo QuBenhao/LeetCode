@@ -535,7 +535,7 @@ def submit(languages, problem_folder, cookie):
         logging.basicConfig(level=logging.INFO, force=True)
         for i, lang in enumerate(languages):
             print(t("submit_in_lang", lang=lang))
-            loop.run_until_complete(
+            submit_exit_code = loop.run_until_complete(
                 submit_main_async(
                     root_path,
                     format_question_id(problem_id),
@@ -544,6 +544,10 @@ def submit(languages, problem_folder, cookie):
                     problem_folder
                 )
             )
+            if submit_exit_code != 0:
+                logging.warning(
+                    f"Submission for {lang} did not complete successfully (exit status {submit_exit_code})"
+                )
             if i < len(languages) - 1:
                 time.sleep(1)
         if loop.is_running():

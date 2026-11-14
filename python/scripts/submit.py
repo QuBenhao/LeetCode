@@ -12,7 +12,13 @@ if str(_root) not in sys.path:
 
 from python import lc_libs as lc_libs
 from python.constants import constant
-from python.utils import get_default_folder, back_question_id, format_question_id, check_cookie_expired, resolve_link, init_env, adapt_linked_solution_code
+from python.utils import (normalize_problem_folder, back_question_id, format_question_id,
+                          check_cookie_expired, resolve_link, init_env, adapt_linked_solution_code)
+
+# Process exit statuses. A confirmed "Accepted" result is the only success.
+EXIT_SUCCESS = 0
+EXIT_FAILURE = 1
+EXIT_CONFIG_ERROR = 2
 
 _LANG_TRANS_MAP = {
     "go": "golang",
@@ -25,27 +31,49 @@ _LANG_TRANS_MAP = {
 
 
 async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
-               problem_folder: str = None, problem_slug: str = None):
+               problem_folder: str = None, problem_slug: str = None) -> int:
+    """Submit a solution and return a process exit status.
+
+    ``EXIT_SUCCESS`` is returned only when LeetCode confirms an Accepted
+    result. Missing configuration, unreadable solutions, network failures and
+    non-Accepted results return a nonzero status.
+    """
+    try:
+        return await _submit(root_path, problem_id, lang, cookie, problem_folder, problem_slug)
+    except Exception as exc:
+        logging.error(f"Submission failed: {exc}")
+        return EXIT_FAILURE
+
+
+async def _submit(root_path: Path, problem_id: str, lang: str, cookie: str,
+                  problem_folder: str = None, problem_slug: str = None) -> int:
+    # Normalize the folder before any path is built so an unset PROBLEM_FOLDER
+    # falls back to the documented default instead of propagating None.
+    folder_configured = bool((problem_folder or "").strip())
+    problem_folder = normalize_problem_folder(problem_folder)
+
+    if not cookie:
+        logging.error("Cookie is required to submit; configure COOKIE in the environment or .env.")
+        return EXIT_CONFIG_ERROR
     if check_cookie_expired(cookie):
         logging.warning("LeetCode cookie might have expired; please check!")
+
     lang = _LANG_TRANS_MAP.get(lang.lower(), lang)
     load_code = False
     code = ""
     cls = getattr(lc_libs, f"{lang.capitalize()}Writer", None)
     if not cls:
-        logging.warning(f"{lang} writer is not supported yet!")
-        return
+        logging.error(f"{lang} writer is not supported yet!")
+        return EXIT_CONFIG_ERROR
     obj: lc_libs.LanguageWriter = cls()
     if not problem_id:
-        if not problem_folder:
-            problem_folder = get_default_folder()
         code, problem_id = obj.get_solution_code(root_path, problem_folder, problem_id)
         if not code:
             logging.error("No solution yet!")
-            return
+            return EXIT_FAILURE
         if not problem_id:
-            logging.error(f"Unable to get problem_id: {problem_id}, check input or environments folder")
-            return
+            logging.error(f"Unable to get problem_id: {problem_id}, check input or environment folder")
+            return EXIT_CONFIG_ERROR
         load_code = True
         # Check if this is the daily problem (only when not explicitly specified via -id/-slug)
         try:
@@ -61,6 +89,7 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
             logging.warning(f"无法检查每日一题状态: {e}")
 
     # Resolve link if exists (only for code, not for problem ID)
+    link_info = None
     solution_problem_id = problem_id
     solution_folder = problem_folder
     problem_path = root_path / problem_folder / f"{problem_folder}_{problem_id}"
@@ -75,17 +104,12 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
 
     if not problem_slug:
         origin_problem_id = back_question_id(problem_id)
-        if not cookie:
-            logging.error("Cookie is required to get problem!")
-            return
         questions = lc_libs.get_questions_by_key_word(origin_problem_id, cookie)
         if not questions:
             logging.error(f"Unable to find any questions with LeetCode problem_id {origin_problem_id},"
                           f"check the input problem_id or contact the author")
-            return
+            return EXIT_FAILURE
         for question in questions:
-            if not cookie:
-                continue
             if question["questionFrontendId"] == origin_problem_id:
                 problem_slug = question["titleSlug"]
                 break
@@ -93,19 +117,23 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
             logging.warning(
                 f"Unable to find any questions with problem_id {origin_problem_id}, possible questions:\n"
                 + "\n".join(v["questionFrontendId"] for v in questions))
-            return
+            return EXIT_CONFIG_ERROR
     problem_info = lc_libs.get_question_info(problem_slug, cookie)
     if not problem_info:
         logging.warning(f"Unable to get problem info, possibly network issue, slug: {problem_slug}")
-        return
+        return EXIT_FAILURE
     is_paid_only = problem_info["isPaidOnly"]
-    if not problem_folder:
-        problem_folder = get_default_folder(paid_only=is_paid_only)
+    if not folder_configured:
+        # Paid-only problems live in the "premiums" folder unless the user
+        # configured an explicit folder.
+        problem_folder = normalize_problem_folder(None, paid_only=is_paid_only)
+        if not link_info:
+            solution_folder = problem_folder
     if not load_code:
         code, _ = obj.get_solution_code(root_path, solution_folder, solution_problem_id)
         if not code:
             logging.error(f"No solution for problem [{problem_id}.{problem_slug}] yet!")
-            return
+            return EXIT_FAILURE
         # If this problem is linked to another with a different method name
         # (e.g. 1081 smallestSubsequence vs 316 removeDuplicateLetters), LeetCode
         # expects the current problem's method name. Rewrite the linked solution.
@@ -118,7 +146,7 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
     plans = lc_libs.get_user_study_plans(cookie)
     if plans is None:
         logging.error("Cookie might be expired, please check the cookie")
-        return
+        return EXIT_CONFIG_ERROR
     result = None
     exists = False
     for i, plan in enumerate(plans):
@@ -129,15 +157,26 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
             logging.info("Submit code in plan [{}] problem: {}".format(plan, problem_slug))
             result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang,
                                                lc_question_id, code, plan)
-            exists = True
-            if result and result["statusDisplay"] != "Accepted":
-                break
+            if result:
+                exists = True
+                if result.get("statusDisplay") != "Accepted":
+                    break
     if not exists:
         result = await lc_libs.submit_code(root_path, problem_folder, problem_id, problem_slug, cookie, lang,
                                            lc_question_id, code)
-    # Display popular solutions
+    if not result:
+        logging.error("No submission result was returned; check network connectivity and login state")
+        return EXIT_FAILURE
+    status = result.get("statusDisplay")
+    if status != "Accepted":
+        logging.error(f"Submission finished with status [{status or 'Unknown'}], not Accepted")
+        exit_code = EXIT_FAILURE
+    else:
+        exit_code = EXIT_SUCCESS
+    # Display popular solutions. Article retrieval is optional and must not
+    # invalidate a confirmed Accepted submission.
     try:
-        articles_result = lc_libs.get_answer_articles(problem_slug, cookie, first=5)
+        articles_result = lc_libs.get_answer_articles(problem_slug, cookie, first=5) or {}
         articles = articles_result.get("articles", [])
         if articles:
             logging.info("热门题解:")
@@ -157,12 +196,11 @@ async def main(root_path: Path, problem_id: str, lang: str, cookie: str,
             logging.info("未找到社区题解")
     except Exception as e:
         logging.warning(f"获取题解失败: {e}")
-    return result
+    return exit_code
 
 
-if __name__ == '__main__':
-    rp = Path(__file__).parent.parent.parent
-    parser = argparse.ArgumentParser()
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description="Submit a local solution to LeetCode.")
     parser.add_argument("-id", required=False, type=str, help="The id of question to submit.", default="")
     parser.add_argument("-slug", required=False, type=str,
                         help="The slug of question to submit. "
@@ -171,27 +209,41 @@ if __name__ == '__main__':
                                         ["java"] + list(_LANG_TRANS_MAP.values()))
     parser.add_argument("-d", "--daily", required=False, action="store_true",
                         help="To daily submission.")
-    args = parser.parse_args()
+    return parser
+
+
+def run(argv=None) -> int:
+    """Parse CLI arguments, load configuration and submit.
+
+    ``--help`` exits successfully through argparse before any environment or
+    network work happens.
+    """
+    parser = build_parser()
+    args = parser.parse_args(argv)
     init_env()
     if args.daily:
-        question_id = lc_libs.get_daily_question()["questionId"]
+        try:
+            daily_question = lc_libs.get_daily_question()
+        except Exception as exc:
+            logging.error(f"Unable to get the daily question: {exc}")
+            return EXIT_FAILURE
+        if not daily_question or not daily_question.get("questionId"):
+            logging.error("Unable to get the daily question; check network connectivity")
+            return EXIT_FAILURE
+        question_id = daily_question["questionId"]
     else:
         question_id = args.id
     slug = args.slug
     cke = os.getenv(constant.COOKIE)
-    pf = os.getenv(constant.PROBLEM_FOLDER, None)
+    pf = os.getenv(constant.PROBLEM_FOLDER)
     log_level = os.getenv(constant.LOG_LEVEL, "INFO")
-    logging.basicConfig(level=log_level.upper(), format=constant.LOGGING_FORMAT, datefmt=constant.DATE_FORMAT)
-    try:
-        langs = os.getenv(constant.LANGUAGES, "python3").split(",")
-    except Exception as _:
-        logging.warning("Load languages failed, use default python3", exc_info=True)
-        langs = ["python3"]
-    if sys.version_info.major == 3 and sys.version_info.minor > 10:
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-    else:
-        loop = asyncio.get_event_loop()
-    loop.run_until_complete(main(rp, format_question_id(question_id),
-                                 args.lang, cke, pf, problem_slug=slug))
-    sys.exit(0)
+    level = logging.getLevelName(log_level.upper())
+    logging.basicConfig(level=level if isinstance(level, int) else logging.INFO,
+                        format=constant.LOGGING_FORMAT, datefmt=constant.DATE_FORMAT)
+    rp = Path(__file__).parent.parent.parent
+    return asyncio.run(main(rp, format_question_id(question_id),
+                            args.lang, cke, pf, problem_slug=slug))
+
+
+if __name__ == '__main__':
+    sys.exit(run())

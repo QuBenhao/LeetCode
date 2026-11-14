@@ -24,6 +24,21 @@ def get_default_folder(problem_category: str = None, paid_only: bool = False):
     return "problems" if not paid_only else "premiums"
 
 
+def normalize_problem_folder(problem_folder: Optional[str] = None, problem_category: str = None,
+                             paid_only: bool = False) -> str:
+    """Return a usable problem folder, falling back to the documented default.
+
+    An explicit, non-blank folder (for example ``mysql`` or ``premiums``) is
+    preserved after stripping surrounding whitespace. Otherwise the default
+    for the problem category/paid status is used, so paths are never built
+    from ``None``.
+    """
+    folder = (problem_folder or "").strip()
+    if folder:
+        return folder
+    return get_default_folder(problem_category=problem_category, paid_only=paid_only)
+
+
 def resolve_link(problem_path: Path, visited: set = None, original_link_info: dict = None) -> Tuple[Path, Optional[dict]]:
     """
     Resolve problem link if link.json exists.
