@@ -1,4 +1,4 @@
-# 3789. Minimum Cost to Acquire Required Items 
+# 3789. Minimum Cost to Acquire Required Items [Rating: 1579.75]
 
 <p>You are given five integers <code>cost1</code>, <code>cost2</code>, <code>costBoth</code>, <code>need1</code>, and <code>need2</code>.</p>
 

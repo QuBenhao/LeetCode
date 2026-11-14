@@ -1,4 +1,4 @@
-# 3789. 采购的最小花费 
+# 3789. 采购的最小花费 [难度分: 1579.75]
 
 <p>给你五个整数 <code>cost1</code>, <code>cost2</code>, <code>costBoth</code>, <code>need1</code> 和 <code>need2</code>。</p>
 
