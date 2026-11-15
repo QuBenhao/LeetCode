@@ -1,5 +1,10 @@
 # Makefile for LeetCode project
 
+# Overridable Python interpreter: prefer the project virtualenv, fall back to
+# python3 (or python) found on PATH. Override with `make PYTHON=python3 ...`
+# or the PYTHON environment variable.
+PYTHON ?= $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; elif command -v python3 >/dev/null 2>&1; then echo python3; else echo python; fi)
+
 .PHONY: verify health test test-unit test-integration test-codegen test-coverage test-typescript-smoke test-go-libs clean help
 
 # Default target
@@ -23,40 +28,43 @@ help:
 	@echo "  test-snippets     - Test code generation for all snippets"
 	@echo "  add-snippet       - Add a problem to snippets (use PROBLEM=id)"
 	@echo "  print-snippet     - Print original snippet (use PROBLEM=id LANG=lang)"
+	@echo ""
+	@echo "Variables:"
+	@echo "  PYTHON            - Python interpreter (default: .venv/bin/python if present, else python3/python)"
 
 # Run the practical local verification suite
 verify:
-	PYTHONPATH=. pytest tests/ -m "(unit or codegen) and not slow" -v
+	PYTHONPATH=. $(PYTHON) -m pytest tests/ -m "(unit or codegen) and not slow" -v
 	npm test -- --runTestsByPath typescript/debug.test.ts
 	go test ./golang/models ./golang/node_random ./golang/node_neighbours ./golang/tree_next ./golang/double_linked_node_child
 
 # Check generated problem folder health
 health:
-	PYTHONPATH=. python python/scripts/leetcode.py --health
+	PYTHONPATH=. $(PYTHON) python/scripts/leetcode.py --health
 
 # Run all unit tests
 test-unit:
-	PYTHONPATH=. pytest tests/ -m unit -v
+	PYTHONPATH=. $(PYTHON) -m pytest tests/ -m unit -v
 
 # Run integration tests (requires language runtimes installed)
 test-integration:
-	PYTHONPATH=. pytest tests/ -m integration -v
+	PYTHONPATH=. $(PYTHON) -m pytest tests/ -m integration -v
 
 # Run code generation tests
 test-codegen:
-	PYTHONPATH=. pytest tests/ -m codegen -v
+	PYTHONPATH=. $(PYTHON) -m pytest tests/ -m codegen -v
 
 # Run all tests
 test:
-	PYTHONPATH=. pytest tests/ -v
+	PYTHONPATH=. $(PYTHON) -m pytest tests/ -v
 
 # Run tests with coverage
 test-coverage:
-	PYTHONPATH=. pytest tests/ --cov=python --cov-report=term-missing --cov-report=html
+	PYTHONPATH=. $(PYTHON) -m pytest tests/ --cov=python --cov-report=term-missing --cov-report=html
 
 # Run tests in parallel
 test-parallel:
-	PYTHONPATH=. pytest tests/ -v -n auto
+	PYTHONPATH=. $(PYTHON) -m pytest tests/ -v -n auto
 
 # Run stable TypeScript smoke tests
 test-typescript-smoke:
@@ -68,15 +76,15 @@ test-go-libs:
 
 # Run daily problem test
 test-daily:
-	PYTHONPATH=. python python/test.py
+	PYTHONPATH=. $(PYTHON) python/test.py
 
 # Run multiple problems test
 test-problems:
-	PYTHONPATH=. python python/tests.py
+	PYTHONPATH=. $(PYTHON) python/tests.py
 
 # Test code generation for all snippets (slow)
 test-snippets:
-	PYTHONPATH=. python python/dev/solution_code_test.py solution
+	PYTHONPATH=. $(PYTHON) python/dev/solution_code_test.py solution
 
 # Add a problem snippet (requires COOKIE env var)
 add-snippet:
@@ -88,7 +96,7 @@ ifndef COOKIE
 	@echo "Error: COOKIE is required. Set LEETCODE_COOKIE env var or pass COOKIE=..."
 	@exit 1
 endif
-	PYTHONPATH=. python python/dev/solution_code_test.py add_question_code -p $(PROBLEM) -c $(COOKIE)
+	PYTHONPATH=. $(PYTHON) python/dev/solution_code_test.py add_question_code -p $(PROBLEM) -c $(COOKIE)
 
 # Print original snippet
 print-snippet:
@@ -99,7 +107,7 @@ endif
 ifndef LANG
 	$(eval LANG = python3)
 endif
-	PYTHONPATH=. python python/dev/solution_code_test.py print_origin -p $(PROBLEM) -l $(LANG)
+	PYTHONPATH=. $(PYTHON) python/dev/solution_code_test.py print_origin -p $(PROBLEM) -l $(LANG)
 
 # Clean up temporary files
 clean:
@@ -115,4 +123,4 @@ clean:
 
 # Install dev dependencies
 install-dev:
-	pip install -r python/requirements.txt -r python/requirements-dev.txt
+	$(PYTHON) -m pip install -r python/requirements.txt -r python/requirements-dev.txt

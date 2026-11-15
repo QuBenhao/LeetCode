@@ -75,10 +75,11 @@ If a similar problem is found, only `link.json` is created instead of solution f
 
 For GitHub Actions, set `AUTO_LINK_SIMILAR` secret to `true` in repository settings.
 
-install python3.14 or higher requirements:
+Python 3.14 or higher is required. Create a virtualenv at `.venv/` (or override with `make PYTHON=<python>`); the Makefile prefers `.venv/bin/python`, then falls back to `python3` on PATH, and finally to `python`:
 
 ```shell
-pip install -r python/requirements.txt
+python3 -m venv .venv
+make install-dev   # .venv/bin/python -m pip install -r python/requirements.txt -r python/requirements-dev.txt
 ```
 
 LeetCode tools all in one

@@ -67,10 +67,11 @@ AUTO_LINK_SIMILAR="true"  # 设置为 "true" 启用（默认关闭）
 
 对于 GitHub Actions，在仓库设置中添加 `AUTO_LINK_SIMILAR` secret 并设为 `true`。
 
-安装 python3.14 或更高版本的要求：
+需要 Python 3.14 或更高版本。在 `.venv/` 创建虚拟环境（或用 `make PYTHON=<python>` 覆盖）；Makefile 优先使用 `.venv/bin/python`，然后回退到 PATH 中的 `python3`，最后回退到 `python`：
 
 ```shell
-pip install -r python/requirements.txt
+python3 -m venv .venv
+make install-dev   # .venv/bin/python -m pip install -r python/requirements.txt -r python/requirements-dev.txt
 ```
 
 LeetCode 工具集：
