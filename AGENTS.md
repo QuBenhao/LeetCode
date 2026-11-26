@@ -22,9 +22,8 @@ points to an earlier day's problem.
 ## Build & Test
 - `make verify`: stable local checks (Python codegen/unit, TypeScript smoke, Go helpers)
 - `make health`: scan for missing docs/testcases/links/solutions, Rust workspace drift
-- `make test` / `make test-unit` / `make test-integration` / `make test-codegen` / `make test-coverage`
-- `npm test`: TypeScript/Jest suite
-- `make test-go-libs`: Go helper package tests
+- `make test` / `make test-unit` / `make test-go-libs`: focused test suites
+- `make test-integration` / `make test-codegen` / `make test-coverage` / `npm test`: optional or shared-tooling-only suites (not needed for single-problem solutions)
 - `python python/scripts/leetcode.py`: interactive LeetCode helper (fetch/submit)
 - `make help`: full command list
 
